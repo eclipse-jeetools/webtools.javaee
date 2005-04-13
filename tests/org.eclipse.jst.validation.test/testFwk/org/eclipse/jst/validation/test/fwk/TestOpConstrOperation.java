@@ -291,19 +291,19 @@ public class TestOpConstrOperation implements IOperationRunnable {
 		EnabledIncrementalValidatorsOperation op3 = new EnabledIncrementalValidatorsOperation(getProject(), null,true);
 		TestWrapper test3 = new TestWrapper(op3, tmdInc, "op3", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledIncrementalValidatorsOperation op4 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta);
+		EnabledIncrementalValidatorsOperation op4 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta,false);
 		TestWrapper test4 = new TestWrapper(op4, tmdInc, "op4", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledIncrementalValidatorsOperation op5 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta);
+		EnabledIncrementalValidatorsOperation op5 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta,false);
 		TestWrapper test5 = new TestWrapper(op5, tmdEmpty, "op5", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledIncrementalValidatorsOperation op6 = new EnabledIncrementalValidatorsOperation(getProject(), null, IRuleGroup.PASS_FAST);
+		EnabledIncrementalValidatorsOperation op6 = new EnabledIncrementalValidatorsOperation(getProject(), null, IRuleGroup.PASS_FAST,false);
 		TestWrapper test6 = new TestWrapper(op6, tmdInc, "op6", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledIncrementalValidatorsOperation op7 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST);
+		EnabledIncrementalValidatorsOperation op7 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST,false);
 		TestWrapper test7 = new TestWrapper(op7, tmdInc, "op7", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledIncrementalValidatorsOperation op8 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta, IRuleGroup.PASS_FAST);
+		EnabledIncrementalValidatorsOperation op8 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta, IRuleGroup.PASS_FAST,false);
 		TestWrapper test8 = new TestWrapper(op8, tmdEmpty, "op8", incValidatorNames); //$NON-NLS-1$
 		
 		EnabledIncrementalValidatorsOperation op9 = new EnabledIncrementalValidatorsOperation(getProject(), enabledIncrementalValidators, null, IRuleGroup.PASS_FAST);
@@ -342,10 +342,10 @@ public class TestOpConstrOperation implements IOperationRunnable {
 		EnabledValidatorsOperation op20 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST);
 		TestWrapper test20 = new TestWrapper(op20, tmdEnabled, "op20", allValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op21 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST, true); // force validation if it doesn't need to run
+		EnabledValidatorsOperation op21 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST, true,false); // force validation if it doesn't need to run
 		TestWrapper test21 = new TestWrapper(op21, tmdEnabled, "op21", allValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op22 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST, false); // no force validation if it doesn't need to run
+		EnabledValidatorsOperation op22 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST, false,false); // no force validation if it doesn't need to run
 		TestWrapper test22 = new TestWrapper(op22, tmdEnabled, "op22", allValidatorNames); //$NON-NLS-1$
 		
 		EnabledValidatorsOperation op23 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST, true, false); // force, don't fork
@@ -354,22 +354,22 @@ public class TestOpConstrOperation implements IOperationRunnable {
 		EnabledValidatorsOperation op24 = new EnabledValidatorsOperation(getProject(), IRuleGroup.PASS_FAST, false, false); // no force, don't fork
 		TestWrapper test24 = new TestWrapper(op24, tmdEnabled, "op24", allValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op25 = new EnabledValidatorsOperation(getProject(), null); 
+		EnabledValidatorsOperation op25 = new EnabledIncrementalValidatorsOperation(getProject(), null,true); 
 		TestWrapper test25 = new TestWrapper(op25, tmdEnabled, "op25", allValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op26 = new EnabledValidatorsOperation(getProject(), changedDelta);
+		EnabledValidatorsOperation op26 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta,true);
 		TestWrapper test26 = new TestWrapper(op26, tmdInc, "op26", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op27 = new EnabledValidatorsOperation(getProject(), emptyDelta);
+		EnabledValidatorsOperation op27 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta,true);
 		TestWrapper test27 = new TestWrapper(op27, tmdEmpty, "op27", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op28 = new EnabledValidatorsOperation(getProject(), null, IRuleGroup.PASS_FAST);
+		EnabledValidatorsOperation op28 = new EnabledIncrementalValidatorsOperation(getProject(), null, IRuleGroup.PASS_FAST,true);
 		TestWrapper test28 = new TestWrapper(op28, tmdEnabled, "op28", allValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op29 = new EnabledValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST);
+		EnabledValidatorsOperation op29 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST,true);
 		TestWrapper test29 = new TestWrapper(op29, tmdInc, "op29", incValidatorNames); //$NON-NLS-1$
 		
-		EnabledValidatorsOperation op30 = new EnabledValidatorsOperation(getProject(), emptyDelta, IRuleGroup.PASS_FAST); 
+		EnabledValidatorsOperation op30 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta, IRuleGroup.PASS_FAST,true); 
 		TestWrapper test30 = new TestWrapper(op30, tmdEmpty, "op30", incValidatorNames); //$NON-NLS-1$
 
 		ValidatorMetaData vmd = allTmds[0].getValidatorMetaData();
@@ -403,15 +403,15 @@ public class TestOpConstrOperation implements IOperationRunnable {
 		OneValidatorOperation op39 = new OneValidatorOperation(getProject(), validatorName, false, IRuleGroup.PASS_FAST, false); // no force, no fork
 		TestWrapper test39 = new TestWrapper(op39, expectedMessages, "op39", vmdNames); //$NON-NLS-1$
 
-		ValidatorSubsetOperation op40 = new ValidatorSubsetOperation(getProject());
+		ValidatorSubsetOperation op40 = new ValidatorSubsetOperation(getProject(),true,false);
 		op40.setValidators(allValidatorNames);
 		TestWrapper test40 = new TestWrapper(op40, tmdEnabled, "op40", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op41 = new ValidatorSubsetOperation(getProject(), true); // force
+		ValidatorSubsetOperation op41 = new ValidatorSubsetOperation(getProject(), true,false); // force
 		op41.setValidators(allValidatorNames);
 		TestWrapper test41 = new TestWrapper(op41, tmdEnabled, "op41", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op42 = new ValidatorSubsetOperation(getProject(), false); // no force
+		ValidatorSubsetOperation op42 = new ValidatorSubsetOperation(getProject(), false,false); // no force
 		op42.setValidators(allValidatorNames);
 		TestWrapper test42 = new TestWrapper(op42, tmdEnabled, "op42", allValidatorNames); //$NON-NLS-1$
 		
@@ -423,11 +423,11 @@ public class TestOpConstrOperation implements IOperationRunnable {
 		op44.setValidators(allValidatorNames);
 		TestWrapper test44 = new TestWrapper(op44, tmdEnabled, "op44", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op45 = new ValidatorSubsetOperation(getProject(), true, IRuleGroup.PASS_FAST); // force
+		ValidatorSubsetOperation op45 = new ValidatorSubsetOperation(getProject(), true, IRuleGroup.PASS_FAST,false); // force
 		op45.setValidators(allValidatorNames);
 		TestWrapper test45 = new TestWrapper(op45, tmdEnabled, "op45", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op46 = new ValidatorSubsetOperation(getProject(), false, IRuleGroup.PASS_FAST); // no force
+		ValidatorSubsetOperation op46 = new ValidatorSubsetOperation(getProject(), false, IRuleGroup.PASS_FAST,false); // no force
 		op46.setValidators(allValidatorNames);
 		TestWrapper test46 = new TestWrapper(op46, tmdEnabled, "op46", allValidatorNames); //$NON-NLS-1$
 		
@@ -439,80 +439,80 @@ public class TestOpConstrOperation implements IOperationRunnable {
 		op48.setValidators(allValidatorNames);
 		TestWrapper test48 = new TestWrapper(op48, tmdEnabled, "op48", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op49 = new ValidatorSubsetOperation(getProject(), null);
+		ValidatorSubsetOperation op49 = new EnabledIncrementalValidatorsOperation(getProject(), null,false);
 		op49.setValidators(allValidatorNames);
 		TestWrapper test49 = new TestWrapper(op49, tmdEnabled, "op49", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op50 = new ValidatorSubsetOperation(getProject(), changedDelta);
+		ValidatorSubsetOperation op50 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta,false);
 		op50.setValidators(incValidatorNames);
 		TestWrapper test50 = new TestWrapper(op50, tmdInc, "op50", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op51 = new ValidatorSubsetOperation(getProject(), emptyDelta);
+		ValidatorSubsetOperation op51 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta,false);
 		op51.setValidators(incValidatorNames);
 		TestWrapper test51 = new TestWrapper(op51, tmdEmpty, "op51", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op52 = new ValidatorSubsetOperation(getProject(), null, false); // false=autoBuild disabled
+		ValidatorSubsetOperation op52 = new EnabledIncrementalValidatorsOperation(getProject(), null, false); // false=autoBuild disabled
 		op52.setValidators(allValidatorNames);
 		TestWrapper test52 = new TestWrapper(op52, tmdEnabled, "op52", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op53 = new ValidatorSubsetOperation(getProject(), null, true); // true=autoBuild enabled
+		ValidatorSubsetOperation op53 = new EnabledIncrementalValidatorsOperation(getProject(), null, true); // true=autoBuild enabled
 		op53.setValidators(fullValidatorNames);
 		TestWrapper test53 = new TestWrapper(op53, tmdFull, "op53", fullValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op54 = new ValidatorSubsetOperation(getProject(), changedDelta, false); // false=autoBuild disabled
+		ValidatorSubsetOperation op54 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, false); // false=autoBuild disabled
 		op54.setValidators(incValidatorNames);
 		TestWrapper test54 = new TestWrapper(op54, tmdInc, "op54", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op55 = new ValidatorSubsetOperation(getProject(), changedDelta, true); // true=autoBuild enabled
+		ValidatorSubsetOperation op55 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, true); // true=autoBuild enabled
 		op55.setValidators(incValidatorNames);
 		TestWrapper test55 = new TestWrapper(op55, tmdEmpty, "op55", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op56 = new ValidatorSubsetOperation(getProject(), emptyDelta, false); // false=autoBuild disabled
+		ValidatorSubsetOperation op56 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta, false); // false=autoBuild disabled
 		op56.setValidators(incValidatorNames);
 		TestWrapper test56 = new TestWrapper(op56, tmdEmpty, "op56", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op57 = new ValidatorSubsetOperation(getProject(), emptyDelta, true); // true=autoBuild enabled
+		ValidatorSubsetOperation op57 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta, true); // true=autoBuild enabled
 		op57.setValidators(incValidatorNames);
 		TestWrapper test57 = new TestWrapper(op57, tmdEmpty, "op57", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op58 = new ValidatorSubsetOperation(getProject(), null, false, IRuleGroup.PASS_FAST); // false=autoBuild disabled
+		ValidatorSubsetOperation op58 = new EnabledIncrementalValidatorsOperation(getProject(),null, IRuleGroup.PASS_FAST,false); // false=autoBuild disabled
 		op58.setValidators(allValidatorNames);
 		TestWrapper test58 = new TestWrapper(op58, tmdEnabled, "op58", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op59 = new ValidatorSubsetOperation(getProject(), null, true, IRuleGroup.PASS_FAST); // true=autoBuild enabled
+		ValidatorSubsetOperation op59 = new EnabledIncrementalValidatorsOperation(getProject(), null, IRuleGroup.PASS_FAST,false); // true=autoBuild enabled
 		op59.setValidators(allValidatorNames);
 		TestWrapper test59 = new TestWrapper(op59, tmdFull, "op59", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op60 = new ValidatorSubsetOperation(getProject(), changedDelta, false, IRuleGroup.PASS_FAST); // false=autoBuild disabled
+		ValidatorSubsetOperation op60 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST,false); // false=autoBuild disabled
 		op60.setValidators(incValidatorNames);
 		TestWrapper test60 = new TestWrapper(op60, tmdInc, "op60", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op61 = new ValidatorSubsetOperation(getProject(), changedDelta, true, IRuleGroup.PASS_FAST); // true=autoBuild enabled
+		ValidatorSubsetOperation op61 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST,false); // true=autoBuild enabled
 		op61.setValidators(incValidatorNames);
 		TestWrapper test61 = new TestWrapper(op61, tmdEmpty, "op61", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op62 = new ValidatorSubsetOperation(getProject(), emptyDelta, false, IRuleGroup.PASS_FAST); // false=autoBuild disabled
+		ValidatorSubsetOperation op62 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta,IRuleGroup.PASS_FAST,false); // false=autoBuild disabled
 		op62.setValidators(incValidatorNames);
 		TestWrapper test62 = new TestWrapper(op62, tmdEmpty, "op62", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op63 = new ValidatorSubsetOperation(getProject(), emptyDelta, true, IRuleGroup.PASS_FAST); // true=autoBuild enabled
+		ValidatorSubsetOperation op63 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta,IRuleGroup.PASS_FAST,true); // true=autoBuild enabled
 		op63.setValidators(incValidatorNames);
 		TestWrapper test63 = new TestWrapper(op63, tmdEmpty, "op63", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op64 = new ValidatorSubsetOperation(getProject(), null, IRuleGroup.PASS_FAST);
+		ValidatorSubsetOperation op64 = new EnabledIncrementalValidatorsOperation(getProject(),null,IRuleGroup.PASS_FAST,true);
 		op64.setValidators(allValidatorNames);
 		TestWrapper test64 = new TestWrapper(op64, tmdEnabled, "op64", allValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op65 = new ValidatorSubsetOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST);
+		ValidatorSubsetOperation op65 = new EnabledIncrementalValidatorsOperation(getProject(), changedDelta, IRuleGroup.PASS_FAST,true);
 		op65.setValidators(incValidatorNames);
 		TestWrapper test65 = new TestWrapper(op65, tmdInc, "op65", incValidatorNames); //$NON-NLS-1$
 		
-		ValidatorSubsetOperation op66 = new ValidatorSubsetOperation(getProject(), emptyDelta, IRuleGroup.PASS_FAST);
+		ValidatorSubsetOperation op66 = new EnabledIncrementalValidatorsOperation(getProject(), emptyDelta, IRuleGroup.PASS_FAST,true);
 		op66.setValidators(incValidatorNames);
 		TestWrapper test66 = new TestWrapper(op66, tmdEmpty, "op66", incValidatorNames); //$NON-NLS-1$
 
 		if(changedClasses != null) {
-			ValidatorSubsetOperation op67 = new ValidatorSubsetOperation(getProject(), fileExtension, changedResources);
+			ValidatorSubsetOperation op67 = new ValidatorSubsetOperation(getProject(), fileExtension, changedResources,false);
 			op67.setValidators(javaValidatorNames);
 			TestWrapper test67 = new TestWrapper(op67, tmdJava, "op67", javaValidatorNames); //$NON-NLS-1$
 			
@@ -520,7 +520,7 @@ public class TestOpConstrOperation implements IOperationRunnable {
 			op68.setValidators(javaValidatorNames);
 			TestWrapper test68 = new TestWrapper(op68, tmdJava, "op68", javaValidatorNames); //$NON-NLS-1$
 			
-			ValidatorSubsetOperation op69 = new ValidatorSubsetOperation(getProject(), fileExtension, defaultExtension, changedResources);
+			ValidatorSubsetOperation op69 = new ValidatorSubsetOperation(getProject(), fileExtension, defaultExtension, changedResources,false);
 			op69.setValidators(javaValidatorNames);
 			TestWrapper test69 = new TestWrapper(op69, tmdJava, "op69", javaValidatorNames); //$NON-NLS-1$
 			
@@ -528,7 +528,7 @@ public class TestOpConstrOperation implements IOperationRunnable {
 			op70.setValidators(javaValidatorNames);
 			TestWrapper test70 = new TestWrapper(op70, tmdJava, "op70", javaValidatorNames); //$NON-NLS-1$
 			
-			ValidatorSubsetOperation op71 = new ValidatorSubsetOperation(getProject(), fileExtension, emptyResources);
+			ValidatorSubsetOperation op71 = new ValidatorSubsetOperation(getProject(), fileExtension, emptyResources,false);
 			op71.setValidators(javaValidatorNames);
 			TestWrapper test71 = new TestWrapper(op71, tmdEmpty, "op71", javaValidatorNames); //$NON-NLS-1$
 			
@@ -536,7 +536,7 @@ public class TestOpConstrOperation implements IOperationRunnable {
 			op72.setValidators(javaValidatorNames);
 			TestWrapper test72 = new TestWrapper(op72, tmdEmpty, "op72", javaValidatorNames); //$NON-NLS-1$
 			
-			ValidatorSubsetOperation op73 = new ValidatorSubsetOperation(getProject(), fileExtension, defaultExtension, emptyResources);
+			ValidatorSubsetOperation op73 = new ValidatorSubsetOperation(getProject(), fileExtension, defaultExtension, emptyResources,false);
 			op73.setValidators(javaValidatorNames);
 			TestWrapper test73 = new TestWrapper(op73, tmdEmpty, "op73", javaValidatorNames); //$NON-NLS-1$
 			
@@ -544,7 +544,7 @@ public class TestOpConstrOperation implements IOperationRunnable {
 			op74.setValidators(javaValidatorNames);
 			TestWrapper test74 = new TestWrapper(op74, tmdEmpty, "op74", javaValidatorNames); //$NON-NLS-1$
 			
-			ValidatorSubsetOperation op75 = new ValidatorSubsetOperation(getProject(), fileExtension, changedClasses);
+			ValidatorSubsetOperation op75 = new ValidatorSubsetOperation(getProject(), fileExtension, changedClasses,false);
 			op75.setValidators(javaValidatorNames);
 			TestWrapper test75 = new TestWrapper(op75, tmdJava, "op75", javaValidatorNames); //$NON-NLS-1$
 			
@@ -552,7 +552,7 @@ public class TestOpConstrOperation implements IOperationRunnable {
 			op76.setValidators(javaValidatorNames);
 			TestWrapper test76 = new TestWrapper(op76, tmdJava, "op76", javaValidatorNames); //$NON-NLS-1$
 			
-			ValidatorSubsetOperation op77 = new ValidatorSubsetOperation(getProject(), fileExtension, defaultExtension, changedClasses);
+			ValidatorSubsetOperation op77 = new ValidatorSubsetOperation(getProject(), fileExtension, defaultExtension, changedClasses,false);
 			op77.setValidators(javaValidatorNames);
 			TestWrapper test77 = new TestWrapper(op77, tmdJava, "op77", javaValidatorNames); //$NON-NLS-1$
 			
