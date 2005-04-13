@@ -166,7 +166,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         return super.getPropertyDescriptor(propertyName);
     }
     
-    protected IStatus validateProperty(String propertyName) {
+    public IStatus validate(String propertyName) {
         if (propertyName.equals(NESTED_MODEL_EJB_CLIENT_CREATION)) {
             if (getBooleanProperty(CREATE_CLIENT)) {
                 EJBClientComponentDataModel ejbClientComponentDataModel = ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));              
@@ -194,7 +194,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
                 }
             }
         }
-        return super.validateProperty(propertyName);
+        return super.validate(propertyName);
     }
 
     protected DataModelPropertyDescriptor[] getValidComponentVersionDescriptors() {
