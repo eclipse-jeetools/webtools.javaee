@@ -13,11 +13,11 @@ package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 /**
  * <p>
- * IJavaComponentCreationDataModelProperties provides properties to the 
- * JavaComponentCreationDataModelProvider as well as all extending interfaces extending 
- * IJavaComponentCreationDataModelProperties specifically, but not limited to all J2EE component related
- * creation.
- * @see org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider
+ * IEJBClientComponentCreationDataModelProperties provides properties to the 
+ * EJBClientComponentCreationDataModelProvider as well as all extending interfaces extending 
+ * IEJBClientComponentCreationDataModelProperties
+ * 
+ * @see org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationDataModelProvider
  * </p>
  * <p>
  * This interface is not intended to be implemented by clients.
@@ -47,14 +47,9 @@ public interface IEJBClientComponentCreationDataModelProperties extends IJavaCom
     
 
     /**
-     * Required, type String
+     * Optional, type String, this default value is set by EJBClientComponentCreationDataModelProvider
      */
     public static final String CLIENT_COMPONENT_URI = "IEJBClientComponentCreationDataModelProperties.CLIENT_COMPONENT_URI"; //$NON-NLS-1$
-
-    /**
-     * Optional, type boolean
-     */
-    public static final String DELETE_WHEN_FINISHED = "IEJBClientComponentCreationDataModelProperties.DELETE_WHEN_FINISHED"; //$NON-NLS-1$
     
     /**
      * Required, type Boolean, the default value is <code>Boolean.TRUE</code>

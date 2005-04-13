@@ -46,8 +46,6 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
             return getDefaultClientModuleName();
         } else if (propertyName.equals(CLIENT_COMPONENT_URI)) {
             return getStringProperty(COMPONENT_NAME).trim().replace(' ', '_') + ".jar"; //$NON-NLS-1$
-        } else if (propertyName.equals(DELETE_WHEN_FINISHED)) {
-            return Boolean.TRUE;
         } else if(propertyName.equals(COMPONENT_DEPLOY_NAME)){
             return getStringProperty(COMPONENT_NAME); //$NON-NLS-1$
         } else if( propertyName.equals(JAVASOURCE_FOLDER)){

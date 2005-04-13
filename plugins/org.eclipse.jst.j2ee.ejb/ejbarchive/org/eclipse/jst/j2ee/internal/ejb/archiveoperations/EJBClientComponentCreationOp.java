@@ -66,8 +66,9 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
     }   
      
     protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
-        
+		//To do: after porting
+        //URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
+        URI uri = null;
         //There is no ear associated with this module
         if(uri == null)
             return;
@@ -92,7 +93,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
             addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
             addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));               
             addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, model.getStringProperty(COMPONENT_DEPLOY_NAME));
-            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getStringProperty(EAR_MODULE_DEPLOY_NAME));
+            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getStringProperty(EAR_COMPONENT_DEPLOY_NAME));
             
             List modulesList = new ArrayList();
             modulesList.add(wc);

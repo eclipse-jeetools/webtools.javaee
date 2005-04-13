@@ -39,7 +39,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     public void init() {
         super.init();
         IDataModel ejbClientComponentDataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
-        ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, getEarComponentHandle());
+		//to do : after porting
+        //ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, getEarComponentHandle());
         model.addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
     }
     
