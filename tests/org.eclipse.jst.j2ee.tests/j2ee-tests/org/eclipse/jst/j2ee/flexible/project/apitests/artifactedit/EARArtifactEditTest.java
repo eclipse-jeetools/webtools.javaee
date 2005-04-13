@@ -238,6 +238,28 @@ public class EARArtifactEditTest extends TestCase {
 	public void testIsValidEARModule() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
+		EARArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
+			wbComponent = moduleCore.findComponentByName(earModuleName);
+			ComponentHandle handle = ComponentHandle.create(earProject, wbComponent.getName());
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
+		    edit.isValidEARModule(wbComponent);
+		} catch (UnresolveableURIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+			}
+			boolean isValid = EARArtifactEdit.isValidEditableModule(wbComponent);
+			assertTrue(isValid);
+		}
+	}
+	
+	public void testIsValidEAREditableModule() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
 			wbComponent = moduleCore.findComponentByName(earModuleName);

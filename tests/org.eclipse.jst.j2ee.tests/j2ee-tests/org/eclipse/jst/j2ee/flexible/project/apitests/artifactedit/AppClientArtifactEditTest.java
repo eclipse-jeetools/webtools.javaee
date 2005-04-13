@@ -88,8 +88,10 @@ public class AppClientArtifactEditTest extends TestCase {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
-			String version = wbComponent.getComponentType().getVersion();
-			assertTrue(version.equals(TestWorkspace.APP_CLIENT_PROJECT_VERSION));
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(wbComponent);
+			int version = edit.getJ2EEVersion();
+			Integer integer = new Integer(version);
+			assertTrue(integer.equals(TestWorkspace.APP_CLIENT_PROJECT_VERSION));
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -250,7 +252,7 @@ public class AppClientArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
 			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(wbComponent);
-			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
+			String uri = edit.getApplicationClientXmiResource().getURI().toString();
 
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
 			boolean testURI = uri.equals(TestWorkspace.APP_CLIENT_DD_XMI_RESOURCE_URI);
