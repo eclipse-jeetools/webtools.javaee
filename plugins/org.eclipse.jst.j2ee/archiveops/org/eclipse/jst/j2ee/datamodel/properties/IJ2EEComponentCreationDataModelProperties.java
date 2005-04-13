@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.datamodel.properties;
 
 
+
 /**
  * <p>
  * IJ2EEComponentCreationDataModelProperties provides properties to the 
@@ -43,4 +44,29 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
 	
 	public static final String DD_FOLDER = "IJ2EEComponentCreationDataModelProperties.DD_FOLDER"; //$NON-NLS-1$
 
+    /**
+     * Required, type Integer. The user defined version of the component.
+     */
+    public static final String COMPONENT_VERSION = "IComponentCreationDataModelProperties.COMPONENT_VERSION"; //$NON-NLS-1$
+
+    /**
+     * type Integer
+     */
+    public static final String VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME = "IComponentCreationDataModelProperties.VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME"; //$NON-NLS-1$
+    /**
+     * type AddComponentToEnterpriseApplicationDataModel
+     */
+    public static final String NESTED_ADD_COMPONENT_TO_EAR_DM = "IComponentCreationDataModelProperties.NESTED_ADD_COMPONENT_TO_EAR_DM"; //$NON-NLS-1$
+    /**
+     * type EARComponentCreationDataModel
+     */
+    public static final String NESTED_EAR_COMPONENT_CREATION_DM = "IComponentCreationDataModelProperties.NESTED_EAR_COMPONENT_CREATION_DM"; //$NON-NLS-1$
+    /**
+     * type UpdateManifestDataModel
+     */
+    public static final String NESTED_UPDATE_MANIFEST_DM = "IComponentCreationDataModelProperties.NESTED_UPDATE_MANIFEST_DM"; //$NON-NLS-1$
+    /**
+     * type ClassPathSelection
+     */
+    public static final String NESTED_CLASSPATH_SELECTION_DM = "IComponentCreationDataModelProperties.NESTED_CLASSPATH_SELECTION_DM"; //$NON-NLS-1$
 }

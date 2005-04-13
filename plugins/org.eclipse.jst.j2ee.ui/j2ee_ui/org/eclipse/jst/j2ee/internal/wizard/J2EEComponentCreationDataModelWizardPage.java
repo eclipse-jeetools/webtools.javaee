@@ -148,7 +148,7 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 			String prop = validateControlsBase();
 			if (null != prop) {
 				String[] advancedProperties = {
-						IComponentCreationDataModelProperties.COMPONENT_VERSION, 
+                        IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, 
 						IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME, 
 						IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR};
 				for (int i = 0; i < advancedProperties.length; i++) {
@@ -163,14 +163,14 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, 
-				IComponentCreationDataModelProperties.COMPONENT_VERSION, 
+                IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, 
 				IComponentCreationDataModelProperties.COMPONENT_NAME, 
 				IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME, 
 				IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR};
 	}
 
 	protected void createVersionComposite(Composite parent) {
-		createVersionComposite(parent, getVersionLabel(), IComponentCreationDataModelProperties.COMPONENT_VERSION);
+		createVersionComposite(parent, getVersionLabel(), IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
 	}
 
 	protected String getVersionLabel() {

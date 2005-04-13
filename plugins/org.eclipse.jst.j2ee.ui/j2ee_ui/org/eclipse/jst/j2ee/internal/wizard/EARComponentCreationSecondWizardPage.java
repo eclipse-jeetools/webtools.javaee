@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -77,7 +78,7 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
-		int j2eeVersion = getDataModel().getIntProperty(IComponentCreationDataModelProperties.COMPONENT_VERSION);
+		int j2eeVersion = getDataModel().getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
 		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
@@ -185,7 +186,7 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage {
 		String earName = model.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME, earName);
 		// ear j2ee version
-		int j2eeVersion = model.getIntProperty(IComponentCreationDataModelProperties.COMPONENT_VERSION);
+		int j2eeVersion = model.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.J2EE_VERSION, new Integer(j2eeVersion));
 		return defaultModel;
 	}

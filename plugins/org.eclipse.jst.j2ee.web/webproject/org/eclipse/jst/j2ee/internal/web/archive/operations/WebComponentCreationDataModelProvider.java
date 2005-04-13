@@ -78,12 +78,12 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
                 setProperty(USE_ANNOTATIONS, Boolean.FALSE);
             model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
         } else if (propertyName.equals(CONTEXT_ROOT)) {
-            getAddModuleToApplicationDataModel().setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, propertyValue);
+            getAddComponentToEARDataModel().setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, propertyValue);
         } else if (propertyName.equals(COMPONENT_NAME)) {
             if (!isPropertySet(CONTEXT_ROOT)) {
                 model.notifyPropertyChange(CONTEXT_ROOT, DataModelEvent.VALUE_CHG);
-                ((AddWebModuleToEARDataModel) getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
-                getAddModuleToApplicationDataModel().notifyDefaultChange(AddWebModuleToEARDataModel.CONTEXT_ROOT);
+                ((AddWebModuleToEARDataModel) getAddComponentToEARDataModel()).defaultContextRoot=(String)propertyValue;
+                getAddComponentToEARDataModel().notifyDefaultChange(AddWebModuleToEARDataModel.CONTEXT_ROOT);
             }
         }
         return retVal;
@@ -267,7 +267,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
     public IStatus validate(String propertyName) {
         if (propertyName.equals(CONTEXT_ROOT)) {
             if (getBooleanProperty(ADD_TO_EAR)) {
-                return getAddModuleToApplicationDataModel().validateProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT);
+                return getAddComponentToEARDataModel().validateProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT);
             }
             return OK_STATUS;
 
@@ -277,7 +277,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 
     public void propertyChanged(DataModelEvent event) {
         super.propertyChanged(event);
-        if (event.getDataModel() == getAddModuleToApplicationDataModel() && event.getPropertyName().equals(AddWebModuleToEARDataModel.CONTEXT_ROOT) && event.getDataModel().isPropertySet(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
+        if (event.getDataModel() == getAddComponentToEARDataModel() && event.getPropertyName().equals(AddWebModuleToEARDataModel.CONTEXT_ROOT) && event.getDataModel().isPropertySet(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
             setProperty(CONTEXT_ROOT, event.getProperty());
         } //else if (event.getDataModel() == getServerTargetDataModel() && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID) && event.getDataModel().isSet(ServerTargetDataModel.RUNTIME_TARGET_ID))
             //setProperty(ADD_TO_EAR, updateAddToEar());

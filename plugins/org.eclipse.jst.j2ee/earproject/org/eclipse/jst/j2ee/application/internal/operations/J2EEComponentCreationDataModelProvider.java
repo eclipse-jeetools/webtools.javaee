@@ -3,6 +3,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -19,14 +20,12 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.server.core.IProjectProperties;
+import org.eclipse.wst.server.core.ServerCore;
 
-public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider
-	implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
-	public AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel;
-	protected EARComponentCreationDataModel earComponentCreationDataModel;
-	private UpdateManifestDataModel jarDependencyDataModel;
-	private ClassPathSelection cachedSelection;
+public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
 	/**
 	 * This  needs to be set up to ensure that other j2ee component is properly added as dependent component of ear 
 	 */
@@ -34,6 +33,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	public void init() {
 		super.init();
+        propertySet(COMPONENT_VERSION, getDefaultProperty(COMPONENT_VERSION));
 //		earComponentCreationDataModel = new EARComponentCreationDataModel();
 //		if(earComponentCreationDataModel != null)
 //			getDataModel().addNestedModel(NESTED_MODEL_EAR_CREATION, earComponentCreationDataModel);
@@ -46,10 +46,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
  	public String[] getPropertyNames() {
 		String[] props = new String[]{EAR_COMPONENT_NAME, ADD_TO_EAR, 
-				UI_SHOW_EAR_SECTION, DD_FOLDER, JAVASOURCE_FOLDER,
-				MANIFEST_FOLDER 
-//				NESTED_MODEL_VALIDATION_HOOK
-		};
+				UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME,
+                NESTED_ADD_COMPONENT_TO_EAR_DM, NESTED_CLASSPATH_SELECTION_DM, NESTED_EAR_COMPONENT_CREATION_DM,
+                NESTED_UPDATE_MANIFEST_DM };
 		return combineProperties(super.getPropertyNames(), props);
 	}
 
@@ -64,13 +63,24 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return Boolean.TRUE;
 		} else if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			return getDataModel().getStringProperty(COMPONENT_NAME)+"EAR";
-		} else {
-			return super.getDefaultProperty(propertyName);
-		}
+		} else if (propertyName.equals(COMPONENT_VERSION)) {
+            return getDefaultComponentVersion();
+        }
+		return super.getDefaultProperty(propertyName);
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(EAR_COMPONENT_NAME)) {
+        if (PROJECT_NAME.equals(propertyName) && propertyValue !=null && ((String)propertyValue).length()!=0) {
+            IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject((String)propertyValue);
+            if (project != null) {
+                IProjectProperties projProperties = ServerCore.getProjectProperties(project);
+                if( projProperties.getRuntimeTarget() != null ){
+                    String[] validModuleVersions = getServerVersions(getComponentID(), projProperties.getRuntimeTarget().getRuntimeType());
+                    model.setProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
+                }
+            }
+        }
+        else if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			earComponentHandle = computeEARHandle((String)propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
 			if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) 
@@ -112,17 +122,17 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	 * @param workbenchComp
 	 */
 	protected void setEARComponentIfJ2EEModuleCreationOnly(WorkbenchComponent workbenchComp, Object propertyValue) {
-		getAddModuleToApplicationDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.ARCHIVE_MODULE, workbenchComp);
-		getAddModuleToApplicationDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
+        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.ARCHIVE_MODULE, workbenchComp);
+        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
 				getDataModel().getStringProperty(PROJECT_NAME));
-		getAddModuleToApplicationDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,
+        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,
 				getDataModel().getStringProperty(EAR_COMPONENT_NAME));
 		if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) {
 			String earModuleName = getDataModel().getStringProperty(EAR_COMPONENT_NAME);
 			getDataModel().notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
 
 		}
-		jarDependencyDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
+		((UpdateManifestDataModel)model.getProperty(NESTED_UPDATE_MANIFEST_DM)).setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
 	}
 
 //	protected Boolean basicIsEnabled(String propertyName) {
@@ -135,10 +145,18 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 //		return enabled;
 //	}
 
-	protected final AddComponentToEnterpriseApplicationDataModel getAddModuleToApplicationDataModel() {
-		return addComponentToEARDataModel;
+	protected final AddComponentToEnterpriseApplicationDataModel getAddComponentToEARDataModel() {
+		return (AddComponentToEnterpriseApplicationDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 	}
-
+    
+    protected EARComponentCreationDataModel getEarComponentCreationDataModel() {
+        return (EARComponentCreationDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+    }
+    
+    protected final UpdateManifestDataModel getUpdateManifestDataModel() {
+        return (UpdateManifestDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM);
+    }
+    
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(COMPONENT_VERSION)) {
 			return getValidComponentVersionDescriptors();
@@ -149,7 +167,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		}	
 	  return super.getValidPropertyDescriptors(propertyName);
 	}
-	
 	
 	 private DataModelPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){
 	 	
@@ -229,15 +246,21 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return null;
 	}
 
-	protected IStatus validateProperty(String propertyName) {
+	public IStatus validate(String propertyName) {
 		if (EAR_COMPONENT_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
-		} 
+		} else if (COMPONENT_VERSION.equals(propertyName)) {
+            return validateComponentVersionProperty();
+        } else if(propertyName.equals(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME)){
+            return OK_STATUS;
+        }
 		return super.validate(propertyName);
 	}
-	
-	public EARComponentCreationDataModel getEarComponentCreationDataModel() {
-        return earComponentCreationDataModel;
+    private IStatus validateComponentVersionProperty() {
+        int componentVersion = model.getIntProperty(COMPONENT_VERSION);
+        if (componentVersion == -1)
+            return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SPEC_LEVEL_NOT_FOUND));
+        return OK_STATUS;
     }
 
 	private IStatus validateEARModuleNameProperty() {
@@ -276,16 +299,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
-	/**
-	 * @return
-	 */
-	public final UpdateManifestDataModel getUpdateManifestDataModel() {
-		return jarDependencyDataModel;
-	}
-
-
-
-	public final ClassPathSelection getClassPathSelection() {
+    public final ClassPathSelection getClassPathSelection() {
 //		boolean createNew = false;
 //		if (null == cachedSelection || !getApplicationCreationDataModel().getTargetProject().getName().equals(cachedSelection.getEARFile().getURI())) {
 //			createNew = true;
@@ -300,7 +314,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 //		if (createNew && getTargetProject() != null) {
 //			cachedSelection = ClasspathSelectionHelper.createClasspathSelection(getTargetProject(), getModuleExtension(), getApplicationCreationDataModel().getTargetProject(), getModuleType());
 //		}
-		return cachedSelection;
+		//return cachedSelection;
+        return null;
 	}
 
 
@@ -344,22 +359,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 	
 	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
-
-	/**
-	 * @return Returns the addComponentToEARDataModel.
-	 */
-	public AddComponentToEnterpriseApplicationDataModel getAddComponentToEARDataModel() {
-		return addComponentToEARDataModel;
-	}
-	
-
-	/**
-	 * @param addComponentToEARDataModel The addComponentToEARDataModel to set.
-	 */
-	public void setAddComponentToEARDataModel(AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel) {
-		this.addComponentToEARDataModel = addComponentToEARDataModel;
-	}
-	
 
 	public URI getEarComponentHandle() {
 		return earComponentHandle;

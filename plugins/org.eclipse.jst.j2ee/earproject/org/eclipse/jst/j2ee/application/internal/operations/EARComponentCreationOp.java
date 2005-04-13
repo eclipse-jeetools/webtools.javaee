@@ -15,12 +15,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.StructureEdit;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
@@ -66,7 +66,7 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
             WorkbenchComponent earComp = moduleCore.findComponentByName(
 					getDataModel().getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
             earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
-            Integer version = (Integer)getDataModel().getProperty(IComponentCreationDataModelProperties.COMPONENT_VERSION);
+            Integer version = (Integer)getDataModel().getProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
        	 	earEdit.createModelRoot(version.intValue());
             earEdit.save(monitor);
         } finally {
@@ -126,7 +126,7 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = getDataModel().getIntProperty(IComponentCreationDataModelProperties.COMPONENT_VERSION);
+		int version = getDataModel().getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
 	public URI getComponentHandle(){

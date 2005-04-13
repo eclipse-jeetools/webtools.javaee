@@ -23,61 +23,13 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public  class JavaComponentCreationDataModelProvider extends ComponentCreationDataModelProvider implements IJavaComponentCreationDataModelProperties {
+public class JavaComponentCreationDataModelProvider extends ComponentCreationDataModelProvider implements IJavaComponentCreationDataModelProperties {
 	
 	
 	public String[] getPropertyNames() {
 		String[] props = new String[]{JAVASOURCE_FOLDER, MANIFEST_FOLDER};
 		return combineProperties(super.getPropertyNames(), props);
 	}
-	
-
-	public JavaComponentCreationDataModelProvider() {
-		super();
-	}
-
-	protected EClass getComponentType() {
-        return CommonarchivePackage.eINSTANCE.getModuleFile();
-    }
-
-	protected Integer getDefaultComponentVersion() {
-		Integer version = new Integer("10");
-		return version;
-	}
-
-	/* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-     */
-    protected String getComponentID() {
-        return IModuleConstants.JST_UTILITY_MODULE;
-    }
-
-	public IDataModelOperation getDefaultOperation() {
-		return new JavaUtilityComponentCreationOperationEx(model);
-	}
-
-	protected String getComponentExtension() {
-		return ".jar"; //$NON-NLS-1$
-	}
-
-	
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel#getVersion()
-	 */
-	protected String getVersion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel#getProperties()
-	 */
-	protected List getProperties() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
@@ -88,19 +40,10 @@ public  class JavaComponentCreationDataModelProvider extends ComponentCreationDa
 		return super.getDefaultProperty(propertyName);
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModelProvider#getValidComponentVersionDescriptors()
-	 */
-	protected DataModelPropertyDescriptor[] getValidComponentVersionDescriptors() {
-		// TODO Auto-generated method stub
-		return null;
-	}	
 	public IStatus validate(String propertyName) {
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
             IStatus status = OK_STATUS;
-            String srcFolderName = getDataModel().getStringProperty(JAVASOURCE_FOLDER);
+            String srcFolderName = model.getStringProperty(JAVASOURCE_FOLDER);
 			if (srcFolderName == null || srcFolderName.length()==0) {
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NAME_EMPTY);
 				status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
@@ -109,7 +52,7 @@ public  class JavaComponentCreationDataModelProvider extends ComponentCreationDa
 
         } else if (propertyName.equals(MANIFEST_FOLDER)) {
             IStatus status = OK_STATUS;
-            String srcFolderName = getDataModel().getStringProperty(MANIFEST_FOLDER);
+            String srcFolderName = model.getStringProperty(MANIFEST_FOLDER);
 			if (srcFolderName == null || srcFolderName.length()==0) {
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NAME_EMPTY);
 				status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
@@ -118,4 +61,43 @@ public  class JavaComponentCreationDataModelProvider extends ComponentCreationDa
 		} 
         return super.validate(propertyName);
 	}	
+
+    public JavaComponentCreationDataModelProvider() {
+        super();
+    }
+
+    protected EClass getComponentType() {
+        return CommonarchivePackage.eINSTANCE.getModuleFile();
+    }
+
+    protected Integer getDefaultComponentVersion() {
+        Integer version = new Integer("10");
+        return version;
+    }
+
+    protected String getComponentID() {
+        return IModuleConstants.JST_UTILITY_MODULE;
+    }
+
+    protected String getComponentExtension() {
+        return ".jar"; //$NON-NLS-1$
+    }
+
+    protected String getVersion() {
+        return null;
+    }
+
+    protected List getProperties() {
+        return null;
+    }
+    
+    protected DataModelPropertyDescriptor[] getValidComponentVersionDescriptors() {
+        return null;
+    }
+    
+    public IDataModelOperation getDefaultOperation() {
+        return new JavaUtilityComponentCreationOperationEx(model);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -25,6 +26,6 @@ public class EARComponentCreationDataModelWizardPage extends J2EEComponentCreati
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, 
 				IComponentCreationDataModelProperties.COMPONENT_NAME, 
-				IComponentCreationDataModelProperties.COMPONENT_VERSION};
+                IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION};
 	}
 }
