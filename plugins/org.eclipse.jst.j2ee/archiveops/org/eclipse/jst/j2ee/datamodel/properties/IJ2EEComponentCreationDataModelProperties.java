@@ -52,7 +52,7 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
     /**
      * type Integer
      */
-    public static final String VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME = "IComponentCreationDataModelProperties.VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME"; //$NON-NLS-1$
+    public static final String VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME = "IComponentCreationDataModelProperties.VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME"; //$NON-NLS-1$
     /**
      * type AddComponentToEnterpriseApplicationDataModel
      */

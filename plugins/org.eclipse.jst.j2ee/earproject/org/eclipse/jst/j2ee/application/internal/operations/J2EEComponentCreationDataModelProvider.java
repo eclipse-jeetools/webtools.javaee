@@ -46,7 +46,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
  	public String[] getPropertyNames() {
 		String[] props = new String[]{EAR_COMPONENT_NAME, ADD_TO_EAR, 
-				UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME,
+				UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME,
                 NESTED_ADD_COMPONENT_TO_EAR_DM, NESTED_CLASSPATH_SELECTION_DM, NESTED_EAR_COMPONENT_CREATION_DM,
                 NESTED_UPDATE_MANIFEST_DM };
 		return combineProperties(super.getPropertyNames(), props);
@@ -76,7 +76,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
                 IProjectProperties projProperties = ServerCore.getProjectProperties(project);
                 if( projProperties.getRuntimeTarget() != null ){
                     String[] validModuleVersions = getServerVersions(getComponentID(), projProperties.getRuntimeTarget().getRuntimeType());
-                    model.setProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
+                    model.setProperty(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
                 }
             }
         }
@@ -251,7 +251,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return validateEARModuleNameProperty();
 		} else if (COMPONENT_VERSION.equals(propertyName)) {
             return validateComponentVersionProperty();
-        } else if(propertyName.equals(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME)){
+        } else if(propertyName.equals(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME)){
             return OK_STATUS;
         }
 		return super.validate(propertyName);
@@ -340,9 +340,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public String getModuleName() {
 		return getDataModel().getStringProperty(COMPONENT_NAME);
 	}
-	
-	protected abstract DataModelPropertyDescriptor[] getValidComponentVersionDescriptors();
-	
+
 	public final int getJ2EEVersion() {
 		return convertModuleVersionToJ2EEVersion(getIntProperty(COMPONENT_VERSION));
 	}
@@ -366,4 +364,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public void setEarComponentHandle(URI earComponentHandle) {
 		this.earComponentHandle = earComponentHandle;
 	}
+    
+    protected abstract DataModelPropertyDescriptor[] getValidComponentVersionDescriptors();
+
 }

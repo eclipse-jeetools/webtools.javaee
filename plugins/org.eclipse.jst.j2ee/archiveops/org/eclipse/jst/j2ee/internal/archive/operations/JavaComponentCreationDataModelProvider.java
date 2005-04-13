@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModel
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -83,21 +82,11 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
         return ".jar"; //$NON-NLS-1$
     }
 
-    protected String getVersion() {
-        return null;
-    }
-
     protected List getProperties() {
-        return null;
-    }
-    
-    protected DataModelPropertyDescriptor[] getValidComponentVersionDescriptors() {
         return null;
     }
     
     public IDataModelOperation getDefaultOperation() {
         return new JavaUtilityComponentCreationOperationEx(model);
     }
-
-
 }

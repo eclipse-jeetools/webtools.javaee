@@ -193,4 +193,5 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 	protected String getComponentID() {
 		return IModuleConstants.JST_EAR_MODULE;
 	}
+
 }
