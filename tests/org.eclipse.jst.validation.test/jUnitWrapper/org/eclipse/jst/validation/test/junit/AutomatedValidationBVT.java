@@ -65,7 +65,7 @@ public class AutomatedValidationBVT extends TestSuite {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.validation.test");
-        suite.addTest(BVTSuite.suite());
+        //suite.addTest(BVTSuite.suite());
 		suite.addTest(ApiTestsSuite.suite());
         return suite;
     }
