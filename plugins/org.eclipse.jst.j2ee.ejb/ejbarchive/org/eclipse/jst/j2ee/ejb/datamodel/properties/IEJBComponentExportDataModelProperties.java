@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 
-import org.eclipse.jst.j2ee.archive.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 
 public interface IEJBComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
 

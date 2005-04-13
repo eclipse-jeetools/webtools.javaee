@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 
-import org.eclipse.jst.j2ee.archive.datamodel.properties.IJavaComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 /**
  * <p>
  * IJavaComponentCreationDataModelProperties provides properties to the 
