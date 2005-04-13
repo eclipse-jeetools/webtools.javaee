@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -106,9 +105,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         if (getBooleanProperty(CREATE_CLIENT)) {
             EJBClientComponentDataModel ejbClientComponentDataModel = ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));
             if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
-                        || propertyName.equals(EAR_COMPONENT_DEPLOY_NAME) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
+                        || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
                 ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
-                ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_COMPONENT_DEPLOY_NAME));
                 ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
             }
         }
