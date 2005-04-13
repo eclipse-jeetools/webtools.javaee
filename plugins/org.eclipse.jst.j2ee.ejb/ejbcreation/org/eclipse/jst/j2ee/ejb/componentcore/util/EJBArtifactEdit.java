@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
@@ -16,12 +15,14 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * <p>
@@ -149,15 +150,14 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param project
 	 * @return WorkbenchComponent
 	 */
-	public WorkbenchComponent getEJBClientJarModule(IProject project) {
+	public IVirtualComponent getEJBClientJarModule(IProject project) {
 		EJBJar jar = getEJBJar();
-		WorkbenchComponent module = null;
+		IVirtualComponent module = null;
 		String clientJAR = null;
 		if (jar != null)
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {	
-			StructureEdit mc = StructureEdit.getStructureEditForRead(project);
-			module = mc.findComponentByName(clientJAR);
+			 module = ComponentCore.createComponent(project,clientJAR);
 		}
 		return module;
 	}
