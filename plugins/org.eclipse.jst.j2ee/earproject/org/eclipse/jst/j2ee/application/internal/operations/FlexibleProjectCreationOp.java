@@ -15,6 +15,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 
 public class FlexibleProjectCreationOp extends AbstractDataModelOperation {

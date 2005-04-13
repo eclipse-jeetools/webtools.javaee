@@ -8,8 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.application.internal.operations;
+package org.eclipse.jst.j2ee.web.datamodel.properties;
 
-public interface IAppClientComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
+import org.eclipse.jst.j2ee.archive.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+
+public interface IWebComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
 
 }

@@ -8,11 +8,8 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.web.archive.operations;
+package org.eclipse.jst.j2ee.archive.datamodel.properties;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEModuleImportDataModelProperties;
-
-public interface IWebComponentImportDataModelProperties extends IJ2EEModuleImportDataModelProperties {
-  public static final String HANDLED_ARCHIVES = "WARImportDataModel.HANDLED_ARCHIVES"; //$NON-NLS-1$
+public interface IAppClientComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
 
 }

@@ -8,10 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.web.archive.operations;
+package org.eclipse.jst.j2ee.web.datamodel.properties;
 
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.archive.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 
 public interface IWebComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
 

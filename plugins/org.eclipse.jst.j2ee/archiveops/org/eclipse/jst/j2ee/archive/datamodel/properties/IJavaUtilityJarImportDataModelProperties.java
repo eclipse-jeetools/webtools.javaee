@@ -8,10 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.web.archive.operations;
+package org.eclipse.jst.j2ee.archive.datamodel.properties;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEComponentExportDataModelProperties;
-
-public interface IWebComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
+public interface IJavaUtilityJarImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
+    
+    public static final String EAR_PROJECT = "J2EEUtilityJarImportDataModel.EAR_PROJECT"; //$NON-NLS-1$
 
 }

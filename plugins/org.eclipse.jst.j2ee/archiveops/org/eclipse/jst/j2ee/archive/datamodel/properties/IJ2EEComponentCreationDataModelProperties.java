@@ -1,6 +1,5 @@
-package org.eclipse.jst.j2ee.application.internal.operations;
+package org.eclipse.jst.j2ee.archive.datamodel.properties;
 
-import org.eclipse.jst.j2ee.internal.archive.operations.IJavaComponentCreationDataModelProperties;
 
 public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties{
 

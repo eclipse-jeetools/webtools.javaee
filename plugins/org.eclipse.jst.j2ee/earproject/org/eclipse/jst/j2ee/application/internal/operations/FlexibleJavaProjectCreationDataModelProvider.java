@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjectCreationDataModelProvider implements IFlexibleJavaProjectCreationDataModelProperties{

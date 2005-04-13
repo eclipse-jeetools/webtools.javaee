@@ -8,9 +8,9 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.application.internal.operations;
+package org.eclipse.jst.j2ee.project.datamodel.properties;
 
-import org.eclipse.jst.j2ee.internal.servertarget.IJ2EEProjectServerTargetDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 
 public interface IFlexibleJavaProjectCreationDataModelProperties extends IFlexibleProjectCreationDataModelProperties {
     public static final String NESTED_MODEL_SERVER_TARGET = "IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_SERVER_TARGET"; //$NON-NLS-1$

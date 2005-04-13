@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.application.internal.operations;
+package org.eclipse.jst.j2ee.archive.datamodel.properties;
 
 public interface IEARComponentImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
     /**

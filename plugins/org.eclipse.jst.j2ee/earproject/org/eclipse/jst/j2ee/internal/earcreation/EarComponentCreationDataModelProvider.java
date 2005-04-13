@@ -10,6 +10,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOp;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.archive.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;

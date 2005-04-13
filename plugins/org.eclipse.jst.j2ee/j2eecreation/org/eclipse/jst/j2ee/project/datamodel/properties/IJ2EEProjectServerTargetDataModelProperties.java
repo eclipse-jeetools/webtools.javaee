@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.internal.servertarget;
+package org.eclipse.jst.j2ee.project.datamodel.properties;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 
