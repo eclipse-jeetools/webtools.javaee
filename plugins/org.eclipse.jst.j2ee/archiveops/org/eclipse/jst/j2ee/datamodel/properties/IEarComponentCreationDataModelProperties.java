@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.archive.datamodel.properties;
+package org.eclipse.jst.j2ee.datamodel.properties;
 
 
 public interface IEarComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {

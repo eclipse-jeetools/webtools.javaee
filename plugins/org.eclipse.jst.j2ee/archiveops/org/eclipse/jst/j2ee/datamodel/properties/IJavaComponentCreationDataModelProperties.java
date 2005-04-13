@@ -6,7 +6,7 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.archive.datamodel.properties;
+package org.eclipse.jst.j2ee.datamodel.properties;
 
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 
@@ -32,11 +32,14 @@ public interface IJavaComponentCreationDataModelProperties extends IComponentCre
 	/**
 	 * Optional property - type String
      * String indicating the name of the the root Java Source Folder in the component being created.
+     * The DataModelProvider will default the Java Source Folder to the Component folder.
+     * 
 	 */
 	public static final String JAVASOURCE_FOLDER = "IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER";
     /**
      * Optional property - type String
      * String indicating the name of the the root folder containing the Manifest.MF in the component being created.
+     * The DataModelProvider will default the Manifest folder to the Component folder/META-INF.
      */
 	public static final String MANIFEST_FOLDER = "IJavaComponentCreationDataModelProperties.MANIFEST_FOLDER";
 }

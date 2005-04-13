@@ -1,6 +1,22 @@
-package org.eclipse.jst.j2ee.archive.datamodel.properties;
+package org.eclipse.jst.j2ee.datamodel.properties;
 
-
+/**
+ * <p>
+ * IJ2EEComponentCreationDataModelProperties provides properties to the 
+ * J2EEComponentCreationDataModelProvider as well as all extending interfaces extending 
+ * IJ2EEComponentCreationDataModelProperties 
+ * @see org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentCreationDataModelProvider
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
+ * @see org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties
+ * @since 1.0
+ */
 public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties{
 
 	/**

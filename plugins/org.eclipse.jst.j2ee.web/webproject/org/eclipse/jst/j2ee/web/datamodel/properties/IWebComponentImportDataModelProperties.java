@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.datamodel.properties;
 
-import org.eclipse.jst.j2ee.archive.datamodel.properties.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 
 public interface IWebComponentImportDataModelProperties extends IJ2EEModuleImportDataModelProperties {
   public static final String HANDLED_ARCHIVES = "WARImportDataModel.HANDLED_ARCHIVES"; //$NON-NLS-1$

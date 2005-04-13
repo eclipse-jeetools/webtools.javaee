@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.archive.datamodel.properties;
+package org.eclipse.jst.j2ee.datamodel.properties;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 

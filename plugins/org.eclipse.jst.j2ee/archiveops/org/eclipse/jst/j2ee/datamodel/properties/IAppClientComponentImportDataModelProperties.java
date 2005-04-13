@@ -8,14 +8,9 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.archive.datamodel.properties;
+package org.eclipse.jst.j2ee.datamodel.properties;
 
 
-public interface IAppClientComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
-    /**
-     * Boolean, default=true. If this is true and CREATE_DEFAULT_FILES is true, then a default main
-     * class will be generated during project creation.
-     */
-    public static final String CREATE_DEFAULT_MAIN_CLASS = "IAppClientComponentCreationDataModelProperties.CREATE_DEFAULT_MAIN_CLASS"; //$NON-NLS-1$
-    
+public interface IAppClientComponentImportDataModelProperties extends IJ2EEModuleImportDataModelProperties {
+
 }
