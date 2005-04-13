@@ -105,9 +105,9 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         if (getBooleanProperty(CREATE_CLIENT)) {
             EJBClientComponentDataModel ejbClientComponentDataModel = ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));
             if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
-                        || propertyName.equals(EAR_MODULE_DEPLOY_NAME) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
+                        || propertyName.equals(EAR_COMPONENT_DEPLOY_NAME) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
                 ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
-                ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_MODULE_DEPLOY_NAME));
+                ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_COMPONENT_DEPLOY_NAME));
                 ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
             }
         }
@@ -183,7 +183,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
                 }
 
                 if (getBooleanProperty(ADD_TO_EAR)) {
-                    String earName = getStringProperty(EAR_MODULE_NAME);
+                    String earName = getStringProperty(EAR_COMPONENT_NAME);
                     if (clientName.equals(earName)) {
                         return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR));
                     }

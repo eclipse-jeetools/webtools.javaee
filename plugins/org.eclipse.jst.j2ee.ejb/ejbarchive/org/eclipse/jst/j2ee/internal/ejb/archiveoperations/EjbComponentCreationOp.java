@@ -97,7 +97,8 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
         
         if( model.getBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT) ){
             EJBClientComponentDataModel dm = (EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
-            dm.setEarComponentHandle((URI)model.getProperty(EAR_COMPONENT_HANDLE));
+			//To do: after  porting
+            //dm.setEarComponentHandle((URI)model.getProperty(EAR_COMPONENT_HANDLE));
             //TODO: update once client port complete
             //runNestedDefaultOperation(dm ,monitor);
         }
