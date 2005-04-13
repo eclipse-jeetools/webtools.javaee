@@ -39,7 +39,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 	protected static final String platformProtocol = "platform"; //$NON-NLS-1$
 	private String inFilepath, outFilepath;
 
-	public ArchiveURIConverterImpl(Archive anArchive, String resourcesPath) {
+	public ArchiveURIConverterImpl(org.eclipse.jst.j2ee.commonarchivecore.internal.Archive anArchive, String resourcesPath) {
 		setArchive(anArchive);
 		this.resourcesPath = resourcesPath;
 		setInputFilepath(resourcesPath);
@@ -58,10 +58,10 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 	}
 
 	/** The archive from which resources will be loaded */
-	protected Archive archive;
+	protected org.eclipse.jst.j2ee.commonarchivecore.internal.Archive archive;
 	protected String resourcesPath;
 
-	public Archive getArchive() {
+	public org.eclipse.jst.j2ee.commonarchivecore.internal.Archive getArchive() {
 		return archive;
 	}
 
@@ -74,7 +74,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 		return getArchive().getInputStream(uri.toString());
 	}
 
-	public void setArchive(Archive newArchive) {
+	public void setArchive(org.eclipse.jst.j2ee.commonarchivecore.internal.Archive newArchive) {
 		archive = newArchive;
 	}
 

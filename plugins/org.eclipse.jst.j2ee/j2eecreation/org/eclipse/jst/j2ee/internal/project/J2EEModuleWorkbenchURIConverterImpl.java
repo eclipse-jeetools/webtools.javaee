@@ -87,7 +87,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 		ArchiveTypeDiscriminator disc = getArchiveDiscriminator();
 		if (disc == null)
 			return false;
-		Archive anArchive = null;
+		org.eclipse.jst.j2ee.commonarchivecore.internal.Archive anArchive = null;
 		try {
 			anArchive = getArchiveFactory().primOpenArchive(uri);
 			return disc.canImport(anArchive);
