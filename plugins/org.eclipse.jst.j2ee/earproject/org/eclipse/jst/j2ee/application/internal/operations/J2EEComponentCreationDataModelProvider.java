@@ -45,7 +45,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
  	public String[] getPropertyNames() {
-		String[] props = new String[]{EAR_COMPONENT_NAME, EAR_COMPONENT_DEPLOY_NAME, ADD_TO_EAR, 
+		String[] props = new String[]{EAR_COMPONENT_NAME, ADD_TO_EAR, 
 				UI_SHOW_EAR_SECTION, DD_FOLDER, JAVASOURCE_FOLDER,
 				MANIFEST_FOLDER 
 //				NESTED_MODEL_VALIDATION_HOOK
@@ -75,8 +75,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		} else if(propertyName.equals(COMPONENT_NAME)){
 			if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) 
 				getDataModel().notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
-			    setEARDeployNameProperty(getDataModel().getStringProperty(EAR_COMPONENT_NAME));
-		} else if (propertyName.equals(PROJECT_NAME)) {
+        } else if (propertyName.equals(PROJECT_NAME)) {
 			WorkbenchComponent workbenchComp = getTargetWorkbenchComponent();
 			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp,propertyValue);
 		} else if (propertyName.equals(ADD_TO_EAR)) {
@@ -99,7 +98,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			try {
 				isValidURI = ModuleURIUtil.ensureValidFullyQualifiedModuleURI(uri);
 				String deployeName = ModuleURIUtil.getDeployedName(uri);
-				setEARDeployNameProperty(deployeName);
 			}
 			catch (UnresolveableURIException e) {
 			}
@@ -110,11 +108,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		}
 		return null;		
 	}
-	
-	private void setEARDeployNameProperty(Object propertyValue) {
-	   setProperty(EAR_COMPONENT_DEPLOY_NAME,propertyValue);
-	}
-
 	/**
 	 * @param workbenchComp
 	 */
