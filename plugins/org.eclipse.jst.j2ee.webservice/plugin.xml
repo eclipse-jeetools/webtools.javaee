@@ -28,6 +28,7 @@
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.wst.ws.parser"/>
       <import plugin="org.eclipse.wst.wsdl"/>
+      <import plugin="org.wsdl4j"/>
    </requires>
 
 
