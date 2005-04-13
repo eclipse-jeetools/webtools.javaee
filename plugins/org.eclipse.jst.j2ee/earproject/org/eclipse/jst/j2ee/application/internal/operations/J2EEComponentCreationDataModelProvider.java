@@ -46,7 +46,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
  	public String[] getPropertyNames() {
 		String[] props = new String[]{EAR_COMPONENT_NAME, EAR_COMPONENT_DEPLOY_NAME, ADD_TO_EAR, 
-				UI_SHOW_EAR_SECTION, DD_FOLDER, JAVASOURCE_FOLDER, J2EE_VERSION,
+				UI_SHOW_EAR_SECTION, DD_FOLDER, JAVASOURCE_FOLDER,
 				MANIFEST_FOLDER 
 //				NESTED_MODEL_VALIDATION_HOOK
 		};
@@ -81,11 +81,13 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp,propertyValue);
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			getDataModel().notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
-		} else if (propertyName.equals(J2EE_VERSION)) {
-			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
-			propertySet(COMPONENT_VERSION, modVersion);
-			return false;
 		}
+		//To do: after porting
+//		else if (propertyName.equals(J2EE_VERSION)) {
+//			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
+//			propertySet(COMPONENT_VERSION, modVersion);
+//			return false;
+//		}
 		return true;
 	}
 

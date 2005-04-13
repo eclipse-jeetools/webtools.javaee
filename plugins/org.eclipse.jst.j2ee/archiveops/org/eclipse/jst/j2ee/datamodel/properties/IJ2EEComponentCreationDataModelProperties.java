@@ -48,13 +48,4 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
 	
 	public static final String DD_FOLDER = "IJ2EEComponentCreationDataModelProperties.DD_FOLDER"; //$NON-NLS-1$
 
-	/**
-	 * Required, type Integer
-	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
-	 * version to its corresponding highest module version supported by the J2EE version and set the
-	 * J2EE_MODULE_VERSION property.
-	 * 
-	 */
-	//public static final String J2EE_VERSION = "IJ2EEComponentCreationDataModelProperties.J2EE_VERSION"; //$NON-NLS-1$
-
 }
