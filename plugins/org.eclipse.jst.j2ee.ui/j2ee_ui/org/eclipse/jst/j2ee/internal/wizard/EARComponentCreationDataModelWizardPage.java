@@ -3,7 +3,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.wst.common.componentcore.internal.operation.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentCreationDataModelWizardPage extends J2EEComponentCreationDataModelWizardPage {

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.jst.j2ee.archive.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 
 public interface IConnectorComponentImportDataModelProperties extends IJ2EEModuleImportDataModelProperties {
 
