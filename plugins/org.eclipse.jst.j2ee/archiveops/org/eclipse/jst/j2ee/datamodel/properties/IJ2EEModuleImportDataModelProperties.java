@@ -11,14 +11,39 @@
 package org.eclipse.jst.j2ee.datamodel.properties;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-
+/**
+ * <p>
+ * IJ2EEModuleImportDataModelProperties provides properties to the DataModel associated with the 
+ * J2EEModuleImportDataModelProvider as well as all extending interfaces extending 
+ * IJ2EEModuleImportDataModelProperties specifically all J2EE component specific imports.
+ * 
+ * NOTE: The associated Provider and Operations will be created during M5
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
+ * 
+ * @since 1.0
+ */
 public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
     /**
-     * nested
+     * Optional, type String.  This property is nested from the J2EEComponentCreationDataModel and set only if user is attempting to add the component to an EAR.
+     * Some J2EE components such as Web do not require an EAR.
      */
     public static final String EAR_NAME = J2EEComponentCreationDataModel.EAR_MODULE_NAME;
+    /**
+     * Optional, type Boolean.  This property defaults to True, but changes if user wishs to import a component
+     * without adding it to an EAR.
+     */
     public static final String ADD_TO_EAR = J2EEComponentCreationDataModel.ADD_TO_EAR;
-
+    /**
+     * Optional , type ExtendedImportFactory.  Add ability for the import factory to be extended to handle archive
+     * types not defined in the base code.
+     */
     public static final String EXTENDED_IMPORT_FACTORY = "J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
 
 }
