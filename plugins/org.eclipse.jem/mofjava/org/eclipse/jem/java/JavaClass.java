@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaClass.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.List;
 
@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.EClass;
  * </p>
  *
  * @see org.eclipse.jem.java.JavaRefPackage#getJavaClass()
- * @model 
+ * @model
  * @generated
  */
 public interface JavaClass extends EClass, JavaHelpers{
@@ -344,7 +344,7 @@ public interface JavaClass extends EClass, JavaHelpers{
 	 * <!-- begin-model-doc -->
 	 * Is this an interface.
 	 * <!-- end-model-doc -->
-	 * @model 
+	 * @model
 	 * @generated
 	 */
   boolean isInterface();

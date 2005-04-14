@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaVisibilityKind.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,7 +41,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #PUBLIC_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -52,7 +52,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #PRIVATE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -63,7 +63,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #PROTECTED_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -74,7 +74,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #PACKAGE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */

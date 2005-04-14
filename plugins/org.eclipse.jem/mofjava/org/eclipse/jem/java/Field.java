@@ -12,14 +12,14 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: Field.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import org.eclipse.emf.ecore.ETypedElement;
 
 /**
  * @generated
  */
-public interface Field extends ETypedElement {
+public interface Field extends ETypedElement{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -81,7 +81,7 @@ public interface Field extends ETypedElement {
 	 * @return the value of the '<em>Transient</em>' attribute.
 	 * @see #setTransient(boolean)
 	 * @see org.eclipse.jem.java.JavaRefPackage#getField_Transient()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	boolean isTransient();
@@ -107,7 +107,7 @@ public interface Field extends ETypedElement {
 	 * @return the value of the '<em>Volatile</em>' attribute.
 	 * @see #setVolatile(boolean)
 	 * @see org.eclipse.jem.java.JavaRefPackage#getField_Volatile()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	boolean isVolatile();

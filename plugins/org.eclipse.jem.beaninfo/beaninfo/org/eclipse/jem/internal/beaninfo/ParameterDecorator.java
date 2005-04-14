@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: ParameterDecorator.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -30,7 +30,7 @@ import org.eclipse.jem.java.JavaParameter;
  * </p>
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getParameterDecorator()
- * @model 
+ * @model
  * @generated
  */
 
@@ -50,7 +50,7 @@ public interface ParameterDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getParameterDecorator_Name()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	String getName();

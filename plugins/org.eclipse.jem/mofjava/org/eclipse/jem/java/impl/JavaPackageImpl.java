@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: JavaPackageImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
  */
 
 import java.util.Collection;
@@ -178,12 +178,12 @@ protected boolean isDefault() {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.JAVA_PACKAGE__ESUPER_PACKAGE:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.EPACKAGE__ESUBPACKAGES, EPackage.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.EPACKAGE__ESUBPACKAGES, EPackage.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**

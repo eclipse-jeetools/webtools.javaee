@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoFactoryImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 import java.util.Map;
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory{
 
 	/**
-	 * Creates and instance of the factory.
+	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

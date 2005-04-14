@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeanEvent.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 import org.eclipse.jem.java.JavaEvent;
@@ -30,7 +30,7 @@ import org.eclipse.jem.java.JavaEvent;
  *
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanEvent()
- * @model 
+ * @model
  * @generated
  */
 

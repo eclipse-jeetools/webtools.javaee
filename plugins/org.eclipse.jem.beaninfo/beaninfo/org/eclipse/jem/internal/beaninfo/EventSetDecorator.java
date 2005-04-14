@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: EventSetDecorator.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -44,7 +44,7 @@ import org.eclipse.jem.java.Method;
  * </p>
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getEventSetDecorator()
- * @model 
+ * @model
  * @generated
  */
 
@@ -167,7 +167,7 @@ public interface EventSetDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Listener Methods Explicit Empty</em>' attribute.
 	 * @see #setListenerMethodsExplicitEmpty(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getEventSetDecorator_ListenerMethodsExplicitEmpty()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	boolean isListenerMethodsExplicitEmpty();
@@ -293,7 +293,7 @@ public interface EventSetDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Event Adapter Class</em>' reference.
 	 * @see #setEventAdapterClass(JavaClass)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getEventSetDecorator_EventAdapterClass()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	JavaClass getEventAdapterClass();

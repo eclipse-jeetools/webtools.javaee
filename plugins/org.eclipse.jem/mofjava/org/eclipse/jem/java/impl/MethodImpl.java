@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
 
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.9 $  $Date: 2005/04/14 19:05:33 $ 
  */
 
 import java.util.Collection;
@@ -22,14 +22,30 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EOperationImpl;
-import org.eclipse.emf.ecore.util.*;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.jem.java.Block;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jem.java.JavaParameter;
+import org.eclipse.jem.java.JavaRefPackage;
+import org.eclipse.jem.java.JavaVisibilityKind;
+import org.eclipse.jem.java.Method;
+
 
 import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
-import org.eclipse.jem.java.*;
 
 /**
  * @generated
@@ -607,17 +623,17 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 */
 	public boolean isGenerated() {
 		reflectGenerated();
-		return isGeneratedGen();
+		return isGenerated;
 	}
 	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public boolean isGeneratedGen() {
-		return isGenerated;
-	}	
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
 
 	/**
 	 * Is this a void return type method.
@@ -677,9 +693,8 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public JavaClass getJavaClass() {
-		if (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS)
-			return null;
-		return (JavaClass) eContainer;
+		if (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS) return null;
+		return (JavaClass)eContainer;
 	}
 
 	/**
@@ -695,11 +710,11 @@ public class MethodImpl extends EOperationImpl implements Method {
 			if (eContainer != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newJavaClass != null)
-				msgs = ((InternalEObject) newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject) newJavaClass, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
+				msgs = ((InternalEObject)newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
+			msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__JAVA_CLASS, newJavaClass, newJavaClass));
 	}
 
@@ -709,7 +724,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	public Block getSource() {
 		if (source != null && source.eIsProxy()) {
 			Block oldSource = source;
-			source = (Block) eResolveProxy((InternalEObject) source);
+			source = (Block)eResolveProxy((InternalEObject)source);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.METHOD__SOURCE, oldSource, source));
@@ -749,17 +764,17 @@ public class MethodImpl extends EOperationImpl implements Method {
 			case JavaRefPackage.METHOD__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case JavaRefPackage.METHOD__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case JavaRefPackage.METHOD__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case JavaRefPackage.METHOD__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case JavaRefPackage.METHOD__UPPER_BOUND:
 				return upperBound != UPPER_BOUND_EDEFAULT;
 			case JavaRefPackage.METHOD__MANY:
-				return isMany() != false;
+				return isMany() != MANY_EDEFAULT;
 			case JavaRefPackage.METHOD__REQUIRED:
-				return isRequired() != false;
+				return isRequired() != REQUIRED_EDEFAULT;
 			case JavaRefPackage.METHOD__ETYPE:
 				return eType != null;
 			case JavaRefPackage.METHOD__ECONTAINING_CLASS:
@@ -801,68 +816,68 @@ public class MethodImpl extends EOperationImpl implements Method {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.METHOD__EANNOTATIONS:
 				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection) newValue);
+				getEAnnotations().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.METHOD__NAME:
-				setName((String) newValue);
+				setName((String)newValue);
 				return;
 			case JavaRefPackage.METHOD__ORDERED:
-				setOrdered(((Boolean) newValue).booleanValue());
+				setOrdered(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__UNIQUE:
-				setUnique(((Boolean) newValue).booleanValue());
+				setUnique(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__LOWER_BOUND:
-				setLowerBound(((Integer) newValue).intValue());
+				setLowerBound(((Integer)newValue).intValue());
 				return;
 			case JavaRefPackage.METHOD__UPPER_BOUND:
-				setUpperBound(((Integer) newValue).intValue());
+				setUpperBound(((Integer)newValue).intValue());
 				return;
 			case JavaRefPackage.METHOD__ETYPE:
-				setEType((EClassifier) newValue);
+				setEType((EClassifier)newValue);
 				return;
 			case JavaRefPackage.METHOD__EPARAMETERS:
 				getEParameters().clear();
-				getEParameters().addAll((Collection) newValue);
+				getEParameters().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.METHOD__EEXCEPTIONS:
 				getEExceptions().clear();
-				getEExceptions().addAll((Collection) newValue);
+				getEExceptions().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.METHOD__ABSTRACT:
-				setAbstract(((Boolean) newValue).booleanValue());
+				setAbstract(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__NATIVE:
-				setNative(((Boolean) newValue).booleanValue());
+				setNative(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				setSynchronized(((Boolean) newValue).booleanValue());
+				setSynchronized(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__FINAL:
-				setFinal(((Boolean) newValue).booleanValue());
+				setFinal(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				setConstructor(((Boolean) newValue).booleanValue());
+				setConstructor(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__STATIC:
-				setStatic(((Boolean) newValue).booleanValue());
+				setStatic(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
-				setJavaVisibility((JavaVisibilityKind) newValue);
+				setJavaVisibility((JavaVisibilityKind)newValue);
 				return;
 			case JavaRefPackage.METHOD__PARAMETERS:
 				getParameters().clear();
-				getParameters().addAll((Collection) newValue);
+				getParameters().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
 				getJavaExceptions().clear();
-				getJavaExceptions().addAll((Collection) newValue);
+				getJavaExceptions().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.METHOD__JAVA_CLASS:
-				setJavaClass((JavaClass) newValue);
+				setJavaClass((JavaClass)newValue);
 				return;
 			case JavaRefPackage.METHOD__SOURCE:
-				setSource((Block) newValue);
+				setSource((Block)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -892,7 +907,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 				setUpperBound(UPPER_BOUND_EDEFAULT);
 				return;
 			case JavaRefPackage.METHOD__ETYPE:
-				setEType((EClassifier) null);
+				setEType((EClassifier)null);
 				return;
 			case JavaRefPackage.METHOD__EPARAMETERS:
 				getEParameters().clear();
@@ -928,10 +943,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 				getJavaExceptions().clear();
 				return;
 			case JavaRefPackage.METHOD__JAVA_CLASS:
-				setJavaClass((JavaClass) null);
+				setJavaClass((JavaClass)null);
 				return;
 			case JavaRefPackage.METHOD__SOURCE:
-				setSource((Block) null);
+				setSource((Block)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -941,8 +956,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (abstract: ");
@@ -992,13 +1006,13 @@ public class MethodImpl extends EOperationImpl implements Method {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.METHOD__EANNOTATIONS:
-					return ((InternalEList) getEAnnotations()).basicAdd(otherEnd, msgs);
+					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, JavaRefPackage.METHOD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.METHOD__EPARAMETERS:
-					return ((InternalEList) getEParameters()).basicAdd(otherEnd, msgs);
+					return ((InternalEList)getEParameters()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -1021,13 +1035,13 @@ public class MethodImpl extends EOperationImpl implements Method {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.METHOD__EANNOTATIONS:
-					return ((InternalEList) getEAnnotations()).basicRemove(otherEnd, msgs);
+					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.METHOD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.METHOD__EPARAMETERS:
-					return ((InternalEList) getEParameters()).basicRemove(otherEnd, msgs);
+					return ((InternalEList)getEParameters()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__PARAMETERS:
-					return ((InternalEList) getParameters()).basicRemove(otherEnd, msgs);
+					return ((InternalEList)getParameters()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
 				default:
@@ -1046,14 +1060,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-					return ((InternalEObject) eContainer).eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
-					return ((InternalEObject) eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
+					return eContainer.eInverseRemove(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject) eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -1080,8 +1094,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 			case JavaRefPackage.METHOD__REQUIRED:
 				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.METHOD__ETYPE:
-				if (resolve)
-					return getEType();
+				if (resolve) return getEType();
 				return basicGetEType();
 			case JavaRefPackage.METHOD__ECONTAINING_CLASS:
 				return getEContainingClass();
@@ -1110,8 +1123,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 			case JavaRefPackage.METHOD__JAVA_CLASS:
 				return getJavaClass();
 			case JavaRefPackage.METHOD__SOURCE:
-				if (resolve)
-					return getSource();
+				if (resolve) return getSource();
 				return basicGetSource();
 		}
 		return eDynamicGet(eFeature, resolve);

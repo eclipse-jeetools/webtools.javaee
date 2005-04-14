@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: Method.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EOperation;
@@ -260,7 +260,7 @@ public interface Method extends EOperation{
 	 * <!-- begin-model-doc -->
 	 * Set the isGenerated flag.
 	 * <!-- end-model-doc -->
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	void setIsGenerated(boolean generated);

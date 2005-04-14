@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: IndexedPropertyDecorator.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -34,7 +34,7 @@ import org.eclipse.jem.java.Method;
  * </p>
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getIndexedPropertyDecorator()
- * @model 
+ * @model
  * @generated
  */
 

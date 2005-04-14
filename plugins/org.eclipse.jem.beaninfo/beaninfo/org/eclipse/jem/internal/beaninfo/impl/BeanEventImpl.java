@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanEventImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 import java.util.Collection;
@@ -111,12 +111,12 @@ public class BeanEventImpl extends JavaEventImpl implements BeanEvent{
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case BeaninfoPackage.BEAN_EVENT__ECONTAINING_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -278,9 +278,9 @@ public class BeanEventImpl extends JavaEventImpl implements BeanEvent{
 			case BeaninfoPackage.BEAN_EVENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case BeaninfoPackage.BEAN_EVENT__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__UPPER_BOUND:
@@ -292,19 +292,19 @@ public class BeanEventImpl extends JavaEventImpl implements BeanEvent{
 			case BeaninfoPackage.BEAN_EVENT__ETYPE:
 				return eType != null;
 			case BeaninfoPackage.BEAN_EVENT__CHANGEABLE:
-				return changeable != CHANGEABLE_EDEFAULT;
+				return ((eFlags & CHANGEABLE_EFLAG) != 0) != CHANGEABLE_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
+				return ((eFlags & VOLATILE_EFLAG) != 0) != VOLATILE_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
+				return ((eFlags & TRANSIENT_EFLAG) != 0) != TRANSIENT_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__DEFAULT_VALUE_LITERAL:
 				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
 			case BeaninfoPackage.BEAN_EVENT__DEFAULT_VALUE:
 				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
 			case BeaninfoPackage.BEAN_EVENT__UNSETTABLE:
-				return unsettable != UNSETTABLE_EDEFAULT;
+				return ((eFlags & UNSETTABLE_EFLAG) != 0) != UNSETTABLE_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__DERIVED:
-				return derived != DERIVED_EDEFAULT;
+				return ((eFlags & DERIVED_EFLAG) != 0) != DERIVED_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__ECONTAINING_CLASS:
 				return getEContainingClass() != null;
 		}

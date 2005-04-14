@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaParameterKind.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,7 +42,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * <!-- begin-user-doc --> 
    * <!-- end-user-doc --> 
 	 * @see #IN_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -52,7 +52,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * <!-- begin-user-doc --> 
    * <!-- end-user-doc --> 
 	 * @see #OUT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -62,7 +62,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * <!-- begin-user-doc --> 
    * <!-- end-user-doc --> 
 	 * @see #INOUT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -72,7 +72,7 @@ public final class JavaParameterKind extends AbstractEnumerator
 	 * <!-- begin-user-doc --> 
    * <!-- end-user-doc --> 
 	 * @see #RETURN_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */

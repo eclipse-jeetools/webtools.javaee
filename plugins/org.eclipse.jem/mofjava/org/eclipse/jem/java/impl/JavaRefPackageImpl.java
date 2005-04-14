@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.List;
 
@@ -190,21 +190,22 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	public static JavaRefPackage init() {
 		if (isInited) return (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
-		// Obtain or create and register package.
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JavaRefPackageImpl());
+		// Obtain or create and register package
+		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof JavaRefPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JavaRefPackageImpl());
 
 		isInited = true;
 
 		// Initialize simple dependencies
 		EcorePackageImpl.init();
 
-		// Obtain or create and register interdependencies
-
-		// Step 1: create meta-model objects
+		// Create package meta-data objects
 		theJavaRefPackage.createPackageContents();
 
-		// Step 2: complete initialization
+		// Initialize created meta-data
 		theJavaRefPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		theJavaRefPackage.freeze();
 
 		return theJavaRefPackage;
 	}
@@ -797,21 +798,21 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		javaEventEClass.getESuperTypes().add(theEcorePackage.getEStructuralFeature());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(javaClassEClass, JavaClass.class, "JavaClass", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getJavaClass_Kind(), this.getTypeKind(), "kind", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getJavaClass_Public(), ecorePackage.getEBoolean(), "public", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getJavaClass_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_ImplementsInterfaces(), this.getJavaClass(), null, "implementsInterfaces", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_ClassImport(), this.getJavaClass(), null, "classImport", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_PackageImports(), this.getJavaPackage(), null, "packageImports", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_Fields(), this.getField(), this.getField_JavaClass(), "fields", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_Methods(), this.getMethod(), this.getMethod_JavaClass(), "methods", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_Initializers(), this.getInitializer(), this.getInitializer_JavaClass(), "initializers", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_DeclaredClasses(), this.getJavaClass(), this.getJavaClass_DeclaringClass(), "declaredClasses", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_DeclaringClass(), this.getJavaClass(), this.getJavaClass_DeclaredClasses(), "declaringClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_JavaPackage(), this.getJavaPackage(), this.getJavaPackage_JavaClasses(), "javaPackage", null, 0, 1, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_Events(), this.getJavaEvent(), null, "events", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getJavaClass_AllEvents(), this.getJavaEvent(), null, "allEvents", null, 0, -1, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(javaClassEClass, JavaClass.class, "JavaClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJavaClass_Kind(), this.getTypeKind(), "kind", null, 0, 1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJavaClass_Public(), ecorePackage.getEBoolean(), "public", null, 0, 1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJavaClass_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_ImplementsInterfaces(), this.getJavaClass(), null, "implementsInterfaces", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_ClassImport(), this.getJavaClass(), null, "classImport", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_PackageImports(), this.getJavaPackage(), null, "packageImports", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_Fields(), this.getField(), this.getField_JavaClass(), "fields", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_Methods(), this.getMethod(), this.getMethod_JavaClass(), "methods", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_Initializers(), this.getInitializer(), this.getInitializer_JavaClass(), "initializers", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_DeclaredClasses(), this.getJavaClass(), this.getJavaClass_DeclaringClass(), "declaredClasses", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_DeclaringClass(), this.getJavaClass(), this.getJavaClass_DeclaredClasses(), "declaringClass", null, 0, 1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_JavaPackage(), this.getJavaPackage(), this.getJavaPackage_JavaClasses(), "javaPackage", null, 0, 1, JavaClass.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_Events(), this.getJavaEvent(), null, "events", null, 0, -1, JavaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaClass_AllEvents(), this.getJavaEvent(), null, "allEvents", null, 0, -1, JavaClass.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isNested");
 
@@ -870,14 +871,14 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		op = addEOperation(javaClassEClass, null, "setSupertype");
 		addEParameter(op, this.getJavaClass(), "javaclass");
 
-		initEClass(initializerEClass, Initializer.class, "Initializer", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getInitializer_IsStatic(), ecorePackage.getEBooleanObject(), "isStatic", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getInitializer_JavaClass(), this.getJavaClass(), this.getJavaClass_Initializers(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getInitializer_Source(), this.getBlock(), null, "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(initializerEClass, Initializer.class, "Initializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInitializer_IsStatic(), ecorePackage.getEBooleanObject(), "isStatic", null, 0, 1, Initializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInitializer_JavaClass(), this.getJavaClass(), this.getJavaClass_Initializers(), "javaClass", null, 0, 1, Initializer.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInitializer_Source(), this.getBlock(), null, "source", null, 0, 1, Initializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(javaParameterEClass, JavaParameter.class, "JavaParameter", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getJavaParameter_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getJavaParameter_ParameterKind(), this.getJavaParameterKind(), "parameterKind", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(javaParameterEClass, JavaParameter.class, "JavaParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJavaParameter_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, JavaParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJavaParameter_ParameterKind(), this.getJavaParameterKind(), "parameterKind", null, 0, 1, JavaParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(javaParameterEClass, ecorePackage.getEBoolean(), "isArray");
 
@@ -887,18 +888,18 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 
 		addEOperation(javaParameterEClass, ecorePackage.getEString(), "getQualifiedName");
 
-		initEClass(methodEClass, Method.class, "Method", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getMethod_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethod_Native(), ecorePackage.getEBoolean(), "native", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethod_Synchronized(), ecorePackage.getEBoolean(), "synchronized", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethod_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethod_Constructor(), ecorePackage.getEBoolean(), "constructor", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethod_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethod_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getMethod_Parameters(), this.getJavaParameter(), null, "parameters", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getMethod_JavaExceptions(), this.getJavaClass(), null, "javaExceptions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getMethod_JavaClass(), this.getJavaClass(), this.getJavaClass_Methods(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getMethod_Source(), this.getBlock(), null, "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(methodEClass, Method.class, "Method", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMethod_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Native(), ecorePackage.getEBoolean(), "native", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Synchronized(), ecorePackage.getEBoolean(), "synchronized", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Constructor(), ecorePackage.getEBoolean(), "constructor", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMethod_Parameters(), this.getJavaParameter(), null, "parameters", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMethod_JavaExceptions(), this.getJavaClass(), null, "javaExceptions", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMethod_JavaClass(), this.getJavaClass(), this.getJavaClass_Methods(), "javaClass", null, 0, 1, Method.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMethod_Source(), this.getBlock(), null, "source", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(methodEClass, this.getJavaClass(), "getContainingJavaClass");
 
@@ -921,38 +922,38 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 
 		addEOperation(methodEClass, ecorePackage.getEBoolean(), "isVoid");
 
-		initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getField_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getField_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getField_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getField_Transient(), ecorePackage.getEBoolean(), "transient", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getField_Volatile(), ecorePackage.getEBoolean(), "volatile", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getField_JavaClass(), this.getJavaClass(), this.getJavaClass_Fields(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getField_Initializer(), this.getBlock(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getField_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getField_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getField_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getField_Transient(), ecorePackage.getEBoolean(), "transient", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getField_Volatile(), ecorePackage.getEBoolean(), "volatile", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getField_JavaClass(), this.getJavaClass(), this.getJavaClass_Fields(), "javaClass", null, 0, 1, Field.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getField_Initializer(), this.getBlock(), null, "initializer", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(fieldEClass, this.getJavaClass(), "getContainingJavaClass");
 
 		addEOperation(fieldEClass, ecorePackage.getEBoolean(), "isArray");
 
-		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getBlock_Source(), ecorePackage.getEString(), "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getBlock_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getBlock_Contents(), this.getBlock(), null, "contents", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBlock_Source(), ecorePackage.getEString(), "source", null, 0, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBlock_Name(), ecorePackage.getEString(), "name", null, 0, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBlock_Contents(), this.getBlock(), null, "contents", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(commentEClass, Comment.class, "Comment", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(commentEClass, Comment.class, "Comment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(javaPackageEClass, JavaPackage.class, "JavaPackage", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getJavaPackage_JavaClasses(), this.getJavaClass(), this.getJavaClass_JavaPackage(), "javaClasses", null, 0, -1, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(javaPackageEClass, JavaPackage.class, "JavaPackage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJavaPackage_JavaClasses(), this.getJavaClass(), this.getJavaClass_JavaPackage(), "javaClasses", null, 0, -1, JavaPackage.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(javaDataTypeEClass, JavaDataType.class, "JavaDataType", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(javaDataTypeEClass, JavaDataType.class, "JavaDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(javaDataTypeEClass, ecorePackage.getEString(), "getDefaultValueString");
 
-		initEClass(arrayTypeEClass, ArrayType.class, "ArrayType", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getArrayType_ArrayDimensions(), ecorePackage.getEInt(), "arrayDimensions", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getArrayType_ComponentType(), theEcorePackage.getEClassifier(), null, "componentType", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(arrayTypeEClass, ArrayType.class, "ArrayType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getArrayType_ArrayDimensions(), ecorePackage.getEInt(), "arrayDimensions", null, 0, 1, ArrayType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getArrayType_ComponentType(), theEcorePackage.getEClassifier(), null, "componentType", null, 1, 1, ArrayType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(arrayTypeEClass, this.getJTypeJavaHelpers(), "getFinalComponentType");
 
@@ -963,7 +964,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		op = addEOperation(arrayTypeEClass, null, "setComponentType");
 		addEParameter(op, this.getJTypeJavaHelpers(), "helperComponentType");
 
-		initEClass(javaEventEClass, JavaEvent.class, "JavaEvent", IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(javaEventEClass, JavaEvent.class, "JavaEvent", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(typeKindEEnum, TypeKind.class, "TypeKind");
@@ -985,12 +986,13 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		addEEnumLiteral(javaParameterKindEEnum, JavaParameterKind.RETURN_LITERAL);
 
 		// Initialize data types
-		initEDataType(jTypeJavaHelpersEDataType, JavaHelpers.class, "JTypeJavaHelpers", IS_SERIALIZABLE);
-		initEDataType(jTypeListEDataType, List.class, "JTypeList", IS_SERIALIZABLE);
+		initEDataType(jTypeJavaHelpersEDataType, JavaHelpers.class, "JTypeJavaHelpers", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jTypeListEDataType, List.class, "JTypeList", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
 	}
+
 } //JavaRefPackageImpl
 
 

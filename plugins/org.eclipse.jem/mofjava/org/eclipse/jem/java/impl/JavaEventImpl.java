@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: JavaEventImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.Collection;
 
@@ -106,12 +106,12 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -273,33 +273,33 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			case JavaRefPackage.JAVA_EVENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case JavaRefPackage.JAVA_EVENT__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
 				return upperBound != UPPER_BOUND_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__MANY:
-				return isMany() != false;
+				return isMany() != MANY_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__REQUIRED:
-				return isRequired() != false;
+				return isRequired() != REQUIRED_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__ETYPE:
 				return eType != null;
 			case JavaRefPackage.JAVA_EVENT__CHANGEABLE:
-				return changeable != CHANGEABLE_EDEFAULT;
+				return ((eFlags & CHANGEABLE_EFLAG) != 0) != CHANGEABLE_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
+				return ((eFlags & VOLATILE_EFLAG) != 0) != VOLATILE_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
+				return ((eFlags & TRANSIENT_EFLAG) != 0) != TRANSIENT_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL:
 				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
 			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE:
-				return getDefaultValue() != null;
+				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
 			case JavaRefPackage.JAVA_EVENT__UNSETTABLE:
-				return unsettable != UNSETTABLE_EDEFAULT;
+				return ((eFlags & UNSETTABLE_EFLAG) != 0) != UNSETTABLE_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__DERIVED:
-				return derived != DERIVED_EDEFAULT;
+				return ((eFlags & DERIVED_EFLAG) != 0) != DERIVED_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
 				return getEContainingClass() != null;
 		}

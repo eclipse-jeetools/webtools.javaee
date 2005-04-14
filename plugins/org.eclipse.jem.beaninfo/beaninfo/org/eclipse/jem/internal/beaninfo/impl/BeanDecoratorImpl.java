@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.14 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.15 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -564,12 +564,12 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case BeaninfoPackage.BEAN_DECORATOR__EMODEL_ELEMENT:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.EMODEL_ELEMENT__EANNOTATIONS, EModelElement.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.EMODEL_ELEMENT__EANNOTATIONS, EModelElement.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**

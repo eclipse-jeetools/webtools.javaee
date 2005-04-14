@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: MethodProxyImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -170,12 +170,12 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case BeaninfoPackage.METHOD_PROXY__ECONTAINING_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -314,9 +314,9 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 			case BeaninfoPackage.METHOD_PROXY__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case BeaninfoPackage.METHOD_PROXY__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case BeaninfoPackage.METHOD_PROXY__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case BeaninfoPackage.METHOD_PROXY__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case BeaninfoPackage.METHOD_PROXY__UPPER_BOUND:

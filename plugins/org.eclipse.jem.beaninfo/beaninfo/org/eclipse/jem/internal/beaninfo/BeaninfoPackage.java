@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeaninfoPackage.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.8 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -2650,7 +2650,8 @@ public interface BeaninfoPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Feature Attribute Map Entry</em>'.
 	 * @see java.util.Map.Entry
-	 * @model keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue" valueDataType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue" 
+	 * @model keyType="java.lang.String"
+	 *        valueType="org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue" valueDataType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue"
 	 * @generated
 	 */
 	EClass getFeatureAttributeMapEntry();

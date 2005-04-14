@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeanDecorator.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.9 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -47,7 +47,7 @@ import java.net.URL;
  * </p>
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator()
- * @model 
+ * @model
  * @generated
  */
 
@@ -326,7 +326,7 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Customizer Class</em>' reference.
 	 * @see #setCustomizerClass(JavaClass)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_CustomizerClass()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	JavaClass getCustomizerClass();

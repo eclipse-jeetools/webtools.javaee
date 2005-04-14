@@ -12,8 +12,10 @@ package org.eclipse.jem.java.util;
 
 /*
  *  $RCSfile: JavaRefSwitch.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:33 $ 
  */
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
@@ -71,108 +73,145 @@ public class JavaRefSwitch {
 	 * @generated
 	 */
 	public Object doSwitch(EObject theEObject) {
-		EClass theEClass = theEObject.eClass();
+		return doSwitch(theEObject.eClass(), theEObject);
+	}
+
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	protected Object doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
-			switch (theEClass.getClassifierID()) {
-				case JavaRefPackage.JAVA_CLASS: {
-					JavaClass javaClass = (JavaClass)theEObject;
-					Object result = caseJavaClass(javaClass);
-					if (result == null) result = caseEClass(javaClass);
-					if (result == null) result = caseEClassifier(javaClass);
-					if (result == null) result = caseENamedElement(javaClass);
-					if (result == null) result = caseEModelElement(javaClass);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.INITIALIZER: {
-					Initializer initializer = (Initializer)theEObject;
-					Object result = caseInitializer(initializer);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.JAVA_PARAMETER: {
-					JavaParameter javaParameter = (JavaParameter)theEObject;
-					Object result = caseJavaParameter(javaParameter);
-					if (result == null) result = caseEParameter(javaParameter);
-					if (result == null) result = caseETypedElement(javaParameter);
-					if (result == null) result = caseENamedElement(javaParameter);
-					if (result == null) result = caseEModelElement(javaParameter);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.METHOD: {
-					Method method = (Method)theEObject;
-					Object result = caseMethod(method);
-					if (result == null) result = caseEOperation(method);
-					if (result == null) result = caseETypedElement(method);
-					if (result == null) result = caseENamedElement(method);
-					if (result == null) result = caseEModelElement(method);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.FIELD: {
-					Field field = (Field)theEObject;
-					Object result = caseField(field);
-					if (result == null) result = caseETypedElement(field);
-					if (result == null) result = caseENamedElement(field);
-					if (result == null) result = caseEModelElement(field);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.BLOCK: {
-					Block block = (Block)theEObject;
-					Object result = caseBlock(block);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.COMMENT: {
-					Comment comment = (Comment)theEObject;
-					Object result = caseComment(comment);
-					if (result == null) result = caseBlock(comment);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.STATEMENT: {
-					Statement statement = (Statement)theEObject;
-					Object result = caseStatement(statement);
-					if (result == null) result = caseBlock(statement);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.JAVA_PACKAGE: {
-					JavaPackage javaPackage = (JavaPackage)theEObject;
-					Object result = caseJavaPackage(javaPackage);
-					if (result == null) result = caseEPackage(javaPackage);
-					if (result == null) result = caseENamedElement(javaPackage);
-					if (result == null) result = caseEModelElement(javaPackage);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.JAVA_DATA_TYPE: {
-					JavaDataType javaDataType = (JavaDataType)theEObject;
-					Object result = caseJavaDataType(javaDataType);
-					if (result == null) result = caseEClass(javaDataType);
-					if (result == null) result = caseEClassifier(javaDataType);
-					if (result == null) result = caseENamedElement(javaDataType);
-					if (result == null) result = caseEModelElement(javaDataType);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				case JavaRefPackage.ARRAY_TYPE: {
-					ArrayType arrayType = (ArrayType)theEObject;
-					Object result = caseArrayType(arrayType);
-					if (result == null) result = caseJavaClass(arrayType);
-					if (result == null) result = caseEClass(arrayType);
-					if (result == null) result = caseEClassifier(arrayType);
-					if (result == null) result = caseENamedElement(arrayType);
-					if (result == null) result = caseEModelElement(arrayType);
-					if (result == null) result = defaultCase(theEObject);
-					return result;
-				}
-				default: return defaultCase(theEObject);
-			}
+			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
-		return defaultCase(theEObject);
+		else {
+			List eSuperTypes = theEClass.getESuperTypes();
+			return
+				eSuperTypes.isEmpty() ?
+					defaultCase(theEObject) :
+					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+		}
+	}
+
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	protected Object doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
+			case JavaRefPackage.JAVA_CLASS: {
+				JavaClass javaClass = (JavaClass)theEObject;
+				Object result = caseJavaClass(javaClass);
+				if (result == null) result = caseEClass(javaClass);
+				if (result == null) result = caseEClassifier(javaClass);
+				if (result == null) result = caseENamedElement(javaClass);
+				if (result == null) result = caseEModelElement(javaClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.INITIALIZER: {
+				Initializer initializer = (Initializer)theEObject;
+				Object result = caseInitializer(initializer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.JAVA_PARAMETER: {
+				JavaParameter javaParameter = (JavaParameter)theEObject;
+				Object result = caseJavaParameter(javaParameter);
+				if (result == null) result = caseEParameter(javaParameter);
+				if (result == null) result = caseETypedElement(javaParameter);
+				if (result == null) result = caseENamedElement(javaParameter);
+				if (result == null) result = caseEModelElement(javaParameter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.METHOD: {
+				Method method = (Method)theEObject;
+				Object result = caseMethod(method);
+				if (result == null) result = caseEOperation(method);
+				if (result == null) result = caseETypedElement(method);
+				if (result == null) result = caseENamedElement(method);
+				if (result == null) result = caseEModelElement(method);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.FIELD: {
+				Field field = (Field)theEObject;
+				Object result = caseField(field);
+				if (result == null) result = caseETypedElement(field);
+				if (result == null) result = caseENamedElement(field);
+				if (result == null) result = caseEModelElement(field);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.BLOCK: {
+				Block block = (Block)theEObject;
+				Object result = caseBlock(block);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.COMMENT: {
+				Comment comment = (Comment)theEObject;
+				Object result = caseComment(comment);
+				if (result == null) result = caseBlock(comment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.STATEMENT: {
+				Statement statement = (Statement)theEObject;
+				Object result = caseStatement(statement);
+				if (result == null) result = caseBlock(statement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.JAVA_PACKAGE: {
+				JavaPackage javaPackage = (JavaPackage)theEObject;
+				Object result = caseJavaPackage(javaPackage);
+				if (result == null) result = caseEPackage(javaPackage);
+				if (result == null) result = caseENamedElement(javaPackage);
+				if (result == null) result = caseEModelElement(javaPackage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.JAVA_DATA_TYPE: {
+				JavaDataType javaDataType = (JavaDataType)theEObject;
+				Object result = caseJavaDataType(javaDataType);
+				if (result == null) result = caseEClass(javaDataType);
+				if (result == null) result = caseEClassifier(javaDataType);
+				if (result == null) result = caseENamedElement(javaDataType);
+				if (result == null) result = caseEModelElement(javaDataType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.ARRAY_TYPE: {
+				ArrayType arrayType = (ArrayType)theEObject;
+				Object result = caseArrayType(arrayType);
+				if (result == null) result = caseJavaClass(arrayType);
+				if (result == null) result = caseEClass(arrayType);
+				if (result == null) result = caseEClassifier(arrayType);
+				if (result == null) result = caseENamedElement(arrayType);
+				if (result == null) result = caseEModelElement(arrayType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaRefPackage.JAVA_EVENT: {
+				JavaEvent javaEvent = (JavaEvent)theEObject;
+				Object result = caseJavaEvent(javaEvent);
+				if (result == null) result = caseEStructuralFeature(javaEvent);
+				if (result == null) result = caseETypedElement(javaEvent);
+				if (result == null) result = caseENamedElement(javaEvent);
+				if (result == null) result = caseEModelElement(javaEvent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			default: return defaultCase(theEObject);
+		}
 	}
 
 	/**

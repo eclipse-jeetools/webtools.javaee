@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: FeatureDecorator.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -50,7 +50,7 @@ import org.eclipse.emf.ecore.EAnnotation;
  * </p>
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator()
- * @model 
+ * @model
  * @generated
  */
 
@@ -174,7 +174,7 @@ public interface FeatureDecorator extends EAnnotation{
 	 * @return the value of the '<em>Category</em>' attribute.
 	 * @see #setCategory(String)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_Category()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	String getCategory();
@@ -388,7 +388,7 @@ public interface FeatureDecorator extends EAnnotation{
 	 * @return the value of the '<em>Attributes Explicit Empty</em>' attribute.
 	 * @see #setAttributesExplicitEmpty(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_AttributesExplicitEmpty()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	boolean isAttributesExplicitEmpty();
@@ -415,7 +415,7 @@ public interface FeatureDecorator extends EAnnotation{
 	 * @return the value of the '<em>Implicitly Set Bits</em>' attribute.
 	 * @see #setImplicitlySetBits(long)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_ImplicitlySetBits()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	long getImplicitlySetBits();
@@ -444,7 +444,7 @@ public interface FeatureDecorator extends EAnnotation{
 	 * @see org.eclipse.jem.internal.beaninfo.ImplicitItem
 	 * @see #setImplicitDecoratorFlag(ImplicitItem)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_ImplicitDecoratorFlag()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	ImplicitItem getImplicitDecoratorFlag();

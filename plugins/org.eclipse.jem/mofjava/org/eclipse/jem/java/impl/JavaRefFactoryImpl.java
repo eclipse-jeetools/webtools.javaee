@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: JavaRefFactoryImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.List;
 
@@ -73,12 +73,21 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case JavaRefPackage.TYPE_KIND:
-				return TypeKind.get(initialValue);
-			case JavaRefPackage.JAVA_VISIBILITY_KIND:
-				return JavaVisibilityKind.get(initialValue);
-			case JavaRefPackage.JAVA_PARAMETER_KIND:
-				return JavaParameterKind.get(initialValue);
+			case JavaRefPackage.TYPE_KIND: {
+				TypeKind result = TypeKind.get(initialValue);
+				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+				return result;
+			}
+			case JavaRefPackage.JAVA_VISIBILITY_KIND: {
+				JavaVisibilityKind result = JavaVisibilityKind.get(initialValue);
+				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+				return result;
+			}
+			case JavaRefPackage.JAVA_PARAMETER_KIND: {
+				JavaParameterKind result = JavaParameterKind.get(initialValue);
+				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+				return result;
+			}
 			case JavaRefPackage.JTYPE_JAVA_HELPERS:
 				return createJTypeJavaHelpersFromString(eDataType, initialValue);
 			case JavaRefPackage.JTYPE_LIST:
@@ -295,6 +304,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	public static JavaRefPackage getPackage() {
 		return JavaRefPackage.eINSTANCE;
 	}
+
 	public static JavaRefFactory getActiveFactory() {
 		return JavaRefFactory.eINSTANCE;
 	}

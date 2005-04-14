@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
 
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.8 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import java.util.Collection;
 
@@ -144,7 +144,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND, oldParameterKind, parameterKind));
 	}
-	
+
 	/*
 	 * This is not meant to be used outside of the reflection adapters.
 	 */
@@ -204,17 +204,17 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 			case JavaRefPackage.JAVA_PARAMETER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
 				return upperBound != UPPER_BOUND_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__MANY:
-				return isMany() != false;
+				return isMany() != MANY_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__REQUIRED:
-				return isRequired() != false;
+				return isRequired() != REQUIRED_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
 				return eType != null;
 			case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
@@ -366,12 +366,12 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.EOPERATION__EPARAMETERS, EOperation.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.EOPERATION__EPARAMETERS, EOperation.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**

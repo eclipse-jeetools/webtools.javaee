@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/16 00:24:55 $ 
+ *  $Revision: 1.8 $  $Date: 2005/04/14 19:05:36 $ 
  */
 
 
@@ -47,7 +47,7 @@ import org.eclipse.jem.java.Method;
  * </p>
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator()
- * @model 
+ * @model
  * @generated
  */
 
@@ -233,7 +233,7 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Always Incompatible</em>' attribute.
 	 * @see #setAlwaysIncompatible(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_AlwaysIncompatible()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	boolean isAlwaysIncompatible();
@@ -274,7 +274,7 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Field Read Only</em>' attribute.
 	 * @see #setFieldReadOnly(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_FieldReadOnly()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	boolean isFieldReadOnly();
@@ -300,7 +300,7 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * @return the value of the '<em>Property Editor Class</em>' reference.
 	 * @see #setPropertyEditorClass(JavaClass)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_PropertyEditorClass()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	JavaClass getPropertyEditorClass();

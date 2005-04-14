@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -399,9 +399,8 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public JavaClass getJavaClass() {
-		if (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS)
-			return null;
-		return (JavaClass) eContainer;
+		if (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS) return null;
+		return (JavaClass)eContainer;
 	}
 
 	/**
@@ -417,11 +416,11 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 			if (eContainer != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newJavaClass != null)
-				msgs = ((InternalEObject) newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject) newJavaClass, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
+				msgs = ((InternalEObject)newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
+			msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__JAVA_CLASS, newJavaClass, newJavaClass));
 	}
 
@@ -435,17 +434,17 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 			case JavaRefPackage.FIELD__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case JavaRefPackage.FIELD__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case JavaRefPackage.FIELD__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case JavaRefPackage.FIELD__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case JavaRefPackage.FIELD__UPPER_BOUND:
 				return upperBound != UPPER_BOUND_EDEFAULT;
 			case JavaRefPackage.FIELD__MANY:
-				return isMany() != false;
+				return isMany() != MANY_EDEFAULT;
 			case JavaRefPackage.FIELD__REQUIRED:
-				return isRequired() != false;
+				return isRequired() != REQUIRED_EDEFAULT;
 			case JavaRefPackage.FIELD__ETYPE:
 				return eType != null;
 			case JavaRefPackage.FIELD__FINAL:
@@ -473,46 +472,46 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.FIELD__EANNOTATIONS:
 				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection) newValue);
+				getEAnnotations().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.FIELD__NAME:
-				setName((String) newValue);
+				setName((String)newValue);
 				return;
 			case JavaRefPackage.FIELD__ORDERED:
-				setOrdered(((Boolean) newValue).booleanValue());
+				setOrdered(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__UNIQUE:
-				setUnique(((Boolean) newValue).booleanValue());
+				setUnique(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__LOWER_BOUND:
-				setLowerBound(((Integer) newValue).intValue());
+				setLowerBound(((Integer)newValue).intValue());
 				return;
 			case JavaRefPackage.FIELD__UPPER_BOUND:
-				setUpperBound(((Integer) newValue).intValue());
+				setUpperBound(((Integer)newValue).intValue());
 				return;
 			case JavaRefPackage.FIELD__ETYPE:
-				setEType((EClassifier) newValue);
+				setEType((EClassifier)newValue);
 				return;
 			case JavaRefPackage.FIELD__FINAL:
-				setFinal(((Boolean) newValue).booleanValue());
+				setFinal(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__STATIC:
-				setStatic(((Boolean) newValue).booleanValue());
+				setStatic(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
-				setJavaVisibility((JavaVisibilityKind) newValue);
+				setJavaVisibility((JavaVisibilityKind)newValue);
 				return;
 			case JavaRefPackage.FIELD__TRANSIENT:
-				setTransient(((Boolean) newValue).booleanValue());
+				setTransient(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__VOLATILE:
-				setVolatile(((Boolean) newValue).booleanValue());
+				setVolatile(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
-				setJavaClass((JavaClass) newValue);
+				setJavaClass((JavaClass)newValue);
 				return;
 			case JavaRefPackage.FIELD__INITIALIZER:
-				setInitializer((Block) newValue);
+				setInitializer((Block)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -542,7 +541,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 				setUpperBound(UPPER_BOUND_EDEFAULT);
 				return;
 			case JavaRefPackage.FIELD__ETYPE:
-				setEType((EClassifier) null);
+				setEType((EClassifier)null);
 				return;
 			case JavaRefPackage.FIELD__FINAL:
 				setFinal(FINAL_EDEFAULT);
@@ -560,10 +559,10 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 				setVolatile(VOLATILE_EDEFAULT);
 				return;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
-				setJavaClass((JavaClass) null);
+				setJavaClass((JavaClass)null);
 				return;
 			case JavaRefPackage.FIELD__INITIALIZER:
-				setInitializer((Block) null);
+				setInitializer((Block)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -585,12 +584,8 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 		Block oldInitializer = initializer;
 		initializer = newInitializer;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__INITIALIZER, oldInitializer,
-					newInitializer);
-			if (msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__INITIALIZER, oldInitializer, newInitializer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -604,13 +599,13 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 		if (newInitializer != initializer) {
 			NotificationChain msgs = null;
 			if (initializer != null)
-				msgs = ((InternalEObject) initializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
+				msgs = ((InternalEObject)initializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
 			if (newInitializer != null)
-				msgs = ((InternalEObject) newInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
+				msgs = ((InternalEObject)newInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
 			msgs = basicSetInitializer(newInitializer, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__INITIALIZER, newInitializer, newInitializer));
 	}
 
@@ -623,7 +618,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
-					return ((InternalEList) getEAnnotations()).basicAdd(otherEnd, msgs);
+					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -646,7 +641,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
-					return ((InternalEList) getEAnnotations()).basicRemove(otherEnd, msgs);
+					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
 				case JavaRefPackage.FIELD__INITIALIZER:
@@ -667,12 +662,12 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.FIELD__JAVA_CLASS:
-					return ((InternalEObject) eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
+					return eContainer.eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject) eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -699,8 +694,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 			case JavaRefPackage.FIELD__REQUIRED:
 				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__ETYPE:
-				if (resolve)
-					return getEType();
+				if (resolve) return getEType();
 				return basicGetEType();
 			case JavaRefPackage.FIELD__FINAL:
 				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
@@ -724,8 +718,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public String toStringGen() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (final: ");

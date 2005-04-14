@@ -35,8 +35,11 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * The '<em><b>NOT IMPLICIT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Means this decorator is not implicit. That is it was created by customer.
+	 * <!-- end-model-doc -->
 	 * @see #NOT_IMPLICIT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -46,8 +49,11 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * The '<em><b>IMPLICIT DECORATOR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This means that the decorator is implicit. That is it was not created by the customer.
+	 * <!-- end-model-doc -->
 	 * @see #IMPLICIT_DECORATOR_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -57,8 +63,11 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * The '<em><b>IMPLICIT DECORATOR AND FEATURE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This means the decorator and the feature where implicit. That is they were not created by the customer.
+	 * <!-- end-model-doc -->
 	 * @see #IMPLICIT_DECORATOR_AND_FEATURE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -68,9 +77,6 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * The '<em><b>NOT IMPLICIT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Means this decorator is not implicit. That is it was created by customer.
-	 * <!-- end-model-doc -->
 	 * @see #NOT_IMPLICIT
 	 * @generated
 	 * @ordered
@@ -81,9 +87,6 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * The '<em><b>IMPLICIT DECORATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * This means that the decorator is implicit. That is it was not created by the customer.
-	 * <!-- end-model-doc -->
 	 * @see #IMPLICIT_DECORATOR
 	 * @generated
 	 * @ordered
@@ -94,9 +97,6 @@ public final class ImplicitItem extends AbstractEnumerator {
 	 * The '<em><b>IMPLICIT DECORATOR AND FEATURE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * This means the decorator and the feature where implicit. That is they were not created by the customer.
-	 * <!-- end-model-doc -->
 	 * @see #IMPLICIT_DECORATOR_AND_FEATURE
 	 * @generated
 	 * @ordered

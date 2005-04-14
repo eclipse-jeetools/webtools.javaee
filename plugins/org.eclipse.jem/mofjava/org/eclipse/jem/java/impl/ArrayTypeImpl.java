@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
  */
 
 import java.util.Collection;
@@ -186,15 +186,15 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS_NAME:
 				return INSTANCE_CLASS_NAME_EDEFAULT == null ? instanceClassName != null : !INSTANCE_CLASS_NAME_EDEFAULT.equals(instanceClassName);
 			case JavaRefPackage.ARRAY_TYPE__INSTANCE_CLASS:
-				return getInstanceClass() != null;
+				return INSTANCE_CLASS_EDEFAULT == null ? getInstanceClass() != null : !INSTANCE_CLASS_EDEFAULT.equals(getInstanceClass());
 			case JavaRefPackage.ARRAY_TYPE__DEFAULT_VALUE:
-				return getDefaultValue() != null;
+				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
 			case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
 				return getEPackage() != null;
 			case JavaRefPackage.ARRAY_TYPE__ABSTRACT:
-				return abstract_ != ABSTRACT_EDEFAULT;
+				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
 			case JavaRefPackage.ARRAY_TYPE__INTERFACE:
-				return interface_ != INTERFACE_EDEFAULT;
+				return ((eFlags & INTERFACE_EFLAG) != 0) != INTERFACE_EDEFAULT;
 			case JavaRefPackage.ARRAY_TYPE__ESUPER_TYPES:
 				return eSuperTypes != null && !eSuperTypes.isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
@@ -561,12 +561,12 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.EPACKAGE__ECLASSIFIERS, EPackage.class, msgs);
+					return eContainer.eInverseRemove(this, EcorePackage.EPACKAGE__ECLASSIFIERS, EPackage.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**

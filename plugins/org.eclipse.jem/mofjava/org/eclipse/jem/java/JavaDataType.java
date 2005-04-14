@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaDataType.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.4 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import org.eclipse.emf.ecore.EClass;
 
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  *
  * @see org.eclipse.jem.java.JavaRefPackage#getJavaDataType()
- * @model 
+ * @model
  * @generated
  */
 public interface JavaDataType extends EClass, JavaHelpers{

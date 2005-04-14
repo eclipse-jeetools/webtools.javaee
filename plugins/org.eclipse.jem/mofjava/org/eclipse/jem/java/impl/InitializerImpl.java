@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: InitializerImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/04/14 19:05:33 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -199,12 +199,12 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.INITIALIZER__JAVA_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__INITIALIZERS, JavaClass.class, msgs);
+					return eContainer.eInverseRemove(this, JavaRefPackage.JAVA_CLASS__INITIALIZERS, JavaClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
