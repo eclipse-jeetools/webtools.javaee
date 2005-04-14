@@ -200,7 +200,7 @@ public class EARImportOperationTest extends OperationTestCase {
         return webLibs;
     }
 
-    protected static String getFullTestDataPath(String dataPath) {
+    public static String getFullTestDataPath(String dataPath) {
     	try {
     	  return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(),dataPath);
     	} catch(Exception e) {
