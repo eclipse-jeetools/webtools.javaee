@@ -71,7 +71,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		overwriteExisting = false;
 	}
 
-	private String getOutputDirectory(){
+	public String getOutputDirectory(){
 	    return "testOutput";
 	}
 	protected abstract ModuleImportOperationTestCase getImportTestCase();
