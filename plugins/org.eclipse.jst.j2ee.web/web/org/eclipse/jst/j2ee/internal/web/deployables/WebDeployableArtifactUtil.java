@@ -51,12 +51,11 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class WebDeployableArtifactUtil  {
+public class WebDeployableArtifactUtil {
 	private final static String[] extensionsToExclude = new String[]{"sql", "xmi"}; //$NON-NLS-1$ //$NON-NLS-2$
+	private final static String GENERIC_SERVLET_CLASS_TYPE = "javax.servlet.GenericServlet";
+	private final static String CACTUS_SERVLET_CLASS_TYPE = "org.apache.cactus.server.ServletTestRedirector";
 
-	/**
-	 * Constructor for WebDeployableObjectAdapter.
-	 */
 	public WebDeployableArtifactUtil() {
 		super();
 	}
@@ -89,8 +88,9 @@ public class WebDeployableArtifactUtil  {
 				}
 				WebType webType = ((Servlet) obj).getWebType();
 				if (webType.isJspType()) {
-					//TODO ArtifactWebEdit
-					//resource = ((IProject) resource).getFile(webNature.getModuleServerRootName() + "/" + ((JSPType) webType).getJspFile()); //$NON-NLS-1$
+					// TODO ArtifactWebEdit
+					// resource = ((IProject) resource).getFile(webNature.getModuleServerRootName()
+					// + "/" + ((JSPType) webType).getJspFile()); //$NON-NLS-1$
 				} else if (webType.isServletType()) {
 					return new WebResource(getModule(resource.getProject()), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 				}
@@ -99,14 +99,17 @@ public class WebDeployableArtifactUtil  {
 		if (resource == null)
 			return null;
 
-	/*	// find deployable
-		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
-		if (webNature == null)
-			return null;*/
+		/*
+		 * // find deployable IBaseWebNature webNature =
+		 * J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject()); if (webNature == null)
+		 * return null;
+		 */
 
 		if (resource instanceof IProject)
 			return new WebResource(getModule(resource.getProject()), new Path("")); //$NON-NLS-1$
 
+		if (isCatcusJunitTest(resource))
+			return null;
 		String className = getServletClassName(resource);
 		if (className != null) {
 			String mapping = getServletMapping(resource.getProject(), true, className);
@@ -120,9 +123,9 @@ public class WebDeployableArtifactUtil  {
 		}
 
 		// determine path
-		//TODO get webcontent name from module
-		//String name = getWebSettings().getWebContentName();
-		//getfolder() and path for now default to projectPath
+		// TODO get webcontent name from module
+		// String name = getWebSettings().getWebContentName();
+		// getfolder() and path for now default to projectPath
 		IPath rootPath = resource.getProjectRelativePath();
 		IPath resourcePath = resource.getProjectRelativePath();
 
@@ -138,8 +141,8 @@ public class WebDeployableArtifactUtil  {
 		if (shouldExclude(resource))
 			return null;
 
-		//Extension read to get the correct URL for Java Server Faces file if
-		//the jsp is of type jsfaces.
+		// Extension read to get the correct URL for Java Server Faces file if
+		// the jsp is of type jsfaces.
 		FileURL jspURL = FileURLExtensionReader.getInstance().getFilesURL();
 		if (jspURL != null) {
 			IPath correctJSPPath = jspURL.getFileURL(resource, resourcePath);
@@ -171,7 +174,7 @@ public class WebDeployableArtifactUtil  {
 	protected static IModule getModule(IProject project) {
 		IModule deployable = null;
 		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator();
-		
+
 		while (iterator.hasNext()) {
 			Object next = iterator.next();
 			if (next instanceof IModule) {
@@ -183,13 +186,36 @@ public class WebDeployableArtifactUtil  {
 		return null;
 	}
 
+
+	private static boolean isCatcusJunitTest(IResource resource) {
+		return getClassNameForType(resource, "org.apache.cactus.ServletTestCase") != null;
+	}
+
+
+
 	/**
-	 * If this resource is a servlet, return the class name. If not, return null.
+	 * Returns the types contained within this java element.
 	 * 
-	 * @param resource
-	 * @return java.lang.String
+	 * @param element
+	 *            com.ibm.jdt.core.api.IJavaElement
+	 * @return com.ibm.jdt.core.api.IType[]
 	 */
+	private static IType[] getTypes(IJavaElement element) {
+		try {
+			if (element.getElementType() != IJavaElement.COMPILATION_UNIT)
+				return null;
+
+			return ((ICompilationUnit) element).getAllTypes();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public static String getServletClassName(IResource resource) {
+		return getClassNameForType(resource, GENERIC_SERVLET_CLASS_TYPE);
+	}
+
+	public static String getClassNameForType(IResource resource, String superType) {
 		if (resource == null)
 			return null;
 
@@ -231,7 +257,7 @@ public class WebDeployableArtifactUtil  {
 			if (types != null) {
 				int size2 = types.length;
 				for (int i = 0; i < size2; i++) {
-					if (isServlet(types[i]))
+					if (hasSuperclass(types[i], superType))
 						return types[i].getFullyQualifiedName();
 				}
 			}
@@ -241,21 +267,19 @@ public class WebDeployableArtifactUtil  {
 		}
 	}
 
-	/**
-	 * Returns the types contained within this java element.
-	 * 
-	 * @param element
-	 *            com.ibm.jdt.core.api.IJavaElement
-	 * @return com.ibm.jdt.core.api.IType[]
-	 */
-	private static IType[] getTypes(IJavaElement element) {
+	public static boolean hasSuperclass(IType type, String superClassName) {
 		try {
-			if (element.getElementType() != IJavaElement.COMPILATION_UNIT)
-				return null;
+			ITypeHierarchy hierarchy = type.newSupertypeHierarchy(null);
+			IType[] superClasses = hierarchy.getAllSuperclasses(type);
 
-			return ((ICompilationUnit) element).getAllTypes();
+			int size = superClasses.length;
+			for (int i = 0; i < size; i++) {
+				if (superClassName.equals(superClasses[i].getFullyQualifiedName())) //$NON-NLS-1$
+					return true;
+			}
+			return false;
 		} catch (Exception e) {
-			return null;
+			return false;
 		}
 	}
 
