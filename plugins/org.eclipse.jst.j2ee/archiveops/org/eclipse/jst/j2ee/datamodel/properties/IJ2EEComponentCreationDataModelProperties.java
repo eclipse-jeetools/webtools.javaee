@@ -29,6 +29,11 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
 	 * type String, this property needs to be set if the value of the property ADD_TO_EAR  is set to <code>Boolean.TRUE</code>
 	 */
 	public static final String EAR_COMPONENT_NAME = "IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME"; //$NON-NLS-1$
+    /**
+     * type URI, this property needs to be set if the value of the property ADD_TO_EAR  is set to <code>Boolean.TRUE</code>.  Represents
+     * a handle to the EAR
+     */
+    public static final String EAR_COMPONENT_HANDLE = "IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE"; //$NON-NLS-1$
     
 	/**
 	 * type Boolean; the default value is <code>Boolean.TRUE</code>, this is UI only property

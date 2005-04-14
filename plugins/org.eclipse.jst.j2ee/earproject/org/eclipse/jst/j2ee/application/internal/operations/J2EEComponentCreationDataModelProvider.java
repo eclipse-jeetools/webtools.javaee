@@ -26,10 +26,6 @@ import org.eclipse.wst.server.core.IProjectProperties;
 import org.eclipse.wst.server.core.ServerCore;
 
 public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
-	/**
-	 * This  needs to be set up to ensure that other j2ee component is properly added as dependent component of ear 
-	 */
-	private URI earComponentHandle;
 
 	public void init() {
 		super.init();
@@ -48,7 +44,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		String[] props = new String[]{EAR_COMPONENT_NAME, ADD_TO_EAR, 
 				UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME,
                 NESTED_ADD_COMPONENT_TO_EAR_DM, NESTED_CLASSPATH_SELECTION_DM, NESTED_EAR_COMPONENT_CREATION_DM,
-                NESTED_UPDATE_MANIFEST_DM };
+                NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE };
 		return combineProperties(super.getPropertyNames(), props);
 	}
 
@@ -81,15 +77,15 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
             }
         }
         else if (propertyName.equals(EAR_COMPONENT_NAME)) {
-			earComponentHandle = computeEARHandle((String)propertyValue);
+			model.setProperty(EAR_COMPONENT_HANDLE, computeEARHandle((String)propertyValue));
 		} else if(propertyName.equals(COMPONENT_NAME)){
-			if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) 
-				getDataModel().notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
+			if (!model.isPropertySet(EAR_COMPONENT_NAME)) 
+				model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
         } else if (propertyName.equals(PROJECT_NAME)) {
 			WorkbenchComponent workbenchComp = getTargetWorkbenchComponent();
 			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp,propertyValue);
 		} else if (propertyName.equals(ADD_TO_EAR)) {
-			getDataModel().notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
 		}
 		//To do: after porting
 //		else if (propertyName.equals(J2EE_VERSION)) {
@@ -112,8 +108,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			catch (UnresolveableURIException e) {
 			}
 			if(isValidURI){
-				earComponentHandle = uri;
-				return earComponentHandle;
+				return uri;
 			}
 		}
 		return null;		
@@ -124,12 +119,12 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	protected void setEARComponentIfJ2EEModuleCreationOnly(WorkbenchComponent workbenchComp, Object propertyValue) {
         getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.ARCHIVE_MODULE, workbenchComp);
         getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
-				getDataModel().getStringProperty(PROJECT_NAME));
+                model.getStringProperty(PROJECT_NAME));
         getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,
-				getDataModel().getStringProperty(EAR_COMPONENT_NAME));
-		if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) {
-			String earModuleName = getDataModel().getStringProperty(EAR_COMPONENT_NAME);
-			getDataModel().notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
+                model.getStringProperty(EAR_COMPONENT_NAME));
+		if (!model.isPropertySet(EAR_COMPONENT_NAME)) {
+			String earModuleName = model.getStringProperty(EAR_COMPONENT_NAME);
+            model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
 
 		}
 		((UpdateManifestDataModel)model.getProperty(NESTED_UPDATE_MANIFEST_DM)).setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
@@ -168,8 +163,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	  return super.getValidPropertyDescriptors(propertyName);
 	}
 	
-	 private DataModelPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){
-	 	
+	 private DataModelPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){	 	
 		 StructureEdit mc = null;
 		 ArrayList earDescriptorList = new ArrayList();
 		 
@@ -357,13 +351,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 	
 	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
-
-	public URI getEarComponentHandle() {
-		return earComponentHandle;
-	}
-	public void setEarComponentHandle(URI earComponentHandle) {
-		this.earComponentHandle = earComponentHandle;
-	}
     
     protected abstract DataModelPropertyDescriptor[] getValidComponentVersionDescriptors();
 
