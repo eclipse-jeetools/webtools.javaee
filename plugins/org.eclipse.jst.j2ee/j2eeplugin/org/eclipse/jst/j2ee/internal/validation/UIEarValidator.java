@@ -23,9 +23,9 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -309,7 +309,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			try {
 				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
 						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently
-						ComponentResource[] components = component.findWorkbenchModuleResourceByDeployPath(URI.createURI(uri));
+						ComponentResource[] components = component.findResourcesByRuntimePath(new Path(uri));
 						if (rf == null || !rf.exists()) {
 							invalidClassPathEntryWarning(cp[i], uri, anArchive);
 						}
