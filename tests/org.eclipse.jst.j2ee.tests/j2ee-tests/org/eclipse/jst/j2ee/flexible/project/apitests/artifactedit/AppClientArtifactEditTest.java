@@ -28,6 +28,24 @@ public class AppClientArtifactEditTest extends TestCase {
 	private ArtifactEditModel artifactEditModelForRead;
 	private EditModelListener emListener;
 
+
+
+	public class ApplicationArtifactTestSub extends AppClientArtifactEdit {
+
+		public ApplicationArtifactTestSub(ArtifactEditModel anArtifactEditModel) {
+			super(anArtifactEditModel);
+		}
+
+		protected void addAppClientIfNecessary(XMLResource aResource) {
+			super.addAppClientIfNecessary(aResource);
+		}
+	}
+
+	public void testAddCleint() {
+		new ApplicationArtifactTestSub(null);
+
+	}
+
 	private IOperationHandler handler = new IOperationHandler() {
 
 
@@ -258,11 +276,11 @@ public class AppClientArtifactEditTest extends TestCase {
 			boolean testURI = uri.equals(TestWorkspace.APP_CLIENT_DD_XMI_RESOURCE_URI);
 			// assertTrue(uri.equals(TestWorkspace.APP_CLIENT_DD_XMI_RESOURCE_URI));
 
-		}catch(Exception e){
-			
-			//TODO
+		} catch (Exception e) {
+
+			// TODO
 		}
-		
+
 		finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -283,7 +301,7 @@ public class AppClientArtifactEditTest extends TestCase {
 			AppClientArtifactEdit edit2 = new AppClientArtifactEdit(getArtifactEditModelforRead()) {
 				protected void addAppClientIfNecessary(XMLResource aResource) {
 					super.addAppClientIfNecessary(aResource);
-				}			
+				}
 			};
 		} finally {
 			if (moduleCore != null) {
@@ -291,7 +309,7 @@ public class AppClientArtifactEditTest extends TestCase {
 				edit.dispose();
 			}
 		}
-	
+
 		pass(); // protected - not sure if needed
 	}
 
@@ -514,12 +532,12 @@ public class AppClientArtifactEditTest extends TestCase {
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
 			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(wbComponent);
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
-			 Object object = edit.getContentModelRoot();
+			Object object = edit.getContentModelRoot();
 			// assertNotNull(object);
 			pass();
 		} catch (Exception e) {
 			e.printStackTrace();
-			//fail(e.getMessage());
+			// fail(e.getMessage());
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
