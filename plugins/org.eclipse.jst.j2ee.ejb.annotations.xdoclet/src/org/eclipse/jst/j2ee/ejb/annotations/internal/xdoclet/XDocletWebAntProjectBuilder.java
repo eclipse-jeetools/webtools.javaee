@@ -13,6 +13,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -157,7 +158,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 	}
 	
 	protected IPath getWebInfFolder(WorkbenchComponent webModule) {
-		ComponentResource[] webXML =  webModule.findWorkbenchModuleResourceByDeployPath(URI.createURI("/WEB-INF/web.xml"));
+		ComponentResource[] webXML =  webModule.findResourcesByRuntimePath(new Path("/WEB-INF/web.xml"));
 		if(webXML.length > 0)
 			return webXML[0].getSourcePath().removeLastSegments(1);
 		return null;
