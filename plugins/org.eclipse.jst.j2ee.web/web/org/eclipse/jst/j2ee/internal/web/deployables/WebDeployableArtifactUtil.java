@@ -108,7 +108,7 @@ public class WebDeployableArtifactUtil {
 		if (resource instanceof IProject)
 			return new WebResource(getModule(resource.getProject()), new Path("")); //$NON-NLS-1$
 
-		if (isCatcusJunitTest(resource))
+		if (isCactusJunitTest(resource))
 			return null;
 		String className = getServletClassName(resource);
 		if (className != null) {
@@ -186,8 +186,12 @@ public class WebDeployableArtifactUtil {
 		return null;
 	}
 
-
-	private static boolean isCatcusJunitTest(IResource resource) {
+	/**
+	 * 
+	 * Very temporary api - 
+	 * TODO - rip this out by M5
+	 */
+	private static boolean isCactusJunitTest(IResource resource) {
 		return getClassNameForType(resource, "org.apache.cactus.ServletTestCase") != null;
 	}
 
