@@ -170,7 +170,7 @@ public class NewModuleGroup {
 		if (window == null)
 			return null;
 		ISelection selection = window.getSelectionService().getSelection();
-		if (selection == null)
+		if (selection == null || !(selection instanceof StructuredSelection))
 			return null;
 		StructuredSelection stucturedSelection = (StructuredSelection) selection;
 		Object obj = stucturedSelection.getFirstElement();
