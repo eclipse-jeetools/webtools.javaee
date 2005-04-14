@@ -192,7 +192,7 @@ public class WebDeployableArtifactUtil {
 	 * TODO - rip this out by M5
 	 */
 	private static boolean isCactusJunitTest(IResource resource) {
-		return getClassNameForType(resource, "org.apache.cactus.ServletTestCase") != null;
+		return getClassNameForType(resource, CACTUS_SERVLET_CLASS_TYPE) != null;
 	}
 
 
