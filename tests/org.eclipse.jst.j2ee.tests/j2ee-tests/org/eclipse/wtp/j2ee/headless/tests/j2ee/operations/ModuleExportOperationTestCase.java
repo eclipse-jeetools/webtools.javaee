@@ -14,6 +14,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
+import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBExportOperationTest;

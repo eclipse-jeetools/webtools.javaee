@@ -9,7 +9,6 @@ package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 import junit.framework.Test;
 
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.OperationTestCase;
 
 /**
  * @author jsholl
@@ -17,8 +16,12 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.OperationTestCase;
  * To change the template for this generated type comment go to Window&gt;Preferences&gt;Java&gt;Code
  * Generation&gt;Code and Comments
  */
-public class EARProjectCreationOperationTest extends OperationTestCase {
-    public static Test suite() {
+public class EARProjectCreationOperationTest extends org.eclipse.wst.common.tests.OperationTestCase {
+    public EARProjectCreationOperationTest(String string) {
+		super(string);
+	}
+
+	public static Test suite() {
         return new SimpleTestSuite(EARProjectCreationOperationTest.class);
     }
 

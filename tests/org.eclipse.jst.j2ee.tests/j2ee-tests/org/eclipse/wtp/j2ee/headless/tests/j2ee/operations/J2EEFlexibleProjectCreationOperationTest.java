@@ -5,6 +5,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
+import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 public class J2EEFlexibleProjectCreationOperationTest extends OperationTestCase {
