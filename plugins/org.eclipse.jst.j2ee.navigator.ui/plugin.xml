@@ -428,7 +428,7 @@
                <objectClass
                      name="org.eclipse.core.resources.IProject">
                </objectClass>
-               <or>
+               <!--<or>
                   <objectState
                         name="projectNature"
                         value="org.eclipse.jst.j2ee.EARNature">
@@ -449,7 +449,7 @@
                         name="projectNature"
                         value="org.eclipse.jst.j2ee.jca.ConnectorNature">
                   </objectState>
-               </or>
+               </or>-->
             </and>      
             <objectClass name="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper" />      
             </or>

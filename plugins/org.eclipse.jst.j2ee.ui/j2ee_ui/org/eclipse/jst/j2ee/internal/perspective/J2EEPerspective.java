@@ -17,8 +17,11 @@ import org.eclipse.ui.IPageLayout;
 public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 	protected static String ID_SERVERS_VIEW = "org.eclipse.wst.server.ui.ServersView"; //$NON-NLS-1$
-	protected static String ID_J2EE_HIERARCHY_VIEW = "org.eclipse.wst.navigator.ui.WTPCommonNavigator"; //$NON-NLS-1$
-
+	//protected static String ID_J2EE_HIERARCHY_VIEW = "org.eclipse.wst.navigator.ui.WTPCommonNavigator"; //$NON-NLS-1$
+	protected static String ID_J2EE_HIERARCHY_VIEW = "org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator"; //$NON-NLS-1$
+	
+	
+	
 	public J2EEPerspective() {
 		super();
 	}
