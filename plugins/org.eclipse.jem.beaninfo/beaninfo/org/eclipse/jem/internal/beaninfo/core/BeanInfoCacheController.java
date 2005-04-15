@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.5 $  $Date: 2005/03/18 20:28:26 $ 
+ *  $Revision: 1.6 $  $Date: 2005/04/15 18:49:08 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -1300,31 +1300,36 @@ public class BeanInfoCacheController {
 			if (rootIndex.classNameToClassEntry.isEmpty())
 				return false; // There are no classes, so get rid the entire root index.
 			else {
-				final Set validFiles = rootIndex.classNameToClassEntry.keySet(); // The keys (classnames) are the filenames (without extension) that
-																				 // should be kept.
+				final Set validFiles = rootIndex.classNameToClassEntry.keySet(); // The keys (classnames) are the filenames (without extension)
+																					// that
+				// should be kept.
 				File indexDir = getCacheDir(project).append(rootIndex.getRootName()).toFile();
 				// Get list of files that are not a valid name (used classname)
 				String[] fileNames = indexDir.list();
-				for (int i = 0; i < fileNames.length; i++) {
-					String fileName = fileNames[i];
-					if (fileName.endsWith(OVERRIDE_CACHE_SUFFIX)) {
-						// Ends with out class cache extension, see if valid classname.
-						String classname = fileName.substring(0, fileName.length()-OVERRIDE_CACHE_SUFFIX.length());
-						ClassEntry ce = (ClassEntry) rootIndex.classNameToClassEntry.get(classname);
-						if (ce != null && ce.overrideCacheExists())
-							continue;	// It is one of ours. Keep it.
-					} else if (fileName.endsWith(CLASS_CACHE_SUFFIX)) {
-						// Ends with out class cache extension, see if valid classname.
-						if (validFiles.contains(fileName.substring(0, fileName.length()-CLASS_CACHE_SUFFIX.length()))) // Strip down to just class and see if one of ours.
-							continue;	// It is one of ours. Keep it.
-					}
-					// Not valid, get rid of it.
-					File file = new File(indexDir, fileName);
-					if (file.isDirectory())
-						cleanDirectory(file, true);
-					else
-						file.delete();
+				if (fileNames != null) {
+					for (int i = 0; i < fileNames.length; i++) {
+						String fileName = fileNames[i];
+						if (fileName.endsWith(OVERRIDE_CACHE_SUFFIX)) {
+							// Ends with out class cache extension, see if valid classname.
+							String classname = fileName.substring(0, fileName.length() - OVERRIDE_CACHE_SUFFIX.length());
+							ClassEntry ce = (ClassEntry) rootIndex.classNameToClassEntry.get(classname);
+							if (ce != null && ce.overrideCacheExists())
+								continue; // It is one of ours. Keep it.
+						} else if (fileName.endsWith(CLASS_CACHE_SUFFIX)) {
+							// Ends with out class cache extension, see if valid classname.
+							if (validFiles.contains(fileName.substring(0, fileName.length() - CLASS_CACHE_SUFFIX.length()))) // Strip down to just
+																																// class and see if
+																																// one of ours.
+								continue; // It is one of ours. Keep it.
+						}
+						// Not valid, get rid of it.
+						File file = new File(indexDir, fileName);
+						if (file.isDirectory())
+							cleanDirectory(file, true);
+						else
+							file.delete();
 
+					}
 				}
 				return true;
 			}
