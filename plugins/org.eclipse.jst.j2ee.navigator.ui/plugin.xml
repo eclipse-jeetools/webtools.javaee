@@ -530,7 +530,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.web"
                   icon = "icons\webgroup_obj.gif"
-                  label = "Web Projects">
+                  label = "Dynamic Web Projects">
              </componentWorkingSet>
       </extension>
       <extension 
@@ -539,7 +539,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.ear"
                   icon = "icons\eargroup_obj.gif"
-                  label = "Ear Projects">
+                  label = "Enterprise Applications">
              </componentWorkingSet>
       </extension>
       
