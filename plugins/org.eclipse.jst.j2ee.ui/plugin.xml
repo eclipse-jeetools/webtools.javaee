@@ -678,6 +678,9 @@
             wizardId="org.eclipse.jst.j2ee.ui.AppClientComponentCreationWizard">
          <enablement>
          <or>
+               <objectClass 
+              		name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
+               </objectClass>
                <objectClass
 	                  name="org.eclipse.core.resources.IWorkspaceRoot">
 	           </objectClass>

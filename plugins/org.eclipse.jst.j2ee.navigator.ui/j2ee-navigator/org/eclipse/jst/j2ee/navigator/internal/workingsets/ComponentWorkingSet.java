@@ -9,11 +9,14 @@ package org.eclipse.jst.j2ee.navigator.internal.workingsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.Assert;
+import org.eclipse.ui.IActionFilter;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IWorkingSet;
@@ -34,9 +37,11 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ComponentWorkingSet extends WorkingSet {
+public class ComponentWorkingSet extends WorkingSet implements IActionFilter{
 	
 	static final String FACTORY_ID = "org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"; //$NON-NLS-1$
+	
+	private static final String COMPONENT_TYPE_ID = "componentTypeId"; //$NON-NLS-1$
 	
 	public static final String COMPONENT_WORKING_SET_ID = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage";
 	
@@ -151,7 +156,7 @@ public class ComponentWorkingSet extends WorkingSet {
                 || adapter == IPersistableElement.class) {
             return this;
         }
-        return null;
+		return InternalPlatform.getDefault().getAdapterManager().getAdapter(this, adapter);
     }
 
     /* (non-Javadoc)
@@ -284,7 +289,7 @@ public class ComponentWorkingSet extends WorkingSet {
     
     public void connect(IWorkingSetManager manager) {
 		// TODO Should be re-added. MDE
-    	// Assert.isTrue(this.manager == null, "A working set can only be connected to one manager"); //$NON-NLS-1$
+    	Assert.isTrue(this.manager == null, "A working set can only be connected to one manager"); //$NON-NLS-1$
     	this.manager= manager;
     }
     
@@ -323,8 +328,12 @@ public class ComponentWorkingSet extends WorkingSet {
 			List result= new ArrayList();
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 			for (int i= 0; i < projects.length; i++) {
-				if (containsModuleType(projects[i],this.getTypeId())) {
-					result.add(projects[i]);
+				try {
+					if (containsModuleType(projects[i],this.getTypeId())) {
+						result.add(projects[i]);
+					}
+				} catch (Exception ex) {
+					Logger.getLogger().logError(ex);
 				}
 			}
 			this.setElements((IAdaptable[])result.toArray(new IAdaptable[result.size()]));
@@ -338,27 +347,39 @@ public class ComponentWorkingSet extends WorkingSet {
 	 */
 	private boolean containsModuleType(IProject project, String typeId) {
 		boolean bReturn = false;
-		if (project.isAccessible()) {
-			synchronized (this) {
-				StructureEdit moduleCore = null;
-				try {
-					moduleCore = StructureEdit.getStructureEditForRead(project);
-					WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
-				    for (int i = 0; i < workBenchModules.length; i++) {
-		                 WorkbenchComponent module = workBenchModules[i];
-		                 ComponentType componentType = module.getComponentType() ;
-		                 if (typeId.equals(componentType.getComponentTypeId())) {
-		                 	bReturn = true;
-		                 	break;
-		                 }
-				    }
-				} finally {
-					if (moduleCore != null)
-					 moduleCore.dispose();
+		try {
+			if (project.isAccessible()) {
+				synchronized (this) {
+					StructureEdit moduleCore = null;
+					try {
+						moduleCore = StructureEdit.getStructureEditForRead(project);
+						if (moduleCore == null) return false;
+						WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
+					    for (int i = 0; i < workBenchModules.length; i++) {
+			                 WorkbenchComponent module = workBenchModules[i];
+			                 ComponentType componentType = module.getComponentType() ;
+			                 if (typeId.equals(componentType.getComponentTypeId())) {
+			                 	bReturn = true;
+			                 	break;
+			                 }
+					    }
+					} finally {
+						if (moduleCore != null)
+						 moduleCore.dispose();
+					}
 				}
 			}
+		} catch (Exception ex) {
+			Logger.getLogger().logError(ex);
 		}
 		return bReturn;
+	}
+
+	public boolean testAttribute(Object target, String name, String value) {
+		if (COMPONENT_TYPE_ID.equals(name))
+			return getTypeId().equals(value);
+		return false;
+		
 	}
 	
 	

@@ -86,5 +86,13 @@
             viewerId="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
       </navigatorViewer>
    </extension>
+   
+   <extension
+         point="org.eclipse.wst.common.navigator.views.navigatorViewer">
+      <navigatorViewer
+            rootContentExtensionId="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
+            viewerId="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
+      </navigatorViewer>
+   </extension>
 	
 </plugin>

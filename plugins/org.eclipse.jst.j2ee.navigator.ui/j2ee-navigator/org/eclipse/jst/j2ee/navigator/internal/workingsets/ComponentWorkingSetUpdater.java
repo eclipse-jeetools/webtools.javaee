@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetUpdater;
 import org.eclipse.wst.common.componentcore.StructureEdit;
@@ -99,12 +100,13 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 	 */
 	private boolean containsModuleType(IProject project, String typeId) {
 		boolean bReturn = false;
-		
+		try {
 		if (project.isAccessible()) {
 			synchronized (this) {
 				StructureEdit moduleCore = null;
 				try {
 					moduleCore = StructureEdit.getStructureEditForRead(project);
+					if (moduleCore == null) return false;
 					WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
 				    for (int i = 0; i < workBenchModules.length; i++) {
 		                 WorkbenchComponent module = workBenchModules[i];
@@ -119,6 +121,9 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 						moduleCore.dispose();
 				}
 			}
+		}
+		} catch (Exception ex) {
+			Logger.getLogger().logError(ex);
 		}
 		return bReturn;
 	}
