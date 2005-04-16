@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -53,8 +52,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(javaProject.getProject());
 			WorkbenchComponent wbModule = null;
-			URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
-			ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(sourcePath);
+			ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(resource.getFullPath());
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)

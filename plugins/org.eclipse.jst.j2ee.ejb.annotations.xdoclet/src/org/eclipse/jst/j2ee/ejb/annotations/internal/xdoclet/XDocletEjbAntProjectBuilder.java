@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -93,8 +92,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 			WorkbenchComponent ejbModule = null;
-			URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
-			ComponentResource[] moduleResources = core.findResourcesBySourcePath(sourcePath);
+			ComponentResource[] moduleResources = core.findResourcesBySourcePath(resource.getFullPath());
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)

@@ -20,7 +20,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -36,7 +35,6 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
-
 public abstract class XDocletAntProjectBuilder {
 
 	protected URL templateUrl;
@@ -48,33 +46,38 @@ public abstract class XDocletAntProjectBuilder {
 			StructureEdit moduleCore = null;
 			WorkbenchComponent wbModule = null;
 			try {
-				moduleCore = StructureEdit.getStructureEditForRead(resource.getProject());
-				URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
-				ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(sourcePath);
-				for (int i=0; i<moduleResources.length; i++) {
+				moduleCore = StructureEdit.getStructureEditForRead(resource
+						.getProject());
+				ComponentResource[] moduleResources = moduleCore
+						.findResourcesBySourcePath(resource.getFullPath());
+				for (int i = 0; i < moduleResources.length; i++) {
 					ComponentResource moduleResource = moduleResources[i];
-					if (moduleResource!=null)
+					if (moduleResource != null)
 						wbModule = moduleResource.getComponent();
-					if (wbModule!=null)
+					if (wbModule != null)
 						break;
 				}
-				String moduleType = wbModule.getComponentType().getComponentTypeId();
-				if(moduleType.equals(IModuleConstants.JST_EJB_MODULE))
-					return new XDocletEjbAntProjectBuilder();
-				else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
-					return new XDocletWebAntProjectBuilder();
+				if (wbModule != null) {
+					String moduleType = wbModule.getComponentType()
+							.getComponentTypeId();
+					if (moduleType.equals(IModuleConstants.JST_EJB_MODULE))
+						return new XDocletEjbAntProjectBuilder();
+					else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
+						return new XDocletWebAntProjectBuilder();
+				}
 			} catch (UnresolveableURIException e) {
 				e.printStackTrace();
 			} finally {
-				if (moduleCore!=null)
+				if (moduleCore != null)
 					moduleCore.dispose();
 				if (webEdit != null)
 					webEdit.dispose();
 			}
 			return null;
 		}
-		
+
 	}
+
 	public XDocletAntProjectBuilder() {
 		super();
 	}
@@ -91,7 +94,8 @@ public abstract class XDocletAntProjectBuilder {
 		return buf.toString();
 	}
 
-	protected String[] createClassPath(IJavaProject project) throws CoreException {
+	protected String[] createClassPath(IJavaProject project)
+			throws CoreException {
 		String[] cp = JavaRuntime.computeDefaultRuntimeClassPath(project);
 		return cp;
 	}
@@ -107,7 +111,8 @@ public abstract class XDocletAntProjectBuilder {
 		try {
 			IPackageFragmentRoot packageFragmentRoot = this
 					.getPackageFragmentRoot(compilationUnit);
-			String beanPath = constructAnnotatedClassList(packageFragmentRoot, beanClass);
+			String beanPath = constructAnnotatedClassList(packageFragmentRoot,
+					beanClass);
 
 			Properties properties = createAntBuildProperties(beanClass,
 					javaProject, packageFragmentRoot, beanPath);
@@ -118,25 +123,25 @@ public abstract class XDocletAntProjectBuilder {
 					.getParent().getLocation(), properties, templates);
 			antLauncher.setUseLauncher(true);
 			antLauncher.launch(getTaskName(), monitor);
-			this.refreshProjects(beanClass.getProject(),monitor);
+			this.refreshProjects(beanClass.getProject(), monitor);
 		} catch (Exception e) {
 			Logger.logException(e);
 		}
 	}
 
-
-
 	protected abstract String getTaskName();
-	protected abstract void refreshProjects(IProject project, IProgressMonitor monitor) throws CoreException;
-	
-	protected abstract HashMap createTemplates(String beanPath); 
+
+	protected abstract void refreshProjects(IProject project,
+			IProgressMonitor monitor) throws CoreException;
+
+	protected abstract HashMap createTemplates(String beanPath);
+
 	protected abstract Properties createAntBuildProperties(IResource resource,
 			IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot,
-			String beanPath) ;
+			String beanPath);
 
-	protected abstract String constructAnnotatedClassList(IPackageFragmentRoot root,
-			IResource changedBean); 
-
+	protected abstract String constructAnnotatedClassList(
+			IPackageFragmentRoot root, IResource changedBean);
 
 	/**
 	 * @param path2
@@ -177,6 +182,5 @@ public abstract class XDocletAntProjectBuilder {
 		return ((IContainer) proj.getProject()).getFolder(
 				path.removeFirstSegments(1)).getProjectRelativePath();
 	}
-
 
 }
