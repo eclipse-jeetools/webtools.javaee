@@ -17,30 +17,38 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
+import org.eclipse.jdt.internal.ui.viewsupport.IViewPartInputProvider;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -55,6 +63,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
@@ -63,6 +73,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
@@ -213,23 +224,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		new Label(parent, SWT.NONE);
 	}
 	
-	/**
-	 * @return
-	 */
-	private IProject getSelectedProject() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-		if (window == null)
-			return null;
-		ISelection selection = window.getSelectionService().getSelection();
-		if (selection == null)
-			return null;
-		StructuredSelection stucturedSelection = (StructuredSelection) selection;
-		Object obj = stucturedSelection.getFirstElement();
-		if (obj instanceof IProject)
-			return (IProject) obj;
-		return null;
-	}
-	
+
 	/**
 	 * 
 	 */
@@ -305,6 +300,12 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		packageText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		packageText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		IPackageFragment packageFragment = getSelectedPackageFragment();
+		if (packageFragment!=null && packageFragment.exists() ) {
+			projectNameCombo.setText(packageFragment.getElementName());
+			model.setProperty(NewJavaClassDataModel.JAVA_PACKAGE,packageFragment.getElementName());
+		}
+			
 		synchHelper.synchText(packageText, NewJavaClassDataModel.JAVA_PACKAGE, null);
 
 		packageButton = new Button(composite, SWT.PUSH);
@@ -527,4 +528,110 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		annotationsGroup.setEnablement(project);
 		//annotationsGroup.setUseAnnotations(true);
 	}
+	
+	/**
+	 * @return
+	 */
+	private IProject getSelectedProject() {
+		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null)
+			return null;
+		//StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		IJavaElement element = getInitialJavaElement(selection);
+		if (element != null)
+			return (IProject) element.getJavaProject().getProject();
+		return null;
+	}
+	/**
+	 * @return
+	 */
+	private IPackageFragment getSelectedPackageFragment() {
+		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null)
+			return null;
+		//StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		IJavaElement element = getInitialJavaElement(selection);
+		if (element != null){
+			if( element.getElementType() == IJavaElement.PACKAGE_FRAGMENT)
+				return (IPackageFragment) element;
+			else if( element.getElementType() == IJavaElement.TYPE ){
+				return ((IType)element).getPackageFragment();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Utility method to inspect a selection to find a Java element. 
+	 * 
+	 * @param selection the selection to be inspected
+	 * @return a Java element to be used as the initial selection, or <code>null</code>,
+	 * if no Java element exists in the given selection
+	 */
+	protected IJavaElement getInitialJavaElement(ISelection selection) {
+		IJavaElement jelem= null;
+		if (selection != null && !selection.isEmpty()  && selection instanceof IStructuredSelection ) {
+			Object selectedElement= ((IStructuredSelection)selection).getFirstElement();
+			if (selectedElement instanceof IAdaptable) {
+				IAdaptable adaptable= (IAdaptable) selectedElement;			
+				
+				jelem= (IJavaElement) adaptable.getAdapter(IJavaElement.class);
+				if (jelem == null) {
+					IResource resource= (IResource) adaptable.getAdapter(IResource.class);
+					if (resource != null && resource.getType() != IResource.ROOT) {
+						while (jelem == null && resource.getType() != IResource.PROJECT) {
+							resource= resource.getParent();
+							jelem= (IJavaElement) resource.getAdapter(IJavaElement.class);
+						}
+						if (jelem == null) {
+							jelem= JavaCore.create(resource); // java project
+						}
+					}
+				}
+			}
+		}
+		if (jelem == null) {
+			IWorkbenchPart part= JavaPlugin.getActivePage().getActivePart();
+			if (part instanceof ContentOutline) {
+				part= JavaPlugin.getActivePage().getActiveEditor();
+			}
+			
+			if (part instanceof IViewPartInputProvider) {
+				Object elem= ((IViewPartInputProvider)part).getViewPartInput();
+				if (elem instanceof IJavaElement) {
+					jelem= (IJavaElement) elem;
+				}
+			}
+		}
+
+		if (jelem == null || jelem.getElementType() == IJavaElement.JAVA_MODEL) {
+			try {
+				IJavaProject[] projects= JavaCore.create(getWorkspaceRoot()).getJavaProjects();
+				if (projects.length == 1) {
+					jelem= projects[0];
+				}
+			} catch (JavaModelException e) {
+				JavaPlugin.log(e);
+			}
+		}
+		return jelem;
+	}
+	
+	protected IWorkspaceRoot getWorkspaceRoot() {
+	        return ResourcesPlugin.getWorkspace().getRoot();
+	}
+	 
+	private IWorkbenchPage internalGetActivePage() {
+		IWorkbenchWindow window= J2EEUIPlugin.getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		return J2EEUIPlugin.getActiveWorkbenchWindow().getActivePage();
+	}
+		
 }
