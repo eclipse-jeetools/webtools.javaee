@@ -12,13 +12,9 @@ package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
@@ -27,6 +23,7 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.BeanFactory;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.classgen.EjbBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
@@ -77,10 +74,9 @@ public class AddSessionBeanOperation extends WTPOperation {
 		
 		
 		try {
-			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
-			String builderId = configurationElements[0].getAttribute("builderId");
-			addToEndOfBuildSpec( ejbClassModel.getTargetProject(),  configurationElements[0].getNamespace() + "."+builderId);
-			EjbEmitter ejbEmitter = new SessionEjbEmitter(configurationElements[0]);
+			IConfigurationElement preferredAnnotation = AnnotationUtilities.getPreferredAnnotationEmitter();
+			AnnotationUtilities.addAnnotationBuilderToProject(preferredAnnotation,ejbClassModel.getTargetProject());
+			EjbEmitter ejbEmitter = new SessionEjbEmitter(preferredAnnotation);
 			ejbEmitter.setMonitor(monitor);
 
 			String comment = ejbEmitter.emitTypeComment(delegate);
@@ -91,7 +87,7 @@ public class AddSessionBeanOperation extends WTPOperation {
 			
 		
 			EjbBuilder ejbBuilder = new EjbBuilder();
-			ejbBuilder.setConfigurationElement(configurationElements[0]);
+			ejbBuilder.setConfigurationElement(preferredAnnotation);
 			ejbBuilder.setMonitor(monitor);
 			ejbBuilder.setPackageFragmentRoot(ejbClassModel.getJavaPackageFragmentRoot());
 			ejbBuilder.setEnterpriseBeanDelegate(delegate);
@@ -105,48 +101,12 @@ public class AddSessionBeanOperation extends WTPOperation {
 				
 			ejbBuilder.createType();
 			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
 	}
 
-	/**
-	 * Adds a builder to the build spec for the given project.
-	 */
-	protected void addToEndOfBuildSpec(IProject project, String builderID) throws CoreException {
-		IProjectDescription description = project.getDescription();
-		ICommand[] commands = description.getBuildSpec();
-		boolean found = false;
-		for (int i = 0; i < commands.length; ++i) {
-			if (commands[i].getBuilderName().equals(builderID)) {
-				found = true;
-				break;
-			}
-		}
-		if (!found) {
-			ICommand command = description.newCommand();
-			command.setBuilderName(builderID);
-			ICommand[] newCommands = new ICommand[commands.length + 1];
-			System.arraycopy(commands, 0, newCommands, 0, commands.length);
-			newCommands[commands.length] = command;
-			IProjectDescription desc = project.getDescription();
-			desc.setBuildSpec(newCommands);
-			project.setDescription(desc, null);
-		}
-	}
+
 
 }

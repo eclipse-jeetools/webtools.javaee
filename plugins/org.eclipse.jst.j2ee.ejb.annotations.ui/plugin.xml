@@ -68,8 +68,8 @@
             name="%ejb.createbean_ui_"
             icon="icons/full/ctool16/newejb_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard"
-            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
+            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard"
+            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard">
          <description>
             %new.ejb.description_ui_
          </description>
@@ -80,7 +80,7 @@
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
           <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
+            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards.AddEjbWizard">
          <enablement>
          <or>
             <and>
@@ -96,5 +96,18 @@
          </enablement>
        </commonWizard>
       </extension> 
+<!--================================-->
+<!-- ANNOTATION PREFERNCES   -->
+<!--================================-->
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+     <page
+            name="J2EE Annotations"
+             class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences.AnnotationPreferencePage"
+            id="org.eclipse.jst.j2ee.ejb.annotation.ui.preferences">
+      </page>
+ 
+    </extension>
   
 </plugin>

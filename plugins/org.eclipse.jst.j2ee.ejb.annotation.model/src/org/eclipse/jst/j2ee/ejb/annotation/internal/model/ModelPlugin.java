@@ -12,11 +12,14 @@ package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 
-public class ModelPlugin extends Plugin {
+public class ModelPlugin extends AbstractUIPlugin {
+	
+	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotation.model";
+
 	//The shared instance.
 	private static ModelPlugin plugin;
 	//Resource bundle.

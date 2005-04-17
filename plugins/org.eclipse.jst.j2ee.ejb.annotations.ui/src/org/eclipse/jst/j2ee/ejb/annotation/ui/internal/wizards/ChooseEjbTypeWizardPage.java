@@ -1,11 +1,14 @@
 /**
  * 
  */
-package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
+package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -13,7 +16,9 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
@@ -26,6 +31,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 
 	protected Button sessionType;
 	protected Button messageDrivenType;
+	protected Combo  annotationProvider;
 
 	
 	protected ChooseEjbTypeWizardPage(WTPOperationDataModel model, String pageName) {
@@ -50,6 +56,8 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 		aComposite.setSize(aComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		aComposite.setFont(parent.getFont());
 		createEjbTypeGroup(aComposite);
+		createAnnotationProviderGroup(aComposite);
+		
 		setControl(aComposite);
 		return aComposite;
 
@@ -109,14 +117,64 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 			}});
 		
 	}
-	
+	protected void createAnnotationProviderGroup(Composite parent) {
+		Composite annotationGroup = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(2,false);
+		annotationGroup.setLayout(layout);
+		annotationGroup.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
+
+		Label label = new Label(annotationGroup, SWT.WRAP);
+		label.setText("Annotation Provider:");
+		label.setToolTipText("Choose the annotation provider that will be used to create java classes and J2EE artifacts");
+		
+		annotationProvider = new Combo(annotationGroup, SWT.RADIO);
+		String[] provider = AnnotationUtilities.getProviderNames();
+		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
+		ChooseEjbTypeWizardPage.this.model.setProperty(EjbCommonDataModel.ANNOTATIONPROVIDER,preferred);
+		for (int i = 0; i < provider.length; i++) {
+			String name = provider[i];
+			annotationProvider.add(name);
+			if( preferred.equals(name))
+				annotationProvider.select(i);
+			
+		}
+		annotationProvider.addSelectionListener(new SelectionListener(){
+
+			public void widgetSelected(SelectionEvent e) {
+				String provider = annotationProvider.getText();
+				ChooseEjbTypeWizardPage.this.model.setProperty(EjbCommonDataModel.ANNOTATIONPROVIDER,provider);
+				IAnnotationProvider  annotationProvider = null;
+				try {
+					annotationProvider = AnnotationUtilities.findAnnotationProviderByName(provider);
+				} catch (Exception ex) {
+				}
+				if( annotationProvider != null && annotationProvider.isValid())
+					ChooseEjbTypeWizardPage.this.setErrorMessage("");
+				else
+					ChooseEjbTypeWizardPage.this.setErrorMessage("Annotation provider definition is not valid, please check the preferences. ");
+
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				this.widgetSelected(e);
+			}});
+		
+	}	
 	public String getEJBType()
 	{
 		return model.getStringProperty(EjbCommonDataModel.EJB_TYPE);
 	}
 	
 	public boolean isPageComplete() {
-		return true;
+		String provider = annotationProvider.getText();
+		IAnnotationProvider  annotationProvider = null;
+		try {
+			annotationProvider = AnnotationUtilities.findAnnotationProviderByName(provider);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return ( annotationProvider != null && annotationProvider.isValid());
 	}
 	
 	

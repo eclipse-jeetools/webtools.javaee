@@ -39,6 +39,8 @@ public class EjbCommonDataModel extends
 
 	public static final String TRANSACTIONTYPE = "EjbCommonDataModel.TRANSACTIONTYPE";
 
+	public static final String ANNOTATIONPROVIDER = "EjbCommonDataModel.ANNOTATIONPROVIDER";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -63,6 +65,7 @@ public class EjbCommonDataModel extends
 		addValidBaseProperty(CLASS_NAME);
 		addValidBaseProperty(STATELESS);
 		addValidBaseProperty(TRANSACTIONTYPE);
+		addValidBaseProperty(ANNOTATIONPROVIDER);
 	}
 
 	/*

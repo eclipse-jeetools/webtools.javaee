@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.emitter">
+<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.provider">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter" id="emitter" name="emitter"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.provider" id="provider" name="provider"/>
       </appInfo>
       <documentation>
-         This extension point allows vendors and developers to provide their templates for ejb code generation using the Lomboz emitter framework.
+         This extension point allows vendors and developers to provide their templates for annotation based code generation using the wtp framework.
       </documentation>
    </annotation>
 
@@ -14,6 +14,7 @@
       <complexType>
          <sequence>
             <element ref="emitter"/>
+            <element ref="provider"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -62,7 +63,7 @@
                </documentation>
             </annotation>
          </attribute>
-          <attribute name="ejbIntrospector" type="string" use="required">
+         <attribute name="ejbIntrospector" type="string" use="required">
             <annotation>
                <documentation>
                   
@@ -91,6 +92,32 @@
             </annotation>
          </attribute>
          <attribute name="messageTemplates" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="provider">
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="emitter" type="string" use="required">
             <annotation>
                <documentation>
                   

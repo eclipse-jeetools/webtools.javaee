@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
+package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 public interface IEJBUIContextIds {
 

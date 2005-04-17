@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.emitter">
+<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.provider">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter.org.eclipse.jst.j2ee.ejb.annotations.emitter" id="classpathProvider" name="EmitterClasspathProvider"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.provider.org.eclipse.jst.j2ee.ejb.annotations.provider" id="classpathProvider" name="EmitterClasspathProvider"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]

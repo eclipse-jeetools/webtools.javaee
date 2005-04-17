@@ -6,7 +6,7 @@
  * 
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
+package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 
 import org.eclipse.core.resources.IProject;
@@ -17,12 +17,15 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataM
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.NewEJBJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddEjbOperation;
+import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
 
 
 public class AddEjbWizard extends NewEjbWizard {
@@ -61,7 +64,7 @@ public class AddEjbWizard extends NewEjbWizard {
 		model.addNestedModel("NewEJBJavaClassDataModel", new NewEJBJavaClassDataModel());
 		NewEJBJavaClassDataModel nestedModel = ((EjbCommonDataModel)model).getJavaClassModel();
 		
-		SessionBeanDataModel sessionBeanDataModel = new SessionBeanDataModel();
+		final SessionBeanDataModel sessionBeanDataModel = new SessionBeanDataModel();
 		model.addNestedModel("SessionBeanDataModel", sessionBeanDataModel); //$NON-NLS-1$
 		sessionBeanDataModel.addNestedModel("NewEJBJavaClassDataModel", nestedModel);
 		
@@ -69,7 +72,7 @@ public class AddEjbWizard extends NewEjbWizard {
 		nestedModel.setProperty(NewJavaClassDataModel.INTERFACES, sessionBeanDataModel.getEJBInterfaces());
 		nestedModel.setBooleanProperty(NewJavaClassDataModel.MODIFIER_ABSTRACT,true);
 		
-		MessageDrivenBeanDataModel messageDrivenBeanDataModel = new MessageDrivenBeanDataModel();
+		final MessageDrivenBeanDataModel messageDrivenBeanDataModel = new MessageDrivenBeanDataModel();
 		model.addNestedModel("MessageDrivenBeanDataModel", messageDrivenBeanDataModel); //$NON-NLS-1$
 		messageDrivenBeanDataModel.addNestedModel("NewEJBJavaClassDataModel", nestedModel);
 		
@@ -80,6 +83,28 @@ public class AddEjbWizard extends NewEjbWizard {
 		    messageDrivenBeanDataModel.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
 			nestedModel.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
 		}
+		
+		nestedModel.addListener(new WTPOperationDataModelListener(){
+
+			public void propertyChanged(WTPOperationDataModelEvent event) {
+				if( NewJavaClassDataModel.CLASS_NAME.equals(event.getPropertyName()))
+				{
+					String className = (String)event.getProperty();
+					int i = className.toLowerCase().indexOf("bean");
+					if(i < 0 )
+						i= className.toLowerCase().indexOf("ejb");
+					if( i >= 0)
+						className = className.substring(0,i);
+					if( className.length() > 0 ){
+						sessionBeanDataModel.setProperty(SessionBeanDataModel.EJB_NAME,className);
+						sessionBeanDataModel.setProperty(SessionBeanDataModel.JNDI_NAME,className);
+						sessionBeanDataModel.setProperty(SessionBeanDataModel.DISPLAY_NAME,className);
+						messageDrivenBeanDataModel.setProperty(MessageDrivenBeanDataModel.EJB_NAME,className);
+						messageDrivenBeanDataModel.setProperty(MessageDrivenBeanDataModel.DISPLAY_NAME,className);
+						messageDrivenBeanDataModel.setProperty(MessageDrivenBeanDataModel.JNDI_NAME,className);
+					}
+				}
+			}});
 		return model;
 	}
 	

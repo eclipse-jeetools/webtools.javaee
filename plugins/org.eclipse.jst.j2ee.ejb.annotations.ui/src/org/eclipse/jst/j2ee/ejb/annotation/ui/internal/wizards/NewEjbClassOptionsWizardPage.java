@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
+package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
