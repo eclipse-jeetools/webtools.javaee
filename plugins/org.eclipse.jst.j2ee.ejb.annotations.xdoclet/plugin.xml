@@ -33,6 +33,7 @@
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
    </requires>
 
    <extension point="org.eclipse.core.resources.builders"
@@ -49,6 +50,7 @@
          point="org.eclipse.ui.preferencePages">
      <page
             name="XDoclet"
+            category="org.eclipse.jst.j2ee.ejb.annotation.ui.preferences"
              class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference">
       </page>
@@ -73,6 +75,11 @@
             messageTemplates="templates/ejb/message"
             sessionTemplates="templates/ejb/session">
       </emitter>
+      <provider
+            name="XDoclet"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider" 
+            emitter="XDoclet" >
+       </provider>
    </extension>
 
     <!-- ================================================ -->

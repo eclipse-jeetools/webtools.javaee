@@ -61,7 +61,7 @@ public class XDoxletAnnotationUtil {
 	
 	public static boolean isXDocletAnnotatedEjbClass(IJavaElement compilationUnit) {
 		if (compilationUnit != null && compilationUnit.getElementType() == IJavaElement.COMPILATION_UNIT){
-			ASTParser parser = ASTParser.newParser(AST.JLS2);
+			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource((ICompilationUnit)compilationUnit);
 			CompilationUnit ast = (CompilationUnit) parser.createAST(null);
 			XDoxletAnnotationUtil.XDocletFinder docletFinder = new XDoxletAnnotationUtil.XDocletFinder(true);
@@ -72,7 +72,7 @@ public class XDoxletAnnotationUtil {
 	}
 	public static boolean isXDocletAnnotatedWebClass(IJavaElement compilationUnit) {
 		if (compilationUnit != null && compilationUnit.getElementType() == IJavaElement.COMPILATION_UNIT){
-			ASTParser parser = ASTParser.newParser(AST.JLS2);
+			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource((ICompilationUnit)compilationUnit);
 			CompilationUnit ast = (CompilationUnit) parser.createAST(null);
 			XDoxletAnnotationUtil.XDocletFinder docletFinder = new XDoxletAnnotationUtil.XDocletFinder(true);
@@ -83,7 +83,7 @@ public class XDoxletAnnotationUtil {
 	}
 	public static boolean isXDocletAnnotated(IJavaElement compilationUnit) {
 		if (compilationUnit != null && compilationUnit.getElementType() == IJavaElement.COMPILATION_UNIT){
-			ASTParser parser = ASTParser.newParser(AST.JLS2);
+			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource((ICompilationUnit)compilationUnit);
 			CompilationUnit ast = (CompilationUnit) parser.createAST(null);
 			XDoxletAnnotationUtil.XDocletFinder docletFinder = new XDoxletAnnotationUtil.XDocletFinder(true);

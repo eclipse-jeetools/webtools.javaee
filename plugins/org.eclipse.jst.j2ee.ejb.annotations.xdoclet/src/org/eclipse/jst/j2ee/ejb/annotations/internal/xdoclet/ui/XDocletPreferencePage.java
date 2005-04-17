@@ -122,10 +122,10 @@ public class XDocletPreferencePage extends PreferencePage implements
 				IStatus []result = runtime.validate(xDocletVersion.getItem(xDocletVersion.getSelectionIndex()));
 				if(result.length > 0){
 					XDocletPreferencePage.this.setErrorMessage(result[0].getMessage());
-					XDocletPreferencePage.this.setValid(false);
+					//XDocletPreferencePage.this.setValid(false);
 				}else{
 					setMessage("All libraries found", IMessageProvider.INFORMATION);
-					XDocletPreferencePage.this.setValid(true);
+					//XDocletPreferencePage.this.setValid(true);
 				}
 				
 			}};
@@ -135,18 +135,6 @@ public class XDocletPreferencePage extends PreferencePage implements
 		return composite;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.preference.PreferencePage#isValid()
-	 */
-	public boolean isValid() {
-		XDocletRuntime runtime = new XDocletRuntime();
-		Text xdocletPath = (Text)panel.preferences[2];
-		Combo xdocletVersion = (Combo)panel.preferences[1];
-		runtime.setHome(xdocletPath.getText());
-		IStatus []result = runtime.validate(xdocletVersion.getItem(xdocletVersion.getSelectionIndex()));		
-		return result.length == 0;
-	}
 
 	public boolean performOk() {
 
