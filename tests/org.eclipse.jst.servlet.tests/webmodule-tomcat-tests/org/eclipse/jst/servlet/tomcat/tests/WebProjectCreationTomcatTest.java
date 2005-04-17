@@ -14,13 +14,12 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wst.common.tests.TaskViewUtility;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFactory;
 
 /**

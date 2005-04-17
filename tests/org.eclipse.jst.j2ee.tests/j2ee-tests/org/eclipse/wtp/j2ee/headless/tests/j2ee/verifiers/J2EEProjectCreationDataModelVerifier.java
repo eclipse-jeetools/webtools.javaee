@@ -8,6 +8,7 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
 /**

@@ -12,6 +12,7 @@ import junit.framework.Assert;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.tests.DataModelVerifier;
 
 /**
  * @author Administrator

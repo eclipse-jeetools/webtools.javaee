@@ -11,6 +11,7 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;

@@ -28,11 +28,11 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreation
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.TaskViewUtility;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFactory;
 
 public abstract class AbstractJ2EEComponentCreationTest extends TestCase {

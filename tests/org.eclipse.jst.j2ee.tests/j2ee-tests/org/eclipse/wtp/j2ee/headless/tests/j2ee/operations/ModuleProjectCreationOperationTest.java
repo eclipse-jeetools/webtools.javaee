@@ -7,9 +7,12 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectC
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFactory;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.ConnectorProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
@@ -97,5 +100,10 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
 	}
 
 	public abstract J2EEComponentCreationDataModel getComponentCreationDataModel();
+
+	public static void verifyDataModel(WTPOperationDataModel dataModel) throws Exception{
+	    DataModelVerifier verifier = DataModelVerifierFactory.getInstance().createVerifier(dataModel);
+	    verifier.verify(dataModel);
+	}
 
 }
