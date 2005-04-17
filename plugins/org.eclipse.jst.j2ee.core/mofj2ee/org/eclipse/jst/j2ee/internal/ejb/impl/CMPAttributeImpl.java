@@ -408,9 +408,9 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 			case EjbPackage.CMP_ATTRIBUTE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case EjbPackage.CMP_ATTRIBUTE__ORDERED:
-				return ordered != ORDERED_EDEFAULT;
+				return ((eFlags & ORDERED_EFLAG) != 0) != ORDERED_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__UNIQUE:
-				return unique != UNIQUE_EDEFAULT;
+				return ((eFlags & UNIQUE_EFLAG) != 0) != UNIQUE_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__UPPER_BOUND:
@@ -422,23 +422,23 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 			case EjbPackage.CMP_ATTRIBUTE__ETYPE:
 				return eType != null;
 			case EjbPackage.CMP_ATTRIBUTE__CHANGEABLE:
-				return changeable != CHANGEABLE_EDEFAULT;
+				return ((eFlags & CHANGEABLE_EFLAG) != 0) != CHANGEABLE_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
+				return ((eFlags & VOLATILE_EFLAG) != 0) != VOLATILE_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
+				return ((eFlags & TRANSIENT_EFLAG) != 0) != TRANSIENT_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE_LITERAL:
 				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
 			case EjbPackage.CMP_ATTRIBUTE__DEFAULT_VALUE:
 				return getDefaultValue() != null;
 			case EjbPackage.CMP_ATTRIBUTE__UNSETTABLE:
-				return unsettable != UNSETTABLE_EDEFAULT;
+				return ((eFlags & UNSETTABLE_EFLAG) != 0) != UNSETTABLE_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__DERIVED:
 				return derived != DERIVED_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__ECONTAINING_CLASS:
 				return getEContainingClass() != null;
 			case EjbPackage.CMP_ATTRIBUTE__ID:
-				return iD != ID_EDEFAULT;
+				return ((eFlags & ID_EFLAG) != 0) != ID_EDEFAULT;
 			case EjbPackage.CMP_ATTRIBUTE__EATTRIBUTE_TYPE:
 				return basicGetEAttributeType() != null;
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
