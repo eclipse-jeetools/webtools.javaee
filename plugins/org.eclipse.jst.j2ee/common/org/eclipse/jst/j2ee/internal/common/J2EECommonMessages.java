@@ -53,6 +53,9 @@ public class J2EECommonMessages extends Messages {
 	public static final String ERR_EMPTY_PROJECT_NAME = "ERR_EMPTY_PROJECT_NAME"; //$NON-NLS-1$
 
 	public static final String ERR_PROJECT_NAME_EXISTS = "ERR_PROJECT_NAME_EXISTS"; //$NON-NLS-1$
+	public static final String ERR_VERSION_NOT_SUPPORTED ="ERR_VERSION_NOT_SUPPORTED";//$NON-NLS-1$
+	public static final String ERR_NOT_SUPPORTED="ERR_NOT_SUPPORTED";//$NON-NLS-1$	
+		
 
 	private static final J2EECommonMessages INSTANCE = new J2EECommonMessages();
 

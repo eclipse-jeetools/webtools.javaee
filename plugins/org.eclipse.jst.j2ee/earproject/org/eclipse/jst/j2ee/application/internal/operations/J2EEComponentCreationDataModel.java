@@ -16,7 +16,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -308,9 +310,38 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	protected IStatus doValidateProperty(String propertyName) {
 		if (EAR_MODULE_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
-		} else if (NESTED_MODEL_VALIDATION_HOOK.equals(propertyName)) 
+		} else if (NESTED_MODEL_VALIDATION_HOOK.equals(propertyName)) {
 					return OK_STATUS;
+		}else if(propertyName.equals( COMPONENT_VERSION)){
+			int componentVersion = getIntProperty(COMPONENT_VERSION);
+			int j2eeVer = convertModuleVersionToJ2EEVersion(componentVersion);
+			String j2eeText = J2EEVersionUtil.getJ2EETextVersion(j2eeVer);
+			
+			String[] validModuleVersions = (String[])getProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME);
 
+			if( validModuleVersions != null ){
+				boolean found = false;
+				for( int i=0; i< validModuleVersions.length; i++){
+					String text = validModuleVersions[i];
+					if( text.equals(j2eeText)){
+						found = true;
+						break;
+					}
+				}
+				IStatus status = OK_STATUS;
+				if( !found ){
+					String errorMessage = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_VERSION_NOT_SUPPORTED);
+					status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
+				}
+				return status;
+			}else{
+				String errorMessage = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_NOT_SUPPORTED);
+				IStatus status =  WTPCommonPlugin.createErrorStatus(errorMessage);	
+				return status;
+			}
+ 
+
+		}
 		return super.doValidateProperty(propertyName);
 	}
 	
