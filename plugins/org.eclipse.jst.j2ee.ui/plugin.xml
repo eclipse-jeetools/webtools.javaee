@@ -118,7 +118,6 @@
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard"
-            project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard">
          <description>
@@ -134,7 +133,6 @@
             icon="icons/full/ctool16/newappclient_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard"
-            project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
          <description>
@@ -150,7 +148,6 @@
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jdt.ui.java"
             class="org.eclipse.jst.j2ee.internal.wizard.JavaUtilityComponentCreationWizard"
-            project="true"
             id="org.eclipse.jst.j2ee.internal.wizard.JavaUtilityComponentCreationWizard">
          <description>
             %Java_Component.description

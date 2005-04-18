@@ -63,7 +63,6 @@
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard"
-            project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
          <description>
