@@ -54,6 +54,9 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	 */
 	public FlexibleProjectCreationWizard(FlexibleJavaProjectCreationDataModel model) {
 		super(model);
+        setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_WIZ_TITLE));
+        setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_WIZ_BANNER));
+        setHelpAvailable(false);
 	}
 
 	/**
@@ -72,7 +75,6 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	public final void init(IWorkbench workbench, IStructuredSelection aSelection) {
 		setNeedsProgressMonitor(true);
 		this.selection = aSelection;
-		doInit();
 	}
 
 	/**
@@ -134,18 +136,6 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	 */
 	protected WTPOperation createBaseOperation() {
 		return new FlexibleProjectCreationOperation(getSpecificDataModel());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
-	 *      org.eclipse.jface.viewers.IStructuredSelection)
-	 */
-	protected void doInit() {
-		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_WIZ_TITLE));
-		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_WIZ_BANNER));
-		setHelpAvailable(false);
 	}
 
 	/*
