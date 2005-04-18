@@ -15,7 +15,7 @@ package org.eclipse.jst.j2ee.internal.common;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.wst.sse.core.undo.IStructuredTextUndoManager;
+import org.eclipse.wst.sse.core.internal.undo.IStructuredTextUndoManager;
 
 /**
  * This is a specialized editing domain that can be used by editors that have one or more design

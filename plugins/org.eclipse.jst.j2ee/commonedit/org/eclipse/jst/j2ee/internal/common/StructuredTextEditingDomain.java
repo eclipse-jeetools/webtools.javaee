@@ -17,7 +17,7 @@ import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.wst.sse.core.undo.IStructuredTextUndoManager;
+import org.eclipse.wst.sse.core.internal.undo.IStructuredTextUndoManager;
 
 /**
  * This is a specialized editing domain that can be used by editors that have one or more design
