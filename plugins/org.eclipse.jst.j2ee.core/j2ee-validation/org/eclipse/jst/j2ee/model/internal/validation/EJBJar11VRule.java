@@ -29,9 +29,9 @@ import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclispe.wst.validation.internal.core.ValidationException;
 
 /**
  * This class checks ejb-jar.xml for errors or potential errors.

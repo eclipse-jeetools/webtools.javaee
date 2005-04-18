@@ -20,8 +20,8 @@ import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**

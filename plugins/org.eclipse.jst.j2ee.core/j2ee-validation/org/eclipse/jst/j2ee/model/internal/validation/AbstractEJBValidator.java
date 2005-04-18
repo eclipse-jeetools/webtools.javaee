@@ -24,11 +24,11 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclispe.wst.validation.internal.core.ValidationException;
 /**
  * @author vijayb
  * 

@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
-import org.eclispe.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 
 
 /**

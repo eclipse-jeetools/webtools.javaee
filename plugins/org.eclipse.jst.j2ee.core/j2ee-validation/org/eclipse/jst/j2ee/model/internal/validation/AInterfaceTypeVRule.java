@@ -19,9 +19,9 @@ import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /*

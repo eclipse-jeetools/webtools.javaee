@@ -21,12 +21,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.internal.common.impl.ResourceRefImpl;
 import org.eclipse.jst.j2ee.internal.common.impl.SecurityRoleImpl;
+import org.eclipse.wst.validation.internal.core.Message;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclispe.wst.validation.internal.core.Message;
-import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**
