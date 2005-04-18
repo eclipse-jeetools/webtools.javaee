@@ -20,12 +20,12 @@ package org.eclipse.jst.validation.sample.filesystem;
  */
 
 
+import org.eclipse.wst.validation.internal.core.IFileDelta;
+import org.eclipse.wst.validation.internal.core.Message;
+import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.internal.core.ValidatorLauncher;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
-import org.eclispe.wst.validation.internal.core.IFileDelta;
-import org.eclispe.wst.validation.internal.core.Message;
-import org.eclispe.wst.validation.internal.core.ValidationException;
-import org.eclispe.wst.validation.internal.core.ValidatorLauncher;
 
 /**
  * This class is the representation of a file system based application

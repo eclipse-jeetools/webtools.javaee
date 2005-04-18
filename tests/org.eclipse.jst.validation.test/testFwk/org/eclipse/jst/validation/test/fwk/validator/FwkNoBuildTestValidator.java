@@ -1,13 +1,13 @@
 package org.eclipse.jst.validation.test.fwk.validator;
 
 import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.wst.validation.internal.core.IFileDelta;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclispe.wst.validation.internal.core.IFileDelta;
-import org.eclispe.wst.validation.internal.core.ValidationException;
 
 public class FwkNoBuildTestValidator implements IValidator {
 	public static final String ALL_FILES = "ALL_FILES"; // Load all IFileDeltas for the entire contents of the current project. //$NON-NLS-1$

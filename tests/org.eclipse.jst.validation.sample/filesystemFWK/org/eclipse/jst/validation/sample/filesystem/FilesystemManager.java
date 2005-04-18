@@ -24,9 +24,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.wst.validation.internal.core.FileDelta;
+import org.eclipse.wst.validation.internal.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclispe.wst.validation.internal.core.FileDelta;
-import org.eclispe.wst.validation.internal.core.IFileDelta;
 
 /**
  * This class is the heart of the filesystem validation framework.

@@ -23,10 +23,10 @@ import java.io.LineNumberReader;
 
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.MessageMetaData;
+import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclispe.wst.validation.internal.core.Message;
 
 /**
  * This class represents an APropertyFile that is instantiated by a validator.

@@ -32,9 +32,9 @@ import org.eclipse.jst.validation.sample.PModelEnum;
 import org.eclipse.jst.validation.sample.filesystem.IFilesystemHelper;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
+import org.eclipse.wst.validation.internal.core.FileDelta;
+import org.eclipse.wst.validation.internal.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclispe.wst.validation.internal.core.FileDelta;
-import org.eclispe.wst.validation.internal.core.IFileDelta;
 
 /**
  * This class is the IValidationContext implementation, used by the PropertiesValidator,

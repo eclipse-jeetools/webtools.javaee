@@ -24,8 +24,8 @@ import org.eclipse.wst.validation.internal.GlobalConfiguration;
 import org.eclipse.wst.validation.internal.TaskListUtility;
 import org.eclipse.wst.validation.internal.VThreadManager;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
+import org.eclipse.wst.validation.internal.core.IFileDelta;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
-import org.eclispe.wst.validation.internal.core.IFileDelta;
 
 public class ValidatorTestcase implements ITestcaseMetaData {
 	private String _pluginId = null; // The plugin id that has contributed this test case.
