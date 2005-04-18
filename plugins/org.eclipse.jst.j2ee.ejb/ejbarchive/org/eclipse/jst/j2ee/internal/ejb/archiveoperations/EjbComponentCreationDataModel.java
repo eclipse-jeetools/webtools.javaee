@@ -246,11 +246,11 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 
 	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
 		switch (moduleVersion) {
-			case J2EEVersionConstants.WEB_2_2_ID :
+			case J2EEVersionConstants.EJB_1_1_ID :
 				return J2EEVersionConstants.J2EE_1_2_ID;
-			case J2EEVersionConstants.WEB_2_3_ID :
+			case J2EEVersionConstants.EJB_2_0_ID :
 				return J2EEVersionConstants.J2EE_1_3_ID;
-			case J2EEVersionConstants.WEB_2_4_ID :
+			case J2EEVersionConstants.EJB_2_1_ID :
 				return J2EEVersionConstants.J2EE_1_4_ID;
 		}
 		return -1;
@@ -259,11 +259,11 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
 		switch (j2eeVersion.intValue()) {
 			case J2EEVersionConstants.J2EE_1_2_ID :
-				return new Integer(J2EEVersionConstants.WEB_2_2_ID);
+				return new Integer(J2EEVersionConstants.EJB_1_1_ID);
 			case J2EEVersionConstants.J2EE_1_3_ID :
-				return new Integer(J2EEVersionConstants.WEB_2_3_ID);
+				return new Integer(J2EEVersionConstants.EJB_2_0_ID);
 			case J2EEVersionConstants.J2EE_1_4_ID :
-				return new Integer(J2EEVersionConstants.WEB_2_4_ID);
+				return new Integer(J2EEVersionConstants.EJB_2_1_ID);
 		}
 		return super.convertJ2EEVersionToModuleVersion(j2eeVersion);
 	}
