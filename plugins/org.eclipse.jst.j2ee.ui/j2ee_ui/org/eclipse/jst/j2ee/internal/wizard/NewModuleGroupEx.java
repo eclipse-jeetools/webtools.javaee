@@ -44,7 +44,7 @@ import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.datamodel.ui.DataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;

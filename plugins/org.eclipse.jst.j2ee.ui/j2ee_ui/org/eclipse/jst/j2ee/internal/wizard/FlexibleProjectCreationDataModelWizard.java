@@ -8,7 +8,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.datamodel.ui.DataModelWizard;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
 public class FlexibleProjectCreationDataModelWizard extends DataModelWizard { 
 

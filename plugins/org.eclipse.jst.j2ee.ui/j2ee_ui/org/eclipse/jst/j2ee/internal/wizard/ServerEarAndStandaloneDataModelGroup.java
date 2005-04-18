@@ -19,7 +19,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreat
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.datamodel.ui.DataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
 public class ServerEarAndStandaloneDataModelGroup {
 	
