@@ -28,6 +28,7 @@ import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOpera
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -143,7 +144,6 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
-
 		if (propertyName.equals(EAR_MODULE_NAME)) {
 			earComponentHandle = computeEARHandle((String)propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
@@ -165,6 +165,8 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	}
 
 	private URI computeEARHandle(String earHandle){
+        if(earHandle != null || earHandle.equals(""))
+            return null;
 		URI uri = URI.createURI(earHandle);
 		
 		if( uri != null ){
@@ -311,12 +313,12 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		if (EAR_MODULE_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
 		} else if (NESTED_MODEL_VALIDATION_HOOK.equals(propertyName)) {
-					return OK_STATUS;
+			return OK_STATUS;
 		}else if(propertyName.equals( COMPONENT_VERSION)){
 			int componentVersion = getIntProperty(COMPONENT_VERSION);
 			int j2eeVer = convertModuleVersionToJ2EEVersion(componentVersion);
 			String j2eeText = J2EEVersionUtil.getJ2EETextVersion(j2eeVer);
-			
+
 			String[] validModuleVersions = (String[])getProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME);
 
 			if( validModuleVersions != null ){
@@ -350,6 +352,18 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
     }
 
 	private IStatus validateEARModuleNameProperty() {
+            IStatus status = OK_STATUS;
+            String earName = getStringProperty(EAR_MODULE_NAME);
+            if (status.isOK()) {
+                if (earName.indexOf("#") != -1) { //$NON-NLS-1$
+                    String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
+                    return WTPCommonPlugin.createErrorStatus(errorMessage);
+                } else if (earName==null || earName.equals("")) { //$NON-NLS-1$
+                    String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
+                    return WTPCommonPlugin.createErrorStatus(errorMessage); 
+                }
+            } else
+                return status;
 //		IProject earProject = applicationCreationDataModel.getTargetProject();
 //		if (null != earProject && earProject.exists()) {
 //			if (earProject.isOpen()) {
