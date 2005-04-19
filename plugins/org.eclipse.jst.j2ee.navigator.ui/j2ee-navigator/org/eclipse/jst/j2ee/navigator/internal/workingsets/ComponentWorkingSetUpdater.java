@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -107,15 +108,22 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 				try {
 					moduleCore = StructureEdit.getStructureEditForRead(project);
 					if (moduleCore == null) return false;
-					WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
-				    for (int i = 0; i < workBenchModules.length; i++) {
-		                 WorkbenchComponent module = workBenchModules[i];
-		                 ComponentType componentType = module.getComponentType() ;
-		                 if (typeId.equals(componentType.getComponentTypeId())) {
-		                 	bReturn = true;
-		                 	break;
-		                 }
-				    }
+					WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules();
+					if (workBenchModules != null){
+					    for (int i = 0; i < workBenchModules.length; i++) {
+			                 WorkbenchComponent module = workBenchModules[i];
+			                 ComponentType componentType = module.getComponentType() ;
+							 if (componentType == null) {
+								 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
+								 Logger.getLogger().log(msg,Level.SEVERE);
+								 continue;
+							 }
+			                 if (typeId.equals(componentType.getComponentTypeId())) {
+			                 	bReturn = true;
+			                 	break;
+			                 }
+					    }
+					}
 				} finally {
 					if (moduleCore != null)
 						moduleCore.dispose();

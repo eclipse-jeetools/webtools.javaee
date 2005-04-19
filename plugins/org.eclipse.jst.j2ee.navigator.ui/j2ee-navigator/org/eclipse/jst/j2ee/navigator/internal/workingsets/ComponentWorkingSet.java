@@ -8,6 +8,7 @@ package org.eclipse.jst.j2ee.navigator.internal.workingsets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.core.resources.IProject;
@@ -42,6 +43,8 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 	static final String FACTORY_ID = "org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"; //$NON-NLS-1$
 	
 	private static final String COMPONENT_TYPE_ID = "componentTypeId"; //$NON-NLS-1$
+	
+	private static final String EDIT_PAGE_ID = "editPageId"; //$NON-NLS-1$
 	
 	public static final String COMPONENT_WORKING_SET_ID = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage";
 	
@@ -356,14 +359,21 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 						moduleCore = StructureEdit.getStructureEditForRead(project);
 						if (moduleCore == null) return false;
 						WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
-					    for (int i = 0; i < workBenchModules.length; i++) {
-			                 WorkbenchComponent module = workBenchModules[i];
-			                 ComponentType componentType = module.getComponentType() ;
-			                 if (typeId.equals(componentType.getComponentTypeId())) {
-			                 	bReturn = true;
-			                 	break;
-			                 }
-					    }
+						if (workBenchModules != null){
+						    for (int i = 0; i < workBenchModules.length; i++) {
+				                 WorkbenchComponent module = workBenchModules[i];
+				                 ComponentType componentType = module.getComponentType() ;
+								 if (componentType == null) {
+									 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
+									 Logger.getLogger().log(msg,Level.SEVERE);
+									 continue;
+								 }
+				                 if (typeId.equals(componentType.getComponentTypeId())) {
+				                 	bReturn = true;
+				                 	break;
+				                 }
+						    }
+						}
 					} finally {
 						if (moduleCore != null)
 						 moduleCore.dispose();
@@ -379,6 +389,9 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 	public boolean testAttribute(Object target, String name, String value) {
 		if (COMPONENT_TYPE_ID.equals(name))
 			return getTypeId().equals(value);
+		if (EDIT_PAGE_ID.equals(name))
+			return getId().equals(value);
+		
 		return false;
 		
 	}

@@ -478,11 +478,14 @@
 			<enablement>
 				<or> 
 				   <objectClass
-					adaptable="true"
-					name="org.eclipse.emf.ecore.EObject" />		
+						adaptable="true"
+						name="org.eclipse.emf.ecore.EObject" />		
 					<objectClass
-	         		adaptable="true"
-	                  name="org.eclipse.emf.edit.provider.ItemProvider" />	 																				
+	         			adaptable="true"
+	                  	name="org.eclipse.emf.edit.provider.ItemProvider" />	 
+	                <objectClass
+	         			adaptable="true"
+	                  	name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet" />	 																				
 				</or>
 			</enablement>
       </actionProvider>
@@ -560,6 +563,122 @@
 	          class="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"
 	          id="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"/>
 	 </extension>  
+	 
+<!-- =========================================================================== -->
+<!-- Adding the New to the Component Working Sets                                -->
+<!-- =========================================================================== -->
+ 
+	 <extension
+         point="org.eclipse.wst.common.navigator.views.actionProvider">
+      <actionProvider
+            class="org.eclipse.jst.common.navigator.internal.actions.OpenActionsExtension" >
+         <enablement>
+         	<or>
+	         	<objectClass
+	         		adaptable="true"
+	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet" />
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension> 
+   
+   
+   <extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+          <!-- EAR New -->
+          <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard">
+         <enablement>
+         <or> 
+             <and>
+               <objectClass
+	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
+	           </objectClass>
+	            <objectState
+                        name="componentTypeId"
+                        value="jst.ear">
+                </objectState>
+               
+             </and>      
+            </or>
+         </enablement>
+       </commonWizard>
+        <!-- AppClient New -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
+         <enablement>
+           <or> 
+             <and>
+               <objectClass
+	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
+	           </objectClass>
+	            <objectState
+                        name="componentTypeId"
+                        value="jst.appclient">
+                </objectState>
+               
+             </and>      
+            </or>
+         </enablement>
+       </commonWizard>
+       <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.servlet.ui.WebComponentCreationWizard">
+         <enablement>
+           <or>
+               <and>
+               <objectClass
+	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
+	           </objectClass>
+	            <objectState
+                        name="componentTypeId"
+                        value="jst.web">
+                </objectState>
+             </and>      
+            </or>
+         </enablement>
+       </commonWizard>
+       <!-- Connector New -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
+         <enablement>
+          <or>
+               <and>
+               <objectClass
+	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
+	           </objectClass>
+	            <objectState
+                        name="componentTypeId"
+                        value="jst.connector">
+                </objectState>
+             </and>      
+            </or>
+         </enablement>
+       </commonWizard>
+       <!-- EJB New -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
+         <enablement>
+          <or>
+               <and>
+               <objectClass
+	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
+	           </objectClass>
+	            <objectState
+                        name="componentTypeId"
+                        value="jst.ejb">
+                </objectState>
+             </and>      
+            </or>
+         </enablement>
+       </commonWizard>
+       
+   </extension>
+     
      
 </plugin>
 

@@ -674,7 +674,7 @@
 	               <or>
 	                  <objectState
 	                        name="projectNature"
-	                        value="org.eclipse.jdt.core.javanature">
+	                        value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
 	                  </objectState>
 	               </or> 
                 </and>      
@@ -684,7 +684,7 @@
         <!-- AppClient New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ui.AppClientComponentCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
          <enablement>
          <or>
                 <objectClass
@@ -697,7 +697,7 @@
 	               <or>
 	                  <objectState
 	                        name="projectNature"
-	                        value="org.eclipse.jdt.core.javanature">
+	                        value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
 	                  </objectState>
 	               </or> 
                 </and> 
