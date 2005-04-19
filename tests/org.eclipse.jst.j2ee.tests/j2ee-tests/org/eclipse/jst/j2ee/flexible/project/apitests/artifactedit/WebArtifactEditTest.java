@@ -3,9 +3,16 @@ package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationFactoryImpl;
+import org.eclipse.jst.j2ee.internal.webapplication.util.WebapplicationAdapterFactory;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.Servlet;
+import org.eclipse.jst.j2ee.webapplication.ServletType;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -40,10 +47,11 @@ public class WebArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(webProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.getWebApp().setDescription("test");
 			int version = edit.getJ2EEVersion();
 			Integer integer = new Integer(version);
 			assertTrue(integer.equals(TestWorkspace.WEB_PROJECT_VERSION));
-		
+
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -83,9 +91,10 @@ public class WebArtifactEditTest extends TestCase {
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
 			edit.getDeploymentDescriptorRoot();
 			// /////BUG in PlatformURL\\\\\\\\\\\turning test off////
-			/*
-			 * EObject object = edit.getDeploymentDescriptorRoot(); assertNotNull(object);
-			 */
+
+			EObject object = edit.getDeploymentDescriptorRoot();
+			assertNotNull(object);
+
 
 		} catch (Exception e) {
 			// TODO
@@ -102,6 +111,9 @@ public class WebArtifactEditTest extends TestCase {
 	/*
 	 * Class under test for EObject createModelRoot()
 	 */
+
+	
+
 	public void testCreateModelRoot() {
 		StructureEdit moduleCore = null;
 		WebArtifactEdit edit = null;
@@ -485,6 +497,48 @@ public class WebArtifactEditTest extends TestCase {
 
 	public WebArtifactEdit getArtifactEditForRead() {
 		return new WebArtifactEdit(getArtifactEditModelforRead());
+	}
+	
+	public void testCreateServlet() {
+		StructureEdit moduleCore = null;
+		WebArtifactEdit edit = null;
+		try {
+			WebapplicationFactoryImpl factory = new WebapplicationFactoryImpl();
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(wbComponent);
+			WebApp webapp = edit.getWebApp();
+			Servlet servlet = factory.createServlet();
+			ServletType servletType = factory.createServletType();
+			servlet.setWebType(servletType);
+			servlet.setServletName("servletDescriptor._name");
+			servletType.setClassName("servletDescriptor._className");
+			// if(servletDescriptor._displayName != null){
+			servlet.setDisplayName("servletDescriptor._displayName");
+			// }
+			
+			webapp.getServlets().add(servlet);
+			webapp.setDescription("test");
+			edit.save(new NullProgressMonitor());
+			/*
+			 * if(servletDescriptor._loadOnStartup != null){
+			 * servlet.setLoadOnStartup(servletDescriptor._loadOnStartup); }
+			 * if(servletDescriptor._params != null){ Properties properties =
+			 * servlet.getParamsAsProperties(); properties.putAll(servletDescriptor._params); }
+			 */
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+			assertTrue(edit != null);
+
+		}
 	}
 
 }
