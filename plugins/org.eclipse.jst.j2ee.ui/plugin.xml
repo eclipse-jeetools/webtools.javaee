@@ -162,7 +162,7 @@
 <!--================================-->
 <!-- Import Wizard Contributions    -->
 <!--================================-->
-    <extension
+   <!-- <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%client.jar.file_ui_"
@@ -207,11 +207,11 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>             
-   </extension>
+   </extension> -->
 <!--================================-->
 <!-- Export Wizard Contributions    -->
 <!--================================-->
-   <extension
+  <!-- <extension
          point="org.eclipse.ui.exportWizards">
       <wizard
             name="%client.jar.file_ui_"
@@ -237,7 +237,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-   </extension>
+   </extension> -->
 <!-- ====================================================== -->
 <!-- Extension point: org.eclipse.ui.projectNatureImages    -->
 <!-- Purpose: Attach icon overlays for J2EE project natures -->
@@ -715,7 +715,7 @@
          </enablement>
        </commonWizard>
            <!-- EAR Import -->
-          <commonWizard
+        <!--  <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard">
          <enablement>
@@ -735,9 +735,9 @@
                          
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
             <!-- App Client Import -->
-          <commonWizard
+        <!--  <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard">
          <enablement>
@@ -783,9 +783,9 @@
            	   </objectClass>
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
         <!-- Utility Jar Import -->
-        <commonWizard
+     <!--   <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard">
          <enablement>
@@ -821,9 +821,9 @@
            	   </objectClass>       
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
        <!-- EAR export -->
-       <commonWizard
+    <!--   <commonWizard
             type="export"
             wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationExportWizard">
          <enablement>
@@ -855,9 +855,9 @@
            	   </objectClass>       
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
         <!-- App Client export -->
-       <commonWizard
+    <!--   <commonWizard
             type="export"
             wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleExportWizard">
          <enablement>
@@ -883,9 +883,9 @@
             </objectClass>          
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
        <!-- Import Classes Wizard -->
-        <commonWizard
+      <!--  <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
          <enablement>
@@ -918,7 +918,7 @@
             </objectClass> 	        
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
    </extension>
     
    <extension

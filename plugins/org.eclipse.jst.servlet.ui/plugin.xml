@@ -97,7 +97,7 @@
          </selection>
       </wizard>
     </extension>
-      
+      <!--
    <extension
          point="org.eclipse.ui.importWizards">
     <wizard
@@ -131,7 +131,7 @@
       </wizard>
     </extension>
     
-
+-->
    <extension
          point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
       <extendableWizard
@@ -235,7 +235,7 @@
          </enablement>
        </commonWizard>
        <!-- Web Import -->
-        <commonWizard
+      <!--  <commonWizard
             type="import"
             wizardId="org.eclipse.jst.servlet.ui.WebModuleImportWizard">
          <enablement>
@@ -284,9 +284,9 @@
            	   </objectClass>
          </or>
        </enablement>
-       </commonWizard>
+       </commonWizard> -->
        <!-- Web Export -->
-        <commonWizard
+     <!--   <commonWizard
             type="export"
             wizardId="org.eclipse.jst.servlet.ui.WebModuleExportWizard">
          <enablement>
@@ -316,9 +316,9 @@
                 
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
         <!-- Import Classes Wizard -->
-        <commonWizard
+       <!-- <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
          <enablement>
@@ -331,7 +331,7 @@
                 </objectClass>     
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
     </extension>
 
   <extension

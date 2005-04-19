@@ -74,7 +74,7 @@
       </wizard>
     </extension>
 <!-- JCA Import Wizard --> 
-    <extension
+  <!--  <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%connector.jar.file_ui_"
@@ -88,10 +88,10 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
        </wizard>
-     </extension>
+     </extension> -->
 
 <!-- JCA Export Wizard --> 
-     <extension
+    <!-- <extension
          point="org.eclipse.ui.exportWizards">
      <wizard
             name="%connector.jar.file_ui_"
@@ -105,7 +105,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
        </wizard>
-     </extension>
+     </extension> -->
 
 <!-- Navigator Object Contributions --> 
 <!-- Connector Group Contributions 
@@ -193,7 +193,7 @@
          </enablement>
        </commonWizard>
         <!-- Connector import -->
-      <commonWizard
+   <!--   <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard">
          <enablement>
@@ -244,9 +244,9 @@
            	                       
          </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
          <!-- Connector Export -->
-       <commonWizard
+     <!--  <commonWizard
             type="export"
             wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard">
          <enablement>
@@ -275,9 +275,9 @@
            	   </objectClass>  
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
         <!-- Import Classes Wizard -->
-        <commonWizard
+       <!-- <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
          <enablement>
@@ -290,6 +290,6 @@
            	   </objectClass>
            </or> 
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
     </extension>
 </plugin>
