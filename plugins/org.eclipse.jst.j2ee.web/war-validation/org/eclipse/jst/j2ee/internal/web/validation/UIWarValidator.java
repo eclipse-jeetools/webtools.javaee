@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -102,7 +103,8 @@ public class UIWarValidator extends WarValidator {
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
-		setWarHelper((UIWarHelper) inHelper);
+		//setWarHelper((UIWarHelper) inHelper);
+		
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
         WorkbenchComponent[] workBenchModules = null; 
 		StructureEdit moduleCore = null;	
@@ -120,7 +122,7 @@ public class UIWarValidator extends WarValidator {
                		}
                	}
                	catch(Exception e){
-                    e.printStackTrace();
+					Logger.getLogger().logError(e);
                	} finally {
                		if(webEdit != null)
                			webEdit.dispose();
