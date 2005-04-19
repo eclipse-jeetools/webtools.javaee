@@ -11,15 +11,19 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class FlexibleProjectCreationDataModel extends WTPOperationDataModel {
@@ -67,14 +71,28 @@ public class FlexibleProjectCreationDataModel extends WTPOperationDataModel {
 	private IStatus validateProjectName() {
 		String projectName = getStringProperty(PROJECT_NAME);
 		if (projectName != null && projectName.length() != 0) {
-			IProject project = ProjectUtilities.getProject(projectName);
-			if (project != null && project.exists()) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_PROJECT_NAME_EXISTS);
-				return WTPCommonPlugin.createErrorStatus(msg);
-			}
-		}
+			return validateProjectName(projectName);
+	}
 		return WTPCommonPlugin.OK_STATUS;
 	}
+	
+
+	protected  IStatus validateProjectName(String projectName) {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IStatus status = workspace.validateName(projectName, IResource.PROJECT);
+		if (!status.isOK())
+			return status;
+
+		if (ProjectUtilities.getProject(projectName).exists())
+			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_EXISTS_ERROR, new Object[] { projectName }));
+		
+		if ( projectName.indexOf("#") != -1 ){ //$NON-NLS-1$
+			String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
+			return WTPCommonPlugin.createErrorStatus(errorMessage);
+		}	
+		return OK_STATUS;
+	}
+	
 	
 	protected Object getDefaultProperty(String propertyName) {
 		if (PROJECT_LOCATION.equals(propertyName)) {
