@@ -615,9 +615,24 @@
 			<mapping
 				position="first"
 				name="Nature Mapping"
-				newValue="org.eclipse.wst.common.componentcore.ModuleCoreNature">
+				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
 				<alias
 					value="org.eclipse.jst.j2ee.web.WebNature">
+				</alias>
+			</mapping>
+		</natureMapping>
+	</extension>
+	<extension
+		id="NatureMappings"
+		name="Module Core Nature Mappings"
+		point="org.eclipse.wst.common.migration.natureMapping">
+		<natureMapping>
+			<mapping
+				position="first"
+				name="Nature Mapping"
+				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+				<alias
+					value="com.ibm.wtp.web.WebNature">
 				</alias>
 			</mapping>
 		</natureMapping>
