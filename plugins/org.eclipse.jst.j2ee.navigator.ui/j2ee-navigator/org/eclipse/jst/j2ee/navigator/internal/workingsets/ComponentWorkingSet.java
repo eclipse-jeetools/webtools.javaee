@@ -16,15 +16,15 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.Assert;
+import org.eclipse.jst.common.navigator.internal.ui.workingsets.AbstractWorkingSetManager;
+import org.eclipse.jst.common.navigator.internal.ui.workingsets.ICommonWorkingSet;
 import org.eclipse.ui.IActionFilter;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetManager;
-import org.eclipse.ui.internal.AbstractWorkingSetManager;
 import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.WorkbenchPlugin;
-import org.eclipse.ui.internal.WorkingSet;
 import org.eclipse.ui.internal.registry.WorkingSetDescriptor;
 import org.eclipse.ui.internal.registry.WorkingSetRegistry;
 import org.eclipse.wst.common.componentcore.StructureEdit;
@@ -37,7 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ComponentWorkingSet extends WorkingSet implements IActionFilter{
+public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 	
 	static final String FACTORY_ID = "org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"; //$NON-NLS-1$
 	
@@ -70,8 +70,9 @@ public class ComponentWorkingSet extends WorkingSet implements IActionFilter{
      * @param element the content of the new working set. 
      * 	May be empty but not <code>null</code>.
      */
-    public ComponentWorkingSet(String name, IAdaptable[] elements) {
-       super(name,elements);
+    public ComponentWorkingSet(String aName, IAdaptable[] elements) {
+       //super(name,elements); 
+	   name = aName;
     }
 
     /**
@@ -83,7 +84,7 @@ public class ComponentWorkingSet extends WorkingSet implements IActionFilter{
      * 	the working set.
      */
     ComponentWorkingSet(String aName, String aTypeId, IMemento memento) {
-    	super(aName,new IAdaptable[0]);
+    	//super(aName,new IAdaptable[0]);
     	name = aName;
         typeId = aTypeId;
         workingSetMemento = memento;
@@ -93,7 +94,7 @@ public class ComponentWorkingSet extends WorkingSet implements IActionFilter{
 	 * @param descriptor2
 	 */
 	public ComponentWorkingSet(ComponentWorkingSetDescriptor aDescriptor) {
-		this(aDescriptor.getLabel(), new IAdaptable[0] );
+		//this(aDescriptor.getLabel(), new IAdaptable[0] );
 		name = aDescriptor.getLabel();
 		typeId = aDescriptor.getTypeId();
 		editPageId = aDescriptor.getId();

@@ -113,14 +113,14 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 */
 	public boolean fillContextMenu(IMenuManager aMenu) {
 		boolean actionsAdded = false;
-		if (renameAction.isEnabled()) {
+	/*	if (renameAction.isEnabled()) {
 			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_ACTIONS, renameAction);
 			actionsAdded = true;
 		}
 		if (genericDelete.isEnabled()) {
-			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_DELETE, genericDelete);
+			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_ACTIONS, genericDelete);
 			actionsAdded = true;
-		}
+		}*/
 		return actionsAdded;
 	}
 

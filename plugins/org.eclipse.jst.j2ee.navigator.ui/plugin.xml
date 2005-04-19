@@ -430,25 +430,10 @@
                </objectClass>
                <or>
                   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.EARNature">
+                        name="nature"
+                        value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
                   </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.web.WebNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-                  </objectState>
+              
                </or>
             </and>      
             <objectClass name="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper" />      

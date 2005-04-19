@@ -384,6 +384,9 @@
          <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
          </view>
+         <view 
+         	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
+         </view>
       </adapterFactory>
       <adapterFactory
             className="org.eclipse.jst.j2ee.internal.war.ui.util.J2EEWebItemProviderAdapterFactory"
@@ -391,6 +394,9 @@
             id="org.eclipse.jst.j2ee.internal.war.ui.util.J2EEWebItemProviderAdapterFactory">
          <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
+         </view>
+          <view 
+         	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -400,6 +406,9 @@
          <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
          </view>
+          <view 
+         	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
+         </view>
       </adapterFactory>
       <adapterFactory
             className="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory"
@@ -407,6 +416,9 @@
             id="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory">
          <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
+         </view>
+          <view 
+         	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
          </view>
       </adapterFactory>
    </extension>
