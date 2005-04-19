@@ -22,10 +22,9 @@ import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IProjectProperties;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.internal.ProjectProperties;
 
 /**
  * @version 1.0
@@ -60,7 +59,7 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
 				if (!wbModule.getComponentType().getComponentTypeId().equals(EJBFlexibleDeployable.EJB_TYPE))
 					continue;
-					moduleDelegate = new EJBFlexibleDeployable(project, ID, wbModule);
+				moduleDelegate = new EJBFlexibleDeployable(project, ID, wbModule);
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
 				moduleDelegate.initialize(module);
@@ -94,9 +93,20 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	}
 
 	protected boolean isValidModule(IProject project) {
-		IProjectProperties properties = ServerCore.getProjectProperties(project);
-		String string = properties.getRuntimeTarget().getId();
-		return true;
+		if (isFlexableProject(project)) {
+			IProjectProperties properties = ServerCore.getProjectProperties(project);
+			if (properties != null || properties.getRuntimeTarget() == null || properties.getRuntimeTarget().getRuntimeType().getModuleTypes() != null) {
+				IModuleType[] moduleTypes = properties.getRuntimeTarget().getRuntimeType().getModuleTypes();
+				for (int i = 0; i < moduleTypes.length; i++) {
+					IModuleType moduleType = moduleTypes[i];
+					if (moduleType.getId().equals("j2ee.ejb"))
+						return true;
+				}
+
+			}
+
+		}
+		return false;
 	}
 
 

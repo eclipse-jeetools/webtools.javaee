@@ -16,6 +16,7 @@ import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.server.core.IEJBModule;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
@@ -26,7 +27,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
  * Code Style - Code Templates
  */
 public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJBModule {
-	
+
 	public static String EJB_TYPE = "jst.ejb";
 
 	public EJBFlexibleDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
@@ -69,7 +70,7 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 	}
 
 
-public String getJNDIName(String ejbName) {
+	public String getJNDIName(String ejbName) {
 		EjbModuleExtensionHelper modHelper = null;
 		EJBJar jar = null;
 		EJBArtifactEdit ejbEdit = null;
@@ -89,30 +90,15 @@ public String getJNDIName(String ejbName) {
 
 		return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
 
-	}	public IPath getRootFolder() {
-		EJBArtifactEdit ejbEdit = null;
-		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(wbModule);
-			if (ejbEdit != null) {
-				IProject project = (IProject) ejbEdit.getContentModelRoot();
-				if (project == null)return null;
-				return project.getProjectRelativePath();
+	}
 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ejbEdit != null)
-				ejbEdit.dispose();
-		}
+	public IPath getRootFolder() {
 
-		/*
-		 * else if (aNature.isBinaryProject()) return null;
-		 */
-		/*
-		 * else return aNature.getModuleServerRoot().getProjectRelativePath();
-		 */
-		return super.getRootFolder();
+		IProject project = StructureEdit.getContainingProject(wbModule);
+		if (project == null)
+			return null;
+		else
+			return project.getProjectRelativePath();
 	}
 
 	public String getType() {
