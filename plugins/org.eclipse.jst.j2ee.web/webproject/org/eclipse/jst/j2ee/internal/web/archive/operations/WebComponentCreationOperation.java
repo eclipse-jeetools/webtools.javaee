@@ -24,12 +24,16 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainer;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.StructureEdit;
@@ -104,6 +108,27 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute( IModuleConstants.JST_WEB_MODULE, monitor );
+        
+        // Add "Web App Libraries" container to the project classpath.
+        
+        final IJavaProject jproject = JavaCore.create( getProject() );
+        final List cp = new ArrayList();
+        final IClasspathEntry[] old = jproject.getRawClasspath();
+        
+        for( int i = 0; i < old.length; i++ )
+        {
+            cp.add( old[ i ] );
+        }
+        
+        final String prop = WebComponentCreationDataModel.COMPONENT_DEPLOY_NAME;
+        final String name = this.operationDataModel.getStringProperty( prop );
+        
+        cp.add( WebAppContainer.convert( name ) );
+
+        final IClasspathEntry[] cparray = new IClasspathEntry[ cp.size() ];
+        cp.toArray( cparray );
+        
+        jproject.setRawClasspath( cparray, null );
 	}
 
 	/* (non-Javadoc)

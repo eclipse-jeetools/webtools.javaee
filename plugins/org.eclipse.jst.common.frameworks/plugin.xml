@@ -16,6 +16,7 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
       <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.core.resources"/>
    </requires>

@@ -33,6 +33,7 @@
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
    
 <!-- ====================================================== -->
@@ -72,7 +73,7 @@
       </wizard>
    </extension>
    
-    
+      
    <!-- Web Module Wizard -->
     <extension
          id="J2EEUIProjectWizards"
@@ -332,5 +333,14 @@
          </enablement>
        </commonWizard>
     </extension>
+
+  <extension
+    point="org.eclipse.jdt.ui.classpathContainerPage">
+    <classpathContainerPage
+      name="%webapp.container.name"
+      class="org.eclipse.jst.servlet.ui.internal.classpath.WebAppContainerPage"
+      id="org.eclipse.jst.j2ee.internal.web.container">
+    </classpathContainerPage>
+  </extension>
 	
 </plugin>

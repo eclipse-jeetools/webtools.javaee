@@ -647,4 +647,11 @@
       		providerType="jst.web.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
+	
+  <extension point="org.eclipse.jdt.core.classpathContainerInitializer">
+    <classpathContainerInitializer
+      class="org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainerInitializer"
+      id="org.eclipse.jst.j2ee.internal.web.container"/>
+  </extension>
+	
 </plugin>
