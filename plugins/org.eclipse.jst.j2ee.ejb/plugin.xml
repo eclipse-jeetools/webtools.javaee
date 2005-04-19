@@ -385,7 +385,7 @@
 			<mapping
 				position="first"
 				name="Nature Mapping"
-				newValue="org.eclipse.wst.common.componentcore.ModuleCoreNature">
+				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
 				<alias
 					value="org.eclipse.jst.j2ee.ejb.EJBNature">
 				</alias>
@@ -420,7 +420,7 @@
 			<mapping
 				position="first"
 				name="Nature Mapping"
-				newValue="org.eclipse.wst.common.componentcore.ModuleCoreNature">
+				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
 				<alias
 					value="com.ibm.wtp.ejb.EJBNature">
 				</alias>
