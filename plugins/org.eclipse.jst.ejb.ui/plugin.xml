@@ -69,7 +69,7 @@
 <!--================================-->
 <!-- Export Wizard Contributions    -->
 <!--================================-->
-   <extension
+ <!--  <extension
          point="org.eclipse.ui.exportWizards">
       <wizard
             name="%ejb.jar.file_ui_"
@@ -83,7 +83,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-   </extension>
+   </extension> -->
 
 <!-- New EJB Module Wizard -->
    <extension
@@ -174,7 +174,7 @@
 <!-- Import Wizard Contributions    -->
 <!--================================-->
 
-    <extension
+   <!-- <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%ejb.jar.file_ui_"
@@ -188,7 +188,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-    </extension>
+    </extension> -->
 	 <extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
          <!-- EJB New -->
@@ -224,7 +224,7 @@
          </enablement>
        </commonWizard>
        <!-- EJB Import -->
-        <commonWizard
+     <!--   <commonWizard
             type="import"
             wizardId="org.eclipse.jst.ejb.ui.EJBModuleImportWizard">
          <enablement>
@@ -274,9 +274,9 @@
            	   
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
        <!-- EJB Export -->
-        <commonWizard
+       <!-- <commonWizard
             type="export"
             wizardId="org.eclipse.jst.ejb.ui.EJBModuleExportWizard">
          <enablement>
@@ -305,9 +305,9 @@
            	   </objectClass>
             </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
         <!-- Import Classes Wizard -->
-        <commonWizard
+       <!-- <commonWizard
             type="import"
             wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
          <enablement>
@@ -320,6 +320,6 @@
            	   </objectClass>
            </or>
          </enablement>
-       </commonWizard>
+       </commonWizard> -->
     </extension>
 </plugin>
