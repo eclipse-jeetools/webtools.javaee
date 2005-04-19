@@ -129,7 +129,7 @@ public class PropertiesHelper extends WorkbenchContext {
 	 * Return the IFile handle for the file identified by fileName.
 	 * null will be returned if the file does not exist.
 	 */
-	protected static IFile getFile(String fileName) {
+	public IFile getFile(String fileName) {
 		IFile file = (IFile)ResourcesPlugin.getWorkspace().getRoot().findMember(fileName);
 		return file;
 	}
