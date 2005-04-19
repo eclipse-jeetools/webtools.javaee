@@ -33,12 +33,15 @@ import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -105,8 +108,21 @@ public class WebDeployableArtifactUtil {
 		 * return null;
 		 */
 
-		if (resource instanceof IProject)
-			return new WebResource(getModule(resource.getProject()), new Path("")); //$NON-NLS-1$
+		if (resource instanceof IProject) {
+			StructureEdit edit = null;
+			try {
+				edit = StructureEdit.getStructureEditForWrite((IProject) resource);
+				WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
+				if (components == null || components.length == 0)
+					return null;
+				else
+					return new WebResource(getModule(resource.getProject()), new Path(""));
+			} catch (Exception e) {
+			} finally {
+				edit.dispose();
+			}
+
+		}
 
 		if (isCactusJunitTest(resource))
 			return null;
@@ -188,8 +204,7 @@ public class WebDeployableArtifactUtil {
 
 	/**
 	 * 
-	 * Very temporary api - 
-	 * TODO - rip this out by M5
+	 * Very temporary api - TODO - rip this out by M5
 	 */
 	private static boolean isCactusJunitTest(IResource resource) {
 		return getClassNameForType(resource, CACTUS_SERVLET_CLASS_TYPE) != null;
