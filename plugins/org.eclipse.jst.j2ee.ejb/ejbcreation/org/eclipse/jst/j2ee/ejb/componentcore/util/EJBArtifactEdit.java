@@ -128,8 +128,8 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	
 	public boolean hasEJBClientJARProject(IProject project) {
-		getEJBClientJarModule(project);
-		if(module != null)
+		
+		if(getEJBClientJarModule(project) != null)
 			return true;
 		return false;
 	}
