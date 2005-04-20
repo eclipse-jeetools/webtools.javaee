@@ -49,7 +49,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	}
 
 
-protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
 		J2EEFlexProjWebDeployable moduleDelegate = null;
 		IModule module = null;
 		List moduleList = new ArrayList(workBenchModules.size());
@@ -77,7 +77,9 @@ protected List createModuleDelegates(EList workBenchModules, IProject project) t
 		}
 		return moduleList;
 
-	}	private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
+	}
+
+	private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
 
 		ModuleAdapter moduleAdapter = new ModuleAdapter() {
 			public void notifyChanged(Notification msg) {
