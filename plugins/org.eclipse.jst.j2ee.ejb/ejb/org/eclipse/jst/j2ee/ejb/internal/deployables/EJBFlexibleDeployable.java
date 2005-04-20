@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
@@ -95,10 +96,11 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 	public IPath getRootFolder() {
 
 		IProject project = StructureEdit.getContainingProject(wbModule);
+		Path path = new Path(wbModule.getName());
 		if (project == null)
 			return null;
 		else
-			return project.getProjectRelativePath();
+			return project.getFullPath();
 	}
 
 	public String getType() {
