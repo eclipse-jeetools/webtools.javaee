@@ -22,6 +22,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 
@@ -57,7 +58,8 @@ protected List createModuleDelegates(EList workBenchModules, IProject project) t
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				if (!wbModule.getComponentType().getComponentTypeId().equals(J2EEFlexProjWebDeployable.WEB_MODULE_TYPE))
+				ComponentType type = wbModule.getComponentType();
+				if (type == null || !type.getComponentTypeId().equals(J2EEFlexProjWebDeployable.WEB_MODULE_TYPE))
 					return null;
 				moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
