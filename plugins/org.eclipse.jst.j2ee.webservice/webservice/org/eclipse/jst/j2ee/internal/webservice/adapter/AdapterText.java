@@ -13,12 +13,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
 import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterText extends AdapterImpl implements ModifyListener {
@@ -27,7 +27,7 @@ public class AdapterText extends AdapterImpl implements ModifyListener {
 	protected EStructuralFeature feature_;
 	protected Text text_;
 	protected boolean nillable_;
-	protected J2EEEditModel j2eeEditModel;
+	protected ArtifactEdit artifactEdit;
 
 	public AdapterText(EditModel editModel, EStructuralFeature feature, Text text, boolean nillable) {
 		super();
@@ -57,7 +57,7 @@ public class AdapterText extends AdapterImpl implements ModifyListener {
 				editModel_.getRootModelResource().setModified(true);
 				editModel_.getCommandStack().execute(command);
 			} else {
-				j2eeEditModel.getCommandStack().execute(command);
+				artifactEdit.getCommandStack().execute(command);
 			}
 		}
 	}
@@ -110,16 +110,16 @@ public class AdapterText extends AdapterImpl implements ModifyListener {
 	/**
 	 * @return Returns the j2eeEditModel.
 	 */
-	public J2EEEditModel getJ2eeEditModel() {
-		return j2eeEditModel;
+	public ArtifactEdit getArtifactEdit() {
+		return artifactEdit;
 	}
 
 	/**
 	 * @param editModel
 	 *            The j2eeEditModel to set.
 	 */
-	public void setJ2eeEditModel(J2EEEditModel editModel) {
-		j2eeEditModel = editModel;
+	public void setArtifactEdit(ArtifactEdit anArtifactEdit) {
+		artifactEdit = anArtifactEdit;
 	}
 
 }

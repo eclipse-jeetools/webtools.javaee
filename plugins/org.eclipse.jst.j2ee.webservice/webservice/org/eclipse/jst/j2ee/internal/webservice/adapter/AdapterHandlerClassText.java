@@ -15,7 +15,6 @@ package org.eclipse.jst.j2ee.internal.webservice.adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyHandlerClassText;
 import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
@@ -23,11 +22,12 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterHandlerClassText extends AdapterImpl implements ModifyListener {
 	protected EditModel editModel_;
-	protected J2EEEditModel j2eeEditModel;
+	protected ArtifactEdit artifactEdit;
 	protected Handler eObject_;
 	protected EStructuralFeature feature_;
 	protected Text text_;
@@ -63,7 +63,7 @@ public class AdapterHandlerClassText extends AdapterImpl implements ModifyListen
 				editModel_.getRootModelResource().setModified(true);
 				editModel_.getCommandStack().execute(command);
 			} else
-				j2eeEditModel.getCommandStack().execute(command);
+				artifactEdit.getCommandStack().execute(command);
 		}
 	}
 
@@ -115,16 +115,16 @@ public class AdapterHandlerClassText extends AdapterImpl implements ModifyListen
 	/**
 	 * @return Returns the j2eeEditModel.
 	 */
-	public J2EEEditModel getJ2eeEditModel() {
-		return j2eeEditModel;
+	public ArtifactEdit getArtifactEdit() {
+		return artifactEdit;
 	}
 
 	/**
 	 * @param editModel
 	 *            The j2eeEditModel to set.
 	 */
-	public void setJ2eeEditModel(J2EEEditModel editModel) {
-		j2eeEditModel = editModel;
+	public void setArtifactEdit(ArtifactEdit anArtifactEdit) {
+		artifactEdit = anArtifactEdit;
 	}
 
 }
