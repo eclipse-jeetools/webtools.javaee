@@ -240,8 +240,26 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 			return shouldDefaultAnnotations();
 		else if (propertyName.equals(DISPLAY_NAME))
 			return getProperty(CLASS_NAME);
+		else if (propertyName.equals(URL_MAPPINGS)) {
+			return getDefaultUrlMapping();
+		}
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
+	}
+
+	/**
+	 * Returns the default Url Mapping depending upon the display name of 
+	 * the Servlet
+	 * @return List containting the default Url Mapping 
+	 */
+	private Object getDefaultUrlMapping() {
+		List urlMappings = null;
+		String text = (String)getProperty(DISPLAY_NAME);
+		if (text != null) {
+			urlMappings = new ArrayList();
+			urlMappings.add(new String[]{"/" + text});
+		}
+		return urlMappings;
 	}
 
 	/**
@@ -414,6 +432,9 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 				String msg = WebMessages.getResourceString(WebMessages.ERR_DUPLICATED_URL_MAPPING);
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
+		} else {
+			String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY);
+			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Return OK
 		return WTPCommonPlugin.OK_STATUS;
