@@ -14,6 +14,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -27,6 +28,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -34,6 +36,8 @@ import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 
@@ -65,7 +69,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 	
-	private static String LIB = "lib"; //$NON-NLS-1$
+	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 
 	/**
 	 * @param aHandle
@@ -437,24 +441,18 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @return array of the web library dependent modules
 	 */
-	public ReferencedComponent[] getLibModules() {
+	public IVirtualReference[] getLibModules() {
 		List result = new ArrayList();
-		List dependentModules = module.getReferencedComponents();
+		IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName());
+	    IVirtualReference[] refComponents = comp.getReferences();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
-		for (int i=0; i<dependentModules.size(); i++) {
-			ReferencedComponent child = (ReferencedComponent) dependentModules.get(i);
-			URI parentFolderURI = URI.createURI(child.getRuntimePath().removeLastSegments(1).toString());
-			URI webLib = getDeploymentDescriptorResource().getURI().trimSegments(1).appendSegment(LIB);
-			if (parentFolderURI.equals(webLib))
-				result.add(child);
+		for (int i = 0; i < refComponents.length; i++) {
+			comp.getFolder(WEBLIB);	
+			if (refComponents[i].getRuntimePath().equals(WEBLIB))
+				result.add(refComponents[i]);
 		}
-		// add results to an array for return
-		ReferencedComponent[] libModules = new ReferencedComponent[result.size()];
-		for (int i=0; i<result.size(); i++) {
-			ReferencedComponent child = (ReferencedComponent) result.get(i);
-			libModules[i] = child;
-		}
-		return libModules;
+		
+		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 	}
 	
 	/**
@@ -465,12 +463,13 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param libModules array of dependent modules to add as web libraries 
 	 */
 	public void addLibModules(ReferencedComponent[] libModules) {
-		if (libModules==null)
-			return;
-		for (int i=0; i<libModules.length; i++) {
-			if (!module.getReferencedComponents().contains(libModules[i]))
-				module.getReferencedComponents().add(libModules[i]);
-		}
+		//TODO - Need to implement
+//		if (libModules==null)
+//			return;
+//		for (int i=0; i<libModules.length; i++) {
+//			if (!module.getReferencedComponents().contains(libModules[i]))
+//				module.getReferencedComponents().add(libModules[i]);
+//		}
 	}
 	
 	/**

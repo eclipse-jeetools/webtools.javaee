@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -30,6 +31,8 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 /**
  * <p>
@@ -326,18 +329,19 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public boolean uriExists(String currentURI) {
 		if (currentURI != null) {
-		    List refComponents = module.getReferencedComponents();
-		    if(refComponents == null) return false;
-		    ReferencedComponent comp = null;
-		    for (int i = 0; i < refComponents.size(); i++){
-		        comp = (ReferencedComponent)refComponents.get(i);
-		        if(comp.getHandle().equals(currentURI))
+			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName());
+		    IVirtualReference[] refComponents = comp.getReferences();
+		    if(refComponents.length == 0) return false;
+		    for (int i = 0; i < refComponents.length; i++) {
+		        if(refComponents[i].getRuntimePath().equals(currentURI))
 		            return true;
 		    }
 		} // if
 		return false;
 	} // uriExists
 
+
+	
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
