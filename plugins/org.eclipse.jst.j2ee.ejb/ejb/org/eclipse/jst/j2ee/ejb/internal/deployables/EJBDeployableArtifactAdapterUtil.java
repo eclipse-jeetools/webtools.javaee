@@ -27,9 +27,12 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.core.EJBBean;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.util.WebResource;
 
 /**
  * @version 1.0
@@ -53,14 +56,47 @@ public class EJBDeployableArtifactAdapterUtil {
 			return getModuleObject((EJBJar) obj);
 		if (obj instanceof EnterpriseBean)
 			return getModuleObject((EnterpriseBean) obj);
-		if (obj instanceof IProject)
-			return getModuleObject((IProject) obj);
+		if (obj instanceof IProject) {
+			IProject project = (IProject) obj;
+			StructureEdit edit = null;
+			try {
+				edit = StructureEdit.getStructureEditForWrite(project);
+				WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
+				if (components == null || components.length == 0)
+					return null;
+				else
+					return getModuleObject((IProject) obj);
+			} catch (Exception e) {
+				System.out.println(e);
+			} finally {
+				edit.dispose();
+			}
+
+		}
+
 		if (obj instanceof IFile)
 			return getModuleObject((IFile) obj);
 		if (obj instanceof ICompilationUnit) {
 			return getModuleObject((ICompilationUnit) obj);
 		}
 		return null;
+	}
+
+	protected static boolean hasEJBComponents(IProject project) {
+		StructureEdit edit = null;
+		try {
+			edit = StructureEdit.getStructureEditForWrite(project);
+			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
+			if (components == null || components.length == 0)
+				return false;
+			else
+				return true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			edit.dispose();
+		}
+		return false;
 	}
 
 	protected static IModuleArtifact getModuleObject(ICompilationUnit cu) {
@@ -88,11 +124,13 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static IModuleArtifact getModuleObject(IFile file) {
-		String ext = file.getFileExtension();
-		if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
-			return getModuleJavaObject(file);
-		if (file.getProjectRelativePath().toString().endsWith(J2EEConstants.EJBJAR_DD_URI))
-			return createModuleObject(getModule(file.getProject()), null, false, false);
+		if (hasEJBComponents(file.getProject())) {
+			String ext = file.getFileExtension();
+			if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
+				return getModuleJavaObject(file);
+			if (file.getProjectRelativePath().toString().endsWith(J2EEConstants.EJBJAR_DD_URI))
+				return createModuleObject(getModule(file.getProject()), null, false, false);
+		}
 		return null;
 	}
 
