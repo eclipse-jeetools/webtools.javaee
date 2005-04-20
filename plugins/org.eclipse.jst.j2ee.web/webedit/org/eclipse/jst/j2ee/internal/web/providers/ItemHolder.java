@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 import org.eclipse.emf.edit.provider.ItemProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 
@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
  */
 public class ItemHolder extends ItemProvider {
 	protected WebApp webApp;
-	protected WebEditModel editModel;
+	protected WebArtifactEdit webArtifactEdit;
 
 	public ItemHolder() {
 		super();
@@ -39,10 +39,9 @@ public class ItemHolder extends ItemProvider {
 		super();
 		setWebApp(webApp);
 	}
-
-	public ItemHolder(WebEditModel anEditModel) {
+	public ItemHolder(WebArtifactEdit webArtifactEdit) {
 		super();
-		setEditModel(anEditModel);
+		setWebArtifactEdit(webArtifactEdit);
 	}
 
 	public Collection getChildren(Object element) {
@@ -74,22 +73,11 @@ public class ItemHolder extends ItemProvider {
 		webApp = aWebApp;
 	}
 
-	/**
-	 * Gets the editModel.
-	 * 
-	 * @return Returns a EJBEditModel
-	 */
-	public WebEditModel getEditModel() {
-		return editModel;
+	public WebArtifactEdit getWebArtifactEdit() {
+		return webArtifactEdit;
 	}
 
-	/**
-	 * Sets the editModel.
-	 * 
-	 * @param editModel
-	 *            The editModel to set
-	 */
-	public void setEditModel(WebEditModel editModel) {
-		this.editModel = editModel;
+	public void setWebArtifactEdit(WebArtifactEdit webArtifactEdit) {
+		this.webArtifactEdit = webArtifactEdit;
 	}
 }
