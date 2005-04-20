@@ -268,19 +268,6 @@
          </moduleType>
       </moduleFactory>
    </extension>
-   <extension
-         point="org.eclipse.wst.common.migration.migrator">
-      <migrator
-            className="org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator"
-            id="org.eclipse.jst.common.migration.WebSettingsMigrator.id"
-            filter="org.eclipse.jst.j2ee.internal.project.J2EEMigrationFilter">
-         <enablement>          
-			<projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
-         </enablement>
-      </migrator>
-   </extension>
-   
-  
    
 <!-- =============================================================== -->
 <!-- WTP Operation extendable operations						        -->
