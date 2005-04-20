@@ -19,6 +19,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jdt.core.IJavaProject;
@@ -33,6 +35,7 @@ import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHan
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
+import org.eclipse.wst.common.navigator.internal.provisional.views.AdaptabilityUtility;
 import org.eclipse.wst.common.navigator.internal.provisional.views.CommonViewer;
 
 /**
@@ -192,12 +195,23 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 				((AbstractTreeViewer) viewer).refresh(element, true);
 			} else {
 				/* Create and schedule a UI Job to update the Navigator Content Viewer */
-				new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
+				Job job = new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
 					public IStatus runInUIThread(IProgressMonitor monitor) {
 						((AbstractTreeViewer) viewer).refresh(element, true);
 						return Status.OK_STATUS;
 					}
-				}.schedule();
+				};
+				
+				if (element instanceof ISchedulingRule)
+					job.setRule((ISchedulingRule)element);
+				else  {
+					ISchedulingRule rule = (ISchedulingRule)AdaptabilityUtility.getAdapter(element,ISchedulingRule.class);
+					if (rule != null) {
+						job.setRule(rule);
+					}
+				}
+					
+				job.schedule();
 			}
 		}
 	}
