@@ -75,7 +75,7 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
             	ComponentResource wmr = (ComponentResource)resourceList.get(i); 
             	IPath sourcePath = wmr.getSourcePath();
             	IResource sourceResource =  StructureEdit.getEclipseResource(wmr);
-            	if (sourceResource == null)
+            	if (sourceResource == null || sourceResource.getName().endsWith(".java") )
             		continue; 
             	IPath deployPath = outputContainerPath.append(wmr.getRuntimePath());
             	// check if it is a java source folder
