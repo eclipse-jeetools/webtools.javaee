@@ -105,7 +105,8 @@ public class J2EEProjectServerTargetDataModel extends WTPOperationDataModel {
             IRuntime target = null;
             for (int i = targets.size() - 1; i < targets.size() && i >= 0; i--) {
                 target = (IRuntime) targets.get(i);
-                if (DEFAULT_TARGET_ID.equals(target.getId()))
+				String id = target.getRuntimeType().getId();
+                if (DEFAULT_TARGET_ID.equals(id))
                     return target.getId();
             }
             if (target != null)
