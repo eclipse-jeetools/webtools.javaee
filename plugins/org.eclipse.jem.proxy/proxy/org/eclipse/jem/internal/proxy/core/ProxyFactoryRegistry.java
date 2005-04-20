@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.9 $  $Date: 2005/04/20 18:50:13 $ 
  */
 
 
@@ -229,6 +229,16 @@ public abstract class ProxyFactoryRegistry {
 	public void registerConstants(Object key, Object constant) {
 		fRegisteredConstants.put(key, constant);
 	}
+    
+    /**
+     * Remove the constants for the given key.
+     * @param key
+     * 
+     * @since 1.1.0
+     */
+    public void deregisterConstants(Object key) {
+        fRegisteredConstants.remove(key);
+    }
 	/**
 	 * Set the Method Proxy Factory for this VM.
 	 * Creation date: (3/13/00 10:58:19 AM)
