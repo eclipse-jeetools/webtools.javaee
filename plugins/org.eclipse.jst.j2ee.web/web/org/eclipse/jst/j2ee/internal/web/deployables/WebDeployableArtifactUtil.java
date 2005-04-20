@@ -110,14 +110,16 @@ public class WebDeployableArtifactUtil {
 
 		if (resource instanceof IProject) {
 			StructureEdit edit = null;
+			IProject project = (IProject) resource;
 			try {
-				edit = StructureEdit.getStructureEditForWrite((IProject) resource);
+				edit = StructureEdit.getStructureEditForWrite(project);
 				WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
 				if (components == null || components.length == 0)
 					return null;
 				else
-					return new WebResource(getModule(resource.getProject()), new Path(""));
+					return new WebResource(getModule(project), project.getProjectRelativePath());
 			} catch (Exception e) {
+				System.out.println(e);
 			} finally {
 				edit.dispose();
 			}
@@ -143,11 +145,11 @@ public class WebDeployableArtifactUtil {
 		// String name = getWebSettings().getWebContentName();
 		// getfolder() and path for now default to projectPath
 		IPath rootPath = resource.getProjectRelativePath();
-		IPath resourcePath = resource.getProjectRelativePath();
+		IPath resourcePath = resource.getFullPath();
 
 		// Check to make sure the resource is under the webApplication directory
-		if (resourcePath.matchingFirstSegments(rootPath) != rootPath.segmentCount())
-			return null;
+	/*	if (resourcePath.matchingFirstSegments(rootPath) != rootPath.segmentCount())
+			return null;*/
 
 		// Do not allow resource under the web-inf directory
 		resourcePath = resourcePath.removeFirstSegments(rootPath.segmentCount());
