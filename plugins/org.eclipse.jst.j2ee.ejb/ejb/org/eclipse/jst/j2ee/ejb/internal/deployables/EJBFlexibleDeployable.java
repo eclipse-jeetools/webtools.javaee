@@ -21,12 +21,7 @@ import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
-/**
- * @author blancett
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
- */
+
 public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJBModule {
 
 	public static String EJB_TYPE = "jst.ejb";
