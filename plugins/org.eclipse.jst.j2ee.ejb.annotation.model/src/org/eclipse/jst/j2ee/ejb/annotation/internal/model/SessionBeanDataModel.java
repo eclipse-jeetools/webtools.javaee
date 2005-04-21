@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
@@ -79,7 +80,7 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (USE_ANNOTATIONS.equals(propertyName)) {
-			if (this.j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3) {
+			if (((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3) {
 				if (getBooleanProperty(USE_ANNOTATIONS))
 					setBooleanProperty(USE_ANNOTATIONS, false);
 				return Boolean.FALSE;
@@ -97,7 +98,7 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		if (propertyName.equals(USE_ANNOTATIONS)) {
-			if (((Boolean) propertyValue).booleanValue() && this.j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+			if (((Boolean) propertyValue).booleanValue() && ((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				return true;
 			notifyEnablementChange(USE_ANNOTATIONS);
 		}

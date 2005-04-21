@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.internal.reference.ReferenceDataModel;
+import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
-import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 
 /**
