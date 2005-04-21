@@ -166,7 +166,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	}
 
 	private URI computeEARHandle(String earHandle) {
-		if (earHandle != null || earHandle.equals(""))
+		if (earHandle == null || earHandle.equals(""))
 			return null;
 		URI uri = URI.createURI(earHandle);
 
