@@ -16,9 +16,14 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperationDataModel;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -29,7 +34,7 @@ import org.eclipse.wst.server.core.ServerCore;
  * Generation>Code and Comments
  */
 public abstract class J2EEModelModifierOperationDataModel extends ModelModifierOperationDataModel {
-	protected J2EENature j2eeNature;
+	protected ArtifactEdit artifactEdit;
 
 	/*
 	 * (non-Javadoc)
@@ -39,21 +44,17 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean notify = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.equals(PROJECT_NAME))
-			updateJ2EENature();
+		if (propertyName.equals(MODULE_NAME))
+			updateArtifactEdit(propertyName);
 		return notify;
 	}
-
-	/**
-	 *  
-	 */
-	private void updateJ2EENature() {
-		j2eeNature = J2EENature.getRegisteredRuntime(getTargetProject());
-		String key = null;
-		if (j2eeNature != null)
-			key = j2eeNature.getEditModelKey();
-		setProperty(EDIT_MODEL_ID, key);
+	
+	private void updateArtifactEdit(String moduleName) {
+		IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
+		artifactEdit = ArtifactEdit.getArtifactEditForWrite(ComponentHandle.create(project,moduleName));
+		
 	}
+
 
 	/**
 	 * This will be the type of the deployment descriptor docuemnt.
@@ -65,20 +66,20 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	 * @see XMLResource#RAR_TYPE
 	 */
 	public int getDeploymentDescriptorType() {
-		if (j2eeNature != null)
-			return j2eeNature.getDeploymentDescriptorType();
+		if (artifactEdit != null)
+			return ((XMLResource)((EnterpriseArtifactEdit)artifactEdit).getDeploymentDescriptorResource()).getType();
 		return -1;
 	}
 
 	public EObject getDeploymentDescriptorRoot() {
-		if (j2eeNature != null)
-			return j2eeNature.getDeploymentDescriptorRoot();
+		if (artifactEdit != null)
+			return ((EnterpriseArtifactEdit)artifactEdit).getDeploymentDescriptorRoot();
 		return null;
 	}
 
 	public String getServerTargetID() {
-		if (j2eeNature != null) {
-			IRuntime target = ServerCore.getProjectProperties(j2eeNature.getProject()).getRuntimeTarget();
+		if (artifactEdit != null) {
+			IRuntime target = ServerCore.getProjectProperties(ProjectUtilities.getProject(artifactEdit.getContentModelRoot())).getRuntimeTarget();
 			if (null != target) {
 				return target.getId();
 			}
@@ -87,8 +88,8 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	}
 
 	public String getServerTargetTypeID() {
-		if (j2eeNature != null) {
-			IRuntime target = ServerCore.getProjectProperties(j2eeNature.getProject()).getRuntimeTarget();
+		if (artifactEdit != null) {
+			IRuntime target = ServerCore.getProjectProperties(ProjectUtilities.getProject(artifactEdit.getContentModelRoot())).getRuntimeTarget();
 			if (null != target) {
 				return target.getRuntimeType().getId();
 			}

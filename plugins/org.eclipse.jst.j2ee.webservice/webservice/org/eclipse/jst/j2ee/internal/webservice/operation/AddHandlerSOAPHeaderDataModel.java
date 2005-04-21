@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
@@ -100,8 +101,8 @@ public class AddHandlerSOAPHeaderDataModel extends J2EEModelModifierOperationDat
 	}
 
 	public int getVersionID() {
-		if (j2eeNature == null)
+		if (artifactEdit == null)
 			return -1;
-		return j2eeNature.getJ2EEVersion();
+		return ((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion();
 	}
 }

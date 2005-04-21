@@ -21,8 +21,8 @@ import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
+import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
-import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 /**
  * @author jialin

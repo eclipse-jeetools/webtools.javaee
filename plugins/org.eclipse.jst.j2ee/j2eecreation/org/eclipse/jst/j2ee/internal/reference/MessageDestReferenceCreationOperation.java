@@ -30,8 +30,8 @@ import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
+import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
-import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 
 public class MessageDestReferenceCreationOperation extends ModelModifierOperation {

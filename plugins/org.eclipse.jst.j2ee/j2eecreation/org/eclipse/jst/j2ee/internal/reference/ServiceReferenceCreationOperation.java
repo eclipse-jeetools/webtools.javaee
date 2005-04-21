@@ -17,14 +17,12 @@ import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.client.impl.ClientFactoryImpl;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceClientGenerator;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesClientDataRegistry;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
@@ -32,8 +30,8 @@ import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
+import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
-import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -118,7 +116,8 @@ public class ServiceReferenceCreationOperation extends ModelModifierOperation {
 						ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
 					} else {
 						helper.setFeature(Webservice_clientPackage.eINSTANCE.getWebServicesClient_ServiceRefs());
-						helper.setOwner(WebServicesManager.getInstance().getDefaultWebServicesResource(owner, (J2EEEditModel) editModel).getWebServicesClient());
+						//TODO fix up for artifact edit
+						//helper.setOwner(WebServicesManager.getInstance().getDefaultWebServicesResource(owner, getArtifactEdit()).getWebServicesClient());
 						ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
 						j2eeVersion = J2EEVersionConstants.J2EE_1_3_ID;
 					}
@@ -146,7 +145,8 @@ public class ServiceReferenceCreationOperation extends ModelModifierOperation {
 						ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
 					} else {
 						helper.setFeature(Webservice_clientPackage.eINSTANCE.getWebServicesClient_ServiceRefs());
-						helper.setOwner(WebServicesManager.getInstance().getDefaultWebServicesResource(owner, (J2EEEditModel) editModel).getWebServicesClient());
+						//TODO fix up for artifact edit
+						//helper.setOwner(WebServicesManager.getInstance().getDefaultWebServicesResource(owner, getArtifactEdit()).getWebServicesClient());
 						ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
 						j2eeVersion = J2EEVersionConstants.J2EE_1_3_ID;
 					}
@@ -201,35 +201,37 @@ public class ServiceReferenceCreationOperation extends ModelModifierOperation {
 	 * @return
 	 */
 	private ModifierHelper createEJB13Helper(EObject ownerEJB, ModifierHelper helper) {
-		ref = Webservice_clientFactory.eINSTANCE.createServiceRef();
-		WebServicesClient webServiceClient = WebServicesManager.getInstance().getDefaultWebServicesResource(ownerEJB, (J2EEEditModel) editModel).getWebServicesClient();
-
-		ref.setServiceRefName(dataModel.getStringProperty(ReferenceDataModel.REF_NAME).trim());
-		String serviceInterfaceName = dataModel.getServiceInterfaceName();
-		ref.setServiceInterface((JavaClass) JavaRefFactory.eINSTANCE.reflectType(serviceInterfaceName, (EObject) dataModel.getProperty(ReferenceDataModel.OWNER)));
-		ref.setWsdlFile(dataModel.getStringProperty(ServiceReferenceDataModel.WSDL_FILE).trim());
-		if (dataModel.getStringProperty(ServiceReferenceDataModel.JAX_RPC_MAPPING_FILE) != null && !dataModel.getStringProperty(ServiceReferenceDataModel.JAX_RPC_MAPPING_FILE).equals("")) //$NON-NLS-1$
-			ref.setJaxrpcMappingFile(dataModel.getStringProperty(ServiceReferenceDataModel.JAX_RPC_MAPPING_FILE).trim());
-		QName qName = ((CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI)).getCommonFactory().createQName();
-		qName.setLocalPart(dataModel.getStringProperty(ServiceReferenceDataModel.QNAME_lOCAL_PART));
-		qName.setNamespaceURI(dataModel.getStringProperty(ServiceReferenceDataModel.QNAME_NAMESPACE_URI));
-		ref.setServiceQname(qName);
-		ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
-
-		ComponentScopedRefs compScopedRef = getComponentScopedRef((EnterpriseBean) ownerEJB, webServiceClient);
-		if (compScopedRef == null) {
-			compScopedRef = Webservice_clientFactory.eINSTANCE.createComponentScopedRefs();
-			compScopedRef.setComponentName(((EnterpriseBean) ownerEJB).getName());
-			helper.setOwner(webServiceClient);
-			helper.setFeature(Webservice_clientPackage.eINSTANCE.getWebServicesClient_ComponentScopedRefs());
-			compScopedRef.getServiceRefs().add(ref);
-			helper.setValue(compScopedRef);
-		} else {
-			helper.setOwner(compScopedRef);
-			helper.setFeature(Webservice_clientPackage.eINSTANCE.getComponentScopedRefs_ServiceRefs());
-			helper.setValue(ref);
-		}
-		return helper;
+		//TODO fix up for artifact edit
+//		ref = Webservice_clientFactory.eINSTANCE.createServiceRef();
+//		WebServicesClient webServiceClient = WebServicesManager.getInstance().getDefaultWebServicesResource(ownerEJB, getArtifactEdit()).getWebServicesClient();
+//
+//		ref.setServiceRefName(dataModel.getStringProperty(ReferenceDataModel.REF_NAME).trim());
+//		String serviceInterfaceName = dataModel.getServiceInterfaceName();
+//		ref.setServiceInterface((JavaClass) JavaRefFactory.eINSTANCE.reflectType(serviceInterfaceName, (EObject) dataModel.getProperty(ReferenceDataModel.OWNER)));
+//		ref.setWsdlFile(dataModel.getStringProperty(ServiceReferenceDataModel.WSDL_FILE).trim());
+//		if (dataModel.getStringProperty(ServiceReferenceDataModel.JAX_RPC_MAPPING_FILE) != null && !dataModel.getStringProperty(ServiceReferenceDataModel.JAX_RPC_MAPPING_FILE).equals("")) //$NON-NLS-1$
+//			ref.setJaxrpcMappingFile(dataModel.getStringProperty(ServiceReferenceDataModel.JAX_RPC_MAPPING_FILE).trim());
+//		QName qName = ((CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI)).getCommonFactory().createQName();
+//		qName.setLocalPart(dataModel.getStringProperty(ServiceReferenceDataModel.QNAME_lOCAL_PART));
+//		qName.setNamespaceURI(dataModel.getStringProperty(ServiceReferenceDataModel.QNAME_NAMESPACE_URI));
+//		ref.setServiceQname(qName);
+//		ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
+//
+//		ComponentScopedRefs compScopedRef = getComponentScopedRef((EnterpriseBean) ownerEJB, webServiceClient);
+//		if (compScopedRef == null) {
+//			compScopedRef = Webservice_clientFactory.eINSTANCE.createComponentScopedRefs();
+//			compScopedRef.setComponentName(((EnterpriseBean) ownerEJB).getName());
+//			helper.setOwner(webServiceClient);
+//			helper.setFeature(Webservice_clientPackage.eINSTANCE.getWebServicesClient_ComponentScopedRefs());
+//			compScopedRef.getServiceRefs().add(ref);
+//			helper.setValue(compScopedRef);
+//		} else {
+//			helper.setOwner(compScopedRef);
+//			helper.setFeature(Webservice_clientPackage.eINSTANCE.getComponentScopedRefs_ServiceRefs());
+//			helper.setValue(ref);
+//		}
+//		return helper;
+		return null;
 	}
 
 	/**
