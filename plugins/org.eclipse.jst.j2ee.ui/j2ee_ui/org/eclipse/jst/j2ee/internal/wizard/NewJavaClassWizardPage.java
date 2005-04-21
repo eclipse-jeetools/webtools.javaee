@@ -522,7 +522,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	 * Create annotations group and set default enablement
 	 */
 	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
+		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, IModuleConstants.JST_EJB_MODULE.equals(moduleType), IModuleConstants.JST_WEB_MODULE.equals(moduleType));
 		IProject project = null;
 		project = ((NewJavaClassDataModel)model).getTargetProject();
 		annotationsGroup.setEnablement(project);
