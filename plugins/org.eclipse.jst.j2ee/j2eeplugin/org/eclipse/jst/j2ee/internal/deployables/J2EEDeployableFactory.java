@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
@@ -90,7 +91,10 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		try {
 			
 			moduleCore = StructureEdit.getStructureEditForRead(project);
-			EList workBenchModules = moduleCore.getComponentModelRoot().getComponents();						 
+			ProjectComponents projComp = moduleCore.getComponentModelRoot();
+			if (projComp == null)
+				return modules;
+			EList workBenchModules = projComp.getComponents();						 
 			if (workBenchModules.isEmpty())
 				return modules;
 			modules = createModuleDelegates(workBenchModules, project);
