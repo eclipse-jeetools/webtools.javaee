@@ -22,7 +22,7 @@ import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
 
-public class LooseArchiveDeployable extends ProjectModule implements ILooseArchive, IModule {
+public class LooseArchiveDeployable extends ProjectModule implements ILooseArchive{
 	protected String factoryId;
 
 	/**
