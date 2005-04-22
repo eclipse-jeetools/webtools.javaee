@@ -57,7 +57,8 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				if (!wbModule.getComponentType().getComponentTypeId().equals(EJBFlexibleDeployable.EJB_TYPE))
+				
+				if (wbModule.getComponentType()==null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EJBFlexibleDeployable.EJB_TYPE))
 					continue;
 				moduleDelegate = new EJBFlexibleDeployable(project, ID, wbModule);
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());

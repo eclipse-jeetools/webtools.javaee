@@ -46,9 +46,6 @@ public class EJBDeployableArtifactAdapterUtil {
 		super();
 	}
 
-	/*
-	 * @see IDeployableObjectAdapterDelegate#getDeployableObject(Object)
-	 */
 	public static IModuleArtifact getModuleObject(Object obj) {
 		if (obj == null)
 			return null;
@@ -58,20 +55,7 @@ public class EJBDeployableArtifactAdapterUtil {
 			return getModuleObject((EnterpriseBean) obj);
 		if (obj instanceof IProject) {
 			IProject project = (IProject) obj;
-			StructureEdit edit = null;
-			try {
-				edit = StructureEdit.getStructureEditForWrite(project);
-				WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
-				if (components == null || components.length == 0)
-					return null;
-				else
-					return getModuleObject((IProject) obj);
-			} catch (Exception e) {
-				System.out.println(e);
-			} finally {
-				edit.dispose();
-			}
-
+			return getModuleObject((IProject) obj);
 		}
 
 		if (obj instanceof IFile)
@@ -82,12 +66,13 @@ public class EJBDeployableArtifactAdapterUtil {
 		return null;
 	}
 
-	protected static boolean hasEJBComponents(IProject project) {
+	protected static boolean hasInterestedComponents(IProject project) {
 		StructureEdit edit = null;
 		try {
 			edit = StructureEdit.getStructureEditForWrite(project);
 			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
-			if (components == null || components.length == 0)
+			WorkbenchComponent[] earComponents = null;// edit.findComponentsByType("jst.ear");
+			if (components == null || components.length == 0 || earComponents == null || earComponents.length > 0)
 				return false;
 			else
 				return true;
@@ -100,8 +85,14 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static IModuleArtifact getModuleObject(ICompilationUnit cu) {
+
 		try {
-			return getModuleJavaObject((IFile) cu.getCorrespondingResource());
+			IFile file = (IFile) cu.getCorrespondingResource();
+			IProject project = file.getProject();
+			if (hasInterestedComponents(project)) {
+				return getModuleJavaObject(file);
+			}
+
 		} catch (JavaModelException e) {
 			Logger.getLogger().log(e);
 		}
@@ -114,17 +105,21 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static IModuleArtifact getModuleObject(EnterpriseBean ejb) {
+
 		IModule dep = getModule(ejb);
 		return createModuleObject(dep, ejb.getName(), ejb.hasRemoteClient(), ejb.hasLocalClient());
 	}
 
 	protected static IModuleArtifact getModuleObject(IProject project) {
-		IModule dep = getModule(project);
-		return createModuleObject(dep, null, false, false);
+		if (hasInterestedComponents(project)) {
+			IModule dep = getModule(project);
+			return createModuleObject(dep, null, false, false);
+		}
+		return null;
 	}
 
 	protected static IModuleArtifact getModuleObject(IFile file) {
-		if (hasEJBComponents(file.getProject())) {
+		if (hasInterestedComponents(file.getProject())) {
 			String ext = file.getFileExtension();
 			if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
 				return getModuleJavaObject(file);
