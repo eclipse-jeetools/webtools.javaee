@@ -405,5 +405,23 @@ public class WebDeployableArtifactUtil {
 		return "1.2"; //$NON-NLS-1$
 
 	}
+	
+	protected static boolean hasInterestedComponents(IProject project) {
+		StructureEdit edit = null;
+		try {
+			edit = StructureEdit.getStructureEditForWrite(project);
+			WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
+			WorkbenchComponent[] earComponents = edit.findComponentsByType("jst.ear");
+			if (components == null || components.length == 0 || earComponents != null || earComponents.length > 0)
+				return false;
+			else
+				return true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			edit.dispose();
+		}
+		return false;
+	}
 
 }

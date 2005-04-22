@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
@@ -37,7 +38,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	}
 
 	public String getNatureID() {
-		return IWebNatureConstants.J2EE_NATURE_ID;
+		return IModuleConstants.MODULE_NATURE_ID;
 	}
 
 	public IModule createModule(J2EENature nature) {

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -19,103 +21,87 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 
 /**
  * @version 1.0
  * @author
  */
-public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {/*
-																				    * (non-Javadoc)
-																				    * 
-																				    * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
-																				    */
-	/*public IModule[] getModules() {
-		return super.getModules();
-	}
-*/
+public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {
+
 	protected static final String ID = "com.ibm.wtp.server.j2ee.application"; //$NON-NLS-1$
 
 	protected static final IPath[] PATHS = new IPath[]{new Path("META-INF/application.xml"), //$NON-NLS-1$
 				new Path("META-INF/.modulemaps") //$NON-NLS-1$
 	};
 
-	/**
-	 * Constructor for EnterpriseApplicationDeployableFactory.
-	 */
 	public EnterpriseApplicationDeployableFactory() {
 		super();
 	}
 
-	/*
-	 * @see DeployableProjectFactoryDelegate#getFactoryID()
-	 */
-	public String getFactoryId() {
-		return ID;
-	}
-
-	/*
-	 * @see J2EEDeployableFactory#getNatureID()
-	 */
-	public String getNatureID() {
-		return IEARNatureConstants.NATURE_ID;
-	}
 
 
 	public IModule createModule(J2EENature nature) {
-		if (nature == null)
-			return null;
-		EnterpriseApplicationDeployable moduleDelegate = null;
-		IModule module = nature.getModule();
-		if (module == null) {
-			try {
-				moduleDelegate = new EnterpriseApplicationDeployable(nature, ID);
-				module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-				nature.setModule(module);
-				moduleDelegate.initialize(module);
-			} catch (Exception e) {
-				Logger.getLogger().write(e);
-			} finally {
-				moduleDelegates.add(moduleDelegate);
-			}
-		}
-		return module;
+		return null;
 	}
 
-	/*
-	 * @see DeployableProjectFactoryDelegate#getListenerPaths()
-	 */
+
 	protected IPath[] getListenerPaths() {
 		return PATHS;
 	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
-     */
-    protected List createModules(ModuleCoreNature nature) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
-	 */
-	public IModule[] getModules() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	protected boolean isValidModule(IProject project) {
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
-	 */
 	protected List createModuleDelegates(EList workBenchModules, IProject project) {
-		// TODO Auto-generated method stub
-		return null;
+		EnterpriseApplicationDeployable moduleDelegate = null;
+		IModule module = null;
+		List moduleList = new ArrayList(workBenchModules.size());
+		// J2EENature nature = (J2EENature)project.getNature(getNatureID());
+
+		for (int i = 0; i < workBenchModules.size(); i++) {
+			try {
+				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
+				if (wbModule.getComponentType()==null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EnterpriseApplicationDeployable.EAR_MODULE_TYPE))
+					continue;
+				moduleDelegate = new EnterpriseApplicationDeployable(project, ID, wbModule);
+				//moduleDelegate.getModules();
+				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+				moduleList.add(module);
+				moduleDelegate.initialize(module);
+				// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
+			} catch (Exception e) {
+				Logger.getLogger().write(e);
+			} finally {
+				if (module != null) {
+					if (getModuleDelegate(module) == null)
+						moduleDelegates.add(moduleDelegate);
+				}
+			}
+		}
+		return moduleList;
+	}
+
+	public IModule[] getModules() {
+		cacheModules();
+		ArrayList moduleList = new ArrayList();
+		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
+			IModule[] element = (IModule[]) iter.next();
+			for (int j = 0; j < element.length; j++) {
+				moduleList.add(element[j]);
+			}
+		}
+		IModule[] modules = new IModule[moduleList.size()];
+		moduleList.toArray(modules);
+		return modules;
+
+
+	}
+
+
+
+	protected String getNatureID() {
+		return IModuleConstants.MODULE_NATURE_ID;
 	}
 
 
