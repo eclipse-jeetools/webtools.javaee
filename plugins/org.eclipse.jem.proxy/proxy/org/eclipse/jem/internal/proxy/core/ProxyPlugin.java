@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.48 $  $Date: 2005/03/11 17:44:54 $ 
+ *  $Revision: 1.49 $  $Date: 2005/04/22 14:33:08 $ 
  */
 
 
@@ -57,6 +57,7 @@ public class ProxyPlugin extends Plugin {
 	
 	private static ProxyPlugin PROXY_PLUGIN = null;
 	public static final String PREFERENCES_VM_NOVERIFY_KEY = "JEM_PREFERENCES_VM_NOVERIFY_KEY"; // Key for NOVERIFY option of VM
+	public static final String PDE_NATURE_ID = "org.eclipse.pde.PluginNature" ;
 		
 	// If this is set to true, then in development mode and it will try for proxy jars in directories.
 	private boolean devMode;
@@ -966,7 +967,7 @@ public class ProxyPlugin extends Plugin {
 	 * @since 1.1.0
 	 */
 	public static boolean isPDEProject(IJavaProject project) throws CoreException {
-		return project.getProject().hasNature("org.eclipse.pde.PluginNature");
+		return project.getProject().hasNature(PDE_NATURE_ID);
 	}
 
 
