@@ -45,15 +45,6 @@ public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate 
 	 */
 
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModule(org.eclipse.core.resources.IProject)
-	 */
-	protected IModule createModule(IProject project) {
-		// TODO Auto-generated method stub
-		return new LooseArchiveDeployable(project, ID);
-	}
 
 	/*
 	 * (non-Javadoc)
