@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.31 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.32 $  $Date: 2005/04/22 20:57:52 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -940,7 +940,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			List overrideCache = null;
 			if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
 				// It is a root class. Need to merge in root stuff.
-				if (!canUseCache && !rootOnly) {
+				if (!canUseCache) {
 					overrideCache = createOverrideCache(overrideCache, getAdapterFactory().getProject(), BeaninfoPlugin.ROOT, ROOT_OVERRIDE, rset, jc);
 				}
 				applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, BeaninfoPlugin.ROOT, BeaninfoPlugin.ROOT);
