@@ -11,6 +11,8 @@ package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManagerFactory;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -31,6 +33,8 @@ import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
  * </p>
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
+	
+	private WorkingCopyManager workingCopyManager = null;
 
 	/**
 	 * @param aHandle
@@ -119,6 +123,33 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 		Resource res = getDeploymentDescriptorResource();
 		return (EObject) res.getContents().get(0);
 	}
+	
+	/**
+	 * Returns a working copy managet
+	 * @return
+	 */
+	
+	public WorkingCopyManager getWorkingCopyManager() {
+		if (workingCopyManager == null) 
+			workingCopyManager = WorkingCopyManagerFactory.newRegisteredInstance();
+		return workingCopyManager;
+	}
+	
+	/**
+	 * Returns the working copy remembered for the compilation unit.
+	 *
+	 * @param input ICompilationUnit
+	 * @return the working copy of the compilation unit, or <code>null</code> if there 
+	 *   is no remembered working copy for this compilation unit
+	 */
+	public org.eclipse.jdt.core.ICompilationUnit getWorkingCopy(org.eclipse.jdt.core.ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
+		if (isReadOnly)
+			return null;
+		else
+			return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
+	}
+	
+	
 	
 	/**
 	 * <p>
