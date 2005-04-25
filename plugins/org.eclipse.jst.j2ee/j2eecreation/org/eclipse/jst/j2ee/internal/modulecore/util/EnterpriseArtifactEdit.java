@@ -143,7 +143,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 *   is no remembered working copy for this compilation unit
 	 */
 	public org.eclipse.jdt.core.ICompilationUnit getWorkingCopy(org.eclipse.jdt.core.ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
-		if (isReadOnly)
+		if (isReadOnly())
 			return null;
 		else
 			return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
