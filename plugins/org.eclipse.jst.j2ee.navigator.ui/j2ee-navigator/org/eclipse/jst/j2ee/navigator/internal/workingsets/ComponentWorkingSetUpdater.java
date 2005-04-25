@@ -22,8 +22,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetUpdater;
-import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 /**

@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {

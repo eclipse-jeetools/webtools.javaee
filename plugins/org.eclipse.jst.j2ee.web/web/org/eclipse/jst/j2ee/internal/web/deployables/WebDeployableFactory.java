@@ -26,6 +26,9 @@ import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleType;
+import org.eclipse.wst.server.core.IProjectProperties;
+import org.eclipse.wst.server.core.ServerCore;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
 	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
@@ -54,14 +57,12 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 		J2EEFlexProjWebDeployable moduleDelegate = null;
 		IModule module = null;
 		List moduleList = new ArrayList(workBenchModules.size());
-		// J2EENature nature = (J2EENature)project.getNature(getNatureID());
-
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
 				ComponentType type = wbModule.getComponentType();
 				if (type == null || !type.getComponentTypeId().equals(J2EEFlexProjWebDeployable.WEB_MODULE_TYPE))
-					return null;
+					continue;
 				moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
@@ -110,5 +111,22 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 		moduleList.toArray(modules);
 		return modules;
 
+	}
+	
+	protected boolean isValidModule(IProject project) {
+		if (isFlexableProject(project)) {
+			IProjectProperties properties = ServerCore.getProjectProperties(project);
+			if (properties != null || properties.getRuntimeTarget() == null || properties.getRuntimeTarget().getRuntimeType().getModuleTypes() != null) {
+				IModuleType[] moduleTypes = properties.getRuntimeTarget().getRuntimeType().getModuleTypes();
+				for (int i = 0; i < moduleTypes.length; i++) {
+					IModuleType moduleType = moduleTypes[i];
+					if (moduleType.getId().equals("j2ee.web"))
+						return true;
+				}
+
+			}
+
+		}
+		return false;
 	}
 }

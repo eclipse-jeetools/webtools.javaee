@@ -39,7 +39,7 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
