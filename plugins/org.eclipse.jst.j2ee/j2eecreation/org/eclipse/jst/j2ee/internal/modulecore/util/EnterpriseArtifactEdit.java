@@ -11,8 +11,10 @@ package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManagerFactory;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -32,7 +34,7 @@ import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
  * implementation.
  * </p>
  */
-public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
+public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider {
 	
 	private WorkingCopyManager workingCopyManager = null;
 
@@ -142,14 +144,34 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * @return the working copy of the compilation unit, or <code>null</code> if there 
 	 *   is no remembered working copy for this compilation unit
 	 */
-	public org.eclipse.jdt.core.ICompilationUnit getWorkingCopy(org.eclipse.jdt.core.ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
+	public ICompilationUnit getWorkingCopy(ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
 		if (isReadOnly())
 			return null;
-		else
-			return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
+		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
 	}
 	
+	/**
+	 * Returns the working copy remembered for the compilation unit encoded in the given editor
+	 * input. Does not connect the edit model to the working copy.
+	 * 
+	 * @param input
+	 *            ICompilationUnit
+	 * @return the working copy of the compilation unit, or <code>null</code> if the input does
+	 *         not encode an editor input, or if there is no remembered working copy for this
+	 *         compilation unit
+	 */
+	public ICompilationUnit getExistingWorkingCopy(ICompilationUnit cu) throws org.eclipse.core.runtime.CoreException {
+		return getWorkingCopyManager().getExistingWorkingCopy(cu);
+	}
 	
+	/**
+	 * This will delete
+	 * 
+	 * @cu from the workbench and fix the internal references for this working copy manager.
+	 */
+	public void delete(org.eclipse.jdt.core.ICompilationUnit cu, org.eclipse.core.runtime.IProgressMonitor monitor) {
+		getWorkingCopyManager().delete(cu, monitor);
+	}
 	
 	/**
 	 * <p>
