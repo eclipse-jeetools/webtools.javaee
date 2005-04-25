@@ -4,7 +4,7 @@
    id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet"
    name="Xdoclet Annotations Plug-in"
    version="1.0.0"
-   provider-name="Eteration"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin">
 
    <runtime>
