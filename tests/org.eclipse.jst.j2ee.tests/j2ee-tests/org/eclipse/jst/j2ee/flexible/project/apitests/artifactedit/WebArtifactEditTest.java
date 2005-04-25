@@ -20,7 +20,7 @@ import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ComponentcoreFactoryImpl;
-import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class WebArtifactEditTest extends TestCase {

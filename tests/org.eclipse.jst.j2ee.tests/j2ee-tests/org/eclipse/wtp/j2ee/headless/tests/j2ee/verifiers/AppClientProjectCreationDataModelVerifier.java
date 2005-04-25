@@ -13,7 +13,7 @@ import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifa
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
-import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 /**
  * @author Administrator
