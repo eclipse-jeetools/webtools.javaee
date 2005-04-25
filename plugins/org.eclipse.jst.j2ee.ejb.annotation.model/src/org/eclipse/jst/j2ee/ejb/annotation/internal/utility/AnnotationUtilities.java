@@ -35,6 +35,8 @@ public class AnnotationUtilities {
 	{
 		String providerId = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
 		IConfigurationElement provider =  findAnnotationProviderConfigurationByName(providerId);
+		if( provider == null)
+			return null;
 		return findAnnotationEmitterByName(provider.getAttribute("emitter"));
 	}
 

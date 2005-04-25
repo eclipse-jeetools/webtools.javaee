@@ -15,6 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
@@ -22,6 +24,7 @@ import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.BeanFactory;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.classgen.EjbBuilder;
@@ -46,7 +49,7 @@ public class AddSessionBeanOperation extends WTPOperation {
 		
 	}
 
-	private void createDefaultSessionBean(IProgressMonitor monitor) {
+	private void createDefaultSessionBean(IProgressMonitor monitor) throws CoreException, InterruptedException {
 		
 		SessionBeanDataModel ejbModel = (SessionBeanDataModel)this.getOperationDataModel();
 		NewJavaClassDataModel ejbClassModel = (NewJavaClassDataModel)ejbModel.getNestedModel("NewEJBJavaClassDataModel");
@@ -73,16 +76,24 @@ public class AddSessionBeanOperation extends WTPOperation {
 		ISessionBeanDelegate delegate =BeanFactory.getDelegate(sessionBean, ejbModel);
 		
 		
-		try {
 			IConfigurationElement preferredAnnotation = AnnotationUtilities.getPreferredAnnotationEmitter();
-			AnnotationUtilities.addAnnotationBuilderToProject(preferredAnnotation,ejbClassModel.getTargetProject());
-			EjbEmitter ejbEmitter = new SessionEjbEmitter(preferredAnnotation);
-			ejbEmitter.setMonitor(monitor);
-
-			String comment = ejbEmitter.emitTypeComment(delegate);
-			String stub = ejbEmitter.emitTypeStub(delegate);
-			String method = ejbEmitter.emitInterfaceMethods(delegate);
+			String comment = "";
+			String stub = "";
+			String method="";
 			String className = sessionBean.getEjbClassName();
+
+			try {
+				AnnotationUtilities.addAnnotationBuilderToProject(preferredAnnotation,ejbClassModel.getTargetProject());
+				EjbEmitter ejbEmitter = new SessionEjbEmitter(preferredAnnotation);
+				ejbEmitter.setMonitor(monitor);
+				comment = ejbEmitter.emitTypeComment(delegate);
+				stub = ejbEmitter.emitTypeStub(delegate);
+				method = ejbEmitter.emitInterfaceMethods(delegate);
+			}catch (CoreException e) {
+				throw e;
+			} catch (Exception e) {
+				throw new CoreException(new Status(IStatus.ERROR,ModelPlugin.PLUGINID,0,"Session EJB Emitters Failed",e));
+			}
 
 			
 		
@@ -101,9 +112,6 @@ public class AddSessionBeanOperation extends WTPOperation {
 				
 			ejbBuilder.createType();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
 		
 	}
 
