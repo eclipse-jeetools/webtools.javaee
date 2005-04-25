@@ -498,7 +498,7 @@
       <workingSet
             name="Component"
              updaterClass="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetUpdater"
-             icon="icons\J2EEPerspective.gif"
+             icon="icons/J2EEPerspective.gif"
              id="org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage">
       </workingSet>
    </extension>
@@ -508,7 +508,7 @@
              <componentWorkingSet
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.ejb"
-                  icon = "icons\ejbgroup_obj.gif"
+                  icon = "icons/ejbgroup_obj.gif"
                   label = "Ejb Projects">
              </componentWorkingSet>
       </extension>
@@ -517,7 +517,7 @@
       		<componentWorkingSet
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.web"
-                  icon = "icons\webgroup_obj.gif"
+                  icon = "icons/webgroup_obj.gif"
                   label = "Dynamic Web Projects">
              </componentWorkingSet>
       </extension>
@@ -526,7 +526,7 @@
       		  <componentWorkingSet
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.ear"
-                  icon = "icons\eargroup_obj.gif"
+                  icon = "icons/eargroup_obj.gif"
                   label = "Enterprise Applications">
              </componentWorkingSet>
       </extension>
@@ -536,7 +536,7 @@
       		  <componentWorkingSet
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.appclient"
-                  icon = "icons\appclientgroup_obj.gif"
+                  icon = "icons/appclientgroup_obj.gif"
                   label = "Application Client Projects">
              </componentWorkingSet>
       </extension>
@@ -546,7 +546,7 @@
       		  <componentWorkingSet
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.connector"
-                  icon = "icons\connectorgroup_obj.gif"
+                  icon = "icons/connectorgroup_obj.gif"
                   label = "Connector Projects">
              </componentWorkingSet>
       </extension>
