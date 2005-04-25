@@ -72,8 +72,7 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
             List resourceList = workbenchModule.getResources();
             List javaOutputPathList = new ArrayList();
             for (int i = 0; i < resourceList.size(); i++) {
-            	ComponentResource wmr = (ComponentResource)resourceList.get(i); 
-            	IPath sourcePath = wmr.getSourcePath();
+            	ComponentResource wmr = (ComponentResource)resourceList.get(i);  
             	IResource sourceResource =  StructureEdit.getEclipseResource(wmr);
             	if (sourceResource == null || sourceResource.getName().endsWith(".java") )
             		continue; 
