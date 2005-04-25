@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.ejb.internal.extensions;
 
 import org.eclipse.jst.j2ee.ejb.CommonRelationship;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 
 
 /**
@@ -27,5 +27,5 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
  * Code Style - Code Templates
  */
 public interface Delete11Relationships {
-	public void runDeleteDelete11Relationships(CommonRelationship relationship, EJBEditModel ejbEditModel);
+	public void runDeleteDelete11Relationships(CommonRelationship relationship, EJBArtifactEdit ejbArtifactEdit);
 }
