@@ -100,7 +100,7 @@ public class ModuleStructuralModelTest extends TestCase {
 			
 			WorkbenchComponent module = moduleCore.getWorkbenchModules()[0];
 			ResourceTreeRoot sourceRoot = new ResourceTreeRoot(module, SourcePathProvider.INSTANCE); 
-			ComponentResource[] resources = sourceRoot.findModuleResources(URI.createURI("/"+getWebModuleAndLocalWebLibModuleProjectName()+"/WebContent/WEB-INF/web.xml"));
+			ComponentResource[] resources = sourceRoot.findModuleResources(URI.createURI("/WebContent/WEB-INF/web.xml"));
 			System.out.println(resources[0] != null ? resources[0].getSourcePath().toString() : "NOT FOUND");
 
 		} finally {
