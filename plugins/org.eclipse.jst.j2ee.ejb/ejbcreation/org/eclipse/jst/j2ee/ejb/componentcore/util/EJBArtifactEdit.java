@@ -33,11 +33,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * J2EEConstants#EJBJAR_DD_URI_OBJ}. The defined methods extract data or manipulate the contents of
  * the underlying resource.
  * </p>
- */
-/**
- * @author cbridgha
- *
- */
+ * 
+ */ 
 public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	
 	/**
@@ -83,14 +80,13 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
-	 */
-
-
+	 */ 
 	public EJBArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
@@ -324,6 +320,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -358,6 +355,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
