@@ -16,24 +16,24 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyServiceInterfaceText;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterServiceInterfaceText extends AdapterImpl implements ModifyListener {
-	protected EditModel editModel_;
+	protected ArtifactEdit artifactEdit;
 	protected ServiceRef eObject_;
 	protected EStructuralFeature feature_;
 	protected Text text_;
 	protected boolean nillable_;
 
-	public AdapterServiceInterfaceText(EditModel editModel, Text text) {
+	public AdapterServiceInterfaceText(ArtifactEdit anArtifactEdit, Text text) {
 		super();
-		editModel_ = editModel;
+		artifactEdit = anArtifactEdit;
 		eObject_ = null;
 		feature_ = Webservice_clientPackage.eINSTANCE.getServiceRef_ServiceInterface();
 		text_ = text;
@@ -41,8 +41,8 @@ public class AdapterServiceInterfaceText extends AdapterImpl implements ModifyLi
 		text_.addModifyListener(this);
 	}
 
-	public AdapterServiceInterfaceText(EditModel editModel, ServiceRef eObject, Text text) {
-		this(editModel, text);
+	public AdapterServiceInterfaceText(ArtifactEdit anArtifactEdit, ServiceRef eObject, Text text) {
+		this(anArtifactEdit, text);
 		adapt(eObject);
 	}
 
@@ -57,8 +57,8 @@ public class AdapterServiceInterfaceText extends AdapterImpl implements ModifyLi
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			CommandModifyServiceInterfaceText command = new CommandModifyServiceInterfaceText(null, null, eObject_, text_.getText());
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit.getContentModelRoot().eResource().setModified(true);
+			artifactEdit.getCommandStack().execute(command);
 		}
 	}
 

@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
@@ -22,16 +21,15 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterText extends AdapterImpl implements ModifyListener {
-	protected EditModel editModel_;
 	protected EObject eObject_;
 	protected EStructuralFeature feature_;
 	protected Text text_;
 	protected boolean nillable_;
 	protected ArtifactEdit artifactEdit;
 
-	public AdapterText(EditModel editModel, EStructuralFeature feature, Text text, boolean nillable) {
+	public AdapterText(ArtifactEdit anArtifactEdit, EStructuralFeature feature, Text text, boolean nillable) {
 		super();
-		editModel_ = editModel;
+		artifactEdit = anArtifactEdit;
 		eObject_ = null;
 		feature_ = feature;
 		text_ = text;
@@ -39,8 +37,8 @@ public class AdapterText extends AdapterImpl implements ModifyListener {
 		text_.addModifyListener(this);
 	}
 
-	public AdapterText(EditModel editModel, EObject eObject, EStructuralFeature feature, Text text, boolean nillable) {
-		this(editModel, feature, text, nillable);
+	public AdapterText(ArtifactEdit anArtifactEdit, EObject eObject, EStructuralFeature feature, Text text, boolean nillable) {
+		this(anArtifactEdit, feature, text, nillable);
 		adapt(eObject);
 	}
 
@@ -53,10 +51,8 @@ public class AdapterText extends AdapterImpl implements ModifyListener {
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			CommandModifyText command = new CommandModifyText(null, null, eObject_, feature_, text_.getText(), nillable_);
-			if (editModel_ != null) {
-				editModel_.getRootModelResource().setModified(true);
-				editModel_.getCommandStack().execute(command);
-			} else {
+			if (artifactEdit != null) {
+				artifactEdit.getContentModelRoot().eResource().setModified(true);
 				artifactEdit.getCommandStack().execute(command);
 			}
 		}

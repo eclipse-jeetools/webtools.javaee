@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifySEI;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 /**
@@ -36,13 +36,13 @@ import org.eclipse.swt.widgets.Text;
  * Generation - Code and Comments
  */
 public class AdapterPCRefText extends AdapterText {
-	public AdapterPCRefText(EditModel editModel, EStructuralFeature feature, Text text, boolean nillable) {
-		super(editModel, feature, text, nillable);
+	public AdapterPCRefText(ArtifactEdit anArtifactEdit, EStructuralFeature feature, Text text, boolean nillable) {
+		super(anArtifactEdit, feature, text, nillable);
 	}
 
 
-	public AdapterPCRefText(EditModel editModel, EObject eObject, EStructuralFeature feature, Text text, boolean nillable) {
-		super(editModel, eObject, feature, text, nillable);
+	public AdapterPCRefText(ArtifactEdit anArtifactEdit, EObject eObject, EStructuralFeature feature, Text text, boolean nillable) {
+		super(anArtifactEdit, eObject, feature, text, nillable);
 	}
 
 	public void notifyChanged(Notification msg) {
@@ -66,12 +66,12 @@ public class AdapterPCRefText extends AdapterText {
 			String SEIFeatureName = Webservice_clientPackage.eINSTANCE.getPortComponentRef_ServiceEndpointInterface().getName();
 			if ((eObject_ instanceof PortComponentRef) && (feature_.getName().equals(SEIFeatureName))) {
 				CommandModifySEI command = new CommandModifySEI(null, null, (PortComponentRef) eObject_, text_.getText(), nillable_);
-				editModel_.getRootModelResource().setModified(true);
-				editModel_.getCommandStack().execute(command);
+				artifactEdit.getContentModelRoot().eResource().setModified(true);
+				artifactEdit.getCommandStack().execute(command);
 			} else {
 				CommandModifyText command = new CommandModifyText(null, null, eObject_, feature_, text_.getText(), nillable_);
-				editModel_.getRootModelResource().setModified(true);
-				editModel_.getCommandStack().execute(command);
+				artifactEdit.getContentModelRoot().eResource().setModified(true);
+				artifactEdit.getCommandStack().execute(command);
 			}
 		}
 	}

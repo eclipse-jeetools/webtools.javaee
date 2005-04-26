@@ -24,11 +24,11 @@ import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandAddElement;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandRemoveElement;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.jst.j2ee.internal.webservice.util.QNameHelper;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 /**
@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 
-	private EditModel editModel_;
+	private ArtifactEdit artifactEdit;
 	private EObject parent_;
 	private EClass childEClass_;
 	private EStructuralFeature childFeature_;
@@ -51,9 +51,9 @@ public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 	/**
 	 *  
 	 */
-	public AdapterQNameElement(EditModel editModel, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, Text nsURIText, Text localPartText) {
+	public AdapterQNameElement(ArtifactEdit anArtifactEdit, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, Text nsURIText, Text localPartText) {
 		super();
-		editModel_ = editModel;
+		artifactEdit = anArtifactEdit;
 		parent_ = null;
 		childEClass_ = childEClass;
 		childFeature_ = childFeature;
@@ -78,18 +78,18 @@ public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 	/**
 	 *  
 	 */
-	public AdapterQNameElement(EditModel editModel, EObject parent, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, Text nsURIText, Text localPartText) {
-		this(editModel, childEClass, childFeature, childNillable, nsURIText, localPartText);
+	public AdapterQNameElement(ArtifactEdit anArtifactEdit, EObject parent, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, Text nsURIText, Text localPartText) {
+		this(anArtifactEdit, childEClass, childFeature, childNillable, nsURIText, localPartText);
 		adapt(parent);
 	}
 
 	private void newAdapters(EObject eObject) {
 		if (eObject == null) {
-			featuresAdapters_[0] = new AdapterQNameText(editModel_, features_[0], featuresTexts_[0], featuresNillable_[0]);
-			featuresAdapters_[1] = new AdapterText(editModel_, features_[1], featuresTexts_[1], featuresNillable_[1]);
+			featuresAdapters_[0] = new AdapterQNameText(artifactEdit, features_[0], featuresTexts_[0], featuresNillable_[0]);
+			featuresAdapters_[1] = new AdapterText(artifactEdit, features_[1], featuresTexts_[1], featuresNillable_[1]);
 		} else {
-			featuresAdapters_[0] = new AdapterQNameText(editModel_, eObject, features_[0], featuresTexts_[0], featuresNillable_[0]);
-			featuresAdapters_[1] = new AdapterText(editModel_, eObject, features_[1], featuresTexts_[1], featuresNillable_[1]);
+			featuresAdapters_[0] = new AdapterQNameText(artifactEdit, eObject, features_[0], featuresTexts_[0], featuresNillable_[0]);
+			featuresAdapters_[1] = new AdapterText(artifactEdit, eObject, features_[1], featuresTexts_[1], featuresNillable_[1]);
 		}
 	}
 
@@ -127,8 +127,8 @@ public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 			disposeAdapters();
 			parent_.eAdapters().remove(this);
 			CommandRemoveElement command = new CommandRemoveElement(null, null, parent_, childFeature_);
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit.getContentModelRoot().eResource().setModified(true);
+			artifactEdit.getCommandStack().execute(command);
 			parent_.eAdapters().add(this);
 			newAdapters(null);
 		} else if (!isTextsNull && child == null) {
@@ -142,8 +142,8 @@ public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 			 * child.eSet(features_[i], text); }
 			 */
 			CommandAddElement command = new CommandAddElement(null, null, parent_, childFeature_, child);
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit.getContentModelRoot().eResource().setModified(true);
+			artifactEdit.getCommandStack().execute(command);
 			parent_.eAdapters().add(this);
 			newAdapters(child);
 		}

@@ -16,9 +16,9 @@ import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyNSURI;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 
@@ -29,13 +29,13 @@ import org.eclipse.swt.widgets.Text;
  */
 public class AdapterQNameText extends AdapterText {
 
-	public AdapterQNameText(EditModel editModel, EStructuralFeature feature, Text text, boolean nillable) {
-		super(editModel, feature, text, nillable);
+	public AdapterQNameText(ArtifactEdit anArtifactEdit, EStructuralFeature feature, Text text, boolean nillable) {
+		super(anArtifactEdit, feature, text, nillable);
 	}
 
 
-	public AdapterQNameText(EditModel editModel, EObject eObject, EStructuralFeature feature, Text text, boolean nillable) {
-		super(editModel, eObject, feature, text, nillable);
+	public AdapterQNameText(ArtifactEdit anArtifactEdit, EObject eObject, EStructuralFeature feature, Text text, boolean nillable) {
+		super(anArtifactEdit, eObject, feature, text, nillable);
 	}
 
 	public void modifyText(ModifyEvent e) {
@@ -44,18 +44,16 @@ public class AdapterQNameText extends AdapterText {
 			String namespaceFeatureName = CommonPackage.eINSTANCE.getQName_NamespaceURI().getName();
 			if ((eObject_ instanceof QName) && (feature_.getName().equals(namespaceFeatureName))) {
 				CommandModifyNSURI command = new CommandModifyNSURI(null, null, (QName) eObject_, text_.getText(), nillable_);
-				if (editModel_ != null) {
-					editModel_.getRootModelResource().setModified(true);
-					editModel_.getCommandStack().execute(command);
-				} else
+				if (artifactEdit != null) {
+					artifactEdit.getContentModelRoot().eResource().setModified(true);
 					artifactEdit.getCommandStack().execute(command);
+				} 
 			} else {
 				CommandModifyText command = new CommandModifyText(null, null, eObject_, feature_, text_.getText(), nillable_);
-				if (editModel_ != null) {
-					editModel_.getRootModelResource().setModified(true);
-					editModel_.getCommandStack().execute(command);
-				} else
+				if (artifactEdit != null) {
+					artifactEdit.getContentModelRoot().eResource().setModified(true);
 					artifactEdit.getCommandStack().execute(command);
+				} 
 			}
 
 

@@ -19,14 +19,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandAddElement;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandRemoveElement;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterElement extends AdapterImpl implements ModifyListener {
-	private EditModel editModel_;
+	private ArtifactEdit artifactEdit;
 	private EObject parent_;
 	private EClass childEClass_;
 	private EStructuralFeature childFeature_;
@@ -36,9 +36,9 @@ public class AdapterElement extends AdapterImpl implements ModifyListener {
 	private Text[] featuresTexts_;
 	private AdapterText[] featuresAdapters_;
 
-	public AdapterElement(EditModel editModel, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, EStructuralFeature[] features, boolean[] featuresNillable, Text[] featuresTexts) {
+	public AdapterElement(ArtifactEdit anArtifactEdit, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, EStructuralFeature[] features, boolean[] featuresNillable, Text[] featuresTexts) {
 		super();
-		editModel_ = editModel;
+		artifactEdit = anArtifactEdit;
 		parent_ = null;
 		childEClass_ = childEClass;
 		childFeature_ = childFeature;
@@ -51,18 +51,18 @@ public class AdapterElement extends AdapterImpl implements ModifyListener {
 		newAdapters(null);
 	}
 
-	public AdapterElement(EditModel editModel, EObject parent, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, EStructuralFeature[] features, boolean[] featuresNillable, Text[] featuresTexts) {
-		this(editModel, childEClass, childFeature, childNillable, features, featuresNillable, featuresTexts);
+	public AdapterElement(ArtifactEdit anArtifactEdit, EObject parent, EClass childEClass, EStructuralFeature childFeature, boolean childNillable, EStructuralFeature[] features, boolean[] featuresNillable, Text[] featuresTexts) {
+		this(anArtifactEdit, childEClass, childFeature, childNillable, features, featuresNillable, featuresTexts);
 		adapt(parent);
 	}
 
 	private void newAdapters(EObject eObject) {
 		if (eObject == null)
 			for (int i = 0; i < featuresAdapters_.length; i++)
-				featuresAdapters_[i] = new AdapterText(editModel_, features_[i], featuresTexts_[i], featuresNillable_[i]);
+				featuresAdapters_[i] = new AdapterText(artifactEdit, features_[i], featuresTexts_[i], featuresNillable_[i]);
 		else
 			for (int i = 0; i < featuresAdapters_.length; i++)
-				featuresAdapters_[i] = new AdapterText(editModel_, eObject, features_[i], featuresTexts_[i], featuresNillable_[i]);
+				featuresAdapters_[i] = new AdapterText(artifactEdit, eObject, features_[i], featuresTexts_[i], featuresNillable_[i]);
 	}
 
 	private void addModifyListener() {
@@ -99,8 +99,8 @@ public class AdapterElement extends AdapterImpl implements ModifyListener {
 			disposeAdapters();
 			parent_.eAdapters().remove(this);
 			CommandRemoveElement command = new CommandRemoveElement(null, null, parent_, childFeature_);
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit.getContentModelRoot().eResource().setModified(true);
+			artifactEdit.getCommandStack().execute(command);
 			parent_.eAdapters().add(this);
 			newAdapters(null);
 		} else if (!isTextsNull && child == null) {
@@ -113,8 +113,8 @@ public class AdapterElement extends AdapterImpl implements ModifyListener {
 					child.eSet(features_[i], text);
 			}
 			CommandAddElement command = new CommandAddElement(null, null, parent_, childFeature_, child);
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit.getContentModelRoot().eResource().setModified(true);
+			artifactEdit.getCommandStack().execute(command);
 			parent_.eAdapters().add(this);
 			newAdapters(child);
 		}
