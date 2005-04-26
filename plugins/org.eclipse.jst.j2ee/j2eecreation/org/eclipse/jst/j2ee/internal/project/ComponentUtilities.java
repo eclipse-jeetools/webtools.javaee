@@ -9,29 +9,36 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class ComponentUtilities {
 
-	public static List getSourceContainers(IVirtualComponent wc, IProject project) {
-		List sourceFolders = new ArrayList();
-		IFolder folder = project.getFolder(new Path("B/ejbModule"));
-		sourceFolders.add(folder);
-
-		// try {
-		// IVirtualComponent component = ComponentCore.createComponent(project,wc.getName());
-		// IVirtualResource[] resources = component.members();
-		// for(int i = 0; i < resources.length; i++) {
-		// IVirtualResource resource = (IVirtualResource)resources[i];
-		// if(resource.getType() == IVirtualResource.FOLDER)
-		// sourceFolders.add(resource.getUnderlyingResource());
-		// }
-		// } catch (CoreException ce) {
-		// Logger.getLogger().log(ce);
-		// }
-		return sourceFolders;
+	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent wc) {
+		 List sourceFolders = new ArrayList();
+		 try {
+		 IVirtualResource[] resources = wc.members();
+		 if(resources != null || resources.length > 0) {
+			 for(int i = 0; i < resources.length; i++) {
+				 if(resources[i].getType() == IVirtualResource.FOLDER) {
+				 IFolder folder = ((IVirtualFolder)resources[i]).getUnderlyingFolder();
+				 IJavaElement element = JavaCore.create(folder);
+				 if(element != null && element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
+				    sourceFolders.add(element);
+				 }
+			 }
+		   }
+		 } catch (CoreException ce) {
+		 Logger.getLogger().log(ce);
+		 }
+		 return (IPackageFragmentRoot[]) sourceFolders.toArray(new IPackageFragmentRoot[sourceFolders.size()]);
 	}
 	
 	
