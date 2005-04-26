@@ -39,6 +39,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -66,11 +70,6 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 
 /**
  * @author jlanuti
@@ -801,8 +800,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected void addedWsdl(IFile wsdl) {
 		if (!wsdl.exists())
 			return;
-		Resource res = WorkbenchResourceHelperBase.getResource(wsdl, true);
-		IProject p = ProjectUtilities.getProject(res);
+		//Resource res = WorkbenchResourceHelperBase.getResource(wsdl, true);
+		IProject p = wsdl.getProject();
 		WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
 		// forward an edit model event to manager's listeners
 		notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, editModel));
@@ -812,7 +811,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		if (!wsil.exists())
 			return;
 		//Resource res = WorkbenchResourceHelper.getResource(wsil,true);
-		IProject p = ProjectUtilities.getProject(wsil);
+		IProject p = wsil.getProject();
 		WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
 		// forward an edit model event to manager's listeners
 		notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, editModel));
