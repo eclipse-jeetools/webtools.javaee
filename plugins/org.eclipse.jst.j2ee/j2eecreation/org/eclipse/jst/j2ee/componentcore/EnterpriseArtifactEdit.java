@@ -72,7 +72,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * Instances of EnterpriseArtifactEdit that are returned through this method must be
 	 * {@see #dispose()}ed of when no longer in use.
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}&nbsp;for an accessible project
 	 * @param aModule

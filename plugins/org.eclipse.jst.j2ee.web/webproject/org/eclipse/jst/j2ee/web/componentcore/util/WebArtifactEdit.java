@@ -51,6 +51,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  * J2EEConstants#WEBAPP_DD_URI_OBJ}. The defined methods extract data or manipulate the contents of
  * the underlying resource.
  * </p>
+ * 
  */
 public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
@@ -157,6 +158,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -193,6 +195,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -245,6 +248,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
@@ -460,6 +464,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * of the associated workbench module. It will ensure a null is not passed and it will ensure the
 	 * dependent modules are not already in the list.
 	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param libModules array of dependent modules to add as web libraries 
 	 */
 	public void addLibModules(ReferencedComponent[] libModules) {

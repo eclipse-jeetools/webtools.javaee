@@ -22,11 +22,19 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
+/**
+ * Provides access to J2EE Connector models using the ArtifactEdit pattern.
+ * <p>
+ * Clients should use getConnectorArtifactForRead/Write() to acquire an instance
+ * of the correct artifact edit class.
+ * </p>
+ */
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
-	 * Identifier used to link ConnectorArtifactEdit to a ConnectorEditAdapterFactory {@see
-	 * ConnectorEditAdapterFactory} stored in an AdapterManger (@see AdapterManager)
+	 * Identifier used to link ConnectorArtifactEdit to a
+	 * ConnectorEditAdapterFactory {@see ConnectorEditAdapterFactory} stored in
+	 * an AdapterManger (@see AdapterManager)
 	 * </p>
 	 */
 
@@ -39,13 +47,14 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static String TYPE_ID = IModuleConstants.JST_CONNECTOR_MODULE; //$NON-NLS-1$
-	
+
 	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public ConnectorArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+	public ConnectorArtifactEdit(ComponentHandle aHandle,
+			boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aHandle, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
@@ -61,55 +70,54 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	public ConnectorArtifactEdit(ArtifactEditModel anArtifactEditModel) {
 		super(anArtifactEditModel);
 	}
-	
+
 	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
-	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
-	 *            {@see ModuleCoreNature}
+	 *            A non-null {@see WorkbenchComponent}pointing to a module from
+	 *            the given {@see ModuleCoreNature}
 	 */
 
-	public ConnectorArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
+	public ConnectorArtifactEdit(ModuleCoreNature aNature,
+			WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
-	
+
 	/**
-	 * 
 	 * @return ConnectorResource from (@link getDeploymentDescriptorResource())
-	 *  
 	 */
 
 	public ConnectorResource getConnectorXmiResource() {
 		return (ConnectorResource) getDeploymentDescriptorResource();
 	}
-	
+
 	/**
 	 * <p>
-	 * Retrieves the underlying resource from the ArtifactEditModel using defined URI.
+	 * Retrieves the underlying resource from the ArtifactEditModel using
+	 * defined URI.
 	 * </p>
 	 * 
 	 * @return Resource
-	 *  
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(J2EEConstants.RAR_DD_URI_OBJ);
 	}
-	
+
 	/**
 	 * <p>
-	 * Obtains the Connector (@see Connector) root object from the ConnectorResource. If the root object does
-	 * not exist, then one is created (@link addConnectorIfNecessary(getConnectorXmiResource())).
-	 * The root object contains all other resource defined objects.
+	 * Obtains the Connector (@see Connector) root object from the
+	 * ConnectorResource. If the root object does not exist, then one is created
+	 * (@link addConnectorIfNecessary(getConnectorXmiResource())). The root
+	 * object contains all other resource defined objects.
 	 * </p>
 	 * 
 	 * @return EObject
-	 *  
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
@@ -118,20 +126,18 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		addConnectorIfNecessary(getConnectorXmiResource());
 		return (EObject) contents.get(0);
 	}
-	
+
 	/**
 	 * <p>
-	 * Creates a deployment descriptor root object (Connector) and populates with data. Adds the root
-	 * object to the deployment descriptor resource.
+	 * Creates a deployment descriptor root object (Connector) and populates
+	 * with data. Adds the root object to the deployment descriptor resource.
 	 * </p>
-	 * 
 	 * <p>
 	 * 
 	 * @param aModule
-	 *            A non-null pointing to a {@see XMLResource}
-	 * 
-	 * Note: This method is typically used for JUNIT - move?
-	 * </p>
+	 *            A non-null pointing to a {@see XMLResource} Note: This method
+	 *            is typically used for JUNIT - move?
+	 *            </p>
 	 */
 	protected void addConnectorIfNecessary(XMLResource aResource) {
 
@@ -140,36 +146,40 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.getContents().add(connector);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				connector.setDisplayName(StructureEdit.getDeployedName(moduleURI));
+				connector.setDisplayName(StructureEdit
+						.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(connector, J2EEConstants.CONNECTOR_ID);
-			//TODO add more mandatory elements
+			// TODO add more mandatory elements
 		}
 	}
-	
+
 	/**
 	 * <p>
-	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * Returns an instance facade to manage the underlying edit model for the
+	 * given {@see WorkbenchComponent}. Instances of ArtifactEdit that are
+	 * returned through this method must be {@see #dispose()}ed of when no
+	 * longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
-	 * will not be used for editing. Invocations of any save*() API on an instance returned from
-	 * this method will throw exceptions.
+	 * Use to acquire an ArtifactEdit facade for a specific
+	 * {@see WorkbenchComponent}&nbsp;that will not be used for editing.
+	 * Invocations of any save*() API on an instance returned from this method
+	 * will throw exceptions.
 	 * </p>
 	 * <p>
 	 * <b>The following method may return null. </b>
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
-	 *            accessible project in the workspace
-	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
-	 *         model
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that
+	 *            resolves to an accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may only be used to read the
+	 *         underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(ComponentHandle aHandle) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(
+			ComponentHandle aHandle) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = new ConnectorArtifactEdit(aHandle, true);
@@ -178,27 +188,30 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return artifactEdit;
 	}
+
 	/**
 	 * <p>
-	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * Returns an instance facade to manage the underlying edit model for the
+	 * given {@see WorkbenchComponent}. Instances of ArtifactEdit that are
+	 * returned through this method must be {@see #dispose()}ed of when no
+	 * longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
-	 * will be used for editing.
+	 * Use to acquire an ArtifactEdit facade for a specific
+	 * {@see WorkbenchComponent}&nbsp;that will be used for editing.
 	 * </p>
 	 * <p>
 	 * <b>The following method may return null. </b>
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
-	 *            accessible project in the workspace
-	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
-	 *         underlying content model
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that
+	 *            resolves to an accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may be used to modify and
+	 *         persist changes to the underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(ComponentHandle aHandle) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(
+			ComponentHandle aHandle) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = new ConnectorArtifactEdit(aHandle, false);
@@ -207,82 +220,90 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return artifactEdit;
 	}
-	
+
 	/**
 	 * <p>
-	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of ConnectorArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * Returns an instance facade to manage the underlying edit model for the
+	 * given {@see WorkbenchComponent}. Instances of ConnectorArtifactEdit that
+	 * are returned through this method must be {@see #dispose()}ed of when no
+	 * longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an ConnectorArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
-	 * be used for editing. Invocations of any save*() API on an instance returned from this method
+	 * Use to acquire an ConnectorArtifactEdit facade for a specific
+	 * {@see WorkbenchComponent}&nbsp;that will not be used for editing.
+	 * Invocations of any save*() API on an instance returned from this method
 	 * will throw exceptions.
 	 * </p>
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
-	 * @return An instance of ConnectorArtifactEdit that may only be used to read the underlying content
-	 *         model
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that
+	 *            resolves to an accessible project in the workspace
+	 * @return An instance of ConnectorArtifactEdit that may only be used to
+	 *         read the underlying content model
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(WorkbenchComponent aModule) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(
+			WorkbenchComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
 				IProject project = StructureEdit.getContainingProject(aModule);
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
+				ModuleCoreNature nature = ModuleCoreNature
+						.getModuleCoreNature(project);
 				return new ConnectorArtifactEdit(nature, aModule, true);
 			}
 		} catch (UnresolveableURIException uue) {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * <p>
-	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of ConnectorArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * Returns an instance facade to manage the underlying edit model for the
+	 * given {@see WorkbenchComponent}. Instances of ConnectorArtifactEdit that
+	 * are returned through this method must be {@see #dispose()}ed of when no
+	 * longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an ConnectorArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
-	 * will be used for editing.
+	 * Use to acquire an ConnectorArtifactEdit facade for a specific
+	 * {@see WorkbenchComponent}&nbsp;that will be used for editing.
 	 * </p>
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
-	 * @return An instance of ConnectorArtifactEdit that may be used to modify and persist changes to the
-	 *         underlying content model
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that
+	 *            resolves to an accessible project in the workspace
+	 * @return An instance of ConnectorArtifactEdit that may be used to modify
+	 *         and persist changes to the underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(WorkbenchComponent aModule) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(
+			WorkbenchComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
 				IProject project = StructureEdit.getContainingProject(aModule);
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
+				ModuleCoreNature nature = ModuleCoreNature
+						.getModuleCoreNature(project);
 				return new ConnectorArtifactEdit(nature, aModule, false);
 			}
 		} catch (UnresolveableURIException uue) {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param module
 	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
-	 *         JST module
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and
+	 *         the moduleTypeId is a JST module
 	 */
-	public static boolean isValidConnectorModule(WorkbenchComponent aModule) throws UnresolveableURIException {
+	public static boolean isValidConnectorModule(WorkbenchComponent aModule)
+			throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */
@@ -290,39 +311,40 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			return false;
 		return true;
 	}
-	
+
 	/**
 	 * <p>
 	 * Retrieves J2EE version information from ConnectorResource.
 	 * </p>
 	 * 
 	 * @return an integer representation of a J2EE Spec version
-	 *  
 	 */
 
 	public int getJ2EEVersion() {
 		return getConnectorXmiResource().getJ2EEVersionID();
 	}
-	
+
 	/**
-	 * 
 	 * @return Connector from (@link getDeploymentDescriptorRoot())
-	 *  
 	 */
 	public Connector getConnector() {
 		return (Connector) getDeploymentDescriptorRoot();
 	}
 
 	public EObject createModelRoot() {
-	    return createModelRoot(getJ2EEVersion());
+		return createModelRoot(getJ2EEVersion());
 	}
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
-     */
-    public EObject createModelRoot(int version) {
-        ConnectorResource res = (ConnectorResource)getDeploymentDescriptorResource();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
+	 */
+	public EObject createModelRoot(int version) {
+		ConnectorResource res = (ConnectorResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
-	    addConnectorIfNecessary(res);
-		return ((ConnectorResource)getDeploymentDescriptorResource()).getRootObject();
-    }
+		addConnectorIfNecessary(res);
+		return ((ConnectorResource) getDeploymentDescriptorResource())
+				.getRootObject();
+	}
 }

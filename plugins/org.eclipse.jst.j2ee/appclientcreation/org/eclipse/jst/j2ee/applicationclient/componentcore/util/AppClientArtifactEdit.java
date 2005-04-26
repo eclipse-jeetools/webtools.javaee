@@ -48,18 +48,21 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws IllegalArgumentException
 	 */
 	public AppClientArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
+		super(aHandle, toAccessAsReadOnly);		
 	}
 
 	public AppClientArtifactEdit(ArtifactEditModel anArtifactEditModel) {
-		super(anArtifactEditModel);
-		// TODO Auto-generated constructor stub
+		super(anArtifactEditModel);		
 	}
 
+	/**
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * @param aNature
+	 * @param aModule
+	 * @param toAccessAsReadOnly
+	 */
 	public AppClientArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
-		super(aNature, aModule, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
+		super(aNature, aModule, toAccessAsReadOnly);		
 	}
 	
 	/**
@@ -238,7 +241,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -272,7 +275,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -292,6 +295,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	
 	/**
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param module
 	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module

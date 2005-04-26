@@ -139,7 +139,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -174,7 +174,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
@@ -224,7 +224,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
-	 * 
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
@@ -358,6 +358,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		return ((ApplicationResource)getDeploymentDescriptorResource()).getRootObject();
 	}
 	/**
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
 	 * @param WorkbenchComponent
 	 * @return - a list of util modules referred by a given j2ee module
 	 */
@@ -375,6 +376,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	  return null;
 	}
 	
+	/**
+	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * @param module
+	 * @return - a list of J2EE modules referred by a given j2ee module
+	 */
 	public List getWorkbenchJ2EEModules(WorkbenchComponent module) {
 		if(module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
 		List j2eeComponents = new ArrayList();
