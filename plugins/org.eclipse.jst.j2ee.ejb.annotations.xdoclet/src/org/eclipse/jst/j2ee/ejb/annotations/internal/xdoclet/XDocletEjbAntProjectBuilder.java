@@ -228,8 +228,12 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	private String addWeblogicTask() {
 		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.EJB_WEBLOGIC))
 			return ""; //$NON-NLS-1$
-		return "<weblogic version=\"" + XDocletPreferenceStore.getProperty(XDocletPreferenceStore.EJB_WEBLOGIC + "_VERSION") + "\"" + "   xmlencoding=\"UTF-8\"" + "   destdir=\"\\${ejb.dd.dir}\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-					+ "   validatexml=\"false\"" + "   datasource=\"\\${data.source.name}\"" + "   mergedir=\"\\${ejb.dd.dir}\"" + "   persistence=\"weblogic\" />"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		String version = XDocletPreferenceStore.getProperty(XDocletPreferenceStore.EJB_WEBLOGIC + "_VERSION");
+		String createtables = "False";  // < 8.1  True | False
+		if( "8.1".equals(version))
+			createtables = "Disabled";  // >= 8.1  Disabled | ...
+		return "<weblogic version=\"" + version + "\"" + "   xmlencoding=\"UTF-8\"" + "   destdir=\"\\${ejb.dd.dir}\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+					+ " createtables=\""+createtables+"\""+"   validatexml=\"false\"" + "   datasource=\"\\${data.source.name}\"" + "   mergedir=\"\\${ejb.dd.dir}\"" + "   persistence=\"weblogic\" />"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 	}
 
