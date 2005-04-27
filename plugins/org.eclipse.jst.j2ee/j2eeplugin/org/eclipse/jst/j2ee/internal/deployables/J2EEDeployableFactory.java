@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -34,7 +34,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
 	protected HashMap projectModules;
 
-	protected ArrayList moduleDelegates = new ArrayList();
+	protected final List moduleDelegates = Collections.synchronizedList(new ArrayList(1));;
 
 	protected static boolean isFlexableProject(IProject project) {
 		return ModuleCoreNature.getModuleCoreNature(project) != null;
@@ -135,12 +135,13 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
 
 	public ModuleDelegate getModuleDelegate(IModule module) {
-		if (moduleDelegates == null)
-			moduleDelegates = new ArrayList(1);
-		for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
-			ModuleDelegate element = (ModuleDelegate) iter.next();
-			if (module == element.getModule())
-				return element;
+		if(moduleDelegates.size() == 0)
+			return null;
+		ModuleDelegate[] delegates = (ModuleDelegate[])
+			moduleDelegates.toArray(new ModuleDelegate[moduleDelegates.size()]);
+		for (int i=0; i<delegates.length; i++) {			
+			if (module == delegates[i].getModule())
+				return delegates[i];
 		}
 		return null;
 	}
