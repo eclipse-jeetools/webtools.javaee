@@ -19,8 +19,9 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -28,12 +29,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -42,20 +40,15 @@ import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.util.WebResource;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
-
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @version 1.0
@@ -79,8 +72,15 @@ public class WebDeployableArtifactUtil {
 		else if (obj instanceof EObject) {
 			resource = ProjectUtilities.getProject((EObject) obj);
 			if (obj instanceof Servlet) {
-				JavaClass servletResource = ((Servlet) obj).getServletClass();
-				IVirtualResource[] resources = ComponentCore.createResources((IResource) servletResource);
+				Servlet servlet = ((Servlet) obj);
+				Resource servResource = servlet.eResource();
+				IVirtualResource[] resources = null;
+				try {
+					IResource eclipeServResoruce = (IResource) WorkbenchResourceHelper.getFile(servResource);
+					resources = ComponentCore.createResources(eclipeServResoruce);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				IVirtualComponent component = null;
 				if (resources[0] != null)
 					component = resources[0].getComponent();
@@ -310,13 +310,7 @@ public class WebDeployableArtifactUtil {
 		}
 	}
 
-	/**
-	 * Returns true if this java type derives from javax.servlet.GenericServlet
-	 * 
-	 * @param type
-	 *            com.ibm.jdt.core.api.IType
-	 * @return boolean
-	 */
+
 	private static boolean isServlet(IType type) {
 		try {
 			ITypeHierarchy hierarchy = type.newSupertypeHierarchy(null);
@@ -333,17 +327,7 @@ public class WebDeployableArtifactUtil {
 		}
 	}
 
-	/**
-	 * Return the mapping of a servlet or JSP file, or null if none was available.
-	 * 
-	 * @param project
-	 *            org.eclipse.core.resources.IProject
-	 * @param isServlet
-	 *            boolean
-	 * @param typeName
-	 *            java.lang.String
-	 * @return java.lang.String
-	 */
+
 	public static String getServletMapping(IResource resource, boolean isServlet, String typeName, String componentName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
@@ -366,11 +350,7 @@ public class WebDeployableArtifactUtil {
 			}
 
 		}
-
-
-
 		Object key = new Object();
-
 		try {
 			if (webApp == null)
 				return null;
@@ -389,7 +369,6 @@ public class WebDeployableArtifactUtil {
 					if (typeName.equals(type.getJspFile()))
 						valid = true;
 				}
-
 				if (valid) {
 					java.util.List mappings = servlet.getMappings();
 					if (mappings != null && !mappings.isEmpty()) {
@@ -398,7 +377,6 @@ public class WebDeployableArtifactUtil {
 					}
 				}
 			}
-
 			return null;
 		} catch (Exception e) {
 			return null;
@@ -410,8 +388,9 @@ public class WebDeployableArtifactUtil {
 		try {
 			edit = StructureEdit.getStructureEditForWrite(project);
 			WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
-			WorkbenchComponent[] earComponents = edit.findComponentsByType("jst.ear");
-			if (components == null || components.length == 0 || earComponents != null || earComponents.length > 0)
+			// WorkbenchComponent[] earComponents = edit.findComponentsByType("jst.ear");
+			if (components == null || components.length == 0) // || earComponents != null ||
+				// earComponents.length > 0
 				return false;
 			else
 				return true;
