@@ -83,7 +83,8 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	}
 
 	public IModule[] getModules() {
-		cacheModules();
+		//turned off for M4
+		/*cacheModules();
 		ArrayList moduleList = new ArrayList();
 		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
 			IModule[] element = (IModule[]) iter.next();
@@ -93,8 +94,8 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 		}
 		IModule[] modules = new IModule[moduleList.size()];
 		moduleList.toArray(modules);
-		return modules;
-
+		return modules;*/
+       return null;
 
 	}
 
