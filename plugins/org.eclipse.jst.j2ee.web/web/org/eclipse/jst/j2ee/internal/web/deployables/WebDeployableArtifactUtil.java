@@ -70,9 +70,6 @@ public class WebDeployableArtifactUtil {
 		super();
 	}
 
-	/*
-	 * @see IDeployableObjectAdapterDelegate#getDeployableObject(Object)
-	 */
 	public static IModuleArtifact getModuleObject(Object obj) {
 		IResource resource = null;
 		if (obj instanceof IResource)
@@ -82,7 +79,6 @@ public class WebDeployableArtifactUtil {
 		else if (obj instanceof EObject) {
 			resource = ProjectUtilities.getProject((EObject) obj);
 			if (obj instanceof Servlet) {
-
 				JavaClass servletResource = ((Servlet) obj).getServletClass();
 				IVirtualResource[] resources = ComponentCore.createResources((IResource) servletResource);
 				IVirtualComponent component = null;
@@ -135,8 +131,8 @@ public class WebDeployableArtifactUtil {
 		if (resources[0] != null || resources.length <= 0)
 			component = resources[0].getComponent();
 		String className = getServletClassName(resource);
-		if (className != null) {
-			String mapping = getServletMapping(resource, true, className);
+		if (className != null && component != null) {
+			String mapping = getServletMapping(resource, true, className, component.getName());
 			if (mapping != null) {
 				return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
 			}
@@ -145,11 +141,11 @@ public class WebDeployableArtifactUtil {
 			return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
-		resourcePath = trim(resourcePath,component.getName());
-		resourcePath = trim(resourcePath,WebArtifactEdit.WEB_CONTENT);
-		//resourcePath = trim(resourcePath,WebArtifactEdit.META_INF);
-		//resourcePath = trim(resourcePath,WebArtifactEdit.WEB_INF);
-		
+		resourcePath = trim(resourcePath, component.getName());
+		resourcePath = trim(resourcePath, WebArtifactEdit.WEB_CONTENT);
+		// resourcePath = trim(resourcePath,WebArtifactEdit.META_INF);
+		// resourcePath = trim(resourcePath,WebArtifactEdit.WEB_INF);
+
 		// Extension read to get the correct URL for Java Server Faces file if
 		// the jsp is of type jsfaces.
 		FileURL jspURL = FileURLExtensionReader.getInstance().getFilesURL();
@@ -176,12 +172,6 @@ public class WebDeployableArtifactUtil {
 		return resourcePath;
 	}
 
-	/**
-	 * Method shouldExclude.
-	 * 
-	 * @param resource
-	 * @return boolean
-	 */
 	private static boolean shouldExclude(IResource resource) {
 		String fileExt = resource.getFileExtension();
 
@@ -229,7 +219,7 @@ public class WebDeployableArtifactUtil {
 
 	/**
 	 * 
-	 * Very temporary api - TODO - rip this out by M5
+	 * Very temporary api - TODO - rip this out by 1.0
 	 */
 	private static boolean isCactusJunitTest(IResource resource) {
 		return getClassNameForType(resource, CACTUS_SERVLET_CLASS_TYPE) != null;
@@ -237,13 +227,6 @@ public class WebDeployableArtifactUtil {
 
 
 
-	/**
-	 * Returns the types contained within this java element.
-	 * 
-	 * @param element
-	 *            com.ibm.jdt.core.api.IJavaElement
-	 * @return com.ibm.jdt.core.api.IType[]
-	 */
 	private static IType[] getTypes(IJavaElement element) {
 		try {
 			if (element.getElementType() != IJavaElement.COMPILATION_UNIT)
@@ -361,25 +344,36 @@ public class WebDeployableArtifactUtil {
 	 *            java.lang.String
 	 * @return java.lang.String
 	 */
-	public static String getServletMapping(IResource resource, boolean isServlet, String typeName) {
-		IProject project = resource.getProject();
+	public static String getServletMapping(IResource resource, boolean isServlet, String typeName, String componentName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
 
-		StructureEdit moduleCore = null;
+		IProject project = resource.getProject();
 		WebArtifactEdit edit = null;
+		WebApp webApp = null;
+		StructureEdit moduleCore = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(project);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(componentName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.getDeploymentDescriptorRoot();
+			webApp = edit.getWebApp();
+		} catch (Exception e) {
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+
+		}
+
+
 
 		Object key = new Object();
 
 		try {
-			//moduleCore = StructureEdit.getStructureEditForRead(project);
-			// Path path = new Path
-			//VirtualComponent vc = (VirtualComponent) ComponentCore.createComponent(project, "webModule");
-			WebApp webApp = null;// model.getWebApp();
 			if (webApp == null)
 				return null;
-
-			// find servlet
 			Iterator iterator = webApp.getServlets().iterator();
 			while (iterator.hasNext()) {
 				Servlet servlet = (Servlet) iterator.next();
@@ -408,13 +402,6 @@ public class WebDeployableArtifactUtil {
 			return null;
 		} catch (Exception e) {
 			return null;
-		} finally {
-			try {
-				if (moduleCore != null)
-					moduleCore.dispose();
-			} catch (Exception ex) {
-				// ignore
-			}
 		}
 	}
 
