@@ -18,11 +18,12 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider
  * @author naci
  */
 public class AnnotationUtilities {
-
+	final static String STRUCTURALBUILDER="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder";
+	
 	public static void addAnnotationBuilderToProject(IConfigurationElement emitter,
 			IProject targetProject) throws CoreException {
 		String builderId = emitter.getAttribute("builderId");
-		ProjectUtilities.addToBuildSpec(emitter.getNamespace()+ "." + builderId, targetProject);
+		ProjectUtilities.addToBuildSpecBefore(emitter.getNamespace()+ "." + builderId,STRUCTURALBUILDER, targetProject);
 		
 	}
 
