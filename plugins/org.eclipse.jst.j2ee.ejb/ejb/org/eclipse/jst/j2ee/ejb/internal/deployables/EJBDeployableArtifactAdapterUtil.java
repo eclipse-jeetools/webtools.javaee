@@ -15,7 +15,9 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
@@ -27,8 +29,12 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.core.EJBBean;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -57,7 +63,6 @@ public class EJBDeployableArtifactAdapterUtil {
 			IProject project = (IProject) obj;
 			return getModuleObject((IProject) obj);
 		}
-
 		if (obj instanceof IFile)
 			return getModuleObject((IFile) obj);
 		if (obj instanceof ICompilationUnit) {
@@ -72,7 +77,7 @@ public class EJBDeployableArtifactAdapterUtil {
 			edit = StructureEdit.getStructureEditForWrite(project);
 			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
 			WorkbenchComponent[] earComponents = null;// edit.findComponentsByType("jst.ear");
-			if (components == null || components.length == 0 || earComponents == null || earComponents.length > 0)
+			if (components == null || components.length == 0) //earComponents == null || earComponents.length > 0
 				return false;
 			else
 				return true;
@@ -112,33 +117,65 @@ public class EJBDeployableArtifactAdapterUtil {
 
 	protected static IModuleArtifact getModuleObject(IProject project) {
 		if (hasInterestedComponents(project)) {
-			IModule dep = getModule(project);
+			IModule dep = getModule(project, null);
 			return createModuleObject(dep, null, false, false);
 		}
 		return null;
 	}
 
 	protected static IModuleArtifact getModuleObject(IFile file) {
+		IVirtualResource[] resources = ComponentCore.createResources(file);
+		IVirtualComponent component = null;
+		if (resources[0] != null || resources.length <= 0)
+			component = resources[0].getComponent();
 		if (hasInterestedComponents(file.getProject())) {
 			String ext = file.getFileExtension();
 			if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
 				return getModuleJavaObject(file);
 			if (file.getProjectRelativePath().toString().endsWith(J2EEConstants.EJBJAR_DD_URI))
-				return createModuleObject(getModule(file.getProject()), null, false, false);
+				return createModuleObject(getModule(file.getProject(), component), null, false, false);
 		}
 		return null;
 	}
 
 	protected static IModule getModule(EObject refObject) {
 		IProject proj = ProjectUtilities.getProject(refObject);
-		return getModule(proj);
+		Resource refResource = refObject.eResource();
+		IVirtualResource[] resources = null;
+		IVirtualComponent component = null;
+		try {
+			IResource eclipeServResoruce = (IResource) WorkbenchResourceHelper.getFile(refResource);
+			resources = ComponentCore.createResources(eclipeServResoruce);
+			if (resources[0] != null)
+				component = resources[0].getComponent();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return getModule(proj, component);
 	}
 
-	protected static IModule getModule(IProject project) {
+	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		if (deployable != null)
-			return deployable;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator(); //$NON-NLS-1$
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator();
+		String componentName = null;
+		if (component != null)
+			componentName = component.getName();
+		else
+			return getModuleProject(project, iterator);
+		while (iterator.hasNext()) {
+			Object next = iterator.next();
+			if (next instanceof IModule) {
+				deployable = (IModule) next;
+				if (deployable.getName().equals(componentName)) {
+					return deployable;
+				}
+			}
+		}
+		return null;
+	}
+	
+	protected static IModule getModuleProject(IProject project, Iterator iterator) {
+		IModule deployable = null;
 		while (iterator.hasNext()) {
 			Object next = iterator.next();
 			if (next instanceof IModule) {
