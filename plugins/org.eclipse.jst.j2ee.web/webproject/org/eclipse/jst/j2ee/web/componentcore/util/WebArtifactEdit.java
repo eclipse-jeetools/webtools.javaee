@@ -62,7 +62,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 */
 	public static final Class ADAPTER_TYPE = WebArtifactEdit.class;
-
+	public static final String WEB_CONTENT = "WebContent";
+	public static final String WEB_INF = "WEB-INF";
+	public static final String META_INF = "META-INF";
+	
 	/**
 	 * <p>
 	 * Identifier used to group and query common artifact edits.
@@ -316,6 +319,24 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	/**
+	 * This method returns the integer representation for the JSP specification level associated with
+	 * the J2EE version for this workbench module.  This method will not return null and returns 20
+	 * as default.
+	 * @see WebArtifactEdit#getServletVersion()
+	 * 
+	 * @return an integer representation of the JSP level
+	 */
+	public int getJSPVersion() {
+		int servletVersion = getServletVersion();
+		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
+			return J2EEVersionConstants.JSP_1_1_ID;
+		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
+			return J2EEVersionConstants.JSP_1_2_ID;
+		else
+			return J2EEVersionConstants.JSP_2_0_ID;
+	}
+	
+	/**
 	 * <p>
 	 * Creates a deployment descriptor root object (WebApp) and populates with data. Adds the root
 	 * object to the deployment descriptor resource.
@@ -346,7 +367,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 				//Ignore
 			}
 			aResource.setID(webApp, J2EEConstants.WEBAPP_ID);
-
+	
 			WelcomeFileList wList = WebapplicationFactory.eINSTANCE.createWelcomeFileList();
 			webApp.setFileList(wList);
 			List files = wList.getFile();
@@ -376,25 +397,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			}
 		}
 	}
-	
-	/**
-	 * This method returns the integer representation for the JSP specification level associated with
-	 * the J2EE version for this workbench module.  This method will not return null and returns 20
-	 * as default.
-	 * @see WebArtifactEdit#getServletVersion()
-	 * 
-	 * @return an integer representation of the JSP level
-	 */
-	public int getJSPVersion() {
-		int servletVersion = getServletVersion();
-		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
-			return J2EEVersionConstants.JSP_1_1_ID;
-		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
-			return J2EEVersionConstants.JSP_1_2_ID;
-		else
-			return J2EEVersionConstants.JSP_2_0_ID;
-	}
-	
+
+
 	/**
 	 * This method returns the full path to the deployment descriptor resource for the associated
 	 * workbench module.  This method may return null.
@@ -487,7 +491,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public String getServerContextRoot() {
 		//TODO return the valid context root for the module, needs to be be added to the model
-		return null;
+		return "WebContent";
 	}
 	
 	/**

@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -40,14 +41,20 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.util.WebResource;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
+import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
@@ -74,12 +81,13 @@ public class WebDeployableArtifactUtil {
 			resource = (IResource) ((IAdaptable) obj).getAdapter(IResource.class);
 		else if (obj instanceof EObject) {
 			resource = ProjectUtilities.getProject((EObject) obj);
-
-			/*
-			 * ccc - this code is a pseudo-rehash of the code below. The difference is that we have
-			 * a Servlet, instead of an IResource that might be a Servlet
-			 */
 			if (obj instanceof Servlet) {
+
+				JavaClass servletResource = ((Servlet) obj).getServletClass();
+				IVirtualResource[] resources = ComponentCore.createResources((IResource) servletResource);
+				IVirtualComponent component = null;
+				if (resources[0] != null)
+					component = resources[0].getComponent();
 				String mapping = null;
 				java.util.List mappings = ((Servlet) obj).getMappings();
 				if (mappings != null && !mappings.isEmpty()) {
@@ -87,26 +95,18 @@ public class WebDeployableArtifactUtil {
 					mapping = map.getUrlPattern();
 				}
 				if (mapping != null) {
-					return new WebResource(getModule(resource.getProject()), new Path(mapping));
+					return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
 				}
 				WebType webType = ((Servlet) obj).getWebType();
 				if (webType.isJspType()) {
-					// TODO ArtifactWebEdit
-					// resource = ((IProject) resource).getFile(webNature.getModuleServerRootName()
-					// + "/" + ((JSPType) webType).getJspFile()); //$NON-NLS-1$
+					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); //$NON-NLS-1$
 				} else if (webType.isServletType()) {
-					return new WebResource(getModule(resource.getProject()), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
+					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 				}
 			}
 		}
 		if (resource == null)
 			return null;
-
-		/*
-		 * // find deployable IBaseWebNature webNature =
-		 * J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject()); if (webNature == null)
-		 * return null;
-		 */
 
 		if (resource instanceof IProject) {
 			StructureEdit edit = null;
@@ -117,7 +117,7 @@ public class WebDeployableArtifactUtil {
 				if (components == null || components.length == 0)
 					return null;
 				else
-					return new WebResource(getModule(project), project.getProjectRelativePath());
+					return new WebResource(getModule(project, null), project.getProjectRelativePath());
 			} catch (Exception e) {
 				System.out.println(e);
 			} finally {
@@ -125,50 +125,55 @@ public class WebDeployableArtifactUtil {
 			}
 
 		}
-
 		if (isCactusJunitTest(resource))
 			return null;
+
+		IPath rootPath = resource.getProjectRelativePath();
+		IPath resourcePath = resource.getFullPath();
+		IVirtualResource[] resources = ComponentCore.createResources(resource);
+		IVirtualComponent component = null;
+		if (resources[0] != null || resources.length <= 0)
+			component = resources[0].getComponent();
 		String className = getServletClassName(resource);
 		if (className != null) {
-			String mapping = getServletMapping(resource.getProject(), true, className);
+			String mapping = getServletMapping(resource, true, className);
 			if (mapping != null) {
-				return new WebResource(getModule(resource.getProject()), new Path(mapping));
+				return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
 			}
 			// if there is no servlet mapping, provide direct access to the servlet
 			// through the fully qualified class name
-			return new WebResource(getModule(resource.getProject()), new Path("servlet/" + className)); //$NON-NLS-1$
+			return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
-
-		// determine path
-		// TODO get webcontent name from module
-		// String name = getWebSettings().getWebContentName();
-		// getfolder() and path for now default to projectPath
-		IPath rootPath = resource.getProjectRelativePath();
-		IPath resourcePath = resource.getFullPath();
-
-		// Check to make sure the resource is under the webApplication directory
-	/*	if (resourcePath.matchingFirstSegments(rootPath) != rootPath.segmentCount())
-			return null;*/
-
-		// Do not allow resource under the web-inf directory
-		resourcePath = resourcePath.removeFirstSegments(rootPath.segmentCount());
-		if (resourcePath.segmentCount() > 1 && resourcePath.segment(0).equals(IWebNatureConstants.INFO_DIRECTORY))
-			return null;
-
-		if (shouldExclude(resource))
-			return null;
-
+		resourcePath = trim(resourcePath,component.getName());
+		resourcePath = trim(resourcePath,WebArtifactEdit.WEB_CONTENT);
+		//resourcePath = trim(resourcePath,WebArtifactEdit.META_INF);
+		//resourcePath = trim(resourcePath,WebArtifactEdit.WEB_INF);
+		
 		// Extension read to get the correct URL for Java Server Faces file if
 		// the jsp is of type jsfaces.
 		FileURL jspURL = FileURLExtensionReader.getInstance().getFilesURL();
 		if (jspURL != null) {
 			IPath correctJSPPath = jspURL.getFileURL(resource, resourcePath);
 			if (correctJSPPath != null && correctJSPPath.toString().length() > 0)
-				return new WebResource(getModule(resource.getProject()), correctJSPPath);
+				return new WebResource(getModule(resource.getProject(), component), correctJSPPath);
 		}
 		// return Web resource type
-		return new WebResource(getModule(resource.getProject()), resourcePath);
+		return new WebResource(getModule(resource.getProject(), component), resourcePath);
+	}
+
+	private static IPath trim(IPath resourcePath, String stripValue) {
+		int x = -1;
+		String[] segements = resourcePath.segments();
+		for (int i = 0; i < segements.length; i++) {
+			if (segements[i].equals(stripValue)) {
+				x = ++i;
+				break;
+			}
+		}
+		if (x > -1)
+			return resourcePath.removeFirstSegments(x);
+		return resourcePath;
 	}
 
 	/**
@@ -189,10 +194,28 @@ public class WebDeployableArtifactUtil {
 		return false;
 	}
 
-	protected static IModule getModule(IProject project) {
+	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
 		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator();
+		String componentName = null;
+		if (component != null)
+			componentName = component.getName();
+		else
+			return getModuleProject(project, iterator);
+		while (iterator.hasNext()) {
+			Object next = iterator.next();
+			if (next instanceof IModule) {
+				deployable = (IModule) next;
+				if (deployable.getName().equals(componentName)) {
+					return deployable;
+				}
+			}
+		}
+		return null;
+	}
 
+	protected static IModule getModuleProject(IProject project, Iterator iterator) {
+		IModule deployable = null;
 		while (iterator.hasNext()) {
 			Object next = iterator.next();
 			if (next instanceof IModule) {
@@ -338,23 +361,21 @@ public class WebDeployableArtifactUtil {
 	 *            java.lang.String
 	 * @return java.lang.String
 	 */
-	public static String getServletMapping(IProject project, boolean isServlet, String typeName) {
+	public static String getServletMapping(IResource resource, boolean isServlet, String typeName) {
+		IProject project = resource.getProject();
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
 
-		J2EEWebNatureRuntime webNature = null;
-		WebEditModel model = null;
+		StructureEdit moduleCore = null;
+		WebArtifactEdit edit = null;
+
 		Object key = new Object();
 
 		try {
-			webNature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
-			if (webNature == null)
-				return null;
-
-			model = webNature.getWebAppEditModelForRead(key);
-			if (model == null)
-				return null;
-			WebApp webApp = model.getWebApp();
+			//moduleCore = StructureEdit.getStructureEditForRead(project);
+			// Path path = new Path
+			//VirtualComponent vc = (VirtualComponent) ComponentCore.createComponent(project, "webModule");
+			WebApp webApp = null;// model.getWebApp();
 			if (webApp == null)
 				return null;
 
@@ -389,23 +410,14 @@ public class WebDeployableArtifactUtil {
 			return null;
 		} finally {
 			try {
-				if (model != null)
-					model.releaseAccess(key);
+				if (moduleCore != null)
+					moduleCore.dispose();
 			} catch (Exception ex) {
 				// ignore
 			}
 		}
 	}
 
-	public static String getJSPSpecificationVersion(IBaseWebNature baseWebNature) {
-
-		if (baseWebNature.isJ2EE()) {
-			return ((J2EEWebNatureRuntime) baseWebNature).isJSP1_2() ? "1.2" : "1.1"; //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		return "1.2"; //$NON-NLS-1$
-
-	}
-	
 	protected static boolean hasInterestedComponents(IProject project) {
 		StructureEdit edit = null;
 		try {
