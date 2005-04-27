@@ -105,22 +105,13 @@ public class WebDeployableArtifactUtil {
 			return null;
 
 		if (resource instanceof IProject) {
-			StructureEdit edit = null;
 			IProject project = (IProject) resource;
-			try {
-				edit = StructureEdit.getStructureEditForWrite(project);
-				WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
-				if (components == null || components.length == 0)
-					return null;
-				else
-					return new WebResource(getModule(project, null), project.getProjectRelativePath());
-			} catch (Exception e) {
-				System.out.println(e);
-			} finally {
-				edit.dispose();
-			}
-
+			if (hasInterestedComponents(project))
+				return new WebResource(getModule(project, null), project.getProjectRelativePath());
 		}
+		
+		if (!hasInterestedComponents(resource.getProject()))
+            return null;
 		if (isCactusJunitTest(resource))
 			return null;
 
