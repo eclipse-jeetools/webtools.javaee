@@ -34,6 +34,7 @@
       <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
       <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
 
    <extension point="org.eclipse.core.resources.builders"

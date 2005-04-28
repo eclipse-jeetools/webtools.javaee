@@ -92,7 +92,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 			WorkbenchComponent ejbModule = null;
-			ComponentResource[] moduleResources = core.findResourcesBySourcePath(resource.getFullPath());
+			ComponentResource[] moduleResources = core.findResourcesBySourcePath(resource.getProjectRelativePath());
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)
@@ -163,7 +163,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			Iterator projSPaths = sourcePaths.iterator();
 			while (projSPaths.hasNext()) {
 				IFolder pSPath = (IFolder) projSPaths.next();			
-				if( sPath.equals(pSPath.getFullPath())){
+				if( sPath.makeRelative().equals(pSPath.getProjectRelativePath())){
 					properties.put("ejb.client.module.src", pSPath.getLocation().toString()); //$NON-NLS-1$
 					return;
 				}

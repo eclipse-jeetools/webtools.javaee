@@ -29,11 +29,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.common.internal.launcher.ant.AntLauncher;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public abstract class XDocletAntProjectBuilder {
 
@@ -44,35 +43,14 @@ public abstract class XDocletAntProjectBuilder {
 		public static XDocletAntProjectBuilder newInstance(IResource resource) {
 			WebArtifactEdit webEdit = null;
 			StructureEdit moduleCore = null;
-			WorkbenchComponent wbModule = null;
-			try {
-				moduleCore = StructureEdit.getStructureEditForRead(resource
-						.getProject());
-				ComponentResource[] moduleResources = moduleCore
-						.findResourcesBySourcePath(resource.getFullPath());
-				for (int i = 0; i < moduleResources.length; i++) {
-					ComponentResource moduleResource = moduleResources[i];
-					if (moduleResource != null)
-						wbModule = moduleResource.getComponent();
-					if (wbModule != null)
-						break;
-				}
-				if (wbModule != null) {
-					String moduleType = wbModule.getComponentType()
-							.getComponentTypeId();
-					if (moduleType.equals(IModuleConstants.JST_EJB_MODULE))
-						return new XDocletEjbAntProjectBuilder();
-					else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
-						return new XDocletWebAntProjectBuilder();
-				}
-			} catch (UnresolveableURIException e) {
-				e.printStackTrace();
-			} finally {
-				if (moduleCore != null)
-					moduleCore.dispose();
-				if (webEdit != null)
-					webEdit.dispose();
-			}
+			IVirtualResource[] vResources = ComponentCore.createResources(resource);
+			if( vResources.length == 0)
+				return null;
+			String moduleType = vResources[0].getComponent().getComponentTypeId();
+			if (moduleType.equals(IModuleConstants.JST_EJB_MODULE))
+				return new XDocletEjbAntProjectBuilder();
+			else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
+				return new XDocletWebAntProjectBuilder();
 			return null;
 		}
 

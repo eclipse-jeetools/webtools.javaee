@@ -52,7 +52,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(javaProject.getProject());
 			WorkbenchComponent wbModule = null;
-			ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(resource.getFullPath());
+			ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(resource.getProjectRelativePath());
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)
