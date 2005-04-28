@@ -105,6 +105,17 @@ public class AddEjbWizard extends NewEjbWizard {
 					}
 				}
 			}});
+		
+		model.addListener(new WTPOperationDataModelListener(){
+
+			public void propertyChanged(WTPOperationDataModelEvent event) {
+				 if( EjbCommonDataModel.ANNOTATIONPROVIDER.equals(event.getPropertyName()))
+				{
+					String provider = (String)event.getProperty();
+					sessionBeanDataModel.setProperty( EjbCommonDataModel.ANNOTATIONPROVIDER, provider);
+					messageDrivenBeanDataModel.setProperty( EjbCommonDataModel.ANNOTATIONPROVIDER, provider);
+				}
+			}});		
 		return model;
 	}
 	
