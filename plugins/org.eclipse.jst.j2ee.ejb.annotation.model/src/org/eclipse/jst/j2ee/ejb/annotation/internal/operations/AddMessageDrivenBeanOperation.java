@@ -11,11 +11,14 @@ package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
@@ -88,18 +91,16 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 		IMessageDrivenBeanDelegate delegate = BeanFactory.getDelegate(mdBean,
 				ejbModel);
 
-		IConfigurationElement preferredAnnotation = AnnotationUtilities
-				.getPreferredAnnotationEmitter();
 
 		String comment = "";
 		String stub = "";
 		String method = "";
 		String fields = "";
 		String className = mdBean.getEjbClassName();
+		IConfigurationElement preferredAnnotation = AnnotationUtilities
+		.findAnnotationEmitterForProvider(ejbModel.getStringProperty(MessageDrivenBeanDataModel.ANNOTATIONPROVIDER));
 
 		try {
-			AnnotationUtilities.addAnnotationBuilderToProject(
-					preferredAnnotation, ejbClassModel.getTargetProject());
 			EjbEmitter ejbEmitter = new MessageDrivenEjbEmitter(
 					preferredAnnotation);
 			ejbEmitter.setMonitor(monitor);
@@ -132,7 +133,16 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 		ejbBuilder.setFields(fields);
 
 		ejbBuilder.createType();
+		IType bean = ejbBuilder.getCreatedType();
+		IResource javaFile = bean.getCorrespondingResource();
+		IProject project = ejbClassModel.getTargetProject();
+		initializeBuilder(monitor, preferredAnnotation,javaFile, project);
 
+	}
+
+	protected void initializeBuilder(IProgressMonitor monitor, IConfigurationElement emitterConfiguration, IResource javaFile, IProject project) throws CoreException {
+		AnnotationUtilities.addAnnotationBuilderToProject(
+				emitterConfiguration, project);
 	}
 
 }

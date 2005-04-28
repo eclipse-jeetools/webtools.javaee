@@ -12,18 +12,20 @@ package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.BeanFactory;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
@@ -66,7 +68,7 @@ public class AddSessionBeanOperation extends WTPOperation {
 			sessionBeanType = SessionType.STATEFUL_LITERAL;
 		sessionBean.setSessionType(sessionBeanType);
 
-		String tType = ejbModel.getStringProperty(MessageDrivenBeanDataModel.TRANSACTIONTYPE);
+		String tType = ejbModel.getStringProperty(EjbCommonDataModel.TRANSACTIONTYPE);
 		TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
 		if(tType.equals(TransactionType.BEAN_LITERAL.getName()))
 			transactionType = TransactionType.BEAN_LITERAL;
@@ -76,14 +78,15 @@ public class AddSessionBeanOperation extends WTPOperation {
 		ISessionBeanDelegate delegate =BeanFactory.getDelegate(sessionBean, ejbModel);
 		
 		
-			IConfigurationElement preferredAnnotation = AnnotationUtilities.getPreferredAnnotationEmitter();
 			String comment = "";
 			String stub = "";
 			String method="";
 			String className = sessionBean.getEjbClassName();
 
+			IConfigurationElement preferredAnnotation = AnnotationUtilities
+			.findAnnotationEmitterForProvider(ejbModel.getStringProperty(EjbCommonDataModel.ANNOTATIONPROVIDER));
+			
 			try {
-				AnnotationUtilities.addAnnotationBuilderToProject(preferredAnnotation,ejbClassModel.getTargetProject());
 				EjbEmitter ejbEmitter = new SessionEjbEmitter(preferredAnnotation);
 				ejbEmitter.setMonitor(monitor);
 				comment = ejbEmitter.emitTypeComment(delegate);
@@ -112,7 +115,17 @@ public class AddSessionBeanOperation extends WTPOperation {
 				
 			ejbBuilder.createType();
 			
+			IType bean = ejbBuilder.getCreatedType();
+			IResource javaFile = bean.getCorrespondingResource();
+			IProject project = ejbClassModel.getTargetProject();
+			initializeBuilder(monitor, preferredAnnotation,javaFile, project);
 		
+		
+	}
+
+	protected void initializeBuilder(IProgressMonitor monitor, IConfigurationElement emitterConfiguration, IResource javaFile, IProject project) throws CoreException {
+		AnnotationUtilities.addAnnotationBuilderToProject(
+				emitterConfiguration, project);
 	}
 
 
