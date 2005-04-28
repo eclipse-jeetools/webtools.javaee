@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.36 $  $Date: 2004/11/01 21:43:18 $ 
+ *  $Revision: 1.36.4.1 $  $Date: 2005/04/28 21:55:35 $ 
  */
 
 
@@ -991,6 +991,20 @@ public class ProxyPlugin extends Plugin {
 		if (pdeprocess != null)
 			pdeprocess.findPlugins(project, pluginIds, visible, first);	// expand the plugins for this project, if any.
 	}
+
+	/**
+	 * 
+	 * @param project
+	 * 
+	 * @return true if this is a Plugin project or false if not
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.2.2
+	 */
+	public static boolean isPDEProject(IJavaProject project) throws CoreException {
+		return project.getProject().hasNature("org.eclipse.pde.PluginNature");
+	}
+
 
 	/*
 	 * Interface for processing Plugins. Used when PDE plugin is present in the installation. 
