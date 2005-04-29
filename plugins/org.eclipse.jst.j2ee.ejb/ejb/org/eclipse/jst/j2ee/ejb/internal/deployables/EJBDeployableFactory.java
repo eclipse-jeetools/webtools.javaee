@@ -78,7 +78,7 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	}
 
 	public IModule[] getModules() {
-		cacheModules();
+		cacheModules(false);
 		ArrayList moduleList = new ArrayList();
 		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
 			IModule[] element = (IModule[]) iter.next();
