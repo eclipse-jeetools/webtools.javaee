@@ -15,7 +15,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -24,6 +27,7 @@ import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.internal.Trace;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
@@ -34,7 +38,9 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
 	protected HashMap projectModules;
 
-	protected final List moduleDelegates = Collections.synchronizedList(new ArrayList(1));;
+	protected final List moduleDelegates = Collections.synchronizedList(new ArrayList(1));
+
+	private long cachedStamp = -2;
 
 	protected static boolean isFlexableProject(IProject project) {
 		return ModuleCoreNature.getModuleCoreNature(project) != null;
@@ -64,6 +70,29 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	 * oldModules.add(newModules.get(i)); }
 	 *  }
 	 */
+
+
+
+	protected boolean needsUpdating(IProject project) {
+		if(!initialized)
+			return true;
+		IFile wtpmodules = project.getFile(IModuleConstants.WTPMODULE_FILE_PATH);
+		if(wtpmodules.getModificationStamp() != cachedStamp) {
+			cachedStamp = wtpmodules.getModificationStamp();
+			return true;
+		}
+		return false;
+	}
+
+
+	/**
+	 * Return the workspace root.
+	 * 
+	 * @return the workspace root
+	 */
+	private static IWorkspaceRoot getWorkspaceRoot() {
+		return ResourcesPlugin.getWorkspace().getRoot();
+	}
 
 
 
