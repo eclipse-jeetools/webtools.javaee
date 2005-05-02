@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 23:02:54 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/02 21:36:10 $ 
  */
 
 import java.util.*;
@@ -19,18 +19,14 @@ import java.util.List;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
-
-import org.eclipse.jem.internal.beaninfo.core.BeaninfoEntry;
-import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
-
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.dialogs.StatusDialog;
 import org.eclipse.jdt.internal.ui.util.PixelConverter;
 import org.eclipse.jdt.internal.ui.wizards.*;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.StatusDialog;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -39,6 +35,9 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.dialogs.*;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoEntry;
+import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 
 /**
  * @version 	1.0
@@ -529,7 +528,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 				
 		public VariableSelectionDialog(Shell parent, List existingPaths) {
 			super(parent);
-			setTitle(NewWizardMessages.getString("LibrariesWorkbookPage.VariableSelectionDialog.title")); //$NON-NLS-1$
+			setTitle(NewWizardMessages.NewVariableEntryDialog_title); //$NON-NLS-1$
 			String initVar= fDialogSettings.get(DIALOGSTORE_LASTVARIABLE);
 			fVariableSelectionBlock= new VariableSelectionBlock(this, existingPaths, null, initVar, false);
 		}
@@ -549,7 +548,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 			Composite composite= (Composite)super.createDialogArea(parent);
 					
 			Label message= new Label(composite, SWT.WRAP);
-			message.setText(NewWizardMessages.getString("LibrariesWorkbookPage.VariableSelectionDialog.message")); //$NON-NLS-1$
+			message.setText(NewWizardMessages.NewVariableEntryDialog_title); //$NON-NLS-1$
 			message.setLayoutData(new GridData());	
 						
 			Control inner= fVariableSelectionBlock.createControl(composite);

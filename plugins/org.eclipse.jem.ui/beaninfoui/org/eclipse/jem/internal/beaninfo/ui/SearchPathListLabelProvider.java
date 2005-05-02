@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.7 $  $Date: 2005/03/07 22:24:14 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/02 21:36:10 $ 
  */
 
 import java.net.URL;
@@ -27,16 +27,16 @@ import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
 import org.eclipse.jdt.ui.JavaElementImageDescriptor;
-import org.eclipse.jem.internal.beaninfo.core.*;
-import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.internal.misc.OverlayComposite;
 import org.osgi.framework.Bundle;
+
+import org.eclipse.jem.internal.beaninfo.core.*;
+import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 
 public class SearchPathListLabelProvider extends LabelProvider {
 
