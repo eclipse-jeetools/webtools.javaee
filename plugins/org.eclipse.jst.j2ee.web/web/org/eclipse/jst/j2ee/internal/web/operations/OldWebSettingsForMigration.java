@@ -35,8 +35,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class OldWebSettingsForMigration extends OldJ2EESettingsForMigration {
-	
-	static final String ELEMENT_WEBSETTINGS = "websettings"; //$NON-NLS-1$
+	static final String ELEMENT_WEBSETTINGS = "j2eesettings"; //$NON-NLS-1$
 	static final String ELEMENT_PROJECTTYPE = "project-type"; //$NON-NLS-1$
 	static final String ELEMENT_CONTEXTROOT = "context-root"; //$NON-NLS-1$
 	static final String ELEMENT_WEBCONTENT = "webcontent"; //$NON-NLS-1$
@@ -66,7 +65,7 @@ public class OldWebSettingsForMigration extends OldJ2EESettingsForMigration {
 
 	protected IFile getSettingsFile() {
 		if (fSettingsFile == null) {
-			fSettingsFile = fProject.getFile(IWebNatureConstants.WEBSETTINGS_MIGRATION_FILE_NAME);
+			fSettingsFile = fProject.getFile(IWebNatureConstants.WEBSETTINGS_FILE_NAME);
 		}
 		return fSettingsFile;
 	}
@@ -147,11 +146,18 @@ public class OldWebSettingsForMigration extends OldJ2EESettingsForMigration {
 		// The following change is needed when the websettings file is
 		// deleted from a version 4 workspace  Checking for webapplication
 		// folder - Otherwise, new projects will not work.
-		IContainer webmoduleFolder = fProject.getFolder(IWebNatureConstants.WEB_MODULE_DIRECTORY_V4);
-		IFolder webinfFolder = ((IFolder) webmoduleFolder).getFolder(IWebNatureConstants.INFO_DIRECTORY);
+//		IContainer webmoduleFolder = fProject.getFolder(IWebNatureConstants.WEB_MODULE_DIRECTORY_V4);
+//		IFolder webinfFolder = ((IFolder) webmoduleFolder).getFolder(IWebNatureConstants.INFO_DIRECTORY);
+//		if (webinfFolder.exists()) {
+//			return VERSION_V4;
+//		}
+//		
+		IContainer webcontetntFolder = fProject.getFolder(IWebNatureConstants.WEB_MODULE_DIRECTORY_);
+		IFolder webinfFolder = ((IFolder) webcontetntFolder).getFolder(IWebNatureConstants.INFO_DIRECTORY);
 		if (webinfFolder.exists()) {
-			return VERSION_V4;
-		}
+			return CURRENT_VERSION;
+		}		
+		
 		return CURRENT_VERSION;
 	}
 	

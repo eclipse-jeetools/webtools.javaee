@@ -66,7 +66,7 @@ public interface IWebNatureConstants {
 
 	// These values must be accessed through IBaseWebNature or IJ2EEWebNature
 	String WEB_MODULE_DIRECTORY_V4 = "webApplication";//$NON-NLS-1$
-	String WEB_MODULE_DIRECTORY_ = "Web Content";//$NON-NLS-1$
+	String WEB_MODULE_DIRECTORY_ = "WebContent";//$NON-NLS-1$
 	IPath WEB_MODULE_PATH_V4 = new Path(WEB_MODULE_DIRECTORY_V4);
 	IPath WEB_MODULE_PATH_ = new Path(WEB_MODULE_DIRECTORY_);
 	IPath WEBINF_PATH_V4 = WEB_MODULE_PATH_V4.append(INFO_DIRECTORY);
