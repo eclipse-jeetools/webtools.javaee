@@ -30,14 +30,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public void init() {
 		super.init();
         propertySet(COMPONENT_VERSION, getDefaultProperty(COMPONENT_VERSION));
-//		earComponentCreationDataModel = new EARComponentCreationDataModel();
-//		if(earComponentCreationDataModel != null)
-//			getDataModel().addNestedModel(NESTED_MODEL_EAR_CREATION, earComponentCreationDataModel);
-//		addComponentToEARDataModel = createModuleNestedModel();
-//		if (addComponentToEARDataModel != null)
-//			getDataModel().addNestedModel(NESTED_MODEL_ADD_TO_EAR, addComponentToEARDataModel);
-//		jarDependencyDataModel = new UpdateManifestDataModel();
-//		getDataModel().addNestedModel(NESTED_MODEL_JAR_DEPENDENCY, jarDependencyDataModel);
+        model.setProperty(NESTED_EAR_COMPONENT_CREATION_DM, new EARComponentCreationDataModel());
+        model.setProperty(NESTED_ADD_COMPONENT_TO_EAR_DM, new AddComponentToEnterpriseApplicationDataModel());
+        model.setProperty(NESTED_CLASSPATH_SELECTION_DM, new UpdateManifestDataModel());
 	}
 
  	public String[] getPropertyNames() {
@@ -46,10 +41,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
                 NESTED_ADD_COMPONENT_TO_EAR_DM, NESTED_CLASSPATH_SELECTION_DM, NESTED_EAR_COMPONENT_CREATION_DM,
                 NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE };
 		return combineProperties(super.getPropertyNames(), props);
-	}
-
-	protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
-		return new AddComponentToEnterpriseApplicationDataModel();
 	}
 
 	public Object getDefaultProperty(String propertyName) {
@@ -87,7 +78,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
 		}
-		//To do: after porting
 //		else if (propertyName.equals(J2EE_VERSION)) {
 //			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
 //			propertySet(COMPONENT_VERSION, modVersion);
@@ -258,6 +248,18 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
     }
 
 	private IStatus validateEARModuleNameProperty() {
+        IStatus status = OK_STATUS;
+        String earName = getStringProperty(EAR_COMPONENT_NAME);
+        if (status.isOK()) {
+            if (earName.indexOf("#") != -1) { //$NON-NLS-1$
+                String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
+                return WTPCommonPlugin.createErrorStatus(errorMessage);
+            } else if (earName == null || earName.equals("")) { //$NON-NLS-1$
+                String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
+                return WTPCommonPlugin.createErrorStatus(errorMessage);
+            }
+        } else
+            return status;
 //		IProject earProject = applicationCreationDataModel.getTargetProject();
 //		if (null != earProject && earProject.exists()) {
 //			if (earProject.isOpen()) {
