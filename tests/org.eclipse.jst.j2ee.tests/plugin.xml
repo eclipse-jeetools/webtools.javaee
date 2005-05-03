@@ -33,6 +33,7 @@
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.jst.j2ee.webservice"/>
    </requires>
    <extension
          point="org.eclipse.wst.common.tests.collector.suites">

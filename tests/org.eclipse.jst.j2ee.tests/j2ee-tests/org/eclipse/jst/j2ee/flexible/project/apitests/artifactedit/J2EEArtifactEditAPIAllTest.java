@@ -27,6 +27,7 @@ public class J2EEArtifactEditAPIAllTest extends TestSuite {
 		addTest(new SimpleTestSuite(EJBArtifactEditTest.class));
 		//addTest(new SimpleTestSuite(EJBArtifactEditFVTest.class));
 		addTest(new SimpleTestSuite(EnterpriseArtifactEditTest.class));
+		addTest(new SimpleTestSuite(WSDDArtifactEditFVTest.class));
 
 	}
 
