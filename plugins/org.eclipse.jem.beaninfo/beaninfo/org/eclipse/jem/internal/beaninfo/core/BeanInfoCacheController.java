@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.6 $  $Date: 2005/04/15 18:49:08 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/04 15:13:15 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -1393,10 +1393,11 @@ public class BeanInfoCacheController {
 
 	static final Map SAVE_CACHE_OPTIONS;
 	static {
-		SAVE_CACHE_OPTIONS = new HashMap(2);
+		SAVE_CACHE_OPTIONS = new HashMap(3);
 		SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_SAVE_TYPE_INFORMATION, Boolean.TRUE);
 		//	SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
 		// TODO when we step up to EMF 2.1, bug 80502 should fix this.
+        SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_ENCODING, "UTF-8");
 	}
 
 	protected Job cacheWriteJob = null;
