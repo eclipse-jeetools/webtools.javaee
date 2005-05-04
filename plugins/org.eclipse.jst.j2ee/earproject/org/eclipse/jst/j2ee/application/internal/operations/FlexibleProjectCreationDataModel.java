@@ -138,7 +138,9 @@ public class FlexibleProjectCreationDataModel extends WTPOperationDataModel {
 		if (PROJECT_NAME.equals(propertyName)) {
 		    projectDataModel.setProperty(ProjectCreationDataModel.PROJECT_NAME, propertyValue);
 			serverTargetDataModel.setProperty(J2EEProjectServerTargetDataModel.PROJECT_NAME, propertyValue);
-		}
+		}else if(PROJECT_LOCATION.equals(propertyName)) {
+        	projectDataModel.setProperty(ProjectCreationDataModel.PROJECT_LOCATION, propertyValue);
+        }
 		return true;
 	}
 	
