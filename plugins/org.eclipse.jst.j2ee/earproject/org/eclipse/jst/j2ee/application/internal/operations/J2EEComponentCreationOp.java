@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -28,6 +29,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
@@ -37,166 +39,176 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public abstract class J2EEComponentCreationOp extends ComponentCreationOperationEx implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel{
+public abstract class J2EEComponentCreationOp extends ComponentCreationOperationEx implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
     /**
      * name of the template emitter to be used to generate the deployment
      * descriptor from the tags
      */
     protected static final String TEMPLATE_EMITTER = "org.eclipse.jst.j2ee.ejb.annotations.emitter.template"; //$NON-NLS-1$
+
     /**
      * id of the builder used to kick off generation of web metadata based on
      * parsing of annotations
      */
     protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
-    
+
     public J2EEComponentCreationOp(IDataModel model) {
         super(model);
         // TODO Auto-generated constructor stub
     }
-    protected void execute( String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+
+    protected void execute(String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         createAndLinkJ2EEComponents();
         setupComponentType(componentType);
-        
+
         if (model.getBooleanProperty(CREATE_DEFAULT_FILES)) {
             createDeploymentDescriptor(monitor);
             createManifest(monitor);
         }
-        
+
         addSrcFolderToProject();
         if (model.getBooleanProperty(USE_ANNOTATIONS))
-            addAnnotationsBuilder();    
-        
+            addAnnotationsBuilder();
+
         linkToEARIfNecessary(monitor);
     }
 
     protected abstract void createAndLinkJ2EEComponents() throws CoreException;
-    
 
-    
     protected abstract void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
-        public  void linkToEARIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-            if (model.getBooleanProperty(ADD_TO_EAR)) {
-                createEARComponentIfNecessary(monitor);
-                runAddToEAROperation(monitor);
-            }
+    public void linkToEARIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+        if (model.getBooleanProperty(ADD_TO_EAR)) {
+            createEARComponentIfNecessary(monitor);
+            runAddToEAROperation(monitor);
+        }
+    }
+
+    /**
+     * @param moduleModel
+     * @param monitor
+     * @throws CoreException
+     * @throws InvocationTargetException
+     * @throws InterruptedException
+     */
+    protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+
+        URI uri = (URI) model.getProperty(EAR_COMPONENT_HANDLE);
+        IProject proj = null;
+        try {
+            proj = StructureEdit.getContainingProject(uri);
+        } catch (UnresolveableURIException e) {
+            Logger.getLogger().log(e);
         }
 
-        /**
-         * @param moduleModel
-         * @param monitor
-         * @throws CoreException
-         * @throws InvocationTargetException
-         * @throws InterruptedException
-         */
-        protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-            
-//            URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
-//            IProject proj = null;
-//            try {
-//                proj = StructureEdit.getContainingProject(uri);
-//            }
-//            catch (UnresolveableURIException e) {
-//                Logger.getLogger().log(e);
-//            }
-//            
-            
-//            StructureEdit core = null;
-//            try {
-//                core = StructureEdit.getStructureEditForRead(getProject());
-//                WorkbenchComponent wc = core.findComponentByName((String)model.getProperty(COMPONENT_DEPLOY_NAME));
-//                AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel)model.getProperty(NESTED_MODEL_ADD_TO_EAR);
-//                
-//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
-//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
-//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, wc.getName());
-//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(EAR_COMPONENT_DEPLOY_NAME));
-//                List modList = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
-//                modList.add(wc);
-//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modList);
-//                AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
-//                addModuleOp.doRun(monitor);
-//            } finally {
-//                if(core != null)
-//                    core.dispose();
-//            }
-        }
+        StructureEdit core = null;
+        try {
+            core = StructureEdit.getStructureEditForRead(getProject());
+            WorkbenchComponent wc = core.findComponentByName((String) model.getProperty(COMPONENT_DEPLOY_NAME));
+            AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 
-        /**
-         * @param moduleModel
-         * @param monitor
-         * @throws CoreException
-         * @throws InvocationTargetException
-         * @throws InterruptedException
-         */
-        protected void createEARComponentIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-//            EARComponentCreationDataModel earModel = (EARComponentCreationDataModel)model.getProperty(NESTED_MODEL_EAR_CREATION);
-//            
-//
-//            earModel.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, model.getStringProperty(EAR_COMPONENT_NAME));
-//            earModel.setProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME, model.getStringProperty(EAR_COMPONENT_DEPLOY_NAME));            
-//            earModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
-//            if (!doesEARComponentExist()) {
-//                EARComponentCreationOperation earOp = new EARComponentCreationOperation(earModel);
-//                earOp.doRun(monitor);
-//                model.setProperty(EAR_COMPONENT_HANDLE, earOp.getComponentHandle());
-//            }
+            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
+            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
+            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, wc.getName());
+            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(EAR_COMPONENT_DEPLOY_NAME));
+            List modList = (List) dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
+            modList.add(wc);
+            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST, modList);
+            AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
+            addModuleOp.doRun(monitor);
+        } finally {
+            if (core != null)
+                core.dispose();
         }
-    
-        public  boolean doesEARComponentExist() {
-			//To do: implement after porting
-            //URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
-			
-			URI uri = null;
-            
-            boolean isValidURI = false;
+    }
+
+    /**
+     * @param moduleModel
+     * @param monitor
+     * @throws CoreException
+     * @throws InvocationTargetException
+     * @throws InterruptedException
+     */
+    protected void createEARComponentIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+        IDataModel earModel = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+        earModel.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(EAR_COMPONENT_NAME));
+        earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
+        if (!doesEARComponentExist()) {
             try {
-                if( uri != null )
-                    isValidURI = ModuleURIUtil.ensureValidFullyQualifiedModuleURI(uri);
-            }catch (UnresolveableURIException e) {
+                earModel.getDefaultOperation().execute(monitor, null);
+            } catch (ExecutionException e) {
+                Logger.getLogger().log(e.getMessage());
+            }
+            model.setProperty(EAR_COMPONENT_HANDLE, getEARComponentHandle(earModel));     
+        }
+    }
+    
+    public URI getEARComponentHandle(IDataModel earModel){
+        StructureEdit moduleCore = null;
+        try {
+            IProject earProject = ProjectUtilities.getProject((String)earModel.getProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME));
+            moduleCore = StructureEdit.getStructureEditForRead(earProject);
+            WorkbenchComponent earComp = moduleCore.findComponentByName(earModel.getStringProperty(IEarComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME));
+            return earComp.getHandle();
 
+        } finally {
+            if (null != moduleCore) {
+                moduleCore.dispose();
             }
-            if( isValidURI ){
-                IProject proj = null;
+        }       
+    }
+    
+    public boolean doesEARComponentExist() {
+        URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
+
+        boolean isValidURI = false;
+        try {
+            if (uri != null)
+                isValidURI = ModuleURIUtil.ensureValidFullyQualifiedModuleURI(uri);
+        } catch (UnresolveableURIException e) {
+
+        }
+        if (isValidURI) {
+            IProject proj = null;
+            try {
+                proj = StructureEdit.getContainingProject(uri);
+
+                StructureEdit moduleCore = null;
                 try {
-                    proj = StructureEdit.getContainingProject(uri);
-                    
-                    StructureEdit moduleCore = null;
-                    try{
-                        moduleCore = StructureEdit.getStructureEditForRead(proj);
-                        if((moduleCore.findComponentByURI(uri)) != null ){
-                            return true;
-                        }
-                    } finally {
-                        if(moduleCore != null)
-                            moduleCore.dispose();
-                    }               
+                    moduleCore = StructureEdit.getStructureEditForRead(proj);
+                    if ((moduleCore.findComponentByURI(uri)) != null) {
+                        return true;
+                    }
+                } finally {
+                    if (moduleCore != null)
+                        moduleCore.dispose();
                 }
-                catch (UnresolveableURIException e) {
-                    Logger.getLogger().log(e);
-                }
+            } catch (UnresolveableURIException e) {
+                Logger.getLogger().log(e);
             }
-            return false;           
         }
-        
-        public IProject getProject() {
-            String projName = model.getStringProperty(PROJECT_NAME );
-            return ProjectUtilities.getProject( projName );
-        }
-        
-        public String getModuleName() {
-            return (String)model.getProperty(COMPONENT_NAME);
-        }
-        
-        public String getModuleDeployName() {
-            return (String)model.getProperty(COMPONENT_DEPLOY_NAME);
-        }
-        
+        return false;
+    }
+
+    public IProject getProject() {
+        String projName = model.getStringProperty(PROJECT_NAME);
+        return ProjectUtilities.getProject(projName);
+    }
+
+    public String getModuleName() {
+        return (String) model.getProperty(COMPONENT_NAME);
+    }
+
+    public String getModuleDeployName() {
+        return (String) model.getProperty(COMPONENT_DEPLOY_NAME);
+    }
+
     protected abstract String getVersion();
 
     protected void setupComponentType(String typeID) {
@@ -209,7 +221,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
             EList existingProps = componentType.getProperties();
             for (int i = 0; i < newProps.size(); i++) {
                 existingProps.add(newProps.get(i));
-        }
+            }
         }
         StructureEdit.setComponentType(component, componentType);
     }
@@ -217,37 +229,38 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
     // Should return null if no additional properties needed
     protected List getProperties() {
         return null;
-   }
-        
+    }
 
     /**
      * @param monitor
      */
     protected void createManifest(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        
-        String manifestFolder = model.getStringProperty(MANIFEST_FOLDER);
-        IContainer container = getProject().getFolder( manifestFolder );
 
-        IFile file = container.getFile( new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-        
+        String manifestFolder = model.getStringProperty(MANIFEST_FOLDER);
+        IContainer container = getProject().getFolder(manifestFolder);
+
+        IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
+
         try {
             ManifestFileCreationAction.createManifestFile(file, getProject());
-        }
-        catch (CoreException e) {
+        } catch (CoreException e) {
+            Logger.getLogger().log(e);
+        } catch (IOException e) {
             Logger.getLogger().log(e);
         }
-        catch (IOException e) {
-            Logger.getLogger().log(e);
-        }
-//      UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModel) operationDataModel).getUpdateManifestDataModel());
-//      op.doRun(monitor);      
+        // UpdateManifestOperation op = new
+        // UpdateManifestOperation(((J2EEModuleCreationDataModel)
+        // operationDataModel).getUpdateManifestDataModel());
+        // op.doRun(monitor);
 
     }
-    
+
     /**
-     * This method is intended for internal use only.  This method will add the annotations builder
-     * for Xdoclet to the targetted project.  This needs to be removed from the operation and set
-     * up to be more extensible throughout the workbench.
+     * This method is intended for internal use only. This method will add the
+     * annotations builder for Xdoclet to the targetted project. This needs to
+     * be removed from the operation and set up to be more extensible throughout
+     * the workbench.
+     * 
      * @see EJBModuleCreationOperation#execute(IProgressMonitor)
      * 
      * @deprecated
@@ -256,8 +269,8 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
         try {
             // Find the xdoclet builder from the extension registry
             IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
-            String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-            IProject project = ProjectUtilities.getProject(model.getProperty(PROJECT_NAME)); 
+            String builderID = configurationElements[0].getNamespace() + "." + configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
+            IProject project = ProjectUtilities.getProject(model.getProperty(PROJECT_NAME));
             IProjectDescription description = project.getDescription();
             ICommand[] commands = description.getBuildSpec();
             boolean found = false;
@@ -280,7 +293,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
                 project.setDescription(desc, null);
             }
         } catch (Exception e) {
-            //Ignore
+            // Ignore
         }
     }
 
@@ -297,13 +310,12 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
     public String getDeploymentDescriptorFolder() {
         return model.getStringProperty(DD_FOLDER);
     }
-    
+
     public String getJavaSourceSourcePath() {
         return model.getStringProperty(JAVASOURCE_FOLDER);
     }
-   
-    
-    private void addSrcFolderToProject() {  
+
+    private void addSrcFolderToProject() {
         UpdateProjectClasspath update = new UpdateProjectClasspath(model.getStringProperty(JAVASOURCE_FOLDER), ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)));
     }
 }

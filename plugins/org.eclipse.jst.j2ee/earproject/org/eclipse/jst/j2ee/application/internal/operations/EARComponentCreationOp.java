@@ -11,7 +11,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -121,19 +120,7 @@ public class EARComponentCreationOp extends AbstractDataModelOperation implement
 		int version = getDataModel().getIntProperty(COMPONENT_VERSION);
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
-	public URI getComponentHandle(){
-        StructureEdit moduleCore = null;
-        try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            WorkbenchComponent earComp = moduleCore.findComponentByName(getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME));
-            return earComp.getHandle();
 
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }		
-	}
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return null;
 	}

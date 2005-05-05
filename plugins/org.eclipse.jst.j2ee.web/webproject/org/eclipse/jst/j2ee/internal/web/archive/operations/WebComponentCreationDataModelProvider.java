@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
@@ -31,7 +30,6 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 
     public WebComponentCreationDataModelProvider() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public IDataModelOperation getDefaultOperation() {
@@ -61,12 +59,13 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 
 
     public void init() {
+        super.init();
         //setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
         //setProperty(EDIT_MODEL_ID, IWebNatureConstants.EDIT_MODEL_ID);
-//      getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IModuleConstants.MODULE_NATURE_ID});
-//      getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
+        //getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IModuleConstants.MODULE_NATURE_ID});
+        //getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
+        model.setProperty(NESTED_ADD_COMPONENT_TO_EAR_DM,  new AddWebModuleToEARDataModel());   
         updateOutputLocation();
-        super.init();
     }
 
     public boolean propertySet(String propertyName, Object propertyValue) {
@@ -101,9 +100,6 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 //      buf.append(IWebNatureConstants.CLASSES_DIRECTORY);
 //      return buf.toString();
 //  }
-    protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
-        return  new AddWebModuleToEARDataModel();   
-    }
 
     private Object updateAddToEar() {
         //IRuntime type = getServerTargetDataModel().getRuntimeTarget();
