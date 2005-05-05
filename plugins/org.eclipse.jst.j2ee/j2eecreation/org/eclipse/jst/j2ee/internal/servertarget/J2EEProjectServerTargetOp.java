@@ -45,7 +45,7 @@ public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return OK_STATUS;
 	}
 
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {

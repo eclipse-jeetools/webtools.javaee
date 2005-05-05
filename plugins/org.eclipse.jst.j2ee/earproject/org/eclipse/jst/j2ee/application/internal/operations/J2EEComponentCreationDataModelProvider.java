@@ -33,13 +33,14 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
         model.setProperty(NESTED_EAR_COMPONENT_CREATION_DM, new EARComponentCreationDataModel());
         model.setProperty(NESTED_ADD_COMPONENT_TO_EAR_DM, new AddComponentToEnterpriseApplicationDataModel());
         model.setProperty(NESTED_CLASSPATH_SELECTION_DM, new UpdateManifestDataModel());
+        model.setBooleanProperty(USE_ANNOTATIONS, false);
 	}
 
  	public String[] getPropertyNames() {
 		String[] props = new String[]{EAR_COMPONENT_NAME, ADD_TO_EAR, 
 				UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME,
                 NESTED_ADD_COMPONENT_TO_EAR_DM, NESTED_CLASSPATH_SELECTION_DM, NESTED_EAR_COMPONENT_CREATION_DM,
-                NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE };
+                NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE, USE_ANNOTATIONS };
 		return combineProperties(super.getPropertyNames(), props);
 	}
 
@@ -56,7 +57,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return super.getDefaultProperty(propertyName);
 	}
 
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
+	public boolean propertySet(String propertyName, Object propertyValue) {
+        boolean status = super.propertySet(propertyName, propertyValue);
         if (PROJECT_NAME.equals(propertyName) && propertyValue !=null && ((String)propertyValue).length()!=0) {
             IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject((String)propertyValue);
             if (project != null) {
@@ -83,7 +85,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 //			propertySet(COMPONENT_VERSION, modVersion);
 //			return false;
 //		}
-		return true;
+		return status;
 	}
 
 	private URI computeEARHandle(String earHandle){

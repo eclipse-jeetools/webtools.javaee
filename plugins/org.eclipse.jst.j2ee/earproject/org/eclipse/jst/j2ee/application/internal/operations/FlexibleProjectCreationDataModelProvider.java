@@ -5,8 +5,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -15,11 +19,19 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 
 	public FlexibleProjectCreationDataModelProvider() {
 		super();
+        
 	}
-	
-	public String[] getPropertyNames() {
-		return new String[] {PROJECT_NAME, PROJECT_LOCATION, NESTED_MODEL_PROJECT_CREATION
-		};
+	public void init() {
+	    super.init();
+        initNestedProjectModel();
+	}
+	protected void initNestedProjectModel() {
+        IDataModel projModel = DataModelFactory.createDataModel(new ProjectCreationDataModelProvider());
+        model.addNestedModel(NESTED_MODEL_PROJECT_CREATION, projModel);
+    }
+
+    public String[] getPropertyNames() {
+		return new String[] {PROJECT_NAME, PROJECT_LOCATION, NESTED_MODEL_PROJECT_CREATION};
 	}
 	
 	public Object getDefaultProperty(String propertyName) {
@@ -28,14 +40,14 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-//	
-//	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-//		if (PROJECT_NAME.equals(propertyName)) {
-//		    projectDataModel.setProperty(ProjectCreationDataModel.PROJECT_NAME, propertyValue);
-//			serverTargetDataModel.setProperty(J2EEProjectServerTargetDataModel.PROJECT_NAME, propertyValue);
-//		}
-//		return true;
-//	}
+    public boolean propertySet(String propertyName, Object propertyValue) {
+        boolean status = super.propertySet(propertyName, propertyValue);
+        if (PROJECT_NAME.equals(propertyName)) {
+            IDataModel projModel = (IDataModel)model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
+            projModel.setProperty(IProjectCreationProperties.PROJECT_NAME, propertyValue);
+        }
+        return status;
+    }
 	
 	public IStatus validate(String propertyName) {
 		if (PROJECT_NAME.equals(propertyName)) {

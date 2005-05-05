@@ -15,7 +15,6 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -44,22 +43,31 @@ public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOp
 	public JavaUtilityComponentCreationOperationEx(IDataModel dataModel) {
 		super(dataModel);
 	}
+    /* (non-Javadoc)
+     * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
+     */
+    public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
+        super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, info);
+        createManifest(monitor);
+        addSrcFolderToProject();
+        return OK_STATUS;
+    }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.core.commands.operations.AbstractOperation#redo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
+     */
+    public IStatus redo(IProgressMonitor monitor, IAdaptable info) {
+        return null;
+    }
 
-	 protected void execute(String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-
-	    super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
-		createManifest(monitor);
-	    addSrcFolderToProject();
-	 }
-	 
-	 protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-	    execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
-	 }
-  
-	protected void createComponent() {
-			   	
-   	
+    /* (non-Javadoc)
+     * @see org.eclipse.core.commands.operations.AbstractOperation#undo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
+     */
+    public IStatus undo(IProgressMonitor monitor, IAdaptable info) {
+        return null;
+    }   
+    
+	protected void createComponent() {	
 		IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
 		try {
 			component.create(0, null);
@@ -75,82 +83,41 @@ public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOp
 			Logger.getLogger().log(e);
 		}
 	}
-	   
-	String getJavaSourceFolder(){
-		return model.getStringProperty(JAVASOURCE_FOLDER);
-	}
-	
-	String getManifestFolder(){
-		return model.getStringProperty(MANIFEST_FOLDER);
-	}
 	
 	protected void createManifest(IProgressMonitor monitor) {
-
 		IContainer container = getProject().getFolder( getManifestFolder() );
-	
 		IFile file = container.getFile( new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-		
 		try {
 			ManifestFileCreationAction.createManifestFile(file, getProject());
-		}
-		catch (CoreException e) {
+		} catch (CoreException e) {
+			Logger.getLogger().log(e);
+		} catch (IOException e) {
 			Logger.getLogger().log(e);
 		}
-		catch (IOException e) {
-			Logger.getLogger().log(e);
-		}
-
 	}	
 	    
-	
 	private void addSrcFolderToProject() {
 		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getProject());
 	}
-
-
+    
+    String getJavaSourceFolder(){
+        return model.getStringProperty(JAVASOURCE_FOLDER);
+    }
+    
+    String getManifestFolder(){
+        return model.getStringProperty(MANIFEST_FOLDER);
+    }
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperationEx#getVersion()
 	 */
 	protected String getVersion() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperationEx#getProperties()
 	 */
 	protected List getProperties() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-	 */
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
-	    super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, info);
-		createManifest(monitor);
-	    addSrcFolderToProject();
-		return OK_STATUS;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.operations.AbstractOperation#redo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-	 */
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.operations.AbstractOperation#undo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-	 */
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) {
-		// TODO Auto-generated method stub
-		return null;
-	}	
 }

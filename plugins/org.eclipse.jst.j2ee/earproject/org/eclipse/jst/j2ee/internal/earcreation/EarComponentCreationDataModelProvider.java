@@ -178,8 +178,8 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 		return super.validate(propertyName);
 	}
 
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean returnValue = super.propertySet(propertyName, propertyValue);
 
 		if (propertyName.equals(COMPONENT_NAME)){
 			setProperty(COMPONENT_DEPLOY_NAME, getDataModel().getStringProperty(COMPONENT_NAME));

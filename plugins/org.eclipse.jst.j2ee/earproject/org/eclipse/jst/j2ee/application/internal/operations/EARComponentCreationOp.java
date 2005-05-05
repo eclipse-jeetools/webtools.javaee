@@ -15,10 +15,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
@@ -30,7 +29,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EARComponentCreationOp extends AbstractDataModelOperation {
+public class EARComponentCreationOp extends AbstractDataModelOperation implements IEarComponentCreationDataModelProperties{
 
 	public EARComponentCreationOp() {
 		super();
@@ -53,7 +52,7 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
     }
 	
 	public IProject getProject() {
-		String projName = getDataModel().getStringProperty(EARComponentCreationDataModel.PROJECT_NAME );
+		String projName = getDataModel().getStringProperty(PROJECT_NAME);
 		return ProjectUtilities.getProject( projName );
 	}
 
@@ -61,12 +60,11 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
         StructureEdit moduleCore = null;
         EARArtifactEdit earEdit = null;
         try {
-        	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getDataModel();
             moduleCore = StructureEdit.getStructureEditForWrite(getProject());
             WorkbenchComponent earComp = moduleCore.findComponentByName(
-					getDataModel().getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+					getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME));
             earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
-            Integer version = (Integer)getDataModel().getProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
+            Integer version = (Integer)getDataModel().getProperty(COMPONENT_VERSION);
        	 	earEdit.createModelRoot(version.intValue());
             earEdit.save(monitor);
         } finally {
@@ -82,33 +80,27 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
 		try {
 			createAndLinkJ2EEComponents();
 			setupComponentType(IModuleConstants.JST_EAR_MODULE);
-			if (getDataModel().getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
+			if (getDataModel().getBooleanProperty(CREATE_DEFAULT_FILES)) {
 				createDeploymentDescriptor(monitor);
 			}
 			addModulesToEAR(monitor);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger().log(e.getMessage());
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Logger.getLogger().log(e.getMessage());
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Logger.getLogger().log(e.getMessage());
 		}
-		return null;
+		return OK_STATUS;
 	}
 	
 	private void addModulesToEAR(IProgressMonitor monitor) {
 		try{
 			AddComponentToEnterpriseApplicationDataModel dm = new AddComponentToEnterpriseApplicationDataModel();
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, 
-					getDataModel().getProperty(EARComponentCreationDataModel.PROJECT_NAME));
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, 
-					getDataModel().getProperty(EARComponentCreationDataModel.PROJECT_NAME));
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, 
-					getDataModel().getProperty(EARComponentCreationDataModel.COMPONENT_NAME));
-			List modulesList = (List)getDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST);
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, model.getProperty(PROJECT_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(COMPONENT_NAME));
+			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
 			if (modulesList != null && !modulesList.isEmpty()) {
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
 				AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
@@ -126,30 +118,26 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = getDataModel().getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
+		int version = getDataModel().getIntProperty(COMPONENT_VERSION);
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
 	public URI getComponentHandle(){
         StructureEdit moduleCore = null;
-
         try {
             moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            WorkbenchComponent earComp = moduleCore.findComponentByName(getDataModel().getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            WorkbenchComponent earComp = moduleCore.findComponentByName(getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME));
             return earComp.getHandle();
 
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
             }
-
         }		
 	}
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
 		return null;
 	}	
 
@@ -162,10 +150,10 @@ public class EARComponentCreationOp extends AbstractDataModelOperation {
     }
 	
 	public String getModuleName() {
-		return getDataModel().getStringProperty(J2EEComponentCreationDataModel.COMPONENT_NAME);
+		return getDataModel().getStringProperty(COMPONENT_NAME);
 	}
 	
 	public String getModuleDeployName() {
-		return getDataModel().getStringProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME);
+		return getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME);
 	}
 }

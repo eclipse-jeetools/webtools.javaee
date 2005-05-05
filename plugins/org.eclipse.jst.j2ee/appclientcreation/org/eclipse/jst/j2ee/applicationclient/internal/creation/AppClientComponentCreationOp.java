@@ -60,7 +60,7 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
         WorkbenchComponent wbmodule = null;
         try {
             moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(model.getStringProperty(AppClientComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            wbmodule = moduleCore.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();

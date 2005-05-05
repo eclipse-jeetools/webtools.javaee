@@ -31,21 +31,18 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public abstract class J2EEComponentCreationOp extends ComponentCreationOperationEx implements IJ2EEComponentCreationDataModelProperties, IComponentCreationDataModelProperties{
+public abstract class J2EEComponentCreationOp extends ComponentCreationOperationEx implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel{
     /**
      * name of the template emitter to be used to generate the deployment
      * descriptor from the tags
@@ -71,7 +68,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
         }
         
         addSrcFolderToProject();
-        if (model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+        if (model.getBooleanProperty(USE_ANNOTATIONS))
             addAnnotationsBuilder();    
         
         linkToEARIfNecessary(monitor);

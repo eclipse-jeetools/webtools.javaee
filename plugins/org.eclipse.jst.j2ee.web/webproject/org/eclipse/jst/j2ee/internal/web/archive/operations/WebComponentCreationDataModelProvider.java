@@ -70,7 +70,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
     }
 
     public boolean propertySet(String propertyName, Object propertyValue) {
-        boolean retVal = super.doSetProperty(propertyName, propertyValue);
+        boolean retVal = super.propertySet(propertyName, propertyValue);
         if (propertyName.equals(USE_ANNOTATIONS)) {
             model.notifyPropertyChange(COMPONENT_VERSION, DataModelEvent.ENABLE_CHG);
         } else if (propertyName.equals(COMPONENT_VERSION)) {

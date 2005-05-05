@@ -40,7 +40,7 @@ public class FlexibleProjectCreationOp extends AbstractDataModelOperation {
 			e.printStackTrace();
 		}
         createInitialWTPModulesFile();
-		return null;
+		return OK_STATUS;
 	}
 
     private void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
