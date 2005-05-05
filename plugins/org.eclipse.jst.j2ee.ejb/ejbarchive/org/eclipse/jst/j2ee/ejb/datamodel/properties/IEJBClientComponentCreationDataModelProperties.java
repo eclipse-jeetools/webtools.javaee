@@ -44,8 +44,6 @@ public interface IEJBClientComponentCreationDataModelProperties extends IJavaCom
      * Required, type String, the deploy name of the Ejb component
      */     
     public static final String EJB_COMPONENT_DEPLOY_NAME = "IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_DEPLOY_NAME"; //$NON-NLS-1$
-    
-
     /**
      * Optional, type String, this default value is set by EJBClientComponentCreationDataModelProvider
      */

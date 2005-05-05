@@ -40,7 +40,6 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         super.init();
         IDataModel ejbClientComponentDataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
 		//to do : after porting
-        //ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, getEarComponentHandle());
         model.setProperty(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
     }
     
@@ -92,7 +91,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 //                ((IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION)).disableValidation();
 //            }
     //    } 
-    else if (propertyName.equals(COMPONENT_NAME)) {
+        else if (propertyName.equals(COMPONENT_NAME)) {
             IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
             ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_NAME, propertyValue);
             if (!ejbClientComponentDataModel.isPropertySet(COMPONENT_NAME))
@@ -104,8 +103,10 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
                 ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.CREATE_PROJECT, getProperty(CREATE_CLIENT));
                 ejbClientComponentDataModel.setProperty(PROJECT_NAME, ejbClientComponentDataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME));
             }   
-        }
-        
+        } else if(propertyName.equals(EAR_COMPONENT_HANDLE)){
+            IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
+            ejbClientComponentDataModel.setProperty(EAR_COMPONENT_HANDLE, model.getProperty(EAR_COMPONENT_HANDLE));
+        }      
         if (getBooleanProperty(CREATE_CLIENT)) {
             IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
             if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
@@ -114,6 +115,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
                 ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
             }
         }
+        
         return doSet;
     }
 
@@ -249,11 +251,6 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         return super.convertJ2EEVersionToModuleVersion(j2eeVersion);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
-     */
     protected EClass getComponentType() {
         return CommonarchiveFactoryImpl.getPackage().getEJBJarFile();
     }
@@ -270,11 +267,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         }
         return super.isPropertyEnabled(propertyName);
     }
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-     */
+
     protected String getComponentID() {
         return IModuleConstants.JST_EJB_MODULE;
     }
-
 }

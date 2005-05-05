@@ -24,15 +24,12 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 
     public EJBClientComponentDataModelProvider() {
         super();
-        // TODO Auto-generated constructor stub
     }
     public String[] getPropertyNames() {
-        String[] props = new String[]{EJB_COMPONENT_NAME,EJB_PROJECT_NAME,EJB_COMPONENT_DEPLOY_NAME,CLIENT_COMPONENT_URI, CREATE_PROJECT, EAR_COMPONENT_DEPLOY_NAME};
+        String[] props = new String[]{EJB_COMPONENT_NAME,EJB_PROJECT_NAME,EJB_COMPONENT_DEPLOY_NAME,CLIENT_COMPONENT_URI, CREATE_PROJECT};
         return combineProperties(super.getPropertyNames(), props);
     }
-    /**
-     * 
-     */
+
     public boolean propertySet(String propertyName, Object propertyValue) {
         boolean status = super.propertySet(propertyName, propertyValue);
         if (propertyName.equals(COMPONENT_NAME)) {
@@ -42,9 +39,6 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
         return status;
     }
 
-    /**
-     * 
-     */
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(COMPONENT_NAME)) {
             return getDefaultClientModuleName();
@@ -58,19 +52,12 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
         return super.getDefaultProperty(propertyName);
     }
 
-    /**
-     * 
-     * @return
-     */
     private String getDefaultClientModuleName() {
         String ejbModuleName = getStringProperty(EJB_COMPONENT_NAME);
         String moduleName = ejbModuleName + "Client"; //$NON-NLS-1$
         return moduleName;
     }
 
-    /**
-     * 
-     */
     public IStatus validate(String propertyName) {
         if (NESTED_MODEL_EJB_CLIENT_CREATION.equals(propertyName)) {
             return OK_STATUS;
@@ -93,10 +80,6 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
         return status;
     }
 
-    /**
-     * 
-     * @return
-     */
     public IStatus validateClientJarUri() {
         String clientJarURI = getStringProperty(CLIENT_COMPONENT_URI);
         if (clientJarURI == null || clientJarURI.trim().length() == 0)
@@ -105,9 +88,6 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
         return OK_STATUS;
     }
 
-    /**
-     * 
-     */
     public IDataModelOperation getDefaultOperation() {
         return new EJBClientComponentCreationOp(model);
     }
