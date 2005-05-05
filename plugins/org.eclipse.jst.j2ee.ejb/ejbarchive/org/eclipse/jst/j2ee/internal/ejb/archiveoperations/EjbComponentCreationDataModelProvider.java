@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -40,7 +41,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         IDataModel ejbClientComponentDataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
 		//to do : after porting
         //ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, getEarComponentHandle());
-        model.addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
+        model.setProperty(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
     }
     
     public IDataModelOperation getDefaultOperation() {
@@ -69,7 +70,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     }
 
     public boolean propertySet(String propertyName, Object propertyValue) {
-        boolean doSet = super.doSetProperty(propertyName, propertyValue);
+        boolean doSet = super.propertySet(propertyName, propertyValue);
         if (propertyName.equals(ADD_TO_EAR)) {
             if (!((Boolean) propertyValue).booleanValue()) {
                 model.setProperty(CREATE_CLIENT, propertyValue);
@@ -81,33 +82,36 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
                 model.setProperty(USE_ANNOTATIONS, Boolean.FALSE);
             model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
-        } else if (propertyName.equals(CREATE_CLIENT)) {
+        } 
+        //else if (propertyName.equals(CREATE_CLIENT)) {
+            //TODO: rework validation hooks
             //getNestedEJBClientComponentDataModel().setProperty(EJBClientComponentDataModel.CREATE_PROJECT, propertyValue);
-            if (getBooleanProperty(CREATE_CLIENT)) {
-                ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION)).enableValidation();
-            } else {
-                ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION)).disableValidation();
-            }
-        } else if (propertyName.equals(COMPONENT_NAME)) {
-            EJBClientComponentDataModel ejbClientComponentDataModel = ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));
-            ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_NAME, propertyValue);
-            if (!ejbClientComponentDataModel.isSet(ComponentCreationDataModel.COMPONENT_NAME))
-                ejbClientComponentDataModel.notifyDefaultChange(ComponentCreationDataModel.COMPONENT_NAME);
-            if (!ejbClientComponentDataModel.isSet(EJBClientComponentDataModel.CLIENT_COMPONENT_URI))
-                ejbClientComponentDataModel.notifyDefaultChange(EJBClientComponentDataModel.CLIENT_COMPONENT_URI);
+//            if (getBooleanProperty(CREATE_CLIENT)) {
+//                ((IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION)).notifyPropertyChange();
+//            } else {
+//                ((IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION)).disableValidation();
+//            }
+    //    } 
+    else if (propertyName.equals(COMPONENT_NAME)) {
+            IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
+            ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_NAME, propertyValue);
+            if (!ejbClientComponentDataModel.isPropertySet(COMPONENT_NAME))
+                ejbClientComponentDataModel.notifyPropertyChange(COMPONENT_NAME, IDataModel.DEFAULT_CHG);
+            if (!ejbClientComponentDataModel.isPropertySet(IEJBClientComponentCreationDataModelProperties.CLIENT_COMPONENT_URI))
+                ejbClientComponentDataModel.notifyPropertyChange(IEJBClientComponentCreationDataModelProperties.CLIENT_COMPONENT_URI, IDataModel.DEFAULT_CHG);
 
             if( getBooleanProperty(CREATE_CLIENT)){
-                ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, getProperty(CREATE_CLIENT));
-                ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
+                ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.CREATE_PROJECT, getProperty(CREATE_CLIENT));
+                ejbClientComponentDataModel.setProperty(PROJECT_NAME, ejbClientComponentDataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME));
             }   
         }
         
         if (getBooleanProperty(CREATE_CLIENT)) {
-            EJBClientComponentDataModel ejbClientComponentDataModel = ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));
+            IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
             if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
                         || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
-                ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
-                ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
+                ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
+                ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
             }
         }
         return doSet;

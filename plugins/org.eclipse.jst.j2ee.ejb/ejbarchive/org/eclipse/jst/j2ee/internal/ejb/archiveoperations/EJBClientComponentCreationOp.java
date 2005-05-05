@@ -57,7 +57,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
         //createProjectIfNecessary(dm.getComponentName());
         createProjectIfNecessary(model.getStringProperty(PROJECT_NAME));
         
-        super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
+        super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, null);
         
         runAddToEAROperation(monitor);
         runAddToEJBOperation(monitor);

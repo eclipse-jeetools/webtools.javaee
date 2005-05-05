@@ -26,6 +26,10 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
         super();
         // TODO Auto-generated constructor stub
     }
+    public String[] getPropertyNames() {
+        String[] props = new String[]{EJB_COMPONENT_NAME,EJB_PROJECT_NAME,EJB_COMPONENT_DEPLOY_NAME,CLIENT_COMPONENT_URI, CREATE_PROJECT, EAR_COMPONENT_DEPLOY_NAME};
+        return combineProperties(super.getPropertyNames(), props);
+    }
     /**
      * 
      */

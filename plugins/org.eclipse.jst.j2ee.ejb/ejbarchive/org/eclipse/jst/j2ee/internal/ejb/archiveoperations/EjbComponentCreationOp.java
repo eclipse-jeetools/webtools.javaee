@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
@@ -86,7 +85,7 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
 
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         try {
-            super.execute( IModuleConstants.JST_EJB_MODULE, monitor );
+            super.execute(IModuleConstants.JST_EJB_MODULE, monitor);
         } catch (CoreException e) {
             Logger.getLogger().log(e.getMessage());
         } catch (InvocationTargetException e) {
@@ -95,8 +94,9 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
             Logger.getLogger().log(e.getMessage());
         }
         
-        if( model.getBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT) ){
-            EJBClientComponentDataModel dm = (EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
+        if( model.getBooleanProperty(CREATE_CLIENT) ){
+            IDataModel dm = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
+            dm.getDefaultOperation().execute(monitor, info);
 			//To do: after  porting
             //dm.setEarComponentHandle((URI)model.getProperty(EAR_COMPONENT_HANDLE));
             //TODO: update once client port complete
