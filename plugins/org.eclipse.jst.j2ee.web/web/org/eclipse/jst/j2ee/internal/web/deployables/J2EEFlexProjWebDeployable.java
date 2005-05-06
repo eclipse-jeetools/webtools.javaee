@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
@@ -24,6 +25,7 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
+import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
@@ -60,7 +62,14 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	}
 
     public String getContextRoot() {
-        return wbModule.getName();
+		List existingProps = wbModule.getComponentType().getProperties();
+        for (int i = 0; i < existingProps.size(); i++) {
+            Property prop = (Property) existingProps.get(i);
+			if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
+				return prop.getValue();
+			}
+        }	
+	    return wbModule.getName();
     }
 
  
