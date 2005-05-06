@@ -19,7 +19,6 @@ package org.eclipse.jst.common.internal.annotations.ui;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jst.common.internal.annotations.registry.AttributeValueProposalHelper;
 import org.eclipse.swt.graphics.Image;
 

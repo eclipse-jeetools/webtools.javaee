@@ -37,8 +37,11 @@ public class TagSpec {
 	 * Handle to the descriptor of the plugin that declared the completion information for this tag,
 	 * if any.
 	 */
+	Bundle bundle;
 
-	protected Bundle bundle;
+	protected ResourceBundle resourceBundle;
+
+	private boolean attemptedToFindResourceBundle = false;
 
 	private AttributeValuesHelper validValuesHelper;
 	private TagsetDescriptor tagsetDescriptor;
@@ -245,6 +248,13 @@ public class TagSpec {
 	}
 
 	/**
+	 * @return Returns the declaringPlugin.
+	 */
+	public Bundle getBundle() {
+		return bundle;
+	}
+
+	/**
 	 * @param declaringPlugin
 	 *            The declaringPlugin to set.
 	 */
@@ -255,8 +265,23 @@ public class TagSpec {
 	/**
 	 * @return Returns the resourceBundle.
 	 */
-	public Bundle getBundle() {
-		return bundle;
+	public ResourceBundle getResourceBundle() {
+		if (resourceBundle == null && !attemptedToFindResourceBundle) {
+			attemptedToFindResourceBundle = true;
+			Bundle aBundle = getBundle();
+			if (aBundle != null)
+				resourceBundle = Platform.getResourceBundle(bundle);
+		}
+		return resourceBundle;
+	}
+
+	/**
+	 * @param resourceBundle
+	 *            The resourceBundle to set.
+	 */
+	public void setResourceBundle(ResourceBundle resourceBundle) {
+		attemptedToFindResourceBundle = false;
+		this.resourceBundle = resourceBundle;
 	}
 
 	/**
@@ -291,10 +316,6 @@ public class TagSpec {
 
 	public void setHelpKey(String helpKey) {
 		this.helpKey = helpKey;
-	}
-	
-	public ResourceBundle getResourceBundle() {
-		return Platform.getResourceBundle(getBundle());
 	}
 
 	public String lookupTagHelp() throws MissingResourceException {

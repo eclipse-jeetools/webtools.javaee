@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.osgi.framework.Bundle;
 
@@ -276,9 +277,10 @@ public class AnnotationTagRegistry {
 		}
 
 		IExtension[] exts = xp.getExtensions();
+		Bundle bundle = null;
 		for (int i = 0; i < exts.length; i++) {
 			IConfigurationElement[] elems = exts[i].getConfigurationElements();
-			Bundle bundle = Platform.getBundle(exts[i].getNamespace());
+			bundle = Platform.getBundle(exts[i].getNamespace());
 			String identifier = exts[i].getUniqueIdentifier();
 
 			IConfigurationElement elem = null;
