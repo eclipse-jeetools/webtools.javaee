@@ -31,8 +31,10 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectC
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;
@@ -78,13 +80,10 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
      
     protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		//To do: after porting
-        //URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
-        URI uri = null;
+        URI uri = (URI)model.getProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE);
         //There is no ear associated with this module
         if(uri == null)
             return;
-        
-
         IProject proj = null;
         try {
             proj = StructureEdit.getContainingProject(uri);
@@ -108,7 +107,6 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
             
             List modulesList = new ArrayList();
             modulesList.add(wc);
-            String ejbComponentDeployName = model.getStringProperty(EJB_COMPONENT_DEPLOY_NAME);
             
             addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
             
@@ -118,6 +116,20 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
             if(core != null)
                 core.dispose();
         }
+    }
+    public URI getEARComponentHandle(IDataModel earModel){
+        StructureEdit moduleCore = null;
+        try {
+            IProject earProject = ProjectUtilities.getProject((String)earModel.getProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME));
+            moduleCore = StructureEdit.getStructureEditForRead(earProject);
+            WorkbenchComponent earComp = moduleCore.findComponentByName(earModel.getStringProperty(IEarComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME));
+            return earComp.getHandle();
+
+        } finally {
+            if (null != moduleCore) {
+                moduleCore.dispose();
+            }
+        }       
     }
     
     protected void runAddToEJBOperation(IProgressMonitor monitor)throws CoreException, InvocationTargetException, InterruptedException{

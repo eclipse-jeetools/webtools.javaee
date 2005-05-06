@@ -20,13 +20,13 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class EJBClientComponentDataModelProvider extends JavaComponentCreationDataModelProvider implements IEJBClientComponentCreationDataModelProperties, IEjbComponentCreationDataModelProperties{
+public class EJBClientComponentDataModelProvider extends JavaComponentCreationDataModelProvider implements IEJBClientComponentCreationDataModelProperties{
 
     public EJBClientComponentDataModelProvider() {
         super();
     }
     public String[] getPropertyNames() {
-        String[] props = new String[]{EJB_COMPONENT_NAME,EJB_PROJECT_NAME,EJB_COMPONENT_DEPLOY_NAME,CLIENT_COMPONENT_URI, CREATE_PROJECT, EAR_COMPONENT_HANDLE};
+        String[] props = new String[]{EJB_COMPONENT_NAME,EJB_PROJECT_NAME,EJB_COMPONENT_DEPLOY_NAME,CLIENT_COMPONENT_URI, CREATE_PROJECT, EAR_COMPONENT_DEPLOY_NAME, IEjbComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE};
         return combineProperties(super.getPropertyNames(), props);
     }
 
@@ -59,9 +59,6 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
     }
 
     public IStatus validate(String propertyName) {
-        if (NESTED_MODEL_EJB_CLIENT_CREATION.equals(propertyName)) {
-            return OK_STATUS;
-        }
         IStatus status = super.validate(propertyName);
         if (status.isOK()) {
             if ( propertyName.equals(COMPONENT_NAME)) {

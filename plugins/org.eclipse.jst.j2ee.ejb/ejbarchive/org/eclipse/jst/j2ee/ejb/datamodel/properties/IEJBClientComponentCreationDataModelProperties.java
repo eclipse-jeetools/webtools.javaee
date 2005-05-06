@@ -59,7 +59,11 @@ public interface IEJBClientComponentCreationDataModelProperties extends IJavaCom
      */
     
     public static final String EAR_COMPONENT_NAME = "IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_NAME"; //$NON-NLS-1$
-	
+    /**
+     * Required, type String, the project name of the Ejb Component
+     */     
+    public static final String EAR_PROJECT_NAME = "IEJBClientComponentCreationDataModelProperties.EAR_PROJECT_NAME"; //$NON-NLS-1$ 
+    
     /**
      * Optional, type String, this value needs to be set if the property ADD_TO_EAR is set to <code>Boolean.TRUE</code>
      */
