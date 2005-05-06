@@ -17,8 +17,10 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -53,16 +55,25 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
     }
     public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
 
-    protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        //createProjectIfNecessary(dm.getComponentName());
-        createProjectIfNecessary(model.getStringProperty(PROJECT_NAME));
-        
-        super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, null);
-        
-        runAddToEAROperation(monitor);
-        runAddToEJBOperation(monitor);
-        modifyEJBModuleJarDependency(monitor);
-        updateEJBDD(monitor);
+    public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
+        try {
+            createProjectIfNecessary(model.getStringProperty(PROJECT_NAME));
+
+    
+            super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, null);
+            
+            runAddToEAROperation(monitor);
+            runAddToEJBOperation(monitor);
+            modifyEJBModuleJarDependency(monitor);
+            updateEJBDD(monitor);
+        } catch (CoreException e) {
+            Logger.getLogger().log(e.getMessage());
+        } catch (InvocationTargetException e) {
+            Logger.getLogger().log(e.getMessage());
+        } catch (InterruptedException e) {
+            Logger.getLogger().log(e.getMessage());
+        }
+        return OK_STATUS;
     }   
      
     protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -132,7 +143,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
         WorkbenchComponent ejbComp = null;
         try{
             ejbModuleCore = StructureEdit.getStructureEditForWrite(ejbProj);
-            ejbComp = ejbModuleCore.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
+            ejbComp = ejbModuleCore.findComponentByName(model.getStringProperty(EJB_COMPONENT_DEPLOY_NAME));
             IPath runtimePath = new Path(metaInfFolderDeployPath);
         
             if (list != null && list.size() > 0) {

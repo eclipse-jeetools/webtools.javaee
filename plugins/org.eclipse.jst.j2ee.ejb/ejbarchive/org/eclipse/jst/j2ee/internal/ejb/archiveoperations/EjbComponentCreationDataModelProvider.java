@@ -101,7 +101,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 
             if( getBooleanProperty(CREATE_CLIENT)){
                 ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.CREATE_PROJECT, getProperty(CREATE_CLIENT));
-                ejbClientComponentDataModel.setProperty(PROJECT_NAME, ejbClientComponentDataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME));
+                ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, ejbClientComponentDataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_NAME));
             }   
         } else if(propertyName.equals(EAR_COMPONENT_HANDLE)){
             IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
