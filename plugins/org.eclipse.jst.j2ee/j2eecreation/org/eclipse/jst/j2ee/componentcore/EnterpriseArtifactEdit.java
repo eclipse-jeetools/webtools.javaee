@@ -9,6 +9,10 @@
 
 package org.eclipse.jst.j2ee.componentcore;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -18,6 +22,7 @@ import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
@@ -35,7 +40,7 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
  * </p>
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider {
-	
+
 	private WorkingCopyManager workingCopyManager = null;
 
 	/**
@@ -72,7 +77,10 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * Instances of EnterpriseArtifactEdit that are returned through this method must be
 	 * {@see #dispose()}ed of when no longer in use.
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}&nbsp;for an accessible project
 	 * @param aModule
@@ -90,7 +98,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * </p>
 	 * 
 	 * @return An the J2EE Specification version of the underlying {@see WorkbenchComponent}
-	 *  
+	 * 
 	 */
 	public abstract int getJ2EEVersion();
 
@@ -99,8 +107,9 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * Retrieves a deployment descriptor resource from {@see ArtifactEditModel}using a defined URI.
 	 * </p>
 	 * 
-	 * @return The correct deployment descriptor resource for the underlying {@see WorkbenchComponent}
-	 *  
+	 * @return The correct deployment descriptor resource for the underlying
+	 *         {@see WorkbenchComponent}
+	 * 
 	 */
 	public abstract Resource getDeploymentDescriptorResource();
 
@@ -118,37 +127,40 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * </p>
 	 * 
 	 * @return An EMF metamodel object representing the J2EE deployment descriptor
-	 *  
+	 * 
 	 */
 
 	public EObject getDeploymentDescriptorRoot() {
 		Resource res = getDeploymentDescriptorResource();
 		return (EObject) res.getContents().get(0);
 	}
-	
+
 	/**
 	 * Returns a working copy managet
+	 * 
 	 * @return
 	 */
-	
+
 	public WorkingCopyManager getWorkingCopyManager() {
-		if (workingCopyManager == null) 
+		if (workingCopyManager == null)
 			workingCopyManager = WorkingCopyManagerFactory.newRegisteredInstance();
 		return workingCopyManager;
 	}
+
 	/**
 	 * Returns the working copy remembered for the compilation unit.
-	 *
-	 * @param input ICompilationUnit
-	 * @return the working copy of the compilation unit, or <code>null</code> if there 
-	 *   is no remembered working copy for this compilation unit
+	 * 
+	 * @param input
+	 *            ICompilationUnit
+	 * @return the working copy of the compilation unit, or <code>null</code> if there is no
+	 *         remembered working copy for this compilation unit
 	 */
 	public ICompilationUnit getWorkingCopy(ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
 		if (isReadOnly())
 			return null;
 		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
 	}
-	
+
 	/**
 	 * Returns the working copy remembered for the compilation unit encoded in the given editor
 	 * input. Does not connect the edit model to the working copy.
@@ -162,9 +174,34 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	public ICompilationUnit getExistingWorkingCopy(ICompilationUnit cu) throws org.eclipse.core.runtime.CoreException {
 		return getWorkingCopyManager().getExistingWorkingCopy(cu);
 	}
-	
-	
-	
+
+	public URI getModuleLocation(String moduleName) {
+		StructureEdit moduleCore = null;
+		try {
+			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+			for (int i = 0; i < projects.length; i++) {
+				moduleCore = StructureEdit.getStructureEditForRead(projects[i]);
+				WorkbenchComponent wbComponent = moduleCore.findComponentByName(moduleName);
+				if (wbComponent == null)
+					continue;
+				return wbComponent.getHandle();
+
+			}
+
+
+		} catch (Exception e) {
+			// todo
+
+		} finally {
+			if (moduleCore != null)
+				moduleCore.dispose();
+		}
+		return null;
+
+	}
+
+
+
 	/**
 	 * This will delete
 	 * 
@@ -173,26 +210,28 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	public void delete(org.eclipse.jdt.core.ICompilationUnit cu, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		getWorkingCopyManager().delete(cu, monitor);
 	}
-	
+
 	/**
 	 * <p>
-	 * Create an deployment descriptor resource if one does not get and return it.
-	 * Subclasses should overwrite this method to create their own type of deployment descriptor
+	 * Create an deployment descriptor resource if one does not get and return it. Subclasses should
+	 * overwrite this method to create their own type of deployment descriptor
 	 * </p>
 	 * 
 	 * @return an EObject
 	 */
-	
+
 	public abstract EObject createModelRoot();
-	
+
 	/**
 	 * <p>
-	 * Create an deployment descriptor resource if one does not get and return it.
-	 * Subclasses should overwrite this method to create their own type of deployment descriptor
+	 * Create an deployment descriptor resource if one does not get and return it. Subclasses should
+	 * overwrite this method to create their own type of deployment descriptor
 	 * </p>
-	 * @param int version of the component
+	 * 
+	 * @param int
+	 *            version of the component
 	 * @return an EObject
 	 */
-	
+
 	public abstract EObject createModelRoot(int version);
 }
