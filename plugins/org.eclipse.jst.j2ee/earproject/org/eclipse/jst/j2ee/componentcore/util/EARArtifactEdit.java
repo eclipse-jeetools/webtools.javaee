@@ -26,6 +26,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -53,7 +54,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 */
 	public static String TYPE_ID = "jst.ear"; //$NON-NLS-1$
-	
+
 
 	/**
 	 * @param aHandle
@@ -95,6 +96,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return artifactEdit;
 	}
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
@@ -124,25 +126,28 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return artifactEdit;
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of EARArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchComponent}. Instances of EARArtifactEdit that are returned through this
+	 * method must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an EARArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
-	 * be used for editing. Invocations of any save*() API on an instance returned from this method
-	 * will throw exceptions.
+	 * Use to acquire an EARArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
 	 * </p>
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
 	 * @return An instance of EARArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
@@ -164,8 +169,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this
+	 * method must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
 	 * Use to acquire an EARArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
@@ -174,10 +179,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
 	 * @return An instance of EARArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
@@ -197,8 +205,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param module
 	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
-	 *         JST module
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is
+	 *         a JST module
 	 */
 	public static boolean isValidEARModule(WorkbenchComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
@@ -218,13 +226,16 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public EARArtifactEdit(ArtifactEditModel model) {
 		super(model);
-	}	
-	
+	}
+
 	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
@@ -243,7 +254,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @return an integer representation of a J2EE Spec version
-	 *  
+	 * 
 	 */
 	public int getJ2EEVersion() {
 		return getApplicationXmiResource().getJ2EEVersionID();
@@ -252,7 +263,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * 
 	 * @return ApplicationResource from (@link getDeploymentDescriptorResource())
-	 *  
+	 * 
 	 */
 
 	public ApplicationResource getApplicationXmiResource() {
@@ -266,7 +277,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @return Application
-	 *  
+	 * 
 	 */
 
 	public Application getApplication() {
@@ -279,18 +290,18 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @return Resource
-	 *  
+	 * 
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(URI.createURI(J2EEConstants.APPLICATION_DD_URI));
 	}
 
-	
+
 	/**
 	 * <p>
-	 * Creates a deployment descriptor root object (Application) and populates with data. Adds the root
-	 * object to the deployment descriptor resource.
+	 * Creates a deployment descriptor root object (Application) and populates with data. Adds the
+	 * root object to the deployment descriptor resource.
 	 * </p>
 	 * 
 	 * <p>
@@ -298,27 +309,28 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aModule
 	 *            A non-null pointing to a {@see XMLResource}
 	 * @param version
-	 * 			Version to be set on resource....if null default is taken
+	 *            Version to be set on resource....if null default is taken
 	 * 
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
 	protected void addApplicationIfNecessary(XMLResource aResource) {
-	    if (aResource != null) {
-		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
-		        Application newApp = ApplicationFactory.eINSTANCE.createApplication();
+		if (aResource != null) {
+			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
+				Application newApp = ApplicationFactory.eINSTANCE.createApplication();
 				aResource.getContents().add(newApp);
-		    } 
-		    Application application = (Application)aResource.getContents().get(0);
+			}
+			Application application = (Application) aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				application.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(application, J2EEConstants.APPL_ID);
-			//TODO add more mandatory elements
+			// TODO add more mandatory elements
 		}
 	}
+
 	/**
 	 * Checks if the uri mapping already exists.
 	 * 
@@ -328,71 +340,97 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public boolean uriExists(String currentURI) {
 		if (currentURI != null) {
-			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName());
-		    IVirtualReference[] refComponents = comp.getReferences();
-		    if(refComponents.length == 0) return false;
-		    for (int i = 0; i < refComponents.length; i++) {
-		        if(refComponents[i].getRuntimePath().equals(currentURI))
-		            return true;
-		    }
+			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			IVirtualReference[] refComponents = comp.getReferences();
+			if (refComponents.length == 0)
+				return false;
+			for (int i = 0; i < refComponents.length; i++) {
+				if (refComponents[i].getRuntimePath().equals(currentURI))
+					return true;
+			}
 		} // if
 		return false;
 	} // uriExists
 
 
-	
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
-	    return createModelRoot(getJ2EEVersion());
+		return createModelRoot(getJ2EEVersion());
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
 	 */
 	public EObject createModelRoot(int version) {
-	    ApplicationResource res = (ApplicationResource)getDeploymentDescriptorResource();
+		ApplicationResource res = (ApplicationResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
 		addApplicationIfNecessary(res);
-		return ((ApplicationResource)getDeploymentDescriptorResource()).getRootObject();
+		return ((ApplicationResource) getDeploymentDescriptorResource()).getRootObject();
 	}
+
 	/**
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param WorkbenchComponent
 	 * @return - a list of util modules referred by a given j2ee module
 	 */
-	public  List getWorkbenchUtilModules(WorkbenchComponent module) {
-		if(module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-		List utilComponents = new ArrayList();
-		List refComponents = module.getReferencedComponents();
-		for(int i = 0; i < refComponents.size(); i++) {
-			WorkbenchComponent component = (WorkbenchComponent)refComponents.get(i);
-			if(component.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE));
+	public List getWorkbenchUtilModules(WorkbenchComponent module) {
+		if (module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+			List utilComponents = new ArrayList();
+			List refComponents = module.getReferencedComponents();
+			for (int i = 0; i < refComponents.size(); i++) {
+				WorkbenchComponent component = (WorkbenchComponent) refComponents.get(i);
+				if (component.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE))
+					;
 				utilComponents.add(component);
-		 }
-		 return utilComponents;
-	  }
-	  return null;
+			}
+			return utilComponents;
+		}
+		return null;
 	}
-	
+
 	/**
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param module
 	 * @return - a list of J2EE modules referred by a given j2ee module
 	 */
 	public List getWorkbenchJ2EEModules(WorkbenchComponent module) {
-		if(module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-		List j2eeComponents = new ArrayList();
-		List refComponents = module.getReferencedComponents();
-		for(int i = 0; i < refComponents.size(); i++) {
-			WorkbenchComponent component = (WorkbenchComponent)refComponents.get(i);
-			String typeId = component.getComponentType().getComponentTypeId();
-			if(typeId.equals(IModuleConstants.JST_EJB_MODULE) || typeId.equals(IModuleConstants.JST_WEB_MODULE) || typeId.equals(IModuleConstants.JST_APPCLIENT_MODULE) || typeId.equals(IModuleConstants.JST_CONNECTOR_MODULE))
-				j2eeComponents.add(component);
-		 }
-		 return j2eeComponents;
-	  }
-	  return null;
+		if (module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+			List j2eeComponents = new ArrayList();
+			List refComponents = module.getReferencedComponents();
+			for (int i = 0; i < refComponents.size(); i++) {
+				ReferencedComponent component = (ReferencedComponent) refComponents.get(i);
+				StructureEdit moduleCore = null;
+				try {
+					URI moduleUri = component.getHandle();
+					IProject project = StructureEdit.getContainingProject(moduleUri);
+					moduleCore = StructureEdit.getStructureEditForRead(project);
+					WorkbenchComponent wbComponent = moduleCore.findComponentByURI(moduleUri);
+					j2eeComponents.add(wbComponent);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (moduleCore != null)
+						moduleCore.dispose();
+
+				}
+
+				
+			}
+			return j2eeComponents;
+		}
+		return null;
 	}
 }

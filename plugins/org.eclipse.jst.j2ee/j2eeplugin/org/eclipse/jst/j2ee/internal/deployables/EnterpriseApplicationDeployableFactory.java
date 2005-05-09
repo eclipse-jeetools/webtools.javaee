@@ -1,10 +1,10 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
@@ -24,6 +24,9 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleType;
+import org.eclipse.wst.server.core.IProjectProperties;
+import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @version 1.0
@@ -65,7 +68,7 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 				if (wbModule.getComponentType() == null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EnterpriseApplicationDeployable.EAR_MODULE_TYPE))
 					continue;
 				moduleDelegate = new EnterpriseApplicationDeployable(project, ID, wbModule);
-				// moduleDelegate.getModules();
+				//moduleDelegate.getModules();
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
 				moduleDelegate.initialize(module);
@@ -101,6 +104,23 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 
 	protected String getNatureID() {
 		return IModuleConstants.MODULE_NATURE_ID;
+	}
+	
+	protected boolean isValidModule(IProject project) {
+		if (isFlexableProject(project)) {
+			IProjectProperties properties = ServerCore.getProjectProperties(project);
+			if (properties != null || properties.getRuntimeTarget() == null || properties.getRuntimeTarget().getRuntimeType().getModuleTypes() != null) {
+				IModuleType[] moduleTypes = properties.getRuntimeTarget().getRuntimeType().getModuleTypes();
+				for (int i = 0; i < moduleTypes.length; i++) {
+					IModuleType moduleType = moduleTypes[i];
+					if (moduleType.getId().equals("j2ee.ear"))
+						return true;
+				}
+
+			}
+
+		}
+		return false;
 	}
 
 
