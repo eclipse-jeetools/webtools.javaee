@@ -204,7 +204,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return int 
 	 */
 	
-	public int getDeploymenyDescriptorType() {
+	public int getDeploymentDescriptorType() {
 		return XMLResource.EJB_TYPE;
 	}
 	
