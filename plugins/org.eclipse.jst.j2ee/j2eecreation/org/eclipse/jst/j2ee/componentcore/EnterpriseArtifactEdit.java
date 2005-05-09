@@ -176,6 +176,15 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	}
 
 	public URI getModuleLocation(String moduleName) {
+		WorkbenchComponent component = getWorkBenchComponent(moduleName);
+		if (component != null)
+			return component.getHandle();
+		return null;
+
+
+	}
+
+	public WorkbenchComponent getWorkBenchComponent(String moduleName) {
 		StructureEdit moduleCore = null;
 		try {
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -184,10 +193,8 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 				WorkbenchComponent wbComponent = moduleCore.findComponentByName(moduleName);
 				if (wbComponent == null)
 					continue;
-				return wbComponent.getHandle();
-
+				return wbComponent;
 			}
-
 
 		} catch (Exception e) {
 			// todo
@@ -196,6 +203,17 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 			if (moduleCore != null)
 				moduleCore.dispose();
 		}
+		return null;
+
+	}
+
+
+
+	public IProject getProject(String moduleName) {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent component = getWorkBenchComponent(moduleName);
+		if (component != null)
+			return StructureEdit.getContainingProject(component);
 		return null;
 
 	}
