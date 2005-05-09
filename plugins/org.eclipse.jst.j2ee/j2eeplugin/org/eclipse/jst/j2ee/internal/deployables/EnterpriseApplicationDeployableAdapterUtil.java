@@ -154,14 +154,6 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	}// getNature
 
 
-	/*
-	 * protected static IModule getModule( IProject project) { IModule deployable = null; if
-	 * (deployable != null) return deployable; Iterator iterator =
-	 * Arrays.asList(ServerUtil.getModules("j2ee.ear")).iterator(); //$NON-NLS-1$ while
-	 * (iterator.hasNext()) { Object next = iterator.next(); if (next instanceof IModule) {
-	 * deployable = (IModule) next; if (deployable.getProject().equals(project)){ return
-	 * deployable;} } } return null; }
-	 */
 
 	protected static IModule getModuleProject(IProject project, Iterator iterator) {
 		IModule deployable = null;
