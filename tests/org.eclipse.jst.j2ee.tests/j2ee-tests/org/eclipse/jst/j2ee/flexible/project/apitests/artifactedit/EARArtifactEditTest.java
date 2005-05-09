@@ -371,7 +371,7 @@ public class EARArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(earProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
 			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
-			edit.getWorkbenchUtilModules(wbComponent);
+			edit.getUtilityModuleReferences();
 			// //////////////classcast exception
 			/*
 			 * assertNotNull(edit.getWorkbenchUtilModules(wbComponent));
@@ -395,7 +395,7 @@ public class EARArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(earProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
 			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
-			edit.getWorkbenchJ2EEModules(wbComponent);
+			edit.getJ2EEModuleReferences();
 			// classCast
 			// assertNotNull(edit.getWorkbenchJ2EEModules(wbComponent));
 		} finally {
