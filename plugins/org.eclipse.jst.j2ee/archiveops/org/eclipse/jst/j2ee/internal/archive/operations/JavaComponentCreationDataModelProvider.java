@@ -12,13 +12,17 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -38,7 +42,19 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 		}	
 		return super.getDefaultProperty(propertyName);
 	}
-
+    
+    public boolean propertySet(String propertyName, Object propertyValue) {
+        boolean status = super.propertySet(propertyName, propertyValue);
+        if (PROJECT_NAME.equals(propertyName)) {
+            IDataModel dm = (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM);
+            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, propertyValue);
+        } else if(LOCATION.equals(propertyName)) {
+            IDataModel dm = (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM);
+            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyName);
+        }
+        return status;
+    }
+    
 	public IStatus validate(String propertyName) {
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
             IStatus status = OK_STATUS;
@@ -88,5 +104,11 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
     
     public IDataModelOperation getDefaultOperation() {
         return new JavaUtilityComponentCreationOperationEx(model);
+    }
+
+    protected void initProjectCreationModel() {
+        IDataModel dm = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
+        model.setProperty(NESTED_PROJECT_CREATION_DM, dm);
+        model.setProperty(LOCATION, dm.getProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION));
     }
 }

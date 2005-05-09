@@ -64,8 +64,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
     }
 
     protected void execute(String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        createAndLinkJ2EEComponents();
-        setupComponentType(componentType);
+        super.execute(componentType, monitor, null);
 
         if (model.getBooleanProperty(CREATE_DEFAULT_FILES)) {
             createDeploymentDescriptor(monitor);
@@ -78,8 +77,6 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
 
         linkToEARIfNecessary(monitor);
     }
-
-    protected abstract void createAndLinkJ2EEComponents() throws CoreException;
 
     protected abstract void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 

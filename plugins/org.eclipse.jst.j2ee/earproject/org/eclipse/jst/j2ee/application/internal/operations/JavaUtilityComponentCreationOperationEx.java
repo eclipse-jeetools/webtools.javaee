@@ -67,21 +67,16 @@ public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOp
         return null;
     }   
     
-	protected void createComponent() {	
+	protected void createAndLinkJ2EEComponents() throws CoreException {	
 		IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
-		try {
-			component.create(0, null);
-			//create and link javaSource Source Folder
-			IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
-			javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
-			
-			//create and link META-INF folder
-			IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
-			metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
-		}
-		catch (CoreException e) {
-			Logger.getLogger().log(e);
-		}
+		component.create(0, null);
+		//create and link javaSource Source Folder
+		IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
+		javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
+		
+		//create and link META-INF folder
+		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
+		metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
 	}
 	
 	protected void createManifest(IProgressMonitor monitor) {

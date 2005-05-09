@@ -18,21 +18,16 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelP
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EARComponentCreationOp extends AbstractDataModelOperation implements IEarComponentCreationDataModelProperties{
+public class EARComponentCreationOp extends ComponentCreationOperationEx implements IEarComponentCreationDataModelProperties{
 
-	public EARComponentCreationOp() {
-		super();
-	}
 	public EARComponentCreationOp(IDataModel model) {
 		super(model); 
 	}
@@ -51,7 +46,7 @@ public class EARComponentCreationOp extends AbstractDataModelOperation implement
     }
 	
 	public IProject getProject() {
-		String projName = getDataModel().getStringProperty(PROJECT_NAME);
+		String projName = model.getStringProperty(PROJECT_NAME);
 		return ProjectUtilities.getProject( projName );
 	}
 
@@ -77,8 +72,7 @@ public class EARComponentCreationOp extends AbstractDataModelOperation implement
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		try {
-			createAndLinkJ2EEComponents();
-			setupComponentType(IModuleConstants.JST_EAR_MODULE);
+			super.execute(IModuleConstants.JST_EAR_MODULE, monitor, info);
 			if (getDataModel().getBooleanProperty(CREATE_DEFAULT_FILES)) {
 				createDeploymentDescriptor(monitor);
 			}
@@ -128,13 +122,13 @@ public class EARComponentCreationOp extends AbstractDataModelOperation implement
 		return null;
 	}	
 
-    protected void setupComponentType(String typeID) {
+/*    protected void setupComponentType(String typeID) {
 		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         ComponentType componentType = ComponentcoreFactory.eINSTANCE.createComponentType();
         componentType.setComponentTypeId(typeID);
         componentType.setVersion(getVersion());
         StructureEdit.setComponentType(component, componentType);
-    }
+    }*/
 	
 	public String getModuleName() {
 		return getDataModel().getStringProperty(COMPONENT_NAME);
@@ -143,4 +137,8 @@ public class EARComponentCreationOp extends AbstractDataModelOperation implement
 	public String getModuleDeployName() {
 		return getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME);
 	}
+    protected List getProperties() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
