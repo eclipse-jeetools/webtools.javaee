@@ -5,6 +5,8 @@ import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.Module;
@@ -22,6 +24,17 @@ public class FlexibleProjectServerUtil {
 
 
 	public static IJ2EEModule getModuleDelegate(WorkbenchComponent component) {
+		IModule[] modules  = getModules(component);
+		for (int i = 0; i < modules.length; i++) {
+			Module module = (Module) modules[i];
+			if (module.getName().equals(component.getName()))
+				return getModuleDelgate(module);
+		}
+
+		return null;
+	}
+	
+	public static IJ2EEModule getModuleDelegate(IVirtualComponent component) {
 		IModule[] modules  = getModules(component);
 		for (int i = 0; i < modules.length; i++) {
 			Module module = (Module) modules[i];
@@ -59,6 +72,14 @@ public class FlexibleProjectServerUtil {
 		ComponentType type = component.getComponentType();
 		IProject project = StructureEdit.getContainingProject(component);
 		if (type == null || project == null || type.getComponentTypeId() == null)
+			return null;
+		IModule[] modules = ServerUtil.getModules(project);
+		return modules;
+	}
+	
+	protected static IModule[] getModules(IVirtualComponent component) {
+		IProject project = component.getProject();
+		if (project == null || component.getComponentTypeId() == null)
 			return null;
 		IModule[] modules = ServerUtil.getModules(project);
 		return modules;

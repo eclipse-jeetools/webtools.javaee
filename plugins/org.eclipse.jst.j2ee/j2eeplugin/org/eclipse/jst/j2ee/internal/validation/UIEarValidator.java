@@ -61,6 +61,8 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
@@ -396,16 +398,15 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		EARArtifactEdit artifactEdit = null;
 		try {
 		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(workbenchModule);
-		List utilJarModules = artifactEdit.getWorkbenchUtilModules(workbenchModule);
+		List utilJarModules = artifactEdit.getUtilityModuleReferences();
 		if (!utilJarModules.isEmpty() || !utilJarModules.isEmpty()) {
 			for (int i = 0; i < utilJarModules.size(); i++) {
-				UtilityJARMapping aUtilJar = (UtilityJARMapping) utilJarModules.get(i);
-
+				IVirtualComponent aUtilJar = ((IVirtualReference) utilJarModules.get(i)).getReferencedComponent();
 				if (aUtilJar != null) {
-					IProject project = J2EEPlugin.getWorkspace().getRoot().getProject(aUtilJar.getProjectName());
+					IProject project = J2EEPlugin.getWorkspace().getRoot().getProject(aUtilJar.getProject().getName());
 					if (project != null) {
 						if (!project.exists()) {
-							String[] params = new String[]{project.getName(), aUtilJar.getUri(), earHelper.getProject().getName()};
+							String[] params = new String[]{project.getName(), aUtilJar.getRuntimePath().toString(), earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);
 						} else {
 							//validateModuleProjectForValidServerTarget(project);
@@ -784,24 +785,24 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	/**
 	 * Validates that conflicting jar does not exist in the ear project.
 	 */
-	public void validateUriAlreadyExistsInEar(WorkbenchComponent module) {
+	public void validateUriAlreadyExistsInEar(WorkbenchComponent component) {
 		EARArtifactEdit artifactEdit = null;
 		try{
-		    artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
-			List utilJars = artifactEdit.getWorkbenchJ2EEModules(module);
-			if (utilJars == null)
+		    artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+			List modules = artifactEdit.getJ2EEModuleReferences();
+			if (modules == null)
 				return;
-			for (int i = 0; i < utilJars.size(); i++) {
-				UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
-	
-				if (utilModule != null && utilModule.getUri() != null) {
+			for (int i = 0; i < modules.size(); i++) {
+				IVirtualReference reference = (IVirtualReference) modules.get(i);
+				IVirtualComponent module = reference.getReferencedComponent();
+				if (module != null && module.getRuntimePath() != null) {
 					IProject currentEARProject = earHelper.getProject();
 	
 					try {
-						IFile exFile = currentEARProject.getFile(utilModule.getUri());
+						IFile exFile = currentEARProject.getFile(module.getRuntimePath());
 						if (exFile != null && exFile.exists()) {
 							String[] params = new String[2];
-							params[0] = utilModule.getUri();
+							params[0] = module.getRuntimePath().toString();
 							params[1] = currentEARProject.getName();
 							addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
 						}

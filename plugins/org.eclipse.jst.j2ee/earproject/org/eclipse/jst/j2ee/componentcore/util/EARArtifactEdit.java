@@ -10,6 +10,7 @@
 package org.eclipse.jst.j2ee.componentcore.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -26,7 +27,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -161,6 +161,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 				return new EARArtifactEdit(nature, aModule, true);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -197,6 +198,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 				return new EARArtifactEdit(nature, aModule, false);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -325,6 +327,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 			try {
 				application.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
+				//Ignore
 			}
 			aResource.setID(application, J2EEConstants.APPL_ID);
 			// TODO add more mandatory elements
@@ -376,61 +379,64 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	/**
-	 * <p>
-	 * Note: This method is for internal use only. Clients should not call this method.
-	 * </p>
+	 * This method will return the list of IVirtualReferences for all of the utility modules
+	 * contained in the EAR application
 	 * 
-	 * @param WorkbenchComponent
-	 * @return - a list of util modules referred by a given j2ee module
+	 * @return - a list of IVirtualReferences for utility modules in the EAR
 	 */
-	public List getWorkbenchUtilModules(WorkbenchComponent module) {
-		if (module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-			List utilComponents = new ArrayList();
-			List refComponents = module.getReferencedComponents();
-			for (int i = 0; i < refComponents.size(); i++) {
-				WorkbenchComponent component = (WorkbenchComponent) refComponents.get(i);
-				if (component.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE))
-					;
-				utilComponents.add(component);
-			}
-			return utilComponents;
-		}
-		return null;
+	public List getUtilityModuleReferences() {
+		List utilityModuleTypes = new ArrayList();
+		utilityModuleTypes.add(IModuleConstants.JST_UTILITY_MODULE);
+		return getComponentReferences(utilityModuleTypes);
 	}
 
 	/**
-	 * <p>
-	 * Note: This method is for internal use only. Clients should not call this method.
-	 * </p>
+	 * This method will return the list of IVirtualReferences for the J2EE module components
+	 * contained in this EAR application.
 	 * 
-	 * @param module
-	 * @return - a list of J2EE modules referred by a given j2ee module
+	 * @return - a list of IVirtualReferences for J2EE modules in the EAR
 	 */
-	public List getWorkbenchJ2EEModules(WorkbenchComponent module) {
-		if (module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-			List j2eeComponents = new ArrayList();
-			List refComponents = module.getReferencedComponents();
-			for (int i = 0; i < refComponents.size(); i++) {
-				ReferencedComponent component = (ReferencedComponent) refComponents.get(i);
-				StructureEdit moduleCore = null;
-				try {
-					URI moduleUri = component.getHandle();
-					IProject project = StructureEdit.getContainingProject(moduleUri);
-					moduleCore = StructureEdit.getStructureEditForRead(project);
-					WorkbenchComponent wbComponent = moduleCore.findComponentByURI(moduleUri);
-					j2eeComponents.add(wbComponent);
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					if (moduleCore != null)
-						moduleCore.dispose();
-
-				}
-
-				
-			}
-			return j2eeComponents;
-		}
-		return null;
+	public List getJ2EEModuleReferences() {
+		List j2eeTypes = new ArrayList();
+		j2eeTypes.add(IModuleConstants.JST_APPCLIENT_MODULE);
+		j2eeTypes.add(IModuleConstants.JST_CONNECTOR_MODULE);
+		j2eeTypes.add(IModuleConstants.JST_EJB_MODULE);
+		j2eeTypes.add(IModuleConstants.JST_WEB_MODULE);
+		return getComponentReferences(j2eeTypes);
 	}
+	
+	/**
+	 * This method will return the list of IVirtualReferences for all of the components
+	 * contained in this EAR application.
+	 * 
+	 * @return - a list of IVirtualReferences for components in the EAR
+	 */
+	public List getComponentReferences() {
+		return getComponentReferences(Collections.EMPTY_LIST);
+	}
+	
+	private List getComponentReferences(List componentTypes) {
+		List components = new ArrayList();
+		IProject project = getComponentHandle().getProject();
+		String compName = getComponentHandle().getName();
+		IVirtualComponent earComponent = ComponentCore.createComponent(project,compName);
+		if (earComponent.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+			IVirtualReference[] refComponents = earComponent.getReferences();
+			for (int i = 0; i < refComponents.length; i++) {
+				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				if (componentTypes == null || componentTypes.size()==0)
+					components.add(refComponents[i]);
+				else {
+					for (int j=0;j<componentTypes.size(); j++) {
+						if (module.getComponentTypeId().equals(componentTypes.get(j))) {
+							components.add(refComponents[i]);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return components;
+	}
+	
 }

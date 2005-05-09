@@ -22,12 +22,14 @@ import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 
 
 public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable implements IEnterpriseApplication, ILooseArchiveSupport {
 
-	public static final String EAR_MODULE_TYPE = "jst.ear";
+	public static final String EAR_MODULE_TYPE = "jst.ear"; //$NON-NLS-1$
 
 	public EnterpriseApplicationDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
 		super(project, aFactoryId, aWorkbenchModule);
@@ -74,10 +76,11 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		try {
 			earEdit = EARArtifactEdit.getEARArtifactEditForRead(wbModule);
 			if (earEdit != null) {
-				List components = earEdit.getWorkbenchJ2EEModules(wbModule);
+				List components = earEdit.getJ2EEModuleReferences();
 				for (Iterator iter = components.iterator(); iter.hasNext();) {
-					WorkbenchComponent component = (WorkbenchComponent) iter.next();
-					Object module = FlexibleProjectServerUtil.getModuleDelegate(component);
+					IVirtualReference reference = (IVirtualReference) iter.next();
+					IVirtualComponent virtualComp = reference.getReferencedComponent();
+					Object module = FlexibleProjectServerUtil.getModuleDelegate(virtualComp);
 					modules.add(module);
 				}
 			}
