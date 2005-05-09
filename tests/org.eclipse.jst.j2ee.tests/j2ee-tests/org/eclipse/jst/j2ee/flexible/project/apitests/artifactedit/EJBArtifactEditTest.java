@@ -322,7 +322,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			int type = edit.getDeploymenyDescriptorType();
+			int type = edit.getDeploymentDescriptorType();
 			assertTrue(type >= 0);
 
 		} finally {
