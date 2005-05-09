@@ -62,10 +62,10 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				if (wbModule.getComponentType()==null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EnterpriseApplicationDeployable.EAR_MODULE_TYPE))
+				if (wbModule.getComponentType() == null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EnterpriseApplicationDeployable.EAR_MODULE_TYPE))
 					continue;
 				moduleDelegate = new EnterpriseApplicationDeployable(project, ID, wbModule);
-				//moduleDelegate.getModules();
+				// moduleDelegate.getModules();
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
 				moduleDelegate.initialize(module);
@@ -83,8 +83,7 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	}
 
 	public IModule[] getModules() {
-		//turned off for M4
-		/*cacheModules();
+		cacheModules(false);
 		ArrayList moduleList = new ArrayList();
 		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
 			IModule[] element = (IModule[]) iter.next();
@@ -94,8 +93,7 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 		}
 		IModule[] modules = new IModule[moduleList.size()];
 		moduleList.toArray(modules);
-		return modules;*/
-       return null;
+		return modules;
 
 	}
 

@@ -127,18 +127,8 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 		return getModule(proj,component);
 	}// getModule
 
-	/**
-	 * Get the deployable object.
-	 * 
-	 * @param EObject
-	 *            refObject - The current refObject.
-	 * @return IModule
-	 */
-	/*
-	 * protected static IModule getModule(IProject project) { EARNatureRuntime nature =
-	 * getNature(project); if (nature != null) { return nature.getModule(); }// if return null; }//
-	 * getModule
-	 */
+
+
 	/**
 	 * Gets the ear nature.
 	 * 
