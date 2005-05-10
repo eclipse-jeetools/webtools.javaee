@@ -7,6 +7,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -197,7 +198,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(ejbProject);
 			wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			ModuleCoreNature nature = null;
-			nature = moduleCore.getModuleCoreNature(TestWorkspace.EJB_MODULE_URI);
+			nature = StructureEdit.getModuleCoreNature(TestWorkspace.EJB_MODULE_URI);
 			edit = new EJBArtifactEdit(nature, wbComponent, true);
 			assertNotNull(edit);
 		} catch (UnresolveableURIException e) {
@@ -243,7 +244,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			edit.hasEJBClientJARProject(ejbProject);
+			edit.hasEJBClientJARProject();
 			// /////BUG\\\\\\\\\\\
 			// boolean bool = edit.hasEJBClientJARProject(ejbProject);
 			// assertEquals(bool, true);
@@ -282,7 +283,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			edit.getEJBClientJarModule(ejbProject);
+			edit.getEJBClientJarModule();
 			// /////////bug\\\\\\\\
 			// WorkbenchComponent comp = edit.getEJBClientJarModule(ejbProject);
 			// assertNotNull(comp);
@@ -342,7 +343,7 @@ public class EJBArtifactEditTest extends TestCase {
 
 			public void test() {
 				addEJBJarIfNecessary(null);
-			};
+			}
 		};
 
 	}
@@ -443,7 +444,7 @@ public class EJBArtifactEditTest extends TestCase {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 			}
-			boolean valid = EJBArtifactEdit.isValidEditableModule(wbComponent);
+			boolean valid = ArtifactEdit.isValidEditableModule(wbComponent);
 			assertTrue(valid);
 		}
 	}
