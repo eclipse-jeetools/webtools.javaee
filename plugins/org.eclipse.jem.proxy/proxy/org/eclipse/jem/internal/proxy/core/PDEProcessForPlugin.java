@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.3 $  $Date: 2005/03/11 21:23:38 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/10 22:14:05 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -38,8 +38,7 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 	 * @see org.eclipse.jem.internal.proxy.core.ProxyPlugin.IPDEProcessForPlugin#processPlugin(org.eclipse.jdt.core.IJavaProject, java.util.Map, boolean, boolean)
 	 */
 	public void findPlugins(IJavaProject project, Map pluginIds, boolean visible, boolean first) {
-		WorkspaceModelManager wm = PDECore.getDefault().getWorkspaceModelManager();
-		IPluginModelBase m = wm.getWorkspacePluginModel(project.getProject());
+		IPluginModelBase m = PDECore.getDefault().getModelManager().findModel(project.getProject());
 		if (m instanceof IPluginModel) {
 			// it is a plugin, process it.
 			IPlugin plugin = ((IPluginModel) m).getPlugin();			
