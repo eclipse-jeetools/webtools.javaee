@@ -8,7 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -23,8 +22,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
@@ -131,7 +128,7 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 		try {
 			if (module != null) {
 				edit = EJBArtifactEdit.getEJBArtifactEditForRead(module);
-				if (edit != null && edit.hasEJBClientJARProject(StructureEdit.getContainingProject(module)))
+				if (edit != null && edit.hasEJBClientJARProject())
 					enableAllSections(false);
 				} else
 					enableAllSections(true); 

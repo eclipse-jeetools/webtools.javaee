@@ -123,9 +123,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 *  
 	 */
 	
-	public boolean hasEJBClientJARProject(IProject project) {
+	public boolean hasEJBClientJARProject() {
 		
-		if(getEJBClientJarModule(project) != null)
+		if(getEJBClientJarModule() != null)
 			return true;
 		return false;
 	}
@@ -146,14 +146,14 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param project
 	 * @return WorkbenchComponent
 	 */
-	public IVirtualComponent getEJBClientJarModule(IProject project) {
+	public IVirtualComponent getEJBClientJarModule() {
 		EJBJar jar = getEJBJar();
 		IVirtualComponent module = null;
 		String clientJAR = null;
 		if (jar != null)
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {	
-			 module = ComponentCore.createComponent(project,clientJAR);
+			 module = ComponentCore.createComponent(getComponentHandle().getProject(),clientJAR);
 		}
 		return module;
 	}
@@ -232,6 +232,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 			try {
 				ejbJar.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
+				//Ignore
 			}
 			aResource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
 			//TODO add more mandatory elements
@@ -337,6 +338,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 				return new EJBArtifactEdit(nature, aModule, true);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -370,6 +372,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 				return new EJBArtifactEdit(nature, aModule, false);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
