@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMShortTypeBeanProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 22:41:24 $ 
  */
 
 
@@ -74,25 +74,25 @@ public byte byteValue() {
  * doubleValue method comment.
  */
 public double doubleValue() {
-	return (double) fShort;
+	return fShort;
 }
 /**
  * floatValue method comment.
  */
 public float floatValue() {
-	return (float) fShort;
+	return fShort;
 }
 /**
  * Return the int value
  */
 public int intValue() {
-	return (int) fShort;
+	return fShort;
 }
 /**
  * longValue method comment.
  */
 public long longValue() {
-	return (long) fShort;
+	return fShort;
 }
 /**
  * numberValue method comment.

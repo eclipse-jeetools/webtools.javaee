@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- * $RCSfile: IDECharacterBeanProxy.java,v $ $Revision: 1.4 $ $Date: 2005/02/15 22:57:26 $
+ * $RCSfile: IDECharacterBeanProxy.java,v $ $Revision: 1.5 $ $Date: 2005/05/11 22:41:24 $
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -35,7 +35,7 @@ class IDECharacterBeanProxy extends IDEObjectBeanProxy implements ICharacterBean
 	 * @see org.eclipse.jem.internal.proxy.core.IIntegerBeanProxy#intValue()
 	 */
 	public int intValue() {
-		return (int) charValue();
+		return charValue();
 	}
 
 	/* (non-Javadoc)
@@ -49,21 +49,21 @@ class IDECharacterBeanProxy extends IDEObjectBeanProxy implements ICharacterBean
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#doubleValue()
 	 */
 	public double doubleValue() {
-		return (double) charValue();
+		return charValue();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#floatValue()
 	 */
 	public float floatValue() {
-		return (float) charValue();
+		return charValue();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#longValue()
 	 */
 	public long longValue() {
-		return (long) charValue();
+		return charValue();
 	}
 
 	/* (non-Javadoc)

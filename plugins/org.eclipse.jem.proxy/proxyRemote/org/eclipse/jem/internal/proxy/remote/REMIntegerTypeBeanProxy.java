@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMIntegerTypeBeanProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 22:41:24 $ 
  */
 
 
@@ -74,13 +74,13 @@ public byte byteValue() {
  * doubleValue method comment.
  */
 public double doubleValue() {
-	return (double) fInt;
+	return fInt;
 }
 /**
  * floatValue method comment.
  */
 public float floatValue() {
-	return (float) fInt;
+	return fInt;
 }
 /**
  * Return the int value
@@ -92,7 +92,7 @@ public int intValue() {
  * longValue method comment.
  */
 public long longValue() {
-	return (long) fInt;
+	return fInt;
 }
 /**
  * numberValue method comment.

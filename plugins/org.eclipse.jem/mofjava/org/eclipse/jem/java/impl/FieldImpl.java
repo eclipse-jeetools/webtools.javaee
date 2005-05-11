@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/11 22:41:08 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -177,7 +177,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * Get the class that this field is within.
 	 */
 	public JavaClass getContainingJavaClass() {
-		return (JavaClass) this.getJavaClass();
+		return this.getJavaClass();
 	}
 
 	/**

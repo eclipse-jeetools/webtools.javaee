@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.15 $  $Date: 2005/05/11 19:01:16 $ 
+ *  $Revision: 1.16 $  $Date: 2005/05/11 22:41:06 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -899,7 +899,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 				// trip method reflection
 				method.isStatic();
 				if (method.getReturnType() != null)
-					out.append("    " + ((JavaHelpers) method.getReturnType()).getJavaName() + " ");
+					out.append("    " + method.getReturnType().getJavaName() + " ");
 				else
 					out.append("    void ");
 				out.append(method.getName() + "(");

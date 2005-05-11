@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDENumberBeanProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 22:41:24 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -49,7 +49,7 @@ public boolean equals(Object anObject) {
 	if (anObject instanceof IDENumberBeanProxy)
 		return fNumberValue.equals(((IDENumberBeanProxy) anObject).numberValue());
 	if (anObject instanceof Number)
-		return fNumberValue.equals((Number) anObject);
+		return fNumberValue.equals(anObject);
 	return false;
 }
 /**

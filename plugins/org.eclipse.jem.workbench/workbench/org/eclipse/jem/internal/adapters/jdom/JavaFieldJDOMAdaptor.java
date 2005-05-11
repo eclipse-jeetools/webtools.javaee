@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/11 22:41:11 $ 
  */
 import java.util.Map;
 
@@ -158,7 +158,7 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 	protected IType getParentType() {
 		if (parentType == null) {
 			Field targetField = (Field) getTarget();
-			JavaClass parentJavaClass = (JavaClass) targetField.getJavaClass();
+			JavaClass parentJavaClass = targetField.getJavaClass();
 			if (parentJavaClass != null) {
 				JavaClassJDOMAdaptor pa = (JavaClassJDOMAdaptor) EcoreUtil.getAdapter(parentJavaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
 				if (pa != null)

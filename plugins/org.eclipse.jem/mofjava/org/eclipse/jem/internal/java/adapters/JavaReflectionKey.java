@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionKey.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:16 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 22:41:06 $ 
  */
 import java.util.*;
 
@@ -265,7 +265,7 @@ public EObject getJavaObject(String keyValue) {
 			}
 		}
 	} else {
-		result = (EObject) getJavaType(keyValue);
+		result = getJavaType(keyValue);
 	}
 	return result;
 }

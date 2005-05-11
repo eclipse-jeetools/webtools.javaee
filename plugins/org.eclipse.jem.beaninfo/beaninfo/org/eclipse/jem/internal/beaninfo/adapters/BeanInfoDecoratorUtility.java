@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -1168,7 +1168,7 @@ public class BeanInfoDecoratorUtility {
 	 * @since 1.1.0
 	 */
 	protected static void buildNonImplicitChange(ChangeDescription cd, List fcs, PropertyDecorator decor, boolean indexed) {
-		buildNonImplicitChange(cd, fcs, (FeatureDecorator) decor);
+		buildNonImplicitChange(cd, fcs, decor);
 		long implicitSettings = decor.getImplicitlySetBits();
 		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_EDITOR_CLASS_IMPLICIT) != 0) {
 			doSet(cd, fcs, BeaninfoPackage.eINSTANCE.getPropertyDecorator_PropertyEditorClass(), decor.getPropertyEditorClass(), false); // Property Editor class is

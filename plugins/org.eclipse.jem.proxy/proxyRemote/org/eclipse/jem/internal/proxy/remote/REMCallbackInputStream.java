@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackInputStream.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 22:41:24 $ 
  */
 
 import java.io.*;
@@ -80,7 +80,7 @@ public class REMCallbackInputStream extends InputStream {
 		if (fLastByte == -1)
 			return -1;	// We've previously reached the end.		
 		
-		return ((int) fBuffer[fNextByte++]) & 0xFF;	// So that it is in range 0 to 255.
+		return fBuffer[fNextByte++] & 0xFF;	// So that it is in range 0 to 255.
 	}
 	
 	public int read(byte b[], int off, int len) throws IOException {

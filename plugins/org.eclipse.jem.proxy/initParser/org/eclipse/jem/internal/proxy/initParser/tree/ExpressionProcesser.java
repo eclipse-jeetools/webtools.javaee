@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/11 22:41:24 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -928,11 +928,11 @@ public class ExpressionProcesser {
 					else if (returnType == Byte.TYPE)
 						return new Byte((byte) ((Character) bean).charValue());
 					else if (returnType == Double.TYPE)
-						return new Double((double) ((Character) bean).charValue());
+						return new Double(((Character) bean).charValue());
 					else if (returnType == Float.TYPE)
-						return new Float((float) ((Character) bean).charValue());
+						return new Float(((Character) bean).charValue());
 					else if (returnType == Long.TYPE)
-						return new Long((long) ((Character) bean).charValue());
+						return new Long(((Character) bean).charValue());
 					else if (returnType == Short.TYPE)
 						return new Short((short) ((Character) bean).charValue());	
 					else

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/02 21:36:10 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/11 22:41:35 $ 
  */
 
 import java.net.URL;
@@ -127,7 +127,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 	public String getText(Object element) {
 		if (element instanceof BPListElement) {
 			BPListElement bpentry = (BPListElement) element;
-			IBeaninfosDocEntry docEntry = (IBeaninfosDocEntry) bpentry.getEntry();
+			IBeaninfosDocEntry docEntry = bpentry.getEntry();
 			IPath path = docEntry.getPath();
 			String pathString = null;
 			switch (docEntry.getKind()) {
@@ -218,7 +218,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		boolean imageIsNormal = true;	// Whether this is a normal sized image (which will need compositing with blank)
 		if (element instanceof BPListElement) {
 			BPListElement bpentry = (BPListElement) element;
-			IBeaninfosDocEntry docEntry = (IBeaninfosDocEntry) bpentry.getEntry();
+			IBeaninfosDocEntry docEntry = bpentry.getEntry();
 			IPath path = docEntry.getPath();
 			Image pathImage = null;
 			switch (docEntry.getKind()) {

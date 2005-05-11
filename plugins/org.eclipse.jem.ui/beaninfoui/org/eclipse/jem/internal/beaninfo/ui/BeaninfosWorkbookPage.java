@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/02 21:36:10 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 22:41:35 $ 
  */
 
 import java.util.*;
@@ -156,7 +156,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 		}
 		
 		public void selectionChanged(ListDialogField field) {
-			ListDialogField list = (ListDialogField) field;
+			ListDialogField list = field;
 			int selCnt = list.getSelectedElements().size();
 			list.enableButton(6, selCnt == 1);	// Only want the button enabled if one beaninfo is selected.
 			

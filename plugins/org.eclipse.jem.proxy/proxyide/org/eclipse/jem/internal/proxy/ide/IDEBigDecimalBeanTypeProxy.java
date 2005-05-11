@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEBigDecimalBeanTypeProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 22:41:24 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -20,7 +20,7 @@ import java.math.*;
 final class IDEBigDecimalBeanTypeProxy extends IDENumberBeanTypeProxy {
 // Some values are cache'd for speed
 IDEBigDecimalBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
-	super(aRegistry, aClass,new BigDecimal((double)0));
+	super(aRegistry, aClass,new BigDecimal(0));
 }
 /**
  * Static helper to create a bean proxy

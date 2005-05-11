@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/11 22:41:06 $ 
  */
 import java.util.logging.Level;
 
@@ -100,7 +100,7 @@ public static Object getValue(EObject object, EReference attribute) {
 //FB	if (adaptor != null)
 //FB		return adaptor.getValueIn(object, attribute);
 //FB	return ((IReadAdaptable) object).primRefValue(attribute);
-	return object.eGet((EStructuralFeature)attribute); //FB
+	return object.eGet(attribute); //FB
 	
 }
 /*Helper method to fetch the adaptor from the object, and if it exists, get the adapted

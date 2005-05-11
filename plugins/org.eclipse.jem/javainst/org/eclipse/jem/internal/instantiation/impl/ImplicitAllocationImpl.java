@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: ImplicitAllocationImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 22:41:08 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -88,7 +88,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	public EObject getParent() {
 		if (parent != null && parent.eIsProxy()) {
 			EObject oldParent = parent;
-			parent = (EObject)eResolveProxy((InternalEObject)parent);
+			parent = eResolveProxy((InternalEObject)parent);
 			if (parent != oldParent) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstantiationPackage.IMPLICIT_ALLOCATION__PARENT, oldParent, parent));

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
  *  $RCSfile: JavaFieldJDKAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 22:41:06 $ 
  */
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
@@ -36,7 +36,7 @@ public class JavaFieldJDKAdaptor extends JDKAdaptor {
 	protected Class getParentType() {
 		if (parentType == null) {
 			Field targetField = (Field) getTarget();
-			JavaClass parentJavaClass = (JavaClass) targetField.getJavaClass();
+			JavaClass parentJavaClass = targetField.getJavaClass();
 			JavaClassJDKAdaptor pa = (JavaClassJDKAdaptor) EcoreUtil.getAdapter(parentJavaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
 			if (pa != null)
 				parentType = pa.getSourceType();

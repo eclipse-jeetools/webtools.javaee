@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:45:49 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 22:41:17 $ 
  */
 
 import java.awt.Image;
@@ -226,7 +226,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 
 		/* Find the specified customizerClass */
 		for (int i = 0; i < args.length; i += 2) {
-			if (CUSTOMIZERCLASS.equals((String) args[i])) {
+			if (CUSTOMIZERCLASS.equals(args[i])) {
 				customizerClass = (Class) args[i + 1];
 				break;
 			}

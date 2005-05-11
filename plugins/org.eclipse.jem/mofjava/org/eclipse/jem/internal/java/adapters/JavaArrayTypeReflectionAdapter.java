@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaArrayTypeReflectionAdapter.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 22:41:06 $ 
  */
 package org.eclipse.jem.internal.java.adapters;
 
@@ -65,7 +65,7 @@ public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor implem
 		if(fc.isPrimitive())
 		    return true;
 		else {
-		    JavaReflectionAdaptor reflectionAdaptor = (JavaReflectionAdaptor) EcoreUtil.getExistingAdapter(((JavaClass)fc), ReflectionAdaptor.TYPE_KEY);
+		    JavaReflectionAdaptor reflectionAdaptor = (JavaReflectionAdaptor) EcoreUtil.getExistingAdapter(fc, ReflectionAdaptor.TYPE_KEY);
 		    return (reflectionAdaptor != null) ? reflectionAdaptor.hasCachedReflectionSource() : false;		    
 		} 
 	}

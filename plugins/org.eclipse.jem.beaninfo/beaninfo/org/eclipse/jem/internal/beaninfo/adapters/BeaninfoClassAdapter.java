@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.32 $  $Date: 2005/04/22 20:57:52 $ 
+ *  $Revision: 1.33 $  $Date: 2005/05/11 22:41:17 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -375,7 +375,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected HashMap getPropertiesMap() {
 		if (propertiesMap == null) {
-			List localFeatures = (List) getJavaClass().getEStructuralFeaturesInternal();
+			List localFeatures = getJavaClass().getEStructuralFeaturesInternal();
 			propertiesMap = new HashMap(localFeatures.size());
 			Iterator itr = localFeatures.iterator();
 			while (itr.hasNext()) {
@@ -391,7 +391,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected List getFeaturesList() {
 		if (featuresRealList == null)
-			featuresRealList = (List) getJavaClass().getEStructuralFeaturesInternal();
+			featuresRealList = getJavaClass().getEStructuralFeaturesInternal();
 		return featuresRealList;
 	}
 
@@ -404,7 +404,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected HashMap getOperationsMap() {
 		if (operationsMap == null) {
-			List locals = (List) getJavaClass().getEOperationsInternal();
+			List locals = getJavaClass().getEOperationsInternal();
 			int l = locals.size();
 			operationsMap = new HashMap(l);
 			for (int i = 0; i < l; i++) {
@@ -435,7 +435,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected HashMap getEventsMap() {
 		if (eventsMap == null) {
-			List locals = (List) getJavaClass().getEventsGen();
+			List locals = getJavaClass().getEventsGen();
 			eventsMap = new HashMap(locals.size());
 			Iterator itr = locals.iterator();
 			while (itr.hasNext()) {
@@ -1519,7 +1519,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		public Method getter, setter, indexedGetter, indexedSetter;
 
 		public boolean setGetter(Method get, boolean mustBeBoolean) {
-			List parms = (List) get.getParameters();
+			List parms = get.getParameters();
 			if (parms.size() > 1)
 				return false; // Invalid - improper number of parms.
 			boolean indexed = parms.size() == 1;
@@ -1569,7 +1569,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		public boolean setSetter(Method set) {
-			List parms = (List) set.getParameters();
+			List parms = set.getParameters();
 			if (parms.size() > 2 || parms.size() < 1)
 				return false; // Invalid - improper number of parms.
 			boolean indexed = parms.size() == 2;
@@ -2242,7 +2242,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		if (!name.startsWith("add") || !name.endsWith("Listener")) //$NON-NLS-1$ //$NON-NLS-2$
 			return null; // Not valid format for an add listener name.
 
-		List parms = (List) method.getParameters();
+		List parms = method.getParameters();
 		if (parms.size() != 1)
 			return null; // Invalid - improper number of parms.
 
@@ -2271,7 +2271,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		if (!name.startsWith("remove") || !name.endsWith("Listener")) //$NON-NLS-1$ //$NON-NLS-2$
 			return null; // Not valid format for a remove listener name.
 
-		List parms = (List) method.getParameters();
+		List parms = method.getParameters();
 		if (parms.size() != 1)
 			return null; // Invalid - improper number of parms.
 

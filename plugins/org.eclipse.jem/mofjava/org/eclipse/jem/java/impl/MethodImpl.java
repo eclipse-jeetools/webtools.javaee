@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
 
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/04/14 19:05:33 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/11 22:41:06 $ 
  */
 
 import java.util.Collection;
@@ -564,7 +564,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 		if (isVoid())
 			sb.append("void ");
 		else
-			sb.append(((JavaHelpers) getReturnType()).getQualifiedName() + " ");
+			sb.append(getReturnType().getQualifiedName() + " ");
 		sb.append(getContainingJavaClass().getJavaName() + ".");
 		sb.append(getName() + "(");
 		List params = getParameters();

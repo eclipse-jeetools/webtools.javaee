@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.remote;
 /*
- * $RCSfile: REMCharacterTypeBeanProxy.java,v $ $Revision: 1.4 $ $Date: 2005/02/15 22:56:10 $
+ * $RCSfile: REMCharacterTypeBeanProxy.java,v $ $Revision: 1.5 $ $Date: 2005/05/11 22:41:24 $
  */
 
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
@@ -104,7 +104,7 @@ final class REMCharacterTypeBeanProxy extends REMConstantBeanProxy implements IC
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#doubleValue()
 	 */
 	public double doubleValue() {
-		return (double) fChar;
+		return fChar;
 	}
 
 	/*
@@ -113,7 +113,7 @@ final class REMCharacterTypeBeanProxy extends REMConstantBeanProxy implements IC
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#floatValue()
 	 */
 	public float floatValue() {
-		return (float) fChar;
+		return fChar;
 	}
 
 	/*
@@ -122,7 +122,7 @@ final class REMCharacterTypeBeanProxy extends REMConstantBeanProxy implements IC
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#intValue()
 	 */
 	public int intValue() {
-		return (int) fChar;
+		return fChar;
 	}
 
 	/*
@@ -131,7 +131,7 @@ final class REMCharacterTypeBeanProxy extends REMConstantBeanProxy implements IC
 	 * @see org.eclipse.jem.internal.proxy.core.INumberBeanProxy#longValue()
 	 */
 	public long longValue() {
-		return (long) fChar;
+		return fChar;
 	}
 
 	/*

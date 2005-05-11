@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaModelListener.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 22:41:12 $ 
  */
 
 import java.util.*;
@@ -265,7 +265,7 @@ protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects,
 protected IJavaProject getJavaProject(IClasspathEntry entry) {
 	IProject proj = getWorkspaceRoot().getProject(entry.getPath().segment(0));
 	if (proj != null)
-		return (IJavaProject) JavaCore.create(proj);
+		return JavaCore.create(proj);
 	return null;
 }
 

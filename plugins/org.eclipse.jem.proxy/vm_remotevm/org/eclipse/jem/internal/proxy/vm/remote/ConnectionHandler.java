@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.11 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/11 22:41:26 $ 
  */
 
 
@@ -622,7 +622,7 @@ public class ConnectionHandler {
 						Object[] pulledValue = exp.pullValue();
 						// Send back the command code for pull value. Don't flush. We will flush when all done.
 						if (((Class) pulledValue[1]).isPrimitive()) {
-							int returnTypeID = server.getIdentityID((Class) pulledValue[1]);
+							int returnTypeID = server.getIdentityID(pulledValue[1]);
 							// Need to tell sendObject the correct primitive type.
 							sendObject(pulledValue[0], returnTypeID, valueObject, out, true, true);
 							
@@ -659,7 +659,7 @@ public class ConnectionHandler {
 				if (exp.pullExpressionProxyValue(proxyID, proxyResolution)) {
 					if (proxyResolution[1] != Void.TYPE) {
 						if (((Class) proxyResolution[1]).isPrimitive()) {
-							int returnTypeID = server.getIdentityID((Class) proxyResolution[1]);
+							int returnTypeID = server.getIdentityID(proxyResolution[1]);
 							// Need to tell worker the correct primitive type.
 							fillInValue(proxyResolution[0], returnTypeID, worker);
 						} else {

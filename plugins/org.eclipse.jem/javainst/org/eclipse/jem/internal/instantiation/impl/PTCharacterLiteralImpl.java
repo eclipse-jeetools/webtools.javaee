@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: PTCharacterLiteralImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 22:41:08 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 
@@ -286,7 +286,7 @@ public class PTCharacterLiteralImpl extends PTExpressionImpl implements PTCharac
 					b.append(character);
 				else {
 					b.append("\\u");
-					String s = Integer.toString((int) character, 16);
+					String s = Integer.toString(character, 16);
 					int zeros = 4-s.length();
 					while (zeros-- > 0) {
 						b.append('0');

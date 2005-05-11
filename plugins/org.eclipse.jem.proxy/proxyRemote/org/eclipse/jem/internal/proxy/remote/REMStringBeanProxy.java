@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStringBeanProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 22:41:24 $ 
  */
 
 
@@ -48,9 +48,8 @@ public boolean equals(Object anObject) {
 		return true;	// Identity
 	if (anObject instanceof IStringBeanProxy)
 		return fString.equals(((IStringBeanProxy) anObject).stringValue());
-	if (anObject instanceof String)
-		return fString.equals((String) anObject);
-	return false;
+	else
+		return fString.equals(anObject);
 }
 /**
  * Return the cache'd string that is a java.lang.String that the IDE can use
