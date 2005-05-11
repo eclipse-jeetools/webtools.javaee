@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.DelegateConfigurationElement;
@@ -22,10 +23,10 @@ import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
 /**
  * <p>
@@ -53,7 +54,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
  * 
  * @see org.eclipse.wst.common.frameworks.ui.ExtendableWizard
  */
-public abstract class J2EEArtifactCreationWizard extends WTPWizard implements INewWizard, IExecutableExtension, IPluginContribution {
+public abstract class J2EEArtifactCreationWizard extends DataModelWizard implements INewWizard, IExecutableExtension, IPluginContribution {
 
 	/**
 	 * <p>
@@ -84,7 +85,7 @@ public abstract class J2EEArtifactCreationWizard extends WTPWizard implements IN
 	 * @param model
 	 *            used to collect information and interface with the WTP Operation
 	 */
-	public J2EEArtifactCreationWizard(WTPOperationDataModel model) {
+	public J2EEArtifactCreationWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -223,7 +224,8 @@ public abstract class J2EEArtifactCreationWizard extends WTPWizard implements IN
 			BasicNewProjectResourceWizard.updatePerspective(element);
 		} else
 			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
-		BasicNewResourceWizard.selectAndReveal(((ComponentCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
+        String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
+		BasicNewResourceWizard.selectAndReveal(ProjectUtilities.getProject(projName), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 
 

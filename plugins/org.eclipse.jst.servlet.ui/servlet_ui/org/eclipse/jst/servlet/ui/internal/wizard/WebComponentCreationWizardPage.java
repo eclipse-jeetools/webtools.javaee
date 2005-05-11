@@ -11,13 +11,11 @@
 
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
+import org.eclipse.jst.j2ee.internal.wizard.DataModelAnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
+import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -25,25 +23,24 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * 
  */
-public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
+public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardPage implements IWebComponentCreationDataModelProperties{
 
 	public Text contextRootNameField = null;
 	public Label contextRootLabel = null;
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
-	private AnnotationsStandaloneGroup annotationsGroup;
+	private DataModelAnnotationsStandaloneGroup annotationsGroup;
 	
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public WebComponentCreationWizardPage(WebComponentCreationDataModel  model, String pageName) {
+	public WebComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC));
@@ -67,22 +64,18 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		contextRootNameField.setLayoutData(data);
-		synchHelper.synchText(contextRootNameField, WebComponentCreationDataModel.CONTEXT_ROOT, new Control[]{contextRootLabel});
+		synchHelper.synchText(contextRootNameField, CONTEXT_ROOT, new Control[]{contextRootLabel});
 		
 		createAnnotationsGroup(advanced);
 	}
 
 	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, getJ2EEModuleCreationDataModel(), false);
-	}
-	
-	WebComponentCreationDataModel getWebProjectCreationDataModel() {
-		return (WebComponentCreationDataModel) model;
+		annotationsGroup = new DataModelAnnotationsStandaloneGroup(parent, getDataModel(), false, synchHelper);
 	}
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{ComponentCreationDataModel.PROJECT_NAME, ComponentCreationDataModel.COMPONENT_NAME, ComponentCreationDataModel.COMPONENT_VERSION, WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEComponentCreationDataModel.ADD_TO_EAR, AddWebModuleToEARDataModel.CONTEXT_ROOT};
+		return new String[]{PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR, CONTEXT_ROOT};
 	}
 
 	public void dispose() {

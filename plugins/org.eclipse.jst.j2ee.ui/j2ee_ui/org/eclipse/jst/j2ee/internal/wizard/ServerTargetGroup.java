@@ -17,8 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -28,7 +27,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
 
 /**
@@ -37,9 +37,9 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class ServerTargetGroup {
-	private J2EEProjectServerTargetDataModel model;
-	private WTPDataModelSynchHelper synchHelper;
+public class ServerTargetGroup implements IJ2EEProjectServerTargetDataModelProperties{
+	private IDataModel model;
+	private DataModelSynchHelper synchHelper;
 	private Combo targetServerCombo;
 	private Button newTargetServerButton;
 	public Composite parentUI;
@@ -56,10 +56,10 @@ public class ServerTargetGroup {
 	 * @param parent
 	 * @param style
 	 */
-	public ServerTargetGroup(Composite parent, int style, J2EEProjectServerTargetDataModel model) {
+	public ServerTargetGroup(Composite parent, int style, IDataModel model, DataModelSynchHelper helper) {
 		this.model = model;
 		this.parentUI = parent;
-		synchHelper = new WTPDataModelSynchHelper(model);
+		synchHelper = helper;
 		buildComposites(parent);
 	}
 
@@ -74,7 +74,6 @@ public class ServerTargetGroup {
 	 * @param parent
 	 */
 	private void createServerTargetGroup(Composite parent) {
-
 		Label serverTargetLabel = new Label(parent, SWT.NONE);
 		serverTargetLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
 		GridData data = new GridData();
@@ -95,8 +94,7 @@ public class ServerTargetGroup {
 		newTargetServerButton.setEnabled(true);
 
 		Control[] deps = new Control[]{serverTargetLabel, newTargetServerButton};
-		synchHelper.synchCombo(targetServerCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
-
+		synchHelper.synchCombo(targetServerCombo, RUNTIME_TARGET_ID, deps);
 	}
 
 	/**
@@ -108,7 +106,6 @@ public class ServerTargetGroup {
 
 	public void dispose() {
 		model.removeListener(synchHelper);
-		synchHelper.dispose();
 		model = null;
 	}
 

@@ -30,16 +30,17 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	public void init() {
 		super.init();
-        propertySet(COMPONENT_VERSION, getDefaultProperty(COMPONENT_VERSION));
+        model.setProperty(COMPONENT_VERSION, getDefaultProperty(COMPONENT_VERSION));
         model.setProperty(NESTED_ADD_COMPONENT_TO_EAR_DM, new AddComponentToEnterpriseApplicationDataModel());
-        model.setProperty(NESTED_CLASSPATH_SELECTION_DM, new UpdateManifestDataModel());
-        model.setBooleanProperty(USE_ANNOTATIONS, false);
+        propertySet(CLASSPATH_SELECTION, null);
+        model.setProperty(NESTED_UPDATE_MANIFEST_DM, new UpdateManifestDataModel());
+        model.setProperty(USE_ANNOTATIONS, Boolean.FALSE);
 	}
 
  	public String[] getPropertyNames() {
 		String[] props = new String[]{EAR_COMPONENT_NAME, EAR_COMPONENT_DEPLOY_NAME, ADD_TO_EAR, 
 				UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME,
-                NESTED_ADD_COMPONENT_TO_EAR_DM, NESTED_CLASSPATH_SELECTION_DM, NESTED_EAR_COMPONENT_CREATION_DM,
+                NESTED_ADD_COMPONENT_TO_EAR_DM, CLASSPATH_SELECTION, NESTED_EAR_COMPONENT_CREATION_DM,
                 NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE, USE_ANNOTATIONS };
 		return combineProperties(super.getPropertyNames(), props);
 	}
@@ -69,11 +70,13 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
                     String[] validModuleVersions = getServerVersions(getComponentID(), projProperties.getRuntimeTarget().getRuntimeType());
                     model.setProperty(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
                 }
-            }
+            }         
         }
         else if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			model.setProperty(EAR_COMPONENT_HANDLE, computeEARHandle((String)propertyValue));
             model.setProperty(EAR_COMPONENT_DEPLOY_NAME, propertyValue);
+            IDataModel earDM = (IDataModel)model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+            earDM.setProperty(PROJECT_NAME, propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
 			if (!model.isPropertySet(EAR_COMPONENT_NAME)) {
 				model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
@@ -116,10 +119,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	 */
 	protected void setEARComponentIfJ2EEModuleCreationOnly(WorkbenchComponent workbenchComp, Object propertyValue) {
         getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.ARCHIVE_MODULE, workbenchComp);
-        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
-                model.getStringProperty(PROJECT_NAME));
-        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,
-                model.getStringProperty(EAR_COMPONENT_NAME));
+        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
+        getAddComponentToEARDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,model.getStringProperty(EAR_COMPONENT_NAME));
 		if (!model.isPropertySet(EAR_COMPONENT_NAME)) {
 			String earModuleName = model.getStringProperty(EAR_COMPONENT_NAME);
             model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);

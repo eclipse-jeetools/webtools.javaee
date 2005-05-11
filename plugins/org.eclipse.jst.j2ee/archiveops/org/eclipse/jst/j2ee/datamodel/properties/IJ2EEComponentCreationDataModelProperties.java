@@ -77,5 +77,5 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
     /**
      * type ClassPathSelection
      */
-    public static final String NESTED_CLASSPATH_SELECTION_DM = "IComponentCreationDataModelProperties.NESTED_CLASSPATH_SELECTION_DM"; //$NON-NLS-1$
+    public static final String CLASSPATH_SELECTION = "IComponentCreationDataModelProperties.CLASSPATH_SELECTION"; //$NON-NLS-1$
 }

@@ -8,8 +8,8 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.io.File;
 
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,10 +20,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
-public class NewFlexibleProjectGroup {
-	private FlexibleProjectCreationDataModel model;
+public class NewFlexibleProjectGroup implements IFlexibleJavaProjectCreationDataModelProperties{
+	private IDataModel model;
 	public Text projectNameField = null;
 	protected Text locationPathField = null;
 	protected Button browseButton = null;
@@ -34,15 +35,15 @@ public class NewFlexibleProjectGroup {
 	private String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL); //$NON-NLS-1$
 	private static final String defDirDialogLabel = "Directory"; //$NON-NLS-1$
 
-	private WTPDataModelSynchHelper synchHelper;
+	private DataModelSynchHelper synchHelper;
 
 	/**
 	 * @param parent
 	 * @param style
 	 */
-	public NewFlexibleProjectGroup(Composite parent, int style, FlexibleProjectCreationDataModel model) {
+	public NewFlexibleProjectGroup(Composite parent, int style, IDataModel model, DataModelSynchHelper aHelper) {
 		this.model = model;
-		synchHelper = new WTPDataModelSynchHelper(model);
+		synchHelper = aHelper;
 		buildComposites(parent);
 	}
 
@@ -70,7 +71,7 @@ public class NewFlexibleProjectGroup {
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		projectNameField.setLayoutData(data);
 		new Label(parent, SWT.NONE); // pad
-		synchHelper.synchText(projectNameField, FlexibleProjectCreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
+		synchHelper.synchText(projectNameField, PROJECT_NAME, new Control[]{projectNameLabel});
 	}
 
 	/**
@@ -97,7 +98,7 @@ public class NewFlexibleProjectGroup {
 			}
 		});
 		browseButton.setEnabled(true);
-		synchHelper.synchText(locationPathField, FlexibleProjectCreationDataModel.PROJECT_LOCATION, null);
+		synchHelper.synchText(locationPathField, PROJECT_LOCATION, null);
 	}
 
 	/**
@@ -106,7 +107,7 @@ public class NewFlexibleProjectGroup {
 	protected void handleLocationBrowseButtonPressed() {
 		DirectoryDialog dialog = new DirectoryDialog(locationPathField.getShell());
 		dialog.setMessage(defDirDialogLabel);
-		String dirName = model.getStringProperty(FlexibleProjectCreationDataModel.PROJECT_LOCATION);
+		String dirName = model.getStringProperty(PROJECT_LOCATION);
 		if ((dirName != null) && (dirName.length() != 0)) {
 			File path = new File(dirName);
 			if (path.exists()) {
@@ -115,13 +116,12 @@ public class NewFlexibleProjectGroup {
 		}
 		String selectedDirectory = dialog.open();
 		if (selectedDirectory != null) {
-			model.setProperty(FlexibleProjectCreationDataModel.PROJECT_LOCATION, selectedDirectory);
+			model.setProperty(PROJECT_LOCATION, selectedDirectory);
 		}
 	}
 
 	public void dispose() {
 		model.removeListener(synchHelper);
-		synchHelper.dispose();
 		model = null;
 	}
 }

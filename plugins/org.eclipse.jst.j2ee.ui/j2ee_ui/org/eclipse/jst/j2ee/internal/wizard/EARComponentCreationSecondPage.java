@@ -19,8 +19,8 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -30,7 +30,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
  * @author jialin
@@ -38,7 +39,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class EARComponentCreationSecondPage extends WTPWizardPage {
+public class EARComponentCreationSecondPage extends DataModelWizardPage implements IEarComponentCreationDataModelProperties{
 	private Button selectAllButton;
 	private Button deselectAllButton;
 	private Button newModuleButton;
@@ -48,7 +49,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARComponentCreationSecondPage(EARComponentCreationDataModel  model, String pageName) {
+	public EARComponentCreationSecondPage(IDataModel  model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_SECOND_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_SECOND_PG_DESC));
@@ -87,7 +88,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
-		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);
+		int j2eeVersion = getDataModel().getIntProperty(COMPONENT_VERSION);
 		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
@@ -95,7 +96,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				if (!ignoreCheckedState) {
-					((EARComponentCreationDataModel)getModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+					(getDataModel()).setProperty(J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 				}
 			}
 		});
@@ -189,13 +190,13 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 	private DefaultJ2EEComponentCreationDataModel createNewModuleModel() {
 		DefaultJ2EEComponentCreationDataModel defaultModel = new DefaultJ2EEComponentCreationDataModel();
 		// transfer properties, project name
-		String projectName = model.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME);
+		String projectName = model.getStringProperty(PROJECT_NAME);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.PROJECT_NAME, projectName);
 		// ear component name
-		String earName = model.getStringProperty(EARComponentCreationDataModel.COMPONENT_NAME);
+		String earName = model.getStringProperty(COMPONENT_NAME);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME, earName);
 		// ear j2ee version
-		int j2eeVersion = model.getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);
+		int j2eeVersion = model.getIntProperty(COMPONENT_VERSION);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.J2EE_VERSION, new Integer(j2eeVersion));
 		return defaultModel;
 	}
@@ -207,7 +208,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(false);
-			((EARComponentCreationDataModel)getModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, null);
+			getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
 		} finally {
 			ignoreCheckedState = false;
 		}
@@ -220,7 +221,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(true);
-			((EARComponentCreationDataModel)getModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+			getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 		} finally {
 			ignoreCheckedState = false;
 		}

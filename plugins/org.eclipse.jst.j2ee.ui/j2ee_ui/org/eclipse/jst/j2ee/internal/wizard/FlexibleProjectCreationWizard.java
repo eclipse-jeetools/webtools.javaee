@@ -10,18 +10,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
-public class FlexibleProjectCreationWizard extends WTPWizard implements INewWizard, IExecutableExtension { 
+public class FlexibleProjectCreationWizard extends DataModelWizard implements INewWizard, IExecutableExtension, IFlexibleProjectCreationDataModelProperties { 
 
 	/**
 	 * <p>
@@ -52,7 +52,7 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	 * @param model
 	 *            used to collect information and interface with the WTP Operation
 	 */
-	public FlexibleProjectCreationWizard(FlexibleJavaProjectCreationDataModel model) {
+	public FlexibleProjectCreationWizard(IDataModel model) {
 		super(model);
         setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_WIZ_TITLE));
         setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_WIZ_BANNER));
@@ -113,41 +113,10 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	protected void doAddPages() {
-		addPage(new FlexibleProjectCreationWizardPage(getSpecificDataModel(), MAIN_PG));
+		addPage(new FlexibleProjectCreationWizardPage(getDataModel(), MAIN_PG));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Creates a new {@link EARProjectCreationDataModel}
-	 * </p>
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new FlexibleJavaProjectCreationDataModel();
-	}
-
-	/**
-	 * @inheritDoc
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new FlexibleProjectCreationOperation(getSpecificDataModel());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return WIZARD_ID;
-	}
-
-	private FlexibleJavaProjectCreationDataModel getSpecificDataModel() {
-		return (FlexibleJavaProjectCreationDataModel) model;
-	}
+    protected IDataModelProvider getDefaultProvider() {
+        return new FlexibleJavaProjectCreationDataModelProvider();
+    }
 }

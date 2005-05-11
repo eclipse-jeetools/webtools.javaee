@@ -12,8 +12,9 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -24,29 +25,30 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
 /**
  * 
  */
-public class ServerEarAndStandaloneGroup {
+public class ServerEarAndStandaloneGroup implements IEarComponentCreationDataModelProperties {
 	
 	private Button newEAR;
 	private Combo earCombo;
 	private Label earLabel;
 	private Button addToEAR;
-	private J2EEComponentCreationDataModel model;
-	private WTPDataModelSynchHelper synchHelper;
+	private IDataModel model;
+	private DataModelSynchHelper synchHelper;
 	private Composite parentComposite;
 
 	/**
 	 *  
 	 */
-	public ServerEarAndStandaloneGroup(Composite parent, J2EEComponentCreationDataModel model) {
+	public ServerEarAndStandaloneGroup(Composite parent, IDataModel model, DataModelSynchHelper helper) {
 		this.model = model;
 		this.parentComposite = parent;
-		synchHelper = new WTPDataModelSynchHelper(model);
+		synchHelper = helper;
 		buildComposites(parent);
 	}
 
@@ -63,7 +65,7 @@ public class ServerEarAndStandaloneGroup {
 	 */
 	protected void createEarAndStandaloneComposite(Composite parent) {
 
-		if (model.getBooleanProperty(J2EEComponentCreationDataModel.UI_SHOW_EAR_SECTION)) {
+		if (model.getBooleanProperty(UI_SHOW_EAR_SECTION)) {
 
 			Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -79,7 +81,7 @@ public class ServerEarAndStandaloneGroup {
 			gd = new GridData(GridData.FILL_HORIZONTAL);
 			gd.horizontalSpan = 2;
 			addToEAR.setLayoutData(gd);
-			synchHelper.synchCheckbox(addToEAR, J2EEComponentCreationDataModel.ADD_TO_EAR, null);
+			synchHelper.synchCheckbox(addToEAR, ADD_TO_EAR, null);
 			addToEAR.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					handleAddToEarSelection();
@@ -111,7 +113,7 @@ public class ServerEarAndStandaloneGroup {
 			});
 
 			Control[] deps = new Control[]{earLabel, newEAR};
-			synchHelper.synchCombo(earCombo, J2EEComponentCreationDataModel.EAR_MODULE_NAME, deps);
+			synchHelper.synchCombo(earCombo, EAR_COMPONENT_NAME, deps);
 		}
 	}
 
@@ -129,14 +131,14 @@ public class ServerEarAndStandaloneGroup {
 	 *  
 	 */
 	protected void handleNewEarSelected() {
-		J2EEComponentCreationDataModel moduleModel = model;
-		EARComponentCreationDataModel earModel = new EARComponentCreationDataModel();
-		earModel.setIntProperty(J2EEComponentCreationDataModel.J2EE_VERSION, moduleModel.getJ2EEVersion());
-		earModel.setProperty(ComponentCreationDataModel.COMPONENT_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
+		IDataModel moduleModel = model;
+        IDataModel earModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
+		earModel.setIntProperty(COMPONENT_VERSION, moduleModel.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION));
+		earModel.setProperty(COMPONENT_NAME, moduleModel.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
 		EARComponentCreationWizard earWizard = new EARComponentCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
-			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(ComponentCreationDataModel.COMPONENT_NAME));
+			moduleModel.setProperty(EAR_COMPONENT_NAME, earModel.getProperty(COMPONENT_NAME));
 		}
 	}
 

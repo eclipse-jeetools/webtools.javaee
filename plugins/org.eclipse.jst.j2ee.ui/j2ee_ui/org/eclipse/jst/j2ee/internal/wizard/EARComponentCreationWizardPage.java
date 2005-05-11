@@ -6,13 +6,11 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 
@@ -22,7 +20,7 @@ public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	 * @param model
 	 * @param pageName
 	 */
-	public EARComponentCreationWizardPage(EARComponentCreationDataModel  model, String pageName) {
+	public EARComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_MAIN_PG_DESC));
@@ -37,18 +35,11 @@ public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	protected void addToAdvancedComposite(Composite advanced) {
 		super.addToAdvancedComposite(advanced);
 	}
-	
-	EARComponentCreationDataModel getEARProjectCreationDataModel() {
-		return (EARComponentCreationDataModel) model;
-	}
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{ComponentCreationDataModel.PROJECT_NAME, 
-				ComponentCreationDataModel.COMPONENT_NAME, 
-				ComponentCreationDataModel.COMPONENT_VERSION, 
-				WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK};
-	}
+        return new String[] { PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION };
+    }
 
 	public void dispose() {
 		super.dispose();

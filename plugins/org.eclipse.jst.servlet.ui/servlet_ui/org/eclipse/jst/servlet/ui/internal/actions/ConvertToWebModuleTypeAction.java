@@ -8,23 +8,16 @@ package org.eclipse.jst.servlet.ui.internal.actions;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
-import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebComponentTypeWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
-import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 
 public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
 
@@ -44,7 +37,8 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	}
 
 	protected Wizard createWizard() {
-		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(new ConvertWebProjectDataModel());
+        //TODO: reimplement
+/*		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(new ConvertWebProjectDataModel());
 		WebComponentCreationDataModel model = (WebComponentCreationDataModel) wizard.getModel();
 		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
 		model.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
@@ -63,7 +57,8 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 
 		// wizard.setWindowTitle("Convert to Dynamic Web Project");
 
-		return wizard;
+		return wizard;*/
+        return null;
 	}
 
 	/**

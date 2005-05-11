@@ -7,14 +7,13 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.INewWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 public class AppClientComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 	
@@ -43,36 +42,8 @@ public class AppClientComponentCreationWizard extends J2EEComponentCreationWizar
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public AppClientComponentCreationWizard(AppClientComponentCreationDataModel model) {
+	public AppClientComponentCreationWizard(IDataModel model) {
 		super(model);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return a {@link WebProjectCreationDataModel} and defaults
-	 * the value of {@link J2EEModuleCreationDataModelOld#ADD_TO_EAR} to <b>true</b>
-	 * </p>
-	 * 
-	 * @return Returns the specific operation data model for the creation of J2EE Web modules
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		AppClientComponentCreationDataModel aModel = new AppClientComponentCreationDataModel();
-		return aModel;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link WebProjectCreationOperation}. 
-	 * </p>
-	 * 
-	 * @return Returns the specific operation for the creation of J2EE Web modules
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new AppClientComponentCreationOperation(getSpecificDataModel());
 	}
 
 	/** 
@@ -97,22 +68,13 @@ public class AppClientComponentCreationWizard extends J2EEComponentCreationWizar
 	 * </p>
 	 */
 	protected void doAddPages() {
-		AppClientComponentCreationWizardPage page1 = new AppClientComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG);
+		AppClientComponentCreationWizardPage page1 = new AppClientComponentCreationWizardPage(getDataModel(), MAIN_PG);
 		addPage(page1);
 		super.doAddPages();
-	} 
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return WIZARD_ID;
-	} 
-	
-	private AppClientComponentCreationDataModel getSpecificDataModel() {
-		return (AppClientComponentCreationDataModel) getModel();
 	}
+
+    protected IDataModelProvider getDefaultProvider() {
+        return new AppClientComponentCreationDataModelProvider();
+    } 
 
 }

@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**
@@ -86,10 +85,6 @@ public class EARImportPage extends J2EEImportPage {
 //		earModel.setProperty(J2EEComponentCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
 //		earModel.setBooleanProperty(EARComponentCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		return earModel;
-	}
-
-	protected WTPWizard getNewProjectWizard(J2EEComponentCreationDataModel aModel) {
-		return new EARComponentCreationWizard((EARComponentCreationDataModel) aModel);
 	}
 
 	protected String getProjectImportLabel() {
@@ -155,7 +150,7 @@ public class EARImportPage extends J2EEImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
-		new AnnotationsStandaloneGroup(composite, model, false);
+		//new AnnotationsStandaloneGroup(composite, model, false);
 	}
 
 	/*

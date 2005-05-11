@@ -15,11 +15,12 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.INewWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
@@ -58,7 +59,7 @@ public class WebComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public WebComponentCreationWizard(WebComponentCreationDataModel model) {
+	public WebComponentCreationWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -77,20 +78,6 @@ public class WebComponentCreationWizard extends J2EEComponentCreationWizard impl
 		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
 		return aModel;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link WebProjectCreationOperation}. 
-	 * </p>
-	 * 
-	 * @return Returns the specific operation for the creation of J2EE Web modules
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new WebComponentCreationOperation(getSpecificDataModel());
-	}
-
 	/** 
 	 * {@inheritDoc}   
 	 * 
@@ -98,7 +85,6 @@ public class WebComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 * Sets up the dialog window title and default page image. 
 	 * </p> 
 	 * 
-	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
 	protected void doInit() {
 		setWindowTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_MODULE_WIZ_TITLE));
@@ -113,23 +99,13 @@ public class WebComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 * </p>
 	 */
 	protected void doAddPages() {
-		WebComponentCreationWizardPage page = new WebComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG);
+		WebComponentCreationWizardPage page = new WebComponentCreationWizardPage(getDataModel(), MAIN_PG);
 		page.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
 		addPage(page);
 		super.doAddPages();
-	} 
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return WIZARD_ID;
-	} 
-	
-	private WebComponentCreationDataModel getSpecificDataModel() {
-		return (WebComponentCreationDataModel) getModel();
 	}
 
+    protected IDataModelProvider getDefaultProvider() {
+        return new WebComponentCreationDataModelProvider();
+    } 
 }

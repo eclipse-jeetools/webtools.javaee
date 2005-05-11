@@ -18,7 +18,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
@@ -41,14 +41,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
-public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
+public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
 
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
 	protected static final String MODULE_VERSION = "Module Version:";
@@ -138,12 +137,12 @@ public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 		}
 	}
 	
-	public J2EEComponentCreationWizardPage(J2EEComponentCreationDataModel dataModel, String pageName) {
+	public J2EEComponentCreationWizardPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
 	
 	protected void createProjectNameGroup(Composite parent) {
-		projectNameGroup = new NewModuleGroup(parent, SWT.NULL, (J2EEComponentCreationDataModel)model);
+		projectNameGroup = new NewModuleGroup(parent, SWT.NULL, model, synchHelper);
 	}
 
 	protected void addToAdvancedComposite(Composite advanced) {
@@ -152,19 +151,15 @@ public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 	}
 
 	protected void createServerEarAndStandaloneGroup(Composite parent) {
-		earGroup = new ServerEarAndStandaloneGroup(parent, getJ2EEModuleCreationDataModel());
-	}
-
-	protected J2EEComponentCreationDataModel getJ2EEModuleCreationDataModel() {
-		return (J2EEComponentCreationDataModel) model;
+		earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
 	}
 
 	protected void validatePage() {
 		super.validatePage();
-		if (!showAdvanced && !isPageComplete()) {
+/*		if (!showAdvanced && !isPageComplete()) {
 			String prop = validateControlsBase();
 			if (null != prop) {
-				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, ComponentCreationDataModel.COMPONENT_VERSION, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
+				String[] advancedProperties = {NESTED_MODEL_VALIDATION_HOOK, COMPONENT_VERSION, EAR_COMPONENT_NAME, ADD_TO_EAR};
 				for (int i = 0; i < advancedProperties.length; i++) {
 					if (prop.equals(advancedProperties[i])) {
 						toggleAdvanced(true);
@@ -172,15 +167,15 @@ public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{ComponentCreationDataModel.PROJECT_NAME, ComponentCreationDataModel.COMPONENT_VERSION, ComponentCreationDataModel.COMPONENT_NAME, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
+		return new String[]{PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, EAR_COMPONENT_NAME, ADD_TO_EAR};
 	}
 
 	protected void createVersionComposite(Composite parent) {
-		createVersionComposite(parent, getVersionLabel(), ComponentCreationDataModel.COMPONENT_VERSION);
+		createVersionComposite(parent, getVersionLabel(), COMPONENT_VERSION);
 	}
 
 	protected String getVersionLabel() {

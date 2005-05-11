@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
@@ -379,8 +380,8 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 		J2EEComponentCreationDataModel modModule = getNestedModel(flag);
 		if (modModule != null) {
 			String compName = ensureUniqueProjectName(name);
-            modModule.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, getStringProperty(PROJECT_NAME));
-			modModule.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, compName);
+            modModule.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, getStringProperty(PROJECT_NAME));
+			modModule.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, compName);
 		}
 	}
 

@@ -23,6 +23,11 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 
 	private static final String DEFAULT_TARGET_ID = "org.eclipse.jst.server.core.runtimeType"; //$NON-NLS-1$
 
+    public void init() {
+        model.setProperty(RUNTIME_TARGET_ID, getDefaultServerTargetID());
+        super.init();
+    }
+    
 	public IDataModelOperation getDefaultOperation() {
 		return new J2EEProjectServerTargetOp(model);
 	}
@@ -210,25 +215,38 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 		}
 		return null;
 	}
-
+    /**
+     * @return
+     */
+    private List getValidServerTargets() {
+        List validServerTargets = null;
+        //TODO: api is needed from the server target helper to get all server targets
+        //validServerTargets = ServerTargetHelper.getServerTargets(IServerTargetConstants.EAR_TYPE, IServerTargetConstants.J2EE_14);
+        validServerTargets = ServerTargetHelper.getServerTargets("", "");  //$NON-NLS-1$  //$NON-NLS-2$
+        if (validServerTargets != null && validServerTargets.isEmpty())
+            validServerTargets = null;
+        if (validServerTargets == null)
+            return Collections.EMPTY_LIST;
+        return validServerTargets;
+    }
 	/**
 	 * @return
 	 */
-	private List getValidServerTargets() {
-		List validServerTargets = null;
-		String type = computeTypeId();
-		if (type != null) {
-			String version = computeVersionId();
-			if (version != null) {
-				validServerTargets = ServerTargetHelper.getServerTargets(type, version);
-				if (validServerTargets != null && validServerTargets.isEmpty())
-					validServerTargets = null;
-			}
-		}
-		if (validServerTargets == null)
-			return Collections.EMPTY_LIST;
-		return validServerTargets;
-	}
+//	private List getValidServerTargets() {
+//		List validServerTargets = null;
+//		String type = computeTypeId();
+//		if (type != null) {
+//			String version = computeVersionId();
+//			if (version != null) {
+//				validServerTargets = ServerTargetHelper.getServerTargets(type, version);
+//				if (validServerTargets != null && validServerTargets.isEmpty())
+//					validServerTargets = null;
+//			}
+//		}
+//		if (validServerTargets == null)
+//			return Collections.EMPTY_LIST;
+//		return validServerTargets;
+//	}
 
 	/*
 	 * (non-Javadoc)

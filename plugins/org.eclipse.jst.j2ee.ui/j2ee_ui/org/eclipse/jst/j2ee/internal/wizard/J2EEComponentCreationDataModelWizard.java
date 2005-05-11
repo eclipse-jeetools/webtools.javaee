@@ -8,6 +8,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModel
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactCreationWizard {
 
@@ -37,7 +38,7 @@ public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactC
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEComponentCreationDataModelWizard(J2EEComponentCreationDataModel model) {
+	public J2EEComponentCreationDataModelWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -63,8 +64,8 @@ public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactC
 	 *  
 	 */
 	protected void addModulesPageIfNecessary() {
-		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.UI_SHOW_EAR_SECTION)) {
-			addPage(new J2EEModulesDependencyPage((J2EEComponentCreationDataModel) model, MODULE_PG));
+		if (getDataModel().getBooleanProperty(IJ2EEComponentCreationDataModelProperties.UI_SHOW_EAR_SECTION)) {
+			addPage(new J2EEModulesDependencyPage(getDataModel(), MODULE_PG));
 		}
 	}
 
@@ -126,7 +127,7 @@ public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactC
 	 * @return Returns a boolean true if the module page should be shown.
 	 */
 	protected final boolean shouldShowModulesPage() {
-		return model.getBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR) && shouldShowModulesPageForEAR();
+		return getDataModel().getBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR) && shouldShowModulesPageForEAR();
 	}
 
 	/**
@@ -147,7 +148,7 @@ public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactC
 		WorkbenchComponent earModule = getSelectedEARModule();
 		EARArtifactEdit earEdit = null;
 		int j2eeVersion = 0;
-		if (earModule != null && model != null) {
+		if (earModule != null && getDataModel() != null) {
 			try {
 				earEdit = EARArtifactEdit.getEARArtifactEditForRead(earModule);
 				j2eeVersion = earEdit.getJ2EEVersion();
@@ -155,9 +156,9 @@ public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactC
 				if (earEdit != null)
 					earEdit.dispose();
 			}
-			model.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-			model.setIntProperty(J2EEComponentCreationDataModel.J2EE_VERSION, j2eeVersion);
-			model.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModule.getName());
+            getDataModel().setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
+            getDataModel().setIntProperty(J2EEComponentCreationDataModel.J2EE_VERSION, j2eeVersion);
+            getDataModel().setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModule.getName());
 		}
 	}
 }

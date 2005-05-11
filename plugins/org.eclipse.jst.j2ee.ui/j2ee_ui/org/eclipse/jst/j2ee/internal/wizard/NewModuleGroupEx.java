@@ -26,7 +26,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -43,9 +43,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
-
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -186,7 +186,7 @@ public class NewModuleGroupEx {
 	 *
 	 */
 	private void handleNewProjectSelected() {
-		FlexibleJavaProjectCreationDataModel projModel = new FlexibleJavaProjectCreationDataModel();
+		IDataModel projModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
 		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(projModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
 		if (Window.OK == dialog.open()) {

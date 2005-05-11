@@ -7,10 +7,10 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -31,11 +31,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
-public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
+public class FlexibleProjectCreationWizardPage extends DataModelWizardPage implements IFlexibleJavaProjectCreationDataModelProperties, IJ2EEProjectServerTargetDataModelProperties {
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
 
 	protected NewFlexibleProjectGroup projectNameGroup;
@@ -120,7 +121,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public FlexibleProjectCreationWizardPage(FlexibleProjectCreationDataModel model, String pageName) {
+	public FlexibleProjectCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_MAIN_PG_DESC));
@@ -149,7 +150,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	}
 
 	protected void createProjectNameGroup(Composite parent) {
-		projectNameGroup = new NewFlexibleProjectGroup(parent, SWT.NULL, (FlexibleProjectCreationDataModel)model);
+		projectNameGroup = new NewFlexibleProjectGroup(parent, SWT.NULL, model, synchHelper);
 	}
 
 	/**
@@ -256,11 +257,11 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), ((FlexibleProjectCreationDataModel) model).getServerTargetDataModel());
+				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model.getNestedModel(NESTED_MODEL_SERVER_TARGET));
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID, deps);
+		synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
 	}
 
 	protected void addToAdvancedComposite(Composite parent) {
@@ -273,15 +274,15 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{FlexibleProjectCreationDataModel.PROJECT_NAME, FlexibleProjectCreationDataModel.PROJECT_LOCATION, FlexibleProjectCreationDataModel.SERVER_TARGET_ID};
+		return new String[]{IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, PROJECT_LOCATION, SERVER_TARGET_ID};
 	}
 
-	public static boolean launchNewRuntimeWizard(Shell shell, J2EEProjectServerTargetDataModel model) {
-		WTPPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
+	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
+		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
 		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
 		if (isOK && model != null) {
-			model.notifyValidValuesChange(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
-			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
+			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
 			Object[] preAddition = new Object[preAdditionDescriptors.length];
 			for (int i = 0; i < preAddition.length; i++) {
 				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
@@ -292,7 +293,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 			}
 			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
 			if (newAddition != null)
-				model.setProperty(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID, newAddition);
+				model.setProperty(RUNTIME_TARGET_ID, newAddition);
 		}
 		return isOK;
 	}

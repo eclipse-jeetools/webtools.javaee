@@ -20,13 +20,10 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 
 /**
@@ -60,10 +57,6 @@ public class WARImportPage extends J2EEModuleImportPage {
 		return getWebDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(WebComponentCreationDataModel aModel) {
-		return new WebComponentCreationWizard(aModel);
-	}
-
 	private WebModuleImportDataModel getWebDataModel() {
 		return (WebModuleImportDataModel) model;
 	}
@@ -78,7 +71,8 @@ public class WARImportPage extends J2EEModuleImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
-		new AnnotationsStandaloneGroup(composite, getWebDataModel(), false);
+        //TODO: implement with new import wizards
+		//new AnnotationsStandaloneGroup(composite, getWebDataModel(), false);
 	}
 
 }

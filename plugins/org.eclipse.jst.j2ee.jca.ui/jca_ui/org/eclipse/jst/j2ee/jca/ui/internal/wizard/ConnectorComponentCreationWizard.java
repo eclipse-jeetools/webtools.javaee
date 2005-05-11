@@ -13,13 +13,15 @@ package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.ui.INewWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /** 
@@ -54,7 +56,7 @@ public final class ConnectorComponentCreationWizard extends J2EEComponentCreatio
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public ConnectorComponentCreationWizard(J2EEComponentCreationDataModel model) {
+	public ConnectorComponentCreationWizard(IDataModel model) {
 		super(model);
 	}
 	
@@ -73,20 +75,6 @@ public final class ConnectorComponentCreationWizard extends J2EEComponentCreatio
 		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return a {@link ConnectorProjectCreationOperation}. 
-	 * </p>
-	 * 
-	 * @return Returns the specific operation for the creation of J2EE Connector modules
-	 */
-	protected final WTPOperation createBaseOperation() {
-		return new ConnectorComponentCreationOperation(getSpecificDataModel());
-	}
-	
 	/** 
 	 * {@inheritDoc}   
 	 * 
@@ -109,22 +97,11 @@ public final class ConnectorComponentCreationWizard extends J2EEComponentCreatio
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new ConnectorComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG));
+		addPage(new ConnectorComponentCreationWizardPage(getDataModel(), MAIN_PG));
 		super.doAddPages();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return WIZARD_ID; 
-	} 
- 
-
-	private ConnectorComponentCreationDataModel getSpecificDataModel() {
-		return (ConnectorComponentCreationDataModel) getModel();
-	}
-
+    protected IDataModelProvider getDefaultProvider() {
+        return new ConnectorComponentCreationDataModelProvider();
+    }
 }

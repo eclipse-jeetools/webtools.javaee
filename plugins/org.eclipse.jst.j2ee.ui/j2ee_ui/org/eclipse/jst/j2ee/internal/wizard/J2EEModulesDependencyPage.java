@@ -19,8 +19,8 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -36,9 +36,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 /*
  * Created on Nov 13, 2003
@@ -53,11 +53,11 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class J2EEModulesDependencyPage extends WTPWizardPage {
+public class J2EEModulesDependencyPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
 
 	private CheckboxTableViewer availableJarsViewer;
 
-	public J2EEModulesDependencyPage(J2EEComponentCreationDataModel model, String pageName) {
+	public J2EEModulesDependencyPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_DESC));
@@ -70,9 +70,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 
 
 	private void updateJarViewer() {
-		J2EEComponentCreationDataModel dataModel = (J2EEComponentCreationDataModel) model;
-
-		ClassPathSelection classPathSelection = dataModel.getClassPathSelection();
+        ClassPathSelection classPathSelection = (ClassPathSelection)getDataModel().getProperty(CLASSPATH_SELECTION);
 
 		if (availableJarsViewer.getInput() != classPathSelection) {
 			availableJarsViewer.setInput(classPathSelection);
@@ -91,14 +89,14 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		Label projectLabel = new Label(composite, SWT.NONE);
 		projectLabel.setText(WorkbenchMessages.NewProject_title); //$NON-NLS-1$
 		Text projectText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
-		synchHelper.synchText(projectText, ArtifactEditOperationDataModel.PROJECT_NAME, null);
+		synchHelper.synchText(projectText, PROJECT_NAME, null);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		projectText.setLayoutData(gd);
 
 		Label earLabel = new Label(composite, SWT.NONE);
 		earLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION));
 		Text earText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
-		synchHelper.synchText(earText, J2EEComponentCreationDataModel.EAR_MODULE_NAME, null);
+		synchHelper.synchText(earText, EAR_COMPONENT_NAME, null);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		earText.setLayoutData(gd);
 
@@ -186,7 +184,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		ClasspathElement element = (ClasspathElement) event.getElement();
 		element.setSelected(event.getChecked());
 		String classEntry = element.getText();
-		UpdateManifestDataModel updateManifest = ((J2EEComponentCreationDataModel) model).getUpdateManifestDataModel();
+		UpdateManifestDataModel updateManifest = (UpdateManifestDataModel)model.getProperty(NESTED_UPDATE_MANIFEST_DM);
 		List classpathList = (List) updateManifest.getProperty(UpdateManifestDataModel.JAR_LIST);
 		if (event.getChecked()) {
 			if (!classpathList.contains(classEntry)) {

@@ -10,16 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /*
@@ -31,7 +26,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard {
 	private static final String ConvertToWebModuleTypeWizard = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
 
-	public ConvertToWebComponentTypeWizard(ConvertWebProjectDataModel dataModel) {
+	public ConvertToWebComponentTypeWizard(IDataModel dataModel) {
 		// TODO use flexible project
 		//super(dataModel);
 	}
@@ -47,17 +42,6 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 		// TODO Auto-generated method stub
 		return new ConvertWebProjectDataModel();
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		// TODO Auto-generated method stub
-		return new WebComponentCreationOperation((WebComponentCreationDataModel) model);
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -66,15 +50,6 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 	public void doAddPages() {
 		//TODO use flexible project
 		//addPage(new ConvertToWebModuleTypeWizardPage((WebModuleCreationDataModel) model, PAGE_ONE));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ibm.wtp.web.ui.wizard.WEBProjectWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return ConvertToWebModuleTypeWizard;
 	}
 
 	/*
@@ -93,15 +68,16 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#prePerformFinish()
 	 */
 	protected boolean prePerformFinish() {
-		IProjectDescription desc;
+/*		IProjectDescription desc;
 		try {
-			desc = ((WebComponentCreationDataModel) model).getTargetProject().getDescription();
-			desc.setBuildSpec(new ICommand[0]);
+			//desc = ((WebComponentCreationDataModel) model).getTargetProject().getDescription();
+			//desc.setBuildSpec(new ICommand[0]);
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return super.prePerformFinish();
+		return super.prePerformFinish();*/
+        return true;
 	}
 }

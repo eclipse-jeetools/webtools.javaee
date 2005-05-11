@@ -7,13 +7,14 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.INewWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 public class EARComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
@@ -45,7 +46,7 @@ public class EARComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public EARComponentCreationWizard(EARComponentCreationDataModel model) {
+	public EARComponentCreationWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -63,20 +64,6 @@ public class EARComponentCreationWizard extends J2EEComponentCreationWizard impl
 		EARComponentCreationDataModel aModel = new EARComponentCreationDataModel();
 		return aModel;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link WebProjectCreationOperation}. 
-	 * </p>
-	 * 
-	 * @return Returns the specific operation for the creation of J2EE Web modules
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new EARComponentCreationOperation(getSpecificDataModel());
-	}
-
 	/** 
 	 * {@inheritDoc}   
 	 * 
@@ -99,25 +86,16 @@ public class EARComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 * </p>
 	 */
 	protected void doAddPages() {
-		EARComponentCreationWizardPage page1 = new EARComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG);
+		EARComponentCreationWizardPage page1 = new EARComponentCreationWizardPage(getDataModel(), MAIN_PG);
 //		page.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
 		addPage(page1);
-		EARComponentCreationSecondPage page2 = new EARComponentCreationSecondPage(getSpecificDataModel(), SECOND_PG);
+		EARComponentCreationSecondPage page2 = new EARComponentCreationSecondPage(getDataModel(), SECOND_PG);
 		addPage(page2);
 		super.doAddPages();
-	} 
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return WIZARD_ID;
-	} 
-	
-	private EARComponentCreationDataModel getSpecificDataModel() {
-		return (EARComponentCreationDataModel) getModel();
 	}
 
+    protected IDataModelProvider getDefaultProvider() {
+        return new EarComponentCreationDataModelProvider();
+        
+    } 
 }
