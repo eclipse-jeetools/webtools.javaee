@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.12 $  $Date: 2005/02/15 22:56:39 $ 
+ *  $Revision: 1.13 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.io.*;
@@ -149,9 +149,10 @@ public class Commands {
 		OBJECT_ID = 50,	// Object identity key - writeInt
 		NEW_OBJECT_ID = 51,	// New Object identity (this is a new object that didn't exist before)
 		THROW = 52,	// An exception occured. The value is a throwable, it is of the same format as NEW_OBJECT_ID.
-		ARRAY_IDS = 53;	// An array of values, where there are at least one ID in the array. If there were no
+		ARRAY_IDS = 53,	// An array of values, where there are at least one ID in the array. If there were no
 						// ID's (i.e. all just values), then use OBJECT type intead and have it written as
 						// writeObject.
+		FLAG = 54;	// The value is a flag int. If this is allowed on a read, the anInt field will contain the flag value.
 				
 		
 		
@@ -355,6 +356,11 @@ public class Commands {
 	 * sent, then the primitive field will be set instead, though the type
 	 * will still be the Object type (i.e. if type = L_BYTE, the aByte will
 	 * have the value in it).
+	 * 
+	 * Note: Also flags can be send back. The type will be FLAG and the anInt field will be the
+	 * flag value. This is used to indicate special things that aren't values. Most useful in
+	 * arrays where one of the entries is not a value. This can only be used if readValue
+	 * is passed a flag indicating flags are valid, otherwise it will be treated as not valie.
 	 */
 	public static class ValueObject implements Cloneable {
 		public byte type;	// Same as the types above
@@ -421,6 +427,16 @@ public class Commands {
 					return Object.class;
 			}	
 			
+		}
+		
+		/**
+		 * Get the type as one of the valid Commands.Types. VOID, BYTE, L_BYTE, etc.
+		 * @return
+		 * 
+		 * @since 1.1.0
+		 */
+		public int getType() {
+			return type;
 		}
 		
 		/**
@@ -509,6 +525,12 @@ public class Commands {
 			type = VOID;
 			anObject = null;
 		}
+		
+		public void setFlag(int flag) {
+			type = FLAG;
+			anInt = flag;
+		}
+		
 		public void set(byte value) {
 			type = BYTE;
 			aByte = value;
@@ -681,9 +703,34 @@ public class Commands {
 	public static final Object SOME_UNEXPECTED_EXCEPTION = "SOME_UNEXPECTED_EXCEPTION";	// There was some kind of exception that wasn't expected. The data will be the exception. //$NON-NLS-1$
 	public static final Object TOO_MANY_BYTES = "TOO_MANY_BYTES";			// Too many bytes were sent on a writeBytes. It was //$NON-NLS-1$
 																		// more than could be read into the buffer. The data will be the size sent.
-	
-	
-	public static void readValue(DataInputStream is, ValueObject value) throws CommandException {
+
+	/**
+	 * Read a value from the stream into the value object. It will not allow values of type FLAG.
+	 * 
+	 * @param is
+	 * @param value
+	 * @param allowFlag
+	 * @return the value object sent in. This allows <code>value = Commands.readValue(is, new Commands.ValueObject());</code> 
+	 * @throws CommandException
+	 * 
+	 * 
+	 * @since 1.0.0
+	 */
+	public static ValueObject readValue(DataInputStream is, ValueObject value) throws CommandException {
+		readValue(is, value, false);
+		return value;
+	}
+
+	/**
+	 * Read a value from the stream into the value object. It will allow values of type FLAG if allowFlag is true.
+	 * @param is
+	 * @param value
+	 * @param allowFlag <code>true</code> if values of type flag are allow.
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void readValue(DataInputStream is, ValueObject value, boolean allowFlag) throws CommandException {
 		try {
 			value.anObject = null;
 			value.type = is.readByte();
@@ -748,6 +795,12 @@ public class Commands {
 					break;
 				case VOID:
 					break;
+				case FLAG:
+					if (allowFlag) {
+						value.anInt = is.readInt();
+						break;
+					}
+					// Flags not allowed, so drop into default.
 				default:
 					throw new UnexpectedCommandException(UNKNOWN_READ_TYPE, false, new Byte(value.type));
 			}
@@ -764,15 +817,35 @@ public class Commands {
 	 * Special interface used to read back arrays. It will be called when 
 	 */
 	public static interface ValueSender {
-		// This is called for each entry from the array. It is assumed that the ValueSender has
-		// the array that is being built.
+		/**
+		 * This is called for each entry from the array. It is assumed that the ValueSender has
+		 * the array that is being built.
+		 * @param value
+		 * 
+		 * @since 1.1.0
+		 */
 		public void sendValue(ValueObject value);
-		
-		// This is called when an ARRAY_IDS is found within the reading of the array (i.e. nested arrays)
-		// It is asking for a new ValueSender to use while this nested array. The arrayValue contains
-		// the valueobject for the array header (i.e. the class id of the array and the number of elements).
-		// It is the responsibility of the ValueSender to store this array in the array that is being built.
+
+		/**
+		 * This is called when an ARRAY_IDS is found within the reading of the array (i.e. nested arrays)
+		 * It is asking for a new ValueSender to use while this nested array. The arrayValue contains
+		 * the valueobject for the array header (i.e. the class id of the array and the number of elements).
+		 * It is the responsibility of the ValueSender to store this array in the array that is being built.
+		 * @param arrayValue
+		 * @return
+		 * 
+		 * @since 1.1.0
+		 */
 		public ValueSender nestedArray(ValueObject arrayValue);
+		
+		/**
+		 * Called to initialize the sender with the given array header. This is not always called, each usage
+		 * knows whether it can be called or not. For example the implementation of nestedArray may not need to call initialize.
+		 * @param arrayHeader
+		 * 
+		 * @since 1.1.0
+		 */
+		public void initialize(ValueObject arrayHeader);
 		
 	}	
 	
@@ -780,12 +853,12 @@ public class Commands {
 	 * NOTE: It is important that on the IDE side that this is called within a transaction. 
 	 * If not, there could be some corruption if proxy cleanup occurs in the middle.
 	 */
-	public static void readArray(DataInputStream is, int arraySize, ValueSender valueSender, ValueObject value) throws CommandException {
+	public static void readArray(DataInputStream is, int arraySize, ValueSender valueSender, ValueObject value, boolean allowFlag) throws CommandException {
 		// Anything exception other than a CommandException, we will try to flush the input so that
 		// it can continue with the next command and not close the connection.
 		RuntimeException exception = null;
 		for (int i=0; i<arraySize; i++) {
-			readValue(is, value);
+			readValue(is, value, allowFlag);
 			if (exception == null) 
 				try {
 					if (value.type != ARRAY_IDS)
@@ -805,9 +878,11 @@ public class Commands {
 								public ValueSender nestedArray(ValueObject arrayValue) {
 									return this;
 								}
+								public void initialize(ValueObject arrayHeader) {
+								}
 							};
 						}
-						readArray(is, value.anInt, nestedSender, value);
+						readArray(is, value.anInt, nestedSender, value, allowFlag);
 						if (exception != null)
 							throw exception;	// An exception ocurred in new sender request.
 					}
@@ -820,19 +895,31 @@ public class Commands {
 			throw exception;
 	}
 				
-	
+
 	/**
 	 * Special interface to handle writing the ARRAY_IDS type.
 	 * An instance of this object will be in the valueObject sent to writeValue when the type of the value
 	 * is ARRAY_IDS. Then write value will know to call this interface to write out the values.
+	 * 
+	 * @since 1.1.0
 	 */
 	public static interface ValueRetrieve {
-		// This interface is used to retreive the next value object so that it can be written to the output stream.
-		// Return null when there are no more.
+		/**
+		 * Returns the next value object to send. It will be called the number of times that the size of 
+		 * the array was set to be send. 
+		 * @return The value object to send.
+		 * @throws EOFException
+		 * 
+		 * @since 1.1.0
+		 */
 		public ValueObject nextValue() throws EOFException;
 	}	
-	
+
 	public static void writeValue(DataOutputStream os, ValueObject value, boolean asValueCommand) throws CommandException  {
+		writeValue(os, value, asValueCommand, asValueCommand ? true : false);
+	}
+	
+	public static void writeValue(DataOutputStream os, ValueObject value, boolean asValueCommand, boolean flush) throws CommandException  {
 		try {
 			if (asValueCommand)
 				os.writeByte(VALUE);
@@ -907,23 +994,27 @@ public class Commands {
 					// We are writing out an array with ID's in it. The fields of the vale object will be:
 					// 	classID: The class id of the component type of the array.
 					//  anObject: Contains the ValueRetriever to get the next value.
-					os.writeByte(value.type);
+					os.writeByte(ARRAY_IDS);	
 					os.writeInt(value.classID);
-					os.writeInt(value.anInt);
+					os.writeInt(value.anInt);	// The size of the array.
 					// Now comes the kludgy part, writing the values.
 					ValueRetrieve retriever = (ValueRetrieve) value.anObject;
-					ValueObject nextEntry = null;
-					while ((nextEntry = retriever.nextValue()) != null)
-						writeValue(os, nextEntry, false);
+					int len = value.anInt;
+					while (len-- > 0)
+						writeValue(os, retriever.nextValue(), false);
 					break;
 				case VOID:
 					os.writeByte(value.type);			
+					break;
+				case FLAG:
+					os.writeByte(FLAG);
+					os.writeInt(value.anInt);
 					break;
 				default:
 					os.writeByte(VOID);
 					throw new UnexpectedCommandException(UNKNOWN_WRITE_TYPE, true, value);					
 			}
-			if (asValueCommand)
+			if (flush)
 				os.flush();
 		} catch (CommandException e) {
 			// rethrow this exception since we want these to go on out.

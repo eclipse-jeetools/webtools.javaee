@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -34,7 +34,7 @@ import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
  * @author: Administrator
  */
 public final class REMStandardBeanProxyConstants {
-	public static final String REGISTRY_KEY = "REMSTANDARDPROXYCONSTANTS:"; //$NON-NLS-1$
+	public static final Object REGISTRY_KEY = new Object();
 		
 	private final ProxyFactoryRegistry fRegistry;
 	
@@ -83,6 +83,7 @@ public final class REMStandardBeanProxyConstants {
 	private IMethodProxy fFieldSet;
 	
 	private IMethodProxy fConstructorNewInstance;	
+	private IMethodProxy fConstructorParameterTypesMessage;
 	
 	private IMethodProxy fArrayNewInstanceOneDimension;
 	private IMethodProxy fArrayNewInstanceMultiDimensions;
@@ -297,6 +298,12 @@ public IMethodProxy getConstructorNewInstance() {
 	if (fConstructorNewInstance == null)
 		fConstructorNewInstance = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.Constructor", "newInstance", new String[] {"[Ljava.lang.Object;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	return fConstructorNewInstance;
+}
+
+public IMethodProxy getConstructorParameterTypesMessage() {
+	if (fConstructorParameterTypesMessage == null)
+		fConstructorParameterTypesMessage = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.Constructor", "getParameterTypes", null); //$NON-NLS-1$ //$NON-NLS-2$
+	return fConstructorParameterTypesMessage;
 }
 
 public IMethodProxy getArrayNewInstanceOneDimension() {

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.10 $  $Date: 2005/02/15 22:57:54 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -24,6 +24,7 @@ import java.util.*;
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
 import org.eclipse.jem.internal.proxy.initParser.*;
+import org.eclipse.jem.internal.proxy.initParser.tree.NoExpressionValueException;
 
 /**
  * This handles one connection.
@@ -304,7 +305,7 @@ public class ConnectionHandler {
 							if (valueObject.type == Commands.ARRAY_IDS) {
 								// It is an array containing IDs, as it normally would be.
 								valueSender.initialize(valueObject);
-								Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+								Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
 								parms = (Object[]) valueSender.getArray();
 							} else {
 								// It is all objects or null, so it should be an Object[] or null. If not, then this is an error.
@@ -365,7 +366,7 @@ public class ConnectionHandler {
 							if (valueObject.type == Commands.ARRAY_IDS) {
 								// It is an array containing IDs, as it normally would be.
 								valueSender.initialize(valueObject);
-								Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+								Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
 								parmTypes = (Class[]) valueSender.getArray();
 							} else {
 								// It null, so it should be an null. If not, then this is an error.
@@ -380,7 +381,7 @@ public class ConnectionHandler {
 							if (valueObject.type == Commands.ARRAY_IDS) {
 								// It is an array containing IDs, as it normally would be.
 								valueSender.initialize(valueObject);
-								Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+								Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
 								parms = (Object[]) valueSender.getArray();
 							} else {
 								// It is all objects or null, so it should be an Object[] or null. If not, then this is an error.
@@ -454,7 +455,7 @@ public class ConnectionHandler {
 									if (valueObject.type == Commands.ARRAY_IDS) {
 										// It is an array containing IDs, as it normally would be.
 										valueSender.initialize(valueObject);
-										Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+										Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
 										result = (Object[]) valueSender.getArray();
 									} else {
 										result = getInvokableObject(valueObject);
@@ -488,7 +489,12 @@ public class ConnectionHandler {
 						break;
 					
 					case Commands.EXPRESSION_TREE_COMMAND:
-						processExpressionCommand(valueObject);						
+						try {
+							processExpressionCommand(valueObject, valueSender);
+						} finally {
+							valueObject.set();
+							valueSender.clear();
+						}
 						break;
 						
 					default:
@@ -563,16 +569,13 @@ public class ConnectionHandler {
 		}
 		
 		public Commands.ValueObject nextValue() {
-			if (index < length) {
-				fillInValue(Array.get(array, index++), componentType, worker);
-				return worker;
-			} else
-				return null;
+			fillInValue(Array.get(array, index++), componentType, worker);
+			return worker;
 		}
 	};
 
 	
-	private void processExpressionCommand(Commands.ValueObject valueObject) throws IOException, CommandException {
+	private void processExpressionCommand(Commands.ValueObject valueObject, InvokableValueSender valueSender) throws IOException, CommandException {
 		Integer expressionID = new Integer(in.readInt());
 		byte cmdType = in.readByte();
 		ExpressionProcesserController exp = null;
@@ -586,41 +589,51 @@ public class ConnectionHandler {
 				exp.process(in);
 				break;
 			case ExpressionCommands.SYNC_REQUEST:
+				boolean haveProxies = in.readBoolean();	// See if we expression proxy ids that need to be resolved 
+				if (haveProxies) {
+					Commands.readValue(in, valueObject);
+					valueSender.initialize(valueObject);
+					Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
+				}
+
 				exp = (ExpressionProcesserController) expressionProcessors.get(expressionID);
+				if (haveProxies)
+					sendExpressionProxyResolutions(valueObject, (int[]) valueSender.getArray(), exp);
 				if (exp.noErrors()) {
 					valueObject.set(true); // Mark that all is good.
-					try {
-						Commands.writeValue(out, valueObject, true);
-					} finally {
-						valueObject.set();
-					}
+					Commands.writeValue(out, valueObject, true, true);
 				} else {
 					processExpressionError(exp, valueObject);
 				}
 				break;
 			case ExpressionCommands.PULL_VALUE_REQUEST:
-				exp = (ExpressionProcesserController) expressionProcessors.get(expressionID);
-				if (exp.noErrors()) {
-					Object[] pulledValue = exp.pullValue();
-					if (pulledValue != null) {
-						// No errors during pulling either.
-						try {
-							if (((Class) pulledValue[1]).isPrimitive()) {
-								int returnTypeID = server.getIdentityID((Class) pulledValue[1]);
-								// Need to tell sendObject the correct primitive type.
-								sendObject(pulledValue[0], returnTypeID, valueObject, out, true);
-								
-							} else {
-								sendObject(pulledValue[0], NOT_A_PRIMITIVE, valueObject, out, true);	// Just send the object back. sendObject knows how to iterpret the type
-							}
-							break;	// We sent good return, so leave.
-						} finally {
-							valueObject.set();
-							pulledValue = null;
-						}
-					}
+				haveProxies = in.readBoolean();	// See if we expression proxy ids that need to be resolved
+				if (haveProxies) {
+					Commands.readValue(in, valueObject);
+					valueSender.initialize(valueObject);
+					Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
 				}
-				processExpressionError(exp, valueObject);
+
+				exp = (ExpressionProcesserController) expressionProcessors.get(expressionID);
+				if (haveProxies)
+					sendExpressionProxyResolutions(valueObject, (int[]) valueSender.getArray(), exp);
+				if (exp.noErrors()) {
+					try {
+						Object[] pulledValue = exp.pullValue();
+						// Send back the command code for pull value. Don't flush. We will flush when all done.
+						if (((Class) pulledValue[1]).isPrimitive()) {
+							int returnTypeID = server.getIdentityID((Class) pulledValue[1]);
+							// Need to tell sendObject the correct primitive type.
+							sendObject(pulledValue[0], returnTypeID, valueObject, out, true, true);
+							
+						} else {
+							sendObject(pulledValue[0], NOT_A_PRIMITIVE, valueObject, out, true, true);	// Just send the object back. sendObject knows how to iterpret the type
+						}
+					} catch (NoExpressionValueException e) {
+						sendNoValueErrorCommand(exp, valueObject);
+					}
+				} else 
+					processExpressionError(exp, valueObject);
 				break;
 			case ExpressionCommands.END_EXPRESSION_TREE_PROCESSING:
 				exp = (ExpressionProcesserController) expressionProcessors.remove(expressionID);
@@ -629,24 +642,60 @@ public class ConnectionHandler {
 		}
 	}
 
-	private void processExpressionError(ExpressionProcesserController exp, Commands.ValueObject valueObject) throws CommandException {
-		try {
-			int code = exp.getErrorCode();
-			if (code != 0) {
-				// We have an error code to send back.
-				String emsg = exp.getErrorMsg();
-				if (emsg != null)
-					valueObject.set(emsg);
-				else
-					valueObject.set();
-				Commands.sendErrorCommand(out, code, valueObject);
-			} else {
-				// It must be an exception.
-				sendException(exp.getErrorThrowable(), valueObject, out);
+	/*
+	 * @param is
+	 * @param exp
+	 * 
+	 * @since 1.1.0
+	 */
+	private void sendExpressionProxyResolutions(Commands.ValueObject valueObject, final int[] proxyIDs, final ExpressionProcesserController exp) throws CommandException {
+		class ExpressionProxyRetriever implements Commands.ValueRetrieve {
+			int index = 0;
+			Object[] proxyResolution = new Object[2];
+			Commands.ValueObject worker = new Commands.ValueObject();
+
+			public Commands.ValueObject nextValue() {
+				int proxyID = proxyIDs[index++];
+				if (exp.pullExpressionProxyValue(proxyID, proxyResolution)) {
+					if (proxyResolution[1] != Void.TYPE) {
+						if (((Class) proxyResolution[1]).isPrimitive()) {
+							int returnTypeID = server.getIdentityID((Class) proxyResolution[1]);
+							// Need to tell worker the correct primitive type.
+							fillInValue(proxyResolution[0], returnTypeID, worker);
+						} else {
+							fillInValue(proxyResolution[0], NOT_A_PRIMITIVE, worker);
+						}
+					} else
+						worker.setFlag(ExpressionCommands.EXPRESSIONPROXY_VOIDTYPE);	// It was resolved, but to not set due to void type of expression.
+				} else
+					worker.setFlag(ExpressionCommands.EXPRESSIONPROXY_NOTRESOLVED);	// It wasn't resolved.
+				
+				return worker;
 			}
-		} finally {
-			valueObject.set();
-		}
+		};
+
+		valueObject.setArrayIDS(new ExpressionProxyRetriever(), proxyIDs.length, Commands.OBJECT_CLASS);
+		Commands.writeValue(out, valueObject, true, false);	// Write it back as a value command.
+
+	}
+
+	private void processExpressionError(ExpressionProcesserController exp, Commands.ValueObject valueObject) throws CommandException {
+		if (exp.isNoExpressionValue()) {
+			sendNoValueErrorCommand(exp, valueObject);
+		} else
+			sendException(exp.getErrorThrowable(), valueObject, out);
+	}
+
+	/*
+	 * @param exp
+	 * @param valueObject
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	private void sendNoValueErrorCommand(ExpressionProcesserController exp, Commands.ValueObject valueObject) throws CommandException {
+		setExceptionIntoValue(exp.getErrorThrowable(), valueObject);
+		Commands.sendErrorCommand(out, ExpressionCommands.EXPRESSION_NOEXPRESSIONVALUE_EXCEPTION, valueObject);
 	}
 
 protected static final int NOT_A_PRIMITIVE = Commands.NOT_AN_ID;
@@ -765,11 +814,14 @@ public int fillInValue(Object object, int primitiveTypeID, Commands.ValueObject 
 	return added;
 }
 
-public void sendObject(Object object, int primitiveTypeID, Commands.ValueObject valueObject, DataOutputStream out, boolean writeAsCommand) throws CommandException {			
+public void sendObject(Object object, int primitiveTypeID, Commands.ValueObject valueObject, DataOutputStream out, boolean writeAsCommand) throws CommandException {
+	sendObject(object, primitiveTypeID, valueObject, out, writeAsCommand, writeAsCommand);
+}
+public void sendObject(Object object, int primitiveTypeID, Commands.ValueObject valueObject, DataOutputStream out, boolean writeAsCommand, boolean flush) throws CommandException {			
 	int added = fillInValue(object, primitiveTypeID, valueObject);
 	boolean sent = false;
 	try {
-		Commands.writeValue(out, valueObject, writeAsCommand);	// Write it back as a value command.
+		Commands.writeValue(out, valueObject, writeAsCommand, flush);	// Write it back as a value command.
 		sent = true;
 	} finally {
 		if (!sent) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -21,7 +21,7 @@ package org.eclipse.jem.internal.proxy.core;
  * Creation date: (12/3/99 11:37:01 AM)
  * @author: Joe Winchester
  */
-public interface IBeanProxy {
+public interface IBeanProxy extends IProxy {
 /**
  * equals: Equal if:
  *         1) This proxy == (identity) to the other object

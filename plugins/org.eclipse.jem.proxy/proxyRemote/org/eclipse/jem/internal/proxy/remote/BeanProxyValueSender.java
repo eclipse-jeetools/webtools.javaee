@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanProxyValueSender.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -28,8 +28,8 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
  * @since 1.1.0
  */
 public class BeanProxyValueSender implements Commands.ValueSender {
-	private int index = 0;
-	private Object[] array;
+	protected int index = 0;
+	protected Object[] array;
 	private Exception exception;
 	private final REMStandardBeanProxyFactory factory;
 	
@@ -64,7 +64,7 @@ public class BeanProxyValueSender implements Commands.ValueSender {
 		index = 0;
 	}
 	
-	public Object getArray() {
+	public Object[] getArray() {
 		return array;
 	}
 				

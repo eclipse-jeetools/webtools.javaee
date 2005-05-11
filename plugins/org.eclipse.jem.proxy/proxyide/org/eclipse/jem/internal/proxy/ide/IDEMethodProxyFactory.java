@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.9 $ $Date: 2005/02/15 22:57:26 $
+ * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.10 $ $Date: 2005/05/11 19:01:12 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -134,6 +134,17 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		return (IFieldProxy) fieldType.newBeanProxy(aField);
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IMethodProxyFactory#getFieldProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String)
+	 */
+	public IProxyField getFieldProxy(IExpression expression, String className, String fieldName) {
+		// We are getting the class resolved through the expression. Might as well because it probably will
+		// be needed again and this way when the expression is finished they will be resolved for later usage.
+		IStandardBeanTypeProxyFactory beanTypeProxyFactory = fProxyFactoryRegistry.getBeanTypeProxyFactory();
+		IProxyBeanType beanType = beanTypeProxyFactory.getBeanTypeProxy(expression, className);
+		return beanType.getFieldProxy(expression, fieldName);
+	}
 
 	/**
 	 * Return an instance of an IDEMethodProxy This is package protected because the only people who can use this are priveledge objects that have the
@@ -141,9 +152,9 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 	 * method proxy you must use the interface methods on IMethodProxyFactory to do lookup by string or else on IBeanTypeProxy that has
 	 * getMethod(String) as well
 	 */
-	IMethodProxy getMethodProxy(Method aMethod) {
+	IDEMethodProxy getMethodProxy(Method aMethod) {
 
-		return (IMethodProxy) methodType.newBeanProxy(aMethod);
+		return (IDEMethodProxy) methodType.newBeanProxy(aMethod);
 
 	}
 
@@ -155,6 +166,58 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
 			return null;
 		}
+	}
+	
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IMethodProxyFactory#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String, java.lang.String[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String className, String methodName, String[] parameterTypes) {
+		// We are getting the class and parmtypes resolved through the expression. Might as well because they probably will
+		// be needed again and this way when the expression is finished they will be resolved for later usage.
+		IStandardBeanTypeProxyFactory beanTypeProxyFactory = fProxyFactoryRegistry.getBeanTypeProxyFactory();
+		IProxyBeanType beanType = beanTypeProxyFactory.getBeanTypeProxy(expression, className);
+		IProxyBeanType[] parmTypes = getParameterTypes(expression, parameterTypes, beanTypeProxyFactory);
+		return beanType.getMethodProxy(expression, methodName, parmTypes);
+	}	
+	
+	/**
+	 * Helper method for Beantypes and Proxy bean types to get the proxy.
+	 * @param expression
+	 * @param classType
+	 * @param methodName
+	 * @param parameterTypes
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, IProxyBeanType classType, String methodName, String[] parameterTypes) {
+		// We are getting the parmtypes resolved through the expression. Might as well because they probably will
+		// be needed again and this way when the expression is finished they will be resolved for later usage.
+		IStandardBeanTypeProxyFactory beanTypeProxyFactory = fProxyFactoryRegistry.getBeanTypeProxyFactory();
+		IProxyBeanType[] parmTypes = getParameterTypes(expression, parameterTypes, beanTypeProxyFactory);
+		return classType.getMethodProxy(expression, methodName, parmTypes);
+	}
+
+	/**
+	 * @param expression
+	 * @param parameterTypes
+	 * @param beanTypeProxyFactory
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	protected IProxyBeanType[] getParameterTypes(IExpression expression, String[] parameterTypes, IStandardBeanTypeProxyFactory beanTypeProxyFactory) {
+		IProxyBeanType[] parmTypes;
+		if (parameterTypes == null || parameterTypes.length == 0)
+			parmTypes = null;
+		else {
+			parmTypes = new IProxyBeanType[parameterTypes.length];
+			for (int i = 0; i < parameterTypes.length; i++) {
+				parmTypes[i] = beanTypeProxyFactory.getBeanTypeProxy(expression, parameterTypes[i]);
+			}
+		}
+		return parmTypes;
 	}
 
 	public IMethodProxy getMethodProxy(Class cls, String methodName, String[] parameterTypes) {
@@ -199,7 +262,7 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		return null;
 	}	
 
-	IMethodProxy getMethodProxy(Class aClass, String methodName, Class[] args) {
+	IDEMethodProxy getMethodProxy(Class aClass, String methodName, Class[] args) {
 		try {
 			Method method = aClass.getMethod(methodName, args);
 			return getMethodProxy(method);
@@ -270,4 +333,5 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 	 */
 	public void terminateFactory(boolean wait) {
 	}
+
 }

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEConstructorProxy.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.lang.reflect.Constructor;
@@ -101,4 +101,19 @@ class IDEConstructorProxy extends IDEAccessibleObjectProxy implements IConstruct
 		}
 
 	}
+	
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConstructorProxy#getParameterTypes()
+	 */
+	public IBeanTypeProxy[] getParameterTypes() {
+		Class[] parmClasses = ((Constructor) getBean()).getParameterTypes();
+		IBeanTypeProxy[] parmTypes = new IBeanTypeProxy[parmClasses.length];
+		IDEStandardBeanTypeProxyFactory factory = (IDEStandardBeanTypeProxyFactory) fProxyFactoryRegistry.getBeanTypeProxyFactory();
+		for (int i = 0; i < parmClasses.length; i++) {
+			parmTypes[i] = factory.getBeanTypeProxy(parmClasses[i]);
+		}
+		return parmTypes;
+	}
+
 }

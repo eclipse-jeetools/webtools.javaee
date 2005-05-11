@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.21 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.22 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -54,6 +54,15 @@ public class ProxyLaunchSupport {
 	// If the property is trully not set, then there is no default and there are no configurations for it.
 	public static final String NOT_SET = "...not..set..";	  //$NON-NLS-1$
 		
+	public static final String EXPRESSION_TRACING = "/debug/traceexpressions";	// Trace IExpressions.
+	
+	/**
+	 * Timer threshold for indicating any expressions that took longer than this.
+	 * If not set, then threshold will default to 100ms.
+	 * It will only be used if traceexpressions is true.
+	 */
+	public static final String EXPRESSION_TRACEING_TIMER_THRESHOLD = "/debug/traceexpressionstimethreshold";	
+	
 	/*
 	 * Registry of launch key to LaunchInfo classes.
 	 */
@@ -619,6 +628,7 @@ public class ProxyLaunchSupport {
 	 */
 	public static String ATTR_PRIVATE;
 	private static IUIRunner UI_RUNNER = null;
+
 	static {
 		ATTR_PRIVATE = null;
 		try {

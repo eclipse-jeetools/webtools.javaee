@@ -11,19 +11,18 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: InitializationStringEvaluationException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
 
 public class InitializationStringEvaluationException extends Exception {
 	
-	protected Throwable originalException;
 	
 public InitializationStringEvaluationException(Throwable exc){
-	originalException = exc;
+	super(exc);
 }
 public Throwable getOriginalException(){
-	return originalException;
+	return getCause();
 }
 }

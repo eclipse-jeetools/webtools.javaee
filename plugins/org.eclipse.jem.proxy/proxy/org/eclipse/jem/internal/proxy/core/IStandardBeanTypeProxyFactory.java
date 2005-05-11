@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.util.Set;
@@ -23,16 +23,34 @@ import java.util.Set;
  * @author: Richard Lee Kulp
  */
 public interface IStandardBeanTypeProxyFactory extends IBeanProxyFactory {
+	
 /**
  * Used by other registered bean type proxy factories to
  * register their bean type proxies with the standard factory
  * so that it will be cached there. 
- *
- * The permanent flag indicates that beantype will never be released,
+ * <p><b>Note:</b> This is not meant to be called by customers. It is here for the usage
+ * of registry extensions.
+ * @param aBeanTypeProxy
+ * @param permanent indicates that beantype will never be released,
  * not even if explicit request is made.
- * Creation date: (3/10/00 11:02:11 AM)
+ * 
+ * @since 1.1.0
  */
 void registerBeanTypeProxy(IBeanTypeProxy aBeanTypeProxy, boolean permanent);
+
+/**
+ * Used by other registered bean type proxy factories to
+ * register their proxy bean type with the standard factory
+ * so that it will be cached there. 
+ * <p><b>Note:</b> This is not meant to be called by customers. It is here for the usage
+ * of registry extensions.
+ * @param aBeanTypeProxy
+ * @param permanent indicates that beantype will never be released,
+ * not even if explicit request is made.
+ * 
+ * @since 1.1.0
+ */
+void registerBeanTypeProxy(IProxyBeanType aBeanTypeProxy, boolean permanent);
 
 /**
  * Return the beanType proxy for the given class name.
@@ -41,6 +59,17 @@ void registerBeanTypeProxy(IBeanTypeProxy aBeanTypeProxy, boolean permanent);
  * formal type (java.lang.Object[]).
  */
 IBeanTypeProxy getBeanTypeProxy(String className);
+
+/**
+ * Get the beantype proxy suitable for an expression.
+ * 
+ * @param expression
+ * @param typeName
+ * @return
+ * 
+ * @since 1.1.0
+ */
+IProxyBeanType getBeanTypeProxy(IExpression expression, String typeName);
 
 /**
  * Return an Array type proxy for the given class name of
@@ -65,6 +94,37 @@ IBeanTypeProxy getBeanTypeProxy(String className);
  *      Object [][][][]
  */
 IBeanTypeProxy getBeanTypeProxy(String componentClassName, int dimensions);
+
+/**
+ * Return an Array type proxy for the given class name of
+ * the specified dimensions. This is a helper method. The
+ * same result can be gotton from getBeanTypeProxy.
+ * e.g.
+ *      getBeanTypeProxy("java.lang.Object", 3)
+ *    is the same as:
+ *      getBeanTypeProxy("[[[Ljava.lang.Object;")
+ *
+ *    They both result in a type of:
+ *      Object [][][]
+ * 
+ *    or if using the JNI format (proxy format)
+ *      getBeanTypeProxy("[Ljava.langObject;", 3)
+ *    becomes
+ *      Object [][][][] 
+ * 
+ *    or if using the standard java format (as in actual code)
+ *      getBeanTypeProxy("java.langObject[];", 3)
+ *    becomes
+ *      Object [][][][]
+ * 
+ * @param expression
+ * @param componentClassName
+ * @param dimensions
+ * @return
+ * 
+ * @since 1.1.0
+ */
+IProxyBeanType getBeanTypeProxy(IExpression expression, String componentClassName, int dimensions);
 
 /**
  * Test if a specific bean type has been registered. Don't access and create

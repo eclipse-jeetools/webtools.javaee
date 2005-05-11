@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackRegistry.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.net.Socket;
@@ -19,6 +19,7 @@ import java.util.*;
 
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.ExpressionProxy.ProxyEvent;
 
 /**
  * This registry will handle callbacks.
@@ -30,9 +31,9 @@ class REMCallbackRegistry implements ICallbackRegistry {
 	final String fNamePostfix;
 	List fThreads = Collections.synchronizedList(new LinkedList());	// List of active callback threads.	
 	
-	HashMap fIdToCallback = new HashMap(5);	// ID to Callback map.
-	HashSet fRegisteredCallbackProxies = new HashSet(5);	// Hold onto registered proxies so they aren't released as long as call back is registered.
-	
+	Map fIdToCallback = new HashMap(5);	// ID to Callback map.
+	Map fCallbackProxyToId = new HashMap(5);	// Callback to ID map. This will also hold onto the callback proxies so that they don't get GC'd while the callback is registered.
+		
 	IREMMethodProxy fInitializeCallback;
 	IREMBeanProxy fRemoteServer;
 	
@@ -109,12 +110,11 @@ class REMCallbackRegistry implements ICallbackRegistry {
 			
 		fThreads.clear();
 		fIdToCallback.clear();
-		fRegisteredCallbackProxies.clear();
+		fCallbackProxyToId.clear();
 		fInitializeCallback = null;
 		fRemoteServer = null;
 			
 	}		
-	
 	
 	public ICallback getRegisteredCallback(int id) {
 		synchronized(fIdToCallback)	{	
@@ -122,15 +122,59 @@ class REMCallbackRegistry implements ICallbackRegistry {
 		}
 	}
 		
-	/**
-	 * The public interface for registering callbacks
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.ICallbackRegistry#registerCallback(org.eclipse.jem.internal.proxy.core.IBeanProxy, org.eclipse.jem.internal.proxy.core.ICallback)
 	 */
 	public void registerCallback(IBeanProxy callbackProxy, ICallback cb) {
 		synchronized(fIdToCallback) {
 			fIdToCallback.put(((IREMBeanProxy) callbackProxy).getID(), cb);
-			fRegisteredCallbackProxies.add(callbackProxy);
+			fCallbackProxyToId.put(callbackProxy, ((IREMBeanProxy) callbackProxy).getID());
 			fInitializeCallback.invokeCatchThrowableExceptions(callbackProxy, new IBeanProxy[] {fRemoteServer, fFactory.getBeanProxyFactory().createBeanProxyWith(((IREMBeanProxy) callbackProxy).getID().intValue())});
 		}
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.ICallbackRegistry#registerCallback(org.eclipse.jem.internal.proxy.core.IProxy, org.eclipse.jem.internal.proxy.core.ICallback, org.eclipse.jem.internal.proxy.core.IExpression)
+	 */
+	public void registerCallback(IProxy callbackProxy, final ICallback cb, IExpression expression) {
+		final Integer id;
+		if (callbackProxy.isBeanProxy()) {
+			id = ((IREMBeanProxy) callbackProxy).getID();
+			synchronized(fIdToCallback) {
+				fIdToCallback.put(id, cb);
+				fCallbackProxyToId.put(callbackProxy, id);
+			}
+		} else {
+			id = new Integer(callbackProxy.hashCode());
+			synchronized (fIdToCallback) {
+				fIdToCallback.put(id, cb);	// This is so that it is registered in case callback is invoked from remote vm during expression processing.
+			}
+			((ExpressionProxy) callbackProxy).addProxyListener(new ExpressionProxy.ProxyListener() {
+				public void proxyResolved(ProxyEvent event) {
+					synchronized(fIdToCallback) {
+						fCallbackProxyToId.put(event.getProxy(), id);
+					}
+				}
+				
+				public void proxyNotResolved(ProxyEvent event) {
+					// Failed, so remove registration completely.
+					synchronized (fIdToCallback) {
+						fIdToCallback.remove(id);
+					}
+				}
+				
+				public void proxyVoid(ProxyEvent event) {
+					// Failed, so remove registration completely.
+					synchronized (fIdToCallback) {
+						fIdToCallback.remove(id);
+					}
+				}
+				
+			});
+		}
+		expression.createSimpleMethodInvoke(fInitializeCallback, callbackProxy, new IProxy[] {fRemoteServer, fFactory.getBeanProxyFactory().createBeanProxyWith(id.intValue())}, false);
 	}
 	
 	/**
@@ -138,8 +182,8 @@ class REMCallbackRegistry implements ICallbackRegistry {
 	 */
 	public void deregisterCallback(IBeanProxy callbackProxy) {
 		synchronized(fIdToCallback)	{
-			fIdToCallback.remove(((IREMBeanProxy) callbackProxy).getID());
-			fRegisteredCallbackProxies.remove(callbackProxy);	// Release it.
+			Integer id = (Integer) fCallbackProxyToId.remove(callbackProxy);
+			fIdToCallback.remove(id);
 		}
 	}
 	

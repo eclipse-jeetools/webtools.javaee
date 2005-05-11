@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:12 $ 
  */package org.eclipse.jem.internal.proxy.remote;
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -427,4 +427,41 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes) {
 		return null;
 	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isBeanProxy()
+	 */
+	public final boolean isBeanProxy() {
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isExpressionProxy()
+	 */
+	public final boolean isExpressionProxy() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, org.eclipse.jem.internal.proxy.core.IProxyBeanType[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName, IProxyBeanType[] parameters) {
+		return null;	// Since this guy is invalid, we can't return a method.
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName, String[] parameterTypes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getFieldProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String)
+	 */
+	public IProxyField getFieldProxy(IExpression expression, String fieldName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

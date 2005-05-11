@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMMethodProxyFactory.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -72,7 +72,102 @@ public class REMMethodProxyFactory implements IMethodProxyFactory {
 		IBeanTypeProxy clsProxy = typeFactory.getBeanTypeProxy(className);
 		if (clsProxy == null)
 			return null;
+		// This will redirect to the beantype, which will go through the method cache.
 		return clsProxy.getMethodProxy(methodName, parameterTypes);
+	}
+	
+	/**
+	 * A helper method to get the method proxy for the expression. This is used by registries and beantype proxies. It will go through
+	 * the method cache to make sure we get only one.
+	 * 
+	 * @param expression
+	 * @param aBeanTypeProxy
+	 * @param methodName
+	 * @param parmTypes
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, IProxyBeanType aBeanTypeProxy, String methodName, IProxyBeanType[] parmTypes){
+		return ((REMStandardBeanTypeProxyFactory) fFactoryRegistry.getBeanTypeProxyFactory()).proxyConstants.getMethodProxy(expression, aBeanTypeProxy, methodName, parmTypes);
+	}
+	
+	/**
+	 * A helper method to get the field proxy for the expression. This is used by registries and beantype proxies. It will go through
+	 * the method cache to make sure we get only one.
+	 * @param expression
+	 * @param aBeanTypeProxy
+	 * @param fieldName
+	 * 
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IProxyField getFieldProxy(IExpression expression, IProxyBeanType aBeanTypeProxy, String fieldName){
+		return ((REMStandardBeanTypeProxyFactory) fFactoryRegistry.getBeanTypeProxyFactory()).proxyConstants.getFieldProxy(expression, aBeanTypeProxy, fieldName);
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IMethodProxyFactory#getFieldProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String)
+	 */
+	public IProxyField getFieldProxy(IExpression expression, String className, String fieldName) {
+		// We are getting the class resolved through the expression. Might as well because it probably will
+		// be needed again and this way when the expression is finished it will be resolved for later usage.
+		IStandardBeanTypeProxyFactory beanTypeProxyFactory = fFactoryRegistry.getBeanTypeProxyFactory();
+		IProxyBeanType beanType = beanTypeProxyFactory.getBeanTypeProxy(expression, className);
+		return beanType.getFieldProxy(expression, fieldName);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IMethodProxyFactory#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String, java.lang.String[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String className, String methodName, String[] parameterTypes) {
+		// We are getting the class and parmtypes resolved through the expression. Might as well because they probably will
+		// be needed again and this way when the expression is finished they will be resolved for later usage.
+		IStandardBeanTypeProxyFactory beanTypeProxyFactory = fFactoryRegistry.getBeanTypeProxyFactory();
+		IProxyBeanType beanType = beanTypeProxyFactory.getBeanTypeProxy(expression, className);
+		IProxyBeanType[] parmTypes = getParameterTypes(expression, parameterTypes, beanTypeProxyFactory);
+		return beanType.getMethodProxy(expression, methodName, parmTypes);
+	}
+	
+	/**
+	 * Helper method for BeanTypes and proxy Beantypes. So they don't need to have common code to convert string to proxy bean type.
+	 * @param expression
+	 * @param classType
+	 * @param methodName
+	 * @param parameterTypes
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, IProxyBeanType classType, String methodName, String[] parameterTypes) {
+		// We are getting the class and parmtypes resolved through the expression. Might as well because they probably will
+		// be needed again and this way when the expression is finished they will be resolved for later usage.
+		IStandardBeanTypeProxyFactory beanTypeProxyFactory = fFactoryRegistry.getBeanTypeProxyFactory();
+		IProxyBeanType[] parmTypes = getParameterTypes(expression, parameterTypes, beanTypeProxyFactory);
+		return classType.getMethodProxy(expression, methodName, parmTypes);
+	}
+
+	/**
+	 * @param expression
+	 * @param parameterTypes
+	 * @param beanTypeProxyFactory
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	protected IProxyBeanType[] getParameterTypes(IExpression expression, String[] parameterTypes, IStandardBeanTypeProxyFactory beanTypeProxyFactory) {
+		IProxyBeanType[] parmTypes;
+		if (parameterTypes == null || parameterTypes.length == 0)
+			parmTypes = null;
+		else {
+			parmTypes = new IProxyBeanType[parameterTypes.length];
+			for (int i = 0; i < parameterTypes.length; i++) {
+				parmTypes[i] = beanTypeProxyFactory.getBeanTypeProxy(expression, parameterTypes[i]);
+			}
+		}
+		return parmTypes;
 	}
 
 	/*
@@ -118,6 +213,7 @@ public class REMMethodProxyFactory implements IMethodProxyFactory {
 	
 	/**
 	 * Get the method id from the remote system and create the method proxy.
+	 * This does not go through the method cache. It goes direct to the remote vm.
 	 * 
 	 * NOTE: It is public ONLY so that IBeanTypeProxy implementations can call it. It must not be used by anyone else.
 	 */
@@ -155,6 +251,8 @@ public class REMMethodProxyFactory implements IMethodProxyFactory {
 	
 	/**
 	 * Get the method id from the remote system and create the method proxy.
+	 * <p>
+	 * This does not go through the method cache. It goes direct to the remote vm.
 	 * 
 	 * NOTE: It is public ONLY so that IBeanTypeProxy implementations can call it. It must not be used by anyone else.
 	 */

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IMethodProxyFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -37,7 +37,31 @@ public interface IMethodProxyFactory extends IBeanProxyFactory {
 	 * @since 1.0.0
 	 */
 	IMethodProxy getMethodProxy(String className, String methodName, String[] parameterTypes);
+	
+	/**
+	 * Return an IProxyMethod for the specified name, arguments from the given class.
+	 * @param expression
+	 * @param className
+	 * @param methodName
+	 * @param parameterTypes
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	IProxyMethod getMethodProxy(IExpression expression, String className, String methodName, String[] parameterTypes);
 
+	/**
+	 * Return an IProxyField for the specified name, arguments from the given class.
+	 * @param expression
+	 * @param className
+	 * @param fieldName
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	IProxyField getFieldProxy(IExpression expression, String className, String fieldName);
+
+	
 	/**
 	 * Return an invokable for the specified name, arguments from the class. The method proxy is not retrieved. Instead the method will be looked up
 	 * each time on the vm. Because of this these are suitable only for one-shot invokations. If it is to be invoked often, then a method proxy should

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaStandardAwtBeanConstants.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:47 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -37,7 +37,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  */
 public final class JavaStandardAwtBeanConstants {
 		
-	public static final String REGISTRY_KEY = "STANDARDPROXYAWTCONSTANTS:"; //$NON-NLS-1$
+	public static final Object REGISTRY_KEY = new Object();
 			
 	final boolean AWTLoaded;	// AWT may not be available. So non-ui JVM's don't have AWT.
 	final boolean AWTRegistered;	// AWT was registered to be used in this VM. It may be registered, but still not available.

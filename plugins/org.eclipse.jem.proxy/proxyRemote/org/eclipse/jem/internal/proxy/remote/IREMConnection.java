@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: IREMConnection.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -93,13 +93,14 @@ public interface IREMConnection {
 	
 	/**
 	 * Read array values as BeanProxies into valueSender.
-	 * 
 	 * @param returnValue
 	 * @param valueSender
+	 * @param allowFlag <code>true</code> to allow FLAG values, <code>false</code> if not allow flag values.
+	 * 
 	 * @throws CommandException
 	 * 
 	 * @since 1.1.0
 	 */
-	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender) throws CommandException;
+	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender, boolean allowFlag) throws CommandException;
 	
 }

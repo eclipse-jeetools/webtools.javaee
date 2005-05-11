@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.14 $  $Date: 2005/04/14 19:05:33 $ 
+ *  $Revision: 1.15 $  $Date: 2005/05/11 19:01:16 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -618,6 +618,31 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 			return (JavaDataType) JavaClassImpl.reflect(primitiveName, res.getResourceSet());
 		}
 		return null;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaHelpers#getPrimitiveID()
+	 */
+	public int getPrimitiveID() {
+		String myName = getQualifiedName();
+		if (myName.equals(INTEGER_NAME))
+			return PRIM_INTEGER_ID;
+		if (myName.equals(BOOLEAN_NAME))
+			return PRIM_BOOLEAN_ID;
+		if (myName.equals(BYTE_NAME))
+			return PRIM_BYTE_ID;
+		if (myName.equals(SHORT_NAME))
+			return PRIM_SHORT_ID;
+		if (myName.equals(LONG_NAME))
+			return PRIM_LONG_ID;
+		if (myName.equals(FLOAT_NAME))
+			return PRIM_FLOAT_ID;
+		if (myName.equals(DOUBLE_NAME))
+			return PRIM_DOUBLE_ID;
+		if (myName.equals(CHARACTER_NAME))
+			return PRIM_CHARACTER_ID;
+		return PRIM_NOT_ID;
 	}
 
 	/**

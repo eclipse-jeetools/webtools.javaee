@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: MapJNITypes.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -55,5 +55,18 @@ public class MapJNITypes {
 	 */
 	public static boolean isFormalTypePrimitive(String formalType) {
 		return MapTypes.MAP_TYPENAME_TO_SHORTSIG.get(formalType) != null;
+	}
+	
+	/**
+	 * Convert the formal type name, with the given number of dimensions,
+	 * to an array JNI type.
+	 * @param finalComponent final component name, should not be an array type.
+	 * @param dimensions number of dimensions for the array.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public static String getJNITypeName(String finalComponent, int dimensions) {
+		return MapTypes.getJNITypeName(finalComponent, dimensions);
 	}
 }

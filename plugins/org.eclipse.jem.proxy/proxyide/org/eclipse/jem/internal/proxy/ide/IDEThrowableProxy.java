@@ -11,18 +11,17 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEThrowableProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
 
 public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 
-	protected Throwable fExc;
 	protected IBeanTypeProxy fBeanTypeProxy;
 
 	protected IDEThrowableProxy(Throwable exc, IBeanTypeProxy aBeanTypeProxy) {
-		fExc = exc;
+		super(exc);
 		fBeanTypeProxy = aBeanTypeProxy;
 	}
 
@@ -30,7 +29,7 @@ public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 		if (super.equals(obj))
 			return true;
 		if (obj instanceof IIDEBeanProxy) {
-			return fExc.equals(((IIDEBeanProxy) obj).getBean());
+			return getCause().equals(((IIDEBeanProxy) obj).getBean());
 		}
 		return false;
 	}
@@ -42,24 +41,24 @@ public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 		if (this == aBeanProxy)
 			return true;
 		if (aBeanProxy instanceof IIDEBeanProxy)
-			return fExc == ((IIDEBeanProxy) aBeanProxy).getBean();
+			return getCause() == ((IIDEBeanProxy) aBeanProxy).getBean();
 		return false;
 	}
 
 	public String getProxyLocalizedMessage() {
-		return fExc.getLocalizedMessage();
+		return getCause().getLocalizedMessage();
 	}
 	public String getProxyMessage() {
-		return fExc.getMessage();
+		return getCause().getMessage();
 	}
 	public void printProxyStackTrace(java.io.PrintWriter writer) {
-		fExc.printStackTrace(writer);
+		getCause().printStackTrace(writer);
 	}
 	public void printProxyStackTrace(java.io.PrintStream stream) {
-		fExc.printStackTrace(stream);
+		getCause().printStackTrace(stream);
 	}
 	public void printProxyStackTrace() {
-		fExc.printStackTrace();
+		getCause().printStackTrace();
 	}
 	public IBeanTypeProxy getTypeProxy() {
 		return fBeanTypeProxy;
@@ -68,7 +67,7 @@ public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 		return fBeanTypeProxy.getProxyFactoryRegistry();
 	}
 	public String toBeanString() {
-		return fExc.toString();
+		return getCause().toString();
 	}
 	public boolean isValid() {
 		return true;
@@ -77,7 +76,19 @@ public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 	 * Return the exception which is the live bean
 	 */
 	public Object getBean() {
-		return fExc;
+		return getCause();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isBeanProxy()
+	 */
+	public final boolean isBeanProxy() {
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isExpressionProxy()
+	 */
+	public final boolean isExpressionProxy() {
+		return false;
+	}
 }

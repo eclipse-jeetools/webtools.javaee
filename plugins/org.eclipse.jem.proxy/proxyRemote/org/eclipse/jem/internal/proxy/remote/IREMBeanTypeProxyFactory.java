@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: IREMBeanTypeProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -39,6 +39,28 @@ public interface IREMBeanTypeProxyFactory extends IBeanTypeProxyFactory {
  * Creation date: (12/3/99 2:26:12 PM)
  */
 public IREMBeanTypeProxy getExtensionBeanTypeProxy(String typeName);	
+
+/**
+ * Return a bean type proxy for the class name.
+ * Return null if the extension factory doesn't handle this class.
+ * Don't register any proxies returned, they will automatically be registered.
+ * This should only return bean type proxies where the factory can determine
+ * everything it needs, such as supertype and classID.
+ * NOTE: This is implemented for the usage of the
+ *       standard BeanType proxy factory. It should
+ *       NOT be called by anyone else. They should
+ *       go through the IStandardBeanTypeFactory
+ *       instead. The standard bean type factory
+ *       will call this method on the appropriate
+ *       extension when it needs to.
+ 
+ * @param typeName
+ * @param expression
+ * @return
+ * 
+ * @since 1.1.0
+ */
+public IProxyBeanType getExtensionBeanTypeProxy(String typeName, IExpression expression);
 
 /**
  * Return a bean type proxy for the class id and class name.

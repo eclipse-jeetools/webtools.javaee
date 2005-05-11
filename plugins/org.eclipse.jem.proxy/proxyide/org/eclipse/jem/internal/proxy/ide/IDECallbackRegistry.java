@@ -11,10 +11,11 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDECallbackRegistry.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.ExpressionProxy.ProxyEvent;
 
 public class IDECallbackRegistry implements ICallbackRegistry {
 	
@@ -31,10 +33,24 @@ public class IDECallbackRegistry implements ICallbackRegistry {
 	Map fCallbackIDToCallback = new HashMap(25);
 	Map fBeanProxyToCallbackID = new HashMap(25);
 	Map fCallbackIDToStream = new HashMap(25);
+	private IProxyMethod initializeCallbackMethodProxy;
+	private IProxy vmServerProxy;
 	
 IDECallbackRegistry(IDEProxyFactoryRegistry aRegistry){
 	fProxyFactoryRegistry = aRegistry;
 	fVMServer = new IDEVMServer(this);
+	
+	vmServerProxy = aRegistry.getBeanProxy(fVMServer.getClass(), fVMServer);
+	
+	try {
+		Method initializeCallbackMethod = org.eclipse.jem.internal.proxy.common.ICallback.class.getMethod("initializeCallback", new Class[] {org.eclipse.jem.internal.proxy.common.IVMServer.class, Integer.TYPE});
+		initializeCallbackMethodProxy = (IProxyMethod) aRegistry.getBeanProxy(Method.class, initializeCallbackMethod);
+	} catch (SecurityException e) {
+		e.printStackTrace();
+	} catch (NoSuchMethodException e) {
+		e.printStackTrace();
+	}
+	
 }
 /**
  * Add a callback.  aBeanProxy is running on the target VM and ICallback runs on our VM
@@ -53,6 +69,26 @@ public void registerCallback(IBeanProxy aBeanProxy, ICallback aCallback){
 	fCallbackIDToCallback.put(callbackIntegerID,aCallback);
 	fBeanProxyToCallbackID.put(aBeanProxy,callbackIntegerID);
 
+}
+
+
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.proxy.core.ICallbackRegistry#registerCallback(org.eclipse.jem.internal.proxy.core.IProxy, org.eclipse.jem.internal.proxy.core.ICallback, org.eclipse.jem.internal.proxy.core.IExpression)
+ */
+public void registerCallback(IProxy callbackProxy, final ICallback cb, IExpression expression) {
+	final Integer callbackID = new Integer(++fNextCallbackID);
+	fCallbackIDToCallback.put(callbackID, cb);
+	if (callbackProxy.isBeanProxy()) {
+		fBeanProxyToCallbackID.put(callbackProxy, callbackID);		
+	} else {
+		((ExpressionProxy) callbackProxy).addProxyListener(new ExpressionProxy.ProxyAdapter() {
+			public void proxyResolved(ProxyEvent event) {
+				fBeanProxyToCallbackID.put(event.getProxy(), callbackID);		
+			}
+		});
+	}
+	expression.createSimpleMethodInvoke(initializeCallbackMethodProxy, callbackProxy, new IProxy[] {vmServerProxy, fProxyFactoryRegistry.getBeanProxyFactory().createBeanProxyWith(callbackID.intValue())}, false);
+	
 }
 
 OutputStream requestStream(final int aCallbackID, final int aMsgID){
@@ -106,8 +142,7 @@ Object vmCallback(int aCallbackID ,int aMsgID, Object parm){
 public void deregisterCallback(IBeanProxy aBeanProxy){
 	// Remove the callback from both maps.  The actual unregistering of the callback
 	// on the target VM is done separately by the object that added the event handler on the target VM
-	Integer callbackID = (Integer) fBeanProxyToCallbackID.get(aBeanProxy);
-	fBeanProxyToCallbackID.remove(aBeanProxy);
+	Integer callbackID = (Integer) fBeanProxyToCallbackID.remove(aBeanProxy);
 	fCallbackIDToCallback.remove(callbackID);
 }
 }

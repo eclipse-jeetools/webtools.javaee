@@ -11,13 +11,14 @@
 package org.eclipse.jem.internal.proxy.ide.awt;
 /*
  *  $RCSfile: IDERectangleBeanProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
-import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.ide.*;
-import org.eclipse.jem.internal.proxy.awt.*;
 import java.awt.Rectangle;
+
+import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.ide.IDEObjectBeanProxy;
+import org.eclipse.jem.internal.proxy.ide.IDEProxyFactoryRegistry;
 
 public class IDERectangleBeanProxy extends IDEObjectBeanProxy implements IRectangleBeanProxy {
 	

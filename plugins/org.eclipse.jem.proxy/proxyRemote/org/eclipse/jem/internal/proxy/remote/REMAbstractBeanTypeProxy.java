@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.11 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -301,6 +301,15 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	public IFieldProxy getFieldProxy(String fieldName) {
 		return ((REMStandardBeanTypeProxyFactory) fRegistry.getBeanTypeProxyFactory()).proxyConstants.getFieldProxy(this,fieldName);
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getFieldProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String)
+	 */
+	public IProxyField getFieldProxy(IExpression expression, String fieldName) {
+		REMProxyFactoryRegistry registry = (REMProxyFactoryRegistry) expression.getRegistry();
+		return ((REMMethodProxyFactory) registry.getMethodProxyFactory()).getFieldProxy(expression, this, fieldName);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
@@ -356,6 +365,24 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String[] argumentClassNames) {
 		return ((REMStandardBeanTypeProxyFactory) fRegistry.getBeanTypeProxyFactory()).proxyConstants.getMethodProxy(this,methodName,argumentClassNames);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, org.eclipse.jem.internal.proxy.core.IProxyBeanType[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName, IProxyBeanType[] parameterTypes) {
+		REMProxyFactoryRegistry registry = (REMProxyFactoryRegistry) expression.getRegistry();
+		return ((REMMethodProxyFactory) registry.getMethodProxyFactory()).getMethodProxy(expression, this, methodName, parameterTypes);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName, String[] parameterTypes) {
+		REMProxyFactoryRegistry registry = (REMProxyFactoryRegistry) expression.getRegistry();
+		return ((REMMethodProxyFactory) registry.getMethodProxyFactory()).getMethodProxy(expression, this, methodName, parameterTypes);
 	}
 
 	/*
@@ -655,5 +682,17 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 				fRegistry.releaseProxy(e);
 			}
 		}
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isBeanProxy()
+	 */
+	public final boolean isBeanProxy() {
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isExpressionProxy()
+	 */
+	public final boolean isExpressionProxy() {
+		return false;
 	}
 }

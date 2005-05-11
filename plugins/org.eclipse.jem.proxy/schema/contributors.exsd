@@ -106,7 +106,7 @@ Both container and plugin can be specified, but at least one of them must be spe
   &lt;contributor
    class=&quot;com.example.ContributorImplementation&quot;
    container=&quot;MY_CONTAINER&quot;&gt;
-  &lt;contributor&gt;
+  &lt;/contributor&gt;
  &lt;/extension&gt;
 &lt;/pre&gt;
 &lt;/p&gt;

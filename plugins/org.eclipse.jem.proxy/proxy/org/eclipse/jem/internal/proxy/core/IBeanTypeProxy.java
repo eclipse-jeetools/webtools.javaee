@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanTypeProxy.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -21,7 +21,7 @@ import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
  * 
  * @author: Joe Winchester
  */
-public interface IBeanTypeProxy extends IBeanProxy {
+public interface IBeanTypeProxy extends IBeanProxy, IProxyBeanType {
 	
 	/**
 	 * Find the most compatible constructor (out of the declared constructors). This means it will

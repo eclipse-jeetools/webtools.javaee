@@ -10,13 +10,13 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ListenerList.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
 /**
  * This class is used to maintain a list of listeners, and
- * is used in the implementations of several classes within JFace
+ * is used in the implementations of several classes within jem
  * which allow you to register listeners of various kinds.
  * It is a fairly lightweight object, occupying minimal space when
  * no listeners are registered.

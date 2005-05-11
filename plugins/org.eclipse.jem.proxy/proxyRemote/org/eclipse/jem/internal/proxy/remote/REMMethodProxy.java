@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMMethodProxy.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -140,30 +140,27 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 					}
 
 					public Commands.ValueObject nextValue() {
-						if (index < array.length) {
-							Object parm = array[index++];
-							if (parm != null)
-								if (parm instanceof IREMBeanProxy)
-									 ((IREMBeanProxy) parm).renderBean(worker);
-								else if (parm instanceof TransmitableArray) {
-									// It is another array, create a new retriever.
-									worker.setArrayIDS(
-										new Retriever(((TransmitableArray) parm).array),
-										((TransmitableArray) parm).array.length,
-										((TransmitableArray) parm).componentTypeID);
-								} else {
-									// It's an object. Need to get bean type so that we can send it.
-									IREMBeanProxy type = (IREMBeanProxy) typeFactory.getBeanTypeProxy(parm.getClass().getName());
-									if (type == null)
-										throw new IllegalArgumentException();
-									int classID = type.getID().intValue();
-									worker.setAsObject(parm, classID);
-								}
-							else
-								worker.set();
-							return worker;
-						} else
-							return null;
+						Object parm = array[index++];
+						if (parm != null)
+							if (parm instanceof IREMBeanProxy)
+								 ((IREMBeanProxy) parm).renderBean(worker);
+							else if (parm instanceof TransmitableArray) {
+								// It is another array, create a new retriever.
+								worker.setArrayIDS(
+									new Retriever(((TransmitableArray) parm).array),
+									((TransmitableArray) parm).array.length,
+									((TransmitableArray) parm).componentTypeID);
+							} else {
+								// It's an object. Need to get bean type so that we can send it.
+								IREMBeanProxy type = (IREMBeanProxy) typeFactory.getBeanTypeProxy(parm.getClass().getName());
+								if (type == null)
+									throw new IllegalArgumentException();
+								int classID = type.getID().intValue();
+								worker.setAsObject(parm, classID);
+							}
+						else
+							worker.set();
+						return worker; 
 					}
 				};
 

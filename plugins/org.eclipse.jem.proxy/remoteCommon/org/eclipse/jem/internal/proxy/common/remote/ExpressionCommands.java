@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionCommands.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:56:39 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.common.remote;
 
@@ -34,10 +34,18 @@ public class ExpressionCommands {
 		END_EXPRESSION_TREE_PROCESSING = 2,
 		SYNC_REQUEST = 3,
 		PULL_VALUE_REQUEST = 4;
-	
+		
 	// These are the expression specific error codes (it can also send back general ones. See SYNC_REQUEST docs lower down).
 	public static final int
-		ExpressionNoExpressionValueException = Commands.MAX_ERROR_CODE+1;	// No expression value occurred.
+		EXPRESSION_NOEXPRESSIONVALUE_EXCEPTION = Commands.MAX_ERROR_CODE+1;	// No expression value occurred.
+	
+	// These are the flag values sent in proxy resolution when doesn't resolve to proxy.
+	public static final int
+		EXPRESSIONPROXY_VOIDTYPE = 0,	// Expression proxy resolves to void type.
+		EXPRESSIONPROXY_NOTRESOLVED = 1;	// Expression proxy not resolved.
+
+	public static final String EXPRESSIONTRACE = "proxyvm.expressionTrace";	// The system property for turning on expression tracing.
+	public static final String EXPRESSIONTRACE_TIMER_THRESHOLD = "proxyvm.expressionTraceTimerThreshold";	// The system property for timer threshold.
 	
 	/*
 	 * The format of the commands are:
@@ -63,7 +71,7 @@ public class ExpressionCommands {
 	 * 	IDE will wait for it to complete and read back the value. It will send back:
 	 * 		1: VALUE command with boolean true as the value.
 	 * 		2: ERROR command with code of ExpressionClassNotFound, with value of String with message from exception.
-	 * 		3: ERROR command with code of ExpressionNoExpressionValueException, with value of String with message from exception.
+	 * 		3: ERROR command with code of EXPRESSION_NOEXPRESSIONVALUE_EXCEPTION, with value of String with message from exception.
 	 * 		4: THROWABLE command with the actual exception that occurred.
 	 * 
 	 *
@@ -80,7 +88,7 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send the start expression processing command.
-	 * @param expressionID TODO
+	 * @param expressionID 
 	 * @param os
 	 * 
 	 * @throws IOException
@@ -95,7 +103,7 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send the end expression processing command.
-	 * @param expressionID TODO
+	 * @param expressionID 
 	 * @param os
 	 * 
 	 * @throws IOException
@@ -111,7 +119,7 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send an expression subcommand.
-	 * @param expressionID TODO
+	 * @param expressionID 
 	 * @param os
 	 * @param subcommand
 	 * 
@@ -162,7 +170,7 @@ public class ExpressionCommands {
 	 * @since 1.0.0
 	 */
 	public static void sendString(DataOutputStream os, String aString) throws IOException {
-		os.writeUTF(aString);
+		Commands.sendStringData(os, aString);
 	}
 	
 	/**
@@ -179,26 +187,32 @@ public class ExpressionCommands {
 	}
 	
 	/**
-	 * Send the pull value command. Return either the value or an error (NoValueExpressionException or a Throwable)>
-	 * @param expressionID TODO
+	 * Send the pull value command. After processing the proxies, caller should call getFinalValue() to get the value.
+	 * @param expressionID 
 	 * @param os
 	 * @param is
-	 * @param valueReturn
+	 * @param proxyids if not <code>null</code>, then this is the list of expression proxy ids that need to be returned as rendered.
+	 * @param sender sender used to process the resolved proxy ids, or <code>null</code> if no proxy ids.
 	 * @throws CommandException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendPullValueCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject valueReturn) throws CommandException {
+	public static void sendPullValueCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject proxyids, Commands.ValueSender sender) throws CommandException {
 		try {
 			os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
 			os.writeInt(expressionID);
 			os.writeByte(PULL_VALUE_REQUEST);
+			sendProxyIDs(os, proxyids);
 			os.flush();
-			Commands.readBackValue(is, valueReturn, Commands.NO_TYPE_CHECK);
+			if (proxyids != null) {
+				Commands.readBackValue(is, proxyids, Commands.ARRAY_IDS);	// Read the array header.
+				sender.initialize(proxyids);
+				Commands.readArray(is, proxyids.anInt, sender, proxyids, true);	// Read the array.
+			}
 		} catch (CommandException e) {
 			// rethrow this exception since we want these to go on out.
 			throw e;
-		} catch (Exception e) {
+		} catch (IOException e) {
 			// Wrapper this one.
 			throw new UnexpectedExceptionCommandException(false, e);
 		}		
@@ -206,24 +220,30 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send a sync command. This does a synchronize with the remote expression processor. It makes sure that the
-	 * stream is caught and doesn't return until everything on the stream has been processed. It will then return a
-	 * value. The value should <code>true</code> if everything is OK, it could be an error return,
-	 * @param expressionID TODO
+	 * stream is caught and doesn't return until everything on the stream has been processed. Should then call
+	 * getFinalValue() to verify the expression is valid.
+	 * @param expressionID 
 	 * @param os
 	 * @param is
-	 * @param returnValue
+	 * @param proxyids if not <code>null</code>, then this is the list of expression proxy ids that need to be returned as rendered.
+	 * @param sender the sender used for reading back the proxyid resolutions, or <code>null</code> if no proxy ids.
 	 * 
 	 * @throws CommandException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendSyncCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject returnValue) throws CommandException {
+	public static void sendSyncCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject proxyids, Commands.ValueSender sender) throws CommandException {
 		try {
 			os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
 			os.writeInt(expressionID);
 			os.writeByte(SYNC_REQUEST);
+			sendProxyIDs(os, proxyids);
 			os.flush();
-			Commands.readBackValue(is, returnValue, Commands.NO_TYPE_CHECK);
+			if (proxyids != null) {
+				Commands.readBackValue(is, proxyids, Commands.ARRAY_IDS);	// Read the array header.
+				sender.initialize(proxyids);
+				Commands.readArray(is, proxyids.anInt, sender, proxyids, true);	// Read the array.
+			}
 		} catch (CommandException e) {
 			// rethrow this exception since we want these to go on out.
 			throw e;
@@ -233,6 +253,23 @@ public class ExpressionCommands {
 		}		
 	}	
 	
+	/**
+	 * Send the proxyids (if not null) as part of a command. Used by sync and pullValue.
+	 * @param os
+	 * @param proxyids <code>null</code> if not requesting proxy ids.
+	 * @throws IOException
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	private static void sendProxyIDs(DataOutputStream os, Commands.ValueObject proxyids) throws IOException, CommandException {
+		if (proxyids != null) {
+			os.writeBoolean(true);	// Indicates proxy ids being sent.
+			Commands.writeValue(os, proxyids, false, false);
+		} else
+			os.writeBoolean(false);	// No proxyids being sent.
+	}
+
 	private ExpressionCommands() {
 		// Never intended to be instantiated.
 	}

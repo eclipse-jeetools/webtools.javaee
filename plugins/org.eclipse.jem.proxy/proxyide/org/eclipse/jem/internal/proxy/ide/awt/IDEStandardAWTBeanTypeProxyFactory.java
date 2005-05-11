@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.ide.awt;
 /*******************************************************************************
  * Copyright (c)  2001, 2003, 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,56 +10,76 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStandardAWTBeanTypeProxyFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
  */
+package org.eclipse.jem.internal.proxy.ide.awt;
 
-import org.eclipse.jem.internal.proxy.ide.*;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.ide.*;
+
 /**
- * BeanType factory standard AWT bean types.
- * This is package protected because it shouldn't be
- * referenced outside the package. It should only be accessed through
- * the interface.
+ * BeanType factory standard AWT bean types. This is package protected because it shouldn't be referenced outside the package. It should only be
+ * accessed through the interface.
  */
 class IDEStandardAWTBeanTypeProxyFactory implements IDEExtensionBeanTypeProxyFactory {
 
 	static final String BEAN_TYPE_FACTORY_KEY = "java.awt"; //$NON-NLS-1$
-	
+
 	protected final IDEProxyFactoryRegistry fFactoryRegistry;
+
 	protected final IDEDimensionBeanTypeProxy dimensionType;
+
 	protected final IDEPointBeanTypeProxy pointType;
+
 	protected final IDERectangleBeanTypeProxy rectangleType;
-	
-IDEStandardAWTBeanTypeProxyFactory(IDEProxyFactoryRegistry aRegistry) {
-	fFactoryRegistry = aRegistry;	
-	fFactoryRegistry.registerBeanTypeProxyFactory(BEAN_TYPE_FACTORY_KEY, this);
-	dimensionType = new IDEDimensionBeanTypeProxy(fFactoryRegistry);
-	pointType = new IDEPointBeanTypeProxy(fFactoryRegistry);
-	rectangleType = new IDERectangleBeanTypeProxy(fFactoryRegistry);
-}
-/**
- * Create the correct beantype from the class and id passed in.
- */
-public IDEBeanTypeProxy getExtensionBeanTypeProxy(String className){
-	
-	if ("java.awt.Dimension".equals(className)) //$NON-NLS-1$
-		return dimensionType;
-	else if ("java.awt.Point".equals(className)) //$NON-NLS-1$
-		return pointType;
-	else if ("java.awt.Rectangle".equals(className)) //$NON-NLS-1$
-		return rectangleType;
-	else 
-		return null;
-}
 
-/**
- * Create the correct beantype from the class and id passed in.
- */
-public IDEBeanTypeProxy getExtensionBeanTypeProxy(String className, IBeanTypeProxy beanTypeProxy){
+	IDEStandardAWTBeanTypeProxyFactory(IDEProxyFactoryRegistry aRegistry) {
+		fFactoryRegistry = aRegistry;
+		fFactoryRegistry.registerBeanTypeProxyFactory(BEAN_TYPE_FACTORY_KEY, this);
+		dimensionType = new IDEDimensionBeanTypeProxy(fFactoryRegistry);
+		pointType = new IDEPointBeanTypeProxy(fFactoryRegistry);
+		rectangleType = new IDERectangleBeanTypeProxy(fFactoryRegistry);
+	}
 
-	return getExtensionBeanTypeProxy(className);
-}
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.ide.IDEExtensionBeanTypeProxyFactory#getExtensionBeanTypeProxy(java.lang.String)
+	 */
+	public IDEBeanTypeProxy getExtensionBeanTypeProxy(String className) {
 
-public void terminateFactory(boolean wait){
-}
+		if ("java.awt.Dimension".equals(className)) //$NON-NLS-1$
+			return dimensionType;
+		else if ("java.awt.Point".equals(className)) //$NON-NLS-1$
+			return pointType;
+		else if ("java.awt.Rectangle".equals(className)) //$NON-NLS-1$
+			return rectangleType;
+		else
+			return null;
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.ide.IDEExtensionBeanTypeProxyFactory#getExtensionBeanTypeProxy(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy)
+	 */
+	public IDEBeanTypeProxy getExtensionBeanTypeProxy(String className, IBeanTypeProxy beanTypeProxy) {
+
+		return getExtensionBeanTypeProxy(className);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.ide.IDEExtensionBeanTypeProxyFactory#getExtensionBeanTypeProxy(java.lang.String,
+	 *      org.eclipse.jem.internal.proxy.core.IExpression)
+	 */
+	public IProxyBeanType getExtensionBeanTypeProxy(String typeName, IExpression expression) {
+		return getExtensionBeanTypeProxy(typeName);
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxyFactory#terminateFactory(boolean)
+	 */
+	public void terminateFactory(boolean wait) {
+	}
 }

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: CallbackHandler.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:57:54 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.net.Socket;
@@ -106,24 +106,21 @@ class CallbackHandler extends ConnectionHandler implements ICallbackHandler {
 		}
 		
 		public Commands.ValueObject nextValue() {
-			if (index < array.length) {
-				Object parm = array[index++];
-				if (parm != null) {
-					if (parm instanceof ICallbackHandler.TransmitableArray) {
-						// It is another array, create a new retriever.
-						worker.setArrayIDS(new Retriever(((ICallbackHandler.TransmitableArray) parm).getArray()), ((ICallbackHandler.TransmitableArray) parm).getArray().length, Commands.OBJECT_CLASS);
-					} else {
-						// They may add some new ID's and if there is an error, they
-						// won't get released, but that is a slight chance we will have
-						// to take because we don't know which ones were new and which
-						// ones weren't.
-						fillInValue(parm, NOT_A_PRIMITIVE, worker);
-					}
-				} else
-					worker.set();
-				return worker;
+			Object parm = array[index++];
+			if (parm != null) {
+				if (parm instanceof ICallbackHandler.TransmitableArray) {
+					// It is another array, create a new retriever.
+					worker.setArrayIDS(new Retriever(((ICallbackHandler.TransmitableArray) parm).getArray()), ((ICallbackHandler.TransmitableArray) parm).getArray().length, Commands.OBJECT_CLASS);
+				} else {
+					// They may add some new ID's and if there is an error, they
+					// won't get released, but that is a slight chance we will have
+					// to take because we don't know which ones were new and which
+					// ones weren't.
+					fillInValue(parm, NOT_A_PRIMITIVE, worker);
+				}
 			} else
-				return null;
+				worker.set();
+			return worker;
 		}
 	};
 		

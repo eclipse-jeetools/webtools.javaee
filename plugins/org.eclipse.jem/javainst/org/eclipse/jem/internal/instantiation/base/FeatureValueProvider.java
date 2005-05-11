@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: FeatureValueProvider.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:16 $ 
  */
 
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -35,17 +35,17 @@ public interface FeatureValueProvider {
 		 * 
 		 * @param feature
 		 * @param value
-		 * 
+		 * @return <code>null</code> to continue to next setting, or a value to stop visiting and return that value be the real exception.
 		 * @since 1.1.0
 		 */
-		void isSet(EStructuralFeature feature, Object value);
+		Object isSet(EStructuralFeature feature, Object value);
 	}	
 
 	/**
 	 * Visit the set features.
 	 * @param aVisitor
-	 * 
+	 * @param <code>null</code> if all settings visited, or the value returned from the visit (isSet) that returned a non-nullSe.
 	 * @since 1.1.0
 	 */
-	void visitSetFeatures(Visitor aVisitor);
+	Object visitSetFeatures(Visitor aVisitor);
 }

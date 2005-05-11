@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.remote.awt;
 /*******************************************************************************
  * Copyright (c)  2001, 2003, 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,56 +10,73 @@ package org.eclipse.jem.internal.proxy.remote.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardAWTBeanTypeProxyFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
  */
+package org.eclipse.jem.internal.proxy.remote.awt;
 
+
+import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
 import org.eclipse.jem.internal.proxy.remote.*;
+
 /**
- * BeanType factory standard AWT bean types.
- * This is package protected because it shouldn't be
- * referenced outside the package. It should only be accessed through
- * the interface.
+ * BeanType factory standard AWT bean types. This is package protected because it shouldn't be referenced outside the package. It should only be
+ * accessed through the interface.
  */
 class REMStandardAWTBeanTypeProxyFactory implements IREMBeanTypeProxyFactory {
 
 	static final String BEAN_TYPE_FACTORY_KEY = "java.awt"; //$NON-NLS-1$
-	
+
 	protected final REMProxyFactoryRegistry fFactoryRegistry;
-	
+
 	REMStandardAWTBeanTypeProxyFactory(REMProxyFactoryRegistry aRegistry) {
-		fFactoryRegistry = aRegistry;	
+		fFactoryRegistry = aRegistry;
 		fFactoryRegistry.registerBeanTypeProxyFactory(BEAN_TYPE_FACTORY_KEY, this);
 	}
-	
-	/**
-	 * We don't pre-cache any types. We need to have the
-	 * id from the server to create types.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxyFactory#getExtensionBeanTypeProxy(java.lang.String)
 	 */
-	public IREMBeanTypeProxy getExtensionBeanTypeProxy(String className){
+	public IREMBeanTypeProxy getExtensionBeanTypeProxy(String className) {
 		return null;
 	}
-	
-	/**
-	 * Create the correct beantype from the class and id passed in.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxyFactory#getExtensionBeanTypeProxy(java.lang.String, java.lang.Integer,
+	 *      org.eclipse.jem.internal.proxy.core.IBeanTypeProxy)
 	 */
-	public IREMBeanTypeProxy getExtensionBeanTypeProxy(String className, Integer classID, IBeanTypeProxy superType){
-		
+	public IREMBeanTypeProxy getExtensionBeanTypeProxy(String className, Integer classID, IBeanTypeProxy superType) {
+
 		if ("java.awt.Dimension".equals(className)) //$NON-NLS-1$
 			return new REMDimensionBeanTypeProxy(fFactoryRegistry, classID, className, superType);
 		else if ("java.awt.Point".equals(className)) //$NON-NLS-1$
-			return new REMPointBeanTypeProxy(fFactoryRegistry, classID, className, superType);			
+			return new REMPointBeanTypeProxy(fFactoryRegistry, classID, className, superType);
 		else if ("java.awt.Rectangle".equals(className)) //$NON-NLS-1$
 			return new REMRectangleBeanTypeProxy(fFactoryRegistry, classID, className, superType);
-		else 
+		else
 			return null;
 	}
-	
+
 	/*
-	 * Terminate this factory. Since it doesn't hold onto anything other than the registry,
-	 * and nothing will be holding onto this factory, nothing needs to be done. It will be GC'd.
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxyFactory#getExtensionBeanTypeProxy(java.lang.String,
+	 *      org.eclipse.jem.internal.proxy.core.IExpression)
+	 */
+	public IProxyBeanType getExtensionBeanTypeProxy(String typeName, IExpression expression) {
+		return getExtensionBeanTypeProxy(typeName);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxyFactory#terminateFactory(boolean)
 	 */
 	public void terminateFactory(boolean wait) {
-	}	
+	}
 
 }

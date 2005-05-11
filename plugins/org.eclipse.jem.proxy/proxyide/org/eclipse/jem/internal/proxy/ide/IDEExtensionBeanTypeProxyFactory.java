@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEExtensionBeanTypeProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -21,6 +21,8 @@ public interface IDEExtensionBeanTypeProxyFactory extends IBeanTypeProxyFactory 
 public IDEBeanTypeProxy getExtensionBeanTypeProxy(String className);
 
 public IDEBeanTypeProxy getExtensionBeanTypeProxy(String typeName, IBeanTypeProxy superType);	
+
+public IProxyBeanType getExtensionBeanTypeProxy(String typeName, IExpression expression);
 
 
 }

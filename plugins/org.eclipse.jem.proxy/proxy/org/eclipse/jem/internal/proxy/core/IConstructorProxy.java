@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: IConstructorProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -36,5 +36,7 @@ IBeanProxy newInstance(IBeanProxy[] creationArguments) throws ThrowableProxy;
 
 IBeanProxy newInstanceCatchThrowableExceptions();
 IBeanProxy newInstanceCatchThrowableExceptions(IBeanProxy[] creationArguments);
+
+IBeanTypeProxy[] getParameterTypes();
 
 }

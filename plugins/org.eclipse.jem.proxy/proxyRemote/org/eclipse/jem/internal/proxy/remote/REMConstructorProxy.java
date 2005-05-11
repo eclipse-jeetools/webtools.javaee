@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConstructorProxy.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -78,4 +78,32 @@ final class REMConstructorProxy extends REMAccessibleObjectProxy implements ICon
 			return null;
 		}
 	}
+	
+	private IBeanTypeProxy[] fParameterTypes;
+	
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConstructorProxy#getParameterTypes()
+	 */
+	public synchronized IBeanTypeProxy[] getParameterTypes() {
+		if (fParameterTypes == null) {
+			IArrayBeanProxy parmTypes = (IArrayBeanProxy) REMStandardBeanProxyConstants.getConstants(fFactory)
+					.getConstructorParameterTypesMessage().invokeCatchThrowableExceptions(this);
+			if (parmTypes == null)
+				fParameterTypes = new IBeanTypeProxy[0]; // There was some error, only way null is returned
+			else {
+				int len = parmTypes.getLength();
+				fParameterTypes = new IBeanTypeProxy[len];
+				for (int i = 0; i < len; i++)
+					try {
+						fParameterTypes[i] = (IBeanTypeProxy) parmTypes.get(i);
+					} catch (ThrowableProxy e) {
+					}
+				fFactory.releaseProxy(parmTypes); // Don't need the array on the server anymore.
+			}
+		}
+
+		return fParameterTypes;
+	}
+	
 }

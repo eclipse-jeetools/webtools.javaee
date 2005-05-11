@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaXMIFactoryImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:16 $ 
  */
 import java.io.IOException;
 import java.util.*;
@@ -110,6 +110,20 @@ public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl {
 			}
 			return result;
 		}
+		
+		/**
+		 * Used by JavaReflectionKey to look directly into ID table to bypass an infinite loop. It will 
+		 * call here because it may not of first been found, but then added, so now is found.
+		 * 
+		 * @param uriFragment
+		 * @return
+		 * 
+		 * @since 1.1.0
+		 */
+		EObject primGetEObject(String uriFragment) {
+			return super.getEObject(uriFragment);
+		}
+		
 		/* (non-Javadoc)
 		 * @see org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl#useIDAttributes()
 		 */

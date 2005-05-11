@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMAbstractBeanProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -119,4 +119,16 @@ public abstract class REMAbstractBeanProxy implements IREMBeanProxy {
 		value.setObjectID(isValid() ? getID().intValue() : Commands.VOID);	// No longer exists, so send over null.
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isBeanProxy()
+	 */
+	public final boolean isBeanProxy() {
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isExpressionProxy()
+	 */
+	public final boolean isExpressionProxy() {
+		return false;
+	}
 }

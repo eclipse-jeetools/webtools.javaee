@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ThrowableProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -29,6 +29,23 @@ public abstract class ThrowableProxy extends java.lang.Exception implements IBea
 		super();
    }
 
+	/**
+	 * @param message
+	 * @param cause
+	 * 
+	 * @since 1.1.0
+	 */
+	protected ThrowableProxy(String message, Throwable cause) {
+		super(message, cause);
+	}
+	/**
+	 * @param cause
+	 * 
+	 * @since 1.1.0
+	 */
+	protected ThrowableProxy(Throwable cause) {
+		super(cause);
+	}
    /**
     * Constructs an <code>Exception</code> with the specified detail message. 
     *

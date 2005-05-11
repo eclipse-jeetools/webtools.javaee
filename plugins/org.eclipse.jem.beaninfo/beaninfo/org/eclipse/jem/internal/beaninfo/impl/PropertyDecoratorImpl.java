@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2005/04/14 19:05:36 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/11 19:01:28 $ 
  */
 
 
@@ -1148,14 +1148,14 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @see org.eclipse.jem.internal.beaninfo.PropertyDecorator#isWriteable()
 	 */
 	public boolean isWriteable() {
-		return !(getWriteMethod() == null && getField() == null);
+		return getWriteMethod() != null || (getField() != null && !isFieldReadOnly()); 
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.beaninfo.PropertyDecorator#isReadable()
 	 */
 	public boolean isReadable() {
-		return !(getReadMethod() == null && getField() == null);
+		return getReadMethod() != null || getField() != null;
 	}
 	
 

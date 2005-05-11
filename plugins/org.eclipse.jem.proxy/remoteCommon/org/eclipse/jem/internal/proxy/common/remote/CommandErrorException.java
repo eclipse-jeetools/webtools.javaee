@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: CommandErrorException.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:56:39 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
@@ -32,7 +32,7 @@ public class CommandErrorException extends CommandException {
 	}
 	
 	public CommandErrorException(String msg, int errorCode, Commands.ValueObject errorData, Object errorObject) {
-		super(msg, errorData);
+		super(msg, errorData.clone());
 		fErrorObject = errorObject;
 		fErrorCode = errorCode;		
 	}

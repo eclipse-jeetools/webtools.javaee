@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaHelpers.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:16 $ 
  */
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -39,6 +39,17 @@ public interface JavaHelpers extends EClass {
 	static final String PRIM_INTEGER_NAME = "int";
 	static final String PRIM_LONG_NAME = "long";
 	static final String PRIM_SHORT_NAME = "short";
+	
+	static final int PRIM_NOT_ID = 0;
+	static final int PRIM_BOOLEAN_ID = 1;
+	static final int PRIM_CHARACTER_ID = 2;
+	static final int PRIM_BYTE_ID = 3;
+	static final int PRIM_DOUBLE_ID = 4;
+	static final int PRIM_FLOAT_ID = 5;
+	static final int PRIM_INTEGER_ID = 6;
+	static final int PRIM_LONG_ID = 7;
+	static final int PRIM_SHORT_ID = 8;
+	
 	/**
 	 * Get the qualified name (with using '.' for inner classes). Will return the name if primitive too (e.g. "boolean")
 	 * Note: This should of been get the simple name and not the qualifed name, but it is too late and has been established
@@ -56,7 +67,24 @@ public interface JavaHelpers extends EClass {
 	 * @since 1.0.0
 	 */
 	public String getSimpleName();
+
+	/**
+	 * Get the primitive type that this helper wrappers or is (e.g. "java.lang.Integer" and "int" types return "int" type). If not a primitive
+	 * or a wrapper for a primitive, then return null.
+	 * @return
+	 * 
+	 * @since 1.0.0
+	 */
 	public JavaDataType getPrimitive();
+	
+	/**
+	 * Get the primitive id that this helper wrappers or is (e.g. "java.lang.Integer" and "int" will return {@link JavaHelpers#PRIM_INTEGER_ID}). If
+	 * not a wrapper for a primitive then return {@link JavaHelpers#PRIM_NOT_ID}.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public int getPrimitiveID();
 	/**
 	 * To be used by people that need to get the qualified name. This would use '.' for inner classes
 	 * and include the package name.

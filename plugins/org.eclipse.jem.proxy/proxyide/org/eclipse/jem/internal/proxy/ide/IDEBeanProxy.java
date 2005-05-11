@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEBeanProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -70,6 +70,11 @@ public abstract class IDEBeanProxy implements IBeanProxy, IIDEBeanProxy {
 		}
 		return false;
 	}
+	
+	public int hashCode() {
+		return 12345 + (getBean() != null ? getBean().hashCode() : 0); 
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#sameAs(org.eclipse.jem.internal.proxy.core.IBeanProxy)
 	 */
@@ -81,4 +86,16 @@ public abstract class IDEBeanProxy implements IBeanProxy, IIDEBeanProxy {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isBeanProxy()
+	 */
+	public final boolean isBeanProxy() {
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isExpressionProxy()
+	 */
+	public final boolean isExpressionProxy() {
+		return false;
+	}
 }

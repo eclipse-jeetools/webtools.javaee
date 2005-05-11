@@ -10,17 +10,15 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:16 $ 
  */
 package org.eclipse.jem.internal.instantiation.base;
 
 import java.util.List;
 
 import org.eclipse.jem.internal.instantiation.*;
-import org.eclipse.jem.internal.instantiation.ParseVisitor;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants;
-import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExpressionValueException;
+import org.eclipse.jem.internal.proxy.initParser.tree.*;
  
 /**
  * This is the standard parse visitor for instantiating a bean proxy from a java parse tree allocation.
@@ -29,12 +27,7 @@ import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExp
  * @since 1.0.0
  */
 public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
-	
-	/**
-	 * Registry for processing the expressions against.
-	 */
-	private ProxyFactoryRegistry registry;
-	
+		
 	/**
 	 * The expression that is being created and evaluated.
 	 */
@@ -45,7 +38,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * visitation to the next expression. It will set this to what that expression should be using. This
 	 * is necessary because the next expression doesn't know what it should be.
 	 */
-	private int nextExpression = IExpression.ROOTEXPRESSION;
+	private ForExpression nextExpression = ForExpression.ROOTEXPRESSION;
 	
 	/**
 	 * An exception occurred during processing. It is a RuntimeException because
@@ -67,28 +60,28 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 		}
 	}
 	
-	static final int[] INFIXTOPROXY;
+	static final InfixOperator[] INFIXTOPROXY;
 	static {
-		INFIXTOPROXY = new int[PTInfixOperator.VALUES.size()];
-		INFIXTOPROXY[PTInfixOperator.AND] = IExpressionConstants.IN_AND;
-		INFIXTOPROXY[PTInfixOperator.CONDITIONAL_AND] = IExpressionConstants.IN_CONDITIONAL_AND;
-		INFIXTOPROXY[PTInfixOperator.CONDITIONAL_OR] = IExpressionConstants.IN_CONDITIONAL_OR;
-		INFIXTOPROXY[PTInfixOperator.DIVIDE] = IExpressionConstants.IN_DIVIDE;
-		INFIXTOPROXY[PTInfixOperator.EQUALS] = IExpressionConstants.IN_EQUALS;
-		INFIXTOPROXY[PTInfixOperator.GREATER] = IExpressionConstants.IN_GREATER;
-		INFIXTOPROXY[PTInfixOperator.GREATER_EQUALS] = IExpressionConstants.IN_GREATER_EQUALS;
-		INFIXTOPROXY[PTInfixOperator.LEFT_SHIFT] = IExpressionConstants.IN_LEFT_SHIFT;
-		INFIXTOPROXY[PTInfixOperator.LESS] = IExpressionConstants.IN_LESS;
-		INFIXTOPROXY[PTInfixOperator.LESS_EQUALS] = IExpressionConstants.IN_LESS_EQUALS;
-		INFIXTOPROXY[PTInfixOperator.MINUS] = IExpressionConstants.IN_MINUS;
-		INFIXTOPROXY[PTInfixOperator.NOT_EQUALS] = IExpressionConstants.IN_NOT_EQUALS;
-		INFIXTOPROXY[PTInfixOperator.OR] = IExpressionConstants.IN_OR;
-		INFIXTOPROXY[PTInfixOperator.PLUS] = IExpressionConstants.IN_PLUS;
-		INFIXTOPROXY[PTInfixOperator.REMAINDER] = IExpressionConstants.IN_REMAINDER;
-		INFIXTOPROXY[PTInfixOperator.RIGHT_SHIFT_SIGNED] = IExpressionConstants.IN_RIGHT_SHIFT_SIGNED;
-		INFIXTOPROXY[PTInfixOperator.RIGHT_SHIFT_UNSIGNED] = IExpressionConstants.IN_RIGHT_SHIFT_UNSIGNED;
-		INFIXTOPROXY[PTInfixOperator.TIMES] = IExpressionConstants.IN_TIMES;
-		INFIXTOPROXY[PTInfixOperator.XOR] = IExpressionConstants.IN_XOR;
+		INFIXTOPROXY = new InfixOperator[PTInfixOperator.VALUES.size()];
+		INFIXTOPROXY[PTInfixOperator.AND] = InfixOperator.IN_AND;
+		INFIXTOPROXY[PTInfixOperator.CONDITIONAL_AND] = InfixOperator.IN_CONDITIONAL_AND;
+		INFIXTOPROXY[PTInfixOperator.CONDITIONAL_OR] = InfixOperator.IN_CONDITIONAL_OR;
+		INFIXTOPROXY[PTInfixOperator.DIVIDE] = InfixOperator.IN_DIVIDE;
+		INFIXTOPROXY[PTInfixOperator.EQUALS] = InfixOperator.IN_EQUALS;
+		INFIXTOPROXY[PTInfixOperator.GREATER] = InfixOperator.IN_GREATER;
+		INFIXTOPROXY[PTInfixOperator.GREATER_EQUALS] = InfixOperator.IN_GREATER_EQUALS;
+		INFIXTOPROXY[PTInfixOperator.LEFT_SHIFT] = InfixOperator.IN_LEFT_SHIFT;
+		INFIXTOPROXY[PTInfixOperator.LESS] = InfixOperator.IN_LESS;
+		INFIXTOPROXY[PTInfixOperator.LESS_EQUALS] = InfixOperator.IN_LESS_EQUALS;
+		INFIXTOPROXY[PTInfixOperator.MINUS] = InfixOperator.IN_MINUS;
+		INFIXTOPROXY[PTInfixOperator.NOT_EQUALS] = InfixOperator.IN_NOT_EQUALS;
+		INFIXTOPROXY[PTInfixOperator.OR] = InfixOperator.IN_OR;
+		INFIXTOPROXY[PTInfixOperator.PLUS] = InfixOperator.IN_PLUS;
+		INFIXTOPROXY[PTInfixOperator.REMAINDER] = InfixOperator.IN_REMAINDER;
+		INFIXTOPROXY[PTInfixOperator.RIGHT_SHIFT_SIGNED] = InfixOperator.IN_RIGHT_SHIFT_SIGNED;
+		INFIXTOPROXY[PTInfixOperator.RIGHT_SHIFT_UNSIGNED] = InfixOperator.IN_RIGHT_SHIFT_UNSIGNED;
+		INFIXTOPROXY[PTInfixOperator.TIMES] = InfixOperator.IN_TIMES;
+		INFIXTOPROXY[PTInfixOperator.XOR] = InfixOperator.IN_XOR;
 	}
 	
 	/**
@@ -99,17 +92,17 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * 
 	 * @since 1.0.0
 	 */
-	public static int convertPTInfixOperatorToProxyInfixOperator(PTInfixOperator operator) {
+	public static InfixOperator convertPTInfixOperatorToProxyInfixOperator(PTInfixOperator operator) {
 		return INFIXTOPROXY[operator.getValue()];
 	}
 
-	static final int[] PREFIXTOPROXY;
+	static final PrefixOperator[] PREFIXTOPROXY;
 	static {
-		PREFIXTOPROXY = new int[PTPrefixOperator.VALUES.size()];
-		PREFIXTOPROXY[PTPrefixOperator.COMPLEMENT] = IExpressionConstants.PRE_COMPLEMENT;
-		PREFIXTOPROXY[PTPrefixOperator.MINUS] = IExpressionConstants.PRE_MINUS;
-		PREFIXTOPROXY[PTPrefixOperator.NOT] = IExpressionConstants.PRE_NOT;
-		PREFIXTOPROXY[PTPrefixOperator.PLUS] = IExpressionConstants.PRE_PLUS;
+		PREFIXTOPROXY = new PrefixOperator[PTPrefixOperator.VALUES.size()];
+		PREFIXTOPROXY[PTPrefixOperator.COMPLEMENT] = PrefixOperator.PRE_COMPLEMENT;
+		PREFIXTOPROXY[PTPrefixOperator.MINUS] = PrefixOperator.PRE_MINUS;
+		PREFIXTOPROXY[PTPrefixOperator.NOT] = PrefixOperator.PRE_NOT;
+		PREFIXTOPROXY[PTPrefixOperator.PLUS] = PrefixOperator.PRE_PLUS;
 	}
 	
 	/**
@@ -120,7 +113,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * 
 	 * @since 1.0.0
 	 */
-	public static int convertPTPrefixOperatorToProxyPrefixOperator(PTPrefixOperator operator) {
+	public static PrefixOperator convertPTPrefixOperatorToProxyPrefixOperator(PTPrefixOperator operator) {
 		return PREFIXTOPROXY[operator.getValue()];
 	}
 	
@@ -142,7 +135,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @since 1.0.0
 	 */
 	protected final ProxyFactoryRegistry getRegistry() {
-		return registry;
+		return expression.getRegistry();
 	}
 	
 	/**
@@ -157,7 +150,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	}	
 
 	/**
-	 * Get the beanproxy for the given expression and registry.
+	 * Get the beanproxy for the given expression and registry. It will evaluate immediately.
 	 * 
 	 * @param expression
 	 * @param registry
@@ -170,24 +163,52 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @since 1.0.0
 	 */
 	public IBeanProxy getBeanProxy(PTExpression expression, ProxyFactoryRegistry registry) throws IllegalStateException, IllegalArgumentException, ThrowableProxy, NoExpressionValueException, ProcessingException {
-		this.registry = registry;
 		this.expression = registry.getBeanProxyFactory().createExpression();
-		setNextExpression(IExpression.ROOTEXPRESSION);
+		setNextExpression(ForExpression.ROOTEXPRESSION);
 		try {
 			expression.accept(this);
 		} catch (ProcessingException e) {
 			// Handle the most common that make sense to be know distinctly and throw them instead of ProcessingException.
 			Throwable t = e.getCause();
-			if (t instanceof ThrowableProxy)
-				throw (ThrowableProxy) t;
-			else if (t instanceof NoExpressionValueException)
+			if (t instanceof NoExpressionValueException)
 				throw (NoExpressionValueException) t;
+			else if (t instanceof IllegalStateException)
+				throw (IllegalStateException) t;
 			else
 				throw e;
 		}
 		
 		return getExpression().getExpressionValue();
 	}
+	
+	/**
+	 * Using the given expression processor allocate the proxy. It will not evaluate immediately, but just push onto the expression.
+	 * @param expression
+	 * @param expressionProcessor
+	 * @return the ExpressionProxy for the allocation.
+	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
+	 * @throws ProcessingException
+	 * 
+	 * @since 1.1.0
+	 */
+	public ExpressionProxy getProxy(PTExpression expression, IExpression expressionProcessor) throws IllegalStateException, IllegalArgumentException, ProcessingException {
+		this.expression = expressionProcessor;
+		try {
+			ExpressionProxy proxy = expressionProcessor.createProxyAssignmentExpression(ForExpression.ROOTEXPRESSION);
+			setNextExpression(ForExpression.ASSIGNMENT_RIGHT);
+			expression.accept(this);
+			return proxy;
+		} catch (ProcessingException e) {
+			// Handle the most common that make sense to be know distinctly and throw them instead of ProcessingException.
+			Throwable t = e.getCause();
+			if (t instanceof IllegalStateException)
+				throw (IllegalStateException) t;
+			else
+				throw e;
+		}
+	}
+
 	
 	/**
 	 * Set the next expression type. (i.e. the <code>forExpression</code> field of most of the create expression methods.
@@ -197,7 +218,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see IExpression#createInfixExpression(int, int, int)
 	 * @since 1.0.0
 	 */
-	protected final void setNextExpression(int nextExpression) {
+	protected final void setNextExpression(ForExpression nextExpression) {
 		this.nextExpression = nextExpression;
 	}
 
@@ -209,7 +230,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see IExpression#createInfixExpression(int, int, int)
 	 * @since 1.0.0
 	 */
-	protected final int getNextExpression() {
+	protected final ForExpression getNextExpression() {
 		return nextExpression;
 	}
 
@@ -217,20 +238,14 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTArrayAccess)
 	 */
 	public boolean visit(PTArrayAccess node) {
-		try {
-			getExpression().createArrayAccess(getNextExpression(), node.getIndexes().size());
-			setNextExpression(IExpression.ARRAYACCESS_ARRAY);
-			node.getArray().accept(this);
-			List idx = node.getIndexes();
-			int s = idx.size();
-			for (int i = 0; i < s; i++) {
-				setNextExpression(IExpression.ARRAYACCESS_INDEX);
-				((PTExpression) idx.get(i)).accept(this);
-			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		getExpression().createArrayAccess(getNextExpression(), node.getIndexes().size());
+		setNextExpression(ForExpression.ARRAYACCESS_ARRAY);
+		node.getArray().accept(this);
+		List idx = node.getIndexes();
+		int s = idx.size();
+		for (int i = 0; i < s; i++) {
+			setNextExpression(ForExpression.ARRAYACCESS_INDEX);
+			((PTExpression) idx.get(i)).accept(this);
 		}
 		return false;
 	}
@@ -239,22 +254,16 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTArrayCreation)
 	 */
 	public boolean visit(PTArrayCreation node) {
-		try {
-			getExpression().createArrayCreation(getNextExpression(), node.getType(), node.getDimensions().size());
-			if (node.getDimensions().isEmpty()) {
-				node.getInitializer().accept(this);	// Array initializer doesn't require a next expression.
-			} else {
-				List dims = node.getDimensions();
-				int s = dims.size();
-				for (int i = 0; i < s; i++) {
-					setNextExpression(IExpression.ARRAYCREATION_DIMENSION);
-					((PTExpression) dims.get(i)).accept(this);
-				}
+		getExpression().createArrayCreation(getNextExpression(), node.getType(), node.getDimensions().size());
+		if (node.getDimensions().isEmpty()) {
+			node.getInitializer().accept(this);	// Array initializer doesn't require a next expression.
+		} else {
+			List dims = node.getDimensions();
+			int s = dims.size();
+			for (int i = 0; i < s; i++) {
+				setNextExpression(ForExpression.ARRAYCREATION_DIMENSION);
+				((PTExpression) dims.get(i)).accept(this);
 			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -263,18 +272,12 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTArrayInitializer)
 	 */
 	public boolean visit(PTArrayInitializer node) {
-		try {
-			getExpression().createArrayInitializer(node.getExpressions().size());
-			List exps = node.getExpressions();
-			int s = exps.size();
-			for (int i = 0; i < s; i++) {
-				setNextExpression(IExpression.ARRAYINITIALIZER_EXPRESSION);
-				((PTExpression) exps.get(i)).accept(this);
-			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		getExpression().createArrayInitializer(node.getExpressions().size());
+		List exps = node.getExpressions();
+		int s = exps.size();
+		for (int i = 0; i < s; i++) {
+			setNextExpression(ForExpression.ARRAYINITIALIZER_EXPRESSION);
+			((PTExpression) exps.get(i)).accept(this);
 		}
 		return false;
 	}
@@ -283,13 +286,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTBooleanLiteral)
 	 */
 	public boolean visit(PTBooleanLiteral node) {
-		try {
-			getExpression().createPrimitiveLiteral(getNextExpression(), node.isBooleanValue());
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createPrimitiveLiteral(getNextExpression(), node.isBooleanValue());
 		return false;
 	}
 
@@ -297,15 +294,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTCastExpression)
 	 */
 	public boolean visit(PTCastExpression node) {
-		try {
-			getExpression().createCastExpression(getNextExpression(), node.getType());
-			setNextExpression(IExpression.CAST_EXPRESSION);
-			node.getExpression().accept(this);
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createCastExpression(getNextExpression(), node.getType());
+		setNextExpression(ForExpression.CAST_EXPRESSION);
+		node.getExpression().accept(this);
 		return false;
 	}
 
@@ -313,13 +304,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTCharacterLiteral)
 	 */
 	public boolean visit(PTCharacterLiteral node) {
-		try {
-			getExpression().createPrimitiveLiteral(getNextExpression(), node.getCharValue());
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createPrimitiveLiteral(getNextExpression(), node.getCharValue());
 		return false;
 	}
 
@@ -327,18 +312,12 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTClassInstanceCreation)
 	 */
 	public boolean visit(PTClassInstanceCreation node) {
-		try {
-			getExpression().createClassInstanceCreation(getNextExpression(), node.getType(), node.getArguments().size());
-			List args = node.getArguments();
-			int s = args.size();
-			for (int i = 0; i < s; i++) {
-				setNextExpression(IExpression.CLASSINSTANCECREATION_ARGUMENT);
-				((PTExpression) args.get(i)).accept(this);
-			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		getExpression().createClassInstanceCreation(getNextExpression(), node.getType(), node.getArguments().size());
+		List args = node.getArguments();
+		int s = args.size();
+		for (int i = 0; i < s; i++) {
+			setNextExpression(ForExpression.CLASSINSTANCECREATION_ARGUMENT);
+			((PTExpression) args.get(i)).accept(this);
 		}
 		return false;
 	}
@@ -347,19 +326,13 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTConditionalExpression)
 	 */
 	public boolean visit(PTConditionalExpression node) {
-		try {
-			getExpression().createConditionalExpression(getNextExpression());
-			setNextExpression(IExpression.CONDITIONAL_CONDITION);
-			node.getCondition().accept(this);
-			setNextExpression(IExpression.CONDITIONAL_TRUE);
-			node.getTrue().accept(this);
-			setNextExpression(IExpression.CONDITIONAL_FALSE);
-			node.getFalse().accept(this);			
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createConditionalExpression(getNextExpression());
+		setNextExpression(ForExpression.CONDITIONAL_CONDITION);
+		node.getCondition().accept(this);
+		setNextExpression(ForExpression.CONDITIONAL_TRUE);
+		node.getTrue().accept(this);
+		setNextExpression(ForExpression.CONDITIONAL_FALSE);
+		node.getFalse().accept(this);
 		return false;
 	}
 
@@ -367,16 +340,10 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTFieldAccess)
 	 */
 	public boolean visit(PTFieldAccess node) {
-		try {
-			getExpression().createFieldAccess(getNextExpression(), node.getField(), node.getReceiver() != null);
-			if (node.getReceiver() != null) {
-				setNextExpression(IExpression.FIELD_RECEIVER);
-				node.getReceiver().accept(this);
-			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		getExpression().createFieldAccess(getNextExpression(), node.getField(), node.getReceiver() != null);
+		if (node.getReceiver() != null) {
+			setNextExpression(ForExpression.FIELD_RECEIVER);
+			node.getReceiver().accept(this);
 		}
 		return false;
 	}
@@ -385,22 +352,16 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTInfixExpression)
 	 */
 	public boolean visit(PTInfixExpression node) {
-		try {
-			getExpression().createInfixExpression(getNextExpression(), convertPTInfixOperatorToProxyInfixOperator(node.getOperator()), node.getExtendedOperands().size());
-			setNextExpression(IExpression.INFIX_LEFT);
-			node.getLeftOperand().accept(this);
-			setNextExpression(IExpression.INFIX_RIGHT);
-			node.getRightOperand().accept(this);
-			List extended = node.getExtendedOperands();
-			int s = extended.size();
-			for (int i = 0; i < s; i++) {
-				setNextExpression(IExpression.INFIX_EXTENDED);
-				((PTExpression) extended.get(i)).accept(this);
-			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		getExpression().createInfixExpression(getNextExpression(), convertPTInfixOperatorToProxyInfixOperator(node.getOperator()), node.getExtendedOperands().size());
+		setNextExpression(ForExpression.INFIX_LEFT);
+		node.getLeftOperand().accept(this);
+		setNextExpression(ForExpression.INFIX_RIGHT);
+		node.getRightOperand().accept(this);
+		List extended = node.getExtendedOperands();
+		int s = extended.size();
+		for (int i = 0; i < s; i++) {
+			setNextExpression(ForExpression.INFIX_EXTENDED);
+			((PTExpression) extended.get(i)).accept(this);
 		}
 		return false;
 	}
@@ -409,15 +370,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTInstanceof)
 	 */
 	public boolean visit(PTInstanceof node) {
-		try {
-			getExpression().createInstanceofExpression(getNextExpression(), node.getType());
-			setNextExpression(IExpression.INSTANCEOF_VALUE);
-			node.getOperand().accept(this);
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createInstanceofExpression(getNextExpression(), node.getType());
+		setNextExpression(ForExpression.INSTANCEOF_VALUE);
+		node.getOperand().accept(this);
 		return false;
 	}
 
@@ -432,22 +387,16 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTMethodInvocation)
 	 */
 	public boolean visit(PTMethodInvocation node) {
-		try {
-			getExpression().createMethodInvocation(getNextExpression(), node.getName(), node.getReceiver() != null, node.getArguments().size());
-			if (node.getReceiver() != null) {
-				setNextExpression(IExpression.METHOD_RECEIVER);
-				node.getReceiver().accept(this);
-			}
-			List args = node.getArguments();
-			int s = args.size();
-			for (int i = 0; i < s; i++) {
-				setNextExpression(IExpression.METHOD_ARGUMENT);
-				((PTExpression) args.get(i)).accept(this);
-			}			
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		getExpression().createMethodInvocation(getNextExpression(), node.getName(), node.getReceiver() != null, node.getArguments().size());
+		if (node.getReceiver() != null) {
+			setNextExpression(ForExpression.METHOD_RECEIVER);
+			node.getReceiver().accept(this);
+		}
+		List args = node.getArguments();
+		int s = args.size();
+		for (int i = 0; i < s; i++) {
+			setNextExpression(ForExpression.METHOD_ARGUMENT);
+			((PTExpression) args.get(i)).accept(this);
 		}
 		return false;
 	}
@@ -456,14 +405,8 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTName)
 	 */
 	public boolean visit(PTName node) {
-		try {
-			// This is special in the PTName can only be used as a type receiver at this time.
-			getExpression().createTypeReceiver(node.getName());
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		// This is special in the PTName can only be used as a type receiver at this time.
+		getExpression().createTypeReceiver(node.getName());
 		return false;
 	}
 
@@ -471,14 +414,8 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTNullLiteral)
 	 */
 	public boolean visit(PTNullLiteral node) {
-		try {
-			// This is special in the PTName can only be used as a type receiver at this time.
-			getExpression().createNull(getNextExpression());
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		// This is special in the PTName can only be used as a type receiver at this time.
+		getExpression().createNull(getNextExpression());
 		return false;
 	}
 
@@ -486,31 +423,25 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTNumberLiteral)
 	 */
 	public boolean visit(PTNumberLiteral node) {
-		try {
-			// It is assumed the tokens are trimmed.
-			String lit = node.getToken();
-			char lastChar = lit.charAt(lit.length()-1);
-			if (lastChar == 'l' || lastChar == 'L' ) {
-				// It is definitely a long.
-				// Using decode so that things like 0x3 will be parsed. parseLong won't recognize those.
-				getExpression().createPrimitiveLiteral(getNextExpression(), Long.decode(lit.substring(0, lit.length()-1)).longValue());
-			} else if (lastChar == 'F' || lastChar == 'f') {
-				// It is definitely a float.
-				getExpression().createPrimitiveLiteral(getNextExpression(), Float.parseFloat(lit.substring(0, lit.length()-1)));
-			} else if (lastChar == 'D' || lastChar == 'd')  {
-				// It is definitely a double.
-				getExpression().createPrimitiveLiteral(getNextExpression(), Double.parseDouble(lit.substring(0, lit.length()-1)));
-			} else if (lit.indexOf('.') != -1 || lit.indexOf('e') != -1 || lit.indexOf('E') != -1) {
-					// It is definitely a double. (has a period or an exponent, but does not have an 'f' on the end is always a double).
-					getExpression().createPrimitiveLiteral(getNextExpression(), Double.parseDouble(lit.substring(0, lit.length())));
-			} else {
-				// Using decode so that things like 0x3 will be parsed. parseInt won't recognize those.
-				getExpression().createPrimitiveLiteral(getNextExpression(), Integer.decode(lit).intValue());
-			}
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
+		// It is assumed the tokens are trimmed.
+		String lit = node.getToken();
+		char lastChar = lit.charAt(lit.length()-1);
+		if (lastChar == 'l' || lastChar == 'L' ) {
+			// It is definitely a long.
+			// Using decode so that things like 0x3 will be parsed. parseLong won't recognize those.
+			getExpression().createPrimitiveLiteral(getNextExpression(), Long.decode(lit.substring(0, lit.length()-1)).longValue());
+		} else if (lastChar == 'F' || lastChar == 'f') {
+			// It is definitely a float.
+			getExpression().createPrimitiveLiteral(getNextExpression(), Float.parseFloat(lit.substring(0, lit.length()-1)));
+		} else if (lastChar == 'D' || lastChar == 'd')  {
+			// It is definitely a double.
+			getExpression().createPrimitiveLiteral(getNextExpression(), Double.parseDouble(lit.substring(0, lit.length()-1)));
+		} else if (lit.indexOf('.') != -1 || lit.indexOf('e') != -1 || lit.indexOf('E') != -1) {
+				// It is definitely a double. (has a period or an exponent, but does not have an 'f' on the end is always a double).
+				getExpression().createPrimitiveLiteral(getNextExpression(), Double.parseDouble(lit.substring(0, lit.length())));
+		} else {
+			// Using decode so that things like 0x3 will be parsed. parseInt won't recognize those.
+			getExpression().createPrimitiveLiteral(getNextExpression(), Integer.decode(lit).intValue());
 		}
 		return false;
 	}
@@ -527,15 +458,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTPrefixExpression)
 	 */
 	public boolean visit(PTPrefixExpression node) {
-		try {
-			getExpression().createPrefixExpression(getNextExpression(), convertPTPrefixOperatorToProxyPrefixOperator(node.getOperator()));
-			setNextExpression(IExpression.PREFIX_OPERAND);
-			node.getExpression().accept(this);
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createPrefixExpression(getNextExpression(), convertPTPrefixOperatorToProxyPrefixOperator(node.getOperator()));
+		setNextExpression(ForExpression.PREFIX_OPERAND);
+		node.getExpression().accept(this);
 		return false;
 	}
 
@@ -543,13 +468,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTStringLiteral)
 	 */
 	public boolean visit(PTStringLiteral node) {
-		try {
-			getExpression().createProxyExpression(getNextExpression(), getRegistry().getBeanProxyFactory().createBeanProxyWith(node.getLiteralValue()));
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createProxyExpression(getNextExpression(), getRegistry().getBeanProxyFactory().createBeanProxyWith(node.getLiteralValue()));
 		return false;
 	}
 
@@ -564,13 +483,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTTypeLiteral)
 	 */
 	public boolean visit(PTTypeLiteral node) {
-		try {
-			getExpression().createTypeLiteral(getNextExpression(), node.getType());
-		} catch (ThrowableProxy e) {
-			throw new ProcessingException(e);
-		} catch (NoExpressionValueException e) {
-			throw new ProcessingException(e);
-		}
+		getExpression().createTypeLiteral(getNextExpression(), node.getType());
 		return false;
 	}
 

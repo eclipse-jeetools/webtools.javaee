@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoProxyConstants.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:28 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -26,7 +26,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  */
 public final class BeaninfoProxyConstants {
 
-	private static final String REGISTRY_KEY = "org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants:"; //$NON-NLS-1$
+	private static final Object REGISTRY_KEY = new Object();
 
 	private final IMethodProxy introspectProxy;
 

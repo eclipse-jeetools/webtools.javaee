@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IMethodProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -19,7 +19,7 @@ package org.eclipse.jem.internal.proxy.core;
  * 
  * @author: Joe Winchester
  */
-public interface IMethodProxy extends IAccessibleObjectProxy, IInvokable {
+public interface IMethodProxy extends IAccessibleObjectProxy, IInvokable, IProxyMethod {
 
 	/**
 	 * Answer the class the method is defined in. Creation date: (12/3/99 11:37:12 AM)

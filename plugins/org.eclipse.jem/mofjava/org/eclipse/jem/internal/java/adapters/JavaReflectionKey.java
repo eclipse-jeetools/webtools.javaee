@@ -11,13 +11,12 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionKey.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:16 $ 
  */
 import java.util.*;
 
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.java.*;
 
@@ -51,50 +50,10 @@ public class JavaReflectionKey {
 
 	static { initializePrimitivesCollection(); }
 	
-	protected XMIResource resource; //FB
+	protected JavaXMIFactoryImpl.JavaXMIResource resource; //FB
 	protected List extensions;
-//FB /**
-//FB  * JavaReflectionKey constructor comment.
-//FB  */
-//FB public JavaReflectionKey() {
-//FB 	super();
-//FB }
 
-//FB /**
-//FB  * Method JavaReflectionKey.
-//FB  * @param extensions
-//FB  */
-//FB public JavaReflectionKey(List extensions) {
-//FB 	super();
-//FB 	setExtensions(extensions);
-//FB }
-
-//FB /**
-//FB  * Method JavaReflectionKey.
-//FB  * @param extensions
-//FB  * @param extent
-//FB  */
-//FB public JavaReflectionKey(List extensions, Extent extent) {
-//FB 	this(extent);
-//FB 	setExtensions(extensions);
-//FB }
-
-//FB /**
-//FB  * JavaReflectionKey constructor comment.
-//FB  * @param e com.ibm.etools.emf.ref.Extent
-//FB  */
-//FB public JavaReflectionKey(com.ibm.etools.emf.ref.Extent e) {
-//FB 	super(e);
-//FB }
-//FB /**
-//FB  * Set the extensions to use. Typically only called by JavaXMIFactoryImpl.
-//FB  */
-//FB public void setExtensions(List extensions) {
-//FB 	this.extensions = extensions;
-//FB }
-
-//FB ADDED
-public JavaReflectionKey(List extensions, XMIResource resource) {
+public JavaReflectionKey(List extensions, JavaXMIFactoryImpl.JavaXMIResource resource) {
   this.extensions = extensions;
   this.resource = resource;
 }
@@ -389,7 +348,7 @@ protected boolean isValidJavaIdentifier(String typeName) {
  * The Key must be an ID for it to be found.
  */
 public Object primGet(String key) {
-	return resource.getIDToEObjectMap().get(key);
+	return resource.primGetEObject(key);
 }
 protected EPackage getPackage() {
 	//FB return (EPackage) super.get(JavaPackage.PACKAGE_ID);

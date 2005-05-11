@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaStandardBeanProxyConstants.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -36,7 +36,7 @@ package org.eclipse.jem.internal.proxy.core;
  * @author: Administrator
  */
 public final class JavaStandardBeanProxyConstants {
-	public static final String REGISTRY_KEY = "STANDARDPROXYCONSTANTS:"; //$NON-NLS-1$
+	public static final Object REGISTRY_KEY = new Object();
 		
 	final IBeanTypeProxy fCollectionType;
 	final IBeanTypeProxy fListType;

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JDOMSearchHelper.java,v $
- *  $Revision: 1.3 $  $Date: 2005/03/15 23:21:02 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:23 $ 
  */
 
 import java.io.File;
@@ -347,10 +347,7 @@ public class JDOMSearchHelper {
 	public static IType findType(String packageName, String qualifiedTypeName, IJavaProject javaProject) {
 		try {
 			if (javaProject != null) {
-				String typeName = qualifiedTypeName;
-				if (qualifiedTypeName.indexOf('$') != -1)
-					typeName = qualifiedTypeName.replace('$', '.');
-				return javaProject.findType(packageName, typeName);
+				return javaProject.findType(packageName, qualifiedTypeName.replace('$', '.'));
 			}
 		} catch (JavaModelException jme) {
 			System.out.println(ResourceHandler.getString("Error_Looking_Up_Type_ERROR_", (new Object[] { packageName + "." + qualifiedTypeName, jme.getMessage()}))); //$NON-NLS-1$ = "Error looking up type: "

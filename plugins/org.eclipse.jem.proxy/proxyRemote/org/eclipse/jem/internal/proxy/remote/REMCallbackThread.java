@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.12 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.13 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.io.*;
@@ -36,8 +36,30 @@ class REMCallbackThread extends Thread {
 	final REMStandardBeanTypeProxyFactory fTypeFactory;
 	final REMProxyFactoryRegistry registry;
 	protected boolean shuttingDown;
+	protected boolean inTransaction;	// Is this thread currently participating in a transaction, (i.e. reading/writing), if so then we can't use it for another transaction.
 	
 
+	/**
+	 * Is this callback thread currently participating in a transaction (reading/writing). If so then it can't be used for an
+	 * independent new transaction.
+	 * 
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean inTransaction() {
+		return inTransaction;
+	}
+	
+	/**
+	 * Set whether this callback thread is in a transaction or not.
+	 * @param inTransaction
+	 * 
+	 * @since 1.1.0
+	 */
+	public void setIntransaction(boolean inTransaction) {
+		this.inTransaction = inTransaction;
+	}
 	
 	// Kludge: Bug in Linux 1.3.xxx of JVM. Closing a socket while the socket is being read/accept will not interrupt the
 	// wait. Need to timeout to the socket read/accept before the socket close will be noticed. This has been fixed
@@ -127,6 +149,7 @@ class REMCallbackThread extends Thread {
 							// The register callback handler will know how to handle the parm,
 							// it will know if it is an array of proxies, or an object of some kind.
 							fFactory.startTransaction();	// Start a transaction.
+							setIntransaction(true);	// Also tell ourselves that we are in a transaction.
 							boolean isProxies = true;							
 							try {
 								Commands.readValue(in, valueObject);
@@ -135,7 +158,7 @@ class REMCallbackThread extends Thread {
 									// However it will become IBeanProxy[]. That is because if ID's
 									// they must be proxies over here.
 									valueSender.initialize(valueObject);
-									Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+									Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
 									if (valueSender.getException() != null) {
 										close();	// Something wrong, close the thread so next time we get a new one.
 									}
@@ -146,6 +169,7 @@ class REMCallbackThread extends Thread {
 									parm = valueObject.getAsObject();
 								}
 							} finally {
+								setIntransaction(false);
 								fFactory.stopTransaction();
 							}
 							// Now perform the callback.
@@ -178,33 +202,30 @@ class REMCallbackThread extends Thread {
 											}
 
 											public Commands.ValueObject nextValue() {
-												if (index < array.length) {
-													Object retParm = array[index++];
-													if (retParm != null)
-														if (retParm instanceof IREMBeanProxy)
-															 ((IREMBeanProxy) retParm).renderBean(worker);
-														else if (retParm instanceof TransmitableArray) {
-															// It is another array, create a new
-															// retriever.
-															worker.setArrayIDS(
-																new Retriever(((TransmitableArray) retParm).array),
-																((TransmitableArray) retParm).array.length,
-																((TransmitableArray) retParm).componentTypeID);
-														} else {
-															// It's an object. Need to get bean
-															// type so that we can send it.
-															IREMBeanProxy type =
-																(IREMBeanProxy) fTypeFactory.getBeanTypeProxy(retParm.getClass().getName());
-															if (type == null)
-																throw new IllegalArgumentException();
-															int classID = type.getID().intValue();
-															worker.setAsObject(retParm, classID);
-														}
-													else
-														worker.set();
-													return worker;
-												} else
-													return null;
+												Object retParm = array[index++];
+												if (retParm != null)
+													if (retParm instanceof IREMBeanProxy)
+														 ((IREMBeanProxy) retParm).renderBean(worker);
+													else if (retParm instanceof TransmitableArray) {
+														// It is another array, create a new
+														// retriever.
+														worker.setArrayIDS(
+															new Retriever(((TransmitableArray) retParm).array),
+															((TransmitableArray) retParm).array.length,
+															((TransmitableArray) retParm).componentTypeID);
+													} else {
+														// It's an object. Need to get bean
+														// type so that we can send it.
+														IREMBeanProxy type =
+															(IREMBeanProxy) fTypeFactory.getBeanTypeProxy(retParm.getClass().getName());
+														if (type == null)
+															throw new IllegalArgumentException();
+														int classID = type.getID().intValue();
+														worker.setAsObject(retParm, classID);
+													}
+												else
+													worker.set();
+												return worker; 
 											}
 										};
 

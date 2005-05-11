@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.15 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.16 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -32,6 +32,7 @@ import org.eclipse.jem.util.TimerTests;
  * It uses the property "proxyvm.bufsize" to determine the buffer size to use. If not specified, it uses the system default
  */
 public class REMConnection implements IREMConnection, IREMExpressionConnection {
+	
 	public final static String INVOKE_STEP = "Invoke";
 	public final static String INVOKE_METHOD_STEP = "Invoke Method";
 	protected Socket fSocket = null;
@@ -291,26 +292,41 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			ExpressionCommands.sendBoolean(out, aBool);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#pullValue(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
-	 */
-	public void pullValue(int expressionID, ValueObject returnValue) throws CommandException {
-		if (isConnected())
-			ExpressionCommands.sendPullValueCommand(expressionID, out, in, returnValue);
-	}
+	
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#sync(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#getFinalValue(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
 	 */
-	public void sync(int expressionID, ValueObject returnValue) throws CommandException {
+	public void getFinalValue(ValueObject result) throws CommandException {
 		if (isConnected())
-			ExpressionCommands.sendSyncCommand(expressionID, out, in, returnValue);
+			Commands.readBackValue(in, result, Commands.NO_TYPE_CHECK);
 	}
 	
-	
-	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender) throws CommandException {
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#pullValue(int, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
+	 */
+	public void pullValue(int expressionID, ValueObject proxyids, ValueSender sender) throws CommandException {
 		if (isConnected())
-			Commands.readArray(in, returnValue.anInt, valueSender, returnValue);
+			ExpressionCommands.sendPullValueCommand(expressionID, out, in, proxyids, sender);
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#sync(int, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
+	 */
+	public void sync(int expressionID, ValueObject proxyids, ValueSender sender) throws CommandException {
+		if (isConnected())
+			ExpressionCommands.sendSyncCommand(expressionID, out, in, proxyids, sender);
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMConnection#readProxyArrayValues(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueSender, boolean)
+	 */
+	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender, boolean allowFlag) throws CommandException {
+		if (isConnected())
+			Commands.readArray(in, returnValue.anInt, valueSender, returnValue, allowFlag);
 	}
 
 }

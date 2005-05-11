@@ -11,10 +11,11 @@ package org.eclipse.jem.internal.proxy.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IStandardAwtBeanProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:47 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
+import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.core.IBeanProxyFactory;
 /**
  * The Standard awt bean proxy factory.

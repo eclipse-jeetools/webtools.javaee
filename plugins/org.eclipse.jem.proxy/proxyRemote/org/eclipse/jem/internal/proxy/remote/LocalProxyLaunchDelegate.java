@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.21 $ $Date: 2005/02/15 22:56:10 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.22 $ $Date: 2005/05/11 19:01:12 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -25,11 +25,13 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.*;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.launching.*;
 
+import org.eclipse.jem.internal.proxy.common.remote.ExpressionCommands;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.remote.awt.REMRegisterAWT;
 import org.eclipse.jem.util.TimerTests;
@@ -185,6 +187,21 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			extraArgs+=4;	// Number of extra args added for debug mode (if number changes below, this must change).
 		if(useNoverify)
 			extraArgs++; // An extra arg added for '-noverify' flag (if number changes below, this must change).
+		
+		boolean useExpressionTracing = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING));
+		long expressionTracingThreshold = -1;
+		if (useExpressionTracing) {
+			extraArgs++;
+			String thresholdString = Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACEING_TIMER_THRESHOLD);
+			if (thresholdString != null) {
+				try {
+					expressionTracingThreshold = Long.valueOf(thresholdString).longValue();
+					extraArgs++;
+				} catch (NumberFormatException e) {
+				}
+			}
+		}
+		
 		List javaLibPaths = controller.getFinalJavaLibraryPath();
 		int existingLibpaths = -1;
 		if (!javaLibPaths.isEmpty()) {
@@ -211,6 +228,12 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		
 		if(useNoverify)
 			cvmArgs[cvmArgsCount++] = "-noverify"; //$NON-NLS-1$
+		
+		if (useExpressionTracing) {
+			cvmArgs[cvmArgsCount++] = "-D"+ExpressionCommands.EXPRESSIONTRACE+"=true";
+			if (expressionTracingThreshold != -1)
+				cvmArgs[cvmArgsCount++] = "-D"+ExpressionCommands.EXPRESSIONTRACE_TIMER_THRESHOLD+'='+String.valueOf(expressionTracingThreshold);
+		}
 
 		// If in debug mode, we need to find a port for it to use.
 		int dport = -1;
@@ -292,34 +315,77 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			final String traceName = name;
 			IStreamsProxy fStreamsProxy = process.getStreamsProxy();
 
+			/**
+			 * StreamListener. Should not be created if ProxyPlugin logger is not logging the requested level.
+			 * 
+			 * @since 1.1.0
+			 */
 			class StreamListener implements IStreamListener {
 				String tracePrefix;
 				Level level;
+				Job printJob;	// Job to try to gather printing together.
+				Logger logger;
+				StringBuffer gatheredText = new StringBuffer(100);
+				{
+					logger = ProxyPlugin.getPlugin().getLogger();
+					printJob = new Job("") {
 
-				public StreamListener(String type, Level level) {
-					tracePrefix = traceName + ':' + type + '>';
+						protected IStatus run(IProgressMonitor monitor) {
+							monitor.beginTask("Print remote vm trace output", 1);
+							while(true) {
+								String output = null;
+								synchronized (gatheredText) {
+									if (gatheredText.length() <= tracePrefix.length())
+										break;	// We've reached the end, no more to print.
+									output = gatheredText.toString();
+									gatheredText.setLength(tracePrefix.length());	// Reset the length to the prefix.
+								}
+								logger.log(output, level);
+							}
+							monitor.done();
+							return Status.OK_STATUS;
+						}
+					};
+					printJob.setPriority(Job.SHORT);
+					printJob.setSystem(true);
+				}
+				
+				public StreamListener(String type, Level level, Logger logger) {
+					tracePrefix = traceName + ':' + type + '>' + System.getProperty("line.separator");
+					gatheredText.append(tracePrefix);
 					this.level = level;
+					this.logger = logger;
 				}
 
 				public void streamAppended(String newText, IStreamMonitor monitor) {
-					Logger logger = ProxyPlugin.getPlugin().getLogger();
-					if (logger.isLoggingLevel(level))
-						logger.log(tracePrefix + newText, level);
+					synchronized(gatheredText) {
+						gatheredText.append(newText);
+					}
+					printJob.schedule(100L);	// Wait tenth of second to gather as much as can together.
 				}
 			};
 
-			// Always listen to System.err output.
-			IStreamMonitor monitor = fStreamsProxy.getErrorStreamMonitor();
-			if (monitor != null)
-				monitor.addListener(new StreamListener("err", Level.WARNING)); //$NON-NLS-1$
+			Logger logger = ProxyPlugin.getPlugin().getLogger();
+			if (logger.isLoggingLevel(Level.WARNING)) {
+				// Always listen to System.err output if we are at least logging warnings.
+				IStreamMonitor monitor = fStreamsProxy.getErrorStreamMonitor();
+				if (monitor != null)
+					monitor.addListener(new StreamListener("err", Level.WARNING, logger)); //$NON-NLS-1$
+			}
 
 			// If debug trace is requested, then attach trace listener for System.out
-			if ("true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyRemoteUtil.DEBUG_VM_TRACEOUT))) { //$NON-NLS-1$
-				// Want to trace the output of the remote vm's.
-
-				monitor = fStreamsProxy.getOutputStreamMonitor();
-				if (monitor != null)
-					monitor.addListener(new StreamListener("out", Level.INFO)); //$NON-NLS-1$							
+			// Expression tracing requires debug trace too because it prints to sysout. However, it requesting expressionTracing, change logging level to INFO,
+			// we want them to show if this true. It is confusing to also have to change logging level in .options file.
+			if (useExpressionTracing)
+				if (!logger.isLoggingLevel(Level.INFO))
+					logger.setLevel(Level.INFO);
+			if (useExpressionTracing || "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyRemoteUtil.DEBUG_VM_TRACEOUT))) { //$NON-NLS-1$
+				// Want to trace the output of the remote vm's. And we are logging at least level info.
+				if (logger.isLoggingLevel(Level.INFO)) {
+					IStreamMonitor monitor = fStreamsProxy.getOutputStreamMonitor();
+					if (monitor != null)
+						monitor.addListener(new StreamListener("out", Level.INFO, logger)); //$NON-NLS-1$							
+				}							
 			}
 		}
 

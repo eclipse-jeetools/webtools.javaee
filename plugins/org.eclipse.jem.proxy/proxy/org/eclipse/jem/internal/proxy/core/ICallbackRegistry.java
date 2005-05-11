@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ICallbackRegistry.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 /**
@@ -48,6 +48,18 @@ public interface ICallbackRegistry {
 	 *    (Though it won't hust it, it will just return null).
 	 */
 	public void registerCallback(IBeanProxy callbackProxy, ICallback cb);
+	
+	/**
+	 * Same as {@link ICallbackRegistry#registerCallback(IBeanProxy, ICallback) registerCallback} except that
+	 * it is deferred off into an expression.
+	 *  
+	 * @param callbackProxy
+	 * @param cb
+	 * @param expression
+	 * 
+	 * @since 1.1.0
+	 */
+	public void registerCallback(IProxy callbackProxy, ICallback cb, IExpression expression);
 	
 	/**
 	 * Deregister the callback proxy. This will remove it from the

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyConstants.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.ExpressionProxy.ProxyEvent;
 
 
 
@@ -34,6 +35,12 @@ public class REMProxyConstants {
 	private Map methodsCache = new HashMap(80);
 	private Map invokablesCache = new HashMap(80);	
 	private Map fieldsCache = new HashMap(80);
+	
+	private REMProxyFactoryRegistry registry;
+	
+	public REMProxyConstants(REMProxyFactoryRegistry registry) {
+		this.registry = registry;
+	}
 	
 	/*
 	 * Used as the key to the methodCache and invokablesCache when there are parms.
@@ -53,7 +60,7 @@ public class REMProxyConstants {
 			this.methodName = methodName;
 		}
 				
-		protected abstract boolean compareParms(IBeanTypeProxy[] parms);
+		protected abstract boolean compareParms(IProxyBeanType[] parms);
 		protected abstract boolean compareParms(String[] parms);
 		
 		
@@ -101,7 +108,7 @@ public class REMProxyConstants {
 		/* (non-Javadoc)
 		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#compareParms(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 		 */
-		protected boolean compareParms(IBeanTypeProxy[] parms) {
+		protected boolean compareParms(IProxyBeanType[] parms) {
 			if (parms.length != parmNames.length)
 				return false;
 			for (int i = 0; i < parms.length; i++) {
@@ -121,11 +128,19 @@ public class REMProxyConstants {
 	}
 	
 	private static class MethodKeyProxyParms extends MethodKey {
-		public IBeanTypeProxy[] parmTypes;
+		public IProxyBeanType[] parmTypes;
 		
-		public MethodKeyProxyParms(String methodName, IBeanTypeProxy[] parmTypes) {
+		public MethodKeyProxyParms(String methodName, IProxyBeanType[] parmTypes) {
 			super(methodName);
 			this.parmTypes = parmTypes;
+		}
+		
+		public Object toMethodKeyStringParms() {
+			String[] parms = new String[parmTypes.length];
+			for (int i = 0; i < parmTypes.length; i++) {
+				parms[i] = parmTypes[i].getTypeName();
+			}
+			return new MethodKeyStringParms(methodName, parms);
 		}
 		
 		/* (non-Javadoc)
@@ -169,8 +184,14 @@ public class REMProxyConstants {
 		/* (non-Javadoc)
 		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#compareParms(java.lang.String[])
 		 */
-		protected boolean compareParms(IBeanTypeProxy[] parms) {
-			return Arrays.equals(parms, parmTypes);
+		protected boolean compareParms(IProxyBeanType[] parms) {
+			if (parms.length != parmTypes.length)
+				return false;
+			for (int i = 0; i < parms.length; i++) {
+				if (!parmTypes[i].getTypeName().equals(parms[i].getTypeName()))
+					return false;
+			}
+			return true;
 		}		
 	}
 		
@@ -275,41 +296,53 @@ public class REMProxyConstants {
  * @param parmTypes = array of qualified type names for the method arguments, null if no methods
  */ 
 	public IMethodProxy getMethodProxy(IBeanTypeProxy aBeanTypeProxy, String methodName, String[] parmTypes){
+		if (!registry.isValid())
+			return null;
 
-		REMMETHODCOUNT++;		
-		// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
-		Map methods = getMethods(aBeanTypeProxy);
-		
-		// The syntax of the key is methodName(parmType1,parmType2)
-		Object key = null; 
-		if(parmTypes == null || parmTypes.length == 0){
-			key = methodName;
-		} else {
-			key = new MethodKeyStringParms(methodName, parmTypes);
+		REMMETHODCOUNT++;
+		Map methods;
+		Object key;
+		synchronized (this) {
+			// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
+			methods = getMethods(aBeanTypeProxy);
+
+			// The syntax of the key is methodName(parmType1,parmType2)
+			if (parmTypes == null || parmTypes.length == 0) {
+				key = methodName;
+			} else {
+				key = new MethodKeyStringParms(methodName, parmTypes);
+			}
+
+			IMethodProxy result = (IMethodProxy) methods.get(key);
+			if (result != null)
+				return result;
 		}
-		
-		// Lookup the cache'd method proxy
-		IMethodProxy result = (IMethodProxy) methods.get(key);
-		// Do we have it, and is still valid (in case someone did a release on it).
-		if(result != null && result.isValid()) return result;
 		
 		UNIQUEMETHODCOUNT++;
 		// Get the method proxy and cache this before returning it
-		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) aBeanTypeProxy.getProxyFactoryRegistry().getMethodProxyFactory();
-		result = proxyFactory.getMethodProxy((IREMBeanTypeProxy)aBeanTypeProxy,methodName,parmTypes);
-		methods.put(key,result);
-		return result;
-		
+		// Get the method proxy and cache this before returning it
+		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) registry.getMethodProxyFactory();
+		IMethodProxy result = proxyFactory.getMethodProxy((IREMBeanTypeProxy)aBeanTypeProxy,methodName,parmTypes);
+		synchronized (this) {
+			// Get it again to make sure it hasn't changed due to a race condition. We don't sync for the getMethodProxy because that goes to the remote vm and could deadlock.
+			IMethodProxy mValue = (IMethodProxy) methods.get(key);
+			if (mValue != null && mValue != result) {
+				registry.releaseProxy(result); // Don't need the result now, got it through a race condition.
+				return mValue; // We have a real value now.
+			}
+			methods.put(key, result);
+		}		
+		return result;				
 	}
 /**
  * @param aBeanTypeProxy
  * @return Map of cache'd methods
  */
-private Map getMethods(IBeanTypeProxy aBeanTypeProxy) {
-	Map methods = (Map) methodsCache.get(aBeanTypeProxy);
+private Map getMethods(IProxyBeanType aBeanTypeProxy) {
+	Map methods = (Map) methodsCache.get(aBeanTypeProxy.getTypeName());
 	if(methods == null){
 		methods = new HashMap(20);
-		methodsCache.put(aBeanTypeProxy,methods);
+		methodsCache.put(aBeanTypeProxy.getTypeName(),methods);
 	}
 	return methods;
 }
@@ -329,11 +362,11 @@ private Map getInvokables(IBeanTypeProxy aBeanTypeProxy) {
  * @param aBeanTypeProxy
  * @return Map of cache'd fields
  */
-private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
-	Map fields = (Map) fieldsCache.get(aBeanTypeProxy);
+private Map getFields(IProxyBeanType aBeanTypeProxy) {
+	Map fields = (Map) fieldsCache.get(aBeanTypeProxy.getTypeName());
 	if(fields == null){
 		fields = new HashMap(20);
-		fieldsCache.put(aBeanTypeProxy,fields);
+		fieldsCache.put(aBeanTypeProxy.getTypeName(),fields);
 	}
 	return fields;
 }
@@ -403,31 +436,124 @@ private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
  * @param parmTypes = array of qualified type names for the method arguments, null if no methods
  */ 
 	public IMethodProxy getMethodProxy(IBeanTypeProxy aBeanTypeProxy, String methodName, IBeanTypeProxy[] parmTypes){
+		if (!registry.isValid())
+			return null;
 		
 		REMMETHODCOUNT++;		
 		// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
-		Map methods = getMethods(aBeanTypeProxy);	
-				
-		Object key = null; 
-		if(parmTypes == null || parmTypes.length == 0){
-			key = methodName;
-		} else {
-			key = new MethodKeyProxyParms(methodName, parmTypes);
-		}	
-		
-		// Lookup the cache'd method proxy
-		IMethodProxy result = (IMethodProxy) methods.get(key);
-		if(result != null) return result;
+		Map methods;
+		Object key;
+		synchronized (this) {
+			methods = getMethods(aBeanTypeProxy);
+
+			key = null;
+			if (parmTypes == null || parmTypes.length == 0) {
+				key = methodName;
+			} else {
+				key = new MethodKeyProxyParms(methodName, parmTypes);
+			}
+
+			IMethodProxy result = (IMethodProxy) methods.get(key);
+			if (result != null)
+				return result;
+		}
 		
 		UNIQUEMETHODCOUNT++;
 		// Get the method proxy and cache this before returning it
 		// Get the method proxy and cache this before returning it
-		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) aBeanTypeProxy.getProxyFactoryRegistry().getMethodProxyFactory();
-		result = proxyFactory.getMethodProxy((IREMBeanTypeProxy)aBeanTypeProxy,methodName,parmTypes);
-		methods.put(key,result);		
+		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) registry.getMethodProxyFactory();
+		IMethodProxy result = proxyFactory.getMethodProxy((IREMBeanTypeProxy)aBeanTypeProxy,methodName,parmTypes);
+		synchronized (this) {
+			// Get it again to make sure it hasn't changed due to a race condition. We don't sync for the getMethodProxy because that goes to the remote vm and could deadlock.
+			IMethodProxy mValue = (IMethodProxy) methods.get(key);
+			if (mValue != null && mValue != result) {
+				registry.releaseProxy(result); // Don't need result now, got it already through a race condition.
+				return mValue; // We have a real value now.
+			}
+			methods.put(key, result);
+		}		
+
 		return result;				
 	}
 
+	/**
+	 * Return the proxy method for the method through the expression. 
+	 * @param expression
+	 * @param aBeanTypeProxy
+	 * @param methodName
+	 * @param parmTypes
+	 * @return either the IMethodProxy if already resolved or an ExpressionProxy if not yet resolved.
+	 * 
+	 * @since 1.1.0
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, IProxyBeanType aBeanTypeProxy, String methodName, IProxyBeanType[] parmTypes){
+		if (!registry.isValid())
+			return null;
+		
+		REMMETHODCOUNT++;	
+		Map methods;
+		Map epMethods;
+		Object key;
+		boolean isKey;
+		synchronized (this) {
+			// The classCache map is keyed by the BeanTypeProxy name and holds a further map of cache'd methods
+			methods = getMethods(aBeanTypeProxy);
+
+			if (parmTypes == null || parmTypes.length == 0) {
+				key = methodName;
+				isKey = false;
+			} else {
+				key = new MethodKeyProxyParms(methodName, parmTypes);
+				isKey = true;
+			}
+
+			IProxyMethod result = (IProxyMethod) methods.get(key);
+			if (result != null)
+				return result;
+			
+			// See if stored in the expression.
+			epMethods = ((REMExpression) expression).getMethods(aBeanTypeProxy);
+			result = (IProxyMethod) epMethods.get(key);
+			if (result != null)
+				return result;
+		}
+		
+		UNIQUEMETHODCOUNT++;
+		// Get the method expression proxy and cache this before returning it
+		IProxyMethod result = ((Expression) expression).createMethodExpressionProxy(aBeanTypeProxy,methodName,parmTypes);
+		epMethods.put(key, result);
+		final Object epKey = key;
+		final Map rMethods = methods; 
+		final Map fepMethods = epMethods;
+		final boolean isKeyType = isKey;
+		((ExpressionProxy) result).addProxyListener(new ExpressionProxy.ProxyAdapter() {
+			public void proxyResolved(ProxyEvent event) {
+				synchronized (REMProxyConstants.this) {
+					if (rMethods.containsKey(epKey))
+						return;	// We already have a true method proxy in there. A race condition occurred.
+					
+					// Now put this resolved guy into the methods.
+					// We don't want the key to contain expression proxies in the final map, so if it is a key type
+					// we will turn it into a string type key.
+					Object key;
+					if (isKeyType) {
+						key = ((MethodKeyProxyParms) epKey).toMethodKeyStringParms();	// So that we don't put a ket that contains expression proxy parm types into the main map.
+					} else
+						key = epKey;
+					
+					rMethods.put(key, event.getProxy());
+				}
+			}
+			
+			public void proxyNotResolved(ExpressionProxy.ProxyEvent event) {
+				synchronized (REMProxyConstants.this) {
+					fepMethods.remove(epKey);
+				}
+				}
+			
+		});
+		return result;				
+	}
 
 	/**
 	 * @param proxy
@@ -474,21 +600,80 @@ private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
 	 * @return The field proxy that is cache'd for performance
 	 */
 	public IFieldProxy getFieldProxy(REMAbstractBeanTypeProxy aBeanTypeProxy, String fieldName) {
-
-		REMFIELDCOUNT++;		
-		// The field map is keyed by the BeanTypeProxy and holds a further map of cache'd fields
-		Map fields = getFields(aBeanTypeProxy);	
+		if (!registry.isValid())
+			return null;
+		
+		REMFIELDCOUNT++;
+		Map fields;
+		synchronized (this) {
+			// The field map is keyed by the BeanTypeProxy and holds a further map of cache'd fields
+			fields = getFields(aBeanTypeProxy);	
 				
-		// Lookup the cache'd Field proxy
-		IFieldProxy result = (IFieldProxy) fields.get(fieldName);
-		if(result != null && result.isValid()) return result;
+			// Lookup the cache'd Field proxy
+			IFieldProxy result = (IFieldProxy) fields.get(fieldName);
+			if (result != null)
+				return result;
+		}
 		
 		UNIQUEFIELDCOUNT++;
-		
-		result = (IFieldProxy) REMStandardBeanProxyConstants.getConstants(aBeanTypeProxy.getProxyFactoryRegistry()).getClassGetField().invokeCatchThrowableExceptions(
+		IFieldProxy result = (IFieldProxy) REMStandardBeanProxyConstants.getConstants(aBeanTypeProxy.getProxyFactoryRegistry()).getClassGetField().invokeCatchThrowableExceptions(
 				aBeanTypeProxy,
-				aBeanTypeProxy.getProxyFactoryRegistry().getBeanProxyFactory().createBeanProxyWith(fieldName));		
-		fields.put(fieldName,result);		
+				registry.getBeanProxyFactory().createBeanProxyWith(fieldName));	
+		synchronized (this) {
+			IFieldProxy fValue = (IFieldProxy) fields.get(fieldName);
+			if (fValue != null) {
+				registry.releaseProxy(result);	// Don't need it now. A race had put another one in.
+				return fValue;
+			}
+			fields.put(fieldName,result);
+		}
 		return result;				
-	}			
+	}
+	
+	public IProxyField getFieldProxy(IExpression expression, IProxyBeanType aBeanTypeProxy, final String fieldName){
+		if (!registry.isValid())
+			return null;
+		
+		REMFIELDCOUNT++;
+		Map fields;
+		Map epFields;
+		synchronized (this) {
+			// The classCache map is keyed by the BeanTypeProxy name and holds a further map of cache'd methods
+			fields = getFields(aBeanTypeProxy);	
+		
+			IProxyField result = (IProxyField) fields.get(fieldName);
+			if (result != null)
+				return result;
+			
+			// See if stored in the expression.
+			epFields = ((REMExpression) expression).getFields(aBeanTypeProxy);
+			result = (IProxyField) epFields.get(fieldName);
+			if (result != null)
+				return result;			
+		}
+		
+		UNIQUEFIELDCOUNT++;
+		// Get the field expression proxy and cache this before returning it
+		IProxyField result = ((REMExpression) expression).createFieldExpressionProxy(aBeanTypeProxy, fieldName);
+		epFields.put(fieldName, result);
+		final Map fpFields = fields;
+		final Map fepFields = epFields;
+		((ExpressionProxy) result).addProxyListener(new ExpressionProxy.ProxyAdapter() {
+
+			public void proxyResolved(ProxyEvent event) {
+				synchronized (REMProxyConstants.this) {
+					if (fpFields.containsKey(fieldName))
+						return;	// Already set to resolved value by someone else.
+					fpFields.put(fieldName, event.getProxy());
+				}
+			}
+			 public void proxyNotResolved(ExpressionProxy.ProxyEvent event) {
+				 synchronized (REMProxyConstants.this) {
+					 fepFields.remove(fieldName);
+				}
+			 }
+		});
+		
+		return result;				
+	}
 }

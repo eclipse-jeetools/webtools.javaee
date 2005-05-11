@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMArrayBeanProxy.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.lang.reflect.Array;
@@ -234,7 +234,7 @@ public final class REMArrayBeanProxy extends REMBeanProxy implements IArrayBeanP
 		// However it will become IBeanProxy[]. That is because if ID's
 		// they must be proxies over here.
 		BeanProxyValueSender valueSender = new BeanProxyValueSender((REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory(), returnValue);
-		connection.readProxyArrayValues(returnValue, valueSender);
+		connection.readProxyArrayValues(returnValue, valueSender, false);
 		Exception e = valueSender.getException();
 		if (e != null) {
 			if (e instanceof ThrowableProxy)

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.10 $ $Date: 2005/02/16 00:59:27 $
+ * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.11 $ $Date: 2005/05/11 19:01:12 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -410,5 +410,38 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			argClasses[i] = ((IDEBeanTypeProxy) argumentTypes[i]).fClass;
 		}
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getCompatibleMethod(fClass, methodName, argClasses);
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, org.eclipse.jem.internal.proxy.core.IProxyBeanType[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName, IProxyBeanType[] parameterTypes) {
+		IProxyMethod method = ((IDEExpression) expression).getMethodExpressionProxy(this, methodName, parameterTypes);
+		if (method == null) {
+			// Need to go to the expression and create it.
+			method = ((Expression) expression).createMethodExpressionProxy(this, methodName, parameterTypes);
+		}
+		return method;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String[])
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName, String[] parameterTypes) {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getMethodProxy(expression, this, methodName, parameterTypes);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getFieldProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String)
+	 */
+	public IProxyField getFieldProxy(IExpression expression, String fieldName) {
+		IProxyField field = ((IDEExpression) expression).getFieldExpressionProxy(this, fieldName);
+		if (field == null) {
+			// Need to go to the expression and create it.
+			field = ((Expression) expression).createFieldExpressionProxy(this, fieldName);
+		}
+		return field;
 	}
 }

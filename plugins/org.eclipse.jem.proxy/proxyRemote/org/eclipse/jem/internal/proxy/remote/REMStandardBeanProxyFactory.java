@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.10 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -191,13 +191,13 @@ public void releaseProxy(IBeanProxy proxy) {
 		// Synced in here so that we will remove it before some one else from a different thread may try
 		// to access it again.
 		if (id.intValue() != Commands.NOT_AN_ID) {
-			ProxyRef ref = (ProxyRef) fIDToProxiesMap.remove(id);
+			ProxyRef ref = (ProxyRef) fIDToProxiesMap.get(id);
 			if (ref == null || ref.decrUseCnt() <= 0) {
 				// No usage, so do actual release.
+				fIDToProxiesMap.remove(id);
 				((IREMBeanProxy) proxy).release();
-				releaseID(id.intValue());
 				if (ref != null)
-					ref.clear();	// So the proxy will GC with out queuing up.
+					ref.enqueue();	// Queue it up so that on next release cycle it will go away.
 			} 
 		} else {
 			((IREMBeanProxy) proxy).release();			
@@ -731,6 +731,12 @@ private IBeanProxy retrieveProxy(Integer objectID, boolean incrementUseCnt) {
 public	void startTransaction()  {
 	synchronized (fIDToProxiesMap) {
 		transactionLockCount++;
+	}
+}
+
+public boolean inTransaction() {
+	synchronized (fIDToProxiesMap) {
+		return transactionLockCount != 0;
 	}
 }
 

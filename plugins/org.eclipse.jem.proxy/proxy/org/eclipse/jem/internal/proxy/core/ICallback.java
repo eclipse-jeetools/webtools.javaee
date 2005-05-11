@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ICallback.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:53:45 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 import java.io.InputStream;
@@ -33,13 +33,13 @@ public interface ICallback {
 	 * It will be called whenever the callback
 	 * occurred. It will be on its own thread.
 	 * A particular thread cannot be requested.
-	 *
+	 * <p>
 	 * The implementation MUST return. This is 
 	 * because the callback will not be completed
 	 * until it is returned, and the process will
 	 * not continue on the remote vm until it is
 	 * returned.
-	 * 
+	 * <p>
 	 * The value returned must either be an
 	 * IBeanProxy or IBeanProxy[]. It is typed
 	 * to Object to allow either one, but it
@@ -60,20 +60,20 @@ public interface ICallback {
 	 * It will be called whenever the callback
 	 * occurred. It will be on its own thread.
 	 * A particular thread cannot be requested.
-	 *
+	 * <p>
 	 * The parms will be an array of IBeanProxys,
 	 * or an entry could be another array of IBeanProxys,
 	 * or null if null was sent to callBackWithParms.
 	 * The final component of any entry will be an
 	 * IBeanProxy. It is up to the developers to
 	 * agree on the format of the parms.
-	 *
+	 * <p>
 	 * The implementation MUST return. This is 
 	 * because the callback will not be completed
 	 * until it is returned, and the process will
 	 * not continue on the remote vm until it is
 	 * returned.
-	 * 
+	 * <p>
 	 * The value returned must either be an
 	 * IBeanProxy or IBeanProxy[]. It is typed
 	 * to Object to allow either one, but it
@@ -95,20 +95,20 @@ public interface ICallback {
 	 * It will be called whenever the callback
 	 * occurred. It will be on its own thread.
 	 * A particular thread cannot be requested.
-	 *
+	 * <p>
 	 * The parm will be an object. This occurs
 	 * if remote vm just wanted to send some objects.
 	 * They will not be proxies. It is recommended
 	 * that this be used only for small items. For
 	 * anything large, the callbackStream should be
 	 * used instead.
-	 *
+	 * <p>
 	 * The implementation MUST return. This is 
 	 * because the callback will not be completed
 	 * until it is returned, and the process will
 	 * not continue on the remote vm until it is
 	 * returned.
-	 * 
+	 * <p>
 	 * The value returned must either be an
 	 * IBeanProxy or IBeanProxy[]. It is typed
 	 * to Object to allow either one, but it
@@ -130,13 +130,13 @@ public interface ICallback {
 	 * It will be called whenever the callback stream
 	 * occurred. It will be on its own thread.
 	 * A particular thread cannot be requested.
-	 *
+	 * <p>
 	 * The callback should continue to read from the InputStream
 	 * until it returns -1 indicating no more data. The stream can
 	 * be closed. In that case the next time the remote vm wants to
 	 * send data it will first check that the stream has not been closed.
 	 * If it has, it will raise an exception on that side.
-	 *
+	 * <p>
 	 * The implementation MUST return. This is 
 	 * because the callback will not be completed
 	 * until it is returned, and the process will

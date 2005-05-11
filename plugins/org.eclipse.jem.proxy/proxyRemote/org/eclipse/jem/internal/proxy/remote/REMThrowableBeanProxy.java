@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMThrowableBeanProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -193,4 +193,16 @@ public class REMThrowableBeanProxy extends ThrowableProxy implements IREMBeanPro
 		value.setObjectID(getID().intValue());
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isBeanProxy()
+	 */
+	public final boolean isBeanProxy() {
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IProxy#isExpressionProxy()
+	 */
+	public final boolean isExpressionProxy() {
+		return false;
+	}
 }

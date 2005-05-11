@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.16 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.17 $  $Date: 2005/05/11 19:01:12 $ 
  */
 
 
@@ -122,7 +122,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			waitRegistrationThread = new WaitForRegistrationThread();
 			waitRegistrationThread.start();
 			
-			// Now we will wait until the connection pool has been locked. The thread will
+			// Now we will wait until the registration callback has been done. The thread will
 			// signal us when that is done. This is so that we don't continue on and let
 			// a work connection be requested before we even got a chance to start waiting
 			// for the registration.
@@ -329,10 +329,12 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			// The current thread is a call back thread, so just reuse the connection.
 			// But this thread could actually be trying to access another registry.
 			// So if this thread is for this registry, use it, if not for this registry, create a new connection.
-			if (((REMCallbackThread) thread).registry == this) {
+			// But if for this registry AND is already in a transaction, we need a fresh connection.
+			REMCallbackThread callbackThread = (REMCallbackThread) thread;
+			if (callbackThread.registry == this && !callbackThread.inTransaction()) {
 				// This way any calls out to the remote vm will be on same thread as callback caller
 				// on remote vm because that thread is waiting on this connection for commands.
-				IREMConnection c = ((REMCallbackThread) thread).getConnection();
+				IREMConnection c = (callbackThread).getConnection();
 				if (c.isConnected())
 					return c;
 				else

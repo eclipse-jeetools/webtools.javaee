@@ -10,25 +10,21 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:57:54 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jem.internal.proxy.common.*;
-import org.eclipse.jem.internal.proxy.common.CommandException;
-import org.eclipse.jem.internal.proxy.common.MapTypes;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.ExpressionCommands;
-import org.eclipse.jem.internal.proxy.initParser.EvaluationException;
-import org.eclipse.jem.internal.proxy.initParser.tree.ExpressionProcesser;
-import org.eclipse.jem.internal.proxy.initParser.tree.IInternalExpressionConstants;
-import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExpressionValueException;
+import org.eclipse.jem.internal.proxy.initParser.tree.*;
 
  
 /**
@@ -54,22 +50,12 @@ import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExp
  */
 public class ExpressionProcesserController {
 
+	
 	protected final RemoteVMServerThread server;
 	protected final ConnectionHandler connHandler;	
 	protected final ExpressionProcesser exp;
 	protected Commands.ValueObject workerValue = new Commands.ValueObject();	// A worker value object so we don't need to keep creating them and releasing them.
 	private ClassLoader classLoader;
-	
-	/**
-	 * An error has occurred. At this point all subcommands will simply make sure they flush the input stream
-	 * correctly, but they do not process it.
-	 * 
-	 * @since 1.0.0
-	 */
-	protected boolean errorOccurred = false;
-	
-	private String novalueMsg = null;	// If NoExpressionValueException then this is the msg. 
-	private Throwable exception = null;	// Was there another kind of exception that was caught.
 	
 	/**
 	 * Create with a default expression processer.
@@ -78,7 +64,7 @@ public class ExpressionProcesserController {
 	 * @since 1.0.0
 	 */
 	public ExpressionProcesserController(RemoteVMServerThread server, ConnectionHandler connHandler) {
-		this(server, connHandler, new ExpressionProcesser());
+		this(server, connHandler, new ExpressionProcesser(Boolean.getBoolean(ExpressionCommands.EXPRESSIONTRACE), Long.getLong(ExpressionCommands.EXPRESSIONTRACE_TIMER_THRESHOLD, -1L).longValue()));
 	}
 	
 	/**
@@ -152,6 +138,8 @@ public class ExpressionProcesserController {
 	 */
 	public void process(DataInputStream in) throws CommandException, IOException {
 		// In the following subcommand processing, we always read the entire subcommand from the stream.
+		// This is so that any errors during processing will not mess up the stream with unread data.
+		//
 		// Then we check if an error has occurred in the past. If it has, we simply break. This is because
 		// once an error occurred we don't want to continue wasting time evaluating, however we need to make
 		// sure that the stream is read completely so that we don't have a corrupted input stream. That way
@@ -159,11 +147,9 @@ public class ExpressionProcesserController {
 		byte subcommand = in.readByte();
 		try {
 			switch (subcommand) {
-				case IInternalExpressionConstants.PUSH_TO_PROXY_EXPRESSION :
+				case InternalExpressionTypes.PUSH_TO_PROXY_EXPRESSION_VALUE:
 					// Getting a proxy push. The value is sent as valueObject, so use that to read it in.
 					Commands.readValue(in, workerValue);
-					if (errorOccurred)
-						break;
 					Object value = connHandler.getInvokableObject(workerValue);
 					if (value == null)
 						exp.pushExpression(null, MethodHelper.NULL_TYPE);
@@ -173,364 +159,495 @@ public class ExpressionProcesserController {
 						exp.pushExpression(value, value.getClass());
 					break;
 
-				case IInternalExpressionConstants.CAST_EXPRESSION :
+				case InternalExpressionTypes.CAST_EXPRESSION_VALUE:
 					// Get a cast request. The type is sent as valueObject.
 					Commands.readValue(in, workerValue);
-					if (errorOccurred)
-						break;
-					value = connHandler.getInvokableObject(workerValue);
 					try {
-						if (value instanceof String)
-							value = loadClass((String) value);
-						exp.pushCast((Class) value);
-					} catch (NoExpressionValueException e) {
-						processException(e);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushCast(classValue);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
 					} catch (ClassNotFoundException e) {
-						processException(e);
-					}
+						// Do nothing, already processed.
+					} 
 					break;
 
-				case IInternalExpressionConstants.INSTANCEOF_EXPRESSION :
+				case InternalExpressionTypes.INSTANCEOF_EXPRESSION_VALUE:
 					// Get a instanceof request. The type is sent as valueObject.
 					Commands.readValue(in, workerValue);
-					if (errorOccurred)
-						break;
-					value = connHandler.getInvokableObject(workerValue);
 					try {
-						if (value instanceof String)
-							value = loadClass((String) value);
-						exp.pushInstanceof((Class) value);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushInstanceof(classValue);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
 					} catch (ClassNotFoundException e) {
-						processException(e);
-					} catch (NoExpressionValueException e) {
-						processException(e);
-					}
+						// Do nothing, already processed.
+					} 
 					break;
 
-				case IInternalExpressionConstants.INFIX_EXPRESSION :
+				case InternalExpressionTypes.INFIX_EXPRESSION_VALUE:
 					// Get an infix request. The operator and operand type are sent as bytes.
 					byte infix_operator = in.readByte();
 					byte infix_operandType = in.readByte();
-					if (errorOccurred)
-						break;
-					try {
-						exp.pushInfix(infix_operator, infix_operandType);
-					} catch (NoExpressionValueException e1) {
-						processException(e1);
-					}
+					exp.pushInfix(InfixOperator.get(infix_operator), InternalInfixOperandType.get(infix_operandType));
 					break;
 
-				case IInternalExpressionConstants.PREFIX_EXPRESSION :
+				case InternalExpressionTypes.PREFIX_EXPRESSION_VALUE:
 					// Get a prefix request. The operator is sent as byte.
 					byte prefix_operandType = in.readByte();
-					if (errorOccurred)
-						break;
-					try {
-						exp.pushPrefix(prefix_operandType);
-					} catch (NoExpressionValueException e2) {
-						processException(e2);
-					}
+					exp.pushPrefix(PrefixOperator.get(prefix_operandType));
 					break;
 
-				case IInternalExpressionConstants.TYPELITERAL_EXPRESSION :
-					// Get a type literal request. The type string is sent as valueObject.
-					Commands.readValue(in, workerValue);
-					if (errorOccurred)
-						break;
-					value = connHandler.getInvokableObject(workerValue);
-					try {
-						value = loadClass((String) value);
-						exp.pushExpression((Class) value, Class.class);
-					} catch (ClassNotFoundException e) {
-						processException(e);
-					}
-					break;
-
-				case IInternalExpressionConstants.ARRAY_ACCESS_EXPRESSION :
+				case InternalExpressionTypes.ARRAY_ACCESS_EXPRESSION_VALUE:
 					// Get an array access request. The index cound is sent as int.
 					int arrayAccess_Indexcount = in.readInt();
-					if (errorOccurred)
-						break;
-					try {
-						exp.pushArrayAccess(arrayAccess_Indexcount);
-					} catch (NoExpressionValueException e3) {
-						processException(e3);
-					}
+					exp.pushArrayAccess(arrayAccess_Indexcount);
 					break;
 
-				case IInternalExpressionConstants.ARRAY_CREATION_EXPRESSION :
+				case InternalExpressionTypes.ARRAY_CREATION_EXPRESSION_VALUE:
 					// Get an array creation request. The type is sent as valueObject, followed by int dimension count.
 					Commands.readValue(in, workerValue);
 					int arrayCreation_dimCount = in.readInt();
-					if (errorOccurred)
-						break;
-					value = connHandler.getInvokableObject(workerValue);
 					try {
-						if (value instanceof String)
-							value = loadClass((String) value);
-						exp.pushArrayCreation((Class) value, arrayCreation_dimCount);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushArrayCreation(classValue, arrayCreation_dimCount);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
 					} catch (ClassNotFoundException e) {
-						processException(e);
-					} catch (NoExpressionValueException e) {
-						processException(e);
-					}
+						// Do nothing, already processed.
+					} 
+
 					break;
 
-				case IInternalExpressionConstants.ARRAY_INITIALIZER_EXPRESSION :
+				case InternalExpressionTypes.ARRAY_INITIALIZER_EXPRESSION_VALUE:
 					// Get an array initializer request. The type is sent as valueObject, followed by int expression count.
 					Commands.readValue(in, workerValue);
+					int stripCount = in.readInt();
 					int arrayInitializer_expressionCount = in.readInt();
-					if (errorOccurred)
-						break;
-					value = connHandler.getInvokableObject(workerValue);
 					try {
-						if (value instanceof String)
-							value = loadClass((String) value);
-						exp.pushArrayInitializer((Class) value, arrayInitializer_expressionCount);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushArrayInitializer(classValue, stripCount, arrayInitializer_expressionCount);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
 					} catch (ClassNotFoundException e) {
-						processException(e);
-					} catch (NoExpressionValueException e) {
-						processException(e);
+						// Do nothing, already processed.
 					}
 					break;
 
-				case IInternalExpressionConstants.CLASS_INSTANCE_CREATION_EXPRESSION :
+				case InternalExpressionTypes.CLASS_INSTANCE_CREATION_EXPRESSION_VALUE:
 					// Get a class instance creation request. The type is sent as valueObject, followed by int argument count.
 					Commands.readValue(in, workerValue);
 					int newInstance_argCount = in.readInt();
-					if (errorOccurred)
-						return;
-					value = connHandler.getInvokableObject(workerValue);
 					try {
-						if (value instanceof String)
-							value = loadClass((String) value);
-						exp.pushClassInstanceCreation((Class) value, newInstance_argCount);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushClassInstanceCreation(classValue, newInstance_argCount);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
 					} catch (ClassNotFoundException e) {
-						processException(e);
-					} catch (EvaluationException e) {
-						processException(e);
-					} catch (NoExpressionValueException e) {
-						processException(e);
-					} catch (InstantiationException e) {
-						processException(e);
-					} catch (IllegalAccessException e) {
-						processException(e);
-					} catch (InvocationTargetException e) {
-						processException(e);
-					} catch (LinkageError e) {
-						processError(e);
+						// Do nothing, already processed.
 					}
 					break;
 
-				case IInternalExpressionConstants.TYPERECEIVER_EXPRESSION :
+				case InternalExpressionTypes.TYPERECEIVER_EXPRESSION_VALUE:
 					// Get a type receiver request. The type is sent as valueObject.
 					Commands.readValue(in, workerValue);
-					if (errorOccurred)
-						break;
-					value = connHandler.getInvokableObject(workerValue);
 					try {
-						if (value instanceof String)
-							value = loadClass((String) value);
-						exp.pushExpression(value, (Class) value);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushExpression(classValue, classValue);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
 					} catch (ClassNotFoundException e) {
-						processException(e);
+						// Do nothing, already processed.
 					}
 					break;
 
-				case IInternalExpressionConstants.FIELD_ACCESS_EXPRESSION :
-					// Get a field access request. The field name sent as string, followed by hasReceiver as boolean.
-					String fieldAccess_name = in.readUTF();
-					boolean fieldAccess_receiver = in.readBoolean();
-					if (errorOccurred)
-						break;
+				case InternalExpressionTypes.FIELD_ACCESS_EXPRESSION_VALUE:
+					// Get a field access request. Command.ValueObject, followed by hasReceiver as boolean.
+					Commands.readValue(in, workerValue);
+					boolean has_fieldAccess_receiver = in.readBoolean();
 					try {
-						exp.pushFieldAccess(fieldAccess_name, fieldAccess_receiver);
-					} catch (NoExpressionValueException e4) {
-						processException(e4);
-					} catch (NoSuchFieldException e4) {
-						processException(e4);
-					} catch (IllegalAccessException e4) {
-						processException(e4);
+						Object fieldAccess = getFieldValue(workerValue);
+						exp.pushFieldAccess(fieldAccess, workerValue.getType() == Commands.STRING, has_fieldAccess_receiver);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.						
+					} catch (NoSuchFieldException e1) {
+						// Do nothing, already processed.
 					}
 					break;
 
-				case IInternalExpressionConstants.METHOD_EXPRESSION :
-					// Get a method invocation request. The method name sent as string, followed by hasReceiver as boolean, and argCount as int.
-					String method_name = in.readUTF();
-					boolean method_receiver = in.readBoolean();
+				case InternalExpressionTypes.METHOD_EXPRESSION_VALUE:
+					// Get a method invocation request. Sent as Commands.ValueObject, followed by hasReceiver as boolean., and argCount as int.
+					Commands.readValue(in, workerValue);
+					boolean has_method_receiver = in.readBoolean();
 					int method_argCount = in.readInt();
-					if (errorOccurred)
-						break;
 					try {
-						exp.pushMethodInvocation(method_name, method_receiver, method_argCount);
-					} catch (EvaluationException e5) {
-						processException(e5);
-					} catch (NoExpressionValueException e5) {
-						processException(e5);
-					} catch (IllegalAccessException e5) {
-						processException(e5);
-					} catch (InvocationTargetException e5) {
-						processException(e5);
-					}
+						Object method = getMethodValue(workerValue);					
+						exp.pushMethodInvocation(method, workerValue.getType() == Commands.STRING, has_method_receiver, method_argCount);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					} catch (NoSuchMethodException e) {
+						// Do nothing, already processed.
+					}						
 					break;
 
-				case IInternalExpressionConstants.CONDITIONAL_EXPRESSION :
+				case InternalExpressionTypes.CONDITIONAL_EXPRESSION_VALUE:
 					// Get a conditional expression request. The expression type (ie. condition/true/false) is sent as a byte
-					byte conditional_type = in.readByte();
-					if (errorOccurred)
-						break;
+					exp.pushConditional(InternalConditionalOperandType.get(in.readByte()));
+					break;
+					
+				case InternalExpressionTypes.ASSIGNMENT_PROXY_EXPRESSION_VALUE:
+					// Get an assignment expression request. The proxy id is sent as an int.
+					int proxyid = in.readInt();
+					exp.pushAssignment(new RemoteExpressionProxy(proxyid));
+					break;
+					
+				case InternalExpressionTypes.ASSIGNMENT_EXPRESSION_VALUE:
+					// Get an assignment expression request. Nothing else to read from stream.
+					exp.pushAssignment();
+					break;
+					
+				case InternalExpressionTypes.PUSH_TO_EXPRESSION_PROXY_EXPRESSION_VALUE:
+					// Get a push expression proxy expression. The proxy id is sent as an int.
+					exp.pushExpressionProxy(in.readInt());
+					break;
+				
+				case InternalExpressionTypes.BLOCK_BEGIN_EXPRESSION_VALUE:
+					// Get a begin block proxy expression. The block id is sent as an int.
+					exp.pushBlockBegin(in.readInt());
+					break;
+					
+				case InternalExpressionTypes.BLOCK_BREAK_EXPRESSION_VALUE:
+					// Get a break block proxy expression. The block id is sent as an int.
+					exp.pushBlockBreak(in.readInt());
+					break;
+					
+				case InternalExpressionTypes.BLOCK_END_EXPRESSION_VALUE:
+					// Get a end block proxy expression. The block id is sent as an int.
+					exp.pushBlockEnd(in.readInt());
+					break;
+					
+				case InternalExpressionTypes.TRY_BEGIN_EXPRESSION_VALUE:
+					// Get a try begin proxy expression. The try id is sent as an int.
+					exp.pushTryBegin(in.readInt());
+					break;
+					
+				case InternalExpressionTypes.TRY_CATCH_EXPRESSION_VALUE:
+					int tryNumber = in.readInt();
+					Commands.readValue(in, workerValue);
+					proxyid = in.readInt();
 					try {
-						exp.pushConditional(conditional_type);
-					} catch (NoExpressionValueException e6) {
-						processException(e6);
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushTryCatchClause(tryNumber, classValue, proxyid != -1 ? new RemoteExpressionProxy(proxyid) : null);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					} catch (ClassNotFoundException e) {
+						// Do nothing, already processed.
+					}					
+					break;
+
+				case InternalExpressionTypes.TRY_FINALLY_EXPRESSION_VALUE:
+					// Get a try finally proxy expression. The try id is sent as an int.
+					exp.pushTryFinallyClause(in.readInt());
+					break;
+
+				case InternalExpressionTypes.TRY_END_EXPRESSION_VALUE:
+					// Get a try end proxy expression. The try id is sent as an int.
+					exp.pushTryEnd(in.readInt());
+					break;
+					
+				case InternalExpressionTypes.THROW_EXPRESSION_VALUE:
+					exp.pushThrowException();
+					break;
+
+				case InternalExpressionTypes.RETHROW_EXPRESSION_VALUE:
+					// Get a rethrow proxy expression. The try id is sent as an int.
+					exp.pushTryRethrow(in.readInt());
+					break;
+
+				case InternalExpressionTypes.PUSH_BEANTYPE_EXPRESSIONPROXY_EXPRESSION_VALUE:
+					// Get the beantype expression proxy and resolve it.
+					proxyid = in.readInt();
+					String typeName = Commands.readStringData(in);
+					try {
+						Class classValue = loadClass(typeName);
+						RemoteExpressionProxy rep = new RemoteExpressionProxy(proxyid);
+						rep.setProxy(classValue, Class.class);
+						exp.allocateExpressionProxy(rep);
+					} catch (ClassNotFoundException e) {
+						exp.processException(e);
+					} catch (LinkageError e) {
+						exp.processException(e);
 					}
+					break;
+					
+				case InternalExpressionTypes.PUSH_METHOD_EXPRESSIONPROXY_EXPRESSION_VALUE:
+					// Get the Method expression proxy and resolve it.
+					// Comes over as:
+					//   int for proxy id for the method
+					//   beanTypeValue for declaring class (either beantype or expression proxy)
+					//   string for method name
+					//   int for arg count
+					//   beanTypeValue(s) for arg types (as many as arg count).
+					proxyid = in.readInt();
+					Commands.ValueObject decClassValue =  Commands.readValue(in, new Commands.ValueObject());
+					String methodName = Commands.readStringData(in);
+					int argCount = in.readInt();
+					Commands.ValueObject[] args = null;
+					if (argCount > 0) {
+						args = new Commands.ValueObject[argCount];
+						for (int i = 0; i < argCount; i++) {
+							args[i] = Commands.readValue(in, new Commands.ValueObject());
+						}
+					}
+					try {
+						Class decClass = getBeanTypeValue(decClassValue);
+						Class[] argClasses = null;
+						if (argCount>0) {
+							argClasses = new Class[argCount];
+							for (int i = 0; i < argCount; i++) {
+								argClasses[i] = getBeanTypeValue(args[i]);
+							}
+						}
+						// Now get the method itself.
+						Method m = decClass.getMethod(methodName, argClasses);
+						RemoteExpressionProxy rep = new RemoteExpressionProxy(proxyid);
+						rep.setProxy(m, Method.class);
+						exp.allocateExpressionProxy(rep);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					} catch (ClassNotFoundException e) {
+						// Do nothing, already processed.
+					} catch (NoSuchMethodException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					}					
+					break;
+					
+				case InternalExpressionTypes.PUSH_FIELD_EXPRESSIONPROXY_EXPRESSION_VALUE:
+					// Get the Filed expression proxy and resolve it.
+					// Comes over as:
+					//   int for proxy id for the field
+					//   beanTypeValue for declaring class (either beantype or expression proxy)
+					//   string for field name
+					proxyid = in.readInt();
+					decClassValue =  Commands.readValue(in, new Commands.ValueObject());
+					String fieldName = Commands.readStringData(in);
+					try {
+						Class decClass = getBeanTypeValue(decClassValue);
+						// Now get the field itself.
+						Field f = decClass.getField(fieldName);
+						RemoteExpressionProxy rep = new RemoteExpressionProxy(proxyid);
+						rep.setProxy(f, Method.class);
+						exp.allocateExpressionProxy(rep);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					} catch (ClassNotFoundException e) {
+						// Do nothing, already processed.
+					} catch (NoSuchFieldException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					}					
+					break;					
+					
+				case InternalExpressionTypes.IF_TEST_EXPRESSION_VALUE:
+					// Get a if test expression request. 
+					exp.pushIfElse();
+					break;
+					
+				case InternalExpressionTypes.IF_ELSE_EXPRESSION_VALUE:
+					// Get a if/else expression clause request. The clause type (ie. true/false) is sent as a byte
+					exp.pushIfElse(InternalIfElseOperandType.get(in.readByte()));
+					break;
+					
+				case InternalExpressionTypes.NEW_INSTANCE_VALUE:
+					// Get a new instance from string.
+					String initString = Commands.readStringData(in);
+					workerValue =  Commands.readValue(in, new Commands.ValueObject());
+					try {
+						Class classValue = getBeanTypeValue(workerValue);
+						exp.pushNewInstanceFromString(initString, classValue, classLoader);
+					} catch (ClassCastException e) {
+						exp.processException(e);	// Let the processor know we have a stopping error.
+					} catch (ClassNotFoundException e) {
+						// Do nothing, already processed.
+					}
+					break;
+					
+				case InternalExpressionTypes.MARK_VALUE:
+					// Do a mark.
+					int markID = in.readInt();
+					exp.pushMark(markID);
+					break;
+					
+				case InternalExpressionTypes.ENDMARK_VALUE:
+					// Do an end mark.
+					markID = in.readInt();
+					boolean restore = in.readBoolean();
+					exp.pushEndmark(markID, restore);
 					break;
 			}
 			
 		} catch (RuntimeException e) {
-			processException(e);
+			exp.processException(e);
 		}
 		
 		workerValue.set();	// Clear it out so nothing being held onto.
 	}
 	
-
 	/**
-	 * Pull the value. If an error occurred during this, then <code>null</code> is returned, and
-	 * caller should do normal error processing.
+	 * Get the beantype (class) out of the value object sent in. It can handle the beantype sent or
+	 * as an expression proxy to a beantype expression proxy.
 	 * 
-	 * @return r[0] is the value, r[1] is the type of the value. <code>null</code> if there was an error.
+	 * @param value
+	 * @return
+	 * @throws ClassCastException means either not a type sent in, or proxy was not a type.
+	 * @throws ClassNotFoundException the expression proxy did not resolve. In that case it has already been processed by the expression processor.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	public Object[] pullValue() {
-		Object[] result = new Object[2];
-		try {
-			exp.pullValue(result);
-			return result;
-		} catch (NoExpressionValueException e) {
-			processException(e);
+	protected Class getBeanTypeValue(Commands.ValueObject value) throws ClassCastException, ClassNotFoundException {
+		Object beantype = connHandler.getInvokableObject(value);
+		// It is either a type directly or is an expression proxy.
+		if (value.type == Commands.INT) {
+			// It is an expression proxy request.
+			Object[] expvalue = new Object[2];
+			if (exp.getExpressionProxyValue(((Integer) beantype).intValue(), expvalue)) {
+				beantype = expvalue[0]; 
+			} else
+				throw new ClassNotFoundException();
 		}
-		return null;
+		return (Class) beantype;
 	}
-	
+		
 	/**
-	 * Process all other exceptions then the NoExpressionValueException, InvocationTargetException, and EvaluationException. This is
-	 * for exceptions that are not related to the input stream and shouldn't
-	 * cause the input stream to be closed.
+	 * Get the method out of the value object sent in. It can handle the method sent or
+	 * as an expression proxy to a method expression proxy.
+	 * @param value
+	 * @return method if a method or string if a string or get the method if an expression proxy.
+	 * @throws NoSuchMethodException the expression proxy did not resolve. In that case it has already been processed by the expression processor.
+	 * @throws ClassCastException means either not a method sent in, or proxy was not a method.
 	 * 
-	 * @param e
-	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	protected final void processException(Exception e) {
-		// Process all other exceptions.
-		errorOccurred = true;
-		exception = e;
-	}
-	
-	/**
-	 * Process certain errors. Should not be called for general errors. Should be called for specific java.lang.Errors that
-	 * are not related to the input stream and shouldn't cause the input stream to be closed.
-	 *  
-	 * @param e
-	 * 
-	 * @since 1.0.2
-	 */
-	protected final void processError(Error e) {
-		// Process specific errors
-		errorOccurred = true;
-		exception = e;		
-	}
-	
-	/**
-	 * Process InvocationTargetException to retrieve the actual target.
-	 * @param e
-	 * 
-	 * @since 1.0.0
-	 */
-	protected final void processException(InvocationTargetException e) {
-		errorOccurred = true;
-		exception = e.getTargetException();
-	}
-	
-	/**
-	 * Process EvaluationException to retrieve the actual target.
-	 * @param e
-	 * 
-	 * @since 1.0.0
-	 */
-	protected final void processException(EvaluationException e) {
-		errorOccurred = true;
-		exception = e.getOriginalException();
+	protected Object getMethodValue(Commands.ValueObject value) throws NoSuchMethodException, ClassCastException {
+		Object method = connHandler.getInvokableObject(value);
+		// It is either a method directly or is an expression proxy.
+		if (value.type == Commands.INT) {
+			// It is an expression proxy request.
+			Object[] expvalue = new Object[2];
+			if (exp.getExpressionProxyValue(((Integer) method).intValue(), expvalue)) {
+				method = expvalue[0]; 
+			} else
+				throw new NoSuchMethodException();
+		}
+		return method;
 	}	
 
 	/**
-	 * Special case for NoExpressionValueException caught.
-	 * @param e
+	 * Get the field out of the value object sent in. It can handle the field sent or
+	 * as an expression proxy to a field expression proxy.
+	 * @param value
+	 * @return field if a field or string if a string or get the field if an expression proxy.
+	 * @throws NoSuchFieldException the expression proxy did not resolve. In that case it has already been processed by the expression processor.
+	 * @throws ClassCastException means either not a field sent in, or proxy was not a field.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	protected final void processException(NoExpressionValueException e) {
-		errorOccurred = true;
-		novalueMsg = e.getLocalizedMessage();
-		if (novalueMsg == null)
-			novalueMsg = "";	// It was null, so just default of empty string so we know it had occurred.
+	protected Object getFieldValue(Commands.ValueObject value) throws NoSuchFieldException, ClassCastException {
+		Object field = connHandler.getInvokableObject(value);
+		// It is either a field directly or is an expression proxy.
+		if (value.type == Commands.INT) {
+			// It is an expression proxy request.
+			Object[] expvalue = new Object[2];
+			if (exp.getExpressionProxyValue(((Integer) field).intValue(), expvalue)) {
+				field = expvalue[0]; 
+			} else
+				throw new NoSuchFieldException();
+		}
+		return field;
+	}	
+	
+	/**
+	 * Pull the Expression Proxy value into the result object.
+	 * @param proxyID
+	 * @param result
+	 * @return <code>true</code> if value could be returned, <code>false</code> if it was no expression value assigned.
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean pullExpressionProxyValue(int proxyID, Object[] result) {
+		try {
+			exp.pullExpressionProxyValue(proxyID, result);
+			return true;
+		} catch (NoExpressionValueException e) {
+		}
+		return false;
 	}
+	
+	private static class RemoteExpressionProxy implements InternalExpressionProxy {
+
+		
+		private final int proxyID;
+		private Object value;
+		private Class type;
+		private boolean set;
+		
+		public RemoteExpressionProxy(int proxyID) {
+			this.proxyID = proxyID;
+			
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.initParser.tree.InternalExpressionProxy#getProxyID()
+		 */
+		public int getProxyID() {
+			return proxyID;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.initParser.tree.InternalExpressionProxy#getType()
+		 */
+		public Class getType() {
+			return type;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.initParser.tree.InternalExpressionProxy#getValue()
+		 */
+		public Object getValue() {
+			return value;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.initParser.tree.InternalExpressionProxy#isSet()
+		 */
+		public boolean isSet() {
+			return set;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.initParser.tree.InternalExpressionProxy#setProxy(java.lang.Object, java.lang.Class)
+		 */
+		public void setProxy(Object value, Class type) {
+			this.value = value;
+			this.type = type;
+			set = true;
+		}
+	}
+	
 
 	/**
-	 * Return whether there are any errors.
+	 * Pull the value. 
 	 * 
-	 * @return <code>true</code> if no errors.
-	 * 
-	 * @since 1.0.0
-	 */
-	public boolean noErrors() {
-		return !errorOccurred;
-	}
-	
-	/**
-	 * Return the error code from ExpressionCommands if non-exception error occurred.
-	 * Return zero if no error.
-	 * 
-	 * @return Zero if no error code to return, else error code from ExpressionCommands.
-	 * 
-	 * @see org.eclipse.jem.internal.proxy.common.remote.ExpressionCommands#ExpressionNoExpressionValueException
+	 * @return r[0] is the value, r[1] is the type of the value.
+	 * @throws NoExpressionValueException
 	 * 
 	 * @since 1.0.0
 	 */
-	public int getErrorCode() {
-		if (novalueMsg != null)
-			return ExpressionCommands.ExpressionNoExpressionValueException;
-		else
-			return 0;
+	public Object[] pullValue() throws NoExpressionValueException {
+		Object[] result = new Object[2];
+		exp.pullValue(result);
+		return result;
 	}
-	
-	/**
-	 * Return the error message, should only be called if <code>getErrorCode()</code> returned non-zero.
-	 * 
-	 * @return The error message if any. <code>null</code> otherwise.
-	 * 
-	 * @since 1.0.0
-	 */
-	public String getErrorMsg() {
-		if (novalueMsg != null && novalueMsg.length() > 0)
-			return novalueMsg;
-		else
-			return null;
-	}
-	
-	/**
-	 * Return the throwable if a Throwable was caught.
-	 * 
-	 * @return The throwable, or <code>null</code> if not set.
-	 * 
-	 * @since 1.0.0
-	 */
-	public Throwable getErrorThrowable() {
-		return exception;
-	}
-	
+				
 	/**
 	 * Close out things.
 	 * 
@@ -538,6 +655,36 @@ public class ExpressionProcesserController {
 	 */
 	public void close() {
 		exp.close();
+	}
+	
+	/**
+	 * Get the throwable error.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public Throwable getErrorThrowable() {
+		return exp.getErrorThrowable();
+	}
+	
+	/**
+	 * Return whether there were no errors or not.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean noErrors() {
+		return exp.noErrors();
+	}
+	
+	/**
+	 * Return whether there is a no expression value exception or not.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean isNoExpressionValue() {
+		return exp.isNoExpressionValue();
 	}
 
 }

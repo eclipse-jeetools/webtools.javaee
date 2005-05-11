@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.impl;
 /*
  *  $RCSfile: JavaDataTypeImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/04/14 19:05:33 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:16 $ 
  */
 
 import java.util.Collection;
@@ -42,9 +42,13 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	static final String FLOAT_ZERO = "0.0f";
 	static final String CHAR_ZERO = "'0'";
 	static final String ZERO = "0";
+	
+	private int primitive_type = PRIM_NOT_ID;
+	
 	protected JavaDataTypeImpl() {
 		super();
 	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -59,13 +63,13 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	 */
 	public String getDefaultValueString() {
 		String typeName = getJavaName();
-		if (typeName.equals(Boolean.TYPE.getName()))
+		if (typeName.equals(PRIM_BOOLEAN_NAME))
 			return FALSE;
-		if (typeName.equals(Double.TYPE.getName()))
+		if (typeName.equals(PRIM_DOUBLE_NAME))
 			return DOUBLE_ZERO;
-		if (typeName.equals(Float.TYPE.getName()))
+		if (typeName.equals(PRIM_FLOAT_NAME))
 			return FLOAT_ZERO;			
-		if (typeName.equals(Character.TYPE.getName()))
+		if (typeName.equals(PRIM_CHARACTER_NAME))
 			return CHAR_ZERO;
 		return ZERO;
 	}
@@ -74,6 +78,33 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	}
 	public JavaDataType getPrimitive() {
 		return this;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaHelpers#getPrimitiveID()
+	 */
+	public int getPrimitiveID() {
+		if (primitive_type == PRIM_NOT_ID) {
+			String name = getName();
+			if (name.equals(PRIM_BOOLEAN_NAME))
+				primitive_type = PRIM_BOOLEAN_ID;
+			if (name.equals(PRIM_CHARACTER_NAME))
+				primitive_type = PRIM_CHARACTER_ID;
+			if (name.equals(PRIM_BYTE_NAME))
+				primitive_type = PRIM_BYTE_ID;
+			if (name.equals(PRIM_SHORT_NAME))
+				primitive_type = PRIM_SHORT_ID;
+			if (name.equals(PRIM_INTEGER_NAME))
+				primitive_type = PRIM_INTEGER_ID;
+			if (name.equals(PRIM_LONG_NAME))
+				primitive_type = PRIM_LONG_ID;
+			if (name.equals(PRIM_FLOAT_NAME))
+				primitive_type = PRIM_FLOAT_ID;
+			if (name.equals(PRIM_DOUBLE_NAME))
+				primitive_type = PRIM_DOUBLE_ID;
+		}
+		return primitive_type;
 	}
 	
 	public String getSimpleName() {
@@ -93,24 +124,26 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	 * getWrapper method comment.
 	 */
 	protected String getWrapperQualifiedName() {
-		String myName = getJavaName();
-		if (myName.equals(PRIM_INTEGER_NAME))
-			return INTEGER_NAME;
-		if(myName.equals(PRIM_CHARACTER_NAME))
-			return CHARACTER_NAME;
-		if(myName.equals(PRIM_BOOLEAN_NAME))
-			return BOOLEAN_NAME;
-		if(myName.equals(PRIM_BYTE_NAME))
-			return BYTE_NAME;
-		if(myName.equals(PRIM_SHORT_NAME))
-			return SHORT_NAME;
-		if(myName.equals(PRIM_LONG_NAME))
-			return LONG_NAME;
-		if(myName.equals(PRIM_FLOAT_NAME))
-			return FLOAT_NAME;
-		if(myName.equals(PRIM_DOUBLE_NAME))
-			return DOUBLE_NAME;
-		return null;
+		switch (getPrimitiveID()) {
+			case PRIM_INTEGER_ID:
+				return INTEGER_NAME;
+			case PRIM_CHARACTER_ID:
+				return CHARACTER_NAME;
+			case PRIM_BOOLEAN_ID:
+				return BOOLEAN_NAME;
+			case PRIM_BYTE_ID:
+				return BYTE_NAME;
+			case PRIM_SHORT_ID:
+				return SHORT_NAME;
+			case PRIM_LONG_ID:
+				return LONG_NAME;
+			case PRIM_FLOAT_ID:
+				return FLOAT_NAME;
+			case PRIM_DOUBLE_ID:
+				return DOUBLE_NAME;
+			default:
+				return null;
+		}
 	}
 	/*
 	 * JavaHelpers.isArray() - array types are always JavaClasses, even if their component type is

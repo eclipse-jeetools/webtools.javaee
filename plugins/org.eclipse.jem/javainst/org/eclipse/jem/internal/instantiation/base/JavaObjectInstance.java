@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.13 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.14 $  $Date: 2005/05/11 19:01:16 $ 
  */
 
 import java.util.List;
@@ -44,7 +44,8 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 	 * Visit the argument with all of the set features in an optimized fashion 
 	 */
 	private final static Object NIL = EStructuralFeatureImpl.InternalSettingDelegateSingle.NIL;
-	public void visitSetFeatures(Visitor aVisitor) {
+	public Object visitSetFeatures(Visitor aVisitor) {
+		Object result = null;
 		if (eHasSettings()) {
 			JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties();
 
@@ -57,11 +58,13 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 						// <null> is handled by the placeholder NIL. A setting of true null means not set. A setting of NIL means set to null.
 						if (propertyValue == NIL)
 							propertyValue = null;
-						aVisitor.isSet((EStructuralFeature) allFeatures.get(i), propertyValue);
+						if ((result = aVisitor.isSet((EStructuralFeature) allFeatures.get(i), propertyValue)) != null)
+							break;
 					}
 				}
 			} 
-		}												
+		}
+		return result;
 	}
 		
 	public boolean isSetAllocation() {

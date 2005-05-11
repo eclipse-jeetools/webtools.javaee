@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/04 15:13:15 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:28 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -27,7 +27,6 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.change.ChangeDescription;
-import org.eclipse.emf.ecore.change.ChangePackage;
 import org.eclipse.emf.ecore.change.impl.EObjectToChangesMapEntryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -864,8 +863,6 @@ public class BeanInfoCacheController {
 		return ce;
 	}
 
-	protected static final ChangePackage CP = ChangePackage.eINSTANCE;	// TODO When emf bug 80491 if fixed.
-	
 	/**
 	 * Get the cache resource for the given java class.
 	 * <p>
@@ -890,29 +887,17 @@ public class BeanInfoCacheController {
 			boolean waitForJob = false;
 			synchronized (ce) {
 				if (ce.getPendingResource() != null) {
-//					// We are waiting to write it out, so just make a copy of it and use it. (After EMF bug 80547 fix is available.
-//					Resource cres = ce.getPendingOverrideResource();
-//					ResourceSet rset = cres.getResourceSet();
-//					Resource copyRes = rset.createResource(cres.getURI().appendSegment("temporary"));
-//					copyRes.getContents().addAll(EcoreUtil.copyAll(cres.getContents()));
-//					return copyRes;
-					// TODO EMF bug 80547 is available, we can simply return a copy of the resource when it is a pending resource instead of 
-					// waiting for the cache job to finish. Because then we can make a copy with no problem.
-					// Actually copy won't work because it refers directly to classes in the other project's resource set. So
-					// when loading using the copied version, it creates incorrect linkages. Need a copy that turns outside refs into proxies
-					// so when needed again they will be resolved.
-					// Need to create a special ECoreUtil.Copier that overrides copyReferences and changes any values that are not copied,
-					// i.e. came from outside the copy set, into new proxies pointing the URI of original ref value. This way it will
-					// be reresolved under the project resource set instead of the original rset. Actually only needed if resource set
-					// for ref value different resource set than ours being copied. But it doesn't buy anything to add that overhead.
-					// This should still be faster than waiting for the save to disk and then reading it back in again.
+					// We have one pending. So wait until write cache job is done, and then load it in.
+					// Note: Can't just copy the pending resource because it has references to JavaClasses
+					// and these could be in a different project (since this could be a workspace wide class).
+					// We would get the wrong java classes then when we apply it. 
 					waitForJob = true;
 					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
 						BeaninfoPlugin.getPlugin().getLogger().log("Using pending class cache.", Level.FINER);
 				}
 			}
 			if (waitForJob)
-				waitForCacheSaveJob();	// This is part of the fix which can go away when 80547 is available.
+				waitForCacheSaveJob();	
 
 			try {
 				return jclass.eResource().getResourceSet().getResource(
@@ -925,45 +910,20 @@ public class BeanInfoCacheController {
 				return null;
 			}
 		} else {
-//			synchronized (ce) {
-//				if (ce.getPendingOverrideResource() != null) {
-//					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
-//						BeaninfoPlugin.getPlugin().getLogger().log("Using pending cache.", Level.FINER);
-//
-//					// We are waiting to write it out, so just make a copy of it and use it.
-//					Resource cres = ce.getPendingOverrideResource();
-//					ResourceSet rset = cres.getResourceSet();
-//					Resource copyRes = rset.createResource(cres.getURI().appendSegment("temporary"));
-//					copyRes.getContents().addAll(EcoreUtil.copyAll(cres.getContents()));
-//					return copyRes;
-//				}
-//			}
 			boolean waitForJob = false;
 			synchronized (ce) {
-				if (ce.getPendingResource() != null) {
-//					// We are waiting to write it out, so just make a copy of it and use it. (After EMF bug 80547 fix is available.
-//					Resource cres = ce.getPendingOverrideResource();
-//					ResourceSet rset = cres.getResourceSet();
-//					Resource copyRes = rset.createResource(cres.getURI().appendSegment("temporary"));
-//					copyRes.getContents().addAll(EcoreUtil.copyAll(cres.getContents()));
-//					return copyRes;
-					// TODO EMF bug 80547 is available, we can simply return a copy of the resource when it is a pending resource instead of 
-					// waiting for the cache job to finish. Because then we can make a copy with no problem.
-					// Actually copy won't work because it refers directly to classes in the other project's resource set. So
-					// when loading using the copied version, it creates incorrect linkages. Need a copy that turns outside refs into proxies
-					// so when needed again they will be resolved.
-					// Need to create a special ECoreUtil.Copier that overrides copyReferences and changes any values that are not copied,
-					// i.e. came from outside the copy set, into new proxies pointing the URI of original ref value. This way it will
-					// be reresolved under the project resource set instead of the original rset. Actually only needed if resource set
-					// for ref value different resource set than ours being copied. But it doesn't buy anything to add that overhead.
-					// This should still be faster than waiting for the save to disk and then reading it back in again.
+				if (ce.getPendingOverrideResource() != null) {
+					// We have one pending. So wait until write cache job is done, and then load it in.
+					// Note: Can't just copy the pending resource because it has references to JavaClasses
+					// and these could be in a different project (since this could be a workspace wide class).
+					// We would get the wrong java classes then when we apply it. 
 					waitForJob = true;
 					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
 						BeaninfoPlugin.getPlugin().getLogger().log("Using pending override cache.", Level.FINER);
 				}
 			}
 			if (waitForJob)
-				waitForCacheSaveJob();	// This is part of the fix which can go away when 80547 is available.
+				waitForCacheSaveJob();	
 
 			try {
 				return jclass.eResource().getResourceSet().getResource(
@@ -1395,8 +1355,7 @@ public class BeanInfoCacheController {
 	static {
 		SAVE_CACHE_OPTIONS = new HashMap(3);
 		SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_SAVE_TYPE_INFORMATION, Boolean.TRUE);
-		//	SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-		// TODO when we step up to EMF 2.1, bug 80502 should fix this.
+		SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
         SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_ENCODING, "UTF-8");
 	}
 
