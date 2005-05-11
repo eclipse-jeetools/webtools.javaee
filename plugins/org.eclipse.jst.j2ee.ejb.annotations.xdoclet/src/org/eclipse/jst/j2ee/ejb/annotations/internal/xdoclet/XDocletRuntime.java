@@ -34,7 +34,7 @@ public class XDocletRuntime {
 
 	public final static String LIBPATH = "lib";
 
-	public final static String VERSIONS[] = { "1.2.1", "1.2.2" };
+	public final static String VERSIONS[] = { "1.2.1", "1.2.2", "1.2.3" };
 
 	// 1.2.2
 	private String version = "1.2.2";
@@ -55,6 +55,13 @@ public class XDocletRuntime {
 					{ "xdoclet-1.2.2.jar", "xjavadoc-1.1.jar",
 							"xdoclet-xdoclet-module-1.2.2.jar",
 							"xdoclet-ejb-module-1.2.2.jar",
+							"commons-collections-2.0.jar",
+							"commons-logging.jar" } },
+			{
+					{ "1.2.3" },
+					{ "xdoclet-1.2.2.jar", "xjavadoc-1.1.jar",
+							"xdoclet-xdoclet-module-1.2.3.jar",
+							"xdoclet-ejb-module-1.2.3.jar",
 							"commons-collections-2.0.jar",
 							"commons-logging.jar" } }
 
@@ -175,14 +182,14 @@ public class XDocletRuntime {
 				String jar = vLibs[i];
 				File libFile = new File(getHome() + File.separator + LIBPATH
 						+ File.separator + jar);
-				
+
 				// This is fo people who change the location of the files
-				// from the original distribution.  It is unncessary but
+				// from the original distribution. It is unncessary but
 				// makes people happy!
 				File libFile2 = new File(getHome() + File.separator + jar);
-				
+
 				if (!libFile.exists() && !libFile2.exists())
-						errors.add(new Status(IStatus.ERROR,
+					errors.add(new Status(IStatus.ERROR,
 							XDocletAnnotationPlugin.PLUGINID, 0,
 							"Could not find library: " + jar, null));
 			}
