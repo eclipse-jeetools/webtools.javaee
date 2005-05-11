@@ -10,14 +10,16 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:44:52 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 15:23:53 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.regex.Pattern;
+
+import org.eclipse.jem.internal.proxy.core.MapJNITypes;
 
  
 
@@ -27,19 +29,24 @@ import java.util.regex.Pattern;
  * <p>
  * We can only represent Strings, primitives, and arrays. (Primitives will converted
  * to their wrapper class (e.g. Long), and byte, short, and int will move up to Long,
- * and float will move up to Double).  And any kind of valid array will move to
- * an Object array. We don't have the capability to allow more complex objects 
+ * and float will move up to Double).  And any kind of valid array on the java BeanInfo side
+ * will be converted to an Object array on the IDE side. We don't have the capability to allow more complex objects 
  * because the IDE may not have the necessary classes available to it that 
  * the BeanInfo may of had available to it. Invalid objects will be represented
  * by the singleton instance of {@link org.eclipse.jem.internal.beaninfo.common.InvalidObject}.
- * 
+ * <p>
+ * <b>Note:</b>
+ * Class objects that are values of Feature attributes on the java BeanInfo side will be
+ * converted to simple strings containing the classname when moved to the client (IDE) side.
+ * That is because the classes probably will not be available on the IDE side, but can be
+ * used to reconstruct the class when used back on the java vm side. 
  * @since 1.1.0
  */
 public class FeatureAttributeValue implements Serializable {
 	
-	private Object value;
+	private transient Object value;
 	private transient Object internalValue;
-	private static final long serialVersionUID = 1105717634822L;
+	private static final long serialVersionUID = 1105717634844L;
 	
 	/**
 	 * Create the value with the given init string.
@@ -169,13 +176,14 @@ public class FeatureAttributeValue implements Serializable {
 	private static void makeString(Object value, StringBuffer out) {
 		if (value == null)
 			out.append(NULL);
-		else if (value instanceof String) {
+		else if (value instanceof String || value instanceof Class) {
 			// String: "string" or "string\"stringend" if str included a double-quote.
 			out.append('"');
-			String str = (String) value;
+			// If class, turn value into the classname.
+			String str = value instanceof String ? (String) value : ((Class) value).getName();
 			if (str.indexOf('"') != -1) {
 				// Replace double-quote with escape double-quote so we can distinquish it from the terminating double-quote.
-				out.append(QUOTE.matcher(str).replaceAll("\\\\\""));	// Don't know why we need the bask-slash to be doubled for replaceall, but it doesn't work otherwise.
+				out.append(QUOTE.matcher(str).replaceAll("\\\\\""));	// Don't know why we need the back-slash to be doubled for replaceall, but it doesn't work otherwise.
 			} else
 				out.append(str);
 			out.append('\"');
@@ -622,6 +630,90 @@ public class FeatureAttributeValue implements Serializable {
 			}
 		}
 		return InvalidObject.INSTANCE;
+	}
+	
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		// Write out any hidden stuff
+		out.defaultWriteObject();
+		writeObject(value, out);
+	}
+	
+	private void writeObject(Object value, ObjectOutputStream out) throws IOException {
+		if (value == null)
+			out.writeObject(value);
+		else {
+			if (value instanceof Class)
+				out.writeObject(((Class) value).getName());
+			else if (!value.getClass().isArray()) {
+				if (value instanceof String || value instanceof Number || value instanceof Boolean || value instanceof Character)
+					out.writeObject(value);
+				else
+					out.writeObject(InvalidObject.INSTANCE);
+			} else {
+				// Array is tricky. See if it is one we can handle, if not then invalid. 
+				// To indicate array, we will first write out the Class of the Component type of the array (it will
+				// be converted to be Object or Object[]...).
+				// This will be the clue that an array is coming. Class values will never
+				// be returned, so that is how we can tell it is an array.
+				// Note: The reason we are using the component type (converted to Object) is because to reconstruct on the other side we need
+				// to use the component type plus length of the array's first dimension.
+				// 
+				// We can not just serialize the array in the normal way because it may contain invalid values, and we need to 
+				// handle that. Also, if it wasn't an Object array, we need to turn it into an object array. We need consistency
+				// in that it should always be an Object array.
+				// So output format will be:
+				// Class(component type)
+				// int(size of first dimension)
+				// Object(value of first entry) - Actually use out writeObject() format to allow nesting of arrays.
+				// Object(value of second entry)
+				// ... up to size of dimension.
+				Class type = value.getClass();
+				// See if final type is a valid type.
+				Class ft = type.getComponentType();
+				int dims = 1;
+				while (ft.isArray()) {
+					dims++;
+					ft = ft.getComponentType();
+				}
+				if (ft == Object.class || ft == String.class || ft == Boolean.class || ft == Character.class || ft.isPrimitive() || ft == Class.class || Number.class.isAssignableFrom(ft)) {
+					String jniType = dims == 1 ? "java.lang.Object" : MapJNITypes.getJNITypeName("java.lang.Object", dims-1);
+					try {
+						Class componentType = Class.forName(jniType);
+						out.writeObject(componentType);
+						int length = Array.getLength(value);
+						out.writeInt(length);
+						for (int i = 0; i < length; i++) {
+							writeObject(Array.get(value, i), out);
+						}
+					} catch (ClassNotFoundException e) {
+						// This should never happen. Object arrays are always available.
+					}
+				} else
+					out.writeObject(InvalidObject.INSTANCE);
+			}
+		}
+	}
+	
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		// Read in any hidden stuff
+		in.defaultReadObject();
+		
+		value = readActualObject(in);
+	}
+	
+	private Object readActualObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		Object val = in.readObject();
+		if (val instanceof Class) {
+			// It must be an array. Only Class objects that come in are Arrays of Object.
+			int length = in.readInt();
+			Object array = Array.newInstance((Class) val, length);
+			for (int i = 0; i < length; i++) {
+				Array.set(array, i, readActualObject(in));
+			}
+			return array;
+		} else
+			return val;	// It is the value itself.
 	}
 	
 }
