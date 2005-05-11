@@ -11,22 +11,23 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
+import org.eclipse.jst.j2ee.internal.wizard.DataModelAnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
+public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardPage implements IEjbComponentCreationDataModelProperties {
 	protected Button addClient;
-	protected AnnotationsStandaloneGroup annotationsGroup;
+	protected DataModelAnnotationsStandaloneGroup annotationsGroup;
 
 	//	private Button addDefaultBean;
 
@@ -34,7 +35,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBComponentCreationWizardPage(EjbComponentCreationDataModel model, String pageName) {
+	public EJBComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE));
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC));
@@ -71,7 +72,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	 * @param advanced
 	 */
 	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, getJ2EEModuleCreationDataModel(), false);
+		annotationsGroup = new DataModelAnnotationsStandaloneGroup(parent, getDataModel(), false, synchHelper);
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		new Label(parent, SWT.NONE);
 		addClient = new Button(parent, SWT.CHECK);
 		addClient.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_EJB_CLIENT_JAR));
-		synchHelper.synchCheckbox(addClient, EjbComponentCreationDataModel.CREATE_CLIENT, null);
+		synchHelper.synchCheckbox(addClient, CREATE_CLIENT, null);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		addClient.setLayoutData(gd);
@@ -101,7 +102,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		String[] names = super.getValidationPropertyNames();
 		String[] allNames = new String[names.length + 2];
 		System.arraycopy(names, 0, allNames, 0, names.length);
-		allNames[names.length] = EjbComponentCreationDataModel.CREATE_CLIENT;
+		allNames[names.length] = CREATE_CLIENT;
 		allNames[names.length + 1] = IAnnotationsDataModel.USE_ANNOTATIONS;
 		return allNames;
 	}
@@ -121,7 +122,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		super.storeDefaultSettings();
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null)
-			settings.put(getAddDefaultBeanKey(), model.getBooleanProperty(EjbComponentCreationDataModel.CREATE_DEFAULT_SESSION_BEAN));
+			settings.put(getAddDefaultBeanKey(), model.getBooleanProperty(CREATE_DEFAULT_SESSION_BEAN));
 	}
 
 
@@ -133,7 +134,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		super.restoreDefaultSettings();
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null)
-			model.setBooleanProperty(EjbComponentCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, settings.getBoolean(getAddDefaultBeanKey()));
+			model.setBooleanProperty(CREATE_DEFAULT_SESSION_BEAN, settings.getBoolean(getAddDefaultBeanKey()));
 	}
 
 	/*

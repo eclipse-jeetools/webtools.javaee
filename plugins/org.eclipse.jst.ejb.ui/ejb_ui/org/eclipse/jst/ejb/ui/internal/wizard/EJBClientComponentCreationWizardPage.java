@@ -22,11 +22,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
+public class EJBClientComponentCreationWizardPage extends DataModelWizardPage {
 	public NewModuleGroup newModuleGroup = null;
 	protected EJBJar selProject = null;
 	private Label selectedProjectLabel;
@@ -40,7 +41,7 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBClientComponentCreationWizardPage(EJBClientComponentDataModel model, String pageName) {
+	public EJBClientComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title)); //$NON-NLS-1$
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Desc)); //$NON-NLS-1$
@@ -52,7 +53,7 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 	 * @param title
 	 * @param titleImage
 	 */
-	public EJBClientComponentCreationWizardPage(WTPOperationDataModel model, String pageName, String title, ImageDescriptor titleImage) {
+	public EJBClientComponentCreationWizardPage(IDataModel model, String pageName, String title, ImageDescriptor titleImage) {
 		super(model, pageName, title, titleImage);
 	}
 
@@ -110,7 +111,7 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 3;
 		newComposite.setLayout(layout);
-		newModuleGroup = new NewModuleGroup(newComposite, SWT.NULL, (EJBClientComponentDataModel) model);
+		newModuleGroup = new NewModuleGroup(newComposite, SWT.NULL, model, synchHelper);
 	}
 
 	private void setSpacer(Composite composite) {
@@ -173,7 +174,7 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 
 	protected void enter() {
 		super.enter();
-		if (newModuleGroup!=null)
-			newModuleGroup.initializeProjectList();
+//		if (newModuleGroup!=null)
+//			newModuleGroup.initializeProjectList();
 	}
 }

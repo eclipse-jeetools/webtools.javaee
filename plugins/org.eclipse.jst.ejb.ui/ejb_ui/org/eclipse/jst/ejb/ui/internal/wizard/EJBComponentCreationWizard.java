@@ -13,12 +13,14 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /** 
@@ -27,7 +29,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * (EJB) module structures in Eclipse Projects.
  * </p>
  */
-public final class EJBComponentCreationWizard extends J2EEComponentCreationWizard {
+public final class EJBComponentCreationWizard extends J2EEComponentCreationWizard implements IEjbComponentCreationDataModelProperties{
 	
 	/**
 	 * <p>
@@ -65,7 +67,7 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public EJBComponentCreationWizard(EjbComponentCreationDataModel model) {
+	public EJBComponentCreationWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -84,20 +86,6 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link EJBProjectCreationOperation}. 
-	 * </p>
-	 * 
-	 * @return Returns the specific operation for the creation of J2EE EJB modules
-	 */
-	protected final WTPOperation createBaseOperation() {
-		return new EjbComponentCreationOperation(getSpecificDataModel());
-	}
-
 	/**
 	 * {@inheritDoc}   
 	 * 
@@ -105,7 +93,6 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	 * Sets up the dialog window title and default page image. 
 	 * </p> 
 	 * 
-	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
 	protected void doInit() { 
 		setWindowTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_WIZ_TITLE));
@@ -158,8 +145,8 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EJBComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG));
-		clientPage = new EJBClientComponentCreationWizardPage(getSpecificDataModel().getNestedEJBClientComponentDataModel(), CLIENT_PG);
+		addPage(new EJBComponentCreationWizardPage(getDataModel(), MAIN_PG));
+		clientPage = new EJBClientComponentCreationWizardPage((IDataModel)getDataModel().getProperty(NESTED_MODEL_EJB_CLIENT_CREATION), CLIENT_PG);
 		addPage(clientPage);
 		super.doAddPages();
 	}
@@ -171,29 +158,19 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	 * @return true if the parent Wizard class is ready and EJB Client Creation settings are complete
 	 */
 	public boolean canFinish() {
-		if (!getSpecificDataModel().getBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT)) {
+		if (!getDataModel().getBooleanProperty(CREATE_CLIENT)) {
 			clientPage.setPageComplete(true);
 		}
 		return super.canFinish();
 	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
-	 */
-	public String getWizardID() {
-		return WIZARD_ID;
-	} 
-	
 	/**
 	 * @return true if the client page should be skipped (based on the value of {@see EJBProjectCreationDataModel#CREATE_CLIENT}.
 	 */
 	protected final boolean shouldSkipClientPage() {
-		return !getSpecificDataModel().getBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT);
+		return !getDataModel().getBooleanProperty(CREATE_CLIENT);
 	}
- 
-	private EjbComponentCreationDataModel getSpecificDataModel() {
-		return (EjbComponentCreationDataModel) getModel();
-	}
+
+    protected IDataModelProvider getDefaultProvider() {
+        return new EjbComponentCreationDataModelProvider();
+    }
 }

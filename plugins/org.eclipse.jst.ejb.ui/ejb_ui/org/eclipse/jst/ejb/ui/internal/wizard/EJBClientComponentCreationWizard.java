@@ -9,21 +9,21 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
-public class EJBClientComponentCreationWizard extends WTPWizard {
+public class EJBClientComponentCreationWizard extends DataModelWizard {
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
 
 	/**
 	 * @param model
 	 */
-	public EJBClientComponentCreationWizard(WTPOperationDataModel model) {
+	public EJBClientComponentCreationWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.CLIENT_BANNER));
@@ -43,7 +43,7 @@ public class EJBClientComponentCreationWizard extends WTPWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		addPage(new EJBClientComponentCreationWizardPage((EJBClientComponentDataModel) model, PAGE_ONE));
+		addPage(new EJBClientComponentCreationWizardPage(getDataModel(), PAGE_ONE));
 	}
 
 	/*
@@ -64,12 +64,8 @@ public class EJBClientComponentCreationWizard extends WTPWizard {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new EJBClientComponentCreationOperation((EJBClientComponentDataModel) model);
-	}
+    protected IDataModelProvider getDefaultProvider() {
+        return new EJBClientComponentDataModelProvider();
+    }
+
 }

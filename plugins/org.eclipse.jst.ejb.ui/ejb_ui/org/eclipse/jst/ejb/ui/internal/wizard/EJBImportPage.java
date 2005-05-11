@@ -20,15 +20,12 @@ import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 
 /**
@@ -65,10 +62,6 @@ public class EJBImportPage extends J2EEModuleImportPage {
 		return getEJBDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(EjbComponentCreationDataModel aModel) {
-		return new EJBComponentCreationWizard(aModel);
-	}
-
 	private EJBModuleImportDataModel getEJBDataModel() {
 		return (EJBModuleImportDataModel) model;
 	}
@@ -88,6 +81,6 @@ public class EJBImportPage extends J2EEModuleImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
-		new AnnotationsStandaloneGroup(composite, getEJBDataModel(), false);
+		//new AnnotationsStandaloneGroup(composite, getEJBDataModel(), false);
 	}
 }
