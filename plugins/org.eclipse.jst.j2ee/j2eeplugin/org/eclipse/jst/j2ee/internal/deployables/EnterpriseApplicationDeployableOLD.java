@@ -75,9 +75,9 @@ public class EnterpriseApplicationDeployableOLD extends J2EEDeployable implement
 	/*
 	 * @see IEnterpriseApplication#getModules()
 	 */
-	public IJ2EEModule[] getModules() {
+	/*public IModule[] getModules() {
 		return containedModules;
-	}
+	}*/
 
 	/*
 	 * @see IEnterpriseApplication#getVendorSupport()
@@ -151,9 +151,9 @@ public class EnterpriseApplicationDeployableOLD extends J2EEDeployable implement
 		return null;
 	}
 
-	public ILooseArchive[] getLooseArchives() {
+/*	public ILooseArchive[] getLooseArchives() {
 		return containedArchives;
-	}
+	}*/
 
 	protected ILooseArchive getArchiveDeployable(IProject aProject, LooseArchiveDeployableFactory fact) {
 		try {
@@ -425,6 +425,16 @@ public class EnterpriseApplicationDeployableOLD extends J2EEDeployable implement
 	 * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public IStatus validate(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IModule[] getModules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IModule[] getLooseArchives() {
 		// TODO Auto-generated method stub
 		return null;
 	}
