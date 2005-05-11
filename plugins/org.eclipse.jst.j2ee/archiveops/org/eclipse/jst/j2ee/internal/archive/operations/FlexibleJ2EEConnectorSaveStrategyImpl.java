@@ -12,9 +12,9 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class FlexibleJ2EEAppClientSaveStrategyImpl extends FlexibleJ2EESaveStrategyImpl {
+public class FlexibleJ2EEConnectorSaveStrategyImpl extends FlexibleJ2EESaveStrategyImpl {
 
-	public FlexibleJ2EEAppClientSaveStrategyImpl(IVirtualComponent vComponent) {
+	public FlexibleJ2EEConnectorSaveStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
 	}
 
