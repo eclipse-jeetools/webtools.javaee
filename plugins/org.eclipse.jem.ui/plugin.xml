@@ -69,13 +69,13 @@
                id="org.eclipse.ui.run">
          </menu>
          <action
-               label="%Action.proxyLaunch"
-               pulldown="true"
-               icon="icons/full/ctool16/run_exc.gif"
-               tooltip="%Action.proxyLaunchTip"
                class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchToolbarDelegate"
+               icon="icons/full/ctool16/run_exc.gif"
+               id="org.eclipse.jem.ui.proxy.ProxyLaunchToolbarDelegateAction"
+               label="%Action.proxyLaunch"
+               style="pulldown"
                toolbarPath="org.eclipse.debug.ui.launchActionSet/proxyLaunch"
-               id="org.eclipse.jem.ui.proxy.ProxyLaunchToolbarDelegateAction">
+               tooltip="%Action.proxyLaunchTip">
          </action>
          <action
                label="%Action.selectDefault"
@@ -153,8 +153,8 @@
             name="%Editors.OverrideEditor"
             extensions="override"
             icon="icons/full/obj16/file_obj.gif"
-            class="org.eclipse.ui.editors.text.TextEditor"
-            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            class="org.eclipse.ui.editors/org.eclipse.ui.editors.text.TextEditor"
+            contributorClass="org.eclipse.ui.editors/org.eclipse.ui.editors.text.TextEditorActionContributor"
             id="org.eclipse.jem.beaninfo.OverrideEditor">
       </editor>
    </extension>
