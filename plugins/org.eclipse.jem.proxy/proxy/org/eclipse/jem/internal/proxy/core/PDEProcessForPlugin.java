@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/10 22:14:05 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/11 17:35:24 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -18,10 +18,7 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.pde.core.plugin.*;
-import org.eclipse.pde.core.plugin.IPluginModel;
-import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.internal.core.PDECore;
-import org.eclipse.pde.internal.core.WorkspaceModelManager;
  
 
 /*
