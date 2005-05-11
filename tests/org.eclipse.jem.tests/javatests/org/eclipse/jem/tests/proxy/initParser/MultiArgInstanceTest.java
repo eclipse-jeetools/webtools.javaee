@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: MultiArgInstanceTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:39 $ 
  */
 
 /**
@@ -37,7 +37,7 @@ public class MultiArgInstanceTest extends AbstractInitParserTestCase {
 		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set(12, 24)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set(12,24));		
 	}
 	public void testThreeFloats() throws Throwable {
-		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set((float)12,(float)24,(float)50)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set((float)12,(float)24,(float)50));	
+		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set((float)12,(float)24,(float)50)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set(12,24,50));	
 	}
 	public void testTwoDoubles() throws Throwable {
 		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set(12.5d, 24.5d)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set(12.5d,24.5d));	

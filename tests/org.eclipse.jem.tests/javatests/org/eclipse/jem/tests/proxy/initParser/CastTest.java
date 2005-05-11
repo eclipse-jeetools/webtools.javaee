@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: CastTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:39 $ 
  */
 
 /**
@@ -31,10 +31,10 @@ public class CastTest extends AbstractInitParserTestCase {
 	}
 
 	public void testIntToFloat() throws Throwable {
-		testHelper.testInitString("new Float((float)10)", new Float((float) 10));	
+		testHelper.testInitString("new Float((float)10)", new Float(10));	
 	}
 	public void testIntToFloatSpace() throws Throwable {
-		testHelper.testInitString("new Float( (float) 10 )", new Float((float) 10));	
+		testHelper.testInitString("new Float( (float) 10 )", new Float(10));	
 	}
 	public void testFloatToFloat() throws Throwable {
 		testHelper.testInitString("new Float((float)10.3)", new Float((float) 10.3));	
@@ -49,7 +49,7 @@ public class CastTest extends AbstractInitParserTestCase {
 		testHelper.testInitString("(String)null", (String) null);	
 	}
 	public void testStringLiteralToString() throws Throwable {
-		testHelper.testInitString("(String)\"hi\"", (String) "hi");	
+		testHelper.testInitString("(String)\"hi\"", "hi");	
 	}
 	public void testNullToStringParam() throws Throwable {
 		testHelper.testInitString("new javax.swing.JLabel( (String) null)", new javax.swing.JLabel((String) null));	
@@ -63,10 +63,10 @@ public class CastTest extends AbstractInitParserTestCase {
 	
     //	Casts statements with qualified expression used to fail
 	public void testQualifiedStringReturn() throws Throwable {
-		testHelper.testInitString("(java.lang.String)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed(\"Frog\")",(String)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed("Frog"));	
+		testHelper.testInitString("(java.lang.String)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed(\"Frog\")",org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed("Frog"));	
 	}
 	public void testStringReturn() throws Throwable {
-		testHelper.testInitString("(String)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed(\"Frog\")",(String)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed("Frog"));	
+		testHelper.testInitString("(String)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed(\"Frog\")",org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getReversed("Frog"));	
 	}
 	public void testQualifiedColorReturn() throws Throwable {
 		testHelper.testInitString("(java.awt.Color)org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getColor(\"red\")",org.eclipse.jem.tests.proxy.initParser.NavigationParameters.getColor("red"));	

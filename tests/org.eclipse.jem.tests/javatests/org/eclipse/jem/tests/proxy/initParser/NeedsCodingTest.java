@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: NeedsCodingTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:39 $ 
  */
 
 /**
@@ -43,12 +43,12 @@ public class NeedsCodingTest extends AbstractInitParserTestCase {
 		 testHelper.testInitString("new javax.swing.table.DefaultTableModel(){}",new javax.swing.table.DefaultTableModel(){},true, true);	
 	}
 	public void testParamsThreeFloats() throws Throwable {
-		testHelper.testInitString("org.eclipse.jem.tests.proxy.initParser.NavigationParameters.get((float)12,(float)24,(float)50)",org.eclipse.jem.tests.proxy.initParser.NavigationParameters.get((float)12,(float)24,(float)50));		
+		testHelper.testInitString("org.eclipse.jem.tests.proxy.initParser.NavigationParameters.get((float)12,(float)24,(float)50)",org.eclipse.jem.tests.proxy.initParser.NavigationParameters.get(12,24,50));		
 	}
 	public void testConstructThreeFloats() throws Throwable {
-		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters((float)12,(float)24,(float)50)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters((float)12,(float)24,(float)50));	
+		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters((float)12,(float)24,(float)50)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters(12,24,50));	
 	}
 	public void testNewParamsThreeFloats() throws Throwable {
-		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set((float)12,(float)24,(float)50)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set((float)12,(float)24,(float)50));	
+		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set((float)12,(float)24,(float)50)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters().set(12,24,50));	
 	}
 }

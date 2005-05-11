@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:32 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/11 22:41:39 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -888,7 +888,7 @@ public class ExpressionTest extends AbstractTestProxy {
 	}
 
 	public void testArrayAccess() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
-		IArrayBeanProxy array = (IArrayBeanProxy) proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), 1);
+		IArrayBeanProxy array = proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), 1);
 		array.set(proxyFactory.createBeanProxyWith((short) 3), 0);
 		
 		IExpression exp = proxyFactory.createExpression();
@@ -902,7 +902,7 @@ public class ExpressionTest extends AbstractTestProxy {
 	}
 	
 	public void testArrayAccessSet() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
-		IArrayBeanProxy array = (IArrayBeanProxy) proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), 1);
+		IArrayBeanProxy array = proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), 1);
 		array.set(proxyFactory.createBeanProxyWith((short) 3), 0);
 		
 		IExpression exp = proxyFactory.createExpression();
@@ -919,7 +919,7 @@ public class ExpressionTest extends AbstractTestProxy {
 	
 	
 	public void testMultiArrayAccess() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
-		IArrayBeanProxy array = (IArrayBeanProxy) proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {2,1});
+		IArrayBeanProxy array = proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {2,1});
 		array.set(proxyFactory.createBeanProxyWith((short) 3), new int[]{1,0});
 		
 		IExpression exp = proxyFactory.createExpression();
@@ -932,7 +932,7 @@ public class ExpressionTest extends AbstractTestProxy {
 	}
 
 	public void testMultiArrayAccessSet() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
-		IArrayBeanProxy array = (IArrayBeanProxy) proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {2,1});
+		IArrayBeanProxy array = proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {2,1});
 		array.set(proxyFactory.createBeanProxyWith((short) 3), new int[]{1,0});
 		
 		IExpression exp = proxyFactory.createExpression();
@@ -940,7 +940,7 @@ public class ExpressionTest extends AbstractTestProxy {
 		exp.createArrayAccess(ForExpression.ASSIGNMENT_LEFT, 1);
 		exp.createProxyExpression(ForExpression.ARRAYACCESS_ARRAY, array);
 		exp.createPrimitiveLiteral(ForExpression.ARRAYACCESS_INDEX, 1);
-		IArrayBeanProxy newArray = (IArrayBeanProxy) proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {3});
+		IArrayBeanProxy newArray = proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {3});
 		exp.createProxyExpression(ForExpression.ASSIGNMENT_RIGHT, newArray);
 		IBeanProxy result = exp.getExpressionValue();
 		assertNotNull(result);
@@ -949,7 +949,7 @@ public class ExpressionTest extends AbstractTestProxy {
 	}
 
 	public void testMultiArrayAccess1() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
-		IArrayBeanProxy array = (IArrayBeanProxy) proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {2,1});
+		IArrayBeanProxy array = proxyFactory.createBeanProxyWith(proxyTypeFactory.getBeanTypeProxy("short"), new int[] {2,1});
 		array.set(proxyFactory.createBeanProxyWith((short) 3), new int[]{1,0});
 		
 		IExpression exp = proxyFactory.createExpression();
@@ -1054,7 +1054,7 @@ public class ExpressionTest extends AbstractTestProxy {
 		assertNotNull(result);
 		assertEquals("int[][]", result.getTypeProxy().getFormalTypeName());
 		assertEquals(2, ((IArrayBeanProxy) result).getLength());
-		assertNull((IArrayBeanProxy) ((IArrayBeanProxy) result).get(0));
+		assertNull(((IArrayBeanProxy) result).get(0));
 		assertEquals(2, ((IArrayBeanProxy) ((IArrayBeanProxy) result).get(1)).getLength());
 		assertEquals(4, ((INumberBeanProxy)((IArrayBeanProxy) ((IArrayBeanProxy) result).get(1)).get(1)).intValue());		
 	}

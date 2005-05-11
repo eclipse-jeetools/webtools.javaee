@@ -96,7 +96,7 @@ public class TestStandard extends TestCase {
 		// Here because two tests will do same test sequence.
 		assertTrue(ji1.isSetAllocation());
 		InitStringAllocation alloc = (InitStringAllocation) ji1.getAllocation();
-		assertEquals("new Test1Class()", ((InitStringAllocation) alloc).getInitString()); //$NON-NLS-1$
+		assertEquals("new Test1Class()", alloc.getInitString()); //$NON-NLS-1$
 	}
 
 	public void testPropertyAccess() {
@@ -126,7 +126,7 @@ public class TestStandard extends TestCase {
 		assertSame(boolType, dtv.getJavaType());
 		assertTrue(dtv.isSetAllocation());
 		InitStringAllocation alloc = (InitStringAllocation) dtv.getAllocation();
-		assertEquals("true", ((InitStringAllocation) alloc).getInitString());
+		assertEquals("true", alloc.getInitString());
 	}
 
 	protected IJavaObjectInstance setupInstance() {

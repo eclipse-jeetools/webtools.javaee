@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTOperationsTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:39 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -57,7 +57,7 @@ public class ASTOperationsTest extends AbstractInitParserTestCase {
 	}
 
 	public void testInstanceof() throws Throwable {
-		testHelper.testInitString("java.awt.Color.red instanceof java.awt.Color", getTreeParser().getRegistry().getBeanProxyFactory().createBeanProxyWith(java.awt.Color.red instanceof java.awt.Color));
+		testHelper.testInitString("java.awt.Color.red instanceof java.awt.Color", getTreeParser().getRegistry().getBeanProxyFactory().createBeanProxyWith(true));
 	}
 
 	public void testTypeLiteral() throws Throwable {
