@@ -48,7 +48,7 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
         if (propertyName.equals(DD_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
         }       
-        if (propertyName.equals(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER)) {
+        if (propertyName.equals(JAVASOURCE_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule";
         }       
         return super.getDefaultProperty(propertyName);

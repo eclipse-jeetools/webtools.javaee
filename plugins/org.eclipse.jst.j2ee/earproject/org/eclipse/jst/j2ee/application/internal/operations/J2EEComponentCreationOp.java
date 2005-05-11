@@ -135,7 +135,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
     protected void createEARComponentIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         IDataModel earModel = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
         earModel.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(EAR_COMPONENT_NAME));
-        earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
+        //earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
         if (!doesEARComponentExist()) {
             try {
                 earModel.getDefaultOperation().execute(monitor, null);

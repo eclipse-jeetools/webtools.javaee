@@ -37,8 +37,8 @@ public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
 				ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
 				if (model.getBooleanProperty(IJ2EEProjectServerTargetDataModelProperties.UPDATE_MODULES) 
 						&& project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					ServerTargetHelper.setNewServerTargetForEARModules(runtime, project);
-					ServerTargetHelper.setNewServerTargetForEARUtilityJars(runtime, project);
+					//ServerTargetHelper.setNewServerTargetForEARModules(runtime, project);
+					//ServerTargetHelper.setNewServerTargetForEARUtilityJars(runtime, project);
 				}
 			} catch (CoreException e) {
 				// TODO Auto-generated catch block

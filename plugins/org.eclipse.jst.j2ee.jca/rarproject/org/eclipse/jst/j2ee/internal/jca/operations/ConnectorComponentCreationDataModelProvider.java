@@ -129,7 +129,7 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
         if (propertyName.equals(DD_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
         }       
-        if (propertyName.equals(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER)) {
+        if (propertyName.equals(JAVASOURCE_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule";
         }       
 

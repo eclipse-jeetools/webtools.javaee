@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -160,7 +159,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
         if (propertyName.equals(DD_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
         }       
-        if (propertyName.equals(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER)) {
+        if (propertyName.equals(JAVASOURCE_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "JavaSource";
         }       
         if (propertyName.equals(MANIFEST_FOLDER)) {
