@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataMod
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -56,4 +57,13 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
     public IDataModelOperation getDefaultOperation() {
         return new FlexibleJavaProjectCreationOperation(model);
     }
+	
+	
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+		if (propertyName.equals(SERVER_TARGET_ID)) {
+			IDataModel serverTargetModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+			return serverTargetModel.getValidPropertyDescriptors(SERVER_TARGET_ID);
+		}
+		return null;
+	}
 }
