@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.proxy;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/11 19:01:32 $ 
  */
 import java.io.IOException;
 
@@ -121,7 +121,7 @@ public class TestStandard extends AbstractTestProxy {
 		// Get all constructors.
 		IConstructorProxy[] ctors = testAccessType.getDeclaredConstructors();
 		assertNotNull(ctors);
-		assertEquals(3, ctors.length);		
+		assertEquals(4, ctors.length);		
 	}
 
 	public void testSimpleConstructor() throws ThrowableProxy {
@@ -555,7 +555,7 @@ public class TestStandard extends AbstractTestProxy {
 		// Get all fields.
 		IFieldProxy[] fields = testAccessType.getFields();
 		assertNotNull(fields);
-		assertEquals(1, fields.length);		
+		assertEquals(2, fields.length);		
 	}
 
 	public void testGetDeclaredFields() {
@@ -564,7 +564,7 @@ public class TestStandard extends AbstractTestProxy {
 		// Get all fields.
 		IFieldProxy[] fields = testAccessType.getDeclaredFields();
 		assertNotNull(fields);
-		assertEquals(2, fields.length);		
+		assertEquals(3, fields.length);		
 	}
 	
 	public void testSimpleGetMethod() throws ThrowableProxy {
@@ -593,7 +593,7 @@ public class TestStandard extends AbstractTestProxy {
 		IMethodProxy[] objectMethods = testObjectType.getMethods();
 		assertNotNull(methods);
 		assertNotNull(objectMethods);
-		assertEquals(6, methods.length-objectMethods.length);		
+		assertEquals(7, methods.length-objectMethods.length);		
 	}
 
 	public void testGetDeclaredMethods() {
@@ -602,7 +602,7 @@ public class TestStandard extends AbstractTestProxy {
 		// Get all fields.
 		IMethodProxy[] methods = testAccessType.getDeclaredMethods();
 		assertNotNull(methods);
-		assertEquals(7, methods.length);		
+		assertEquals(8, methods.length);		
 	}
 
 	public void testFindCompatibleConstructor() throws AmbiguousMethodException, NoSuchMethodException {

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: AbstractTestProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:32 $ 
  */
 import java.util.Enumeration;
 
@@ -93,6 +93,15 @@ public abstract class AbstractTestProxy extends TestCase {
 		super.setUp();
 		assertNotNull(getRegistryHandler());
 		assertTrue("Suite not setup correctly.", getRegistryHandler().isValid());
+		createRegistry();
+	}
+
+	/*
+	 * @throws CoreException
+	 * 
+	 * @since 1.1.0
+	 */
+	private void createRegistry() throws CoreException {
 		registry = getRegistryHandler().getRegistry();
 		assertNotNull(registry);
 		proxyFactory = registry.getBeanProxyFactory();
@@ -105,6 +114,18 @@ public abstract class AbstractTestProxy extends TestCase {
 
 	public RegistryHandler getRegistryHandler() {
 		return registryHandler;
+	}
+	
+	/**
+	 * Recreate the registry. This is to make sure we have a clean one. Should be used with caution because expensive.
+	 * @throws CoreException
+	 * 
+	 * 
+	 * @since 1.1.0
+	 */
+	public void recreateRegistry() throws CoreException {
+		getRegistryHandler().destroyRegistry();
+		createRegistry();
 	}
 
 }

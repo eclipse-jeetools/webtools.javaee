@@ -11,14 +11,11 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: TestAWTProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:32 $ 
  */
-import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.awt.*;
 import org.eclipse.jem.internal.proxy.awt.IStandardAwtBeanProxyFactory;
 import org.eclipse.jem.internal.proxy.awt.JavaStandardAwtBeanConstants;
+import org.eclipse.jem.internal.proxy.core.*;
 
 /**
  * @author richkulp

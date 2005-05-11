@@ -10,11 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTInnerClassAccessTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:32 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
 import org.eclipse.jem.internal.proxy.core.IExpression;
+import org.eclipse.jem.internal.proxy.initParser.tree.ForExpression;
 import org.eclipse.jem.tests.proxy.initParser.AbstractInitParserTestCase;
  
 /**
@@ -39,14 +40,14 @@ public class ASTInnerClassAccessTest extends AbstractInitParserTestCase {
 	
 	public void testInnerFieldAccess() throws Throwable {
 		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
-		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "GREEN", true);
+		exp.createFieldAccess(ForExpression.ROOTEXPRESSION, "GREEN", true);
 		exp.createTypeReceiver("org.eclipse.jem.tests.proxy.initParser.tree.InnerClassTestData$InnerInnerClass");
 		getTreeParser().testInitString("InnerClassTestData.InnerInnerClass.GREEN", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.*"}, exp.getExpressionValue());
 	}
 	
 	public void testInnerFieldAccess2() throws Throwable {
 		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
-		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "GREEN", true);
+		exp.createFieldAccess(ForExpression.ROOTEXPRESSION, "GREEN", true);
 		exp.createTypeReceiver("org.eclipse.jem.tests.proxy.initParser.tree.InnerClassTestData$InnerInnerClass");
 		
 		// Test where the inner class is the top level listed.
@@ -55,7 +56,7 @@ public class ASTInnerClassAccessTest extends AbstractInitParserTestCase {
 	
 	public void testInnerInnerFieldAccess() throws Throwable {
 		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
-		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "RED", true);
+		exp.createFieldAccess(ForExpression.ROOTEXPRESSION, "RED", true);
 		exp.createTypeReceiver("org.eclipse.jem.tests.proxy.initParser.tree.InnerClassTestData$InnerInnerClass$InnerInnerInnerClass");
 		
 		getTreeParser().testInitString("InnerClassTestData.InnerInnerClass.InnerInnerInnerClass.RED", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.*"}, exp.getExpressionValue());
@@ -63,7 +64,7 @@ public class ASTInnerClassAccessTest extends AbstractInitParserTestCase {
 
 	public void testInnerClassCreation() throws Throwable {
 		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
-		exp.createClassInstanceCreation(IExpression.ROOTEXPRESSION, "org.eclipse.jem.tests.proxy.initParser.tree.InnerClassTestData$InnerInnerClass", 0);
+		exp.createClassInstanceCreation(ForExpression.ROOTEXPRESSION, "org.eclipse.jem.tests.proxy.initParser.tree.InnerClassTestData$InnerInnerClass", 0);
 		// Create static inner class
 		getTreeParser().testInitString("new InnerClassTestData.InnerInnerClass()", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.*"}, exp.getExpressionValue());
 	}

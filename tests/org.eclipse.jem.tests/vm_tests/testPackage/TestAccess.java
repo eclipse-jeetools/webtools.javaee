@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestAccess.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 23:00:32 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:32 $ 
  */
 package testPackage;
  
@@ -21,14 +21,24 @@ package testPackage;
  */
 public class TestAccess {
 
+	public static void testVoid() {
+		
+	}
+	
 	public int field1;
 	protected int field2;
+	
+	public static int STATIC_FIELD = 3;
 
 	TestAccess(RuntimeException i) {
 		
 	}
 	
 	TestAccess(Throwable n) {
+		
+	}
+	
+	public TestAccess() {
 		
 	}
 	

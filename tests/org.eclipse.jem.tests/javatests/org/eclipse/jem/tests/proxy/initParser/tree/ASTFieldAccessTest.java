@@ -10,11 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTFieldAccessTest.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:32 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
 import org.eclipse.jem.internal.proxy.core.IExpression;
+import org.eclipse.jem.internal.proxy.initParser.tree.ForExpression;
 import org.eclipse.jem.tests.proxy.initParser.AbstractInitParserTestCase;
  
 /**
@@ -55,16 +56,16 @@ public class ASTFieldAccessTest extends AbstractInitParserTestCase {
 	
 	public void testNonstaticFieldAccess() throws Throwable {
 		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
-		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "arect", true);
-		exp.createClassInstanceCreation(IExpression.FIELD_RECEIVER, "org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData", 0);
+		exp.createFieldAccess(ForExpression.ROOTEXPRESSION, "arect", true);
+		exp.createClassInstanceCreation(ForExpression.FIELD_RECEIVER, "org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData", 0);
 		getTreeParser().testInitString("new ASTNestFieldAccessTestData().arect", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  exp.getExpressionValue());
 	}
 	
 	public void testNonstaticNestedFieldAccess() throws Throwable {
 		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
-		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "x", true);
-		exp.createFieldAccess(IExpression.FIELD_RECEIVER, "arect", true);
-		exp.createClassInstanceCreation(IExpression.FIELD_RECEIVER, "org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData", 0);
+		exp.createFieldAccess(ForExpression.ROOTEXPRESSION, "x", true);
+		exp.createFieldAccess(ForExpression.FIELD_RECEIVER, "arect", true);
+		exp.createClassInstanceCreation(ForExpression.FIELD_RECEIVER, "org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData", 0);
 		getTreeParser().testInitString("new ASTNestFieldAccessTestData().arect.x", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  exp.getExpressionValue());
 	}
 	
