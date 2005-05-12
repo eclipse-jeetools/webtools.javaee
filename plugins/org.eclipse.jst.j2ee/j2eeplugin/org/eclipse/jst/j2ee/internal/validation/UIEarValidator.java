@@ -25,7 +25,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -57,13 +56,16 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
@@ -84,6 +86,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public static final String MANIFEST_GROUP_NAME = "WSAD.EAR.MANIFEST"; //$NON-NLS-1$
 	protected UIEarHelper earHelper;
 	private EARArtifactEdit earEdit = null;
+	private IProject project = null;
 
 	/**
 	 * UIEarValidator constructor comment.
@@ -201,34 +204,33 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		earHelper = (UIEarHelper) inHelper;
-		IProject proj = ((IWorkbenchContext) inHelper).getProject();
+		project = ((IWorkbenchContext) inHelper).getProject();
 		WorkbenchComponent[] workBenchModules = null; 
 		StructureEdit moduleCore = null;	
 		try{ 
-			moduleCore = StructureEdit.getStructureEditForRead(proj);
-			workBenchModules = moduleCore.getWorkbenchModules(); 
-			for (int i = 0; i < workBenchModules.length; i++) {
+			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
+			IVirtualComponent[] components = flexProject.getComponents(); 
+			for (int i = 0; i < components.length; i++) {
 	           
-	                WorkbenchComponent wbModule = workBenchModules[i];
+					IVirtualComponent wbModule = components[i];
+					ComponentHandle compHandle = ComponentHandle.create(project,wbModule.getName());
 	                EARArtifactEdit earEdit = null;
 	               	try{
-						ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
-	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(compHandle);
 	               		if(earEdit != null) {
 		               		Application earApp = (Application) earEdit.getDeploymentDescriptorRoot();		               		
 		               		super.validate(inHelper, inReporter, earApp);
-							validateModuleMaps(wbModule);
+							validateModuleMaps(earEdit,wbModule);
 							validateManifests(wbModule,earFile);
-							validateUtilJarMaps(wbModule);
-							validateUriAlreadyExistsInEar(wbModule);
-							validateDocType(wbModule);
+							validateUtilJarMaps(earEdit,wbModule);
+							validateUriAlreadyExistsInEar(earEdit,wbModule);
+							validateDocType(earEdit,wbModule);
 	               		}
 	               	}
 					catch (ValidationException ex) {
 						throw ex;
 					} catch (Exception e) {
 						String[] param = new String[1];
-						IProject project = earHelper.getProject();
 						if (project != null)
 							param[0] = project.getName();
 						Logger.getLogger().logError(e);
@@ -254,7 +256,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		return ((J2EELoadStrategyImpl) loader).getProject();
 	}
 
-	public void validateManifests(WorkbenchComponent component,EARFile earFile) throws ValidationException {
+	public void validateManifests(IVirtualComponent component,EARFile earFile) throws ValidationException {
 		if (earFile == null)
 			return;
 		List archives = earFile.getArchiveFiles();
@@ -300,7 +302,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	}
 
-	public void validateManifestClasspath(WorkbenchComponent component, Archive anArchive) throws ValidationException {
+	public void validateManifestClasspath(IVirtualComponent component, Archive anArchive) throws ValidationException {
 		String[] cp = anArchive.getManifest().getClassPathTokenized();
 		for (int i = 0; i < cp.length; i++) {
 			String uri = ArchiveUtil.deriveEARRelativeURI(cp[i], anArchive);
@@ -313,8 +315,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			try {
 				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
 						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently
-						ComponentResource[] components = component.findResourcesByRuntimePath(new Path(uri));
-						if (rf == null || !rf.exists()) {
+						IVirtualResource resource = component.findMember(new Path(uri));
+						if (resource == null || !resource.exists()) {
 							invalidClassPathEntryWarning(cp[i], uri, anArchive);
 						}
 					}
@@ -396,12 +398,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	/**
 	 * Validates utiljar maps
 	 */
-	public void validateUtilJarMaps(WorkbenchComponent workbenchModule) {
-		EARArtifactEdit artifactEdit = null;
-		try {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(workbenchModule),workbenchModule.getName());
-       	artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
-		List utilJarModules = artifactEdit.getUtilityModuleReferences();
+	public void validateUtilJarMaps(EARArtifactEdit edit, IVirtualComponent workbenchModule) {
+		List utilJarModules = edit.getUtilityModuleReferences();
 		if (!utilJarModules.isEmpty() || !utilJarModules.isEmpty()) {
 			for (int i = 0; i < utilJarModules.size(); i++) {
 				IVirtualComponent aUtilJar = ((IVirtualReference) utilJarModules.get(i)).getReferencedComponent();
@@ -422,12 +420,10 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				}
 			}
 		} 
-		validateDuplicateUtilJars(workbenchModule);
-		validateUtilJarNameCollision(workbenchModule);
-		validateUtilJarContainsNoSpaces(workbenchModule);
-		} finally {
-			artifactEdit.dispose();
-		}
+		validateDuplicateUtilJars(edit,workbenchModule);
+		validateUtilJarNameCollision(edit,workbenchModule);
+		validateUtilJarContainsNoSpaces(edit,workbenchModule);
+		
 	}// validateUtilJarMaps
 
 	/**
@@ -436,19 +432,20 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * @param EAREditModel
 	 *            earEditModel - The ear editmodel.
 	 */
-	protected void validateUtilJarContainsNoSpaces(WorkbenchComponent module) {
-		List utilJars = module.getReferencedComponents();
+	protected void validateUtilJarContainsNoSpaces(EARArtifactEdit edit, IVirtualComponent module) {
+		List utilJars = edit.getUtilityModuleReferences();
 
 		if (utilJars == null)
 			return;
 
 		for (int i = 0; i < utilJars.size(); i++) {
-			UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
-
+			IVirtualReference utilModule = (IVirtualReference) utilJars.get(i);
 			if (utilModule != null) {
-				if (utilModule.getUri() != null && utilModule.getUri().indexOf(" ") != -1) { //$NON-NLS-1$
+				ComponentHandle handle = ComponentHandle.create(project,utilModule.getReferencedComponent().getName());
+				String uri = ModuleURIUtil.fullyQualifyURI(handle).toString();
+				if (uri != null && uri.indexOf(" ") != -1) { //$NON-NLS-1$
 					String[] params = new String[1];
-					params[0] = utilModule.getUri();
+					params[0] = uri;
 					addError(getBaseName(), URI_CONTAINS_SPACES_ERROR_, params, appDD);
 				}// if
 			}// if
@@ -462,36 +459,29 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * @param EAREditModel
 	 *            earEditModel - The ear editmodel.
 	 */
-	protected void validateUtilJarNameCollision(WorkbenchComponent module) {
-		EARArtifactEdit earArtifactEdit = null;
-		try {
-				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
-				earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
-				List utilJars = module.getReferencedComponents();
-				if (utilJars == null)
-					return;
-				for (int i = 0; i < utilJars.size(); i++) {
-					UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
-		
-					if (utilModule != null) {
-						if (earArtifactEdit.uriExists(utilModule.getUri())) {
-		
-							String[] params = new String[]{utilModule.getUri(), module.getName()};
-							addError(getBaseName(), MESSAGE_UTIL_URI_NAME_COLLISION_ERROR_, params);
-		
-						} else if (utilModule.getProjectName() != null || utilModule.getProjectName().length() != 0) {
-							if (earArtifactEdit.uriExists(utilModule.getUri())) {
-								String[] params = new String[]{utilModule.getUri(), utilModule.getProjectName()};
-								addError(getBaseName(), MESSAGE_UTIL_PROJECT_NAME_COLLISION_ERROR_, params);
-							}
-						}
+	protected void validateUtilJarNameCollision(EARArtifactEdit edit, IVirtualComponent module) {
+		List utilJars = edit.getUtilityModuleReferences();
+		if (utilJars == null)
+			return;
+		for (int i = 0; i < utilJars.size(); i++) {
+			UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
+
+			if (utilModule != null) {
+				if (edit.uriExists(utilModule.getUri())) {
+
+					String[] params = new String[]{utilModule.getUri(), module.getName()};
+					addError(getBaseName(), MESSAGE_UTIL_URI_NAME_COLLISION_ERROR_, params);
+
+				} else if (utilModule.getProjectName() != null || utilModule.getProjectName().length() != 0) {
+					if (edit.uriExists(utilModule.getUri())) {
+						String[] params = new String[]{utilModule.getUri(), utilModule.getProjectName()};
+						addError(getBaseName(), MESSAGE_UTIL_PROJECT_NAME_COLLISION_ERROR_, params);
 					}
 				}
-		} finally {
-			if(earArtifactEdit != null) 
-					earArtifactEdit.dispose();
-		   }
+			}
 		}
+	} 
+		
 
 
 	/**
@@ -500,19 +490,21 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * @param EAREditModel
 	 *            earEditModel - The ear editmodel
 	 */
-	protected void validateDuplicateUtilJars(WorkbenchComponent module) {
-		List utilJars = module.getReferencedComponents();
+	protected void validateDuplicateUtilJars(EARArtifactEdit edit, IVirtualComponent module) {
+		List utilJars = edit.getUtilityModuleReferences();
 		Set visitedUtilUri = new HashSet();
 		if (utilJars == null)
 			return;
 		for (int i = 0; i < utilJars.size(); i++) {
-			UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
+			IVirtualReference utilModule =  (IVirtualReference)utilJars.get(i);
 			if (utilModule != null) {
-				if (visitedUtilUri.contains(utilModule.getUri())) {
-					String projectName = utilModule.getProjectName();
-					duplicateUtilError(module.getName(), utilModule.getUri(), projectName);
+				ComponentHandle handle = ComponentHandle.create(project,utilModule.getReferencedComponent().getName());
+				String uri = ModuleURIUtil.fullyQualifyURI(handle).toString();
+				if (visitedUtilUri.contains(uri)) {
+					String compName = module.getName();
+					duplicateUtilError(module.getName(),uri, compName);
 				} else
-					visitedUtilUri.add(utilModule.getUri());
+					visitedUtilUri.add(uri);
 			} // if
 		} // for
 	} // validateModuleMapsDuplicateUtil
@@ -535,28 +527,26 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		addError(getBaseName(), DUPLICATE_UTILJAR_FOR_PROJECT_NAME_ERROR_, params);
 	}// duplicateUtilError
 
-	public void validateModuleMaps(WorkbenchComponent module) {
-		EList modules = module.getReferencedComponents();
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
-		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
-		if (!modules.isEmpty()) {
+	public void validateModuleMaps(EARArtifactEdit edit, IVirtualComponent module) {
+		List modules = edit.getJ2EEModuleReferences();
+		if (modules.size() > 0) {
 			for (int i = 0; i < modules.size(); i++) {
-				WorkbenchComponent amodule = (WorkbenchComponent) modules.get(i);
-				
-				boolean uriExists = artifactEdit.uriExists(module.getName());
+				IVirtualReference aModuleRef =  (IVirtualReference)modules.get(i);
+				IVirtualComponent component = aModuleRef.getEnclosingComponent();
+				boolean uriExists = edit.uriExists(module.getName());
 				if (!uriExists) {
-					String[] params = new String[]{amodule.getName(), earHelper.getProject().getName()};
+					String[] params = new String[]{component.getName(), earHelper.getProject().getName()};
 					addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 				} else {
-					String projectName = amodule.getName();
+					String projectName = component.getName();
 					if (projectName == null || projectName.length() == 0) {
-						String[] params = new String[]{amodule.getName(), earHelper.getProject().getName()};
+						String[] params = new String[]{component.getName(), earHelper.getProject().getName()};
 						addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 					} else {
 						StructureEdit mc = StructureEdit.getStructureEditForRead(earHelper.getProject());
 						WorkbenchComponent deployModule = mc.findComponentByName(projectName);
 						if (deployModule == null) {
-							String[] params = new String[]{deployModule.getName(),amodule.getName(), earHelper.getProject().getName()};
+							String[] params = new String[]{deployModule.getName(),component.getName(), earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);
 						} else if (earHelper.getProject().isOpen()) {
 							String[] params = new String[]{earHelper.getProject().getName()};
@@ -674,15 +664,16 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		}
 	}*/
 
-	protected void validateModuleURIExtension(WorkbenchComponent module) {
-		String fileExt = module.getHandle().fileExtension();
+	protected void validateModuleURIExtension(IVirtualComponent module) {
+		
+		String fileExt = module.getFileExtension();
 		if (fileExt != null && fileExt.length() > 0) {
-			if (module.getComponentType().getComponentTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
+			if (module.getComponentTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getName();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
 				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
-			} else if (module.getComponentType().getComponentTypeId().endsWith(IModuleConstants.JST_WEB_MODULE) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
+			} else if (module.getComponentTypeId().endsWith(IModuleConstants.JST_WEB_MODULE) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getName();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
@@ -762,67 +753,49 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	/**
 	 * Checks if the nature is consistent with doc type.
 	 */
-	protected void validateDocType(WorkbenchComponent module) {
-		EARArtifactEdit artifactEdit = null;
-		try {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
-		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
-		if (artifactEdit == null)
+	protected void validateDocType(EARArtifactEdit edit,IVirtualComponent module) {
+		if (edit == null)
 			return;
-		if (artifactEdit.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() < J2EEVersionConstants.J2EE_1_3_ID) {
+		if (edit.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() < J2EEVersionConstants.J2EE_1_3_ID) {
 			String[] params = new String[3];
 			params[0] = DOCTYPE_1_2;
 			params[1] = getResourceName();
 			params[2] = DOCTYPE_1_3;
 			addError(getBaseName(), EAR_INVALID_DOC_TYPE_ERROR_, params, appDD);
-		} else if (artifactEdit.getJ2EEVersion() < J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() >= J2EEVersionConstants.J2EE_1_3_ID) {
+		} else if (edit.getJ2EEVersion() < J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() >= J2EEVersionConstants.J2EE_1_3_ID) {
 			String[] params = new String[3];
 			params[0] = DOCTYPE_1_3;
 			params[1] = getResourceName();
 			params[2] = DOCTYPE_1_2;
 			addError(getBaseName(), EAR_INVALID_DOC_TYPE_ERROR_, params, appDD);
 		}
-		} finally {
-			if(artifactEdit != null)
-				artifactEdit.dispose();
-		}
 	}
 
 	/**
 	 * Validates that conflicting jar does not exist in the ear project.
 	 */
-	public void validateUriAlreadyExistsInEar(WorkbenchComponent component) {
-		EARArtifactEdit artifactEdit = null;
-		try{
-			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(component),component.getName());
-			artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
-			List modules = artifactEdit.getJ2EEModuleReferences();
-			if (modules == null)
-				return;
-			for (int i = 0; i < modules.size(); i++) {
-				IVirtualReference reference = (IVirtualReference) modules.get(i);
-				IVirtualComponent module = reference.getReferencedComponent();
-				if (module != null && module.getRuntimePath() != null) {
-					IProject currentEARProject = earHelper.getProject();
-	
-					try {
-						IFile exFile = currentEARProject.getFile(module.getRuntimePath());
-						if (exFile != null && exFile.exists()) {
-							String[] params = new String[2];
-							params[0] = module.getRuntimePath().toString();
-							params[1] = currentEARProject.getName();
-							addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
-						}
-					} catch (IllegalArgumentException iae) {
-						Logger.getLogger().logError(iae);
+	public void validateUriAlreadyExistsInEar(EARArtifactEdit edit,IVirtualComponent component) {
+		List modules = edit.getJ2EEModuleReferences();
+		if (modules == null)
+			return;
+		for (int i = 0; i < modules.size(); i++) {
+			IVirtualReference reference = (IVirtualReference) modules.get(i);
+			IVirtualComponent module = reference.getReferencedComponent();
+			if (module != null && module.getRuntimePath() != null) {
+				IProject currentEARProject = earHelper.getProject();
+				try {
+					IFile exFile = currentEARProject.getFile(module.getRuntimePath());
+					if (exFile != null && exFile.exists()) {
+						String[] params = new String[2];
+						params[0] = module.getRuntimePath().toString();
+						params[1] = currentEARProject.getName();
+						addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
 					}
+				} catch (IllegalArgumentException iae) {
+					Logger.getLogger().logError(iae);
 				}
+			}
 		}
-		} finally {
-			if(artifactEdit != null)
-				artifactEdit.dispose();
-		}
-
 	}
 
 }// UIEarValidator
