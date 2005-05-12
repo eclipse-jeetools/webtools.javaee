@@ -8,6 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 
 /**
@@ -42,4 +43,12 @@ public interface IJavaComponentCreationDataModelProperties extends IComponentCre
      * The DataModelProvider will default the Manifest folder to the Component folder/META-INF.
      */
 	public static final String MANIFEST_FOLDER = "IJavaComponentCreationDataModelProperties.MANIFEST_FOLDER";
+	
+    /**
+     * Optional, type String. This is used to specify the server target and is required if 
+     * the <code>ADD_SERVER_TARGET</code> property is set to <code>Boolean.TRUE</code>.
+     * 
+     * @see org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel
+     */
+    public static final String SERVER_TARGET_ID = IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID;	
 }

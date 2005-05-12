@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
@@ -30,7 +31,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 	
 	
 	public String[] getPropertyNames() {
-		String[] props = new String[]{JAVASOURCE_FOLDER, MANIFEST_FOLDER};
+		String[] props = new String[]{JAVASOURCE_FOLDER, MANIFEST_FOLDER, SERVER_TARGET_ID};
 		return combineProperties(super.getPropertyNames(), props);
 	}
 	
@@ -111,4 +112,12 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
         model.setProperty(NESTED_PROJECT_CREATION_DM, dm);
         model.setProperty(LOCATION, dm.getProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION));
     }
+	
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(SERVER_TARGET_ID)) {
+			IDataModel projectdm = (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM);
+			return projectdm.getValidPropertyDescriptors(SERVER_TARGET_ID);
+		}
+		return null;
+	}	
 }

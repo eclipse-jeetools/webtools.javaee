@@ -167,5 +167,9 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
     protected String getComponentID() {
         return IModuleConstants.JST_EAR_MODULE;
     }
+	
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+		return super.getValidPropertyDescriptors(propertyName);
+	}	
 
 }

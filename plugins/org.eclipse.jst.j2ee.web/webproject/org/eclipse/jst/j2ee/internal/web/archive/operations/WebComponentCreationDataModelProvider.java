@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataMo
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class WebComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IWebComponentCreationDataModelProperties {
@@ -284,5 +285,8 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
     protected String getComponentID() {
         return IModuleConstants.JST_WEB_MODULE;
     }
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+		return super.getValidPropertyDescriptors(propertyName);
+	}	
 
 }

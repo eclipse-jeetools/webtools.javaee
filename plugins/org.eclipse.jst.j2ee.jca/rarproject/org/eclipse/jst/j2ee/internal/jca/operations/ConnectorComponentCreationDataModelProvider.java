@@ -136,4 +136,7 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
         return super.getDefaultProperty(propertyName);
     }    
 
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+		return super.getValidPropertyDescriptors(propertyName);
+	}	
 }

@@ -183,7 +183,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
             }
         });
         Control[] deps = new Control[]{label, newServerTargetButton};
-  //      synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
+        synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
     }
 
     protected void createServerEarAndStandaloneGroup(Composite parent) {
