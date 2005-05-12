@@ -16,6 +16,7 @@ public interface IEJBAnnotationConstants {
 	public static final String ERR_EJB_NAME_EMPTY = EJBAnnotationMessages.getResourceString("ERR_EJB_NAME_EMPTY"); //$NON-NLS-1$
 	public static final String ERR_EJB_TYPE_EMPTY = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_EMPTY"); //$NON-NLS-1$;
 	public static final String ERR_EJB_TYPE_VALUE = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_VALUE"); //$NON-NLS-1$;
+	public static final String ERR_CLASS_NAME_MUSTEND_WITH_BEAN = EJBAnnotationMessages.getResourceString("ERR_CLASS_NAME_MUSTEND_WITH_BEAN"); //$NON-NLS-1$
 	public static final String ERR_EJB_NAME_ENDS_WITH_BEAN = EJBAnnotationMessages.getResourceString("ERR_EJB_NAME_ENDS_WITH_BEAN"); //$NON-NLS-1$
 	public static final String ERR_DISPLAY_NAME_EMPTY = EJBAnnotationMessages.getResourceString("ERR_DISPLAY_NAME_EMPTY"); //$NON-NLS-1$
 	public static final String ERR_EJB_DISPLAY_NAME_USED = EJBAnnotationMessages.getResourceString("ERR_EJB_DISPLAY_NAME_USED"); //$NON-NLS-1$
@@ -27,6 +28,7 @@ public interface IEJBAnnotationConstants {
 	public static final String ERR_TRANSACTION_VALUE = EJBAnnotationMessages.getResourceString("ERR_TRANSACTION_VALUE"); //$NON-NLS-1$
 	public static final String ERR_DESTINATIONTYPE_EMPTY = EJBAnnotationMessages.getResourceString("ERR_DESTINATIONTYPE_EMPTY"); //$NON-NLS-1$
 	public static final String ERR_DESTINATIONTYPE_VALUE = EJBAnnotationMessages.getResourceString("ERR_DESTINATIONTYPE_VALUE"); //$NON-NLS-1$
+	public static final String ERR_MUST_ENTER_A_PACKAGE_NAME = EJBAnnotationMessages.getResourceString("ERR_MUST_ENTER_A_PACKAGE_NAME"); //$NON-NLS-1$
 
 	// AddEjbWizard
 	public final static String ADD_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$

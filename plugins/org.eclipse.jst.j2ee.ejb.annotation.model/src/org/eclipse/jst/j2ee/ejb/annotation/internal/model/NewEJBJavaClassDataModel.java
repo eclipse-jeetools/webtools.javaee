@@ -9,10 +9,16 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.EJBAnnotationMessages;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewEJBJavaClassDataModel extends NewJavaClassDataModel implements IAnnotationsDataModel {
 	
@@ -89,6 +95,45 @@ public class NewEJBJavaClassDataModel extends NewJavaClassDataModel implements I
 		else if (propertyName.equals(CLASS_NAME))
 			return "Bean";
 		return super.getDefaultProperty(propertyName);
+	}
+	
+	protected IStatus doValidateProperty(String propertyName) {
+		if (propertyName.equals(JAVA_PACKAGE))
+			return validateEjbJavaPackage(getStringProperty(propertyName));
+
+		return super.doValidateProperty(propertyName);
+	}
+	protected IStatus validateJavaClassName(String className) {
+		IStatus status =  super.validateJavaClassName(className);
+		if( status != WTPCommonPlugin.OK_STATUS)
+			return status;
+		
+		if( className.equals("Bean") || className.equals("EJB") ){
+			
+		}else if( (className.endsWith("Bean") || className.endsWith("EJB"))  )
+			return status;
+		String msg = EJBAnnotationMessages.getResourceString(IEJBAnnotationConstants.ERR_CLASS_NAME_MUSTEND_WITH_BEAN) ;
+		return WTPCommonPlugin.createErrorStatus(msg);
+		
+	}
+	protected IStatus validateEjbJavaPackage(String packageName) {
+		if (packageName != null && packageName.trim().length() > 0) {
+			// Use standard java conventions to validate the package name
+			IStatus javaStatus = JavaConventions.validatePackageName(packageName);
+			if (javaStatus.getSeverity() == IStatus.ERROR) {
+				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_PACAKGE_NAME_INVALID) + javaStatus.getMessage();
+				return WTPCommonPlugin.createErrorStatus(msg);
+			} else if (javaStatus.getSeverity() == IStatus.WARNING) {
+				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_PACKAGE_NAME_WARNING) + javaStatus.getMessage();
+				return WTPCommonPlugin.createErrorStatus(msg);
+			}
+		}
+		if( packageName == null || packageName.trim().length() == 0  ){
+			String msg = EJBAnnotationMessages.getResourceString(IEJBAnnotationConstants.ERR_MUST_ENTER_A_PACKAGE_NAME) ;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		return WTPCommonPlugin.OK_STATUS;
+		
 	}
 
 }

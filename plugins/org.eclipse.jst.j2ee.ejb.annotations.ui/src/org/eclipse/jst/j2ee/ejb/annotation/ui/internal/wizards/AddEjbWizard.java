@@ -19,7 +19,6 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddEjbOperation;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
@@ -30,7 +29,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 
 public class AddEjbWizard extends NewEjbWizard {
 	protected ChooseEjbTypeWizardPage chooseEjbTypeWizardPage = null;
-	protected NewJavaClassWizardPage  newJavaClassWizardPage = null;
+	protected NewEjbClassWizardPage  newJavaClassWizardPage = null;
 	protected AddSessionBeanWizardPage addSessionBeanWizardPage = null;
 	protected AddMessageDrivenBeanWizardPage addMessageDrivenBeanWizardPage = null;
 	protected NewEjbClassOptionsWizardPage newEjbClassOptionsWizardPage = null;
@@ -138,7 +137,7 @@ public class AddEjbWizard extends NewEjbWizard {
 
 		
 		NewJavaClassDataModel nestedModel = (NewJavaClassDataModel)model.getNestedModel("NewEJBJavaClassDataModel"); //$NON-NLS-1$
-		newJavaClassWizardPage = new NewJavaClassWizardPage(
+		newJavaClassWizardPage = new NewEjbClassWizardPage(
 				nestedModel, 
 				PAGE_TWO,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
