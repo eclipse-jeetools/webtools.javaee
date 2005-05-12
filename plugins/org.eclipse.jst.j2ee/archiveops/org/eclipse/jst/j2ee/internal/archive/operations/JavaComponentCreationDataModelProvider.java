@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponent
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -51,7 +52,10 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
             dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, propertyValue);
         } else if(LOCATION.equals(propertyName)) {
             IDataModel dm = (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM);
-            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyName);
+            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyValue);
+        } else if(SERVER_TARGET_ID.equals(propertyName)) {
+            IDataModel dm = (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM);
+            dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, propertyValue);
         }
         return status;
     }

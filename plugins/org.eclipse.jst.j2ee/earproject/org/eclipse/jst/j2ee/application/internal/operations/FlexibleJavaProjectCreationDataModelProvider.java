@@ -51,6 +51,9 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
         if (PROJECT_NAME.equals(propertyName)) {
             IDataModel projModel = (IDataModel)model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
             projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.PROJECT_NAME, propertyValue);
+        } else if (SERVER_TARGET_ID.equals(propertyName)) {
+            IDataModel projModel = (IDataModel)model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+            projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
         }
         return status;
     }
