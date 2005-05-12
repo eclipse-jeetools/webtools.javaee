@@ -110,7 +110,7 @@ public class XDocletPreferencePage extends PreferencePage implements
 		panel.preferences = new Control[3];
 		panel.fActive = new Button[3];
 		panel.preferences[0] = panel.createLabeledCheck(0,false,XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),"Enable XDoclet Builder:","Enables xdoclet builder for automatic generation of java classes",XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),defPanel);
-		panel.preferences[1] = panel.createLabeledCombo(1,false,true,"Version:","XDoclet version",XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETVERSION),new String[]{"1.2.1","1.2.2"},defPanel);
+		panel.preferences[1] = panel.createLabeledCombo(1,false,true,"Version:","XDoclet version",XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETVERSION),new String[]{"1.2.1","1.2.2","1.2.3"},defPanel);
 		panel.preferences[2] = panel.createLabeledPath(2,true,"XDoclet Home:","The path of the xdoclet runtime installation",XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETHOME),defPanel);
 		final Text xDocletPath = (Text)panel.preferences[2];
 		final Combo xDocletVersion = (Combo)panel.preferences[1];

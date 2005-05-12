@@ -59,7 +59,7 @@ public class XDocletRuntime {
 							"commons-logging.jar" } },
 			{
 					{ "1.2.3" },
-					{ "xdoclet-1.2.2.jar", "xjavadoc-1.1.jar",
+					{ "xdoclet-1.2.3.jar", "xjavadoc-1.1.jar",
 							"xdoclet-xdoclet-module-1.2.3.jar",
 							"xdoclet-ejb-module-1.2.3.jar",
 							"commons-collections-2.0.jar",
