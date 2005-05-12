@@ -179,7 +179,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
         newServerTargetButton.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-               // FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model.getNestedModel(NESTED_PROJECT_CREATION_DM));
+               FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM));
             }
         });
         Control[] deps = new Control[]{label, newServerTargetButton};
