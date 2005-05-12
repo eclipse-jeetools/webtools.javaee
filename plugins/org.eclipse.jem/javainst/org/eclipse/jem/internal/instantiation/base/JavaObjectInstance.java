@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.14 $  $Date: 2005/05/11 19:01:16 $ 
+ *  $Revision: 1.15 $  $Date: 2005/05/12 22:17:05 $ 
  */
 
 import java.util.List;
@@ -30,7 +30,7 @@ import org.eclipse.jem.java.JavaHelpers;
  * It should not be referenced directly, the IJavaObjectInstance interface should be
  * used instead. It is public so that it can be subclassed.
  */
-public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstance , FeatureValueProvider {
+public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstance {
 	
 	public JavaHelpers getJavaType(){
 		return (JavaHelpers) eClass();
