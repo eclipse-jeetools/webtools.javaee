@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -130,9 +129,9 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
     }
 
     public IStatus validate(String propertyName) {
-        if (propertyName.equals(ComponentCreationDataModel.PROJECT_NAME)) {
+        if (propertyName.equals(PROJECT_NAME)) {
             // validate server target
-            String projectName = getDataModel().getStringProperty(ComponentCreationDataModel.PROJECT_NAME);
+            String projectName = getDataModel().getStringProperty(PROJECT_NAME);
             if (projectName != null && projectName.length() != 0) {
                 IProject project = ProjectUtilities.getProject(projectName);
                 if (project != null) {
