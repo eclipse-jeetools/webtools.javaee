@@ -18,6 +18,7 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewEJBJavaClassDataModel extends NewJavaClassDataModel implements IAnnotationsDataModel {
@@ -62,7 +63,8 @@ public class NewEJBJavaClassDataModel extends NewJavaClassDataModel implements I
 		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(getWorkbenchModule());
+			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getWorkbenchModule().getName());
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit == null)
 				return false;
 			return ejbEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;

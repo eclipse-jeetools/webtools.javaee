@@ -38,6 +38,7 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 
@@ -93,7 +94,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 			WorkbenchComponent wc = core.findComponentByName(dm.getComponentDeployName());
 
 			
-			AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();;
+			AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();
 			
 			addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
 			addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, dm.getProject().getName());				
@@ -165,7 +166,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
 		
 		String ejbprojectName = dm.getEJBProjectName();		
-		String ejbComponentName = dm.getEJBComponentName();
+		//String ejbComponentName = dm.getEJBComponentName();
 		String ejbComponentDeployName = dm.getEJBDeployName();
 		String clientProjectName = dm.getProject().getName();
 		String clientDeployName  = dm.getComponentDeployName();
@@ -179,7 +180,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 			WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
 			ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
 			IVirtualComponent component = ComponentCore.createComponent( ejbProject, ejbwc.getName());
-			IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF"));
+			IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF")); //$NON-NLS-1$
 			manifestmf = vf.getUnderlyingFile();
 		}finally {
 		       if (null != moduleCore) {
@@ -218,34 +219,22 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		String ejbComponentDeployName = dm.getEJBDeployName();
 		String clientDeployName  = dm.getComponentDeployName();
 		
-		StructureEdit moduleCore = null;
-
-		try{
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
-			ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
-			
-            EJBArtifactEdit ejbEdit = null;
-           	try{
-           		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbwc);
-           		if(ejbEdit != null) {
-           			EJBJarImpl ejbres = (EJBJarImpl)ejbEdit.getDeploymentDescriptorRoot();
-           			ejbres.setEjbClientJar(clientDeployName);
-           			ejbEdit.saveIfNecessary(monitor);
-           		}
-           	}
-           	catch(Exception e){
-           		Logger.getLogger().logError(e);
-           	} finally {
-           		if(ejbEdit != null)
-           			ejbEdit.dispose();
-          	}
-			
-		}finally {
-		       if (null != moduleCore) {
-	            moduleCore.dispose();
-	       }
-		}	
+        EJBArtifactEdit ejbEdit = null;
+       	try{
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbComponentDeployName);
+       		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+       		if(ejbEdit != null) {
+       			EJBJarImpl ejbres = (EJBJarImpl)ejbEdit.getDeploymentDescriptorRoot();
+       			ejbres.setEjbClientJar(clientDeployName);
+       			ejbEdit.saveIfNecessary(monitor);
+       		}
+       	}
+       	catch(Exception e){
+       		Logger.getLogger().logError(e);
+       	} finally {
+       		if(ejbEdit != null)
+       			ejbEdit.dispose();
+      	}
 	}	
 	
 	private void createProjectIfNecessary(String name) throws CoreException, InvocationTargetException, InterruptedException {

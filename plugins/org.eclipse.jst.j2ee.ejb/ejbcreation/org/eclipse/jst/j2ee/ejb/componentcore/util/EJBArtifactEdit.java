@@ -20,7 +20,6 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -87,7 +86,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */ 
-	public EJBArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
+	public EJBArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 	
@@ -330,10 +329,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static EJBArtifactEdit getEJBArtifactEditForRead(WorkbenchComponent aModule) {
+	public static EJBArtifactEdit getEJBArtifactEditForRead(IVirtualComponent aModule) {
 		try {
 			if (isValidEJBModule(aModule)) {
-				IProject project = StructureEdit.getContainingProject(aModule);
+				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new EJBArtifactEdit(nature, aModule, true);
 			}
@@ -364,10 +363,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of EJBArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static EJBArtifactEdit getEJBArtifactEditForWrite(WorkbenchComponent aModule) {
+	public static EJBArtifactEdit getEJBArtifactEditForWrite(IVirtualComponent aModule) {
 		try {
 			if (isValidEJBModule(aModule)) {
-				IProject project = StructureEdit.getContainingProject(aModule);
+				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new EJBArtifactEdit(nature, aModule, false);
 			}
@@ -384,11 +383,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
 	 *         JST module
 	 */
-	public static boolean isValidEJBModule(WorkbenchComponent aModule) throws UnresolveableURIException {
+	public static boolean isValidEJBModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_EJB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
 			return false;
 		return true;
 	}

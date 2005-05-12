@@ -24,14 +24,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
@@ -52,7 +50,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         component.create(0, null);
 		//create and link ejbModule Source Folder
 		IVirtualFolder ejbModule = component.getFolder(new Path("/")); //$NON-NLS-1$		
-		ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null);
+		ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		//create and link META-INF folder
     	IVirtualFolder metaInfFolder = ejbModule.getFolder(J2EEConstants.META_INF);
@@ -61,21 +59,10 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
-		//should cache wbmodule when created instead of  searching ?
-        StructureEdit moduleCore = null;
-        WorkbenchComponent wbmodule = null;
-        try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(operationDataModel.getStringProperty(EjbComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }		
-
         EJBArtifactEdit ejbEdit = null;
        	try{
-       		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
+			ComponentHandle handle = ComponentHandle.create(getProject(),operationDataModel.getStringProperty(EjbComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+       		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
        		Integer version = (Integer)operationDataModel.getProperty(EjbComponentCreationDataModel.COMPONENT_VERSION);
        		ejbEdit.createModelRoot(version.intValue());
        		ejbEdit.save(monitor);

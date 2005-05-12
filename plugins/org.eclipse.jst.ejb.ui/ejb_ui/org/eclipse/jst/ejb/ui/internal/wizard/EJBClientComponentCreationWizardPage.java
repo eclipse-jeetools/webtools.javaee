@@ -24,6 +24,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -128,7 +131,8 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage {
 		EJBArtifactEdit edit = null;
 		try {
 			if (module != null) {
-				edit = EJBArtifactEdit.getEJBArtifactEditForRead(module);
+				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
+				edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 				if (edit != null && edit.hasEJBClientJARProject())
 					enableAllSections(false);
 				} else

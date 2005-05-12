@@ -26,9 +26,8 @@ import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataMo
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -45,7 +44,7 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
         component.create(0, null);
         //create and link ejbModule Source Folder
         IVirtualFolder ejbModule = component.getFolder(new Path("/")); //$NON-NLS-1$        
-        ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null);
+        ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
         IVirtualFolder metaInfFolder = ejbModule.getFolder(J2EEConstants.META_INF);
@@ -53,21 +52,11 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
     }
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        //should cache wbmodule when created instead of  searching ?
-        StructureEdit moduleCore = null;
-        WorkbenchComponent wbmodule = null;
-        try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }       
 
-        EJBArtifactEdit ejbEdit = null;
+		EJBArtifactEdit ejbEdit = null;
         try{
-            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
+			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
+            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
             Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
             ejbEdit.createModelRoot(version.intValue());
             ejbEdit.save(monitor);
@@ -79,9 +68,7 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
                 ejbEdit.dispose();
             ejbEdit = null;
         }   
-        
     }
-
 
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         try {

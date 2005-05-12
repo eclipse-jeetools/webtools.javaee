@@ -14,9 +14,12 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
@@ -31,7 +34,7 @@ public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 	}
 	
 	protected void createNewComponent() {
-		EjbComponentCreationDataModel aModel = new EjbComponentCreationDataModel();
+		IDataModel aModel = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
 		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
 		aModel.setBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT, false);
 		EJBComponentCreationWizard componentCreationWizard = new EJBComponentCreationWizard(aModel);

@@ -28,6 +28,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
@@ -45,6 +46,7 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -98,7 +100,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
             WorkbenchComponent wc = core.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
 
             
-            AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();;
+            AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();
             
             addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
             addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));               
@@ -190,7 +192,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
             WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
             ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
             IVirtualComponent component = ComponentCore.createComponent( ejbProject, ejbwc.getName());
-            IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF"));
+            IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF")); //$NON-NLS-1$
             manifestmf = vf.getUnderlyingFile();
         }finally {
                if (null != moduleCore) {
@@ -226,34 +228,22 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
         String ejbComponentDeployName = model.getStringProperty(EJB_COMPONENT_DEPLOY_NAME);
         String clientDeployName  = model.getStringProperty(COMPONENT_DEPLOY_NAME);
         
-        StructureEdit moduleCore = null;
-
+        EJBArtifactEdit ejbEdit = null;
         try{
-            moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-            WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
-            ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
-            
-            EJBArtifactEdit ejbEdit = null;
-            try{
-                ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbwc);
-                if(ejbEdit != null) {
-                    EJBJarImpl ejbres = (EJBJarImpl)ejbEdit.getDeploymentDescriptorRoot();
-                    ejbres.setEjbClientJar(clientDeployName);
-                    ejbEdit.saveIfNecessary(monitor);
-                }
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbComponentDeployName);
+            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+            if(ejbEdit != null) {
+                EJBJarImpl ejbres = (EJBJarImpl)ejbEdit.getDeploymentDescriptorRoot();
+                ejbres.setEjbClientJar(clientDeployName);
+                ejbEdit.saveIfNecessary(monitor);
             }
-            catch(Exception e){
-                Logger.getLogger().logError(e);
-            } finally {
-                if(ejbEdit != null)
-                    ejbEdit.dispose();
-            }
-            
-        }finally {
-               if (null != moduleCore) {
-                moduleCore.dispose();
-           }
-        }   
+        }
+        catch(Exception e){
+            Logger.getLogger().logError(e);
+        } finally {
+            if(ejbEdit != null)
+                ejbEdit.dispose();
+        }  
     }   
     
     private void createProjectIfNecessary(String name) throws CoreException, InvocationTargetException, InterruptedException {
@@ -262,7 +252,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
             IProject proj = ProjectUtilities.getProject(name);
             if( !proj.exists() ){
                 FlexibleJavaProjectCreationDataModel dataModel = new FlexibleJavaProjectCreationDataModel();
-                dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, name);
+                dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, name);
                 dataModel.getDefaultOperation().run(null);
             }   
         }

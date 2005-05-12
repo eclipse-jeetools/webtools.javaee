@@ -12,8 +12,10 @@ package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class EJBArtifactEditOperation extends ArtifactEditOperation {
 
@@ -21,7 +23,8 @@ public class EJBArtifactEditOperation extends ArtifactEditOperation {
         super(operationDataModel);
     }
     protected ArtifactEdit getArtifactEditForModule(WorkbenchComponent module) {
-        return EJBArtifactEdit.getEJBArtifactEditForWrite(module);
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
+        return EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
     }
     
     protected EJBArtifactEdit getEJBArtifactEdit() {

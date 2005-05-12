@@ -34,6 +34,7 @@
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
       <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
  
    </requires>
 

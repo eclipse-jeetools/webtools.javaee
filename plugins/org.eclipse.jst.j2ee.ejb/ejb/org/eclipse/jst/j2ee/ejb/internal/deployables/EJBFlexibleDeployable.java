@@ -20,6 +20,7 @@ import org.eclipse.jst.server.core.IEJBModule;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 
 public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJBModule {
@@ -37,7 +38,8 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(wbModule);
+			ComponentHandle handle = ComponentHandle.create(getProject(),wbModule.getName());
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit != null) {
 				int nVersion = ejbEdit.getJ2EEVersion();
 				switch (nVersion) {
@@ -71,7 +73,8 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 		EJBJar jar = null;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(wbModule);
+			ComponentHandle handle = ComponentHandle.create(getProject(),wbModule.getName());
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit != null) {
 				jar = ejbEdit.getEJBJar();
 				modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
@@ -94,8 +97,7 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 		Path path = new Path(wbModule.getName());
 		if (project == null)
 			return null;
-		else
-			return project.getFullPath();
+		return project.getFullPath();
 	}
 
 	public String getType() {
@@ -113,7 +115,8 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 		EJBArtifactEdit ejbEdit = null;
 		EJBJar jar = null;
 		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(wbModule);
+			ComponentHandle handle = ComponentHandle.create(getProject(),wbModule.getName());
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit != null) {
 				jar = ejbEdit.getEJBJar();
 				return jar.getVersion();
