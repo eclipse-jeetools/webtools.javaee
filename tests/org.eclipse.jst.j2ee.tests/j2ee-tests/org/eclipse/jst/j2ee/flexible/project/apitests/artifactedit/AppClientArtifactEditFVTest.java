@@ -1,19 +1,16 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 import java.io.File;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -35,12 +32,10 @@ public class AppClientArtifactEditFVTest extends TestCase {
 	}
 
 	public void testCreationDisposeFunction() {
-		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
 			edit.addListener(new EditModelListener() {
 
 				public void editModelChanged(EditModelEvent anEvent) {
@@ -53,11 +48,9 @@ public class AppClientArtifactEditFVTest extends TestCase {
 			edit.save(new NullProgressMonitor());
 
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -73,20 +66,16 @@ public class AppClientArtifactEditFVTest extends TestCase {
 	}
 
 	public void testPersistenceFunction() {
-		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
 			ApplicationClient appClient = edit.getApplicationClient();
 			pass(appClient);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -96,21 +85,15 @@ public class AppClientArtifactEditFVTest extends TestCase {
 	}
 
 	private void validateResource() {
-		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbComponent);
-			EList resourceList = wbComponent.getResources();
-			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
-
-			}
-
-
+			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			//EList resourceList = wbComponent.getResources();
+			//for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
+			//}
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 

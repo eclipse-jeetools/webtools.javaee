@@ -1,20 +1,17 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 import java.io.File;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -38,17 +35,13 @@ public class EarArtiFactEditFVTest extends TestCase {
 	}
 	
 	public void testCreationDisposeFunction() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
 			edit.addListener(new EditModelListener() {
-
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
-
 				}
 			});
 			Application client = edit.getApplication();
@@ -56,11 +49,9 @@ public class EarArtiFactEditFVTest extends TestCase {
 			edit.save(new NullProgressMonitor());
 
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -80,22 +71,16 @@ public class EarArtiFactEditFVTest extends TestCase {
 	}
 
 	public void testPersistenceFunction() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
 			Application ear = edit.getApplication();
 			pass(ear);
-
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -105,24 +90,17 @@ public class EarArtiFactEditFVTest extends TestCase {
 	}
 
 	private void validateResource() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
-			EList resourceList = wbComponent.getResources();
-			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
-
-			}
-
-
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+//			EList resourceList = wbComponent.getResources();
+//			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
+//			}
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 

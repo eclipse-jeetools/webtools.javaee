@@ -1,20 +1,17 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 import java.io.File;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -37,29 +34,22 @@ public class ConnectorArtifactEditFVTest extends TestCase {
 	}
 
 	public void testCreationDisposeFunction() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
 			edit.addListener(new EditModelListener() {
-
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
-
 				}
 			});
 			Connector client = edit.getConnector();
 			updateClient(client);
 			edit.save(new NullProgressMonitor());
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -79,22 +69,16 @@ public class ConnectorArtifactEditFVTest extends TestCase {
 	}
 
 	public void testPersistenceFunction() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
 			Connector jca = edit.getConnector();
 			pass(jca);
-
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -104,24 +88,17 @@ public class ConnectorArtifactEditFVTest extends TestCase {
 	}
 
 	private void validateResource() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbComponent);
-			EList resourceList = wbComponent.getResources();
-			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
-
-			}
-
-
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+//			EList resourceList = wbComponent.getResources();
+//			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
+//			}
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 

@@ -5,12 +5,14 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class EnterpriseArtifactEditTest extends TestCase {
@@ -55,21 +57,16 @@ public class EnterpriseArtifactEditTest extends TestCase {
 	}
 
 	public void testEnterpriseArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
 		EnterpriseArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
-			ModuleCoreNature nature = null;
-			nature = moduleCore.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
-			edit = new EARArtifactEdit(nature, wbComponent, true);
+			IVirtualComponent component = ComponentCore.createComponent(earProject,earModuleName);
+			ModuleCoreNature nature = StructureEdit.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
+			edit = new EARArtifactEdit(nature, component, true);
 			assertNotNull(edit);
 		} catch (UnresolveableURIException e) {
 			fail();
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
@@ -78,23 +75,17 @@ public class EnterpriseArtifactEditTest extends TestCase {
 	//////////BUG
 
 	public void testGetDeploymentDescriptorRoot() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
 		EnterpriseArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
-			ModuleCoreNature nature = null;
-			nature = moduleCore.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
-			edit = new EARArtifactEdit(nature, wbComponent, true);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = new EARArtifactEdit(handle,true);
 			edit.getDeploymentDescriptorRoot();
 			//////////////////////////BUG\\\\\\\\\\\
 			//assertNotNull(edit.getDeploymentDescriptorRoot());
-		} catch (UnresolveableURIException e) {
+		} catch (Exception e) {
 			// TODO fail();
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}

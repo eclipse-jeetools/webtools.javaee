@@ -8,12 +8,13 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class EJBArtifactEditTest extends TestCase {
@@ -34,67 +35,53 @@ public class EJBArtifactEditTest extends TestCase {
 	}
 
 	public void testGetJ2EEVersion() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			String version = wbComponent.getComponentType().getVersion();
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			edit.getJ2EEVersion();
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			String version = new Integer(edit.getJ2EEVersion()).toString();
 			assertTrue(version.equals(TestWorkspace.EJB_PROJECT_VERSION));
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
+				edit.dispose();
 			}
 		}
 	}
 
 	public void testGetDeploymentDescriptorResource() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.EJB_DD_RESOURCE_URI));
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
 	// /////BUG in PlatformURL\\\\\\\\\\\
 
 	public void testGetDeploymentDescriptorRoot() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			edit.getDeploymentDescriptorRoot();
 			// /////BUG in PlatformURL\\\\\\\\\\\turning test off////
 			/*
 			 * EObject object = edit.getDeploymentDescriptorRoot(); assertNotNull(object);
 			 */
-
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
@@ -102,27 +89,22 @@ public class EJBArtifactEditTest extends TestCase {
 
 
 	public void testCreateModelRoot() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
 			edit.createModelRoot();
 			// ////BUG turning off\\\\\\\\\\\\\
 			/*
 			 * EObject object = edit.createModelRoot(); assertNotNull(object);
 			 */
-
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
@@ -131,27 +113,22 @@ public class EJBArtifactEditTest extends TestCase {
 	 */
 	// ///////////////BUG in PlatformURLModuleConnection
 	public void testCreateModelRootint() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
 			// ///////BUG in PlatformURLModuleConnection
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			edit.createModelRoot(14);
 			/*
 			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
 			 */
-
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
@@ -159,23 +136,16 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for void EJBArtifactEdit(ComponentHandle, boolean)
 	 */
 	public void testEJBArtifactEditComponentHandleboolean() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(ejbProject);
-			wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			handle = ComponentHandle.create(ejbProject, wbComponent.getName());
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
 			edit = new EJBArtifactEdit(handle, true);
 			assertNotNull(edit);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
-
 	}
 
 	/*
@@ -191,44 +161,33 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for void EJBArtifactEdit(ModuleCoreNature, WorkbenchComponent, boolean)
 	 */
 	public void testEJBArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(ejbProject);
-			wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			ModuleCoreNature nature = null;
-			nature = StructureEdit.getModuleCoreNature(TestWorkspace.EJB_MODULE_URI);
-			edit = new EJBArtifactEdit(nature, wbComponent, true);
+			ModuleCoreNature nature = StructureEdit.getModuleCoreNature(TestWorkspace.EJB_MODULE_URI);
+			IVirtualComponent component = ComponentCore.createComponent(ejbProject, ejbModuleName);
+			edit = new EJBArtifactEdit(nature, component, true);
 			assertNotNull(edit);
 		} catch (UnresolveableURIException e) {
 			fail();
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
-
 	}
 
 	public void testGetEJBJarXmiResource() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			String uri = edit.getEJBJarXmiResource().toString();
-
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
 			// assertTrue(uri.equals(TestWorkspace.EJB_DD_XMI_RESOURCE_URI));
-
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -238,37 +197,30 @@ public class EJBArtifactEditTest extends TestCase {
 	// //////////////Bug turning test off\\\\\\\\\\\
 
 	public void testHasEJBClientJARProject() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			edit.hasEJBClientJARProject();
 			// /////BUG\\\\\\\\\\\
 			// boolean bool = edit.hasEJBClientJARProject(ejbProject);
 			// assertEquals(bool, true);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
 	}
 
 	public void testCreateNewModule() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			Module module = edit.createNewModule();
 			assertNotNull(module);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
@@ -277,58 +229,46 @@ public class EJBArtifactEditTest extends TestCase {
 	// /////////////////bug\\\\\\\\\\\\\
 
 	public void testGetEJBClientJarModule() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			edit.getEJBClientJarModule();
 			// /////////bug\\\\\\\\
 			// WorkbenchComponent comp = edit.getEJBClientJarModule(ejbProject);
 			// assertNotNull(comp);
-
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
 	}
 
 	public void testGetEJBJar() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			EJBJar jar = edit.getEJBJar();
 			assertNotNull(jar);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
 	}
 
 	public void testGetDeploymenyDescriptorType() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			int type = edit.getDeploymentDescriptorType();
 			assertTrue(type >= 0);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
@@ -352,21 +292,15 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForRead(ComponentHandle)
 	 */
 	public void testGetEJBArtifactEditForReadComponentHandle() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			ComponentHandle handle = ComponentHandle.create(ejbProject, wbComponent.getName());
+			ComponentHandle handle = ComponentHandle.create(ejbProject, ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			assertTrue(edit != null);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -374,17 +308,12 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForWrite(ComponentHandle)
 	 */
 	public void testGetEJBArtifactEditForWriteComponentHandle() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			ComponentHandle handle = ComponentHandle.create(ejbProject, wbComponent.getName());
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -395,21 +324,15 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForRead(WorkbenchComponent)
 	 */
 	public void testGetEJBArtifactEditForReadWorkbenchComponent() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			assertTrue(edit != null);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
-
 		}
 	}
 
@@ -417,16 +340,12 @@ public class EJBArtifactEditTest extends TestCase {
 	 * Class under test for EJBArtifactEdit getEJBArtifactEditForWrite(WorkbenchComponent)
 	 */
 	public void testGetEJBArtifactEditForWriteWorkbenchComponent() {
-		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(ejbProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(wbComponent);
-
+			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
+			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -434,27 +353,15 @@ public class EJBArtifactEditTest extends TestCase {
 	}
 
 	public void testIsValidEJBModule() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(ejbProject);
-			wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			ComponentHandle handle = ComponentHandle.create(ejbProject, wbComponent.getName());
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-			boolean valid = ArtifactEdit.isValidEditableModule(wbComponent);
-			assertTrue(valid);
-		}
+		IVirtualComponent component = ComponentCore.createComponent(ejbProject,ejbModuleName);
+		boolean valid = ArtifactEdit.isValidEditableModule(component);
+		assertTrue(valid);
 	}
 
 	public ArtifactEditModel getArtifactEditModelforRead() {
 		EMFWorkbenchContext context = new EMFWorkbenchContext(ejbProject);
 		return new ArtifactEditModel(this.toString(), context, true, TestWorkspace.APP_CLIENT_MODULE_URI);
 	}
-
-
 
 	public EJBArtifactEdit getArtifactEditForRead() {
 		return new EJBArtifactEdit(getArtifactEditModelforRead());
@@ -463,5 +370,4 @@ public class EJBArtifactEditTest extends TestCase {
 	public void pass() {
 		assertTrue(true);
 	}
-
 }

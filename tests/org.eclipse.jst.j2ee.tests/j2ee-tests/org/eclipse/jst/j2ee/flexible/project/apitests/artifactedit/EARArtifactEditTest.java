@@ -5,12 +5,15 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class EARArtifactEditTest extends TestCase {
@@ -31,80 +34,63 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testGetJ2EEVersion() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			int version = edit.getJ2EEVersion();
 			Integer integer = new Integer(version);
 			assertTrue(integer.equals(TestWorkspace.EAR_PROJECT_VERSION));
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
+				edit.dispose();
 			}
 		}
 	}
 
 	public void testGetDeploymentDescriptorResource() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.EAR_DD_RESOURCE_URI));
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
-
 	public void testCreateModelRoot() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
 			EObject object = edit.createModelRoot();
 			assertNotNull(object);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
 
 	public void testCreateModelRootint() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			EObject object = edit.createModelRoot(14);
 			assertNotNull(object);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
@@ -137,25 +123,20 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testEARArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
+			IVirtualComponent component = ComponentCore.createComponent(earProject,earModuleName);
 			ModuleCoreNature nature = null;
-			nature = moduleCore.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
-			edit = new EARArtifactEdit(nature, wbComponent, true);
+			nature = StructureEdit.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
+			edit = new EARArtifactEdit(nature, component, true);
 			assertNotNull(edit);
 		} catch (UnresolveableURIException e) {
 			fail();
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
-
 	}
 
 
@@ -180,17 +161,12 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testGetEARArtifactEditForWriteComponentHandle() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			ComponentHandle handle = ComponentHandle.create(earProject, wbComponent.getName());
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
 			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -199,36 +175,26 @@ public class EARArtifactEditTest extends TestCase {
 
 
 	public void testGetEARArtifactEditForReadWorkbenchComponent() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			assertTrue(edit != null);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
-
 		}
 	}
 
 
 	public void testGetEARArtifactEditForWriteWorkbenchComponent() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
-
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -236,56 +202,40 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testIsValidEARModule() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
-		EARArtifactEdit edit = null;
+		IVirtualComponent component = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
-			ComponentHandle handle = ComponentHandle.create(earProject, wbComponent.getName());
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(wbComponent);
-		    edit.isValidEARModule(wbComponent);
+			component = ComponentCore.createComponent(earProject, earModuleName);
+			EARArtifactEdit.isValidEARModule(component);
 		} catch (UnresolveableURIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-			boolean isValid = EARArtifactEdit.isValidEditableModule(wbComponent);
-			assertTrue(isValid);
 		}
+		boolean isValid = ArtifactEdit.isValidEditableModule(component);
+		assertTrue(isValid);
 	}
 	
 	public void testIsValidEAREditableModule() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
+		IVirtualComponent component = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
-			ComponentHandle handle = ComponentHandle.create(earProject, wbComponent.getName());
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-			boolean isValid = EARArtifactEdit.isValidEditableModule(wbComponent);
-			assertTrue(isValid);
+			component = ComponentCore.createComponent(earProject, earModuleName);
+			EARArtifactEdit.isValidEARModule(component);
+		} catch (UnresolveableURIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		boolean isValid = ArtifactEdit.isValidEditableModule(component);
+		assertTrue(isValid);
 	}
 
 	public void testGetApplicationXmiResource() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			String uri = edit.getApplicationXmiResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.EAR_DD_RESOURCE_URI));
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -294,19 +244,16 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testGetApplication() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			edit.createModelRoot();
 			EObject obj = edit.getApplication();
 			assertNotNull(obj);
 
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
@@ -315,12 +262,10 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	public void testAddApplicationIfNecessary() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			
 			// /Bug
 			/*
@@ -329,23 +274,19 @@ public class EARArtifactEditTest extends TestCase {
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 		pass(); // protected method
 	}
 
 	// ///////////////BUG Workbench Module not initalized\\\\\\\\\\\\\\\\\\\\\\
 	public void testUriExists() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			boolean uriExist = edit.uriExists(TestWorkspace.EJB_MODULE_URI.toString());
 			// /Bug
 			/*
@@ -354,23 +295,19 @@ public class EARArtifactEditTest extends TestCase {
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
 	// ///////////////////BUG ClassCastException \\\\\\\\\\\\\\\\\\\\
 
 	public void testGetWorkbenchUtilModules() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			edit.getUtilityModuleReferences();
 			// //////////////classcast exception
 			/*
@@ -379,28 +316,23 @@ public class EARArtifactEditTest extends TestCase {
 		} catch (Exception e) {
 			// TODO
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
 	// ///////////////////BUG ClassCastException \\\\\\\\\\\\\\\\\\\\
 	public void testGetWorkbenchJ2EEModules() {
-		StructureEdit moduleCore = null;
 		EARArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			edit.getJ2EEModuleReferences();
 			// classCast
 			// assertNotNull(edit.getWorkbenchJ2EEModules(wbComponent));
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 

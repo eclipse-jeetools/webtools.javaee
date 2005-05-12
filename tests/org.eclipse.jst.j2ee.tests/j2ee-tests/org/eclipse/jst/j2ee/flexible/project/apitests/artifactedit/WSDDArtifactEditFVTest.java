@@ -1,21 +1,13 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
-import java.io.File;
-import java.util.Iterator;
-
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -37,29 +29,22 @@ public class WSDDArtifactEditFVTest extends TestCase {
 	}
 	
 	public void testCreationDisposeFunction() {
-		StructureEdit moduleCore = null;
 		WSDDArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(webProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
-			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
+			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(handle);
 			edit.addListener(new EditModelListener() {
-
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
-
 				}
 			});
 			WebServices client = edit.getWebServices();
 			updateClient(client);
 			edit.save(new NullProgressMonitor());
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -75,20 +60,16 @@ public class WSDDArtifactEditFVTest extends TestCase {
 	}
 
 	public void testPersistenceFunction() {
-		StructureEdit moduleCore = null;
 		WSDDArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(webProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
-			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
+			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(handle);
 			WebServices web = edit.getWebServices();
 			pass(web);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -100,21 +81,15 @@ public class WSDDArtifactEditFVTest extends TestCase {
 	}
 
 	private void validateResource() {
-		StructureEdit moduleCore = null;
 		WebArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(webProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(wbComponent);
-			EList resourceList = wbComponent.getResources();
-			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
-
-			}
-
-
+			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+//			EList resourceList = wbComponent.getResources();
+//			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
+//			}
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 

@@ -5,12 +5,15 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class ConnectorArtifactEditTest extends TestCase {
@@ -33,7 +36,6 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 	public void testGetJ2EEVersion() {
 		StructureEdit moduleCore = null;
-		ConnectorArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
@@ -47,62 +49,46 @@ public class ConnectorArtifactEditTest extends TestCase {
 	}
 
 	public void testGetDeploymentDescriptorResource() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.JCA_DD_RESOURCE_URI));
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
-
 		}
 	}
 
 
 	public void testCreateModelRoot() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
 			EObject object = edit.createModelRoot();
 			assertNotNull(object);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
-
 		}
 	}
 
 
 	public void testCreateModelRootint() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			EObject object = edit.createModelRoot(14);
 			assertNotNull(object);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
@@ -135,21 +121,17 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 
 	public void testConnectorArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
-			wbComponent = moduleCore.findComponentByName(jcaModuleName);
 			ModuleCoreNature nature = null;
-			nature = moduleCore.getModuleCoreNature(TestWorkspace.JCA_MODULE_URI);
-			edit = new ConnectorArtifactEdit(nature, wbComponent, true);
+			nature = StructureEdit.getModuleCoreNature(TestWorkspace.JCA_MODULE_URI);
+			IVirtualComponent component = ComponentCore.createComponent(jcaProject,jcaModuleName);
+			edit = new ConnectorArtifactEdit(nature, component, true);
 			assertNotNull(edit);
 		} catch (UnresolveableURIException e) {
 			fail();
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 		}
@@ -197,75 +179,49 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 
 	public void testGetConnectorArtifactEditForReadWorkbenchComponent() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			assertTrue(edit != null);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
-
 		}
 	}
 
-
 	public void testGetConnectorArtifactEditForWriteWorkbenchComponent() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
 			assertTrue(edit != null);
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
 	public void testIsValidConnectorModule() {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
-			wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			ComponentHandle handle = ComponentHandle.create(jcaProject, wbComponent.getName());
-			assertTrue(ConnectorArtifactEdit.isValidEditableModule(wbComponent));
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-
-		}
+		IVirtualComponent component = ComponentCore.createComponent(jcaProject, jcaModuleName);
+		assertTrue(ArtifactEdit.isValidEditableModule(component));
 	}
 
 	public void testGetConnectorXmiResource() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.JCA_DD_RESOURCE_URI));
 
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
 			assertTrue(edit != null);
-
 		}
 	}
 
@@ -292,22 +248,17 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 
 	public void testGetDeploymentDescriptorRoot() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			Object obj = edit.getDeploymentDescriptorRoot();
 			assertNotNull(obj);
 
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
-
 		}
 	}
 
@@ -318,21 +269,16 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 
 	public void testGetConnector() {
-		StructureEdit moduleCore = null;
 		ConnectorArtifactEdit edit = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			Object obj = edit.getConnector();
 			assertNotNull(obj);
-
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 	}
 
