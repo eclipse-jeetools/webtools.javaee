@@ -215,9 +215,9 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     	return null;	
     }
 
-    public ILooseArchive[] getLooseArchives() {
+  /*  public ILooseArchive[] getLooseArchives() {
         return this.archives;
-    }
+    }*/
 
     /*
      * @see com.ibm.etools.server.core.util.DeployableProject#getRootFolder()
@@ -314,7 +314,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
             change.toArray(changed2);
             IModule[] removed = new IModule[remove.size()];
             remove.toArray(removed);
-            fireModuleChangeEvent(changed, added, changed2, removed);
+           // fireModuleChangeEvent(changed, added, changed2, removed);
         }
     }
 
@@ -421,6 +421,11 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 //			}
 //		}    
 		return rootfolder;
+	}
+
+	public IModule[] getLooseArchives() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
