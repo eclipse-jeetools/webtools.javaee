@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.3 $  $Date: 2005/05/11 15:23:53 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/12 13:59:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
@@ -19,7 +19,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import org.eclipse.jem.internal.proxy.core.MapJNITypes;
+import org.eclipse.jem.internal.proxy.common.MapTypes;
 
  
 
@@ -676,7 +676,7 @@ public class FeatureAttributeValue implements Serializable {
 					ft = ft.getComponentType();
 				}
 				if (ft == Object.class || ft == String.class || ft == Boolean.class || ft == Character.class || ft.isPrimitive() || ft == Class.class || Number.class.isAssignableFrom(ft)) {
-					String jniType = dims == 1 ? "java.lang.Object" : MapJNITypes.getJNITypeName("java.lang.Object", dims-1);
+					String jniType = dims == 1 ? "java.lang.Object" : MapTypes.getJNITypeName("java.lang.Object", dims-1);
 					try {
 						Class componentType = Class.forName(jniType);
 						out.writeObject(componentType);
