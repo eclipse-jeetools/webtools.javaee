@@ -26,6 +26,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
@@ -57,20 +58,15 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        StructureEdit moduleCore = null;
         EARArtifactEdit earEdit = null;
         try {
         	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getOperationDataModel();
-            moduleCore = StructureEdit.getStructureEditForWrite(getProject());
-            WorkbenchComponent earComp = moduleCore.findComponentByName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-            earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
+            ComponentHandle handle = ComponentHandle.create(getProject(), operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
             Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
        	 	earEdit.createModelRoot(version.intValue());
             earEdit.save(monitor);
         } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
        		if (earEdit != null)
        		    earEdit.dispose();
         }		

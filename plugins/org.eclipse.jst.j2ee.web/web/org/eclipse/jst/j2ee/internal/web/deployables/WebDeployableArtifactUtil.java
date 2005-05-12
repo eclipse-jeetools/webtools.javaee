@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -42,6 +41,7 @@ import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -326,20 +326,15 @@ public class WebDeployableArtifactUtil {
 		IProject project = resource.getProject();
 		WebArtifactEdit edit = null;
 		WebApp webApp = null;
-		StructureEdit moduleCore = null;
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(project);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(componentName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			ComponentHandle handle = ComponentHandle.create(project,componentName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
 			edit.getDeploymentDescriptorRoot();
 			webApp = edit.getWebApp();
-		} catch (Exception e) {
 		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
+			if (edit != null) {
 				edit.dispose();
 			}
-
 		}
 		Object key = new Object();
 		try {

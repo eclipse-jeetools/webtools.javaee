@@ -12,8 +12,10 @@ package org.eclipse.jst.j2ee.internal.web.util;
 
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class WebArtifactEditOperation extends ArtifactEditOperation {
 
@@ -22,7 +24,8 @@ public class WebArtifactEditOperation extends ArtifactEditOperation {
     }
 
     protected ArtifactEdit getArtifactEditForModule(WorkbenchComponent module) {
-        return WebArtifactEdit.getWebArtifactEditForWrite(module);
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
+        return WebArtifactEdit.getWebArtifactEditForWrite(handle);
     }
     
     protected WebArtifactEdit getWebArtifactEdit() {

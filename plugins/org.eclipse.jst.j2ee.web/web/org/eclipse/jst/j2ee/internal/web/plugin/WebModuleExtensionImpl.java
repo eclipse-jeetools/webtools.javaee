@@ -37,7 +37,6 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataM
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 
 
 
@@ -70,7 +69,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 		WebArtifactEdit webEdit = null;
 		WebApp webApp = null;
 		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( moduleNature.getProject());
+			//TODO migrate to flex project
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( moduleNature.getProject());
        		if(webEdit != null) 
        			webApp =  (WebApp) webEdit.getDeploymentDescriptorRoot();
 			if (webApp != null) {
@@ -128,7 +128,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	public void setContextRootForModuleMapping(WebModule webModule, IProject nestedProject) throws CoreException {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( nestedProject );
+			//TODO migrate to flex project
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( nestedProject );
        		if(webEdit != null) {
        			webEdit.setServerContextRoot(webModule.getContextRoot());
        		}			
@@ -179,7 +180,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 		//To do: Needs work here, no content folder exists now
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex project
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
        		if(webEdit != null) {
 		            		
        		}			
@@ -207,7 +209,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	protected String getServerContextRoot(IProject project) {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex project
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
        		if(webEdit != null) {
        			return webEdit.getServerContextRoot();		               		
        		}			

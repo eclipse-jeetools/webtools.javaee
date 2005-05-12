@@ -17,6 +17,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -180,9 +181,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 						for (int i = 0; i < components.length; i++) {
 							EARArtifactEdit earArtifactEdit = null;
 							try {
-								WorkbenchComponent wc = (WorkbenchComponent)components[i];
+								WorkbenchComponent wc = components[i];
 								if(wc.getComponentType() != null && wc.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
-									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(wc);
+									ComponentHandle handle = ComponentHandle.create(flexProject,wc.getName());
+									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 								    if(j2eeVersion <= earArtifactEdit.getJ2EEVersion()){
 								    	WTPPropertyDescriptor desc = new WTPPropertyDescriptor(wc.getHandle().toString(), wc.getName());
 								    	earDescriptorList.add(desc);

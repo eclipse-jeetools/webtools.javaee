@@ -24,7 +24,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.JavaTaglibRegistry;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.WebTaglibRegistry;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 
 
 public class TaglibRegistryManager implements ITaglibRegistryManager {
@@ -87,7 +86,8 @@ public class TaglibRegistryManager implements ITaglibRegistryManager {
 		WebArtifactEdit webEdit = null;
 		try {
 			if (project != null && project.isAccessible()) { // ensure web library project not closed
-				webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+				//TODO migrate to flex project
+				//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 				if (webEdit!=null) {
 					registry = new WebTaglibRegistry(project);
 				} else if (project.hasNature(JavaCore.NATURE_ID)) {

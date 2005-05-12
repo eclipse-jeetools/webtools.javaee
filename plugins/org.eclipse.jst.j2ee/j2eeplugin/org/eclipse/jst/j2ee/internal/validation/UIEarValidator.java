@@ -61,6 +61,7 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -211,7 +212,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	                WorkbenchComponent wbModule = workBenchModules[i];
 	                EARArtifactEdit earEdit = null;
 	               	try{
-	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(wbModule );
+						ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
+	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 	               		if(earEdit != null) {
 		               		Application earApp = (Application) earEdit.getDeploymentDescriptorRoot();		               		
 		               		super.validate(inHelper, inReporter, earApp);
@@ -397,7 +399,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public void validateUtilJarMaps(WorkbenchComponent workbenchModule) {
 		EARArtifactEdit artifactEdit = null;
 		try {
-		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(workbenchModule);
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(workbenchModule),workbenchModule.getName());
+       	artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 		List utilJarModules = artifactEdit.getUtilityModuleReferences();
 		if (!utilJarModules.isEmpty() || !utilJarModules.isEmpty()) {
 			for (int i = 0; i < utilJarModules.size(); i++) {
@@ -462,7 +465,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	protected void validateUtilJarNameCollision(WorkbenchComponent module) {
 		EARArtifactEdit earArtifactEdit = null;
 		try {
-				 earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
+				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
+				earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 				List utilJars = module.getReferencedComponents();
 				if (utilJars == null)
 					return;
@@ -533,7 +537,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	public void validateModuleMaps(WorkbenchComponent module) {
 		EList modules = module.getReferencedComponents();
-		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
+		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 		if (!modules.isEmpty()) {
 			for (int i = 0; i < modules.size(); i++) {
 				WorkbenchComponent amodule = (WorkbenchComponent) modules.get(i);
@@ -760,7 +765,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	protected void validateDocType(WorkbenchComponent module) {
 		EARArtifactEdit artifactEdit = null;
 		try {
-		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
+		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 		if (artifactEdit == null)
 			return;
 		if (artifactEdit.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() < J2EEVersionConstants.J2EE_1_3_ID) {
@@ -788,7 +794,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public void validateUriAlreadyExistsInEar(WorkbenchComponent component) {
 		EARArtifactEdit artifactEdit = null;
 		try{
-		    artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(component),component.getName());
+			artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			List modules = artifactEdit.getJ2EEModuleReferences();
 			if (modules == null)
 				return;

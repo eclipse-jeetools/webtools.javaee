@@ -37,7 +37,6 @@ import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperat
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
@@ -153,7 +152,8 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		//TODO this will throw class cast exception, do we still use ILibModule?
 		WebArtifactEdit webArtifactEdit = null;
 		try {
-			webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex projects
+			//webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit!=null)
 				webArtifactEdit.addLibModules((ReferencedComponent[])modules);
 		} finally  {

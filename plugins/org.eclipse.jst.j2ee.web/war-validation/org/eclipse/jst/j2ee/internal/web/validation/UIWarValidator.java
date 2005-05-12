@@ -19,6 +19,7 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
@@ -115,7 +116,8 @@ public class UIWarValidator extends WarValidator {
                 WorkbenchComponent wbModule = workBenchModules[i];
                 WebArtifactEdit webEdit = null;
                	try{
-               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
+					ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
+               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
                		if(webEdit != null) {
 	               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
 	               		super.validate(inHelper, inReporter, webApp);

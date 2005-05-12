@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -257,7 +258,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		String text = (String)getProperty(DISPLAY_NAME);
 		if (text != null) {
 			urlMappings = new ArrayList();
-			urlMappings.add(new String[]{"/" + text});
+			urlMappings.add(new String[]{"/" + text}); //$NON-NLS-1$
 		}
 		return urlMappings;
 	}
@@ -321,7 +322,8 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(getWorkbenchModule());
+			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getWorkbenchModule().getName());
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
 			if (webEdit == null)
 				return false;
 			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;

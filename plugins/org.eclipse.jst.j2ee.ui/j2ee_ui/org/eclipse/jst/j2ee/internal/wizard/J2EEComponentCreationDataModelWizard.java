@@ -7,7 +7,9 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactCreationWizard {
@@ -150,7 +152,8 @@ public abstract class J2EEComponentCreationDataModelWizard extends J2EEArtifactC
 		int j2eeVersion = 0;
 		if (earModule != null && getDataModel() != null) {
 			try {
-				earEdit = EARArtifactEdit.getEARArtifactEditForRead(earModule);
+				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(earModule),earModule.getName());
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 				j2eeVersion = earEdit.getJ2EEVersion();
 			} finally {
 				if (earEdit != null)

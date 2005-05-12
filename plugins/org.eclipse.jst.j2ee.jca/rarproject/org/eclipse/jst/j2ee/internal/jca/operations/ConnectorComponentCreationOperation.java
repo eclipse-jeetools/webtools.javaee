@@ -17,16 +17,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
@@ -45,7 +43,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
         component.create(0, null);
 		//create and link connectorModule Source Folder
 		IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
-		connectorModuleFolder.createLink(new Path("/" + getModuleName() + "/connectorModule"), 0, null);
+		connectorModuleFolder.createLink(new Path("/" + getModuleName() + "/connectorModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		//create and link META-INF folder
     	IVirtualFolder metaInfFolder = connectorModuleFolder.getFolder(J2EEConstants.META_INF);
@@ -54,21 +52,10 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         ConnectorArtifactEdit artifactEdit = null;
-        // should cache wbmodule when created instead of searching ?
-        StructureEdit moduleCore = null;
-        WorkbenchComponent wbmodule = null;
         try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(operationDataModel.getStringProperty(ConnectorComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }
-
-        try {
-            artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbmodule);
-            Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+			ComponentHandle handle = ComponentHandle.create(getProject(),operationDataModel.getStringProperty(ComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+            Integer version = (Integer)operationDataModel.getProperty(ComponentCreationDataModel.COMPONENT_VERSION);
        	 	artifactEdit.createModelRoot(version.intValue());
             artifactEdit.save(monitor);
         } catch (Exception e) {
@@ -86,7 +73,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
+		int version = operationDataModel.getIntProperty(ComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getJCATextVersion(version);
 	}
 

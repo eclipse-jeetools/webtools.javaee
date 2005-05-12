@@ -39,7 +39,6 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
@@ -112,7 +111,8 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 		WebArtifactEdit webEdit = null;
 		try {
 			WebApp webApp = null;
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex projects
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			if (webEdit != null)
 				webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
 		

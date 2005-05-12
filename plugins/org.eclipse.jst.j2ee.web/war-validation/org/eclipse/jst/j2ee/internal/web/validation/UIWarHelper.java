@@ -16,7 +16,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 
 
 /**
@@ -63,7 +62,8 @@ public class UIWarHelper extends WarHelper {
 	protected IPath getDeploymentDescriptorPath(IProject project) {
 		WebArtifactEdit webArtifactEdit = null; 
 		try {
-			webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex projects
+			//webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit != null)
 				return webArtifactEdit.getDeploymentDescriptorPath();
 		} finally {

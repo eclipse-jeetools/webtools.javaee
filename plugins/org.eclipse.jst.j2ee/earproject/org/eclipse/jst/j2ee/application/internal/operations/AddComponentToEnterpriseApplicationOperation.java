@@ -25,7 +25,9 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEditOperation {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
@@ -70,19 +72,14 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 
 	protected void updateEARDD(IProgressMonitor monitor){
 		
-		StructureEdit mCore = null;
-        EARArtifactEdit earEdit = null;
-       	try{
-			
+		EARArtifactEdit earEdit = null;
+       	try {
 			String earProj = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME);
 			IProject proj = ProjectUtilities.getProject(earProj);
-			
-			mCore = StructureEdit.getStructureEditForRead(proj);
-			WorkbenchComponent earComp = mCore.findComponentByName(operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME));
-			
-			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
+			ComponentHandle handle = ComponentHandle.create(proj,operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME));
+			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
 			if(earEdit != null){
-				Application application = (Application) earEdit.getApplication();
+				Application application = earEdit.getApplication();
 				AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel)getOperationDataModel();
 				List list = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
 				if (list != null && list.size() > 0) {
@@ -96,13 +93,9 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
        	}
        	catch(Exception e){
        		Logger.getLogger().logError(e);
-       	} finally {
-		       if (null != mCore) {
-				   mCore.dispose();
-		       }				
+       	} finally {			
        		if(earEdit != null)
 				earEdit.dispose();
-			earEdit = null;
        	}		
 	}
 	protected Module createNewModule(WorkbenchComponent wc) {
@@ -169,7 +162,7 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 	}
 
 	public IProject getProject() {
-		String projName = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME );
+		String projName = operationDataModel.getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME );
 		return ProjectUtilities.getProject( projName );
 	}
 

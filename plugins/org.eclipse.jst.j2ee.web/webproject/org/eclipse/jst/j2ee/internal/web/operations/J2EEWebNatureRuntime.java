@@ -368,7 +368,8 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 			WebArtifactEdit webEdit = null;
 
 			try{
-				artifact = StructureEdit.getFirstArtifactEditForRead( project );
+				//TODO should this even be using artifact edits?
+				//artifact = StructureEdit.getFirstArtifactEditForRead( project );
 				webEdit = ( WebArtifactEdit )artifact;
 	       		if(webEdit != null) {
 	       			contextRoot = webEdit.getServerContextRoot();

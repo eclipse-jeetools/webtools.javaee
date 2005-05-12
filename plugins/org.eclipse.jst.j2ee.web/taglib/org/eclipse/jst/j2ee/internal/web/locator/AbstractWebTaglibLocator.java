@@ -29,8 +29,6 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
@@ -236,29 +234,31 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 	
 	protected int getJSPVersion() {
-		WebArtifactEdit webEdit = null;
-		int JSPVersion = 0;
-		try {
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-			JSPVersion = webEdit.getJSPVersion();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-		return JSPVersion;
+		//TODO need to migrate to modules
+//		WebArtifactEdit webEdit = null;
+//		int JSPVersion = 0;
+//		try {
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//			JSPVersion = webEdit.getJSPVersion();
+//		} finally {
+//			if (webEdit != null)
+//				webEdit.dispose();
+//		}
+//		return JSPVersion;
+		return 0;
 	}
 	
 	protected ILibModule[] getLibModules() {
 		//TODO this will throw classcastexception, do we use ILibModule anymore?
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-			if (webEdit != null)
-				return (ILibModule[])webEdit.getLibModules();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+//		WebArtifactEdit webEdit = null;
+//		try {
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//			if (webEdit != null)
+//				return (ILibModule[])webEdit.getLibModules();
+//		} finally {
+//			if (webEdit != null)
+//				webEdit.dispose();
+//		}
 		return new ILibModule[] {};
 	}
 	
@@ -274,13 +274,15 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 	
 	protected IPath getWebDeploymentDescriptorPath() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-			return webEdit.getDeploymentDescriptorPath();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		//TODO migrate to flex project
+		return null;
+//		WebArtifactEdit webEdit = null;
+//		try {
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//			return webEdit.getDeploymentDescriptorPath();
+//		} finally {
+//			if (webEdit != null)
+//				webEdit.dispose();
+//		}
 	}
 }

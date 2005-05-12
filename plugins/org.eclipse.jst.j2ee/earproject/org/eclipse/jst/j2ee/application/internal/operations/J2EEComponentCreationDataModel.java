@@ -26,6 +26,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -246,13 +247,13 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 					if (mc != null) {
 						WorkbenchComponent[] components = mc.getWorkbenchModules();
 
-						int earVersion = 0;
 						for (int i = 0; i < components.length; i++) {
 							EARArtifactEdit earArtifactEdit = null;
 							try {
-								WorkbenchComponent wc = (WorkbenchComponent) components[i];
+								WorkbenchComponent wc = components[i];
 								if (wc.getComponentType() != null && wc.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(wc);
+									ComponentHandle handle = ComponentHandle.create(flexProject,wc.getName());
+									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 									if (j2eeVersion <= earArtifactEdit.getJ2EEVersion()) {
 										WTPPropertyDescriptor desc = new WTPPropertyDescriptor(wc.getHandle().toString(), wc.getName());
 										earDescriptorList.add(desc);

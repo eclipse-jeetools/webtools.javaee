@@ -28,7 +28,6 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 
 
 /**
@@ -482,7 +481,8 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	protected int getJSPVersion() {
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex projects
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			if (webEdit != null)
 				return webEdit.getJSPVersion();
 		} finally {
@@ -495,7 +495,8 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	protected int getServletVersion() {
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			//TODO migrate to flex projects
+			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			if (webEdit != null)
 				return webEdit.getServletVersion();
 		} finally {

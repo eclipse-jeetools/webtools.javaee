@@ -11,7 +11,9 @@
 package org.eclipse.jst.j2ee.jca.internal.module.util;
 
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 public class ConnectorArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {
@@ -21,7 +23,8 @@ public class ConnectorArtifactEditOperationDataModel extends ArtifactEditOperati
     }
     
     public ConnectorArtifactEdit getConnectorArtifactEditForRead() {
-        return ConnectorArtifactEdit.getConnectorArtifactEditForRead(getWorkbenchModule());
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(getWorkbenchModule()),getWorkbenchModule().getName());
+        return ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
     }
 
 }

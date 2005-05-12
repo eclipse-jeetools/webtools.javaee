@@ -30,9 +30,8 @@ import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataMo
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -66,21 +65,11 @@ public class WebComponentCreationOp extends J2EEComponentCreationOp implements I
     }
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        //should cache wbmodule when created instead of  searching ?
-        StructureEdit moduleCore = null;
-        WorkbenchComponent wbmodule = null;
+        
+		WebArtifactEdit webEdit = null;
         try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }       
-
-        WebArtifactEdit webEdit = null;
-        try{
-            webEdit = WebArtifactEdit.getWebArtifactEditForWrite(wbmodule);
+			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
+            webEdit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
             Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
             webEdit.createModelRoot(version.intValue());
             webEdit.save(monitor);

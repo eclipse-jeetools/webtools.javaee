@@ -24,9 +24,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
@@ -50,20 +49,9 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         
         AppClientArtifactEdit artifactEdit = null;
-		//should cache wbmodule when created instead of  searching ?
-        StructureEdit moduleCore = null;
-        WorkbenchComponent wbmodule = null;
-        try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(operationDataModel.getStringProperty(AppClientComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }	
-        
-       	try{
-       	    artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbmodule);
+       	try {
+			ComponentHandle handle = ComponentHandle.create(getProject(),operationDataModel.getStringProperty(AppClientComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+       	    artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
        	    Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
        	 	artifactEdit.createModelRoot(version.intValue());
        	 	artifactEdit.save(monitor);

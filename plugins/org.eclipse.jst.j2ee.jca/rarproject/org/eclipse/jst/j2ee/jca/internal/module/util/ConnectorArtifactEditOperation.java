@@ -12,8 +12,10 @@ package org.eclipse.jst.j2ee.jca.internal.module.util;
 
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class ConnectorArtifactEditOperation extends ArtifactEditOperation {
 
@@ -22,7 +24,8 @@ public class ConnectorArtifactEditOperation extends ArtifactEditOperation {
     }
     
     protected ArtifactEdit getArtifactEditForModule(WorkbenchComponent module) {
-        return ConnectorArtifactEdit.getConnectorArtifactEditForWrite(module);
+		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module), module.getName());
+        return ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
     }
     
     protected ConnectorArtifactEdit getConnectorArtifactEdit() {

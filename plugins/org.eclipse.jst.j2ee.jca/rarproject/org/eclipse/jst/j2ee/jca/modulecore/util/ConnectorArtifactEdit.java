@@ -6,21 +6,19 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * Provides access to J2EE Connector models using the ArtifactEdit pattern.
@@ -53,8 +51,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public ConnectorArtifactEdit(ComponentHandle aHandle,
-			boolean toAccessAsReadOnly) throws IllegalArgumentException {
+	public ConnectorArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aHandle, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
@@ -75,7 +72,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this
+	 * method.
+	 * </p>
+	 * 
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
@@ -83,8 +84,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 *            the given {@see ModuleCoreNature}
 	 */
 
-	public ConnectorArtifactEdit(ModuleCoreNature aNature,
-			WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
+	public ConnectorArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -146,9 +146,9 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.getContents().add(connector);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				connector.setDisplayName(StructureEdit
-						.getDeployedName(moduleURI));
+				connector.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
+				//Ignore
 			}
 			aResource.setID(connector, J2EEConstants.CONNECTOR_ID);
 			// TODO add more mandatory elements
@@ -178,8 +178,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may only be used to read the
 	 *         underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(
-			ComponentHandle aHandle) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(ComponentHandle aHandle) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = new ConnectorArtifactEdit(aHandle, true);
@@ -210,8 +209,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may be used to modify and
 	 *         persist changes to the underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(
-			ComponentHandle aHandle) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(ComponentHandle aHandle) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = new ConnectorArtifactEdit(aHandle, false);
@@ -237,7 +235,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this
+	 * method.
+	 * </p>
+	 * 
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that
 	 *            resolves to an accessible project in the workspace
@@ -246,16 +248,15 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(
-			WorkbenchComponent aModule) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(IVirtualComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
-				IProject project = StructureEdit.getContainingProject(aModule);
-				ModuleCoreNature nature = ModuleCoreNature
-						.getModuleCoreNature(project);
+				IProject project = aModule.getProject();
+				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new ConnectorArtifactEdit(nature, aModule, true);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -274,23 +275,26 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this
+	 * method.
+	 * </p>
+	 * 
 	 * @param aModule
 	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that
 	 *            resolves to an accessible project in the workspace
 	 * @return An instance of ConnectorArtifactEdit that may be used to modify
 	 *         and persist changes to the underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(
-			WorkbenchComponent aModule) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(IVirtualComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
-				IProject project = StructureEdit.getContainingProject(aModule);
-				ModuleCoreNature nature = ModuleCoreNature
-						.getModuleCoreNature(project);
+				IProject project = aModule.getProject();
+				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new ConnectorArtifactEdit(nature, aModule, false);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -302,12 +306,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and
 	 *         the moduleTypeId is a JST module
 	 */
-	public static boolean isValidConnectorModule(WorkbenchComponent aModule)
-			throws UnresolveableURIException {
+	public static boolean isValidConnectorModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
 			return false;
 		return true;
 	}
@@ -344,7 +347,6 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		ConnectorResource res = (ConnectorResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
 		addConnectorIfNecessary(res);
-		return ((ConnectorResource) getDeploymentDescriptorResource())
-				.getRootObject();
+		return ((ConnectorResource) getDeploymentDescriptorResource()).getRootObject();
 	}
 }

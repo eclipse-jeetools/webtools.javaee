@@ -23,8 +23,6 @@ import org.eclipse.jst.j2ee.internal.web.locator.WebProjectTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.locator.WebXMLTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibLocator;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 
 
 public class WebTaglibRegistry extends AbstractTaglibRegistry {
@@ -165,13 +163,15 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	}
 	
 	protected IPath getWebDeploymentDescriptorPath() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-			return webEdit.getDeploymentDescriptorPath();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		//TODO migrate to flex structure
+		return null;
+//		WebArtifactEdit webEdit = null;
+//		try {
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//			return webEdit.getDeploymentDescriptorPath();
+//		} finally {
+//			if (webEdit != null)
+//				webEdit.dispose();
+//		}
 	}
 }

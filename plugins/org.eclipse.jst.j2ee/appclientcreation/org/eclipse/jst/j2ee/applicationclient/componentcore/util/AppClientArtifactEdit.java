@@ -19,9 +19,9 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -61,7 +61,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aModule
 	 * @param toAccessAsReadOnly
 	 */
-	public AppClientArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
+	public AppClientArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);		
 	}
 	
@@ -129,6 +129,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 			try {
 				appClient.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
+				//Ignore
 			}
 			aResource.setID(appClient, J2EEConstants.APP_CLIENT_ID);
 			//TODO add more mandatory elements
@@ -250,14 +251,15 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static AppClientArtifactEdit getAppClientArtifactEditForRead(WorkbenchComponent aModule) {
+	public static AppClientArtifactEdit getAppClientArtifactEditForRead(IVirtualComponent aModule) {
 		try {
 			if (isValidApplicationClientModule(aModule)) {
-				IProject project = StructureEdit.getContainingProject(aModule);
+				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new AppClientArtifactEdit(nature, aModule, true);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -282,14 +284,15 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of AppClientArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(WorkbenchComponent aModule) {
+	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(IVirtualComponent aModule) {
 		try {
 			if (isValidApplicationClientModule(aModule)) {
-				IProject project = StructureEdit.getContainingProject(aModule);
+				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new AppClientArtifactEdit(nature, aModule, false);
 			}
 		} catch (UnresolveableURIException uue) {
+			//Ignore
 		}
 		return null;
 	}
@@ -302,11 +305,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
 	 *         JST module
 	 */
-	public static boolean isValidApplicationClientModule(WorkbenchComponent aModule) throws UnresolveableURIException {
+	public static boolean isValidApplicationClientModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_ApplicationClient_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
 			return false;
 		return true;
 	}

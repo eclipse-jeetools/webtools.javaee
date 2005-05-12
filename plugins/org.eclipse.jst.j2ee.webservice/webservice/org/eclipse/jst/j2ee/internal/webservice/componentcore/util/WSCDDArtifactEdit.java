@@ -14,8 +14,6 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -76,7 +74,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */ 
-	public WSCDDArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
+	public WSCDDArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 	
@@ -269,9 +267,9 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static WSCDDArtifactEdit getWSCDDArtifactEditForRead(WorkbenchComponent aModule) {
+	public static WSCDDArtifactEdit getWSCDDArtifactEditForRead(IVirtualComponent aModule) {
 		
-				IProject project = StructureEdit.getContainingProject(aModule);
+				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new WSCDDArtifactEdit(nature, aModule, true);
 	}
@@ -297,8 +295,8 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of WSDDArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static WSCDDArtifactEdit getWSCDDArtifactEditForWrite(WorkbenchComponent aModule) {
-				IProject project = StructureEdit.getContainingProject(aModule);
+	public static WSCDDArtifactEdit getWSCDDArtifactEditForWrite(IVirtualComponent aModule) {
+				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new WSCDDArtifactEdit(nature, aModule, false);
 	}

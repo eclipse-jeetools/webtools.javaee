@@ -27,9 +27,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -46,7 +45,7 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
         component.create(0, null);
         //create and link appClientModule Source Folder
         IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$        
-        appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/appClientModule"), 0, null);
+        appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/appClientModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
         IVirtualFolder metaInfFolder = appClientModuleFolder.getFolder(J2EEConstants.META_INF);
@@ -55,20 +54,9 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         AppClientArtifactEdit artifactEdit = null;
-        //should cache wbmodule when created instead of  searching ?
-        StructureEdit moduleCore = null;
-        WorkbenchComponent wbmodule = null;
         try {
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            wbmodule = moduleCore.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }   
-        
-        try{
-            artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbmodule);
+			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
+            artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
             Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
             artifactEdit.createModelRoot(version.intValue());
             artifactEdit.save(monitor);

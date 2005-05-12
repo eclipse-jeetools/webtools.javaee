@@ -457,16 +457,17 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 
 
 	protected String getModuleContextRoot() {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-       		if (webEdit != null) {
-       			return webEdit.getServerContextRoot();
-       		}			
-		} finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
+		//TODO can't assume one module per project
+//		WebArtifactEdit webEdit = null;
+//		try{
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//       		if (webEdit != null) {
+//       			return webEdit.getServerContextRoot();
+//       		}			
+//		} finally{
+//			if( webEdit != null )
+//				webEdit.dispose();
+//		}
 		return null;
 	}
 	
@@ -475,30 +476,32 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	}
 	
 	protected int getModuleServletVersion() {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-       		if (webEdit != null) {
-       			return webEdit.getServletVersion();
-       		}			
-		} finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
+		//TODO can't assume one module per project
+//		WebArtifactEdit webEdit = null;
+//		try{
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//       		if (webEdit != null) {
+//       			return webEdit.getServletVersion();
+//       		}			
+//		} finally{
+//			if( webEdit != null )
+//				webEdit.dispose();
+//		}
 		return J2EEVersionConstants.SERVLET_2_2;
 	}
 	
 	protected int getModuleJSPVersion() {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-       		if (webEdit != null) {
-       			return webEdit.getJSPVersion();
-       		}			
-		} finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
+		//TODO can't assume one module per project
+//		WebArtifactEdit webEdit = null;
+//		try{
+//			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+//       		if (webEdit != null) {
+//       			return webEdit.getJSPVersion();
+//       		}			
+//		} finally{
+//			if( webEdit != null )
+//				webEdit.dispose();
+//		}
 		return J2EEVersionConstants.SERVLET_2_2;
 	}
 

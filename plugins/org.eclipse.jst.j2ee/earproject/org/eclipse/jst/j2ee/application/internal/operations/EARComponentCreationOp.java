@@ -18,10 +18,10 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelP
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -39,7 +39,7 @@ public class EARComponentCreationOp extends ComponentCreationOperationEx impleme
         component.create(0, null);
 		//create and link META-INF folder
 		IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$		
-		root.createLink(new Path("/" + getModuleName()), 0, null);
+		root.createLink(new Path("/" + getModuleName()), 0, null); //$NON-NLS-1$
 		
     	IVirtualFolder metaInfFolder = root.getFolder(J2EEConstants.META_INF);
     	metaInfFolder.create(IResource.FORCE, null);
@@ -51,20 +51,14 @@ public class EARComponentCreationOp extends ComponentCreationOperationEx impleme
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        StructureEdit moduleCore = null;
         EARArtifactEdit earEdit = null;
         try {
-            moduleCore = StructureEdit.getStructureEditForWrite(getProject());
-            WorkbenchComponent earComp = moduleCore.findComponentByName(
-					getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME));
-            earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
+            ComponentHandle handle = ComponentHandle.create(getProject(),getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME));
+            earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
             Integer version = (Integer)getDataModel().getProperty(COMPONENT_VERSION);
        	 	earEdit.createModelRoot(version.intValue());
             earEdit.save(monitor);
         } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
        		if (earEdit != null)
        		    earEdit.dispose();
         }		
@@ -105,6 +99,7 @@ public class EARComponentCreationOp extends ComponentCreationOperationEx impleme
 	}
     
 	protected  void addResources(WorkbenchComponent component ){
+		//Default
 	}
 
 	/* (non-Javadoc)

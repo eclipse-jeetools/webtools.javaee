@@ -20,15 +20,19 @@ import org.eclipse.jst.server.core.IEnterpriseApplication;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 
 
 
 public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable implements IEnterpriseApplication, ILooseArchiveSupport {
 
-	public static final String EAR_MODULE_TYPE = "jst.ear";
+	public static final String EAR_MODULE_TYPE = "jst.ear"; //$NON-NLS-1$
 
 	public EnterpriseApplicationDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
 		super(project, aFactoryId, aWorkbenchModule);
@@ -41,7 +45,8 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 
 		EARArtifactEdit earEdit = null;
 		try {
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(wbModule);
+			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			if (earEdit != null) {
 				int nVersion = earEdit.getJ2EEVersion();
 				switch (nVersion) {
@@ -73,12 +78,14 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		List modules = new ArrayList(3);
 		EARArtifactEdit earEdit = null;
 		try {
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(wbModule);
+			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			if (earEdit != null) {
-				List components = earEdit.getWorkbenchJ2EEModules(wbModule);
+				List components = earEdit.getJ2EEModuleReferences();
 				for (Iterator iter = components.iterator(); iter.hasNext();) {
-					WorkbenchComponent component = (WorkbenchComponent) iter.next();
-					Object module = FlexibleProjectServerUtil.getModule(component);
+					IVirtualReference reference = (IVirtualReference) iter.next();
+					IVirtualComponent virtualComp = reference.getReferencedComponent();
+					Object module = FlexibleProjectServerUtil.getModuleDelegate(virtualComp);
 					modules.add(module);
 				}
 			}
@@ -109,14 +116,12 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		return new Path(wbModule.getHandle().toString());
 	}
 
-
-
-	public String getURI(ILooseArchive archive) {
+	public IModule[] getLooseArchives() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public IModule[] getLooseArchives() {
+	public String getURI(ILooseArchive archive) {
 		// TODO Auto-generated method stub
 		return null;
 	}

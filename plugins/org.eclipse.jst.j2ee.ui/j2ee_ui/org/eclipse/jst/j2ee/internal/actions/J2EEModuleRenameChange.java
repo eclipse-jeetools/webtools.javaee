@@ -31,7 +31,9 @@ import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 
 /**
@@ -111,7 +113,8 @@ public class J2EEModuleRenameChange extends Change {
 	protected String getServerContextRoot() {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(target);
+			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(target),target.getName());
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
        		if (webEdit != null)
        			return webEdit.getServerContextRoot();			
 		} finally {

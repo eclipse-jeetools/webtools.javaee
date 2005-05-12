@@ -9,9 +9,6 @@
 
 package org.eclipse.jst.j2ee.componentcore;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,9 +19,9 @@ import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * <p>
@@ -88,7 +85,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 *            {@see ModuleCoreNature}
 	 */
 
-	public EnterpriseArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
+	public EnterpriseArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -176,49 +173,10 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	}
 
 	public URI getModuleLocation(String moduleName) {
-		WorkbenchComponent component = getWorkBenchComponent(moduleName);
-		if (component != null)
-			return component.getHandle();
+		if (getComponentHandle()!=null)
+			return ModuleURIUtil.fullyQualifyURI(getComponentHandle());
 		return null;
-
-
 	}
-
-	public WorkbenchComponent getWorkBenchComponent(String moduleName) {
-		StructureEdit moduleCore = null;
-		try {
-			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-			for (int i = 0; i < projects.length; i++) {
-				moduleCore = StructureEdit.getStructureEditForRead(projects[i]);
-				WorkbenchComponent wbComponent = moduleCore.findComponentByName(moduleName);
-				if (wbComponent == null)
-					continue;
-				return wbComponent;
-			}
-
-		} catch (Exception e) {
-			// todo
-
-		} finally {
-			if (moduleCore != null)
-				moduleCore.dispose();
-		}
-		return null;
-
-	}
-
-
-
-	public IProject getProject(String moduleName) {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent component = getWorkBenchComponent(moduleName);
-		if (component != null)
-			return StructureEdit.getContainingProject(component);
-		return null;
-
-	}
-
-
 
 	/**
 	 * This will delete

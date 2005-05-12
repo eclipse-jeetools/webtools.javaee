@@ -26,8 +26,10 @@ import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.internal.Property;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -88,8 +90,9 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     	String Version = "1.2"; //$NON-NLS-1$
 
             WebArtifactEdit webEdit = null;
-           	try{
-           		webEdit = WebArtifactEdit.getWebArtifactEditForRead( wbModule );
+           	try {
+				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
+           		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
            		if(webEdit != null) {
                		int nVersion = webEdit.getJ2EEVersion();	
                		switch( nVersion ){
@@ -126,7 +129,8 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         WebArtifactEdit webEdit = null;
         int nVersion = 22;
        	try{
-       		webEdit = WebArtifactEdit.getWebArtifactEditForRead( wbModule );
+			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
+       		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
        		if(webEdit != null) {
        			nVersion = webEdit.getServletVersion();
        		}
