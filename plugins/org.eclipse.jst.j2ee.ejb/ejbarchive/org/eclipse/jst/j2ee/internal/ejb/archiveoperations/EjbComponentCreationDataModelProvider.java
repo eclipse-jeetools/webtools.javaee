@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -178,8 +177,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     public IStatus validate(String propertyName) {
         if (propertyName.equals(NESTED_MODEL_EJB_CLIENT_CREATION)) {
             if (getBooleanProperty(CREATE_CLIENT)) {
-                EJBClientComponentDataModel ejbClientComponentDataModel = ((EJBClientComponentDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));              
-                String clientName = ejbClientComponentDataModel.getStringProperty(ComponentCreationDataModel.COMPONENT_NAME);
+                IDataModel ejbClientComponentDataModel = ((IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION));              
+                String clientName = ejbClientComponentDataModel.getStringProperty(COMPONENT_NAME);
                 String moduleName = getStringProperty(PROJECT_NAME);
                 if (clientName.equals(moduleName)) {
                     return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
