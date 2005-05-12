@@ -274,4 +274,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     protected String getComponentID() {
         return IModuleConstants.JST_EJB_MODULE;
     }
+	
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+		return super.getValidPropertyDescriptors(propertyName);
+	}	
 }
