@@ -70,10 +70,8 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 		//createProjectNameGroup(parent);
 		//initializeProjectList();
         createModuleGroup(parent);
-        addSeperator(parent,3);
-		createServerTargetComposite(parent);
-
-
+        //addSeperator(parent,3);
+		//createServerTargetComposite(parent);
 	}
 	
 	/**

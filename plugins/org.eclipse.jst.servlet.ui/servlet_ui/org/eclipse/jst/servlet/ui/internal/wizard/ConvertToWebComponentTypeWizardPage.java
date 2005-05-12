@@ -36,7 +36,7 @@ public class ConvertToWebComponentTypeWizardPage extends WebComponentCreationWiz
 	 * @see com.ibm.wtp.j2ee.ui.wizard.J2EEProjectCreationPage#createProjectNameGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createProjectNameGroup(Composite parent) {
-		super.createProjectNameGroup(parent);
+		//super.createProjectNameGroup(parent);
 		// projectNameGroup.projectNameField.setEnabled(false);
 	}
 }

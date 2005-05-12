@@ -6,6 +6,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -49,7 +50,7 @@ public class AppClientComponentCreationWizardPage extends J2EEComponentCreationW
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-        return new String[] { PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR };
+        return new String[] {IAppClientComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR };
     }
 
 	public void dispose() {

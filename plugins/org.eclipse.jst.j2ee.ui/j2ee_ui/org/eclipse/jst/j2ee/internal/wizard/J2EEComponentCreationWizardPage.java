@@ -21,11 +21,13 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Cursor;
@@ -40,6 +42,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -47,7 +50,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescript
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
-public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
+public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties, IJ2EEProjectServerTargetDataModelProperties{
 
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
 	protected static final String MODULE_VERSION = "Module Version:";
@@ -58,6 +61,12 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	protected AdvancedSizeController advancedController;
 	protected boolean advancedControlsBuilt = false;
 	private ServerEarAndStandaloneGroup earGroup;
+    protected Combo serverTargetCombo;
+    protected Text moduleNameText = null;
+    
+    private static final int SIZING_TEXT_FIELD_WIDTH = 305;
+    private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
+    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_NAME); //$NON-NLS-1$
 
 	/**
 	 *  This type is responsible for setting the Shell size based on the showAdvanced flag. It will
@@ -141,16 +150,43 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		super(dataModel, pageName);
 	}
 	
-	protected void createProjectNameGroup(Composite parent) {
-		projectNameGroup = new NewModuleGroup(parent, SWT.NULL, model, synchHelper);
-	}
+    private void createModuleGroup(Composite parent) {
+        GridData data = new GridData();
+        // Add the module name label
+        Label moduleNameLabel = new Label(parent, SWT.NONE);
+        moduleNameLabel.setText(MODULE_NAME_UI);
+        // Add the module name entry field
+        moduleNameText = new Text(parent, SWT.BORDER);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        moduleNameText.setLayoutData(data);
+        synchHelper.synchText(moduleNameText,COMPONENT_NAME,new Control[] {});
+        new Label(parent,SWT.NONE);
+    }
 
 	protected void addToAdvancedComposite(Composite advanced) {
+        createServerTargetComposite(advanced);
 		createVersionComposite(advanced);
 		createServerEarAndStandaloneGroup(advanced);
 	}
 
-	protected void createServerEarAndStandaloneGroup(Composite parent) {
+    protected void createServerTargetComposite(Composite parent) {
+        Label label = new Label(parent, SWT.NONE);
+        label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+        serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
+        serverTargetCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        Button newServerTargetButton = new Button(parent, SWT.NONE);
+        newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
+        newServerTargetButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+               // FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model.getNestedModel(NESTED_PROJECT_CREATION_DM));
+            }
+        });
+        Control[] deps = new Control[]{label, newServerTargetButton};
+  //      synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
+    }
+
+    protected void createServerEarAndStandaloneGroup(Composite parent) {
 		earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
 	}
 
@@ -171,7 +207,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, EAR_COMPONENT_NAME, ADD_TO_EAR};
+		return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, EAR_COMPONENT_NAME, ADD_TO_EAR};
 	}
 
 	protected void createVersionComposite(Composite parent) {
@@ -265,7 +301,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		Composite composite = new Composite(top, SWT.NONE);
 		GridLayout layout = new GridLayout(3, false);
 		composite.setLayout(layout);
-		createProjectNameGroup(composite);
+        createModuleGroup(composite);
 		Composite detail = new Composite(top, SWT.NONE);
 		detail.setLayout(new GridLayout());
 		detail.setData(new GridData(GridData.FILL_BOTH));

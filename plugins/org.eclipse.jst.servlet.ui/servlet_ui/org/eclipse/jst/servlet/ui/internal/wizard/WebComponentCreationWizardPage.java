@@ -75,7 +75,7 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR, CONTEXT_ROOT};
+		return new String[]{IWebComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR, CONTEXT_ROOT};
 	}
 
 	public void dispose() {

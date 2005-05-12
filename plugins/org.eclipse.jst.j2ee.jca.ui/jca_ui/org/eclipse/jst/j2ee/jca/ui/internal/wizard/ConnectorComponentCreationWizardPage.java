@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
@@ -35,7 +36,7 @@ public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationW
 	}
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR};
+		return new String[]{IConnectorComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR};
 	}
 
 	/**
