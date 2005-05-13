@@ -98,7 +98,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return status;
 	}
 
-	private URI computeEARHandle(String earHandle){
+    private URI computeEARHandle(String earHandle){
 		URI uri = URI.createURI(earHandle);
 		
 		if( uri != null ){
@@ -129,28 +129,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		}
 		((UpdateManifestDataModel)model.getProperty(NESTED_UPDATE_MANIFEST_DM)).setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
 	}
-
-//	protected Boolean basicIsEnabled(String propertyName) {
-//		Boolean enabled = super.basicIsEnabled(propertyName);
-//		if (enabled.booleanValue()) {
-//			if (propertyName.equals(EAR_MODULE_NAME)) {
-//				enabled = (Boolean) getProperty(ADD_TO_EAR);
-//			} 
-//		}
-//		return enabled;
-//	}
-
-	protected final AddComponentToEnterpriseApplicationDataModel getAddComponentToEARDataModel() {
-		return (AddComponentToEnterpriseApplicationDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-	}
-    
-    protected IDataModel getEarComponentCreationDataModel() {
-        return (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-    }
-    
-    protected final UpdateManifestDataModel getUpdateManifestDataModel() {
-        return (UpdateManifestDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM);
-    }
     
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(COMPONENT_VERSION)) {
@@ -193,8 +171,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 							} finally {
 									if(earArtifactEdit != null)
 										earArtifactEdit.dispose();
-							}
-							   
+                            }	   
 						}
 					}
 				}
@@ -206,14 +183,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[earDescriptorList.size()];
 		for (int i = 0; i < descriptors.length; i++) {
 			WTPPropertyDescriptor desc = (WTPPropertyDescriptor)earDescriptorList.get(i);
-			descriptors[i] = new DataModelPropertyDescriptor(desc.getPropertyValue(), desc.getPropertyDescription() );
+			descriptors[i] = new DataModelPropertyDescriptor(desc.getPropertyDescription(), desc.getPropertyDescription());
 		}
-		return descriptors;		 
-		 
+		return descriptors;		 	 
 	  }	 	
-	 	
-	
-		
 		
 	public IProject getProject() {
 		String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME );
@@ -343,7 +316,14 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 //		  earComponentCreationDataModel.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, event.getProperty());
 //		}
 //	}
+    protected final AddComponentToEnterpriseApplicationDataModel getAddComponentToEARDataModel() {
+        return (AddComponentToEnterpriseApplicationDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
+    }
 
+    protected final UpdateManifestDataModel getUpdateManifestDataModel() {
+        return (UpdateManifestDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM);
+    }
+    
 	public String getModuleName() {
 		return getDataModel().getStringProperty(COMPONENT_NAME);
 	}
