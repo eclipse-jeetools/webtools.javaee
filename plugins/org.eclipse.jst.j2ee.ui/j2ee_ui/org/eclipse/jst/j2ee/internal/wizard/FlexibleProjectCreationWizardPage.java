@@ -292,6 +292,8 @@ public class FlexibleProjectCreationWizardPage extends DataModelWizardPage imple
 				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
 			}
 			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
+
+            model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
 			if (newAddition != null)
 				model.setProperty(RUNTIME_TARGET_ID, newAddition);
 		}
