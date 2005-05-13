@@ -17,9 +17,12 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
@@ -104,36 +107,29 @@ public class UIWarValidator extends WarValidator {
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
-		//setWarHelper((UIWarHelper) inHelper);
-		
+		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-        WorkbenchComponent[] workBenchModules = null; 
-		StructureEdit moduleCore = null;	
-		try{ 
-			moduleCore = StructureEdit.getStructureEditForRead(proj);
-			workBenchModules = moduleCore.getWorkbenchModules(); 
-			for (int i = 0; i < workBenchModules.length; i++) {
-                WorkbenchComponent wbModule = workBenchModules[i];
-                WebArtifactEdit webEdit = null;
-               	try{
-					ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
-               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
-               		if(webEdit != null) {
-	               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
-	               		super.validate(inHelper, inReporter, webApp);
-               		}
-               	}
-               	catch(Exception e){
-					Logger.getLogger().logError(e);
-               	} finally {
-               		if(webEdit != null)
-               			webEdit.dispose();
-              	}
-			}    
-		} finally {
-			if(moduleCore != null)
-				moduleCore.dispose();
-		}
+		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
+		IVirtualComponent[] virComps = flexProject.getComponents();
+		
+		for(int i = 0; i < virComps.length; i++) {
+            IVirtualComponent wbModule = virComps[i];
+            WebArtifactEdit webEdit = null;
+           	try{
+				ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
+           		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+           		if(webEdit != null) {
+               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
+               		super.validate(inHelper, inReporter, webApp);
+           		}
+           	}
+           	catch(Exception e){
+				Logger.getLogger().logError(e);
+           	} finally {
+           		if(webEdit != null)
+           			webEdit.dispose();
+          	}
+		}    
 	}
 		
 	
