@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.10 $ $Date: 2005/02/15 23:09:27 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.11 $ $Date: 2005/05/13 14:16:40 $
  */
 
 import java.util.List;
@@ -21,12 +21,13 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
-import org.eclipse.jem.util.emf.workbench.*;
+import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
 public class JavaEMFNature extends EMFNature {
 	public static final String NATURE_ID = "org.eclipse.jem.workbench.JavaEMFNature";
@@ -169,7 +170,7 @@ protected void addJavaReflectionAdapterFactories(ResourceSet aSet) {
 			factories.remove(factory);
 	}
 	// This should maybe be considered a logic error, but we can recover easily
-	factories.add(new JavaJDOMAdapterFactory(JavaProjectUtilities.getJavaProject(project)));
+	factories.add(new JavaJDOMAdapterFactory(JemProjectUtilities.getJavaProject(project)));
 }
 
 }
