@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/13 14:58:06 $ 
  */
 
 import java.util.ArrayList;
@@ -112,14 +112,19 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 				// It means something has changed to the file on disk, but don't know what.
 				if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
 					flush(element);	// Flush everything, including inner classes.					
-				}						
+				} else if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) == 0 && 
+						(delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0)  //A type may have been added or removed.
+					processChildren(element, delta);
 				break;
 			}
 			case IJavaElementDelta.REMOVED :
-					disAssociateSourcePlusInner(getFullNameFromElement(element));				
+			case IJavaElementDelta.ADDED :
+				if (!element.isWorkingCopy())
+					disAssociateSourcePlusInner(getFullNameFromElement(element));
 				break;
 		}
 	}
+	
 	/**
 	 * Handle the change for a single element, children will be handled separately.
 	 *
