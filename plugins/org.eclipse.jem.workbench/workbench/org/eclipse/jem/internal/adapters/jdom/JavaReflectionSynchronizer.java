@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.10 $  $Date: 2005/05/13 14:58:06 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/13 15:09:15 $ 
  */
 
 import java.util.ArrayList;
@@ -83,24 +83,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	protected JavaJDOMAdapterFactory getAdapterFactory() {
 		return fAdapterFactory;
 	}
-	/**
-	 * If the complation unit's content has changed, notify all adapters which point to it.
-	 * This change may not require a call to flush() if the structure of the entity has not changed.
-	 * Creation date: (8/17/2001 3:58:31 PM)
-	 * @param param org.eclipse.jdt.core.IJavaElementDelta
-	 */
-// This doesn't really apply anymore. If the file has been physically changed, we cannot determine if it
-// just content like this. So we just ignore this for now.
-//	public void processContentChanged(IJavaElementDelta delta) {
-//		if (delta == null)
-//			return;
-//		// Any change will be notified, as changes to childrens may impact the text-location of this element.
-//		IJavaElement element = delta.getElement();
-//		if (element.getElementType() == IJavaElement.COMPILATION_UNIT)
-//			if (((delta.getFlags()) & (IJavaElementDelta.F_CONTENT | IJavaElementDelta.F_MODIFIERS | IJavaElementDelta.F_CHILDREN | IJavaElementDelta.F_MOVED_TO | IJavaElementDelta.F_MOVED_FROM)) != 0) {
-//				getAdapterFactory().notifyContentChanged((ICompilationUnit) element);
-//			}
-//	}
+	
 	/**
 	 * Handle the change for a single element, children will be handled separately.
 	 *
