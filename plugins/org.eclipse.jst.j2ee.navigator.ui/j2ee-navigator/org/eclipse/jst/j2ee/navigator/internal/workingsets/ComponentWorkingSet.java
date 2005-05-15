@@ -7,7 +7,10 @@
 package org.eclipse.jst.j2ee.navigator.internal.workingsets;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.eclipse.core.internal.runtime.InternalPlatform;
@@ -24,6 +27,7 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetManager;
+import org.eclipse.ui.actions.ScrubLocalAction;
 import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.WorkingSetDescriptor;
@@ -59,6 +63,9 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
     private IMemento workingSetMemento;
     
     private IWorkingSetManager manager;
+	
+	private HashMap projectStructureEdits;
+	
     
     private String typeId;
        
@@ -299,9 +306,19 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
     
       public void disconnect() {
     	this.manager= null;
+		disposeStructureEdits();
       }
   
-    private void fireWorkingSetChanged(String property, Object oldValue) {
+    private void disposeStructureEdits() {
+		Set keys = getProjectStructureEdits().keySet();
+		for (Iterator iter = keys.iterator(); iter.hasNext();) {
+			IProject proj = (IProject) iter.next();
+			StructureEdit se = getStructureEdit(proj);
+			se.dispose();
+		}
+	}
+
+	private void fireWorkingSetChanged(String property, Object oldValue) {
     	AbstractWorkingSetManager receiver= manager != null
 			? (AbstractWorkingSetManager)manager
 			: (AbstractWorkingSetManager)WorkbenchPlugin.getDefault().getWorkingSetManager();
@@ -354,15 +371,13 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 		try {
 			if (project.isAccessible()) {
 				synchronized (this) {
-					StructureEdit moduleCore = null;
-					try {
-						moduleCore = StructureEdit.getStructureEditForRead(project);
+						StructureEdit moduleCore = getStructureEdit(project);
 						if (moduleCore == null) return false;
 						WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
 						if (workBenchModules != null){
 						    for (int i = 0; i < workBenchModules.length; i++) {
 				                 WorkbenchComponent module = workBenchModules[i];
-				                 ComponentType componentType = module.getComponentType() ;
+				                 ComponentType componentType = module.getComponentType();
 								 if (componentType == null) {
 									 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
 									 Logger.getLogger().log(msg,Level.SEVERE);
@@ -374,10 +389,6 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 				                 }
 						    }
 						}
-					} finally {
-						if (moduleCore != null)
-						 moduleCore.dispose();
-					}
 				}
 			}
 		} catch (Exception ex) {
@@ -394,6 +405,18 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 		
 		return false;
 		
+	}
+
+	private HashMap getProjectStructureEdits() {
+		if (projectStructureEdits == null)
+			projectStructureEdits = new HashMap();
+		return projectStructureEdits;
+	}
+	
+	public StructureEdit getStructureEdit(IProject aProject) {
+		if (getProjectStructureEdits().get(aProject) == null)
+			getProjectStructureEdits().put(aProject,StructureEdit.getStructureEditForRead(aProject));
+		return (StructureEdit)getProjectStructureEdits().get(aProject);
 	}
 	
 	
