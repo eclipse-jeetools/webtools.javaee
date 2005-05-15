@@ -89,7 +89,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModelExtension">
       <editModelExtension
             editModelID="jst.web"
-            id="org.eclipse.jst.j2ee.webservices.web.editModelextension">
+            id="webservices.web.editModelextension">
          <editModelResource
                URI="WEB-INF/webservicesclient.xml">
          </editModelResource>
@@ -102,7 +102,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModelExtension">
       <editModelExtension
             editModelID="jst.ejb"
-            id="org.eclipse.jst.j2ee.webservices.ejb.editModelextension">
+            id="webservices.ejb.editModelextension">
          <editModelResource
                URI="META-INF/webservicesclient.xml">
          </editModelResource>
@@ -115,7 +115,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModelExtension">
       <editModelExtension
             editModelID="jst.appclient"
-            id="org.eclipse.jst.j2ee.webservices.appclient.editModelextension">
+            id="webservices.appclient.editModelextension">
          <editModelResource
                URI="META-INF/webservicesclient.xml">
          </editModelResource>
