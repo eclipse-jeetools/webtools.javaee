@@ -28,5 +28,5 @@
    <extension-point id="annotationsController" name="Annotations Controller" schema="schema/annotationsController.exsd"/>
    <extension-point id="AnnotationTagInfo" name="annotation tag info" schema="schema/annotation-tag-info.exsd"/>
    <extension-point id="AnnotationTagSet" name="annotation tagset" schema="schema/annotation.tagset.exsd"/>
-  
+   <extension-point id="annotationTagDynamicInitializer" name="annotationTagDynamicInitializer" schema="schema/annotationTagDynamicInitializer.exsd"/>
 </plugin>

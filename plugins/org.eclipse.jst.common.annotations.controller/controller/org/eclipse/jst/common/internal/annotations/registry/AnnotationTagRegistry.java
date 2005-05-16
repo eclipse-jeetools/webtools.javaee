@@ -159,6 +159,10 @@ public class AnnotationTagRegistry {
 	private static Map typeTags = new HashMap();
 
 	private static Map fieldTags = new HashMap();
+	
+	private static final String CLASS_PROP = "class"; //$NON-NLS-1$
+	private static final String DYNAMIC_INITIALIZER_EX_PT = "annotationTagDynamicInitializer"; //$NON-NLS-1$
+	private static final String ANNOTATIONS_CONTROLLER_NAMESPACE = "org.eclipse.jst.common.annotations.controller"; //$NON-NLS-1$
 
 	/**
 	 * Helper for init, parse the tag attributes for a AnnotationTagInfo tag.
@@ -330,29 +334,38 @@ public class AnnotationTagRegistry {
 	 */
 	private static/* synchronized */boolean init() throws CoreException {
 
-		/* Prevent multiple initialization */
-		if (initialized) {
-			return true;
-		}
+		 /* Prevent multiple initialization */
+       if (initialized) {
+           return true;
+       }
+      initializeStaticTagDefinitions();
+      initiaizeDynamicTagDefinitions();
+       initialized = true;
+
+       /* Don't need this anymore */
+       tagAttribs = null;
+
+       return true;
+   }
+	
+	private static void initializeStaticTagDefinitions() throws CoreException {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-		//TODO: Not even checking the tagset extension point yet.
+		// TODO: Not even checking the tagset extension point yet.
 		IExtensionPoint xp = registry.getExtensionPoint(ANNOTATION_TAG_INFO);
 
-		if (xp == null) {
-			initialized = true;
-			return true;
-		}
+        if (xp == null)
+            return;
 
-		IExtension[] x = xp.getExtensions();
+        IExtension[] x = xp.getExtensions();
 
-		/* Get all tag attribute information */
-		readAllAttributeInfo(xp);
+        /* Get all tag attribute information */
+        readAllAttributeInfo(xp);
 		for (int j = 0; j < x.length; j++) {
 			IConfigurationElement[] tagSpecs = x[j].getConfigurationElements();
 			for (int i = 0; i < tagSpecs.length; i++) {
 				IConfigurationElement tagSpec = tagSpecs[i];
-				String tagName = tagSpec.getAttribute("tagSet") + "." + tagSpec.getAttribute("tagName"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ $NON-NLS-2$
+				String tagName = tagSpec.getAttribute("tagSet") + "." + tagSpec.getAttribute("tagName"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				String scope = tagSpec.getAttribute("scope"); //$NON-NLS-1$
 				String multiplicity = tagSpec.getAttribute("multiplicity"); //$NON-NLS-1$
 				TagSpec ts = null;
@@ -371,14 +384,27 @@ public class AnnotationTagRegistry {
 				}
 			}
 		}
-		initialized = true;
+    }
 
-		/* Don't need this anymore */
-		tagAttribs = null;
-
-		return true;
+	private static void initiaizeDynamicTagDefinitions() {
+		IExtensionPoint xp = Platform.getExtensionRegistry().getExtensionPoint(ANNOTATIONS_CONTROLLER_NAMESPACE, DYNAMIC_INITIALIZER_EX_PT);
+		if (xp == null)
+			return;
+		IExtension[] extensions = xp.getExtensions();
+		for (int i = 0; i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] elements = extension.getConfigurationElements();
+			for (int j = 0; j < elements.length; j++) {
+				try {
+					AnnotationTagDynamicInitializer initializer = (AnnotationTagDynamicInitializer) elements[j].createExecutableExtension(CLASS_PROP);
+					initializer.registerTags();
+				} catch (CoreException e) {
+					Logger.getLogger().logError(e);
+				}
+			}
+		}
 	}
-
+	
 	/**
 	 * 
 	 * @return List of AnnotationTagRegistry.TagSpecs for all tags.
