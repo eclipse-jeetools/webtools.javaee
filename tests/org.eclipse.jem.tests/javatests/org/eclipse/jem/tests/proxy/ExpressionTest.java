@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/11 22:41:39 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/16 19:11:16 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -1519,13 +1519,27 @@ public class ExpressionTest extends AbstractTestProxy {
 		// straight direct calls. While expression processing is also direct calls, the call path is much larger because it needs to 
 		// build/maintain/execute the processing stack, rather than just execute the command. 
 		//
-		long start = System.currentTimeMillis();
+		
+		// Try to prime the communication pump. This sends about 36,000 bytes of data.
+		// Doing it here means later when needed the communications costs are drastically reduced.
+		IExpression exp = proxyFactory.createExpression();
+		int i =1000;
+		while (i-->0) {
+			exp.createArrayCreation(ForExpression.ROOTEXPRESSION, registry.getBeanTypeProxyFactory()
+					.getBeanTypeProxy(exp, "java.lang.Object", 1), 0);
+			exp.createArrayInitializer(0);
+		}
+		exp.invokeExpression();
+		
 		int times = 100;	// Number of times to run the test.
-		int batchSize = 10;	// Size of batch for each test.
-		int i = times;
+		int batchSize = 10;	// Size of batch for each test.		
+		// Now do the actual test.
+		long start = System.currentTimeMillis();
+		i = times;
 		while(i-->0) {
 			expressionSetting(pointType, setLocation, getLocation, batchSize);
 		}
+		
 		long expressionTime = System.currentTimeMillis()-start;
 		long startNormal = System.currentTimeMillis();
 		i = times;
@@ -1543,7 +1557,7 @@ public class ExpressionTest extends AbstractTestProxy {
 		// Note that this test is not valid for IDE because the IDE will always be other way around because
 		// there is no latency delay there.
 		if (!(proxyFactory instanceof IDEStandardBeanProxyFactory))
-			assertTrue("Less than 30% improvement", improvement>=30);	// We like this %.
+			assertTrue("Less than 30% improvement: "+improvement+'%', improvement>=30);	// We like this %.
 	}
 
 	public void testExpressionPerformanceLarge() throws IllegalStateException, NoExpressionValueException, ThrowableProxy, AmbiguousMethodException, NoSuchMethodException {
@@ -1561,10 +1575,24 @@ public class ExpressionTest extends AbstractTestProxy {
 		// straight direct calls. While expression processing is also direct calls, the call path is much larger because it needs to 
 		// build/maintain/execute the processing stack, rather than just execute the command. 
 		//
-		long start = System.currentTimeMillis();
+		
+		// Try to prime the communication pump. This sends about 36,000 bytes of data.
+		// Doing it here means later when needed the communications costs are drastically reduced.
+		IExpression exp = proxyFactory.createExpression();
+		int i =1000;
+		while (i-->0) {
+			exp.createArrayCreation(ForExpression.ROOTEXPRESSION, registry.getBeanTypeProxyFactory()
+					.getBeanTypeProxy(exp, "java.lang.Object", 1), 0);
+			exp.createArrayInitializer(0);
+		}
+		exp.invokeExpression();
+		
 		int times = 25;	// Number of times to run the test.
 		int batchSize = 100;	// Size of batch for each test.
-		int i = times;
+		
+		// Now do the actual test.
+		long start = System.currentTimeMillis();
+		i = times;
 		while(i-->0) {
 			expressionSetting(pointType, setLocation, getLocation, batchSize);
 		}
@@ -1585,7 +1613,7 @@ public class ExpressionTest extends AbstractTestProxy {
 		// Note that this test is not valid for IDE because the IDE will always be other way around because
 		// there is no latency delay there.
 		if (!(proxyFactory instanceof IDEStandardBeanProxyFactory))
-			assertTrue("Less than 75% improvement", improvement>=75);	// We like this %.
+			assertTrue("Less than 75% improvement: "+improvement+'%', improvement>=75);	// We like this %.
 	}
 	
 	private void expressionSetting(IBeanTypeProxy pointType, IMethodProxy setLocation, IMethodProxy getLocation, int times) throws ThrowableProxy, NoExpressionValueException {
@@ -3165,4 +3193,51 @@ public class ExpressionTest extends AbstractTestProxy {
 		fail("Should not of gotten here.");
 	}
 
+	public void testExpressionTransfer() throws Throwable {
+		// Test that thread transfer works. We will do part of the expression in one thread, more in the next, and
+		// then come back and complete it.
+		IExpression exp = proxyFactory.createExpression();
+		ExpressionProxy epInfix = exp.createProxyAssignmentExpression(ForExpression.ROOTEXPRESSION);
+		exp.createInfixExpression(ForExpression.ASSIGNMENT_RIGHT, InfixOperator.IN_LESS, 0);
+		exp.createPrimitiveLiteral(ForExpression.INFIX_LEFT, -10000000);
+		exp.createPrimitiveLiteral(ForExpression.INFIX_RIGHT, 3);
+		
+		// Now transfer to another thread.
+		Expression expression = (Expression) exp;
+		expression.beginTransferThread();	// Begin the transfer.
+		
+		IBeanTypeProxy callbackType = proxyTypeFactory.getBeanTypeProxy("org.eclipse.jem.tests.proxy.vm.TestExpressionThreadTransfer"); //$NON-NLS-1$
+		assertNotNull(callbackType);
+		IBeanProxy callbackProxy = callbackType.newInstance();
+		
+		ExpressionThreadTransferCallBack cb = new ExpressionThreadTransferCallBack(expression);
+		registry.getCallbackRegistry().registerCallback(callbackProxy, cb);
+		IInvokable start = callbackType.getInvokable("start");	//$NON-NLS-1$
+		start.invokeCatchThrowableExceptions(callbackProxy);	// Start the thread on the remote vm and wait for it to finish.
+		
+		epInfix.addProxyListener(new ExpressionResolved() {
+			public void proxyResolved(ExpressionProxy.ProxyEvent event) {
+				IBeanProxy result = event.getProxy();
+				assertNotNull(result);
+				assertEquals("boolean", result.getTypeProxy().getTypeName());
+				assertEquals(-10000000<3, ((IBooleanBeanProxy) result).booleanValue());		
+			}
+		});
+		
+		if (cb.error != null) {
+			throw cb.error;
+		}
+		
+		cb.ep.addProxyListener(new ExpressionResolved(){
+			public void proxyResolved(ExpressionProxy.ProxyEvent event) {
+				IBeanProxy result = event.getProxy();
+				assertNotNull(result);
+				assertEquals("boolean", result.getTypeProxy().getTypeName());
+				assertEquals(String.class == String.class, ((IBooleanBeanProxy) result).booleanValue());
+			}
+		});
+
+		expression.transferThread();
+		exp.invokeExpression();
+	}
 }

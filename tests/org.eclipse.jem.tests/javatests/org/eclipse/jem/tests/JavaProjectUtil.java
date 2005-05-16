@@ -11,14 +11,13 @@
 package org.eclipse.jem.tests;
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.11 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/16 19:11:16 $ 
  */
 
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.resources.*;
@@ -175,9 +174,8 @@ public class JavaProjectUtil {
 			public void run(IProgressMonitor monitor) throws CoreException {
 				// First import all, then after that, create the projects.
 				IPath rootLocation = workspace.getRoot().getLocation();
-				URL installLoc = JavaTestsPlugin.getPlugin().getBundle().getEntry("/");					
 				try {
-					String antFile = Platform.asLocalURL(new URL(installLoc, "testdata/unzip.xml")).getFile();
+					String antFile = Platform.asLocalURL(JavaTestsPlugin.getPlugin().getBundle().getEntry("testdata/unzip.xml")).getFile();
 					for (int i = 0; i < zipFiles.length; i++) {
 						// First create/recreate the project.
 						IProject p = getProject(projectNames[i]);

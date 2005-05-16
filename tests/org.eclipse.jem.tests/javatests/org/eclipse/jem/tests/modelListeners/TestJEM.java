@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestJEM.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/16 19:11:16 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -88,14 +88,14 @@ public class TestJEM extends TestListeners {
 	 */
 	protected void setupDeleteMethodNoWorkingCopy() throws JavaModelException {
 		super.setupDeleteMethodNoWorkingCopy();
-		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.FLUSH_REFLECTION_PLUS_INNER_NO_NOTIFICATION}, new Object[] {"org.eclipse.jem.tests.beaninfo.Test1Class"});		
+		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.FLUSH_REFLECTION_NO_NOTIFICATION, TestJavaJDOMAdapterFactory.FLUSH_REFLECTION_PLUS_INNER_NO_NOTIFICATION}, new Object[] {"org.eclipse.jem.tests.beaninfo.Test1Class", "org.eclipse.jem.tests.beaninfo.Test1Class"});		
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupAddClass()
 	 */
 	protected void setupAddClass() {
 		super.setupAddClass();
-		factory.setTestCases(new int[0], new Object[0]);				
+		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.DISASSOCIATE_SOURCE_PLUS_INNER_NOTIFY}, new Object[] {new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass", Boolean.FALSE}});				
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupDeleteClassWithWorkingCopy()
