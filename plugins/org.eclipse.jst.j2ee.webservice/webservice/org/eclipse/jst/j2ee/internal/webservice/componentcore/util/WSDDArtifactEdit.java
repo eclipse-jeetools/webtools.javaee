@@ -380,4 +380,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		addWebServicesIfNecessary(res);
 		return getWebServices();
 	}
+
+	public EObject getContentModelRoot() {
+		return getWebServices();
+	}
 }
