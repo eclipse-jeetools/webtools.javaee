@@ -67,7 +67,6 @@ public abstract class FlexibleSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	protected SaveStrategy createNestedSaveStrategy(Archive anArchive) throws IOException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -131,7 +130,5 @@ public abstract class FlexibleSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	public void save(ArchiveManifest aManifest) throws SaveFailureException {
-		// TODO Auto-generated method stub
-
 	}
 }
