@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:57:54 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/16 19:11:23 $ 
  */
 
 
@@ -218,6 +218,8 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 			objectToIDMap.put(Thread.class, new Integer(Commands.THREAD_CLASS));
 			idToObjectMap.put(new Integer(Commands.THREAD_CLASS), Thread.class);	
 
+			objectToIDMap.put(ExpressionProcesserController.class, new Integer(Commands.EXPRESSIONPROCESSERCONTROLLER_CLASS));
+			idToObjectMap.put(new Integer(Commands.EXPRESSIONPROCESSERCONTROLLER_CLASS), ExpressionProcesserController.class);	
 
 			try {
 				java.lang.reflect.Method getMethod = Class.class.getMethod("getMethod", new Class[] {String.class, (new Class[0]).getClass()}); //$NON-NLS-1$

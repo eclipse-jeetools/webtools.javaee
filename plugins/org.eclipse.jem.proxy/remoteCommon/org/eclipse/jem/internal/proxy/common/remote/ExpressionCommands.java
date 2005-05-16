@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionCommands.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/16 19:11:23 $ 
  */
 package org.eclipse.jem.internal.proxy.common.remote;
 
@@ -33,7 +33,9 @@ public class ExpressionCommands {
 		PUSH_EXPRESSION = 1,
 		END_EXPRESSION_TREE_PROCESSING = 2,
 		SYNC_REQUEST = 3,
-		PULL_VALUE_REQUEST = 4;
+		PULL_VALUE_REQUEST = 4,
+		TRANSFER_EXPRESSION_REQUEST = 5,
+		RESUME_EXPRESSION_REQUEST = 6;
 		
 	// These are the expression specific error codes (it can also send back general ones. See SYNC_REQUEST docs lower down).
 	public static final int
@@ -81,6 +83,13 @@ public class ExpressionCommands {
 	 * 		1: VALUE command with the result as the value.
 	 * 		2: ERROR or EXCEPTION if there were errors, see SYNC_REQUEST with the format they are sent back.
 	 * 
+	 * TRANSFER_EXPRESSION_REQUEST: 5b
+	 *  This will do a sync up, and return the ExpressionProcessorController that the request is for. And remove
+	 *  the controller from its list of active expression controllers. 
+	 *  
+	 * RESUME_EXPRESSION_REQUEST: 6b, anExpressionProcessorController
+	 *  This will take the given controller and add it to the list of controllers this connection is handling. It returns nothing.  
+	 *  
 	 * @see org.eclipse.jem.internal.proxy.initParser.tree.IInternalExpressionConstants
 	 * @see org.eclipse.jem.internal.proxy.remote.REMExpression
 	 * 
@@ -269,7 +278,57 @@ public class ExpressionCommands {
 		} else
 			os.writeBoolean(false);	// No proxyids being sent.
 	}
+	
+	/**
+	 * Send the transfer expression command and receive back the expression processor controller.
+	 * 
+	 * @param expressionID
+	 * @param os
+	 * @param is
+	 * @param expressionProcesserController
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void sendTransferExpressionCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject expressionProcesserController) throws CommandException {
+		try {
+			os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+			os.writeInt(expressionID);
+			os.writeByte(TRANSFER_EXPRESSION_REQUEST);
+			os.flush();
+			Commands.readBackValue(is, expressionProcesserController, Commands.NO_TYPE_CHECK); // Read the expression processor controller
+		} catch (CommandException e) {
+			throw e;
+		} catch (Exception e) {
+			// Wrapper this one.
+			throw new UnexpectedExceptionCommandException(false, e);
+		}
+	}
 
+	/**
+	 * Send the resume expression command with given expression processor controller.
+	 * 
+	 * @param expressionID
+	 * @param os
+	 * @param expressionProcessorController
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void sendResumeExpressionCommand(int expressionID, DataOutputStream os, Commands.ValueObject expressionProcessorController) throws CommandException {
+		try {
+			os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+			os.writeInt(expressionID);
+			os.writeByte(RESUME_EXPRESSION_REQUEST);
+			Commands.writeValue(os, expressionProcessorController, false, false);
+		} catch (CommandException e) {
+			throw e;
+		} catch (Exception e) {
+			// Wrapper this one.
+			throw new UnexpectedExceptionCommandException(false, e);
+		}			
+	}
+	
 	private ExpressionCommands() {
 		// Never intended to be instantiated.
 	}

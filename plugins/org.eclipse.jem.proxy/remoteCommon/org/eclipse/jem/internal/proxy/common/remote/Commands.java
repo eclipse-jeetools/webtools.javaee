@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.13 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.14 $  $Date: 2005/05/16 19:11:24 $ 
  */
 
 import java.io.*;
@@ -123,7 +123,8 @@ public class Commands {
 		REMOTEVMSERVER_CLASS = 32,	// RemoteVMServer.class
 		INITIALIZECALLBACK_METHOD_ID = 33,	// ICallback.initializeCallback method.
 		THREAD_CLASS = 34,
-		FIRST_FREE_ID = 35;
+		EXPRESSIONPROCESSERCONTROLLER_CLASS = 35,
+		FIRST_FREE_ID = 36;
 				
 	// The type flags written in writeByte format
 	public final static byte

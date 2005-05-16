@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/16 19:11:23 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -35,6 +35,10 @@ import org.eclipse.jem.internal.proxy.initParser.tree.*;
  * is very sensitive and must execute in the proper sequence. So the create methods are final for this reason.
  * <p>
  * This class is not thread-safe.
+ * <p>
+ * This class also has API of its own and can be used by customers for advanced usage. Those advanced API are
+ * listed on each method as to whether it is customer API or implementers API (i.e. API for implementers of
+ * expression subclasses to use). 
  * 
  * 
  * @since 1.0.0
@@ -347,15 +351,18 @@ public abstract class Expression implements IExpression {
 	private static final ForExpression PROCESS_EXPRESSION = new ExpressionEnum(Integer.MIN_VALUE, "Process Expression");
 	
 	// This is pushed onto the next expression stack for end block and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression BLOCKEND_EXPRESSION = new ExpressionEnum(Integer.MIN_VALUE-2, "End Block Expression");
+	private static final ForExpression BLOCKEND_EXPRESSION = new ExpressionEnum(PROCESS_EXPRESSION.getValue()-2, "End Block Expression");
 
 	// This is pushed onto the next expression stack for end try and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression TRYEND_EXPRESSION = new ExpressionEnum(Integer.MIN_VALUE-3, "End Try Expression");
+	private static final ForExpression TRYEND_EXPRESSION = new ExpressionEnum(BLOCKEND_EXPRESSION.getValue()-1, "End Try Expression");
 
 	// This is pushed onto the next expression stack for catch and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression TRYCATCH_EXPRESSION = new ExpressionEnum(Integer.MIN_VALUE-4, "Catch Expression");
+	private static final ForExpression TRYCATCH_EXPRESSION = new ExpressionEnum(TRYEND_EXPRESSION.getValue()-1, "Catch Expression");
 	
-	
+
+	// This is pushed onto the next expression stack for begin thread transfer and will test if this there to make sure that it is being called correctly.
+	private static final ForExpression THREADTRANSFER_EXPRESSION = new ExpressionEnum(TRYCATCH_EXPRESSION.getValue()-1, "Catch Expression");
+
 	/**
 	 * Check the for expression, and if legal, set to the next valid for expression type,
 	 * if it can. If the stack entry is ROOTEXPRESSION, and the forExpression is ROOTEXPRESSION,
@@ -1252,6 +1259,9 @@ public abstract class Expression implements IExpression {
 	 * Create a new instance using the initialization string. The result must be compatible with the
 	 * given type. This is not on the IExpression interface because it is not for use of regular
 	 * customers. It is here for the allocation processer to create entries that are just strings.
+	 * <p>
+	 * This is not customer advanced API. This API for the implementers of registries and expression subclasses.
+	 * 
 	 * @param forExpression
 	 * @param initializationString
 	 * @param type
@@ -1520,6 +1530,8 @@ public abstract class Expression implements IExpression {
 	 * Called by registries to create an expression proxy for a bean type. It is not in the interface because it should
 	 * only be called by the proxy registry to create an expression proxy. It shouldn't be called outside of the registries
 	 * because there may already exist in the registry the true IBeanTypeProxy, and that one should be used instead.
+	 * <p>
+	 * This is not customer advanced API. This API for the implementers of registries and expression subclasses.
 	 * 
 	 * @param typeName
 	 * @return expression proxy that is hooked up and will notify when resolved. It can be called at any time. The resolution will occur at this point in the
@@ -1540,6 +1552,8 @@ public abstract class Expression implements IExpression {
 	 * Called by registries to create an expression proxy for a method. It is not in the interface because it should
 	 * only be called by the proxy registry to create an expression proxy. It shouldn't be called outside of the registries
 	 * because there may already exist in the registry the true IMethodProxy, and that one should be used instead.
+	 * <p>
+	 * This is not customer advanced API. This API for the implementers of registries and expression subclasses.
 	 * 
 	 * @param declaringType
 	 * @param methodName
@@ -1559,6 +1573,9 @@ public abstract class Expression implements IExpression {
 	 * Called by registries to create an expression proxy for a field. It is not in the interface because it should
 	 * only be called by the proxy registry to create an expression proxy. It shouldn't be called outside of the registries
 	 * because there may already exist in the registry the true IFieldProxy, and that one should be used instead.
+	 * <p>
+	 * This is not customer advanced API. This API for the implementers of registries and expression subclasses.
+	 * 
 	 * @param declaringType
 	 * @param fieldName
 	 * 
@@ -1923,6 +1940,87 @@ public abstract class Expression implements IExpression {
 			} 
 		}
 		throwInvalidMarkNesting();	// The mark number wasn't found, so this is an invalid end mark.
+	}
+	
+	/**
+	 * Begin the transfer of the expression to another thread.
+	 * <p>
+	 * This is used when the expression needs to continue to be built up, but it needs
+	 * to be done on a different thread. The reason for doing something special other
+	 * than just using it on the other thread is that some proxy registries connections are
+	 * tied through the thread. If you switched to another thread the connections would not
+	 * be properly set up.
+	 * This is not on the IExpression interface because even though it is API, it is tricky
+	 * to use and so not exposed to everyone. Users can legitimately cast to Expression and 
+	 * use this as API for advanced use. 
+	 * <p>
+	 * You must be at ForExpression.ROOT_EXPRESSION.
+	 * <p>
+	 * This is used to begin the transfer. It puts it into a state ready for the transfer. Calling this
+	 * method will cause a synchronization of the expression up to the current level. This means
+	 * that it will not return until the expression has been completely processed in the proxy registry
+	 * up to this point. Typically the connection is a pipe where the instructions are just pushed onto
+	 * it and the caller is not held up waiting for the registry to process it. 
+	 * <p>
+	 * Then when the other thread is done, it will call beginTransferThread itself to signal that it is done
+	 * and that the old thread can pick it up. Then the old thread will call transferThread to pick up processing.
+	 * <p>
+	 * It will be:
+	 * <pre><code>
+	 *   ... expression stuff ...
+	 *   expression.beginTransferThread()
+	 *   ... do what is necessary to get to the other thread ...
+	 *   ... on other thread:
+	 *   expression.transferThread();
+	 *   try {
+	 *     ... do your expression stuff on this thread ...
+	 *   } finally {
+	 *     expression.beginTransferThread(); // This is to return it to old thread.
+	 *   }
+	 *   ... tell old thread to pick up ...
+	 *   ... back on old thread:
+	 *   expression.transferThread();
+	 *   ... do more expression stuff ...
+	 *   expression.invokeExpression();
+	 * </code></pre>
+	 * 
+	 * @throws IllegalStateException
+	 * @throws ThrowableProxy Thrown if there was an exception with the remote vm during this request.
+	 * @since 1.1.0
+	 */
+	public final void beginTransferThread() throws IllegalStateException, ThrowableProxy {
+		try {
+			checkForExpression(ForExpression.ROOTEXPRESSION);
+			pushForExpression(THREADTRANSFER_EXPRESSION);
+			pushBeginTransferThreadToProxy();
+		} catch (RuntimeException e) {
+			markInvalid();
+			throw e;
+		}
+	}
+		
+	/**
+	 * Transfer the expression to the current thread.
+	 * <p>
+	 * This is called to actually transfer to the current thread. It must be the next call against
+	 * the expression after the beginTransferThread, but on the new thread.
+	 * <p>
+	 * This is not on the IExpression interface because even though it is API, it is tricky
+	 * to use and so not exposed to everyone. Users can legitimately cast to Expression and 
+	 * use this as API for advanced use. 
+	 * @see Expression#beginTransferThread() for a full explanation.
+	 * @throws IllegalStateException
+	 * 
+	 * @since 1.1.0
+	 */
+	public final void transferThread() throws IllegalStateException {
+		try {
+			checkForExpression(THREADTRANSFER_EXPRESSION);
+			pushTransferThreadToProxy();
+		} catch (RuntimeException e) {
+			markInvalid();
+			throw e;
+		}		
 	}
 	
 	
@@ -2294,4 +2392,20 @@ public abstract class Expression implements IExpression {
 	 */
 	protected abstract void pushEndmarkToProxy(int markID, boolean restore);
 	
+	/**
+	 * Push the begin transfer thread to proxy.
+	 * 
+	 * 
+	 * @since 1.1.0
+	 */
+	protected abstract void pushBeginTransferThreadToProxy() throws ThrowableProxy;
+	
+	/**
+	 * Push the actual transfer to the current thread to proxy.
+	 * 
+	 * 
+	 * @since 1.1.0
+	 */
+	protected abstract void pushTransferThreadToProxy();
+
 }

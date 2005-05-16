@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.5 $ $Date: 2005/05/11 19:01:12 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.6 $ $Date: 2005/05/16 19:11:23 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -1044,5 +1044,13 @@ public class IDEExpression extends Expression {
 
 	protected void pushEndmarkToProxy(int markID, boolean restore) {
 		eproc.pushEndmark(markID, restore);
+	}
+
+	protected void pushBeginTransferThreadToProxy() {
+		// For IDE it doesn't matter. Just go ahead and continue processing.
+	}
+
+	protected void pushTransferThreadToProxy() {
+		// For IDE it doesn't matter. Just go ahead and continue processing.
 	}
 }

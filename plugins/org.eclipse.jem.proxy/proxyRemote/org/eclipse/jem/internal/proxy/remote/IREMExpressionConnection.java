@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IREMExpressionConnection.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/16 19:11:23 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -42,6 +42,28 @@ public interface IREMExpressionConnection extends IREMConnection {
 	 * @since 1.0.0
 	 */
 	public void startExpressionProcessing(int expressionID) throws IOException;
+	
+	/**
+	 * Transfer the expression. This tells the remote vm to stop processing on the
+	 * given connection and return the expression processing controller for the expression.
+	 * 
+	 * @param expressionID
+	 * @param expController
+	 * @throws IOException
+	 * 
+	 * @since 1.1.0
+	 */
+	public void transferExpression(int expressionID, Commands.ValueObject expController) throws CommandException;
+	
+	/**
+	 * Resume the expression on this connection.
+	 * @param expressionID
+	 * @param expController expression processor controller to use for the expression on this new connection.
+	 * @throws CommandException 
+	 * 
+	 * @since 1.1.0
+	 */
+	public void resumeExpression(int expressionID, Commands.ValueObject expController) throws CommandException;
 	
 	/**
 	 * Push an expression command. This is the common portion of the

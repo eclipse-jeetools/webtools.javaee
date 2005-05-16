@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.16 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.17 $  $Date: 2005/05/16 19:11:23 $ 
  */
 
 
@@ -327,6 +327,16 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender, boolean allowFlag) throws CommandException {
 		if (isConnected())
 			Commands.readArray(in, returnValue.anInt, valueSender, returnValue, allowFlag);
+	}
+
+	public void transferExpression(int expressionID, ValueObject expController) throws CommandException {
+		if (isConnected())
+			ExpressionCommands.sendTransferExpressionCommand(expressionID, out, in, expController);
+	}
+
+	public void resumeExpression(int expressionID, ValueObject expController) throws CommandException {
+		if (isConnected())
+			ExpressionCommands.sendResumeExpressionCommand(expressionID, out, expController);
 	}
 
 }

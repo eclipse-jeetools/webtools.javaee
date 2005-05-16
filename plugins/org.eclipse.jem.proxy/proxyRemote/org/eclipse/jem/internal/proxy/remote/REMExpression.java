@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/16 19:11:23 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -121,6 +121,18 @@ public class REMExpression extends Expression {
 			pending.pushTransaction(this);
 	}
 
+	private boolean sentData;	// Flag to indicate if we have sent anything yet to the remote vm. This is used for the pending optimizations.
+	
+	/**
+	 * Have we sent any data in this transaction yet.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	protected boolean haveSentData() {
+		return sentData;
+	}
+	
 	/**
 	 * @return Returns the connection.
 	 * 
@@ -128,18 +140,35 @@ public class REMExpression extends Expression {
 	 */
 	protected IREMExpressionConnection getConnection() {
 		if (connection == null) {
+			if (!sentData)
+				getREMBeanProxyFactory().startTransaction();	// This is the first time we send data, so start transaction.
+			
+			sentData = true;	// If we are getting a transaction, that means we are sending data.
 			connection = (IREMExpressionConnection) getREMRegistry().getFreeConnection();
 			// This will actually not be stopped until closeproxy. There could be a slight problem if the expression is never closed.
 			// But that shouldn't happen. This is to prevent any proxy that was released during the execution but was used by
 			// the expression from being released on the remote vm until after the expression is finished.
-			getREMBeanProxyFactory().startTransaction();	
 			try {
-				connection.startExpressionProcessing(getREMExpressionID());
-				workerValue = new Commands.ValueObject();
+				if (workerValue == null)
+					workerValue = new Commands.ValueObject();
+				if (expressionProcesserController == null)
+					connection.startExpressionProcessing(getREMExpressionID());	// It is a new expression.
+				else {
+					fillProxy(expressionProcesserController, workerValue);
+					connection.resumeExpression(getREMExpressionID(), workerValue);
+					expressionProcesserController = null;
+				}
 			} catch (IOException e) {
 				connection.close();
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				throwIllegalStateException(IO_EXCEPTION_MSG);
+			} catch (CommandException e) {
+				ProxyPlugin.getPlugin().getLogger().log(e);
+				if (!e.isRecoverable()) {
+					connection.close();
+					connection = null;
+				}
+				throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 			}	
 		}
 		return connection;
@@ -279,29 +308,31 @@ public class REMExpression extends Expression {
 	 * @see org.eclipse.jem.internal.proxy.core.Expression#closeProxy()
 	 */
 	protected void closeProxy() {
-		if (connection != null && !closed) {
+		if (!closed) {
 			try {
-				try {
-					if (connection.isConnected()) {
-						connection.stopExpressionProcessing(getREMExpressionID());
+				if (connection != null && connection.isConnected()) {
+					try {
+							connection.stopExpressionProcessing(getREMExpressionID());
+					} catch (IOException e) {
+						connection.close();
+						ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
+						// Not throwing an illegal state here because we don't care, other than logging and not 
+						// returning the connection to the registry that there was an error on close.
+					} finally {
+						getREMRegistry().returnConnection(connection);
 					}
-				} catch (IOException e) {
-					connection.close();
-					ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
-					// Not throwing an illegal state here because we don't care, other than logging and not 
-					// returning the connection to the registry that there was an error on close.
-				} finally {
-					getREMBeanProxyFactory().stopTransaction();	// Resume proxy releases.
-					getREMRegistry().returnConnection(connection);
 				}
 			} finally {
 				closed = true;
+				if (sentData)
+					getREMBeanProxyFactory().stopTransaction();	// Resume proxy releases. We've sent data at least once.
 			}
 		}
 		methodsCache = null;
 		fieldsCache = null;
 		beanTypeCache = null;
 		pendingTransactions = null;
+		connection = null;
 	}
 	
 	private static final Object VOIDTYPE = new Object();	// A void type was sent in expression proxy resolution.
@@ -367,7 +398,7 @@ public class REMExpression extends Expression {
 	 * @see org.eclipse.jem.internal.proxy.core.Expression#pullProxyValue(int, java.util.List)
 	 */
 	protected IBeanProxy pullProxyValue(int proxycount, List expressionProxies) throws ThrowableProxy, NoExpressionValueException {
-		if (connection == null) {
+		if (!haveSentData()) {
 			markAllProxiesNotResolved(expressionProxies);
 			return null;	// We haven't pushed any commands, so there is nothing to do. Don't create a connection for this.
 		}
@@ -907,7 +938,7 @@ public class REMExpression extends Expression {
 	 * @see org.eclipse.jem.internal.proxy.core.Expression#pushInvoke(int, java.util.List)
 	 */
 	protected void pushInvoke(int proxycount, List expressionProxies) throws ThrowableProxy, NoExpressionValueException {
-		if (connection == null) {
+		if (!haveSentData()) {
 			markAllProxiesNotResolved(expressionProxies);
 			return;	// We haven't pushed any commands, so there is nothing to do. Don't create a connection for this.
 		}
@@ -1724,5 +1755,42 @@ public class REMExpression extends Expression {
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
+	}
+
+	// This is the expression processor controller used to transfer.
+	// This is the guy that maintains continuity of the transaction as
+	// it is passed from one connection to another.
+	protected IBeanProxy expressionProcesserController;	
+	protected void pushBeginTransferThreadToProxy() throws ThrowableProxy {
+		// If the controller is not null, that means we had already requested a transfer
+		// but had not used it in this thread so there is no need to do anything. It
+		// will be handled when switching back to the other thread.
+		// If the connection is null, no need to do anything since there is no connection
+		// to transfer.
+		if (connection != null && expressionProcesserController == null) {
+			IREMExpressionConnection connection = getConnection();
+			markInTransaction();
+			try {
+				workerValue.set();
+				connection.transferExpression(getREMExpressionID(), workerValue);
+				expressionProcesserController = getREMBeanProxyFactory().getBeanProxy(workerValue);
+				getREMRegistry().returnConnection(connection);
+				this.connection = null;
+			} catch (CommandException e) {
+				ProxyPlugin.getPlugin().getLogger().log(e);
+				if (!e.isRecoverable()) {
+					connection.close();
+					throwIllegalStateException(COMMAND_EXCEPTION_MSG);
+				}			
+			} finally {
+				markEndTransaction();
+			}
+		}
+	}
+
+	protected void pushTransferThreadToProxy() {
+		// Don't need to do anything. The next time we need to push data across, we will get a connection and the getConnection()
+		// will hook up the expression processor controller for us. This way if nothing happens in this thread then we won't
+		// waste communication time on it.
 	}
 }

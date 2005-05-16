@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.12 $  $Date: 2005/05/11 22:41:26 $ 
+ *  $Revision: 1.13 $  $Date: 2005/05/16 19:11:23 $ 
  */
 
 
@@ -582,6 +582,15 @@ public class ConnectionHandler {
 		switch (cmdType) {
 			case ExpressionCommands.START_EXPRESSION_TREE_PROCESSING:
 				exp = new ExpressionProcesserController(server, this);
+				expressionProcessors.put(expressionID, exp);
+				break;
+			case ExpressionCommands.TRANSFER_EXPRESSION_REQUEST:
+				exp = (ExpressionProcesserController) expressionProcessors.remove(expressionID); 
+				sendObject(exp, NOT_A_PRIMITIVE, valueObject, out, true);
+				break;
+			case ExpressionCommands.RESUME_EXPRESSION_REQUEST:
+				Commands.readValue(in, valueObject);
+				exp = (ExpressionProcesserController) getInvokableObject(valueObject); 
 				expressionProcessors.put(expressionID, exp);
 				break;
 			case ExpressionCommands.PUSH_EXPRESSION:

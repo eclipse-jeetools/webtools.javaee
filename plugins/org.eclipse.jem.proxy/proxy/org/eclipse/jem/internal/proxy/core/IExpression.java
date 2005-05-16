@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IExpression.java,v $
- *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/16 19:11:23 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -58,7 +58,11 @@ import org.eclipse.jem.internal.proxy.initParser.tree.NoExpressionValueException
  * It is guarenteed that the entire stack of commands will be sent without stopping except for IllegalStateException
  * due to out of order expressions.
  * <p>
- * <b>Note:</b> This call is not meant to be instantiated by customers. It is the interface into the expression processing.
+ * <b>Note:</b> This interface is not meant to be neither instantiated nor implemented by customers.
+ * It is the interface into the expression processing. It is to be instantiated through the createExpression request.
+ * The {@link org.eclipse.jem.internal.proxy.core.Expression} class is available as API. It is not meant to
+ * be instantiated by customers, but customers can take the IExpression and cast to Expression for some advanced
+ * API.
  *  
  * @see org.eclipse.jem.internal.proxy.core.IStandardBeanProxyFactory#createExpression()
  * @see java.lang.IllegalStateException
@@ -172,17 +176,22 @@ public interface IExpression extends IExpressionConstants {
 	 * if there are any dimension expressions, then initializers are invalid and visa-versa.
 	 * <p>
 	 * The dimensionExpressionCount is for how many dimensions have an expression in them. For instance,
-	 * <code>new int[3]</code> will have a dimensionExpressionCount of 1. While
-	 * <code>new int[3][]</code> will also have count of 1. And finally
-	 * <code>new int []</code> will have a count of 0.
+	 * <ol>
+	 * <li><code>new int[3]</code> will have a dimensionExpressionCount of 1. While
+	 * <li><code>new int[3][]</code> will also have count of 1. And finally
+	 * <li><code>new int []</code> will have a count of 0.
+	 * </ol>
+	 * The expressions that follow if dimensionExpressionCount is not zero must evaluate to be compatible to an int type (i.e. byte, char, short, or int).
+	 * Each expression will be used to create an array for that dimension of that size. For example <code>new int[3][]</code> will have an
+	 * dimension expression that evaluates to "3", and so it will create an array int[3][].
 	 * <p>
 	 * This must be followed by create expressions for:
 	 * 	dimensionExpressionCount times an: <code>ARRAYCREATION_DIMENSION</code>
 	 *  or an createArrayInitializer if dimension count is 0.
 	 *  
 	 * @param forExpression
-	 * @param type This is the type.
-	 * @param dimensionExpressionCount
+	 * @param type This is the type. This must be the actual type with the correct total number of dimensions (e.g. "java.lang.Object[][]").
+	 * @param dimensionExpressionCount number of int valued expressions that follow that give the size for each dimension.
 	 * @throws IllegalStateException
 	 * 
 	 * @since 1.0.0

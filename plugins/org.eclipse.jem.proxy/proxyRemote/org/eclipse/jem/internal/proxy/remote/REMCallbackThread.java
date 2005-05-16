@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.13 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.14 $  $Date: 2005/05/16 19:11:23 $ 
  */
 
 import java.io.*;
@@ -41,7 +41,8 @@ class REMCallbackThread extends Thread {
 
 	/**
 	 * Is this callback thread currently participating in a transaction (reading/writing). If so then it can't be used for an
-	 * independent new transaction.
+	 * independent new transaction. In other words you can't write/read data using this callback thread's
+	 * connection because it is being used by someone else expecting to have exclusive read/write on this connection.
 	 * 
 	 * @return
 	 * 
@@ -52,7 +53,9 @@ class REMCallbackThread extends Thread {
 	}
 	
 	/**
-	 * Set whether this callback thread is in a transaction or not.
+	 * Set whether this callback thread is in a transaction or not. If it is in a transaction it cannot be used
+	 * for an independent new transaction. In other words you can't write/read data using this callback thread's
+	 * connection because it is being used by someone else expecting to have exclusive read/write on this connection.
 	 * @param inTransaction
 	 * 
 	 * @since 1.1.0
