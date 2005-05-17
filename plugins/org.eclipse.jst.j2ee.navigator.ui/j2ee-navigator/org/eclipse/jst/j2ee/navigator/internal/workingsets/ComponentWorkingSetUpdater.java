@@ -8,8 +8,10 @@ package org.eclipse.jst.j2ee.navigator.internal.workingsets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.eclipse.core.resources.IProject;
@@ -38,6 +40,8 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 	public static final String ID= "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"; //$NON-NLS-1$
 	
 	private List fWorkingSets;
+	
+	private HashMap projectStructureEdits;
 
 	private static class WorkingSetDelta {
 		private IWorkingSet fWorkingSet;
@@ -57,8 +61,12 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		}
 		
 		public void add( Object element) {
-			fElements.add(element);
-			fChanged= true;
+			synchronized (fWorkingSet) {
+				if (indexOf(element) ==-1) {
+					fElements.add(element);
+					fChanged= true;
+				}
+			}
 		}
 		public void remove(int index) {
 			if (fElements.remove(index) != null) {
@@ -85,10 +93,11 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 	 * @see org.eclipse.ui.IWorkingSetUpdater#add(org.eclipse.ui.IWorkingSet)
 	 */
 	public void add(IWorkingSet workingSet) {
-		checkElementExistence(workingSet);
+		//checkElementExistence(workingSet);
 		synchronized (fWorkingSets) {
+			
+			updateElements(workingSet);
 			fWorkingSets.add(workingSet);
-			//updateElements(workingSet);
 		}
 
 	}
@@ -105,29 +114,25 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		if (project.isAccessible()) {
 			synchronized (this) {
 				StructureEdit moduleCore = null;
-				try {
-					moduleCore = StructureEdit.getStructureEditForRead(project);
-					if (moduleCore == null) return false;
-					WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules();
-					if (workBenchModules != null){
-					    for (int i = 0; i < workBenchModules.length; i++) {
-			                 WorkbenchComponent module = workBenchModules[i];
-			                 ComponentType componentType = module.getComponentType() ;
-							 if (componentType == null) {
-								 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
-								 Logger.getLogger().log(msg,Level.SEVERE);
-								 continue;
-							 }
-			                 if (typeId.equals(componentType.getComponentTypeId())) {
-			                 	bReturn = true;
-			                 	break;
-			                 }
-					    }
-					}
-				} finally {
-					if (moduleCore != null)
-						moduleCore.dispose();
+				moduleCore = getStructureEdit(project);
+				if (moduleCore == null) return false;
+				WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules();
+				if (workBenchModules != null){
+				    for (int i = 0; i < workBenchModules.length; i++) {
+		                 WorkbenchComponent module = workBenchModules[i];
+		                 ComponentType componentType = module.getComponentType() ;
+						 if (componentType == null) {
+							 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
+							 Logger.getLogger().log(msg,Level.SEVERE);
+							 continue;
+						 }
+		                 if (typeId.equals(componentType.getComponentTypeId())) {
+		                 	bReturn = true;
+		                 	break;
+		                 }
+				    }
 				}
+				
 			}
 		}
 		} catch (Exception ex) {
@@ -163,44 +168,18 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		synchronized(fWorkingSets) {
 			fWorkingSets.clear();
 		}
+		disposeStructureEdits();
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
-	 */
-	/*public void resourceChanged(IResourceChangeEvent event) {
-		IWorkingSet[] workingSets;
-		synchronized(fWorkingSets) {
-			workingSets= (IWorkingSet[])fWorkingSets.toArray(new IWorkingSet[fWorkingSets.size()]);
-		}
-		for (int w= 0; w < workingSets.length; w++) {
-			WorkingSetDelta workingSetDelta= new WorkingSetDelta(workingSets[w]);
-			IResourceDelta resourceDelta= event.getDelta();
-			processResourceDelta(workingSetDelta,resourceDelta);
-			workingSetDelta.process();
-		}
-		
-	}*/
+	
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
 	public void resourceChanged(IResourceChangeEvent event) {
-	/*	final IResourceDelta delta = event.getDelta();
-
-		if (delta != null) {
-			try {
-				delta.accept(ComponentWorkingSetUpdater.this);
-			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
-			} catch (SWTException swte) {
-				Logger.getLogger().logError(swte);
-			} catch (SWTError swte) {
-				Logger.getLogger().logError(swte);
-			}
-		} */
+	
  	    IResourceDelta delta= event.getDelta();
  	    if (delta == null) return;
 		IResourceDelta[] affectedChildren= delta.getAffectedChildren(IResourceDelta.ADDED | IResourceDelta.REMOVED | IResourceDelta.CHANGED, IResource.PROJECT);
@@ -222,40 +201,6 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
-	 */
-/*	public boolean visit(IResourceDelta delta) throws CoreException {
-		IResource resource = delta.getResource();
-		if (resource != null) {
-			switch (resource.getType()) {
-				case IResource.ROOT :
-					return true;
-				case IResource.PROJECT :
-					boolean projectOpenStateChanged = ((delta.getFlags() & IResourceDelta.OPEN) != 0);
-					if (delta.getKind() == IResourceDelta.REMOVED || 
-							delta.getKind() == IResourceDelta.ADDED
-											|| projectOpenStateChanged) {
-						IProject project = (IProject) resource;
-						IWorkingSet[] workingSets;
-						synchronized(fWorkingSets) {
-							workingSets= (IWorkingSet[])fWorkingSets.toArray(new IWorkingSet[fWorkingSets.size()]);
-						}
-						for (int w= 0; w < workingSets.length; w++) {
-							WorkingSetDelta workingSetDelta= new WorkingSetDelta(workingSets[w]);
-							processResourceDelta(workingSetDelta,delta, project);
-							workingSetDelta.process();
-						}
-						
-						
-					}
-					return false;
-				
-				
-			}
-		}
-		return false;
-	}*/
 	
 	
 	
@@ -271,6 +216,8 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		case IResourceDelta.REMOVED :
 				 if (index != -1) {
 				 	result.remove(index) ;
+					disposeStructureEdits(aProject);
+					
 				 }
 				 break;
 		case IResourceDelta.ADDED : {
@@ -281,6 +228,8 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 				 }
 				 break;
 		}
+		
+		
 		case IResourceDelta.CHANGED :
 			// boolean natureMayHaveChanged = ((aDelta.getFlags() & IResourceDelta.DESCRIPTION) != 0) && ((aDelta.getFlags() & IResourceDelta.MARKERS) == 0);
 			boolean projectOpenStateChanged = ((aDelta.getFlags() & IResourceDelta.OPEN) != 0);
@@ -293,6 +242,8 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 				} else {
 					if (index != -1) {
 					 	result.remove(index) ;
+						disposeStructureEdits(aProject);
+						
 					 }
 				}
 
@@ -301,7 +252,7 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 				 if (containsModuleType(aProject,workingSet.getTypeId())) {
 				 	if (index == -1)
 				 		result.add(aProject);
-				 } else {
+					} else {
 				 	if (index != -1) {
 				 		result.remove(index) ;
 				 	}
@@ -314,27 +265,59 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 	}
 	
 	
-	private void checkElementExistence(IWorkingSet workingSet) {
-		List elements= new ArrayList(Arrays.asList(workingSet.getElements()));
-		boolean changed= false;
-		for (Iterator iter= elements.iterator(); iter.hasNext();) {
-			IAdaptable element= (IAdaptable)iter.next();
-			boolean remove= false;
-		if (element instanceof IResource) {
-				remove= !((IResource)element).exists();
+	private void updateElements(IWorkingSet workingSet) {
+		if (workingSet instanceof ComponentWorkingSet) {
+			ComponentWorkingSet componentWorkingSet = (ComponentWorkingSet) workingSet;
+			List result= new ArrayList();
+			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+			for (int i= 0; i < projects.length; i++) {
+				try {
+					if (containsModuleType(projects[i],componentWorkingSet.getTypeId())) {
+						result.add(projects[i]);
+					}
+				} catch (Exception ex) {
+					Logger.getLogger().logError(ex);
+				}
 			}
-			if (remove) {
-				iter.remove();
-				changed= true;
-			}
-		}
-		if (changed) {
-			workingSet.setElements((IAdaptable[])elements.toArray(new IAdaptable[elements.size()]));
+			componentWorkingSet.setElements((IAdaptable[])result.toArray(new IAdaptable[result.size()]));
 		}
 	}
 
-
-
 	
+	 private void disposeStructureEdits() {
+			Set keys = getProjectStructureEdits().keySet();
+			for (Iterator iter = keys.iterator(); iter.hasNext();) {
+				IProject proj = (IProject) iter.next();
+				StructureEdit se =(StructureEdit)getProjectStructureEdits().get(proj);
+				if (se != null)
+					se.dispose();
+				
+			}
+	}
+		
+	private void disposeStructureEdits(IProject aProject) {
+		StructureEdit se =(StructureEdit)getProjectStructureEdits().get(aProject);
+		if (se != null)
+			se.dispose();
+		getProjectStructureEdits().remove(aProject);
+	}
+	
+	private HashMap getProjectStructureEdits() {
+		if (projectStructureEdits != null) 
+			return projectStructureEdits;
+		 
+		synchronized(this) {
+		   if (projectStructureEdits == null)
+			 projectStructureEdits = new HashMap();
+		}
+		return projectStructureEdits;
+		
+	}
+	
+	public StructureEdit getStructureEdit(IProject aProject) {
+		if (getProjectStructureEdits().get(aProject) == null)
+			getProjectStructureEdits().put(aProject,StructureEdit.getStructureEditForRead(aProject));
+		return (StructureEdit)getProjectStructureEdits().get(aProject);
+	}
 
 }

@@ -7,17 +7,9 @@
 package org.eclipse.jst.j2ee.navigator.internal.workingsets;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
 
 import org.eclipse.core.internal.runtime.InternalPlatform;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jst.common.navigator.internal.ui.workingsets.AbstractWorkingSetManager;
@@ -27,14 +19,10 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetManager;
-import org.eclipse.ui.actions.ScrubLocalAction;
 import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.WorkingSetDescriptor;
 import org.eclipse.ui.internal.registry.WorkingSetRegistry;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 /**
  * @author Admin
@@ -52,8 +40,6 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 	
 	public static final String COMPONENT_WORKING_SET_ID = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage";
 	
-	//private ComponentWorkingSetDescriptor descriptor;
-	
 	private String name;
 
     private ArrayList elements;
@@ -64,9 +50,6 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
     
     private IWorkingSetManager manager;
 	
-	private HashMap projectStructureEdits;
-	
-    
     private String typeId;
        
     public static final String TAG_TYPE_ID = "typeId"; //$NON-NLS-1$
@@ -81,8 +64,9 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
      * 	May be empty but not <code>null</code>.
      */
     public ComponentWorkingSet(String aName, IAdaptable[] elements) {
-       //super(name,elements); 
 	   name = aName;
+	   internalSetElements(elements);
+	   
     }
 
     /**
@@ -94,21 +78,20 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
      * 	the working set.
      */
     ComponentWorkingSet(String aName, String aTypeId, IMemento memento) {
-    	//super(aName,new IAdaptable[0]);
     	name = aName;
         typeId = aTypeId;
         workingSetMemento = memento;
+		internalSetElements(new IAdaptable[0]);
     }
 
     /**
 	 * @param descriptor2
 	 */
 	public ComponentWorkingSet(ComponentWorkingSetDescriptor aDescriptor) {
-		//this(aDescriptor.getLabel(), new IAdaptable[0] );
 		name = aDescriptor.getLabel();
 		typeId = aDescriptor.getTypeId();
 		editPageId = aDescriptor.getId();
-		//descriptor = aDescriptor;
+		internalSetElements(new IAdaptable[0]);
 	}
 
 	/**
@@ -234,7 +217,7 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
      * Recreates the working set elements from the persistence memento.
      */
     private void restoreWorkingSet() {
-    	updateElements();
+    	//updateElements();
     }
 
     /**
@@ -299,25 +282,16 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
     }
     
     public void connect(IWorkingSetManager manager) {
-		// TODO Should be re-added. MDE
-    	Assert.isTrue(this.manager == null, "A working set can only be connected to one manager"); //$NON-NLS-1$
+		Assert.isTrue(this.manager == null, "A working set can only be connected to one manager"); //$NON-NLS-1$
     	this.manager= manager;
     }
     
       public void disconnect() {
     	this.manager= null;
-		disposeStructureEdits();
+		
       }
   
-    private void disposeStructureEdits() {
-		Set keys = getProjectStructureEdits().keySet();
-		for (Iterator iter = keys.iterator(); iter.hasNext();) {
-			IProject proj = (IProject) iter.next();
-			StructureEdit se = getStructureEdit(proj);
-			se.dispose();
-		}
-	}
-
+  
 	private void fireWorkingSetChanged(String property, Object oldValue) {
     	AbstractWorkingSetManager receiver= manager != null
 			? (AbstractWorkingSetManager)manager
@@ -343,59 +317,9 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 		return typeId;
 	}
 	
-	private void updateElements() {
-	//	if (workingSet instanceof ComponentWorkingSet) {
-	//		ComponentWorkingSet commonWorkingSet = (ComponentWorkingSet) workingSet;
-			List result= new ArrayList();
-			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-			for (int i= 0; i < projects.length; i++) {
-				try {
-					if (containsModuleType(projects[i],this.getTypeId())) {
-						result.add(projects[i]);
-					}
-				} catch (Exception ex) {
-					Logger.getLogger().logError(ex);
-				}
-			}
-			this.setElements((IAdaptable[])result.toArray(new IAdaptable[result.size()]));
-	//	}
-	}
 
-	/**
-	 * @param project
-	 * @param typeId
-	 * @return
-	 */
-	private boolean containsModuleType(IProject project, String typeId) {
-		boolean bReturn = false;
-		try {
-			if (project.isAccessible()) {
-				synchronized (this) {
-						StructureEdit moduleCore = getStructureEdit(project);
-						if (moduleCore == null) return false;
-						WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
-						if (workBenchModules != null){
-						    for (int i = 0; i < workBenchModules.length; i++) {
-				                 WorkbenchComponent module = workBenchModules[i];
-				                 ComponentType componentType = module.getComponentType();
-								 if (componentType == null) {
-									 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
-									 Logger.getLogger().log(msg,Level.SEVERE);
-									 continue;
-								 }
-				                 if (typeId.equals(componentType.getComponentTypeId())) {
-				                 	bReturn = true;
-				                 	break;
-				                 }
-						    }
-						}
-				}
-			}
-		} catch (Exception ex) {
-			Logger.getLogger().logError(ex);
-		}
-		return bReturn;
-	}
+
+	
 
 	public boolean testAttribute(Object target, String name, String value) {
 		if (COMPONENT_TYPE_ID.equals(name))
@@ -407,18 +331,8 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 		
 	}
 
-	private HashMap getProjectStructureEdits() {
-		if (projectStructureEdits == null)
-			projectStructureEdits = new HashMap();
-		return projectStructureEdits;
-	}
-	
-	public StructureEdit getStructureEdit(IProject aProject) {
-		if (getProjectStructureEdits().get(aProject) == null)
-			getProjectStructureEdits().put(aProject,StructureEdit.getStructureEditForRead(aProject));
-		return (StructureEdit)getProjectStructureEdits().get(aProject);
-	}
 	
 	
+
 
 }
