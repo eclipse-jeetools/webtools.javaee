@@ -369,9 +369,9 @@
             className="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEEjbItemProviderAdapterFactory"
             packageURI="ejb.xmi"
             id="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEEjbItemProviderAdapterFactory">
-         <view
+       <!--  <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
-         </view>
+         </view> -->
          <view 
          	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
          </view>
@@ -380,9 +380,9 @@
             className="org.eclipse.jst.j2ee.internal.war.ui.util.J2EEWebItemProviderAdapterFactory"
             packageURI="webapplication.xmi"
             id="org.eclipse.jst.j2ee.internal.war.ui.util.J2EEWebItemProviderAdapterFactory">
-         <view
+       <!--  <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
-         </view>
+         </view> -->
           <view 
          	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
          </view>
@@ -391,9 +391,9 @@
             className="org.eclipse.jst.j2ee.internal.provider.J2EEApplicationItemProviderAdapterFactory"
             packageURI="application.xmi"
             id="org.eclipse.jst.j2ee.internal.provider.J2EEApplicationItemProviderAdapterFactory">
-         <view
+     <!--    <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
-         </view>
+         </view> -->
           <view 
          	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
          </view>
@@ -402,9 +402,9 @@
             className="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory"
             packageURI="modulemap.xmi"
             id="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory">
-         <view
+        <!-- <view
                id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
-         </view>
+         </view> -->
           <view 
          	   id="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
          </view>
