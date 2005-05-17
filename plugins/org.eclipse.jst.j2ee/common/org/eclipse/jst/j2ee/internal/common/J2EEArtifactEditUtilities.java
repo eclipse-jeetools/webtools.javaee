@@ -1,11 +1,9 @@
 package org.eclipse.jst.j2ee.internal.common;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.internal.archive.operations.ApplicationClientProjectLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEArtifactEditUtilities {
 
@@ -15,7 +13,7 @@ public class J2EEArtifactEditUtilities {
 	 * @throws OpenFailureException
 	 */
 	
-	public EARFile asEARFile() throws OpenFailureException {
+	public static EARFile asEARFile(IVirtualComponent virtualComponent) throws OpenFailureException {
 		
 		/*IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());;
 		if (comp == null)
@@ -31,7 +29,7 @@ public class J2EEArtifactEditUtilities {
 		
 	}
 	
-	public static ApplicationClientFile asApplicationClientFile(boolean shouldExportSource) throws OpenFailureException {
+	public static ApplicationClientFile asApplicationClientFile(IVirtualComponent virtualComponent, boolean shouldExportSource) throws OpenFailureException {
 		
 		/*IProject proj = getProject();
 		if (proj == null)
