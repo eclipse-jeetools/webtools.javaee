@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -32,7 +31,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHel
 /**
  * 
  */
-public class ServerEarAndStandaloneGroup implements IEarComponentCreationDataModelProperties {
+public class ServerEarAndStandaloneGroup implements IJ2EEComponentCreationDataModelProperties {
 	
 	private Button newEAR;
 	private Combo earCombo;

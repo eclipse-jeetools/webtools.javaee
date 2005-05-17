@@ -87,6 +87,7 @@
             icon="icons/full/ctool16/newwar_wiz.gif"
             category="org.eclipse.wst.web.ui"
             class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard"
+            project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.servlet.ui.WebComponentCreationWizard">
          <description>

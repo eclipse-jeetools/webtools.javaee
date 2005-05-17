@@ -192,22 +192,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
 	}
 
-	protected void validatePage() {
-		super.validatePage();
-/*		if (!showAdvanced && !isPageComplete()) {
-			String prop = validateControlsBase();
-			if (null != prop) {
-				String[] advancedProperties = {NESTED_MODEL_VALIDATION_HOOK, COMPONENT_VERSION, EAR_COMPONENT_NAME, ADD_TO_EAR};
-				for (int i = 0; i < advancedProperties.length; i++) {
-					if (prop.equals(advancedProperties[i])) {
-						toggleAdvanced(true);
-						return;
-					}
-				}
-			}
-		}*/
-	}
-
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, EAR_COMPONENT_NAME, ADD_TO_EAR};
 	}
