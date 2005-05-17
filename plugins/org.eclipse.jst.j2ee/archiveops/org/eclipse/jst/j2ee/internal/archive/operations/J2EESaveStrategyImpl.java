@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -49,19 +48,15 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
 public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements IJ2EEImportExportConstants {
-	protected URIConverter javaOutputURIConverter;
 	protected WorkbenchURIConverter sourceURIConverter;
-	//This one is used for the dot files in the project
-	protected WorkbenchURIConverter projectMetaURIConverter;
-	//This one is used for the imported_classes
+	// This one is used for the imported_classes
 	protected WorkbenchURIConverter importedClassesURIConverter;
 	protected IProject project;
 	protected IOverwriteHandler overwriteHandler;
 	protected IProgressMonitor progressMonitor;
-	protected boolean includeProjectMetaFiles = false;
+	// protected boolean includeProjectMetaFiles = false;
 	protected Map importedClassFiles;
-	protected boolean shouldIncludeImportedClasses;
-	protected boolean isBinary = false;
+	// protected boolean shouldIncludeImportedClasses;
 	protected List mofResourceURIList;
 
 	public J2EESaveStrategyImpl(IProject p) {
@@ -89,7 +84,7 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 	}
 
 	protected OutputStream getOutputStreamForResource(Resource aResource) throws java.io.IOException {
-		//this method has no references in the hirarchy
+		// this method has no references in the hirarchy
 		return null;
 	}
 
@@ -128,9 +123,7 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 			String displayString = EJBArchiveOpsResourceHandler.getString("IMPORT_OPERATION_STRING"); //$NON-NLS-1$
 			progressMonitor.subTask(displayString + aFile.getURI());
 			WorkbenchURIConverter conv = null;
-			if (isProjectMetaFile(aFile.getURI()))
-				conv = getProjectMetaURIConverter();
-			else if (endsWithClassType(aFile.getURI()))
+			if (endsWithClassType(aFile.getURI()))
 				conv = importedClassesURIConverter;
 			else
 				conv = getSourceURIConverter();
@@ -142,9 +135,9 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 				iFile.setContents(in, true, true, null);
 			else
 				iFile.create(in, true, null);
-			//            OutputStream out = new WorkbenchByteArrayOutputStream(iFile);
-			//            ArchiveUtil.copy(in, out);
-			//            worked(1);
+			// OutputStream out = new WorkbenchByteArrayOutputStream(iFile);
+			// ArchiveUtil.copy(in, out);
+			// worked(1);
 		} catch (OverwriteHandlerException ohe) {
 			throw ohe;
 		} catch (Exception e) {
@@ -212,9 +205,6 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 	}
 
 	protected boolean shouldSave(String uri) {
-		if (isProjectMetaFile(uri)) {
-			return includeProjectMetaFiles;
-		}
 		if (endsWithClassType(uri) && !shouldSaveClass(uri))
 			return false;
 		if (ArchiveConstants.MANIFEST_URI.equals(uri) && !shouldReplaceManifest())
@@ -245,38 +235,15 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 			getProgressMonitor().worked(units);
 	}
 
-	public boolean shouldIncludeProjectMetaFiles() {
-		return includeProjectMetaFiles;
-	}
-
-	public void setIncludeProjectMetaFiles(boolean includeProjectMetaFiles) {
-		this.includeProjectMetaFiles = includeProjectMetaFiles;
-	}
-
-	protected WorkbenchURIConverter getProjectMetaURIConverter() {
-		if (projectMetaURIConverter == null) {
-			projectMetaURIConverter = new WorkbenchURIConverterImpl(getProject());
-			projectMetaURIConverter.setForceSaveRelative(true);
-		}
-		return projectMetaURIConverter;
-	}
 
 	public IFile getSaveFile(String aURI) {
 		return sourceURIConverter.getFile(aURI);
-	}
-
-	protected boolean isProjectMetaFile(String uri) {
-		return PROJECT_FILE_URI.equals(uri) || CLASSPATH_FILE_URI.equals(uri);
-		//return PROJECT_FILE_URI.equals(uri) ||
-		// CLASSPATH_FILE_URI.equals(uri) || WEBSETTINGS_FILE_URI.equals(uri);
 	}
 
 	/**
 	 * Import class files into the project.
 	 */
 	protected void setImportedClassFilesIfNecessary() throws SaveFailureException {
-		if (!shouldIncludeImportedClasses())
-			return;
 		Map classFiles = getClassFilesWithoutSource();
 
 		if (classFiles == null || classFiles.isEmpty())
@@ -293,9 +260,9 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 			}
 
 			JavaProjectUtilities.appendJavaClassPath(getProject(), JavaCore.newLibraryEntry(classesFolder.getFullPath(), null, null, true));
-			//In case this is a Java project, or a non-migrated 4.0 project,
+			// In case this is a Java project, or a non-migrated 4.0 project,
 			// add the builder
-			//that's a no-op if the builder is already added
+			// that's a no-op if the builder is already added
 			ProjectUtilities.addToBuildSpec(J2EEPlugin.LIBCOPY_BUILDER_ID, getProject());
 		} catch (CoreException ex) {
 			throw new SaveFailureException(ex);
@@ -322,33 +289,9 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 		return !archive.containsFile(javaUri);
 	}
 
-	public boolean shouldIncludeImportedClasses() {
-		return shouldIncludeImportedClasses;
-	}
-
-	public void setShouldIncludeImportedClasses(boolean shouldIncludeImportedClasses) {
-		this.shouldIncludeImportedClasses = shouldIncludeImportedClasses;
-	}
-
 	protected void saveFiles() throws SaveFailureException {
 		setImportedClassFilesIfNecessary();
 		super.saveFiles();
 	}
 
-	public void setIsBinary(boolean isBinary) {
-		this.isBinary = isBinary;
-	}
-
-	public boolean isBinary() {
-		return isBinary;
-	}
-
-	/**
-	 * save method comment.
-	 */
-	public org.eclipse.emf.ecore.resource.URIConverter getJavaOutputURIConverter() {
-		J2EENature enr = J2EENature.getRegisteredRuntime(project);
-		javaOutputURIConverter = new WorkbenchURIConverterImpl(JavaProjectUtilities.getJavaProjectOutputContainer(enr.getProject()));
-		return javaOutputURIConverter;
-	}
 }

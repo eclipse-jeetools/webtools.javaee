@@ -81,10 +81,8 @@ public class RARProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 			String displayString = EJBArchiveOpsResourceHandler.getString("IMPORT_OPERATION_STRING"); //$NON-NLS-1$
 			progressMonitor.subTask(displayString + aFile.getURI());
 			WorkbenchURIConverter conv = null;
-			if (isProjectMetaFile(aFile.getURI()))
-				conv = getProjectMetaURIConverter();
-			else
-				conv = getSourceURIConverter();
+
+			conv = getSourceURIConverter();
 			OutputStream out = null;
 
 			IFile iFile = conv.getOutputFileWithMappingApplied(currentUri);

@@ -53,8 +53,6 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	//protected boolean isNestedWAR = false;
 	protected WebModuleImportDataModel dataModel;
 
-	public static final String WEBSETTINGS_FILE_URI = ".websettings"; //$NON-NLS-1$
-
 	/**
 	 * WorkbenchSaveStrategyImpl constructor comment.
 	 */
@@ -130,19 +128,12 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 		//if (uri.endsWith(WEBSETTINGS_FILE_URI)) {
 		//	return false;
 		//}
-		if (isProjectMetaFile(uri))
-			return includeProjectMetaFiles;
 		boolean shouldSave = getFilter().shouldSave(uri, getArchive());
 		if (shouldSave && overwriteHandler != null) {
 			return (shouldOverwrite(uri));
 		}
 		return shouldSave;
 	}
-
-	protected boolean isProjectMetaFile(String uri) {
-		return super.isProjectMetaFile(uri) || WEBSETTINGS_FILE_URI.equals(uri);
-	}
-
 
 	protected List getClassesFiles() {
 		return ((WARFile) getArchive()).getClasses();
@@ -166,8 +157,6 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	}
 
 	protected String convertToContentURI(String uri) {
-		if (isProjectMetaFile(uri))
-			return uri;
 		IPath path = WebPropertiesUtil.getModuleServerRoot(project).getProjectRelativePath();
 		path = path.append(uri);
 		return path.toString();
@@ -361,7 +350,7 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	public void save(String outputURI, InputStream in) throws SaveFailureException {
 		getProgressMonitor().subTask(outputURI);
 		try {
-			WorkbenchURIConverter conv = getProjectMetaURIConverter();
+			WorkbenchURIConverter conv = getSourceURIConverter();
 			IFile aFile = conv.getOutputFileWithMappingApplied(outputURI);
 			validateEdit(aFile);
 			OutputStream out = new WorkbenchByteArrayOutputStream(aFile);

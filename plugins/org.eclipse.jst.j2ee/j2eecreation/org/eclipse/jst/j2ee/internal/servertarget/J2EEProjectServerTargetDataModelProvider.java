@@ -188,13 +188,7 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 		return descriptors;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
-	 *      java.lang.Object)
-	 */
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
+	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (propertyName.equals(J2EE_VERSION_ID)) {
 			IRuntime target = getServerTargetByID(getStringProperty(RUNTIME_TARGET_ID));
 			if (target == null)

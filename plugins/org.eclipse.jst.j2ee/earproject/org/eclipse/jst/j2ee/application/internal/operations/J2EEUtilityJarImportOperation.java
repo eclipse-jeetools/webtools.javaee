@@ -68,8 +68,8 @@ public class J2EEUtilityJarImportOperation extends WTPOperation {
 
 		} else {
 			JavaProjectSaveStrategyImpl strat = new JavaProjectSaveStrategyImpl(javaProject);
-			strat.setIncludeProjectMetaFiles(false);
-			strat.setShouldIncludeImportedClasses(true);
+			//strat.setIncludeProjectMetaFiles(false);
+			//strat.setShouldIncludeImportedClasses(true);
 			strat.setProgressMonitor(new SubProgressMonitor(monitor, 1));
 			try {
 				jarFile.save(strat);

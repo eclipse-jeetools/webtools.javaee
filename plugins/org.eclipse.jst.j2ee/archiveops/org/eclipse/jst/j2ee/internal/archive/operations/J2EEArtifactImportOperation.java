@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete this
 public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	public J2EEArtifactImportOperation(J2EEArtifactImportDataModel model) {
 		super(model);
@@ -104,9 +105,9 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 			}
 			J2EESaveStrategyImpl aStrategy = (J2EESaveStrategyImpl) createSaveStrategy(model.getJ2eeArtifactCreationDataModel().getTargetProject());
 			aStrategy.setProgressMonitor(monitor);
-			aStrategy.setIncludeProjectMetaFiles(model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA));
-			aStrategy.setShouldIncludeImportedClasses(!model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA));
-			aStrategy.setIsBinary(model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA));
+			//aStrategy.setIncludeProjectMetaFiles(model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA));
+			//aStrategy.setShouldIncludeImportedClasses(!model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA));
+			//aStrategy.setIsBinary(model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA));
 			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(J2EEArtifactImportDataModel.OVERWRITE_HANDLER));
 			modifyStrategy(aStrategy);
 			moduleFile.save(aStrategy);
