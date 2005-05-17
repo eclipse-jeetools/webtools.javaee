@@ -5,10 +5,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 
 public class EJBArtifactEditUtilities {
 
-	public EJBArtifactEditUtilities() {
-		super();
-	}
-	
 	public static EJBJarFile asEJBJarFile(boolean shouldExportSource) throws OpenFailureException {
 
 		/*IProject proj = getProject();
