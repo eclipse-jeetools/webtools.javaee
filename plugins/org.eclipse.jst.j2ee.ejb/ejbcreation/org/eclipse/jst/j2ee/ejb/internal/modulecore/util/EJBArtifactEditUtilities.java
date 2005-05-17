@@ -2,10 +2,11 @@ package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class EJBArtifactEditUtilities {
 
-	public static EJBJarFile asEJBJarFile(boolean shouldExportSource) throws OpenFailureException {
+	public static EJBJarFile asEJBJarFile(IVirtualComponent virtualComponent, boolean shouldExportSource) throws OpenFailureException {
 
 		/*IProject proj = getProject();
 		if (proj == null)
