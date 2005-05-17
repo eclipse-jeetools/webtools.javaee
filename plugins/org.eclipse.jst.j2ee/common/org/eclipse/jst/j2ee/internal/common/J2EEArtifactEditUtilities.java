@@ -9,9 +9,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl
 
 public class J2EEArtifactEditUtilities {
 
-	public J2EEArtifactEditUtilities() {
-		super();
-	}
 	
 	/**
 	 * @return the EARFile representation of the IVirtualComponent
