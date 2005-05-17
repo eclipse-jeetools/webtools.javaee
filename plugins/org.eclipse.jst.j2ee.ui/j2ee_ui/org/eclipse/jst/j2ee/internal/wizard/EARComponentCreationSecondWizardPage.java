@@ -14,8 +14,9 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -26,10 +27,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-public class EARComponentCreationSecondWizardPage extends DataModelWizardPage {
+public class EARComponentCreationSecondWizardPage extends DataModelWizardPage{
 	private Button selectAllButton;
 	private Button deselectAllButton;
 	private Button newModuleButton;
@@ -167,7 +169,7 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage {
 	 *  
 	 */
 	private void handleNewModuleButtonPressed() {
-		DefaultJ2EEComponentCreationDataModel aModel = createNewModuleModel();
+		IDataModel aModel = createNewModuleModel();
 		DefaultJ2EEComponentCreationWizard wizard = new DefaultJ2EEComponentCreationWizard(aModel);
 		WizardDialog dialog = new WizardDialog(getShell(), wizard);
 		dialog.create();
@@ -177,17 +179,17 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage {
 		}
 	}
 
-	private DefaultJ2EEComponentCreationDataModel createNewModuleModel() {
-		DefaultJ2EEComponentCreationDataModel defaultModel = new DefaultJ2EEComponentCreationDataModel();
+	private IDataModel createNewModuleModel() {
+		IDataModel defaultModel = DataModelFactory.createDataModel(new DefaultJ2EEComponentCreationDataModelProvider());
 		// transfer properties, project name
 		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-		defaultModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, projectName);
+		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.PROJECT_NAME, projectName);
 		// ear component name
 		String earName = model.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
-		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME, earName);
+		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earName);
 		// ear j2ee version
 		int j2eeVersion = model.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
-		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.J2EE_VERSION, new Integer(j2eeVersion));
+		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.J2EE_VERSION, new Integer(j2eeVersion));
 		return defaultModel;
 	}
 

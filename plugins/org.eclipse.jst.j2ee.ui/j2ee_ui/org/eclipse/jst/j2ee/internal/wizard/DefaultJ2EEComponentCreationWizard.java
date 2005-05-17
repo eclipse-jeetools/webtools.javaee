@@ -10,21 +10,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
-public class DefaultJ2EEComponentCreationWizard extends WTPWizard {
+public class DefaultJ2EEComponentCreationWizard extends DataModelWizard {
 	private static final String SELECTION_PG = "selection"; //$NON-NLS-1$
 
 	/**
 	 * @param model
 	 */
-	public DefaultJ2EEComponentCreationWizard(DefaultJ2EEComponentCreationDataModel model) {
+	public DefaultJ2EEComponentCreationWizard(IDataModel model) {
 		super(model);
 		initialize();
 	}
@@ -58,36 +58,20 @@ public class DefaultJ2EEComponentCreationWizard extends WTPWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new DefaultJ2EEComponentCreationDataModel();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		if (model.getBooleanProperty(DefaultJ2EEComponentCreationDataModel.ENABLED))
-			return new DefaultJ2EEComponentCreationOperation((DefaultJ2EEComponentCreationDataModel) model);
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		addPage(new NewJ2EEComponentSelectionPage((DefaultJ2EEComponentCreationDataModel) model, SELECTION_PG));
+		addPage(new NewJ2EEComponentSelectionPage(getDataModel(), SELECTION_PG));
 	}
 
 	public boolean canFinish() {
 		if (!super.canFinish()) {
 			return false;
 		}
-		return model.getBooleanProperty(DefaultJ2EEComponentCreationDataModel.ENABLED);
+		return getDataModel().getBooleanProperty(DefaultJ2EEComponentCreationDataModel.ENABLED);
 	}
+
+    protected IDataModelProvider getDefaultProvider() {
+        return new DefaultJ2EEComponentCreationDataModelProvider();
+    }
 }

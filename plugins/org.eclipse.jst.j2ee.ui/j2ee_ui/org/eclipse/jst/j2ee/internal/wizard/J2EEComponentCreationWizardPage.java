@@ -66,7 +66,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     
     private static final int SIZING_TEXT_FIELD_WIDTH = 305;
     private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
-    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_NAME); //$NON-NLS-1$
+    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL); //$NON-NLS-1$
 
 	/**
 	 *  This type is responsible for setting the Shell size based on the showAdvanced flag. It will

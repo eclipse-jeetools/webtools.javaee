@@ -32,11 +32,14 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 
@@ -235,8 +238,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
-	public J2EEComponentCreationDataModel createProjectDataModel() {
-		return new WebComponentCreationDataModel();
+	public IDataModel createProjectDataModel() {
+		return DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
 	}
 
 	/*

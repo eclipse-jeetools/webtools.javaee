@@ -145,19 +145,19 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 		clientModel = new AppClientComponentCreationDataModel();
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
-			ejbModel = ejbExt.createProjectDataModel();
+			//ejbModel = ejbExt.createProjectDataModel();
 			if (ejbModel != null)
 				addNestedModel(NESTED_MODEL_EJB, ejbModel);
 		}
 		WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
 		if (webExt != null) {
-			webModel = webExt.createProjectDataModel();
+			//webModel = webExt.createProjectDataModel();
 			if (webModel != null)
 				addNestedModel(NESTED_MODEL_WEB, webModel);
 		}
 		JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
 		if (rarExt != null) {
-			jcaModel = rarExt.createProjectDataModel();
+	//		jcaModel = rarExt.createProjectDataModel();
 			if (jcaModel != null)
 				addNestedModel(NESTED_MODEL_JCA, jcaModel);
 		}

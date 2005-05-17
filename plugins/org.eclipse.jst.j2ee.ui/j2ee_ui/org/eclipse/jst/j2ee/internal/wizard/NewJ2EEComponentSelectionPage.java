@@ -12,7 +12,7 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -30,476 +30,470 @@ import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
-public class NewJ2EEComponentSelectionPage extends WTPWizardPage {
-	private Button defaultModulesButton;
-	private Composite defaultModulesComposite;
-	private Composite newModulesComposite;
-	private Button appClientRadioButton;
-	private Button ejbRadioButton;
-	private Button webRadioButton;
-	private Button connectorRadioButton;
-	private GenericWizardNode appClientNode;
-	private GenericWizardNode ejbNode;
-	private GenericWizardNode webNode;
-	private GenericWizardNode connectorNode;
-	private GenericWizardNode selectedNode;
-	private StackLayout stackLayout;
+public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implements IDefaultJ2EEComponentCreationDataModelProperties {
+    private Button defaultModulesButton;
 
-	/**
-	 * @param model
-	 * @param pageName
-	 */
-	protected NewJ2EEComponentSelectionPage(DefaultJ2EEComponentCreationDataModel model, String pageName) {
-		super(model, pageName);
-		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_TITLE));
-		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_DESC));
-	}
+    private Composite defaultModulesComposite;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
-	 */
-	protected String[] getValidationPropertyNames() {
-		return new String[]{DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT, 
-				DefaultJ2EEComponentCreationDataModel.APPCLIENT_COMPONENT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR, 
-				DefaultJ2EEComponentCreationDataModel.CONNECTOR_COMPONENT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_EJB, 
-				DefaultJ2EEComponentCreationDataModel.EJB_COMPONENT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_WEB, 
-				DefaultJ2EEComponentCreationDataModel.WEB_COMPONENT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.MODULE_NAME_COLLISIONS_VALIDATION, 
-				DefaultJ2EEComponentCreationDataModel.ENABLED};
-	}
+    private Composite newModulesComposite;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
-	 */
-	protected Composite createTopLevelComposite(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
-		composite.setLayout(layout);
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		setInfopopID(IJ2EEUIContextIds.EAR_NEW_MODULE_PROJECTS_PAGE);
-		createDefaultCheckBox(composite);
-		Composite forStackComposite = new Composite(composite, SWT.NULL);
-		layout = new GridLayout();
-		forStackComposite.setLayout(layout);
-		forStackComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Composite stackComposite = createStackLayoutComposite(forStackComposite);
-		createDefaultModulesComposite(stackComposite);
-		createModuleSelectionComposite(stackComposite);
-		stackLayout.topControl = defaultModulesComposite;
-		setButtonEnablement();
-		return composite;
-	}
+    private Button appClientRadioButton;
 
-	protected Composite createStackLayoutComposite(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		stackLayout = new StackLayout();
-		composite.setLayout(stackLayout);
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		return composite;
-	}
+    private Button ejbRadioButton;
 
-	private void createDefaultModulesComposite(Composite parent) {
-		defaultModulesComposite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		layout.marginHeight = 0;
-		defaultModulesComposite.setLayout(layout);
-		defaultModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		//Default Module Controls creation
-		createAppClientDefaultModuleControl();
-		if (J2EEPlugin.isEJBSupportAvailable())
-			createEJBDefaultModuleControl();
-		createWebDefaultModuleControl();
-		if (J2EEPlugin.isEJBSupportAvailable())
-			createConnectorDefaultModuleControl();
-	}
+    private Button webRadioButton;
 
-	/**
-	 * @param parent
-	 */
-	private void createModuleSelectionComposite(Composite parent) {
-		newModulesComposite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
-		newModulesComposite.setLayout(layout);
-		newModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		appClientRadioButton = new Button(newModulesComposite, SWT.RADIO);
+    private Button connectorRadioButton;
 
-		appClientRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.appClient")); //$NON-NLS-1$
-		appClientRadioButton.addListener(SWT.Selection, this);
-		if (EarModuleManager.getEJBModuleExtension() != null) {
-			ejbRadioButton = new Button(newModulesComposite, SWT.RADIO);
-			ejbRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.ejb")); //$NON-NLS-1$
-			ejbRadioButton.addListener(SWT.Selection, this);
-		}
-		if (EarModuleManager.getWebModuleExtension() != null) {
-			webRadioButton = new Button(newModulesComposite, SWT.RADIO);
-			webRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.web")); //$NON-NLS-1$
-			webRadioButton.addListener(SWT.Selection, this);
-		}
-		if (EarModuleManager.getJCAModuleExtension() != null) {
-			connectorRadioButton = new Button(newModulesComposite, SWT.RADIO);
-			connectorRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.jca")); //$NON-NLS-1$
-			connectorRadioButton.addListener(SWT.Selection, this);
-		}
-	}
+    private GenericWizardNode appClientNode;
 
-	/**
-	 *  
-	 */
-	private void createConnectorDefaultModuleControl() {
-		if (EarModuleManager.getJCAModuleExtension() != null) {
-			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_JCA_MODULE_LBL);
-			createJ2EEComponentControl(label, 
-					DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR, 
-					DefaultJ2EEComponentCreationDataModel.CONNECTOR_COMPONENT_NAME);
-		}
-	}
+    private GenericWizardNode ejbNode;
 
-	/**
-	 *  
-	 */
-	private void createWebDefaultModuleControl() {
-		if (EarModuleManager.getWebModuleExtension() != null) {
-			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_WEB_MODULE_LBL);
-			createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_WEB, DefaultJ2EEComponentCreationDataModel.WEB_COMPONENT_NAME);
-		}
-	}
+    private GenericWizardNode webNode;
 
-	/**
-	 *  
-	 */
-	private void createEJBDefaultModuleControl() {
-		if (EarModuleManager.getEJBModuleExtension() != null) {
-			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_EJB_MODULE_LBL);
-			createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_EJB, DefaultJ2EEComponentCreationDataModel.EJB_COMPONENT_NAME);
-		}
-	}
+    private GenericWizardNode connectorNode;
 
-	private void createAppClientDefaultModuleControl() {
-		String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_APPCLIENT_MODULE_LBL);
-		createJ2EEComponentControl(label, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT, 
-				DefaultJ2EEComponentCreationDataModel.APPCLIENT_COMPONENT_NAME);
-	}
+    private GenericWizardNode selectedNode;
 
-	private void createJ2EEComponentControl(String label, String createProperty, String projectProperty) {
-		final Button checkBox = new Button(defaultModulesComposite, SWT.CHECK);
-		checkBox.setSelection(true);
-		checkBox.setText(label);
+    private StackLayout stackLayout;
 
-		final Text textField = new Text(defaultModulesComposite, SWT.BORDER);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		textField.setLayoutData(data);
-		synchHelper.synchCheckbox(checkBox, createProperty, null);
-		synchHelper.synchText(textField, projectProperty, null);
-	}
+    /**
+     * @param model
+     * @param pageName
+     */
+    protected NewJ2EEComponentSelectionPage(IDataModel model, String pageName) {
+        super(model, pageName);
+        setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_TITLE));
+        setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_DESC));
+    }
 
-	private void createDefaultCheckBox(Composite composite) {
-		Composite checkBoxComposite = new Composite(composite, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		checkBoxComposite.setLayout(layout);
-		checkBoxComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		defaultModulesButton = new Button(checkBoxComposite, SWT.CHECK);
-		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-		data.horizontalIndent = 0;
-		defaultModulesButton.setLayoutData(data);
-		defaultModulesButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_NEW_MOD_SEL_PG_DEF_BTN));
-		defaultModulesButton.setSelection(true);
-		defaultModulesButton.addListener(SWT.Selection, this);
-		synchHelper.synchCheckbox(defaultModulesButton, DefaultJ2EEComponentCreationDataModel.ENABLED, null);
-		createControlsSeparatorLine(checkBoxComposite);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
+     */
+    protected String[] getValidationPropertyNames() {
+        return new String[] { CREATE_APPCLIENT, APPCLIENT_COMPONENT_NAME, CREATE_CONNECTOR, CONNECTOR_COMPONENT_NAME, CREATE_EJB, EJB_COMPONENT_NAME, CREATE_WEB, WEB_COMPONENT_NAME, MODULE_NAME_COLLISIONS_VALIDATION, ENABLED };
+    }
 
-	protected void createControlsSeparatorLine(Composite parent) {
-		// add a horizontal line
-		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
-		separator.setLayoutData(data);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+     */
+    protected Composite createTopLevelComposite(Composite parent) {
+        Composite composite = new Composite(parent, SWT.NULL);
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 1;
+        composite.setLayout(layout);
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        setInfopopID(IJ2EEUIContextIds.EAR_NEW_MODULE_PROJECTS_PAGE);
+        createDefaultCheckBox(composite);
+        Composite forStackComposite = new Composite(composite, SWT.NULL);
+        layout = new GridLayout();
+        forStackComposite.setLayout(layout);
+        forStackComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        Composite stackComposite = createStackLayoutComposite(forStackComposite);
+        createDefaultModulesComposite(stackComposite);
+        createModuleSelectionComposite(stackComposite);
+        stackLayout.topControl = defaultModulesComposite;
+        setButtonEnablement();
+        return composite;
+    }
 
-	private DefaultJ2EEComponentCreationDataModel getDefaultModel() {
-		return (DefaultJ2EEComponentCreationDataModel) model;
-	}
+    protected Composite createStackLayoutComposite(Composite parent) {
+        Composite composite = new Composite(parent, SWT.NULL);
+        stackLayout = new StackLayout();
+        composite.setLayout(stackLayout);
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        return composite;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
-	 */
-	public void handleEvent(Event evt) {
-		if (evt.widget == defaultModulesButton)
-			handleDefaultModulesButtonPressed();
-		else if (!defaultModulesButton.getSelection()) {
-			if (evt.widget == appClientRadioButton && appClientRadioButton.getSelection())
-				setSelectedNode(getAppClientNode());
-			else if (evt.widget == ejbRadioButton && ejbRadioButton.getSelection())
-				setSelectedNode(getEjbNode());
-			else if (evt.widget == webRadioButton && webRadioButton.getSelection())
-				setSelectedNode(getWebNode());
-			else if (evt.widget == connectorRadioButton && connectorRadioButton.getSelection())
-				setSelectedNode(getConnectorNode());
-			validatePage();
-		}
-		super.handleEvent(evt);
-	}
+    private void createDefaultModulesComposite(Composite parent) {
+        defaultModulesComposite = new Composite(parent, SWT.NULL);
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 2;
+        layout.marginHeight = 0;
+        defaultModulesComposite.setLayout(layout);
+        defaultModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        // Default Module Controls creation
+        createAppClientDefaultModuleControl();
+        if (J2EEPlugin.isEJBSupportAvailable())
+            createEJBDefaultModuleControl();
+        createWebDefaultModuleControl();
+        if (J2EEPlugin.isEJBSupportAvailable())
+            createConnectorDefaultModuleControl();
+    }
 
-	/**
-	 *  
-	 */
-	private void handleDefaultModulesButtonPressed() {
-		if (defaultModulesButton.getSelection()) {
-			setSelectedNode(null);
-			showDefaultModulesComposite();
-		} else
-			showNewModulesCompsite();
-		setButtonEnablement();
-		validatePage();
-	}
+    /**
+     * @param parent
+     */
+    private void createModuleSelectionComposite(Composite parent) {
+        newModulesComposite = new Composite(parent, SWT.NULL);
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 1;
+        newModulesComposite.setLayout(layout);
+        newModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        appClientRadioButton = new Button(newModulesComposite, SWT.RADIO);
 
-	private void showDefaultModulesComposite() {
-		defaultModulesComposite.setVisible(true);
-		newModulesComposite.setVisible(false);
-		stackLayout.topControl = defaultModulesComposite;
-	}
+        appClientRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.appClient")); //$NON-NLS-1$
+        appClientRadioButton.addListener(SWT.Selection, this);
+        if (EarModuleManager.getEJBModuleExtension() != null) {
+            ejbRadioButton = new Button(newModulesComposite, SWT.RADIO);
+            ejbRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.ejb")); //$NON-NLS-1$
+            ejbRadioButton.addListener(SWT.Selection, this);
+        }
+        if (EarModuleManager.getWebModuleExtension() != null) {
+            webRadioButton = new Button(newModulesComposite, SWT.RADIO);
+            webRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.web")); //$NON-NLS-1$
+            webRadioButton.addListener(SWT.Selection, this);
+        }
+        if (EarModuleManager.getJCAModuleExtension() != null) {
+            connectorRadioButton = new Button(newModulesComposite, SWT.RADIO);
+            connectorRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.jca")); //$NON-NLS-1$
+            connectorRadioButton.addListener(SWT.Selection, this);
+        }
+    }
 
-	/**
-	 * This is done based on the J2EE version. We need to disable Connectors if not j2ee 1.3 or
-	 * higher.
-	 */
-	private void setButtonEnablement() {
-		if (!defaultModulesButton.getSelection() && connectorRadioButton != null) {
-			int version = getDefaultModel().getIntProperty(DefaultJ2EEComponentCreationDataModel.J2EE_VERSION);
-			connectorRadioButton.setEnabled(version > J2EEVersionConstants.J2EE_1_2_ID);
-		}
-	}
+    /**
+     * 
+     */
+    private void createConnectorDefaultModuleControl() {
+        if (EarModuleManager.getJCAModuleExtension() != null) {
+            String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_JCA_MODULE_LBL);
+            createJ2EEComponentControl(label, CREATE_CONNECTOR, CONNECTOR_COMPONENT_NAME);
+        }
+    }
 
-	/**
-	 *  
-	 */
-	private void showNewModulesCompsite() {
-		defaultModulesComposite.setVisible(false);
-		newModulesComposite.setVisible(true);
-		if (!isAnyModuleRadioSelected())
-			appClientRadioButton.setSelection(true);
-		setSelectedNode(getWizardNodeFromSelection());
-		stackLayout.topControl = newModulesComposite;
-	}
+    /**
+     * 
+     */
+    private void createWebDefaultModuleControl() {
+        if (EarModuleManager.getWebModuleExtension() != null) {
+            String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_WEB_MODULE_LBL);
+            createJ2EEComponentControl(label, CREATE_WEB, WEB_COMPONENT_NAME);
+        }
+    }
 
-	/**
-	 * @return
-	 */
-	private GenericWizardNode getWizardNodeFromSelection() {
-		if (appClientRadioButton.getSelection())
-			return getAppClientNode();
-		if (connectorRadioButton != null && connectorRadioButton.getSelection())
-			return getConnectorNode();
-		if (ejbRadioButton != null && ejbRadioButton.getSelection())
-			return getEjbNode();
-		if (webRadioButton != null && webRadioButton.getSelection())
-			return getWebNode();
-		return null;
-	}
+    /**
+     * 
+     */
+    private void createEJBDefaultModuleControl() {
+        if (EarModuleManager.getEJBModuleExtension() != null) {
+            String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_EJB_MODULE_LBL);
+            createJ2EEComponentControl(label, CREATE_EJB, EJB_COMPONENT_NAME);
+        }
+    }
 
-	/**
-	 * @return
-	 */
-	private boolean isAnyModuleRadioSelected() {
-		return appClientRadioButton.getSelection() 
-			|| (connectorRadioButton != null && connectorRadioButton.getSelection()) 
-			|| (ejbRadioButton != null && ejbRadioButton.getSelection()) 
-			|| (webRadioButton != null && webRadioButton.getSelection());
-	}
+    private void createAppClientDefaultModuleControl() {
+        String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_APPCLIENT_MODULE_LBL);
+        createJ2EEComponentControl(label, CREATE_APPCLIENT, APPCLIENT_COMPONENT_NAME);
+    }
 
-	/**
-	 * @return Returns the appClientNode.
-	 */
-	private GenericWizardNode getAppClientNode() {
-		if (appClientNode == null) {
-			appClientNode = new GenericWizardNode() {
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
-				 */
-				protected IWizard createWizard() {
-					//TODO use new flexible project stuff
-					return null;
-					//return new AppClientModuleCreationWizard(getDefaultModel().getClientModel());
-				}
-			};
-		}
-		return appClientNode;
-	}
+    private void createJ2EEComponentControl(String label, String createProperty, String projectProperty) {
+        final Button checkBox = new Button(defaultModulesComposite, SWT.CHECK);
+        checkBox.setSelection(true);
+        checkBox.setText(label);
 
-	/**
-	 * @return Returns the connectorNode.
-	 */
-	private GenericWizardNode getConnectorNode() {
-		if (connectorNode == null) {
-			connectorNode = new GenericWizardNode() {
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
-				 */
-				protected IWizard createWizard() {
-					IWizard result = null;
+        final Text textField = new Text(defaultModulesComposite, SWT.BORDER);
+        GridData data = new GridData(GridData.FILL_HORIZONTAL);
+        textField.setLayoutData(data);
+        synchHelper.synchCheckbox(checkBox, createProperty, null);
+        synchHelper.synchText(textField, projectProperty, null);
+    }
 
-					IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-					IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
-					try {
-						result = descriptor.createWizard();
-					} catch (CoreException ce) {
-						Logger.getLogger().log(ce);
-					}
-					return result;
-				}
-			};
-		}
-		return connectorNode;
-	}
+    private void createDefaultCheckBox(Composite composite) {
+        Composite checkBoxComposite = new Composite(composite, SWT.NULL);
+        GridLayout layout = new GridLayout();
+        checkBoxComposite.setLayout(layout);
+        checkBoxComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        defaultModulesButton = new Button(checkBoxComposite, SWT.CHECK);
+        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+        data.horizontalIndent = 0;
+        defaultModulesButton.setLayoutData(data);
+        defaultModulesButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_NEW_MOD_SEL_PG_DEF_BTN));
+        defaultModulesButton.setSelection(true);
+        defaultModulesButton.addListener(SWT.Selection, this);
+        synchHelper.synchCheckbox(defaultModulesButton, ENABLED, null);
+        createControlsSeparatorLine(checkBoxComposite);    
+        }
 
-	/**
-	 * @return Returns the ejbNode.
-	 */
-	private GenericWizardNode getEjbNode() {
-		if (ejbNode == null) {
-			ejbNode = new GenericWizardNode() {
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
-				 */
-				protected IWizard createWizard() {
-					IWizard result = null;
+    protected void createControlsSeparatorLine(Composite parent) {
+        // add a horizontal line
+        Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+        GridData data = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
+        separator.setLayoutData(data);
+    }
 
-					IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-					IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
-					try {
-						result = descriptor.createWizard();
-					} catch (CoreException ce) {
-						Logger.getLogger().log(ce);
-					}
-					return result;
-				}
-			};
-		}
-		return ejbNode;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
+     */
+    public void handleEvent(Event evt) {
+        if (evt.widget == defaultModulesButton)
+            handleDefaultModulesButtonPressed();
+        else if (!defaultModulesButton.getSelection()) {
+            if (evt.widget == appClientRadioButton && appClientRadioButton.getSelection())
+                setSelectedNode(getAppClientNode());
+            else if (evt.widget == ejbRadioButton && ejbRadioButton.getSelection())
+                setSelectedNode(getEjbNode());
+            else if (evt.widget == webRadioButton && webRadioButton.getSelection())
+                setSelectedNode(getWebNode());
+            else if (evt.widget == connectorRadioButton && connectorRadioButton.getSelection())
+                setSelectedNode(getConnectorNode());
+            validatePage();
+        }
+        super.handleEvent(evt);
+    }
 
-	/**
-	 * @return Returns the webNode.
-	 */
-	private GenericWizardNode getWebNode() {
-		if (webNode == null) {
-			webNode = new GenericWizardNode() {
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
-				 */
-				protected IWizard createWizard() {
-					IWizard result = null;
-					IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-					IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"); //$NON-NLS-1$
-					try {
-						result = servletWizardDescriptor.createWizard();
-					} catch (CoreException ce) {
-						Logger.getLogger().log(ce);
-					}
-					return result;
-				}
-			};
-		}
-		return webNode;
-	}
+    /**
+     * 
+     */
+    private void handleDefaultModulesButtonPressed() {
+        if (defaultModulesButton.getSelection()) {
+            setSelectedNode(null);
+            showDefaultModulesComposite();
+        } else
+            showNewModulesCompsite();
+        setButtonEnablement();
+        validatePage();
+    }
 
-	/**
-	 * @param selectedNode
-	 *            The selectedNode to set.
-	 */
-	private void setSelectedNode(GenericWizardNode selectedNode) {
-		this.selectedNode = selectedNode;
-	}
+    private void showDefaultModulesComposite() {
+        defaultModulesComposite.setVisible(true);
+        newModulesComposite.setVisible(false);
+        stackLayout.topControl = defaultModulesComposite;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
-	 */
-	public boolean canFlipToNextPage() {
-		if (!defaultModulesButton.getSelection())
-			return selectedNode != null;
-		return false;
-	}
+    /**
+     * This is done based on the J2EE version. We need to disable Connectors if
+     * not j2ee 1.3 or higher.
+     */
+    private void setButtonEnablement() {
+        if (!defaultModulesButton.getSelection() && connectorRadioButton != null) {
+            int version = getDataModel().getIntProperty(J2EE_VERSION);
+            connectorRadioButton.setEnabled(version > J2EEVersionConstants.J2EE_1_2_ID);
+        }
+    }
 
-	/**
-	 * The <code>WizardSelectionPage</code> implementation of this <code>IWizardPage</code>
-	 * method returns the first page of the currently selected wizard if there is one.
-	 */
-	public IWizardPage getNextPage() {
-		if (selectedNode == null)
-			return null;
-		IPluginContribution pluginContribution = new IPluginContribution() {
-			public String getLocalId() {
-				String id = null;
-				if (selectedNode == appClientNode) {
-					id = "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
-				} else if (selectedNode == ejbNode) {
-					id = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
-				} else if (selectedNode == connectorNode) {
-					id = "org.eclipse.jst.j2ee.internal.internal.internal.jcaProjectWizard"; //$NON-NLS-1$
-				} else if (selectedNode == webNode) {
-					id = "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
-				}
-				return id;
-			}
+    /**
+     * 
+     */
+    private void showNewModulesCompsite() {
+        defaultModulesComposite.setVisible(false);
+        newModulesComposite.setVisible(true);
+        if (!isAnyModuleRadioSelected())
+            appClientRadioButton.setSelection(true);
+        setSelectedNode(getWizardNodeFromSelection());
+        stackLayout.topControl = newModulesComposite;
+    }
 
-			public String getPluginId() {
-				return "org.eclipse.jst.j2ee.internal.internal.internal.ui"; //$NON-NLS-1$
-			}
-		};
+    /**
+     * @return
+     */
+    private GenericWizardNode getWizardNodeFromSelection() {
+        if (appClientRadioButton.getSelection())
+            return getAppClientNode();
+        if (connectorRadioButton != null && connectorRadioButton.getSelection())
+            return getConnectorNode();
+        if (ejbRadioButton != null && ejbRadioButton.getSelection())
+            return getEjbNode();
+        if (webRadioButton != null && webRadioButton.getSelection())
+            return getWebNode();
+        return null;
+    }
 
-		if (!WorkbenchActivityHelper.allowUseOf(pluginContribution)) {
-			return null;
-		}
+    /**
+     * @return
+     */
+    private boolean isAnyModuleRadioSelected() {
+        return appClientRadioButton.getSelection() || (connectorRadioButton != null && connectorRadioButton.getSelection()) || (ejbRadioButton != null && ejbRadioButton.getSelection()) || (webRadioButton != null && webRadioButton.getSelection());
+    }
 
-		boolean isCreated = selectedNode.isContentCreated();
-		IWizard wizard = selectedNode.getWizard();
-		if (wizard == null) {
-			setSelectedNode(null);
-			return null;
-		}
-		if (!isCreated) // Allow the wizard to create its pages
-			wizard.addPages();
+    /**
+     * @return Returns the appClientNode.
+     */
+    private GenericWizardNode getAppClientNode() {
+        if (appClientNode == null) {
+            appClientNode = new GenericWizardNode() {
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
+                 */
+                protected IWizard createWizard() {
+                    // TODO use new flexible project stuff
+                    return null;
+                    // return new
+                    // AppClientModuleCreationWizard(getDefaultModel().getClientModel());
+                }
+            };
+        }
+        return appClientNode;
+    }
 
-		return wizard.getStartingPage();
-	}
+    /**
+     * @return Returns the connectorNode.
+     */
+    private GenericWizardNode getConnectorNode() {
+        if (connectorNode == null) {
+            connectorNode = new GenericWizardNode() {
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
+                 */
+                protected IWizard createWizard() {
+                    IWizard result = null;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#validatePage()
-	 */
-	protected void validatePage() {
-		if (!defaultModulesButton.getSelection()) {
-			setPageComplete(false);
-			setErrorMessage(null);
-		} else
-			super.validatePage();
-	}
+                    IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
+                    try {
+                        result = descriptor.createWizard();
+                    } catch (CoreException ce) {
+                        Logger.getLogger().log(ce);
+                    }
+                    return result;
+                }
+            };
+        }
+        return connectorNode;
+    }
 
+    /**
+     * @return Returns the ejbNode.
+     */
+    private GenericWizardNode getEjbNode() {
+        if (ejbNode == null) {
+            ejbNode = new GenericWizardNode() {
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
+                 */
+                protected IWizard createWizard() {
+                    IWizard result = null;
+
+                    IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
+                    try {
+                        result = descriptor.createWizard();
+                    } catch (CoreException ce) {
+                        Logger.getLogger().log(ce);
+                    }
+                    return result;
+                }
+            };
+        }
+        return ejbNode;
+    }
+
+    /**
+     * @return Returns the webNode.
+     */
+    private GenericWizardNode getWebNode() {
+        if (webNode == null) {
+            webNode = new GenericWizardNode() {
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
+                 */
+                protected IWizard createWizard() {
+                    IWizard result = null;
+                    IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"); //$NON-NLS-1$
+                    try {
+                        result = servletWizardDescriptor.createWizard();
+                    } catch (CoreException ce) {
+                        Logger.getLogger().log(ce);
+                    }
+                    return result;
+                }
+            };
+        }
+        return webNode;
+    }
+
+    /**
+     * @param selectedNode
+     *            The selectedNode to set.
+     */
+    private void setSelectedNode(GenericWizardNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
+     */
+    public boolean canFlipToNextPage() {
+        if (!defaultModulesButton.getSelection())
+            return selectedNode != null;
+        return false;
+    }
+
+    /**
+     * The <code>WizardSelectionPage</code> implementation of this
+     * <code>IWizardPage</code> method returns the first page of the currently
+     * selected wizard if there is one.
+     */
+    public IWizardPage getNextPage() {
+        if (selectedNode == null)
+            return null;
+        IPluginContribution pluginContribution = new IPluginContribution() {
+            public String getLocalId() {
+                String id = null;
+                if (selectedNode == appClientNode) {
+                    id = "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
+                } else if (selectedNode == ejbNode) {
+                    id = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
+                } else if (selectedNode == connectorNode) {
+                    id = "org.eclipse.jst.j2ee.internal.internal.internal.jcaProjectWizard"; //$NON-NLS-1$
+                } else if (selectedNode == webNode) {
+                    id = "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
+                }
+                return id;
+            }
+
+            public String getPluginId() {
+                return "org.eclipse.jst.j2ee.internal.internal.internal.ui"; //$NON-NLS-1$
+            }
+        };
+
+        if (!WorkbenchActivityHelper.allowUseOf(pluginContribution)) {
+            return null;
+        }
+
+        boolean isCreated = selectedNode.isContentCreated();
+        IWizard wizard = selectedNode.getWizard();
+        if (wizard == null) {
+            setSelectedNode(null);
+            return null;
+        }
+        if (!isCreated) // Allow the wizard to create its pages
+            wizard.addPages();
+
+        return wizard.getStartingPage();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#validatePage()
+     */
+    protected void validatePage() {
+        if (!defaultModulesButton.getSelection()) {
+            setPageComplete(false);
+            setErrorMessage(null);
+        } else
+            super.validatePage();
+    }
 
 }

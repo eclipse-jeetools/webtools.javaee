@@ -156,19 +156,22 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 		addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
-			ejbModel = ejbExt.createProjectDataModel();
+		//TODO: port to idatamodel structure
+            //	ejbModel = ejbExt.createProjectDataModel();
 			if (ejbModel != null)
 				addNestedModel(NESTED_MODEL_EJB, ejbModel);
 		}
 		WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
 		if (webExt != null) {
-			webModel = webExt.createProjectDataModel();
+            //TODO: port to idatamodel structure
+		//	webModel = webExt.createProjectDataModel();
 			if (webModel != null)
 				addNestedModel(NESTED_MODEL_WEB, webModel);
 		}
 		JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
 		if (rarExt != null) {
-			jcaModel = rarExt.createProjectDataModel();
+            //TODO: port to idatamodel structure
+			//jcaModel = rarExt.createProjectDataModel();
 			if (jcaModel != null)
 				addNestedModel(NESTED_MODEL_JCA, jcaModel);
 		}
