@@ -97,6 +97,7 @@
             icon="icons/full/ctool16/newejbprj_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
             class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard"
+            project="true"
             id="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
          <description>
             %new.ejb.project.description_ui_
