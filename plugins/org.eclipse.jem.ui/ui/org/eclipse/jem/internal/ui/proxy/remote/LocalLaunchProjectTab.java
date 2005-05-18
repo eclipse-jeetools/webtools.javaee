@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalLaunchProjectTab.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:02:35 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/18 21:52:31 $ 
  */
 package org.eclipse.jem.internal.ui.proxy.remote;
 
@@ -112,7 +112,7 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 	protected void updateProjectFromConfig(ILaunchConfiguration config) {
 		String projectName = ""; //$NON-NLS-1$
 		try {
-			projectName = config.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "");	
+			projectName = config.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "");	 //$NON-NLS-1$
 		} catch (CoreException ce) {
 			ProxyPlugin.getPlugin().getLogger().log(ce);
 		}

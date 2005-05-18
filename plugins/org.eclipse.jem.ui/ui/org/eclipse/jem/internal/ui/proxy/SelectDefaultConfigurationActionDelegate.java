@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: SelectDefaultConfigurationActionDelegate.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 23:02:35 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 21:52:31 $ 
  */
 package org.eclipse.jem.internal.ui.proxy;
 
@@ -199,7 +199,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 			List configsList = new ArrayList(configs.length+1);
 			String jpName = javaproject.getElementName();
 			for (int i = 0; i < configs.length; i++) {
-				if (IProxyConstants.ID_PROXY_LAUNCH_GROUP.equals(configs[i].getCategory()) && !configs[i].getAttribute(IDebugUIConstants.ATTR_PRIVATE, false) && jpName.equals(configs[i].getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")))
+				if (IProxyConstants.ID_PROXY_LAUNCH_GROUP.equals(configs[i].getCategory()) && !configs[i].getAttribute(IDebugUIConstants.ATTR_PRIVATE, false) && jpName.equals(configs[i].getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, ""))) //$NON-NLS-1$
 					configsList.add(configs[i]);
 			}
 			configs = (ILaunchConfiguration[]) configsList.toArray(new ILaunchConfiguration[configsList.size()]);

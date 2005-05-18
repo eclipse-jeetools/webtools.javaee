@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 23:02:54 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 21:52:31 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -68,7 +68,7 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 		fBuildPathsBlock= new BeaninfoPathsBlock(root, this);
 		final IJavaProject jproject = JavaCore.create(project);
 		fBuildPathsBlock.init(jproject);
-		final IPath classpathfile = project.getFile(".classpath").getFullPath();
+		final IPath classpathfile = project.getFile(".classpath").getFullPath(); //$NON-NLS-1$
 		listener = new IResourceChangeListener() {
 			
 			/* (non-Javadoc)
