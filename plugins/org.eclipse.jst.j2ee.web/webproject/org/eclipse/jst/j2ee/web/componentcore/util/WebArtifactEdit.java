@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -31,8 +32,11 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -488,7 +492,26 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return String value of the context root for runtime of the associated module
 	 */
 	public String getServerContextRoot() {
-		//TODO return the valid context root for the module, needs to be be added to the model
+		
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		ComponentHandle handle = getComponentHandle();;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(handle.getProject());
+			wbComponent = moduleCore.findComponentByName(handle.getName());
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+			}
+		}
+		
+		List existingProps = wbComponent.getComponentType().getProperties();
+		for (int i = 0; i < existingProps.size(); i++) {
+			Property prop = (Property) existingProps.get(i);
+			if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
+				return prop.getValue();
+			}
+		}			
 		return "WebContent";
 	}
 	
@@ -502,7 +525,37 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param contextRoot string
 	 */
 	public void setServerContextRoot(String contextRoot) {
-		//TODO set the new context root on the module, needs to be added to the model
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		ComponentHandle handle = getComponentHandle();;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(handle.getProject());
+			wbComponent = moduleCore.findComponentByName(handle.getName());
+			
+			boolean found = false;
+			Property prop = null;
+			List existingProps = wbComponent.getComponentType().getProperties();
+			for (  int i = 0; i < existingProps.size(); i++) {
+				prop = (Property) existingProps.get(i);
+				if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
+					found = true;
+					break;
+				}
+			}	
+			
+			if( found )
+				prop.setValue(contextRoot);
+			else{
+			    prop = ComponentcoreFactory.eINSTANCE.createProperty();
+			    prop.setName(J2EEConstants.CONTEXTROOT);
+			    prop.setValue(contextRoot);
+				existingProps.add(prop);
+			}			
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+			}
+		}
 	}
 
 
