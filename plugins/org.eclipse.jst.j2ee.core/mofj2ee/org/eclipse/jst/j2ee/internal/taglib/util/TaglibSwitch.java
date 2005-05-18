@@ -14,18 +14,18 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.internal.taglib.ExtensibleType;
+import org.eclipse.jst.j2ee.internal.taglib.Function;
+import org.eclipse.jst.j2ee.internal.taglib.JSPTag;
+import org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute;
+import org.eclipse.jst.j2ee.internal.taglib.JSPVariable;
+import org.eclipse.jst.j2ee.internal.taglib.TagFile;
+import org.eclipse.jst.j2ee.internal.taglib.TagLib;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibFactory;
 import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
+import org.eclipse.jst.j2ee.internal.taglib.TldExtension;
+import org.eclipse.jst.j2ee.internal.taglib.Validator;
 import org.eclipse.jst.j2ee.internal.taglib.impl.TaglibFactoryImpl;
-import org.eclipse.jst.j2ee.taglib.ExtensibleType;
-import org.eclipse.jst.j2ee.taglib.Function;
-import org.eclipse.jst.j2ee.taglib.JSPTag;
-import org.eclipse.jst.j2ee.taglib.JSPTagAttribute;
-import org.eclipse.jst.j2ee.taglib.JSPVariable;
-import org.eclipse.jst.j2ee.taglib.TagFile;
-import org.eclipse.jst.j2ee.taglib.TagLib;
-import org.eclipse.jst.j2ee.taglib.TaglibFactory;
-import org.eclipse.jst.j2ee.taglib.TldExtension;
-import org.eclipse.jst.j2ee.taglib.Validator;
 
 public class TaglibSwitch {
 	/**

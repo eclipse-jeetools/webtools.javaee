@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.internal.taglib.ExtensibleType;
 import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
-import org.eclipse.jst.j2ee.taglib.ExtensibleType;
 
 
 /**

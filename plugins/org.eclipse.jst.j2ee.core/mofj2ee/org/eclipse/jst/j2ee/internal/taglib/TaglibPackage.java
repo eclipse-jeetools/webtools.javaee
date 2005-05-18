@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
-import org.eclipse.jst.j2ee.taglib.TaglibFactory;
 
 
 

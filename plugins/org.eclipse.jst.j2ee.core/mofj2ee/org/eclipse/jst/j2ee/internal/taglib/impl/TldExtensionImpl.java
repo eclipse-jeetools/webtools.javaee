@@ -22,9 +22,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.internal.taglib.ExtensibleType;
 import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
-import org.eclipse.jst.j2ee.taglib.ExtensibleType;
-import org.eclipse.jst.j2ee.taglib.TldExtension;
+import org.eclipse.jst.j2ee.internal.taglib.TldExtension;
 
 
 /**
