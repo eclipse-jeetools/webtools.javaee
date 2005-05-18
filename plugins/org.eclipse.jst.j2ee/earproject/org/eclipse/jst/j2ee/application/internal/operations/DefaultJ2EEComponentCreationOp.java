@@ -18,13 +18,14 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
 
-public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation implements IDefaultJ2EEComponentCreationDataModelProperties{
-  
+public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation implements IDefaultJ2EEComponentCreationDataModelProperties {
+
     public static final String JCA_DEV_ACTIVITY_ID = "com.ibm.wtp.jca.development"; //$NON-NLS-1$
 
     public static final String WEB_DEV_ACTIVITY_ID = "com.ibm.wtp.web.development"; //$NON-NLS-1$
@@ -38,71 +39,40 @@ public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation i
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         try {
             IDataModel model = getDataModel();
-            if (model.getBooleanProperty(CREATE_EJB)){
+            if (model.getBooleanProperty(CREATE_EJB)) {
                 IDataModel ejbModel = model.getNestedModel(NESTED_MODEL_EJB);
-                ejbModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME,
-                        model.getStringProperty(PROJECT_NAME));
-                ejbModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME,
-                        model.getStringProperty(EJB_COMPONENT_NAME));
-                ejbModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                ejbModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                ejbModel.setProperty(J2EEComponentCreationDataModel.ADD_TO_EAR,
-                        Boolean.TRUE);
-                createEJBComponent(ejbModel, monitor);         
-            } 
-            if (model.getBooleanProperty(CREATE_WEB)){
+                ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(EJB_COMPONENT_NAME));
+                ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
+                createEJBComponent(ejbModel, monitor);
+            }
+            if (model.getBooleanProperty(CREATE_WEB)) {
                 IDataModel webModel = model.getNestedModel(NESTED_MODEL_WEB);
-                webModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME,
-                        model.getStringProperty(PROJECT_NAME));
-                webModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME,
-                        model.getStringProperty(WEB_COMPONENT_NAME));
-                webModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                webModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                webModel.setProperty(J2EEComponentCreationDataModel.ADD_TO_EAR,
-                        Boolean.TRUE);
+                webModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(WEB_COMPONENT_NAME));
+                webModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createWebJ2EEComponent(webModel, monitor);
             }
-            if (model.getBooleanProperty(CREATE_CONNECTOR)){
+            if (model.getBooleanProperty(CREATE_CONNECTOR)) {
                 IDataModel conModel = model.getNestedModel(NESTED_MODEL_JCA);
-                conModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME,
-                        model.getStringProperty(PROJECT_NAME));
-                conModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME,
-                        model.getStringProperty(CONNECTOR_COMPONENT_NAME));
-                conModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                conModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                conModel.setProperty(J2EEComponentCreationDataModel.ADD_TO_EAR,
-                        Boolean.TRUE);
+                conModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(CONNECTOR_COMPONENT_NAME));
+                conModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createRarJ2EEComponent(conModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_APPCLIENT)) {
                 IDataModel clientModel = model.getNestedModel(NESTED_MODEL_CLIENT);
-                clientModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME,
-                        model.getStringProperty(PROJECT_NAME));
-                clientModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME,
-                        model.getStringProperty(APPCLIENT_COMPONENT_NAME));
-                clientModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                clientModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME,
-                        model.getStringProperty(EAR_COMPONENT_NAME));
-                clientModel.setProperty(J2EEComponentCreationDataModel.ADD_TO_EAR,
-                        Boolean.TRUE);
+                clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(APPCLIENT_COMPONENT_NAME));
+                clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createAppClientComponent(clientModel, monitor);
             }
         } catch (Exception e) {
             Logger.getLogger().log(e.getMessage());
         }
-            return OK_STATUS;
+        return OK_STATUS;
     }
+
     /**
      * @param model
      */
-    private void createEJBComponent(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException{
+    private void createEJBComponent(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         model.getDefaultOperation().execute(monitor, null);
         WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
     }
@@ -131,6 +101,7 @@ public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation i
         WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 
     }
+
     public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         return null;
     }

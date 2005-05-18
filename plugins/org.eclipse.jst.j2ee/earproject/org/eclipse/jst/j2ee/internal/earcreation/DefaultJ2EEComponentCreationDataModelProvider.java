@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOp;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -64,16 +65,14 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
     private IDataModel clientModel;
 
     public IDataModelOperation getDefaultOperation() {
-        // TODO Auto-generated method stub
-        return super.getDefaultOperation();
+        return new DefaultJ2EEComponentCreationOp(getDataModel());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initNestedModels()
-     */
-    protected void _initNestedModels() {
+    public void init() {
+        initNestedCreationModels();
+        super.init();
+    }
+    protected void initNestedCreationModels() {
         clientModel = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
         EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
         if (ejbExt != null) {
@@ -121,9 +120,16 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
     }
 
     private int convertPropertyNameToInt(String propertyName) {
-        int length = propertyName.length();
-        String numString = propertyName.substring(length - 1, length);
-        return Integer.parseInt(numString);
+        if(propertyName.equals(CREATE_WEB)){
+            return WEB;
+        } else if(propertyName.equals(CREATE_EJB)){
+            return EJB;
+        } else if(propertyName.equals(CREATE_CONNECTOR)){
+            return RAR;
+        } else if(propertyName.equals(CREATE_APPCLIENT)){
+            return CLIENT;
+        }
+        return -1;
     }
 
     /**
