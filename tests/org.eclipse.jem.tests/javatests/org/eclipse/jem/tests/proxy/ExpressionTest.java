@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/16 19:11:16 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/18 18:41:17 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -92,7 +92,7 @@ public class ExpressionTest extends AbstractTestProxy {
 		// Now do an expression and get a proxy.
 		IExpression exp = proxyFactory.createExpression();
 		IProxyBeanType beanTypeProxy = proxyTypeFactory.getBeanTypeProxy(exp, "testPackage.TestAccess");
-		IProxyMethod methodProxy = beanTypeProxy.getMethodProxy(exp, "xyz", (IProxyBeanType[])null);
+		IProxyMethod methodProxy = beanTypeProxy.getMethodProxy(exp, "xyz");
 		assertNotNull(methodProxy);
 		assertTrue(methodProxy.isExpressionProxy());
 		final IMethodProxy[] resolution = new IMethodProxy[1];
@@ -107,7 +107,7 @@ public class ExpressionTest extends AbstractTestProxy {
 			public void proxyNotResolved(ProxyEvent event) {
 			}
 		});
-		IProxyMethod methodProxy2 = beanTypeProxy.getMethodProxy(exp, "xyz", (IProxyBeanType[])null);
+		IProxyMethod methodProxy2 = beanTypeProxy.getMethodProxy(exp, "xyz");
 		assertSame(methodProxy, methodProxy2);	// It should return same expression proxy each time.
 		
 		exp.createMethodInvocation(ForExpression.ROOTEXPRESSION, methodProxy, true, 0);
