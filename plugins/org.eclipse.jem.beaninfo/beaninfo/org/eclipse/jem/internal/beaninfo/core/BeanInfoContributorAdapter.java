@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoContributorAdapter.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 20:59:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -96,7 +96,7 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	 * @since 1.0.0
 	 */
 	protected Resource loadOverrideResource(Bundle bundle, String relativePath, ResourceSet rset, BeaninfoPlugin.IContributorOverrideRunnable runnable) {
-		URI uri = URI.createURI(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+relativePath);
+		URI uri = URI.createURI(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+relativePath); //$NON-NLS-1$
 		if (runnable.resourceContributed(uri))
 			return null;	// Already contributed once.
 		Resource result = null;

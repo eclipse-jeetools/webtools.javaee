@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.33 $  $Date: 2005/05/11 22:41:17 $ 
+ *  $Revision: 1.34 $  $Date: 2005/05/18 20:59:17 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -81,11 +81,11 @@ import com.ibm.etools.emf.event.EventUtil;
 
 public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionAdapter {
 	
-	public static final String REFLECT_PROPERTIES = "Reflect properties";	// Reflect properties in IDE
-	public static final String APPLY_EXTENSIONS = "Apply Overrides";	// Apply override files
-	public static final String REMOTE_INTROSPECT = "Remote Introspect";	// Introspect on remote
-	public static final String INTROSPECT = "Introspect";	// Straight introspection, whether load from cache or introspect.
-	public static final String LOAD_FROM_CACHE = "Load from Cache";
+	public static final String REFLECT_PROPERTIES = "Reflect properties";	// Reflect properties in IDE //$NON-NLS-1$
+	public static final String APPLY_EXTENSIONS = "Apply Overrides";	// Apply override files //$NON-NLS-1$
+	public static final String REMOTE_INTROSPECT = "Remote Introspect";	// Introspect on remote //$NON-NLS-1$
+	public static final String INTROSPECT = "Introspect";	// Straight introspection, whether load from cache or introspect. //$NON-NLS-1$
+	public static final String LOAD_FROM_CACHE = "Load from Cache"; //$NON-NLS-1$
 	
 	// TODO Put this back (if necessary, not sure since haven't done it yet) when we do override change recording too to handle overrides. 
 	// This will make it even faster because such
@@ -1150,7 +1150,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				a.setEType(EcorePackage.eINSTANCE.getEObject());
 				Logger logger = BeaninfoPlugin.getPlugin().getLogger();
 				if (logger.isLoggingLevel(Level.WARNING))
-					logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
+					logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 			
 			if (p != null && cd != null) {
@@ -1293,7 +1293,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				changeable = ((IndexedPropertyRecord) pr).indexedWriteMethod != null;
 			if (type == null) {
 				// If no array type from above, create one from the indexed type proxy. Add '[]' to turn it into an array.
-				type = Utilities.getJavaType(MapJNITypes.getFormalTypeName(((IndexedPropertyRecord) pr).indexedPropertyTypeName)+"[]", getJavaClass().eResource().getResourceSet());
+				type = Utilities.getJavaType(MapJNITypes.getFormalTypeName(((IndexedPropertyRecord) pr).indexedPropertyTypeName)+"[]", getJavaClass().eResource().getResourceSet()); //$NON-NLS-1$
 			}
 		}
 

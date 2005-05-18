@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:28 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/18 20:59:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -699,11 +699,11 @@ public class BeanInfoCacheController {
 	/*
 	 * Suffix for class cache files.
 	 */
-	private static final String CLASS_CACHE_SUFFIX = ".xmi";
+	private static final String CLASS_CACHE_SUFFIX = ".xmi"; //$NON-NLS-1$
 	/*
 	 * Suffic for class override cache files.
 	 */
-	private static final String OVERRIDE_CACHE_SUFFIX = ".override.xmi";
+	private static final String OVERRIDE_CACHE_SUFFIX = ".override.xmi"; //$NON-NLS-1$
 
 	/**
 	 * Return the current class entry for the JavaClass, or <code>null</code> if no current entry.
@@ -751,10 +751,10 @@ public class BeanInfoCacheController {
 	public ClassEntry newCache(JavaClass jclass, Object cache, int cacheType) {
 		if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER)) {
 			Logger logger = BeaninfoPlugin.getPlugin().getLogger();
-			String type = cacheType!=OVERRIDES_CACHE?"Class":"Overrides";
+			String type = cacheType!=OVERRIDES_CACHE?"Class":"Overrides"; //$NON-NLS-1$ //$NON-NLS-2$
 			if (cacheType == OVERRIDES_CACHE && cache == null)
-				type+="  empty";
-			logger.log("Creating cache for class "+jclass.getQualifiedNameForReflection()+" cache type="+type, Level.FINER);
+				type+="  empty"; //$NON-NLS-1$
+			logger.log("Creating cache for class "+jclass.getQualifiedNameForReflection()+" cache type="+type, Level.FINER); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		ChangeDescription cd = null;
 		if (cacheType != OVERRIDES_CACHE) {
@@ -879,8 +879,8 @@ public class BeanInfoCacheController {
 		String className = jclass.getQualifiedNameForReflection();
 		if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER)) {
 			Logger logger = BeaninfoPlugin.getPlugin().getLogger();
-			String type = reflectCache?"Class":"Overrides";
-			logger.log("Loading cache for class "+className+" cache type="+type, Level.FINER);
+			String type = reflectCache?"Class":"Overrides"; //$NON-NLS-1$ //$NON-NLS-2$
+			logger.log("Loading cache for class "+className+" cache type="+type, Level.FINER); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 		if (reflectCache) {
@@ -893,7 +893,7 @@ public class BeanInfoCacheController {
 					// We would get the wrong java classes then when we apply it. 
 					waitForJob = true;
 					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
-						BeaninfoPlugin.getPlugin().getLogger().log("Using pending class cache.", Level.FINER);
+						BeaninfoPlugin.getPlugin().getLogger().log("Using pending class cache.", Level.FINER); //$NON-NLS-1$
 				}
 			}
 			if (waitForJob)
@@ -919,7 +919,7 @@ public class BeanInfoCacheController {
 					// We would get the wrong java classes then when we apply it. 
 					waitForJob = true;
 					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
-						BeaninfoPlugin.getPlugin().getLogger().log("Using pending override cache.", Level.FINER);
+						BeaninfoPlugin.getPlugin().getLogger().log("Using pending override cache.", Level.FINER); //$NON-NLS-1$
 				}
 			}
 			if (waitForJob)
@@ -948,7 +948,7 @@ public class BeanInfoCacheController {
 		return ce;
 	}
 
-	private static final String ROOT_PREFIX = "root";
+	private static final String ROOT_PREFIX = "root"; //$NON-NLS-1$
 
 	/*
 	 * Get the root index for the appropriate cache for the given java class.
@@ -999,9 +999,9 @@ public class BeanInfoCacheController {
 		return new ArchiveRootIndex(rootName, modStamp, index);
 	}
 
-	private static final String INDEXFILENAME = ".index";
+	private static final String INDEXFILENAME = ".index"; //$NON-NLS-1$
 
-	private static final String CACHEDIR = ".cache"; // Cache directory (so as not to conflict with any future BeanInfo Plugin specific data files.
+	private static final String CACHEDIR = ".cache"; // Cache directory (so as not to conflict with any future BeanInfo Plugin specific data files. //$NON-NLS-1$
 
 	/*
 	 * Get the cache directory for the project (or if project is null, the main plugin cache directory).
@@ -1334,7 +1334,7 @@ public class BeanInfoCacheController {
 		// For a full save we want to get the class cache files written too, so we need to manipulate the job to get it to finish ASAP.
 		if (cacheWriteJob != null) {
 			if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
-				BeaninfoPlugin.getPlugin().getLogger().log("Forcing a cache save job to start early.", Level.FINER);
+				BeaninfoPlugin.getPlugin().getLogger().log("Forcing a cache save job to start early.", Level.FINER); //$NON-NLS-1$
 			switch (cacheWriteJob.getState()) {
 				case Job.SLEEPING:
 					// It could be waiting a long time, so we need to wake it up at a high priority to get it running ASAP.
@@ -1356,7 +1356,7 @@ public class BeanInfoCacheController {
 		SAVE_CACHE_OPTIONS = new HashMap(3);
 		SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_SAVE_TYPE_INFORMATION, Boolean.TRUE);
 		SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-        SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        SAVE_CACHE_OPTIONS.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 	}
 
 	protected Job cacheWriteJob = null;
@@ -1386,12 +1386,12 @@ public class BeanInfoCacheController {
 	private void queueClassEntry(ClassEntry ce, ResourceSet rset) {
 		if (cacheWriteQueue == null) {
 			cacheWriteQueue = Collections.synchronizedList(new LinkedList());
-			cacheWriteJob = new Job("Write BeanInfo cache files") {
+			cacheWriteJob = new Job(BeaninfoCoreMessages.getString("BeanInfoCacheController.Job.WriteBeaninfoCache.Title")) { //$NON-NLS-1$
 
 				protected IStatus run(IProgressMonitor monitor) {
-					monitor.beginTask("", cacheWriteQueue.size() + 10); // This is actually can change during the run, so we add 10 for the heck of it.
+					monitor.beginTask("", cacheWriteQueue.size() + 10); // This is actually can change during the run, so we add 10 for the heck of it. //$NON-NLS-1$
 					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
-						BeaninfoPlugin.getPlugin().getLogger().log("Starting write BeanInfo Cache files.", Level.FINER);
+						BeaninfoPlugin.getPlugin().getLogger().log("Starting write BeanInfo Cache files.", Level.FINER); //$NON-NLS-1$
 					while (!monitor.isCanceled() && !cacheWriteQueue.isEmpty()) {
 						ClassEntry ce = (ClassEntry) cacheWriteQueue.remove(0); // Get first one.
 						synchronized (ce) {
@@ -1425,7 +1425,7 @@ public class BeanInfoCacheController {
 					}
 					monitor.done();
 					if (BeaninfoPlugin.getPlugin().getLogger().isLoggingLevel(Level.FINER))
-						BeaninfoPlugin.getPlugin().getLogger().log("Finished write BeanInfo Cache files.", Level.FINER);
+						BeaninfoPlugin.getPlugin().getLogger().log("Finished write BeanInfo Cache files.", Level.FINER); //$NON-NLS-1$
 					return Status.OK_STATUS;
 				}
 			};

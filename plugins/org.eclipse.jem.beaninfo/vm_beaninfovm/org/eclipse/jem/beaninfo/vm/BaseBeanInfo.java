@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 22:41:17 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 20:59:33 $ 
  */
 
 import java.awt.Image;
@@ -129,7 +129,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 * 
 	 * @since 1.1.0
 	 */
-	public static final String FIELDPROPERTY = "field";
+	public static final String FIELDPROPERTY = "field"; //$NON-NLS-1$
 
 	/**
 	 * Enumeration values indicator for apply property arguments. Enumeration values is a pre-defined attribute name too. That is where the
@@ -434,7 +434,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	
 	static {
 		try {
-			GETCLASS = Object.class.getMethod("getClass", null);
+			GETCLASS = Object.class.getMethod("getClass", null); //$NON-NLS-1$
 		} catch (SecurityException e) {
 		} catch (NoSuchMethodException e) {
 		}

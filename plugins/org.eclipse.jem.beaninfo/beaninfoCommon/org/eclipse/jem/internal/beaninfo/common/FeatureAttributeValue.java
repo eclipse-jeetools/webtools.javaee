@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/12 13:59:17 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/18 20:59:33 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
@@ -166,9 +166,9 @@ public class FeatureAttributeValue implements Serializable {
 		return out.toString();
 	}
 	
-	private static final Pattern QUOTE = Pattern.compile("\"");	// Pattern for searching for double-quote. Make it static so don't waste time compiling each time.
-	private static final String NULL = "null";	// Output string for null
-	private static final String INVALID = "INV";	// Invalid object flag.
+	private static final Pattern QUOTE = Pattern.compile("\"");	// Pattern for searching for double-quote. Make it static so don't waste time compiling each time. //$NON-NLS-1$
+	private static final String NULL = "null";	// Output string for null //$NON-NLS-1$
+	private static final String INVALID = "INV";	// Invalid object flag. //$NON-NLS-1$
 	
 	/*
 	 * Used for recursive building of the string.
@@ -183,7 +183,7 @@ public class FeatureAttributeValue implements Serializable {
 			String str = value instanceof String ? (String) value : ((Class) value).getName();
 			if (str.indexOf('"') != -1) {
 				// Replace double-quote with escape double-quote so we can distinquish it from the terminating double-quote.
-				out.append(QUOTE.matcher(str).replaceAll("\\\\\""));	// Don't know why we need the back-slash to be doubled for replaceall, but it doesn't work otherwise.
+				out.append(QUOTE.matcher(str).replaceAll("\\\\\""));	// Don't know why we need the back-slash to be doubled for replaceall, but it doesn't work otherwise. //$NON-NLS-1$
 			} else
 				out.append(str);
 			out.append('\"');
@@ -201,7 +201,7 @@ public class FeatureAttributeValue implements Serializable {
 			if (c.charValue() != '\'')
 				out.append(c.charValue());
 			else
-				out.append("\\'");
+				out.append("\\'"); //$NON-NLS-1$
 			out.append('\'');
 		} else if (value.getClass().isArray()) {
 			// Handle array format.
@@ -220,7 +220,7 @@ public class FeatureAttributeValue implements Serializable {
 				out.append(length);
 				out.append(']');
 				while(--dims > 0) {
-					out.append("[]");
+					out.append("[]"); //$NON-NLS-1$
 				}
 				out.append('{');
 				for (int i=0; i < length; i++) {
@@ -493,10 +493,10 @@ public class FeatureAttributeValue implements Serializable {
 				case 'f':
 				case 'F':
 					// Possible boolean.
-					if (parser.getInput().regionMatches(true, parser.nextIndex()-1, "true", 0, 4)) {
+					if (parser.getInput().regionMatches(true, parser.nextIndex()-1, "true", 0, 4)) { //$NON-NLS-1$
 						parser.skip(3);	// Skip over rest of string.
 						return Boolean.TRUE;
-					} else if (parser.getInput().regionMatches(true, parser.nextIndex()-1, "false", 0, 5)) {
+					} else if (parser.getInput().regionMatches(true, parser.nextIndex()-1, "false", 0, 5)) { //$NON-NLS-1$
 						parser.skip(4);	// Skip over rest of string.
 						return Boolean.FALSE;						
 					}
@@ -519,7 +519,7 @@ public class FeatureAttributeValue implements Serializable {
 					
 				case 'n':
 					// Possible null.
-					if (parser.getInput().regionMatches(parser.nextIndex()-1, "null", 0, 4)) {
+					if (parser.getInput().regionMatches(parser.nextIndex()-1, "null", 0, 4)) { //$NON-NLS-1$
 						parser.skip(3);	// Skip over rest of string.
 						return null;
 					}
@@ -676,7 +676,7 @@ public class FeatureAttributeValue implements Serializable {
 					ft = ft.getComponentType();
 				}
 				if (ft == Object.class || ft == String.class || ft == Boolean.class || ft == Character.class || ft.isPrimitive() || ft == Class.class || Number.class.isAssignableFrom(ft)) {
-					String jniType = dims == 1 ? "java.lang.Object" : MapTypes.getJNITypeName("java.lang.Object", dims-1);
+					String jniType = dims == 1 ? "java.lang.Object" : MapTypes.getJNITypeName("java.lang.Object", dims-1); //$NON-NLS-1$ //$NON-NLS-2$
 					try {
 						Class componentType = Class.forName(jniType);
 						out.writeObject(componentType);

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.11 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/18 20:59:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -73,7 +73,7 @@ class CreateRegistryJobHandler {
 			if (tries==0) {
 				Logger logger = BeaninfoPlugin.getPlugin().getLogger();
 				if (logger.isLoggingLevel(Level.WARNING))
-					logger.log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
+					logger.log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$ //$NON-NLS-1$
 			}
 		}
 		
@@ -118,7 +118,7 @@ class CreateRegistryJobHandler {
 		
 		if (!gotRuleLocally) {
 			// Spawn off to a job and wait for it. Hopefully we don't have a deadlock somewhere.
-			Job doCreateJob = new Job(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry")) {
+			Job doCreateJob = new Job(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry")) { //$NON-NLS-1$
 
 				protected IStatus run(IProgressMonitor monitor) {
 					doCreateRegistry(nature, monitor);

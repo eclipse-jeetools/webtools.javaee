@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.29 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.30 $  $Date: 2005/05/18 20:59:17 $ 
  */
 
 import java.io.*;
@@ -263,9 +263,9 @@ public class BeaninfoNature implements IProjectNature {
 		});
 		// [71473] Restore "*.java" to be an XMIResource. If EMF Examples are loaded they overload this and load their special resource for "*.java" which we don't want.
 		// If some user really wants that, they grab the resource resource set and remove our override.
-		if (Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("java")) {
+		if (Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("java")) { //$NON-NLS-1$
 			// Need to add an override to go to XMI instead.
-			rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("java", new XMIResourceFactoryImpl());
+			rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("java", new XMIResourceFactoryImpl()); //$NON-NLS-1$
 		}
 		return rset;
 	}

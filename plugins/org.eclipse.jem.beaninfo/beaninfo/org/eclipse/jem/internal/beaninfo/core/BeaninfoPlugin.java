@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.14 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.15 $  $Date: 2005/05/18 20:59:17 $ 
  */
 
 
@@ -131,13 +131,13 @@ public class BeaninfoPlugin extends Plugin {
 		return (IConfigurationElement[]) containerIdsToContributors.get(containerID);
 	}	
 	
-	public static final String PI_BEANINFO_CONTRIBUTION_EXTENSION_POINT = PI_BEANINFO_PLUGINID+".registrations";
-	public static final String PI_REGISTRATION = "registration";
-	public static final String PI_BEANINFO = "beaninfo"; 
-	public static final String PI_OVERRIDE = "override";
-	public static final String PI_CONTRIBUTOR = "contributor";
-	public static final String PI_PACKAGE = "package";
-	public static final String PI_PATH = "path";
+	public static final String PI_BEANINFO_CONTRIBUTION_EXTENSION_POINT = PI_BEANINFO_PLUGINID+".registrations"; //$NON-NLS-1$
+	public static final String PI_REGISTRATION = "registration"; //$NON-NLS-1$
+	public static final String PI_BEANINFO = "beaninfo";  //$NON-NLS-1$
+	public static final String PI_OVERRIDE = "override"; //$NON-NLS-1$
+	public static final String PI_CONTRIBUTOR = "contributor"; //$NON-NLS-1$
+	public static final String PI_PACKAGE = "package"; //$NON-NLS-1$
+	public static final String PI_PATH = "path"; //$NON-NLS-1$
 	
 	protected synchronized void processBeanInfoContributionExtensionPoint() {
 		ContributorExtensionPointInfo info = ProxyPlugin.processContributionExtensionPoint(PI_BEANINFO_CONTRIBUTION_EXTENSION_POINT);
@@ -507,7 +507,7 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									overridePaths.add(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
+									overridePaths.add(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver); //$NON-NLS-1$
 								}
 							}
 						}
@@ -523,7 +523,7 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									overridePaths.add(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
+									overridePaths.add(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver); //$NON-NLS-1$
 								}
 							}
 						}

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoEntry.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/18 20:59:17 $ 
  */
 
 import java.util.ArrayList;
@@ -20,8 +20,6 @@ import java.util.logging.Level;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 import org.w3c.dom.*;
 
@@ -48,7 +46,7 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 	static int kindFromString(String kindStr) {
 		if (kindStr == null || kindStr.length() == 0)
 			return BIE_PLUGIN;	// Default to plugin. If coming from beaninfoconfig, there should always be kind. But if coming from plugin.xml there shouldn't be one.
-		if (kindStr.equalsIgnoreCase("con"))
+		if (kindStr.equalsIgnoreCase("con")) //$NON-NLS-1$
 			return IClasspathEntry.CPE_CONTAINER;
 		if (kindStr.equalsIgnoreCase("var")) //$NON-NLS-1$
 			return IClasspathEntry.CPE_VARIABLE;
@@ -73,7 +71,7 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 			case IClasspathEntry.CPE_VARIABLE :
 				return "var"; //$NON-NLS-1$
 			case IClasspathEntry.CPE_CONTAINER:
-				return "con";
+				return "con"; //$NON-NLS-1$
 			case BIE_PLUGIN:
 				return "plugin";	//$NON-NLS-1$
 			default :

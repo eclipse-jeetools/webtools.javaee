@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: UICreateRegistryJobHandler.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 20:59:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -79,7 +79,7 @@ class UICreateRegistryJobHandler extends CreateRegistryJobHandler {
 
 								public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 									IJobManager jm = Platform.getJobManager();
-									monitor.beginTask("", 200);
+									monitor.beginTask("", 200); //$NON-NLS-1$
 									try {
 										jm.beginRule(buildRule, new SubProgressMonitor(monitor, 100));
 										doCreateRegistry(nature, new SubProgressMonitor(monitor, 100));
