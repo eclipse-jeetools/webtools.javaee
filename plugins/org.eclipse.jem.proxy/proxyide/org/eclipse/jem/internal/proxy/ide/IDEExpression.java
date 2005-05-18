@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.6 $ $Date: 2005/05/16 19:11:23 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.7 $ $Date: 2005/05/18 18:41:20 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -437,6 +437,10 @@ public class IDEExpression extends Expression {
 		 */
 		public IProxyMethod getMethodProxy(IExpression expression, String methodName, String[] parameterTypes) {
 			return ((IDEMethodProxyFactory) expression.getRegistry().getMethodProxyFactory()).getMethodProxy(expression, this, methodName, parameterTypes);
+		}
+		
+		public IProxyMethod getMethodProxy(IExpression expression, String methodName) {
+			return getMethodProxy(expression, methodName, (IProxyBeanType[]) null);
 		}
 
 		/* (non-Javadoc)

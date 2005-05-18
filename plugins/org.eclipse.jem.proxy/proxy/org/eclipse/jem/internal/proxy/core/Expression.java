@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/18 18:41:20 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -1954,8 +1954,6 @@ public abstract class Expression implements IExpression {
 	 * to use and so not exposed to everyone. Users can legitimately cast to Expression and 
 	 * use this as API for advanced use. 
 	 * <p>
-	 * You must be at ForExpression.ROOT_EXPRESSION.
-	 * <p>
 	 * This is used to begin the transfer. It puts it into a state ready for the transfer. Calling this
 	 * method will cause a synchronization of the expression up to the current level. This means
 	 * that it will not return until the expression has been completely processed in the proxy registry
@@ -1990,7 +1988,6 @@ public abstract class Expression implements IExpression {
 	 */
 	public final void beginTransferThread() throws IllegalStateException, ThrowableProxy {
 		try {
-			checkForExpression(ForExpression.ROOTEXPRESSION);
 			pushForExpression(THREADTRANSFER_EXPRESSION);
 			pushBeginTransferThreadToProxy();
 		} catch (RuntimeException e) {

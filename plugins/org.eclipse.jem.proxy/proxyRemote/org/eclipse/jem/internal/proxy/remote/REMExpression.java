@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/18 18:41:20 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -405,8 +405,8 @@ public class REMExpression extends Expression {
 		// If there are any pending transactions at this point in time, there is no need to send them. They would be do nothings anyway.
 		
 		boolean processedExpressionProxies = false;
-		IREMExpressionConnection connection = getConnection();
-		markInTransaction();
+		IREMExpressionConnection lclConnection = getConnection();
+		markInTransaction(lclConnection);
 		try {
 			Commands.ValueObject proxyids = null;
 			BeanProxyValueSender sender = null;
@@ -415,12 +415,12 @@ public class REMExpression extends Expression {
 				sender = getExpressionProxiesSender();
 			}
 			
-			connection.pullValue(getREMExpressionID(), proxyids, sender);
+			lclConnection.pullValue(getREMExpressionID(), proxyids, sender);
 			// If we got this far, then if there are proxies, we need to process these too.
 			if (proxycount > 0)
 				processpulledExpressionProxies(expressionProxies, sender);
 			processedExpressionProxies =true;
-			connection.getFinalValue(workerValue);	// Get the returned value.
+			lclConnection.getFinalValue(workerValue);	// Get the returned value.
 			return getREMBeanProxyFactory().getBeanProxy(workerValue);
 		} catch (CommandErrorException e) {
 			try {
@@ -438,18 +438,18 @@ public class REMExpression extends Expression {
 			} catch (CommandException e1) {
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				if (!e.isRecoverable()) {
-					connection.close();
+					lclConnection.close();
 					throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 				}			
 			}
 		} catch (CommandException e) {
 			ProxyPlugin.getPlugin().getLogger().log(e);
 			if (!e.isRecoverable()) {
-				connection.close();
+				lclConnection.close();
 				throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 			}			
 		} finally {
-			markEndTransaction();
+			markEndTransaction(lclConnection);
 			if (!processedExpressionProxies)
 				markAllProxiesNotResolved(expressionProxies);	// We failed before we could process the expression proxies. So mark all as not resolved.
 		}
@@ -468,17 +468,21 @@ public class REMExpression extends Expression {
 	 * to tell the callback thread that it is in a transaction during this call so that any
 	 * such new connection requests will get a new connection.
 	 * <p>
+	 * This is not nestable (i.e. the first markEndTransaction will set it false, even if several nested
+	 * markInTransactions are called).
+	 * <p>
 	 * markEndTransaction must be called in ALL cases, such use try/finally.
+	 * @param remConnection the connection to see check against and mark in transaction for.
 	 * 
 	 * 
 	 * @since 1.1.0
 	 */
-	protected void markInTransaction() {
+	protected void markInTransaction(IREMExpressionConnection remConnection) {
 		Thread thread = Thread.currentThread();
 		if (thread instanceof REMCallbackThread) {
 			// We are in a callback, and the callback connection is our connection, tell the callback that it is in transaction.
 			REMCallbackThread callbackThread = (REMCallbackThread) thread;
-			if (callbackThread.getConnection() == connection) {
+			if (callbackThread.getConnection() == remConnection) {
 				callbackThread.setIntransaction(true);
 			}
 		}
@@ -486,16 +490,17 @@ public class REMExpression extends Expression {
 	
 	/**
 	 * Mark end of transaction.
+	 * @param remConn REMConnection to test and mark not in connection for.
 	 * 
-	 * @see REMExpression#markInTransaction()
+	 * @see REMExpression#markInTransaction(IREMExpressionConnection)
 	 * @since 1.1.0
 	 */
-	protected void markEndTransaction() {
+	protected void markEndTransaction(IREMExpressionConnection remConn) {
 		Thread thread = Thread.currentThread();
 		if (thread instanceof REMCallbackThread) {
 			// We are in a callback, and the callback connection is our connection, tell the callback that it is in transaction.
 			REMCallbackThread callbackThread = (REMCallbackThread) thread;
-			if (callbackThread.getConnection() == connection) {
+			if (callbackThread.getConnection() == remConn) {
 				callbackThread.setIntransaction(false);
 			}
 		}		
@@ -945,8 +950,8 @@ public class REMExpression extends Expression {
 		// If at this point there are pending transactions, there is no need to send them because they would all be do-nothings.
 		
 		boolean processedExpressionProxies = false;
-		IREMExpressionConnection connection = getConnection();
-		markInTransaction();
+		IREMExpressionConnection lclConnection = getConnection();
+		markInTransaction(lclConnection);
 		try {
 			Commands.ValueObject proxyids = null;
 			BeanProxyValueSender sender = null;
@@ -955,13 +960,13 @@ public class REMExpression extends Expression {
 				sender = getExpressionProxiesSender();
 			}
 
-			connection.sync(getREMExpressionID(), proxyids, sender);
+			lclConnection.sync(getREMExpressionID(), proxyids, sender);
 			
 			// If we got this far, then if there are proxies, we need to process these too.
 			if (proxycount > 0)
 				processpulledExpressionProxies(expressionProxies, sender);
 			processedExpressionProxies = true;
-			connection.getFinalValue(workerValue);	// We don't care what it is, we just need to see if there is an error.
+			lclConnection.getFinalValue(workerValue);	// We don't care what it is, we just need to see if there is an error.
 		} catch (CommandErrorException e) {
 			try {
 				if (e.getErrorCode() == ExpressionCommands.EXPRESSION_NOEXPRESSIONVALUE_EXCEPTION) {
@@ -978,18 +983,18 @@ public class REMExpression extends Expression {
 			} catch (CommandException e1) {
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				if (!e.isRecoverable()) {
-					connection.close();
+					lclConnection.close();
 					throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 				}			
 			}
 		} catch (CommandException e) {
 			ProxyPlugin.getPlugin().getLogger().log(e);
 			if (!e.isRecoverable()) {
-				connection.close();
+				lclConnection.close();
 				throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 			}			
 		} finally {
-			markEndTransaction();
+			markEndTransaction(lclConnection);
 			if (!processedExpressionProxies)
 				markAllProxiesNotResolved(expressionProxies);	// We failed before we could process the expression proxies. So mark all as not resolved.
 		}
@@ -1040,6 +1045,10 @@ public class REMExpression extends Expression {
 		public IProxyMethod getMethodProxy(IExpression expression, String methodName, String[] parameterTypes) {
 			REMProxyFactoryRegistry registry = (REMProxyFactoryRegistry) expression.getRegistry();
 			return ((REMMethodProxyFactory) registry.getMethodProxyFactory()).getMethodProxy(expression, this, methodName, parameterTypes);
+		}
+		
+		public IProxyMethod getMethodProxy(IExpression expression, String methodName) {
+			return getMethodProxy(expression, methodName, (IProxyBeanType[]) null);
 		}
 
 		/* (non-Javadoc)
@@ -1768,22 +1777,22 @@ public class REMExpression extends Expression {
 		// If the connection is null, no need to do anything since there is no connection
 		// to transfer.
 		if (connection != null && expressionProcesserController == null) {
-			IREMExpressionConnection connection = getConnection();
-			markInTransaction();
+			IREMExpressionConnection lclConnection = getConnection();
+			markInTransaction(lclConnection);
 			try {
 				workerValue.set();
-				connection.transferExpression(getREMExpressionID(), workerValue);
+				lclConnection.transferExpression(getREMExpressionID(), workerValue);
 				expressionProcesserController = getREMBeanProxyFactory().getBeanProxy(workerValue);
-				getREMRegistry().returnConnection(connection);
+				getREMRegistry().returnConnection(lclConnection);
 				this.connection = null;
 			} catch (CommandException e) {
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				if (!e.isRecoverable()) {
-					connection.close();
+					lclConnection.close();
 					throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 				}			
 			} finally {
-				markEndTransaction();
+				markEndTransaction(lclConnection);
 			}
 		}
 	}

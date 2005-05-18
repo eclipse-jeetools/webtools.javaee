@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IProxyBeanType.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 18:41:20 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
  
@@ -43,6 +43,20 @@ public interface IProxyBeanType extends IProxy {
 	 * @since 1.1.0
 	 */
 	public IProxyMethod getMethodProxy(IExpression expression, String methodName, IProxyBeanType[] parameterTypes);
+	
+	/**
+	 * Get the IProxyMethod for the method from this beantype where the method has no arguments. It may be either a resolved method proxy (if already resolved) or
+	 * it may be an ExpressionProxy if not yet resolved.
+	 * <p>
+	 * This is a shortcut for getMethodProxy() that takes arguments names where the names have been sent as null.
+	 * 
+	 * @param expression
+	 * @param methodName
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName);
 	
 	/**
 	 * Get the IProxyMethod for the method from this beantype. It may be either a resolved method proxy (if already resolved) or

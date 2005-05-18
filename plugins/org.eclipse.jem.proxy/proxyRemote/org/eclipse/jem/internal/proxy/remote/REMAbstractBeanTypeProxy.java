@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.12 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.13 $  $Date: 2005/05/18 18:41:20 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -385,6 +385,9 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		return ((REMMethodProxyFactory) registry.getMethodProxyFactory()).getMethodProxy(expression, this, methodName, parameterTypes);
 	}
 
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName) {
+		return getMethodProxy(expression, methodName, (IProxyBeanType[]) null);
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

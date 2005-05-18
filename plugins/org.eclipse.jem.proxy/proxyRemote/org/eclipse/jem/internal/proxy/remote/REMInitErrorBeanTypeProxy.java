@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/18 18:41:20 $ 
  */package org.eclipse.jem.internal.proxy.remote;
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -451,7 +451,10 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getMethodProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String, java.lang.String[])
 	 */
 	public IProxyMethod getMethodProxy(IExpression expression, String methodName, String[] parameterTypes) {
-		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IProxyMethod getMethodProxy(IExpression expression, String methodName) {
 		return null;
 	}
 
@@ -459,7 +462,6 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IProxyBeanType#getFieldProxy(org.eclipse.jem.internal.proxy.core.IExpression, java.lang.String)
 	 */
 	public IProxyField getFieldProxy(IExpression expression, String fieldName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

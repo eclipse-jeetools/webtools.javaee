@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/11 22:41:24 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/18 18:41:20 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -2492,6 +2492,8 @@ public class ExpressionProcesser {
 				Class valueType = reflectField.getType();
 				if (traceOn) {
 					System.out.print("Field: ");
+					if (fieldIsString)
+						System.out.print("(looked up) ");
 					System.out.print(reflectField);
 					System.out.print(">");
 					printObjectAndType(value, valueType);
@@ -2557,6 +2559,8 @@ public class ExpressionProcesser {
 				
 				if (traceOn && reflectMethod != null) {
 					System.out.print("Method: ");
+					if (methodIsString)
+						System.out.print("(looked up) ");
 					System.out.print(reflectMethod);					
 				}
 				
