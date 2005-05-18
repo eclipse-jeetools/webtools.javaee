@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.11 $ $Date: 2005/05/13 14:16:40 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.12 $ $Date: 2005/05/18 22:05:58 $
  */
 
 import java.util.List;
@@ -30,7 +30,7 @@ import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
 public class JavaEMFNature extends EMFNature {
-	public static final String NATURE_ID = "org.eclipse.jem.workbench.JavaEMFNature";
+	public static final String NATURE_ID = "org.eclipse.jem.workbench.JavaEMFNature"; //$NON-NLS-1$
 /**
  * JavaMOFNatureRuntime constructor comment.
  */

@@ -10,17 +10,15 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/18 22:05:58 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
+import java.text.MessageFormat;
+
 import org.eclipse.jdt.core.dom.*;
-import org.eclipse.jdt.core.dom.Name;
-import org.eclipse.jdt.core.dom.Type;
 
 import org.eclipse.jem.internal.instantiation.*;
-import org.eclipse.jem.internal.instantiation.PTExpression;
-import org.eclipse.jem.internal.instantiation.PTName;
 import org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.InvalidExpressionException;
  
 /**
@@ -57,13 +55,13 @@ public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 						fa.setField(variableBinding.getName());
 						return fa;
 					} else {
-						throwInvalidExpressionException("Not sure how to handle yet local field access of \""+variableBinding.getName()+"\"");
+						throwInvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ASTBoundResolver.CannotHandleLocalField_EXC_"), new Object[]{variableBinding.getName()})); //$NON-NLS-1$
 //						push(new PushFieldVariable(variableId, getTypeSignature(declaringTypeBinding), fCounter));
 //						push(new PushThis(getEnclosingLevel(node, declaringTypeBinding)));
 //						storeInstruction();
 					}
 				} else {
-					throwInvalidExpressionException("Not sure how to handle yet local variable access of \""+variableBinding.getName()+"\"");
+					throwInvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ASTBoundResolver.CannotHandleLocalVariable_EXC_"), new Object[]{variableBinding.getName()})); //$NON-NLS-1$
 //					push(new PushLocalVariable(variableId));
 				}				
 		}

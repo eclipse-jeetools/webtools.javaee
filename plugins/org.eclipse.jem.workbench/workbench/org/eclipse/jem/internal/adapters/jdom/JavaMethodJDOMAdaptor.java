@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.10 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/18 22:05:58 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -40,7 +40,7 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 	/*
 	 * Step ids used for TimerTests of performance testing.
 	 */
-	public static final String REFLECT_METHOD = "Reflect JDOM Method";
+	public static final String REFLECT_METHOD = "Reflect JDOM Method"; //$NON-NLS-1$
 
 	protected IMethod sourceMethod = null;
 

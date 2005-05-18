@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.15 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.16 $  $Date: 2005/05/18 22:05:58 $ 
  */
 
 import java.util.*;
@@ -46,9 +46,9 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	/*
 	 * Step ids used for TimerTests of performance testing.
 	 */
-	public static final String REFLECT_CLASS = "Reflect JDOM Class";
-	public static final String REFLECT_METHODS = "Reflect all JDOM methods for a class";
-	public static final String REFLECT_FIELDS = "Reflect all JDOM fields for a class";
+	public static final String REFLECT_CLASS = "Reflect JDOM Class"; //$NON-NLS-1$
+	public static final String REFLECT_METHODS = "Reflect all JDOM methods for a class"; //$NON-NLS-1$
+	public static final String REFLECT_FIELDS = "Reflect all JDOM fields for a class"; //$NON-NLS-1$
 	
 	
 	protected IType sourceType = null;
