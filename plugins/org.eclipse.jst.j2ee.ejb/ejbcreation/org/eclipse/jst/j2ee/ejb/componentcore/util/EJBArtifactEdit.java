@@ -147,14 +147,15 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public IVirtualComponent getEJBClientJarModule() {
 		EJBJar jar = getEJBJar();
-		IVirtualComponent module = null;
+		IVirtualComponent ejbComponent,ejbClientComponent = null;
 		String clientJAR = null;
 		if (jar != null)
 			clientJAR = jar.getEjbClientJar();
-		if (clientJAR != null) {	
-			 module = ComponentCore.createComponent(getComponentHandle().getProject(),clientJAR);
+		if (clientJAR != null) {
+			 ejbComponent = ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName());
+			 ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent()
 		}
-		return module;
+		return ejbClientComponent;
 	}
 	
 	
