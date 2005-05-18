@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.DataModelAnnotationsStandaloneGroup;
@@ -72,11 +73,14 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new DataModelAnnotationsStandaloneGroup(parent, getDataModel(), false, synchHelper);
 	}
-
-	//TODO: utility to handle additions
-	protected String[] getValidationPropertyNames() {
-		return new String[]{IWebComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, ADD_TO_EAR, CONTEXT_ROOT};
-	}
+    protected String[] getValidationPropertyNames() {
+        String[] names = super.getValidationPropertyNames();
+        String[] allNames = new String[names.length + 2];
+        System.arraycopy(names, 0, allNames, 0, names.length);
+        allNames[names.length] = CONTEXT_ROOT;
+        allNames[names.length + 1] = IAnnotationsDataModel.USE_ANNOTATIONS;
+        return allNames;
+    }
 
 	public void dispose() {
 		super.dispose();

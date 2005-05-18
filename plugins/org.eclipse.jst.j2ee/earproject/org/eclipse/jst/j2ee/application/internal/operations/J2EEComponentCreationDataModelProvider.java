@@ -235,7 +235,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
         IStatus status = OK_STATUS;
         String earName = getStringProperty(EAR_COMPONENT_NAME);
         if (status.isOK()) {
-            if (earName.indexOf("#") != -1) { //$NON-NLS-1$
+            if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$
                 String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
                 return WTPCommonPlugin.createErrorStatus(errorMessage);
             } else if (earName == null || earName.equals("")) { //$NON-NLS-1$

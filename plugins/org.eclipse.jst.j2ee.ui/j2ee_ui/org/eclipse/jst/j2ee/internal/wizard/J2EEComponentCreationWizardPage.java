@@ -154,7 +154,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         GridData data = new GridData();
         // Add the module name label
         Label moduleNameLabel = new Label(parent, SWT.NONE);
-        moduleNameLabel.setText(MODULE_NAME_UI);
+        moduleNameLabel.setText(MODULE_NAME_UI + "                 ");
         // Add the module name entry field
         moduleNameText = new Text(parent, SWT.BORDER);
         data = new GridData(GridData.FILL_HORIZONTAL);
