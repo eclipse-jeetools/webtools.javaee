@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.8 $ $Date: 2005/02/15 22:57:26 $
+ * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.9 $ $Date: 2005/05/18 23:11:26 $
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -189,7 +189,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 			return newValue != null ? aTypeProxy.newBeanProxy(newValue) : null;
 		} catch (Exception exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 			return null;
 		}
 	}
@@ -208,7 +208,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 			return aTypeProxy.newBeanProxy(!(aTypeProxy.isPrimitive()) ? beanType.newInstance() : null);
 		} catch (Exception exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 			return null;
 		}
 	}
@@ -247,7 +247,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 				return null;
 		} catch (Exception exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 			return null;
 		}
 	}

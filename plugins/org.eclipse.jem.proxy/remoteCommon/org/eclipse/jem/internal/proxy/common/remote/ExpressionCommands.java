@@ -10,13 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionCommands.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.common.remote;
 
 import java.io.*;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
 
@@ -46,8 +44,8 @@ public class ExpressionCommands {
 		EXPRESSIONPROXY_VOIDTYPE = 0,	// Expression proxy resolves to void type.
 		EXPRESSIONPROXY_NOTRESOLVED = 1;	// Expression proxy not resolved.
 
-	public static final String EXPRESSIONTRACE = "proxyvm.expressionTrace";	// The system property for turning on expression tracing.
-	public static final String EXPRESSIONTRACE_TIMER_THRESHOLD = "proxyvm.expressionTraceTimerThreshold";	// The system property for timer threshold.
+	public static final String EXPRESSIONTRACE = "proxyvm.expressionTrace";	// The system property for turning on expression tracing. //$NON-NLS-1$
+	public static final String EXPRESSIONTRACE_TIMER_THRESHOLD = "proxyvm.expressionTraceTimerThreshold";	// The system property for timer threshold. //$NON-NLS-1$
 	
 	/*
 	 * The format of the commands are:

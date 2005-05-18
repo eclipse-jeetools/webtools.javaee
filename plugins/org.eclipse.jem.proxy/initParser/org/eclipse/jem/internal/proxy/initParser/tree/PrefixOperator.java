@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PrefixOperator.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -26,28 +26,28 @@ public class PrefixOperator extends AbstractEnum {
 	 */
 	public static final int PRE_PLUS_VALUE = 0;
 
-	public static final PrefixOperator PRE_PLUS = new PrefixOperator(PRE_PLUS_VALUE, "Prefix +");
+	public static final PrefixOperator PRE_PLUS = new PrefixOperator(PRE_PLUS_VALUE, "Prefix +"); //$NON-NLS-1$
 
 	/**
 	 * Prefix minus "-"
 	 */
 	public static final int PRE_MINUS_VALUE = 1;
 
-	public static final PrefixOperator PRE_MINUS = new PrefixOperator(PRE_MINUS_VALUE, "Prefix -");
+	public static final PrefixOperator PRE_MINUS = new PrefixOperator(PRE_MINUS_VALUE, "Prefix -"); //$NON-NLS-1$
 
 	/**
 	 * Prefix bitwise complement "~"
 	 */
 	public static final int PRE_COMPLEMENT_VALUE = 2;
 
-	public static final PrefixOperator PRE_COMPLEMENT = new PrefixOperator(PRE_COMPLEMENT_VALUE, "Prefix ~");
+	public static final PrefixOperator PRE_COMPLEMENT = new PrefixOperator(PRE_COMPLEMENT_VALUE, "Prefix ~"); //$NON-NLS-1$
 
 	/**
 	 * Prefix logical not "!"
 	 */
 	public static final int PRE_NOT_VALUE = 3;
 
-	public static final PrefixOperator PRE_NOT = new PrefixOperator(PRE_NOT_VALUE, "Prefix !");
+	public static final PrefixOperator PRE_NOT = new PrefixOperator(PRE_NOT_VALUE, "Prefix !"); //$NON-NLS-1$
 
 	/**
 	 * Return the prefix operator for the given enum value.

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: InternalIfElseOperandType.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -27,7 +27,7 @@ public class InternalIfElseOperandType extends AbstractEnum {
 	public final static int ELSE_CLAUSE_VALUE = 0;
 
 	public final static InternalIfElseOperandType ELSE_CLAUSE = new InternalIfElseOperandType(ELSE_CLAUSE_VALUE,
-			"Else Clause Flag");
+			"Else Clause Flag"); //$NON-NLS-1$
 
 	/**
 	 * Used in If/else processing. If operand on expression stack
@@ -35,7 +35,7 @@ public class InternalIfElseOperandType extends AbstractEnum {
 	public final static int TRUE_CLAUSE_VALUE = 1;
 
 	public final static InternalIfElseOperandType TRUE_CLAUSE = new InternalIfElseOperandType(TRUE_CLAUSE_VALUE,
-			"If True Clause Flag");
+			"If True Clause Flag"); //$NON-NLS-1$
 
 	/**
 	 * Return the enum for the given value.

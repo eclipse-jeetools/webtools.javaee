@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: CommandErrorException.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
@@ -64,7 +64,7 @@ public class CommandErrorException extends CommandException {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return super.toString() + "-- Error code:"+getErrorCode() + (getValue() != null ? " Value data:\"" + getValue().getAsObject() + "\"" : " ") + (fErrorObject != null ? " Error object:\""+fErrorObject.toString()+"\"" : " ");
+		return super.toString() + "-- Error code:"+getErrorCode() + (getValue() != null ? " Value data:\"" + getValue().getAsObject() + "\"" : " ") + (fErrorObject != null ? " Error object:\""+fErrorObject.toString()+"\"" : " "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	}
 
 }

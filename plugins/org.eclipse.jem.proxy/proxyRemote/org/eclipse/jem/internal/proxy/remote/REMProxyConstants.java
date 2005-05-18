@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyConstants.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -243,48 +243,48 @@ public class REMProxyConstants {
 	public static void println(){
 		
 		if (GATHER_COUNTS) {
-			System.out.println("--------------------------------------------------");
-			System.out.println("Method proxies invokes = " + METHODPROXYINVOKECOUNT);
-			System.out.println("Invoke invokes = " + INVOKEINVOKECOUNT);
-			System.out.println("..................................................");
-			System.out.println("Methods retrieved = " + REMMETHODCOUNT + "(" + UNIQUEMETHODCOUNT + ")");
-			System.out.println("Invokes retrieved = " + REMINVOKABLECOUNT + "(" + UNIQUEINVOKABLECOUNT + ")");
-			System.out.println("Fields retrieved = " + REMFIELDCOUNT + "(" + UNIQUEFIELDCOUNT + ")");
-			System.out.println("Constructor calls = " + REMCONSTRUCTORCALLED);
-			System.out.println("--------------------------------------------------");
-			System.out.println("-Count of methods invoked-------------------------");
-			System.out.println("--------------------------------------------------");
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
+			System.out.println("Method proxies invokes = " + METHODPROXYINVOKECOUNT); //$NON-NLS-1$
+			System.out.println("Invoke invokes = " + INVOKEINVOKECOUNT); //$NON-NLS-1$
+			System.out.println(".................................................."); //$NON-NLS-1$
+			System.out.println("Methods retrieved = " + REMMETHODCOUNT + "(" + UNIQUEMETHODCOUNT + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			System.out.println("Invokes retrieved = " + REMINVOKABLECOUNT + "(" + UNIQUEINVOKABLECOUNT + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			System.out.println("Fields retrieved = " + REMFIELDCOUNT + "(" + UNIQUEFIELDCOUNT + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			System.out.println("Constructor calls = " + REMCONSTRUCTORCALLED); //$NON-NLS-1$
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
+			System.out.println("-Count of methods invoked-------------------------"); //$NON-NLS-1$
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
 
 			// Collate the methods called
 			Iterator entries = METHODCOUNTMAP.entrySet().iterator();
 			while (entries.hasNext()) {
 				Map.Entry entry = (Entry) entries.next();
 				REMMethodProxy methodProxy = (REMMethodProxy) entry.getKey();
-				System.out.println(methodProxy.getClassType().getTypeName() + "," + methodProxy.getName() + "," + entry.getValue());
+				System.out.println(methodProxy.getClassType().getTypeName() + "," + methodProxy.getName() + "," + entry.getValue()); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			System.out.println("--------------------------------------------------");
-			System.out.println("-Count of fields get called ----------------------");
-			System.out.println("--------------------------------------------------");
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
+			System.out.println("-Count of fields get called ----------------------"); //$NON-NLS-1$
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
 
 			// Collate the fields accessed
 			entries = FIELDCOUNTMAP.entrySet().iterator();
 			while (entries.hasNext()) {
 				Map.Entry entry = (Entry) entries.next();
 				REMFieldProxy fieldProxy = (REMFieldProxy) entry.getKey();
-				System.out.println(fieldProxy.toBeanString() + "," + entry.getValue());
+				System.out.println(fieldProxy.toBeanString() + "," + entry.getValue()); //$NON-NLS-1$
 			}
 
-			System.out.println("--------------------------------------------------");
-			System.out.println("-Count of fields set called ----------------------");
-			System.out.println("--------------------------------------------------");
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
+			System.out.println("-Count of fields set called ----------------------"); //$NON-NLS-1$
+			System.out.println("--------------------------------------------------"); //$NON-NLS-1$
 
 			// Collate the fields set
 			entries = FIELDSETCOUNTMAP.entrySet().iterator();
 			while (entries.hasNext()) {
 				Map.Entry entry = (Entry) entries.next();
 				REMFieldProxy fieldProxy = (REMFieldProxy) entry.getKey();
-				System.out.println(fieldProxy.toBeanString() + "," + entry.getValue());
+				System.out.println(fieldProxy.toBeanString() + "," + entry.getValue()); //$NON-NLS-1$
 			} 
 		}
 		

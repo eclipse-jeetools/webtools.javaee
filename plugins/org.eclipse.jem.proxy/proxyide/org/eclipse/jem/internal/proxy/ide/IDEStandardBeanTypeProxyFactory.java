@@ -7,7 +7,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 
 /*
- * $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $ $Revision: 1.9 $ $Date: 2005/05/11 19:01:12 $
+ * $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $ $Revision: 1.10 $ $Date: 2005/05/18 23:11:26 $
  */
 
 import java.lang.reflect.Array;
@@ -222,15 +222,15 @@ public class IDEStandardBeanTypeProxyFactory implements IStandardBeanTypeProxyFa
 				if (beanTypeProxy == null)
 					beanTypeProxy = new IDEBeanTypeProxy(fFactoryRegistry, ideClass);
 			} catch (ClassNotFoundException e) {
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				String msg = MessageFormat.format("{0}({1})", new Object[] { e.getClass(), e.getMessage()}); //$NON-NLS-1$
 				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 			} catch (ExceptionInInitializerError e) {
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				String msg = MessageFormat.format("{0}({1})", new Object[] { e.getClass(), e.getMessage()}); //$NON-NLS-1$
 				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 			} catch (LinkageError e) {
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				String msg = MessageFormat.format("{0}({1})", new Object[] { e.getClass(), e.getMessage()}); //$NON-NLS-1$
 				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 			}

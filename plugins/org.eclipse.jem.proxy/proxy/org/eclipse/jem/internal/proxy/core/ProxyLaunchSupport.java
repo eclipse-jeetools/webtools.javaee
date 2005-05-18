@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.22 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.23 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -54,14 +54,14 @@ public class ProxyLaunchSupport {
 	// If the property is trully not set, then there is no default and there are no configurations for it.
 	public static final String NOT_SET = "...not..set..";	  //$NON-NLS-1$
 		
-	public static final String EXPRESSION_TRACING = "/debug/traceexpressions";	// Trace IExpressions.
+	public static final String EXPRESSION_TRACING = "/debug/traceexpressions";	// Trace IExpressions. //$NON-NLS-1$
 	
 	/**
 	 * Timer threshold for indicating any expressions that took longer than this.
 	 * If not set, then threshold will default to 100ms.
 	 * It will only be used if traceexpressions is true.
 	 */
-	public static final String EXPRESSION_TRACEING_TIMER_THRESHOLD = "/debug/traceexpressionstimethreshold";	
+	public static final String EXPRESSION_TRACEING_TIMER_THRESHOLD = "/debug/traceexpressionstimethreshold";	 //$NON-NLS-1$
 	
 	/*
 	 * Registry of launch key to LaunchInfo classes.
@@ -355,13 +355,13 @@ public class ProxyLaunchSupport {
 
 		if (pm == null)
 			pm = new NullProgressMonitor();
-		String stepId = "Pre-launch VM ( " + vmTitle + " )";
+		String stepId = "Pre-launch VM ( " + vmTitle + " )"; //$NON-NLS-1$ //$NON-NLS-2$
 		TimerTests.basicTest.startStep(stepId);
-		if (vmTitle.equals("Beaninfo"))
+		if (vmTitle.equals("Beaninfo")) //$NON-NLS-1$
 			PerformanceMonitorUtil.getMonitor().snapshot(125);
 		final ILaunchConfigurationWorkingCopy configwc = config.getWorkingCopy();
 		
-		pm.beginTask("", 400);
+		pm.beginTask("", 400); //$NON-NLS-1$
 		pm.subTask(ProxyMessages.getString("ProxyLaunch"));	//$NON-NLS-1$
 		if (waitForBuild) {
 			// See if build needed or waiting or inprogress, if so, wait for it to complete. We've
@@ -468,7 +468,7 @@ public class ProxyLaunchSupport {
 		}	
 		
 		pm.done();
-		if (vmTitle.equals("Beaninfo"))
+		if (vmTitle.equals("Beaninfo")) //$NON-NLS-1$
 			PerformanceMonitorUtil.getMonitor().snapshot(126);
 		TimerTests.basicTest.stopStep(stepId);
 		return launchInfo.resultRegistry;

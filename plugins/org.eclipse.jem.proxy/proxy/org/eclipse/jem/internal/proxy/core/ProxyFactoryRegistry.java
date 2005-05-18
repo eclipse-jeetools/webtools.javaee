@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.9 $  $Date: 2005/04/20 18:50:13 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 
@@ -328,9 +328,9 @@ public abstract class ProxyFactoryRegistry {
 		
 		fRegisteredConstants.clear();
 		
-		TimerTests.basicTest.startStep("Registry Terminated");
+		TimerTests.basicTest.startStep("Registry Terminated"); //$NON-NLS-1$
 		registryTerminated(wait);
-		TimerTests.basicTest.stopStep("Registry Terminated");
+		TimerTests.basicTest.stopStep("Registry Terminated"); //$NON-NLS-1$
 		
 //		TimerTests.basicTest.startStep("Registry Terminated Notification");
 		fireRegistryTerminated();	// Let everyone know that we are gone. This is fired even if wait is false because at this point in time the registry is invalid.

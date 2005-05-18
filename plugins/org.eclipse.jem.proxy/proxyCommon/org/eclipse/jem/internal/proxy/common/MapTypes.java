@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: MapTypes.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/18 23:11:27 $ 
  */
 package org.eclipse.jem.internal.proxy.common;
 
@@ -111,11 +111,11 @@ public class MapTypes {
 				if (type != null) {
 					fName.append(type.getName());
 				} else
-					return "";	// Invalid if no 'L' and not a primitive.
+					return "";	// Invalid if no 'L' and not a primitive. //$NON-NLS-1$
 			} else
-				return "";	// Invalid, must be either a primitive or 'L' type.
+				return "";	// Invalid, must be either a primitive or 'L' type. //$NON-NLS-1$
 			while(dims-- > 0) {
-				fName.append("[]");
+				fName.append("[]"); //$NON-NLS-1$
 			}
 			return fName.toString();
 		} else if (jniName.length() == 1) {

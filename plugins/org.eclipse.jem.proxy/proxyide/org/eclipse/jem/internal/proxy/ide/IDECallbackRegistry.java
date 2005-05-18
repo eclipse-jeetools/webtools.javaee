@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDECallbackRegistry.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 import java.io.*;
@@ -43,7 +43,7 @@ IDECallbackRegistry(IDEProxyFactoryRegistry aRegistry){
 	vmServerProxy = aRegistry.getBeanProxy(fVMServer.getClass(), fVMServer);
 	
 	try {
-		Method initializeCallbackMethod = org.eclipse.jem.internal.proxy.common.ICallback.class.getMethod("initializeCallback", new Class[] {org.eclipse.jem.internal.proxy.common.IVMServer.class, Integer.TYPE});
+		Method initializeCallbackMethod = org.eclipse.jem.internal.proxy.common.ICallback.class.getMethod("initializeCallback", new Class[] {org.eclipse.jem.internal.proxy.common.IVMServer.class, Integer.TYPE}); //$NON-NLS-1$
 		initializeCallbackMethodProxy = (IProxyMethod) aRegistry.getBeanProxy(Method.class, initializeCallbackMethod);
 	} catch (SecurityException e) {
 		e.printStackTrace();
@@ -97,7 +97,7 @@ OutputStream requestStream(final int aCallbackID, final int aMsgID){
 	try {
 		tempStream = new PipedInputStream(result);	
 	} catch ( IOException exc ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 		return null;
 	}
 	final PipedInputStream inputStream = tempStream;
@@ -111,7 +111,7 @@ OutputStream requestStream(final int aCallbackID, final int aMsgID){
 					try {
 						inputStream.close();	// Make sure it's closed.
 					} catch ( IOException  exc ){
-						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 					}
 				}			
 			}

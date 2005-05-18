@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.10 $ $Date: 2005/05/11 19:01:12 $
+ * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.11 $ $Date: 2005/05/18 23:11:26 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -163,7 +163,7 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			Class aClass = fProxyFactoryRegistry.loadClass(className);
 			return getMethodProxy(aClass, methodName, parameterTypes);
 		} catch (ClassNotFoundException exc) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 			return null;
 		}
 	}
@@ -234,9 +234,9 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			}
 			return getMethodProxy(cls.getMethod(methodName, parmClasses));
 		} catch (ClassNotFoundException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		} catch (NoSuchMethodException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		}
 		return null;
 	}
@@ -255,9 +255,9 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			}
 			return getMethodProxy(cls.getDeclaredMethod(methodName, parmClasses));
 		} catch (ClassNotFoundException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		} catch (NoSuchMethodException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		}
 		return null;
 	}	
@@ -268,8 +268,8 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			return getMethodProxy(method);
 		} catch (NoSuchMethodException exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Unable to find method " + aClass.getName()
-							+ ":" + methodName + " args=" + args, exc));
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Unable to find method " + aClass.getName() //$NON-NLS-1$
+							+ ":" + methodName + " args=" + args, exc)); //$NON-NLS-1$ //$NON-NLS-2$
 			return null;
 		}
 	}
@@ -280,8 +280,8 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			return getMethodProxy(method);
 		} catch (NoSuchMethodException exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Unable to find method " + aClass.getName()
-							+ ":" + methodName + " args=" + args, exc));
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Unable to find method " + aClass.getName() //$NON-NLS-1$
+							+ ":" + methodName + " args=" + args, exc)); //$NON-NLS-1$ //$NON-NLS-2$
 			return null;
 		}
 	}	

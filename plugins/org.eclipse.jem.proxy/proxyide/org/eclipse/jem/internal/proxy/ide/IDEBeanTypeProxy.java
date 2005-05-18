@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.12 $ $Date: 2005/05/18 18:41:20 $
+ * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.13 $ $Date: 2005/05/18 23:11:26 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -99,7 +99,7 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			Method aMethod = fClass.getMethod(methodName, new Class[0]);
 			return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getMethodProxy(aMethod);
 		} catch (Exception exc) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 		}
 		return null;
 
@@ -179,8 +179,8 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			argClasses[i] = btFactory.getBeanTypeProxy(argTypeNames[i]);
 			if (argClasses[i] == null) {
 				ProxyPlugin.getPlugin().getLogger().log(
-						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - "
-								+ fClass.getName() + " args=" + argTypeNames, null));
+						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - " //$NON-NLS-1$
+								+ fClass.getName() + " args=" + argTypeNames, null)); //$NON-NLS-1$
 				return null;
 			}
 		}
@@ -211,8 +211,8 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			argClasses[i] = btFactory.getBeanTypeProxy(argTypeNames[i]);
 			if (argClasses[i] == null) {
 				ProxyPlugin.getPlugin().getLogger().log(
-						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - "
-								+ fClass.getName() + " args=" + argTypeNames, null));
+						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - " //$NON-NLS-1$
+								+ fClass.getName() + " args=" + argTypeNames, null)); //$NON-NLS-1$
 				return null;
 			}
 		}
@@ -273,8 +273,8 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
 		} catch (NoSuchFieldException exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Field not found " + fClass.getName()
-							+ " - " + fieldName, exc));
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Field not found " + fClass.getName() //$NON-NLS-1$
+							+ " - " + fieldName, exc)); //$NON-NLS-1$
 			return null;
 		}
 	}
@@ -285,8 +285,8 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
 		} catch (NoSuchFieldException exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Field not found " + fClass.getName()
-							+ " - " + fieldName, exc));
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Field not found " + fClass.getName() //$NON-NLS-1$
+							+ " - " + fieldName, exc)); //$NON-NLS-1$
 			return null;
 		}
 	}
@@ -303,7 +303,7 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 		try {
 			aConstructor = fClass.getConstructor(parameterTypes);
 		} catch (Exception e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		}
 		// If we have a constructor return it
 		if (aConstructor != null) {
@@ -336,7 +336,7 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			aConstructor = fClass.getConstructor(null);
 			return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(aConstructor);
 		} catch (Exception e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 			return null;
 		}
 

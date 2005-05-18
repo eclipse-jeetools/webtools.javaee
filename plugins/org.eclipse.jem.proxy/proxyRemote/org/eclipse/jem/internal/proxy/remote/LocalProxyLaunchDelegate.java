@@ -9,19 +9,15 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.23 $ $Date: 2005/05/13 21:11:21 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.24 $ $Date: 2005/05/18 23:11:26 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
-import java.net.ConnectException;
-import java.net.Socket;
 import java.text.MessageFormat;
 import java.util.*;
-import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 
 import org.eclipse.core.runtime.*;
@@ -71,11 +67,11 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		IJavaProject project = getJavaProject(configuration);
 		String name = configuration.getAttribute(IProxyConstants.ATTRIBUTE_VM_TITLE, (String) null);
 		if (name == null)
-			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMName"), new Object[] { project != null ? project.getProject().getName() : "" }); //$NON-NLS-1$
+			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMName"), new Object[] { project != null ? project.getProject().getName() : "" }); //$NON-NLS-1$ //$NON-NLS-2$
 		else
-			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMNameWithComment"), new Object[] { project != null ? project.getProject().getName() : "", name }); //$NON-NLS-1$
+			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMNameWithComment"), new Object[] { project != null ? project.getProject().getName() : "", name }); //$NON-NLS-1$ //$NON-NLS-2$
 
-		String stepId = "Launch VM ( " + name + " )";
+		String stepId = "Launch VM ( " + name + " )"; //$NON-NLS-1$ //$NON-NLS-2$
 		TimerTests.basicTest.startStep(stepId);
 		// Problem with launch, can't have double-quotes in vmName.
 		if (name.indexOf('"') != -1)
@@ -185,12 +181,12 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 //TODO: this is a temporary solution for the fact that spaces
 //      are not allowed in the libPath
 		for (int i = 0; i < evmArgs.length; i++) {
-			if (evmArgs[i].startsWith("-Djava.library.path")) {
+			if (evmArgs[i].startsWith("-Djava.library.path")) { //$NON-NLS-1$
 				StringBuffer b = new StringBuffer(evmArgs[i]);
-				int idx=b.indexOf("%20");
+				int idx=b.indexOf("%20"); //$NON-NLS-1$
 				while (idx>=0) {
-					b.replace(idx,idx+3," ");
-					idx=b.indexOf("%20");
+					b.replace(idx,idx+3," "); //$NON-NLS-1$
+					idx=b.indexOf("%20"); //$NON-NLS-1$
 				}
 				evmArgs[i]=b.toString();
 			}			
@@ -202,7 +198,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		if(useNoverify)
 			extraArgs++; // An extra arg added for '-noverify' flag (if number changes below, this must change).
 		
-		boolean useExpressionTracing = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING));
+		boolean useExpressionTracing = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING)); //$NON-NLS-1$
 		long expressionTracingThreshold = -1;
 		if (useExpressionTracing) {
 			extraArgs++;
@@ -244,9 +240,9 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			cvmArgs[cvmArgsCount++] = "-noverify"; //$NON-NLS-1$
 		
 		if (useExpressionTracing) {
-			cvmArgs[cvmArgsCount++] = "-D"+ExpressionCommands.EXPRESSIONTRACE+"=true";
+			cvmArgs[cvmArgsCount++] = "-D"+ExpressionCommands.EXPRESSIONTRACE+"=true"; //$NON-NLS-1$ //$NON-NLS-2$
 			if (expressionTracingThreshold != -1)
-				cvmArgs[cvmArgsCount++] = "-D"+ExpressionCommands.EXPRESSIONTRACE_TIMER_THRESHOLD+'='+String.valueOf(expressionTracingThreshold);
+				cvmArgs[cvmArgsCount++] = "-D"+ExpressionCommands.EXPRESSIONTRACE_TIMER_THRESHOLD+'='+String.valueOf(expressionTracingThreshold); //$NON-NLS-1$
 		}
 
 		// If in debug mode, we need to find a port for it to use.
@@ -342,10 +338,10 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 				StringBuffer gatheredText = new StringBuffer(100);
 				{
 					logger = ProxyPlugin.getPlugin().getLogger();
-					printJob = new Job("") {
+					printJob = new Job("") { //$NON-NLS-1$
 
 						protected IStatus run(IProgressMonitor monitor) {
-							monitor.beginTask("Print remote vm trace output", 1);
+							monitor.beginTask(ProxyRemoteMessages.getString("LocalProxyLaunchDelegate.Monitor.PrintRemoteTrace.Text"), 1); //$NON-NLS-1$
 							while(true) {
 								String output = null;
 								synchronized (gatheredText) {
@@ -365,7 +361,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 				}
 				
 				public StreamListener(String type, Level level, Logger logger) {
-					tracePrefix = traceName + ':' + type + '>' + System.getProperty("line.separator");
+					tracePrefix = traceName + ':' + type + '>' + System.getProperty("line.separator"); //$NON-NLS-1$
 					gatheredText.append(tracePrefix);
 					this.level = level;
 					this.logger = logger;

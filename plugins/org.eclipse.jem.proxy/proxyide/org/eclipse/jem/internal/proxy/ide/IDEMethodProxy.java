@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEMethodProxy.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -92,7 +92,7 @@ public class IDEMethodProxy extends IDEAccessibleObjectProxy implements IMethodP
 			return invoke(subject);
 		} catch (ThrowableProxy exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 		}
 		return null;
 	}
@@ -135,7 +135,7 @@ public class IDEMethodProxy extends IDEAccessibleObjectProxy implements IMethodP
 			return invoke(subject, argument);
 		} catch (ThrowableProxy exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 		}
 		return null;
 	}
@@ -181,7 +181,7 @@ public class IDEMethodProxy extends IDEAccessibleObjectProxy implements IMethodP
 			return invoke(subject, arguments);
 		} catch (ThrowableProxy exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 		}
 		return null;
 	}

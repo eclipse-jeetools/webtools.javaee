@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.8 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 
@@ -224,7 +224,7 @@ public IMethodProxy getAccessibleIsAccessible() {
 
 public IMethodProxy getAccessibleSetAccessible() {
 	if (fAccessibleSetAccessible == null)
-		fAccessibleSetAccessible = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.AccessibleObject", "setAccessible", new String[] {"boolean"}); //$NON-NLS-1$ //$NON-NLS-2$
+		fAccessibleSetAccessible = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.AccessibleObject", "setAccessible", new String[] {"boolean"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	return fAccessibleSetAccessible;
 }
 
@@ -455,13 +455,13 @@ public IMethodProxy getClassGetDeclaredField() {
 public IMethodProxy getClassGetDeclaredFields() {
 
 	if (fClassGetDeclaredFields == null)
-			fClassGetDeclaredFields = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredFields", null); //$NON-NLS-1$
+			fClassGetDeclaredFields = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredFields", null); //$NON-NLS-1$ //$NON-NLS-2$
 	return fClassGetDeclaredFields;
 }
 public IMethodProxy getClassGetFields() {
 
 	if (fClassGetFields == null)
-			fClassGetFields = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getFields", null); //$NON-NLS-1$
+			fClassGetFields = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getFields", null); //$NON-NLS-1$ //$NON-NLS-2$
 	return fClassGetFields;
 }
 
@@ -473,7 +473,7 @@ public IMethodProxy getClassGetFields() {
  */
 public IMethodProxy getClassMethods() {
 	if (fClassGetMethods == null)
-		fClassGetMethods = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getMethods", null); //$NON-NLS-1$
+		fClassGetMethods = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getMethods", null); //$NON-NLS-1$ //$NON-NLS-2$
 	return fClassGetMethods;
 }
 
@@ -484,7 +484,7 @@ public IMethodProxy getClassMethods() {
  */
 public IMethodProxy getClassDeclaredMethods() {
 	if (fClassGetDeclaredMethods == null)
-		fClassGetDeclaredMethods = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredMethods", null); //$NON-NLS-1$
+		fClassGetDeclaredMethods = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredMethods", null); //$NON-NLS-1$ //$NON-NLS-2$
 	return fClassGetDeclaredMethods;
 }
 
@@ -502,7 +502,7 @@ public IMethodProxy getFindCompatibleConstructorMethod() {
 
 public IMethodProxy getFindCompatibleMethodMethod() {
 	if (fMethodHelperFindCompatibleMethod == null)
-		fMethodHelperFindCompatibleMethod = fRegistry.getMethodProxyFactory().getMethodProxy("org.eclipse.jem.internal.proxy.common.MethodHelper", "findCompatibleMethod", new String[] {"java.lang.Class", "java.lang.String", "[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		fMethodHelperFindCompatibleMethod = fRegistry.getMethodProxyFactory().getMethodProxy("org.eclipse.jem.internal.proxy.common.MethodHelper", "findCompatibleMethod", new String[] {"java.lang.Class", "java.lang.String", "[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	return fMethodHelperFindCompatibleMethod;
 }
 }

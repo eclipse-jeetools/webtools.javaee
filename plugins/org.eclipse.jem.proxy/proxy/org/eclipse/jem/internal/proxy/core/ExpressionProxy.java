@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -334,6 +334,6 @@ public class ExpressionProxy implements IProxy {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return super.toString()+": "+getProxyID();
+		return super.toString()+": "+getProxyID(); //$NON-NLS-1$
 	}
 }

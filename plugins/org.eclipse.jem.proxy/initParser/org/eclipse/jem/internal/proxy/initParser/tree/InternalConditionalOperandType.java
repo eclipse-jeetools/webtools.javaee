@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: InternalConditionalOperandType.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -27,7 +27,7 @@ public class InternalConditionalOperandType extends AbstractEnum {
 	public final static int CONDITIONAL_FALSE_VALUE = 0;
 
 	public final static InternalConditionalOperandType CONDITIONAL_FALSE = new InternalConditionalOperandType(CONDITIONAL_FALSE_VALUE,
-			"Conditional False Operand Flag");
+			"Conditional False Operand Flag"); //$NON-NLS-1$
 
 	/**
 	 * Used in Conditional processing. True operand on expression stack
@@ -35,7 +35,7 @@ public class InternalConditionalOperandType extends AbstractEnum {
 	public final static int CONDITIONAL_TRUE_VALUE = 1;
 
 	public final static InternalConditionalOperandType CONDITIONAL_TRUE = new InternalConditionalOperandType(CONDITIONAL_TRUE_VALUE,
-			"Conditional True Operand Flag");
+			"Conditional True Operand Flag"); //$NON-NLS-1$
 
 	/**
 	 * Used in Conditional processing. Test operand on expression stack
@@ -43,7 +43,7 @@ public class InternalConditionalOperandType extends AbstractEnum {
 	public final static int CONDITIONAL_TEST_VALUE = 2;
 
 	public final static InternalConditionalOperandType CONDITIONAL_TEST = new InternalConditionalOperandType(CONDITIONAL_TEST_VALUE,
-			"Conditional Test Operand Flag");
+			"Conditional Test Operand Flag"); //$NON-NLS-1$
 
 	/**
 	 * Return the enum for the given value.

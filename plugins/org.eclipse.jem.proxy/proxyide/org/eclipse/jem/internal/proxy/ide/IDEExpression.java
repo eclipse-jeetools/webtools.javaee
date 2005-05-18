@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.7 $ $Date: 2005/05/18 18:41:20 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.8 $ $Date: 2005/05/18 23:11:26 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -32,7 +32,7 @@ public class IDEExpression extends Expression {
 	private final IDEStandardBeanTypeProxyFactory beantypefactory;
 	protected final ExpressionProcesser eproc;
 	{
-		boolean useTracing = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING));
+		boolean useTracing = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING)); //$NON-NLS-1$
 		long threshold = Long.getLong(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACEING_TIMER_THRESHOLD), -1L).longValue();
 		eproc = new ExpressionProcesser(useTracing, threshold);
 	}
@@ -395,7 +395,7 @@ public class IDEExpression extends Expression {
 		 * @see org.eclipse.jem.internal.proxy.core.ExpressionProxy#toString()
 		 */
 		public String toString() {
-			return super.toString()+" - "+getTypeName();
+			return super.toString()+" - "+getTypeName(); //$NON-NLS-1$
 		}
 
 		/**
@@ -490,7 +490,7 @@ public class IDEExpression extends Expression {
 		 * @see org.eclipse.jem.internal.proxy.core.ExpressionProxy#toString()
 		 */
 		public String toString() {
-			return super.toString()+" - "+methodName;
+			return super.toString()+" - "+methodName; //$NON-NLS-1$
 		}
 
 		/**
@@ -557,7 +557,7 @@ public class IDEExpression extends Expression {
 		 * @see org.eclipse.jem.internal.proxy.core.ExpressionProxy#toString()
 		 */
 		public String toString() {
-			return super.toString()+" - "+fieldName;
+			return super.toString()+" - "+fieldName; //$NON-NLS-1$
 		}
 
 		/**
@@ -873,7 +873,7 @@ public class IDEExpression extends Expression {
 			}
 			IDEMethodProxy methodProxy = ((IDEMethodProxyFactory) registry.getMethodProxyFactory()).getMethodProxy(declaringClass, methodName, parameterClasses);
 			if (methodProxy == null) {
-				String parms = "";
+				String parms = ""; //$NON-NLS-1$
 				if (parameterTypes != null || parameterTypes.length > 0) {
 					StringBuffer st = new StringBuffer(100);
 					for (int i = 0; i < parameterClasses.length; i++) {
@@ -883,7 +883,7 @@ public class IDEExpression extends Expression {
 					}
 					parms = st.toString();
 				}
-				throw new IDEThrowableProxy(new NoSuchMethodException("No method: "+declaringType+'.'+methodName+"("+parms+')'),
+				throw new IDEThrowableProxy(new NoSuchMethodException("No method: "+declaringType+'.'+methodName+"("+parms+')'), //$NON-NLS-1$ //$NON-NLS-2$
 					getIDEBeanTypeFactory().getBeanTypeProxy(NoSuchMethodException.class));
 			}
 			
@@ -986,7 +986,7 @@ public class IDEExpression extends Expression {
 			// We resolve immediately. Any expression proxies should also be resolved at this point too.
 			IDEFieldProxy fieldProxy = (IDEFieldProxy) getIDEBeanTypeProxy(declaringType).getFieldProxy(fieldName);
 			if (fieldProxy == null) {
-			throw new IDEThrowableProxy(new NoSuchFieldException("No field: "+declaringType+'.'+fieldName),
+			throw new IDEThrowableProxy(new NoSuchFieldException("No field: "+declaringType+'.'+fieldName), //$NON-NLS-1$
 					getIDEBeanTypeFactory().getBeanTypeProxy(NoSuchFieldException.class));
 			}
 			

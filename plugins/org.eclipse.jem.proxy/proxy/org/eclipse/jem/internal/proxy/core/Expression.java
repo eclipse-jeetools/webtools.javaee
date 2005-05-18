@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/18 18:41:20 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -132,7 +132,7 @@ public abstract class Expression implements IExpression {
 	 */
 	private static final Integer ARRAY_CREATION_DIMENSION_1 = new Integer(1);	// Use in normal case of one dimension. Save object creation.
 	private static final Integer ARRAY_CREATION_DIMENSION_0 = new Integer(0);	// Use in normal case of initializer. Save object creation.
-	private static final ForExpression ARRAY_INITIALIZER = new ExpressionEnum(Integer.MIN_VALUE+1, "Array Initializer Internal");
+	private static final ForExpression ARRAY_INITIALIZER = new ExpressionEnum(Integer.MIN_VALUE+1, "Array Initializer Internal"); //$NON-NLS-1$
 	
 	/*
 	 * ARRAY INITIALIZER expression
@@ -348,20 +348,20 @@ public abstract class Expression implements IExpression {
 	}
 	
 	// This is pushed onto the next expression stack, and when it is popped, then the expression is complete and ready to be pushed to the proxy side.
-	private static final ForExpression PROCESS_EXPRESSION = new ExpressionEnum(Integer.MIN_VALUE, "Process Expression");
+	private static final ForExpression PROCESS_EXPRESSION = new ExpressionEnum(Integer.MIN_VALUE, "Process Expression"); //$NON-NLS-1$
 	
 	// This is pushed onto the next expression stack for end block and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression BLOCKEND_EXPRESSION = new ExpressionEnum(PROCESS_EXPRESSION.getValue()-2, "End Block Expression");
+	private static final ForExpression BLOCKEND_EXPRESSION = new ExpressionEnum(PROCESS_EXPRESSION.getValue()-2, "End Block Expression"); //$NON-NLS-1$
 
 	// This is pushed onto the next expression stack for end try and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression TRYEND_EXPRESSION = new ExpressionEnum(BLOCKEND_EXPRESSION.getValue()-1, "End Try Expression");
+	private static final ForExpression TRYEND_EXPRESSION = new ExpressionEnum(BLOCKEND_EXPRESSION.getValue()-1, "End Try Expression"); //$NON-NLS-1$
 
 	// This is pushed onto the next expression stack for catch and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression TRYCATCH_EXPRESSION = new ExpressionEnum(TRYEND_EXPRESSION.getValue()-1, "Catch Expression");
+	private static final ForExpression TRYCATCH_EXPRESSION = new ExpressionEnum(TRYEND_EXPRESSION.getValue()-1, "Catch Expression"); //$NON-NLS-1$
 	
 
 	// This is pushed onto the next expression stack for begin thread transfer and will test if this there to make sure that it is being called correctly.
-	private static final ForExpression THREADTRANSFER_EXPRESSION = new ExpressionEnum(TRYCATCH_EXPRESSION.getValue()-1, "Catch Expression");
+	private static final ForExpression THREADTRANSFER_EXPRESSION = new ExpressionEnum(TRYCATCH_EXPRESSION.getValue()-1, "Catch Expression"); //$NON-NLS-1$
 
 	/**
 	 * Check the for expression, and if legal, set to the next valid for expression type,
@@ -1597,7 +1597,7 @@ public abstract class Expression implements IExpression {
 		try {
 			checkForExpression(forExpression);
 			if (!proxy.isValidForReassignment())
-				throw new IllegalArgumentException("Invalid expression type for reassignment:"+proxy.toString());
+				throw new IllegalArgumentException(MessageFormat.format(ProxyMessages.getString("Expression.CreateProxyReassignmentExpression.InvalidForReassignment_EXC_"), new Object[]{proxy.toString()})); //$NON-NLS-1$
 			push(proxy);
 			push(InternalExpressionTypes.ASSIGNMENT_PROXY_EXPRESSION);
 

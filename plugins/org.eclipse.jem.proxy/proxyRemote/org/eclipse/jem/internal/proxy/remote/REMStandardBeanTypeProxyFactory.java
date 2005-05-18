@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.proxy.remote;
 
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.11 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 import java.text.MessageFormat;
@@ -138,7 +138,7 @@ public final class REMStandardBeanTypeProxyFactory implements IStandardBeanTypeP
 		IBeanTypeProxy throwableClass = new REMThrowableBeanTypeProxy(fFactoryRegistry, new Integer(Commands.THROWABLE_CLASS), Throwable.class
 				.getName(), objectClass);
 		IBeanTypeProxy threadClass = objectClass.newBeanTypeForClass(new Integer(Commands.THREAD_CLASS), Thread.class.getName(), false);
-		IBeanTypeProxy expressionProcessorControllerClass = objectClass.newBeanTypeForClass(new Integer(Commands.EXPRESSIONPROCESSERCONTROLLER_CLASS), "org.eclipse.jem.internal.proxy.vm.remote.ExpressionProcesserController", false);
+		IBeanTypeProxy expressionProcessorControllerClass = objectClass.newBeanTypeForClass(new Integer(Commands.EXPRESSIONPROCESSERCONTROLLER_CLASS), "org.eclipse.jem.internal.proxy.vm.remote.ExpressionProcesserController", false); //$NON-NLS-1$
 
 		// Initialize the hashtable with the primitives, their lang equivalents, and also common classes like String
 

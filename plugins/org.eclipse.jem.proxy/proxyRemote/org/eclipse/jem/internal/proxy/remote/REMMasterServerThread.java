@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMMasterServerThread.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 import java.io.*;
@@ -51,9 +51,9 @@ class REMMasterServerThread extends Thread {
 			if (LINUX_1_3)
 				masterServerSocket.setSoTimeout(1000);	// Linux 1.3 bug, see comment on LINUX_1_3
 		} catch (SocketException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));	// This is bad. Should be no exceptions creating a socket.
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));	// This is bad. Should be no exceptions creating a socket. //$NON-NLS-1$
 		} catch (IOException e) {				
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));	// This is bad. Should be no exceptions creating a socket.
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));	// This is bad. Should be no exceptions creating a socket. //$NON-NLS-1$
 		}			
 	}
 
@@ -90,7 +90,7 @@ class REMMasterServerThread extends Thread {
 			}
 		} catch (Exception e) {
 			if (!shuttingDown)
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		}
 		
 		shutdown();	// Either a bad exception or we were closed. Either way is shutdown.
@@ -148,7 +148,7 @@ class REMMasterServerThread extends Thread {
 					break;
 			}
 		} catch (Exception e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));	
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));	 //$NON-NLS-1$
 		} finally {
 			if (close) {
 				try {

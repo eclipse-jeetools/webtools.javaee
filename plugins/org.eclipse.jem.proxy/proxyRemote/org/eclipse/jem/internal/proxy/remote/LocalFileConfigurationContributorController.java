@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.9 $  $Date: 2005/04/06 22:28:02 $ 
+ *  $Revision: 1.10 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -218,7 +218,7 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
 			if (contribution == null) {
 				// PDE is not here to help us extract that @#$ dll
-			    JEMUtilPlugin.getLogger().log("No free lunch!");
+			    JEMUtilPlugin.getLogger().log("No free lunch!"); //$NON-NLS-1$
 			}
 			contributeClasspath(contribution, typeFlag);
 		}

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEContributeClasspathInstance.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -35,9 +35,9 @@ class PDEContributeClasspathInstance {
 	 * @since 1.0.2
 	 */
 	public static IPDEContributeClasspath getInstance() {
-		if (Platform.getBundle("org.eclipse.pde.core") != null) {
+		if (Platform.getBundle("org.eclipse.pde.core") != null) { //$NON-NLS-1$
 			try {
-				Class pdeClass = Class.forName("org.eclipse.jem.internal.proxy.core.PDEContributeClasspath");
+				Class pdeClass = Class.forName("org.eclipse.jem.internal.proxy.core.PDEContributeClasspath"); //$NON-NLS-1$
 				return (IPDEContributeClasspath) pdeClass.newInstance();
 			} catch (ClassNotFoundException e) {
 				// PDE not available, this is ok.

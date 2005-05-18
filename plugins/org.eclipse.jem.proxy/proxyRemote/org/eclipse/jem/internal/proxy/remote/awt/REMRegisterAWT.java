@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: REMRegisterAWT.java,v $
- *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/18 23:11:27 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
@@ -28,9 +28,9 @@ public final class REMRegisterAWT {
 		
 		// If we are doing AWT, get the AWT event queue going. This is trying to be a time-saver
 		// by having it up right away.
-		IBeanTypeProxy starterBeanType = registry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.vm.remote.AWTStarter");
+		IBeanTypeProxy starterBeanType = registry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.vm.remote.AWTStarter"); //$NON-NLS-1$
 		if (starterBeanType != null) {
-			IMethodProxy starter = starterBeanType.getMethodProxy("startAWT");
+			IMethodProxy starter = starterBeanType.getMethodProxy("startAWT"); //$NON-NLS-1$
 			if (starter != null)
 				starter.invokeCatchThrowableExceptions(null);
 		}

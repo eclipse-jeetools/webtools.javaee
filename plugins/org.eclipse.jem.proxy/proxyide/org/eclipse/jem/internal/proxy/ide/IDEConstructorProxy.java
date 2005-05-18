@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEConstructorProxy.java,v $
- *  $Revision: 1.8 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.9 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 import java.lang.reflect.Constructor;
@@ -60,7 +60,7 @@ class IDEConstructorProxy extends IDEAccessibleObjectProxy implements IConstruct
 			return getNewIDEBeanProxy(result);
 		} catch (Exception e) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 			return null;
 		}
 
@@ -90,7 +90,7 @@ class IDEConstructorProxy extends IDEAccessibleObjectProxy implements IConstruct
 			result = ((Constructor) getBean()).newInstance(creationObjects);
 		} catch (Exception e) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 		}
 
 		// If we have a non-null result create an IDEBeanProxy and return it

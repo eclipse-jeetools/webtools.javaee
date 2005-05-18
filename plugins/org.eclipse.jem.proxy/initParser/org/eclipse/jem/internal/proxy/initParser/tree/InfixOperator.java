@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: InfixOperator.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -26,133 +26,133 @@ public class InfixOperator extends AbstractEnum {
 	 */
 	public static final int IN_TIMES_VALUE = 0;
 
-	public static final InfixOperator IN_TIMES = new InfixOperator(IN_TIMES_VALUE, "Infix *");
+	public static final InfixOperator IN_TIMES = new InfixOperator(IN_TIMES_VALUE, "Infix *"); //$NON-NLS-1$
 
 	/**
 	 * Infix divide "/"
 	 */
 	public static final int IN_DIVIDE_VALUE = 1;
 
-	public static final InfixOperator IN_DIVIDE = new InfixOperator(IN_DIVIDE_VALUE, "Infix /");
+	public static final InfixOperator IN_DIVIDE = new InfixOperator(IN_DIVIDE_VALUE, "Infix /"); //$NON-NLS-1$
 
 	/**
 	 * Infix remainder "%"
 	 */
 	public static final int IN_REMAINDER_VALUE = 2;
 
-	public static final InfixOperator IN_REMAINDER = new InfixOperator(IN_REMAINDER_VALUE, "Infix %");
+	public static final InfixOperator IN_REMAINDER = new InfixOperator(IN_REMAINDER_VALUE, "Infix %"); //$NON-NLS-1$
 
 	/**
 	 * Infix plus "+"
 	 */
 	public static final int IN_PLUS_VALUE = 3;
 
-	public static final InfixOperator IN_PLUS = new InfixOperator(IN_PLUS_VALUE, "Infix +");
+	public static final InfixOperator IN_PLUS = new InfixOperator(IN_PLUS_VALUE, "Infix +"); //$NON-NLS-1$
 
 	/**
 	 * Infix minus "-"
 	 */
 	public static final int IN_MINUS_VALUE = 4;
 
-	public static final InfixOperator IN_MINUS = new InfixOperator(IN_MINUS_VALUE, "Infix -");
+	public static final InfixOperator IN_MINUS = new InfixOperator(IN_MINUS_VALUE, "Infix -"); //$NON-NLS-1$
 
 	/**
 	 * Infix left shift " < <"
 	 */
 	public static final int IN_LEFT_SHIFT_VALUE = 5;
 
-	public static final InfixOperator IN_LEFT_SHIFT = new InfixOperator(IN_LEFT_SHIFT_VALUE, "Infix <<");
+	public static final InfixOperator IN_LEFT_SHIFT = new InfixOperator(IN_LEFT_SHIFT_VALUE, "Infix <<"); //$NON-NLS-1$
 
 	/**
 	 * Infix right shift signed ">>"
 	 */
 	public static final int IN_RIGHT_SHIFT_SIGNED_VALUE = 6;
 
-	public static final InfixOperator IN_RIGHT_SHIFT_SIGNED = new InfixOperator(IN_RIGHT_SHIFT_SIGNED_VALUE, "Infix >>");
+	public static final InfixOperator IN_RIGHT_SHIFT_SIGNED = new InfixOperator(IN_RIGHT_SHIFT_SIGNED_VALUE, "Infix >>"); //$NON-NLS-1$
 
 	/**
 	 * Infix right shift unsigned ">>>"
 	 */
 	public static final int IN_RIGHT_SHIFT_UNSIGNED_VALUE = 7;
 
-	public static final InfixOperator IN_RIGHT_SHIFT_UNSIGNED = new InfixOperator(IN_RIGHT_SHIFT_UNSIGNED_VALUE, "Infix >>>");
+	public static final InfixOperator IN_RIGHT_SHIFT_UNSIGNED = new InfixOperator(IN_RIGHT_SHIFT_UNSIGNED_VALUE, "Infix >>>"); //$NON-NLS-1$
 
 	/**
 	 * Infix less " <"
 	 */
 	public static final int IN_LESS_VALUE = 8;
 
-	public static final InfixOperator IN_LESS = new InfixOperator(IN_LESS_VALUE, "Infix <");
+	public static final InfixOperator IN_LESS = new InfixOperator(IN_LESS_VALUE, "Infix <"); //$NON-NLS-1$
 
 	/**
 	 * Infix greater ">"
 	 */
 	public static final int IN_GREATER_VALUE = 9;
 
-	public static final InfixOperator IN_GREATER = new InfixOperator(IN_GREATER_VALUE, "Infix >");
+	public static final InfixOperator IN_GREATER = new InfixOperator(IN_GREATER_VALUE, "Infix >"); //$NON-NLS-1$
 
 	/**
 	 * Infix less than or equals " <="
 	 */
 	public static final int IN_LESS_EQUALS_VALUE = 10;
 
-	public static final InfixOperator IN_LESS_EQUALS = new InfixOperator(IN_LESS_EQUALS_VALUE, "Infix <=");
+	public static final InfixOperator IN_LESS_EQUALS = new InfixOperator(IN_LESS_EQUALS_VALUE, "Infix <="); //$NON-NLS-1$
 
 	/**
 	 * Infix Greater than or equlas ">="
 	 */
 	public static final int IN_GREATER_EQUALS_VALUE = 11;
 
-	public static final InfixOperator IN_GREATER_EQUALS = new InfixOperator(IN_GREATER_EQUALS_VALUE, "Infix >=");
+	public static final InfixOperator IN_GREATER_EQUALS = new InfixOperator(IN_GREATER_EQUALS_VALUE, "Infix >="); //$NON-NLS-1$
 
 	/**
 	 * Infix equals "=="
 	 */
 	public static final int IN_EQUALS_VALUE = 12;
 
-	public static final InfixOperator IN_EQUALS = new InfixOperator(IN_EQUALS_VALUE, "Infix ==");
+	public static final InfixOperator IN_EQUALS = new InfixOperator(IN_EQUALS_VALUE, "Infix =="); //$NON-NLS-1$
 
 	/**
 	 * Infix not equals "!="
 	 */
 	public static final int IN_NOT_EQUALS_VALUE = 13;
 
-	public static final InfixOperator IN_NOT_EQUALS = new InfixOperator(IN_NOT_EQUALS_VALUE, "Infix !=");
+	public static final InfixOperator IN_NOT_EQUALS = new InfixOperator(IN_NOT_EQUALS_VALUE, "Infix !="); //$NON-NLS-1$
 
 	/**
 	 * Infix exclusive or "^"
 	 */
 	public static final int IN_XOR_VALUE = 14;
 
-	public static final InfixOperator IN_XOR = new InfixOperator(IN_XOR_VALUE, "Infix ^");
+	public static final InfixOperator IN_XOR = new InfixOperator(IN_XOR_VALUE, "Infix ^"); //$NON-NLS-1$
 
 	/**
 	 * Infix bitwise and "&"
 	 */
 	public static final int IN_AND_VALUE = 15;
 
-	public static final InfixOperator IN_AND = new InfixOperator(IN_AND_VALUE, "Infix &");
+	public static final InfixOperator IN_AND = new InfixOperator(IN_AND_VALUE, "Infix &"); //$NON-NLS-1$
 
 	/**
 	 * Infix bitwise or "|"
 	 */
 	public static final int IN_OR_VALUE = 16;
 
-	public static final InfixOperator IN_OR = new InfixOperator(IN_OR_VALUE, "Infix |");
+	public static final InfixOperator IN_OR = new InfixOperator(IN_OR_VALUE, "Infix |"); //$NON-NLS-1$
 
 	/**
 	 * Infix Conditional logical and "&&"
 	 */
 	public static final int IN_CONDITIONAL_AND_VALUE = 17;
 
-	public static final InfixOperator IN_CONDITIONAL_AND = new InfixOperator(IN_CONDITIONAL_AND_VALUE, "Infix &&");
+	public static final InfixOperator IN_CONDITIONAL_AND = new InfixOperator(IN_CONDITIONAL_AND_VALUE, "Infix &&"); //$NON-NLS-1$
 
 	/**
 	 * Infix Conditional logical or "||"
 	 */
 	public static final int IN_CONDITIONAL_OR_VALUE = 18;
 
-	public static final InfixOperator IN_CONDITIONAL_OR = new InfixOperator(IN_CONDITIONAL_OR_VALUE, "Ifnix ||");
+	public static final InfixOperator IN_CONDITIONAL_OR = new InfixOperator(IN_CONDITIONAL_OR_VALUE, "Ifnix ||"); //$NON-NLS-1$
 
 	/**
 	 * Return the infix operator for the given enum value.

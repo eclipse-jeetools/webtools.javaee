@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.13 $  $Date: 2005/05/18 18:41:20 $ 
+ *  $Revision: 1.14 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -649,9 +649,9 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 			return (IConstructorProxy) findCompatibleMethod.invokeWithParms(this, getParms);
 		} catch (ThrowableProxy e) {
 			try {
-				if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.NoSuchMethodException")))
+				if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.NoSuchMethodException"))) //$NON-NLS-1$
 					throw new NoSuchMethodException(e.getProxyLocalizedMessage());
-				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException")))
+				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException"))) //$NON-NLS-1$
 					throw new AmbiguousMethodException(e.getProxyLocalizedMessage());
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				return null;
@@ -675,9 +675,9 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 			return (IMethodProxy) findCompatibleMethod.invokeWithParms(this, getParms);
 		} catch (ThrowableProxy e) {
 			try {
-				if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.NoSuchMethodException")))
+				if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.NoSuchMethodException"))) //$NON-NLS-1$
 					throw new NoSuchMethodException(e.getProxyLocalizedMessage());
-				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException")))
+				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException"))) //$NON-NLS-1$
 					throw new AmbiguousMethodException(e.getProxyLocalizedMessage());
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				return null;

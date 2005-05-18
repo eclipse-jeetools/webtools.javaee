@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: InternalInfixOperandType.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
  
@@ -25,18 +25,18 @@ public class InternalInfixOperandType extends AbstractEnum {
 	 * Used in Infix processing. Left operand on expression stack
 	 */
 	public final static int INFIX_LEFT_OPERAND_VALUE = 0;
-	public final static InternalInfixOperandType INFIX_LEFT_OPERAND = new InternalInfixOperandType(INFIX_LEFT_OPERAND_VALUE, "Infix Left Operand Flag");
+	public final static InternalInfixOperandType INFIX_LEFT_OPERAND = new InternalInfixOperandType(INFIX_LEFT_OPERAND_VALUE, "Infix Left Operand Flag"); //$NON-NLS-1$
 	/**
 	 * Used in Infix processing. Other operand (but not last) on expression stack
 	 */
 	public final static int INFIX_OTHER_OPERAND_VALUE = 1;
 	public final static InternalInfixOperandType INFIX_OTHER_OPERAND = new InternalInfixOperandType(INFIX_OTHER_OPERAND_VALUE,
-	"Infix Other Operand Flag");
+	"Infix Other Operand Flag"); //$NON-NLS-1$
 	/**
 	 * Used in Infix processing. Rightmost (last) operand on expression stack
 	 */
 	public final static int INFIX_LAST_OPERAND_VALUE = 2;
-	public final static InternalInfixOperandType INFIX_LAST_OPERAND = new InternalInfixOperandType(INFIX_LAST_OPERAND_VALUE, "Infix Last Operand Flag");
+	public final static InternalInfixOperandType INFIX_LAST_OPERAND = new InternalInfixOperandType(INFIX_LAST_OPERAND_VALUE, "Infix Last Operand Flag"); //$NON-NLS-1$
 
 	/**
 	 * Return the enum for the given value.

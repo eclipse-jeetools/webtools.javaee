@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.17 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.18 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 
@@ -22,8 +22,6 @@ import java.util.Iterator;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.IProcess;
@@ -195,7 +193,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		private IProcess process;
 		
 		public TerminateProcess(IProcess process) {
-			super("Terminate the remote vm process.");	
+			super(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.Job.TerminateProcess.Title"));	 //$NON-NLS-1$
 			this.process = process;
 		}
 		
@@ -375,7 +373,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 								sc.close();	// We are no longer waiting on this thread so close the socket since no one will use it.
 						}
 					} catch (IOException e) {
-						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 					}
 				}
 			});

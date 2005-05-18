@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.17 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.18 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 
@@ -33,8 +33,8 @@ import org.eclipse.jem.util.TimerTests;
  */
 public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	
-	public final static String INVOKE_STEP = "Invoke";
-	public final static String INVOKE_METHOD_STEP = "Invoke Method";
+	public final static String INVOKE_STEP = "Invoke"; //$NON-NLS-1$
+	public final static String INVOKE_METHOD_STEP = "Invoke Method"; //$NON-NLS-1$
 	protected Socket fSocket = null;
 	protected DataInputStream in = null;
 	protected DataOutputStream out = null;
@@ -52,7 +52,7 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			out = new DataOutputStream(new BufferedOutputStream(fSocket.getOutputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
 			in = new DataInputStream(new BufferedInputStream(fSocket.getInputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
 		} catch (IOException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 			
 			if (out != null)
 				try {

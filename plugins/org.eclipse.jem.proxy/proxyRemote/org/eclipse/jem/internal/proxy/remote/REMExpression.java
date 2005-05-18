@@ -10,14 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.10 $  $Date: 2005/05/18 18:41:20 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
 import java.io.*;
 import java.util.*;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
@@ -1026,7 +1024,7 @@ public class REMExpression extends Expression {
 		 * @see org.eclipse.jem.internal.proxy.core.ExpressionProxy#toString()
 		 */
 		public String toString() {
-			return super.toString()+" - "+getTypeName();
+			return super.toString()+" - "+getTypeName(); //$NON-NLS-1$
 		}
 		
 		

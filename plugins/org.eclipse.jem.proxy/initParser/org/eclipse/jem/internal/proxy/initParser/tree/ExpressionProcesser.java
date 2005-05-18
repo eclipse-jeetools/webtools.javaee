@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.10 $  $Date: 2005/05/18 18:41:20 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/18 23:11:26 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -59,7 +59,7 @@ public class ExpressionProcesser {
 			// If static, then receiver is ignored.
 			if (!Modifier.isStatic(field.getModifiers())) {
 				if (!field.getDeclaringClass().isInstance(receiver))
-					throw new IllegalArgumentException("Field receiver does not match the type of the field: Field: "+field.getType()+" receiver: "+(receiver!=null ? receiver.getClass() : null));
+					throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CreateFieldAccessReference.FieldsTypesNotMatching_EXC_"), new Object[]{field.getType(), (receiver!=null ? receiver.getClass() : null)})); //$NON-NLS-1$
 			}
 			field.setAccessible(true);	// Make it always accessible. Trust it. 
 			return new FieldAccessReference(field, receiver);
@@ -101,7 +101,7 @@ public class ExpressionProcesser {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			return "FieldAccess{"+field.toString()+"} on "+receiver.toString();
+			return "FieldAccess{"+field.toString()+"} on "+receiver.toString(); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class ExpressionProcesser {
 		public static ArrayAccessReference createArrayAccessReference(Object array, int index) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
 			int len = Array.getLength(array);
 			if (index < 0 || len <= index)
-				throw new ArrayIndexOutOfBoundsException("Index: "+index+" size:"+len);
+				throw new ArrayIndexOutOfBoundsException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CreateArrayAccessReference.OutOfBounds_EXC_"), new Object[]{new Integer(index), new Integer(len)})); //$NON-NLS-1$
 			return new ArrayAccessReference(array, index);
 		}
 		/**
@@ -169,7 +169,7 @@ public class ExpressionProcesser {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			return "ArrayAccess["+index+"]: "+array.toString();
+			return "ArrayAccess["+index+"]: "+array.toString(); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 	
@@ -237,7 +237,7 @@ public class ExpressionProcesser {
 			e = e.getCause();
 		if (traceOn) {
 			System.out.println();
-			System.out.print("***** >>>\tException: ");
+			System.out.print("***** >>>\tException: "); //$NON-NLS-1$
 			System.out.println(e);
 		}
 		throwException(e);	// Treat as a throw to let try/catches expressions handle it.
@@ -264,7 +264,7 @@ public class ExpressionProcesser {
 	 */
 	protected final void processSyntaxException(NoExpressionValueException e) {
 		if (traceOn)
-			printTrace("Expression has no value", false);
+			printTrace("Expression has no value", false); //$NON-NLS-1$
 		try {
 			errorOccurred = true;
 			novalueException = true;
@@ -423,7 +423,7 @@ public class ExpressionProcesser {
 		try {
 			Class result = (Class) expressionTypeStack.remove(expressionTypeStack.size()-1);
 			if (!allowVoid && result == Void.TYPE)
-				throw new NoExpressionValueException("Expression was void.");
+				throw new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.PopExpressionType.ExpressionVoid_EXC_")); //$NON-NLS-1$
 			return result;
 				
 		} catch (IndexOutOfBoundsException e) {
@@ -523,9 +523,9 @@ public class ExpressionProcesser {
 	public ExpressionProcesser(boolean traceOn, long threshold) {
 		this.traceOn = traceOn;
 		if (traceOn) {
-			traceHeader = "**"+(++TRACE_COUNTER)+':';
+			traceHeader = "**"+(++TRACE_COUNTER)+':'; //$NON-NLS-1$
 			System.out.print(traceHeader);
-			System.out.println(" Start expression");
+			System.out.println(" Start expression"); //$NON-NLS-1$
 			this.thresholdTime = threshold != -1 ? threshold : 100;
 			lastExpressionEndTime = startExpressionTime = System.currentTimeMillis();
 		} else {
@@ -550,15 +550,15 @@ public class ExpressionProcesser {
 		if (sinceLastExpression > 0) {
 			System.out.print('(');
 			if (sinceLastExpression > thresholdTime)
-				System.out.print("***");
+				System.out.print("***"); //$NON-NLS-1$
 			System.out.print(sinceLastExpression);
-			System.out.print("ms)");
+			System.out.print("ms)"); //$NON-NLS-1$
 		}
 		System.out.print('\t');
 		if (!ignore)
-			System.out.print("\t");
+			System.out.print("\t"); //$NON-NLS-1$
 		else
-			System.out.print("##\t");
+			System.out.print("##\t"); //$NON-NLS-1$
 		
 		printIndent();
 		System.out.print(msg);
@@ -571,18 +571,18 @@ public class ExpressionProcesser {
 	 */
 	protected void printIndent() {
 		for(int i=indent; i>0; i--) {
-			System.out.print("  ");
+			System.out.print("  "); //$NON-NLS-1$
 		}
 	}
 
 	protected void printTraceEnd() {
 		long stop = System.currentTimeMillis()-startExpressionStepTime;
 		if (stop > 0) {
-			System.out.print(" (");
+			System.out.print(" ("); //$NON-NLS-1$
 			if (stop > thresholdTime)
-				System.out.print("***");
+				System.out.print("***"); //$NON-NLS-1$
 			System.out.print(stop);
-			System.out.print("ms)");
+			System.out.print("ms)"); //$NON-NLS-1$
 		}
 		System.out.println();
 		lastExpressionEndTime = System.currentTimeMillis();
@@ -610,9 +610,9 @@ public class ExpressionProcesser {
 	 */
 	protected void printObjectAndType(Object o, Class t) {
 		System.out.print(' ');
-		System.out.print("Object-");
+		System.out.print("Object-"); //$NON-NLS-1$
 		System.out.print(o);
-		System.out.print(" Type-");
+		System.out.print(" Type-"); //$NON-NLS-1$
 		System.out.print(t);
 		System.out.print(' ');
 	}
@@ -625,11 +625,11 @@ public class ExpressionProcesser {
 	public final void close() {
 		boolean firstClose = expressionStack != null;
 		if (firstClose && traceOn) {
-			printTrace("End expression", false);
+			printTrace("End expression", false); //$NON-NLS-1$
 			long totalTime = System.currentTimeMillis()-startExpressionTime;
-			System.out.print(" Total expression evaluation time: ");
+			System.out.print(" Total expression evaluation time: "); //$NON-NLS-1$
 			System.out.print(totalTime);
-			System.out.print("ms.");
+			System.out.print("ms."); //$NON-NLS-1$
 		}
 		try {
 			expressionStack = null;
@@ -654,7 +654,7 @@ public class ExpressionProcesser {
 	 */
 	public final void pullValue(Object[] value) throws NoExpressionValueException {
 		if (traceOn)
-			printTrace("Pull value:", false);
+			printTrace("Pull value:", false); //$NON-NLS-1$
 		try {
 			value[0] = popExpression();
 			value[1] = popExpressionType(false);
@@ -719,16 +719,16 @@ public class ExpressionProcesser {
 					value[1] = proxy.getType();
 					if (doTrace)
 						if (value[1] != Void.TYPE) {
-							printTrace("Return Proxy #" + proxyid + " Resolved to", false);
+							printTrace("Return Proxy #" + proxyid + " Resolved to", false); //$NON-NLS-1$ //$NON-NLS-2$
 							printObjectAndType(value[0], (Class) value[1]);
 						} else
-							printTrace("Return Proxy #" + proxyid + " Resolved to void.", false);
+							printTrace("Return Proxy #" + proxyid + " Resolved to void.", false); //$NON-NLS-1$ //$NON-NLS-2$
 					return true;
 
 				} else {
 					if (doTrace)
-						printTrace("Return Proxy #" + proxyid + ": Not resolved", false);
-					NoExpressionValueException e = new NoExpressionValueException("Expression Proxy never set.");
+						printTrace("Return Proxy #" + proxyid + ": Not resolved", false); //$NON-NLS-1$ //$NON-NLS-2$
+					NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.GetExpressionProxyValue.ExpressionProxyNotSet_EXC_")); //$NON-NLS-1$
 					if (pull)
 						throw e;
 					else
@@ -737,8 +737,8 @@ public class ExpressionProcesser {
 				}
 			} else {
 				if (doTrace)
-					printTrace("Return Proxy #" + proxyid + ": Never created.", false);
-				NoExpressionValueException e = new NoExpressionValueException("Expression proxy doesn't exist.");
+					printTrace("Return Proxy #" + proxyid + ": Never created.", false); //$NON-NLS-1$ //$NON-NLS-2$
+				NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.GetExpressionProxyValue.ExpressionProxyDoesntExist_EXC_")); //$NON-NLS-1$
 				if (pull)
 					throw e;
 				else
@@ -762,7 +762,7 @@ public class ExpressionProcesser {
 	public final void pushExpression(Object o, Class t) {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		if (traceOn) {
-			printTrace("Push: ", ignore);
+			printTrace("Push: ", ignore); //$NON-NLS-1$
 			printObjectAndType(o, t);
 		}
 		try {
@@ -785,7 +785,7 @@ public class ExpressionProcesser {
 	public final void pushExpressionProxy(int proxyid) {
 		boolean ignore =(ignoreExpression != null || errorOccurred);
 		if (traceOn)
-			printTrace("Push Expression Proxy #"+proxyid, ignore);
+			printTrace("Push Expression Proxy #"+proxyid, ignore); //$NON-NLS-1$
 		try {
 			if (ignore)
 				return;
@@ -815,7 +815,7 @@ public class ExpressionProcesser {
 	public final void pushCast(Class type) {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		if (traceOn)
-			printTrace("Cast to: "+type, ignore);
+			printTrace("Cast to: "+type, ignore); //$NON-NLS-1$
 		try {
 			if (ignore)
 				return;
@@ -982,7 +982,7 @@ public class ExpressionProcesser {
 			throw new IllegalArgumentException(bean != null ? bean.getClass().getName() : "null"); //$NON-NLS-1$
 	}
 	
-	private static final Object IFELSE_IGNORE = "IF/ELSE IGNORE";	// Flag for if/else in ingore
+	private static final Object IFELSE_IGNORE = "IF/ELSE IGNORE";	// Flag for if/else in ingore //$NON-NLS-1$
 	private int ifElseNesting = 0;	// Nesting of if/else expressions.
 	private int ifElseIgnoreNestCount = 0;	// When ignoring if/else expressions, ignore until this nest count.
 	private boolean ifElseSkipTruePart;
@@ -1009,7 +1009,7 @@ public class ExpressionProcesser {
 				ignore = false;
 			} finally {
 				if (traceOn)
-					printTrace("If test condition", ignore);
+					printTrace("If test condition", ignore); //$NON-NLS-1$
 			}
 					
 			try {
@@ -1018,10 +1018,10 @@ public class ExpressionProcesser {
 				if (type != Boolean.TYPE)
 					throwClassCast(Boolean.TYPE, condition);
 				if (traceOn) {
-					System.out.print(" Test Result="+condition);
+					System.out.print(" Test Result="+condition); //$NON-NLS-1$
 					printTraceEnd();
 					indent(true);
-					printTrace("Begin True Expression.", ignore);
+					printTrace("Begin True Expression.", ignore); //$NON-NLS-1$
 					printTraceEnd();
 					indent(true);
 				}				
@@ -1064,7 +1064,7 @@ public class ExpressionProcesser {
 			case InternalIfElseOperandType.TRUE_CLAUSE_VALUE:
 					if (traceOn) {
 						indent(false);
-						printTrace("Begin False Expression.", ignore);
+						printTrace("Begin False Expression.", ignore); //$NON-NLS-1$
 						printTraceEnd();
 						indent(true);
 					}
@@ -1078,7 +1078,7 @@ public class ExpressionProcesser {
 					if (traceOn) {
 						indent(false);
 						indent(false);
-						printTrace("End IF/ELSE Expression.", ignore);
+						printTrace("End IF/ELSE Expression.", ignore); //$NON-NLS-1$
 						printTraceEnd();
 					}					
 					int currentNesting = ifElseNesting--;
@@ -1124,7 +1124,7 @@ public class ExpressionProcesser {
 	public final void pushInstanceof(Class type) {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		if (traceOn)
-			printTrace("Instanceof type: "+type, ignore);
+			printTrace("Instanceof type: "+type, ignore); //$NON-NLS-1$
 		try {
 			if (ignore)
 				return;
@@ -1177,7 +1177,7 @@ public class ExpressionProcesser {
 	public final void pushNewInstanceFromString(String initializationString, Class resultType, ClassLoader classloader) {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		if (traceOn)
-			printTrace("New instance from string: \""+initializationString+"\" Type="+resultType, ignore);
+			printTrace("New instance from string: \""+initializationString+"\" Type="+resultType, ignore); //$NON-NLS-1$ //$NON-NLS-2$
 		try {
 			if (ignore)
 				return;
@@ -1208,7 +1208,7 @@ public class ExpressionProcesser {
 		try {
 			if (ignoreExpression != null || errorOccurred) {
 				if (traceOn)
-					printTrace("Prefix: \'"+operator+"\'", true);
+					printTrace("Prefix: \'"+operator+"\'", true); //$NON-NLS-1$ //$NON-NLS-2$
 				return;
 			}
 			
@@ -1216,7 +1216,7 @@ public class ExpressionProcesser {
 				return;	// Do nothing. "+" doesn't affect the result of the current top expression.
 	
 			if (traceOn)
-				printTrace("Prefix: \'"+operator+"\' ", false);
+				printTrace("Prefix: \'"+operator+"\' ", false); //$NON-NLS-1$ //$NON-NLS-2$
 	
 			try {
 				Object exp = popExpression();
@@ -1321,7 +1321,7 @@ public class ExpressionProcesser {
 	public final void pushAssignment() {
 		if (ignoreExpression != null || errorOccurred) {
 			if (traceOn) {
-				printTrace("Assignment", true);
+				printTrace("Assignment", true); //$NON-NLS-1$
 				printTraceEnd();
 			}
 			return;
@@ -1335,7 +1335,7 @@ public class ExpressionProcesser {
 			Class refType;
 			try {
 				if (traceOn)
-					printTrace("Assignment: ", false);				
+					printTrace("Assignment: ", false);			 //$NON-NLS-1$	
 				// The order on the stack is right then left operand.
 				// First the right operand
 				Object value = popExpression();
@@ -1380,7 +1380,7 @@ public class ExpressionProcesser {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		try {
 			if (traceOn) {
-				printTrace("Assign to Proxy #"+proxy.getProxyID(), ignore);
+				printTrace("Assign to Proxy #"+proxy.getProxyID(), ignore); //$NON-NLS-1$
 			}
 			if (ignore)
 				return;
@@ -1491,14 +1491,14 @@ public class ExpressionProcesser {
 		else if (primitiveType == Short.TYPE)
 			return SHORT;
 		else
-			throw new IllegalArgumentException(primitiveType != null ? primitiveType.getName() : "null");
+			throw new IllegalArgumentException(primitiveType != null ? primitiveType.getName() : "null"); //$NON-NLS-1$
 	}
 	
 	private void throwInvalidPrefix(PrefixOperator operator, Object exp) throws IllegalArgumentException {
 		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfPrefixOperator_EXC_"), new Object[] {exp != null ? exp.toString() : null, operator.toString()})); //$NON-NLS-1$
 	}		
 	
-	private static final Object INFIX_IGNORE = "INFIX IGNORE";	// Flag for infix in ingore
+	private static final Object INFIX_IGNORE = "INFIX IGNORE";	// Flag for infix in ingore //$NON-NLS-1$
 	private int infixNesting = 0;	// Nesting of infix expressions.
 	private int infixIgnoreNestCount = 0;	// When ignoring infix expressions, ignore until this nest count.
 	/**
@@ -1535,7 +1535,7 @@ public class ExpressionProcesser {
 				ignore = false;
 			} finally {
 				if (traceOn)
-					printTrace("Infix: "+operator, ignore);
+					printTrace("Infix: "+operator, ignore); //$NON-NLS-1$
 			}
 			
 			try {
@@ -2141,7 +2141,7 @@ public class ExpressionProcesser {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		
 		if (traceOn) {
-			printTrace("Array Access["+indexCount+']', ignore);
+			printTrace("Array Access["+indexCount+']', ignore); //$NON-NLS-1$
 		}
 		try {
 			if (ignore)
@@ -2208,7 +2208,7 @@ public class ExpressionProcesser {
 	public final void pushArrayCreation(Class arrayType, int dimensionCount) {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		if (traceOn)
-			printTrace("Array Creation: "+arrayType.getName()+'['+dimensionCount+']', ignore);
+			printTrace("Array Creation: "+arrayType.getName()+'['+dimensionCount+']', ignore); //$NON-NLS-1$
 		
 		try {
 			if (ignore)
@@ -2271,7 +2271,7 @@ public class ExpressionProcesser {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		
 		if (traceOn)
-			printTrace("Initialize Array: "+arrayType.getName()+'{'+expressionCount+'}', ignore);
+			printTrace("Initialize Array: "+arrayType.getName()+'{'+expressionCount+'}', ignore); //$NON-NLS-1$
 		
 		try {
 			if (ignore)
@@ -2280,7 +2280,7 @@ public class ExpressionProcesser {
 			try {
 				if (!arrayType.isArray()) {
 					// It is not an array type.
-					throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY_EXC_"), new Object[] {arrayType, "array"}));
+					throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY_EXC_"), new Object[] {arrayType, "array"})); //$NON-NLS-1$ //$NON-NLS-2$
 				} 
 				// Strip off the number of dimensions specified.
 				while(stripCount-->0) {
@@ -2403,7 +2403,7 @@ public class ExpressionProcesser {
 		boolean ignore = (ignoreExpression != null || errorOccurred);
 		
 		if (traceOn)
-			printTrace("Create Class: "+type+" (", ignore);
+			printTrace("Create Class: "+type+" (", ignore); //$NON-NLS-1$ //$NON-NLS-2$
 		try {
 			if (ignore)
 				return;
@@ -2430,7 +2430,7 @@ public class ExpressionProcesser {
 				} else {
 					// No args, just do default ctor.
 					if (traceOn) {
-						System.out.print("Default ctor)");
+						System.out.print("Default ctor)"); //$NON-NLS-1$
 					}
 					value = type.newInstance();
 				}
@@ -2470,12 +2470,12 @@ public class ExpressionProcesser {
 		try {
 			if (ignoreExpression != null || errorOccurred) {
 				if (traceOn)
-					printTrace("Field Access", true);
+					printTrace("Field Access", true); //$NON-NLS-1$
 				return;
 			}
 		
 			if (traceOn)
-				printTrace("Field Access: ", false);
+				printTrace("Field Access: ", false); //$NON-NLS-1$
 			try {
 				// Get the receiver off of the stack.
 				Object receiver = null;
@@ -2491,11 +2491,11 @@ public class ExpressionProcesser {
 				Object value = FieldAccessReference.createFieldAccessReference(reflectField, receiver);
 				Class valueType = reflectField.getType();
 				if (traceOn) {
-					System.out.print("Field: ");
+					System.out.print("Field: "); //$NON-NLS-1$
 					if (fieldIsString)
-						System.out.print("(looked up) ");
+						System.out.print("(looked up) "); //$NON-NLS-1$
 					System.out.print(reflectField);
-					System.out.print(">");
+					System.out.print(">"); //$NON-NLS-1$
 					printObjectAndType(value, valueType);
 				}
 					
@@ -2526,12 +2526,12 @@ public class ExpressionProcesser {
 		try {
 			if (ignoreExpression != null || errorOccurred) {
 				if (traceOn)
-					printTrace("Invoke", true);
+					printTrace("Invoke", true); //$NON-NLS-1$
 				return;
 			}
 			
 			if (traceOn)
-				printTrace("Invoke: ", false);
+				printTrace("Invoke: ", false); //$NON-NLS-1$
 			
 			try {
 				// We need to pull in the arguments. They are stacked in reverse order.
@@ -2558,16 +2558,16 @@ public class ExpressionProcesser {
 					reflectMethod = (Method) method;
 				
 				if (traceOn && reflectMethod != null) {
-					System.out.print("Method: ");
+					System.out.print("Method: "); //$NON-NLS-1$
 					if (methodIsString)
-						System.out.print("(looked up) ");
+						System.out.print("(looked up) "); //$NON-NLS-1$
 					System.out.print(reflectMethod);					
 				}
 				
 				Object value = reflectMethod.invoke(receiver, args);
 				
 				if (traceOn) {
-					System.out.print(" returns: ");
+					System.out.print(" returns: "); //$NON-NLS-1$
 					printObjectAndType(value, reflectMethod.getReturnType());
 				}
 				pushExpressionValue(value, reflectMethod.getReturnType());
@@ -2591,7 +2591,7 @@ public class ExpressionProcesser {
 			
 	}
 
-	private static final Object CONDITIONAL_IGNORE = "CONDITIONAL IGNORE";	// Flag for conditional in ingore
+	private static final Object CONDITIONAL_IGNORE = "CONDITIONAL IGNORE";	// Flag for conditional in ingore //$NON-NLS-1$
 	private int conditionalNesting = 0;	// Nesting of conditional expressions.
 	private int conditionalIgnoreNestCount = 0;	// When ignoring conditional expressions, ignore until this nest count.
 	private boolean skipTruePart;
@@ -2635,7 +2635,7 @@ public class ExpressionProcesser {
 				ignore = false;
 			} finally {
 				if (traceOn)
-					printTrace("Conditional "+expressionType, ignore);
+					printTrace("Conditional "+expressionType, ignore); //$NON-NLS-1$
 			}
 					
 			try {
@@ -2678,7 +2678,7 @@ public class ExpressionProcesser {
 		}
 	}
 	
-	private static final Object BLOCK_IGNORE = "BLOCK IGNORE";
+	private static final Object BLOCK_IGNORE = "BLOCK IGNORE"; //$NON-NLS-1$
 	private int[] blocks;	// Stack of block numbers currently evaluating.
 	private int topBlock = -1;	// Top block index.
 	private int breakBlock = -1;	// Block number we are breaking to.
@@ -2691,7 +2691,7 @@ public class ExpressionProcesser {
 	 */
 	public final void pushBlockBegin(int blockNumber) {
 		if (traceOn) {
-			printTrace("Begin Block #"+blockNumber, errorOccurred);
+			printTrace("Begin Block #"+blockNumber, errorOccurred); //$NON-NLS-1$
 			indent(true);
 		}
 		try {
@@ -2723,13 +2723,13 @@ public class ExpressionProcesser {
 		try {
 			if (traceOn) {
 				indent(false);
-				printTrace("End Block #"+blockNumber, errorOccurred);
+				printTrace("End Block #"+blockNumber, errorOccurred); //$NON-NLS-1$
 			}
 			if (errorOccurred)
 				return;
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (blocks == null || topBlock < 0 || blocks[topBlock] != blockNumber) {
-				processSyntaxException(new IllegalStateException("End Blocks received out of order."));
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushBlockEnd.ReceivedEndBlocksOutOfOrder_EXC_"))); //$NON-NLS-1$
 			} else {
 				topBlock--;
 				if (ignoreExpression == BLOCK_IGNORE && blockNumber == breakBlock) {
@@ -2751,7 +2751,7 @@ public class ExpressionProcesser {
 	public final void pushBlockBreak(int blockNumber) {
 		try {
 			if (traceOn)
-				printTrace("Break Block #"+blockNumber, errorOccurred);
+				printTrace("Break Block #"+blockNumber, errorOccurred); //$NON-NLS-1$
 			if (errorOccurred)
 				return;
 			if (ignoreExpression == null) {
@@ -2764,8 +2764,8 @@ public class ExpressionProcesser {
 		}
 	}
 	
-	private static final Object TRY_THROW_IGNORE = "TRY THROW IGNORE";
-	private static final Object TRY_FINAL_IGNORE = "TRY FINAL IGNORE";
+	private static final Object TRY_THROW_IGNORE = "TRY THROW IGNORE"; //$NON-NLS-1$
+	private static final Object TRY_FINAL_IGNORE = "TRY FINAL IGNORE"; //$NON-NLS-1$
 	private int[] trys;	// Stack of try numbers currently evaluating.
 	// Stack of trys in catch clause (i.e. starting executing a catch/final clause for the try). Corresponds with try from same index in trys. Contains the throwable for the catch.
 	// This is used to know we are executing a catch (entry not null) and for the rethrow short-hand to rethrow the same exception within the catch.
@@ -2783,7 +2783,7 @@ public class ExpressionProcesser {
 	public final void pushTryBegin(int tryNumber) {
 		try {
 			if (traceOn) {
-				printTrace("Begin Try #"+tryNumber, errorOccurred);
+				printTrace("Begin Try #"+tryNumber, errorOccurred); //$NON-NLS-1$
 				indent(true);
 			}
 	
@@ -2820,7 +2820,7 @@ public class ExpressionProcesser {
 		try {
 			boolean ignore = (ignoreExpression != null || errorOccurred);
 			if (traceOn)
-				printTrace("Throw exception: ", ignore);
+				printTrace("Throw exception: ", ignore); //$NON-NLS-1$
 			
 			if (ignore)
 				return;
@@ -2880,9 +2880,9 @@ public class ExpressionProcesser {
 			if (traceOn) {
 				indent(false);
 				if (expressionProxy == null)
-					printTrace("Catch Try #"+tryNumber+" ("+exceptionType+')', errorOccurred);
+					printTrace("Catch Try #"+tryNumber+" ("+exceptionType+')', errorOccurred); //$NON-NLS-1$ //$NON-NLS-2$
 				else
-					printTrace("Catch Try #"+tryNumber+" ("+exceptionType+") Return exception in proxy #"+expressionProxy.getProxyID(), errorOccurred);
+					printTrace("Catch Try #"+tryNumber+" ("+exceptionType+") Return exception in proxy #"+expressionProxy.getProxyID(), errorOccurred); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				indent(true);
 			}
 			
@@ -2891,7 +2891,7 @@ public class ExpressionProcesser {
 			
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException("Catch received out of order."));
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryCatchClause.CatchReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
 			} else {
 				if (ignoreExpression == null) {
 					// Normal flow, no throw in progress, so just ignore now until the finally or end try reached.
@@ -2910,7 +2910,7 @@ public class ExpressionProcesser {
 							allocateExpressionProxy(expressionProxy);
 						}
 						if (traceOn) {
-							System.out.print(" Caught: ");
+							System.out.print(" Caught: "); //$NON-NLS-1$
 							System.out.print(catchThrowable);
 						}
 						catchThrowable = null;
@@ -2936,14 +2936,14 @@ public class ExpressionProcesser {
 		try {
 			if (traceOn) {
 				indent(false);
-				printTrace("Finally Try #"+tryNumber, errorOccurred);
+				printTrace("Finally Try #"+tryNumber, errorOccurred); //$NON-NLS-1$
 				indent(true);
 			}
 			if (errorOccurred)
 				return;
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException("Finally received out of order."));
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryFinallyClause.FinallyReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
 			} else {
 				if (tryNumber == breakTry && (ignoreExpression == TRY_THROW_IGNORE || ignoreExpression == TRY_FINAL_IGNORE)) {
 					// We are here due to a throw occuring in this try block or a catch was reached (in which case all intervening catch's were ignored).
@@ -2953,7 +2953,7 @@ public class ExpressionProcesser {
 					trysInCatch[topTry] = FINAL_CATCH; // We are in the finally clause of a exception being thrown within this try.
 					breakTry = -1;
 					if (traceOn)
-						System.out.print(" Executing finally.");
+						System.out.print(" Executing finally."); //$NON-NLS-1$
 				}
 			}
 		} finally {
@@ -2974,17 +2974,17 @@ public class ExpressionProcesser {
 	 */
 	public final void pushTryRethrow(int tryNumber) {
 		if (traceOn)
-			printTrace("Rethrow Try #"+tryNumber, errorOccurred  || ignoreExpression != null);
+			printTrace("Rethrow Try #"+tryNumber, errorOccurred  || ignoreExpression != null); //$NON-NLS-1$
 		
 		try {
 			if (errorOccurred)
 				return;
 			// We are not checking ignore because we need to make sure this is not called out of order.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException("Rethrow received out of order."));
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryRethrow.RethrowReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
 			} else if (ignoreExpression == null) {
 				if (trysInCatch[topTry] == null || trysInCatch[topTry] == FINAL_CATCH)
-					processSyntaxException(new IllegalStateException("Retry received outside of an executing catch clause"));
+					processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryRethrow.RetryReceivedOutOfExecutingCatchClause_EXC_"))); //$NON-NLS-1$
 				else {
 					throwException(trysInCatch[topTry]);
 				}
@@ -2998,14 +2998,14 @@ public class ExpressionProcesser {
 	public final void pushTryEnd(int tryNumber) {
 		if (traceOn) {
 			indent(false);
-			printTrace("End Try #"+tryNumber, errorOccurred);
+			printTrace("End Try #"+tryNumber, errorOccurred); //$NON-NLS-1$
 		}
 		try {
 			if (errorOccurred)
 				return;
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException("Try/end received out of order."));
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryEnd.TryEndReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
 			} else {
 				boolean inCatch = trysInCatch[topTry] != null;
 				trysInCatch[topTry] = null;
@@ -3166,7 +3166,7 @@ public class ExpressionProcesser {
 	 */
 	public final void pushMark(int markNumber) {
 		if (traceOn)
-			printTrace("Mark#"+markNumber, false);
+			printTrace("Mark#"+markNumber, false); //$NON-NLS-1$
 		
 		if (saveStates == null)
 			saveStates = new ArrayList();
@@ -3191,7 +3191,7 @@ public class ExpressionProcesser {
 	 */
 	public final void pushEndmark(int markID, boolean restore) {
 		if (traceOn)
-			printTrace("End Mark#"+markID+" Restored="+restore, false);
+			printTrace("End Mark#"+markID+" Restored="+restore, false); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		try {
 			if (saveStates != null) {
@@ -3207,7 +3207,7 @@ public class ExpressionProcesser {
 					}
 				}
 				// But to be safe, if we got here, this is bad. We tried restore a mark we didn't have.
-				processSyntaxException(new IllegalStateException("Tried to do an end mark on a non-existing markID (" + markID + ')'));
+				processSyntaxException(new IllegalStateException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.PushEndmark.EndMarkOnNonExistingID_EXC_"), new Object[]{new Integer(markID)}))); //$NON-NLS-1$
 			}
 		} finally {
 			if (traceOn)

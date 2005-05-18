@@ -2,6 +2,9 @@
  * This is for primitive expressions that are optimized out the compiler such as bit or, bit and, etc..
    */
 package org.eclipse.jem.internal.proxy.initParser;
+
+import java.text.MessageFormat;
+
 /*******************************************************************************
  * Copyright (c)  2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -14,7 +17,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: PrimitiveOperation.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/05/18 23:11:27 $ 
  */
 
 public class PrimitiveOperation extends Expression {
@@ -38,12 +41,12 @@ public class PrimitiveOperation extends Expression {
 				return new Integer(((Integer)leftHandSide).intValue() & ((Integer)rightHandSide).intValue());				
 			}
 		}
-		throw new RuntimeException("Invalid operator " + getOperDescription() + " between " + leftHandSide + " and " + rightHandSide);		
+		throw new RuntimeException(MessageFormat.format(ProxyInitParserMessages.getString("PrimitiveOperation.Evaluate.InvalidOperator_EXC_"), new Object[]{getOperDescription(), leftHandSide, rightHandSide}));		 //$NON-NLS-1$
 	}
 	protected String getOperDescription(){
-		if(operation == BitOR) return "|";
-		if (operation == BitAND) return "&";			
-		return "???";
+		if(operation == BitOR) return "|"; //$NON-NLS-1$
+		if (operation == BitAND) return "&";			 //$NON-NLS-1$
+		return "???"; //$NON-NLS-1$
 	}
 
 	public boolean isComplete() {

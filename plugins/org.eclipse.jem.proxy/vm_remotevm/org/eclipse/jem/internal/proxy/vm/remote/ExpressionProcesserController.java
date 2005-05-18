@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.7 $  $Date: 2005/05/18 23:11:27 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -98,7 +98,7 @@ public class ExpressionProcesserController {
 	 * 
 	 * @since 1.0.0
 	 */
-	private static final List PRIMITIVE_NAMES = Arrays.asList(new String[] {"byte", "char", "short", "int", "long", "float", "double"});
+	private static final List PRIMITIVE_NAMES = Arrays.asList(new String[] {"byte", "char", "short", "int", "long", "float", "double"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	private static final Class[] PRIMITIVE_TYPES = new Class[] {Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE};
 	/**
 	 * Load the class given the name. If not found, return null.
@@ -111,7 +111,7 @@ public class ExpressionProcesserController {
 	protected Class loadClass(String className) throws ClassNotFoundException {
 		if (className == null)
 			return null;
-		else if (className.endsWith("[]")) {
+		else if (className.endsWith("[]")) { //$NON-NLS-1$
 			// We have an array request instead. This is trickier.
 			return loadClass(MapTypes.getJNIFormatName(className));
 		} else {

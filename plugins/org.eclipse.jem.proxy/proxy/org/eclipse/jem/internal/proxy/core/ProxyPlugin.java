@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.49 $  $Date: 2005/04/22 14:33:08 $ 
+ *  $Revision: 1.50 $  $Date: 2005/05/18 23:11:26 $ 
  */
 
 
@@ -56,8 +56,8 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	private static ProxyPlugin PROXY_PLUGIN = null;
-	public static final String PREFERENCES_VM_NOVERIFY_KEY = "JEM_PREFERENCES_VM_NOVERIFY_KEY"; // Key for NOVERIFY option of VM
-	public static final String PDE_NATURE_ID = "org.eclipse.pde.PluginNature" ;
+	public static final String PREFERENCES_VM_NOVERIFY_KEY = "JEM_PREFERENCES_VM_NOVERIFY_KEY"; // Key for NOVERIFY option of VM //$NON-NLS-1$
+	public static final String PDE_NATURE_ID = "org.eclipse.pde.PluginNature" ; //$NON-NLS-1$
 		
 	// If this is set to true, then in development mode and it will try for proxy jars in directories.
 	private boolean devMode;
@@ -255,12 +255,12 @@ public class ProxyPlugin extends Plugin {
 		// If the filenameWithinBundle begins with one of these special characters,
 		// it might be in a fragment.
 		if (filenameWithinBundle.charAt(0) == '$'
-				&& (filenameWithinBundle.regionMatches(true, 0, "$nl$", 0, "$nl$".length())
-						|| filenameWithinBundle.regionMatches(true, 0, "$os$", 0, "$os$".length()) || filenameWithinBundle.regionMatches(true, 0,
-						"$ws$", 0, "$ws$".length())))
+				&& (filenameWithinBundle.regionMatches(true, 0, "$nl$", 0, "$nl$".length()) //$NON-NLS-1$ //$NON-NLS-2$
+						|| filenameWithinBundle.regionMatches(true, 0, "$os$", 0, "$os$".length()) || filenameWithinBundle.regionMatches(true, 0, //$NON-NLS-1$ //$NON-NLS-2$
+						"$ws$", 0, "$ws$".length()))) //$NON-NLS-1$ //$NON-NLS-2$
 			return urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
 		try {
-			URL pvm = new URL(bundle.getEntry("/"), filenameWithinBundle);
+			URL pvm = new URL(bundle.getEntry("/"), filenameWithinBundle); //$NON-NLS-1$
 			pvm = verifyFound(Platform.asLocalURL(pvm));
 			if (pvm != null)
 				return pvm;
@@ -332,8 +332,8 @@ public class ProxyPlugin extends Plugin {
 						props.load(ios);
 						String pathString = props.getProperty(filenameWithinBundle.toString());
 						if (pathString != null) {
-							URL url = Platform.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace.
-							if (url.getProtocol().equals("file")) {
+							URL url = Platform.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace. //$NON-NLS-1$
+							if (url.getProtocol().equals("file")) { //$NON-NLS-1$
 								File file = new File(url.getFile()).getParentFile();	// This gets us to workspace root of development workspace.
 								file = new File(file, pathString);
 								return file.toURL();
@@ -589,7 +589,7 @@ public class ProxyPlugin extends Plugin {
 				for (int i = 0; i < configs.length; i++) {
 					if (IProxyConstants.ID_PROXY_LAUNCH_GROUP.equals(configs[i].getCategory())
 						&& (ProxyLaunchSupport.ATTR_PRIVATE == null || !configs[i].getAttribute(ProxyLaunchSupport.ATTR_PRIVATE, false)))
-						projectNames.add(configs[i].getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, ""));
+						projectNames.add(configs[i].getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")); //$NON-NLS-1$
 				}
 
 				IJavaModel model = JavaCore.create(ResourcesPlugin.getWorkspace().getRoot());
@@ -885,7 +885,7 @@ public class ProxyPlugin extends Plugin {
 						expandProject(entry.getPath(), containerIds, containers, pluginIds, projects, visible && entry.isExported(), false);
 					break;
 				case IClasspathEntry.CPE_CONTAINER:
-					if (!first && "org.eclipse.jdt.launching.JRE_CONTAINER".equals(entry.getPath().segment(0)))
+					if (!first && "org.eclipse.jdt.launching.JRE_CONTAINER".equals(entry.getPath().segment(0))) //$NON-NLS-1$
 						break;	// The first project determines the JRE, so any subsequent ones can be ignored.
 					currentFlag = (Boolean) containerIds.get(entry.getPath().segment(0));
 					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());					
@@ -994,9 +994,9 @@ public class ProxyPlugin extends Plugin {
 	IPDEProcessForPlugin getPDEProcessForPlugin() {
 		if (!triedPDEProcess) {
 			triedPDEProcess = true;
-			if (Platform.getBundle("org.eclipse.pde.core") != null) {
+			if (Platform.getBundle("org.eclipse.pde.core") != null) { //$NON-NLS-1$
 				try {
-					Class classPDEProcess = Class.forName("org.eclipse.jem.internal.proxy.core.PDEProcessForPlugin");
+					Class classPDEProcess = Class.forName("org.eclipse.jem.internal.proxy.core.PDEProcessForPlugin"); //$NON-NLS-1$
 					pdeProcessForPlugin = (IPDEProcessForPlugin) classPDEProcess.newInstance();
 				} catch (ClassNotFoundException e) {
 					// Not found, do nothing.
@@ -1040,7 +1040,7 @@ public class ProxyPlugin extends Plugin {
 		// Found it, so let's try to find which bundle/fragment it was found in.
 		String jarString = jarURL.toExternalForm();
 		// First the bundle itself.
-		String installLoc = bundle.getEntry("/").toExternalForm();
+		String installLoc = bundle.getEntry("/").toExternalForm(); //$NON-NLS-1$
 		URL sourceURL = null;
 		if (jarString.startsWith(installLoc))
 			sourceURL = getSrcFrom(bundle, installLoc, jarString);
@@ -1048,7 +1048,7 @@ public class ProxyPlugin extends Plugin {
 			// Now look in the fragments.
 			Bundle[] frags = Platform.getFragments(bundle);
 			for (int i = 0; i < frags.length; i++) {
-				installLoc = frags[i].getEntry("/").toExternalForm();
+				installLoc = frags[i].getEntry("/").toExternalForm(); //$NON-NLS-1$
 				if (jarString.startsWith(installLoc)) {
 					sourceURL = getSrcFrom(frags[i], installLoc, jarString);
 					break;
@@ -1063,20 +1063,20 @@ public class ProxyPlugin extends Plugin {
 		// "bundlename_bundleversion/pathOfJar/jarnamesrc.zip". However there is no way to know
 		// which extension has the source in it, so we need to search them all.
 		
-		IPath srcPath = new Path(bundle.getSymbolicName()+"_"+ (String) bundle.getHeaders("").get(Constants.BUNDLE_VERSION)); //$NON-NLS-1$ $NON-NLS-2$
+		IPath srcPath = new Path(bundle.getSymbolicName()+"_"+ (String) bundle.getHeaders("").get(Constants.BUNDLE_VERSION)); //$NON-NLS-1$ //$NON-NLS-2$ $NON-NLS-2$
 		srcPath = srcPath.append(new Path(jarString.substring(installLoc.length())));
 		if (srcPath.segmentCount() < 2)
 			return null;	// Something is not right. No jar name.
 		srcPath = srcPath.removeFileExtension();	// Remove the .jar.
 		String jarName = srcPath.lastSegment();	// This should be the jar name.
-		srcPath = srcPath.removeLastSegments(1).append(jarName+"src.zip");
+		srcPath = srcPath.removeLastSegments(1).append(jarName+"src.zip"); //$NON-NLS-1$
 		
 		// Now look through all of the src extensions. Can't tell if the extension is from a fragment or a bundle, so we need to
 		// use Platform.find() to look in the bundle and fragment. So we may get a dup search if there is a fragment source 
 		// (for example platform source and win32 platform source (which is a fragment of platform source).
-		IConfigurationElement[] ces = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.pde.core.source");
+		IConfigurationElement[] ces = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.pde.core.source"); //$NON-NLS-1$
 		for (int i = 0; i < ces.length; i++) {
-			IPath srcsrch = new Path(ces[i].getAttributeAsIs("path")).append(srcPath);
+			IPath srcsrch = new Path(ces[i].getAttributeAsIs("path")).append(srcPath); //$NON-NLS-1$
 			Bundle srcBundle = Platform.getBundle(ces[i].getDeclaringExtension().getNamespace());
 			URL srcUrl = Platform.find(srcBundle, srcsrch);
 			if (srcUrl != null) {
