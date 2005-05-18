@@ -53,7 +53,7 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
             projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.PROJECT_NAME, propertyValue);
         } else if (SERVER_TARGET_ID.equals(propertyName)) {
             IDataModel projModel = (IDataModel)model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
-            projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
+			projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
         }
         return status;
     }
@@ -65,8 +65,19 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
 		if (propertyName.equals(SERVER_TARGET_ID)) {
 			IDataModel serverTargetModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
-			return serverTargetModel.getValidPropertyDescriptors(SERVER_TARGET_ID);
+			return serverTargetModel.getValidPropertyDescriptors(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
 		}
 		return null;
 	}
+	
+//	 public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName) {
+//	        if (propertyName.equals(SERVER_TARGET_ID)) {
+//				IDataModel serverTargetModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+//				return serverTargetModel.getPropertyDescriptor(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
+//				
+//				//super.getPropertyDescriptor(propertyName);
+//	        }
+//	        return super.getPropertyDescriptor(propertyName);
+//	    }	
+
 }

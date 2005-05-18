@@ -50,5 +50,5 @@ public interface IJavaComponentCreationDataModelProperties extends IComponentCre
      * 
      * @see org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel
      */
-    public static final String SERVER_TARGET_ID = IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID;	
+    public static final String SERVER_TARGET_ID = "IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID";	
 }

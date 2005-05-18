@@ -44,6 +44,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
@@ -179,11 +180,11 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
         newServerTargetButton.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-               FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), (IDataModel)model.getProperty(NESTED_PROJECT_CREATION_DM));
+				J2EEComponentCreationWizardPage.launchNewRuntimeWizard(getShell(), (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM));
             }
         });
         Control[] deps = new Control[]{label, newServerTargetButton};
-        synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
+		synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
         if(serverTargetCombo.getVisibleItemCount() != 0)
             serverTargetCombo.select(0);
     }
@@ -381,12 +382,14 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		new Label(parent, SWT.NONE); //pad
 	}
 	
-	public static boolean launchNewRuntimeWizard(Shell shell, ServerTargetDataModel model) {
-		WTPPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(ServerTargetDataModel.RUNTIME_TARGET_ID);
-		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, model.computeTypeId(), model.computeVersionId());
+	
+	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
+		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
+		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
 		if (isOK && model != null) {
-			model.notifyValidValuesChange(ServerTargetDataModel.RUNTIME_TARGET_ID);
-			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(ServerTargetDataModel.RUNTIME_TARGET_ID);
+			//model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
 			Object[] preAddition = new Object[preAdditionDescriptors.length];
 			for (int i = 0; i < preAddition.length; i++) {
 				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
@@ -396,10 +399,15 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
 			}
 			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
+
+            //model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
 			if (newAddition != null)
-				model.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID, newAddition);
+				model.setProperty(RUNTIME_TARGET_ID, newAddition);
 		}
 		return isOK;
 	}
+	
+
 
 }

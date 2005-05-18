@@ -194,7 +194,9 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 			if (target == null)
 				setProperty(RUNTIME_TARGET_ID, null);
 			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-		}
+		}else if (RUNTIME_TARGET_ID.equals(propertyName)) {
+            setProperty(RUNTIME_TARGET_ID, propertyValue);
+        }
 		return true;
 	}
 
