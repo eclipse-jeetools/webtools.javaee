@@ -12,6 +12,9 @@ import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
@@ -29,8 +32,13 @@ import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
+import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
+import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
@@ -50,6 +58,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 	EARFile earFile;
 	EJBJarFile ejbFile;
 	int currentVersion = J2EEVersionConstants.J2EE_1_3_ID;
+	private int createdInterfaceMaps = 0;
 
 	public WebServicesEMFTest(String name) {
 		super(name);
@@ -70,6 +79,24 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 	public WebapplicationFactory getWebAppFactory() {
 		return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
 	}
+	public EObject createInstance(EReference ref,EObject eObject) {
+
+        if (JaxrpcmapPackage.eINSTANCE.getInterfaceMapping().equals((EClass)ref.getEType()))
+            return createInterfaceMap();
+
+        return super.createInstance(ref, eObject);
+    }
+    /* The web type is abstract.  Alternate between servlet-class
+     * and jsp-file
+     */
+    public InterfaceMapping createInterfaceMap() {
+        createdInterfaceMaps++;
+        if ((createdInterfaceMaps & 1) == 0)
+            return JaxrpcmapFactory.eINSTANCE.createServiceEndpointInterfaceMapping();
+        else
+            return JaxrpcmapFactory.eINSTANCE.createServiceEndpointInterfaceMapping();
+
+    }
 
 	public static void main(java.lang.String[] args) {
 		String[] className = { "com.ibm.etools.archive.test.WebServicesEMFTest", "-noloading" };
@@ -108,15 +135,21 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		createEAR();
 		createEJB();
 		String mappingFilePathURI = "META-INF/testmap.xml";
-		URI uri = URI.createPlatformResourceURI(mappingFilePathURI);
+		URI uri = URI.createURI(mappingFilePathURI);
 		ResourceSet resSet = ejbFile.getResourceSet();
 		J2EEResourceFactoryRegistry registry = (J2EEResourceFactoryRegistry) resSet.getResourceFactoryRegistry();
+		registry.registerLastFileSegment(uri.lastSegment(), new JaxrpcmapResourceFactory(RendererFactory.getDefaultRendererFactory()));
+		resSet = earFile.getResourceSet();
+		registry = (J2EEResourceFactoryRegistry) resSet.getResourceFactoryRegistry();
 		registry.registerLastFileSegment(uri.lastSegment(), new JaxrpcmapResourceFactory(RendererFactory.getDefaultRendererFactory()));
 
 		JaxrpcmapResource jaxrpcmapRes = (JaxrpcmapResource) resSet.createResource(uri);
 		
 		jaxrpcmapRes.setVersionID(currentVersion);
 		setVersion(VERSION_1_3);
+		
+		JavaWSDLMapping map = JaxrpcmapFactory.eINSTANCE.createJavaWSDLMapping();
+		jaxrpcmapRes.getContents().add(map);
 		populateRoot(jaxrpcmapRes.getRootObject());
 		
 		String out = AutomatedBVT.baseDirectory +getProjectLocation();
