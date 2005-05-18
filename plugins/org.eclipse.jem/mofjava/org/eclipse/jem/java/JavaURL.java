@@ -11,12 +11,12 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaURL.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/18 19:38:50 $ 
  */
 
 
 public class JavaURL extends org.eclipse.jem.java.impl.URL {
-	public static final String JAVA_PROTOCOL_URI_PREFIX = "java:/";
+	public static final String JAVA_PROTOCOL_URI_PREFIX = "java:/"; //$NON-NLS-1$
 	/**
 	 * JavaURL constructor comment.
 	 * @param urlString java.lang.String
@@ -46,7 +46,7 @@ public class JavaURL extends org.eclipse.jem.java.impl.URL {
 		if (namespaceName != null) {
 			buf.append(namespaceName);
 			if (ID != null)
-				buf.append("#");
+				buf.append("#"); //$NON-NLS-1$
 		}
 		if (ID != null)
 			buf.append(ID);
@@ -54,12 +54,12 @@ public class JavaURL extends org.eclipse.jem.java.impl.URL {
 	}
 	public String getPackageName() {
 		String internalName = namespaceName.substring(JAVA_PROTOCOL_URI_PREFIX.length(), namespaceName.length());
-		return JavaPackage.PRIMITIVE_PACKAGE_NAME.equals(internalName) ? "" : internalName;
+		return JavaPackage.PRIMITIVE_PACKAGE_NAME.equals(internalName) ? "" : internalName; //$NON-NLS-1$
 	}
 	/* If we don't have a # sign to delimit the start of the java package us the inherited behavior
 	 */
 	public void initializeFromString(String url) {
-		if (url.indexOf("#") != -1)
+		if (url.indexOf("#") != -1) //$NON-NLS-1$
 			super.initializeFromString(url);
 		else {
 			int endOfPackageName = url.lastIndexOf('.');
@@ -86,6 +86,6 @@ public class JavaURL extends org.eclipse.jem.java.impl.URL {
 	}
 
 	public String toString() {
-		return "URL(" + getFullString() + ")";
+		return "URL(" + getFullString() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

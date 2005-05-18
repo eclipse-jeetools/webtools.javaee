@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.init;
 /*
  *  $RCSfile: JavaInit.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/05/18 19:38:34 $ 
  */
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -45,15 +45,15 @@ public class JavaInit {
 
 	private static void preRegisterPackages() {
 		//ecore
-		if (!EPackage.Registry.INSTANCE.containsKey("ecore.xmi"))
-			EPackage.Registry.INSTANCE.put("ecore.xmi", new EPackage.Descriptor() {
+		if (!EPackage.Registry.INSTANCE.containsKey("ecore.xmi")) //$NON-NLS-1$
+			EPackage.Registry.INSTANCE.put("ecore.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return EcorePackage.eINSTANCE;
 			}
 		});
 		//java
-		if (!EPackage.Registry.INSTANCE.containsKey("java.xmi"))
-			EPackage.Registry.INSTANCE.put("java.xmi", new EPackage.Descriptor() {
+		if (!EPackage.Registry.INSTANCE.containsKey("java.xmi")) //$NON-NLS-1$
+			EPackage.Registry.INSTANCE.put("java.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return JavaRefPackage.eINSTANCE;
 			}

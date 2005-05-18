@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.10 $  $Date: 2005/05/11 22:41:06 $ 
+ *  $Revision: 1.11 $  $Date: 2005/05/18 19:38:20 $ 
  */
 import java.util.logging.Level;
 
@@ -64,7 +64,7 @@ public abstract class ReflectionAdaptor extends org.eclipse.emf.common.notify.im
 	/*
 	 * Fill in the name. Not really needed but it would be nice.
 	 */
-	static {REFLECTION_EVENT.setName("reflectValues");}
+	static {REFLECTION_EVENT.setName("reflectValues");} //$NON-NLS-1$
 	
 	protected boolean hasReflected = false;
 	protected boolean isReflecting = false;

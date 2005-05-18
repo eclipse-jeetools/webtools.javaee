@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaPackage.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.4 $  $Date: 2005/05/18 19:38:50 $ 
  */
 
 import org.eclipse.emf.common.util.EList;
@@ -19,12 +19,12 @@ import org.eclipse.emf.ecore.EPackage;
 
 public interface JavaPackage extends EPackage{
 	
-	public static final String PACKAGE_ID = "*package";	// The id (the part that goes after the '#' for a java package.)
+	public static final String PACKAGE_ID = "*package";	// The id (the part that goes after the '#' for a java package.) //$NON-NLS-1$
 														// There will only be one package per java resource so it
 														// can be unique. No java types, methods, fields ids can
 														// start with an asterick so will be unique.
 														
-	public static final String PRIMITIVE_PACKAGE_NAME = "_-javaprim";
+	public static final String PRIMITIVE_PACKAGE_NAME = "_-javaprim"; //$NON-NLS-1$
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The list of JavaClasses references

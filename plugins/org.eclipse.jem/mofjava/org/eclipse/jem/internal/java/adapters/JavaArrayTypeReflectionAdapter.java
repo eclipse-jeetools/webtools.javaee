@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaArrayTypeReflectionAdapter.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 22:41:06 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 19:38:20 $ 
  */
 package org.eclipse.jem.internal.java.adapters;
 
@@ -84,12 +84,12 @@ public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor implem
 		//		implements java.lang.Cloneable, java.io.Serializable
 		at.setFinal(true);
 		try {
-			at.setSupertype((JavaClass) JavaRefFactory.eINSTANCE.reflectType("java.lang.Object", (EObject) getTarget()));
+			at.setSupertype((JavaClass) JavaRefFactory.eINSTANCE.reflectType("java.lang.Object", (EObject) getTarget())); //$NON-NLS-1$
 		} catch (InheritanceCycleException e) {
 		}
 		List list = at.getImplementsInterfacesGen();
-		list.add(JavaRefFactory.eINSTANCE.createClassRef("java.lang.Cloneable"));
-		list.add(JavaRefFactory.eINSTANCE.createClassRef("java.io.Serializable"));
+		list.add(JavaRefFactory.eINSTANCE.createClassRef("java.lang.Cloneable")); //$NON-NLS-1$
+		list.add(JavaRefFactory.eINSTANCE.createClassRef("java.io.Serializable")); //$NON-NLS-1$
 		return super.reflectValues();
 	}
 

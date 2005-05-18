@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaHelpers.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:16 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/18 19:38:50 $ 
  */
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -23,22 +23,22 @@ import org.eclipse.emf.ecore.EClassifier;
  * @author: Administrator
  */
 public interface JavaHelpers extends EClass {
-	static final String BOOLEAN_NAME = "java.lang.Boolean";
-	static final String CHARACTER_NAME = "java.lang.Character";
-	static final String BYTE_NAME = "java.lang.Byte";
-	static final String DOUBLE_NAME = "java.lang.Double";
-	static final String FLOAT_NAME = "java.lang.Float";
-	static final String INTEGER_NAME = "java.lang.Integer";
-	static final String LONG_NAME = "java.lang.Long";
-	static final String SHORT_NAME = "java.lang.Short";
-	static final String PRIM_BOOLEAN_NAME = "boolean";
-	static final String PRIM_CHARACTER_NAME = "char";
-	static final String PRIM_BYTE_NAME = "byte";
-	static final String PRIM_DOUBLE_NAME = "double";
-	static final String PRIM_FLOAT_NAME = "float";
-	static final String PRIM_INTEGER_NAME = "int";
-	static final String PRIM_LONG_NAME = "long";
-	static final String PRIM_SHORT_NAME = "short";
+	static final String BOOLEAN_NAME = "java.lang.Boolean"; //$NON-NLS-1$
+	static final String CHARACTER_NAME = "java.lang.Character"; //$NON-NLS-1$
+	static final String BYTE_NAME = "java.lang.Byte"; //$NON-NLS-1$
+	static final String DOUBLE_NAME = "java.lang.Double"; //$NON-NLS-1$
+	static final String FLOAT_NAME = "java.lang.Float"; //$NON-NLS-1$
+	static final String INTEGER_NAME = "java.lang.Integer"; //$NON-NLS-1$
+	static final String LONG_NAME = "java.lang.Long"; //$NON-NLS-1$
+	static final String SHORT_NAME = "java.lang.Short"; //$NON-NLS-1$
+	static final String PRIM_BOOLEAN_NAME = "boolean"; //$NON-NLS-1$
+	static final String PRIM_CHARACTER_NAME = "char"; //$NON-NLS-1$
+	static final String PRIM_BYTE_NAME = "byte"; //$NON-NLS-1$
+	static final String PRIM_DOUBLE_NAME = "double"; //$NON-NLS-1$
+	static final String PRIM_FLOAT_NAME = "float"; //$NON-NLS-1$
+	static final String PRIM_INTEGER_NAME = "int"; //$NON-NLS-1$
+	static final String PRIM_LONG_NAME = "long"; //$NON-NLS-1$
+	static final String PRIM_SHORT_NAME = "short"; //$NON-NLS-1$
 	
 	static final int PRIM_NOT_ID = 0;
 	static final int PRIM_BOOLEAN_ID = 1;
