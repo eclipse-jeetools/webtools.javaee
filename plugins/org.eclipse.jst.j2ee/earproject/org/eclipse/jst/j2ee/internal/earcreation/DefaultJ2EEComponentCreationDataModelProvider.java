@@ -73,7 +73,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
      * 
      * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initNestedModels()
      */
-    protected void initNestedModels() {
+    protected void _initNestedModels() {
         clientModel = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
         EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
         if (ejbExt != null) {
