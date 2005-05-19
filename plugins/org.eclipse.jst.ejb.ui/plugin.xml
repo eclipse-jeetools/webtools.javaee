@@ -175,13 +175,13 @@
 <!-- Import Wizard Contributions    -->
 <!--================================-->
 
-   <!-- <extension
+   <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/import_ejbjar.gif"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard"
-            id="org.eclipse.jst.ejb.ui.EJBModuleImportWizard">
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizardNew"
+            id="org.eclipse.jst.ejb.ui.EJBModuleImportWizardNew">
          <description>
             %ejb.import.description_ui_
          </description>
@@ -189,7 +189,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-    </extension> -->
+    </extension> 
 	 <extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
          <!-- EJB New -->
