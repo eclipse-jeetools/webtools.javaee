@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.34 $  $Date: 2005/05/18 20:59:17 $ 
+ *  $Revision: 1.35 $  $Date: 2005/05/19 21:34:29 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -1175,15 +1175,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			// Can't get superadapter, so must not be attached to a resource, so return current list. Or no change required.       		
 		}
 		
-		UniqueEList allProperties = new UniqueEList() {
+		UniqueEList.FastCompare allProperties = new UniqueEList.FastCompare() {
 			protected Object[] newData(int capacity) {
 				return new EStructuralFeature[capacity];
 			}
-
-			protected boolean useEquals() {
-				return false;
-			}
-
 		};
 		boolean doAllProperties = false;
 		synchronized(this) {
@@ -1267,7 +1262,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 		if (!allProperties.isEmpty()) {
 			allProperties.shrink();
-			return new EcoreEList.UnmodifiableEList(
+			return new EcoreEList.UnmodifiableEList.FastCompare(
 				getJavaClass(),
 				null,
 				allProperties.size(),
@@ -1803,7 +1798,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 * merge all  the Behaviors(i.e. supertypes)
 	 */
 	protected BasicEList allOperations() {
-		BasicEList jcAllOperations = (BasicEList) getJavaClass().getEAllOperationsGen();
+		BasicEList jcAllOperations = (BasicEList) getJavaClass().primGetEAllOperations();
 		BeaninfoSuperAdapter superAdapter =
 			(BeaninfoSuperAdapter) EcoreUtil.getRegisteredAdapter(getJavaClass(), BeaninfoSuperAdapter.class);
 		if (jcAllOperations != null) {
@@ -1813,13 +1808,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			// Can't get superadapter, so must not be attached to a resource, so return current list. Or no change required.       		
 		}
 
-		UniqueEList allOperations = new UniqueEList() {
+		UniqueEList.FastCompare allOperations = new UniqueEList.FastCompare() {
 			protected Object[] newData(int capacity) {
 				return new EOperation[capacity];
-			}
-
-			protected boolean useEquals() {
-				return false;
 			}
 		};
 		boolean doAllOperations = false;
@@ -1909,7 +1900,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		allOperations.shrink();
-		return new EcoreEList.UnmodifiableEList(
+		return new EcoreEList.UnmodifiableEList.FastCompare(
 			getJavaClass(),
 			EcorePackage.eINSTANCE.getEClass_EAllOperations(),
 			allOperations.size(),
@@ -2120,13 +2111,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			// Can't get superadapter, so must not be attached to a resource, so return current list. Or no change required.       		
 		}
 
-		UniqueEList allEvents = new UniqueEList() {
+		UniqueEList.FastCompare allEvents = new UniqueEList.FastCompare() {
 			protected Object[] newData(int capacity) {
 				return new JavaEvent[capacity];
-			}
-
-			protected boolean useEquals() {
-				return false;
 			}
 		};
 		
@@ -2215,7 +2202,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			return ECollections.EMPTY_ELIST;
 		else {
 			allEvents.shrink();
-			return new EcoreEList.UnmodifiableEList(
+			return new EcoreEList.UnmodifiableEList.FastCompare(
 				getJavaClass(),
 				JavaRefPackage.eINSTANCE.getJavaClass_AllEvents(),
 				allEvents.size(),

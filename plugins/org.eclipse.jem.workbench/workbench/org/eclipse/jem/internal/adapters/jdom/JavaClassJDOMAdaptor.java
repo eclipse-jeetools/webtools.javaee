@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.16 $  $Date: 2005/05/18 22:05:58 $ 
+ *  $Revision: 1.17 $  $Date: 2005/05/19 21:34:25 $ 
  */
 
 import java.util.*;
@@ -306,7 +306,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 * Set the supertype to be null.
 	 */
 	protected boolean flushSuper() {
-		List targetSupers = getJavaClassTarget().getESuperTypesGen();
+		List targetSupers = getJavaClassTarget().primGetESuperTypes();
 		targetSupers.clear();
 		return true;
 	}

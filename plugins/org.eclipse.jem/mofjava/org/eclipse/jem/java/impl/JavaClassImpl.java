@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.16 $  $Date: 2005/05/11 22:41:06 $ 
+ *  $Revision: 1.17 $  $Date: 2005/05/19 21:34:26 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -48,7 +48,6 @@ import org.eclipse.jem.java.Method;
 import org.eclipse.jem.java.TypeKind;
 
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.impl.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.*;
@@ -343,18 +342,24 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 		return getClassImportGen();
 	}
 
-	/**
-	 * MOF41, attribute, reference are changed to volatile Because of this we need to re-implement it here to do the merge within the introspection
-	 * adapter instead. The merge done in EClassImpl and above doesn't necessarily do what we need.
-	 */
 	public EList getEAllOperations() {
 		IIntrospectionAdapter ia = getIntrospectionAdapter();
 		if (ia == null)
 			return super.getEAllOperations(); // No introspection, do normal.
-		ESuperAdapter a = getESuperAdapter();
-		if (eAllOperations == null || a.isAllOperationsCollectionModified())
+		if (eAllOperations == null)
 			eAllOperations = ia.getEAllOperations();
 		return eAllOperations;
+	}
+	
+	/**
+	 * This is not meant to be used by others. It is here so that BeanInfo adapter can access
+	 * un-introspected all operations.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public EList primGetEAllOperations() {
+		return super.getEAllOperations();
 	}
 
 	public EList getEOperations() {
@@ -364,6 +369,13 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 		return super.getEOperations();
 	}
 
+	/**
+	 * This method is not meant to be used by others. It is here so that BeanInfo adapters can go to
+	 * the non-introspected operations.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
 	public EList getEOperationsInternal() {
 		// An internal method for returning actual wo fluffing up.
 		return super.getEOperations();
@@ -1122,10 +1134,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	}
 
 	protected List getSubtypes() {
-		ESuperAdapter adapter = ESuperAdapter.getESuperAdapter(this);
-		if (adapter != null)
-			return adapter.getSubclasses();
-		return Collections.EMPTY_LIST;
+		return getESuperAdapter().getSubclasses();
 	}
 
 	public String toString() {
@@ -1667,6 +1676,18 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 
 	public EList getESuperTypes() {
 		reflectBase();
+		return super.getESuperTypes();
+	}
+	
+	/**
+	 * This method is not meant to be used by others. It is here so that the reflection
+	 * adapters can reference the unreflected supertypes.
+	 *  
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public EList primGetESuperTypes() {
 		return super.getESuperTypes();
 	}
 

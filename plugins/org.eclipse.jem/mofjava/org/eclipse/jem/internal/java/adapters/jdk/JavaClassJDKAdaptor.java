@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.11 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.12 $  $Date: 2005/05/19 21:34:26 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
@@ -171,7 +171,7 @@ public class JavaClassJDKAdaptor extends JDKAdaptor implements IJavaClassAdaptor
 	 * Set the supertype to be null.
 	 */
 	protected boolean flushSuper() {
-		List targetSupers = getJavaClassTarget().getESuperTypesGen();
+		List targetSupers = getJavaClassTarget().primGetESuperTypes();
 		targetSupers.clear();
 		return true;
 	}
