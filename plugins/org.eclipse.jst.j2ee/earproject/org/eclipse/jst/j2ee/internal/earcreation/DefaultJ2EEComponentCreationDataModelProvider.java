@@ -45,6 +45,11 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
     private static final String EJB_SUFFIX = "EJB"; //$NON-NLS-1$
     private static final String CLIENT_SUFFIX = "Client"; //$NON-NLS-1$
     private static final String CONNECTOR_SUFFIX = "Connector"; //$NON-NLS-1$
+
+    private IDataModel ejbModel;
+    private IDataModel webModel;
+    private IDataModel jcaModel;
+    private IDataModel clientModel;
     
     public DefaultJ2EEComponentCreationDataModelProvider() {
         super();
@@ -56,13 +61,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         return props;
     }
 
-    private IDataModel ejbModel;
-
-    private IDataModel webModel;
-
-    private IDataModel jcaModel;
-
-    private IDataModel clientModel;
 
     public IDataModelOperation getDefaultOperation() {
         return new DefaultJ2EEComponentCreationOp(getDataModel());
@@ -72,8 +70,10 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         initNestedCreationModels();
         super.init();
     }
+    
     protected void initNestedCreationModels() {
         clientModel = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
+        model.addNestedModel(NESTED_MODEL_CLIENT, clientModel);
         EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
         if (ejbExt != null) {
             ejbModel = ejbExt.createProjectDataModel();
@@ -94,11 +94,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
-     */
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.startsWith(CREATE_BASE))
             return getDefaultCreateValue(propertyName);
@@ -107,9 +102,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         return super.getDefaultProperty(propertyName);
     }
 
-    /**
-     * @return
-     */
+
     private Object getDefaultCreateValue(String propertyName) {
         if (propertyName.equals(CREATE_CONNECTOR)) {
             int version = getIntProperty(J2EE_VERSION);
@@ -132,10 +125,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         return -1;
     }
 
-    /**
-     * @param projectName
-     * @return
-     */
     private String ensureUniqueProjectName(String projectName) {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         String newName = projectName;
@@ -149,12 +138,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         return newName;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
-     *      java.lang.Object)
-     */
     public boolean propertySet(String propertyName, Object propertyValue) {
         boolean notify = super.propertySet(propertyName, propertyValue);
         if (propertyName.equals(J2EE_VERSION)) {
@@ -166,20 +149,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         if (propertyName.equals(EAR_COMPONENT_NAME)) {
             setDefaultComponentNames((String) propertyValue);
         }
-//        if (propertyName.equals(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME)) {
-//            Object source = ge
-//            String propertyName = null;
-//            if (ejbModel == source) {
-//                propertyName = EJB_COMPONENT_NAME;
-//            } else if (webModel == source) {
-//                propertyName = WEB_COMPONENT_NAME;
-//            } else if (jcaModel == source) {
-//                propertyName = CONNECTOR_COMPONENT_NAME;
-//            } else if (null != propertyName) {
-//                setProperty(propertyName, event.getProperty());
-//                return;
-//            }
-//        }
         return notify;
     }
 
@@ -305,9 +274,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         }
     }
 
-    /**
-     * @param string
-     */
     private void setDefaultComponentNames(String base) {
         String componentName;
         if (base.endsWith(EJB_SUFFIX))
@@ -336,9 +302,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         setProperty(CONNECTOR_COMPONENT_NAME, componentName);
     }
 
-    /**
-     * @param j2eeVersion
-     */
     private void setNestedJ2EEVersion(Object j2eeVersion) {
         if (ejbModel != null)
             ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
@@ -350,10 +313,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
             clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
     }
 
-    /**
-     * @param flag
-     * @param projectName
-     */
     private void setNestedComponentName(int flag, String compName) {
         IDataModel model = getNestedModel(flag);
         if (model != null) {
@@ -361,9 +320,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         }
     }
 
-    /**
-     * @param flag
-     */
     private IStatus validateNestedProjectName(int flag) {
         IDataModel model = getNestedModel(flag);
         if (model != null) {
@@ -402,35 +358,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
         }
         return null;
     }
-    /**
-     * @return Returns the clientModel.
-     */
-    public IDataModel getClientModel() {
-        return clientModel;
-    }
-    /**
-     * @return Returns the ejbModel.
-     */
-    public IDataModel getEjbModel() {
-        return ejbModel;
-    }
-    /**
-     * @return Returns the rarModel.
-     */
-    public IDataModel getJCAModel() {
-        return jcaModel;
-    }
-    /**
-     * @return Returns the webModel.
-     */
-    public IDataModel getWebModel() {
-        return webModel;
-    }
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
-     */
+
     public boolean isPropertyEnabled(String propertyName) {
         if (propertyName.equals(CREATE_CONNECTOR) || propertyName.equals(CONNECTOR_COMPONENT_NAME)) {
             int version = getIntProperty(J2EE_VERSION);

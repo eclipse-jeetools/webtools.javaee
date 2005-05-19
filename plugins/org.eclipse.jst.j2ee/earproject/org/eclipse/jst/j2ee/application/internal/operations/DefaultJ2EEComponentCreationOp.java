@@ -42,24 +42,28 @@ public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation i
             if (model.getBooleanProperty(CREATE_EJB)) {
                 IDataModel ejbModel = model.getNestedModel(NESTED_MODEL_EJB);
                 ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(EJB_COMPONENT_NAME));
+                ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(EJB_COMPONENT_NAME));
                 ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createEJBComponent(ejbModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_WEB)) {
                 IDataModel webModel = model.getNestedModel(NESTED_MODEL_WEB);
                 webModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(WEB_COMPONENT_NAME));
+                webModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(WEB_COMPONENT_NAME));
                 webModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createWebJ2EEComponent(webModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_CONNECTOR)) {
                 IDataModel conModel = model.getNestedModel(NESTED_MODEL_JCA);
                 conModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(CONNECTOR_COMPONENT_NAME));
+                conModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(CONNECTOR_COMPONENT_NAME));
                 conModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createRarJ2EEComponent(conModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_APPCLIENT)) {
                 IDataModel clientModel = model.getNestedModel(NESTED_MODEL_CLIENT);
                 clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(APPCLIENT_COMPONENT_NAME));
+                clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(APPCLIENT_COMPONENT_NAME));
                 clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
                 createAppClientComponent(clientModel, monitor);
             }
