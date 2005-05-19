@@ -8,8 +8,9 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -27,8 +28,8 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
         return new SimpleTestSuite(AppClientProjectCreationOperationTest.class);
     }
 
-    public J2EEComponentCreationDataModel getComponentCreationDataModel() {
-        return new AppClientComponentCreationDataModel();
+    public IDataModel getComponentCreationDataModel() {
+        return DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
     }
 
 }

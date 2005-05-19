@@ -3,10 +3,10 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -14,7 +14,6 @@ import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProject
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFactory;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.ConnectorProjectCreationOperationTest;
-import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 
 public abstract class ModuleProjectCreationOperationTest extends OperationTestCase {
@@ -34,72 +33,23 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     }
     
     public void testDefaults() throws Exception {
-		createSimpleFlexProject(DEFAULT_PROJECT_NAME);
-        createSimpleModule(DEFAULT_COMPONENT_NAME,DEFAULT_PROJECT_NAME);
-    }
-    
-    public void testCreateEAR() throws Exception {
-		createSimpleEARFlexProject(DEFAULT_EAR_PROJECT_NAME);
-        createSimpleEARModule(DEFAULT_EAR_COMPONENT_NAME,DEFAULT_EAR_PROJECT_NAME);
+        createSimpleModule(DEFAULT_COMPONENT_NAME);
     }
 
-    private void createSimpleEARModule(String componentName, String projectName) throws Exception {
-		J2EEComponentCreationDataModel dataModel = getEARComponentCreationDataModel();
-		dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, projectName);
-        dataModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, componentName);
+    private void createSimpleEARModule(String componentName) throws Exception {
+		IDataModel dataModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
+        dataModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
         runAndVerify(dataModel);
 	}
 
-	private J2EEComponentCreationDataModel getEARComponentCreationDataModel() {
-		// TODO Auto-generated method stub
-		return new EARComponentCreationDataModel();
-	}
-
-//	public void testAddToEAR() throws Exception {
-//    	EARComponentCreationDataModel  dataModelEAR = new EARComponentCreationDataModel ();
-//        dataModelEAR.setProperty(EARComponentCreationDataModel.PROJECT_NAME, "SimpleEAR");
-//        EARProjectCreationOperationTest.runAndVerify(dataModelEAR);
-//
-//        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
-//        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
-//        dataModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
-//        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
-//        runAndVerify(dataModel);
-//    }
-    
- 
-    
-//    public void testNoAddToEAR() throws Exception {
-//        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
-//        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
-//        dataModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
-//        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
-//        runAndVerify(dataModel);
-//    }
-
-    public void createSimpleFlexProject(String projectName) throws Exception {
-        FlexibleProjectCreationDataModel dataModel = getFlexProjectDataModel();
-        dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, projectName);
-		runAndVerify(dataModel);
-    }
-	public void createSimpleEARFlexProject(String projectName) throws Exception {
-        FlexibleProjectCreationDataModel dataModel = getFlexProjectDataModel();
-        dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, projectName);
-		dataModel.setProperty(FlexibleProjectCreationDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
+	public void createSimpleModule(String componentName) throws Exception {
+        IDataModel dataModel = getComponentCreationDataModel();
+        dataModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
+        dataModel.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, true);
         runAndVerify(dataModel);
     }
-	public void createSimpleModule(String componentName,String projectName) throws Exception {
-        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
-		dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, projectName);
-        dataModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, componentName);
-        runAndVerify(dataModel);
-    }
-    
-    private FlexibleProjectCreationDataModel getFlexProjectDataModel() {
-		return new FlexibleJavaProjectCreationDataModel();
-	}
 
-	public abstract J2EEComponentCreationDataModel getComponentCreationDataModel();
+	public abstract IDataModel getComponentCreationDataModel();
 
 	public static void verifyDataModel(WTPOperationDataModel dataModel) throws Exception{
 	    DataModelVerifier verifier = DataModelVerifierFactory.getInstance().createVerifier(dataModel);
