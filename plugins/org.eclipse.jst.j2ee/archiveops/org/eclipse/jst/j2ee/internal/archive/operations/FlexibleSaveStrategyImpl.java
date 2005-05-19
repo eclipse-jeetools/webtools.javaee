@@ -40,6 +40,9 @@ public abstract class FlexibleSaveStrategyImpl extends SaveStrategyImpl {
 
 	public FlexibleSaveStrategyImpl(IVirtualComponent vComponent) {
 		super();
+		if(null == vComponent){
+			throw new NullPointerException();
+		}
 		this.vComponent = vComponent;
 	}
 

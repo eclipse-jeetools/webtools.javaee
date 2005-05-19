@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -24,6 +25,8 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -43,21 +46,18 @@ public abstract class J2EEArtifactImportOperationNew extends AbstractDataModelOp
 		try {
 			this.info = info;
 			doExecute(monitor);
-			return null;
+			return OK_STATUS;
 		} finally {
 			model.dispose();
 		}
 	}
 
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
-		moduleFile = (ModuleFile) model.getProperty(IJ2EEArtifactImportDataModelProperties.MODULE_FILE);
+		moduleFile = (ModuleFile) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 		monitor.beginTask(null, moduleFile.getFiles().size());
 
-		virtualComponent = (IVirtualComponent) model.getProperty(IJ2EEArtifactImportDataModelProperties.TARGET_VIRTUAL_COMPONENT);
+		virtualComponent = createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), monitor);
 
-		if (!virtualComponent.exists()) {
-			createVirtualComponent(model.getNestedModel(IJ2EEArtifactImportDataModelProperties.NESTED_VIRTUAL_COMPONENT_MODEL), monitor);
-		}
 		try {
 			importModuleFile(monitor);
 		} catch (InvocationTargetException e) {
@@ -67,8 +67,9 @@ public abstract class J2EEArtifactImportOperationNew extends AbstractDataModelOp
 		}
 	}
 
-	protected void createVirtualComponent(IDataModel model, IProgressMonitor monitor) throws ExecutionException {
+	protected IVirtualComponent createVirtualComponent(IDataModel model, IProgressMonitor monitor) throws ExecutionException {
 		model.getDefaultOperation().execute(monitor, info);
+		return (IVirtualComponent) model.getProperty(IComponentCreationDataModelProperties.COMPONENT);
 	}
 
 	/**
@@ -89,9 +90,9 @@ public abstract class J2EEArtifactImportOperationNew extends AbstractDataModelOp
 	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		try {
 			monitor.worked(1);
-			J2EESaveStrategyImpl aStrategy = (J2EESaveStrategyImpl) createSaveStrategy(virtualComponent);
+			FlexibleJ2EESaveStrategyImpl aStrategy = (FlexibleJ2EESaveStrategyImpl) createSaveStrategy(virtualComponent);
 			aStrategy.setProgressMonitor(monitor);
-			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(J2EEArtifactImportDataModel.OVERWRITE_HANDLER));
+			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
 			modifyStrategy(aStrategy);
 			moduleFile.save(aStrategy);
 		} catch (OverwriteHandlerException oe) {

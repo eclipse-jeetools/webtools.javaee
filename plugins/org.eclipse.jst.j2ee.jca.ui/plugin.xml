@@ -75,13 +75,13 @@
       </wizard>
     </extension>
 <!-- JCA Import Wizard --> 
-  <!--  <extension
+    <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/import_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard"
-            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard">
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizardNew"
+            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizardNew">
          <description>
             %connector.import.description_ui_
          </description>

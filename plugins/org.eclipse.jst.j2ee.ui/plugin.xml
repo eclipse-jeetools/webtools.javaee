@@ -150,13 +150,13 @@
 <!--================================-->
 <!-- Import Wizard Contributions    -->
 <!--================================-->
-   <!-- <extension
+   <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_import_wiz.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard"
-            id="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard">
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizardNew"
+            id="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizardNew">
          <description>
             %client.import.description_ui_
          </description>
@@ -164,7 +164,8 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-      <wizard
+      </extension>
+   <!--    <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/import_ear.gif"
             class="org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard"

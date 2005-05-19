@@ -27,13 +27,10 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+//TODO DELETE
 /**
- * This dataModel is used for to import Web Modules (from WAR files) into the workspace.
- * 
- * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
- * the new project structures are adopted. Use at your own risk.
- * 
- * @since WTP 1.0
+ * @deprecated
+ *
  */
 public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 	//do not modify this property constant

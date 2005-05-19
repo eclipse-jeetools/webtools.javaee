@@ -98,14 +98,14 @@
          </selection>
       </wizard>
     </extension>
-      <!--
+      
    <extension
          point="org.eclipse.ui.importWizards">
     <wizard
             name="%WarImportWizard.name"
             icon="icons/full/ctool16/importwar_wiz.gif"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard"
-            id="org.eclipse.jst.servlet.ui.WebModuleImportWizard">
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizardNew"
+            id="org.eclipse.jst.servlet.ui.WebModuleImportWizardNew">
          <description>
             %WarImportWizard.description
          </description>
@@ -115,7 +115,7 @@
       </wizard>
       
     </extension>
-  
+  <!--
   <extension
          point="org.eclipse.ui.exportWizards">
     <wizard
