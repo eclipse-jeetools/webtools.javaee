@@ -216,9 +216,8 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		case IResourceDelta.REMOVED :
 				 if (index != -1) {
 				 	result.remove(index) ;
-					disposeStructureEdits(aProject);
-					
 				 }
+				 disposeStructureEdits(aProject);
 				 break;
 		case IResourceDelta.ADDED : {
 				 ComponentWorkingSet workingSet = (ComponentWorkingSet) result.getWorkingSet();
@@ -242,9 +241,8 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 				} else {
 					if (index != -1) {
 					 	result.remove(index) ;
-						disposeStructureEdits(aProject);
-						
 					 }
+					disposeStructureEdits(aProject);
 				}
 
 			} else {
