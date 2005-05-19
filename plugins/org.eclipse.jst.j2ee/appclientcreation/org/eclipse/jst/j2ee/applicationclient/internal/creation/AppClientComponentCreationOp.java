@@ -37,7 +37,6 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
 
     public AppClientComponentCreationOp(IDataModel model) {
         super(model);
-        // TODO Auto-generated constructor stub
     }
 
     protected void createAndLinkJ2EEComponents() throws CoreException {

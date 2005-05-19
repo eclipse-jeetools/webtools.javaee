@@ -294,25 +294,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
         }
     }
 
-    /**
-     * @return
-     */
-    public String getJavaSourceSourceFolder() {
-        return model.getStringProperty(JAVASOURCE_FOLDER);
-    }
-
-    /**
-     * @return
-     */
-    public String getDeploymentDescriptorFolder() {
-        return model.getStringProperty(DD_FOLDER);
-    }
-
-    public String getJavaSourceSourcePath() {
-        return model.getStringProperty(JAVASOURCE_FOLDER);
-    }
-
     private void addSrcFolderToProject() {
-        UpdateProjectClasspath update = new UpdateProjectClasspath(model.getStringProperty(JAVASOURCE_FOLDER), ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)));
+        UpdateProjectClasspath update = new UpdateProjectClasspath(model.getStringProperty(JAVASOURCE_FOLDER), model.getStringProperty(COMPONENT_NAME), ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)));
     }
 }

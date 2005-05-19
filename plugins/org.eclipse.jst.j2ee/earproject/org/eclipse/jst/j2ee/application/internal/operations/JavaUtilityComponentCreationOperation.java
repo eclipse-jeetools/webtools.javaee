@@ -95,6 +95,6 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	
 	private void addSrcFolderToProject() {
 	 	JavaComponentCreationDataModel dm = (JavaComponentCreationDataModel)operationDataModel;			
-		UpdateProjectClasspath update = new UpdateProjectClasspath(dm.getJavaSourceFolder(), dm.getProject());
+		UpdateProjectClasspath update = new UpdateProjectClasspath(dm.getJavaSourceFolder(), dm.getComponentName(), dm.getProject());
 	}	
 }

@@ -14,10 +14,13 @@ package org.eclipse.jst.j2ee.internal.common;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
@@ -28,29 +31,33 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 public class UpdateProjectClasspath {
 	
  
-	public UpdateProjectClasspath(String sourceFolder, IProject jProject){
-		addSrcFolderToProject( sourceFolder, jProject);
+	public UpdateProjectClasspath(String sourceFolder, String componentName, IProject jProject){
+		addSrcFolderToProject(sourceFolder, componentName, jProject);
 	}
 	
-	private IClasspathEntry[] getClasspathEntries(String sourceFolder, IProject jProject) {
+	private IClasspathEntry[] getClasspathEntries(String sourceFolder, String componentName, IProject jProject) {
 	
 		ArrayList list = new ArrayList();
 		list.add(JavaCore.newSourceEntry(jProject.getFullPath().append(sourceFolder)));
 		
 		IClasspathEntry[] classpath = new IClasspathEntry[list.size()];
-		for (int i = 0; i < classpath.length; i++) {
+        //adjust the output path to be bin/ComponentName
+		
+        for (int i = 0; i < classpath.length; i++) {
 			classpath[i] = (IClasspathEntry) list.get(i);
+            IPath newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/" + componentName + Path.SEPARATOR);
+            ((ClasspathEntry)classpath[i]).specificOutputLocation = newOutputPath;
 		}
 		return classpath;		
 	}	
 	
-	private void addSrcFolderToProject(String sourceFolder, IProject jProject) {
+	private void addSrcFolderToProject(String sourceFolder,String componentName, IProject jProject) {
 			
 		IJavaProject javaProject = JavaCore.create( jProject );
 		try {
 	
 			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, jProject);
+			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, jProject);
 			
 			int oldSize = oldEntries.length;
 			int newSize = newEntries.length;
@@ -70,6 +77,6 @@ public class UpdateProjectClasspath {
 		catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
 		}
-	}		
+	}	
 
 }

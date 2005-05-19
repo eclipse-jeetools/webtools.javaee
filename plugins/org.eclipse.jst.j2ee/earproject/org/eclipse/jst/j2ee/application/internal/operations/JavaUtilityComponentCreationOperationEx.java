@@ -92,7 +92,7 @@ public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOp
 	}	
 	    
 	private void addSrcFolderToProject() {
-		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getProject());
+		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getComponentName(), getProject());
 	}
     
     String getJavaSourceFolder(){
