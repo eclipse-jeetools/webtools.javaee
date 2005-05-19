@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModel;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManagerFactory;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
@@ -37,8 +38,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * </p>
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider {
-
-	private WorkingCopyManager workingCopyManager = null;
 
 	/**
 	 * @param aHandle
@@ -139,9 +138,8 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 */
 
 	public WorkingCopyManager getWorkingCopyManager() {
-		if (workingCopyManager == null)
-			workingCopyManager = WorkingCopyManagerFactory.newRegisteredInstance();
-		return workingCopyManager;
+		
+		return ((JavaArtifactEditModel)getArtifactEditModel()).getWorkingCopyManager();
 	}
 
 	/**
