@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -29,6 +30,9 @@ import org.eclipse.wst.server.core.ServerCore;
 
 public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
 
+    private IProject[] projs = null;
+    private List structureEdits = new ArrayList();
+    
 	public void init() {
 		super.init();
         model.setProperty(COMPONENT_VERSION, getDefaultProperty(COMPONENT_VERSION));
@@ -36,6 +40,11 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
         propertySet(CLASSPATH_SELECTION, null);
         model.setProperty(NESTED_UPDATE_MANIFEST_DM, new UpdateManifestDataModel());
         model.setProperty(USE_ANNOTATIONS, Boolean.FALSE);
+        
+        projs = ProjectUtilities.getAllProjects();
+        for(int i = 0; i<projs.length; i++){
+            structureEdits.add(StructureEdit.getStructureEditForRead(projs[i]));
+        }
 	}
 
  	public String[] getPropertyNames() {
@@ -141,44 +150,34 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	  return super.getValidPropertyDescriptors(propertyName);
 	}
 	
-	 private DataModelPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){	 	
-		 StructureEdit mc = null;
+	 private DataModelPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){	 
 		 ArrayList earDescriptorList = new ArrayList();
-		 
-		 IProject[] projs = ProjectUtilities.getAllProjects();
-		 
+		 if(projs == null) return null;
 		 for( int index=0; index< projs.length; index++){
 		 	IProject  flexProject = projs[index];
-			 try {
-				if(flexProject != null) { 
-					mc = StructureEdit.getStructureEditForRead(flexProject);
-					if( mc != null ){
-						WorkbenchComponent[] components = mc.getWorkbenchModules();
-		
-						int earVersion = 0;
-						for (int i = 0; i < components.length; i++) {
-							EARArtifactEdit earArtifactEdit = null;
-							try {
-								WorkbenchComponent wc = components[i];
-								if(wc.getComponentType() != null && wc.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
-									ComponentHandle handle = ComponentHandle.create(flexProject,wc.getName());
-									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
-								    if(j2eeVersion <= earArtifactEdit.getJ2EEVersion()){
-								    	WTPPropertyDescriptor desc = new WTPPropertyDescriptor(wc.getHandle().toString(), wc.getName());
-								    	earDescriptorList.add(desc);
-								    }
-								}
-							} finally {
-									if(earArtifactEdit != null)
-										earArtifactEdit.dispose();
-                            }	   
-						}
+			if(flexProject != null) { 					
+				if( structureEdits.get(index) != null ){
+					WorkbenchComponent[] components = ((StructureEdit)structureEdits.get(index)).getWorkbenchModules();
+					int earVersion = 0;
+					for (int i = 0; i < components.length; i++) {
+						EARArtifactEdit earArtifactEdit = null;
+						try {
+							WorkbenchComponent wc = components[i];
+							if(wc.getComponentType() != null && wc.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
+								ComponentHandle handle = ComponentHandle.create(flexProject,wc.getName());
+								earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+							    if(j2eeVersion <= earArtifactEdit.getJ2EEVersion()){
+							    	WTPPropertyDescriptor desc = new WTPPropertyDescriptor(wc.getHandle().toString(), wc.getName());
+							    	earDescriptorList.add(desc);
+							    }
+							}
+						} finally {
+								if(earArtifactEdit != null)
+									earArtifactEdit.dispose();
+                        }	   
 					}
 				}
-			 } finally {
-				 if(mc != null)
-					 mc.dispose();
-			 }
+			}
 		 }
 		DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[earDescriptorList.size()];
 		for (int i = 0; i < descriptors.length; i++) {
@@ -304,11 +303,15 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#dispose()
 	 */
-//	public void dispose() {
-//		if (cachedSelection != null)
-//			cachedSelection.getEARFile().close();
-//		super.dispose();
-//	}
+	public void dispose() {
+		if (structureEdits != null)
+            for(int i = 0; i<structureEdits.size(); i++){
+                ((StructureEdit)structureEdits.get(i)).dispose();
+                structureEdits.set(i, null);
+            }
+        structureEdits = null;
+		super.dispose();
+	}
 
 //	public void propertyChanged(WTPOperationDataModelEvent event) {
 //		super.propertyChanged(event);

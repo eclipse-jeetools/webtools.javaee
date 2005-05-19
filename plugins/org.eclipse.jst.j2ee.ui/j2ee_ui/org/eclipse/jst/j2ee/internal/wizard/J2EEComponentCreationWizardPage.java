@@ -20,7 +20,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
@@ -46,8 +45,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
@@ -150,23 +149,79 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	public J2EEComponentCreationWizardPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
-	
+    
+    protected Composite createTopLevelComposite(Composite parent) {
+        Composite top = new Composite(parent, SWT.NONE);
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(top, getInfopopID());
+        top.setLayout(new GridLayout());
+        top.setData(new GridData(GridData.FILL_BOTH));
+        Composite composite = new Composite(top, SWT.NONE);
+        GridLayout layout = new GridLayout(3, false);
+        composite.setLayout(layout);
+        createModuleGroup(composite);
+        Composite detail = new Composite(top, SWT.NONE);
+        detail.setLayout(new GridLayout());
+        detail.setData(new GridData(GridData.FILL_BOTH));
+        createAdvancedComposite(detail);
+        return top;
+    }
+
+    protected Composite createAdvancedComposite(Composite parent) {
+        advancedControlsBuilt = true;
+        advancedButton = new Button(parent, SWT.TOGGLE);
+        setAdvancedLabelText();
+        final Cursor hand = new Cursor(advancedButton.getDisplay(), SWT.CURSOR_HAND);
+        advancedButton.addDisposeListener(new DisposeListener() {
+            public void widgetDisposed(DisposeEvent e) {
+                hand.dispose();
+            }
+        });
+        advancedComposite = new Composite(parent, SWT.NONE);
+        //toggleAdvanced(false);
+        GridLayout layout = new GridLayout(3, false);
+        GridData data = new GridData();
+        advancedComposite.setData(data);
+        advancedComposite.setLayout(layout);
+        advancedButton.addSelectionListener(new SelectionListener() {
+            public void widgetSelected(SelectionEvent e) {
+                toggleAdvanced(true);
+            }
+
+            public void widgetDefaultSelected(SelectionEvent e) {
+                //do nothing
+            }
+        });
+        advancedButton.addListener(SWT.MouseHover, new Listener() {
+            public void handleEvent(Event event) {
+                if (event.type == SWT.MouseHover)
+                    advancedButton.setCursor(hand);
+            }
+        });
+        addToAdvancedComposite(advancedComposite);
+        return advancedComposite;
+    }
+    
     private void createModuleGroup(Composite parent) {
         GridData data = new GridData();
         // Add the module name label
-        Label moduleNameLabel = new Label(parent, SWT.NONE);
-        moduleNameLabel.setText(MODULE_NAME_UI + "                 ");
-        // Add the module name entry field
-        moduleNameText = new Text(parent, SWT.BORDER);
-        data = new GridData(GridData.FILL_HORIZONTAL);
-        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-        moduleNameText.setLayoutData(data);
-        synchHelper.synchText(moduleNameText,COMPONENT_NAME,new Control[] {});
-        new Label(parent,SWT.NONE);
+        if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+            new NewModuleDataModelGroup(parent, getDataModel(),synchHelper);
+        } else {
+            Label moduleNameLabel = new Label(parent, SWT.NONE);
+            moduleNameLabel.setText(MODULE_NAME_UI + "                 ");
+            // Add the module name entry field
+            moduleNameText = new Text(parent, SWT.BORDER);
+            data = new GridData(GridData.FILL_HORIZONTAL);
+            data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+            moduleNameText.setLayoutData(data);
+            synchHelper.synchText(moduleNameText,COMPONENT_NAME,new Control[] {});
+            new Label(parent,SWT.NONE);
+        }
     }
 
 	protected void addToAdvancedComposite(Composite advanced) {
-        createServerTargetComposite(advanced);
+        if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
+            createServerTargetComposite(advanced);
 		createVersionComposite(advanced);
 		createServerEarAndStandaloneGroup(advanced);
 	}
@@ -219,13 +274,13 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#enter()
 	 */
 	protected void enter() {
-//		if (advancedControlsBuilt) {
-//			if (isFirstTimeToPage)
-//				initializeAdvancedController();
-//			if (isWindows) {
-//				advancedController.setShellSizeForAdvanced();
-//			}
-//		}
+		if (advancedControlsBuilt) {
+			if (isFirstTimeToPage)
+				initializeAdvancedController();
+			if (isWindows) {
+				advancedController.setShellSizeForAdvanced();
+			}
+		}
 		super.enter();
 	}
 
@@ -247,7 +302,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#storeDefaultSettings()
 	 */
 	public void storeDefaultSettings() {
@@ -278,60 +332,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 			// will flip it
 			toggleAdvanced(false);
 		}
-	}
-	
-	protected Composite createTopLevelComposite(Composite parent) {
-		Composite top = new Composite(parent, SWT.NONE);
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(top, getInfopopID());
-		top.setLayout(new GridLayout());
-		top.setData(new GridData(GridData.FILL_BOTH));
-		Composite composite = new Composite(top, SWT.NONE);
-		GridLayout layout = new GridLayout(3, false);
-		composite.setLayout(layout);
-        createModuleGroup(composite);
-		Composite detail = new Composite(top, SWT.NONE);
-		detail.setLayout(new GridLayout());
-		detail.setData(new GridData(GridData.FILL_BOTH));
-		createAdvancedComposite(detail);
-		return top;
-	}
-
-	/**
-	 * @param parent
-	 */
-	protected Composite createAdvancedComposite(Composite parent) {
-		advancedControlsBuilt = true;
-		advancedButton = new Button(parent, SWT.TOGGLE);
-		setAdvancedLabelText();
-		final Cursor hand = new Cursor(advancedButton.getDisplay(), SWT.CURSOR_HAND);
-		advancedButton.addDisposeListener(new DisposeListener() {
-			public void widgetDisposed(DisposeEvent e) {
-				hand.dispose();
-			}
-		});
-		advancedComposite = new Composite(parent, SWT.NONE);
-		//toggleAdvanced(false);
-		GridLayout layout = new GridLayout(3, false);
-		GridData data = new GridData();
-		advancedComposite.setData(data);
-		advancedComposite.setLayout(layout);
-		advancedButton.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				toggleAdvanced(true);
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				//do nothing
-			}
-		});
-		advancedButton.addListener(SWT.MouseHover, new Listener() {
-			public void handleEvent(Event event) {
-				if (event.type == SWT.MouseHover)
-					advancedButton.setCursor(hand);
-			}
-		});
-		addToAdvancedComposite(advancedComposite);
-		return advancedComposite;
 	}
 
 	/**
@@ -380,8 +380,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		if (items != null && items.length > 0)
 			versionCombo.select(items.length - 1);
 		new Label(parent, SWT.NONE); //pad
-	}
-	
+	}	
 	
 	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
 		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
@@ -407,7 +406,5 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		}
 		return isOK;
 	}
-	
-
 
 }
