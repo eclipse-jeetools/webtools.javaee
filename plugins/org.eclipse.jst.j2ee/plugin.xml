@@ -164,7 +164,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
             editModelID="jst.appclient"
-            factoryClass="org.eclipse.wst.common.componentcore.internal.impl.ArtifactEditModelFactory">
+            factoryClass="org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModelFactory">
          <editModelResource
                autoload="false"
                URI="META-INF/application-client.xml"/>
