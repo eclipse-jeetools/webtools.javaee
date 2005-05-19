@@ -27,6 +27,8 @@ public class AllTests extends TestSuite {
 		super("WEB Tests");
 		addTest(new SimpleTestSuite(WebSaveStrategyTests.class));
 		addTest(new SimpleTestSuite(AppClientSaveStrategyTests.class));
+		addTest(new SimpleTestSuite(AppClientImportOperationTest.class));
+		addTest(new SimpleTestSuite(EJBImportOperationTest.class));
 	}
-	
+
 }

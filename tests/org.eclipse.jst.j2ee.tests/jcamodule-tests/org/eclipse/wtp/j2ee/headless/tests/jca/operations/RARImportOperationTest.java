@@ -17,11 +17,10 @@ import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
+//TODO DELETE
 /**
- * @author Administrator
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
+ * @deprecated
+ *
  */
 public class RARImportOperationTest extends ModuleImportOperationTestCase {
 

@@ -22,11 +22,9 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
+//TODO delete
 /**
- * @author Administrator
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
+ * @deprecated
  */
 public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 
