@@ -79,6 +79,8 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
@@ -537,20 +539,12 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 					IFolder folder = (IFolder) element;
 					// only show source folders
 					ArtifactEditOperationDataModel dataModel = ((ArtifactEditOperationDataModel) model);
-					StructureEdit moduleCore = null;
-					try {
-						moduleCore = StructureEdit.getStructureEditForRead(dataModel.getTargetProject());
-						ComponentResource[] sourceContainers = moduleCore.getSourceContainers(dataModel.getWorkbenchModule());
-						// TODO this api does not work yet
-						if (sourceContainers == null)
+					
+					IVirtualResource[] resources = dataModel.getComponent().getResources("java");
+					for (int i = 0; i < resources.length; i++) {
+						IVirtualFolder resource = (IVirtualFolder)resources[i];
+						if (resource.getUnderlyingFolder().equals(folder))
 							return true;
-						for (int i = 0; i < sourceContainers.length; i++) {
-							if (sourceContainers[i].getSourcePath().toString().equals(folder.getFullPath().toString()))
-								return true;
-						}
-					} finally {
-						if (moduleCore != null)
-							moduleCore.dispose();
 					}
 				}
 				return false;

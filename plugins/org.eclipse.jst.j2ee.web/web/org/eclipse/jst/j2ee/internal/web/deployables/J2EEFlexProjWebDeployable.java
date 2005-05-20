@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -30,6 +31,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -54,8 +56,8 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
      * @param aNature
      * @param aFactoryId
      */
-    public J2EEFlexProjWebDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
-        super(project, aFactoryId, aWorkbenchModule);
+    public J2EEFlexProjWebDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
+        super(project, aFactoryId, aComponent);
         this.contextRoot = getUncachedContextRoot();
     }
     
@@ -64,14 +66,12 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	}
 
     public String getContextRoot() {
-		List existingProps = wbModule.getComponentType().getProperties();
-        for (int i = 0; i < existingProps.size(); i++) {
-            Property prop = (Property) existingProps.get(i);
-			if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
-				return prop.getValue();
-			}
-        }	
-	    return wbModule.getName();
+		Properties props = component.getMetaProperties();
+       
+		if(props.containsKey(J2EEConstants.CONTEXTROOT))
+			return props.getProperty(J2EEConstants.CONTEXTROOT);
+		
+	    return component.getName();
     }
 
  
@@ -91,8 +91,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
             WebArtifactEdit webEdit = null;
            	try {
-				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
-           		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+           		webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
            		if(webEdit != null) {
                		int nVersion = webEdit.getJ2EEVersion();	
                		switch( nVersion ){
@@ -129,8 +128,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         WebArtifactEdit webEdit = null;
         int nVersion = 22;
        	try{
-			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
-       		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+       		webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
        		if(webEdit != null) {
        			nVersion = webEdit.getServletVersion();
        		}

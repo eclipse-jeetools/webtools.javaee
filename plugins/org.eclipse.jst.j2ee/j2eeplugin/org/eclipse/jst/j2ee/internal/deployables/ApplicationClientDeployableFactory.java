@@ -18,6 +18,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 
 /**
@@ -95,7 +96,7 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
 	 */
-	protected List createModuleDelegates(EList workBenchModules, IProject project) {
+	protected List createModuleDelegates(IVirtualComponent[] components) {
 		// TODO Auto-generated method stub
 		return null;
 	}

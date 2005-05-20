@@ -34,8 +34,8 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 
 	public static final String EAR_MODULE_TYPE = "jst.ear"; //$NON-NLS-1$
 
-	public EnterpriseApplicationDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
-		super(project, aFactoryId, aWorkbenchModule);
+	public EnterpriseApplicationDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
+		super(project, aFactoryId, aComponent);
 
 
 	}
@@ -45,8 +45,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 
 		EARArtifactEdit earEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
 			if (earEdit != null) {
 				int nVersion = earEdit.getJ2EEVersion();
 				switch (nVersion) {
@@ -78,8 +77,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		List modules = new ArrayList(3);
 		EARArtifactEdit earEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
 			if (earEdit != null) {
 				List components = earEdit.getJ2EEModuleReferences();
 				for (Iterator iter = components.iterator(); iter.hasNext();) {
@@ -113,7 +111,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 
 	public IPath getLocation() {
 		// TODO Auto-generated method stub
-		return new Path(wbModule.getHandle().toString());
+		return new Path(component.getProjectRelativePath().toString());
 	}
 
 	public IModule[] getLooseArchives() {

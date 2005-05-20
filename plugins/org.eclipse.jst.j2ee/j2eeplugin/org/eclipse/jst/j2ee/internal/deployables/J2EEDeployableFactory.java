@@ -22,10 +22,13 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.internal.Trace;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
@@ -118,15 +121,9 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		List modules = new ArrayList(1); 
 		StructureEdit moduleCore = null;
 		try {
-			
-			moduleCore = StructureEdit.getStructureEditForRead(project);
-			ProjectComponents projComp = moduleCore.getComponentModelRoot();
-			if (projComp == null)
-				return modules;
-			EList workBenchModules = projComp.getComponents();						 
-			if (workBenchModules.isEmpty())
-				return modules;
-			modules = createModuleDelegates(workBenchModules, project);
+			IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
+			IVirtualComponent[] components = flexProj.getComponents();
+			modules = createModuleDelegates(components);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,7 +135,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	}
 
 
-	protected abstract List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException; 
+	protected abstract List createModuleDelegates(IVirtualComponent[] comp) throws CoreException; 
 
 	
 	protected boolean isValidModule(IProject project) {

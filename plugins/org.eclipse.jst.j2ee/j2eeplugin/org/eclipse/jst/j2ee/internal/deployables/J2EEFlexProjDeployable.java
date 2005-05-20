@@ -18,6 +18,7 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
@@ -26,7 +27,7 @@ import org.eclipse.wst.server.core.util.ProjectModule;
  */
 public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule {
 	private String factoryId;
-    protected WorkbenchComponent wbModule = null;
+    protected IVirtualComponent component = null;
 
 
 	/**
@@ -34,10 +35,10 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	 * 
 	 * @param project
 	 */
-	public J2EEFlexProjDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
+	public J2EEFlexProjDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
 		super(project);
 		factoryId = aFactoryId;
-		wbModule = aWorkbenchModule;
+		component = aComponent;
 	}
 
 	public String getJ2EESpecificationVersion() {
@@ -51,9 +52,8 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 		
 		IPath path = null;
 	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
-        	if( wbModule != null ){
-        		
-        		IFolder outputContainer = StructureEdit.getOutputContainerRoot(wbModule);
+        	if( component != null ){
+        		IFolder outputContainer = StructureEdit.getOutputContainerRoot(component);
         		path = outputContainer.getRawLocation();
         	}
         }    
@@ -90,7 +90,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 		return getVersion();
 	}
 	public ComponentHandle getComponentHandle() {
-		return ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getHandle());
+		return component.getComponentHandle();
 	}
 
 	public String getVersion() {

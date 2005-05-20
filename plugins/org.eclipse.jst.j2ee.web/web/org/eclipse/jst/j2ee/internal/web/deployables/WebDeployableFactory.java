@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IProjectProperties;
@@ -53,20 +54,19 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	}
 
 
-	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+	protected List createModuleDelegates(IVirtualComponent[] components) throws CoreException {
 		J2EEFlexProjWebDeployable moduleDelegate = null;
 		IModule module = null;
-		List moduleList = new ArrayList(workBenchModules.size());
-		for (int i = 0; i < workBenchModules.size(); i++) {
+		List moduleList = new ArrayList(components.length);
+		for (int i = 0; i < components.length; i++) {
+			IVirtualComponent component = components[i];
 			try {
-				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				ComponentType type = wbModule.getComponentType();
-				if (type == null || !type.getComponentTypeId().equals(J2EEFlexProjWebDeployable.WEB_MODULE_TYPE))
-					continue;
-				moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
-				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-				moduleList.add(module);
-				moduleDelegate.initialize(module);
+				if(IModuleConstants.JST_WEB_MODULE.equals(component.getComponentTypeId())) {
+					moduleDelegate = new J2EEFlexProjWebDeployable(component.getProject(), ID, component);
+					module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+					moduleList.add(module);
+					moduleDelegate.initialize(module);
+				}
 				// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
 			} catch (Exception e) {
 				Logger.getLogger().write(e);

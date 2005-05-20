@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IProjectProperties;
@@ -56,22 +57,22 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	}
 
 
-	protected List createModuleDelegates(EList workBenchModules, IProject project) {
+	protected List createModuleDelegates(IVirtualComponent[] components) {
 		EnterpriseApplicationDeployable moduleDelegate = null;
 		IModule module = null;
-		List moduleList = new ArrayList(workBenchModules.size());
+		List moduleList = new ArrayList(components.length);
 		// J2EENature nature = (J2EENature)project.getNature(getNatureID());
 
-		for (int i = 0; i < workBenchModules.size(); i++) {
+		for (int i = 0; i < components.length; i++) {
+			IVirtualComponent component = components[i];
 			try {
-				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				if (wbModule.getComponentType() == null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EnterpriseApplicationDeployable.EAR_MODULE_TYPE))
-					continue;
-				moduleDelegate = new EnterpriseApplicationDeployable(project, ID, wbModule);
-				//moduleDelegate.getModules();
-				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-				moduleList.add(module);
-				moduleDelegate.initialize(module);
+				if(IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId())) {
+					moduleDelegate = new EnterpriseApplicationDeployable(component.getProject(), ID, component);
+					//moduleDelegate.getModules();
+					module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+					moduleList.add(module);
+					moduleDelegate.initialize(module);
+				}
 				// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
 			} catch (Exception e) {
 				Logger.getLogger().write(e);
