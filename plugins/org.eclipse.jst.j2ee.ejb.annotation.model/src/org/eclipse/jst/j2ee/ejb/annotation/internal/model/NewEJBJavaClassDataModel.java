@@ -60,11 +60,10 @@ public class NewEJBJavaClassDataModel extends NewJavaClassDataModel implements I
 	}
 	
 	protected boolean isAnnotationsSupported() {
-		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
+		if (getTargetProject()==null || getComponent()==null) return true;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getWorkbenchModule().getName());
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(getComponent());
 			if (ejbEdit == null)
 				return false;
 			return ejbEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
