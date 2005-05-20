@@ -23,9 +23,7 @@ public class EARArtifactEditOperationDataModel extends ArtifactEditOperationData
     }
     
     public EARArtifactEdit getEARArtifactEditForRead() {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(getWorkbenchModule()),getWorkbenchModule().getName());
-        
-        return EARArtifactEdit.getEARArtifactEditForRead(handle);
+        return EARArtifactEdit.getEARArtifactEditForRead(getComponent());
     }
  
 }

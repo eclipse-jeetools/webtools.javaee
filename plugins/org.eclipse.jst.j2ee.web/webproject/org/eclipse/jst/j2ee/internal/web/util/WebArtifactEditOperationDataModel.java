@@ -23,7 +23,6 @@ public class WebArtifactEditOperationDataModel extends ArtifactEditOperationData
     }
     
     public WebArtifactEdit getWebArtifactEditForRead() {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(getWorkbenchModule()),getWorkbenchModule().getName());
-        return WebArtifactEdit.getWebArtifactEditForRead(handle);
+        return WebArtifactEdit.getWebArtifactEditForRead(getComponent());
     }
 }

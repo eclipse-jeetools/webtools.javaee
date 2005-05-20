@@ -26,7 +26,6 @@ public class AppClientArtifactEditOperationDataModel extends ArtifactEditOperati
     }
     
     public AppClientArtifactEdit getAppClientArtifactEditForRead() {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(getWorkbenchModule()),getWorkbenchModule().getName());
-        return AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+        return AppClientArtifactEdit.getAppClientArtifactEditForRead(getComponent());
     }
 }

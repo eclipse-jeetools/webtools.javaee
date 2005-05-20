@@ -23,8 +23,7 @@ public class ConnectorArtifactEditOperationDataModel extends ArtifactEditOperati
     }
     
     public ConnectorArtifactEdit getConnectorArtifactEditForRead() {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(getWorkbenchModule()),getWorkbenchModule().getName());
-        return ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+        return ConnectorArtifactEdit.getConnectorArtifactEditForRead(getComponent());
     }
 
 }
