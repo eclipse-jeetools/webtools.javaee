@@ -95,7 +95,7 @@
             name="%j2ee.category_ui_"
             id="org.eclipse.jst.j2ee.internal">
       </category>
-<!-- Flexible Project Wizard -->
+<!-- Flexible Project Wizard 
       <wizard
             name="%flexible.project_ui_"
             icon="icons/full/ctool16/newear_wiz.gif"
@@ -111,7 +111,7 @@
          <selection
                class="org.eclipse.core.resources.IResource">
          </selection>
-      </wizard>
+      </wizard>-->
 <!-- EAR Component Wizard -->
       <wizard
             name="%ear_component_ui_"
