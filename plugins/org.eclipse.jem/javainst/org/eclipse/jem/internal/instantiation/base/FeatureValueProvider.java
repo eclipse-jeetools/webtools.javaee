@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: FeatureValueProvider.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/12 22:17:05 $ 
+ *  $Revision: 1.6 $  $Date: 2005/05/20 21:02:33 $ 
  */
 
 import java.util.Iterator;
@@ -49,10 +49,9 @@ public interface FeatureValueProvider {
 		 * @since 1.1.0
 		 */
 		public static Object visitSetFeatures(EObject eobject, Visitor visitor) {
-			FeatureValueProvider fvp;
-			try {
-				fvp = (FeatureValueProvider) eobject;
-			} catch (ClassCastException e) {
+			if (eobject instanceof FeatureValueProvider)
+				return ((FeatureValueProvider)eobject).visitSetFeatures(visitor);
+			else {
 				// Not a FeatureValueProvider, so do normal.
 				Iterator features = eobject.eClass().getEAllStructuralFeatures().iterator();
 				while(features.hasNext()){
@@ -65,9 +64,6 @@ public interface FeatureValueProvider {
 				}
 				return null;
 			}
-			// We run it outside of the class cast block so in caise the visit itself
-			// throws a class cast, that one can go on out from here.
-			return fvp.visitSetFeatures(visitor);
 		}
 		
 		private FeatureValueProviderHelper() {
