@@ -21,14 +21,15 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
 public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJBModule {
 
 	public static String EJB_TYPE = "jst.ejb";
 
-	public EJBFlexibleDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
-		super(project, aFactoryId, aWorkbenchModule);
+	public EJBFlexibleDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
+		super(project, aFactoryId, aComponent);
 
 
 	}
@@ -38,8 +39,8 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getProject(),wbModule.getName());
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
 			if (ejbEdit != null) {
 				int nVersion = ejbEdit.getJ2EEVersion();
 				switch (nVersion) {
@@ -73,8 +74,7 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 		EJBJar jar = null;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getProject(),wbModule.getName());
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
 			if (ejbEdit != null) {
 				jar = ejbEdit.getEJBJar();
 				modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
@@ -93,11 +93,7 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 
 	public IPath getRootFolder() {
 
-		IProject project = StructureEdit.getContainingProject(wbModule);
-		Path path = new Path(wbModule.getName());
-		if (project == null)
-			return null;
-		return project.getFullPath();
+		return component.getProject().getFullPath();
 	}
 
 	public String getType() {
@@ -115,8 +111,7 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 		EJBArtifactEdit ejbEdit = null;
 		EJBJar jar = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getProject(),wbModule.getName());
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
 			if (ejbEdit != null) {
 				jar = ejbEdit.getEJBJar();
 				return jar.getVersion();

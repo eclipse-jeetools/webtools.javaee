@@ -21,6 +21,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IProjectProperties;
@@ -50,20 +52,19 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	}
 
 
-	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+	protected List createModuleDelegates(IVirtualComponent[] components) throws CoreException {
 		EJBFlexibleDeployable moduleDelegate = null;
 		IModule module = null;
-		List moduleList = new ArrayList(workBenchModules.size());
-		for (int i = 0; i < workBenchModules.size(); i++) {
+		List moduleList = new ArrayList(components.length);
+		for (int i = 0; i < components.length; i++) {
+			IVirtualComponent component = components[i];
 			try {
-				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				
-				if (wbModule.getComponentType()==null || wbModule.getComponentType().getComponentTypeId() == null || !wbModule.getComponentType().getComponentTypeId().equals(EJBFlexibleDeployable.EJB_TYPE))
-					continue;
-				moduleDelegate = new EJBFlexibleDeployable(project, ID, wbModule);
-				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-				moduleList.add(module);
-				moduleDelegate.initialize(module);
+				if(IModuleConstants.JST_EJB_MODULE.equals(component.getComponentTypeId())) {
+					moduleDelegate = new EJBFlexibleDeployable(component.getProject(), ID, component);
+					module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+					moduleList.add(module);
+					moduleDelegate.initialize(module);
+				}
 			} catch (Exception e) {
 				Logger.getLogger().write(e);
 			} finally {
