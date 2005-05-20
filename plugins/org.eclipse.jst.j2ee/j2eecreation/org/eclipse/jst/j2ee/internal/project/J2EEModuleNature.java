@@ -18,8 +18,6 @@ package org.eclipse.jst.j2ee.internal.project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -43,7 +41,6 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 
 /**
  * @author jlanuti
@@ -303,36 +300,4 @@ public abstract class J2EEModuleNature extends J2EENature {
 		factories.add(jdomFactory);
 	}
 
-	/**
-	 * Return an editing model used to read web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey) {
-		return getWebServiceEditModelForRead(accessorKey, null);
-	}
-	/**
-	 * Return an editing model used to read web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-		return null;
-	}
-	/**
-	 * Return an editing model used to edit web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey) {
-		return getWebServiceEditModelForWrite(accessorKey, null);
-	}
-	/**
-	 * Return an editing model used to edit web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-		return null;
-	}
 }

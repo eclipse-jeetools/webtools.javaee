@@ -37,7 +37,8 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersResourceHandler;
 import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 
 /**
@@ -258,11 +259,12 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
 	public Collection getChildren(Object object) {
-
 		ApplicationClient client = (ApplicationClient) object;
 		Collection myChildren = super.getChildren(object);
-		if (client.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
-			myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(client));
+		if (client.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID) {
+			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+			myChildren.addAll(serviceHelper.get13ServiceRefs(client));
+		}	
 		return myChildren;
 	}
 }

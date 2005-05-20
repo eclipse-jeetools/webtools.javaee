@@ -2,7 +2,6 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Map;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -43,13 +42,11 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibRegistry;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ComponentCoreURIConverter;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -1115,21 +1112,4 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 		return getWebAppEditModelForWrite(accessorKey);
 	}
 
-	/**
-	 * Return an editing model used to read web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
-
-	/**
-	 * Return an editing model used to edit web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
 }

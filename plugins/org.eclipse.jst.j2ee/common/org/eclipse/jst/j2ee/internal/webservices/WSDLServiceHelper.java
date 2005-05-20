@@ -36,5 +36,6 @@ public interface WSDLServiceHelper {
 	public boolean isService(Object aService);
 	public boolean isWSDLResource(Object aResource);
 	public boolean isDefinition(Object aDefinition);
+	public List get13ServiceRefs(EObject j2eeObject);
 
 }

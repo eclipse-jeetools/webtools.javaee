@@ -14,22 +14,22 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterTextCCombo extends AdapterImpl implements ModifyListener {
-	private EditModel editModel_;
+	private ArtifactEdit artifactEdit_;
 	private EObject eObject_;
 	private EStructuralFeature feature_;
 	private CCombo text_;
 	private boolean nillable_;
 
-	public AdapterTextCCombo(EditModel editModel, EStructuralFeature feature, CCombo text, boolean nillable) {
+	public AdapterTextCCombo(ArtifactEdit artifactEdit, EStructuralFeature feature, CCombo text, boolean nillable) {
 		super();
-		editModel_ = editModel;
+		artifactEdit_ = artifactEdit;
 		eObject_ = null;
 		feature_ = feature;
 		text_ = text;
@@ -37,8 +37,8 @@ public class AdapterTextCCombo extends AdapterImpl implements ModifyListener {
 		text_.addModifyListener(this);
 	}
 
-	public AdapterTextCCombo(EditModel editModel, EObject eObject, EStructuralFeature feature, CCombo text, boolean nillable) {
-		this(editModel, feature, text, nillable);
+	public AdapterTextCCombo(ArtifactEdit artifactEdit, EObject eObject, EStructuralFeature feature, CCombo text, boolean nillable) {
+		this(artifactEdit, feature, text, nillable);
 		adapt(eObject);
 	}
 
@@ -51,8 +51,8 @@ public class AdapterTextCCombo extends AdapterImpl implements ModifyListener {
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			CommandModifyText command = new CommandModifyText(null, null, eObject_, feature_, text_.getText(), nillable_);
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit_.getContentModelRoot().eResource().setModified(true);
+			artifactEdit_.getCommandStack().execute(command);
 		}
 	}
 

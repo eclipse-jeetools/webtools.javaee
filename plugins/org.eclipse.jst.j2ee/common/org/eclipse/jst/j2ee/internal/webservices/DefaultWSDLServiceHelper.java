@@ -129,4 +129,9 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public List get13ServiceRefs(EObject j2eeObject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

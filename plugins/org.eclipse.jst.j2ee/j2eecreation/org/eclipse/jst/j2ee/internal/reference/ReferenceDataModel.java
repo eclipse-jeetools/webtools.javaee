@@ -27,7 +27,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -239,7 +240,8 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 					return false;
 			}
 			else {
-				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(bean);
+				WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+				Collection temp = serviceHelper.get13ServiceRefs(bean);
 				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
 					return false;
 			}
@@ -258,7 +260,8 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 					return false;
 			}
 			else {
-				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(appClient);
+				WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+				Collection temp = serviceHelper.get13ServiceRefs(appClient);
 				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
 					return false;
 			}
@@ -279,7 +282,8 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 					return false;
 			}
 			else {
-				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(webApp);
+				WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+				Collection temp = serviceHelper.get13ServiceRefs(webApp);
 				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
 					return false;
 			}

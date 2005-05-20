@@ -9,7 +9,7 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.jst.j2ee.internal.webservices;
+package org.eclipse.jst.j2ee.internal.webservice.helper;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -22,6 +22,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;

@@ -7,6 +7,7 @@
 package org.eclipse.jst.j2ee.internal.webservice.helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jst.j2ee.client.ApplicationClient;
+import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.ws.internal.parser.wsil.WebServiceEntity;
 import org.eclipse.wst.ws.internal.parser.wsil.WebServicesParser;
 import org.eclipse.wst.wsdl.Definition;
@@ -177,5 +181,17 @@ public class WSDLServiceHelperImpl implements WSDLServiceHelper {
 	public boolean isDefinition(Object aDefinition) {
 		
 		return aDefinition instanceof Definition;
+	}
+
+
+	public List get13ServiceRefs(EObject j2eeObject) {
+		if (j2eeObject instanceof ApplicationClient)
+			return WebServicesManager.getInstance().get13ServiceRefs((ApplicationClient)j2eeObject);
+		else if (j2eeObject instanceof EnterpriseBean)
+			return WebServicesManager.getInstance().get13ServiceRefs((EnterpriseBean)j2eeObject);
+		else if (j2eeObject instanceof WebApp)
+			return WebServicesManager.getInstance().get13ServiceRefs((WebApp)j2eeObject);
+		else
+			return Collections.EMPTY_LIST;
 	}
 }

@@ -610,46 +610,7 @@
          </moduleType>
       </moduleFactory>
    </extension>
-<!-- Web services edit models -->
-   <extension
-         id="editModel.ejbWebService"
-         name="Web Service Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.j2ee.webservice.ejb.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.webservices.EjbProjectWebServiceEditModelFactory">
-         <editModelResource
-               URI="META-INF/webservices.xml"
-               autoload="true">
-         </editModelResource>
-      </editModel>
-   </extension>
-   <extension
-         id="editModel.webWebService"
-         name="Web Service Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.webservice.web.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.webservices.WebProjectWebServiceEditModelFactory">
-         <editModelResource
-               URI="WEB-INF/webservices.xml"
-               autoload="true">
-         </editModelResource>
-      </editModel>
-   </extension>
-   <extension
-         id="editModel.appClientWebService"
-         name="Web Service Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.j2ee.webservice.appClient.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.webservices.AppClientProjectWebServiceEditModelFactory">
-         <editModelResource
-               URI="META-INF/webservices.xml"
-               autoload="true">
-         </editModelResource>
-      </editModel>
-   </extension>
+
 <!-- =============================================================== -->
 <!-- WTP Operation extendable operations						        -->
 <!-- 																	 -->

@@ -134,25 +134,6 @@
 <!-- ========================================================================== -->
    <extension-point id="webservicesclienteditmodelcontainer" name="%EDITOR_EDITMODELS_WEB_SERVICES_CLIENT"/>
 
-
-   <extension
-         point="org.eclipse.jst.j2ee.webservice.webserviceseditmodelcontainer">
-      <webserviceseditmodelcontainer
-            name="%WSDD_EDIT_MODEL_NAME"
-            class="org.eclipse.jst.j2ee.internal.webservice.editmodel.WsddEditModel"
-            descriptorName="webservices.xml"
-            id="org.eclipse.jst.j2ee.internal.webservice.editmodel.WsddEditModel">
-      </webserviceseditmodelcontainer>
-   </extension>
-   <extension
-         point="org.eclipse.jst.j2ee.webservice.webservicesclienteditmodelcontainer">
-      <webservicesclienteditmodelcontainer
-            name="%WSCDD_EDIT_MODEL_NAME"
-            class="org.eclipse.jst.j2ee.internal.webservice.editmodel.WscddEditModel"
-            descriptorName="webservicesclient.xml"
-            id="org.eclipse.jst.j2ee.internal.webservice.editmodel.WscddEditModel">
-      </webservicesclienteditmodelcontainer>
-   </extension>
    <extension
          id="WSDLServiceHelper"
          name="WSDLServiceHelper"

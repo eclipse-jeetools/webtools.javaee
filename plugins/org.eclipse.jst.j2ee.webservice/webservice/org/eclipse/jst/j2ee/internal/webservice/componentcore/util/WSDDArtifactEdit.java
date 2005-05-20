@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.webservice.componentcore.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -8,6 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
@@ -39,6 +42,10 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static final Class ADAPTER_TYPE = WSDDArtifactEdit.class;
+	
+	public static final String WSIL_FILE_EXT = "wsil"; //$NON-NLS-1$
+	public static final String WSDL_FILE_EXT = "wsdl"; //$NON-NLS-1$
+
 
 	/**
 	 * @param aHandle
@@ -383,5 +390,41 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 
 	public EObject getContentModelRoot() {
 		return getWebServices();
+	}
+	
+	public List getWSILResources() {
+		return getResources(WSIL_FILE_EXT);
+	}
+
+	public List getWSDLResources() {
+		return getResources(WSDL_FILE_EXT);
+	}
+
+	private List getResources(String ext) {
+		List resources = getArtifactEditModel().getResources();
+		List result = new ArrayList();
+		for (int i = 0; i < resources.size(); i++) {
+			Resource res = (Resource) resources.get(i);
+			if (res != null && res.getURI().fileExtension() != null && res.getURI().fileExtension().equals(ext))
+				result.add(res);
+		}
+		return result;
+	}
+	
+	/**
+	 * return the WSDLResource if it exists, otherwise return null
+	 */
+	public Resource getWsdlResource(String path) {
+		if (path == null || path.equals(""))return null; //$NON-NLS-1$
+		Resource res = null;
+		try {
+			res = getArtifactEditModel().getResource(URI.createURI(path));
+		} catch (Exception e) {
+			//Ignore
+		}
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		if (res != null && res.isLoaded() && serviceHelper.isWSDLResource(res))
+			return res;
+		return null;
 	}
 }

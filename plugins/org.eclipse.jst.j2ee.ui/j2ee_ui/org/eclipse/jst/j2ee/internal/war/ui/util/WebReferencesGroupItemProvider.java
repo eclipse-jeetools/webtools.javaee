@@ -24,7 +24,8 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 /**
@@ -68,10 +69,12 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 			result.addAll(webApp.getResourceRefs());
 		if (!webApp.getMessageDestinationRefs().isEmpty())
 			result.addAll(webApp.getMessageDestinationRefs());
-
+		if (!webApp.getServiceRefs().isEmpty())
+			result.addAll(webApp.getServiceRefs());
 		Collection serviceRefs = null;
 		try {
-			serviceRefs = WebServicesManager.getInstance().getServiceRefs(webApp);
+			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+			serviceRefs = serviceHelper.get13ServiceRefs(webApp);
 		} catch (RuntimeException re) {
 			serviceRefs = Collections.EMPTY_LIST;
 		}

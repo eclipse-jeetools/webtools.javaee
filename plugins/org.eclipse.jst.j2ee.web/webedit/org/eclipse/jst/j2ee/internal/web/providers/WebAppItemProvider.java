@@ -32,7 +32,8 @@ import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -71,8 +72,10 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	public Collection getChildren(Object object) {
 		WebApp webApp = (WebApp) object;
 		Collection myChildren = super.getChildren(object);
-		if (webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID)
-			myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(webApp));
+		if (webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID) {
+			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+			myChildren.addAll(serviceHelper.get13ServiceRefs(webApp));
+		}
 		return myChildren;
 	}
 

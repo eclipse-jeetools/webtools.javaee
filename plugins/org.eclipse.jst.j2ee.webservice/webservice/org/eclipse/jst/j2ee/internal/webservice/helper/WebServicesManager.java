@@ -17,12 +17,11 @@
 
 
 
-package org.eclipse.jst.j2ee.internal.webservices;
+package org.eclipse.jst.j2ee.internal.webservice.helper;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,35 +38,35 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifactEdit;
+import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -79,7 +78,8 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
  */
 public class WebServicesManager implements EditModelListener, IResourceChangeListener, IResourceDeltaVisitor {
 
-	private HashMap editModels;
+	private List wsArtifactEdits;
+	private List wsClientArtifactEdits;
 	private static WebServicesManager INSTANCE = null;
 	private List listeners;
 	private List removedListeners = new ArrayList();
@@ -103,18 +103,31 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	private void init() {
-		collectProjectEditModels();
+		collectArtifactEdits();
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
 	}
 
-	private void collectProjectEditModels() {
+	private void collectArtifactEdits() {
 		IProject[] projects = ProjectUtilities.getAllProjects();
 		for (int i = 0; i < projects.length; i++) {
 			IProject project = projects[i];
-			WebServiceEditModel editModel = getWebServiceEditModelForProject(project);
-			if (editModel != null) {
-				editModel.addListener(this);
-				getEditModels().put(project, editModel);
+			WSDDArtifactEdit wsddArtifactEdit = null;
+			WSCDDArtifactEdit wscddArtifactEdit = null;
+			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
+			if (flexProject==null) continue;
+			IVirtualComponent[] components = flexProject.getComponents();
+			if (components==null) continue;
+			for (int j=0; j<components.length; j++) {
+				wsddArtifactEdit = WSDDArtifactEdit.getWSDDArtifactEditForRead(components[j]);
+				if (wsddArtifactEdit != null) {
+					wsddArtifactEdit.addListener(this);
+					getWSArtifactEdits().add(wsddArtifactEdit);
+				}
+				wscddArtifactEdit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(components[j]);
+				if (wscddArtifactEdit != null) {
+					wscddArtifactEdit.addListener(this);
+					getWSClientArtifactEdits().add(wsddArtifactEdit);
+				}
 			}
 		}
 	}
@@ -122,14 +135,19 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	/**
 	 * @return Returns the editModels.
 	 */
-	private HashMap getEditModels() {
-		if (editModels == null)
-			editModels = new HashMap();
-		return editModels;
+	private List getWSArtifactEdits() {
+		if (wsArtifactEdits == null)
+			wsArtifactEdits = new ArrayList();
+		return wsArtifactEdits;
 	}
-
-	private List getEditModelList() {
-		return new ArrayList(getEditModels().values());
+	
+	/**
+	 * @return Returns the editModels.
+	 */
+	private List getWSClientArtifactEdits() {
+		if (wsClientArtifactEdits == null)
+			wsClientArtifactEdits = new ArrayList();
+		return wsClientArtifactEdits;
 	}
 
 	private List getListeners() {
@@ -146,42 +164,6 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			getListeners().add(aListener);
 	}
 
-	public WebServiceEditModel getWSEditModel(IProject project) {
-		List localEditModels = getEditModelList();
-		for (int i = 0; i < localEditModels.size(); i++) {
-			WebServiceEditModel wsEditModel = (WebServiceEditModel) localEditModels.get(i);
-			if (wsEditModel.getProject() == project)
-				return wsEditModel;
-		}
-		return null;
-	}
-
-	public J2EEModuleNature getWebServiceNature(IProject project) {
-		try {
-			if (project.hasNature(IEJBNatureConstants.NATURE_ID))
-				return (J2EEModuleNature) project.getNature(IEJBNatureConstants.NATURE_ID);
-			else if (project.hasNature(IApplicationClientNatureConstants.NATURE_ID))
-				return (J2EEModuleNature) project.getNature(IApplicationClientNatureConstants.NATURE_ID);
-			else if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID))
-				return (J2EEModuleNature) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-		} catch (Exception e) {
-			//Ignore
-		}
-		return null;
-	}
-
-	private WebServiceEditModel getWebServiceEditModelForProject(IProject project) {
-		J2EEModuleNature nature = getWebServiceNature(project);
-		HashMap editModelMap = getEditModels();
-		WebServiceEditModel wsEditModel = (WebServiceEditModel) editModelMap.get(project);
-		if (wsEditModel == null && nature != null) {
-			wsEditModel = nature.getWebServiceEditModelForRead(this);
-			editModelMap.put(project, wsEditModel);
-			return wsEditModel;
-		}
-		return wsEditModel;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -189,12 +171,38 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
 		if (anEvent.getEventCode() == EditModelEvent.PRE_DISPOSE) {
-			EditModel editModel = anEvent.getEditModel();
-			getEditModels().remove(editModel.getProject());
-			editModel.removeListener(this);
-			editModel.releaseAccess(this);
+			ArtifactEditModel editModel = (ArtifactEditModel) anEvent.getEditModel();
+			ComponentHandle handle = editModel.getComponentHandle();
+			WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
+			getWSArtifactEdits().remove(wsArtifactEdit);
+			wsArtifactEdit.removeListener(this);
+			wsArtifactEdit.dispose();
+			WSCDDArtifactEdit wsClientArtifactEdit = getWSClientArtifactEdit(handle);
+			getWSClientArtifactEdits().remove(wsClientArtifactEdit);
+			wsClientArtifactEdit.removeListener(this);
+			wsClientArtifactEdit.dispose();
 		}
 		notifyListeners(anEvent);
+	}
+	
+	private WSDDArtifactEdit getWSArtifactEdit(ComponentHandle handle) {
+		for (int i=0; i<getWSArtifactEdits().size(); i++) {
+			WSDDArtifactEdit artifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
+			ComponentHandle editHandle = artifactEdit.getComponentHandle();
+			if (editHandle.getProject()==handle.getProject() && editHandle.getName().equals(handle.getName()))
+				return artifactEdit;
+		}
+		return null;
+	}
+	
+	private WSCDDArtifactEdit getWSClientArtifactEdit(ComponentHandle handle) {
+		for (int i=0; i<getWSClientArtifactEdits().size(); i++) {
+			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSArtifactEdits().get(i);
+			ComponentHandle editHandle = artifactEdit.getComponentHandle();
+			if (editHandle.getProject()==handle.getProject() && editHandle.getName().equals(handle.getName()))
+				return artifactEdit;
+		}
+		return null;
 	}
 
 	/**
@@ -236,13 +244,20 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return false;
 	}
 
-	private void releaseEditModels() {
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			editModel.removeListener(this);
-			editModel.releaseAccess(this);
+	private void releaseArtifactEdits() {
+		for (int i = 0; i < getWSArtifactEdits().size(); i++) {
+			WSDDArtifactEdit artifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
+			artifactEdit.removeListener(this);
+			artifactEdit.dispose();
 		}
-		getEditModels().clear();
+		getWSArtifactEdits().clear();
+		
+		for (int i = 0; i < getWSClientArtifactEdits().size(); i++) {
+			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(i);
+			artifactEdit.removeListener(this);
+			artifactEdit.dispose();
+		}
+		getWSClientArtifactEdits().clear();
 	}
 
 	/*
@@ -286,13 +301,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 */
 	public List getInternalWebServices() {
 		List result = new ArrayList();
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			if (editModel.getProject() != null) {
-				WebServices webServices = editModel.getWebServices();
-				if (webServices != null)
-					result.add(webServices);
-			}
+		for (int i = 0; i < getWSArtifactEdits().size(); i++) {
+			WSDDArtifactEdit artifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
+			WebServices webServices = artifactEdit.getWebServices();
+			if (webServices != null)
+				result.add(webServices);
 		}
 		return result;
 	}
@@ -372,8 +385,6 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return serviceHelper.getWsdlServicesFromWsilFile(wsil);
 	}
 
-	
-
 	/**
 	 * Returns all WSDL Services, both internal and external
 	 */
@@ -386,22 +397,18 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 
 	protected void dispose() {
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-		releaseEditModels();
+		releaseArtifactEdits();
 		INSTANCE = null;
 	}
 
 	public Resource getWSDLResource(WebServiceDescription webService) {
 		String wsdlFileName = webService.getWsdlFile();
 		Resource res = null;
-		String projName = ProjectUtilities.getProject(webService).getName();
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			if (editModel.getProject() != null && editModel.getProject().getName().equals(projName)) {
-				res = editModel.getWsdlResource(wsdlFileName);
-				if (res != null)
-					break;
-			}
-		}
+		IVirtualResource[] resources = ComponentCore.createResources(WorkbenchResourceHelper.getFile(webService));
+		if (resources == null) return res;
+		ComponentHandle handle = ComponentHandle.create(resources[0].getComponent().getProject(),resources[0].getComponent().getName());
+		WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
+		res = artifactEdit.getWsdlResource(wsdlFileName);
 		return res;
 	}
 
@@ -523,72 +530,55 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 
 	public List getWorkspace13ServiceRefs() {
 		List result = new ArrayList();
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			if (editModel.getProject() != null) {
-				WebServicesResource res = editModel.get13WebServicesClientResource();
+		for (int i = 0; i < getWSClientArtifactEdits().size(); i++) {
+			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(i);
+			WebServicesResource res = artifactEdit.getWscddXmiResource();
 				if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
 					result.addAll(res.getWebServicesClient().getServiceRefs());
-			}
 		}
 		return result;
 	}
 
-	public List get13ServiceRefs(J2EEEditModel moduleEditModel) {
+	public List get13ServiceRefs(ComponentHandle handle) {
 
 		List result = new ArrayList();
-		WebServicesResource res = getWscddResource(moduleEditModel);
+		WSCDDArtifactEdit wsClientArtifactEdit = getWSClientArtifactEdit(handle);
+		WebServicesResource res = wsClientArtifactEdit.getWscddXmiResource();
 		if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
 			result.addAll(res.getWebServicesClient().getServiceRefs());
 
 		return result;
 	}
 
-	/**
-	 * @param moduleEditModel
-	 * @return
-	 */
-	private WebServicesResource getWscddResource(J2EEEditModel moduleEditModel) {
-
-		if (moduleEditModel.getJ2EENature().getNatureID().equals(IEJBNatureConstants.NATURE_ID))
-			return (WebServicesResource) moduleEditModel.getResource(J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ);
-		if (moduleEditModel.getJ2EENature().getNatureID().equals(IWebNatureConstants.J2EE_NATURE_ID))
-			return (WebServicesResource) moduleEditModel.getResource(J2EEConstants.WEB_SERVICES_CLIENT_WEB_INF_DD_URI_OBJ);
-		if (moduleEditModel.getJ2EENature().getNatureID().equals(IApplicationClientNatureConstants.NATURE_ID))
-			return (WebServicesResource) moduleEditModel.getResource(J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ);
-		return null;
-	}
-
 	public List getWorkspace14ServiceRefs() {
 		List result = new ArrayList();
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			if (editModel.getProject() != null) {
-				J2EEEditModel j2eeEditModel = editModel.getJ2EEEditModel(this);
-				try {
-					EObject rootObject = j2eeEditModel.getPrimaryRootObject();
-					// handle EJB project case
-					if (rootObject instanceof EJBJar) {
-						List cmps = ((EJBJar) rootObject).getEnterpriseBeans();
-						for (int j = 0; j < cmps.size(); j++) {
-							EnterpriseBean bean = (EnterpriseBean) cmps.get(j);
-							if (bean.getServiceRefs() != null && !bean.getServiceRefs().isEmpty())
-								result.addAll(bean.getServiceRefs());
-						}
+		for (int i = 0; i < getWSArtifactEdits().size(); i++) {
+			WSDDArtifactEdit wsArtifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
+			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wsArtifactEdit.getComponentHandle());
+			try {
+				EObject rootObject = artifactEdit.getContentModelRoot();
+				// handle EJB project case
+				if (rootObject instanceof EJBJar) {
+					List cmps = ((EJBJar) rootObject).getEnterpriseBeans();
+					for (int j = 0; j < cmps.size(); j++) {
+						EnterpriseBean bean = (EnterpriseBean) cmps.get(j);
+						if (bean.getServiceRefs() != null && !bean.getServiceRefs().isEmpty())
+							result.addAll(bean.getServiceRefs());
 					}
-					// handle Web Project
-					else if (rootObject instanceof WebApp) {
-						if (((WebApp) rootObject).getServiceRefs() != null && !((WebApp) rootObject).getServiceRefs().isEmpty())
-							result.addAll(((WebApp) rootObject).getServiceRefs());
-					}
-					// handle App clients
-					else if (rootObject instanceof ApplicationClient) {
-						if (((ApplicationClient) rootObject).getServiceRefs() != null && !((ApplicationClient) rootObject).getServiceRefs().isEmpty())
-							result.addAll(((ApplicationClient) rootObject).getServiceRefs());
-					}
-				} finally {
-					j2eeEditModel.releaseAccess(this);
 				}
+				// handle Web Project
+				else if (rootObject instanceof WebApp) {
+					if (((WebApp) rootObject).getServiceRefs() != null && !((WebApp) rootObject).getServiceRefs().isEmpty())
+						result.addAll(((WebApp) rootObject).getServiceRefs());
+				}
+				// handle App clients
+				else if (rootObject instanceof ApplicationClient) {
+					if (((ApplicationClient) rootObject).getServiceRefs() != null && !((ApplicationClient) rootObject).getServiceRefs().isEmpty())
+						result.addAll(((ApplicationClient) rootObject).getServiceRefs());
+				}
+			} finally {
+				if (artifactEdit != null)
+					artifactEdit.dispose();
 			}
 		}
 		return result;
@@ -600,10 +590,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 
 	public List getWorkspaceWSILFiles() {
 		List result = new ArrayList();
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			if (editModel.getProject() != null) {
-				List files = ProjectUtilities.getAllProjectFiles(editModel.getProject());
+		for (int i = 0; i < getWSArtifactEdits().size(); i++) {
+			WSDDArtifactEdit artifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
+			IProject project = artifactEdit.getComponentHandle().getProject();
+			if (project != null) {
+				List files = ProjectUtilities.getAllProjectFiles(project);
 				for (int j = 0; j < files.size(); j++) {
 					IFile file = (IFile) files.get(j);
 					if (file != null && WSIL_EXT.equals(file.getFileExtension()))
@@ -616,10 +607,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 
 	public List getWorkspaceWSDLResources() {
 		List result = new ArrayList();
-		for (int i = 0; i < getEditModelList().size(); i++) {
-			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
-			if (editModel.getProject() != null) {
-				List wsdlResources = editModel.getWSDLResources();
+		for (int i = 0; i < getWSArtifactEdits().size(); i++) {
+			WSDDArtifactEdit artifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
+			IProject project = artifactEdit.getComponentHandle().getProject();
+			if (project != null) {
+				List wsdlResources = artifactEdit.getWSDLResources();
 				if (wsdlResources != null && !wsdlResources.isEmpty()) {
 					for (int j = 0; j < wsdlResources.size(); j++) {
 						Resource wsdl = (Resource) wsdlResources.get(j);
@@ -645,12 +637,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * @param bean
 	 * @return
 	 */
-	public Collection get13ServiceRefs(EnterpriseBean bean) {
-
-		IProject proj = ProjectUtilities.getProject(bean);
-		if (proj == null)
+	public List get13ServiceRefs(EnterpriseBean bean) {
+		ComponentHandle handle = getComponentHandle(WorkbenchResourceHelper.getFile(bean));
+		if (handle == null)
 			return Collections.EMPTY_LIST;
-		WebServicesResource res = getWebServicesClientResource(proj);
+		WSCDDArtifactEdit artifactEdit = getWSClientArtifactEdit(handle);
+		WebServicesResource res = artifactEdit.getWscddXmiResource();
 		if (res != null && res.getWebServicesClient() != null) {
 			String ejbName = bean.getName();
 			List scopes = res.getWebServicesClient().getComponentScopedRefs();
@@ -667,9 +659,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * @param client
 	 * @return
 	 */
-	public Collection get13ServiceRefs(ApplicationClient client) {
-		IProject proj = ((ProjectResourceSet) client.eResource().getResourceSet()).getProject();
-		WebServicesResource res = getWebServicesClientResource(proj);
+	public List get13ServiceRefs(ApplicationClient client) {
+		ComponentHandle handle = getComponentHandle(WorkbenchResourceHelper.getFile(client));
+		if (handle == null)
+			return Collections.EMPTY_LIST;
+		WSCDDArtifactEdit artifactEdit = getWSClientArtifactEdit(handle);
+		WebServicesResource res = artifactEdit.getWscddXmiResource();
 		if (res != null) {
 			WebServicesClient webClient = res.getWebServicesClient();
 			if (webClient != null)
@@ -682,64 +677,18 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * @param webapp
 	 * @return
 	 */
-	public Collection get13ServiceRefs(WebApp webapp) {
-		IProject proj = ((ProjectResourceSet) webapp.eResource().getResourceSet()).getProject();
-		WebServicesResource res = getWebServicesClientResource(proj);
+	public List get13ServiceRefs(WebApp webapp) {
+		ComponentHandle handle = getComponentHandle(WorkbenchResourceHelper.getFile(webapp));
+		if (handle == null)
+			return Collections.EMPTY_LIST;
+		WSCDDArtifactEdit artifactEdit = getWSClientArtifactEdit(handle);
+		WebServicesResource res = artifactEdit.getWscddXmiResource();
 		if (res != null) {
 			WebServicesClient webClient = res.getWebServicesClient();
 			if (webClient != null)
 				return webClient.getServiceRefs();
 		}
 		return Collections.EMPTY_LIST;
-	}
-
-	public WebServicesResource getDefaultWebServicesResource(EObject proj, J2EEEditModel model) {
-		WebServicesResource res = getWebServicesClientResource(model.getProject());
-		if (res != null) {
-			if (res.getContents().isEmpty()) {
-				WebServicesClient wsc = Webservice_clientFactory.eINSTANCE.createWebServicesClient();
-				res.getContents().add(wsc);
-			}
-			return res;
-		}
-		if (proj instanceof WebApp)
-			res = (WebServicesResource) model.createResource(URI.createURI(WebServiceEditModel.WS_CLIENT_WEB_INF_PATH));
-		else
-			res = (WebServicesResource) model.createResource(URI.createURI(WebServiceEditModel.WS_CLIENT_META_INF_PATH));
-		WebServicesClient wsc = Webservice_clientFactory.eINSTANCE.createWebServicesClient();
-		res.getContents().add(wsc);
-		return res;
-	}
-
-	public WebServicesResource getWebServicesClientResource(IProject proj) {
-		J2EENature nature = (J2EENature.getRegisteredRuntime(proj));
-		WebServicesResource res = null;
-		try {
-			if (nature.getDeploymentDescriptorType() == XMLResource.WEB_APP_TYPE)
-				res = (WebServicesResource) nature.getResource(J2EEConstants.WEB_SERVICES_CLIENT_WEB_INF_DD_URI_OBJ);
-			else
-				res = (WebServicesResource) nature.getResource(J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ);
-		} catch (Exception e) {
-			//Ignore
-		}
-		return res;
-	}
-
-	public WsddResource getWebServicesResource(IProject proj) {
-		J2EENature nature = (J2EENature.getRegisteredRuntime(proj));
-		WsddResource res = null;
-		try {
-			if (nature.getDeploymentDescriptorType() == XMLResource.WEB_APP_TYPE)
-				res = (WsddResource) nature.getResource(J2EEConstants.WEB_SERVICES_WEB_INF_DD_URI_OBJ);
-			else
-				res = (WsddResource) nature.getResource(J2EEConstants.WEB_SERVICES_META_INF_DD_URI_OBJ);
-		} catch (Exception e) {
-			//Ignore
-		}
-
-		if (res != null && WorkbenchResourceHelper.getFile(res).exists())
-			return res;
-		return null;
 	}
 
 	/*
@@ -751,41 +700,93 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		IResource resource = delta.getResource();
 		if (resource.getType() == IResource.PROJECT) {
 			IProject p = (IProject) resource;
+			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(p);
 			// Handle project adds
-			if (delta.getKind() == IResourceDelta.ADDED) {
-				WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
-				if (editModel !=null && !getEditModels().containsValue(editModel)) {
-					getEditModels().put(p,editModel);
-					editModel.addListener(this);
-					// forward an edit model event to manager's listeners
-					notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,editModel));
-					return false;
+			if (delta.getKind() == IResourceDelta.ADDED && flexProject != null) {
+				boolean state = true;
+				IVirtualComponent[] components = flexProject.getComponents();
+				for (int i=0; i<components.length; i++) {
+					ComponentHandle handle = ComponentHandle.create(components[i].getProject(),components[i].getName());
+					WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
+					if (wsArtifactEdit ==null) {
+						wsArtifactEdit = WSDDArtifactEdit.getWSDDArtifactEditForRead(handle);
+						getWSArtifactEdits().add(wsArtifactEdit);
+						wsArtifactEdit.addListener(this);
+						// forward an edit model event to manager's listeners
+						// TODO forward edit model event?
+						//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wsArtifactEdit));
+						state = false;
+					}
+					WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
+					if (wscArtifactEdit ==null) {
+						wscArtifactEdit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(handle);
+						getWSArtifactEdits().add(wscArtifactEdit);
+						wscArtifactEdit.addListener(this);
+						// forward an edit model event to manager's listeners
+						// TODO forward edit model event?
+						//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wscArtifactEdit));
+						state = false;
+					}
 				}
+				return state;
 			}
 			// Handle project close events removals
-			else if (delta.getKind() == IResourceDelta.CHANGED) {
+			else if (delta.getKind() == IResourceDelta.CHANGED && flexProject != null) {
+				boolean state = true;
 				boolean projectOpenStateChanged = ((delta.getFlags() & IResourceDelta.OPEN) != 0);
 				if (projectOpenStateChanged) {
-				WebServiceEditModel editModel = (WebServiceEditModel)getEditModels().get(p);
-					if (editModel !=null) {
-						editModel.removeListener(this);
-						getEditModels().remove(p);
-						notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,editModel));
-						return false;
-					}		
+					IVirtualComponent[] components = flexProject.getComponents();
+					for (int i=0; i<components.length; i++) {
+						ComponentHandle handle = ComponentHandle.create(components[i].getProject(),components[i].getName());
+						WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
+						if (wsArtifactEdit != null) {
+							getWSArtifactEdits().remove(wsArtifactEdit);
+							// forward an edit model event to manager's listeners
+							// TODO forward edit model event?
+							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wsArtifactEdit));
+							state = false;
+						}
+						
+						WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
+						if (wscArtifactEdit != null) {
+							getWSArtifactEdits().remove(wscArtifactEdit);
+							// forward an edit model event to manager's listeners
+							// TODO forward edit model event?
+							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wscArtifactEdit));
+							state = false;
+						}
+					}	
 				}
+				return state;
 			}
 			// Handle project delete events
-			else if (delta.getKind() == IResourceDelta.REMOVED) {
-				WebServiceEditModel editModel = (WebServiceEditModel)getEditModels().get(p);
-				if (editModel !=null) {
-					editModel.removeListener(this);
-					getEditModels().remove(p);
-					notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,editModel));
-					return false;
-				}		
+			else if (delta.getKind() == IResourceDelta.REMOVED && flexProject != null) {
+				boolean state = true;
+				IVirtualComponent[] components = flexProject.getComponents();
+				for (int i=0; i<components.length; i++) {
+					ComponentHandle handle = ComponentHandle.create(components[i].getProject(),components[i].getName());
+					WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
+					if (wsArtifactEdit != null) {
+						getWSArtifactEdits().remove(wsArtifactEdit);
+						// forward an edit model event to manager's listeners
+						// TODO forward edit model event?
+						//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wsArtifactEdit));
+						state = false;
+					}
+					
+					WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
+					if (wscArtifactEdit != null) {
+						getWSArtifactEdits().remove(wscArtifactEdit);
+						// forward an edit model event to manager's listeners
+						// TODO forward edit model event?
+						//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wscArtifactEdit));
+						state = false;
+					}
+				}
+				return state;		
 			}
 		}
+		
 		else if (resource.getType() == IResource.FILE && isInterrestedInFile((IFile) resource)) {
 			if ((delta.getKind() == IResourceDelta.ADDED) || ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0))
 				if (resource.getFileExtension().equals(WSDL_EXT))
@@ -800,22 +801,31 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected void addedWsdl(IFile wsdl) {
 		if (!wsdl.exists())
 			return;
-		//Resource res = WorkbenchResourceHelperBase.getResource(wsdl, true);
-		IProject p = wsdl.getProject();
-		WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
+		ComponentHandle handle = getComponentHandle(wsdl);
+		WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
 		// forward an edit model event to manager's listeners
-		notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, editModel));
+		// TODO forward edit model event?
+		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, artifactEdit));
 	}
 
 	protected void addedWsil(IFile wsil) {
 		if (!wsil.exists())
 			return;
-		//Resource res = WorkbenchResourceHelper.getResource(wsil,true);
-		IProject p = wsil.getProject();
-		WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
+		ComponentHandle handle = getComponentHandle(wsil);
+		WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
 		// forward an edit model event to manager's listeners
-		notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, editModel));
-
+		// TODO forward edit model event?
+		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, artifactEdit));
+	}
+	
+	private ComponentHandle getComponentHandle(IFile res) {
+		IVirtualResource[] resources = ComponentCore.createResources(res);
+		if (resources == null || resources.length==0) 
+			return null;
+		String name = resources[0].getComponent().getName();
+		IProject p = res.getProject();
+		ComponentHandle handle = ComponentHandle.create(p,name);
+		return handle;
 	}
 
 	protected boolean isInterrestedInFile(IFile aFile) {

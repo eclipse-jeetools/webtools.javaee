@@ -14,14 +14,14 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
-import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 
 
 public class AdapterExpiresCCombo extends AdapterImpl implements ModifyListener {
-	private EditModel editModel_;
+	private ArtifactEdit artifactEdit_;
 	private EObject eObject_;
 	private EStructuralFeature feature_;
 	private CCombo year_;
@@ -33,9 +33,9 @@ public class AdapterExpiresCCombo extends AdapterImpl implements ModifyListener 
 	private CCombo msecond_;
 	private boolean nillable_;
 
-	public AdapterExpiresCCombo(EditModel editModel, EStructuralFeature feature, CCombo year, CCombo month, CCombo day, CCombo hour, CCombo minute, CCombo second, CCombo msecond, boolean nillable) {
+	public AdapterExpiresCCombo(ArtifactEdit artifactEdit, EStructuralFeature feature, CCombo year, CCombo month, CCombo day, CCombo hour, CCombo minute, CCombo second, CCombo msecond, boolean nillable) {
 		super();
-		editModel_ = editModel;
+		artifactEdit_ = artifactEdit;
 		eObject_ = null;
 		feature_ = feature;
 		year_ = year;
@@ -55,8 +55,8 @@ public class AdapterExpiresCCombo extends AdapterImpl implements ModifyListener 
 		msecond_.addModifyListener(this);
 	}
 
-	public AdapterExpiresCCombo(EditModel editModel, EObject eObject, EStructuralFeature feature, CCombo year, CCombo month, CCombo day, CCombo hour, CCombo minute, CCombo second, CCombo msecond, boolean nillable) {
-		this(editModel, feature, year, month, day, hour, minute, second, msecond, nillable);
+	public AdapterExpiresCCombo(ArtifactEdit artifactEdit, EObject eObject, EStructuralFeature feature, CCombo year, CCombo month, CCombo day, CCombo hour, CCombo minute, CCombo second, CCombo msecond, boolean nillable) {
+		this(artifactEdit, feature, year, month, day, hour, minute, second, msecond, nillable);
 		adapt(eObject);
 	}
 
@@ -69,8 +69,8 @@ public class AdapterExpiresCCombo extends AdapterImpl implements ModifyListener 
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			CommandModifyText command = new CommandModifyText(null, null, eObject_, feature_, expires(), nillable_);
-			editModel_.getRootModelResource().setModified(true);
-			editModel_.getCommandStack().execute(command);
+			artifactEdit_.getContentModelRoot().eResource().setModified(true);
+			artifactEdit_.getCommandStack().execute(command);
 		}
 	}
 

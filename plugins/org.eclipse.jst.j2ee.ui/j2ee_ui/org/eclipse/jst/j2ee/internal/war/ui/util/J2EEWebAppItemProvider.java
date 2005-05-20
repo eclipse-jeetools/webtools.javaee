@@ -24,11 +24,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppItemProvider;
 import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
@@ -58,8 +55,6 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 */
 	private class J2EEWebServiceClientDDManager extends AdapterImpl implements EditModelListener {
 		private WebApp webApp;
-		private WebServicesManager webServiceMgr = WebServicesManager.getInstance();
-		WebServiceEditModel editModel;
 		WebServicesClient client;
 
 		public J2EEWebServiceClientDDManager(WebApp webApp) {
@@ -72,15 +67,16 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		}
 
 		public void init() {
-			editModel = webServiceMgr.getWSEditModel(ProjectUtilities.getProject(webApp));
-			if (editModel != null) {
-				editModel.addListener(this);
-				if (editModel.get13WebServicesClientResource() != null) {
-					client = editModel.get13WebServicesClientResource().getWebServicesClient();
-					if (client != null)
-						client.eAdapters().add(this);
-				}
-			}
+			//TODO fix up notification
+//			editModel = webServiceMgr.getWSEditModel(ProjectUtilities.getProject(webApp));
+//			if (editModel != null) {
+//				editModel.addListener(this);
+//				if (editModel.get13WebServicesClientResource() != null) {
+//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
+//					if (client != null)
+//						client.eAdapters().add(this);
+//				}
+//			}
 		}
 
 		/*
@@ -89,8 +85,9 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 		 */
 		public void editModelChanged(EditModelEvent anEvent) {
-			if (editModel == null)
-				init();
+			//TODO fix up notification
+//			if (editModel == null)
+//				init();
 		}
 
 		/*
@@ -110,14 +107,15 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		}
 
 		public void dispose() {
-			if (editModel != null) {
-				editModel.removeListener(this);
-				if (editModel.get13WebServicesClientResource() != null) {
-					client = editModel.get13WebServicesClientResource().getWebServicesClient();
-					if (client != null)
-						client.eAdapters().remove(this);
-				}
-			}
+			//TODO fix up notification
+//			if (editModel != null) {
+//				editModel.removeListener(this);
+//				if (editModel.get13WebServicesClientResource() != null) {
+//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
+//					if (client != null)
+//						client.eAdapters().remove(this);
+//				}
+//			}
 		}
 	}
 	/**

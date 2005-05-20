@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.webservices;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jem.util.RegistryReader;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.DefaultWSDLServiceHelper;
 
 /**
  * To change the template for this generated type comment go to
@@ -58,7 +59,7 @@ public class WSDLServiceExtensionRegistry extends RegistryReader {
 			addModuleExtension(new DefaultWSDLServiceHelper());
 		} finally {
 				try {
-					Class.forName("org.eclipse.wst.wsdl.Service");
+					Class.forName("org.eclipse.wst.wsdl.Service"); //$NON-NLS-1$
 				} catch (ClassNotFoundException ex) {
 //					Register default do nothing helper......
 					addModuleExtension(new DefaultWSDLServiceHelper());
