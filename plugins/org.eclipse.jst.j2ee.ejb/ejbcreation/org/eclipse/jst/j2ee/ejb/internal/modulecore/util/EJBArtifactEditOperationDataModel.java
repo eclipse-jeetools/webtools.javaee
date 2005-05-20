@@ -26,7 +26,6 @@ public class EJBArtifactEditOperationDataModel extends ArtifactEditOperationData
     }
     
     public EJBArtifactEdit getEJBArtifactEditForRead() {
-		ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(getWorkbenchModule()),getWorkbenchModule().getName());
-        return EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+        return EJBArtifactEdit.getEJBArtifactEditForRead(getComponent());
     }
 }
