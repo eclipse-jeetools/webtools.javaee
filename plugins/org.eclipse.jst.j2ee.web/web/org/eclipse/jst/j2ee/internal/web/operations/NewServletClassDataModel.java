@@ -319,11 +319,10 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	}
 	
 	protected boolean isAnnotationsSupported() {
-		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
+		if (getTargetProject()==null || getComponent()==null) return true;
 		WebArtifactEdit webEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getWorkbenchModule().getName());
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(getComponent());
 			if (webEdit == null)
 				return false;
 			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
@@ -540,7 +539,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 			String msg = WebMessages.getResourceString(WebMessages.ERR_DISPLAY_NAME_EMPTY);
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		if (getTargetProject()==null || getWorkbenchModule()==null)
+		if (getTargetProject()==null || getComponent()==null)
 			return WTPCommonPlugin.OK_STATUS;
 		ArtifactEdit edit = null;
 		try {
