@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.14 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.15 $  $Date: 2005/05/20 16:32:55 $ 
  */
 
 import java.io.*;
@@ -242,7 +242,7 @@ class REMCallbackThread extends Thread {
 								} catch (RuntimeException e) {
 									// Something happened, turn it into an error object
 									// to send back.
-									valueObject.set(e.getLocalizedMessage());
+									valueObject.set(e.getClass().getName() + ':' + e.getLocalizedMessage());
 									Commands.sendCallbackDoneCommand(out, valueObject, Commands.CALLBACK_RUNTIME_EXCEPTION);
 									ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);	// Just log it, but assume safe enough to just go back and wait for next callback request.
 								}
