@@ -33,7 +33,8 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean}object. <!--
@@ -260,8 +261,10 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 		if (bean == null || bean.getEjbJar() == null)
 			return myChildren;
 		try {
-			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
-				myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(bean));
+			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID) {
+				WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+				myChildren.addAll(serviceHelper.get13ServiceRefs(bean));
+			}
 		} catch (RuntimeException re) {
 			Logger.getLogger().logError(re);
 		}
@@ -277,8 +280,10 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 		Collection myChildren = super.getChildren(object);
 		EnterpriseBean bean = (EnterpriseBean) object;
 		try {
-			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
-				myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(bean));
+			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID) {
+				WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+				myChildren.addAll(serviceHelper.get13ServiceRefs(bean));
+			}
 		} catch (RuntimeException re) {
 			Logger.getLogger().logError(re);
 		}

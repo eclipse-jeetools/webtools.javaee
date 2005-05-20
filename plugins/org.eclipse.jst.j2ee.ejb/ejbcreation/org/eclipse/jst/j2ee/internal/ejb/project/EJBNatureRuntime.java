@@ -45,7 +45,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ComposedEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
@@ -543,21 +542,4 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 		return getEJBEditModelForWrite(accessorKey);
 	}
 
-	/**
-	 * Return an editing model used to read web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
-
-	/**
-	 * Return an editing model used to edit web service resources. Important!!! Calling this method
-	 * increments the use count of this model. When you are done accessing the model, call
-	 * releaseAccess()!
-	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
 }
