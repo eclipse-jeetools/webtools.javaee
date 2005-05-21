@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportFactory;
 import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportRegistry;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;

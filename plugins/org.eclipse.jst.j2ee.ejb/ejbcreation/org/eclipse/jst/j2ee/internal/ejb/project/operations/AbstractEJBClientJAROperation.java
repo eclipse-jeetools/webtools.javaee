@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
@@ -131,8 +131,8 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 	}
 
 	protected void copyOutgoingClasspathEntries(IProject source, IProject target, boolean filterServiceLocator) throws JavaModelException {
-		IJavaProject sourceJProject = JavaProjectUtilities.getJavaProject(source);
-		IJavaProject targetJProject = JavaProjectUtilities.getJavaProject(target);
+		IJavaProject sourceJProject = JemProjectUtilities.getJavaProject(source);
+		IJavaProject targetJProject = JemProjectUtilities.getJavaProject(target);
 		IClasspathEntry[] sourceCp = sourceJProject.getRawClasspath();
 		List targetCp = new ArrayList(Arrays.asList(targetJProject.getRawClasspath()));
 		for (int i = 0; i < sourceCp.length; i++) {

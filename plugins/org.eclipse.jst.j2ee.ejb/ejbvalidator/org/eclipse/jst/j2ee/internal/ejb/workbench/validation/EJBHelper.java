@@ -40,7 +40,6 @@ import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -638,7 +637,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			return null;
 		}
 		IProject project = ProjectUtilities.getProject(clazz);
-		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
 		return JDOMSearchHelper.findType(clazz.getJavaPackage().getName(), clazz.getName(), javaProj);
 	}
 

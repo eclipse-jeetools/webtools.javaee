@@ -38,7 +38,6 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.util.WebResource;
 
 /**
  * @version 1.0

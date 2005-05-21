@@ -23,8 +23,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 
 /**
@@ -154,7 +154,7 @@ public class EJBFileCacheUtil {
 		} catch (CoreException exc) {
 			return null;
 		}
-		return JavaProjectUtilities.getJavaProject(project);
+		return JemProjectUtilities.getJavaProject(project);
 	}
 
 	/**

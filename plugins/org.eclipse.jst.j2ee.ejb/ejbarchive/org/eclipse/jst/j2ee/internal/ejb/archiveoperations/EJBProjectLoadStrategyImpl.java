@@ -18,9 +18,9 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
@@ -60,7 +60,7 @@ public class EJBProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		EJBNatureRuntime enr = EJBNatureRuntime.getRuntime(project);
 		projectURIConverter = new WorkbenchURIConverterImpl(enr.getModuleServerRoot());
 		if (isExportSource()) {
-			List sourceContainers = JavaProjectUtilities.getSourceContainers(enr.getProject());
+			List sourceContainers = JemProjectUtilities.getSourceContainers(enr.getProject());
 			for (int i = 0; i < sourceContainers.size(); i++) {
 				projectURIConverter.addInputContainer((IFolder) sourceContainers.get(i));
 			}

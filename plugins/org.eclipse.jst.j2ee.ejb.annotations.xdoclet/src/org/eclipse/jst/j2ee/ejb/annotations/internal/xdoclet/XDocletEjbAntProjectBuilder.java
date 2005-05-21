@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -158,7 +158,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
 		Iterator clientHarResources = ejbClientJarComp.getResources().iterator();
 		clientProject = StructureEdit.getContainingProject(ejbClientJarComp);
-		List sourcePaths = JavaProjectUtilities.getSourceContainers(clientProject);
+		List sourcePaths = JemProjectUtilities.getSourceContainers(clientProject);
 		while (clientHarResources.hasNext()) {
 			ComponentResource res = (ComponentResource) clientHarResources.next();
 			IPath sPath = res.getSourcePath();

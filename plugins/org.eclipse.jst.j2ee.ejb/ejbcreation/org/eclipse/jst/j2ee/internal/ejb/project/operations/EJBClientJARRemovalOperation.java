@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
@@ -82,8 +82,8 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 		clientProject = ejbNature.getDefinedEJBClientJARProject();
 		clientProjectPath = clientProject.getFullPath();
 		ejbProjectPath = ejbProject.getFullPath();
-		sourceContainers = JavaProjectUtilities.getSourceContainers(clientProject);
-		libraryContainers = JavaProjectUtilities.getLibraryContainers(clientProject);
+		sourceContainers = JemProjectUtilities.getSourceContainers(clientProject);
+		libraryContainers = JemProjectUtilities.getLibraryContainers(clientProject);
 		IJavaProject proj = JavaCore.create(clientProject);
 		try {
 			outputPath = proj.getOutputLocation().removeFirstSegments(1);
@@ -174,7 +174,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 				IPath srcPath = ejbProjectPath.append(resource.getProjectRelativePath());
 				IFolder existing = workspace.getRoot().getFolder(srcPath);
 				if (existing != null && existing.exists())
-					JavaProjectUtilities.appendJavaClassPath(ejbProject, JavaCore.newSourceEntry(srcPath));
+					JemProjectUtilities.appendJavaClassPath(ejbProject, JavaCore.newSourceEntry(srcPath));
 			}
 		}
 	}
@@ -355,7 +355,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 				IFolder folder = ejbProject.getFolder(LibCopyBuilder.IMPORTED_CLASSES_PATH);
 				if (!folder.exists())
 					folder.create(true, true, null);
-				JavaProjectUtilities.appendJavaClassPath(ejbProject, JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true));
+				JemProjectUtilities.appendJavaClassPath(ejbProject, JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true));
 				return folder.getFullPath();
 			}
 		};
