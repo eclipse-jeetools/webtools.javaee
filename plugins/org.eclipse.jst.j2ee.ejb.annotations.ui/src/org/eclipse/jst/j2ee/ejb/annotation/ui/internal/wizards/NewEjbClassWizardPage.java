@@ -13,10 +13,13 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -35,13 +38,13 @@ public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 	
 	protected void createNewComponent() {
 		IDataModel aModel = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
-		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
-		aModel.setBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT, false);
+		aModel.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
+		aModel.setBooleanProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, false);
 		EJBComponentCreationWizard componentCreationWizard = new EJBComponentCreationWizard(aModel);
 			
 		WizardDialog dialog = new WizardDialog(getShell(), componentCreationWizard);
 		if (Window.OK == dialog.open()) {
-			String newProjectName = aModel.getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME);
+			String newProjectName = aModel.getStringProperty( IComponentCreationDataModelProperties.PROJECT_NAME);
 			this.setProjectName(newProjectName);
 		}
 	}
