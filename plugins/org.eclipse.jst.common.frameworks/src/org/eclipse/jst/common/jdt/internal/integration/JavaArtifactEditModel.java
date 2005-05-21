@@ -12,7 +12,6 @@ import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingCopyProvider {
 

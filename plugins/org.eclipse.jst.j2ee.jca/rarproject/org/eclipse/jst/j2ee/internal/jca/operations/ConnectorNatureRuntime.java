@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
@@ -277,7 +277,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @return IContainer
 	 */
 	public IContainer getModuleServerRoot() {
-		return JavaProjectUtilities.getJavaProjectOutputContainer(project);
+		return JemProjectUtilities.getJavaProjectOutputContainer(project);
 	}// getModuleServerRoot
 
 	/**

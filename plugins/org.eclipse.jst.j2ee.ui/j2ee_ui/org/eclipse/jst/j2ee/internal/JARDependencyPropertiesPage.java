@@ -19,10 +19,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.preference.IPreferencePage;
+import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
@@ -91,7 +93,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     private void updateModelManifest() {
-        if (JavaProjectUtilities.isBinaryProject(project) || model.getAvailableEARNatures().length == 0)
+        if (JemProjectUtilities.isBinaryProject(project) || model.getAvailableEARNatures().length == 0)
             return;
 
         IContainer root = null;
@@ -100,7 +102,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         if (nature != null)
             root = nature.getEMFRoot();
         else
-            root = JavaProjectUtilities.getSourceFolderOrFirst(project, null);
+            root = JemProjectUtilities.getSourceFolderOrFirst(project, null);
 
         if (root != null)
             manifestFile = root.getFile(new Path(J2EEConstants.MANIFEST_URI));
@@ -420,7 +422,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         return true;
     }
     protected IHeadlessRunnableWithProgress createBuildPathOperation() {
-        IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
+        IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
         return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
     }
     protected UpdateManifestOperation createManifestOperation() {
@@ -428,7 +430,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     protected boolean isReadOnly() {
-        return JavaProjectUtilities.isBinaryProject(project);
+        return JemProjectUtilities.isBinaryProject(project);
     }
 
 }

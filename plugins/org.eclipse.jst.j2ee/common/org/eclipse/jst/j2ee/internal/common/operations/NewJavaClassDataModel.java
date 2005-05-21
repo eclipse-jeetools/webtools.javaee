@@ -26,11 +26,13 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -168,8 +170,8 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		IContainer output = JavaProjectUtilities.getJavaProjectOutputContainer(project);
-		List sources = JavaProjectUtilities.getSourceContainers(project);
+		IContainer output = JemProjectUtilities.getJavaProjectOutputContainer(project);
+		List sources = JemProjectUtilities.getSourceContainers(project);
 		//TODO: We need to be able to support the project as the source, but this would be a breaking change
 		if (sources == null || sources.isEmpty() || ((IContainer) sources.get(0)).getType() != IResource.FOLDER)
 			return null;
@@ -203,7 +205,7 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 	 */
 	public IPackageFragmentRoot getJavaPackageFragmentRoot() {
 		IProject project = getTargetProject();
-		IJavaProject aJavaProject = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject aJavaProject = JemProjectUtilities.getJavaProject(project);
 		// Return the source folder for the java project of the selected project
 		if (aJavaProject != null) {
 			IFolder sourcefolder = getJavaSourceFolder();
@@ -475,7 +477,7 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 	 */
 	private IStatus canCreateTypeInClasspath(String className) {
 		// Retrieve the java project for the cached project
-		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(getTargetProject());
+		IJavaProject javaProject = JemProjectUtilities.getJavaProject(getTargetProject());
 		try {
 			IPath path = new Path(getStringProperty(SOURCE_FOLDER)+"//"+getStringProperty(JAVA_PACKAGE)); //$NON-NLS-1$
 			IPackageFragment pack= javaProject.findPackageFragment(path);
@@ -534,7 +536,7 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 		if (project == null)
 			return null;
 		// Return all source containers in the specified project
-		List sources = JavaProjectUtilities.getSourceContainers(project);
+		List sources = JemProjectUtilities.getSourceContainers(project);
 		return sources;
 	}
 

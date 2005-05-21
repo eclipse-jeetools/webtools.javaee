@@ -16,9 +16,9 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.internal.annotations.core.AnnotationsAdapter;
 
 /**
@@ -132,7 +132,7 @@ public class AnnotationsControllerHelper {
 	protected IType findType(String type, EObject eObject) {
 		IType result = null;
 		IProject project = ProjectUtilities.getProject(eObject);
-		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 		if (javaProject != null)
 			try {
 				result = javaProject.findType(type);

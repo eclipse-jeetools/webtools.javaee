@@ -29,8 +29,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IWorkbenchComponentBuilderDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
@@ -57,8 +57,8 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
             
             IProject project = (IProject)model.getProperty(PROJECT);
             IPath projectPath = project.getFullPath();
-            IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
-            List javaSourceFolderList = JavaProjectUtilities.getSourceContainers(project);
+            IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
+            List javaSourceFolderList = JemProjectUtilities.getSourceContainers(project);
             
             
             // create output container folder if it does not exist

@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;

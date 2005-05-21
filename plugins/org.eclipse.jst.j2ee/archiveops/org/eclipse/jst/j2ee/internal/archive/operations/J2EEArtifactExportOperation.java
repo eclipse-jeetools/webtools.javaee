@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactExportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -84,7 +84,7 @@ public abstract class J2EEArtifactExportOperation extends WTPOperation {
 	}
 
 	protected IJavaProject getJavaProject() {
-		return JavaProjectUtilities.getJavaProject(getProject());
+		return JemProjectUtilities.getJavaProject(getProject());
 	}
 
 	protected ModuleFile getModuleFile() {

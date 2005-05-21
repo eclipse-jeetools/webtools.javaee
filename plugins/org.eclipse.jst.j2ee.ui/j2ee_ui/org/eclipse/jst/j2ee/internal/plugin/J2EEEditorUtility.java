@@ -22,8 +22,8 @@ import org.eclipse.jem.internal.adapters.jdom.JavaClassJDOMAdaptor;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaPackage;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -109,7 +109,7 @@ public class J2EEEditorUtility {
 	public static IJavaProject getJavaProject(IProject aProject) {
 		if (aProject == null)
 			return null;
-		IJavaModel javaModel = JavaProjectUtilities.getJavaModel();
+		IJavaModel javaModel = JemProjectUtilities.getJavaModel();
 		return javaModel.getJavaProject(aProject.getName());
 	}
 

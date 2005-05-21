@@ -14,7 +14,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.wst.server.core.IModule;
@@ -44,7 +44,7 @@ public class LooseArchiveDeployable extends ProjectModule implements ILooseArchi
 	 * @see com.ibm.etools.server.core.util.DeployableProject#isBinary()
 	 */
 	public boolean isBinary() {
-		return JavaProjectUtilities.isBinaryProject(getProject());
+		return JemProjectUtilities.isBinaryProject(getProject());
 	}
 
 	/*
@@ -53,7 +53,7 @@ public class LooseArchiveDeployable extends ProjectModule implements ILooseArchi
 	public IPath getRootFolder() {
 		if (isBinary())
 			return null;
-		IContainer c = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
+		IContainer c = JemProjectUtilities.getJavaProjectOutputContainer(getProject());
 		if (c != null)
 			return c.getProjectRelativePath();
 		return null;

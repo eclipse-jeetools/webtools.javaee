@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -24,10 +27,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
-
-import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Implements the save strategy for RAR projects

@@ -34,9 +34,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -291,8 +291,8 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements IJ2E
 
 		try {
 			if (!projectCpEntries.isEmpty())
-				JavaProjectUtilities.appendJavaClassPath(p, projectCpEntries);
-			JavaProjectUtilities.forceClasspathReload(p);
+				JemProjectUtilities.appendJavaClassPath(p, projectCpEntries);
+			JemProjectUtilities.forceClasspathReload(p);
 		} catch (JavaModelException ex) {
 			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 		}
@@ -354,7 +354,7 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements IJ2E
 		//Right now WARs are not optimized
 		if (nature != null && !nature.canBeBinary())
 			return;
-		IJavaProject javaP = JavaProjectUtilities.getJavaProject(p);
+		IJavaProject javaP = JemProjectUtilities.getJavaProject(p);
 		if (javaP == null)
 			return;
 		List newCp = new ArrayList();

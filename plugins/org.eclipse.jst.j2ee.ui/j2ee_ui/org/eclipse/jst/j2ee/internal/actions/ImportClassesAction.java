@@ -17,6 +17,7 @@
 package org.eclipse.jst.j2ee.internal.actions;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -24,8 +25,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author jsholl

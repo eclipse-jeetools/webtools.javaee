@@ -19,11 +19,10 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.wst.common.internal.emfworkbench.CompatibilityWorkbenchURIConverterImpl;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
 import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.internal.emfworkbench.CompatibilityWorkbenchURIConverterImpl;
 
 public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConverterImpl implements ISynchronizerExtender {
 

@@ -25,6 +25,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -43,9 +45,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.IServerTargetConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 
 public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2EEImportExportConstants {
 	protected ArrayList filesList;

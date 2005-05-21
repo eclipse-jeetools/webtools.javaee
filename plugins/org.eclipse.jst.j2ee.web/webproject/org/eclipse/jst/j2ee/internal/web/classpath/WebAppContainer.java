@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
-
 import org.eclipse.jst.common.jdt.internal.classpath.AbstractFlexibleProjectContainer;
 import org.eclipse.jst.j2ee.internal.web.operations.WebMessages;
 

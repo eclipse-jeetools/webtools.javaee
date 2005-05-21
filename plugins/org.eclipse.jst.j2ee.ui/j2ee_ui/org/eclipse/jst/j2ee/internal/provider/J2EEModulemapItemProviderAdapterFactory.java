@@ -10,6 +10,7 @@ package org.eclipse.jst.j2ee.internal.provider;
 
 
 import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapAdapterFactory;
 
 public class J2EEModulemapItemProviderAdapterFactory extends ModulemapItemProviderAdapterFactory {
 

@@ -17,12 +17,11 @@
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.EMFAdapterFactory;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author jlanuti

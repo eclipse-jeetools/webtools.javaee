@@ -37,6 +37,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.util.Messages;
 import org.eclipse.jdt.internal.core.util.Util;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.w3c.dom.Document;
@@ -169,13 +170,13 @@ public class J2EESettings {
 					Thread.currentThread().setContextClassLoader(prevClassLoader);
 				}
 			} catch (JavaModelException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$	
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$	
 			} catch (CoreException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$			
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$			
 			} catch (SAXException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} catch (ParserConfigurationException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} finally {
 				if (fileStream != null)
 					fileStream.close();
@@ -207,9 +208,9 @@ public class J2EESettings {
 				}
 
 			} catch (SAXException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} catch (ParserConfigurationException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} catch (CoreException ce) {
 				ce.printStackTrace();
 			} finally {

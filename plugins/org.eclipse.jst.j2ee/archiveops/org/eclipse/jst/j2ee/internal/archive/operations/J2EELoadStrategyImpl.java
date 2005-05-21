@@ -30,9 +30,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -113,7 +113,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 			return filesList;
 		}
 
-		IContainer outputFolder = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
+		IContainer outputFolder = JemProjectUtilities.getJavaProjectOutputContainer(getProject());
 
 		Iterator iterator = projectResources.iterator();
 		while (iterator.hasNext()) {
@@ -273,7 +273,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 
 	public String getSourceFolderName() throws Exception {
 		try {
-			return JavaProjectUtilities.getSourceFolderOrFirst(project, null).getName();
+			return JemProjectUtilities.getSourceFolderOrFirst(project, null).getName();
 		} catch (Exception e) {
 			throw new SaveFailureException(EJBArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_ProjectNature"), e);//$NON-NLS-1$
 		}
@@ -297,7 +297,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 
 	protected List getSourceFolders() {
 		if (sourceFolders == null) {
-			sourceFolders = JavaProjectUtilities.getSourceContainers(project);
+			sourceFolders = JemProjectUtilities.getSourceContainers(project);
 		}
 		return sourceFolders;
 	}

@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModel;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
-import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManagerFactory;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;

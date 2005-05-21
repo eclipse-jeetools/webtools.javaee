@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
@@ -142,7 +142,7 @@ public class DeleteModuleDependencyOperation extends WTPOperation {
 		while (it.hasNext()) {
 			ClasspathDeleteInfo info = (ClasspathDeleteInfo) it.next();
 			IProject p = info.getTargetProject();
-			if (JavaProjectUtilities.isBinaryProject(p)) {
+			if (JemProjectUtilities.isBinaryProject(p)) {
 				String message = J2EECreationResourceHandler.getString("Can_not_remove_module_dependency_from_project_UI_", new Object[]{p.getName()}); //$NON-NLS-1$ 
 				addErrorStatus(message);
 				continue;
@@ -177,7 +177,7 @@ public class DeleteModuleDependencyOperation extends WTPOperation {
 	}
 
 	protected void replaceBuildPath(IProject project, ClasspathDeleteInfo info) throws JavaModelException {
-		IJavaProject javaP = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaP = JemProjectUtilities.getJavaProject(project);
 		if (javaP == null)
 			return;
 		List result = new ArrayList();

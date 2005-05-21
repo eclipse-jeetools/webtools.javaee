@@ -10,7 +10,6 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;

@@ -29,7 +29,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.util.Util;
+import org.eclipse.jdt.internal.core.util.Messages;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -167,13 +167,13 @@ public class OldJ2EESettingsForMigration {
 					Thread.currentThread().setContextClassLoader(prevClassLoader);
 				}
 			} catch (JavaModelException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$	
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$	
 			} catch (CoreException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$			
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$			
 			} catch (SAXException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} catch (ParserConfigurationException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} finally {
 				if (fileStream != null)
 					fileStream.close();
@@ -205,9 +205,9 @@ public class OldJ2EESettingsForMigration {
 				}
 
 			} catch (SAXException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} catch (ParserConfigurationException e) {
-				throw new IOException(Util.bind("file.badFormat")); //$NON-NLS-1$
+				throw new IOException(Messages.file_badFormat); //$NON-NLS-1$
 			} catch (CoreException ce) {
 				ce.printStackTrace();
 			} finally {

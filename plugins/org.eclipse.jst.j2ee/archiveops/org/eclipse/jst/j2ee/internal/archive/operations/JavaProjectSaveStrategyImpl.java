@@ -14,10 +14,10 @@ import java.io.OutputStream;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
@@ -36,7 +36,7 @@ public class JavaProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	 */
 	public WorkbenchURIConverter getSourceURIConverter() {
 		if (sourceURIConverter == null) {
-			IContainer sourceFolder = JavaProjectUtilities.getSourceFolderOrFirst(getProject(), null);
+			IContainer sourceFolder = JemProjectUtilities.getSourceFolderOrFirst(getProject(), null);
 			sourceURIConverter = new WorkbenchURIConverterImpl(sourceFolder);
 			sourceURIConverter.setForceSaveRelative(true);
 		}

@@ -28,6 +28,7 @@ import java.util.WeakHashMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ArchiveTypeDiscriminatorRegistry;
@@ -64,8 +65,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ReadOnlyDirector
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.TempZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.War22ImportStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

@@ -33,12 +33,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
@@ -152,7 +151,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 		IPath newLoc = null;
 		boolean changed = false;
 		IResource resource = null;
-		if (JavaProjectUtilities.isBinaryProject(nature.getProject())) {
+		if (JemProjectUtilities.isBinaryProject(nature.getProject())) {
 			resource = getInputJARResource();
 			newLoc = resource == null ? null : resource.getLocation();
 		}
@@ -169,7 +168,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 		IProject project = nature.getProject();
 		if (project == null)
 			return null;
-		List jarPaths = JavaProjectUtilities.getLocalJARPathsFromClasspath(project);
+		List jarPaths = JemProjectUtilities.getLocalJARPathsFromClasspath(project);
 		for (int i = 0; i < jarPaths.size(); i++) {
 			IPath path = (IPath) jarPaths.get(i);
 			IResource resource = project.findMember(path);

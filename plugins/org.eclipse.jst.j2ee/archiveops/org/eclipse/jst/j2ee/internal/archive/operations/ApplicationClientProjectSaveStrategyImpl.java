@@ -14,12 +14,11 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Insert the type's description here. Creation date: (4/4/2001 11:14:29 AM)

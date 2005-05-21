@@ -17,9 +17,8 @@
 package org.eclipse.jst.j2ee.internal.project;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.wst.common.internal.emf.utilities.ResourceDependencyRegister;
-
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.wst.common.internal.emf.utilities.ResourceDependencyRegister;
 
 /**
  * @author daberg

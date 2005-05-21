@@ -18,11 +18,12 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaModel;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
 
 /**
@@ -46,13 +47,13 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		super();
 		project = proj;
 		filesList = new ArrayList();
-		JavaModel model = JavaProjectUtilities.getJavaModel();
+		IJavaModel model = JemProjectUtilities.getJavaModel();
 		javaProject = model.getJavaProject(project.getName());
 
 	}
 
 	public IContainer getModuleContainer() {
-		return JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
+		return JemProjectUtilities.getJavaProjectOutputContainer(getProject());
 	}
 
 	/*
@@ -62,7 +63,7 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		if (projectURIConverter != null)
 			return projectURIConverter;
 
-		IContainer outputContainer = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
+		IContainer outputContainer = JemProjectUtilities.getJavaProjectOutputContainer(getProject());
 		List uriContainers = new ArrayList();
 		uriContainers.add(outputContainer);
 		if (isExportSource()) {
@@ -112,7 +113,7 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 
 	public List getSourceFolders() {
 		if (sourceContainers == null)
-			sourceContainers = JavaProjectUtilities.getSourceContainers(project);
+			sourceContainers = JemProjectUtilities.getSourceContainers(project);
 		return sourceContainers;
 	}
 

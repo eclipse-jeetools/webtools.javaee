@@ -21,6 +21,7 @@ package org.eclipse.jst.j2ee.internal.project;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
@@ -28,8 +29,6 @@ import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.migration.CompatibilityUtils;
 import org.eclipse.wst.common.internal.migration.IDeprecatedConstants;
 import org.eclipse.wst.common.internal.migration.IMigrator;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author vijayb

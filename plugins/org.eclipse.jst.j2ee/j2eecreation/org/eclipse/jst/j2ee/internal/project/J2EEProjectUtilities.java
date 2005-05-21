@@ -37,6 +37,11 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -58,32 +63,26 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-import org.eclipse.jem.util.plugin.JEMUtilPlugin;
-
 public class J2EEProjectUtilities extends ProjectUtilities {
 
 	/**
 	 * @deprecated use {@link ProjectUtilities#isBinaryProject(IProject)}
 	 */
 	public static boolean isBinaryProject(String jarUri, IProject aProject) {
-		return JavaProjectUtilities.isBinaryProject(aProject);
+		return JemProjectUtilities.isBinaryProject(aProject);
 	}
 
 	/**
 	 * Return the absolute path of a loose archive in a J2EE application or WAR file
 	 */
 	public static IPath getRuntimeLocation(IProject aProject) {
-		if (JavaProjectUtilities.isBinaryProject(aProject))
+		if (JemProjectUtilities.isBinaryProject(aProject))
 			return getBinaryProjectJARLocation(aProject);
-		return JavaProjectUtilities.getJavaProjectOutputAbsoluteLocation(aProject);
+		return JemProjectUtilities.getJavaProjectOutputAbsoluteLocation(aProject);
 	}
 
 	public static IPath getBinaryProjectJARLocation(IProject aProject) {
-		List sources = JavaProjectUtilities.getLocalJARPathsFromClasspath(aProject);
+		List sources = JemProjectUtilities.getLocalJARPathsFromClasspath(aProject);
 		if (!sources.isEmpty()) {
 			IPath path = (IPath) sources.get(0);
 			return aProject.getFile(path).getLocation();
@@ -119,7 +118,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	 * @return
 	 */
 	public static Archive asArchive(String jarUri, IProject aProject, boolean exportSource, boolean includeProjectMetaFiles) throws OpenFailureException {
-		if (JavaProjectUtilities.isBinaryProject(aProject))
+		if (JemProjectUtilities.isBinaryProject(aProject))
 			return asArchiveFromBinary(jarUri, aProject);
 		return asArchiveFromSource(jarUri, aProject, exportSource, includeProjectMetaFiles);
 	}
@@ -140,7 +139,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	 * having the same path as the parameter already exists, then does nothing.
 	 */
 	public static void appendJavaClassPath(IProject p, IClasspathEntry newEntry) throws JavaModelException {
-		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(p);
+		IJavaProject javaProject = JemProjectUtilities.getJavaProject(p);
 		if (javaProject == null)
 			return;
 		IClasspathEntry[] classpath = javaProject.getRawClasspath();
@@ -497,7 +496,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 	public static IPath getSourcePathOrFirst(IProject p, String defaultSourceName) {
-		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(p);
+		IJavaProject javaProj = JemProjectUtilities.getJavaProject(p);
 		if (javaProj == null)
 			return null;
 		IClasspathEntry[] cp = null;

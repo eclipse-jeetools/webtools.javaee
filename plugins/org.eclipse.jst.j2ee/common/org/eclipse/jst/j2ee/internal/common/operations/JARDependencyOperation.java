@@ -25,8 +25,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
@@ -63,7 +63,7 @@ public class JARDependencyOperation extends WTPOperation {
 	}
 
 	protected UpdateJavaBuildPathOperation createBuildPathOperation(ClasspathModel model) {
-		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(model.getProject());
+		IJavaProject javaProject = JemProjectUtilities.getJavaProject(model.getProject());
 		return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
 	}
 

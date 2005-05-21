@@ -13,6 +13,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.UnexecutableCommand;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;

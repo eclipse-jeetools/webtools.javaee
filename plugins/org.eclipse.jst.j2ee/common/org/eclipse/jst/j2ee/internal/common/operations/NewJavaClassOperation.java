@@ -32,8 +32,8 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
@@ -424,7 +424,7 @@ public class NewJavaClassOperation extends WTPOperation {
 		StringBuffer sb = new StringBuffer();
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		IProject project = model.getTargetProject();
-		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
 		if (model.getBooleanProperty(NewJavaClassDataModel.MAIN_METHOD)) {
 			// Add main method
 			sb.append(MAIN_METHOD);

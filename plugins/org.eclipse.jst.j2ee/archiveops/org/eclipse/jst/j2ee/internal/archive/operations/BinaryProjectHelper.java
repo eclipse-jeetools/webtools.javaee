@@ -30,9 +30,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -52,11 +52,11 @@ public class BinaryProjectHelper {
 			saveEnclosedFile(archive, project, ProjectUtilities.DOT_CLASSPATH);
 			saveEnclosedFile(archive, project, ProjectUtilities.DOT_PROJECT);
 			removeImportedClassesFromClasspathIfNecessary(project);
-			JavaProjectUtilities.forceClasspathReload(project);
+			JemProjectUtilities.forceClasspathReload(project);
 			ensureBinary(project);
 			IPath path = savedModuleFile.getFullPath();
 			IClasspathEntry newEntry = JavaCore.newLibraryEntry(path, path, null, true);
-			JavaProjectUtilities.appendJavaClassPath(project, newEntry);
+			JemProjectUtilities.appendJavaClassPath(project, newEntry);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,7 +79,7 @@ public class BinaryProjectHelper {
 	 *  
 	 */
 	public static void removeImportedClassesFromClasspathIfNecessary(IProject project) {
-		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
 		if (javaProj != null) {
 			IClasspathEntry[] entries = javaProj.readRawClasspath();
 			if (entries != null) {
@@ -127,7 +127,7 @@ public class BinaryProjectHelper {
 	}
 
 	protected void ensureBinary(IProject p) {
-		IJavaProject javaP = JavaProjectUtilities.getJavaProject(p);
+		IJavaProject javaP = JemProjectUtilities.getJavaProject(p);
 		if (javaP == null)
 			return;
 		List newCp = new ArrayList();

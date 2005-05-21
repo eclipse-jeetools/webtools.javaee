@@ -21,7 +21,8 @@
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.jst.common.annotations.core"/>
-      <import plugin="org.eclipse.jem.util"/> 
+      <import plugin="org.eclipse.jem.util"/>
+      <import plugin="org.eclipse.jem.workbench"/> 
    </requires>
 
 

@@ -20,8 +20,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
@@ -61,7 +61,7 @@ public class J2EEUtilityJarImportOperation extends WTPOperation {
 			BinaryProjectHelper binaryHelper = new BinaryProjectHelper();
 			binaryHelper.importArchiveAsBinary(dataModel.getArchiveFile(), dataModel.getProject(), monitor);
 			try {
-				JavaProjectUtilities.forceClasspathReload(javaProject);
+				JemProjectUtilities.forceClasspathReload(javaProject);
 			} catch (JavaModelException ex) {
 				Logger.getLogger().logError(ex);
 			}
@@ -73,8 +73,8 @@ public class J2EEUtilityJarImportOperation extends WTPOperation {
 			strat.setProgressMonitor(new SubProgressMonitor(monitor, 1));
 			try {
 				jarFile.save(strat);
-				JavaProjectUtilities.appendJavaClassPath(javaProject, JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER"))); //$NON-NLS-1$)
-				JavaProjectUtilities.forceClasspathReload(javaProject);
+				JemProjectUtilities.appendJavaClassPath(javaProject, JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER"))); //$NON-NLS-1$)
+				JemProjectUtilities.forceClasspathReload(javaProject);
 			} catch (SaveFailureException e) {
 				Logger.getLogger().logError(e);
 			}

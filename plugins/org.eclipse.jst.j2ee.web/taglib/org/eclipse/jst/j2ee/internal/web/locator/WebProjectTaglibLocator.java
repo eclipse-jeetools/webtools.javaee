@@ -22,13 +22,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.taglib.DirTaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @version 1.0

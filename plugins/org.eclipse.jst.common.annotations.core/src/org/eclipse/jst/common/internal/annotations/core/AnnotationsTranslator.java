@@ -12,6 +12,7 @@ package org.eclipse.jst.common.internal.annotations.core;
 
 import java.util.Iterator;
 import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
 

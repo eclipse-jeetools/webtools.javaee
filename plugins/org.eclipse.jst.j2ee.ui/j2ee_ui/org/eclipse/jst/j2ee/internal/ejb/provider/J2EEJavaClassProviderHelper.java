@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
@@ -22,8 +23,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.internal.ui.OverlayIcon;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 	private EnterpriseBean ejb;

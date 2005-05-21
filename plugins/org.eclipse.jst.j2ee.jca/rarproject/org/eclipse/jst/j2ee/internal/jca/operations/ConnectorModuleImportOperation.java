@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -107,7 +107,7 @@ public class ConnectorModuleImportOperation extends J2EEArtifactImportOperation 
 		}
 		if (!classPathEntries.isEmpty()) {
 			try {
-				JavaProjectUtilities.appendJavaClassPath(((ConnectorModuleImportDataModel) getOperationDataModel()).getProject(), classPathEntries);
+				JemProjectUtilities.appendJavaClassPath(((ConnectorModuleImportDataModel) getOperationDataModel()).getProject(), classPathEntries);
 			} catch (JavaModelException jme) {
 				//Ignore
 			}

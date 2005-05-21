@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 
-import java.util.List;
-
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.MessageFilter;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
@@ -20,9 +20,6 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @version 	1.0

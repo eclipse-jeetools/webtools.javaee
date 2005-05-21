@@ -10,12 +10,11 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used to export Application Client Modules to Application Client Jar files.

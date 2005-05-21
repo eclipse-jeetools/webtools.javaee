@@ -28,11 +28,11 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -259,7 +259,7 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 				classesFolder.create(true, true, new NullProgressMonitor());
 			}
 
-			JavaProjectUtilities.appendJavaClassPath(getProject(), JavaCore.newLibraryEntry(classesFolder.getFullPath(), null, null, true));
+			JemProjectUtilities.appendJavaClassPath(getProject(), JavaCore.newLibraryEntry(classesFolder.getFullPath(), null, null, true));
 			// In case this is a Java project, or a non-migrated 4.0 project,
 			// add the builder
 			// that's a no-op if the builder is already added

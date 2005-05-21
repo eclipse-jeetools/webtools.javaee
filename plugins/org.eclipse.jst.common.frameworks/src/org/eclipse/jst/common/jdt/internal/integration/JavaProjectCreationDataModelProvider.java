@@ -10,11 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
-import java.util.ArrayList;
-
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProvider;
 

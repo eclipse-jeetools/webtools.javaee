@@ -31,8 +31,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 
 public class WebPropertiesUtil {
@@ -100,7 +100,7 @@ public class WebPropertiesUtil {
 
 			//if (webModuleArtifact.isJ2EE) {
 				// Update the library references
-				IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
+				IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 
 				IClasspathEntry[] classpath = javaProject.getRawClasspath();
 				IClasspathEntry[] newClasspath = new IClasspathEntry[classpath.length];
@@ -198,7 +198,7 @@ public class WebPropertiesUtil {
 			//Nothing to do if the lib folder does not exist.
 			if (lib_folder == null || !lib_folder.isAccessible())
 				return;
-			IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
+			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 			IPath lib_path = lib_folder.getProjectRelativePath();
 			IPath lib_full_path = lib_folder.getFullPath();
 
@@ -410,7 +410,7 @@ public class WebPropertiesUtil {
 		// If given a java project, check to make sure current package fragment
 		// root folders do not overlap with new web content name
 		if (project != null) {
-			IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
+			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 			if (javaProject != null) {
 				try {
 					IPackageFragmentRoot roots[] = javaProject.getPackageFragmentRoots();
@@ -487,9 +487,9 @@ public class WebPropertiesUtil {
 			//Make sure new path is different form old path
 			if (!project.getFolder(newPath).getFullPath().equals(oldSourceFolder.getFullPath())) {
 				oldSourceFolder.move(newPath, IResource.FORCE | IResource.KEEP_HISTORY, new SubProgressMonitor(progressMonitor, 1));
-				JavaProjectUtilities.removeFromJavaClassPath(project, oldSourceFolder);
+				JemProjectUtilities.removeFromJavaClassPath(project, oldSourceFolder);
 				newSourceFolder = project.getFolder(newPath);
-				JavaProjectUtilities.appendJavaClassPath(project, JavaCore.newSourceEntry(project.getFolder(newPath).getFullPath()));
+				JemProjectUtilities.appendJavaClassPath(project, JavaCore.newSourceEntry(project.getFolder(newPath).getFullPath()));
 			}
 		}
 		return newSourceFolder;
@@ -504,7 +504,7 @@ public class WebPropertiesUtil {
 	 * @return The source folder to use in migration, or null if it should be skipped.
 	 */
 	static public IContainer getJavaSourceFolder(IProject project) {
-		List sourceRoots = JavaProjectUtilities.getSourceContainers(project);
+		List sourceRoots = JemProjectUtilities.getSourceContainers(project);
 		IContainer oldSourceFolder = null;
 
 		if (sourceRoots != null) {

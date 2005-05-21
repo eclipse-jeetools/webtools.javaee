@@ -22,9 +22,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
@@ -99,7 +99,7 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 				webAppFiles.add(getProject().getFile(CLASSPATH_FILE_URI));
 				webAppFiles.add(getProject().getFile(WEBSETTINGS_FILE_URI));
 			}
-			IContainer outputContainer = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
+			IContainer outputContainer = JemProjectUtilities.getJavaProjectOutputContainer(getProject());
 			webAppFiles.addAll(Arrays.asList(outputContainer.members()));
 
 			// if the user has chosen not to export compiled JSP files, then we need to make sure
@@ -429,7 +429,7 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 		}
 
 		// If this is in an output folder, stick it in 'WEB-INF/classes
-		IPath outputPath = JavaProjectUtilities.getJavaProjectOutputContainer(getProject()).getProjectRelativePath();
+		IPath outputPath = JemProjectUtilities.getJavaProjectOutputContainer(getProject()).getProjectRelativePath();
 		if (aPath.segmentCount() > outputPath.segmentCount() && aPath.removeLastSegments(aPath.segmentCount() - outputPath.segmentCount()).equals(outputPath)) {
 			IPath retPath = new Path(J2EEConstants.WEB_INF);
 			retPath = retPath.append(CLASSES_DIR);

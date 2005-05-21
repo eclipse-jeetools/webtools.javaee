@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
 
 public interface ModuleRef extends EObject {

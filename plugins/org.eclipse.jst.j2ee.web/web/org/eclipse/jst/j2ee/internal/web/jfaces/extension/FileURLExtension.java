@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.internal.web.jfaces.extension;
 
 import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
-
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**

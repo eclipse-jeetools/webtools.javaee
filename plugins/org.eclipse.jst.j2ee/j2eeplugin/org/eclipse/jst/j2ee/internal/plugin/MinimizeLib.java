@@ -32,7 +32,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
 /**
@@ -89,7 +89,7 @@ public class MinimizeLib {
 			}
 			return;
 		}
-		List sourceFolders = JavaProjectUtilities.getSourceContainers(project.getProject());
+		List sourceFolders = JemProjectUtilities.getSourceContainers(project.getProject());
 		for (Iterator iter = sourceFolders.iterator(); iter.hasNext();) {
 			IFolder srcFolder = (IFolder) iter.next();
 			// use Java model to rip through sources to get list of type names

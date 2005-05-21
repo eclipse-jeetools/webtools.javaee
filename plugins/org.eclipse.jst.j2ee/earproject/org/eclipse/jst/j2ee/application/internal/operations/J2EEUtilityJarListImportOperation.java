@@ -36,15 +36,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jdt.core.IAccessRule;
-import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -218,7 +216,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 			}
 			createLinkedArchive(project, jarFile.getName(), jarFile, monitor);
 
-			JavaProjectUtilities.forceClasspathReload(project);
+			JemProjectUtilities.forceClasspathReload(project);
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 			throw new CoreException(new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.getString("J2EEUtilityJarListImportOperation_UI_2"), e)); //$NON-NLS-1$
@@ -253,7 +251,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 						false,
 						null);
 
-			JavaProjectUtilities.appendJavaClassPath(project, entry);
+			JemProjectUtilities.appendJavaClassPath(project, entry);
 		}
 	}
 
@@ -304,7 +302,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 							false,
 							null);
 
-				JavaProjectUtilities.appendJavaClassPath(project, entry);
+				JemProjectUtilities.appendJavaClassPath(project, entry);
 			}
 		} finally {
 			if (bos != null)

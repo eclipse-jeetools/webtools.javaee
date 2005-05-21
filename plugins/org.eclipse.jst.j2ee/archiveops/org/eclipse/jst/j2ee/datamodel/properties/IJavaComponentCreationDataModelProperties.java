@@ -8,7 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
-import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 
 /**

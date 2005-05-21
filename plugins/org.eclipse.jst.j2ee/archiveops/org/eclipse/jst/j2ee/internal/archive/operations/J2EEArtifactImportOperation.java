@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -112,7 +112,7 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 			modifyStrategy(aStrategy);
 			moduleFile.save(aStrategy);
 			if (model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA)) {
-				JavaProjectUtilities.forceClasspathReload(model.getJ2eeArtifactCreationDataModel().getTargetProject());
+				JemProjectUtilities.forceClasspathReload(model.getJ2eeArtifactCreationDataModel().getTargetProject());
 			}
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();

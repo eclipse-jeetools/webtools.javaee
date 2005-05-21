@@ -22,9 +22,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaModel;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfiguration;
@@ -178,12 +179,12 @@ public class LooseConfigUpdateOperation extends WTPOperation implements ILooseCo
 		return getWorkspace().getRoot().getProject(projectName);
 	}
 
-	protected JavaModel getJavaModel() {
-		return JavaProjectUtilities.getJavaModel();
+	protected IJavaModel getJavaModel() {
+		return JemProjectUtilities.getJavaModel();
 	}
 
 	protected IJavaProject getJavaProject(IProject p) {
-		return getJavaModel().getJavaProject(p);
+		return getJavaModel().getJavaProject(p.getName());
 	}
 
 	protected String getAbsolutePath(J2EENature nature) {

@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -140,7 +140,7 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 				J2EEArtifactImportDataModel importDM = null;
 				for (int i = 0; i < list.size(); i++) {
 					importDM = (J2EEArtifactImportDataModel) list.get(i);
-					if (!newList.contains(importDM) && JavaProjectUtilities.isBinaryProject(importDM.getProject())) {
+					if (!newList.contains(importDM) && JemProjectUtilities.isBinaryProject(importDM.getProject())) {
 						newList.add(importDM);
 					}
 				}

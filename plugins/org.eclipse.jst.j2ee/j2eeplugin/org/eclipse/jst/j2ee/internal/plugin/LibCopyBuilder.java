@@ -34,7 +34,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
 /**
  * An example incremental project builder that copies additional class files from a library package
@@ -418,7 +418,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 
 	private List getSourceContainers() {
 		if (sourceContainers == null)
-			sourceContainers = JavaProjectUtilities.getSourceContainers(getProject());
+			sourceContainers = JemProjectUtilities.getSourceContainers(getProject());
 		return sourceContainers;
 	}
 
@@ -477,7 +477,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 
 	private IFolder[] getClassesFolders() {
 		IProject project = getProject();
-		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
 		if (javaProj == null)
 			return new IFolder[0];
 		List result = null;

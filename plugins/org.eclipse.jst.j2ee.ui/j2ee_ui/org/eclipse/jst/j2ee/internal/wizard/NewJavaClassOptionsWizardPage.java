@@ -19,8 +19,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog2;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -327,10 +327,10 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	protected void handleInterfaceAddButtonSelected() {
 		IProject project = ((ArtifactEditOperationDataModel)model).getTargetProject();
 		IRunnableContext context = Workbench.getInstance().getActiveWorkbenchWindow();
-		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
+		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 		// this eliminates the non-exported classpath entries
 		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);
-		TypeSelectionDialog dialog = new TypeSelectionDialog(getShell(),context,IJavaSearchConstants.INTERFACE, scope);
+		TypeSelectionDialog2 dialog = new TypeSelectionDialog2(getShell(),false, context, scope,IJavaSearchConstants.INTERFACE);
 		dialog.setTitle(J2EEUIMessages.INTERFACE_SELECTION_DIALOG_TITLE);
 		if (dialog.open() == Window.OK) {
 			IType type = (IType) dialog.getFirstResult();

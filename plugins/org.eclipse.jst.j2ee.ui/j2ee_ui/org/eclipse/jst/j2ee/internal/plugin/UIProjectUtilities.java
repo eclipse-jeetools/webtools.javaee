@@ -26,9 +26,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ItemProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jface.viewers.IStructuredSelection;
 
 /**
  * @author mdelder

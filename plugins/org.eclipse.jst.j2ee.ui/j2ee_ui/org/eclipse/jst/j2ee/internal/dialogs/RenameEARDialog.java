@@ -10,6 +10,8 @@ package org.eclipse.jst.j2ee.internal.dialogs;
 
 
 import java.util.Set;
+
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;

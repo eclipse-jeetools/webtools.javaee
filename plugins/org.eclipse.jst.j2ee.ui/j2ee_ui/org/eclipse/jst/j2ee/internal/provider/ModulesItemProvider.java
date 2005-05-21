@@ -12,11 +12,12 @@ package org.eclipse.jst.j2ee.internal.provider;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class ModulesItemProvider extends J2EEItemProvider {
 	public static final String MODULES = J2EEUIMessages.getResourceString("Modules_UI_"); //$NON-NLS-1$

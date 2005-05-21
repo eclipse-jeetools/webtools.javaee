@@ -13,7 +13,6 @@ package org.eclipse.jst.common.jdt.internal.integration;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory;

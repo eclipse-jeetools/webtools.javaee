@@ -42,10 +42,11 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaModel;
 import org.eclipse.jem.util.UIContextDetermination;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientEditAdapterFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
@@ -300,20 +301,20 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		return getDefault().getBundle().getEntry("/");
 	}
 
-	protected static JavaModel getJavaModel() {
-		return JavaProjectUtilities.getJavaModel();
+	protected static IJavaModel getJavaModel() {
+		return JemProjectUtilities.getJavaModel();
 	}
 
-	protected static JavaModel getJavaModel(IProject aProject) {
+	protected static IJavaModel getJavaModel(IProject aProject) {
 		if (aProject != null)
-			return JavaProjectUtilities.getJavaModel();
+			return JemProjectUtilities.getJavaModel();
 		return null;
 	}
 
 	public static IJavaProject getJavaProject(IProject project) {
-		JavaModel model = getJavaModel(project);
+		IJavaModel model = getJavaModel(project);
 		if (model != null)
-			return model.getJavaProject(project);
+			return model.getJavaProject(project.getName());
 		return null;
 	}
 

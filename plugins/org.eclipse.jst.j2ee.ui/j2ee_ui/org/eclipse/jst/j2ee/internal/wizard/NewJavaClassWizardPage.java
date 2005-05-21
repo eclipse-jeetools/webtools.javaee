@@ -33,7 +33,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
+import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog2;
 import org.eclipse.jdt.internal.ui.viewsupport.IViewPartInputProvider;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -74,7 +74,6 @@ import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
@@ -492,7 +491,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		// to the Super Class Browse Button on the Create new Java Class Wizard
 		// final IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new
 		// IJavaElement[] {root.getJavaProject()} );
-		TypeSelectionDialog dialog = new TypeSelectionDialog(getShell(), getWizard().getContainer(), IJavaSearchConstants.CLASS, scope);
+		TypeSelectionDialog2 dialog = new TypeSelectionDialog2(getShell(),false, getWizard().getContainer(), scope, IJavaSearchConstants.CLASS);
 		dialog.setTitle(J2EEUIMessages.SUPERCLASS_SELECTION_DIALOG_TITLE);
 		dialog.setMessage(J2EEUIMessages.SUPERCLASS_SELECTION_DIALOG_DESC);
 

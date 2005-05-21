@@ -18,6 +18,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
+import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -31,13 +37,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelNature;
 import org.eclipse.wst.server.core.IModule;
-
-import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
-import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
-import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 
 /**
  * @deprecated

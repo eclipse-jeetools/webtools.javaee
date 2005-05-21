@@ -11,9 +11,7 @@
 package org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util;
 
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 public class AppClientArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {

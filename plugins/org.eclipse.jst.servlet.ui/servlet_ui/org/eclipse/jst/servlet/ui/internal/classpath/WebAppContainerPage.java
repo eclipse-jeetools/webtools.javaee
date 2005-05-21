@@ -22,6 +22,8 @@ import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.ui.wizards.IClasspathContainerPage;
 import org.eclipse.jdt.ui.wizards.IClasspathContainerPageExtension;
 import org.eclipse.jdt.ui.wizards.NewElementWizardPage;
+import org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainer;
+import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -30,9 +32,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-
-import org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainer;
-import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>

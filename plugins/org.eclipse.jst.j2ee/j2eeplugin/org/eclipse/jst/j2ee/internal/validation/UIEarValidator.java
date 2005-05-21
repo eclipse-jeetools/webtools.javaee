@@ -28,9 +28,9 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.MessageDestinationRef;
@@ -741,7 +741,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			if (input == null)
 				return null;
 			IProject p = input.getProject();
-			if (p == null || JavaProjectUtilities.isBinaryProject(p))
+			if (p == null || JemProjectUtilities.isBinaryProject(p))
 				return null;
 			IFile result = J2EEProjectUtilities.getManifestFile(p);
 			if (result != null && result.exists())
