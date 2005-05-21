@@ -6,10 +6,10 @@
  */
 package org.eclipse.jst.j2ee.core.api.test;
 
-import org.eclipse.jst.j2ee.core.tests.api.AllAPITest;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
+
+import org.eclipse.jst.j2ee.core.tests.api.AllAPITest;
 
 /**
  * To change this generated comment go to 

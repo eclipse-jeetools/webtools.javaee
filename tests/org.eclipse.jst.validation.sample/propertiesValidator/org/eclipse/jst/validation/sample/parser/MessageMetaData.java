@@ -19,7 +19,9 @@ package org.eclipse.jst.validation.sample.parser;
  * 
  */
 
-import java.util.*;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 
 /**

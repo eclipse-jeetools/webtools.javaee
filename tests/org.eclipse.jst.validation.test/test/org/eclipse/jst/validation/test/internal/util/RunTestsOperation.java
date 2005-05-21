@@ -1,6 +1,7 @@
 package org.eclipse.jst.validation.test.internal.util;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.validation.test.internal.registry.ITestcaseMetaData;
 import org.eclipse.jst.validation.test.setup.IBuffer;
 

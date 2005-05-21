@@ -1,7 +1,6 @@
 package org.eclipse.jst.validation.test.fwk.validator;
 
 import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.wst.validation.internal.core.FileDelta;
 import org.eclipse.wst.validation.internal.core.IFileDelta;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.LocalizedMessage;

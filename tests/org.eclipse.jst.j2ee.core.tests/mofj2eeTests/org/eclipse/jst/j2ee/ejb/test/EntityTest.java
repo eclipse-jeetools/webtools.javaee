@@ -4,15 +4,12 @@ import java.util.List;
 
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.archive.emftests.EjbEMFTest;
-import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 public class EntityTest extends EjbEMFTestBase{
 

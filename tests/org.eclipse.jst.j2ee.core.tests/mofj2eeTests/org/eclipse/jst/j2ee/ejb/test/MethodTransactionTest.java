@@ -4,9 +4,6 @@ import java.util.List;
 
 import junit.framework.TestSuite;
 
-import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.archive.emftests.EjbEMFTest;
-import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
@@ -14,7 +11,6 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
 import org.eclipse.jst.j2ee.ejb.TransactionAttributeType;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 public class MethodTransactionTest extends EjbEMFTestBase {
 
