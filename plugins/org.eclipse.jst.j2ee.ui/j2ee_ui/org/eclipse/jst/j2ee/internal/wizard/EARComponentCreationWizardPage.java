@@ -6,13 +6,12 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 
 public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 
@@ -40,7 +39,7 @@ public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardP
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-        return new String[] {IProjectCreationProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION,SERVER_TARGET_ID, RUNTIME_TARGET_ID };
+        return new String[] {IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION,SERVER_TARGET_ID, RUNTIME_TARGET_ID };
     }
 
 	public void dispose() {

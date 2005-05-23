@@ -82,7 +82,13 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 				status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
 			}
 			return status;
-		} 
+		} else if (propertyName.equals(SERVER_TARGET_ID)) {
+            IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+            IStatus nestedValiation = dm.validate();
+            if(!nestedValiation.isOK())
+                return nestedValiation;
+        }
+            
         return super.validate(propertyName);
 	}	
 
