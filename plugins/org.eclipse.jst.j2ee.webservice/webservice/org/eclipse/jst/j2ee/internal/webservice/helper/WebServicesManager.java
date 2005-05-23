@@ -118,15 +118,24 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			IVirtualComponent[] components = flexProject.getComponents();
 			if (components==null) continue;
 			for (int j=0; j<components.length; j++) {
+				//TODO implement a smarter solution than try catchs
+				try {
 				wsddArtifactEdit = WSDDArtifactEdit.getWSDDArtifactEditForRead(components[j]);
 				if (wsddArtifactEdit != null) {
 					wsddArtifactEdit.addListener(this);
 					getWSArtifactEdits().add(wsddArtifactEdit);
 				}
+				} catch (Exception e) {
+					//Ignore
+				}
+				try {
 				wscddArtifactEdit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(components[j]);
 				if (wscddArtifactEdit != null) {
 					wscddArtifactEdit.addListener(this);
 					getWSClientArtifactEdits().add(wsddArtifactEdit);
+				}
+				} catch (Exception e) {
+					//Ignore
 				}
 			}
 		}
