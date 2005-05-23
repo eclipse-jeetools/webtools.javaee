@@ -50,11 +50,7 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
         String[] props = new String[] { J2EE_COMPONENT_LIST };
         return combineProperties(super.getPropertyNames(), props);
     }
-
-    protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
-        return new AddComponentToEnterpriseApplicationDataModel();
-    }
-
+    
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(DD_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
