@@ -161,6 +161,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
 		addWebServicesIfNecessary(getWsddXmiResource());
+		if (contents.isEmpty())
+			return null;
 		return (EObject) contents.get(0);
 	}
 
