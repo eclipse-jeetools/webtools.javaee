@@ -210,7 +210,9 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
 		//this.getExtensionSite().notifyElementReplaced(this, ((WebServicesNavigatorContentProvider) getContentProvider()).getNavigatorGroup());
-		notifyChanged(new NotificationImpl(anEvent.getEventCode(),getNavigatorGroup(),getNavigatorGroup()));
+		List group = new ArrayList();
+		group.add(getNavigatorGroup());
+		notifyChanged(new NotificationImpl(anEvent.getEventCode(),group,group));
 	}
 	
 	/*

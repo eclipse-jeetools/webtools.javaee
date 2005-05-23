@@ -75,11 +75,11 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 		try {
 			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 			serviceRefs = serviceHelper.get13ServiceRefs(webApp);
-		} catch (RuntimeException re) {
+		} catch (Exception re) {
 			serviceRefs = Collections.EMPTY_LIST;
 		}
 
-		if (!serviceRefs.isEmpty())
+		if (serviceRefs !=null && !serviceRefs.isEmpty())
 			result.addAll(serviceRefs);
 		return result;
 	}

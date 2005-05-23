@@ -126,16 +126,16 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					getWSArtifactEdits().add(wsddArtifactEdit);
 				}
 				} catch (Exception e) {
-					//Ignore
+					if (wsddArtifactEdit != null) wsddArtifactEdit.dispose();
 				}
 				try {
 				wscddArtifactEdit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(components[j]);
 				if (wscddArtifactEdit != null) {
 					wscddArtifactEdit.addListener(this);
-					getWSClientArtifactEdits().add(wsddArtifactEdit);
+					getWSClientArtifactEdits().add(wscddArtifactEdit);
 				}
 				} catch (Exception e) {
-					//Ignore
+					if (wscddArtifactEdit != null) wscddArtifactEdit.dispose();
 				}
 			}
 		}
