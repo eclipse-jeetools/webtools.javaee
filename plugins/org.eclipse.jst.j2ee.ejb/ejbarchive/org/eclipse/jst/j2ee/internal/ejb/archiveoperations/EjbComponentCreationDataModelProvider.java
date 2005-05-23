@@ -38,7 +38,6 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     public void init() {
         super.init();
         IDataModel ejbClientComponentDataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
-		//to do : after porting
         model.setProperty(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
     }
     
@@ -76,9 +75,16 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
             model.notifyPropertyChange(CREATE_CLIENT, DataModelEvent.ENABLE_CHG);
         } else if (propertyName.equals(USE_ANNOTATIONS)) {
             model.notifyPropertyChange(COMPONENT_VERSION, DataModelEvent.ENABLE_CHG);
+            IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
+            if(ejbClientComponentDataModel != null)
+                ejbClientComponentDataModel.setProperty(USE_ANNOTATIONS, propertyValue);
         } else if (propertyName.equals(COMPONENT_VERSION)) {
-            if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+            if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3) {
                 model.setProperty(USE_ANNOTATIONS, Boolean.FALSE);
+                IDataModel ejbClientComponentDataModel = (IDataModel)model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
+                if(ejbClientComponentDataModel != null)
+                    ejbClientComponentDataModel.setProperty(USE_ANNOTATIONS, Boolean.FALSE);
+            }
             model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
         } 
         //else if (propertyName.equals(CREATE_CLIENT)) {
@@ -231,11 +237,12 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 
     protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
         switch (moduleVersion) {
-            case J2EEVersionConstants.WEB_2_2_ID :
+            case J2EEVersionConstants.EJB_1_0_ID :
+            case J2EEVersionConstants.EJB_1_1_ID :
                 return J2EEVersionConstants.J2EE_1_2_ID;
-            case J2EEVersionConstants.WEB_2_3_ID :
+            case J2EEVersionConstants.EJB_2_0_ID :
                 return J2EEVersionConstants.J2EE_1_3_ID;
-            case J2EEVersionConstants.WEB_2_4_ID :
+            case J2EEVersionConstants.EJB_2_1_ID :
                 return J2EEVersionConstants.J2EE_1_4_ID;
         }
         return -1;
@@ -244,11 +251,11 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
         switch (j2eeVersion.intValue()) {
             case J2EEVersionConstants.J2EE_1_2_ID :
-                return new Integer(J2EEVersionConstants.WEB_2_2_ID);
+                return new Integer(J2EEVersionConstants.EJB_1_1_ID);
             case J2EEVersionConstants.J2EE_1_3_ID :
-                return new Integer(J2EEVersionConstants.WEB_2_3_ID);
+                return new Integer(J2EEVersionConstants.EJB_2_0_ID);
             case J2EEVersionConstants.J2EE_1_4_ID :
-                return new Integer(J2EEVersionConstants.WEB_2_4_ID);
+                return new Integer(J2EEVersionConstants.EJB_2_1_ID);
         }
         return super.convertJ2EEVersionToModuleVersion(j2eeVersion);
     }
