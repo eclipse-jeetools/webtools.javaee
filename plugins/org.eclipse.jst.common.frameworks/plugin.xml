@@ -45,5 +45,12 @@
         handlerClass="org.eclipse.jst.common.jdt.internal.integration.JavaProjectValidationHandler"
         selectionType="org.eclipse.jdt.core.IJavaProject"/>
    </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="jst.utility"
+            factoryClass="org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModelFactory">
+      </editModel>
+   </extension>
         
 </plugin>
