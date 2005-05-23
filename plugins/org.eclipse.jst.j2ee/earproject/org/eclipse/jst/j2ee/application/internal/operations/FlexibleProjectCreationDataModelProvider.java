@@ -58,7 +58,7 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 	
 	private IStatus validateProjectName() {
 		String projectName = getStringProperty(PROJECT_NAME);
-		if (projectName != null && projectName.length() != 0) {
+		if (projectName == null && projectName.length() != 0) {
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			if (project != null && project.exists()) {
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_EXISTS_AT_LOCATION_ERROR));

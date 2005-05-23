@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 public class FlexibleProjectCreationWizardPage extends DataModelWizardPage implements IFlexibleJavaProjectCreationDataModelProperties, IJ2EEProjectServerTargetDataModelProperties {
@@ -276,7 +277,7 @@ public class FlexibleProjectCreationWizardPage extends DataModelWizardPage imple
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, PROJECT_LOCATION, SERVER_TARGET_ID};
+		return new String[]{IProjectCreationProperties.PROJECT_NAME, PROJECT_LOCATION, SERVER_TARGET_ID, RUNTIME_TARGET_ID};
 	}
 
 	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {

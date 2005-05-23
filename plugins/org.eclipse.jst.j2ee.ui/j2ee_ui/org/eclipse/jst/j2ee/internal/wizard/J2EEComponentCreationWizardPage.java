@@ -47,6 +47,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
@@ -249,7 +250,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, EAR_COMPONENT_NAME, ADD_TO_EAR};
+		return new String[]{IProjectCreationProperties.PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, EAR_COMPONENT_NAME, ADD_TO_EAR, SERVER_TARGET_ID, RUNTIME_TARGET_ID};
 	}
 
 	protected void createVersionComposite(Composite parent) {
