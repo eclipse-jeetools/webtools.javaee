@@ -206,7 +206,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	
 	private WSCDDArtifactEdit getWSClientArtifactEdit(ComponentHandle handle) {
 		for (int i=0; i<getWSClientArtifactEdits().size(); i++) {
-			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSArtifactEdits().get(i);
+			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(i);
 			ComponentHandle editHandle = artifactEdit.getComponentHandle();
 			if (editHandle.getProject()==handle.getProject() && editHandle.getName().equals(handle.getName()))
 				return artifactEdit;
