@@ -33,6 +33,11 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class EjbComponentCreationOperation extends J2EEComponentCreationOperation {
 	public EjbComponentCreationOperation(EjbComponentCreationDataModel dataModel) {
 		super(dataModel);

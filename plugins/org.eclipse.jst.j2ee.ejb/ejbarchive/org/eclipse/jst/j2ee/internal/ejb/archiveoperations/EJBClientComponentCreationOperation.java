@@ -42,6 +42,11 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class EJBClientComponentCreationOperation extends JavaUtilityComponentCreationOperation {
 
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$

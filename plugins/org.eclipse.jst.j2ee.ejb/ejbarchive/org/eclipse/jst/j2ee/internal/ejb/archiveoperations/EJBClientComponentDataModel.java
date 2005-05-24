@@ -19,6 +19,11 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class EJBClientComponentDataModel extends JavaComponentCreationDataModel {
 	
 	/**

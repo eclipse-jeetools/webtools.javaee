@@ -19,7 +19,6 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
@@ -33,6 +32,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationD
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
@@ -83,29 +83,29 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createProjectInfo()
 	 */
-	//	public J2EEJavaProjectInfo createProjectInfo() {
-	//		return new EJBProjectInfo();
-	//	}
+	// public J2EEJavaProjectInfo createProjectInfo() {
+	// return new EJBProjectInfo();
+	// }
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createProjectInfo()
 	 */
-	//	public J2EEJavaProjectInfo createProjectInfo(int version) {
-	//		EJBProjectInfo info = new EJBProjectInfo();
-	//		info.setModuleVersion(version);
-	//		return info;
-	//	}
+	// public J2EEJavaProjectInfo createProjectInfo(int version) {
+	// EJBProjectInfo info = new EJBProjectInfo();
+	// info.setModuleVersion(version);
+	// return info;
+	// }
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createImportOperation(org.eclipse.core.resources.IProject,
 	 *      org.eclipse.jst.j2ee.internal.internal.commonarchivecore.EJBJarFile)
 	 */
-	//    public J2EEImportOperationOLD createImportOperation(IProject proj,
+	// public J2EEImportOperationOLD createImportOperation(IProject proj,
 	// EJBJarFile ejbJarFile) {
-	//        return new EJBJarImportOperationOLD(proj, ejbJarFile);
-	//    }
+	// return new EJBJarImportOperationOLD(proj, ejbJarFile);
+	// }
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -154,12 +154,12 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	public IDataModel createProjectDataModel() {
 		IDataModel model = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
 
-		//Added this property so Application Creation Wizard, will not create a
-		//EJB client jar, when a EJB module is created.
+		// Added this property so Application Creation Wizard, will not create a
+		// EJB client jar, when a EJB module is created.
 		model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, Boolean.FALSE);
 
-		//Override the default to not create a default session bean.
-		//This is necessary when creating a default EJB project from an EAR project wizard.
+		// Override the default to not create a default session bean.
+		// This is necessary when creating a default EJB project from an EAR project wizard.
 		model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
 		return model;
 	}
@@ -169,8 +169,8 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
-	public J2EEModuleImportDataModel createImportDataModel() {
-		return null; //new EJBModuleImportDataModel();
+	public IDataModel createImportDataModel() {
+		return DataModelFactory.createDataModel(new EJBModuleImportDataModelProvider());
 	}
 
 	/*
