@@ -89,22 +89,20 @@ public class WebServicesNavigatorSynchronizer extends CommonAdapterFactoryConten
 			return;
 
 		if (notifier instanceof ServiceRef) {
-			contentProvider.inputChanged(contentProvider.getViewer(),notification.getOldValue(),notification.getNewValue());
+			contentProvider.getViewer().refresh(notifier);
 			return;
 		}
 
 		while (!(notifier instanceof WebServiceDescription) && notifier != null)
 			notifier = notifier.eContainer();
 
-		if (notifier == null) {
-			//site.notifyElementReplaced(getContainingExtension(), null);
+		if (notifier == null)
 			return;
+		
+		if (notifier instanceof WebServiceDescription) {
+			EObject wsdl = WebServicesManager.getInstance().getWSDLServiceForWebService((WebServiceDescription) notifier);
+			contentProvider.getViewer().refresh(wsdl);
 		}
-
-		EObject wsdl = WebServicesManager.getInstance().getWSDLServiceForWebService((WebServiceDescription) notifier);
-		EObject oldWsdl = WebServicesManager.getInstance().getWSDLServiceForWebService((WebServiceDescription) notification.getOldValue());
-		contentProvider.inputChanged(contentProvider.getViewer(), oldWsdl,wsdl);
-
 		super.notifyChanged(notification);
 	}
 }

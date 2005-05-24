@@ -411,6 +411,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	public Resource getWSDLResource(WebServiceDescription webService) {
+		if (webService == null)
+			return null;
 		String wsdlFileName = webService.getWsdlFile();
 		Resource res = null;
 		IVirtualResource[] resources = ComponentCore.createResources(WorkbenchResourceHelper.getFile(webService));
