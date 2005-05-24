@@ -45,7 +45,7 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean notify = super.doSetProperty(propertyName, propertyValue);
 		if (propertyName.equals(MODULE_NAME))
-			updateArtifactEdit(propertyName);
+			updateArtifactEdit((String)propertyValue);
 		return notify;
 	}
 	
