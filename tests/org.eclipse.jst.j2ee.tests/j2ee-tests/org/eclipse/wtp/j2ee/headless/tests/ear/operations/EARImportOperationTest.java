@@ -5,7 +5,6 @@ import java.util.List;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -13,8 +12,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -54,20 +51,20 @@ public class EARImportOperationTest extends OperationTestCase {
     }
 
     public void testEARImportRootLocation() throws Exception {
-    	EnterpriseApplicationImportDataModel importModel = null;
-        String projectName = "Test13WEBEJBEAR";
-        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test13WEBEJBEAR.ear");
-        try {
-            importModel = new EnterpriseApplicationImportDataModel();
-            importModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, projectName);
-            importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, earName);
-            importModel.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
-            //importModel.setProperty(EARComponentCreationDataModel.PROJECT_LOCATION, "c:" + fileSep + "EARTestTemp");
-            importModel.setProperty(EnterpriseApplicationImportDataModel.NESTED_MODULE_ROOT, "c:" + fileSep + "EARTestModulesTemp");
-            runAndVerify(importModel);
-        } finally {
-            importModel.dispose();
-        }
+//    	EnterpriseApplicationImportDataModel importModel = null;
+//        String projectName = "Test13WEBEJBEAR";
+//        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test13WEBEJBEAR.ear");
+//        try {
+//            importModel = new EnterpriseApplicationImportDataModel();
+//            importModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, projectName);
+//            importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, earName);
+//            importModel.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+//            //importModel.setProperty(EARComponentCreationDataModel.PROJECT_LOCATION, "c:" + fileSep + "EARTestTemp");
+//            importModel.setProperty(EnterpriseApplicationImportDataModel.NESTED_MODULE_ROOT, "c:" + fileSep + "EARTestModulesTemp");
+//            runAndVerify(importModel);
+//        } finally {
+//            importModel.dispose();
+//        }
     }
     
     //TODO M4 Action Item - enable the util jar tests after the fixes for util jar import are available in M4
@@ -210,17 +207,17 @@ public class EARImportOperationTest extends OperationTestCase {
     }
 
     public void testImportEAR14() throws Exception {
-        String projectName = "Test14WEBEJBEAR";
-        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test14WEBEJBEAR.ear");
-        EnterpriseApplicationImportDataModel importModel = null;
-        try {
-            importModel = new EnterpriseApplicationImportDataModel();
-            importModel.setProperty(EnterpriseApplicationImportDataModel.PROJECT_NAME, projectName);
-            importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, earName);
-            runAndVerify(importModel);
-        } finally {
-            importModel.dispose();
-        }
+//        String projectName = "Test14WEBEJBEAR";
+//        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test14WEBEJBEAR.ear");
+//        EnterpriseApplicationImportDataModel importModel = null;
+//        try {
+//            importModel = new EnterpriseApplicationImportDataModel();
+//            importModel.setProperty(EnterpriseApplicationImportDataModel.PROJECT_NAME, projectName);
+//            importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, earName);
+//            runAndVerify(importModel);
+//        } finally {
+//            importModel.dispose();
+//        }
     }
 
     public static Test suite() {
@@ -259,15 +256,16 @@ public class EARImportOperationTest extends OperationTestCase {
     }
 
     public static void load(String projectName, String earName) throws Exception {
-    	EnterpriseApplicationImportDataModel importModel = null;
-        try {
-            importModel = new EnterpriseApplicationImportDataModel();
-            importModel.setProperty(EnterpriseApplicationImportDataModel.PROJECT_NAME, projectName);
-            importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, getFullTestDataPath(earName));
-            runAndVerify(importModel);
-        } finally {
-            importModel.dispose();
-        }
+		// EnterpriseApplicationImportDataModel importModel = null;
+		// try {
+		// importModel = new EnterpriseApplicationImportDataModel();
+		// importModel.setProperty(EnterpriseApplicationImportDataModel.PROJECT_NAME, projectName);
+		// importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME,
+		// getFullTestDataPath(earName));
+		// runAndVerify(importModel);
+		// } finally {
+		// importModel.dispose();
+		//        }
     }
 
     public List getArchiveInEAR(String earFileURI) {
