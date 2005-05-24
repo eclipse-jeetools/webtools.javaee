@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.internal.plugin.JavaEMFNature;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -35,6 +37,7 @@ public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreatio
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         IStatus status = super.execute(monitor, info);
         try {
+        	createJavaEMFNature();
             addServerTarget(monitor);
         } catch (ExecutionException e) {
             // TODO Auto-generated catch block
@@ -51,4 +54,9 @@ public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreatio
         }
         return status;
     }
+	protected void createJavaEMFNature() throws CoreException {
+		JavaEMFNature.createRuntime(getProject());
+		JavaEMFNature nature = JavaEMFNature.getRuntime(getProject());
+		nature.primaryContributeToContext(WorkbenchResourceHelperBase.getEMFContext(getProject()));
+	}
 }
