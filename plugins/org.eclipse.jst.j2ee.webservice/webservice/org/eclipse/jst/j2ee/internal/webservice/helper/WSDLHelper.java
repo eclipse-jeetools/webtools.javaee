@@ -17,26 +17,26 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.jst.j2ee.common.QName;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 /**
  * This class contains methods to help navigate WSDL files provided in various JSR-109 descriptors
  */
 public class WSDLHelper {
 
-	private IProject project_;
+	private ComponentHandle handle;
 
-	public WSDLHelper(IProject p) {
-		project_ = p;
+	public WSDLHelper(ComponentHandle aHandle) {
+		this.handle = aHandle;
 	}
 
 	/**
@@ -222,31 +222,24 @@ public class WSDLHelper {
 			return ""; //$NON-NLS-1$
 
 		// Get a handle on the WSDL file.
-		J2EENature nature = J2EENature.getRegisteredRuntime(project_);
-		if (nature != null) {
-			IResource moduleRoot = nature.getModuleServerRoot();
-			if (moduleRoot instanceof IFolder) {
-				IFolder moduleRootFolder = (IFolder) moduleRoot;
-				IFile wsdlFile = moduleRootFolder.getFile(wsdlFileRelPath);
-				if (!wsdlFile.exists()) {
-					return ""; //$NON-NLS-1$
-				}
-
-				//Get the fileURL from wsdlFile
-				String wsdlURL;
-				try {
-					wsdlURL = wsdlFile.getLocation().toFile().toURL().toString();
-				} catch (MalformedURLException murle) {
-					return ""; //$NON-NLS-1$
-				}
-
-				if (wsdlURL == null || wsdlURL.length() == 0)
-					return ""; //$NON-NLS-1$
-
-				return wsdlURL;
-
+		IVirtualComponent component = ComponentCore.createComponent(handle.getProject(),handle.getName());
+		if (component != null) {
+			IVirtualFolder moduleRoot = component.getFolder("/"); //$NON-NLS-1$
+			IFile wsdlFile = moduleRoot.getFile(wsdlFileRelPath).getUnderlyingFile();
+			if (!wsdlFile.exists()) {
+				return ""; //$NON-NLS-1$
 			}
-			return ""; //$NON-NLS-1$
+			//Get the fileURL from wsdlFile
+			String wsdlURL;
+			try {
+				wsdlURL = wsdlFile.getLocation().toFile().toURL().toString();
+			} catch (MalformedURLException murle) {
+				return ""; //$NON-NLS-1$
+			}
+
+			if (wsdlURL == null || wsdlURL.length() == 0)
+				return ""; //$NON-NLS-1$
+			return wsdlURL;
 		}
 		return ""; //$NON-NLS-1$
 	}

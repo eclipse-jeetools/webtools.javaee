@@ -185,8 +185,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 				WebServices ws = WsddFactory.eINSTANCE.createWebServices();
 				aResource.getContents().add(ws);
 			}
-			WebServices ws = (WebServices) aResource.getContents().get(0);
-			URI moduleURI = getArtifactEditModel().getModuleURI();
+			aResource.getContents().get(0);
+			getArtifactEditModel().getModuleURI();
 			try {
 				aResource.saveIfNecessary();
 			} catch (Exception e) {

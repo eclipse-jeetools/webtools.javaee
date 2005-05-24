@@ -172,8 +172,8 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 				WebServicesClient ws_client = Webservice_clientFactory.eINSTANCE.createWebServicesClient();
 				aResource.getContents().add(ws_client);
 		    }
-			WebServicesClient ws_client = (WebServicesClient)aResource.getContents().get(0);
-			URI moduleURI = getArtifactEditModel().getModuleURI();
+			aResource.getContents().get(0);
+			getArtifactEditModel().getModuleURI();
 			try {
 				aResource.saveIfNecessary();
 			}

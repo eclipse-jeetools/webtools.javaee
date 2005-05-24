@@ -561,9 +561,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 
 	public List getWorkspace14ServiceRefs() {
 		List result = new ArrayList();
-		for (int i = 0; i < getWSArtifactEdits().size(); i++) {
-			WSDDArtifactEdit wsArtifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(i);
-			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wsArtifactEdit.getComponentHandle());
+		for (int i = 0; i < getWSClientArtifactEdits().size(); i++) {
+			WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(i);
+			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(wscArtifactEdit.getComponentHandle());
 			try {
 				EObject rootObject = artifactEdit.getContentModelRoot();
 				// handle EJB project case
@@ -710,8 +710,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		if (resource.getType() == IResource.PROJECT) {
 			IProject p = (IProject) resource;
 			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(p);
-			// Handle project adds
-			if (delta.getKind() == IResourceDelta.ADDED && flexProject != null) {
+			// Handle project adds and project opens
+			if ((delta.getKind()==IResourceDelta.ADDED || delta.getFlags()==IResourceDelta.OPEN) && flexProject != null) {
 				boolean state = true;
 				IVirtualComponent[] components = flexProject.getComponents();
 				for (int i=0; i<components.length; i++) {
@@ -729,11 +729,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
 					if (wscArtifactEdit ==null) {
 						wscArtifactEdit = WSCDDArtifactEdit.getWSCDDArtifactEditForRead(handle);
-						getWSArtifactEdits().add(wscArtifactEdit);
+						getWSClientArtifactEdits().add(wscArtifactEdit);
 						wscArtifactEdit.addListener(this);
 						// forward an edit model event to manager's listeners
 						// TODO forward edit model event?
-						//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wscArtifactEdit));
+						//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wsArtifactEdit));
 						state = false;
 					}
 				}
@@ -759,7 +759,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 						
 						WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
 						if (wscArtifactEdit != null) {
-							getWSArtifactEdits().remove(wscArtifactEdit);
+							getWSClientArtifactEdits().remove(wscArtifactEdit);
 							wscArtifactEdit.dispose();
 							// forward an edit model event to manager's listeners
 							// TODO forward edit model event?
@@ -788,7 +788,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					
 					WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
 					if (wscArtifactEdit != null) {
-						getWSArtifactEdits().remove(wscArtifactEdit);
+						getWSClientArtifactEdits().remove(wscArtifactEdit);
 						wscArtifactEdit.dispose();
 						// forward an edit model event to manager's listeners
 						// TODO forward edit model event?
@@ -814,21 +814,23 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected void addedWsdl(IFile wsdl) {
 		if (!wsdl.exists())
 			return;
-		ComponentHandle handle = getComponentHandle(wsdl);
-		WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
+		// ComponentHandle handle = getComponentHandle(wsdl);
+		// WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
 		// forward an edit model event to manager's listeners
 		// TODO forward edit model event?
-		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, artifactEdit));
+		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wsArtifactEdit));
+		
 	}
 
 	protected void addedWsil(IFile wsil) {
 		if (!wsil.exists())
 			return;
-		ComponentHandle handle = getComponentHandle(wsil);
-		WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
+		// ComponentHandle handle = getComponentHandle(wsil);
+		// WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
 		// forward an edit model event to manager's listeners
 		// TODO forward edit model event?
-		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, artifactEdit));
+		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wsArtifactEdit));
+		
 	}
 	
 	private ComponentHandle getComponentHandle(IFile res) {
