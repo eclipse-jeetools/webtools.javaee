@@ -212,19 +212,21 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			IVirtualComponent[] components = flexProject.getComponents(); 
 			for (int i = 0; i < components.length; i++) {
 	           
-					IVirtualComponent wbModule = components[i];
-					ComponentHandle compHandle = ComponentHandle.create(project,wbModule.getName());
+					IVirtualComponent earModule = components[i];
+					 if(!earModule.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
+			            	return;
+					ComponentHandle compHandle = ComponentHandle.create(project,earModule.getName());
 	                EARArtifactEdit earEdit = null;
 	               	try{
 	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(compHandle);
 	               		if(earEdit != null) {
 		               		Application earApp = (Application) earEdit.getDeploymentDescriptorRoot();		               		
 		               		super.validate(inHelper, inReporter, earApp);
-							validateModuleMaps(earEdit,wbModule);
-							validateManifests(wbModule,earFile);
-							validateUtilJarMaps(earEdit,wbModule);
-							validateUriAlreadyExistsInEar(earEdit,wbModule);
-							validateDocType(earEdit,wbModule);
+							validateModuleMaps(earEdit,earModule);
+							validateManifests(earModule,earFile);
+							validateUtilJarMaps(earEdit,earModule);
+							validateUriAlreadyExistsInEar(earEdit,earModule);
+							validateDocType(earEdit,earModule);
 	               		}
 	               	}
 					catch (ValidationException ex) {
