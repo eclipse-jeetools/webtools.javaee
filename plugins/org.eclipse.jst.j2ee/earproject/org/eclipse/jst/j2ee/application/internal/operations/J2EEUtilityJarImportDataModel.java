@@ -19,6 +19,11 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public final class J2EEUtilityJarImportDataModel extends J2EEArtifactImportDataModel {
 
 	public static final String EAR_PROJECT = "J2EEUtilityJarImportDataModel.EAR_PROJECT"; //$NON-NLS-1$

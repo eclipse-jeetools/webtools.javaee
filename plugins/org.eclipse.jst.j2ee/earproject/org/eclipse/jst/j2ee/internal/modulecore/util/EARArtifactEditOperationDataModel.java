@@ -14,6 +14,11 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class EARArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {
 
     public WTPOperation getDefaultOperation() {

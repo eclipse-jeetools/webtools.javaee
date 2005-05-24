@@ -29,6 +29,11 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class AppClientComponentCreationOperation extends J2EEComponentCreationOperation {
 
     public AppClientComponentCreationOperation(AppClientComponentCreationDataModel dataModel) {

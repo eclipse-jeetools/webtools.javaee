@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class AddComponentToEnterpriseApplicationDataModel extends EARArtifactEditOperationDataModel {
 	//Used for adding module components to an Enterprise Application during EAR component creation
 	public static final String MODULE_LIST = "AddComponentToEnterpriseApplicationDataModel.MODULE_LIST"; //$NON-NLS-1$

@@ -17,7 +17,6 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
@@ -33,7 +32,6 @@ import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
@@ -189,7 +187,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 				archiveType = ImportUtil.getArchiveType(archive);
 				switch (archiveType) {
 					case ImportUtil.EARFILE :
-						dataModel = new EnterpriseApplicationImportDataModel();
+						dataModel = null;//new EnterpriseApplicationImportDataModel();
 						break;
 					case ImportUtil.EJBJARFILE :
 						dataModel = null;//new EJBModuleImportDataModel();
@@ -231,7 +229,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			}
 			switch (archiveType) {
 				case ImportUtil.EARFILE :
-					wizard = new EnterpriseApplicationImportWizard((EnterpriseApplicationImportDataModel) dataModel);
+					wizard = null;//new EnterpriseApplicationImportWizard((EnterpriseApplicationImportDataModel) dataModel);
 					break;
 				case ImportUtil.EJBJARFILE :
 					wizard = null;//new EJBModuleImportWizard((EJBModuleImportDataModel) dataModel);

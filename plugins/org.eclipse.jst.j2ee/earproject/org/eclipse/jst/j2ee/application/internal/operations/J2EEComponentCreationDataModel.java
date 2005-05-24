@@ -32,13 +32,10 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescript
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+//TODO delete
 /**
- * This dataModel is a common super class used for to create Flexibile J2EE Components.
- * 
- * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
- * the new project structures are adopted. Use at your own risk.
- * 
- * @since WTP 1.0
+ * @deprecated
+ *
  */
 public abstract class J2EEComponentCreationDataModel extends JavaComponentCreationDataModel implements IAnnotationsDataModel {
 

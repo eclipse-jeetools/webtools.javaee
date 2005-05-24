@@ -36,27 +36,26 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
-// TODO delete
-/**
- * @deprecated
- * 
- */
-public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOperation {
-	public EnterpriseApplicationImportOperation(EnterpriseApplicationImportDataModel dataModel) {
-		super(dataModel);
-	}
+public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportOperationNew {
 
-	private EnterpriseApplicationImportDataModel getEARImportDataModel() {
-		return (EnterpriseApplicationImportDataModel) operationDataModel;
+	private EARFile earFile;
+
+	public EnterpriseApplicationImportOperationNew(IDataModel dataModel) {
+		super(dataModel);
+		earFile = (EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE);
 	}
 
 	/**
@@ -66,35 +65,18 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 	 * @param monitor
 	 *            the progress monitor to use to display progress
 	 */
-	protected void doExecute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		// FileSet.printState();
-		EnterpriseApplicationImportDataModel model = getEARImportDataModel();
-		monitor.beginTask(null, model.getModuleFile().getFiles().size());
-		boolean earImported = model.getBooleanProperty(EnterpriseApplicationImportDataModel.IMPORT_EAR_PROJECT);
-		if (earImported) {
-			IProject project = model.getProject();
-			if (model.getBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT) && model.getBooleanProperty(J2EEArtifactImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT)) {
-				if (project.exists()) {
-					project.delete(true, true, new NullProgressMonitor());
-				}
-			}
-			if (!project.exists()) {
-				createModuleProject(model.getJ2eeArtifactCreationDataModel(), monitor);
-			}
-			try {
-				monitor.beginTask(EARArchiveOpsResourceHandler.getString("IMPORTING_EAR_FILE_UI_"), model.getEARFile().getFiles().size()); //$NON-NLS-1$
-				importEARProject(monitor);
-			} finally {
-				releaseDeploymentDescriptor();
-			}
-		}
-		List modelsNotToAddToEAR = model.getUnhandledProjectModels();
-		List modelsToImport = model.getHandledSelectedModels();
+	protected void doExecute(IProgressMonitor monitor) {
+		monitor.beginTask(null, earFile.getFiles().size());
+		
+		//virtualComponent = createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), monitor);
+		
+		List modelsNotToAddToEAR = (List) model.getProperty(IEARComponentImportDataModelProperties.UNHANDLED_PROJECT_MODELS_LIST);
+		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
 		try {
 			J2EEArtifactImportDataModel importModel = null;
 			WTPOperation importOp = null;
-			List allModels = model.getProjectModels();
-			IProject earProject = model.getProject();
+			List allModels = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
+			IProject earProject = virtualComponent.getProject();
 			IProject archiveProject = null;
 			AddArchiveToEARDataModel addArchiveProjectToEARDataModel = null;
 			boolean synchServerTarget = model.getBooleanProperty(EnterpriseApplicationImportDataModel.SYNC_SERVER_TARGETS_WITH_EAR);
@@ -108,7 +90,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 					importModel.setProperty(J2EEArtifactImportDataModel.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
 					importOp.run(monitor);
 				}
-				if (earProject.exists() && (earImported || moduleImported) && !modelsNotToAddToEAR.contains(importModel)) {
+				if (earProject.exists() && (moduleImported) && !modelsNotToAddToEAR.contains(importModel)) {
 					archiveProject = importModel.getProject();
 					if (archiveProject.exists()) {
 						if (importModel instanceof J2EEModuleImportDataModel) {
@@ -145,6 +127,15 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 				modelsToImport.removeAll(modelsNotToAddToEAR);
 				fixupClasspaths(modelsToImport, earProject);
 			}
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JavaModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			resetDisposeImportModels();
 			// FileSet.printState();
@@ -155,7 +146,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 	 * @param modelsToImport
 	 */
 	private void resetDisposeImportModels() {
-		resetDisposeImportModels(getEARImportDataModel().getProjectModels());
+		resetDisposeImportModels((List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST));
 	}
 
 	private void resetDisposeImportModels(List models) {
@@ -194,7 +185,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 					extraEntries.add(JavaCore.newLibraryEntry(file.getFullPath(), file.getFullPath(), null, true));
 					Archive archive = null;
 					try {
-						archive = (Archive) getEARImportDataModel().getEARFile().getFile(file.getProjectRelativePath().toString());
+						archive = (Archive) earFile.getFile(file.getProjectRelativePath().toString());
 						String[] nestedManifestClasspath = archive.getManifest().getClassPathTokenized();
 						extraEntries.addAll(fixupClasspath(earProject, nestedManifestClasspath, computedFiles, archive, aProject));
 					} catch (FileNotFoundException e) {
@@ -233,10 +224,9 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 	}
 
 	protected void importEARProject(IProgressMonitor monitor) throws InvocationTargetException {
-		EARFile earFile = getEARImportDataModel().getEARFile();
 		try {
-			EARProjectSaveStrategyImpl saveStrat = new EARProjectSaveStrategyImpl(getEARImportDataModel());
-			saveStrat.setMonitor(monitor);
+			FlexibleJ2EEApplicationSaveStrategyImpl saveStrat = new FlexibleJ2EEApplicationSaveStrategyImpl(model);
+			saveStrat.setProgressMonitor(monitor);
 			earFile.save(saveStrat);
 		} catch (Exception ex) {
 			String errorString = EARArchiveOpsResourceHandler.getString("ERROR_IMPORTING_EAR_FILE"); //$NON-NLS-1$
@@ -245,7 +235,6 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 	}
 
 	private void releaseDeploymentDescriptor() {
-		EARFile earFile = getEARImportDataModel().getEARFile();
 		try {
 			if (earFile != null && earFile.isDeploymentDescriptorSet()) {
 				XMLResource res = (XMLResource) earFile.getDeploymentDescriptor().eResource();
@@ -263,6 +252,11 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 	}
 
 	protected SaveStrategy createSaveStrategy(IProject project) { // NOOP
+		return null;
+	}
+
+	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

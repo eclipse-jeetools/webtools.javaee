@@ -21,6 +21,11 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
     /* (non-Javadoc)

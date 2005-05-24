@@ -62,5 +62,21 @@ public interface IEARComponentImportDataModelProperties extends IJ2EEComponentIm
      * be imported
      */
     public static final String UTILITY_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.UTILITY_MODELS_LIST"; //$NON-NLS-1$
+	
+	/**
+	 * This is an unsettable property which will return all the project DataModels.
+	 */
+	public static final String ALL_PROJECT_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.ALL_PROJECT_MODELS_LIST"; //$NON-NLS-1$
 
+	/**
+	 * This is an unsettable property which will return .
+	 */
+	public static final String UNHANDLED_PROJECT_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.UNHANDLED_PROJECT_MODELS_LIST"; //$NON-NLS-1$
+
+	/**
+	 * This is an unsettable property which will return .
+	 */
+	public static final String HANDLED_PROJECT_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST"; //$NON-NLS-1$
+	
+	
 }

@@ -49,6 +49,11 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public abstract class J2EEComponentCreationOperation extends ComponentCreationOperation {
 	/**
      * name of the template emitter to be used to generate the deployment

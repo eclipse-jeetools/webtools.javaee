@@ -40,7 +40,7 @@ public interface EarModuleExtension {
 	 */
 	IDataModel createProjectDataModel();
 
-	J2EEModuleImportDataModel createImportDataModel();
+	IDataModel createImportDataModel();
 
 	J2EEComponentCreationOperation createProjectCreationOperation(J2EEComponentCreationDataModel dataModel);
 

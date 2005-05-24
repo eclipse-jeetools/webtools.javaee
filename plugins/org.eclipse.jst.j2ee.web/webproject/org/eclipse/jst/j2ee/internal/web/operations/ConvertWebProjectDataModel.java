@@ -13,11 +13,10 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
+//TODO delete
 /**
- * @author fatty
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * @deprecated
+ *
  */
 public class ConvertWebProjectDataModel extends WebComponentCreationDataModel
 {

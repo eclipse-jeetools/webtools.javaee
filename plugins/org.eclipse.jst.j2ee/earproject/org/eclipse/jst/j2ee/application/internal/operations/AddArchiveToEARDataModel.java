@@ -30,11 +30,10 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
+//TODO delete
 /**
- * @author DABERG
- * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
+ * @deprecated
+ *
  */
 public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationDataModel {
 	/**

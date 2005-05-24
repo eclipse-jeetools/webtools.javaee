@@ -42,6 +42,11 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class WebComponentCreationOperation extends J2EEComponentCreationOperation {
 	public WebComponentCreationOperation(WebComponentCreationDataModel dataModel) {
 		super(dataModel);

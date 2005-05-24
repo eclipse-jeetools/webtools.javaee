@@ -33,6 +33,11 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class JavaUtilityComponentCreationOperation extends ComponentCreationOperation {
 	/**
 	 * @param dataModel

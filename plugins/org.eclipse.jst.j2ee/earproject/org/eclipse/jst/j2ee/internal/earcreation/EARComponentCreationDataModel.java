@@ -33,6 +33,11 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class EARComponentCreationDataModel extends J2EEComponentCreationDataModel {
 	
 	/**

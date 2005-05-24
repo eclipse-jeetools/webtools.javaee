@@ -23,7 +23,6 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
@@ -34,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -45,7 +45,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements WebModuleExtension {
 
 	/**
-	 *  
+	 * 
 	 */
 	public WebModuleExtensionImpl() {
 		super();
@@ -62,27 +62,28 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	}
 
 	public void initializeEjbReferencesToModule(J2EENature moduleNature, UpdateModuleReferencesInEARProjectCommand command) {
-//		WebEditModel editModel;
-//		try {
-//			editModel = ((J2EEWebNatureRuntime) moduleNature).getWebAppEditModelForWrite(this);
-//		} catch (Exception e) {
-//			return;
-//		}
+		// WebEditModel editModel;
+		// try {
+		// editModel = ((J2EEWebNatureRuntime) moduleNature).getWebAppEditModelForWrite(this);
+		// } catch (Exception e) {
+		// return;
+		// }
 		WebArtifactEdit webEdit = null;
 		WebApp webApp = null;
-		try{
-			//TODO migrate to flex project
-			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( moduleNature.getProject());
-       		if(webEdit != null) 
-       			webApp =  (WebApp) webEdit.getDeploymentDescriptorRoot();
+		try {
+			// TODO migrate to flex project
+			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(
+			// moduleNature.getProject());
+			if (webEdit != null)
+				webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
 			if (webApp != null) {
 				command.initializeEjbReferencesToModule(webApp.getEjbRefs());
 				command.initializeEjbReferencesToModule(webApp.getEjbLocalRefs());
 			}
-		} finally{
-			if( webEdit != null )
+		} finally {
+			if (webEdit != null)
 				webEdit.dispose();
-		}            		
+		}
 	}
 
 	/*
@@ -92,15 +93,15 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 *      java.util.Set)
 	 */
 	public void addWLPProjects(IProject aProject, Set projectsToBuild) {
-//		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(aProject);
-//		if (nature == null)
-//			return;
-//		ILibModule[] libModules = nature.getLibModules();
-//		for (int i = 0; i < libModules.length; i++) {
-//			IProject p = libModules[i].getProject();
-//			if (p.isAccessible())
-//				projectsToBuild.add(libModules[i].getProject());
-//		}
+		// J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(aProject);
+		// if (nature == null)
+		// return;
+		// ILibModule[] libModules = nature.getLibModules();
+		// for (int i = 0; i < libModules.length; i++) {
+		// IProject p = libModules[i].getProject();
+		// if (p.isAccessible())
+		// projectsToBuild.add(libModules[i].getProject());
+		// }
 	}
 
 	/*
@@ -110,9 +111,9 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 */
 	public J2EEJavaProjectInfo createWebProjectInfo(Archive anArchive) {
 		WebProjectInfo info = new WebProjectInfo();
-		//Moved this code below to EARProjectSaveStrategyImpl, to defer the
+		// Moved this code below to EARProjectSaveStrategyImpl, to defer the
 		// work
-		//and avoid hangs in the wizard right after finish pressed
+		// and avoid hangs in the wizard right after finish pressed
 		/*
 		 * boolean isVersion2_2 = !ArchiveUtil.isJ2EE13FastCheck((WARFile)anArchive); if
 		 * (isVersion2_2) { info.setJSPLevel(IJ2EEWebNature.JSPLEVEL_1_1);
@@ -129,19 +130,20 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 */
 	public void setContextRootForModuleMapping(WebModule webModule, IProject nestedProject) throws CoreException {
 		WebArtifactEdit webEdit = null;
-		try{
-			//TODO migrate to flex project
-			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( nestedProject );
-       		if(webEdit != null) {
-       			webEdit.setServerContextRoot(webModule.getContextRoot());
-       		}			
-		} finally{
-			if( webEdit != null )
+		try {
+			// TODO migrate to flex project
+			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( nestedProject
+			// );
+			if (webEdit != null) {
+				webEdit.setServerContextRoot(webModule.getContextRoot());
+			}
+		} finally {
+			if (webEdit != null)
 				webEdit.dispose();
 		}
-//		if (wnr != null) {
-//			wnr.setContextRoot(webModule.getContextRoot());
-//		}
+		// if (wnr != null) {
+		// wnr.setContextRoot(webModule.getContextRoot());
+		// }
 	}
 
 	/*
@@ -150,20 +152,20 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#hasRuntime(org.eclipse.core.resources.IProject)
 	 */
 	public boolean hasRuntime(IProject project) {
-		//return J2EEWebNatureRuntimeUtilities.hasJ2EERuntime(project);
-		//To do: work based on module
+		// return J2EEWebNatureRuntimeUtilities.hasJ2EERuntime(project);
+		// To do: work based on module
 		return false;
 	}
 
-	//    public J2EEImportOperationOLD createImportOperation(IProject
+	// public J2EEImportOperationOLD createImportOperation(IProject
 	// nestedProject, WARFile warFile, EARImportConfiguration importConfig){
-	//		WarImportOperation op = new WarImportOperation(nestedProject, warFile);
-	//		//op.setServerTarget(info.getServerTarget());
-	//		HashMap opMap = importConfig.createProjectOption;
-	//		if(opMap != null && !opMap.isEmpty())
-	//			op.createWLProjectOptions = opMap;
-	//		return op;
-	//	}
+	// WarImportOperation op = new WarImportOperation(nestedProject, warFile);
+	// //op.setServerTarget(info.getServerTarget());
+	// HashMap opMap = importConfig.createProjectOption;
+	// if(opMap != null && !opMap.isEmpty())
+	// op.createWLProjectOptions = opMap;
+	// return op;
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -174,24 +176,24 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 
 	public String getContentFolder(IProject project, IFile webSettingsFile) {
 		String contentFolder = null;
-		
-//		WebSettings webSettings = new WebSettings(project, webSettingsFile);
-//		if (webSettings != null) {
-//			contentFolder = webSettings.getWebContentName();
-//		}
-		//To do: Needs work here, no content folder exists now
+
+		// WebSettings webSettings = new WebSettings(project, webSettingsFile);
+		// if (webSettings != null) {
+		// contentFolder = webSettings.getWebContentName();
+		// }
+		// To do: Needs work here, no content folder exists now
 		WebArtifactEdit webEdit = null;
-		try{
-			//TODO migrate to flex project
-			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-       		if(webEdit != null) {
-		            		
-       		}			
+		try {
+			// TODO migrate to flex project
+			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			if (webEdit != null) {
+
+			}
 		} finally {
-			if( webEdit != null )
+			if (webEdit != null)
 				webEdit.dispose();
 		}
-		
+
 		return contentFolder;
 	}
 
@@ -204,25 +206,25 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	public boolean compareWebContextRoot(Module module, IProject project) throws CoreException {
 		String contextRoot = ((WebModule) module).getContextRoot();
 		if (contextRoot != null)
-			return ((contextRoot).equals(getServerContextRoot(project)));			
+			return ((contextRoot).equals(getServerContextRoot(project)));
 		return false;
 	}
-	
+
 	protected String getServerContextRoot(IProject project) {
 		WebArtifactEdit webEdit = null;
-		try{
-			//TODO migrate to flex project
-			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-       		if(webEdit != null) {
-       			return webEdit.getServerContextRoot();		               		
-       		}			
+		try {
+			// TODO migrate to flex project
+			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+			if (webEdit != null) {
+				return webEdit.getServerContextRoot();
+			}
 		} finally {
-			if( webEdit != null )
+			if (webEdit != null)
 				webEdit.dispose();
 		}
 		return ""; //$NON-NLS-1$
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -246,8 +248,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
-	public J2EEModuleImportDataModel createImportDataModel() {
-		return null;//new WebModuleImportDataModel();
+	public IDataModel createImportDataModel() {
+		return DataModelFactory.createDataModel(new WebModuleImportDataModelProvider());
 	}
 
 	public String getNatureID() {

@@ -16,7 +16,9 @@ import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOpera
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete
 /**
+ * @deprecated
  *
  */
 public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
