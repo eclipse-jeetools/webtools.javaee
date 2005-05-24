@@ -67,13 +67,13 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	 */
 	public int getDeploymentDescriptorType() {
 		if (artifactEdit != null)
-			return ((XMLResource)((EnterpriseArtifactEdit)artifactEdit).getDeploymentDescriptorResource()).getType();
+			return ((XMLResource)artifactEdit.getContentModelRoot().eResource()).getType();
 		return -1;
 	}
 
 	public EObject getDeploymentDescriptorRoot() {
 		if (artifactEdit != null)
-			return ((EnterpriseArtifactEdit)artifactEdit).getDeploymentDescriptorRoot();
+			return artifactEdit.getContentModelRoot();
 		return null;
 	}
 
