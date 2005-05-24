@@ -54,19 +54,12 @@ public class WSDLServiceExtensionRegistry extends RegistryReader {
 		try {
 			extension = (WSDLServiceHelper) element.createExecutableExtension(WSDL_HELPER_CLASS);
 		} catch (Throwable e) {
-			//Register default do nothing helper......
-			addModuleExtension(new DefaultWSDLServiceHelper());
-		} finally {
-				try {
-					Class.forName("org.eclipse.wst.wsdl.Service"); //$NON-NLS-1$
-				} catch (ClassNotFoundException ex) {
-//					Register default do nothing helper......
-					addModuleExtension(new DefaultWSDLServiceHelper());
-					extension = null;
-				}
-		}
+			//Ignore
+		} 
 		if (extension != null)
 			addModuleExtension(extension);
+		else // Register default do nothing helper......
+			addModuleExtension(new DefaultWSDLServiceHelper());
 		return true;
 	}
 

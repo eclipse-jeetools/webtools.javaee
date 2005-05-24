@@ -750,6 +750,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 						WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
 						if (wsArtifactEdit != null) {
 							getWSArtifactEdits().remove(wsArtifactEdit);
+							wsArtifactEdit.dispose();
 							// forward an edit model event to manager's listeners
 							// TODO forward edit model event?
 							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wsArtifactEdit));
@@ -759,6 +760,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 						WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
 						if (wscArtifactEdit != null) {
 							getWSArtifactEdits().remove(wscArtifactEdit);
+							wscArtifactEdit.dispose();
 							// forward an edit model event to manager's listeners
 							// TODO forward edit model event?
 							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wscArtifactEdit));
@@ -777,6 +779,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
 					if (wsArtifactEdit != null) {
 						getWSArtifactEdits().remove(wsArtifactEdit);
+						wsArtifactEdit.dispose();
 						// forward an edit model event to manager's listeners
 						// TODO forward edit model event?
 						//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wsArtifactEdit));
@@ -786,6 +789,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 					WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
 					if (wscArtifactEdit != null) {
 						getWSArtifactEdits().remove(wscArtifactEdit);
+						wscArtifactEdit.dispose();
 						// forward an edit model event to manager's listeners
 						// TODO forward edit model event?
 						//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wscArtifactEdit));
