@@ -33,7 +33,6 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationD
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
@@ -171,7 +170,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
 	public J2EEModuleImportDataModel createImportDataModel() {
-		return new EJBModuleImportDataModel();
+		return null; //new EJBModuleImportDataModel();
 	}
 
 	/*

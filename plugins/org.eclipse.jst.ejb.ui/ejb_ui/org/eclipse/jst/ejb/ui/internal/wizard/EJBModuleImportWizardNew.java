@@ -51,7 +51,7 @@ public final class EJBModuleImportWizardNew extends J2EEModuleImportWizardNew {
 
 	/**
 	 * <p>
-	 * Adds an {@link EJBImportPage} as the main wizard page ({@link #MAIN_PG}).
+	 * Adds an {@link EJBImportPageNew} as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
 	public void doAddPages() {

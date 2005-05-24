@@ -31,7 +31,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 
 
 /**
@@ -42,15 +41,15 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataM
  */
 public class EJBUnknownPrimKeyHelper {
 
-	/**
-	 * @param project
-	 */
-	public EJBUnknownPrimKeyHelper(EJBModuleImportDataModel ejbDataModel) {
-		dm = ejbDataModel;
-	}
-
-	public EJBModuleImportDataModel dm;
-
+//	/**
+//	 * @param project
+//	 */
+//	public EJBUnknownPrimKeyHelper(EJBModuleImportDataModel ejbDataModel) {
+//		dm = ejbDataModel;
+//	}
+//
+//	public EJBModuleImportDataModel dm;
+	
 	public void updateGeneratedKeyField(ContainerManagedEntity entity) {
 		if (entity != null) {
 			Iterator attrs = entity.getPersistentAttributes().iterator();
@@ -75,7 +74,7 @@ public class EJBUnknownPrimKeyHelper {
 	 */
 	public void setUpUnknowPrimaryKey() {
 		EJBEditModel editModel = null;
-		EJBNatureRuntime nature = EJBNatureRuntime.getRuntime(dm.getProject());
+		EJBNatureRuntime nature = null; //EJBNatureRuntime.getRuntime(dm.getProject());
 		if (nature == null)
 			return;
 		editModel = nature.getEJBEditModelForWrite(this);
