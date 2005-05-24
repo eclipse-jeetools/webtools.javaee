@@ -15,7 +15,6 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
@@ -51,7 +50,7 @@ public class WebImportOperationTest extends ModuleImportOperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase#getModelInstance()
 	 */
 	protected J2EEModuleImportDataModel getModelInstance() {
-		return new WebModuleImportDataModel();
+		return null;//new WebModuleImportDataModel();
 	}
 	
 	/* (non-Javadoc)

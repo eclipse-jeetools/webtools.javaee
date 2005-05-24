@@ -12,7 +12,6 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
@@ -46,7 +45,7 @@ public class RARImportOperationTest extends ModuleImportOperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase#getModelInstance()
 	 */
 	protected J2EEModuleImportDataModel getModelInstance() {
-		return new ConnectorModuleImportDataModel();
+		return null;//new ConnectorModuleImportDataModel();
 	}
 	
 	/* (non-Javadoc)

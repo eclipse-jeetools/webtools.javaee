@@ -12,22 +12,15 @@ import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExpor
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBExportDataModelVerifier;
-import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBImportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBProjectCreationDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.jca.verifiers.JCAExportDataModelVerifier;
-import org.eclipse.wtp.j2ee.headless.tests.jca.verifiers.JCAImportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebExportDataModelVerifier;
-import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebImportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebProjectCreationDataModelVerifier;
 
 /**
@@ -49,10 +42,10 @@ public class DataModelVerifierFactory extends org.eclipse.wst.common.tests.DataM
 	 */
 	protected static void initJ2EEDataModelVerifiersMap(Map verifierMap) {
 		
-			verifierMap.put(EJBModuleImportDataModel.class.getName(), EJBImportDataModelVerifier.class.getName());
-			verifierMap.put(ConnectorModuleImportDataModel.class.getName(),JCAImportDataModelVerifier.class.getName());
-			verifierMap.put(WebModuleImportDataModel.class.getName(), WebImportDataModelVerifier.class.getName());
-			verifierMap.put(AppClientModuleImportDataModel.class.getName(), AppClientImportDataModelVerifier.class.getName());
+			//verifierMap.put(EJBModuleImportDataModel.class.getName(), EJBImportDataModelVerifier.class.getName());
+			//verifierMap.put(ConnectorModuleImportDataModel.class.getName(),JCAImportDataModelVerifier.class.getName());
+			//verifierMap.put(WebModuleImportDataModel.class.getName(), WebImportDataModelVerifier.class.getName());
+			//verifierMap.put(AppClientModuleImportDataModel.class.getName(), AppClientImportDataModelVerifier.class.getName());
 			
 			verifierMap.put(EJBModuleExportDataModel.class.getName(), EJBExportDataModelVerifier.class.getName());
 			verifierMap.put(JCAExportDataModelVerifier.class.getName(), JCAExportDataModelVerifier.class.getName());
