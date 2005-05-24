@@ -17,11 +17,9 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -31,18 +29,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard;
-import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
@@ -200,16 +192,16 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 						dataModel = new EnterpriseApplicationImportDataModel();
 						break;
 					case ImportUtil.EJBJARFILE :
-						dataModel = new EJBModuleImportDataModel();
+						dataModel = null;//new EJBModuleImportDataModel();
 						break;
 					case ImportUtil.CLIENTJARFILE :
-						dataModel = new AppClientModuleImportDataModel();
+						dataModel = null;//new AppClientModuleImportDataModel();
 						break;
 					case ImportUtil.WARFILE :
-						dataModel = new WebModuleImportDataModel();
+						dataModel = null;//new WebModuleImportDataModel();
 						break;
 					case ImportUtil.RARFILE :
-						dataModel = new ConnectorModuleImportDataModel();
+						dataModel = null;//new ConnectorModuleImportDataModel();
 						break;
 					default :
 						return false;
@@ -242,16 +234,16 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 					wizard = new EnterpriseApplicationImportWizard((EnterpriseApplicationImportDataModel) dataModel);
 					break;
 				case ImportUtil.EJBJARFILE :
-					wizard = new EJBModuleImportWizard((EJBModuleImportDataModel) dataModel);
+					wizard = null;//new EJBModuleImportWizard((EJBModuleImportDataModel) dataModel);
 					break;
 				case ImportUtil.CLIENTJARFILE :
-					wizard = new AppClientModuleImportWizard((AppClientModuleImportDataModel) dataModel);
+					wizard = null;//new AppClientModuleImportWizard((AppClientModuleImportDataModel) dataModel);
 					break;
 				case ImportUtil.WARFILE :
-					wizard = new WebModuleImportWizard((WebModuleImportDataModel) dataModel);
+					wizard = null;//new WebModuleImportWizard((WebModuleImportDataModel) dataModel);
 					break;
 				case ImportUtil.RARFILE :
-					wizard = new ConnectorModuleImportWizard((ConnectorModuleImportDataModel) dataModel);
+					wizard = null;//new ConnectorModuleImportWizard((ConnectorModuleImportDataModel) dataModel);
 					break;
 			}
 

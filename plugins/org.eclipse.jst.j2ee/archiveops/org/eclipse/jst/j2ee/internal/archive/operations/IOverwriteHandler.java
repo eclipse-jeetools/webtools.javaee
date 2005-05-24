@@ -68,13 +68,6 @@ public interface IOverwriteHandler {
 	 * 
 	 * @return boolean
 	 */
-	void setAppClientSaveStrategy(org.eclipse.jst.j2ee.internal.archive.operations.ApplicationClientProjectSaveStrategyImpl newAppClientSaveStrategy);
-
-	/**
-	 * Insert the method's description here. Creation date: (4/16/2001 3:13:38 PM)
-	 * 
-	 * @return boolean
-	 */
 	void setEarSaveStrategy(org.eclipse.jst.j2ee.internal.archive.operations.EARProjectSaveStrategyImpl newEarSaveStrategy);
 
 	/**

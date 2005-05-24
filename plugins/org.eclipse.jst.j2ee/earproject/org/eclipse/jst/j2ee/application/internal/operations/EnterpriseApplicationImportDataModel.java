@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -539,7 +538,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			model = null;
 			ModuleFile temp = (ModuleFile) moduleFiles.get(i);
 			if (temp.isApplicationClientFile()) {
-				model = new AppClientModuleImportDataModel();
+				model = null; //new AppClientModuleImportDataModel();
 			} else if (temp.isWARFile()) {
 				WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
 				if (webExt != null) {

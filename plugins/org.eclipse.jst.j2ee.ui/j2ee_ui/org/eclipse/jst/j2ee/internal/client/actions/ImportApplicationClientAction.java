@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizardNew;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -42,7 +42,7 @@ public class ImportApplicationClientAction extends BaseAction {
 
 	protected void primRun(Shell shell) {
 
-		AppClientModuleImportWizard wizard = new AppClientModuleImportWizard();
+		AppClientModuleImportWizardNew wizard = new AppClientModuleImportWizardNew();
 
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 
