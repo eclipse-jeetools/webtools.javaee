@@ -16,8 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -41,7 +40,7 @@ public interface EarModuleExtension {
 
 	IDataModel createImportDataModel();
 
-	J2EEComponentCreationOperation createProjectCreationOperation(J2EEComponentCreationDataModel dataModel);
+	J2EEComponentCreationOp createProjectCreationOperation(IDataModel dataModel);
 
-	J2EEComponentCreationOperation createProjectCreationOperation(ImportOption option);
+	J2EEComponentCreationOp createProjectCreationOperation(ImportOption option);
 }

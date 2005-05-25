@@ -145,11 +145,11 @@ protected void execute(IProgressMonitor monitor) throws CoreException, Invocatio
     }
 
     private void runModuleExtensionOperation(EarModuleExtension extension, J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        if (extension != null) {
-            J2EEComponentCreationOperation op = extension.createProjectCreationOperation(model);
+  /*      if (extension != null) {
+            J2EEComponentCreationOp op = extension.createProjectCreationOperation(model);
             if (op != null)
                 op.doRun(monitor);
-        }
+        }*/
     }
 
     /**

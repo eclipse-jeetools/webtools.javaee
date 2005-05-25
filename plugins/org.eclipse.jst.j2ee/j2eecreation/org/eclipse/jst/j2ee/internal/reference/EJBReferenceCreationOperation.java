@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddUtilityProjectToEARDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
@@ -178,16 +179,8 @@ public class EJBReferenceCreationOperation extends ModelModifierOperation {
 				return;
 			clientProj = ejbExt.getDefinedEJBClientJARProject(targetProject);
 			if (clientProj == null) {
-				WTPOperation clientOp = ejbExt.createEJBClientJARProject(targetProject);
-				try {
-					clientOp.run(null);
-				} catch (InvocationTargetException e) {
-					//TODO: do something w/ log
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					//TODO: do something w/ log
-					e.printStackTrace();
-				}
+				JavaUtilityComponentCreationOperationEx clientOp = ejbExt.createEJBClientJARProject(targetProject);
+				clientOp.execute(new NullProgressMonitor(), null);
 				clientProj = ejbExt.getDefinedEJBClientJARProject(targetProject);
 			}
 			setNewClientProject(clientProj);

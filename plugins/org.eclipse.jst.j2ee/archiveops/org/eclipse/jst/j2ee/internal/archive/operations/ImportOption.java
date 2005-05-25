@@ -11,9 +11,9 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 /**
@@ -24,7 +24,7 @@ public class ImportOption implements IJ2EEProjectTypes {
 	 * Project info for the individual module/JAR, or null if the file should be placed in the
 	 * application
 	 */
-	protected WTPOperationDataModel model;
+	protected IDataModel model;
 
 	/**
 	 * Valid only if the project info is not null
@@ -42,17 +42,17 @@ public class ImportOption implements IJ2EEProjectTypes {
 	/**
 	 * Constructor for ImportOption.
 	 */
-	public ImportOption(WTPOperationDataModel model) {
+	public ImportOption(IDataModel model) {
 		super();
 		this.model = model;
 	}
 
-	public ImportOption(WTPOperationDataModel model, int type) {
+	public ImportOption(IDataModel model, int type) {
 		this(model);
 		projectType = type;
 	}
 
-	public WTPOperationDataModel getModel() {
+	public IDataModel getModel() {
 		return model;
 	}
 
@@ -61,7 +61,7 @@ public class ImportOption implements IJ2EEProjectTypes {
 	}
 
 	public String getProjectName() {
-		return model.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME);
+		return model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
 	}
 
 	/**
