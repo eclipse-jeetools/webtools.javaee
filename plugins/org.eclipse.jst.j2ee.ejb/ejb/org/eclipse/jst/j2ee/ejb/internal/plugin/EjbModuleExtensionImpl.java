@@ -17,19 +17,20 @@ package org.eclipse.jst.j2ee.ejb.internal.plugin;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBPostImportOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOp;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModelProvider;
@@ -41,8 +42,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements EjbModuleExtension {
 
@@ -130,10 +129,10 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return runtime.getDefinedEJBClientJARProject();
 	}
 
-	public WTPOperation createEJBClientJARProject(IProject anEJBProject) {
-		EJBClientComponentDataModel dataModel = new EJBClientComponentDataModel();
-		dataModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, anEJBProject.getName());
-		EJBClientComponentCreationOperation op = new EJBClientComponentCreationOperation(dataModel);
+	public JavaUtilityComponentCreationOperationEx createEJBClientJARProject(IProject anEJBProject) {
+		IDataModel dataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
+		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, anEJBProject.getName());
+        EJBClientComponentCreationOp op = new EJBClientComponentCreationOp(dataModel);
 		return op;
 	}
 
@@ -142,8 +141,8 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
-	public J2EEComponentCreationOperation createProjectCreationOperation(J2EEComponentCreationDataModel dataModel) {
-		return new EjbComponentCreationOperation((EjbComponentCreationDataModel) dataModel);
+	public J2EEComponentCreationOp createProjectCreationOperation(IDataModel dataModel) {
+		return new EjbComponentCreationOp(dataModel);
 	}
 
 	/*
@@ -187,9 +186,9 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
-	public J2EEComponentCreationOperation createProjectCreationOperation(ImportOption option) {
+	public J2EEComponentCreationOp createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
-			J2EEComponentCreationDataModel model = (J2EEComponentCreationDataModel) option.getModel();
+            IDataModel model = (IDataModel) option.getModel();
 			model.setProperty(EjbComponentCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);
 		}
