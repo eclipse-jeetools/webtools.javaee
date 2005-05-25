@@ -13,14 +13,18 @@ package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -59,16 +63,6 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
             Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
             artifactEdit.createModelRoot(version.intValue());
             artifactEdit.save(monitor);
-            
-            if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
-                NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
-                mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, getProject().getName());
-                mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
-                mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
-                //TODO: reimplement
-                //mainClassDataModel.getDefaultOperation().run(monitor);
-                //dataModel.getUpdateManifestDataModel().setProperty(UpdateManifestDataModel.MAIN_CLASS, mainClassDataModel.getProperty(NewJavaClassDataModel.CLASS_NAME));
-            }
         } catch(Exception e){
             Logger.getLogger().logError(e);
         } finally {
@@ -76,7 +70,7 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
                 artifactEdit.dispose();
         }
     }
-
+    
     protected String getVersion() {
         int version = model.getIntProperty(COMPONENT_VERSION);
         return J2EEVersionUtil.getJ2EETextVersion(version);
@@ -85,6 +79,19 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         try {
             super.execute( IModuleConstants.JST_APPCLIENT_MODULE, monitor );
+            
+            if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
+                NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
+                mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, getProject().getName());
+                mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
+                mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
+                String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + model.getStringProperty(JAVASOURCE_FOLDER);
+                mainClassDataModel.setProperty(NewJavaClassDataModel.SOURCE_FOLDER, projRelativeSourcePath);
+                //mainClassDataModel.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, "default");//$NON-NLS-1$
+                mainClassDataModel.getDefaultOperation().run(monitor);
+                
+                createManifestEntryForMainClass(monitor);
+            }
         } catch (CoreException e) {
             Logger.getLogger().log(e.getMessage());
         } catch (InvocationTargetException e) {
@@ -95,6 +102,20 @@ public class AppClientComponentCreationOp extends J2EEComponentCreationOp implem
         return OK_STATUS;
     }
 
+    protected void createManifestEntryForMainClass(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+        String manifestFolder = model.getStringProperty(MANIFEST_FOLDER);
+        IContainer container = getProject().getFolder(manifestFolder);
+        IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
+        
+        if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
+            UpdateManifestDataModel dm = new UpdateManifestDataModel();
+            dm.setProperty(UpdateManifestDataModel.PROJECT_NAME, getProject().getName());
+            dm.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
+            dm.setProperty(UpdateManifestDataModel.MANIFEST_FILE, file);
+            dm.setProperty(UpdateManifestDataModel.MAIN_CLASS, "Main"); //$NON-NLS-1$
+            dm.getDefaultOperation().run(monitor);
+        }
+    }
     public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         // TODO Auto-generated method stub
         return null;
