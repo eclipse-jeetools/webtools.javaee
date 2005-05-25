@@ -52,6 +52,13 @@ public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOp
         addSrcFolderToProject();
         return OK_STATUS;
     }
+	
+    public IStatus execute(String componentType, IProgressMonitor monitor, IAdaptable info) {
+        super.execute(componentType, monitor, info);
+        createManifest(monitor);
+        addSrcFolderToProject();
+        return OK_STATUS;
+    }	
 
     /* (non-Javadoc)
      * @see org.eclipse.core.commands.operations.AbstractOperation#redo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
