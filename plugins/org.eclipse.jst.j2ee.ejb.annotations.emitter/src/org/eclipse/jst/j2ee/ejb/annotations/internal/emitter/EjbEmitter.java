@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IEnterpriseBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 
 public abstract class EjbEmitter {
@@ -41,10 +41,10 @@ public abstract class EjbEmitter {
 		IProgressMonitor monitor = new NullProgressMonitor();
 		project.delete(true, true, monitor);
 	}
-	public abstract String emitTypeComment(IEnterpriseBeanDelegate enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
-	public abstract String emitTypeStub(IEnterpriseBeanDelegate enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
-	public abstract String emitInterfaceMethods(IEnterpriseBeanDelegate enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
-	public abstract String emitFields(IEnterpriseBeanDelegate enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
+	public abstract String emitTypeComment(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
+	public abstract String emitTypeStub(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
+	public abstract String emitInterfaceMethods(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
+	public abstract String emitFields(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
 	/**
 	 * @param uri
 	 * @return
@@ -62,7 +62,7 @@ public abstract class EjbEmitter {
 		}
 		return emitter;
 	}
-	public String generate(String templatesBase, String template, IEnterpriseBeanDelegate enterpriseBean) throws CoreException {
+	public String generate(String templatesBase, String template, IEnterpriseBean enterpriseBean) throws CoreException {
 		String uri = base + templatesBase + template;
 		String result = "";
 		IProgressMonitor aMonitor = this.getMonitor();

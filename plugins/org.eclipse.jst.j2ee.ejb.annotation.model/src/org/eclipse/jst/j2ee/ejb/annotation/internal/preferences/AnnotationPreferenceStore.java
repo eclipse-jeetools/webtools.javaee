@@ -17,9 +17,10 @@
  * <http://www.eteration.com/>.
  ***************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.preferences;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin;
 
 
 

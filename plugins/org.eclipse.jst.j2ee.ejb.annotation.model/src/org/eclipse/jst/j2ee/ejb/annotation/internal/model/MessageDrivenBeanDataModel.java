@@ -14,15 +14,13 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
-public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IAnnotationsDataModel {
+public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel implements IAnnotationsDataModel {
 	public static final String DESTINATIONNAME = "MessageDrivenBeanDataModel.DESTINATIONNAME"; //$NON-NLS-1$
 	public static final String DESTINATIONTYPE = "MessageDrivenBeanDataModel.DESTINATIONTYPE"; //$NON-NLS-1$
 
@@ -61,6 +59,10 @@ public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IA
 			return getProperty(JNDI_NAME);
 		else if (propertyName.equals(EJB_TYPE))
 			return "MessageDrivenBean";
+		else if (propertyName.equals(MODIFIER_ABSTRACT))
+			return Boolean.FALSE;
+		else if (propertyName.equals(SUPERCLASS))
+			return getEjbSuperclassName();
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -105,32 +107,12 @@ public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IA
 		return this.interfaceList;
 	}
 
-
-	protected Boolean basicIsEnabled(String propertyName) {
-		if (USE_ANNOTATIONS.equals(propertyName)) {
-			if (((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3) {
-				if (getBooleanProperty(USE_ANNOTATIONS))
-					setBooleanProperty(USE_ANNOTATIONS, false);
-				return Boolean.FALSE;
-			}
-			return Boolean.TRUE;
-		} else if (propertyName.equals(JNDI_NAME))
-			notifyDefaultChange(DESTINATIONNAME);
-		return super.basicIsEnabled(propertyName);
+	protected void initializeDelegate() {
+		MessageDrivenBeanDelegate delegate = new MessageDrivenBeanDelegate();
+		delegate.setDataModel(this);
+		this.setProperty(MODELDELEGATE,delegate);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
-	 *      java.lang.Object)
-	 */
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(USE_ANNOTATIONS)) {
-			if (((Boolean) propertyValue).booleanValue() && ((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
-				return true;
-			notifyEnablementChange(USE_ANNOTATIONS);
-		}
-		return super.doSetProperty(propertyName, propertyValue);
-	}
+
+
 }

@@ -20,5 +20,4 @@ public class NewEjbClassOptionsWizardPage extends NewJavaClassOptionsWizardPage 
 	{
 		interfaceViewer.setInput(interfaces);
 	}
-
 }

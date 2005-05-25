@@ -1,58 +1,37 @@
-/**
+/***************************************************************************************************
+ * Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
- */
+ * Contributors: Eteration A.S. - initial API and implementation
+ **************************************************************************************************/
+
 package org.eclipse.jst.j2ee.ejb.annotation.internal.utility;
 
 import java.util.ArrayList;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IEJBGenerator;
 
 /**
  * @author naci
  */
 public class AnnotationUtilities {
-	final static String STRUCTURALBUILDER="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder";
-	
-	public static void addAnnotationBuilderToProject(IConfigurationElement emitter,
-			IProject targetProject) throws CoreException {
-		String builderId = emitter.getAttribute("builderId");
-		ProjectUtilities.addToBuildSpecBefore(emitter.getNamespace()+ "." + builderId,STRUCTURALBUILDER, targetProject);
-		
-	}
 
-	public static IConfigurationElement getPreferredAnnotationProvider()
-	{
-		String providerId = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
-		return findAnnotationProviderConfigurationByName(providerId);
-	}
-	public static IConfigurationElement getPreferredAnnotationEmitter()
-	{
-		String providerId = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
-		return findAnnotationEmitterForProvider(providerId);
-	}
 
-	public static IConfigurationElement findAnnotationEmitterForProvider(String providerId) {
-		IConfigurationElement provider =  findAnnotationProviderConfigurationByName(providerId);
-		if( provider == null)
-			return null;
-		return findAnnotationEmitterByName(provider.getAttribute("emitter"));
-	}
 
 	public static IConfigurationElement findAnnotationProviderConfigurationByName(String id)
 	{
 		
-		IConfigurationElement configurationElement[] = getAnnotationExtensions();
+		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
-			String emitterId = element.getAttribute("name");
-			if("provider".equals(element.getName()) && emitterId != null && emitterId.equals(id))
+			String providerID = element.getAttribute("name");
+			if("provider".equals(element.getName()) && providerID != null && providerID.equals(id))
 				return element;
 		}
 		return null;
@@ -61,7 +40,7 @@ public class AnnotationUtilities {
 	public static IAnnotationProvider findAnnotationProviderByName(String id) throws InvalidRegistryObjectException, ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		
-		IConfigurationElement configurationElement[] = getAnnotationExtensions();
+		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
 			String emitterId = element.getAttribute("name");
@@ -78,30 +57,39 @@ public class AnnotationUtilities {
 		return null;
 	}
 	
-	public static IConfigurationElement findAnnotationEmitterByName(String id)
+	public static IEJBGenerator findEjbGeneratorByName(String id) throws InvalidRegistryObjectException, ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		
-		IConfigurationElement configurationElement[] = getAnnotationExtensions();
+		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];
-			String emitterId = element.getAttribute("name");
-			if("emitter".equals(element.getName()) && emitterId != null && emitterId.equals(id))
-				return element;
+			String generatorID = element.getAttribute("name");
+			if("ejbGenerator".equals(element.getName()) && generatorID != null && generatorID.equals(id)){
+				String pluginDescriptor = element.getDeclaringExtension().getNamespace();
+
+				org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
+				Class c = bundle.loadClass(element.getAttribute("class"));
+				IEJBGenerator provider = (IEJBGenerator) c.newInstance();
+				
+				return provider;
+			}
 		}
 		return null;
 	}
 	
-	public static IConfigurationElement[] getAnnotationExtensions()
+
+	
+	public static IConfigurationElement[] getGeneratorExtensions()
 	{
 		IConfigurationElement[] configurationElements = Platform
 				.getExtensionRegistry()
 				.getConfigurationElementsFor(
-						"org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
+						"org.eclipse.jst.j2ee.ejb.annotation.model.ejbGenerator");
 		return configurationElements;
 	}
 
 	public static String[] getProviderNames() {
-		IConfigurationElement configurationElement[] = getAnnotationExtensions();
+		IConfigurationElement configurationElement[] = getGeneratorExtensions();
 		ArrayList names = new ArrayList();
 		for (int i = 0; i < configurationElement.length; i++) {
 			IConfigurationElement element = configurationElement[i];

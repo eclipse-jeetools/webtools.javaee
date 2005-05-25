@@ -41,7 +41,6 @@
       <import plugin="org.eclipse.jst.common.frameworks"/>
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
       <import plugin="org.eclipse.jst.j2ee.ejb"/>
-      <import plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter"/>
       <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
  
  

@@ -9,86 +9,23 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Session;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ISessionBeanDelegate;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.jst.j2ee.ejb.SessionType;
+import org.eclipse.jst.j2ee.ejb.TransactionType;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
 
 
-public class SessionBeanDelegate implements ISessionBeanDelegate {
-
-
-	private Session session;
-	private SessionBeanDataModel sessionBeanDataModel;
-	
+public class SessionBeanDelegate extends EnterpriseBeanDelegate implements ISessionBean {
 	public SessionBeanDelegate() {
 		super();
+		Session sessionBean = EjbFactory.eINSTANCE.createSession();
+		this.setEnterpriseBean(sessionBean);
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.IEnterpriseBeanDelegate#getEnterrpriseBeanDataModel()
-	 */
-	public EjbCommonDataModel getEnterpriseBeanDataModel() {
-		return sessionBeanDataModel;
-	}	
-	
-	public EnterpriseBean getEjb() {
-		return session;
-	}
-	public void setEjb(EnterpriseBean session) {
-		this.session = (Session)session;
-	}
-	
-	public SessionBeanDataModel getSessionBeanDataModel() {
-		return sessionBeanDataModel;
-	}
-
-	public WTPOperationDataModel getDataModel() {
-		return sessionBeanDataModel;
-	}
-	
-	public void setEnterpriseBeanDataModel(
-			EjbCommonDataModel sessionBeanDataModel) {
-		this.sessionBeanDataModel = (SessionBeanDataModel)sessionBeanDataModel;
-	}
-
-	public String getJndiName() {
-		return sessionBeanDataModel.getStringProperty(SessionBeanDataModel.JNDI_NAME);
-	}
-	
-	public String getEjbName() {
-		return sessionBeanDataModel.getStringProperty(SessionBeanDataModel.EJB_NAME);
-	}
-
-	public String getInterfaces() {
-		NewJavaClassDataModel classDataModel = (NewJavaClassDataModel)sessionBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
-		List ints = (List)classDataModel.getProperty(NewJavaClassDataModel.INTERFACES);
-		Iterator iterator =  ints.iterator();
-		String intStr = (iterator.hasNext()? (String)iterator.next() : "javax.ejb.SessionBean");
-		while (iterator.hasNext()) {
-			String intrfc = (String) iterator.next();
-			intStr += ", " + intrfc ;
-		}
-		
-		return intStr;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getSimpleClassName()
-	 */
-	public String getSimpleClassName() {
-		NewJavaClassDataModel classDataModel = (NewJavaClassDataModel)sessionBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
-		return classDataModel.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
-	}
-
-	public String getSessionType() {		
+	public String getSessionType() {
+		Session session = (Session) this.getEnterpriseBean();
 		return session.getSessionType().getName();
 	}
 
@@ -96,18 +33,36 @@ public class SessionBeanDelegate implements ISessionBeanDelegate {
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getTransactionType()
 	 */
 	public String getTransactionType() {
+		Session session = (Session) this.getEnterpriseBean();
 		return session.getTransactionType().getName();
 	}
-
-	public String getDisplayName() {
-		return sessionBeanDataModel.getStringProperty(SessionBeanDataModel.DISPLAY_NAME);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getDescription()
+	
+	/**
+	 * 
+	 * This method permits us to keep emf model for the bean
+	 * in sync with the  changes in the datamodel
 	 */
-	public String getDescription() {
-		return sessionBeanDataModel.getStringProperty(SessionBeanDataModel.DESCRIPTION);
+	
+	public void propertyChanged(WTPOperationDataModelEvent event) {
+		super.propertyChanged(event);
+		String property = event.getPropertyName();
+		Object propertyValue = event.getProperty();
+		Session session = (Session)this.getEnterpriseBean();
+		if( session == null)
+			return;
+		
+		if( SessionBeanDataModel.STATELESS.equals(property)){
+			SessionType sessionBeanType = SessionType.STATELESS_LITERAL;
+			if( propertyValue.equals(SessionType.STATEFUL_LITERAL.getName()))
+				sessionBeanType = SessionType.STATEFUL_LITERAL;
+			session.setSessionType(sessionBeanType);
+		}else if( EnterpriseBeanClassDataModel.TRANSACTIONTYPE.equals(property))
+		{
+			TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
+			if(propertyValue.equals(TransactionType.BEAN_LITERAL.getName()))
+				transactionType = TransactionType.BEAN_LITERAL;
+			session.setTransactionType(transactionType);
+		}
+		
 	}
-
 }

@@ -10,7 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IEnterpriseBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean;
 
 public class MessageDrivenEjbEmitter extends EjbEmitter {
 	public static final String TYPE_COMMENT = "/typeComment.javajet";
@@ -23,25 +23,25 @@ public class MessageDrivenEjbEmitter extends EjbEmitter {
 			IllegalAccessException, CoreException {
 		super(emitterConfig);
 	}
-	public String emitTypeComment(IEnterpriseBeanDelegate root)
+	public String emitTypeComment(IEnterpriseBean root)
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, CoreException {
 		return generate(emitterConfig.getAttribute(TEMPLATESDIR), TYPE_COMMENT,
 				root);
 	}
-	public String emitTypeStub(IEnterpriseBeanDelegate root)
+	public String emitTypeStub(IEnterpriseBean root)
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, CoreException {
 		return generate(emitterConfig.getAttribute(TEMPLATESDIR), TYPE_STUB,
 				root);
 	}
-	public String emitInterfaceMethods(IEnterpriseBeanDelegate root)
+	public String emitInterfaceMethods(IEnterpriseBean root)
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, CoreException {
 		return generate(emitterConfig.getAttribute(TEMPLATESDIR), METHOD_STUBS,
 				root);
 	}
-	public String emitFields(IEnterpriseBeanDelegate root) throws ClassNotFoundException,
+	public String emitFields(IEnterpriseBean root) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException, CoreException {
 		return generate(emitterConfig.getAttribute(TEMPLATESDIR), FIELDS, root);
 	}

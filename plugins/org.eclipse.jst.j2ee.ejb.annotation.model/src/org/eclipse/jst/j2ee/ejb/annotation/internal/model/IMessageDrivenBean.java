@@ -7,18 +7,14 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.internal.provider;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 /**
  * @author naci
  *
  */
-public interface IAnnotationProvider {
-	
-	public boolean isEjbAnnotationProvider();
-	public boolean isServletAnnotationProvider();
-	public boolean isWebServiceAnnotationProvider();
-	public boolean isValid();
-	public String  getName();
+public interface IMessageDrivenBean extends IEnterpriseBean {
+	public String getDestinationType();
+	public String getDestinationJndiName();
 
 }

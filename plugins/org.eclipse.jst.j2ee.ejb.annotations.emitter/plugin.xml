@@ -34,6 +34,7 @@
 
       <import plugin="org.eclipse.text"/>
       <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
 
    </requires>
 

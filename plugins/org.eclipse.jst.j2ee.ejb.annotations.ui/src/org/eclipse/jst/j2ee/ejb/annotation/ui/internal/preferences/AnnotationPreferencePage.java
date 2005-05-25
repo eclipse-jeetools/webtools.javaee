@@ -15,7 +15,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.AnnotationPreferenceStore;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;

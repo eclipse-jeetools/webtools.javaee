@@ -9,120 +9,82 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.DestinationType;
+import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
+import org.eclipse.jst.j2ee.ejb.TransactionType;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
+public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements IMessageDrivenBean {
 
-
-public class MessageDrivenBeanDelegate implements IMessageDrivenBeanDelegate {
-
-
-	private MessageDriven messageDriven;
-	private MessageDrivenBeanDataModel messageDrivenBeanDataModel;
-	
 	public MessageDrivenBeanDelegate() {
 		super();
+		MessageDriven mdBean = EjbFactory.eINSTANCE.createMessageDriven();
+		this.setEnterpriseBean(mdBean);
+
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.IEnterpriseBeanDelegate#getEnterrpriseBeanDataModel()
-	 */
-	public EjbCommonDataModel getEnterpriseBeanDataModel() {
-		return messageDrivenBeanDataModel;
-	}	
-	
-	public EnterpriseBean getEjb() {
-		return messageDriven;
-	}
-	public void setEjb(EnterpriseBean messageDriven) {
-		this.messageDriven = (MessageDriven)messageDriven;
-	}
-	
-	public MessageDrivenBeanDataModel getMessageDrivenBeanDataModel() {
-		return messageDrivenBeanDataModel;
-	}
-
-	public WTPOperationDataModel getDataModel() {
-		return messageDrivenBeanDataModel;
-	}
-	
-	public void setEnterpriseBeanDataModel(
-			EjbCommonDataModel messageDrivenBeanDataModel) {
-		this.messageDrivenBeanDataModel = (MessageDrivenBeanDataModel)messageDrivenBeanDataModel;
-	}
-
-	public String getJndiName() {
-		return messageDrivenBeanDataModel.getStringProperty(MessageDrivenBeanDataModel.JNDI_NAME);
-	}
-	
-	public String getEjbName() {
-		return messageDrivenBeanDataModel.getStringProperty(MessageDrivenBeanDataModel.EJB_NAME);
-	}
-
-	public String getInterfaces() {
-		NewJavaClassDataModel classDataModel = (NewJavaClassDataModel)messageDrivenBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
-		List ints = (List)classDataModel.getProperty(NewJavaClassDataModel.INTERFACES);
-		Iterator iterator =  ints.iterator();
-		String intStr = (iterator.hasNext()? (String)iterator.next() : "javax.ejb.MessageDrivenBean, javax.jms.MessageListener");
-		while (iterator.hasNext()) {
-			String intrfc = (String) iterator.next();
-			intStr += ", " + intrfc ;
-		}
-		
-		return intStr;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getSimpleClassName()
-	 */
-	public String getSimpleClassName() {
-		NewJavaClassDataModel classDataModel = (NewJavaClassDataModel)messageDrivenBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
-		return classDataModel.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getTransactionType()
-	 */
-	public String getTransactionType() {
-		return messageDriven.getTransactionType().getName();
-	}
-
-	public String getDisplayName() {
-		return messageDrivenBeanDataModel.getStringProperty(MessageDrivenBeanDataModel.DISPLAY_NAME);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getDescription()
-	 */
-	public String getDescription() {
-		return messageDrivenBeanDataModel.getStringProperty(MessageDrivenBeanDataModel.DESCRIPTION);
-	}
-
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate#getDestinationType()
 	 */
 	public String getDestinationType() {
+		MessageDriven messageDriven = (MessageDriven) this.getEnterpriseBean();
 		return messageDriven.getDestination().getType().getName();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate#getDestinationType()
+	 */
+	public String getTransactionType() {
+		MessageDriven messageDriven = (MessageDriven) this.getEnterpriseBean();
+		return messageDriven.getTransactionType().getName();
+	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate#getDestinationJndiName()
 	 */
 	public String getDestinationJndiName() {
+		MessageDriven messageDriven = (MessageDriven) this.getEnterpriseBean();
 		return messageDriven.getMessageSelector();
 	}
 
+	
+	/**
+	 * 
+	 * This method permits us to keep emf model for the bean
+	 * in sync with the  changes in the datamodel
+	 */
+	public void propertyChanged(WTPOperationDataModelEvent event) {
+		super.propertyChanged(event);
+		String property = event.getPropertyName();
+		Object propertyValue = event.getProperty();
+		MessageDriven messageDriven = (MessageDriven) this.getEnterpriseBean();
+		if (messageDriven == null)
+			return;
+
+		if (MessageDrivenBeanDataModel.DESTINATIONTYPE.equals(property)) {
+			DestinationType dType = DestinationType.QUEUE_LITERAL;
+			if (propertyValue.equals(DestinationType.TOPIC_LITERAL.getName()))
+				dType = DestinationType.TOPIC_LITERAL;
+			MessageDrivenDestination destination = EjbFactory.eINSTANCE.createMessageDrivenDestination();
+			destination.setType(dType);
+			destination.setBean(messageDriven);
+			messageDriven.setDestination(destination);
+		} else if (MessageDrivenBeanDataModel.DESTINATIONNAME.equals(property)) {
+			messageDriven.setMessageSelector((String) propertyValue);
+		} else if (EnterpriseBeanClassDataModel.TRANSACTIONTYPE.equals(property)) {
+			TransactionType transactionType = TransactionType.CONTAINER_LITERAL;
+			if (propertyValue.equals(TransactionType.BEAN_LITERAL.getName()))
+				transactionType = TransactionType.BEAN_LITERAL;
+			messageDriven.setTransactionType(transactionType);
+		}
+
+	}
 }

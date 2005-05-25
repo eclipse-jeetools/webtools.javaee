@@ -50,7 +50,7 @@ import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IEnterpriseBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean;
 import org.eclipse.text.edits.TextEdit;
 
 
@@ -69,7 +69,7 @@ public class EjbBuilder {
 	protected IConfigurationElement configurationElement;
 	protected JControlModel mergeOptions;
 
-	protected IEnterpriseBeanDelegate enterpriseBeanDelegate; 
+	protected IEnterpriseBean enterpriseBeanDelegate; 
 	
 	/**
 	 * @return Returns the mergeOptions.
@@ -583,13 +583,13 @@ public class EjbBuilder {
 	/**
 	 * @return Returns the IEnterpriseBeanDelegate.
 	 */
-	public IEnterpriseBeanDelegate getEnterpriseBeanDelegate() {
+	public IEnterpriseBean getEnterpriseBeanDelegate() {
 		return enterpriseBeanDelegate;
 	}
 	/**
 	 * @param IEnterpriseBeanDelegate The IEnterpriseBeanDelegate to set.
 	 */
-	public void setEnterpriseBeanDelegate(IEnterpriseBeanDelegate IEnterpriseBeanDelegate) {
-		this.enterpriseBeanDelegate = IEnterpriseBeanDelegate;
+	public void setEnterpriseBeanDelegate(IEnterpriseBean delegate) {
+		this.enterpriseBeanDelegate = delegate;
 	}
 }

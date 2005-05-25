@@ -17,7 +17,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
@@ -55,7 +55,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 	private AnnotationsStandaloneGroup annotationsGroup = null;
 	private Combo transactionButton;
 
-	public AddSessionBeanWizardPage(SessionBeanDataModel model, String pageName) {
+	public AddSessionBeanWizardPage(EnterpriseBeanClassDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
 		this.setTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
@@ -68,10 +68,10 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{
-				EjbCommonDataModel.EJB_NAME, 
-				EjbCommonDataModel.JNDI_NAME, 
-				EjbCommonDataModel.DISPLAY_NAME, 				
-				EjbCommonDataModel.DESCRIPTION};
+				EnterpriseBeanClassDataModel.EJB_NAME, 
+				EnterpriseBeanClassDataModel.JNDI_NAME, 
+				EnterpriseBeanClassDataModel.DISPLAY_NAME, 				
+				EnterpriseBeanClassDataModel.DESCRIPTION};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -114,7 +114,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		ejbNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		ejbNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		ejbNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(ejbNameText, EjbCommonDataModel.EJB_NAME, null);
+		synchHelper.synchText(ejbNameText, EnterpriseBeanClassDataModel.EJB_NAME, null);
 
 		// jndi name
 		Label jndiNameLabel = new Label(composite, SWT.LEFT);
@@ -122,7 +122,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		jndiNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		jndiNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		jndiNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(jndiNameText, EjbCommonDataModel.JNDI_NAME, null);
+		synchHelper.synchText(jndiNameText, EnterpriseBeanClassDataModel.JNDI_NAME, null);
 
 		// display name
 		Label displayNameLabel = new Label(composite, SWT.LEFT);
@@ -130,7 +130,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		displayNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		displayNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		displayNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(displayNameText, EjbCommonDataModel.DISPLAY_NAME, null);
+		synchHelper.synchText(displayNameText, EnterpriseBeanClassDataModel.DISPLAY_NAME, null);
 
 		// description
 		Label descLabel = new Label(composite, SWT.LEFT);
@@ -138,7 +138,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		descLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		final Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(descText, EjbCommonDataModel.DESCRIPTION, null);
+		synchHelper.synchText(descText, EnterpriseBeanClassDataModel.DESCRIPTION, null);
 		
 		ejbNameText.addModifyListener(new ModifyListener()
 		{
@@ -163,7 +163,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		statelessButton.setItems(new String[]{SessionType.STATELESS_LITERAL.getName(),SessionType.STATEFUL_LITERAL.getName()});
 		statelessButton.setText(SessionType.STATELESS_LITERAL.getName());
 		statelessButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(statelessButton, EjbCommonDataModel.STATELESS, null);
+		synchHelper.synchCombo(statelessButton, SessionBeanDataModel.STATELESS, null);
 		statelessButton.select(0);
 
 	}
@@ -177,7 +177,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		transactionButton.setItems(new String[]{TransactionType.CONTAINER_LITERAL.getName(),TransactionType.BEAN_LITERAL.getName()});
 		transactionButton.setText(TransactionType.CONTAINER_LITERAL.getName());
 		transactionButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(transactionButton, EjbCommonDataModel.TRANSACTIONTYPE, null);
+		synchHelper.synchCombo(transactionButton, SessionBeanDataModel.TRANSACTIONTYPE, null);
 		transactionButton.select(0);
 
 	}

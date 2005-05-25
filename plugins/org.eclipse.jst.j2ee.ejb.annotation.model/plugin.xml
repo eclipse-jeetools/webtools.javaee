@@ -26,7 +26,6 @@
       <import plugin="org.eclipse.jst.j2ee"/>
       <import plugin="org.eclipse.jst.j2ee.core"/>
       <import plugin="org.eclipse.jst.j2ee.ejb"/>
-      <import plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter"/>
 
      <import plugin="org.eclipse.emf.ecore.xmi"/>
      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
@@ -37,5 +36,6 @@
       <import plugin="org.eclipse.jst.common.frameworks"/>
  
    </requires>
+   <extension-point id="ejbGenerator" name="org.eclipse.jst.j2ee.ejb.generator" schema="schema/ejbGenerator.exsd"/>
 
 </plugin>

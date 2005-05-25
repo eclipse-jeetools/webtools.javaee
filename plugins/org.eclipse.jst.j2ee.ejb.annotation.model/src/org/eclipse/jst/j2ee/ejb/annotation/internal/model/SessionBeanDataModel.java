@@ -14,13 +14,14 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
-public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotationsDataModel {
+public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implements IAnnotationsDataModel {
+	public static final String STATELESS = "SessionBeanDataModel.STATELESS";
 	public final static String EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
 	public final static String[] EJB_INTERFACES = {"javax.ejb.SessionBean" //$NON-NLS-1$
 	};
@@ -43,6 +44,7 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
+		addValidBaseProperty(STATELESS);
 	}
 
 	protected Object getDefaultProperty(String propertyName) {
@@ -50,6 +52,10 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 			return Boolean.FALSE;
 		else if (propertyName.equals(EJB_TYPE))
 			return "SessionBean";
+		else if (propertyName.equals(MODIFIER_ABSTRACT))
+			return Boolean.TRUE;
+		else if (propertyName.equals(SUPERCLASS))
+			return getEjbSuperclassName();
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -59,6 +65,8 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
+		if (propertyName.equals(STATELESS))
+			return validateStateless(getStringProperty(propertyName));
 		return super.doValidateProperty(propertyName);
 	}
 
@@ -78,30 +86,24 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	}
 
 
-	protected Boolean basicIsEnabled(String propertyName) {
-		if (USE_ANNOTATIONS.equals(propertyName)) {
-			if (((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3) {
-				if (getBooleanProperty(USE_ANNOTATIONS))
-					setBooleanProperty(USE_ANNOTATIONS, false);
-				return Boolean.FALSE;
-			}
-			return Boolean.TRUE;
-		}
-		return super.basicIsEnabled(propertyName);
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
-	 *      java.lang.Object)
-	 */
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(USE_ANNOTATIONS)) {
-			if (((Boolean) propertyValue).booleanValue() && ((EnterpriseArtifactEdit)artifactEdit).getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
-				return true;
-			notifyEnablementChange(USE_ANNOTATIONS);
+	private IStatus validateStateless(String prop) {
+		// check for empty
+		if (prop == null || prop.trim().length() == 0) {
+			String msg = IEJBAnnotationConstants.ERR_STATELESS_EMPTY;
+			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		return super.doSetProperty(propertyName, propertyValue);
+		if (prop.indexOf("Stateless") >= 0 || prop.indexOf("Stateful") >= 0) {
+			return WTPCommonPlugin.OK_STATUS;
+		}
+		String msg = IEJBAnnotationConstants.ERR_STATELESS_VALUE;
+		return WTPCommonPlugin.createErrorStatus(msg);
+	}	
+	
+	protected void initializeDelegate() {
+		SessionBeanDelegate delegate = new SessionBeanDelegate();
+		delegate.setDataModel(this);
+		this.setProperty(MODELDELEGATE,delegate);
 	}
+	
 }

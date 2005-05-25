@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
@@ -15,13 +15,12 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 /**
  * @author naci
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
-public interface IEnterpriseBeanDelegate {
-
-	public EnterpriseBean getEjb();
-	public WTPOperationDataModel getDataModel();
+public interface IEnterpriseBean {
+	
+	public EnterpriseBean getEnterpriseBean();
+	public EnterpriseBeanClassDataModel getDataModel();
+	public WTPOperationDataModel getDataModelFor(String feature);
 
 	public String getTransactionType();
 	public String getEjbName();

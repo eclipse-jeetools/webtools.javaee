@@ -46,4 +46,5 @@ public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 			this.setProjectName(newProjectName);
 		}
 	}
+	
 }
