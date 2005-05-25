@@ -35,6 +35,7 @@
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
       <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
    </requires>
 
    <extension point="org.eclipse.core.resources.builders"
@@ -76,12 +77,19 @@
             messageTemplates="templates/ejb/message"
             sessionTemplates="templates/ejb/session">
       </emitter>
-      <provider
-            name="XDoclet"
-            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider" 
-            emitter="XDoclet" >
-       </provider>
    </extension>
+   
+    <extension
+         point="org.eclipse.jst.j2ee.ejb.annotation.model.ejbGenerator">
+         
+         <provider
+            name="XDoclet"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider" />
+         <ejbGenerator
+            name="XDoclet"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider" />
+   </extension>
+   
 
     <!-- ================================================ -->
     <!--  EJB Tag set definitions for XDoclet             -->

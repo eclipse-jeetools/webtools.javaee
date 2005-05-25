@@ -1,6 +1,6 @@
-<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.*"%>
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
 
-<% IMessageDrivenBeanDelegate mdb  = (IMessageDrivenBeanDelegate)argument; %>
+<% IMessageDrivenBean mdb  = (IMessageDrivenBean)argument; %>
 
 
 /** 

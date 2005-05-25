@@ -1,5 +1,5 @@
-<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="TypeCommentGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.*"%>
-<% IMessageDrivenBeanDelegate mdb  = (IMessageDrivenBeanDelegate)argument; %>
+<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="TypeCommentGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
+<% IMessageDrivenBean mdb  = (IMessageDrivenBean)argument; %>
 
 
  
