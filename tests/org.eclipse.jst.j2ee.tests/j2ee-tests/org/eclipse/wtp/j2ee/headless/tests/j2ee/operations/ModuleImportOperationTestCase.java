@@ -12,17 +12,17 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.RARImportOperationTest;
-import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
-//TODO delete
+// TODO delete
 /**
  * @deprecated
  */
@@ -31,7 +31,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	protected boolean isBinary = false;
 	protected boolean overwriteProject = false;
 	protected boolean dataModelShouldBeValid = true;
-	public  String TESTS_PATH;
+	public String TESTS_PATH;
 
 
 	public static Test suite() {
@@ -43,10 +43,11 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		return suite;
 	}
 
-	public ModuleImportOperationTestCase(String name)  {
+	public ModuleImportOperationTestCase(String name) {
 		super(name);
 		TESTS_PATH = "TestData" + File.separator + getDirectory() + File.separator;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -59,30 +60,33 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		dataModelShouldBeValid = true;
 	}
 
-	protected abstract String getDirectory(); 
-	protected abstract J2EEModuleImportDataModel getModelInstance();
+	protected abstract String getDirectory();
+
+	protected abstract IDataModel getModelInstance();
 
 	public void testImport(String projectName, String filename) throws Exception {
 
-		J2EEModuleImportDataModel dataModel = getModelInstance();
-		dataModel.setProperty(J2EEModuleImportDataModel.FILE_NAME, filename);
-		dataModel.setProperty(J2EEModuleImportDataModel.PROJECT_NAME, projectName);
+		IDataModel dataModel = getModelInstance();
+		dataModel.setProperty(IJ2EEModuleImportDataModelProperties.FILE_NAME, filename);
+		dataModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, projectName);
 		setServerTargetProperty(dataModel);
 		// TODO revisit once refactorings are completed
-		//dataModel.setBooleanProperty(J2EEImportDataModel.CREATE_BINARY_PROJECT, isBinary);
-		dataModel.setBooleanProperty(J2EEModuleImportDataModel.OVERWRITE_PROJECT, overwriteProject);
+		// dataModel.setBooleanProperty(J2EEImportDataModel.CREATE_BINARY_PROJECT, isBinary);
+		// dataModel.setBooleanProperty(IJ2EEModuleImportDataModelProperties.OVERWRITE_PROJECT,
+		// overwriteProject);
 
 		if (dataModelShouldBeValid)
 			runAndVerify(dataModel);
-		else 
+		else
 			verifyInvalidDataModel(dataModel);
 	}
 
 	/**
 	 * @param dataModel
 	 */
-	public void setServerTargetProperty(J2EEModuleImportDataModel dataModel) {
-		dataModel.setProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
+	public void setServerTargetProperty(IDataModel dataModel) {
+		// dataModel.setProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID,
+		// AllPluginTests.JONAS_SERVER.getId());
 	}
 
 	public void testAllBinaryImportTestCases() throws Exception {
@@ -91,24 +95,24 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	}
 
 	public void testAllImportTestCases() throws Exception {
- 
+
 		List projects = getImportableArchiveFileNames();
 		for (int i = 0; i < projects.size(); i++) {
-			String jarName =  projects.get(i).toString(); 
-			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1,jarName.length()-4);
+			String jarName = projects.get(i).toString();
+			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1, jarName.length() - 4);
 			testImport(projectName, jarName);
 		}
-	} 
- 
+	}
+
 	/**
 	 * @return
 	 */
 	protected List getImportableArchiveFileNames() {
-		return ProjectUtility.getJarsInDirectory(HeadlessTestsPlugin.getDefault(),TESTS_PATH);
+		return ProjectUtility.getJarsInDirectory(HeadlessTestsPlugin.getDefault(), TESTS_PATH);
 	}
 
 	public void testBadFileName() throws Exception {
- 
+
 		dataModelShouldBeValid = false;
 		testImport("BobTheProject", "BobTheFile");
 	}
@@ -120,12 +124,12 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		dataModelShouldBeValid = false;
 		testAllImportTestCases();
 	}
-	
+
 	public void testOverwriteProjectImportSucceed() throws Exception {
 
-		overwriteProject = true; 
+		overwriteProject = true;
 		testAllImportTestCases();
 		testAllImportTestCases();
-	} 
- 
+	}
+
 }

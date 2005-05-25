@@ -6,15 +6,11 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.ProjectUtility;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @author Administrator
@@ -33,21 +29,24 @@ public class J2EEImportDataModelVerifier extends DataModelVerifier {
 
 		super.verify(model);
 
-		IProject project = ProjectUtility.verifyAndReturnProject(model.getStringProperty(J2EEModuleImportDataModel.PROJECT_NAME), true);
+		IProject project = ProjectUtility.verifyAndReturnProject(model.getStringProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME), true);
 
-		String serverTargetId = model.getStringProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID);
-		IRuntime stt = ServerCore.getProjectProperties(project).getRuntimeTarget();
-		/* fail because exactly one of the following is set */
-		if (serverTargetId != null) {
-			if (stt == null)
-				Assert.fail("The server target of the project (Not Set) does not match that of the model (" + serverTargetId + ")");
-			/*
-			 * we know that either stt == null && serverTargetId == null OR stt != null &&
-			 * serverTargetId != null
-			 */
-			else 
-				Assert.assertEquals("The actual server target should match the model's server target.",serverTargetId,stt.getName());
-		}
+		// String serverTargetId =
+		// model.getStringProperty(IJ2EEModuleImportDataModelProperties.SERVER_TARGET_ID);
+		// IRuntime stt = ServerCore.getProjectProperties(project).getRuntimeTarget();
+		// /* fail because exactly one of the following is set */
+		// if (serverTargetId != null) {
+		// if (stt == null)
+		// Assert.fail("The server target of the project (Not Set) does not match that of the model
+		// (" + serverTargetId + ")");
+		// /*
+		// * we know that either stt == null && serverTargetId == null OR stt != null &&
+		// * serverTargetId != null
+		// */
+		// else
+		// Assert.assertEquals("The actual server target should match the model's server
+		// target.",serverTargetId,stt.getName());
+		// }
 
 	}
 
