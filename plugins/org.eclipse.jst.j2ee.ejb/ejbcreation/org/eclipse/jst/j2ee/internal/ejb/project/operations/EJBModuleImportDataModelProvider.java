@@ -12,11 +12,11 @@ import java.util.List;
 
 import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportFactory;
 import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportRegistry;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleImportOperationNew;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
@@ -32,7 +32,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  * 
  * @since WTP 1.0
  */
-public final class EJBModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider {
+public final class EJBModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IEJBComponentImportDataModelProperties{
 
 	protected int getType() {
 		return XMLResource.EJB_TYPE;
@@ -51,7 +51,7 @@ public final class EJBModuleImportDataModelProvider extends J2EEModuleImportData
 			for (int i = 0; null == getArchiveFile() && i < extendedFactories.size(); i++) {
 				ExtendedImportFactory factory = (ExtendedImportFactory) extendedFactories.get(i);
 				setArchiveFile(factory.openArchive(getArchiveOptions(), uri));
-				setProperty(J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY, factory);
+				setProperty(EXTENDED_IMPORT_FACTORY, factory);
 			}
 		}
 		if (archive == null) {

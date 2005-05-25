@@ -17,8 +17,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleJ2EEEJBSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperationNew;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -36,7 +36,7 @@ public class EJBModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 	}
 
 	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		if (null == model.getProperty(J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY)) {
+		if (null == model.getProperty(IEJBComponentImportDataModelProperties.EXTENDED_IMPORT_FACTORY)) {
 			super.importModuleFile(monitor);
 			// EJBModuleImportDataModel dm = (EJBModuleImportDataModel) getOperationDataModel();
 			// IProject project = dm.getProject();
