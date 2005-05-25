@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
@@ -36,15 +35,14 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -99,33 +97,19 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
      */
     protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
-        URI uri = (URI) model.getProperty(EAR_COMPONENT_HANDLE);
-        IProject proj = null;
-        try {
-            proj = StructureEdit.getContainingProject(uri);
-        } catch (UnresolveableURIException e) {
-            Logger.getLogger().log(e);
-        }
-
-        StructureEdit core = null;
-        try {
-            core = StructureEdit.getStructureEditForRead(getProject());
-            WorkbenchComponent wc = core.findComponentByName((String) model.getProperty(COMPONENT_DEPLOY_NAME));
-            AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-
-            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
-            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
-            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, wc.getName());
-            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(EAR_COMPONENT_DEPLOY_NAME));
-            List modList = (List) dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
-            modList.add(wc);
-            dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST, modList);
-            AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
-            addModuleOp.doRun(monitor);
-        } finally {
-            if (core != null)
-                core.dispose();
-        }
+        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+		IDataModel dm =  (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
+		ComponentHandle earhandle = (ComponentHandle) model.getProperty(EAR_COMPONENT_HANDLE);
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earhandle);
+		
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+        modList.add(component.getComponentHandle());
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+		try {
+			dm.getDefaultOperation().execute(monitor, null);
+		} catch (ExecutionException e) {
+			Logger.getLogger().log(e);
+		}		
     }
 
     /**
@@ -137,63 +121,17 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
      */
     protected void createEARComponentIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         IDataModel earModel = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-        earModel.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(EAR_COMPONENT_NAME));
-        //earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
-        if (!doesEARComponentExist()) {
-            try {
-                earModel.getDefaultOperation().execute(monitor, null);
-            } catch (ExecutionException e) {
-                Logger.getLogger().log(e.getMessage());
-            }
-            model.setProperty(EAR_COMPONENT_HANDLE, getEARComponentHandle(earModel));     
-        }
-    }
-    
-    public URI getEARComponentHandle(IDataModel earModel){
-        StructureEdit moduleCore = null;
+		ComponentHandle handle = (ComponentHandle)model.getProperty(EAR_COMPONENT_HANDLE);
+
+		earModel.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, handle.getName());
+		earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, handle.getProject().getName());
+	
         try {
-            IProject earProject = ProjectUtilities.getProject((String)earModel.getProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME));
-            moduleCore = StructureEdit.getStructureEditForRead(earProject);
-            WorkbenchComponent earComp = moduleCore.findComponentByName(earModel.getStringProperty(IEarComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME));
-            return earComp.getHandle();
-
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }       
-    }
-    
-    public boolean doesEARComponentExist() {
-        URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
-
-        boolean isValidURI = false;
-        try {
-            if (uri != null)
-                isValidURI = ModuleURIUtil.ensureValidFullyQualifiedModuleURI(uri);
-        } catch (UnresolveableURIException e) {
-
+            earModel.getDefaultOperation().execute(monitor, null);
+        } catch (ExecutionException e) {
+            Logger.getLogger().log(e.getMessage());
         }
-        if (isValidURI) {
-            IProject proj = null;
-            try {
-                proj = StructureEdit.getContainingProject(uri);
-
-                StructureEdit moduleCore = null;
-                try {
-                    moduleCore = StructureEdit.getStructureEditForRead(proj);
-                    if ((moduleCore.findComponentByURI(uri)) != null) {
-                        return true;
-                    }
-                } finally {
-                    if (moduleCore != null)
-                        moduleCore.dispose();
-                }
-            } catch (UnresolveableURIException e) {
-                Logger.getLogger().log(e);
-            }
-        }
-        return false;
+       
     }
 
     public IProject getProject() {
@@ -218,14 +156,14 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
         componentType.setVersion(getVersion());
         List newProps = getProperties();
         EList existingProps = componentType.getProperties();
-        if (newProps != null && !newProps.isEmpty()) {         
+        if (newProps != null && !newProps.isEmpty()) {  
             for (int i = 0; i < newProps.size(); i++) {
                 existingProps.add(newProps.get(i));
             }
         }
         Property javaOutputProp = getOutputProperty();
         if(javaOutputProp != null)
-            existingProps.add(javaOutputProp);
+            existingProps.add(javaOutputProp);        
         StructureEdit.setComponentType(component, componentType);
     }
 
