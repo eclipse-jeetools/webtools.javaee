@@ -36,7 +36,6 @@ public class EjbComponentCreationOp extends J2EEComponentCreationOp implements I
 
     public EjbComponentCreationOp(IDataModel model) {
         super(model);
-        // TODO Auto-generated constructor stub
     }
 
     protected void createAndLinkJ2EEComponents() throws CoreException {
