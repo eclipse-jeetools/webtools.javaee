@@ -11,22 +11,20 @@
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
@@ -40,15 +38,15 @@ import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOperationEx implements IEJBClientComponentCreationDataModelProperties{
@@ -81,100 +79,42 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
     }   
      
     protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		//To do: after porting
-        URI uri = (URI)model.getProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE);
-        //There is no ear associated with this module
-        if(uri == null)
-            return;
-        IProject proj = null;
-        try {
-            proj = StructureEdit.getContainingProject(uri);
-        }
-        catch (UnresolveableURIException e) {
-            Logger.getLogger().log(e);
-        }
-        
-        StructureEdit core = null;
-        try {
-            core = StructureEdit.getStructureEditForRead(getProject());
-            WorkbenchComponent wc = core.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
-
-            
-            AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();
-            
-            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
-            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));               
-            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, model.getStringProperty(COMPONENT_DEPLOY_NAME));
-            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getStringProperty(EAR_COMPONENT_DEPLOY_NAME));
-            
-            List modulesList = new ArrayList();
-            modulesList.add(wc);
-            
-            addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
-            
-            AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(addComponentToEARDataModel);
-            addModuleOp.doRun(monitor);
-        } finally {
-            if(core != null)
-                core.dispose();
-        }
+	
+        IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
+		ComponentHandle earhandle = (ComponentHandle) model.getProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE);
+        IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earhandle);
+		
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+        modList.add(component.getComponentHandle());
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+		try {
+			dm.getDefaultOperation().execute(monitor, null);
+		} catch (ExecutionException e) {
+			Logger.getLogger().log(e);
+		}
     }
-    public URI getEARComponentHandle(IDataModel earModel){
-        StructureEdit moduleCore = null;
-        try {
-            IProject earProject = ProjectUtilities.getProject((String)earModel.getProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME));
-            moduleCore = StructureEdit.getStructureEditForRead(earProject);
-            WorkbenchComponent earComp = moduleCore.findComponentByName(earModel.getStringProperty(IEarComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME));
-            return earComp.getHandle();
 
-        } finally {
-            if (null != moduleCore) {
-                moduleCore.dispose();
-            }
-        }       
-    }
     
     protected void runAddToEJBOperation(IProgressMonitor monitor)throws CoreException, InvocationTargetException, InterruptedException{
-
-        StructureEdit moduleCore = null;
-        List list = new ArrayList();
-        try{
-            moduleCore = StructureEdit.getStructureEditForRead(getProject());
-            WorkbenchComponent wc = moduleCore.findComponentByName(model.getStringProperty(COMPONENT_DEPLOY_NAME));
-            
-            list.add(wc);           
-        } finally {
-           if (null != moduleCore) {
-            moduleCore.dispose();
-           }
-        }       
-            
-            
-        String ejbProjString = model.getStringProperty(EJB_PROJECT_NAME);
+		
+        String ejbProjString = model.getStringProperty( EJB_PROJECT_NAME );
         IProject ejbProj = ProjectUtilities.getProject( ejbProjString );
-            
-        StructureEdit ejbModuleCore = null;
-        WorkbenchComponent ejbComp = null;
-        try{
-            ejbModuleCore = StructureEdit.getStructureEditForWrite(ejbProj);
-            ejbComp = ejbModuleCore.findComponentByName(model.getStringProperty(EJB_COMPONENT_DEPLOY_NAME));
-            IPath runtimePath = new Path(metaInfFolderDeployPath);
-        
-            if (list != null && list.size() > 0) {
-                for (int i = 0; i < list.size(); i++) {
-                    ReferencedComponent rc = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
-                    WorkbenchComponent workbenchComp= (WorkbenchComponent)list.get(i);
-                    rc.setHandle(workbenchComp.getHandle());
-                    rc.setRuntimePath(runtimePath);
-                    ejbComp.getReferencedComponents().add(rc);
-                }
-            }
-            ejbModuleCore.saveIfNecessary(monitor); 
-         } finally{
-             if (null != ejbModuleCore) {
-                ejbModuleCore.dispose();
-             }
-         }
+		
+		IVirtualComponent ejbcomponent = ComponentCore.createComponent(ejbProj, model.getStringProperty(EJB_COMPONENT_DEPLOY_NAME));
+        IVirtualComponent ejbclientcomponent = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
+		
+        IDataModel dm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, ejbcomponent.getComponentHandle());
+		
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+        modList.add(ejbclientcomponent.getComponentHandle());
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+		try {
+			dm.getDefaultOperation().execute(monitor, null);
+		} catch (ExecutionException e) {
+			Logger.getLogger().log(e);
+		}
             
     }
     
