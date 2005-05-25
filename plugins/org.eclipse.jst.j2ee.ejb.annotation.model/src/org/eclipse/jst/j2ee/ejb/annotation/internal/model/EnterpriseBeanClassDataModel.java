@@ -105,10 +105,10 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 	
 	
 	protected boolean isAnnotationsSupported() {
-		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
+		if (getTargetProject()==null || getComponent()==null) return true;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getWorkbenchModule().getName());
+			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getComponent().getName());
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit == null)
 				return false;
