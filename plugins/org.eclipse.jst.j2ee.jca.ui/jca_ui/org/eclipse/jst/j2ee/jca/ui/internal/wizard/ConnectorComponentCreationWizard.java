@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -22,7 +20,6 @@ import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /** 
  * <p>
@@ -60,21 +57,6 @@ public final class ConnectorComponentCreationWizard extends J2EEComponentCreatio
 		super(model);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return a {@link ConnectorProjectCreationDataModel} and defaults
-	 * the value of {@see J2EEModuleCreationDataModel#ADD_TO_EAR} to <b>true</b>
-	 * </p>
-	 * 
-	 * @return Returns the specific operation data model for the creation of J2EE Connector modules
-	 */
-	protected final WTPOperationDataModel createDefaultModel() {
-		ConnectorComponentCreationDataModel aModel = new ConnectorComponentCreationDataModel();
-		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
-		return aModel;
-	}
 	/** 
 	 * {@inheritDoc}   
 	 * 
