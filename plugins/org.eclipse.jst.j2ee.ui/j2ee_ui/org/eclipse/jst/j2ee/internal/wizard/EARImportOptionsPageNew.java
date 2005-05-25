@@ -26,8 +26,6 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
@@ -48,7 +46,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
 /**
  * @author cbridgha
@@ -91,7 +88,6 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		GridLayout layout = new GridLayout();
 		composite.setLayout(layout);
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		createProjectMetaCheckbox(composite);
 		createJARsComposite(composite);
 		createProjectRootComposite(composite);
 
@@ -212,19 +208,6 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		});
 	}
 
-	public static void createNestedProjectOverwriteCheckbox(WTPDataModelSynchHelper synchHelper, Composite parent) {
-		Button allowNestedOverwriteCheckbox;
-		allowNestedOverwriteCheckbox = new Button(parent, SWT.CHECK);
-		allowNestedOverwriteCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_OVERWRITE_NESTED));
-		synchHelper.synchCheckbox(allowNestedOverwriteCheckbox, EnterpriseApplicationImportDataModel.OVERWRITE_NESTED_PROJECTS, null);
-	}
-
-	protected void createProjectMetaCheckbox(Composite parent) {
-		useProjectMetaCheckbox = new Button(parent, SWT.CHECK);
-		useProjectMetaCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PARTIAL_DEVELOPMENT));
-		synchHelper.synchCheckbox(useProjectMetaCheckbox, J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA, null);
-	}
-
 	protected void createJARsComposite(Composite parent) {
 		Group group = new Group(parent, SWT.NULL);
 		group.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_JARS_GROUP));
@@ -265,7 +248,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		systemDefaultText = new Text(group, SWT.READ_ONLY | SWT.WRAP | SWT.BORDER);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		systemDefaultText.setLayoutData(gd);
-		synchHelper.synchText(systemDefaultText, EnterpriseApplicationImportDataModel.NESTED_MODULE_ROOT, null);
+		synchHelper.synchText(systemDefaultText, IEARComponentImportDataModelProperties.NESTED_MODULE_ROOT, null);
 
 		browseButton = new Button(group, SWT.PUSH);
 		browseButton.setText(defBrowseButtonLabel);
@@ -323,7 +306,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA, EnterpriseApplicationImportDataModel.OVERWRITE_NESTED_PROJECTS};
+		return new String[]{};
 	}
 
 	protected void restoreWidgetValues() {

@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationExportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -54,7 +53,7 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Overridden to return an {@link EnterpriseApplicationImportDataModel}.
+	 * Overridden to return an {@link }.
 	 * </p>
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()

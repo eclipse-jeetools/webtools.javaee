@@ -54,7 +54,7 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * {@inheritDoc} 
 	 * 
 	 * <p>
-	 * Overridden to return an {@link EnterpriseApplicationImportDataModel}.
+	 * Overridden to return an {@link }.
 	 * </p>
 	 *  
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()

@@ -40,7 +40,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperation;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
@@ -654,7 +653,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 	}
 
 	public WTPOperation getDefaultOperation() {
-		return new EnterpriseApplicationImportOperation(this);
+		return null; //new EnterpriseApplicationImportOperation(this);
 	}
 
 	public boolean handlesArchive(Archive anArchive) {

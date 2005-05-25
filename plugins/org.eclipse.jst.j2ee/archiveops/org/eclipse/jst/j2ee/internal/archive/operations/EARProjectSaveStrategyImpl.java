@@ -54,6 +54,11 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
+//TODO delete
+/**
+ * @deprecated
+ *
+ */
 public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements IJ2EEImportExportConstants {
 	protected IProject project;
 	protected URIConverter earURIConverter;

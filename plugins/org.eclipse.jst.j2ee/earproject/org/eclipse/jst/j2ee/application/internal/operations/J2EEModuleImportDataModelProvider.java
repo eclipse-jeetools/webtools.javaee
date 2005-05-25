@@ -24,13 +24,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public abstract class J2EEModuleImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties{
 
-	/**
-	 * nested
-	 */
-	public static final String EAR_NAME = J2EEComponentCreationDataModel.EAR_MODULE_NAME;
-	public static final String ADD_TO_EAR = J2EEComponentCreationDataModel.ADD_TO_EAR;
-
-	public static final String EXTENDED_IMPORT_FACTORY = "J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
 
 	public String[] getPropertyNames() {
 		return combineProperties(super.getPropertyNames(), new String[]{EAR_NAME, ADD_TO_EAR, EXTENDED_IMPORT_FACTORY});

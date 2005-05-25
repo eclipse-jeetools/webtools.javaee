@@ -40,5 +40,8 @@ public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImpo
      * without adding it to an EAR.
      */
     public static final String ADD_TO_EAR = J2EEComponentCreationDataModel.ADD_TO_EAR;
+	
+	public static final String EXTENDED_IMPORT_FACTORY = "IJ2EEModuleImportDataModelProperties.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
+
 
 }

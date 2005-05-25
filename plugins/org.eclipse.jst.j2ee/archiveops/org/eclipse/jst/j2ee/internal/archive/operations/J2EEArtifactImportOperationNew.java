@@ -21,7 +21,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
@@ -101,9 +100,9 @@ public abstract class J2EEArtifactImportOperationNew extends AbstractDataModelOp
 		}
 	}
 
-	protected static void addToClasspath(J2EEArtifactImportDataModel importModel, List extraEntries) throws JavaModelException {
+	protected static void addToClasspath(IDataModel importModel, List extraEntries) throws JavaModelException {
 		if (extraEntries.size() > 0) {
-			IJavaProject javaProject = JavaCore.create(importModel.getProject());
+			IJavaProject javaProject = JavaCore.create(((IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
 			IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
 			List nonDuplicateList = new ArrayList();
 			for (int i = 0; i < extraEntries.size(); i++) {

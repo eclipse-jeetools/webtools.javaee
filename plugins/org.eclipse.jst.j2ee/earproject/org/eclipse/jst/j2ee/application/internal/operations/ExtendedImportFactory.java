@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 /**
@@ -29,7 +30,7 @@ public interface ExtendedImportFactory {
 
 	public Archive openArchive(ArchiveOptions archiveOptions, String uri) throws OpenFailureException;
 
-	public void importModuleFile(J2EEModuleImportDataModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException;
+	public void importModuleFile(IDataModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException;
 
 	public int getSpecVersion(Archive archive);
 }

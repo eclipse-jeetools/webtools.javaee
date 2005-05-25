@@ -17,7 +17,9 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 
@@ -53,7 +55,7 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 			});
 			return array;
 		}
-		return new Object[0]; //should throw exception instead
+		return new Object[0]; // should throw exception instead
 	}
 
 	/**
@@ -79,20 +81,20 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	 *            the zero-based index of the column in which the label appears
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-		J2EEArtifactImportDataModel dataModel = (J2EEArtifactImportDataModel) element;
+		IDataModel dataModel = (IDataModel) element;
 		if (columnIndex == 0) {
-			return dataModel.getArchiveFile().getURI();
+			return ((Archive) dataModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE)).getURI();
 		} else if (columnIndex == 1) {
-			return dataModel.getStringProperty(J2EEArtifactImportDataModel.PROJECT_NAME);
+			return dataModel.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
 		}
 		return ""; //$NON-NLS-1$
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		//do nothing
+		// do nothing
 	}
 
 	public void dispose() {
-		//dispose
+		// dispose
 	}
 }

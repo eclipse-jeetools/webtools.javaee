@@ -15,9 +15,8 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
@@ -99,7 +98,7 @@ public class EARImportPageNew extends J2EEImportPageNew {
 		gd.horizontalIndent = indent;
 		gd.horizontalSpan = 3;
 		importEARButton.setLayoutData(gd);
-		synchHelper.synchCheckbox(importEARButton, EnterpriseApplicationImportDataModel.IMPORT_EAR_PROJECT, null);
+		synchHelper.synchCheckbox(importEARButton, IEARComponentImportDataModelProperties.IMPORT_EAR_PROJECT, null);
 	}
 
 	/*
@@ -157,7 +156,7 @@ public class EARImportPageNew extends J2EEImportPageNew {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.SERVER_TARGET_ID, J2EEArtifactImportDataModel.OVERWRITE_PROJECT, EnterpriseApplicationImportDataModel.IMPORT_EAR_PROJECT, IAnnotationsDataModel.USE_ANNOTATIONS};
+		return new String[]{IEARComponentImportDataModelProperties.FILE_NAME, IEARComponentImportDataModelProperties.PROJECT_NAME, IEARComponentImportDataModelProperties.IMPORT_EAR_PROJECT, IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
 
 	/*

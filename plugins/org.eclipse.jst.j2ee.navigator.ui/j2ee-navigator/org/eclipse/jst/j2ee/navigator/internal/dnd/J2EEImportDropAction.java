@@ -17,8 +17,6 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -26,6 +24,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
@@ -35,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
@@ -178,7 +178,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			final String[] fileNames = (String[]) source;
 			final String fileName = fileNames[0];
 			WTPWizard wizard = null;
-			J2EEArtifactImportDataModel dataModel = null;
+			IDataModel dataModel = null;
 
 			int archiveType = ImportUtil.UNKNOWN;
 			Archive archive = null;
@@ -212,16 +212,16 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 				}
 			}
 
-			dataModel.setProperty(J2EEArtifactImportDataModel.FILE_NAME, fileName);
+			dataModel.setProperty(IJ2EEModuleImportDataModelProperties.FILE_NAME, fileName);
 
 			IProject project = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);
 			if (null != project) {
 				try {
 					if (archiveType == ImportUtil.EARFILE || !project.hasNature(IEARNatureConstants.NATURE_ID)) {
-						dataModel.setProperty(J2EEArtifactImportDataModel.PROJECT_NAME, project.getName());
+						dataModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, project.getName());
 					} else {
-						dataModel.setProperty(J2EEModuleImportDataModel.EAR_NAME, project.getName());
-						dataModel.setBooleanProperty(J2EEModuleImportDataModel.ADD_TO_EAR, true);
+						dataModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_NAME, project.getName());
+						dataModel.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, true);
 					}
 				} catch (CoreException e) {
 					return false;

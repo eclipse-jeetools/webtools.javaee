@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.internal.moduleextension;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 

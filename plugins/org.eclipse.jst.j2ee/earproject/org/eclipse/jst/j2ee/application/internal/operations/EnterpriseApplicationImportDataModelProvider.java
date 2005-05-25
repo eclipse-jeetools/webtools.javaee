@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -85,7 +86,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 
 	private IDataModelListener nestedListener = new IDataModelListener() {
 		public void propertyChanged(DataModelEvent event) {
-			if (event.getPropertyName().equals(J2EEArtifactImportDataModel.PROJECT_NAME)) {
+			if (event.getPropertyName().equals(PROJECT_NAME)) {
 				model.notifyPropertyChange(NESTED_PROJECTS_VALIDATION, IDataModel.DEFAULT_CHG);
 			}
 		}
@@ -124,23 +125,24 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 
 	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
-		if (event.getPropertyName().equals(J2EEArtifactImportDataModel.PROJECT_NAME)) {
+		if (event.getPropertyName().equals(PROJECT_NAME)) {
 			changeModuleCreationLocationForNameChange(getProjectModels());
 		}
-		if (event.getPropertyName().equals(J2EEArtifactImportDataModel.SERVER_TARGET_ID)) {
-			changeModuleServerTargets((List) getProperty(MODULE_MODELS_LIST));
-		}
+		// if (event.getPropertyName().equals(J2EEArtifactImportDataModel.SERVER_TARGET_ID)) {
+		// changeModuleServerTargets((List) getProperty(MODULE_MODELS_LIST));
+		// }
 	}
 
 	/**
 	 * @param list
 	 */
 	private void changeModuleServerTargets(List projectModels) {
-		J2EEArtifactImportDataModel nestedModel = null;
-		for (int i = 0; i < projectModels.size(); i++) {
-			nestedModel = (J2EEArtifactImportDataModel) projectModels.get(i);
-			nestedModel.setProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID, getProperty(ServerTargetDataModel.RUNTIME_TARGET_ID));
-		}
+		// IDataModel nestedModel = null;
+		// for (int i = 0; i < projectModels.size(); i++) {
+		// nestedModel = (IDataModel) projectModels.get(i);
+		// nestedModel.setProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID,
+		// getProperty(ServerTargetDataModel.RUNTIME_TARGET_ID));
+		// }
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
@@ -149,10 +151,9 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		}
 		if (OVERWRITE_NESTED_PROJECTS.equals(propertyName)) {
 			List projectModels = getProjectModels();
-			J2EEArtifactImportDataModel nestedModel = null;
+			IDataModel nestedModel = null;
 			for (int i = 0; i < projectModels.size(); i++) {
-				nestedModel = (J2EEArtifactImportDataModel) projectModels.get(i);
-				nestedModel.setProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT, propertyValue);
+				nestedModel = (IDataModel) projectModels.get(i);
 			}
 		}
 		boolean doSet = super.propertySet(propertyName, propertyValue);
@@ -176,10 +177,10 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			updateUtilityModels((List) propertyValue);
 		} else if (SERVER_TARGET_ID.equals(propertyName)) {
 			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
-			J2EEArtifactImportDataModel nestedModel = null;
+			IDataModel nestedModel = null;
 			for (int i = 0; i < projectModels.size(); i++) {
-				nestedModel = (J2EEArtifactImportDataModel) projectModels.get(i);
-				nestedModel.setProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID, propertyValue);
+				nestedModel = (IDataModel) projectModels.get(i);
+				nestedModel.setProperty(SERVER_TARGET_ID, propertyValue);
 			}
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
 			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
@@ -234,8 +235,8 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			FileImpl file = (FileImpl) list.get(i);
 			boolean shouldRemove = false;
 			for (int j = 0; j < clientList.size() && !shouldRemove; j++) {
-				J2EEUtilityJarImportDataModel model = (J2EEUtilityJarImportDataModel) clientList.get(j);
-				if (model.getArchiveFile() == file) {
+				IDataModel model = (IDataModel) clientList.get(j);
+				if (model.getProperty(IJ2EEComponentImportDataModelProperties.FILE) == file) {
 					shouldRemove = true;
 				}
 			}
@@ -273,23 +274,25 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			boolean overwrite = getBooleanProperty(OVERWRITE_NESTED_PROJECTS);
 			String earProjectName = getStringProperty(PROJECT_NAME);
 			List subProjects = getSelectedModels();
-			J2EEArtifactImportDataModel subDataModel = null;
+			IDataModel subDataModel = null;
 			String tempProjectName = null;
 			Archive tempArchive = null;
 			IStatus tempStatus = null;
 			Hashtable projects = new Hashtable(4);
 			for (int i = 0; i < subProjects.size(); i++) {
-				subDataModel = (J2EEArtifactImportDataModel) subProjects.get(i);
-				tempProjectName = subDataModel.getStringProperty(J2EEArtifactImportDataModel.PROJECT_NAME);
+				subDataModel = (IDataModel) subProjects.get(i);
+				tempProjectName = subDataModel.getStringProperty(PROJECT_NAME);
 				IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
 				if (!status.isOK()) {
 					return status;
 				}
-				tempArchive = subDataModel.getArchiveFile();
-				if (!overwrite && subDataModel.getProject().exists()) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_0", new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
-				}
-				tempStatus = subDataModel.validateDataModel();
+				tempArchive = (Archive)subDataModel.getProperty(FILE);
+				// if (!overwrite && subDataModel.getProject().exists()) {
+				// return
+				// WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_0",
+				// new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
+				//				}
+				tempStatus = subDataModel.validate();
 				if (!tempStatus.isOK()) {
 					return tempStatus;
 				}
@@ -324,23 +327,23 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 	}
 
 	private void changeModuleCreationLocationForAll(List projects, String property) {
-		J2EEArtifactImportDataModel model = null;
+		IDataModel model = null;
 		for (int i = 0; null != projects && i < projects.size(); i++) {
-			model = (J2EEArtifactImportDataModel) projects.get(i);
+			model = (IDataModel) projects.get(i);
 			IPath newPath = new Path(property);
-			newPath = newPath.append((String) model.getProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
+			newPath = newPath.append((String) model.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
 			// model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION,
 			// newPath.toOSString());
 		}
 	}
 
 	private void changeModuleCreationLocationForNameChange(List projects) {
-		J2EEArtifactImportDataModel model = null;
+		IDataModel model = null;
 		for (int i = 0; null != projects && i < projects.size(); i++) {
-			model = (J2EEArtifactImportDataModel) projects.get(i);
+			model = (IDataModel) projects.get(i);
 			if (isPropertySet(NESTED_MODULE_ROOT)) {
 				IPath newPath = new Path((String) getProperty(NESTED_MODULE_ROOT));
-				newPath = newPath.append((String) model.getProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
+				newPath = newPath.append((String) model.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
 				// model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION,
 				// newPath.toOSString());
 			} else {
@@ -489,13 +492,13 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			}
 			if (model != null) {
 				model.setProperty(FILE, temp);
-				model.setProperty(J2EEModuleImportDataModel.EAR_NAME, earProjectName);
-				model.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
+				model.setProperty(IJ2EEModuleImportDataModelProperties.EAR_NAME, earProjectName);
+				model.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
 				model.setProperty(SERVER_TARGET_ID, getProperty(ServerTargetDataModel.RUNTIME_TARGET_ID));
 				model.addListener(this);
 				model.addListener(nestedListener);
 				moduleModels.add(model);
-				String moduleName = model.getStringProperty(J2EEModuleImportDataModel.PROJECT_NAME);
+				String moduleName = model.getStringProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME);
 				if (defaultModuleNames.contains(moduleName)) {
 					if (collidingModuleNames == null) {
 						collidingModuleNames = new ArrayList();
@@ -516,7 +519,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			Object archive = ejbJarsWithClients.get(ejbModel);
 			Object clientModel = null;
 			for (int i = 0; clientModel == null && i < clientModelList.size(); i++) {
-				if (((J2EEArtifactImportDataModel) clientModelList.get(i)).getArchiveFile() == archive) {
+				if (((IDataModel) clientModelList.get(i)).getProperty(FILE) == archive) {
 					clientModel = clientModelList.get(i);
 				}
 			}
@@ -582,10 +585,10 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				temp.add(tempList.get(i));
 			}
 		}
-		J2EEArtifactImportDataModel importDM = null;
+		IDataModel importDM = null;
 		for (int i = 0; i < temp.size(); i++) {
-			importDM = (J2EEArtifactImportDataModel) temp.get(i);
-			if (importDM.getArchiveFile() == anArchive) {
+			importDM = (IDataModel) temp.get(i);
+			if (importDM.getProperty(FILE) == anArchive) {
 				return true;
 			}
 		}
@@ -623,10 +626,10 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 	private List removeHandledModels(List listToPrune, List modelsToCheck, boolean addModels) {
 		List newList = new ArrayList();
 		newList.addAll(listToPrune);
-		J2EEArtifactImportDataModel model = null;
+		IDataModel model = null;
 		for (int i = 0; i < modelsToCheck.size(); i++) {
-			model = (J2EEArtifactImportDataModel) modelsToCheck.get(i);
-			model.extractHandled(newList, addModels);
+			model = (IDataModel) modelsToCheck.get(i);
+			// model.extractHandled(newList, addModels);
 		}
 		return newList;
 	}
