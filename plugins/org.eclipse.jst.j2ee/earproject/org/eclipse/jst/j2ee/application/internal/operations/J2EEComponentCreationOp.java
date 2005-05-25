@@ -134,11 +134,6 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
        
     }
 
-    public IProject getProject() {
-        String projName = model.getStringProperty(PROJECT_NAME);
-        return ProjectUtilities.getProject(projName);
-    }
-
     public String getModuleName() {
         return (String) model.getProperty(COMPONENT_NAME);
     }
