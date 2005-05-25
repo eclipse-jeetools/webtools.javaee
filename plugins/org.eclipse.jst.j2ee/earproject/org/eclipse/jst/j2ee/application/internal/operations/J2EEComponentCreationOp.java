@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -38,10 +39,12 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -214,12 +217,15 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
         componentType.setComponentTypeId(typeID);
         componentType.setVersion(getVersion());
         List newProps = getProperties();
-        if (newProps != null && !newProps.isEmpty()) {
-            EList existingProps = componentType.getProperties();
+        EList existingProps = componentType.getProperties();
+        if (newProps != null && !newProps.isEmpty()) {         
             for (int i = 0; i < newProps.size(); i++) {
                 existingProps.add(newProps.get(i));
             }
         }
+        Property javaOutputProp = getOutputProperty();
+        if(javaOutputProp != null)
+            existingProps.add(javaOutputProp);
         StructureEdit.setComponentType(component, componentType);
     }
 
@@ -296,5 +302,18 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
 
     private void addSrcFolderToProject() {
         UpdateProjectClasspath update = new UpdateProjectClasspath(model.getStringProperty(JAVASOURCE_FOLDER), model.getStringProperty(COMPONENT_NAME), ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)));
+    }
+    
+    protected Property getOutputProperty() {
+        String javaSourceFolder = model.getStringProperty(JAVASOURCE_FOLDER);
+        if(javaSourceFolder != null && !javaSourceFolder.equals("")) {
+            Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
+            IPath newOutputPath = Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
+            // need a java property constant
+            prop.setName(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);
+            prop.setValue(newOutputPath.toString());
+            return prop;
+        }
+        return null;
     }
 }

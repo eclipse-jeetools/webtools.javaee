@@ -37,7 +37,7 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 	}
 	
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-			addComponentToEnterpriseApplication(monitor);
+		addComponentToEnterpriseApplication(monitor);
 	}
 
 	private void addComponentToEnterpriseApplication(IProgressMonitor monitor) {
@@ -70,8 +70,7 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 		updateEARDD(monitor);
 	}
 
-	protected void updateEARDD(IProgressMonitor monitor){
-		
+	protected void updateEARDD(IProgressMonitor monitor){	
 		EARArtifactEdit earEdit = null;
        	try {
 			String earProj = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME);
