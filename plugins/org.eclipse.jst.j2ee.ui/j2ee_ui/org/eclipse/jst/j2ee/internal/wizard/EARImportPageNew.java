@@ -18,9 +18,9 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -34,8 +34,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author cbridgha
@@ -43,15 +43,15 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARImportPage extends J2EEImportPage {
+public class EARImportPageNew extends J2EEImportPageNew {
 	protected Combo serverTargetCombo;
 
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportPage(EnterpriseApplicationImportDataModel earModel, String pageName) {
-		super(earModel, pageName);
+	public EARImportPageNew(IDataModel dataModel, String pageName) {
+		super(dataModel, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_DESC));
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
@@ -70,20 +70,17 @@ public class EARImportPage extends J2EEImportPage {
 		createFileNameComposite(composite);
 		createProjectNameComposite(composite);
 		createImportEARComposite(10, composite);
-		createOverwriteComposite(10, 20, composite, synchHelper);
 		createServerTargetComposite(composite);
 		createAnnotationsStandaloneGroup(composite);
 		restoreWidgetValues();
 		return composite;
 	}
 
-	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
-		EnterpriseApplicationImportDataModel importModel = (EnterpriseApplicationImportDataModel) model;
-		EARComponentCreationDataModel earModel = new EARComponentCreationDataModel();
-		earModel.setIntProperty(ComponentCreationDataModel.COMPONENT_VERSION, importModel.getJ2EEVersion());
-		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEArtifactImportDataModel.PROJECT_NAME));
-//		earModel.setProperty(J2EEComponentCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
-//		earModel.setBooleanProperty(EARComponentCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
+	protected IDataModel getNewProjectCreationDataModel() {
+		IDataModel earModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
+		earModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, model.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION));
+		earModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME));
+		earModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME));
 		return earModel;
 	}
 
@@ -128,18 +125,19 @@ public class EARImportPage extends J2EEImportPage {
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
 		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		//        if (!org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
-		//            serverTargetCombo.setEnabled(false);
-		//        }
+		// if (!org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
+		// serverTargetCombo.setEnabled(false);
+		// }
 
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
 		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
-//		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
-//			public void widgetSelected(SelectionEvent e) {
-//				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), getJ2EEProjectCreationDataModel().getServerTargetDataModel());
-//			}
-//		});
+		// newServerTargetButton.addSelectionListener(new SelectionAdapter() {
+		// public void widgetSelected(SelectionEvent e) {
+		// FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(),
+		// getJ2EEProjectCreationDataModel().getServerTargetDataModel());
+		// }
+		// });
 		Control[] deps = new Control[]{label, newServerTargetButton};
 		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 	}
@@ -150,7 +148,7 @@ public class EARImportPage extends J2EEImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
-		//new AnnotationsStandaloneGroup(composite, model, false);
+		// new AnnotationsStandaloneGroup(composite, model, false);
 	}
 
 	/*

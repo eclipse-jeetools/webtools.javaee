@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizardNew;
 import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizardNew;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard;
@@ -50,7 +50,7 @@ public interface IJ2EEWizardConstants {
 
 	String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
 
-	String IMPORT_EAR_WIZARD_ID = EnterpriseApplicationImportWizard.class.getName();
+	String IMPORT_EAR_WIZARD_ID = EnterpriseApplicationImportWizardNew.class.getName();
 
 	String IMPORT_APPCLIENT_WIZARD_ID = AppClientModuleImportWizardNew.class.getName();
 

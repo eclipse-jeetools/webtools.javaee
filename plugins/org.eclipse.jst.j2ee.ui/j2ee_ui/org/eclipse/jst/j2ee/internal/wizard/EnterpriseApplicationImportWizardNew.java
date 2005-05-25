@@ -11,14 +11,13 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IImportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * <p>
@@ -26,7 +25,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * Enterprise Application Archive *.ear file.
  * </p>
  */
-public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportWizard implements IExecutableExtension, IImportWizard {
+public final class EnterpriseApplicationImportWizardNew extends J2EEArtifactImportWizardNew implements IExecutableExtension, IImportWizard {
 
 	/**
 	 * <p>
@@ -48,7 +47,7 @@ public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportW
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public EnterpriseApplicationImportWizard() {
+	public EnterpriseApplicationImportWizardNew() {
 		super();
 		setWindowTitle(J2EEUIMessages.getResourceString("38")); //$NON-NLS-1$
 	}
@@ -62,7 +61,7 @@ public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportW
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public EnterpriseApplicationImportWizard(EnterpriseApplicationImportDataModel model) {
+	public EnterpriseApplicationImportWizardNew(IDataModel model) {
 		super(model);
 		setWindowTitle(J2EEUIMessages.getResourceString("38")); //$NON-NLS-1$
 	}
@@ -71,45 +70,20 @@ public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportW
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * <li>{@link EARImportPage}as the main wizard page ({@link #MAIN_PG})
-	 * <li>{@link EARImportOptionsPage}as the options wizard page ({@link #OPTIONS_PG})
-	 * <li>{@link EARImportProjectsPage}as the project wizard page ({@link #PROJECT_PG})
+	 * <li>{@link EARImportPageNew}as the main wizard page ({@link #MAIN_PG})
+	 * <li>{@link EARImportOptionsPageNew}as the options wizard page ({@link #OPTIONS_PG})
+	 * <li>{@link EARImportProjectsPageNew}as the project wizard page ({@link #PROJECT_PG})
 	 * </ul>
 	 * 
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EARImportPage(getSpecificDataModel(), MAIN_PG));
-		addPage(new EARImportOptionsPage(getSpecificDataModel(), OPTIONS_PG));
-		addPage(new EARImportProjectsPage(getSpecificDataModel(), PROJECT_PG));
+		addPage(new EARImportPageNew(getDataModel(), MAIN_PG));
+		addPage(new EARImportOptionsPageNew(getDataModel(), OPTIONS_PG));
+		addPage(new EARImportProjectsPageNew(getDataModel(), PROJECT_PG));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link EnterpriseApplicationImportDataModel}.
-	 * </p>
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new EnterpriseApplicationImportDataModel();
-	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Returns an {@link EnterpriseApplicationImportOperation}using the model either supplied in
-	 * the constructor or created from {@link #createDefaultModel()}.
-	 * </p>
-	 * 
-	 * @return Returns the operation to be executed when the Wizard completes.
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new EnterpriseApplicationImportOperation(getSpecificDataModel());
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -123,7 +97,8 @@ public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportW
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
 	}
 
-	private EnterpriseApplicationImportDataModel getSpecificDataModel() {
-		return (EnterpriseApplicationImportDataModel) model;
+	protected IDataModelProvider getDefaultProvider() {
+		return new EnterpriseApplicationImportDataModelProvider();
 	}
+
 }
