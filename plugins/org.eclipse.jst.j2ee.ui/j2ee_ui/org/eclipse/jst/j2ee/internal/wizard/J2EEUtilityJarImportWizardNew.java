@@ -11,11 +11,9 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModel;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 
 /**
@@ -66,19 +64,6 @@ public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizar
 	 */
 	public J2EEUtilityJarImportWizardNew(IDataModel model) {
 		super(model);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link J2EEUtilityJarListImportDataModel}.
-	 * </p>
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new J2EEUtilityJarListImportDataModel();
 	}
 
 	/**

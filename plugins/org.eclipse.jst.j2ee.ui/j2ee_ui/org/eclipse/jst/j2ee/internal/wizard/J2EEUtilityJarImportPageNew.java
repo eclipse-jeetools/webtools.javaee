@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -130,7 +130,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 		});
 		browseButton.setEnabled(true);
 
-		synchHelper.synchCombo(availableJarsCombo, J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY, new Control[]{fileLabel, browseButton});
+		synchHelper.synchCombo(availableJarsCombo, IJ2EEUtilityJarListImportDataModelProperties.AVAILABLE_JARS_DIRECTORY, new Control[]{fileLabel, browseButton});
 	}
 
 	protected void createLinkedPathVariable(Composite parent) {
@@ -162,9 +162,9 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 		Combo availableLinkedPathsCombo = new Combo(linkedPathGroup, SWT.SINGLE | SWT.BORDER);
 		availableLinkedPathsCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 
-		synchHelper.synchCombo(availableLinkedPathsCombo, J2EEUtilityJarListImportDataModel.LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
+		synchHelper.synchCombo(availableLinkedPathsCombo, IJ2EEUtilityJarListImportDataModelProperties.LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
 
-		synchHelper.synchCheckbox(linkedPathCheckbox, J2EEUtilityJarListImportDataModel.CREATE_LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
+		synchHelper.synchCheckbox(linkedPathCheckbox, IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
 
 	}
 
@@ -226,20 +226,20 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 		availableJARsViewer.setInput(model);
 
 		/* getModel().addListener(getOperationDataModelListener()); */
-		synchHelper.synchCheckBoxTableViewer(availableJARsViewer, J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, null);
+		synchHelper.synchCheckBoxTableViewer(availableJARsViewer, IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST, null);
 
 
 		model.addListener(new IDataModelListener() {
 
 			public void propertyChanged(DataModelEvent event) {
-				if (J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY.equals(event.getPropertyName()))
+				if (IJ2EEUtilityJarListImportDataModelProperties.AVAILABLE_JARS_DIRECTORY.equals(event.getPropertyName()))
 					availableJARsViewer.setInput(model);
 			}
 		});
 	}
 
 	private void handleDeselectAllButtonPressed() {
-		model.setProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, new Object[0]);
+		model.setProperty(IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST, new Object[0]);
 	}
 
 	private void handleSelectAllButtonPressed() {
@@ -247,7 +247,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 		for (int i = 0; i < selection.length; i++) {
 			selection[i] = availableJARsViewer.getElementAt(i);
 		}
-		model.setProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, selection);
+		model.setProperty(IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST, selection);
 	}
 
 	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
@@ -290,7 +290,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 		Button allowNestedOverwriteCheckbox;
 		allowNestedOverwriteCheckbox = new Button(parent, SWT.CHECK);
 		allowNestedOverwriteCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_OVERWRITE_NESTED));
-		synchHelper.synchCheckbox(allowNestedOverwriteCheckbox, J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY, null);
+		synchHelper.synchCheckbox(allowNestedOverwriteCheckbox, IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY, null);
 	}
 
 	protected void createJARsComposite(Composite parent) {
@@ -319,7 +319,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 
 		overwriteProjectCheckbox = new Button(parent, SWT.CHECK);
 		overwriteProjectCheckbox.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_6")); //$NON-NLS-1$
-		synchHelper.synchCheckbox(overwriteProjectCheckbox, J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY, null);
+		synchHelper.synchCheckbox(overwriteProjectCheckbox, IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY, null);
 	}
 
 	protected void setJARsCompositeEnabled(boolean enabled) {
@@ -331,7 +331,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY, J2EEUtilityJarListImportDataModel.LINKED_PATH_VARIABLE};
+		return new String[]{IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST, IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY, IJ2EEUtilityJarListImportDataModelProperties.LINKED_PATH_VARIABLE};
 	}
 
 	protected void restoreWidgetValues() {

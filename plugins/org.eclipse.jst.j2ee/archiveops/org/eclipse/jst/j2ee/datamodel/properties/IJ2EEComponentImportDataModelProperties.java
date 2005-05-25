@@ -47,6 +47,8 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	 * Required, type String, name of the Project which the Archive will be imported.
 	 */
 	public static final String PROJECT_NAME = "IJ2EEArtifactImportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
+	
+	public static final String PROJECT = "IJ2EEArtifactImportDataModelProperties.PROJECT"; //$NON-NLS-1$
 	/**
 	 * Required, type String, name of the Component which will be created to house the Archive
 	 */

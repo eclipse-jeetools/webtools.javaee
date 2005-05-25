@@ -29,8 +29,8 @@ import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -129,7 +129,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEUtilityJarListImportDataModel.EAR_PROJECT, J2EEUtilityJarListImportDataModel.PROJECT_ROOT};
+		return new String[]{IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT, IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT};
 	}
 
 	/*
@@ -164,20 +164,20 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 
 		createProjects = new Button(typesGroup, SWT.RADIO);
 		createProjects.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_3")); //$NON-NLS-1$
-		synchHelper.synchRadio(createProjects, J2EEUtilityJarListImportDataModel.CREATE_PROJECT, null);
+		synchHelper.synchRadio(createProjects, IJ2EEUtilityJarListImportDataModelProperties.CREATE_PROJECT, null);
 
 		createLinkedProjects = new Button(typesGroup, SWT.RADIO);
 		createLinkedProjects.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_4")); //$NON-NLS-1$
-		synchHelper.synchRadio(createLinkedProjects, J2EEUtilityJarListImportDataModel.CREATE_LINKED_PROJECT, null);
+		synchHelper.synchRadio(createLinkedProjects, IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PROJECT, null);
 
 		copyJarIntoEAR = new Button(typesGroup, SWT.RADIO);
 		copyJarIntoEAR.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_5")); //$NON-NLS-1$
-		synchHelper.synchRadio(copyJarIntoEAR, J2EEUtilityJarListImportDataModel.COPY, null);
+		synchHelper.synchRadio(copyJarIntoEAR, IJ2EEUtilityJarListImportDataModelProperties.COPY, null);
 
 		linkJarIntoEAR = new Button(typesGroup, SWT.RADIO);
 		linkJarIntoEAR.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_6")); //$NON-NLS-1$
 		/* linkJarIntoEAR.addSelectionListener(getTypeSelectionListener()); */
-		synchHelper.synchRadio(linkJarIntoEAR, J2EEUtilityJarListImportDataModel.LINK_IMPORT, null);
+		synchHelper.synchRadio(linkJarIntoEAR, IJ2EEUtilityJarListImportDataModelProperties.LINK_IMPORT, null);
 
 	}
 
@@ -196,11 +196,11 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		overrideProjectRootCheckbox.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_11")); //$NON-NLS-1$
 		createProjectRootComposite(projectOptionsGroup);
 
-		synchHelper.synchCheckbox(overrideProjectRootCheckbox, J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT, new Control[]{/*
-																																		 * moduleProjectLocationLabel,
-																																		 * projectRootLocationText,
-																																		 * browseButton
-																																		 */});
+		synchHelper.synchCheckbox(overrideProjectRootCheckbox, IJ2EEUtilityJarListImportDataModelProperties.OVERRIDE_PROJECT_ROOT, new Control[]{/*
+																																					 * moduleProjectLocationLabel,
+																																					 * projectRootLocationText,
+																																					 * browseButton
+																																					 */});
 	}
 
 	/*
@@ -261,7 +261,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		resourceNameCombo.setLayoutData(data);
-		synchHelper.synchCombo(resourceNameCombo, J2EEUtilityJarListImportDataModel.EAR_PROJECT, null);
+		synchHelper.synchCombo(resourceNameCombo, IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT, null);
 
 	}
 
@@ -300,13 +300,13 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 			}
 		});
 
-		synchHelper.synchText(projectRootLocationText, J2EEUtilityJarListImportDataModel.PROJECT_ROOT, new Control[]{moduleProjectLocationLabel, projectRootLocationText, browseButton});
+		synchHelper.synchText(projectRootLocationText, IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT, new Control[]{moduleProjectLocationLabel, projectRootLocationText, browseButton});
 	}
 
 	protected void createBinaryImportCheckbox(Composite parent) {
 		binaryImportCheckbox = new Button(parent, SWT.CHECK);
 		binaryImportCheckbox.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_10")); //$NON-NLS-1$
-		synchHelper.synchCheckbox(binaryImportCheckbox, J2EEUtilityJarListImportDataModel.BINARY_IMPORT, null);
+		synchHelper.synchCheckbox(binaryImportCheckbox, IJ2EEUtilityJarListImportDataModelProperties.BINARY_IMPORT, null);
 	}
 
 	/**
@@ -422,7 +422,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
 	 */
 	public boolean isPageComplete() {
-		return model.validateProperty(J2EEUtilityJarListImportDataModel.EAR_PROJECT).isOK();
+		return model.validateProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT).isOK();
 	}
 
 }

@@ -68,7 +68,7 @@ public interface IOverwriteHandler {
 	 * 
 	 * @return boolean
 	 */
-	void setEarSaveStrategy(org.eclipse.jst.j2ee.internal.archive.operations.EARProjectSaveStrategyImpl newEarSaveStrategy);
+	void setEarSaveStrategy(FlexibleJ2EEApplicationSaveStrategyImpl newEarSaveStrategy);
 
 	/**
 	 * Insert the method's description here. Creation date: (4/16/2001 3:13:38 PM)

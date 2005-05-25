@@ -25,9 +25,10 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author vijayb
@@ -68,12 +69,12 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	private Object[] getJarFilesFromDirectory(Object inputElement) {
 
 		List collectedJars = new ArrayList();
-		WTPOperationDataModel model = null;
-		if (inputElement instanceof WTPOperationDataModel)
-			model = (WTPOperationDataModel) inputElement;
+		IDataModel model = null;
+		if (inputElement instanceof IDataModel)
+			model = (IDataModel) inputElement;
 		if (model != null) {
 
-			String fileName = model.getStringProperty(J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY);
+			String fileName = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.AVAILABLE_JARS_DIRECTORY);
 			File directory = new File(fileName);
 			if (directory.exists() && directory.canRead() && directory.isDirectory()) {
 				File[] availableFiles = directory.listFiles();

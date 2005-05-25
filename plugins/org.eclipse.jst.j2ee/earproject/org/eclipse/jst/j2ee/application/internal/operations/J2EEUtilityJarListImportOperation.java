@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IPathVariableManager;
 import org.eclipse.core.resources.IProject;
@@ -30,6 +31,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -46,10 +48,13 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author mdelder
@@ -57,48 +62,40 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Generation - Code and Comments
  */
-public class J2EEUtilityJarListImportOperation extends WTPOperation {
+public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperation {
 
 	/**
 	 * @param operationDataModel
 	 */
-	public J2EEUtilityJarListImportOperation(WTPOperationDataModel operationDataModel) {
+	public J2EEUtilityJarListImportOperation(IDataModel operationDataModel) {
 		super(operationDataModel);
 	}
 
 	/**
-	 *  
+	 * 
 	 */
 	public J2EEUtilityJarListImportOperation() {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-
-		J2EEUtilityJarListImportDataModel model = (J2EEUtilityJarListImportDataModel) getOperationDataModel();
-		Object[] utilityJars = (Object[]) model.getProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST);
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		Object[] utilityJars = (Object[]) model.getProperty(IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST);
 		if (utilityJars == null || utilityJars.length == 0)
-			return;
+			return null;
 
 		monitor.beginTask(EARCreationResourceHandler.getString("J2EEUtilityJarListImportOperation_UI_0"), utilityJars.length); //$NON-NLS-1$
 
-		String earProject = model.getStringProperty(J2EEUtilityJarListImportDataModel.EAR_PROJECT);
-		boolean isBinary = model.getBooleanProperty(J2EEUtilityJarListImportDataModel.BINARY_IMPORT);
+		String earProject = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT);
+		boolean isBinary = model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.BINARY_IMPORT);
 		// if model.getBooleanProperty(J2EEUtilityJarListImportDataModel.COPY) then isLinked =
 		// createProject = false;
-		boolean isLinked = (model.getBooleanProperty(J2EEUtilityJarListImportDataModel.LINK_IMPORT) || model.getBooleanProperty(J2EEUtilityJarListImportDataModel.CREATE_LINKED_PROJECT));
-		boolean createProject = (model.getBooleanProperty(J2EEUtilityJarListImportDataModel.CREATE_PROJECT) || model.getBooleanProperty(J2EEUtilityJarListImportDataModel.CREATE_LINKED_PROJECT));
-		;
-		boolean overrideProjectRoot = model.getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT);
-		String projectRoot = model.getStringProperty(J2EEUtilityJarListImportDataModel.PROJECT_ROOT);
+		boolean isLinked = (model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.LINK_IMPORT) || model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PROJECT));
+		boolean createProject = (model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.CREATE_PROJECT) || model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PROJECT));
+		boolean overrideProjectRoot = model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERRIDE_PROJECT_ROOT);
+		String projectRoot = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT);
 
 		File utilityJar = null;
-		J2EEUtilityJarImportDataModel importModel = null;
+		IDataModel importModel = null;
 		IWorkspace root = ResourcesPlugin.getWorkspace();
 		for (int i = 0; i < utilityJars.length; i++) {
 			utilityJar = (File) utilityJars[i];
@@ -111,23 +108,24 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 					if (!isLinked) {
 						Archive archive = CommonarchiveFactory.eINSTANCE.primOpenArchive(utilityJar.getAbsolutePath());
 
-						importModel = new J2EEUtilityJarImportDataModel();
-						importModel.setBooleanProperty(J2EEUtilityJarImportDataModel.PRESERVE_PROJECT_METADATA, isBinary);
-						importModel.setProperty(J2EEUtilityJarImportDataModel.FILE, archive);
+						importModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
+						importModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE, archive);
 
-//						if (overrideProjectRoot && projectRoot != null && projectRoot.length() > 0)
-//							importModel.getJ2eeArtifactCreationDataModel().setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION, projectRoot);
-//
-//						importModel.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEComponentCreationDataModel.ADD_SERVER_TARGET, true);
-						importModel.setBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT, model.getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY));
-						importModel.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, earProject);
+						// if (overrideProjectRoot && projectRoot != null && projectRoot.length() >
+						// 0)
+						// importModel.getJ2eeArtifactCreationDataModel().setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION,
+						// projectRoot);
+						//
+						// importModel.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEComponentCreationDataModel.ADD_SERVER_TARGET,
+						// true);
+						importModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, earProject);
 
-						importModel.getDefaultOperation().run(new SubProgressMonitor(monitor, 1));
+						importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, 1), info);
 					} else {
 						createProjectWithLinkedJar(utilityJar, new SubProgressMonitor(monitor, 1));
 					}
 
-					String utilityJarProjectName = (importModel != null) ? importModel.getStringProperty(J2EEArtifactImportDataModel.PROJECT_NAME) : getUtilityJarProjectName(utilityJar);
+					String utilityJarProjectName = (importModel != null) ? importModel.getStringProperty(IJavaUtilityJarImportDataModelProperties.PROJECT_NAME) : getUtilityJarProjectName(utilityJar);
 
 					IProject utilityJarProject = root.getRoot().getProject(utilityJarProjectName);
 					linkArchiveToEAR(earProject, utilityJar.getName(), utilityJarProject, new SubProgressMonitor(monitor, 1));
@@ -155,6 +153,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 			monitor.worked(1);
 		}
 		monitor.done();
+		return OK_STATUS;
 	}
 
 	/**
@@ -171,7 +170,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 	}
 
 	protected IPath getLinkedPath(File archiveFile) throws CoreException {
-		String linkedPathVariable = getOperationDataModel().getStringProperty(J2EEUtilityJarListImportDataModel.LINKED_PATH_VARIABLE);
+		String linkedPathVariable = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.LINKED_PATH_VARIABLE);
 
 		if (linkedPathVariable == null || linkedPathVariable.length() == 0)
 			return new Path(archiveFile.getAbsolutePath());
@@ -192,8 +191,8 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 
 	protected void createProjectWithLinkedJar(File jarFile, IProgressMonitor monitor) throws CoreException {
 		try {
-			boolean overrideProjectRoot = getOperationDataModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT);
-			String projectRoot = getOperationDataModel().getStringProperty(J2EEUtilityJarListImportDataModel.PROJECT_ROOT);
+			boolean overrideProjectRoot = model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERRIDE_PROJECT_ROOT);
+			String projectRoot = model.getStringProperty(IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT);
 
 			IWorkspace root = ResourcesPlugin.getWorkspace();
 			IProject project = root.getRoot().getProject(getUtilityJarProjectName(jarFile));
@@ -226,7 +225,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 	protected void createLinkedArchive(IProject project, String linkedFileName, File archiveFile, IProgressMonitor monitor) throws Exception {
 		IFile linkedJarFile = null;
 		IPath pathToArchive = getLinkedPath(archiveFile);
-		boolean overwriteIfNecessary = getOperationDataModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY);
+		boolean overwriteIfNecessary = model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY);
 		linkedJarFile = project.getFile(linkedFileName);
 		if (linkedJarFile.exists()) {
 			if (overwriteIfNecessary)
@@ -237,19 +236,11 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 		linkedJarFile.createLink(pathToArchive, IResource.ALLOW_MISSING_LOCAL, new SubProgressMonitor(monitor, 1));
 
 		if (project.hasNature(JavaCore.NATURE_ID)) {
-			IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY,
-					IClasspathEntry.CPE_LIBRARY,
-					linkedJarFile.getFullPath(),
-					ClasspathEntry.INCLUDE_ALL,
-					ClasspathEntry.EXCLUDE_NONE,
-					null, // source
+			IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, linkedJarFile.getFullPath(), ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null, // source
 						// attachment
 						null, // source attachment root
 						null, // custom output location
-						false,
-						null,
-						false,
-						null);
+						false, null, false, null);
 
 			JemProjectUtilities.appendJavaClassPath(project, entry);
 		}
@@ -259,7 +250,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 
 		IPath pathToArchive = new Path(archiveFile.getAbsolutePath());
 
-		boolean overwriteIfNecessary = getOperationDataModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY);
+		boolean overwriteIfNecessary = model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY);
 		IFile copiedJarFile = project.getFile(jarFileName);
 		if (copiedJarFile.exists()) {
 			if (overwriteIfNecessary)
@@ -288,19 +279,11 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 			copiedJarFile.create(jarFileInputStream, 0, new SubProgressMonitor(monitor, 1));
 
 			if (project.hasNature(JavaCore.NATURE_ID)) {
-				IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, 
-						IClasspathEntry.CPE_LIBRARY, 
-						copiedJarFile.getFullPath(), 
-						ClasspathEntry.INCLUDE_ALL, 
-						ClasspathEntry.EXCLUDE_NONE, 
-						null, // source
+				IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, copiedJarFile.getFullPath(), ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null, // source
 							// attachment
 							null, // source attachment root
 							null, // custom output location
-							false,
-							null,
-							false,
-							null);
+							false, null, false, null);
 
 				JemProjectUtilities.appendJavaClassPath(project, entry);
 			}
@@ -317,5 +300,15 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 		addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI, uriMapping);
 		addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, true);
 		addArchiveProjectToEARDataModel.getDefaultOperation().run(monitor);
+	}
+
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
