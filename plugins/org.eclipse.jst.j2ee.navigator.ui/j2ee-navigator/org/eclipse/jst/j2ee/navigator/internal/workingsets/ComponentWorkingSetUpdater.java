@@ -122,8 +122,9 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 		                 WorkbenchComponent module = workBenchModules[i];
 		                 ComponentType componentType = module.getComponentType() ;
 						 if (componentType == null) {
-							 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
-							 Logger.getLogger().log(msg,Level.SEVERE);
+							 // Although this condition is bad, until the type has been set during creation, notifications may be processed.
+//							 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
+//							 Logger.getLogger().log(msg,Level.SEVERE);
 							 continue;
 						 }
 		                 if (typeId.equals(componentType.getComponentTypeId())) {
