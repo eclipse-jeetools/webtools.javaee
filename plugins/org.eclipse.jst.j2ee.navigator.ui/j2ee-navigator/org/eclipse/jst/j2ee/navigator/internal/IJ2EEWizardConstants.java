@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizardNew;
 import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizardNew;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizardNew;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizardNew;
@@ -60,7 +60,7 @@ public interface IJ2EEWizardConstants {
 
 	String IMPORT_WEB_MODULE_WIZARD_ID = WebModuleImportWizardNew.class.getName();
 
-	String IMPORT_UTILITY_JAR_WIZARD_ID = J2EEUtilityJarImportWizard.class.getName();
+	String IMPORT_UTILITY_JAR_WIZARD_ID = J2EEUtilityJarImportWizardNew.class.getName();
 
 	String EXPORT_EAR_WIZARD_ID = EnterpriseApplicationExportWizard.class.getName();
 

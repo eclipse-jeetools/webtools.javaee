@@ -48,9 +48,9 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
  * @author mdelder
@@ -58,7 +58,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Generation - Code and Comments
  */
-public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
+public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 
 	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL); //$NON-NLS-1$
 
@@ -101,14 +101,14 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 	 * @param title
 	 * @param titleImage
 	 */
-	public J2EEUtilityJarImportTypePage(WTPOperationDataModel model, String pageName, String title, ImageDescriptor titleImage) {
+	public J2EEUtilityJarImportTypePageNew(IDataModel model, String pageName, String title, ImageDescriptor titleImage) {
 		super(model, pageName, title, titleImage);
 		setTitle(""); //$NON-NLS-1$
 		setDescription(""); //$NON-NLS-1$
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
 	}
 
-	public J2EEUtilityJarImportTypePage(WTPOperationDataModel model, String pageName, IStructuredSelection selection) {
+	public J2EEUtilityJarImportTypePageNew(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName);
 		this.currentResourceSelection = selection;
 		setTitle(TITLE);
@@ -116,7 +116,7 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
 	}
 
-	public J2EEUtilityJarImportTypePage(WTPOperationDataModel model, String pageName) {
+	public J2EEUtilityJarImportTypePageNew(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
@@ -197,10 +197,10 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 		createProjectRootComposite(projectOptionsGroup);
 
 		synchHelper.synchCheckbox(overrideProjectRootCheckbox, J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT, new Control[]{/*
-																																	   * moduleProjectLocationLabel,
-																																	   * projectRootLocationText,
-																																	   * browseButton
-																																	   */});
+																																		 * moduleProjectLocationLabel,
+																																		 * projectRootLocationText,
+																																		 * browseButton
+																																		 */});
 	}
 
 	/*
@@ -208,32 +208,32 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#propertyChanged(org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModelEvent)
 	 */
-	public void propertyChanged(WTPOperationDataModelEvent event) {
-		//        if (synching) return;
-		//        synching = true;
-		//        if (J2EEUtilityJarListImportDataModel.CREATE_PROJECT.equals(event.getPropertyName())
-		//                || J2EEUtilityJarListImportDataModel.LINK_IMPORT.equals(event.getPropertyName())) {
+	public void propertyChanged(DataModelEvent event) {
+		// if (synching) return;
+		// synching = true;
+		// if (J2EEUtilityJarListImportDataModel.CREATE_PROJECT.equals(event.getPropertyName())
+		// || J2EEUtilityJarListImportDataModel.LINK_IMPORT.equals(event.getPropertyName())) {
 		//
-		//            boolean shouldCreateProject =
+		// boolean shouldCreateProject =
 		// getModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.CREATE_PROJECT);
-		//            boolean linkImportedContent =
+		// boolean linkImportedContent =
 		// getModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.LINK_IMPORT);
 		//
-		//            createProjects.setSelection(shouldCreateProject && !linkImportedContent);
-		//            createLinkedProjects.setSelection(shouldCreateProject && linkImportedContent);
-		//            linkJarIntoEAR.setSelection(!shouldCreateProject && linkImportedContent);
-		//            copyJarIntoEAR.setSelection(!shouldCreateProject && !linkImportedContent);
+		// createProjects.setSelection(shouldCreateProject && !linkImportedContent);
+		// createLinkedProjects.setSelection(shouldCreateProject && linkImportedContent);
+		// linkJarIntoEAR.setSelection(!shouldCreateProject && linkImportedContent);
+		// copyJarIntoEAR.setSelection(!shouldCreateProject && !linkImportedContent);
 		//             
-		//            enableProjectOptions(shouldCreateProject);
+		// enableProjectOptions(shouldCreateProject);
 		//
-		//        } else
+		// } else
 		// if(J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT.equals(event.getPropertyName()))
 		// {
-		//            boolean overrideProjectRoot =
+		// boolean overrideProjectRoot =
 		// getModel().getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERRIDE_PROJECT_ROOT);
-		//            projectRootLocationText.setEnabled(overrideProjectRoot);
-		//        }
-		//        synching = false;
+		// projectRootLocationText.setEnabled(overrideProjectRoot);
+		// }
+		// synching = false;
 		super.propertyChanged(event);
 	}
 
@@ -253,10 +253,10 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 		earGroup.setLayout(layout);
 		earGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		//Project label
+		// Project label
 		Label projectLabel = new Label(earGroup, SWT.NONE);
 		projectLabel.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportTypePage_UI_9")); //$NON-NLS-1$
-		//Project combo
+		// Project combo
 		resourceNameCombo = new Combo(earGroup, SWT.SINGLE | SWT.BORDER);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
@@ -405,7 +405,7 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 	}
 
 	protected void enableProjectOptions(boolean enabled) {
-		//getModel().setBooleanProperty(J2EEUtilityJarListImportDataModel.BINARY_IMPORT, enabled);
+		// getModel().setBooleanProperty(J2EEUtilityJarListImportDataModel.BINARY_IMPORT, enabled);
 		binaryImportCheckbox.setEnabled(enabled);
 		overrideProjectRootCheckbox.setEnabled(enabled);
 
@@ -422,7 +422,7 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 	 * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
 	 */
 	public boolean isPageComplete() {
-		return getModel().validateProperty(J2EEUtilityJarListImportDataModel.EAR_PROJECT).isOK();
+		return model.validateProperty(J2EEUtilityJarListImportDataModel.EAR_PROJECT).isOK();
 	}
 
 }

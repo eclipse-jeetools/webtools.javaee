@@ -13,7 +13,8 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModel;
 import org.eclipse.ui.IImportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 
@@ -24,7 +25,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * the EAR module.
  * </p>
  */
-public final class J2EEUtilityJarImportWizard extends J2EEArtifactImportWizard implements IImportWizard {
+public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizardNew implements IImportWizard {
 
 	/**
 	 * <p>
@@ -50,7 +51,7 @@ public final class J2EEUtilityJarImportWizard extends J2EEArtifactImportWizard i
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public J2EEUtilityJarImportWizard() {
+	public J2EEUtilityJarImportWizardNew() {
 		super();
 	}
 
@@ -63,7 +64,7 @@ public final class J2EEUtilityJarImportWizard extends J2EEArtifactImportWizard i
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEUtilityJarImportWizard(WTPOperationDataModel model) {
+	public J2EEUtilityJarImportWizardNew(IDataModel model) {
 		super(model);
 	}
 
@@ -81,35 +82,22 @@ public final class J2EEUtilityJarImportWizard extends J2EEArtifactImportWizard i
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Returns an {@link J2EEUtilityJarImportWizard}using the model either supplied in the
-	 * constructor or created from {@link #createDefaultModel()}.
-	 * </p>
-	 * 
-	 * @return Returns the operation to be executed when the Wizard completes.
-	 */
-	protected WTPOperation createBaseOperation() {
-		return getModel().getDefaultOperation();
-	}
-
-	/**
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * <li>{@link J2EEUtilityJarImportTypePage}as the main wizard page ({@link #IMPORT_TYPE})
-	 * <li>{@link J2EEUtilityJarImportPage}as the main wizard page ({@link #SELECT_JARS})
+	 * <li>{@link J2EEUtilityJarImportTypePageNew}as the main wizard page ({@link #IMPORT_TYPE})
+	 * <li>{@link J2EEUtilityJarImportPageNew}as the main wizard page ({@link #SELECT_JARS})
 	 * </ul>
 	 * </p>
 	 */
 	public void doAddPages() {
-		this.addPage(new J2EEUtilityJarImportTypePage(getUtilityJarImportModel(), IMPORT_TYPE, selection));
-		this.addPage(new J2EEUtilityJarImportPage(getUtilityJarImportModel(), SELECT_JARS));
+		this.addPage(new J2EEUtilityJarImportTypePageNew(getDataModel(), IMPORT_TYPE, selection));
+		this.addPage(new J2EEUtilityJarImportPageNew(getDataModel(), SELECT_JARS));
 	}
 
-	private J2EEUtilityJarListImportDataModel getUtilityJarImportModel() {
-		return (J2EEUtilityJarListImportDataModel) getModel();
+	protected IDataModelProvider getDefaultProvider() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -37,17 +37,17 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 
 /**
  * @author mdelder
  */
-public class J2EEUtilityJarImportPage extends J2EEImportPage {
+public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
 
 	private static final String STORE_LABEL = "J2EE_UTILITY_JAR_LIST_IMPORT_"; //$NON-NLS-1$
-	//	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
+	// private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 
 	private Button deselectAllButton;
 
@@ -71,7 +71,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public J2EEUtilityJarImportPage(WTPOperationDataModel model, String pageName) {
+	public J2EEUtilityJarImportPageNew(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_0")); //$NON-NLS-1$
 		setDescription(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_1")); //$NON-NLS-1$
@@ -223,23 +223,23 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 		availableJARsViewer.getTable().setHeaderVisible(false);
 		availableJARsViewer.getTable().setLinesVisible(false);
 
-		availableJARsViewer.setInput(getModel());
+		availableJARsViewer.setInput(model);
 
 		/* getModel().addListener(getOperationDataModelListener()); */
 		synchHelper.synchCheckBoxTableViewer(availableJARsViewer, J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, null);
 
 
-		getModel().addListener(new WTPOperationDataModelListener() {
+		model.addListener(new IDataModelListener() {
 
-			public void propertyChanged(WTPOperationDataModelEvent event) {
+			public void propertyChanged(DataModelEvent event) {
 				if (J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY.equals(event.getPropertyName()))
-					availableJARsViewer.setInput(getModel());
+					availableJARsViewer.setInput(model);
 			}
 		});
 	}
 
 	private void handleDeselectAllButtonPressed() {
-		getModel().setProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, new Object[0]);
+		model.setProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, new Object[0]);
 	}
 
 	private void handleSelectAllButtonPressed() {
@@ -247,7 +247,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 		for (int i = 0; i < selection.length; i++) {
 			selection[i] = availableJARsViewer.getElementAt(i);
 		}
-		getModel().setProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, selection);
+		model.setProperty(J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, selection);
 	}
 
 	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
@@ -307,7 +307,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 		gd2.horizontalSpan = 2;
 		description.setLayoutData(gd2);
 
-		//create jars check box viewer
+		// create jars check box viewer
 		createAvailableJarsList(group);
 		createButtonsGroup(group);
 	}
@@ -360,7 +360,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 
 			String newName = availableJarsCombo.getText();
 
-			//rip out any empty filenames and trim length to 5
+			// rip out any empty filenames and trim length to 5
 			ArrayList newNames = new ArrayList();
 			for (int i = 0; i < sourceNames.length && i < 5; i++) {
 				if (sourceNames[i].trim().length() > 0 && !newName.equals(sourceNames[i])) {
