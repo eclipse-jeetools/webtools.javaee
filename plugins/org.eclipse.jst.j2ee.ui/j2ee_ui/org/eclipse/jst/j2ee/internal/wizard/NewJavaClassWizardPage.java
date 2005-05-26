@@ -50,6 +50,8 @@ import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
+import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -171,7 +173,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		data.horizontalSpan = 1;
 		componentNameCombo.setLayoutData(data);
 		initializeComponentList();
-		synchHelper.synchCombo(componentNameCombo, ArtifactEditOperationDataModel.MODULE_NAME, new Control[] {});
+		synchHelper.synchCombo(componentNameCombo, NewServletClassDataModel.MODULE_NAME, new Control[] {});
 		if (!hasNewModuleButton) {
 			new Label(composite, SWT.NONE);
 		} else {
@@ -218,6 +220,11 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			componentNameCombo.setText(componentNames[0]);
 			model.setProperty(ArtifactEditOperationDataModel.MODULE_NAME, componentNameCombo.getText());
 		}
+		// update source folder
+		if (folderText != null) {
+			IContainer sourceFolder = WebPropertiesUtil.getJavaSourceFolder(project);
+			folderText.setText(sourceFolder.getFullPath().toOSString());
+		}
 	}
 
 	/**
@@ -240,7 +247,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 				initializeComponentList();
 			}
 		});
-		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, new Control[] {});
+		synchHelper.synchCombo(projectNameCombo, NewServletClassDataModel.PROJECT_NAME, new Control[] {});
 		initializeProjectList();
 		new Label(parent, SWT.NONE);
 	}
@@ -298,7 +305,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		folderText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		folderText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(folderText, NewJavaClassDataModel.SOURCE_FOLDER, null);
+		synchHelper.synchText(folderText, NewServletClassDataModel.SOURCE_FOLDER, null);
 
 		folderButton = new Button(composite, SWT.PUSH);
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
