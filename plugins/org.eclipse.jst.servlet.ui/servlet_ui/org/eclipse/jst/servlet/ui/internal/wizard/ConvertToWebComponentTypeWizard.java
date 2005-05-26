@@ -11,11 +11,9 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /*
  * Licensed Material - Property of IBM (C) Copyright IBM Corp. 2000, 2002 - All
@@ -31,17 +29,6 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 		//super(dataModel);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	//private static final String PAGE_ONE = "page1"; //$NON-NLS-1$
-
-	protected WTPOperationDataModel createDefaultModel() {
-		// TODO Auto-generated method stub
-		return new ConvertWebProjectDataModel();
-	}
 	/*
 	 * (non-Javadoc)
 	 * 
