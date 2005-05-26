@@ -23,6 +23,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -51,11 +52,48 @@ public class ConnectorComponentCreationOp extends J2EEComponentCreationOp implem
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         ConnectorArtifactEdit artifactEdit = null;
+        Integer version = null;
         try {
 			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
             artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
-            Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
-            artifactEdit.createModelRoot(version.intValue());
+            version = (Integer)model.getProperty(COMPONENT_VERSION);
+            Connector connector = (Connector)artifactEdit.createModelRoot(version.intValue());
+//TODO: implement pre-fill of dd     
+//            artifactEdit.save(monitor);
+//            
+//            String sourceFolder = "connectorModule"; //$NON-NLS-1$
+//            IContainer container = getProject().getFolder(sourceFolder);
+//            IFile file = container.getFile(new Path(J2EEConstants.RAR_DD_URI));
+//            OutputStream out = new WorkbenchByteArrayOutputStream(file);
+//            
+//            String template = version.intValue() == J2EEVersionConstants.JCA_1_0_ID
+//                    ? IConnectorNatureConstants.CONNECTOR_XML_TEMPLATE_10
+//                    : IConnectorNatureConstants.CONNECTOR_XML_TEMPLATE_15;
+//            InputStream in = getClass().getResourceAsStream(template);
+//            if (in != null & out != null) {
+//                try {
+//                    ArchiveUtil.copy(in, out);
+//                } catch (IOException ioe) {
+//                    Logger.getLogger().logError(ioe);
+//                } finally{
+//                    try{
+//                        if(null != out){
+//                            out.close();
+//                        } if(null != in){
+//                            in.close();
+//                        }
+//                    }catch (IOException ioe) {
+//                        Logger.getLogger().logError(ioe);
+//                    } 
+//                }
+//
+//                if( connector != null ){
+//                    String projectName = model.getStringProperty(PROJECT_NAME);
+//                    if( projectName != null )
+//                        connector.setDisplayName(projectName);
+//                }
+//            }
+            
             artifactEdit.save(monitor);
         } catch (Exception e) {
             Logger.getLogger().logError(e);
@@ -63,6 +101,8 @@ public class ConnectorComponentCreationOp extends J2EEComponentCreationOp implem
             if (artifactEdit != null)
                 artifactEdit.dispose();
         }
+        
+
     }
 
     protected String getVersion() {
