@@ -28,7 +28,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProj
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOp;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBPostImportOperation;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOp;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
@@ -189,7 +188,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	public J2EEComponentCreationOp createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
             IDataModel model = (IDataModel) option.getModel();
-			model.setProperty(EjbComponentCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
+			model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);
 		}
 		return super.createProjectCreationOperation(option);

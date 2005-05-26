@@ -12,16 +12,13 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /** 
  * <p>
@@ -71,21 +68,6 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 		super(model);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@see EJBProjectCreationDataModel} and defaults
-	 * the value of {@link J2EEModuleCreationDataModelOld#ADD_TO_EAR} to <b>true</b>
-	 * </p>
-	 * 
-	 * @return Returns the specific operation data model for the creation of J2EE EJB modules
-	 */
-	protected final WTPOperationDataModel createDefaultModel() {
-		EjbComponentCreationDataModel aModel = new EjbComponentCreationDataModel();
-		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
-		return aModel;
-	}
 	/**
 	 * {@inheritDoc}   
 	 * 
