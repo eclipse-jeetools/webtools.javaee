@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 /**
  * <p>
  * IJ2EEModuleImportDataModelProperties provides properties to the IDataModel associated with the 
@@ -34,12 +33,12 @@ public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImpo
      * Optional, type String.  This property is nested from the J2EEComponentCreationDataModel and set only if user is attempting to add the component to an EAR.
      * Some J2EE components such as Web do not require an EAR.
      */
-    public static final String EAR_NAME = J2EEComponentCreationDataModel.EAR_MODULE_NAME;
+    public static final String EAR_NAME = IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME;
     /**
      * Optional, type Boolean.  This property defaults to True, but changes if user wishs to import a component
      * without adding it to an EAR.
      */
-    public static final String ADD_TO_EAR = J2EEComponentCreationDataModel.ADD_TO_EAR;
+    public static final String ADD_TO_EAR = IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR;
 	
 	public static final String EXTENDED_IMPORT_FACTORY = "IJ2EEModuleImportDataModelProperties.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
 

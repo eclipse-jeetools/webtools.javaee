@@ -39,7 +39,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperationNew;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
@@ -184,11 +183,12 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			}
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
 			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
-			J2EEArtifactImportDataModel nestedModel = null;
+			IDataModel nestedModel = null;
 			for (int i = 0; i < projectModels.size(); i++) {
-				nestedModel = (J2EEArtifactImportDataModel) projectModels.get(i);
-				if (nestedModel.getJ2eeArtifactCreationDataModel() instanceof J2EEComponentCreationDataModel)
-					((J2EEComponentCreationDataModel) nestedModel.getJ2eeArtifactCreationDataModel()).setProperty(J2EEComponentCreationDataModel.USE_ANNOTATIONS, propertyValue);
+				nestedModel = (IDataModel) projectModels.get(i);
+				if (nestedModel.isProperty(USE_ANNOTATIONS)) {
+					nestedModel.setProperty(USE_ANNOTATIONS, propertyValue);
+				}
 			}
 		} else if (MODULE_MODELS_LIST.equals(propertyName)) {
 			List newList = new ArrayList();
@@ -286,12 +286,12 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				if (!status.isOK()) {
 					return status;
 				}
-				tempArchive = (Archive)subDataModel.getProperty(FILE);
+				tempArchive = (Archive) subDataModel.getProperty(FILE);
 				// if (!overwrite && subDataModel.getProject().exists()) {
 				// return
 				// WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_0",
 				// new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
-				//				}
+				// }
 				tempStatus = subDataModel.validate();
 				if (!tempStatus.isOK()) {
 					return tempStatus;
@@ -551,10 +551,6 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			}
 		}
 		return moduleModels;
-	}
-
-	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
-		return new EARComponentCreationDataModel();
 	}
 
 	protected int getType() {

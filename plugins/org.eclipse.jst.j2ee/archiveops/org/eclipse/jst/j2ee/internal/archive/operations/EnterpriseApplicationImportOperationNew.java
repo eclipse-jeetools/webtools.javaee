@@ -17,14 +17,11 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -32,7 +29,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
@@ -241,11 +237,6 @@ public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportO
 		} catch (Exception suppress) {
 			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(suppress);
 		}
-	}
-
-	protected void createModuleProject(J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EARComponentCreationOperation earProjectOp = new EARComponentCreationOperation((EARComponentCreationDataModel) model);
-		earProjectOp.run(monitor);
 	}
 
 	protected SaveStrategy createSaveStrategy(IProject project) { // NOOP
