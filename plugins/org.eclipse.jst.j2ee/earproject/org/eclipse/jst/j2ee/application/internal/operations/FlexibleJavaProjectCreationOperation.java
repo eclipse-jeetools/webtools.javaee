@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -40,17 +41,13 @@ public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreatio
         	createJavaEMFNature();
             addServerTarget(monitor);
         } catch (ExecutionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	Logger.getLogger().log(e);
         } catch (CoreException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	Logger.getLogger().log(e);
         } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	Logger.getLogger().log(e);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	Logger.getLogger().log(e);
         }
         return status;
     }
