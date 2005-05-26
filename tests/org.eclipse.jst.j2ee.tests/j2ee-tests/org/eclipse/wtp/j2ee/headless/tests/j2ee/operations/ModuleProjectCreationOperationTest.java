@@ -46,7 +46,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
         IDataModel dataModel = getComponentCreationDataModel();
         dataModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
         dataModel.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, true);
-        runAndVerify(dataModel);
+        runAndVerify(dataModel,false,true);
     }
 
 	public abstract IDataModel getComponentCreationDataModel();
