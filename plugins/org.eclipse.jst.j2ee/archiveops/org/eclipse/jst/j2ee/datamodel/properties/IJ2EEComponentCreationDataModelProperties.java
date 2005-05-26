@@ -34,7 +34,7 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
      */
     public static final String EAR_COMPONENT_DEPLOY_NAME = "IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_DEPLOY_NAME"; //$NON-NLS-1$
     /**
-     * type URI, this property needs to be set if the value of the property ADD_TO_EAR  is set to <code>Boolean.TRUE</code>.  Represents
+     * type ComponentHandle, this property needs to be set if the value of the property ADD_TO_EAR  is set to <code>Boolean.TRUE</code>.  Represents
      * a handle to the EAR
      */
     public static final String EAR_COMPONENT_HANDLE = "IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE"; //$NON-NLS-1$
