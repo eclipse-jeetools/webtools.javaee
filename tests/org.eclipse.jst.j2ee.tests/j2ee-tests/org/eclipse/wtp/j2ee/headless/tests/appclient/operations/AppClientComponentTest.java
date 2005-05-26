@@ -9,9 +9,12 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractJ2EEComponentCreationTest;
@@ -50,10 +53,10 @@ public class AppClientComponentTest extends AbstractJ2EEComponentCreationTest {
 		setupEARComponent("test", J2EEVersionConstants.J2EE_1_3_ID);
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			IProject javaProject = ProjectUtility.getProject("testapp");
-			AppClientComponentCreationDataModel model = new AppClientComponentCreationDataModel();
-			model.setProperty(AppClientComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
+			IDataModel model = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
+			model.setProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME, javaProject.getName());
 			//model.setProperty(AppClientProjectCreationDataModel.PROJECT_LOCATION, javaProject.getLocation().toOSString());
-			model.setIntProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+			model.setIntProperty(IAppClientComponentCreationDataModelProperties.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
 			createAppClientComponent(model, ProjectUtility.getProject("test"));
 		}
 	}
@@ -72,8 +75,8 @@ public class AppClientComponentTest extends AbstractJ2EEComponentCreationTest {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
-				J2EEComponentCreationDataModel model = setupApplicationClientComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.J2EE_1_2_ID);
-				ProjectUtility.verifyProject(model.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME), true);
+				IDataModel model = setupApplicationClientComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.J2EE_1_2_ID);
+				ProjectUtility.verifyProject(model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME), true);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {
 					System.out.println(ILLEGAL_PROJECT_NAME_MESSAGE + projectName);

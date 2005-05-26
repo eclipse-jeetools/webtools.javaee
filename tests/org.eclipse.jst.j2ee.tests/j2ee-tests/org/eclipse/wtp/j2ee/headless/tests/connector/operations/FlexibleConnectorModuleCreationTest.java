@@ -13,9 +13,14 @@ package org.eclipse.wtp.j2ee.headless.tests.connector.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.tests.OperationTestCase;
 
 
@@ -36,23 +41,25 @@ public class FlexibleConnectorModuleCreationTest extends OperationTestCase {
     }
 
     public void createProject(String projectName) throws Exception {
-		FlexibleJavaProjectCreationDataModel dataModel = getProjectCreationDataModel();
-        dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, projectName);
-        WTPOperation op = dataModel.getDefaultOperation();
-        op.run(null);
+        IDataModel dataModel = getProjectCreationDataModel();
+        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, projectName);
+        IDataModelOperation op = dataModel.getDefaultOperation();
+        op.execute(new NullProgressMonitor(), null);
     }
-    public void createAppClientModule(String moduleName) throws Exception {
-        ConnectorComponentCreationDataModel dataModel = getFlexibleConnectorModuleCreation();
-        dataModel.setProperty(ConnectorComponentCreationDataModel.PROJECT_NAME, DEFAULT_PROJECT_NAME);
-        dataModel.setProperty(ConnectorComponentCreationDataModel.COMPONENT_NAME, DEFAULT_MODULE_NAME);
-        runAndVerify(dataModel);
+
+    
+    public IDataModel getProjectCreationDataModel(){
+        return DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
     }
     
-    public FlexibleJavaProjectCreationDataModel getProjectCreationDataModel(){
-		return new FlexibleJavaProjectCreationDataModel();
+    public void createAppClientModule(String moduleName) throws Exception {
+        IDataModel dataModel = getFlexibleConnectorModuleCreation();
+        dataModel.setProperty(IConnectorComponentCreationDataModelProperties.PROJECT_NAME, DEFAULT_PROJECT_NAME);
+        dataModel.setProperty(IConnectorComponentCreationDataModelProperties.COMPONENT_NAME, DEFAULT_MODULE_NAME);
+        runAndVerify(dataModel);
     }
-    public ConnectorComponentCreationDataModel getFlexibleConnectorModuleCreation(){
-		return new ConnectorComponentCreationDataModel();
+    public IDataModel getFlexibleConnectorModuleCreation(){
+		return DataModelFactory.createDataModel(new ConnectorComponentCreationDataModelProvider());
     }
 
 }

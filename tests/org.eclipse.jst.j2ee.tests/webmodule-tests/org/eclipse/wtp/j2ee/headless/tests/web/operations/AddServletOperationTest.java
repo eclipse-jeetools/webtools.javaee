@@ -10,11 +10,14 @@ import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -29,7 +32,7 @@ public class AddServletOperationTest extends OperationTestCase {
     public static String WEB_PROJECT_NAME = "WebProject";
     public static String SERVLET_NAME = "Servlet1";
 
-    private WebComponentCreationDataModel webComponentDataModel;
+    private IDataModel webComponentDataModel;
 	private NewServletClassDataModel servletDataModel;
     
     /**
@@ -64,8 +67,8 @@ public class AddServletOperationTest extends OperationTestCase {
     }
     
     public void createWebProject(String projectName) throws Exception {
-    	webComponentDataModel = new WebComponentCreationDataModel();
-    	webComponentDataModel.setProperty(WebComponentCreationDataModel.PROJECT_NAME, projectName);
+    	webComponentDataModel = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
+    	webComponentDataModel.setProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
         runAndVerify(webComponentDataModel);
     }
     /**

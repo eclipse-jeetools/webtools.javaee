@@ -8,8 +8,8 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractJ2EEComponentCreationTest;
@@ -73,7 +73,7 @@ public class WebComponentCreationTest extends AbstractJ2EEComponentCreationTest 
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
 				 setupWebComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
-				 J2EEComponentCreationDataModel model = setupWebComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
+				 IDataModel model = setupWebComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
 				 checkValidDataModel(model);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {

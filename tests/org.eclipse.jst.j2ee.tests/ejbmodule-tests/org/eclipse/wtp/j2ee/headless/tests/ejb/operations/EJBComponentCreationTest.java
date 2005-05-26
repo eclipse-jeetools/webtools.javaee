@@ -8,8 +8,8 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -74,7 +74,7 @@ public class EJBComponentCreationTest extends AbstractJ2EEComponentCreationTest 
 		LogUtility.getInstance().resetLogging();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
-				J2EEComponentCreationDataModel model = setupEJBComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.EJB_1_1_ID);
+				IDataModel model = setupEJBComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.EJB_1_1_ID);
 				checkValidDataModel(model);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {
