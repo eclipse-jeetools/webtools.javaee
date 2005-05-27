@@ -33,7 +33,6 @@
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.jst.j2ee.ui" export="true"/>
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>

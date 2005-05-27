@@ -24,7 +24,6 @@
       <import plugin="org.eclipse.wst.common.frameworks.ui"/>
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
-      <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.wst.server.ui"/>
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
