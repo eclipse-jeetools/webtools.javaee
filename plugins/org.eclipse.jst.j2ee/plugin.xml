@@ -37,7 +37,6 @@
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jface"/>
@@ -637,29 +636,7 @@
             id="org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation">     
 	   </extendableOperation>             
    </extension>
-<!-- .j2ee file migration contributions -->
-   <extension
-         point="org.eclipse.wst.common.migration.migrator">
-      <migrator
-            className="org.eclipse.jst.j2ee.internal.project.J2EESettingsMigrator"
-            id="org.eclipse.jst.j2ee.internal.project.J2EESettingsMigrator.id"
-            filter="org.eclipse.jst.j2ee.internal.project.J2EEMigrationFilter">
-         <enablement>
-			<projectNature natureID="org.eclipse.jst.j2ee.ejb.EJBNature"/>
-			<projectNature natureID="org.eclipse.jst.j2ee.ApplicationClientNature"/>
-			<projectNature natureID="org.eclipse.jst.j2ee.jca.ConnectorNature"/>
-			<projectNature natureID="org.eclipse.jst.j2ee.EARNature"/>
-         </enablement>
-      </migrator>
-   </extension>
-   
-  <!--  Associates .j2ee & .websettings to the XML content type -->
-   <extension
-         point="org.eclipse.core.runtime.contentTypes">
-        <file-association 
-         content-type="org.eclipse.core.runtime.xml"
-         file-extensions="j2ee,websettings"/>
-   </extension>
+
 
    <!--============================-->
    <!-- Builder Provider registrations-->
