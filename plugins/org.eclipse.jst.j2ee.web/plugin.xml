@@ -30,7 +30,6 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.wst.web"/>
        <import plugin="org.eclipse.jface"/>
@@ -554,77 +553,7 @@
                URI="WEB-INF/web.xml"/>
       </editModel>
    </extension>
-   <extension
-         point="org.eclipse.wst.common.migration.migrator">
-      <migrator
-            className="org.eclipse.wst.common.internal.migration.ComponentMigrator"
-            id="org.eclipse.wst.common.internal.migration.ComponentMigrator">
-         <enablement>
-			<projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
-         </enablement>
-      </migrator>
-   </extension>
-      <extension
-         point="org.eclipse.wst.common.migration.migrator">
-      <migrator
-            className="org.eclipse.wst.common.internal.migration.ComponentMigrator"
-            id="org.eclipse.wst.common.internal.migration.ComponentMigrator">
-             <enablement>
-			  <projectNature natureID="com.ibm.wtp.web.WebNature"/>		                          
-         </enablement>
-      </migrator>
-   </extension>
-       <extension
-          point="org.eclipse.wst.common.migration.migratorStrategy">
-       <migratorStrategy
-             className="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy"
-             id="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy.ID">
-          <enablement>
-			  <projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
-          </enablement>
-       </migratorStrategy>
-    </extension>
-    <extension
-          point="org.eclipse.wst.common.migration.migratorStrategy">
-       <migratorStrategy
-             className="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy"
-             id="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy.ID">
-          <enablement>
-			  <projectNature natureID="com.ibm.wtp.web.WebNature"/>		                          
-          </enablement>
-       </migratorStrategy>
-    </extension>
-    <extension
-		id="NatureMappings"
-		name="Module Core Nature Mappings"
-		point="org.eclipse.wst.common.migration.natureMapping">
-		<natureMapping>
-			<mapping
-				position="first"
-				name="Nature Mapping"
-				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-				<alias
-					value="org.eclipse.jst.j2ee.web.WebNature">
-				</alias>
-			</mapping>
-		</natureMapping>
-	</extension>
-	<extension
-		id="NatureMappings"
-		name="Module Core Nature Mappings"
-		point="org.eclipse.wst.common.migration.natureMapping">
-		<natureMapping>
-			<mapping
-				position="first"
-				name="Nature Mapping"
-				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-				<alias
-					value="com.ibm.wtp.web.WebNature">
-				</alias>
-			</mapping>
-		</natureMapping>
-	</extension>
-	
+   
    <!--============================-->
    <!-- Builder Provider registrations-->
    <!--============================-->
