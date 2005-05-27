@@ -53,18 +53,12 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 		if (PROJECT_NAME.equals(propertyName)) {
 			return validateProjectName();
 		} 
-		return super.validate(propertyName);
+		return OK_STATUS;
 	}
 	
 	private IStatus validateProjectName() {
-		String projectName = getStringProperty(PROJECT_NAME);
-		if (projectName == null && projectName.length() != 0) {
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-			if (project != null && project.exists()) {
-                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_EXISTS_AT_LOCATION_ERROR));
-			}
-		}
-		return WTPCommonPlugin.OK_STATUS;
+		IDataModel projModel = model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
+		return projModel.validateProperty(IProjectCreationProperties.PROJECT_NAME);
 	}
 
 	private String getDefaultLocation() {

@@ -25,6 +25,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -52,8 +53,9 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
     public boolean propertySet(String propertyName, Object propertyValue) {
         boolean status = super.propertySet(propertyName, propertyValue);
         if (PROJECT_NAME.equals(propertyName)) {
-			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, propertyValue);
+//			model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALUE_CHG);
+//			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+//            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, propertyValue);
         } else if(LOCATION.equals(propertyName)) {
 			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
             dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyValue);
@@ -83,11 +85,19 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 			}
 			return status;
 		} else if (propertyName.equals(SERVER_TARGET_ID)) {
-            IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-            IStatus nestedValiation = dm.validate();
-            if(!nestedValiation.isOK())
-                return nestedValiation;
+			//if multiple modules are  supported, the  project is already been created, no need for validation here
+            if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+	            IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+	            IStatus nestedValiation = dm.validate();
+	            if(!nestedValiation.isOK())
+	                return nestedValiation;
+            }else
+				return OK_STATUS;
         }
+//		else if(propertyName.equals(PROJECT_NAME)){
+//			IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+//			return projectdm.validateProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME);		
+//        }
             
         return super.validate(propertyName);
 	}	

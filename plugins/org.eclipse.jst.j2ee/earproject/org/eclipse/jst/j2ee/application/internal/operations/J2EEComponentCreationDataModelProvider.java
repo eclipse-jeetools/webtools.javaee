@@ -77,14 +77,22 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean status = super.propertySet(propertyName, propertyValue);
 		if (PROJECT_NAME.equals(propertyName) && propertyValue != null && ((String) propertyValue).length() != 0) {
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject((String) propertyValue);
-			if (project != null) {
-				IProjectProperties projProperties = ServerCore.getProjectProperties(project);
-				if (projProperties.getRuntimeTarget() != null) {
-					String[] validModuleVersions = getServerVersions(getComponentID(), projProperties.getRuntimeTarget().getRuntimeType());
-					model.setProperty(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
-				}
-			}
+//			IStatus stat = super.validate(PROJECT_NAME);
+//			if(stat.isOK()){
+//			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject((String) propertyValue);
+//			if (project != null) {
+//				
+//				String serverTargetid = (String) model.getProperty(SERVER_TARGET_ID);
+//				
+//				IProjectProperties projProperties = ServerCore.getProjectProperties(project);
+//				if (projProperties.getRuntimeTarget() != null) {
+//					String[] validModuleVersions = getServerVersions(getComponentID(), projProperties.getRuntimeTarget().getRuntimeType());
+//					model.setProperty(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
+//				}
+//			}else
+//				status = false;
+//			
+//			}
 		} else if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			model.setProperty(EAR_COMPONENT_DEPLOY_NAME, propertyValue);
 			ComponentHandle handle = computeEARHandle();

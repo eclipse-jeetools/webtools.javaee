@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
@@ -80,4 +81,7 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 //	        return super.getPropertyDescriptor(propertyName);
 //	    }	
 
+//	public IStatus validate(String propertyName) {
+//		return super.validate(propertyName);
+//	}
 }
