@@ -20,7 +20,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.internal.core.JavaModel;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;

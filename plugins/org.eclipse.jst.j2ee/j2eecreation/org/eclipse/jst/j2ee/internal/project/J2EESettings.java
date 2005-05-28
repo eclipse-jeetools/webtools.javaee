@@ -38,7 +38,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.util.Messages;
-import org.eclipse.jdt.internal.core.util.Util;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

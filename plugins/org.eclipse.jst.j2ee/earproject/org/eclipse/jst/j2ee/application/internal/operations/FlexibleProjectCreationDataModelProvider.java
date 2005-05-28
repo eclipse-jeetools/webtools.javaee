@@ -1,6 +1,5 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -11,8 +10,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModelProvider 
 		implements IFlexibleProjectCreationDataModelProperties {

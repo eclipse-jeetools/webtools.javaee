@@ -182,7 +182,7 @@
 <!-- Removing these until final location is known...   -->
 <!--===================================================-->
 <!--   <extension
-         point="com.ibm.etools.xmlcatalog.catalogContributor">
+         point="org.eclipse.wst.xml.uriresolver.catalogContributor">
       <catalogContributor
             catalogId="default">
          <mappingInfo

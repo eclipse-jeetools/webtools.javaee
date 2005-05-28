@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebComponentToEARDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
