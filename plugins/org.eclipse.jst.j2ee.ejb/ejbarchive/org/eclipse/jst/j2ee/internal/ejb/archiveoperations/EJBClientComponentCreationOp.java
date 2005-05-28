@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
@@ -30,7 +29,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreat
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
-import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
