@@ -120,6 +120,8 @@ public class XDocletPreferencePage extends PreferencePage implements
 				XDocletRuntime runtime = new XDocletRuntime();
 				runtime.setHome(xDocletPath.getText());
 				IStatus []result = runtime.validate(xDocletVersion.getItem(xDocletVersion.getSelectionIndex()));
+				// Clear the message
+				XDocletPreferencePage.this.setErrorMessage(null);
 				if(result.length > 0){
 					XDocletPreferencePage.this.setErrorMessage(result[0].getMessage());
 					//XDocletPreferencePage.this.setValid(false);
