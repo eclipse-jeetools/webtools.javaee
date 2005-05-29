@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ISessionBean;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.Logger;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IEJBGenerator;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
@@ -41,20 +42,17 @@ public class AddSessionBeanOperation extends WTPOperation {
 			if(generator != null )
 				generator.generateSession(delegate,monitor);
 			else{
-				// TODO RAISE A WARNING HERE
+				//TODO MUST RAISE A WARNING HERE
+				Logger.log(Logger.WARNING,"There is no generator");
 			}
 		} catch (InvalidRegistryObjectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		}
 		
 	}
