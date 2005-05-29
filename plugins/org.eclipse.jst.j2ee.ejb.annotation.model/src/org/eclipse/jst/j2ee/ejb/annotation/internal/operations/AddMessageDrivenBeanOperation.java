@@ -35,7 +35,11 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 			IEJBGenerator generator = AnnotationUtilities.findEjbGeneratorByName(this.getOperationDataModel().getStringProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER));
 			MessageDrivenBeanDataModel dataModel = (MessageDrivenBeanDataModel) this.getOperationDataModel();
 			IMessageDrivenBean delegate = (IMessageDrivenBean) dataModel.getDelegate();
-			generator.generateMessageDriven(delegate,monitor);
+			if( generator != null )
+				generator.generateMessageDriven(delegate,monitor);
+			else{
+				// TODO RAISE A WARNING HERE
+			}
 		} catch (InvalidRegistryObjectException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
