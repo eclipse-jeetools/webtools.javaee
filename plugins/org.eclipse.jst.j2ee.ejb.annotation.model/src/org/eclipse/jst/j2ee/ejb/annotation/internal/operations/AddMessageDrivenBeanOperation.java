@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IMessageDrivenBean;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.Logger;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IEJBGenerator;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
@@ -38,20 +39,17 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 			if( generator != null )
 				generator.generateMessageDriven(delegate,monitor);
 			else{
-				// TODO RAISE A WARNING HERE
+				//TODO MUST RAISE A WARNING HERE
+				Logger.log(Logger.WARNING,"There is no generator");
 			}
 		} catch (InvalidRegistryObjectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		}
 	}
 
