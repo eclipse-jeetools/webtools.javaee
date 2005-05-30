@@ -1,41 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin 
-   id="org.eclipse.jst.servlet.ui"
-   name="WTP Servlet UI Plug-in"
-   version="1.0.0"
-   provider-name="Eclipse.org"
-   description="This plugin contains the UI to create web projects/export projects/import war archives/create servlets and filters."
-   class="org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin">
+<plugin>
 
-   <runtime>
-      <library name="servletui.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.ui.workbench"/>
-      <import plugin="org.eclipse.jface"/>
-      <import plugin="org.eclipse.jst.j2ee.ui"/>
-      <import plugin="org.eclipse.wst.common.frameworks.ui"/>
-      <import plugin="org.eclipse.wst.common.frameworks"/>
-      <import plugin="org.eclipse.jst.j2ee"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
-      <import plugin="org.eclipse.jst.j2ee.core"/>
-      <import plugin="org.eclipse.jst.j2ee.web"/>
-      <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.wst.web"/>
-      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jdt.ui"/>
-      <import plugin="org.eclipse.wst.common.modulecore"/>
-      <import plugin="org.eclipse.jst.common.frameworks"/>
-   </requires>
-   
+    
 <!-- ====================================================== -->
 <!--                                                        -->
 <!-- Purpose: Extension for the J2EE ACtion Sets            -->

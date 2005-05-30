@@ -1,38 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin
-   id="org.eclipse.jst.j2ee.webservice"
-   name="Web Service Plug-in"
-   version="1.0.0"
-   provider-name="Eclipse.org"
-   class="org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin">
+<plugin>
 
-   <runtime>
-      <library name="webservice.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.jst.j2ee"/>
-      <import plugin="org.eclipse.wst.common.frameworks"/>
-      <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
-      <import plugin="org.eclipse.jst.j2ee.core"/>
-      <import plugin="org.eclipse.wst.common.emf"/>
-      <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.jem"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.jst.common.frameworks"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jface"/>
-      <import plugin="org.eclipse.wst.ws.parser"/>
-      <import plugin="org.eclipse.wst.wsdl"/>
-      <import plugin="org.wsdl4j"/>
-   </requires>
-
-
+    
 <!--  Dyanmic Content Provider extensions -->
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
