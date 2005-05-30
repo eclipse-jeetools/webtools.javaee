@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<testCases>
+	<testCase class="org.eclipse.jst.j2ee.archive.emftests.EarEMFEditTest">
+		<method name="testEAREdit" tagging="GLOBAL" shortName="EAR emf edit" />
+	</testCase>
+	<testCase class="org.eclipse.jst.j2ee.archive.emftests.EarEMFTest">
+		<method name="test14EARPopulation" tagging="GLOBAL" shortName="EAR 14 emf test" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.EjbEMFEditTest">
+		<method name="testEJBJarEdit" tagging="GLOBAL" shortName="EJB emf edit" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.EjbEMFEditTest">
+		<method name="testWCCMJar" tagging="GLOBAL" shortName="EJB emf edit" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.EjbEMFTest">
+		<method name="testEJBJarPopulation" tagging="GLOBAL" shortName="EJB emf test" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.EjbEMFTest">
+		<method name="test14EJBJarPopulation" tagging="GLOBAL" shortName="EJB 14 emf test" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.AppClientEMFEditTest">
+		<method name="testApplicationClientEdit" tagging="GLOBAL" shortName="Application Client emf edit" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.AppClientEMFTest">
+		<method name="test14ApplicationClientPopulation" tagging="GLOBAL" shortName="Application Client 14 emf test" />
+ 	</testCase>
+ 	
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.RarEMFEditTest">
+		<method name="testRAREdit" tagging="GLOBAL" shortName="Connector emf edit" />
+ 	</testCase>
+ 	
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.RarEMFTest">
+		<method name="test14RARPopulation" tagging="GLOBAL" shortName="Connector 14 emf test" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.WarEMFEditTest">
+		<method name="testWAREdit" tagging="GLOBAL" shortName="Web emf edit" />
+ 	</testCase>
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.WarEMFTest">
+		<method name="test14WARPopulation" tagging="GLOBAL" shortName="Web 14 emf test" />
+ 	</testCase>
+ 	
+ 	<testCase class="org.eclipse.jst.j2ee.archive.emftests.WebServicesEMFTest">
+		<method name="test14WebServicesDDPopulation" tagging="GLOBAL" shortName="Web services 14 emf test" />
+ 	</testCase> 
+ 	
+</testCases>
+	

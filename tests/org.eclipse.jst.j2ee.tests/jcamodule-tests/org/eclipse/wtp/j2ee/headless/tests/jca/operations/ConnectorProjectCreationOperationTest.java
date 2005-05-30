@@ -11,7 +11,15 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreation
 
 public class ConnectorProjectCreationOperationTest extends ModuleProjectCreationOperationTest {
     
-    public static Test suite() {
+    /**
+	 * @param name
+	 */
+	public ConnectorProjectCreationOperationTest(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
+
+	public static Test suite() {
         return new TestSuite(ConnectorProjectCreationOperationTest.class);
     }
 

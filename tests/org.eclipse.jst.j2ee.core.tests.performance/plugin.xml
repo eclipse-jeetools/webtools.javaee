@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.j2ee.core.tests.performance"
+   name="Core Performance Plug-in"
+   version="1.0.0"
+   provider-name=""
+   class="org.eclipse.jst.j2ee.core.tests.performance.CorePerformanceTestPlugin">
+
+   <runtime>
+      <library name="core-performance.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+       <import plugin="org.junit"/>
+      <import plugin="org.eclipse.jst.j2ee.tests.performance"/>
+      <import plugin="org.eclipse.wst.common.tests"/>
+      <import plugin="org.eclipse.jst.j2ee.core.tests"/>
+      <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.jst.j2ee.tests"/>
+   </requires>
+
+</plugin>

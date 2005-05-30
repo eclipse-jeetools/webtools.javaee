@@ -23,7 +23,15 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
 	public static String DEFAULT_COMPONENT_NAME = "SimpleComponent";
 	public static String DEFAULT_EAR_COMPONENT_NAME = "SimpleEARComponent";
     
-    public static Test suite() {
+    /**
+	 * @param name
+	 */
+	public ModuleProjectCreationOperationTest(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
+
+	public static Test suite() {
         TestSuite suite = new TestSuite();
         suite.addTestSuite(AppClientProjectCreationOperationTest.class);
         suite.addTestSuite(EJBProjectCreationOperationTest.class);

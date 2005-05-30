@@ -24,7 +24,15 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
 
     public static String DEFAULT_PROJECT_NAME = "SimpleAppClient";
     
-    public static Test suite() {
+    /**
+	 * @param name
+	 */
+	public AppClientProjectCreationOperationTest(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
+
+	public static Test suite() {
         return new SimpleTestSuite(AppClientProjectCreationOperationTest.class);
     }
 
