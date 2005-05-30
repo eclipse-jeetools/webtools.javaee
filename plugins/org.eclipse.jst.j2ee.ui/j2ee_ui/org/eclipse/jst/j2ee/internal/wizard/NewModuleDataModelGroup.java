@@ -135,8 +135,10 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 			public void widgetSelected(SelectionEvent e) {
 				IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
 				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-				if (runtime != null)
+				if (runtime != null){
 					serverTargetText.setText(runtime.getName());
+					synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID, runtime.getName());
+				}	
 			}
 		});
 		newButton = new Button(parent, SWT.NONE);
@@ -179,8 +181,10 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 			projectNameCombo.setText(newProjectName);
 			IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
 			IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-			if (runtime != null)
+			if (runtime != null){
 				serverTargetText.setText(runtime.getName());
+				synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID, runtime.getName());
+			}
 		}
 	}
 	
@@ -245,6 +249,15 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
 		serverTargetText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
+//		serverTargetText..addSelectionListener(new SelectionAdapter() {
+//			public void widgetSelected(SelectionEvent e) {
+//				IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
+//				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+//				if (runtime != null)
+//					serverTargetText.setText(runtime.getName());
+//			}
+//		});
+		
 		serverTargetText.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 		new Label(parent, SWT.NONE);
 		String projectName = projectNameCombo.getText();
@@ -252,9 +265,10 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 			IProject project = ProjectUtilities.getProject(projectName);
 			if (project !=null) {
 				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-				if (runtime != null)
+				if (runtime != null){
 					serverTargetText.setText(runtime.getName());
 					synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID, runtime.getName());
+				}	
 			}
 		}
 	}

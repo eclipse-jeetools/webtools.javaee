@@ -1,14 +1,19 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -17,15 +22,23 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.server.core.IModuleType;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.IRuntimeType;
 
 public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
 
 	private IDataModel earCreationDM = null;
+	private static String MODULE_NOT_SUPPORTED = "MODULE_NOT_SUPPORTED";
+	private static String MODULEVERSION_NOT_SUPPORTED = "VERSION_NOT_SUPPORTED";
+	private static String OK = "OK";
 
 	public void init() {
 		super.init();
@@ -122,6 +135,16 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		// propertySet(COMPONENT_VERSION, modVersion);
 		// return false;
 		// }
+		else if (propertyName.equals(COMPONENT_VERSION)) {
+            if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+                setProperty(USE_ANNOTATIONS, Boolean.FALSE);
+            model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
+			//this will force to  reload all the server types which are valid for this component version
+			if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+				model.notifyPropertyChange(SERVER_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
+	        }			
+
+        }
 		return status;
 	}
 
@@ -157,11 +180,163 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			return getEARPropertyDescriptor(j2eeVersion);
+		}else if(propertyName.equals(SERVER_TARGET_ID)){
+			return validJ2EEServerPropertyDescriptors();
 		}
 		return super.getValidPropertyDescriptors(propertyName);
 	}
 
+	protected String isvalidJComponentVersionsSupportedByServer(){
+		String serverID = model.getStringProperty(SERVER_TARGET_ID);
+		IRuntime runtime = getServerTargetByID(serverID);
+	
+		Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
+		int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());
+		String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
+		return isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVer);		
+	}
+	                                       
+	protected DataModelPropertyDescriptor[] validJ2EEServerPropertyDescriptors(){
+		
+		Integer  version = (Integer)model.getProperty(COMPONENT_VERSION);
+		int j2eeversion = convertModuleVersionToJ2EEVersion(version.intValue());
+		String j2eeVersionText = J2EEVersionUtil.getJ2EETextVersion(j2eeversion);
+		
+		ArrayList validServers = new ArrayList();
+		
+		IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+		DataModelPropertyDescriptor[] desc =  projectdm.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID);
+		for (int i = 0; i < desc.length; i++) {
+			DataModelPropertyDescriptor descriptor  = desc[i];
+			String name = descriptor.getPropertyDescription();
+			String runtimeid = (String)descriptor.getPropertyValue();
+			IRuntime runtime = getServerTargetByID( runtimeid );
+			String ok = isTypeSupported( runtime.getRuntimeType(), getComponentID(), j2eeVersionText );
+			if( ok.equals("OK") )
+				validServers.add(descriptor);
+		}
 
+		if (!validServers.isEmpty()) {
+			int serverTargetListSize = validServers.size();
+			DataModelPropertyDescriptor[] result = new DataModelPropertyDescriptor[serverTargetListSize];
+			for (int i = 0; i < validServers.size(); i++) {
+				result[i] = (DataModelPropertyDescriptor) validServers.get(i);
+			}
+			return result;
+		} 
+		return new DataModelPropertyDescriptor[0];
+	}
+	
+	private IRuntime getServerTargetByID(String id) {
+		List targets = getValidServerTargets();
+		IRuntime target;
+		for (int i = 0; i < targets.size(); i++) {
+			target = (IRuntime) targets.get(i);
+			if (id.equals(target.getId()))
+				return target;
+		}
+		return null;
+	}	
+	
+    private List getValidServerTargets() {
+        List validServerTargets = null;
+        validServerTargets = ServerTargetHelper.getServerTargets("", "");  //$NON-NLS-1$  //$NON-NLS-2$
+        if (validServerTargets != null && validServerTargets.isEmpty())
+            validServerTargets = null;
+        if (validServerTargets == null)
+            return Collections.EMPTY_LIST;
+        return validServerTargets;
+    }	
+	
+	//protected boolean isTypeSupported(IRuntimeType type, String moduleID, String j2eeVersion) {
+	
+	protected String isTypeSupported(IRuntimeType type, String moduleID, String j2eeVersion) {
+		IModuleType[] moduleTypes = type.getModuleTypes();
+
+		boolean moduleFound = false;
+		boolean moduleVersionFound = false;
+		
+		if (moduleTypes != null) {
+			int size = moduleTypes.length;
+			
+			for (int i = 0; i < size; i++) {
+				IModuleType moduleType = moduleTypes[i];
+				
+				if (matches(moduleType.getId(), moduleID)) {
+					moduleFound = true;
+					String version = moduleType.getVersion();
+					if( version.equals(j2eeVersion) || version.equals("*") ){
+						moduleVersionFound = true;
+						return OK;
+					}else{
+						if( i < size )
+							continue;
+					}	
+				}
+			} //for
+		}	
+			
+		if( !moduleFound ){
+			return MODULE_NOT_SUPPORTED;
+		}else{
+			if(!moduleVersionFound)
+				return MODULEVERSION_NOT_SUPPORTED;
+		}	
+		
+		return "";
+	}	
+
+	
+	protected static String[] getServerVersions(IRuntimeType type, String moduleID ) {
+		List list = new ArrayList();
+		if (type == null)
+			return null;
+		IModuleType[] moduleTypes = type.getModuleTypes();
+		if (moduleTypes != null) {
+			int size = moduleTypes.length;
+			for (int i = 0; i < size; i++) {
+				IModuleType moduleType = moduleTypes[i];
+				if (matches(moduleType.getId(), moduleID)) {
+					list.add(moduleType.getVersion());
+				}
+
+			}
+		}
+		String[] versions = null;
+		if (!list.isEmpty()) {
+			versions = new String[list.size()];
+			list.toArray(versions);
+		}
+		return versions;
+	}
+
+	protected static boolean matches(String serverTypeID, String j2eeModuleID) {
+
+		if (serverTypeID.equals("j2ee")) {
+			if (j2eeModuleID.equals(IModuleConstants.JST_WEB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EJB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EAR_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_APPCLIENT_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+				return true;
+			}
+		}else if (serverTypeID.equals("j2ee.*")) {
+			if (j2eeModuleID.equals(IModuleConstants.JST_WEB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EJB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EAR_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_APPCLIENT_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+				return true;
+			}
+		} else if (serverTypeID.equals("j2ee.web")) {//$NON-NLS-1$
+			if (j2eeModuleID.equals(IModuleConstants.JST_WEB_MODULE)) {
+				return true;
+			}
+		} else if (serverTypeID.equals("j2ee.ejb")) {//$NON-NLS-1$
+			if (j2eeModuleID.equals(IModuleConstants.JST_EJB_MODULE)) {
+				return true;
+			}
+		} else if (serverTypeID.equals("j2ee.ear")) {//$NON-NLS-1$
+			if (j2eeModuleID.equals(IModuleConstants.JST_EAR_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_APPCLIENT_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	private DataModelPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion) {
 		StructureEdit mc = null;
@@ -243,6 +418,12 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	private IStatus validateComponentVersionProperty() {
 		int componentVersion = model.getIntProperty(COMPONENT_VERSION);
+		String result = isvalidJComponentVersionsSupportedByServer();
+		if( result.equals(MODULEVERSION_NOT_SUPPORTED)){
+			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SPEC_LEVEL_NOT_FOUND));
+		}else if ( result.equals(MODULE_NOT_SUPPORTED )){
+			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_NOT_SUPPORTED));
+		}
 		if (componentVersion == -1)
 			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SPEC_LEVEL_NOT_FOUND));
 		return OK_STATUS;

@@ -83,11 +83,13 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 //		}else 
 		if (propertyName.equals(USE_ANNOTATIONS)) {
             model.notifyPropertyChange(COMPONENT_VERSION, DataModelEvent.ENABLE_CHG);
-        } else if (propertyName.equals(COMPONENT_VERSION)) {
-            if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
-                setProperty(USE_ANNOTATIONS, Boolean.FALSE);
-            model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
-        } else if (propertyName.equals(CONTEXT_ROOT)) {
+        }
+//		else if (propertyName.equals(COMPONENT_VERSION)) {
+//            if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+//                setProperty(USE_ANNOTATIONS, Boolean.FALSE);
+//            model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
+//        }
+		else if (propertyName.equals(CONTEXT_ROOT)) {
             getAddComponentToEARDataModel().setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, propertyValue);
         } else if (propertyName.equals(COMPONENT_NAME)) {
             if (!isPropertySet(CONTEXT_ROOT)) {
