@@ -1,46 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin
-   id="org.eclipse.jst.j2ee.ejb"
-   name="EJB component Plug-in"
-   description="This plugin is a non-UI plugin that provides the core functions for Enterprise Java Beans. Some of the main functions provided by this plugin are are EJB creation modification and deletion, EJB jar Import and Export. The EJBEditModel exists in this plugin"
-   version="1.0.0"
-   provider-name="Eclipse.org"
-   class="org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin">
+<plugin>
 
-   <runtime>
-      <library name="runtime/ejb.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.jst.j2ee"/>
-      <import plugin="org.eclipse.wst.common.frameworks"/>
-      <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.jst.j2ee.core"/>
-      <import plugin="org.eclipse.wst.validation"/>
-      <import plugin="org.eclipse.wst.common.emf"/>
-      <import plugin="org.eclipse.jem"/>
-      <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.wst.server.core"/>
-      <import plugin="org.eclipse.jst.server.core"/>
-      <import plugin="org.eclipse.emf.codegen"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.jdt.launching"/>
-      <import plugin="org.eclipse.jst.common.annotations.controller"/>
-      <import plugin="org.eclipse.jst.common.frameworks"/>
-      <import plugin="org.eclipse.wst.common.modulecore"/>
-      <import plugin="org.eclipse.debug.ui"/>
-   </requires>
-
-
-
+    
 <!--============================-->
 <!-- EJB 1.1 Nature             -->
 <!--============================-->
