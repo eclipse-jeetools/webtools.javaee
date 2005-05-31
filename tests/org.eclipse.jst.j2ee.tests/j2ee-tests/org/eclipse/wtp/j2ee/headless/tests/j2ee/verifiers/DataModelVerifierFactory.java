@@ -11,17 +11,11 @@ import java.util.Map;
 import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBExportDataModelVerifier;
-import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBProjectCreationDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.jca.verifiers.JCAExportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebExportDataModelVerifier;
-import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebProjectCreationDataModelVerifier;
 
 /**
  * @author Administrator
@@ -52,10 +46,10 @@ public class DataModelVerifierFactory extends org.eclipse.wst.common.tests.DataM
 			verifierMap.put(WebModuleExportDataModel.class.getName(), WebExportDataModelVerifier.class.getName());
 			verifierMap.put(AppClientModuleExportDataModel.class.getName(), AppClientExportDataModelVerifier.class.getName());
 			
-			verifierMap.put(WebComponentCreationDataModel.class.getName(), WebProjectCreationDataModelVerifier.class.getName());
-			verifierMap.put(EARComponentCreationDataModel.class.getName(), EARProjectCreationDataModelVerifier.class.getName());
-			verifierMap.put(EjbComponentCreationDataModel.class.getName(), EJBProjectCreationDataModelVerifier.class.getName());
-			verifierMap.put(AppClientComponentCreationDataModel.class.getName(),AppClientProjectCreationDataModelVerifier.class.getName());
+//			verifierMap.put(WebComponentCreationDataModel.class.getName(), WebProjectCreationDataModelVerifier.class.getName());
+//			verifierMap.put(EARComponentCreationDataModel.class.getName(), EARProjectCreationDataModelVerifier.class.getName());
+//			verifierMap.put(EjbComponentCreationDataModel.class.getName(), EJBProjectCreationDataModelVerifier.class.getName());
+//			verifierMap.put(AppClientComponentCreationDataModel.class.getName(),AppClientProjectCreationDataModelVerifier.class.getName());
 			
 			verifierMap.put(FlexibleProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
 			verifierMap.put(FlexibleJavaProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());

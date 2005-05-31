@@ -8,12 +8,12 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
 import junit.framework.Assert;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author Administrator
@@ -25,13 +25,12 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
  /* (non-Javadoc)
  * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.J2EEProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
  */
-	public void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model) {
-        AppClientComponentCreationDataModel dataModel = (AppClientComponentCreationDataModel) model;
+	public void verifyProjectCreationDataModel(IDataModel model) {
         Object key = new Object();
 		AppClientArtifactEdit appClientEdit = null;
 		
         try {
-			ComponentHandle handle = ComponentHandle.create(dataModel.getProject(),dataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_NAME));
+			ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME)),model.getStringProperty(IAppClientComponentCreationDataModelProperties.COMPONENT_NAME));
 			Object dd = null;
 			appClientEdit = (AppClientArtifactEdit) AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
        		if(appClientEdit != null) 

@@ -8,12 +8,12 @@ package org.eclipse.wtp.j2ee.headless.tests.jca.verifiers;
 
 import junit.framework.Assert;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
 /**
@@ -26,14 +26,13 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
     /* (non-Javadoc)
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
      */
-	public void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model) {
-        ConnectorComponentCreationDataModel dataModel = (ConnectorComponentCreationDataModel) model;
+	public void verifyProjectCreationDataModel(IDataModel model) {
         Object key = new Object();
 		ConnectorArtifactEdit jcaEdit = null;
 		
         try {
-			ComponentHandle handle = ComponentHandle.create(dataModel.getProject(),dataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_NAME));
-			Object dd = null;
+            ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IConnectorComponentCreationDataModelProperties.PROJECT_NAME)), model.getStringProperty(IConnectorComponentCreationDataModelProperties.COMPONENT_NAME));
+            Object dd = null;
 			jcaEdit = (ConnectorArtifactEdit) ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
        		if(jcaEdit != null) 
        			dd = (ApplicationClient) jcaEdit.getDeploymentDescriptorRoot();
