@@ -15,11 +15,13 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -34,7 +36,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * </p>
  * 
  */ 
-public class EJBArtifactEdit extends EnterpriseArtifactEdit {
+public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory{
 	
 	/**
 	 * <p>
@@ -52,6 +54,14 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static String TYPE_ID = "jst.ejb"; //$NON-NLS-1$
+
+	/**
+	 * 
+	 */
+	public EJBArtifactEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @param aHandle
@@ -408,5 +418,15 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	    res.setModuleVersionID(version);
 	    addEJBJarIfNecessary(res);
 		return ((EJBResource)getDeploymentDescriptorResource()).getRootObject();
+	}
+
+	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
+		
+		return getEJBArtifactEditForRead(aComponent);
+	}
+
+	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
+		
+		return getEJBArtifactEditForWrite(aComponent);
 	}
 }

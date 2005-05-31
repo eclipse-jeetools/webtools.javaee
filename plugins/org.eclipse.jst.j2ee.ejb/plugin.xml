@@ -309,6 +309,14 @@
     
 
    <extension
+         point="org.eclipse.wst.common.modulecore.artifactedit">
+      <artifactedit
+            typeID="jst.ejb"
+            class="org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit">
+      </artifactedit>
+   </extension> 
+   
+   <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
             editModelID="jst.ejb"
@@ -317,7 +325,7 @@
                autoload="false"
                URI="META-INF/ejb-jar.xml"/>
       </editModel>
-   </extension>  
+   </extension> 
    
    <!--============================-->
    <!-- Builder Provider registrations-->
