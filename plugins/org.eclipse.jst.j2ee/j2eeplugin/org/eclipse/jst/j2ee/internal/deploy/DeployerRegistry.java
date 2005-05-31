@@ -24,9 +24,9 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -109,7 +109,7 @@ public class DeployerRegistry {
 					IVirtualComponent component = components[j];
 					EnterpriseArtifactEdit edit = null;
 					try {
-					edit = (EnterpriseArtifactEdit)ComponentUtil.getArtifactEditForRead(component);
+					edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
 					EObject root = edit.getDeploymentDescriptorRoot();
 					if (modules.contains(root))
 						continue;
@@ -172,7 +172,7 @@ public class DeployerRegistry {
 	 */
 	public List getDeployModuleExtensions(EObject module, IRuntime runtime) {
 
-		IVirtualComponent comp = ComponentUtil.findComponent(module);
+		IVirtualComponent comp = ComponentUtilities.findComponent(module);
 		String typeID = comp.getComponentTypeId();
 		String runtimeID = runtime.getRuntimeType().getId();
 		return getDeployers(typeID, runtimeID);
