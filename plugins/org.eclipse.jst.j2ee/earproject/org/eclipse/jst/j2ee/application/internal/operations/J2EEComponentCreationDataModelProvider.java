@@ -163,7 +163,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
 		int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());
 		String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
-		return isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVer);		
+		if(runtime != null)
+			return isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVer);	
+		return "";
 	}
 	                                       
 	protected DataModelPropertyDescriptor[] validJ2EEServerPropertyDescriptors(){
