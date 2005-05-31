@@ -384,37 +384,13 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		new Label(parent, SWT.NONE); //pad
 	}	
 	
-//	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
-//		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
-//		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
-//		if (isOK && model != null) {
-//			//model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-//			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-//			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
-//			Object[] preAddition = new Object[preAdditionDescriptors.length];
-//			for (int i = 0; i < preAddition.length; i++) {
-//				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
-//			}
-//			Object[] postAddition = new Object[postAdditionDescriptors.length];
-//			for (int i = 0; i < postAddition.length; i++) {
-//				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
-//			}
-//			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
-//
-//            //model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-//			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-//			if (newAddition != null)
-//				model.setProperty(RUNTIME_TARGET_ID, newAddition);
-//		}
-//		return isOK;
-//	}
+
 	
 	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
 		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(SERVER_TARGET_ID);
 		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
 		if (isOK && model != null) {
-			//model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-			//model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+
 			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(SERVER_TARGET_ID);
 			Object[] preAddition = new Object[preAdditionDescriptors.length];
 			for (int i = 0; i < preAddition.length; i++) {
@@ -426,7 +402,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 			}
 			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
 
-            //model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
 			model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
 			if (newAddition != null)
 				model.setProperty(SERVER_TARGET_ID, newAddition);
