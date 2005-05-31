@@ -29,5 +29,6 @@
             factoryClass="org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModelFactory">
       </editModel>
    </extension>
+    
         
 </plugin>

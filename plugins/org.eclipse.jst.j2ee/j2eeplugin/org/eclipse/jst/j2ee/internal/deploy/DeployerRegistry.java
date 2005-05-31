@@ -24,8 +24,15 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtil;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.server.core.IRuntime;
 
@@ -99,16 +106,26 @@ public class DeployerRegistry {
 				object = ProjectUtilities.getProject(object);
 			}
 			if (object instanceof IProject) {
-				J2EENature nature = J2EENature.getRegisteredRuntime((IProject) object);
-				if (nature == null)
-					continue;
-				if (modules.contains(nature.getDeploymentDescriptorRoot()))
-					continue;
-				// Order Ears first...
-				if (nature.getNatureID().equals(IEARNatureConstants.NATURE_ID))
-					modules.add(0, nature.getDeploymentDescriptorRoot());
-				else
-					modules.add(nature.getDeploymentDescriptorRoot());
+				IFlexibleProject flexProj = ComponentCore.createFlexibleProject((IProject)object);
+				IVirtualComponent[] components = flexProj.getComponents();
+				for (int j = 0; j < components.length; j++) {
+					IVirtualComponent component = components[j];
+					EnterpriseArtifactEdit edit = null;
+					try {
+					edit = (EnterpriseArtifactEdit)ComponentUtil.getArtifactEditForRead(component);
+					EObject root = edit.getDeploymentDescriptorRoot();
+					if (modules.contains(root))
+						continue;
+					// Order Ears first...
+					if (component.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
+						modules.add(0, root);
+					else
+						modules.add(root);
+					} finally {
+						if (edit != null)
+							edit.dispose();
+					}
+				}
 			}
 		}
 		return modules;
@@ -158,9 +175,9 @@ public class DeployerRegistry {
 	 */
 	public List getDeployModuleExtensions(EObject module, IRuntime runtime) {
 
-		IProject proj = ProjectUtilities.getProject(module);
-		String natureID = J2EENature.getRegisteredRuntime(proj).getNatureID();
+		IVirtualComponent comp = ComponentUtil.findComponent(module);
+		String typeID = comp.getComponentTypeId();
 		String runtimeID = runtime.getRuntimeType().getId();
-		return getDeployers(natureID, runtimeID);
+		return getDeployers(typeID, runtimeID);
 	}
 }

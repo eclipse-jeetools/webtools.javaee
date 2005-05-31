@@ -39,6 +39,14 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements WorkingCopyProvider {
 
 	/**
+	 * 
+	 */
+	protected EnterpriseArtifactEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException

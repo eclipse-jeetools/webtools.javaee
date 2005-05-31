@@ -43,7 +43,10 @@
       <complexType>
          <sequence>
             <element ref="runtime" minOccurs="1" maxOccurs="unbounded"/>
-            <element ref="nature" minOccurs="1" maxOccurs="unbounded"/>
+            <choice>
+               <element ref="nature"/>
+               <element ref="component"/>
+            </choice>
          </sequence>
          <attribute name="deployer_class" type="string" use="required">
             <annotation>
@@ -70,6 +73,18 @@
    <element name="nature">
       <complexType>
          <attribute name="module_nature_id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="component">
+      <complexType>
+         <attribute name="component_type" type="string" use="required">
             <annotation>
                <documentation>
                   

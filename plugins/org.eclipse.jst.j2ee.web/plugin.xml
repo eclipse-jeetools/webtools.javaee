@@ -518,6 +518,14 @@
       </editModel>
    </extension>
    
+   <extension
+         point="org.eclipse.wst.common.modulecore.artifactedit">
+      <artifactedit
+            typeID="jst.web"
+            class="org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit">
+      </artifactedit>
+   </extension> 
+   
    <!--============================-->
    <!-- Builder Provider registrations-->
    <!--============================-->

@@ -44,6 +44,8 @@ public class DeployerRegistryReader extends RegistryReader {
 	static final String DEPLOYER_CLASS = "deployer_class"; //$NON-NLS-1$
 	static final String MODULE_TYPE_NATURE_ID = "module_nature_id"; //$NON-NLS-1$
 	static final String NATURE = "nature"; //$NON-NLS-1$
+	static final String COMPONENT_TYPE_ID = "component_type"; //$NON-NLS-1$
+	static final String COMPONENT = "component"; //$NON-NLS-1$
 
 	public DeployerRegistryReader() {
 		super(J2EEPlugin.PLUGIN_ID, J2EE_DEPLOYER_EXTENSION_POINT);
@@ -58,7 +60,7 @@ public class DeployerRegistryReader extends RegistryReader {
 		if (!element.getName().equals(DEPLOYER))
 			return false;
 		List runtimeList = new ArrayList();
-		List natureList = new ArrayList();
+		List natureandcomponents = new ArrayList();
 		IConfigurationElement[] runtimes = element.getChildren(RUNTIME);
 		for (int i = 0; i < runtimes.length; i++) {
 			IConfigurationElement runtime = runtimes[i];
@@ -69,7 +71,13 @@ public class DeployerRegistryReader extends RegistryReader {
 		for (int i = 0; i < natures.length; i++) {
 			IConfigurationElement nature = natures[i];
 			String natureID = nature.getAttribute(MODULE_TYPE_NATURE_ID);
-			natureList.add(natureID);
+			natureandcomponents.add(natureID);
+		}
+		IConfigurationElement[] components = element.getChildren(COMPONENT);
+		for (int i = 0; i < components.length; i++) {
+			IConfigurationElement component = components[i];
+			String compType = component.getAttribute(COMPONENT_TYPE_ID);
+			natureandcomponents.add(compType);
 		}
 
 		ICommand deployer = null;
@@ -82,7 +90,7 @@ public class DeployerRegistryReader extends RegistryReader {
 			e.printStackTrace();
 		}
 		if (deployer != null) {
-			DeployerRegistry.instance().register(deployer, runtimeList, natureList);
+			DeployerRegistry.instance().register(deployer, runtimeList, natureandcomponents);
 			return true;
 		}
 		return false;

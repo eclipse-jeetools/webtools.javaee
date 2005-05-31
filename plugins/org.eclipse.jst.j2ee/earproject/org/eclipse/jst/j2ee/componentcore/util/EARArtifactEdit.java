@@ -23,11 +23,13 @@ import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -44,7 +46,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  * </p>
  */
 
-public class EARArtifactEdit extends EnterpriseArtifactEdit {
+public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory{
 
 	public static final Class ADAPTER_TYPE = EARArtifactEdit.class;
 	/**
@@ -54,6 +56,14 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public static String TYPE_ID = "jst.ear"; //$NON-NLS-1$
 
+
+	/**
+	 * 
+	 */
+	public EARArtifactEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @param aHandle
@@ -436,6 +446,16 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 			}
 		}
 		return components;
+	}
+
+	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
+		
+		return getEARArtifactEditForRead(aComponent);
+	}
+
+	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
+		
+		return getEARArtifactEditForWrite(aComponent);
 	}
 	
 }

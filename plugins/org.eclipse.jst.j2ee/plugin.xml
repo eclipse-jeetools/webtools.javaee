@@ -117,6 +117,13 @@
       </editModel>
    </extension>
    <extension
+         point="org.eclipse.wst.common.modulecore.artifactedit">
+      <artifactedit
+            typeID="jst.ear"
+            class="org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit">
+      </artifactedit>
+   </extension> 
+   <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
             editModelID="jst.appclient"
@@ -126,6 +133,13 @@
                URI="META-INF/application-client.xml"/>
       </editModel>
    </extension>
+      <extension
+         point="org.eclipse.wst.common.modulecore.artifactedit">
+      <artifactedit
+            typeID="jst.appclient"
+            class="org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit">
+      </artifactedit>
+   </extension> 
 <!-- Register the nature id with the EMFNature -->
    <!-- <extension
          point="org.eclipse.jem.workbench.nature_registration">

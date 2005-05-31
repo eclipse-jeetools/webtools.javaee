@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -36,6 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -54,7 +56,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  * </p>
  * 
  */
-public class WebArtifactEdit extends EnterpriseArtifactEdit {
+public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory{
 
 	/**
 	 * <p>
@@ -75,6 +77,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 	
 	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+
+	/**
+	 * 
+	 */
+	public WebArtifactEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	/**
 	 * @param aHandle
@@ -564,5 +575,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public WebApp getWebApp() {
 		
 		return (WebApp)getDeploymentDescriptorRoot();
+	}
+
+
+	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
+		return getWebArtifactEditForRead(aComponent);
+	}
+
+
+	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
+		return getWebArtifactEditForWrite(aComponent);
 	}
 }

@@ -15,15 +15,17 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
+public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 	
 	/**
 	 * <p>
@@ -41,6 +43,14 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static String TYPE_ID = IModuleConstants.JST_APPCLIENT_MODULE; //$NON-NLS-1$
+
+	/**
+	 * 
+	 */
+	public AppClientArtifactEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @param aHandle
@@ -326,4 +336,14 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	    addAppClientIfNecessary(res);
 		return ((ApplicationClientResource)getDeploymentDescriptorResource()).getRootObject();
     }
+
+	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
+		
+		return getAppClientArtifactEditForRead(aComponent);
+	}
+
+	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
+		
+		return getAppClientArtifactEditForWrite(aComponent);
+	}
 }

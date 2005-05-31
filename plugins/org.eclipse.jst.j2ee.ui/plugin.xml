@@ -432,7 +432,7 @@
 <!-- ================================================== -->
 <!--          DEPLOY EXTENSIONS                         -->
 <!-- ================================================== -->
-<!--   <extension
+  <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             objectClass="java.lang.Object"
@@ -465,38 +465,16 @@
                <objectClass
                      name="org.eclipse.jst.j2ee.client.ApplicationClient">
                </objectClass>
-               <and>
-                  <or>
+               
                      <objectState
                            name="projectNature"
-                           value="org.eclipse.jst.j2ee.EARNature">
+                           value="org.eclipse.wst.common.componentcore.ModuleCoreNature">
                      </objectState>
-                     <objectState
-                           name="projectNature"
-                           value="org.eclipse.jst.j2ee.ApplicationNature">
-                     </objectState>
-                     <objectState
-                           name="projectNature"
-                           value="org.eclipse.jst.j2ee.ApplicationClientNature">
-                     </objectState>
-                     <objectState
-                           name="projectNature"
-                           value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-                     </objectState>
-                     <objectState
-                           name="projectNature"
-                           value="org.eclipse.jst.j2ee.ejb.EJBNature">
-                     </objectState>
-                     <objectState
-                           name="projectNature"
-                           value="org.eclipse.jst.j2ee.web.WebNature">
-                     </objectState>
-                  </or>
-               </and>
+          
             </or>
          </visibility>
       </objectContribution>
-   </extension> -->
+   </extension>
 <!-- Navigator Object Contributions -->
 
    

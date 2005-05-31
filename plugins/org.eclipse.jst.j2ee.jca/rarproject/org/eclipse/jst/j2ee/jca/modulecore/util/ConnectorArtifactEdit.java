@@ -12,10 +12,12 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -27,7 +29,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * of the correct artifact edit class.
  * </p>
  */
-public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
+public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 	/**
 	 * <p>
 	 * Identifier used to link ConnectorArtifactEdit to a
@@ -45,6 +47,14 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static String TYPE_ID = IModuleConstants.JST_CONNECTOR_MODULE; //$NON-NLS-1$
+
+	/**
+	 * 
+	 */
+	public ConnectorArtifactEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @param aHandle
@@ -348,5 +358,15 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		res.setModuleVersionID(version);
 		addConnectorIfNecessary(res);
 		return ((ConnectorResource) getDeploymentDescriptorResource()).getRootObject();
+	}
+
+	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
+		
+		return getConnectorArtifactEditForRead(aComponent);
+	}
+
+	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
+		
+		return getConnectorArtifactEditForWrite(aComponent);
 	}
 }
