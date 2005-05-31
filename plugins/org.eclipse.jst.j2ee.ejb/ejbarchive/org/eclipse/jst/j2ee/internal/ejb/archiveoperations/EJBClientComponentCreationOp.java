@@ -24,8 +24,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
@@ -46,6 +45,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 
 public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOperationEx implements IEJBClientComponentCreationDataModelProperties{
 
@@ -57,7 +57,7 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
 
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
         try {
-            createProjectIfNecessary(model.getStringProperty(PROJECT_NAME));
+            createProjectIfNecessary(monitor, model.getStringProperty(PROJECT_NAME));
 
     
             super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, null);
@@ -71,6 +71,8 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
         } catch (InvocationTargetException e) {
             Logger.getLogger().log(e.getMessage());
         } catch (InterruptedException e) {
+            Logger.getLogger().log(e.getMessage());
+        } catch (ExecutionException e){
             Logger.getLogger().log(e.getMessage());
         }
         return OK_STATUS;
@@ -183,15 +185,15 @@ public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOp
                 ejbEdit.dispose();
         }  
     }   
-    
-    private void createProjectIfNecessary(String name) throws CoreException, InvocationTargetException, InterruptedException {
+     
+    private void createProjectIfNecessary(IProgressMonitor monitor, String name) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         if( model.getBooleanProperty(CREATE_PROJECT)){
             //check if project exists
             IProject proj = ProjectUtilities.getProject(name);
             if( !proj.exists() ){
-                FlexibleJavaProjectCreationDataModel dataModel = new FlexibleJavaProjectCreationDataModel();
-                dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, name);
-                dataModel.getDefaultOperation().run(null);
+                IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
+                dataModel.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, name);
+                dataModel.getDefaultOperation().execute(monitor, null);
             }   
         }
     }
