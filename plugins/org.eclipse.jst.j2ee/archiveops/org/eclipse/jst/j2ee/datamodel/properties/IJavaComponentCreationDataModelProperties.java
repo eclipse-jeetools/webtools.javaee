@@ -44,10 +44,8 @@ public interface IJavaComponentCreationDataModelProperties extends IComponentCre
 	public static final String MANIFEST_FOLDER = "IJavaComponentCreationDataModelProperties.MANIFEST_FOLDER";
 	
     /**
-     * Optional, type String. This is used to specify the server target and is required if 
-     * the <code>ADD_SERVER_TARGET</code> property is set to <code>Boolean.TRUE</code>.
+     * Required, type String. This is used to specify the server target.
      * 
-     * @see org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel
      */
     public static final String SERVER_TARGET_ID = "IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID";	
 }
