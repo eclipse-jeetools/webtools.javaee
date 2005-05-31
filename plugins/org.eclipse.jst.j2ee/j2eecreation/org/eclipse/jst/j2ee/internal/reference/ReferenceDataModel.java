@@ -107,9 +107,9 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 				initializeOwnerNature();
 				notifyDefaultChange(MODULE_TYPE);
 				notifyDefaultChange(J2EE_VERSION);
-				IProject proj = ProjectUtilities.getProject((EObject) propertyValue);
-				if (proj != null)
-					setProperty(EditModelOperationDataModel.PROJECT_NAME, proj.getName());
+//				IProject proj = ProjectUtilities.getProject((EObject) propertyValue);
+//				if (proj != null)
+//					setProperty(EditModelOperationDataModel.PROJECT_NAME, proj.getName());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
