@@ -69,18 +69,4 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 		}
 		return null;
 	}
-	
-//	 public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName) {
-//	        if (propertyName.equals(SERVER_TARGET_ID)) {
-//				IDataModel serverTargetModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
-//				return serverTargetModel.getPropertyDescriptor(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
-//				
-//				//super.getPropertyDescriptor(propertyName);
-//	        }
-//	        return super.getPropertyDescriptor(propertyName);
-//	    }	
-
-//	public IStatus validate(String propertyName) {
-//		return super.validate(propertyName);
-//	}
 }
