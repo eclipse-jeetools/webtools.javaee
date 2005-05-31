@@ -86,24 +86,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean status = super.propertySet(propertyName, propertyValue);
-		if (PROJECT_NAME.equals(propertyName) && propertyValue != null && ((String) propertyValue).length() != 0) {
-//			IStatus stat = super.validate(PROJECT_NAME);
-//			if(stat.isOK()){
-//			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject((String) propertyValue);
-//			if (project != null) {
-//				
-//				String serverTargetid = (String) model.getProperty(SERVER_TARGET_ID);
-//				
-//				IProjectProperties projProperties = ServerCore.getProjectProperties(project);
-//				if (projProperties.getRuntimeTarget() != null) {
-//					String[] validModuleVersions = getServerVersions(getComponentID(), projProperties.getRuntimeTarget().getRuntimeType());
-//					model.setProperty(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
-//				}
-//			}else
-//				status = false;
-//			
-//			}
-		} else if (propertyName.equals(EAR_COMPONENT_NAME)) {
+		if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			model.setProperty(EAR_COMPONENT_DEPLOY_NAME, propertyValue);
 			ComponentHandle handle = computeEARHandle();
 			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
@@ -121,21 +104,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 					earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
 			}
 		} 
-//		else if (propertyName.equals(PROJECT_NAME)) {
-//			WorkbenchComponent workbenchComp = getTargetWorkbenchComponent();
-//			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp, propertyValue);
-//		} 
-		
 		else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(NESTED_EAR_COMPONENT_CREATION_DM, IDataModel.DEFAULT_CHG);
-		}
-		// else if (propertyName.equals(J2EE_VERSION)) {
-		// Integer modVersion = convertJ2EEVersionToModuleVersion((Integer)
-		// propertyValue);
-		// propertySet(COMPONENT_VERSION, modVersion);
-		// return false;
-		// }
-		else if (propertyName.equals(COMPONENT_VERSION)) {
+		}else if (propertyName.equals(COMPONENT_VERSION)) {
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
                 setProperty(USE_ANNOTATIONS, Boolean.FALSE);
             model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
@@ -143,7 +114,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
 				model.notifyPropertyChange(SERVER_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
 	        }			
-
         }
 		return status;
 	}
@@ -248,7 +218,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
         return validServerTargets;
     }	
 	
-	//protected boolean isTypeSupported(IRuntimeType type, String moduleID, String j2eeVersion) {
 	
 	protected String isTypeSupported(IRuntimeType type, String moduleID, String j2eeVersion) {
 		IModuleType[] moduleTypes = type.getModuleTypes();
@@ -273,9 +242,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 							continue;
 					}	
 				}
-			} //for
+			}
 		}	
-			
 		if( !moduleFound ){
 			return MODULE_NOT_SUPPORTED;
 		}else{
