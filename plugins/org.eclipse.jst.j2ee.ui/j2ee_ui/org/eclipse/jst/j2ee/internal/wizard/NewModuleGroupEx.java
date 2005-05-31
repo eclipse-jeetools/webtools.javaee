@@ -27,7 +27,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -45,6 +44,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreat
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
@@ -190,7 +190,7 @@ public class NewModuleGroupEx {
 		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(projModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
 		if (Window.OK == dialog.open()) {
-			String newProjectName = projModel.getStringProperty(FlexibleProjectCreationDataModel.PROJECT_NAME);
+			String newProjectName = projModel.getStringProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME);
 			projectNameCombo.add(newProjectName);
 			projectNameCombo.setText(newProjectName);
 			IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
