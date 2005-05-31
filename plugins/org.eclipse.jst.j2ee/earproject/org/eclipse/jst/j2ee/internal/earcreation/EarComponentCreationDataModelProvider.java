@@ -126,21 +126,24 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
     public IStatus validate(String propertyName) {
         if (propertyName.equals(PROJECT_NAME)) {
             // validate server target
-            String projectName = getDataModel().getStringProperty(PROJECT_NAME);
-            if (projectName != null && projectName.length() != 0) {
-                IProject project = ProjectUtilities.getProject(projectName);
-                if (project != null) {
-                    IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-                    if (runtime != null) {
-                        IRuntimeType type = runtime.getRuntimeType();
-                        String typeId = type.getId();
-                        if (typeId.startsWith("org.eclipse.jst.server.tomcat")) { //$NON-NLS-1$
-                            String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
-                            return WTPCommonPlugin.createErrorStatus(msg);
-                        }
-                    }
-                }
-            }
+			IStatus stat = super.validate(propertyName);
+			if( stat.isOK()){
+	            String projectName = getDataModel().getStringProperty(PROJECT_NAME);
+	            if (projectName != null && projectName.length() != 0) {
+	                IProject project = ProjectUtilities.getProject(projectName);
+	                if (project != null) {
+	                    IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+	                    if (runtime != null) {
+	                        IRuntimeType type = runtime.getRuntimeType();
+	                        String typeId = type.getId();
+	                        if (typeId.startsWith("org.eclipse.jst.server.tomcat")) { //$NON-NLS-1$
+	                            String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+	                            return WTPCommonPlugin.createErrorStatus(msg);
+	                        }
+	                    }
+	                }
+	            }
+			}
         }
         return super.validate(propertyName);
     }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
@@ -121,6 +122,14 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	private ComponentHandle computeEARHandle(){
 		String earCompName = (String) model.getProperty(EAR_COMPONENT_NAME);
 		String earProjname = (String) model.getProperty(EAR_COMPONENT_NAME);
+		
+		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
+		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
+		
+		IStatus stat = earDM.validateProperty(PROJECT_NAME);
+		if( stat != OK_STATUS )
+			return null;
+		
 		ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earCompName);
 		return handle;
 	}
@@ -160,12 +169,13 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		String serverID = model.getStringProperty(SERVER_TARGET_ID);
 		IRuntime runtime = getServerTargetByID(serverID);
 	
+		if( serverID.equals("") || runtime == null ){
+			return MODULEVERSION_NOT_SUPPORTED;
+		}
 		Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
 		int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());
 		String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
-		if(runtime != null)
-			return isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVer);	
-		return "";
+		return isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVer);		
 	}
 	                                       
 	protected DataModelPropertyDescriptor[] validJ2EEServerPropertyDescriptors(){
