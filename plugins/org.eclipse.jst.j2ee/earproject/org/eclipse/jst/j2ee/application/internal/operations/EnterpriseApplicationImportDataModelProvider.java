@@ -672,8 +672,8 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		if (earFile != null)
 			earFile.close();
 	}
-
-	public J2EEArtifactImportDataModel getMatchingEJBJarOrClient(J2EEArtifactImportDataModel model) {
+//TODO: Implement with J2EEArtifactImportDataModelProvider
+/*	public J2EEArtifactImportDataModel getMatchingEJBJarOrClient(J2EEArtifactImportDataModel model) {
 		if (clientJarToEjbJarModels.containsKey(model)) {
 			return (J2EEArtifactImportDataModel) clientJarToEjbJarModels.get(model);
 		} else if (ejbJarToClientJarModels.containsKey(model)) {
@@ -681,7 +681,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		} else {
 			return null;
 		}
-	}
+	}*/
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return null;
