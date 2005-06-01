@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
@@ -30,6 +31,7 @@ import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
@@ -327,10 +329,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    // TODO use new flexible project stuff
-                    return null;
-                    // return new
-                    // AppClientModuleCreationWizard(getDefaultModel().getClientModel());
+                    return new AppClientComponentCreationWizard(DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider()));
                 }
             };
         }
@@ -352,7 +351,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                     IWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard"); //$NON-NLS-1$
                     try {
                         result = descriptor.createWizard();
                     } catch (CoreException ce) {
@@ -380,7 +379,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                     IWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard"); //$NON-NLS-1$
                     try {
                         result = descriptor.createWizard();
                     } catch (CoreException ce) {
@@ -407,7 +406,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                 protected IWizard createWizard() {
                     IWizard result = null;
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"); //$NON-NLS-1$
+                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard"); //$NON-NLS-1$
                     try {
                         result = servletWizardDescriptor.createWizard();
                     } catch (CoreException ce) {
