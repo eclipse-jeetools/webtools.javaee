@@ -39,10 +39,10 @@ import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 /**
@@ -67,9 +67,11 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 
 	protected boolean yesToAll = false;
 
-	public EJBClientJARRemovalOperation(EJBClientComponentDataModel dataModel, IOperationHandler opHandler) {
+	public EJBClientJARRemovalOperation(IDataModel dataModel, IOperationHandler opHandler) {
 		super(dataModel, opHandler);
-		shouldDelete = dataModel.getBooleanProperty(EJBClientComponentDataModel.DELETE_WHEN_FINISHED);
+		shouldDelete = true;
+        //TODO allow user to set if old project should be deleted.....a new data model provider may be needed.
+        //dataModel.getBooleanProperty(IEJBClientComponentCreationDataModelProperties.DELETE_WHEN_FINISHED);
 	}
 
 	/*

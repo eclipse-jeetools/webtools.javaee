@@ -32,13 +32,13 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**
  * TODO fix up this class to be on new hierarchy
@@ -57,16 +57,16 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 	protected IProgressMonitor monitor;
 	protected IProgressMonitor moveResourceMonitor;
 
-	public AbstractEJBClientJAROperation(EJBClientComponentDataModel dataModel, IOperationHandler opHandler) {
+	public AbstractEJBClientJAROperation(IDataModel dataModel, IOperationHandler opHandler) {
 		//super(dataModel);
-		ejbProject = getEJBProject(dataModel.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
+		ejbProject = getEJBProject(dataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME));
 		operationHandler = opHandler;
 		validateEditContext = opHandler.getContext();
 	}
 
-	public AbstractEJBClientJAROperation(EJBClientComponentDataModel dataModel) {
+	public AbstractEJBClientJAROperation(IDataModel dataModel) {
 		//super(dataModel);
-		ejbProject = getEJBProject(dataModel.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
+		ejbProject = getEJBProject(dataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME));
 		operationHandler = null;
 	}
 
