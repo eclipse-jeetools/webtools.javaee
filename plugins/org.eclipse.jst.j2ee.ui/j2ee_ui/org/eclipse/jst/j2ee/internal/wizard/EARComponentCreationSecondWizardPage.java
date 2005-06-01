@@ -13,9 +13,9 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -88,7 +88,7 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage{
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				if (!ignoreCheckedState) {
-					((EARComponentCreationDataModel)getDataModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+					getDataModel().setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 				}
 			}
 		});
@@ -200,7 +200,7 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage{
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(false);
-			((EARComponentCreationDataModel)getDataModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, null);
+			    getDataModel().setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, null);
 		} finally {
 			ignoreCheckedState = false;
 		}
@@ -213,7 +213,7 @@ public class EARComponentCreationSecondWizardPage extends DataModelWizardPage{
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(true);
-			((EARComponentCreationDataModel)getDataModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+			getDataModel().setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 		} finally {
 			ignoreCheckedState = false;
 		}

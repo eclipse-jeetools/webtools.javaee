@@ -10,8 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -68,7 +68,7 @@ public class DefaultJ2EEComponentCreationWizard extends DataModelWizard {
 		if (!super.canFinish()) {
 			return false;
 		}
-		return getDataModel().getBooleanProperty(DefaultJ2EEComponentCreationDataModel.ENABLED);
+		return getDataModel().getBooleanProperty(IDefaultJ2EEComponentCreationDataModelProperties.ENABLED);
 	}
 
     protected IDataModelProvider getDefaultProvider() {

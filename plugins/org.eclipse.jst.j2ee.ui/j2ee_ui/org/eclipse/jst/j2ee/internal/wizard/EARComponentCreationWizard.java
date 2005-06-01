@@ -7,7 +7,6 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -15,7 +14,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 public class EARComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 	
@@ -48,21 +46,6 @@ public class EARComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 */
 	public EARComponentCreationWizard(IDataModel model) {
 		super(model);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return a {@link WebProjectCreationDataModel} and defaults
-	 * the value of {@link J2EEModuleCreationDataModelOld#ADD_TO_EAR} to <b>true</b>
-	 * </p>
-	 * 
-	 * @return Returns the specific operation data model for the creation of J2EE Web modules
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		EARComponentCreationDataModel aModel = new EARComponentCreationDataModel();
-		return aModel;
 	}
 	/** 
 	 * {@inheritDoc}   

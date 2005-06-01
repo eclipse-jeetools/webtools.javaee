@@ -11,17 +11,14 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * <p>
@@ -63,21 +60,6 @@ public class WebComponentCreationWizard extends J2EEComponentCreationWizard impl
 		super(model);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return a {@link WebProjectCreationDataModel} and defaults
-	 * the value of {@link J2EEModuleCreationDataModelOld#ADD_TO_EAR} to <b>true</b>
-	 * </p>
-	 * 
-	 * @return Returns the specific operation data model for the creation of J2EE Web modules
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		WebComponentCreationDataModel aModel = new WebComponentCreationDataModel();
-		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
-		return aModel;
-	}
 	/** 
 	 * {@inheritDoc}   
 	 * 
