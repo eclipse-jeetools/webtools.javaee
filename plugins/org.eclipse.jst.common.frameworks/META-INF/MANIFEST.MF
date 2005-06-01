@@ -7,7 +7,8 @@ Bundle-ClassPath: jdt_integration.jar
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.common.jdt.internal.classpath,
- org.eclipse.jst.common.jdt.internal.integration
+ org.eclipse.jst.common.jdt.internal.integration,
+ org.eclipse.jst.common.componentcore.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
  org.eclipse.emf.ecore,
