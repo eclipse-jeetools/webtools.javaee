@@ -3,17 +3,13 @@ package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.JaxRPCMapArtifactEdit;
-import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
 public class JaxRPCMapArtifactEditFVTest extends TestCase {
 
