@@ -34,7 +34,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -742,6 +741,6 @@ public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	}
 
 	public String getDevelopmentAcivityID() {
-		return DefaultModuleProjectCreationOperation.ENTERPRISE_JAVA;
+		return ENTERPRISE_JAVA;
 	}
 }

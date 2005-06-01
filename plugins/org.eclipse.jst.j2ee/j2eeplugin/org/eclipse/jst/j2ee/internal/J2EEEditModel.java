@@ -61,7 +61,27 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
 public class J2EEEditModel extends EditModel {
 
 	private WorkingCopyManager workingCopyManager = null;
-
+    /**
+     * This activity no longer exists use ENTERPRISE_JAVA instead
+     * 
+     * @deprecated
+     */
+    public static final String APP_CLIENT_DEV_ACTIVITY_ID = "org.eclipse.jst.j2ee.application.client.development"; //$NON-NLS-1$
+    /**
+     * This activity no longer exists use ENTERPRISE_JAVA instead
+     * 
+     * @deprecated
+     */
+    public static final String EJB_DEV_ACTIVITY_ID = "com.ibm.wtp.ejb.development"; //$NON-NLS-1$
+    /**
+     * This activity no longer exists use ENTERPRISE_JAVA instead
+     * 
+     * @deprecated
+     */
+    public static final String JCA_DEV_ACTIVITY_ID = "com.ibm.wtp.jca.development"; //$NON-NLS-1$
+    public static final String WEB_DEV_ACTIVITY_ID = "com.ibm.wtp.web.development"; //$NON-NLS-1$
+    public static final String ENTERPRISE_JAVA = "com.ibm.wtp.ejb.development"; //$NON-NLS-1$
+   
 	/**
 	 * J2EEEditModel constructor comment.
 	 */

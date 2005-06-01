@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
@@ -108,6 +107,6 @@ public class AppClientEditModel extends J2EEEditModel {
 	}
 
 	public String getDevelopmentAcivityID() {
-		return DefaultModuleProjectCreationOperation.ENTERPRISE_JAVA;
+		return ENTERPRISE_JAVA;
 	}
 }

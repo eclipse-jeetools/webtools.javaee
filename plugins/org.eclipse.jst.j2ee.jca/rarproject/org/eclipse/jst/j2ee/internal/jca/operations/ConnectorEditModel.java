@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -118,7 +117,7 @@ public class ConnectorEditModel extends J2EEEditModel {
 	}
 
 	public String getDevelopmentAcivityID() {
-		return DefaultModuleProjectCreationOperation.ENTERPRISE_JAVA;
+		return ENTERPRISE_JAVA;
 	}
 
 }
