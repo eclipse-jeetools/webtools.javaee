@@ -16,7 +16,6 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -245,6 +244,6 @@ public class EJBEditModel extends AbstractEJBEditModel implements WorkingCopyPro
 	}
 
 	public String getDevelopmentAcivityID() {
-		return DefaultModuleProjectCreationOperation.ENTERPRISE_JAVA;
+		return ENTERPRISE_JAVA;
 	}
 }
