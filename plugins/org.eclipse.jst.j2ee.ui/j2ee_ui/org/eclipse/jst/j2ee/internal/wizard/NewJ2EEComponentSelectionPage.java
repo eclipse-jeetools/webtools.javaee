@@ -351,7 +351,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                     IWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard"); //$NON-NLS-1$
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard"); //$NON-NLS-1$
                     try {
                         result = descriptor.createWizard();
                     } catch (CoreException ce) {
@@ -379,7 +379,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                     IWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard"); //$NON-NLS-1$
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"); //$NON-NLS-1$
                     try {
                         result = descriptor.createWizard();
                     } catch (CoreException ce) {
@@ -406,7 +406,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                 protected IWizard createWizard() {
                     IWizard result = null;
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard"); //$NON-NLS-1$
+                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.WebComponentCreationWizard"); //$NON-NLS-1$
                     try {
                         result = servletWizardDescriptor.createWizard();
                     } catch (CoreException ce) {
