@@ -148,7 +148,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 *  
 	 */
 	public EObject getDeploymentDescriptorRoot(String mappingFilePathURI) {
-		List contents = getDeploymentDescriptorResource().getContents();
+		List contents = getDeploymentDescriptorResource(mappingFilePathURI).getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
 		addJavaWSDLMappingIfNecessary(getJaxRPCMapXmiResource(mappingFilePathURI));
