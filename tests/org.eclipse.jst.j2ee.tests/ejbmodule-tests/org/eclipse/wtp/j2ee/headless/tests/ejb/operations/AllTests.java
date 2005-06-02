@@ -25,7 +25,7 @@ public class AllTests extends TestSuite {
         super("EJB Tests");
       //  addTest(EJBExportOperationTest.suite());
      //   addTest(EJBImportOperationTest.suite());
-        addTest(EJBProjectCreationOperationTest.suite());
+        //addTest(EJBProjectCreationOperationTest.suite());
         //addTest(EJBComponentCreationTest.suite());
     }
     
