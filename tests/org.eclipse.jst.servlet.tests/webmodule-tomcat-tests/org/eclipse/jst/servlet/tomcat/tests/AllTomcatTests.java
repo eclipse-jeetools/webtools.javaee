@@ -30,7 +30,7 @@ public class AllTomcatTests extends TestSuite {
     
     public AllTomcatTests(){
         super("WEB Tests");
-        addTest(WebProjectCreationTomcatTest.suite());
+        //addTest(WebProjectCreationTomcatTest.suite());
         addTest(WebImportOperationTomcatTest.suite());
         addTest(WebExportOperationTomcatTest.suite());
         
