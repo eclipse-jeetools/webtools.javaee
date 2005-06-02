@@ -24,7 +24,6 @@ import java.util.List;
 import org.eclipse.core.internal.resources.WorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.impl.NotificationImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -210,9 +209,30 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
 		//this.getExtensionSite().notifyElementReplaced(this, ((WebServicesNavigatorContentProvider) getContentProvider()).getNavigatorGroup());
-		List group = new ArrayList();
-		group.add(getNavigatorGroup());
-		notifyChanged(new NotificationImpl(anEvent.getEventCode(),group,group));
+		
+		//List group = new ArrayList();
+		//group.add(getNavigatorGroup());
+		//notifyChanged(new NotificationImpl(anEvent.getEventCode(),group,group));
+		
+		//verify I'm really interested in this event 
+		// only if I'm interested will I refresh ....
+		
+		/*final AbstractTreeViewer abstractViewer = getViewer();
+		if (abstractViewer == null) {
+			return;
+		}
+		
+		if (Display.getCurrent() != null) {
+			abstractViewer.refresh(getNavigatorGroup());
+		} else {
+			// Create and schedule a UI Job to update the Navigator Content Viewer 
+			new UIJob("Update the Viewer for the Common Adapter Factory Content Provider") { //$NON-NLS-1$
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					abstractViewer.refresh(getNavigatorGroup());
+					return Status.OK_STATUS;
+				}
+			}.schedule();
+		}*/
 	}
 	
 	/*
