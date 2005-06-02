@@ -3,6 +3,7 @@ package org.eclipse.jst.j2ee.ejb.componentcore.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -24,6 +25,8 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 /**
  * <p>
@@ -60,7 +63,6 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public EJBArtifactEdit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -70,7 +72,6 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public EJBArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aHandle, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -109,6 +110,28 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public EJBResource getEJBJarXmiResource() {
 		return (EJBResource) getDeploymentDescriptorResource();
 	}
+	
+	/**
+	 * @return IVirtualFolder that contains the deployment descriptor resource.
+	 * @throws CoreException
+	 */
+	
+	public IVirtualFolder getDeploymentDescriptorFolder() throws CoreException {
+		IVirtualResource[] resources = getComponent().members();
+		if(resources != null && resources.length > 0) {
+			for(int i = 0; i < resources.length; i++) {
+			IVirtualResource resource = resources[i];
+			if(resource.getType() == IVirtualResource.FOLDER) {
+				IVirtualFolder folder = (IVirtualFolder)resource;
+				IVirtualResource ddResource = folder.findMember(J2EEConstants.EJBJAR_DD_URI);
+				if(ddResource != null)
+				  return folder;
+			}
+		  }
+		}
+		return null;
+	 }
+	
 	
 	/**
 	 * <p>
