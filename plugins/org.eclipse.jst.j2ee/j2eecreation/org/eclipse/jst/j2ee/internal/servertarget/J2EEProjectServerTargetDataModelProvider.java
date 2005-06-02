@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.servertarget;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.ResourceManager;
 
 public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelProvider 
@@ -218,13 +220,18 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
         List validServerTargets = null;
         //TODO: api is needed from the server target helper to get all server targets
         //validServerTargets = ServerTargetHelper.getServerTargets(IServerTargetConstants.EAR_TYPE, IServerTargetConstants.J2EE_14);
-        validServerTargets = ServerTargetHelper.getServerTargets("", "");  //$NON-NLS-1$  //$NON-NLS-2$
+        validServerTargets = getServerTargets("", "");  //$NON-NLS-1$  //$NON-NLS-2$
         if (validServerTargets != null && validServerTargets.isEmpty())
             validServerTargets = null;
         if (validServerTargets == null)
             return Collections.EMPTY_LIST;
         return validServerTargets;
     }
+    
+    public static List getServerTargets(String type, String version) {
+		List targets = Arrays.asList(ServerUtil.getRuntimes(type, version));
+		return targets;
+	}
 	/**
 	 * @return
 	 */

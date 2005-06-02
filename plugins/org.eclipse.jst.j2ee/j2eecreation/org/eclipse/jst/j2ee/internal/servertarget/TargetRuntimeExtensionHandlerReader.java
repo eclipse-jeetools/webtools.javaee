@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * @author vijayb
- * 
+ * @deprecated
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */

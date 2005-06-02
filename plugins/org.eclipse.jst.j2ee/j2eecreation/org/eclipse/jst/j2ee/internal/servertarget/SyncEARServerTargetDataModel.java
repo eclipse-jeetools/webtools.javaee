@@ -18,7 +18,8 @@ package org.eclipse.jst.j2ee.internal.servertarget;
 
 /**
  * @author vijayb
- * 
+ * @deprecated - Use server core api to set Runtime Targets. Use artifact edit api to
+ * get to any j2ee related methods in the class.
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
