@@ -112,6 +112,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	
 	/**
+	 * Experimental API subject to change
 	 * @return IVirtualFolder that contains the deployment descriptor resource.
 	 * @throws CoreException
 	 */
@@ -131,6 +132,28 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return null;
 	 }
+	
+	/**
+	 * Experimental API subject to change
+	 * @return String form of the ejbModule folder path relative to the full path.
+	 * @throws CoreException
+	 */
+	
+	public String getEjbModuleRelative(String fullPath) throws CoreException {
+		if (fullPath != null) {
+			if (getDeploymentDescriptorFolder() != null) {
+				String modulePath;
+				if (fullPath.indexOf('/') == 0)
+					modulePath = getDeploymentDescriptorFolder().getProjectRelativePath().toOSString();
+				else
+					modulePath = getDeploymentDescriptorFolder().getProjectRelativePath().makeRelative().toOSString();
+				int indx = fullPath.indexOf(modulePath);
+				if (indx != -1)
+					return fullPath.substring(modulePath.length() + 1);
+			}
+		}
+		return fullPath;
+	}
 	
 	
 	/**
