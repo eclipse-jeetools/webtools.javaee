@@ -27,24 +27,24 @@ public class FlexibleProjectServerUtil {
 		for (int i = 0; i < modules.length; i++) {
 			Module module = (Module) modules[i];
 			if (module.getName().equals(component.getName()))
-				return getModuleDelgate(module);
+				return getModuleDelegate(module);
 		}
 
 		return null;
 	}
 	
-	public static IJ2EEModule getModuleDelegate(IVirtualComponent component) {
+	public static IModule getModule(IVirtualComponent component) {
 		IModule[] modules  = getModules(component);
 		for (int i = 0; i < modules.length; i++) {
 			Module module = (Module) modules[i];
-			if (module.getName().equals(component.getName()))
-				return getModuleDelgate(module);
+			if (module.getName().equals(component.getName()) && module.getAdapter(IJ2EEModule.class) != null)
+				return module;
 		}
 
 		return null;
 	}
 
-	public static IJ2EEModule getModuleDelgate(Module module) {
+	public static IJ2EEModule getModuleDelegate(Module module) {
 		ModuleFactory[] factories = ServerPlugin.getModuleFactories();
 		for (int i = 0; i < factories.length; i++) {
 			if (factories[i].getDelegate() == null)

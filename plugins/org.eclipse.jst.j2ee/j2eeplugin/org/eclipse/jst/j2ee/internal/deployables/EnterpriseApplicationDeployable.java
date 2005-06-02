@@ -80,7 +80,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 				for (Iterator iter = components.iterator(); iter.hasNext();) {
 					IVirtualReference reference = (IVirtualReference) iter.next();
 					IVirtualComponent virtualComp = reference.getReferencedComponent();
-					Object module = FlexibleProjectServerUtil.getModuleDelegate(virtualComp);
+					Object module = FlexibleProjectServerUtil.getModule(virtualComp);
 					modules.add(module);
 				}
 			}
