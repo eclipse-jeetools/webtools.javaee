@@ -432,7 +432,7 @@
 <!-- ================================================== -->
 <!--          DEPLOY EXTENSIONS                         -->
 <!-- ================================================== -->
-  <extension
+<!--  <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             objectClass="java.lang.Object"
@@ -474,7 +474,7 @@
             </or>
          </visibility>
       </objectContribution>
-   </extension>
+   </extension> -->
 <!-- Navigator Object Contributions -->
 
    

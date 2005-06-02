@@ -113,7 +113,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	protected boolean isValidModule(IProject project) {
 		if (isFlexableProject(project)) {
 			IProjectProperties properties = ServerCore.getProjectProperties(project);
-			if (properties != null || properties.getRuntimeTarget() == null || properties.getRuntimeTarget().getRuntimeType().getModuleTypes() != null) {
+			if (properties != null && properties.getRuntimeTarget() != null && properties.getRuntimeTarget().getRuntimeType().getModuleTypes() != null) {
 				IModuleType[] moduleTypes = properties.getRuntimeTarget().getRuntimeType().getModuleTypes();
 				for (int i = 0; i < moduleTypes.length; i++) {
 					IModuleType moduleType = moduleTypes[i];
