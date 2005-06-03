@@ -219,12 +219,12 @@
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean">
+             adaptableType="org.eclipse.jst.j2ee.ejb.EnterpriseBean">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType=" org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
+             adaptableType="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>    
    </extension>
