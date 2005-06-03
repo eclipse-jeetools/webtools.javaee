@@ -110,8 +110,8 @@
    <extension
          point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation"
-            id="org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation">
       </extendableOperation>
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportOperation"
