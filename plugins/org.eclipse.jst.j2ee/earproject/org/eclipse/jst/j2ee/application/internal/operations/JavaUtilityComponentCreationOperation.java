@@ -15,12 +15,14 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -30,11 +32,14 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
 public class JavaUtilityComponentCreationOperation extends ComponentCreationOperation implements IJavaComponentCreationDataModelProperties{
 	/**
@@ -73,18 +78,31 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
     public IStatus undo(IProgressMonitor monitor, IAdaptable info) {
         return null;
     }   
+
+    protected void createAndLinkJ2EEComponentsForMultipleComponents() throws CoreException {
+        IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
+        component.create(0, null);
+        //create and link javaSource Source Folder
+        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$     
+        javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
+        
+        //create and link META-INF folder
+        IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
+        metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
     
-	protected void createAndLinkJ2EEComponents() throws CoreException {	
-		IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
-		component.create(0, null);
-		//create and link javaSource Source Folder
-		IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
-		javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
-		
-		//create and link META-INF folder
-		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
-		metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
-	}
+    }
+    
+    protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
+        IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
+        component.create(0, null);
+        //create and link javaSource Source Folder
+        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$     
+        javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
+        
+        //create and link META-INF folder
+        IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
+        metaInfFolder.createLink(new Path("/" + J2EEConstants.META_INF), 0, null);
+    }
 	
 	protected void createManifest(IProgressMonitor monitor) {
 		IContainer container = getProject().getFolder( getManifestFolder() );
@@ -120,6 +138,27 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperationEx#getProperties()
 	 */
 	protected List getProperties() {
-		return null;
+        List newProps = new ArrayList();
+        Property outputProperty = getOutputProperty();
+        if(outputProperty != null)
+            newProps.add(outputProperty);
+        return newProps;
 	}
+    
+    protected Property getOutputProperty() {
+        String javaSourceFolder = model.getStringProperty(JAVASOURCE_FOLDER);
+        if(javaSourceFolder != null && !javaSourceFolder.equals("")) {
+            Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
+            IPath newOutputPath = null;
+            if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
+                newOutputPath = Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
+            else
+                newOutputPath = Path.fromOSString("/bin/");
+            // need a java property constant
+            prop.setName(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);
+            prop.setValue(newOutputPath.toString());
+            return prop;
+        }
+        return null;
+    }
 }

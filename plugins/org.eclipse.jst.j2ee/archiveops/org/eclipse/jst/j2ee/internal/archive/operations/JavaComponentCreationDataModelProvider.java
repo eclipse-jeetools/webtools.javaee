@@ -41,7 +41,10 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			return  getComponentName();
 		}else if (propertyName.equals(MANIFEST_FOLDER)) {
-			return  getComponentName() +  "/" + J2EEConstants.META_INF; //$NON-NLS-1$
+            if(isProjMultiComponents)
+                return  getComponentName() +  "/" + J2EEConstants.META_INF; //$NON-NLS-1$
+            else
+                return "/" + J2EEConstants.META_INF; //$NON-NLS-1$
 		}	
 		return super.getDefaultProperty(propertyName);
 	}

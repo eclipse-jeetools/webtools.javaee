@@ -43,7 +43,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         // TODO Auto-generated constructor stub
     }
 
-    protected void createAndLinkJ2EEComponents() throws CoreException {
+    protected void createAndLinkJ2EEComponentsForMultipleComponents() throws CoreException {
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link javaSource Source Folder
@@ -63,7 +63,27 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         IVirtualFolder webLib = webInfFolder.getFolder("lib");
         webLib.create(IResource.FORCE, null);
     }
+    
+    protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
+        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+        component.create(0, null);
+        //create and link javaSource Source Folder
+        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$       
+        javaSourceFolder.createLink(new Path("/JavaSource"), 0, null);
+        
+        //create and link META-INF and WEB-INF folder
+        IVirtualFolder webContent = component.getFolder(new Path("/")); //$NON-NLS-1$       
+        webContent.createLink(new Path("/" + "WebContent" ), 0, null);
+        
+        IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
+        webInfFolder.create(IResource.FORCE, null);     
+        
+        IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
+        metaInfFolder.create(IResource.FORCE,null);
 
+        IVirtualFolder webLib = webInfFolder.getFolder("lib");
+        webLib.create(IResource.FORCE, null);
+    }
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         
 		WebArtifactEdit webEdit = null;

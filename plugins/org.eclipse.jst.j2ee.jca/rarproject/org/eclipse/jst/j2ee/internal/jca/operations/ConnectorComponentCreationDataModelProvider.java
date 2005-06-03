@@ -121,15 +121,25 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
     }
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(MANIFEST_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
-        } else if (propertyName.equals(ADD_TO_EAR)) {
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else
+                return IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+        } 
+        if (propertyName.equals(ADD_TO_EAR)) {
             return Boolean.TRUE;
         } 
         if (propertyName.equals(DD_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else
+                return IPath.SEPARATOR + "connectorModule" + IPath.SEPARATOR + J2EEConstants.META_INF;
         }       
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule";
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "connectorModule";
+            else
+                return IPath.SEPARATOR + "connectorModule";
         }       
 
         return super.getDefaultProperty(propertyName);

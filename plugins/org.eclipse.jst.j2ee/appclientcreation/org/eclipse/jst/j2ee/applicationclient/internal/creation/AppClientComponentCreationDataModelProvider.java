@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
 public class AppClientComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IAppClientComponentCreationDataModelProperties{
 
@@ -42,13 +43,22 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
         } else if (propertyName.equals(ADD_TO_EAR)) {
             return Boolean.TRUE;
         } else if (propertyName.equals(MANIFEST_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else 
+                return IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
         }
         if (propertyName.equals(DD_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else
+                return IPath.SEPARATOR + "appClientModule" + IPath.SEPARATOR + J2EEConstants.META_INF;
         }       
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule";
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "appClientModule";
+            else
+                return IPath.SEPARATOR + "appClientModule"; 
         }       
         return super.getDefaultProperty(propertyName);
     }

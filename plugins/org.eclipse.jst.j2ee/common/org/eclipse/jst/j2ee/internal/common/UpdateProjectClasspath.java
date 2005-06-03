@@ -22,6 +22,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
 /**
  *
@@ -42,10 +43,14 @@ public class UpdateProjectClasspath {
 		
 		IClasspathEntry[] classpath = new IClasspathEntry[list.size()];
         //adjust the output path to be bin/ComponentName
-		
+		boolean isProjectMultiComponents = FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp();
+        IPath newOutputPath = null;
         for (int i = 0; i < classpath.length; i++) {
 			classpath[i] = (IClasspathEntry) list.get(i);
-            IPath newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/" + componentName + Path.SEPARATOR);
+            if(isProjectMultiComponents)
+                newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/" + componentName + Path.SEPARATOR);
+            else
+                newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/");
             ((ClasspathEntry)classpath[i]).specificOutputLocation = newOutputPath;
 		}
 		return classpath;		

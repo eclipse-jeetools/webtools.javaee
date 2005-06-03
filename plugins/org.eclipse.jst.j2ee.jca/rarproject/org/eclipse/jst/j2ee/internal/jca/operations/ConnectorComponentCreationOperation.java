@@ -38,7 +38,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
         super(model);
     }
 
-    protected void createAndLinkJ2EEComponents() throws CoreException {
+    protected void createAndLinkJ2EEComponentsForMultipleComponents() throws CoreException {
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link connectorModule Source Folder
@@ -49,7 +49,19 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
         IVirtualFolder metaInfFolder = connectorModuleFolder.getFolder(J2EEConstants.META_INF);
         metaInfFolder.create(IResource.FORCE, null);    
     }
-
+    
+    protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
+        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+        component.create(0, null);
+        //create and link connectorModule Source Folder
+        IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$        
+        connectorModuleFolder.createLink(new Path("/connectorModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
+        
+        //create and link META-INF folder
+        IVirtualFolder metaInfFolder = connectorModuleFolder.getFolder(J2EEConstants.META_INF);
+        metaInfFolder.create(IResource.FORCE, null);    
+    }
+    
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         ConnectorArtifactEdit artifactEdit = null;
         Integer version = null;

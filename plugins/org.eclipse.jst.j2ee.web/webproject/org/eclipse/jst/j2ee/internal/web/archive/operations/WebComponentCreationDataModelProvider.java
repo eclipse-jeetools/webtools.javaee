@@ -172,13 +172,22 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 //            return new Integer(jspVersion);
 //        }
         if (propertyName.equals(DD_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
+            else
+                return IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
         }       
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "JavaSource";
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "JavaSource";
+            else
+                return IPath.SEPARATOR + "JavaSource";
         }       
         if (propertyName.equals(MANIFEST_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else
+                return IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.META_INF;
         }           
         return super.getDefaultProperty(propertyName);
     }

@@ -305,7 +305,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
-		return getArtifactEditModel().getResource(URI.createURI(J2EEConstants.APPLICATION_DD_URI));
+		return getArtifactEditModel().getResource(J2EEConstants.APPLICATION_DD_URI_OBJ);
 	}
 
 

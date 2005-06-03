@@ -45,6 +45,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
 public abstract class J2EEComponentCreationOperation extends ComponentCreationOperation implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
     /**
@@ -241,7 +242,11 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
         String javaSourceFolder = model.getStringProperty(JAVASOURCE_FOLDER);
         if(javaSourceFolder != null && !javaSourceFolder.equals("")) {
             Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
-            IPath newOutputPath = Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
+            IPath newOutputPath = null;
+            if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
+                newOutputPath= Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
+            else
+                newOutputPath = Path.fromOSString("/bin/");
             // need a java property constant
             prop.setName(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);
             prop.setValue(newOutputPath.toString());
