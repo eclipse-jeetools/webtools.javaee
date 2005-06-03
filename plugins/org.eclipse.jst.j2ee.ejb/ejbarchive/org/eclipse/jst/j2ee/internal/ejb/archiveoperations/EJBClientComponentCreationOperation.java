@@ -25,7 +25,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
@@ -47,9 +47,9 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 
-public class EJBClientComponentCreationOp extends JavaUtilityComponentCreationOperationEx implements IEJBClientComponentCreationDataModelProperties{
+public class EJBClientComponentCreationOperation extends JavaUtilityComponentCreationOperation implements IEJBClientComponentCreationDataModelProperties{
 
-    public EJBClientComponentCreationOp(IDataModel model) {
+    public EJBClientComponentCreationOperation(IDataModel model) {
         super(model);
         // TODO Auto-generated constructor stub
     }

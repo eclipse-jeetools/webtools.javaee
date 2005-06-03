@@ -88,7 +88,7 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
     }
 
     public IDataModelOperation getDefaultOperation() {
-        return new EJBClientComponentCreationOp(model);
+        return new EJBClientComponentCreationOperation(model);
     }
 
     public boolean hasExistingClientJar(){

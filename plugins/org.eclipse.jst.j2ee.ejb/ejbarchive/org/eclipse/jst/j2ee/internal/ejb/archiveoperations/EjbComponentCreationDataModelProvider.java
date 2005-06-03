@@ -42,7 +42,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
     }
     
     public IDataModelOperation getDefaultOperation() {
-        return new EjbComponentCreationOp(model);
+        return new EjbComponentCreationOperation(model);
     }
     
     public String[] getPropertyNames() {

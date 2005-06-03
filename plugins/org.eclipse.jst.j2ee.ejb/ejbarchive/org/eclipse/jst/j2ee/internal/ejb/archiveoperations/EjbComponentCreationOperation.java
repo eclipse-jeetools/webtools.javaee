@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -32,9 +32,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EjbComponentCreationOp extends J2EEComponentCreationOp implements IEjbComponentCreationDataModelProperties {
+public class EjbComponentCreationOperation extends J2EEComponentCreationOperation implements IEjbComponentCreationDataModelProperties {
 
-    public EjbComponentCreationOp(IDataModel model) {
+    public EjbComponentCreationOperation(IDataModel model) {
         super(model);
     }
 
