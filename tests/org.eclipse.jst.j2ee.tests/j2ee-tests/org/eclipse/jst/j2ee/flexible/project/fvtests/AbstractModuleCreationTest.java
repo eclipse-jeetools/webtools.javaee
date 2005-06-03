@@ -2,11 +2,11 @@ package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOp;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
@@ -14,12 +14,12 @@ import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataMo
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
@@ -86,7 +86,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runJavaUtilComponentCreationOperation(IDataModel model) throws Exception {	
-        JavaUtilityComponentCreationOperationEx webOp = new JavaUtilityComponentCreationOperationEx(model);
+        JavaUtilityComponentCreationOperation webOp = new JavaUtilityComponentCreationOperation(model);
 		webOp.execute(new NullProgressMonitor(), null);
 	}		
 	
@@ -110,7 +110,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runEARComponenteCreationOperation(IDataModel model) throws Exception {		
-        EARComponentCreationOp webOp = new EARComponentCreationOp(model);
+        EARComponentCreationOperation webOp = new EARComponentCreationOperation(model);
 		webOp.execute(new NullProgressMonitor(), null);
 	}
 	
@@ -138,7 +138,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runEJBComponenteCreationOperation(IDataModel model) throws Exception {	
-		EjbComponentCreationOp ejbOp = new EjbComponentCreationOp(model);
+		EjbComponentCreationOperation ejbOp = new EjbComponentCreationOperation(model);
         ejbOp.execute(new NullProgressMonitor(), null);
 	}
 	
@@ -163,7 +163,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runWebModuleCreationOperation(IDataModel model) throws Exception {		
-		WebComponentCreationOp webOp = new WebComponentCreationOp(model);
+		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
 		webOp.execute(new NullProgressMonitor(), null);
 	}
 	
@@ -186,7 +186,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runAppClientModuleCreationOperation(IDataModel model) throws Exception {	
-		AppClientComponentCreationOp appOp = new AppClientComponentCreationOp(model);
+		AppClientComponentCreationOperation appOp = new AppClientComponentCreationOperation(model);
         appOp.execute(new NullProgressMonitor(),null);
 	}	
 	
@@ -208,7 +208,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runConnectorModuleCreationOperation(IDataModel model) throws Exception {
-		ConnectorComponentCreationOp webOp = new ConnectorComponentCreationOp(model);
+		ConnectorComponentCreationOperation webOp = new ConnectorComponentCreationOperation(model);
 		webOp.execute(new NullProgressMonitor(),null);
 	}		
 

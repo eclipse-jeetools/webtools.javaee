@@ -12,9 +12,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOp;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -25,11 +25,11 @@ import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataMo
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOp;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -240,7 +240,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 	}
 
 	public static IProject createEARComponent(IDataModel model) throws Exception {
-		EARComponentCreationOp op = new EARComponentCreationOp(model);
+		EARComponentCreationOperation op = new EARComponentCreationOperation(model);
 		op.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME), true);
 		return ProjectUtilities.getProject(model.getStringProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME));
@@ -251,7 +251,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 			model.setBooleanProperty(IEjbComponentCreationDataModelProperties.ADD_TO_EAR, true);
 			model.setProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earProject.getName());
 		}
-		EjbComponentCreationOp ejbOp = new EjbComponentCreationOp(model);
+		EjbComponentCreationOperation ejbOp = new EjbComponentCreationOperation(model);
 		ejbOp.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IEjbComponentCreationDataModelProperties.PROJECT_NAME), true);
 		return ProjectUtilities.getProject(model.getStringProperty(IEjbComponentCreationDataModelProperties.PROJECT_NAME));
@@ -259,7 +259,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 
 	public static void createEARComponent(IDataModel  model, boolean notImport) throws Exception {
 		model.setBooleanProperty(IEarComponentCreationDataModelProperties.CREATE_DEFAULT_FILES, notImport);
-		EARComponentCreationOp op = new EARComponentCreationOp(model);
+		EARComponentCreationOperation op = new EARComponentCreationOperation(model);
 		op.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME), true);
 	}
@@ -269,7 +269,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
             model.setBooleanProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, true);
             model.setProperty(IWebComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earProject.getName());
         }
-		WebComponentCreationOp webOp = new WebComponentCreationOp(model);
+		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
 		webOp.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME), true);
 		TaskViewUtility.verifyNoErrors();
@@ -280,7 +280,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
             model.setBooleanProperty(IAppClientComponentCreationDataModelProperties.ADD_TO_EAR, true);
             model.setProperty(IAppClientComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earProject.getName());
         }
-		AppClientComponentCreationOp appOp = new AppClientComponentCreationOp(model);
+		AppClientComponentCreationOperation appOp = new AppClientComponentCreationOperation(model);
 		appOp.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME), true);
 	}
@@ -291,7 +291,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 			model.setBooleanProperty(IConnectorComponentCreationDataModelProperties.ADD_TO_EAR, true);
 			model.setProperty(IConnectorComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earProject.getName());
 		}
-		ConnectorComponentCreationOp rarOp = new ConnectorComponentCreationOp(model);
+		ConnectorComponentCreationOperation rarOp = new ConnectorComponentCreationOperation(model);
 		rarOp.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IConnectorComponentCreationDataModelProperties.PROJECT_NAME), true);
 	}
@@ -307,7 +307,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 			model.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earName);
 			//model.setProperty(EARComponentCreationDataModel.PROJECT_LOCATION, earProject.getLocation());
 			model.setIntProperty(IEarComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeEARVersion);
-			EARComponentCreationOp op = new EARComponentCreationOp(model);
+			EARComponentCreationOperation op = new EARComponentCreationOperation(model);
 
 			IProject ejbProject = ProjectUtility.getProject(ejbName);
 			ejbDataModel = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
