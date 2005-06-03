@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -74,7 +75,7 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	 * 
 	 */
 	protected String getDefaultArchiveURI() {
-	    return getStringProperty(ARCHIVE_URI);
+		return ""; //$NON-NLS-1$
 	    //TODO: reimplement 
 //		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
 //		J2EENature j2eeNature = J2EENature.getRegisteredRuntime(archiveProj);
