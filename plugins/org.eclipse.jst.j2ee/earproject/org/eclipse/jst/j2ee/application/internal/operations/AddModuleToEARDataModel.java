@@ -11,7 +11,6 @@
 
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;

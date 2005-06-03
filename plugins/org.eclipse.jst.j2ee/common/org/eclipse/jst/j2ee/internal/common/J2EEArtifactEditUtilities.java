@@ -1,11 +1,8 @@
 package org.eclipse.jst.j2ee.internal.common;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEArtifactEditUtilities {
