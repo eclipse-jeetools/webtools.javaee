@@ -24,7 +24,7 @@ import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCre
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreationOp implements IFlexibleJavaProjectCreationDataModelProperties{
+public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreationOperation implements IFlexibleJavaProjectCreationDataModelProperties{
 
     public FlexibleJavaProjectCreationOperation(IDataModel model) {
         super(model);

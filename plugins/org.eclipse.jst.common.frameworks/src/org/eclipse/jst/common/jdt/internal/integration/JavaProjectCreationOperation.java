@@ -31,11 +31,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationOp;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationOperation;
 
-public class JavaProjectCreationOp extends ProjectCreationOp {
+public class JavaProjectCreationOperation extends ProjectCreationOperation {
 
-	public JavaProjectCreationOp(IDataModel dataModel) {
+	public JavaProjectCreationOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 

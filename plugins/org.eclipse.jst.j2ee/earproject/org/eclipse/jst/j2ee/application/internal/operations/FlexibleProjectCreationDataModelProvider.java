@@ -84,6 +84,6 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 //	}
 //	
     public IDataModelOperation getDefaultOperation() {
-        return new FlexibleProjectCreationOp(model);
+        return new FlexibleProjectCreationOperation(model);
     }
 }

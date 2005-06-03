@@ -21,7 +21,7 @@ public class JavaProjectCreationDataModelProvider extends ProjectCreationDataMod
 	}
 
 	public IDataModelOperation getDefaultOperation() {
-		return new JavaProjectCreationOp(model);
+		return new JavaProjectCreationOperation(model);
 	}
 
 	public Object getDefaultProperty(String propertyName) {

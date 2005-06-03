@@ -18,9 +18,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 
-public class FlexibleProjectCreationOp extends AbstractDataModelOperation {
+public class FlexibleProjectCreationOperation extends AbstractDataModelOperation {
 
-    public FlexibleProjectCreationOp(IDataModel model) {
+    public FlexibleProjectCreationOperation(IDataModel model) {
         super(model);
         // TODO Auto-generated constructor stub
     }
