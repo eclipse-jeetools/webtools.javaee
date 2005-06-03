@@ -9,8 +9,6 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBExportDataModelVerifier;
@@ -45,14 +43,14 @@ public class DataModelVerifierFactory extends org.eclipse.wst.common.tests.DataM
 			verifierMap.put(JCAExportDataModelVerifier.class.getName(), JCAExportDataModelVerifier.class.getName());
 			verifierMap.put(WebModuleExportDataModel.class.getName(), WebExportDataModelVerifier.class.getName());
 			verifierMap.put(AppClientModuleExportDataModel.class.getName(), AppClientExportDataModelVerifier.class.getName());
-			
+//TODO: add verifiers for new IDataModels			
 //			verifierMap.put(WebComponentCreationDataModel.class.getName(), WebProjectCreationDataModelVerifier.class.getName());
 //			verifierMap.put(EARComponentCreationDataModel.class.getName(), EARProjectCreationDataModelVerifier.class.getName());
 //			verifierMap.put(EjbComponentCreationDataModel.class.getName(), EJBProjectCreationDataModelVerifier.class.getName());
 //			verifierMap.put(AppClientComponentCreationDataModel.class.getName(),AppClientProjectCreationDataModelVerifier.class.getName());
 			
-			verifierMap.put(FlexibleProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
-			verifierMap.put(FlexibleJavaProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
+//			verifierMap.put(FlexibleProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
+//			verifierMap.put(FlexibleJavaProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
 
 	}
 

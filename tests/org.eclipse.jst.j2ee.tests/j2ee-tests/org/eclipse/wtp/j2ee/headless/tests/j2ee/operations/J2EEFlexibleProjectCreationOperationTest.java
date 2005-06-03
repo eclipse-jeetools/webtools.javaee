@@ -3,8 +3,11 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
@@ -24,20 +27,20 @@ public class J2EEFlexibleProjectCreationOperationTest extends OperationTestCase 
     }
 
     public void createSimpleProject(String projectName) throws Exception {
-		FlexibleJavaProjectCreationDataModel dataModel = getProjectCreationDataModel();
-        dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, projectName);
+		IDataModel dataModel = getProjectCreationDataModel();
+        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, projectName);
 		setServerTargetProperty(dataModel);
         runAndVerify(dataModel);
     }
     
-    public FlexibleJavaProjectCreationDataModel getProjectCreationDataModel(){
-		return new FlexibleJavaProjectCreationDataModel();
+    public IDataModel getProjectCreationDataModel(){
+		return DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
     }
 	/**
 	 * @param dataModel
 	 */
-	public void setServerTargetProperty(FlexibleJavaProjectCreationDataModel dataModel) {
-		dataModel.setProperty(FlexibleJavaProjectCreationDataModel.SERVER_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
+	public void setServerTargetProperty(IDataModel dataModel) {
+		dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
 	}
 
 }
