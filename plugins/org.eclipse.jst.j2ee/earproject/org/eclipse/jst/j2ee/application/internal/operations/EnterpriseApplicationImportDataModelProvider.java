@@ -20,6 +20,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -50,7 +51,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
@@ -206,7 +206,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				nestedModel = (IDataModel) nestedModels.get(i);
 				nestedModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, propertyValue);
 			}
-			IProject project = ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
+			IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
 			if (null != project && project.exists()) {
 				IRuntime target = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (null != target) {
@@ -282,10 +282,11 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			for (int i = 0; i < subProjects.size(); i++) {
 				subDataModel = (IDataModel) subProjects.get(i);
 				tempProjectName = subDataModel.getStringProperty(PROJECT_NAME);
-				IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
-				if (!status.isOK()) {
-					return status;
-				}
+                //TODO: add manual validation
+//				IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
+//				if (!status.isOK()) {
+//					return status;
+//				}
 				tempArchive = (Archive) subDataModel.getProperty(FILE);
 				// if (!overwrite && subDataModel.getProject().exists()) {
 				// return
@@ -645,7 +646,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			return false;
 		}
 		if (propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
-			IProject project = ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
+			IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
 			if (null == project || !project.exists()) {
 				return true;
 			}

@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -72,7 +71,7 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getTargetProject()
 	 */
 	public IProject getTargetProject() {
-		return ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
+		return ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
 	}
 
 	/*
@@ -117,10 +116,11 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 	protected IStatus doValidateProperty(String propertyName) {
 		if (PROJECT_NAME.equals(propertyName)) {
 			String projectName = (String) getProperty(PROJECT_NAME);
-			IStatus status = ProjectCreationDataModel.validateProjectName(projectName);
-			if (!status.isOK()) {
-				return status;
-			}
+            //TODO: add manual project name validation
+//			IStatus status = ProjectCreationDataModel.validateProjectName(projectName);
+//			if (!status.isOK()) {
+//				return status;
+//			}
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			if (!project.exists()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EXISTS_ERROR, new Object[]{projectName}));
