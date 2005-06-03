@@ -159,7 +159,7 @@ nextMethod:	for (int i=0; i<size; i++) {
 
 				// Now have list of compatible methods.
 				if (parmsList.size() == 0)
-					throw exc; // None found, so rethrow the exception
+					throw throwFixedNoSuchMethod(exc, receiver, methodName, arguments); // None found, so rethrow the exception
 				if (parmsList.size() == 1)
 					return (Method) mthdsList.get(0); // Only one, so return it
 
@@ -167,8 +167,33 @@ nextMethod:	for (int i=0; i<size; i++) {
 				int mostCompatible = findMostCompatible(mthdsList, parmsList, methodName);
 				return (Method) mthdsList.get(mostCompatible);
 			} else
-				throw exc; // None found, so rethrow the exception
+				throw throwFixedNoSuchMethod(exc, receiver, methodName, arguments); // None found, so rethrow the exception
 		}
+	}
+	
+	/*
+	 * NoSuchMEthodExeception doesn't include the signature. Since these are dynamic searches, the exception itself is useless without
+	 * the signature. So we add it.
+	 */
+	private static NoSuchMethodException throwFixedNoSuchMethod(NoSuchMethodException e, Class declareClass, String methodName, Class[] argClasses) {
+
+		// The default trace doesn't show what method was being searched for, so recreate with that.
+		StringBuffer s = new StringBuffer();
+		s.append(declareClass.getName());
+		s.append('.');
+		s.append(methodName);
+		s.append('(');
+		if (argClasses != null) {
+			for (int i = 0; i < argClasses.length; i++) {
+				if (i > 0)
+					s.append(',');
+				s.append(argClasses[i].getName());
+			}
+		}
+		s.append(')');
+		NoSuchMethodException ne = new NoSuchMethodException(s.toString());
+		ne.setStackTrace(e.getStackTrace());
+		return ne;
 	}
 	
 	/**

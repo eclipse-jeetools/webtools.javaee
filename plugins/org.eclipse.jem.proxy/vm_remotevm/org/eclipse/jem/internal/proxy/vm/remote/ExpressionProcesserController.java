@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/18 23:11:27 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/03 19:16:34 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -399,9 +399,11 @@ public class ExpressionProcesserController {
 							args[i] = Commands.readValue(in, new Commands.ValueObject());
 						}
 					}
+					Class decClass = null;
+					Class[] argClasses = null;
 					try {
-						Class decClass = getBeanTypeValue(decClassValue);
-						Class[] argClasses = null;
+						decClass = getBeanTypeValue(decClassValue);
+						argClasses = null;
 						if (argCount>0) {
 							argClasses = new Class[argCount];
 							for (int i = 0; i < argCount; i++) {
@@ -418,7 +420,23 @@ public class ExpressionProcesserController {
 					} catch (ClassNotFoundException e) {
 						// Do nothing, already processed.
 					} catch (NoSuchMethodException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
+						// The default trace doesn't show what method was being searched for, so recreate with that.
+						StringBuffer s = new StringBuffer();
+						s.append(decClass.getName());
+						s.append('.');
+						s.append(methodName);
+						s.append('(');
+						if (argClasses != null) {
+							for (int i = 0; i < argClasses.length; i++) {
+								if (i > 0)
+									s.append(',');
+								s.append(argClasses[i].getName());
+							}
+						}
+						s.append(')');
+						NoSuchMethodException ne = new NoSuchMethodException(s.toString());
+						ne.setStackTrace(e.getStackTrace());
+						exp.processException(ne);	// Let the processor know we have a stopping error.
 					}					
 					break;
 					
@@ -432,7 +450,7 @@ public class ExpressionProcesserController {
 					decClassValue =  Commands.readValue(in, new Commands.ValueObject());
 					String fieldName = Commands.readStringData(in);
 					try {
-						Class decClass = getBeanTypeValue(decClassValue);
+						decClass = getBeanTypeValue(decClassValue);
 						// Now get the field itself.
 						Field f = decClass.getField(fieldName);
 						RemoteExpressionProxy rep = new RemoteExpressionProxy(proxyid);
