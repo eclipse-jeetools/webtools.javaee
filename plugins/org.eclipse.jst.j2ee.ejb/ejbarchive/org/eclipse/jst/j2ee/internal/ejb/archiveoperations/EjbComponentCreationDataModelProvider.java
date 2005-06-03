@@ -149,11 +149,20 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         } else if (propertyName.equals(CREATE_DEFAULT_SESSION_BEAN)) {
             return Boolean.FALSE;
         } else if (propertyName.equals(DD_FOLDER)) {
-            return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else
+                return IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
         }else if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
+            else
+                return IPath.SEPARATOR + "ejbModule";
         } else if (propertyName.equals(MANIFEST_FOLDER)) {
-            return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(isProjMultiComponents)
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            else
+                return IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
         } else {
             return super.getDefaultProperty(propertyName);
         }   
