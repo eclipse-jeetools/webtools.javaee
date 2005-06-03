@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -325,4 +326,13 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}
+	
+	public static void log( final Exception e )
+	{
+		final ILog log = WebPlugin.getDefault().getLog();
+		final String msg = "Encountered an unexpected exception.";
+		
+		log.log( new Status( IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e ) );
+	}
+
 }
