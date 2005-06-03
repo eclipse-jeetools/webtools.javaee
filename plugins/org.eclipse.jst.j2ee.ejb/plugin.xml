@@ -249,8 +249,8 @@
    <extension
          point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation">
       </extendableOperation>
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarExportOperation"
@@ -261,32 +261,12 @@
             id="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarImportOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation">
       </extendableOperation>
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJARRemovalOperation"
             id="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJARRemovalOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateMessageDrivenBeanOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateMessageDrivenBeanOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateSessionBeanOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateSessionBeanOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateCMPBeanOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateCMPBeanOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateEntityBeanOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateEntityBeanOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.RemoveRelationshipDataModelOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.internal.operations.RemoveRelationshipDataModelOperation">
       </extendableOperation>
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJarFileMoveOperation"
