@@ -30,17 +30,17 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOperationEx implements IJavaComponentCreationDataModelProperties{
+public class JavaUtilityComponentCreationOperation extends ComponentCreationOperation implements IJavaComponentCreationDataModelProperties{
 	/**
 	 * @param dataModel
 	 */
-	public JavaUtilityComponentCreationOperationEx(IDataModel dataModel) {
+	public JavaUtilityComponentCreationOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
     /* (non-Javadoc)

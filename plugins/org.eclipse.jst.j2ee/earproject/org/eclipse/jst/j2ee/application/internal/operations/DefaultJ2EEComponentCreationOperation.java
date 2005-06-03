@@ -24,7 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
 
-public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation implements IDefaultJ2EEComponentCreationDataModelProperties {
+public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOperation implements IDefaultJ2EEComponentCreationDataModelProperties {
 
     public static final String JCA_DEV_ACTIVITY_ID = "com.ibm.wtp.jca.development"; //$NON-NLS-1$
 
@@ -32,7 +32,7 @@ public class DefaultJ2EEComponentCreationOp extends AbstractDataModelOperation i
 
     public static final String ENTERPRISE_JAVA = "com.ibm.wtp.ejb.development"; //$NON-NLS-1$
 
-    public DefaultJ2EEComponentCreationOp(IDataModel model) {
+    public DefaultJ2EEComponentCreationOperation(IDataModel model) {
         super(model);
     }
 

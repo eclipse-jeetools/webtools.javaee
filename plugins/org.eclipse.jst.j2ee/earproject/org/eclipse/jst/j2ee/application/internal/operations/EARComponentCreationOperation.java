@@ -19,16 +19,16 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EARComponentCreationOp extends ComponentCreationOperationEx implements IEarComponentCreationDataModelProperties{
+public class EARComponentCreationOperation extends ComponentCreationOperation implements IEarComponentCreationDataModelProperties{
 
-	public EARComponentCreationOp(IDataModel model) {
+	public EARComponentCreationOperation(IDataModel model) {
 		super(model); 
 	}
     /* (non-Javadoc)

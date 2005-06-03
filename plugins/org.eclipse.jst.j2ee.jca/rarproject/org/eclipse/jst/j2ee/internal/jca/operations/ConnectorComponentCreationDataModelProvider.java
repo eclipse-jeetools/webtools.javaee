@@ -110,7 +110,7 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 
 
     public IDataModelOperation getDefaultOperation() {
-        return new ConnectorComponentCreationOp(model);
+        return new ConnectorComponentCreationOperation(model);
     }
 
     /* (non-Javadoc)

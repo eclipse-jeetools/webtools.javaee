@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -63,7 +63,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 
     public IDataModelOperation getDefaultOperation() {
-        return new DefaultJ2EEComponentCreationOp(getDataModel());
+        return new DefaultJ2EEComponentCreationOperation(getDataModel());
     }
 
     public void init() {

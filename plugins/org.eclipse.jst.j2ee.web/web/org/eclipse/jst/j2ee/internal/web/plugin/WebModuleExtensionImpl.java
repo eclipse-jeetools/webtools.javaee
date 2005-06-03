@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -228,8 +228,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
-	public J2EEComponentCreationOp createProjectCreationOperation(IDataModel dataModel) {
-		return new WebComponentCreationOp( dataModel);
+	public J2EEComponentCreationOperation createProjectCreationOperation(IDataModel dataModel) {
+		return new WebComponentCreationOperation( dataModel);
 	}
 
 	/*

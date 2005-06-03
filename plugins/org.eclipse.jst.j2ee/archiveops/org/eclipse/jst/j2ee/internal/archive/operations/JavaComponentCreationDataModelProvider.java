@@ -13,7 +13,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperationEx;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -128,7 +128,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
     }
     
     public IDataModelOperation getDefaultOperation() {
-        return new JavaUtilityComponentCreationOperationEx(model);
+        return new JavaUtilityComponentCreationOperation(model);
     }
 
     protected void initProjectCreationModel() {

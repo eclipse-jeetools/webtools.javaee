@@ -101,7 +101,7 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
     }
 
     public IDataModelOperation getDefaultOperation() {
-        return new AppClientComponentCreationOp(model);
+        return new AppClientComponentCreationOperation(model);
     }
 	
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){

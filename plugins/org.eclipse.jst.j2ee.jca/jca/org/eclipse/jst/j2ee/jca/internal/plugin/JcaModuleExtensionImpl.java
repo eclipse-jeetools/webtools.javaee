@@ -14,10 +14,10 @@
  */
 package org.eclipse.jst.j2ee.jca.internal.plugin;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
@@ -76,8 +76,8 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
-	public J2EEComponentCreationOp createProjectCreationOperation(IDataModel dataModel) {
-		return new ConnectorComponentCreationOp(dataModel);
+	public J2EEComponentCreationOperation createProjectCreationOperation(IDataModel dataModel) {
+		return new ConnectorComponentCreationOperation(dataModel);
 	}
 
 	/*

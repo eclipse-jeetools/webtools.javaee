@@ -36,7 +36,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
     }
 
     public IDataModelOperation getDefaultOperation() {
-        return new WebComponentCreationOp(model);
+        return new WebComponentCreationOperation(model);
     }
     
     public String[] getPropertyNames() {

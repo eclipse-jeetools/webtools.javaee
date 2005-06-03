@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
@@ -24,7 +24,7 @@ import org.eclipse.wst.server.core.ServerCore;
 public class EarComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEarComponentCreationDataModelProperties {
 
     public IDataModelOperation getDefaultOperation() {
-        return new EARComponentCreationOp(model);
+        return new EARComponentCreationOperation(model);
     }
 
     /**

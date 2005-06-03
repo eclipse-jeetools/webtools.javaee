@@ -40,13 +40,13 @@ import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperationEx;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public abstract class J2EEComponentCreationOp extends ComponentCreationOperationEx implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
+public abstract class J2EEComponentCreationOperation extends ComponentCreationOperation implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
     /**
      * name of the template emitter to be used to generate the deployment
      * descriptor from the tags
@@ -59,7 +59,7 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
      */
     protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
 
-    public J2EEComponentCreationOp(IDataModel model) {
+    public J2EEComponentCreationOperation(IDataModel model) {
         super(model);
         // TODO Auto-generated constructor stub
     }
