@@ -25,7 +25,7 @@ public interface IJ2EEUIContextIds {
 	public static final String ADD_SECURITY_ROLE_WIZARD_1 = J2EEUIPlugin.PLUGIN_ID + ""; //$NON-NLS-1$
 
 	//J2EE project view
-	public static final String J2EE_PROEJCT_VIEW_P1 = "com.ibm.wtp.ui.ProjectNavigator"; //$NON-NLS-1$
+	public static final String J2EE_PROEJCT_VIEW_P1 = "org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator"; //$NON-NLS-1$
 
 	//jar dependency editor, page - 3 Pages
 	public static final String JAR_DEPENDENCIES_EDITOR_P1 = J2EEUIPlugin.PLUGIN_ID + ".EJB_JAR_DEPENDENCIES_EDITOR_PAGE1"; //$NON-NLS-1$

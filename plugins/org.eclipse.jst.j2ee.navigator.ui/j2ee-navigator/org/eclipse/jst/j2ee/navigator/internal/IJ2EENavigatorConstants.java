@@ -25,5 +25,5 @@ package org.eclipse.jst.j2ee.navigator.internal;
  */
 public interface IJ2EENavigatorConstants {
 
-	String VIEWER_ID = "com.ibm.wtp.ui.ProjectNavigator";//$NON-NLS-1$ 
+	String VIEWER_ID = "org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator";//$NON-NLS-1$ 
 }
