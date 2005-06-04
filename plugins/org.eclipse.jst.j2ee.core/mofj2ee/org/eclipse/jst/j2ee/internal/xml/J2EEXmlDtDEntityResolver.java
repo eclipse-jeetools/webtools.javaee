@@ -12,13 +12,11 @@ package org.eclipse.jst.j2ee.internal.xml;
 
 
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 
 public class J2EEXmlDtDEntityResolver implements org.xml.sax.EntityResolver {

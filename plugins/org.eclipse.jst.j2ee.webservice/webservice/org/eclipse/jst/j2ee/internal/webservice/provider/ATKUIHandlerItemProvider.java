@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;

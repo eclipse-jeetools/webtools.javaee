@@ -11,7 +11,6 @@ package org.eclipse.jst.j2ee.internal.provider;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProviderAdapterFactory;
-import org.eclipse.jst.j2ee.internal.application.util.ApplicationAdapterFactory;
 
 
 public class J2EEApplicationItemProviderAdapterFactory extends ApplicationItemProviderAdapterFactory {

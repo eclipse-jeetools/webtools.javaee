@@ -41,7 +41,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedE
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.NoModuleFileException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 
 
