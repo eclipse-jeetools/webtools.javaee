@@ -516,7 +516,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 
 		resource = (IResource) wc.getPrimary().getAdapter(IRESOURCE_CLASS);
 
-		if (resource == null || resource.getType() != IResource.FILE || !resource.isReadOnly())
+		if (resource == null || resource.getType() != IResource.FILE || !resource.getResourceAttributes().isReadOnly())
 			return false;
 
 		return getSaveHandler().shouldContinueAndMakeFileEditable((IFile) resource);
