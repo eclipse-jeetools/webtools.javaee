@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -398,6 +399,33 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		utilityModuleTypes.add(IModuleConstants.JST_UTILITY_MODULE);
 		return getComponentReferences(utilityModuleTypes);
 	}
+	
+	public String getModuleURI(IVirtualComponent moduleComp) {
+		IVirtualComponent comp = getJ2EEModuleReference(moduleComp.getName());
+		if(comp != null) {
+			if(comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE) || comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
+				return comp.getName().concat(IJ2EEModuleConstants.JAR_EXT);
+			else if (comp.getComponentTypeId().equals((IModuleConstants.JST_WEB_MODULE)))
+				return comp.getName().concat(IJ2EEModuleConstants.WAR_EXT);
+			else if (comp.getComponentTypeId().equals((IModuleConstants.JST_CONNECTOR_MODULE)))
+				return comp.getName().concat(IJ2EEModuleConstants.RAR_EXT);
+		}
+		return null;
+	}
+		
+	
+	
+	public IVirtualComponent getJ2EEModuleReference (String moduleName) {
+		List references = getJ2EEModuleReferences();
+		for(int i = 0; i < references.size(); i++) {
+			IVirtualReference ref = (IVirtualReference)references.get(i);
+			IVirtualComponent component = ref.getReferencedComponent();
+			if(component.getName().equals(moduleName)) {
+				return component;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * This method will return the list of IVirtualReferences for the J2EE module components
@@ -426,25 +454,22 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	
 	private List getComponentReferences(List componentTypes) {
 		List components = new ArrayList();
-		IProject project = getComponentHandle().getProject();
-		String compName = getComponentHandle().getName();
-		IVirtualComponent earComponent = ComponentCore.createComponent(project,compName);
+		IVirtualComponent earComponent = getComponent();
 		if (earComponent.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				//if component types passed in is null then return all components
 				if (componentTypes == null || componentTypes.size()==0)
 					components.add(refComponents[i]);
 				else {
-					for (int j=0;j<componentTypes.size(); j++) {
-						if (module.getComponentTypeId().equals(componentTypes.get(j))) {
+					 if (componentTypes.contains(module.getComponentTypeId())) {
 							components.add(refComponents[i]);
 							break;
 						}
 					}
 				}
 			}
-		}
 		return components;
 	}
 
