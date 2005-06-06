@@ -32,6 +32,11 @@ import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public abstract class J2EEArtifactExportOperation extends WTPOperation {
 	protected IProgressMonitor progressMonitor;
 	protected IProject project;

@@ -25,9 +25,10 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
 
+//TODO delete jsholl
 /**
- * Create a Java Project Load Strategy based on J2EE Load Strategy which is used by common archive
- * operations.
+ * @deprecated
+ *
  */
 public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 

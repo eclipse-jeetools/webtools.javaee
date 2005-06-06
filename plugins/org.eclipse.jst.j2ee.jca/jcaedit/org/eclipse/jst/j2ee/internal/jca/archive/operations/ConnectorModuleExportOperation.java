@@ -29,11 +29,10 @@ import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperat
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 
 
+//TODO delete jsholl
 /**
- * @author dfholttp
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
+ * @deprecated
+ *
  */
 public final class ConnectorModuleExportOperation extends J2EEArtifactExportOperation {
 

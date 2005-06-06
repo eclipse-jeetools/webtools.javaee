@@ -38,6 +38,11 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl {
 	private final static String SOURCE_DIR = "source"; //$NON-NLS-1$
 	private final static String CLASSES_DIR = "classes"; //$NON-NLS-1$

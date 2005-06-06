@@ -43,6 +43,11 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public final class WebModuleExportOperation extends J2EEArtifactExportOperation {
 	/**
 	 * flag which indicates whether nested projects should be incrementally built as part of export

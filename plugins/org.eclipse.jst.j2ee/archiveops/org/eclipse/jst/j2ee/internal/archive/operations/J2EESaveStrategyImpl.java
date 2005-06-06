@@ -47,6 +47,11 @@ import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements IJ2EEImportExportConstants {
 	protected WorkbenchURIConverter sourceURIConverter;
 	// This one is used for the imported_classes

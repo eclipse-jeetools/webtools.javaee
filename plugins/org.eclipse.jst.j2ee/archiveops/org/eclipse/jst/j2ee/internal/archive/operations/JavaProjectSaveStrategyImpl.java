@@ -22,6 +22,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public class JavaProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 
 	/**

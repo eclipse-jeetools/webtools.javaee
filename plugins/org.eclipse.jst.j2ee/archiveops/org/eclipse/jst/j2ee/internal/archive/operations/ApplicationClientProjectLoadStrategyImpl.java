@@ -25,10 +25,10 @@ import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClien
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 
+//TODO delete jsholl
 /**
- * Insert the type's description here. Creation date: (4/4/2001 11:12:19 AM)
- * 
- * @author: Administrator
+ * @deprecated
+ *
  */
 public class ApplicationClientProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl {
 	/**

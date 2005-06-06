@@ -41,10 +41,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
+//TODO delete jsholl
 /**
- * Insert the type's description here. Creation date: (5/10/2001 3:54:51 PM)
- * 
- * @author: Administrator
+ * @deprecated
+ *
  */
 public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements IJ2EEImportExportConstants {
 	protected IProject project;

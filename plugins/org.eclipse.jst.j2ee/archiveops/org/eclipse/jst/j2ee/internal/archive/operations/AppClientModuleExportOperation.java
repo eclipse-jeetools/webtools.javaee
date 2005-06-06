@@ -19,6 +19,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public final class AppClientModuleExportOperation extends J2EEArtifactExportOperation {
 	/**
 	 * @param model

@@ -37,8 +37,10 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 
+//TODO delete jsholl
 /**
- * Class defines the loading mechanism for RAR projects.
+ * @deprecated
+ *
  */
 public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 

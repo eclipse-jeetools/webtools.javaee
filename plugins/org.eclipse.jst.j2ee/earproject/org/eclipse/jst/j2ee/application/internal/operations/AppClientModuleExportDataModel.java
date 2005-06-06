@@ -16,13 +16,10 @@ import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleExportOpe
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete jsholl
 /**
- * This dataModel is used to export Application Client Modules to Application Client Jar files.
- * 
- * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
- * the new project structures are adopted. Use at your own risk.
- * 
- * @since WTP 1.0
+ * @deprecated
+ *
  */
 public final class AppClientModuleExportDataModel extends J2EEModuleExportDataModel {
 

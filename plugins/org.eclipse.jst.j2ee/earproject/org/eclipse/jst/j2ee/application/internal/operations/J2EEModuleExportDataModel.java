@@ -8,13 +8,10 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+//TODO delete jsholl
 /**
- * This dataModel is a common super class used to export J2EE Modules.
- * 
- * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
- * the new project structures are adopted. Use at your own risk.
- * 
- * @since WTP 1.0
+ * @deprecated
+ *
  */
 public abstract class J2EEModuleExportDataModel extends J2EEArtifactExportDataModel {
 	public J2EEModuleExportDataModel() {

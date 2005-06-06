@@ -18,13 +18,10 @@ import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorModuleExpor
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
+//TODO delete jsholl
 /**
- * This dataModel is used to export Connector Modules to Connector RAR files.
- * 
- * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
- * the new project structures are adopted. Use at your own risk.
- * 
- * @since WTP 1.0
+ * @deprecated
+ *
  */
 public final class ConnectorModuleExportDataModel extends J2EEModuleExportDataModel {
 
