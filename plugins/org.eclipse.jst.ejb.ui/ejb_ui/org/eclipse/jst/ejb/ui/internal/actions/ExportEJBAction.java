@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.ejb.ui.internal.actions;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
@@ -29,7 +30,7 @@ import org.eclipse.swt.widgets.Shell;
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class ExportEJBAction extends BaseAction {
-	public static String LABEL = J2EEUIPlugin.getDefault().getDescriptor().getResourceString("%ejb.export.action.description_ui_"); //$NON-NLS-1$
+	public static String LABEL = Platform.getResourceString(J2EEUIPlugin.getDefault().getBundle(), "%ejb.export.action.description_ui_"); //$NON-NLS-1$
 	private static final String ICON = "export_ejbjar_wiz"; //$NON-NLS-1$
 
 	public ExportEJBAction() {
