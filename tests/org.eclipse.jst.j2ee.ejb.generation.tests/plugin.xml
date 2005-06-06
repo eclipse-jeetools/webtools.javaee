@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.j2ee.ejb.generation.tests"
+   name="Tests Plug-in"
+   version="1.0.0"
+   provider-name="Eclipse.org"
+   class="org.eclipse.jst.j2ee.ejb.generation.tests.TestsPlugin">
+
+   <runtime>
+      <library name="annotationtests.jar"/>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotations.ui"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotations.xdoclet"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.jst.ejb.ui"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb"/>
+      <import plugin="org.eclipse.jst.j2ee.ui"/>
+      <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.jst.server.core"/>
+      <import plugin="org.eclipse.jst.server.generic.core"/>
+      <import plugin="org.eclipse.jst.server.generic.ui"/>
+      <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.emf"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.ui"/>
+   </requires>
+
+</plugin>
