@@ -70,9 +70,11 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectC
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationOperation;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
 import org.eclipse.jst.server.generic.core.internal.GenericServerRuntime;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -199,17 +201,18 @@ public abstract class AnnotationTest extends TestCase {
 		return model;
 	}
 
-	protected WTPOperation createEjbModuleAndProject() throws Exception {
+	protected IDataModelOperation createEjbModuleAndProject() throws Exception {
 
 		FlexibleProjectCreationOperation flexibleJavaProjectCreationOperation = createFlexibleProject();
 		flexibleJavaProjectCreationOperation.doRun(new NullProgressMonitor());
-		EjbComponentCreationDataModel a = new EjbComponentCreationDataModel();
-		a.setBooleanProperty(EjbComponentCreationDataModel.ADD_TO_EAR, false);
-		a.setProperty(EjbComponentCreationDataModel.COMPONENT_NAME, MODULE_NAME);
-		a.setProperty(EjbComponentCreationDataModel.COMPONENT_DEPLOY_NAME, MODULE_NAME);
-		a.setBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT, false);
-		a.setProperty(EjbComponentCreationDataModel.PROJECT_NAME, PROJECT_NAME);
-		a.getDefaultOperation().doRun(new NullProgressMonitor());
+		EjbComponentCreationDataModelProvider aProvider = new EjbComponentCreationDataModelProvider();
+		IDataModel a = aProvider.getDataModel();
+		a.setBooleanProperty(EjbComponentCreationDataModelProvider.ADD_TO_EAR, false);
+		a.setProperty(EjbComponentCreationDataModelProvider.COMPONENT_NAME, MODULE_NAME);
+		a.setProperty(EjbComponentCreationDataModelProvider.COMPONENT_DEPLOY_NAME, MODULE_NAME);
+		a.setBooleanProperty(EjbComponentCreationDataModelProvider.CREATE_CLIENT, false);
+		a.setProperty(EjbComponentCreationDataModelProvider.PROJECT_NAME, PROJECT_NAME);
+		a.getDefaultOperation().execute(new NullProgressMonitor(),null);
 
 		return a.getDefaultOperation();
 	}
