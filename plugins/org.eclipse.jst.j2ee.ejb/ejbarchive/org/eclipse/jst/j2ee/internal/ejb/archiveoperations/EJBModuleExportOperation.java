@@ -28,6 +28,11 @@ import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperat
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public final class EJBModuleExportOperation extends J2EEArtifactExportOperation {
 	//TODO - jsholl - why is this here --shouldn't this be in deploy plugins?
 	protected DependentJarExportMerger merger;

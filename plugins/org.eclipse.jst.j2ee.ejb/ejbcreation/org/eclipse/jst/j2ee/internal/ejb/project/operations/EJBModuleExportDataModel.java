@@ -28,13 +28,10 @@ import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+//TODO delete jsholl
 /**
- * This dataModel is used to export EJB Modules to EJB JAR files.
- * 
- * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
- * the new project structures are adopted. Use at your own risk.
- * 
- * @since WTP 1.0
+ * @deprecated
+ *
  */
 public final class EJBModuleExportDataModel extends J2EEModuleExportDataModel {
 

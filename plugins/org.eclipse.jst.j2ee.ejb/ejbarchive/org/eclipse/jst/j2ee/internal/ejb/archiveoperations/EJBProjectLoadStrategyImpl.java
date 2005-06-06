@@ -25,10 +25,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeE
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 
+//TODO delete jsholl
 /**
- * Insert the type's description here. Creation date: (1/9/2001 11:24:19 AM)
- * 
- * @author: Administrator
+ * @deprecated
+ *
  */
 public class EJBProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	/**
