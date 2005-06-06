@@ -75,12 +75,14 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 			}
 		}
 		if (ARCHIVE_MODULE.equals(propertyName)) {
-		    WorkbenchComponent module = (WorkbenchComponent) getProperty(propertyName);
-			if (null == module) {
+//		    WorkbenchComponent module = (WorkbenchComponent) getProperty(propertyName);
+			IProject project = (IProject)getProperty(propertyName);
+			if (null == project) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_NULL));
 			}
-			IProject containingProj = getProjectForGivenComponent(module);
-			if (!containingProj.isOpen()) {
+//			IProject containingProj = getProjectForGivenComponent(module);
+//			if (!containingProj.isOpen()) {
+			if (!project.isOpen()) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_CLOSED));
 			}
 		} else if (ARCHIVE_URI.equals(propertyName)) {
