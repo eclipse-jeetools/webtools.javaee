@@ -401,22 +401,27 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	
 	public String getModuleURI(IVirtualComponent moduleComp) {
-		IVirtualComponent comp = getJ2EEModuleReference(moduleComp.getName());
+		IVirtualComponent comp = getModule(moduleComp.getName());
 		if(comp != null) {
-			if(comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE) || comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
+			if(comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE) || 
+						comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE) ||
+						comp.getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE))
 				return comp.getName().concat(IJ2EEModuleConstants.JAR_EXT);
 			else if (comp.getComponentTypeId().equals((IModuleConstants.JST_WEB_MODULE)))
 				return comp.getName().concat(IJ2EEModuleConstants.WAR_EXT);
 			else if (comp.getComponentTypeId().equals((IModuleConstants.JST_CONNECTOR_MODULE)))
 				return comp.getName().concat(IJ2EEModuleConstants.RAR_EXT);
+			
+				
 		}
 		return null;
 	}
 		
 	
 	
-	public IVirtualComponent getJ2EEModuleReference (String moduleName) {
+	public IVirtualComponent getModule (String moduleName) {
 		List references = getJ2EEModuleReferences();
+		references.addAll(getUtilityModuleReferences());
 		for(int i = 0; i < references.size(); i++) {
 			IVirtualReference ref = (IVirtualReference)references.get(i);
 			IVirtualComponent component = ref.getReferencedComponent();
