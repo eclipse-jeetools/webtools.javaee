@@ -15,23 +15,17 @@ package org.eclipse.jst.j2ee.internal.deploy;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.ApplicationResource;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.client.ApplicationClientResource;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.EJBResource;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.jca.Connector;
-import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.jst.j2ee.webapplication.WebAppResource;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 
 
@@ -45,13 +39,26 @@ public class J2EEDeployHelper {
 	/**
 	 * @param resource
 	 * @param context
-	 * @return
+	 * @returns first EJBJar found in the project
 	 */
 	public static EJBJar getEJBJar(IResource resource, ICommandContext context) {
-
-		if ((resource instanceof IProject) && (J2EENature.hasRuntime((IProject) resource, IEJBNatureConstants.NATURE_ID))) {
-			String jarURI = J2EENature.getRuntime((IProject) resource, IEJBNatureConstants.NATURE_ID).getDeploymentDescriptorURI();
-			return ((EJBResource) context.getResourceSet().getResource(URI.createURI(jarURI), false)).getEJBJar();
+		IFlexibleProject virtualProj = null;
+		EnterpriseArtifactEdit edit = null;
+		try {
+			if (resource instanceof IProject) {
+				virtualProj = ComponentCore.createFlexibleProject((IProject)resource);
+				IVirtualComponent[] comps = virtualProj.getComponents();
+				for (int i = 0; i < comps.length; i++) {
+					IVirtualComponent component = comps[i];
+					if (IModuleConstants.JST_EJB_MODULE.equals(component.getComponentTypeId())) {
+						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+						return (EJBJar)edit.getDeploymentDescriptorRoot();
+					}
+				}
+			}
+		} finally {
+			if (edit != null)
+				edit.dispose();
 		}
 		return null;
 	}
@@ -62,9 +69,23 @@ public class J2EEDeployHelper {
 	 * @return
 	 */
 	public static Application getApplication(IResource resource, ICommandContext context) {
-		if ((resource instanceof IProject) && (J2EENature.hasRuntime((IProject) resource, IEARNatureConstants.NATURE_ID))) {
-			String earURI = J2EENature.getRuntime((IProject) resource, IEARNatureConstants.NATURE_ID).getDeploymentDescriptorURI();
-			return ((ApplicationResource) context.getResourceSet().getResource(URI.createURI(earURI), false)).getApplication();
+		IFlexibleProject virtualProj = null;
+		EnterpriseArtifactEdit edit = null;
+		try {
+			if (resource instanceof IProject) {
+				virtualProj = ComponentCore.createFlexibleProject((IProject)resource);
+				IVirtualComponent[] comps = virtualProj.getComponents();
+				for (int i = 0; i < comps.length; i++) {
+					IVirtualComponent component = comps[i];
+					if (IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId())) {
+						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+						return (Application)edit.getDeploymentDescriptorRoot();
+					}
+				}
+			}
+		} finally {
+			if (edit != null)
+				edit.dispose();
 		}
 		return null;
 	}
@@ -75,9 +96,23 @@ public class J2EEDeployHelper {
 	 * @return
 	 */
 	public static ApplicationClient getAppClient(IResource resource, ICommandContext context) {
-		if ((resource instanceof IProject) && (J2EENature.hasRuntime((IProject) resource, IApplicationClientNatureConstants.NATURE_ID))) {
-			String appClientURI = J2EENature.getRuntime((IProject) resource, IApplicationClientNatureConstants.NATURE_ID).getDeploymentDescriptorURI();
-			return ((ApplicationClientResource) context.getResourceSet().getResource(URI.createURI(appClientURI), false)).getApplicationClient();
+		IFlexibleProject virtualProj = null;
+		EnterpriseArtifactEdit edit = null;
+		try {
+			if (resource instanceof IProject) {
+				virtualProj = ComponentCore.createFlexibleProject((IProject)resource);
+				IVirtualComponent[] comps = virtualProj.getComponents();
+				for (int i = 0; i < comps.length; i++) {
+					IVirtualComponent component = comps[i];
+					if (IModuleConstants.JST_APPCLIENT_MODULE.equals(component.getComponentTypeId())) {
+						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+						return (ApplicationClient)edit.getDeploymentDescriptorRoot();
+					}
+				}
+			}
+		} finally {
+			if (edit != null)
+				edit.dispose();
 		}
 		return null;
 	}
@@ -89,9 +124,23 @@ public class J2EEDeployHelper {
 	 */
 	public static WebApp getWebApp(IResource resource, ICommandContext context) {
 
-		if ((resource instanceof IProject) && (J2EENature.hasRuntime((IProject) resource, IWebNatureConstants.J2EE_NATURE_ID))) {
-			String warURI = J2EENature.getRuntime((IProject) resource, IWebNatureConstants.J2EE_NATURE_ID).getDeploymentDescriptorURI();
-			return ((WebAppResource) context.getResourceSet().getResource(URI.createURI(warURI), false)).getWebApp();
+		IFlexibleProject virtualProj = null;
+		EnterpriseArtifactEdit edit = null;
+		try {
+			if (resource instanceof IProject) {
+				virtualProj = ComponentCore.createFlexibleProject((IProject)resource);
+				IVirtualComponent[] comps = virtualProj.getComponents();
+				for (int i = 0; i < comps.length; i++) {
+					IVirtualComponent component = comps[i];
+					if (IModuleConstants.JST_WEB_MODULE.equals(component.getComponentTypeId())) {
+						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+						return (WebApp)edit.getDeploymentDescriptorRoot();
+					}
+				}
+			}
+		} finally {
+			if (edit != null)
+				edit.dispose();
 		}
 		return null;
 	}
@@ -102,9 +151,23 @@ public class J2EEDeployHelper {
 	 * @return
 	 */
 	public static Connector getConnector(IResource resource, ICommandContext context) {
-		if ((resource instanceof IProject) && (J2EENature.hasRuntime((IProject) resource, IConnectorNatureConstants.NATURE_ID))) {
-			String connURI = J2EENature.getRuntime((IProject) resource, IConnectorNatureConstants.NATURE_ID).getDeploymentDescriptorURI();
-			return ((ConnectorResource) context.getResourceSet().getResource(URI.createURI(connURI), false)).getConnector();
+		IFlexibleProject virtualProj = null;
+		EnterpriseArtifactEdit edit = null;
+		try {
+			if (resource instanceof IProject) {
+				virtualProj = ComponentCore.createFlexibleProject((IProject)resource);
+				IVirtualComponent[] comps = virtualProj.getComponents();
+				for (int i = 0; i < comps.length; i++) {
+					IVirtualComponent component = comps[i];
+					if (IModuleConstants.JST_CONNECTOR_MODULE.equals(component.getComponentTypeId())) {
+						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+						return (Connector)edit.getDeploymentDescriptorRoot();
+					}
+				}
+			}
+		} finally {
+			if (edit != null)
+				edit.dispose();
 		}
 		return null;
 	}
