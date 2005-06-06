@@ -28,5 +28,10 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelPr
  * @since 1.0
  */
 public interface IWebComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
+    /**
+     * Required, type Boolean flag which indicates whether or not to export compiled JSP files
+     * (compiled files exist in /WEB-INF/classes as .class and .java[for debug])
+     */
+    public static final String EXCLUDE_COMPILE_JSP = "WebExportDataModel.EXCLUDE_COMPILE_JSP"; //$NON-NLS-1$
 
 }

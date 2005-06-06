@@ -33,26 +33,30 @@ public interface IJ2EEComponentExportDataModelProperties extends IDataModelPrope
     /**
      * Required, type String. The user defined name of the component to be exported.
      */
-    public static final String COMPONENT_NAME = "J2EEExportDataModel.COMPONENT_NAME"; //$NON-NLS-1$
+    public static final String COMPONENT_NAME = "IJ2EEComponentExportDataModelProperties.COMPONENT_NAME"; //$NON-NLS-1$
+    /**
+     * Required, type String. The user defined name of the component to be exported.
+     */
+    public static final String PROJECT_NAME = "IJ2EEComponentExportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
     /**
      * Required, type IPath.  The user defined export location including fully qualified Path and archive file
      * to be created name. 
      */
-    public static final String ARCHIVE_DESTINATION = "J2EEExportDataModel.ARCHIVE_DESTINATION"; //$NON-NLS-1$
+    public static final String ARCHIVE_DESTINATION = "IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION"; //$NON-NLS-1$
     /**
      * Optional, type Boolean.  If <code>Boolean.TRUE</code> source and class fields will both be archived and exported.
      * Otherwise if <code>Boolean.FALSE</code> only output files are exported.
      */
-    public static final String EXPORT_SOURCE_FILES = "J2EEExportDataModel.EXPORT_SOURCE_FILES"; //$NON-NLS-1$
+    public static final String EXPORT_SOURCE_FILES = "IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES"; //$NON-NLS-1$
     /**
      * Optional, type Boolean.  If <code>Boolean.TRUE</code> and an archive with the same name exists in the 
      * ARCHIVE_DESTINATION, the existing will be overwritten by the archive to be created.  Otherwise,
      * if <code>Boolean.FALSE</code> a error message will be show indicating name collisions.
      */
-    public static final String OVERWRITE_EXISTING = "J2EEExportDataModel.OVERWRITE_EXISTING"; //$NON-NLS-1$
+    public static final String OVERWRITE_EXISTING = "IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING"; //$NON-NLS-1$
     /**
      * Optional, type boolean, Default <code>Boolean.TRUE</code> indicating a Build runs before exporting thus output files are created
      * and archived.  However, if <code>Boolean.FALSE</code> the component is archived as is.
      */
-    public static final String RUN_BUILD = "J2EEExportDataModel.RUN_BUILD"; //$NON-NLS-1$}
+    public static final String RUN_BUILD = "IJ2EEComponentExportDataModelProperties.RUN_BUILD"; //$NON-NLS-1$}
 }
