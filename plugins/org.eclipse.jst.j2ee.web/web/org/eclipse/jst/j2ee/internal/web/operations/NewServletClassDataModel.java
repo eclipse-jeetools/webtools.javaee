@@ -20,12 +20,17 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -315,21 +320,22 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	}
 	
 	protected boolean isAnnotationsSupported() {
-		return true;
-//		if (getComponent().getProject()==null || getComponent()==null) return true;
-//		WebArtifactEdit webEdit = null;
-//		try {
-//			webEdit = WebArtifactEdit.getWebArtifactEditForRead(getComponent());
-//			if (webEdit == null)
-//				return false;
-//			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		} finally {
-//			if (webEdit != null)
-//				webEdit.dispose();
-//		}
+		IProject project = ProjectUtilities.getProject(getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
+		if (project == null) return true;
+		ComponentHandle handle = ComponentHandle.create(project,getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME));
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			if (webEdit == null)
+				return false;
+			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
 	}
 	
 	/**
