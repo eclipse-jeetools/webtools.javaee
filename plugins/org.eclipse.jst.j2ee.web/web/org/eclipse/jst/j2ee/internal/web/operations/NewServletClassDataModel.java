@@ -22,9 +22,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -317,20 +315,21 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	}
 	
 	protected boolean isAnnotationsSupported() {
-		if (getTargetProject()==null || getComponent()==null) return true;
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(getComponent());
-			if (webEdit == null)
-				return false;
-			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		return true;
+//		if (getComponent().getProject()==null || getComponent()==null) return true;
+//		WebArtifactEdit webEdit = null;
+//		try {
+//			webEdit = WebArtifactEdit.getWebArtifactEditForRead(getComponent());
+//			if (webEdit == null)
+//				return false;
+//			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		} finally {
+//			if (webEdit != null)
+//				webEdit.dispose();
+//		}
 	}
 	
 	/**
