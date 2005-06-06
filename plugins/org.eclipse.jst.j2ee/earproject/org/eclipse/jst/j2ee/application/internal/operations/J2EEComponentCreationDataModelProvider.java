@@ -126,8 +126,12 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
 		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
 		
-		ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earCompName);
-		return handle;
+		IStatus status = model.validateProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME);
+		if( status.isOK()){
+			ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earCompName);
+			return handle;
+		}
+		return null;
 	}
 
 	/**
