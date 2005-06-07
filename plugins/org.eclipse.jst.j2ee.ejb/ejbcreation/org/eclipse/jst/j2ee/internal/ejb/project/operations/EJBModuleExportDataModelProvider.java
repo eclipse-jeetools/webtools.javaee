@@ -42,8 +42,8 @@ public class EJBModuleExportDataModelProvider extends J2EEModuleExportDataModelP
     public IStatus validate(String propertyName) {
         IStatus status = super.validate(propertyName);
         if (status.isOK()) {
-            if (PROJECT_NAME.equals(propertyName)) {
-                String projectName = (String) model.getProperty(PROJECT_NAME);
+            if (COMPONENT_NAME.equals(propertyName)) {
+                String projectName = (String) model.getProperty(COMPONENT_NAME);
 //              IStatus status2 = ProjectCreationDataModel.validateProjectName(projectName);
 //              if (!status2.isOK()) {
 //                  return status2;

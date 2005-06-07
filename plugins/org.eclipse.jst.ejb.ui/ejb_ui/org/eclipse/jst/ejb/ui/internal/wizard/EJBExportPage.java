@@ -50,7 +50,7 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
-	protected String getProjectLabel() {
+	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EJB_PROJ_LBL);
 	}
 
