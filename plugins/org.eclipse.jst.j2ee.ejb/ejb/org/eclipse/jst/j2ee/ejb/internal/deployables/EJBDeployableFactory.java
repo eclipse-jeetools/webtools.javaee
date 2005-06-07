@@ -24,9 +24,6 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IModuleType;
-import org.eclipse.wst.server.core.IProjectProperties;
-import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @version 1.0
