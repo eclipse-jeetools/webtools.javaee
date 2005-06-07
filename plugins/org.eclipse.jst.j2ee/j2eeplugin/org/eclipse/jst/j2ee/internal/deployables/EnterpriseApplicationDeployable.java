@@ -15,11 +15,13 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.server.core.IEnterpriseApplication;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -98,7 +100,23 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 
 	public String getURI(IJ2EEModule module) {
 		// TODO Auto-generated method stub
-		return module.getLocation().toString();
+		J2EEFlexProjDeployable mod = (J2EEFlexProjDeployable)module;
+		IVirtualComponent comp = ComponentCore.createComponent(mod.getProject(),mod.getComponentHandle().getName());
+		EARArtifactEdit earEdit = null;
+		String aURI = null;
+		try {
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+			if (earEdit != null) {
+				aURI = earEdit.getModuleURI(comp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (earEdit != null)
+				earEdit.dispose();
+		}
+		
+		return aURI;
 	}
 
 	public boolean containsLooseModules() {
@@ -106,10 +124,6 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		return false;
 	}
 
-	public IPath getLocation() {
-		// TODO Auto-generated method stub
-		return new Path(component.getProjectRelativePath().toString());
-	}
 
 	public IModule[] getLooseArchives() {
 		// TODO Auto-generated method stub
