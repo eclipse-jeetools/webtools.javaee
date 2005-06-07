@@ -149,7 +149,7 @@
 <!--================================-->
 <!-- Export Wizard Contributions    -->
 <!--================================-->
-  <!-- <extension
+   <extension
          point="org.eclipse.ui.exportWizards">
       <wizard
             name="%client.jar.file_ui_"
@@ -175,7 +175,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-   </extension> -->
+   </extension>
 <!-- ====================================================== -->
 <!-- Extension point: org.eclipse.ui.projectNatureImages    -->
 <!-- Purpose: Attach icon overlays for J2EE project natures -->

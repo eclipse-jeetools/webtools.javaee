@@ -82,7 +82,7 @@
       </wizard>
       
     </extension>
-  <!--
+    
   <extension
          point="org.eclipse.ui.exportWizards">
     <wizard
@@ -98,8 +98,7 @@
          </selection>
       </wizard>
     </extension>
-    
--->
+
    <extension
          point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
       <extendableWizard

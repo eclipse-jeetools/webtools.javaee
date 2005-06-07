@@ -13,12 +13,12 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactExportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
 /**
  * <p>
@@ -42,7 +42,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
  * be made available to subclasses via {@link #getSelection()}.
  * </p>
  */
-public abstract class J2EEArtifactExportWizard extends WTPWizard {
+public abstract class J2EEArtifactExportWizard extends DataModelWizard {
 
 	/**
 	 * <p>
@@ -73,7 +73,7 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEArtifactExportWizard(WTPOperationDataModel model) {
+	public J2EEArtifactExportWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(J2EEUIMessages.getResourceString("67"));//$NON-NLS-1$ 
 	}
@@ -121,11 +121,11 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 			Object element = this.currentSelection.getFirstElement();
 			IProject project = ProjectUtilities.getProject(element);
 			if (project != null) {
-				J2EEArtifactExportDataModel m = getJ2EEExportDataModel();
-				Object originalProjectName = m.getProperty(J2EEArtifactExportDataModel.PROJECT_NAME);
-				m.setProperty(J2EEArtifactExportDataModel.PROJECT_NAME, project.getName());
-				if (!m.validateProperty(J2EEArtifactExportDataModel.PROJECT_NAME).isOK()) {
-					m.setProperty(J2EEArtifactExportDataModel.PROJECT_NAME, originalProjectName);
+				IDataModel m = getDataModel();
+				Object originalProjectName = m.getProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME);
+				m.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, project.getName());
+				if (!m.validateProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME).isOK()) {
+					m.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, originalProjectName);
 				}
 			}
 		}
@@ -161,13 +161,6 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 	 */
 	protected final IStructuredSelection getSelection() {
 		return currentSelection;
-	}
-
-	/**
-	 * @return
-	 */
-	private J2EEArtifactExportDataModel getJ2EEExportDataModel() {
-		return (J2EEArtifactExportDataModel) getModel();
 	}
 
 	/**

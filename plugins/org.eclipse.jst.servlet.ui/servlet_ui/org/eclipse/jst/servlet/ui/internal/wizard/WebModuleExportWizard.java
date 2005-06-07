@@ -12,12 +12,11 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * <p>
@@ -46,36 +45,13 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public WebModuleExportWizard(WebModuleExportDataModel model) {
+	public WebModuleExportWizard(IDataModel model) {
 		super(model);
 	}
-
-	/**
-	 * {@inheritDoc} 
-	 * 
-	 * <p>
-	 * Overridden to return an {@link }.
-	 * </p>
-	 *  
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new WebModuleExportDataModel(); 
-	}
-
-	/**
-	 * {@inheritDoc} 
-	 * 
-	 * <p>
-	 * Returns an {@link WebModuleExportOperation} using the model either
-	 * supplied in the constructor or created from {@link #createDefaultModel()}.
-	 * </p>
-	 * @return Returns the operation to be executed when the Wizard completes.
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new WebModuleExportOperation(getSpecificModel());
-	}
-
+    
+    protected IDataModelProvider getDefaultProvider() {
+        return new WebModuleExportDataModelProvider();
+    }
 	/**
 	 * <p>
 	 * Adds the following pages:
@@ -85,7 +61,7 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new WARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
+		addPage(new WARExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
 
 	/**
@@ -98,9 +74,4 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_EXPORT_WIZARD_BANNER));
 	}
-
-	private WebModuleExportDataModel getSpecificModel() {
-		return (WebModuleExportDataModel) getModel();
-	}
-
 }

@@ -10,14 +10,13 @@
  *******************************************************************************/ 
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorModuleExportOperation;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleExportDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * <p>
@@ -46,36 +45,13 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public ConnectorModuleExportWizard(ConnectorModuleExportDataModel model) {
+	public ConnectorModuleExportWizard(IDataModel model) {
 		super(model);
 	}
 
-	/**
-	 * {@inheritDoc} 
-	 * 
-	 * <p>
-	 * Overridden to return an {@link ConnectorModuleExportDataModel}.
-	 * </p>
-	 *  
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new ConnectorModuleExportDataModel(); 
-	}
-
-	/**
-	 * {@inheritDoc} 
-	 * 
-	 * <p>
-	 * Returns an {@link ConnectorModuleExportOperation} using the model either
-	 * supplied in the constructor or created from {@link #createDefaultModel()}.
-	 * </p>
-	 * @return Returns the operation to be executed when the Wizard completes.
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new ConnectorModuleExportOperation(getSpecificModel());
-	}
-
+    protected IDataModelProvider getDefaultProvider() {
+        return new ConnectorModuleExportDataModelProvider();
+    }
 	/**
 	 * <p>
 	 * Adds the following pages:
@@ -85,7 +61,7 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new RARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
+		addPage(new RARExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
 
 	/**
@@ -98,9 +74,4 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_EXPORT_WIZARD_BANNER));
 	} 
-
-	private ConnectorModuleExportDataModel getSpecificModel() {
-		return (ConnectorModuleExportDataModel) getModel();
-	}
-
 }

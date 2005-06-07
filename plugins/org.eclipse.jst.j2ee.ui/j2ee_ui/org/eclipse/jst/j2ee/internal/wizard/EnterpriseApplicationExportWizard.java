@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
-import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationExportOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * <p>
@@ -45,36 +44,13 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public EnterpriseApplicationExportWizard(EnterpriseApplicationExportDataModel model) {
+	public EnterpriseApplicationExportWizard(IDataModel model) {
 		super(model);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Overridden to return an {@link }.
-	 * </p>
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return new EnterpriseApplicationExportDataModel();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Returns an {@link EnterpriseApplicationExportOperation}using the model either supplied in
-	 * the constructor or created from {@link #createDefaultModel()}.
-	 * </p>
-	 * 
-	 * @return Returns the operation to be executed when the Wizard completes.
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new EnterpriseApplicationExportOperation(getSpecificModel());
-	}
+    protected IDataModelProvider getDefaultProvider() {
+        return new EnterpriseApplicationExportDataModelProvider();
+    }
 
 	/**
 	 * <p>
@@ -85,7 +61,7 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
+		addPage(new EARExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
 
 	/**
@@ -99,7 +75,4 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_EXPORT_WIZARD_BANNER));
 	}
 
-	private EnterpriseApplicationExportDataModel getSpecificModel() {
-		return (EnterpriseApplicationExportDataModel) getModel();
-	}
 }

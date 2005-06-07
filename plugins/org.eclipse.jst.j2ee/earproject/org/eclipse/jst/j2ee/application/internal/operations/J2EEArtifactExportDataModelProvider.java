@@ -86,6 +86,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 //          if (!status.isOK()) {
 //              return status;
 //          }
+            if(projectName == null) return OK_STATUS;
             IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
             if (!project.exists()) {
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EXISTS_ERROR, new Object[]{projectName}));

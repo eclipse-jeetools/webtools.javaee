@@ -18,18 +18,12 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactExportDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author cbridgha
@@ -38,14 +32,11 @@ import org.eclipse.swt.widgets.Label;
  * Generation>Code and Comments
  */
 public class EARExportPage extends J2EEExportPage {
-
-	private Button includeProjectFilesCheckbox;
-
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public EARExportPage(EnterpriseApplicationExportDataModel model, String pageName, IStructuredSelection selection) {
+	public EARExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_MAIN_PG_DESC));
@@ -60,22 +51,6 @@ public class EARExportPage extends J2EEExportPage {
 	 */
 	protected String getProjectLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION);
-	}
-
-	protected void createProjectFilesCheckbox(Composite composite) {
-
-		includeProjectFilesCheckbox = new Button(composite, SWT.CHECK | SWT.LEFT);
-		includeProjectFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_INCLUDE_PROJECT_FILES)); //$NON-NLS-1$
-		includeProjectFilesCheckbox.setEnabled(true);
-		synchHelper.synchCheckbox(includeProjectFilesCheckbox, EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, null);
-
-
-		Label includeProjectFilesDesc = new Label(composite, SWT.WRAP);
-		includeProjectFilesDesc.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_INCLUDE_PROJECT_FILES_DESC)); //$NON-NLS-1$
-		GridData gd = new GridData();
-		gd.horizontalIndent = 20;
-		gd.widthHint = 400;
-		includeProjectFilesDesc.setLayoutData(gd);
 	}
 
 
@@ -104,21 +79,15 @@ public class EARExportPage extends J2EEExportPage {
 		return o instanceof Application;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
-	 */
-	protected String getNatureID() {
-
-		return IEARNatureConstants.NATURE_ID;
-	}
-
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEArtifactExportDataModel.PROJECT_NAME, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, J2EEArtifactExportDataModel.OVERWRITE_EXISTING};
+		return new String[]{IJ2EEComponentExportDataModelProperties.PROJECT_NAME, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING};
 	}
 
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.EXPORT_EAR_WIZARD_P1;
 	}
+
+    protected String getCompnentID() {
+        return "JST_EAR";  //$NON-NLS-1$
+    }
 }

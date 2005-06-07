@@ -17,12 +17,12 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 /**
@@ -36,7 +36,7 @@ public class WARExportPage extends J2EEModuleExportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public WARExportPage(J2EEModuleExportDataModel model, String pageName, IStructuredSelection selection) {
+	public WARExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_EXPORT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_EXPORT_MAIN_PG_DESC));
@@ -70,5 +70,9 @@ public class WARExportPage extends J2EEModuleExportPage {
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof org.eclipse.jst.j2ee.webapplication.WebApp;
 	}
+
+    protected String getCompnentID() {
+        return "JST_WEB"; //$NON-NLS-1$
+    }
 
 }

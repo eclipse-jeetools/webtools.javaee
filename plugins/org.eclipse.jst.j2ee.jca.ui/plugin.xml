@@ -67,7 +67,7 @@
      </extension> -->
 
 <!-- JCA Export Wizard --> 
-    <!-- <extension
+    <extension
          point="org.eclipse.ui.exportWizards">
      <wizard
             name="%connector.jar.file_ui_"
@@ -81,7 +81,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
        </wizard>
-     </extension> -->
+     </extension>
 
 <!-- Navigator Object Contributions --> 
 <!-- Connector Group Contributions 

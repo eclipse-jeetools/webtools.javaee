@@ -17,14 +17,13 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author cbridgha
@@ -37,7 +36,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public AppClientExportPage(J2EEModuleExportDataModel model, String pageName, IStructuredSelection selection) {
+	public AppClientExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_EXPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_EXPORT_MAIN_PG_DESC));
@@ -75,21 +74,15 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
-	 */
-	protected String getNatureID() {
-
-		return IApplicationClientNatureConstants.NATURE_ID;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEProjectCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.EXPORT_APPCLIENT_WIZARD_P1);
 		return super.createTopLevelComposite(parent);
 	}
+
+    protected String getCompnentID() {
+        return "JST_APPCLIENT"; //$NON-NLS-1$
+    }
 
 }
