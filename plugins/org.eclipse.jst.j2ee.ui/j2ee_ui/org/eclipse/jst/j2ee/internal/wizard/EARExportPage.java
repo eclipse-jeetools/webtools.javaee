@@ -80,7 +80,7 @@ public class EARExportPage extends J2EEExportPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IJ2EEComponentExportDataModelProperties.PROJECT_NAME, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING};
+		return new String[]{IJ2EEComponentExportDataModelProperties.COMPONENT_NAME, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING};
 	}
 
 	protected String getInfopopID() {

@@ -79,18 +79,18 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
      * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
      */
     public IStatus validate(String propertyName) {
-        if (PROJECT_NAME.equals(propertyName)) {
-            String projectName = (String) model.getProperty(PROJECT_NAME);
+//        if (PROJECT_NAME.equals(propertyName)) {
+//            String projectName = (String) model.getProperty(PROJECT_NAME);
             //TODO: add manual project name validation
 //          IStatus status = ProjectCreationDataModel.validateProjectName(projectName);
 //          if (!status.isOK()) {
 //              return status;
 //          }
-            if(projectName == null) return OK_STATUS;
-            IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-            if (!project.exists()) {
-                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EXISTS_ERROR, new Object[]{projectName}));
-            }
+//            if(projectName == null) return OK_STATUS;
+//            IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+//            if (!project.exists()) {
+//                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EXISTS_ERROR, new Object[]{projectName}));
+//            }
 //            try {
 //                if (!project.hasNature(getNatureID())) {
 //                    return WTPCommonPlugin.createErrorStatus(getWrongProjectTypeString(project.getName()));
@@ -98,8 +98,8 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 //            } catch (CoreException e) {
 //                Logger.getLogger().logError(e);
 //            }
-
-        } else if (ARCHIVE_DESTINATION.equals(propertyName)) {
+//        } 
+    if (ARCHIVE_DESTINATION.equals(propertyName)) {
             String archiveLocation = (String) model.getProperty(ARCHIVE_DESTINATION);
             if (!model.isPropertySet(ARCHIVE_DESTINATION) || archiveLocation.equals("")) { //$NON-NLS-1$
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_INVALID)); //$NON-NLS-1$);
