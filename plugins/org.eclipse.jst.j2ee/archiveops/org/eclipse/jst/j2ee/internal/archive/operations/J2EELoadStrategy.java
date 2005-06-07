@@ -12,12 +12,10 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
-
-
+//TODO delete jsholl
 /**
- * Insert the type's description here. Creation date: (5/10/2001 3:53:38 PM)
- * 
- * @author: Administrator
+ * @deprecated
+ *
  */
 public interface J2EELoadStrategy extends LoadStrategy {
 }

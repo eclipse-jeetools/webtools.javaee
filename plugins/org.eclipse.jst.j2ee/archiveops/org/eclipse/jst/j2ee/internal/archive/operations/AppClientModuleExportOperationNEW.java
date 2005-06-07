@@ -14,7 +14,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -27,24 +26,14 @@ public class AppClientModuleExportOperationNEW extends J2EEArtifactExportOperati
 	}
 
 	public void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
-		exportApplicationClientProject();
-	}
-
-	public void exportApplicationClientProject() throws SaveFailureException {
-
 		try {
 			createModuleFile();
-			getApplicationClientFile().saveAsNoReopen(getDestinationPath().toOSString());
+			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
 			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
 		}
-
-	}
-
-	public ApplicationClientFile getApplicationClientFile() {
-		return (ApplicationClientFile) getModuleFile();
 	}
 
 	protected String archiveString() {

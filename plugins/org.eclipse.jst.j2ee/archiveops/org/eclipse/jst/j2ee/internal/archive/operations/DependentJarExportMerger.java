@@ -8,8 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
@@ -25,8 +23,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 
-
-//TODO shoudln't this be moved out of the core plugins?
 public class DependentJarExportMerger {
 	protected Archive outgoingArchive;
 	protected IProject project;
@@ -67,7 +63,7 @@ public class DependentJarExportMerger {
 				try {
 					dependentJar = getArchiveFactory().primOpenArchive(file.getLocation().toOSString());
 				} catch (OpenFailureException ex) {
-					//Need to write this to the log file
+					// Need to write this to the log file
 					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 					continue;
 				}
@@ -90,7 +86,7 @@ public class DependentJarExportMerger {
 		try {
 			outgoingArchive.addCopyFiles(filesToAdd);
 		} catch (DuplicateObjectException ignore) {
-			//Shouldn't happen because we just checked for dups
+			// Shouldn't happen because we just checked for dups
 		}
 	}
 

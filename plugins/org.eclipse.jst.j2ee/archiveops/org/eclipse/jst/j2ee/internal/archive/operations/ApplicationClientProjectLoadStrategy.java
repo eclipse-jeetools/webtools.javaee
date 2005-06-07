@@ -8,7 +8,10 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-
-
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public interface ApplicationClientProjectLoadStrategy extends J2EELoadStrategy {
 }

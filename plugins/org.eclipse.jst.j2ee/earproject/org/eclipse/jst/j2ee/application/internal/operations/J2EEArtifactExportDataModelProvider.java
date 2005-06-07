@@ -78,7 +78,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
             Object[] components = relevantComponents.toArray(new Object[relevantComponents.size()]);
             String[] names = (String[])componentNames.toArray(new String[componentNames.size()]);
             
-            return DataModelPropertyDescriptor.createDescriptors(components, names);
+            return DataModelPropertyDescriptor.createDescriptors(names);
         }
         return super.getValidPropertyDescriptors(propertyName);
         //(ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()])));
