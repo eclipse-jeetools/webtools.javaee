@@ -615,6 +615,8 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	 */
 	protected IFolder getDefaultJavaSourceFolder() {
 		// Ensure project is not null
+		if (!isSet(ArtifactEditOperationDataModel.PROJECT_NAME))
+			return null;
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;

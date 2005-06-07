@@ -564,8 +564,9 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, IModuleConstants.JST_EJB_MODULE.equals(moduleType),
 				IModuleConstants.JST_WEB_MODULE.equals(moduleType));
-		IProject project = null;
-		project = ((NewJavaClassDataModel) model).getTargetProject();
+		if (!model.isSet(ArtifactEditOperationDataModel.PROJECT_NAME))
+			return;
+		IProject project = ((NewJavaClassDataModel) model).getTargetProject();
 		annotationsGroup.setEnablement(project);
 		// annotationsGroup.setUseAnnotations(true);
 	}
