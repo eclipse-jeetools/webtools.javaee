@@ -128,9 +128,9 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	public URI getWebServicesXmlResourceURI() {
 
 		URI resourceURI = J2EEConstants.WEB_SERVICES_WEB_INF_DD_URI_OBJ;
-		if (isValidAppClientModule(ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName())))
+		if (isValidAppClientModule(getComponent()))
 			resourceURI = J2EEConstants.WEB_SERVICES_META_INF_DD_URI_OBJ;
-		else if (isValidEJBModule(ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName())))
+		else if (isValidEJBModule(getComponent()))
 			resourceURI = J2EEConstants.WEB_SERVICES_META_INF_DD_URI_OBJ; //$NON-NLS-1$
 		return resourceURI;
 	}
@@ -141,6 +141,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 */
 	public WebServices getWebServices() {
+		if (!getComponentHandle().getProject().isAccessible())
+			return null;
 		return (WebServices) getDeploymentDescriptorRoot();
 	}
 

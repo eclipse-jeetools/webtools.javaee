@@ -29,12 +29,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
+import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
+import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
@@ -208,31 +210,28 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
-		//this.getExtensionSite().notifyElementReplaced(this, ((WebServicesNavigatorContentProvider) getContentProvider()).getNavigatorGroup());
 		
-		//List group = new ArrayList();
-		//group.add(getNavigatorGroup());
-		//notifyChanged(new NotificationImpl(anEvent.getEventCode(),group,group));
-		
-		//verify I'm really interested in this event 
-		// only if I'm interested will I refresh ....
-		
-		/*final AbstractTreeViewer abstractViewer = getViewer();
-		if (abstractViewer == null) {
-			return;
+		if (anEvent.getEventCode()==EditModelEvent.UNLOADED_RESOURCE) {
+			if (getViewer()==null) return;
+			List resources = anEvent.getChangedResources();
+			for (int i=0; i<resources.size(); i++) {
+				Resource res = (Resource) resources.get(i);
+				if (res instanceof WsddResource) 
+					getViewer().refresh(getNavigatorGroup());
+			}
 		}
 		
-		if (Display.getCurrent() != null) {
-			abstractViewer.refresh(getNavigatorGroup());
-		} else {
-			// Create and schedule a UI Job to update the Navigator Content Viewer 
-			new UIJob("Update the Viewer for the Common Adapter Factory Content Provider") { //$NON-NLS-1$
-				public IStatus runInUIThread(IProgressMonitor monitor) {
-					abstractViewer.refresh(getNavigatorGroup());
-					return Status.OK_STATUS;
-				}
-			}.schedule();
-		}*/
+//		if (Display.getCurrent() != null) {
+//			abstractViewer.refresh(getNavigatorGroup());
+//		} else {
+//			// Create and schedule a UI Job to update the Navigator Content Viewer 
+//			new UIJob("Update the Viewer for the Common Adapter Factory Content Provider") { //$NON-NLS-1$
+//				public IStatus runInUIThread(IProgressMonitor monitor) {
+//					abstractViewer.refresh(getNavigatorGroup());
+//					return Status.OK_STATUS;
+//				}
+//			}.schedule();
+//		}
 	}
 	
 	/*
