@@ -17,6 +17,9 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 
@@ -89,7 +92,21 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	}
 	
 	protected boolean isValidModule(IProject project) {
-		return false;
+        if (isFlexableProject(project)) {
+            StructureEdit moduleCore = null;
+            try {
+                moduleCore = StructureEdit.getStructureEditForRead(project);
+                WorkbenchComponent[] wbComp = moduleCore.getWorkbenchModules();
+                for (int i = 0; i < wbComp.length; i++) {
+                    if(wbComp[i].getComponentType().getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
+                        return true;
+                }
+            } finally {
+                if (moduleCore != null)
+                    moduleCore.dispose();
+            }
+        }
+        return false;
 	}
 
 	/* (non-Javadoc)
