@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.IWorkbench;
@@ -117,18 +114,19 @@ public abstract class J2EEArtifactExportWizard extends DataModelWizard {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EXPORT_WIZ_TITLE));
 		this.currentSelection = selection;
 
-		if (this.currentSelection.size() > 0) {
-			Object element = this.currentSelection.getFirstElement();
-			IProject project = ProjectUtilities.getProject(element);
-			if (project != null) {
-				IDataModel m = getDataModel();
-				Object originalProjectName = m.getProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME);
-				m.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, project.getName());
-				if (!m.validateProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME).isOK()) {
-					m.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, originalProjectName);
-				}
-			}
-		}
+//TODO: enable selection defaults
+//		if (this.currentSelection.size() > 0) {
+//			Object element = this.currentSelection.getFirstElement();
+//			IProject project = ProjectUtilities.getProject(element);
+//			if (project != null) {
+//				IDataModel m = getDataModel();
+//				Object originalProjectName = m.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME);
+//				m.setProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME, project.getName());
+//				if (!m.validateProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME).isOK()) {
+//					m.setProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME, originalProjectName);
+//				}
+//			}
+//		}
 		doInit();
 	}
 

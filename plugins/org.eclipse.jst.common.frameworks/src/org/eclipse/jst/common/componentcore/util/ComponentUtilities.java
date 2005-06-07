@@ -1,6 +1,7 @@
 package org.eclipse.jst.common.componentcore.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -24,6 +25,7 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -119,6 +121,25 @@ public class ComponentUtilities {
 	return ComponentCore.createComponent(project,module.getName());
 	}
 
+    public static IVirtualComponent[] getAllWorkbenchComponents(){
+        List components = new ArrayList();
+        List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
+        StructureEdit moduleCore = null;
+        for (int i = 0; i < projects.size(); i++) {
+            try {
+                moduleCore = StructureEdit.getStructureEditForRead((IProject)projects.get(i));
+                WorkbenchComponent[] wbComp  = moduleCore.getWorkbenchModules();
+                for (int j = 0; j < wbComp.length; j++) {
+                    components.add(ComponentCore.createComponent((IProject)projects.get(i), wbComp[j].getName()));
+                }
+            } finally {
+                if (moduleCore !=null)
+                    moduleCore.dispose();
+            }
+        }
+        VirtualComponent[] temp = (VirtualComponent[])components.toArray(new VirtualComponent[components.size()]);
+        return (IVirtualComponent[])temp;
+    }
 
 
 

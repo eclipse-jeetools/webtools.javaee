@@ -10,13 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -29,7 +34,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
     }
 
     public String[] getPropertyNames() {
-        return new String[]{COMPONENT_NAME, PROJECT_NAME, ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD};
+        return new String[]{COMPONENT_NAME, ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD};
     }
     protected abstract String getComponentID();
 
@@ -49,28 +54,34 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
         }
         return super.getDefaultProperty(propertyName);
     }
-    public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName) {
-        if (propertyName.equals(COMPONENT_NAME)) {
-            return getValidProjectDescriptors();
-        }
-        return super.getPropertyDescriptor(propertyName);
-    }
+
     /**
      * Populate the resource name combo with connector projects that are not encrypted.
      */
-    private DataModelPropertyDescriptor getValidProjectDescriptors() {
+    public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
         //TODO: populate valid components
-        return null;
-//        List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
-//        List projectsWithNature = new ArrayList();
-//
-//        for (int i = 0; i < projects.size(); i++) {
-//            IProject project = (IProject) projects.get(i);
-//            if (J2EENature.hasRuntime(project, getNatureID()) && project.isOpen()) {
-//                projectsWithNature.add(project.getFullPath().toString());
-//            } // if
-//        } // for
-//        return WTPPropertyDescriptor.createDescriptors(ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()])));
+        if (propertyName.equals(COMPONENT_NAME)) {
+            List componentNames = new ArrayList();
+            IVirtualComponent[] wbComps = ComponentUtilities.getAllWorkbenchComponents();
+            
+            List relevantComponents = new ArrayList();
+            for (int i = 0; i < wbComps.length; i++) {
+                if(wbComps[i].getComponentTypeId().equals(getComponentID()))
+                    relevantComponents.add(wbComps[i]);
+            }
+            
+            if(relevantComponents == null || relevantComponents.size() == 0) return null;
+            
+            for (int j = 0; j < relevantComponents.size(); j++) {
+                componentNames.add(((IVirtualComponent)relevantComponents.get(j)).getName());
+            }
+            Object[] components = relevantComponents.toArray(new Object[relevantComponents.size()]);
+            String[] names = (String[])componentNames.toArray(new String[componentNames.size()]);
+            
+            return DataModelPropertyDescriptor.createDescriptors(components, names);
+        }
+        return super.getValidPropertyDescriptors(propertyName);
+        //(ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()])));
     }
     /*
      * (non-Javadoc)
@@ -116,7 +127,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.RESOURCE_EXISTS_ERROR, new Object[]{location}));
             }
         }
-        return super.validate(propertyName);
+        return OK_STATUS;
     }
     
 

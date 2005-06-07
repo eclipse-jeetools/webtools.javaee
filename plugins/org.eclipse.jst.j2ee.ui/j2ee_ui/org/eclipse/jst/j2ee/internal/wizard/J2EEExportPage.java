@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -92,7 +91,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	protected Composite createTopLevelComposite(Composite parent) {
 
 		Composite composite = new Composite(parent, SWT.NULL);
-		WorkbenchHelp.setHelp(composite, getInfopopID());
+		//WorkbenchHelp.setHelp(composite, getInfopopID());
 		GridLayout layout = new GridLayout(1, false);
 		composite.setLayout(layout);
 
@@ -112,11 +111,85 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout(3, false);
 		composite.setLayout(layout);
-		createExportProjectGroup(composite);
+		createExportComponentGroup(composite);
 		createDestinationGroup(composite);
 
 	}
+    /**
+     * Creates the export source resource specification widgets.
+     * 
+     * @param parent
+     *            a <code>Composite</code> that is to be used as the parent of this group's
+     *            collection of visual components
+     * @see org.eclipse.swt.widgets.Composite
+     */
+    protected void createExportComponentGroup(Composite parent) {
+        //Project label
+        Label projectLabel = new Label(parent, SWT.NONE);
+        projectLabel.setText(getComponentLabel());
+        //Project combo
+        resourceNameCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
+        GridData data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        resourceNameCombo.setLayoutData(data);
+        synchHelper.synchCombo(resourceNameCombo, IJ2EEComponentExportDataModelProperties.COMPONENT_NAME, null);
+        new Label(parent, SWT.NONE);//Pad label
+    }
 
+    /**
+     * @return
+     */
+    protected abstract String getComponentLabel();
+
+    protected void createDestinationGroup(org.eclipse.swt.widgets.Composite parent) {
+
+        //Destination label
+        Label destinationLabel = new Label(parent, SWT.NONE);
+        destinationLabel.setText(LABEL_DESTINATION);
+        // destination name combo field
+        destinationNameCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
+        destinationNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        synchHelper.synchCombo(destinationNameCombo, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, null);
+
+        // destination browse button
+        destinationBrowseButton = new Button(parent, SWT.PUSH);
+        destinationBrowseButton.setText(defBrowseButtonLabel); //$NON-NLS-1$
+        destinationBrowseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
+        destinationBrowseButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+                handleDestinationBrowseButtonPressed();
+            }
+        });
+        destinationBrowseButton.setEnabled(true);
+
+    }
+    
+    /**
+     * Create the export options specification widgets.
+     * 
+     * @param parent
+     *            org.eclipse.swt.widgets.Composite
+     */
+    protected void createOptionsGroup(Composite parent) {
+
+        // options group
+        Composite optionsGroup = new Composite(parent, SWT.NULL);
+        GridLayout layout = new GridLayout(1, false);
+        optionsGroup.setLayout(layout);
+
+
+        // source files... checkbox
+        createSourceFilesCheckbox(optionsGroup);
+
+        // overwrite... checkbox
+        createOverwriteExistingFilesCheckbox(optionsGroup);
+
+        // advanced button
+        if (shouldShowProjectFilesCheckbox()) {
+            createProjectFilesCheckbox(optionsGroup);
+        }
+    }
+    
 	protected void createOverwriteExistingFilesCheckbox(Composite optionsGroup) {
 		//Overwrite checkbox
 		overwriteExistingFilesCheckbox = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
@@ -129,32 +202,6 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		sourceFilesCheckbox = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
 		sourceFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_SOURCE_CHECKBOX)); //$NON-NLS-1$
 		synchHelper.synchCheckbox(sourceFilesCheckbox, IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES, null);
-	}
-
-	/**
-	 * Create the export options specification widgets.
-	 * 
-	 * @param parent
-	 *            org.eclipse.swt.widgets.Composite
-	 */
-	protected void createOptionsGroup(Composite parent) {
-
-		// options group
-		Composite optionsGroup = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout(1, false);
-		optionsGroup.setLayout(layout);
-
-
-		// source files... checkbox
-		createSourceFilesCheckbox(optionsGroup);
-
-		// overwrite... checkbox
-		createOverwriteExistingFilesCheckbox(optionsGroup);
-
-		// advanced button
-		if (shouldShowProjectFilesCheckbox()) {
-			createProjectFilesCheckbox(optionsGroup);
-		}
 	}
 
 	/**
@@ -210,7 +257,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	protected void handleDestinationBrowseButtonPressed() {
 
 		FileDialog dialog = new FileDialog(destinationNameCombo.getShell(), SWT.SAVE);
-		String fileName = getDataModel().getStringProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME);
+		String fileName = getDataModel().getStringProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME);
 		String[] filters = getFilterExpression();
 		if (!isWindows) {
 			if (filters.length != 0 && filters[0] != null && filters[0].indexOf('.') != -1) {
@@ -273,54 +320,6 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		}
 	}
 
-	/**
-	 * Creates the export source resource specification widgets.
-	 * 
-	 * @param parent
-	 *            a <code>Composite</code> that is to be used as the parent of this group's
-	 *            collection of visual components
-	 * @see org.eclipse.swt.widgets.Composite
-	 */
-	protected void createExportProjectGroup(Composite parent) {
-		//Project label
-		Label projectLabel = new Label(parent, SWT.NONE);
-		projectLabel.setText(getProjectLabel());
-		//Project combo
-		resourceNameCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-		resourceNameCombo.setLayoutData(data);
-		synchHelper.synchCombo(resourceNameCombo, IJ2EEComponentExportDataModelProperties.PROJECT_NAME, null);
-		new Label(parent, SWT.NONE);//Pad label
-	}
-
-	/**
-	 * @return
-	 */
-	protected abstract String getProjectLabel();
-
-	protected void createDestinationGroup(org.eclipse.swt.widgets.Composite parent) {
-
-		//Destination label
-		Label destinationLabel = new Label(parent, SWT.NONE);
-		destinationLabel.setText(LABEL_DESTINATION);
-		// destination name combo field
-		destinationNameCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
-		destinationNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(destinationNameCombo, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, null);
-
-		// destination browse button
-		destinationBrowseButton = new Button(parent, SWT.PUSH);
-		destinationBrowseButton.setText(defBrowseButtonLabel); //$NON-NLS-1$
-		destinationBrowseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		destinationBrowseButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				handleDestinationBrowseButtonPressed();
-			}
-		});
-		destinationBrowseButton.setEnabled(true);
-
-	}
 	/**
 	 * @return
 	 */

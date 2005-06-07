@@ -49,7 +49,7 @@ public class EARExportPage extends J2EEExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
-	protected String getProjectLabel() {
+	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION);
 	}
 
