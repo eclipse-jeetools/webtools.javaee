@@ -18,13 +18,12 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 /**
@@ -38,7 +37,7 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBExportPage(J2EEModuleExportDataModel model, String pageName, IStructuredSelection selection) {
+	public EJBExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_EXPORT_MAIN_PG_TITLE));
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_EXPORT_MAIN_PG_DESC));
@@ -73,18 +72,12 @@ public class EJBExportPage extends J2EEModuleExportPage {
 		return o instanceof org.eclipse.jst.j2ee.ejb.EJBJar;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#getNatureID()
-	 */
-	protected String getNatureID() {
-
-		return IEJBNatureConstants.NATURE_ID;
-	}
-
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.EXPORT_EJB_WIZARD_P1;
 	}
+
+    protected String getCompnentID() {
+        return "JST_EJB"; //$NON-NLS-1$
+    }
 
 }

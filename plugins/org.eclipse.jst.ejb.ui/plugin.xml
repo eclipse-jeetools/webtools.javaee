@@ -29,7 +29,7 @@
 <!--================================-->
 <!-- Export Wizard Contributions    -->
 <!--================================-->
- <!--  <extension
+   <extension
          point="org.eclipse.ui.exportWizards">
       <wizard
             name="%ejb.jar.file_ui_"
@@ -43,7 +43,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-   </extension> -->
+   </extension>
 
 <!-- New EJB Module Wizard -->
    <extension
