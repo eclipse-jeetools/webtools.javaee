@@ -10,8 +10,6 @@
  *******************************************************************************/ 
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleExportOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -19,8 +17,6 @@ import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * <p>
