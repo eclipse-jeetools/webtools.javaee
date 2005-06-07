@@ -320,9 +320,15 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	}
 	
 	protected boolean isAnnotationsSupported() {
+		
+		if (!isSet(ArtifactEditOperationDataModel.PROJECT_NAME))
+			return true;
+		if (getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME).equals(""))
+			return true;
 		IProject project = ProjectUtilities.getProject(getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
-		if (project == null) return true;
-		ComponentHandle handle = ComponentHandle.create(project,getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME));
+		String moduleName = getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME);
+		if (project == null || moduleName == null || moduleName.equals("")) return true;
+		ComponentHandle handle = ComponentHandle.create(project,moduleName);
 		WebArtifactEdit webEdit = null;
 		try {
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);

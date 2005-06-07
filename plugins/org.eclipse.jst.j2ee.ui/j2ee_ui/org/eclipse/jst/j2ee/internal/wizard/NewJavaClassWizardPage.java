@@ -268,11 +268,11 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 				// Ignore
 			}
 		}
+		if (items.isEmpty()) return;
 		String[] names = new String[items.size()];
 		for (int i = 0; i < items.size(); i++) {
 			names[i] = (String) items.get(i);
 		}
-
 		projectNameCombo.setItems(names);
 		try {
 			IProject selectedProject = getSelectedProject();

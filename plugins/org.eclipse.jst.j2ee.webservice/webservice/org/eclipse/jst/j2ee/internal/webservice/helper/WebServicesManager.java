@@ -760,31 +760,31 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			else if (delta.getKind() == IResourceDelta.CHANGED && flexProject != null) {
 				boolean state = true;
 				boolean projectOpenStateChanged = ((delta.getFlags() & IResourceDelta.OPEN) != 0);
-				if (projectOpenStateChanged) {
-					IVirtualComponent[] components = flexProject.getComponents();
-					for (int i=0; i<components.length; i++) {
-						ComponentHandle handle = ComponentHandle.create(components[i].getProject(),components[i].getName());
-						WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
-						if (wsArtifactEdit != null) {
-							getWSArtifactEdits().remove(wsArtifactEdit);
-							wsArtifactEdit.dispose();
-							// forward an edit model event to manager's listeners
-							// TODO forward edit model event?
-							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wsArtifactEdit));
-							state = false;
-						}
-						
-						WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
-						if (wscArtifactEdit != null) {
-							getWSClientArtifactEdits().remove(wscArtifactEdit);
-							wscArtifactEdit.dispose();
-							// forward an edit model event to manager's listeners
-							// TODO forward edit model event?
-							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wscArtifactEdit));
-							state = false;
-						}
-					}	
-				}
+//				if (projectOpenStateChanged) {
+//					IVirtualComponent[] components = flexProject.getComponents();
+//					for (int i=0; i<components.length; i++) {
+//						ComponentHandle handle = ComponentHandle.create(components[i].getProject(),components[i].getName());
+//						WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(handle);
+//						if (wsArtifactEdit != null) {
+//							getWSArtifactEdits().remove(wsArtifactEdit);
+//							wsArtifactEdit.dispose();
+//							// forward an edit model event to manager's listeners
+//							// TODO forward edit model event?
+//							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wsArtifactEdit));
+//							state = false;
+//						}
+//						
+//						WSCDDArtifactEdit wscArtifactEdit = getWSClientArtifactEdit(handle);
+//						if (wscArtifactEdit != null) {
+//							getWSClientArtifactEdits().remove(wscArtifactEdit);
+//							wscArtifactEdit.dispose();
+//							// forward an edit model event to manager's listeners
+//							// TODO forward edit model event?
+//							//notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,wscArtifactEdit));
+//							state = false;
+//						}
+//					}	
+//				}
 				return state;
 			}
 			// Handle project delete events
