@@ -94,9 +94,10 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
     
     protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
-        component.create(0, null);
+		component.create(0, null);
         //create and link javaSource Source Folder
-        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$     
+		
+        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$   
         javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
         
         //create and link META-INF folder
@@ -121,7 +122,12 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	}
     
     String getJavaSourceFolder(){
-        return model.getStringProperty(JAVASOURCE_FOLDER);
+		String folder = model.getStringProperty(JAVASOURCE_FOLDER);
+		String ret = "";
+		if( !folder.equals("/")){
+			ret = model.getStringProperty(JAVASOURCE_FOLDER);
+		}
+		return ret;
     }
     
     String getManifestFolder(){
