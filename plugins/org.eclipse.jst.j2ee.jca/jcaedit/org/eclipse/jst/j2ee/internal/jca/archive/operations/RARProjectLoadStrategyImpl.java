@@ -80,9 +80,6 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		return super.getFiles(projectResources);
 	}
 
-	/**
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#shouldInclude(IContainer)
-	 */
 	protected boolean shouldInclude(IContainer iContainer) {
 		return moduleRoot.equals(iContainer) || !getSourceFolders().contains(iContainer);
 	}
@@ -205,9 +202,6 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		return name.regionMatches(true, name.length() - offset, ext, 0, offset);
 	}
 
-	/**
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#shouldInclude(String)
-	 */
 	protected boolean shouldInclude(String uri) {
 		return !hasExtension(uri, ArchiveUtil.DOT_CLASS) && !hasExtension(uri, ArchiveUtil.DOT_JAVA);
 	}

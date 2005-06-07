@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.jca.archive.operations;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperationNEW;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -24,5 +28,15 @@ public class ConnectorModuleExportOperationNEW extends J2EEArtifactExportOperati
         super(model);
         // TODO Auto-generated constructor stub
     }
+
+	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected String archiveString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

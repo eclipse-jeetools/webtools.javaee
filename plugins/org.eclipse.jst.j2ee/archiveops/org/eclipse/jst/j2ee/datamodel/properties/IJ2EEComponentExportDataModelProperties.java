@@ -30,7 +30,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
  */
 public interface IJ2EEComponentExportDataModelProperties extends IDataModelProperties {
 
-    /**
+	/**
      * Required, type String. The user defined name of the component to be exported.
      */
     public static final String COMPONENT_NAME = "IJ2EEComponentExportDataModelProperties.COMPONENT_NAME"; //$NON-NLS-1$
