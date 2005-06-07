@@ -19,6 +19,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
@@ -93,20 +95,21 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	}
 
 	protected boolean isValidModule(IProject project) {
-		if (isFlexableProject(project)) {
-			IProjectProperties properties = ServerCore.getProjectProperties(project);
-			if (properties != null && properties.getRuntimeTarget() != null && properties.getRuntimeTarget().getRuntimeType().getModuleTypes() != null) {
-				IModuleType[] moduleTypes = properties.getRuntimeTarget().getRuntimeType().getModuleTypes();
-				for (int i = 0; i < moduleTypes.length; i++) {
-					IModuleType moduleType = moduleTypes[i];
-					if (moduleType.getId().equals("j2ee.ejb"))
-						return true;
-				}
-
-			}
-
-		}
-		return false;
+        if (isFlexableProject(project)) {
+            StructureEdit moduleCore = null;
+            try {
+                moduleCore = StructureEdit.getStructureEditForRead(project);
+                WorkbenchComponent[] wbComp = moduleCore.getWorkbenchModules();
+                for (int i = 0; i < wbComp.length; i++) {
+                    if(wbComp[i].getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
+                        return true;
+                }
+            } finally {
+                if (moduleCore != null)
+                    moduleCore.dispose();
+            }
+        }
+        return false;
 	}
 
 
