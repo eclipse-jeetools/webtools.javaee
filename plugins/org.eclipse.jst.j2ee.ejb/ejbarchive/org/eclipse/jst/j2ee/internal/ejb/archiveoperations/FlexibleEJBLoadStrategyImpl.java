@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategy;
+import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleLoadStrategyImpl;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-//TODO delete jsholl
-/**
- * @deprecated
- *
- */
-public interface EJBProjectLoadStrategy extends J2EELoadStrategy {
+public class FlexibleEJBLoadStrategyImpl extends FlexibleLoadStrategyImpl {
+
+	public FlexibleEJBLoadStrategyImpl(IVirtualComponent vComponent) {
+		super(vComponent);
+	}
 }
