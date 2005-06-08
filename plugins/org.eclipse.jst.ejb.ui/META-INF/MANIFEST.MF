@@ -38,5 +38,6 @@ Require-Bundle: org.eclipse.ui.views,
  org.eclipse.jst.common.frameworks,
  org.eclipse.jst.common.annotations.controller,
  org.eclipse.wst.common.navigator.workbench,
- org.eclipse.wst.common.modulecore
+ org.eclipse.wst.common.modulecore,
+ org.eclipse.jem.util
 Eclipse-AutoStart: true
