@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
@@ -464,7 +465,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 					model = webExt.createImportDataModel();
 					WebModule webModule = (WebModule) getEARFile().getModule(temp.getURI(), null);
 					if (null != webModule && null != webModule.getContextRoot()) {
-						model.setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, webModule.getContextRoot());
+						model.setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, webModule.getContextRoot());
 					}
 				}
 			} else if (temp.isEJBJarFile()) {

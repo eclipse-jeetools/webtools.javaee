@@ -293,9 +293,9 @@ public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 		Command addCommand = null;
 		if (dataModel.isModuleArchive()) {
 			String contextRoot = null;
-			if (((AddModuleToEARDataModel) dataModel).isWebModuleArchive())
-				contextRoot = dataModel.getStringProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT);
-			addCommand = new AddModuleToEARProjectCommand(project, dataModel.getTargetProject(), uri, contextRoot, null);
+			/*if (((AddModuleToEARDataModel) dataModel).isWebModuleArchive())
+				contextRoot = dataModel.getStringProperty(iAddWebModuleToEARDataModel.CONTEXT_ROOT);
+			*/addCommand = new AddModuleToEARProjectCommand(project, dataModel.getTargetProject(), uri, contextRoot, null);
 		} else
 			addCommand = new AddUtilityJARMapCommand(dataModel.getTargetProject(), uri, project);
 

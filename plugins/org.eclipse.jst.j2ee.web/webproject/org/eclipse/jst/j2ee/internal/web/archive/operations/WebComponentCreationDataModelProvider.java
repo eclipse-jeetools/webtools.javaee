@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebComponentToEARDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
@@ -296,7 +295,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 
     public void propertyChanged(DataModelEvent event) {
         super.propertyChanged(event);
-        if (event.getDataModel() == getAddComponentToEARDataModel() && event.getPropertyName().equals(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT) && event.getDataModel().isPropertySet(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
+        if (event.getDataModel() == getAddComponentToEARDataModel() && event.getPropertyName().equals(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT) && event.getDataModel().isPropertySet(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT)) {
             setProperty(CONTEXT_ROOT, event.getProperty());
         } 
 		//else if (event.getDataModel() == getServerTargetDataModel() && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID) && event.getDataModel().isSet(ServerTargetDataModel.RUNTIME_TARGET_ID))

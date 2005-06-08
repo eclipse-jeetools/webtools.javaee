@@ -18,12 +18,14 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelP
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentCreationOperation extends ComponentCreationOperation implements IEarComponentCreationDataModelProperties{
@@ -94,15 +96,17 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 	
 	private void addModulesToEAR(IProgressMonitor monitor) {
 		try{
-			AddComponentToEnterpriseApplicationDataModel dm = new AddComponentToEnterpriseApplicationDataModel();
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, model.getProperty(PROJECT_NAME));
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(COMPONENT_NAME));
+			IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+            IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
 			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
+            List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 			if (modulesList != null && !modulesList.isEmpty()) {
-				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
-				AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
-				addModuleOp.execute(monitor);
+				for(int i=0; i<modulesList.size(); i++){
+				    modList.add(((IVirtualComponent)modulesList.get(i)).getComponentHandle());
+                }
+                dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+                dm.getDefaultOperation().execute(monitor, null);
 		   }
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);
