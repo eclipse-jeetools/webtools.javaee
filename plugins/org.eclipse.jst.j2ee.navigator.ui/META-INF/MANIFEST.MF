@@ -39,5 +39,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jst.common.navigator.java,
  org.eclipse.jst.common.frameworks,
  org.eclipse.wst.common.modulecore,
- org.eclipse.jst.j2ee.webservices.ui
+ org.eclipse.jst.j2ee.webservices.ui,
+ org.eclipse.jem.util
 Eclipse-AutoStart: true
