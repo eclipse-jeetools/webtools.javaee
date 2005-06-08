@@ -8,14 +8,16 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.archive.operations;
+package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class FlexibleApplicationClientLoadStrategyImpl extends FlexibleLoadStrategyImpl {
+public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
-	public FlexibleApplicationClientLoadStrategyImpl(IVirtualComponent vComponent) {
+	public WebComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
+		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -73,13 +73,6 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		return files;
 	}
 
-	/**
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#getFiles(List)
-	 */
-	protected ArrayList getFiles(List projectResources) throws Exception {
-		return super.getFiles(projectResources);
-	}
-
 	protected boolean shouldInclude(IContainer iContainer) {
 		return moduleRoot.equals(iContainer) || !getSourceFolders().contains(iContainer);
 	}

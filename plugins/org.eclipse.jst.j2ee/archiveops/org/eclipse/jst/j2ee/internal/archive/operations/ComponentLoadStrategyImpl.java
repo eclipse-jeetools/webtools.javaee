@@ -30,14 +30,14 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
-public abstract class FlexibleLoadStrategyImpl extends LoadStrategyImpl {
+public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
 	protected ArrayList filesList;
 	protected Set visitedURIs;
 
-	public FlexibleLoadStrategyImpl(IVirtualComponent vComponent) {
+	public ComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		this.vComponent = vComponent;
 		filesList = new ArrayList();
 	}

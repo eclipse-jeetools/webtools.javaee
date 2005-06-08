@@ -44,7 +44,7 @@ public class AppClientModuleExportOperationNEW extends J2EEArtifactExportOperati
 
 		try {
 			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-			FlexibleApplicationClientLoadStrategyImpl ls = new FlexibleApplicationClientLoadStrategyImpl(getComponent());
+			ApplicationClientComponentLoadStrategyImpl ls = new ApplicationClientComponentLoadStrategyImpl(getComponent());
 			ls.setExportSource(isExportSource());
 			setModuleFile(caf.openApplicationClientFile(ls, getDestinationPath().toOSString()));
 		} catch (Exception e) {

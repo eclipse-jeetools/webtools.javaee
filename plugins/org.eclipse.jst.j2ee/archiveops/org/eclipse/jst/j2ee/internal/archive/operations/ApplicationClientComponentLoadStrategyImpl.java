@@ -12,11 +12,10 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
+public class ApplicationClientComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
-	public EARComponentLoadStrategyImpl(IVirtualComponent vComponent) {
+	public ApplicationClientComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
-		// TODO Auto-generated constructor stub
 	}
 
 }

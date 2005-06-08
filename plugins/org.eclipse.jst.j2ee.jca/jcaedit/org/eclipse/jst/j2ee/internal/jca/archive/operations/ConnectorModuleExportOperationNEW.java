@@ -13,30 +13,38 @@ package org.eclipse.jst.j2ee.internal.jca.archive.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperationNEW;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ConnectorModuleExportOperationNEW extends J2EEArtifactExportOperationNEW {
 
-    public ConnectorModuleExportOperationNEW() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public ConnectorModuleExportOperationNEW() {
+		super();
+	}
 
-    public ConnectorModuleExportOperationNEW(IDataModel model) {
-        super(model);
-        // TODO Auto-generated constructor stub
-    }
+	public ConnectorModuleExportOperationNEW(IDataModel model) {
+		super(model);
+	}
 
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
-		// TODO Auto-generated method stub
-		
+		try {
+			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
+			ConnectorComponentLoadStrategyImpl ls = new ConnectorComponentLoadStrategyImpl(getComponent());
+			ls.setExportSource(isExportSource());
+			setModuleFile(caf.openRARFile(ls, getDestinationPath().toOSString()));
+			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
+		} catch (Exception e) {
+			throw new SaveFailureException(J2EEPluginResourceHandler.getString("Error_opening_archive_for_export_2"), e);//$NON-NLS-1$
+		}
 	}
 
 	protected String archiveString() {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO fill in string
+		return "";
 	}
-
 }
