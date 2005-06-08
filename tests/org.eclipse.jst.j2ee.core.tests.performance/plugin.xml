@@ -20,7 +20,6 @@
       <import plugin="org.eclipse.jst.j2ee.tests.performance"/>
       <import plugin="org.eclipse.wst.common.tests"/>
       <import plugin="org.eclipse.jst.j2ee.core.tests"/>
-      <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.jst.j2ee.tests"/>
    </requires>
 
