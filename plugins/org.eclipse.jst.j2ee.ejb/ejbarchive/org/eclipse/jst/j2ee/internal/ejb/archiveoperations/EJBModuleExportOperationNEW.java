@@ -50,7 +50,7 @@ public class EJBModuleExportOperationNEW extends J2EEArtifactExportOperationNEW 
 	public void createModuleFile() throws SaveFailureException {
 		try {
 			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-			FlexibleEJBLoadStrategyImpl ls = new FlexibleEJBLoadStrategyImpl(getComponent());
+			EJBComponentLoadStrategyImpl ls = new EJBComponentLoadStrategyImpl(getComponent());
 			ls.setExportSource(isExportSource());
 			setModuleFile(caf.openEJBJarFile(ls, getDestinationPath().toOSString()));
 		} catch (Exception e) {

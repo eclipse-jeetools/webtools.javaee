@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class FlexibleEJBLoadStrategyImpl extends FlexibleLoadStrategyImpl {
+public class EJBComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
-	public FlexibleEJBLoadStrategyImpl(IVirtualComponent vComponent) {
+	public EJBComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
 	}
 }
