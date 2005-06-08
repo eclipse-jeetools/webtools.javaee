@@ -138,9 +138,18 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 	
 	public EARArtifactEdit getEARArtifactEdit() {
-		if(earArtifactEdit == null || (earArtifactEdit != null && !earArtifactEdit.getComponent().getName().equals(selectedEARComponent.getName()))) 
+		if(earArtifactEdit == null || selectedEARComponentChanged()) 
 			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(selectedEARComponent);
 		return earArtifactEdit;
+	}
+
+	private boolean selectedEARComponentChanged() {
+		if(earArtifactEdit != null && !earArtifactEdit.getComponent().getName().equals(selectedEARComponent.getName())) {
+			earArtifactEdit.dispose();
+			earArtifactEdit = null;
+			return true;
+		}
+		return false;
 	}
 
 	protected void initializeEARFile() {

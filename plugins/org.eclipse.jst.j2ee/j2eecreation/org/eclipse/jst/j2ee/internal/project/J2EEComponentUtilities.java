@@ -1,7 +1,9 @@
 package org.eclipse.jst.j2ee.internal.project;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -19,7 +21,7 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 	}
 
 	public static IVirtualComponent[] getReferencingEARComponents(IVirtualComponent component) {
-		List referencedEARComponents = new ArrayList();
+		Set referencedEARComponents = new HashSet();
 		List earComponents = getAllEARComponentsInWorkspace();
 		for (int i = 0; i < earComponents.size(); i++) {
 			IVirtualComponent earComponent = (IVirtualComponent) earComponents.get(i);

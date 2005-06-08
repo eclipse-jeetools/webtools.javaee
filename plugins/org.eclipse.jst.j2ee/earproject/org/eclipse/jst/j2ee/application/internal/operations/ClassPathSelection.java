@@ -29,11 +29,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
+import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
 public class ClassPathSelection {
@@ -109,11 +113,13 @@ public class ClassPathSelection {
 	 */
 	private void setInvalidProject(ClasspathElement element) {
 		IProject earProj = element.getEarProject();
-		EARNatureRuntime nature = EARNatureRuntime.getRuntime(earProj);
-		if (nature != null) {
-			IProject mappedProject = nature.getMappedProject(element.getRelativeText());
+		IVirtualComponent component = J2EEComponentUtilities.getComponent(earProj.getName())[0];
+		EARArtifactEdit edit = EARArtifactEdit.getEARArtifactEditForRead(component);
+		if (edit != null) {
+			IProject mappedProject = edit.getModule(element.getRelativeText()).getProject();
 			element.setProject(mappedProject);
 		}
+		
 	}
 
 	/**
@@ -193,10 +199,10 @@ public class ClassPathSelection {
 
 	protected IProject getProject(Archive anArchive) {
 		LoadStrategy loader = anArchive.getLoadStrategy();
-		if (!(loader instanceof J2EELoadStrategyImpl))
+		if (!(loader instanceof ComponentLoadStrategyImpl))
 			return ModuleMapHelper.getProject(anArchive.getURI(), getEARFile());
 
-		return ((J2EELoadStrategyImpl) loader).getProject();
+		return ((ComponentLoadStrategyImpl) loader).getComponent().getProject();
 	}
 
 	public String getText() {
@@ -262,8 +268,8 @@ public class ClassPathSelection {
 
 	private void initializeEARProject(EARFile earFile) {
 		LoadStrategy loadStrat = earFile.getLoadStrategy();
-		if (loadStrat instanceof EARProjectLoadStrategyImpl)
-			earProject = ((EARProjectLoadStrategyImpl) loadStrat).getProject();
+		if (loadStrat instanceof EARComponentLoadStrategyImpl)
+			earProject = ((EARComponentLoadStrategyImpl) loadStrat).getComponent().getProject();
 	}
 
 	private void setType(ClasspathElement element, Archive other) {
