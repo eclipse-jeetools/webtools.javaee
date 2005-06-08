@@ -6,8 +6,7 @@ Bundle-Version: 1.0.0
 Bundle-ClassPath: controller.jar
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: .,
- org.eclipse.jst.common.internal.annotations.controller,
+Export-Package: org.eclipse.jst.common.internal.annotations.controller,
  org.eclipse.jst.common.internal.annotations.registry
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
