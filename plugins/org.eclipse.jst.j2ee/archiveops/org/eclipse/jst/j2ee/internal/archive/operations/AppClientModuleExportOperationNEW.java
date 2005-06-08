@@ -28,7 +28,7 @@ public class AppClientModuleExportOperationNEW extends J2EEArtifactExportOperati
 	public void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		try {
 			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-			ApplicationClientComponentLoadStrategyImpl ls = new ApplicationClientComponentLoadStrategyImpl(getComponent());
+			AppClientComponentLoadStrategyImpl ls = new AppClientComponentLoadStrategyImpl(getComponent());
 			ls.setExportSource(isExportSource());
 			setModuleFile(caf.openApplicationClientFile(ls, getDestinationPath().toOSString()));
 			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());

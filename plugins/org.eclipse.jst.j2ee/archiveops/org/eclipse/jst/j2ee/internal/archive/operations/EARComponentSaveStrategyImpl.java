@@ -56,7 +56,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class FlexibleJ2EEApplicationSaveStrategyImpl extends FlexibleJ2EESaveStrategyImpl implements IJ2EEImportExportConstants {
+public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl implements IJ2EEImportExportConstants {
 
 	protected IDataModel dataModel;
 	protected IProject project;
@@ -70,7 +70,7 @@ public class FlexibleJ2EEApplicationSaveStrategyImpl extends FlexibleJ2EESaveStr
 	 */
 	protected Map createdProjectsMap;
 
-	public FlexibleJ2EEApplicationSaveStrategyImpl(IDataModel dataModel) {
+	public EARComponentSaveStrategyImpl(IDataModel dataModel) {
 		super((VirtualComponent) dataModel.getProperty(IEARComponentImportDataModelProperties.COMPONENT));
 		this.dataModel = dataModel;
 

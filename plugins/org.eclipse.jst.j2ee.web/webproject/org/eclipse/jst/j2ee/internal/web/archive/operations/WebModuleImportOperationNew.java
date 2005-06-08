@@ -129,6 +129,6 @@ public class WebModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 	}
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		return new FlexibleJ2EEWebSaveStrategyImpl(virtualComponent);
+		return new WebComponentSaveStrategyImpl(virtualComponent);
 	}
 }

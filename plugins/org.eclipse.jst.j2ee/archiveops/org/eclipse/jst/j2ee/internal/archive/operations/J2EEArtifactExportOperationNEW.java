@@ -59,7 +59,7 @@ public abstract class J2EEArtifactExportOperationNEW extends AbstractDataModelOp
 			// defect 240999
 			component.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 			if (model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.RUN_BUILD)) {
-				javac(component.getProject(), monitor);
+				runNecessaryBuilders(component, monitor);
 			}
 			export();
 		} catch (Exception e) {
@@ -122,7 +122,8 @@ public abstract class J2EEArtifactExportOperationNEW extends AbstractDataModelOp
 		return null;
 	}
 
-	public static void javac(IProject project, IProgressMonitor monitor) throws CoreException {
+	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
+		IProject project = component.getProject();
 		IProjectDescription description = project.getDescription();
 		ICommand javaBuilder = getJavaCommand(description);
 		if (javaBuilder != null) {
@@ -137,7 +138,7 @@ public abstract class J2EEArtifactExportOperationNEW extends AbstractDataModelOp
 	/**
 	 * Find the specific Java command amongst the build spec of a given description
 	 */
-	private static ICommand getJavaCommand(IProjectDescription description) throws CoreException {
+	protected ICommand getJavaCommand(IProjectDescription description) throws CoreException {
 		if (description == null) {
 			return null;
 		}
@@ -151,7 +152,7 @@ public abstract class J2EEArtifactExportOperationNEW extends AbstractDataModelOp
 		return null;
 	}
 
-	private static ICommand getLibCopyBuilder(IProjectDescription description) throws CoreException {
+	protected ICommand getLibCopyBuilder(IProjectDescription description) throws CoreException {
 		if (description == null) {
 			return null;
 		}

@@ -24,7 +24,7 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleJ2EEJavaSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEJavaComponentSaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -59,7 +59,7 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		IProject javaProject = (IProject) model.getProperty(IJavaUtilityJarImportDataModelProperties.PROJECT_NAME);
 		Archive jarFile = (Archive) model.getProperty(IJavaUtilityJarImportDataModelProperties.FILE);
 
-		FlexibleJ2EEJavaSaveStrategyImpl strat = new FlexibleJ2EEJavaSaveStrategyImpl((IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT));
+		J2EEJavaComponentSaveStrategyImpl strat = new J2EEJavaComponentSaveStrategyImpl((IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT));
 
 		strat.setProgressMonitor(new SubProgressMonitor(monitor, 1));
 		try {

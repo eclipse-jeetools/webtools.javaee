@@ -68,7 +68,7 @@ public interface IOverwriteHandler {
 	 * 
 	 * @return boolean
 	 */
-	void setEarSaveStrategy(FlexibleJ2EEApplicationSaveStrategyImpl newEarSaveStrategy);
+	void setEarSaveStrategy(EARComponentSaveStrategyImpl newEarSaveStrategy);
 
 	/**
 	 * Insert the method's description here. Creation date: (4/16/2001 3:13:38 PM)

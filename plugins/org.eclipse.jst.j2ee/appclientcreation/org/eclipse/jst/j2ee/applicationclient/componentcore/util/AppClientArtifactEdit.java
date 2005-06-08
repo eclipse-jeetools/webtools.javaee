@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.archive.operations.ApplicationClientComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -352,7 +352,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
-		ApplicationClientComponentLoadStrategyImpl loader = new ApplicationClientComponentLoadStrategyImpl(getComponent());
+		AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
 		String uri = getComponent().getComponentHandle().toString();
 		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);

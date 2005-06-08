@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleJ2EEConnectorSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperationNew;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -73,7 +73,7 @@ public class ConnectorModuleImportOperationNew extends J2EEArtifactImportOperati
 	}
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		FlexibleJ2EEConnectorSaveStrategyImpl saveStrat = new FlexibleJ2EEConnectorSaveStrategyImpl(virtualComponent);
+		ConnectorComponentSaveStrategyImpl saveStrat = new ConnectorComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;
 
 	}

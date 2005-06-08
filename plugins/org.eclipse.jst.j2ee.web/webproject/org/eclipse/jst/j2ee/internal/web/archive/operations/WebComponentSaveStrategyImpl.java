@@ -29,18 +29,18 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleJ2EESaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
-public class FlexibleJ2EEWebSaveStrategyImpl extends FlexibleJ2EESaveStrategyImpl {
+public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
 	private HashMap filesToSave; // container a mapping from the File.getURI() to the target path
 	private HashSet filesNotToSave;
 
-	public FlexibleJ2EEWebSaveStrategyImpl(IVirtualComponent vComponent) {
+	public WebComponentSaveStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
 	}
 

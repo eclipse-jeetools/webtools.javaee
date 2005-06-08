@@ -25,7 +25,7 @@ public class AppClientModuleImportOperationNew extends J2EEArtifactImportOperati
 	}
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		FlexibleJ2EEAppClientSaveStrategyImpl saveStrat = new FlexibleJ2EEAppClientSaveStrategyImpl(virtualComponent);
+		AppClientComponentSaveStrategyImpl saveStrat = new AppClientComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;
 	}
 

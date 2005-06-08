@@ -218,7 +218,7 @@ public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportO
 
 	protected void importEARProject(IProgressMonitor monitor) throws InvocationTargetException {
 		try {
-			FlexibleJ2EEApplicationSaveStrategyImpl saveStrat = new FlexibleJ2EEApplicationSaveStrategyImpl(model);
+			EARComponentSaveStrategyImpl saveStrat = new EARComponentSaveStrategyImpl(model);
 			saveStrat.setProgressMonitor(monitor);
 			earFile.save(saveStrat);
 		} catch (Exception ex) {

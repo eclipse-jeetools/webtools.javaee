@@ -32,13 +32,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategyImpl
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 
-public abstract class FlexibleSaveStrategyImpl extends SaveStrategyImpl {
+public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
 	protected IVirtualComponent vComponent;
 	protected IOverwriteHandler overwriteHandler;
 	protected IProgressMonitor progressMonitor;
 
-	public FlexibleSaveStrategyImpl(IVirtualComponent vComponent) {
+	public ComponentSaveStrategyImpl(IVirtualComponent vComponent) {
 		super();
 		if(null == vComponent){
 			throw new NullPointerException();
