@@ -1,49 +1,39 @@
 package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleApplicationClientLoadStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEArtifactEditUtilities {
 
-	
+
 	/**
 	 * @return the EARFile representation of the IVirtualComponent
 	 * @throws OpenFailureException
 	 */
-	
 	public static EARFile asEARFile(IVirtualComponent virtualComponent) throws OpenFailureException {
-		
-		/*IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());;
-		if (comp == null)
-			return null;
 		ArchiveOptions options = new ArchiveOptions();
 		options.setIsReadOnly(true);
-		LoadStrategy loader = new EARProjectLoadStrategyImpl(comp);
+		LoadStrategy loader = new EARComponentLoadStrategyImpl(virtualComponent);
 		options.setLoadStrategy(loader);
-		loader.setResourceSet(getArtifactEditModel().getResourceSet());
-		return CommonarchiveFactory.eINSTANCE.openEARFile(options, comp.getName());*/
-		
-		return null;
-		
+		return CommonarchiveFactory.eINSTANCE.openEARFile(options, virtualComponent.getName());
 	}
-	
-	public static ApplicationClientFile asApplicationClientFile(IVirtualComponent virtualComponent, boolean shouldExportSource) throws OpenFailureException {
-		
-		/*IProject proj = getProject();
-		if (proj == null)
-			return null;
 
-		if (isBinaryProject()) {
-			String location = ((J2EEModuleWorkbenchURIConverterImpl) getJ2EEWorkbenchURIConverter()).getInputJARLocation().toOSString();
-			return getCommonArchiveFactory().openApplicationClientFile(location);
-		}
-		ApplicationClientProjectLoadStrategyImpl loader = new ApplicationClientProjectLoadStrategyImpl(proj);
+	public static ApplicationClientFile asApplicationClientFile(IVirtualComponent virtualComponent, boolean shouldExportSource) throws OpenFailureException {
+		/*
+		 * if (isBinaryProject()) { String location = ((J2EEModuleWorkbenchURIConverterImpl)
+		 * getJ2EEWorkbenchURIConverter()).getInputJARLocation().toOSString(); return
+		 * getCommonArchiveFactory().openApplicationClientFile(location); }
+		 */
+		FlexibleApplicationClientLoadStrategyImpl loader = new FlexibleApplicationClientLoadStrategyImpl(virtualComponent);
 		loader.setExportSource(shouldExportSource);
-		loader.setResourceSet(this.getResourceSet());
-		return getCommonArchiveFactory().openApplicationClientFile(loader, proj.getName());*/
-		return null;
+		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, virtualComponent.getName());
 	}
-	
+
 }
