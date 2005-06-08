@@ -32,7 +32,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.archive.operations.EARProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -113,12 +112,26 @@ public class ClassPathSelection {
 	private void setInvalidProject(ClasspathElement element) {
 		IProject earProj = element.getEarProject();
 		IVirtualComponent component = J2EEComponentUtilities.getComponent(earProj.getName())[0];
-		EARArtifactEdit edit = EARArtifactEdit.getEARArtifactEditForRead(component);
+		EARArtifactEdit edit = null;
+		try {
+			edit = EARArtifactEdit.getEARArtifactEditForRead(component);
 		if (edit != null) {
-			IProject mappedProject = edit.getModule(element.getRelativeText()).getProject();
-			element.setProject(mappedProject);
+			String moduleName = element.getRelativeText();
+			if(moduleName != null) {
+				String componentName = moduleName.substring(0,moduleName.indexOf('.'));
+				IVirtualComponent modComponent = edit.getModule(componentName);
+				if(modComponent != null) {
+				IProject mappedProject = modComponent.getProject();
+				element.setProject(mappedProject);
+				}
+			}
 		}
-		
+	  } finally {
+		  if(edit != null) {
+			  edit.dispose();
+		    edit = null;
+		  }
+	  }
 	}
 
 	/**
@@ -186,10 +199,10 @@ public class ClassPathSelection {
 			return null;
 		EARFile ear = (EARFile) c;
 		LoadStrategy loader = ear.getLoadStrategy();
-		if (!(loader instanceof EARProjectLoadStrategyImpl))
+		if (!(loader instanceof EARComponentLoadStrategyImpl))
 			return null;
 
-		return ((EARProjectLoadStrategyImpl) loader).getProject();
+		return ((EARComponentLoadStrategyImpl) loader).getComponent().getProject();
 	}
 
 	public Archive getArchive() {
