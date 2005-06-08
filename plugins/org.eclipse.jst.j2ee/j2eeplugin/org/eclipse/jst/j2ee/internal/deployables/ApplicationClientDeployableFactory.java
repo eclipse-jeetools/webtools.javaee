@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -87,8 +89,17 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
 	 */
 	public IModule[] getModules() {
-		// TODO Auto-generated method stub
-		return null;
+        cacheModules(false);
+        ArrayList moduleList = new ArrayList();
+        for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
+            IModule[] element = (IModule[]) iter.next();
+            for (int j = 0; j < element.length; j++) {
+                moduleList.add(element[j]);
+            }
+        }
+        IModule[] modules = new IModule[moduleList.size()];
+        moduleList.toArray(modules);
+        return modules;
 	}
 	
 	protected boolean isValidModule(IProject project) {
