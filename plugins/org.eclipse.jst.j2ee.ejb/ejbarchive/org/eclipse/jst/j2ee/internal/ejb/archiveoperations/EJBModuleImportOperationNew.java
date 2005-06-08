@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleJ2EEEJBSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.EJBComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperationNew;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -49,7 +49,7 @@ public class EJBModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 	}
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		FlexibleJ2EEEJBSaveStrategyImpl saveStrat = new FlexibleJ2EEEJBSaveStrategyImpl(virtualComponent);
+		EJBComponentSaveStrategyImpl saveStrat = new EJBComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;
 	}
 }
