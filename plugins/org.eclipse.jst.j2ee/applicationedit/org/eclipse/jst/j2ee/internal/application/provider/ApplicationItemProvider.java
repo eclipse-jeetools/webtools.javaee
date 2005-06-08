@@ -117,6 +117,8 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	 */
 	public Object getImage(Object object) {
 		String key = null;
+		if (((Application) object).eResource() == null)
+			return null;
 		switch (((Application) object).getVersionID()) {
 			case J2EEVersionConstants.J2EE_1_2_ID :
 				key = "12_ear_obj"; //$NON-NLS-1$
