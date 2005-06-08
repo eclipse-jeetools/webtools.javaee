@@ -33,7 +33,6 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARProjectLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
