@@ -25,7 +25,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentSaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -85,7 +85,7 @@ public abstract class SaveStrategyTest extends TestCase {
 		for (int i = 0; i < vComps.length; i++) {
 			try {
 				moduleFile = openModuleFile(getArchiveOptions(), uri);
-				FlexibleSaveStrategyImpl aStrategy = createSaveStrategy(vComps[i]);
+				ComponentSaveStrategyImpl aStrategy = createSaveStrategy(vComps[i]);
 				aStrategy.setProgressMonitor(new NullProgressMonitor());
 				moduleFile.save(aStrategy);
 			} finally {
@@ -96,7 +96,7 @@ public abstract class SaveStrategyTest extends TestCase {
 		}
 	}
 
-	protected abstract FlexibleSaveStrategyImpl createSaveStrategy(IVirtualComponent component);
+	protected abstract ComponentSaveStrategyImpl createSaveStrategy(IVirtualComponent component);
 
 	protected abstract Archive openModuleFile(ArchiveOptions archiveOptions, String uri) throws OpenFailureException;
 

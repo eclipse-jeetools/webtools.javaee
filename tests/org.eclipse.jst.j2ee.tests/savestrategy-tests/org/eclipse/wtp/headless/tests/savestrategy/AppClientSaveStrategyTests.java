@@ -14,14 +14,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleJ2EEAppClientSaveStrategyImpl;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentSaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientSaveStrategyTests extends SaveStrategyTest {
 
-	protected FlexibleSaveStrategyImpl createSaveStrategy(IVirtualComponent component) {
-		return new FlexibleJ2EEAppClientSaveStrategyImpl(component);
+	protected ComponentSaveStrategyImpl createSaveStrategy(IVirtualComponent component) {
+		return new AppClientComponentSaveStrategyImpl(component);
 	}
 
 	protected Archive openModuleFile(ArchiveOptions archiveOptions, String uri) throws OpenFailureException {

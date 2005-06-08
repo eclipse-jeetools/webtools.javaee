@@ -14,8 +14,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleSaveStrategyImpl;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleJ2EEWebSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.ComponentSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentSaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
@@ -50,8 +50,8 @@ public class WebSaveStrategyTests extends SaveStrategyTest {
 		return "WarImportFlexProject";
 	}
 
-	protected FlexibleSaveStrategyImpl createSaveStrategy(IVirtualComponent component) {
-		return new FlexibleJ2EEWebSaveStrategyImpl(component);
+	protected ComponentSaveStrategyImpl createSaveStrategy(IVirtualComponent component) {
+		return new WebComponentSaveStrategyImpl(component);
 	}
 
 	protected Archive openModuleFile(ArchiveOptions archiveOptions, String uri) throws OpenFailureException {
