@@ -31,7 +31,7 @@ public class AppClientModuleExportDataModelProvider extends J2EEModuleExportData
         return ".jar"; //$NON-NLS-1$
     }
 
-    protected String getWrongProjectTypeString(String projectName) {
+    protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_APP_CLIENT, new Object[]{projectName});
     }
 

@@ -34,14 +34,15 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
     }
 
     public String[] getPropertyNames() {
-        return new String[]{COMPONENT_NAME, ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD};
+        return new String[] { COMPONENT_NAME, ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD };
     }
+
     protected abstract String getComponentID();
 
-    protected abstract String getWrongProjectTypeString(String projectName);
+    protected abstract String getWrongComponentTypeString(String projectName);
 
     protected abstract String getModuleExtension();
-    
+
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(ARCHIVE_DESTINATION)) {
             return ""; //$NON-NLS-1$
@@ -63,58 +64,52 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
         if (propertyName.equals(COMPONENT_NAME)) {
             List componentNames = new ArrayList();
             IVirtualComponent[] wbComps = ComponentUtilities.getAllWorkbenchComponents();
-            
+
             List relevantComponents = new ArrayList();
             for (int i = 0; i < wbComps.length; i++) {
-                if(wbComps[i].getComponentTypeId().equals(getComponentID()))
+                if (wbComps[i].getComponentTypeId().equals(getComponentID()))
                     relevantComponents.add(wbComps[i]);
             }
-            
-            if(relevantComponents == null || relevantComponents.size() == 0) return null;
-            
+
+            if (relevantComponents == null || relevantComponents.size() == 0)
+                return null;
+
             for (int j = 0; j < relevantComponents.size(); j++) {
-                componentNames.add(((IVirtualComponent)relevantComponents.get(j)).getName());
+                componentNames.add(((IVirtualComponent) relevantComponents.get(j)).getName());
             }
             Object[] components = relevantComponents.toArray(new Object[relevantComponents.size()]);
-            String[] names = (String[])componentNames.toArray(new String[componentNames.size()]);
-            
+            String[] names = (String[]) componentNames.toArray(new String[componentNames.size()]);
+
             return DataModelPropertyDescriptor.createDescriptors(names);
         }
         return super.getValidPropertyDescriptors(propertyName);
         //(ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()])));
     }
+
     /*
      * (non-Javadoc)
      * 
      * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
      */
     public IStatus validate(String propertyName) {
-//        if (PROJECT_NAME.equals(propertyName)) {
-//            String projectName = (String) model.getProperty(PROJECT_NAME);
-            //TODO: add manual project name validation
-//          IStatus status = ProjectCreationDataModel.validateProjectName(projectName);
-//          if (!status.isOK()) {
-//              return status;
-//          }
-//            if(projectName == null) return OK_STATUS;
-//            IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-//            if (!project.exists()) {
-//                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EXISTS_ERROR, new Object[]{projectName}));
-//            }
-//            try {
-//                if (!project.hasNature(getNatureID())) {
-//                    return WTPCommonPlugin.createErrorStatus(getWrongProjectTypeString(project.getName()));
-//                }
-//            } catch (CoreException e) {
-//                Logger.getLogger().logError(e);
-//            }
-//        } 
-    if (ARCHIVE_DESTINATION.equals(propertyName)) {
+        if (COMPONENT_NAME.equals(propertyName)) {
+            String componentName = (String) model.getProperty(COMPONENT_NAME);
+            if (componentName == null || componentName.equals(""))
+                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
+            IVirtualComponent[] component = ComponentUtilities.getComponent(componentName);
+            if (component.length == 0 || component[0] == null) {
+                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
+            }
+            if (!component[0].getComponentTypeId().equals(getComponentID())) {
+                return WTPCommonPlugin.createErrorStatus(getWrongComponentTypeString(componentName));
+            }
+        }
+        if (ARCHIVE_DESTINATION.equals(propertyName)) {
             String archiveLocation = (String) model.getProperty(ARCHIVE_DESTINATION);
             if (!model.isPropertySet(ARCHIVE_DESTINATION) || archiveLocation.equals("")) { //$NON-NLS-1$
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_INVALID)); //$NON-NLS-1$);
             } else if (model.isPropertySet(ARCHIVE_DESTINATION) && !validateModuleType(archiveLocation)) {
-                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_ARCHIVE_SHOULD_END_WITH, new Object[]{getModuleExtension()})); //$NON-NLS-1$);
+                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_ARCHIVE_SHOULD_END_WITH, new Object[] { getModuleExtension() })); //$NON-NLS-1$);
             } else if (model.isPropertySet(ARCHIVE_DESTINATION)) {
                 IStatus tempStatus = validateLocation(archiveLocation);
                 if (tempStatus != OK_STATUS)
@@ -124,14 +119,13 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
         if (ARCHIVE_DESTINATION.equals(propertyName) || OVERWRITE_EXISTING.equals(propertyName)) {
             String location = (String) getProperty(ARCHIVE_DESTINATION);
             if (checkForExistingFileResource(location)) {
-                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.RESOURCE_EXISTS_ERROR, new Object[]{location}));
+                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.RESOURCE_EXISTS_ERROR, new Object[] { location }));
             }
         }
         return OK_STATUS;
     }
-    
 
-  private IStatus validateLocation(String archiveLocation) {
+    private IStatus validateLocation(String archiveLocation) {
         IPath path = null;
         try {
             path = new Path(archiveLocation);

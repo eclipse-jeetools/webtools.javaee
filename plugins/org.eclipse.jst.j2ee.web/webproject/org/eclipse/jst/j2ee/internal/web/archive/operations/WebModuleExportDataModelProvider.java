@@ -42,7 +42,7 @@ public class WebModuleExportDataModelProvider extends J2EEModuleExportDataModelP
         return IModuleConstants.JST_WEB_MODULE;
     }
 
-    protected String getWrongProjectTypeString(String projectName) {
+    protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_A_WAR, new Object[]{projectName});
     }
 

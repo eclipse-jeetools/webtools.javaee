@@ -31,7 +31,7 @@ public class ConnectorModuleExportDataModelProvider extends J2EEModuleExportData
         return ".rar"; //$NON-NLS-1$
     }
 
-    protected String getWrongProjectTypeString(String projectName) {
+    protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_A_RAR, new Object[]{projectName});       
     }
 

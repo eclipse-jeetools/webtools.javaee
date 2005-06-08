@@ -29,7 +29,7 @@ public class EnterpriseApplicationExportDataModelProvider extends J2EEArtifactEx
         return ".ear"; //$NON-NLS-1$
     }
 
-    protected String getWrongProjectTypeString(String projectName) {
+    protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_EAR, new Object[]{projectName});
     }
 
