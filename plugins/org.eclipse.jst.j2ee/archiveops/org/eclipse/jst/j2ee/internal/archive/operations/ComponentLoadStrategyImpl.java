@@ -137,4 +137,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return false;
 	}
 
+	public IVirtualComponent getComponent() {
+		return vComponent;
+	}
+
 }
