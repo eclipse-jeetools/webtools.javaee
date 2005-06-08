@@ -13,6 +13,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -101,10 +102,17 @@ public class ComponentUtilities {
 	public static IVirtualComponent findComponent(EObject anObject) {
 		WorkbenchComponent module = null;
 		IProject project = ProjectUtilities.getProject(anObject);
+		Resource res = anObject.eResource();
+		return findComponent(project, res);
+	}
+
+	private static IVirtualComponent findComponent(IProject project, Resource res) {
+		
 		StructureEdit moduleCore = null;
+		WorkbenchComponent module = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(project);
-			URI uri = WorkbenchResourceHelperBase.getNonPlatformURI(anObject.eResource().getURI());
+			URI uri = WorkbenchResourceHelperBase.getNonPlatformURI(res.getURI());
 			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(uri);
 			for (int i = 0; i < resources.length; i++) {
 				module = resources[i].getComponent();
@@ -158,6 +166,11 @@ public class ComponentUtilities {
 		ArtifactEditRegistryReader reader = ArtifactEditRegistryReader.instance();
 		IArtifactEditFactory factory = reader.getArtifactEdit(comp.getComponentTypeId());
 		return factory.createArtifactEditForWrite(comp);
+	}
+
+	public static IVirtualComponent findComponent(Resource aResource) {
+		IProject project = ProjectUtilities.getProject(aResource);
+		return findComponent(project, aResource);
 	}
 
 }
