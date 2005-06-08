@@ -31,7 +31,7 @@ public class EJBModuleExportDataModelProvider extends J2EEModuleExportDataModelP
 		return IModuleConstants.JST_EJB_MODULE;
 	}
 
-	protected String getWrongProjectTypeString(String projectName) {
+	protected String getWrongComponentTypeString(String projectName) {
 		return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_EJB, new Object[]{projectName});
 	}
 
