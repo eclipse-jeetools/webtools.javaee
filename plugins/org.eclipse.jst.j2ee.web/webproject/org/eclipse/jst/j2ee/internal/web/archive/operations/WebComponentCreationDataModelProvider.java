@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebComponentToEARDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
@@ -24,7 +25,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -60,16 +60,15 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
         }
     }
 
-
+	public AddComponentToEnterpriseApplicationDataModelProvider createAddComponentToEAR() {
+		return new AddWebComponentToEARDataModelProvider();
+	}
     public void init() {
         super.init();
         //setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
         //setProperty(EDIT_MODEL_ID, IWebNatureConstants.EDIT_MODEL_ID);
         //getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IModuleConstants.MODULE_NATURE_ID});
         //getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
-		
-        IDataModel dm = DataModelFactory.createDataModel(new AddWebComponentToEARDataModelProvider());
-		model.setProperty(NESTED_ADD_COMPONENT_TO_EAR_DM, dm);
 
         updateOutputLocation();
     }

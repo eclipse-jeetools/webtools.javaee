@@ -9,7 +9,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * @author jialin
@@ -31,8 +31,8 @@ public class J2EEComponentLabelProvider implements ILabelProvider {
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
 	 */
 	public String getText(Object element) {
-		if (element instanceof WorkbenchComponent) {
-			return ((WorkbenchComponent)element).getName();
+		if (element instanceof IVirtualComponent) {
+			return ((IVirtualComponent)element).getName();
 		}
 		return null;
 	}

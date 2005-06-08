@@ -6,6 +6,9 @@
  */
 package org.eclipse.jst.j2ee.internal;
 
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+
 /**
  * @author nagrawal
  *
@@ -114,6 +117,21 @@ public class J2EEVersionUtil {
 			return J2EEVersionConstants.J2EE_1_4_ID;
 		// default
 		return J2EEVersionConstants.J2EE_1_4_ID;
+	}
+	
+	public static int convertVersionStringToInt(IVirtualComponent comp) {
+		if (comp.getComponentTypeId() == IModuleConstants.JST_WEB_MODULE)
+			return convertWebVersionStringToJ2EEVersionID(comp.getVersion());
+		if (comp.getComponentTypeId() == IModuleConstants.JST_EJB_MODULE)
+			return convertEJBVersionStringToJ2EEVersionID(comp.getVersion());
+		if (comp.getComponentTypeId() == IModuleConstants.JST_EAR_MODULE)
+			return convertVersionStringToInt(comp.getVersion());
+		if (comp.getComponentTypeId() == IModuleConstants.JST_CONNECTOR_MODULE)
+			return convertConnectorVersionStringToJ2EEVersionID(comp.getVersion());
+		if (comp.getComponentTypeId() == IModuleConstants.JST_APPCLIENT_MODULE)
+			return convertAppClientVersionStringToJ2EEVersionID(comp.getVersion());
+		
+		return 0;
 	}
 	
 	public static int convertVersionStringToInt(String version) {

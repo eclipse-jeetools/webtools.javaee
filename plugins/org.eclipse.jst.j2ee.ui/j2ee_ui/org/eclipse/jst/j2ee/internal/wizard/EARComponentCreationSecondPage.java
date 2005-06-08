@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
@@ -95,10 +95,12 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
 		setCheckedItemsFromModel();
+		
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
+				IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 				if (!ignoreCheckedState) {
-					(getDataModel()).setProperty(J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+					(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedElementsAsList());
 				}
 			}
 		});
@@ -113,8 +115,9 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 	 *  
 	 */
 	private void setCheckedItemsFromModel() {
-//		List projects = (List) getModulesModel().getProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST);
-//		moduleProjectsViewer.setCheckedElements(projects.toArray());
+		IDataModel nestedModel = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
+		List components = (List) nestedModel.getProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST);
+		moduleProjectsViewer.setCheckedElements(components.toArray());
 	}
 
 	private void refreshModules() {
@@ -227,11 +230,6 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		} finally {
 			ignoreCheckedState = false;
 		}
-	}
-
-	private AddArchiveProjectsToEARDataModel getModulesModel() {
-//		return ((EnterpriseApplicationCreationDataModel) model).getAddModulesToEARDataModel();
-		return null;
 	}
 
 	/*
