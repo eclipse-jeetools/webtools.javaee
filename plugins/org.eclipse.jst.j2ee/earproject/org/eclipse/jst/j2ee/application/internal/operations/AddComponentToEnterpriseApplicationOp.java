@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -46,7 +47,8 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				List list = (List)model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
-						IVirtualComponent wc = (IVirtualComponent)list.get(i);
+						ComponentHandle comphandle = (ComponentHandle)list.get(i);
+						IVirtualComponent wc = ComponentCore.createComponent(comphandle.getProject(), comphandle.getName());						
 						addModule(application, wc);	
 					}
 				}
