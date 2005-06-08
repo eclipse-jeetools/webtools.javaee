@@ -11,8 +11,6 @@ Export-Package: org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet,
  org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider,
  org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui
 Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexport,
- org.eclipse.jdt,
- org.eclipse.emf.common,
  org.eclipse.emf.ecore,
  org.eclipse.jdt.core,
  org.eclipse.jst.j2ee.core,
@@ -23,13 +21,10 @@ Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexpor
  org.eclipse.jdt.launching,
  org.eclipse.jst.j2ee,
  org.eclipse.jst.j2ee.ejb,
- org.eclipse.wst.common.emfworkbench.integration,
  org.eclipse.jst.j2ee.web,
  org.eclipse.wst.common.modulecore,
  org.eclipse.jem.workbench,
- org.eclipse.jem.util,
  org.eclipse.jst.common.annotations.controller,
  org.eclipse.jst.j2ee.ejb.annotation.model,
- org.eclipse.jst.common.frameworks,
  org.eclipse.wst.common.frameworks
 Eclipse-AutoStart: true
