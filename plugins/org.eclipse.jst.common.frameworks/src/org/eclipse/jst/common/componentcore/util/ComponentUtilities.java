@@ -35,25 +35,49 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class ComponentUtilities {
 
+	/**
+	 * Retrieve all the source containers for a given virtual workbench component
+	 * 
+	 * @param wc
+	 * @return the array of IPackageFragmentRoots
+	 */
 	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent wc) {
 		List sourceFolders = new ArrayList();
 		try {
 			IVirtualResource[] resources = wc.members();
-			if (resources != null || resources.length > 0) {
-				for (int i = 0; i < resources.length; i++) {
-					if (resources[i].getType() == IVirtualResource.FOLDER) {
-						IFolder folder = ((IVirtualFolder) resources[i]).getUnderlyingFolder();
-						IJavaElement element = JavaCore.create(folder);
-						if (element != null && element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
-							sourceFolders.add(element);
-					}
-				}
-			}
+			//recursively collect the source folders from the top level component folders
+			addSourceContainers(sourceFolders,resources);
 		} catch (CoreException ce) {
 			Logger.getLogger().log(ce);
 		}
 		return (IPackageFragmentRoot[]) sourceFolders.toArray(new IPackageFragmentRoot[sourceFolders.size()]);
 	}
+	
+	private static void addSourceContainers(List sourceFolders, IVirtualResource[] resources) {
+		if (resources != null || resources.length > 0) {
+			for (int i = 0; i < resources.length; i++) {
+				IVirtualResource resource = resources[i];
+				// if the virtual resource is of type folder, check to see if it is source folder
+				if (resource.getType() == IVirtualResource.FOLDER) {
+					IVirtualResource[] childResources = null;
+					try {
+						childResources = ((IVirtualFolder) resource).members();
+					} catch (CoreException ce) {
+						Logger.getLogger().log(ce);
+					} 
+					IFolder folder = ((IVirtualFolder) resource).getUnderlyingFolder();
+					IJavaElement element = JavaCore.create(folder);
+					// if it is a java package fragment add it to the result
+					if (element != null && element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
+						sourceFolders.add(element);
+					// otherwise recursively check that folders child folders
+					else if (childResources.length>0)
+						addSourceContainers(sourceFolders,childResources);
+				}
+			}
+		}
+	}
+
 
 	/**
 	 * Ensure the container is not read-only.
@@ -100,7 +124,6 @@ public class ComponentUtilities {
 
 
 	public static IVirtualComponent findComponent(EObject anObject) {
-		WorkbenchComponent module = null;
 		IProject project = ProjectUtilities.getProject(anObject);
 		Resource res = anObject.eResource();
 		return findComponent(project, res);
