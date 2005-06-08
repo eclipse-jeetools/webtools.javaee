@@ -79,7 +79,8 @@ class JARDependencyTraverser {
 	private void traverseClasspath(EARNatureRuntime anEARNature) {
 		ClasspathModel model = new ClasspathModel(null);
 		model.setProject(archiveProject);
-		model.setSelectedEARNature(anEARNature);
+		//TODO enable this line when this class in migrated to use EARArtifactEdit
+		//model.setSelectedEARNature(anEARNature);
 		ClassPathSelection cpSelection = model.getClassPathSelection();
 		Archive anArchive = model.getArchive();
 		RuntimeClasspathEntry[] entries = anArchive.getDependencyClassPath();

@@ -35,8 +35,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
@@ -44,23 +48,25 @@ import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateVa
 
 public class ClasspathModel implements ResourceStateInputProvider, ResourceStateValidator {
 
-	protected EARNatureRuntime selectedEARNature;
-	protected EARFile earFile;
 	protected IProject project;
+	protected IVirtualComponent selectedEARComponent;
+	protected EARFile earFile;
+	protected IVirtualComponent component;
 	protected Archive archive;
+	protected EARArtifactEdit earArtifactEdit;
 	/** The EAR nature runtimes for all the open EAR projects in the workspace */
-	protected EARNatureRuntime[] availableEARNatures;
+	protected IVirtualComponent[] availableEARComponents = null;
 	protected ClassPathSelection classPathSelection;
 	protected List listeners;
 	protected List nonResourceFiles;
 	protected ResourceStateValidator stateValidator;
 	protected ArchiveManifest manifest;
-	public static String NO_EAR_MESSAGE = CommonEditResourceHandler.getString("NO_EAR_JARDEP_UI_"); //$NON-NLS-1$
+	public static String NO_EAR_MESSAGE = CommonEditResourceHandler.getString("NO_EAR_JARDEP_FOR_MOD_UI_"); //$NON-NLS-1$
 
 	protected Comparator comparator = new Comparator() {
 		public int compare(Object o1, Object o2) {
-			EARNatureRuntime e1 = (EARNatureRuntime) o1;
-			EARNatureRuntime e2 = (EARNatureRuntime) o2;
+			IVirtualComponent e1 = (IVirtualComponent) o1;
+			IVirtualComponent e2 = (IVirtualComponent) o2;
 			return e1.getProject().getName().compareTo(e2.getProject().getName());
 		}
 	};
@@ -77,59 +83,73 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	public void setProject(IProject project) {
 		this.project = project;
+		initializeComponent();
 	}
 
-	protected EARNatureRuntime[] refreshAvailableEARs() {
-		availableEARNatures = J2EEProjectUtilities.getReferencingEARProjects(project);
-		Arrays.sort(availableEARNatures, comparator);
-		if (selectedEARNature == null || !Arrays.asList(availableEARNatures).contains(selectedEARNature)) {
-			if (availableEARNatures.length > 0)
-				selectedEARNature = availableEARNatures[0];
-			else
-				selectedEARNature = null;
+	private void initializeComponent() {
+		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(getProject());
+		setComponent(flexProject.getComponents()[0]);
+	}
+
+	protected IVirtualComponent[] refreshAvailableEARs() {
+		availableEARComponents = J2EEComponentUtilities.getReferencingEARComponents(getComponent());
+		if (availableEARComponents != null && availableEARComponents.length > 0) {
+			Arrays.sort(availableEARComponents, comparator);
+			if (selectedEARComponent == null || !Arrays.asList(availableEARComponents).contains(selectedEARComponent)) {
+				if (availableEARComponents.length > 0)
+					selectedEARComponent = availableEARComponents[0];
+				else
+					selectedEARComponent = null;
+			}
 		}
-		return availableEARNatures;
+		return availableEARComponents;
 	}
 
-	public EARNatureRuntime[] getAvailableEARNatures() {
-		if (availableEARNatures == null)
+	public IVirtualComponent[] getAvailableEARComponents() {
+		if (availableEARComponents == null)
 			refreshAvailableEARs();
-		return availableEARNatures;
+		return availableEARComponents;
 	}
 
 	/**
-	 * Gets the selectedEARNature.
+	 * Gets the selectedEARComponent.
 	 * 
 	 * @return Returns a EARNatureRuntime
 	 */
-	public EARNatureRuntime getSelectedEARNature() {
-		return selectedEARNature;
+	public IVirtualComponent getSelectedEARComponent() {
+		return selectedEARComponent;
 	}
 
 	/**
-	 * Sets the selectedEARNature.
+	 * Sets the selectedEARComponent.
 	 * 
-	 * @param selectedEARNature
-	 *            The selectedEARNature to set
+	 * @param selectedEARComponent
+	 *            The selectedEARComponent to set
 	 */
-	public void setSelectedEARNature(EARNatureRuntime selectedEARNature) {
-		this.selectedEARNature = selectedEARNature;
+	public void setSelectedEARComponent(IVirtualComponent selectedEARComponent) {
+		this.selectedEARComponent = selectedEARComponent;
 	}
 
 	public String getArchiveURI() {
-		if (selectedEARNature != null)
-			return selectedEARNature.getJARUri(project);
+		if (selectedEARComponent != null) {
+			return getEARArtifactEdit().getModuleURI(getComponent()); 
+		}
 		return null;
+	}
+	
+	public EARArtifactEdit getEARArtifactEdit() {
+		if(earArtifactEdit == null || (earArtifactEdit != null && !earArtifactEdit.getComponent().getName().equals(selectedEARComponent.getName()))) 
+			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(selectedEARComponent);
+		return earArtifactEdit;
 	}
 
 	protected void initializeEARFile() {
-		if (selectedEARNature == null || !isDDInEAR(selectedEARNature)) {
+		if (selectedEARComponent == null || !isDDInEAR(selectedEARComponent)) {
 			earFile = null;
 			return;
 		}
 		try {
-			earFile = selectedEARNature.asEARFile(true, false);
-			//			List archives = earFile.getArchiveFiles();
+			earFile = J2EEArtifactEditUtilities.asEARFile(selectedEARComponent);
 		} catch (OpenFailureException ex) {
 			handleOpenFailureException(ex);
 		}
@@ -194,12 +214,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			classPathSelection = null;
 	}
 
-	protected boolean isDDInEAR(EARNatureRuntime runtime) {
-		IContainer mofRoot = runtime.getEMFRoot();
+	protected boolean isDDInEAR(IVirtualComponent component) {
+		IContainer mofRoot = component.getProject();
 		if (mofRoot == null || !mofRoot.exists())
 			return false;
 
-		return mofRoot.exists(new Path(ArchiveConstants.APPLICATION_DD_URI));
+		return mofRoot.exists(new Path(component.getProjectRelativePath().toString() + "//" + ArchiveConstants.APPLICATION_DD_URI));
 	}
 
 	protected void handleOpenFailureException(OpenFailureException ex) {
@@ -207,7 +227,10 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	public void dispose() {
-
+		   if(earArtifactEdit != null) {
+			   earArtifactEdit.dispose();
+			   earArtifactEdit = null;
+		   }
 	}
 
 	public ClassPathSelection getClassPathSelection() {
@@ -330,7 +353,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	public void selectEAR(int index) {
 		ArchiveManifest mf = new ArchiveManifestImpl((ArchiveManifestImpl) getArchive().getManifest());
 		earFile.close();
-		selectedEARNature = availableEARNatures[index];
+		selectedEARComponent = availableEARComponents[index];
 		initializeSelection(mf);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.EAR_PROJECT_CHANGED));
 	}
@@ -372,12 +395,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected void initNonResourceFiles() {
 		//Might be opened from a JAR
-		if (getProject() == null)
+		if (getComponent() == null)
 			return;
 		nonResourceFiles = new ArrayList(3);
-		nonResourceFiles.add(getProject().getFile(ProjectUtilities.DOT_PROJECT));
-		nonResourceFiles.add(getProject().getFile(ProjectUtilities.DOT_CLASSPATH));
-		IFile mf = J2EEProjectUtilities.getManifestFile(getProject());
+		nonResourceFiles.add(getComponent().getProject().getFile(ProjectUtilities.DOT_PROJECT));
+		nonResourceFiles.add(getComponent().getProject().getFile(ProjectUtilities.DOT_CLASSPATH));
+		IFile mf = J2EEProjectUtilities.getManifestFile(getComponent().getProject());
 		if (mf != null)
 			nonResourceFiles.add(mf);
 	}
@@ -407,10 +430,10 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 */
 	public Set getAffectedFiles() {
 		Set result = new HashSet();
-		IFile aFile = J2EEProjectUtilities.getManifestFile(project);
+		IFile aFile = J2EEProjectUtilities.getManifestFile(getComponent().getProject());
 		if (aFile != null && aFile.exists())
 			result.add(aFile);
-		result.addAll(ProjectUtilities.getFilesAffectedByClasspathChange(project));
+		result.addAll(ProjectUtilities.getFilesAffectedByClasspathChange(getComponent().getProject()));
 		return result;
 	}
 
@@ -527,6 +550,14 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 */
 	public boolean checkReadOnly() {
 		return getStateValidator().checkReadOnly();
+	}
+
+	public IVirtualComponent getComponent() {
+		return component;
+	}
+
+	public void setComponent(IVirtualComponent component) {
+		this.component = component;
 	}
 
 }

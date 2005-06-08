@@ -327,7 +327,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	protected ClassPathSelection getClasspathSelection() {
-		if (model == null || model.getSelectedEARNature() == null)
+		if (model == null || model.getSelectedEARComponent() == null)
 			return null;
 		return model.getClassPathSelection();
 	}

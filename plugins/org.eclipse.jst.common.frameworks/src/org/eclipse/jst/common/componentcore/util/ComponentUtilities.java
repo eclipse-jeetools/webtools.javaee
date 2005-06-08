@@ -29,6 +29,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -77,7 +78,6 @@ public class ComponentUtilities {
 			}
 		}
 	}
-
 
 	/**
 	 * Ensure the container is not read-only.
@@ -169,6 +169,11 @@ public class ComponentUtilities {
 		}
 		VirtualComponent[] temp = (VirtualComponent[]) components.toArray(new VirtualComponent[components.size()]);
 		return temp;
+	}
+	
+	public static IVirtualComponent[] getComponentsForProject(IProject project) {
+		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
+		return flexProject.getComponents();
 	}
 
 	public static IVirtualComponent[] getComponent(String componentName) {

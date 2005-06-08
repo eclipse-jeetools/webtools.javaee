@@ -23,9 +23,12 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.preference.IPreferencePage;
+import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -33,10 +36,9 @@ import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
 import org.eclipse.jst.j2ee.internal.common.operations.UpdateJavaBuildPathOperation;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.layout.GridData;
@@ -52,6 +54,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
@@ -68,7 +72,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     protected IOException caughtManifestException;
     protected boolean isDirty;
     protected Text classPathText;
-    protected Text projectNameText;
+    protected Text componentNameText;
     protected ClasspathModel model;
     protected CCombo availableAppsCombo;
     protected ClasspathTableManager tableManager;
@@ -91,14 +95,12 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     private void updateModelManifest() {
-        if (JemProjectUtilities.isBinaryProject(project) || model.getAvailableEARNatures().length == 0)
+        if (JemProjectUtilities.isBinaryProject(project) || model.getAvailableEARComponents().length == 0)
             return;
-
         IContainer root = null;
         IFile manifestFile = null;
-        J2EENature nature = J2EENature.getRegisteredRuntime(project);
-        if (nature != null)
-            root = nature.getEMFRoot();
+        if (project != null)
+            root = project;
         else
             root = JemProjectUtilities.getSourceFolderOrFirst(project, null);
 
@@ -157,6 +159,8 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         layout.marginWidth = 0;
         composite.setLayout(layout);
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        if(!isValidComponent())
+        	return composite;
         createProjectLabelsGroup(composite);
         createListGroup(composite);
         createTextGroup(composite);
@@ -164,6 +168,22 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
         return composite;
     }
+
+	private boolean isValidComponent() {
+		if(model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) { 
+        	this.setErrorMessage("Java Jar Dependencies is not valid for EAR modules");
+        	return false;
+		}
+        else if((ComponentUtilities.getComponentsForProject(model.getProject())).length > 1) { 
+        	this.setErrorMessage("Java Jar Dependencies is valid only for one module per flexible project");
+        	return false;
+        }
+        else if(J2EEComponentUtilities.isStandaloneComponent(model.getComponent())) { 
+        	this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
+        	return false;
+        }
+		return true;
+	}
 
     protected void createProjectLabelsGroup(Composite parent) {
 
@@ -176,11 +196,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         Label label = new Label(labelsGroup, SWT.NONE);
         label.setText(ManifestUIResourceHandler.getString("Project_name__UI_")); //$NON-NLS-1$ = "Project name:"
 
-        projectNameText = new Text(labelsGroup, SWT.BORDER);
+        componentNameText = new Text(labelsGroup, SWT.BORDER);
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
-        projectNameText.setEditable(false);
-        projectNameText.setLayoutData(data);
-        projectNameText.setText(project.getName());
+        componentNameText.setEditable(false);
+        componentNameText.setLayoutData(data);
+        componentNameText.setText(project.getName());
 
         label = new Label(labelsGroup, SWT.NONE);
         label.setText(ManifestUIResourceHandler.getString("EAR_Project_Name__UI__UI_")); //$NON-NLS-1$ = "EAR project name:"
@@ -336,36 +356,26 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         model.selectEAR(index);
     }
     protected void populateApps() {
-        EARNatureRuntime[] natures = model.getAvailableEARNatures();
-        String[] values = new String[natures.length];
-        for (int i = 0; i < natures.length; i++) {
-            values[i] = natures[i].getProject().getName();
+        IVirtualComponent[] components = model.getAvailableEARComponents();
+        String[] values = new String[components.length];
+        for (int i = 0; i < components.length; i++) {
+            values[i] = components[i].getProject().getName();
         }
         availableAppsCombo.setItems(values);
-        EARNatureRuntime selected = model.getSelectedEARNature();
+        IVirtualComponent selected = model.getSelectedEARComponent();
         if (selected != null) {
-            int index = Arrays.asList(natures).indexOf(selected);
+            int index = Arrays.asList(components).indexOf(selected);
             availableAppsCombo.select(index);
         } else
             availableAppsCombo.clearSelection();
     }
 
-    /**
-	 * Checks if the any associations with ear, if not display an error.
-	 */
-    protected void checkForEar() {
-        if (availableAppsCombo.getItemCount() == 0) {
-            setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
-        } else {
-            setErrorMessage(null);
-        } // if
-    } // checkForEar
+ 
 
     protected void refresh() {
         populateApps();
         tableManager.refresh();
         refreshText();
-        checkForEar();
     }
 
     public void refreshText() {
@@ -391,6 +401,12 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         model.resetClassPathSelection();
         refresh();
         isDirty = false;
+        model.dispose();
+    }
+    
+    public boolean performCancel() {
+    	model.dispose();
+    	return super.performCancel();
     }
 
     /**
@@ -415,6 +431,8 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         } catch (InterruptedException e) {
             // cancelled
             return false;
+        } finally {
+        	model.dispose();
         }
         isDirty = false;
         return true;
