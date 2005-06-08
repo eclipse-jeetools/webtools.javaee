@@ -46,6 +46,11 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.IServerTargetConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
+//TODO delete jsholl
+/**
+ * @deprecated
+ *
+ */
 public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2EEImportExportConstants {
 	protected ArrayList filesList;
 	protected IProject project;
