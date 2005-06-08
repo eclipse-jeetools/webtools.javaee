@@ -18,6 +18,7 @@
       <import plugin="org.eclipse.jst.validation.sample"/>
       <import plugin="org.junit"/>
       <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.jem"/>

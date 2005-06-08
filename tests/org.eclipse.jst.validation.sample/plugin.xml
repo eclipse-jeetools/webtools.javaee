@@ -16,6 +16,7 @@
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.validation"/>
       <import plugin="org.eclipse.help"/>
+      <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.core.runtime"/>
    </requires>
