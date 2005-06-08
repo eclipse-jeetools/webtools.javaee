@@ -9,6 +9,8 @@
   <property name="plugin-name" value="org.eclipse.jst.j2ee.core.tests.performance"/>
   <property name="library-file"
             value="${eclipse-home}/plugins/org.eclipse.test_3.1.0/library.xml"/>
+  <property name="perf-tests-file"
+            value="${testDir}/performance-tests.xml"/>
 
   <!-- This target holds all initialization code that needs to be done for -->
   <!-- all tests that are to be run. Initialization for individual tests -->
@@ -31,7 +33,7 @@
 <target name="performance-suite">
   <property name="performance-folder" value="${eclipse-home}/performance_folder"/>
   <delete dir="${performance-folder}" quiet="true"/>
-  <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
+  <ant target="core-test" antfile="${perf-tests-file}" dir="${eclipse-home}">
      <property name="data-dir" value="${performance-folder}"/>
      <property name="plugin-name" value="${plugin-name}"/>
      <property name="classname" value="org.eclipse.jst.j2ee.core.tests.performance.AllCorePerformanceTests"/>
