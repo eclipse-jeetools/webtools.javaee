@@ -100,12 +100,22 @@ public class AnnotationTagRegistry {
 
 		public void add(int index, Object element) {
 			super.add(index, element);
-			addScope((TagSpec) element);
+			addScope((TagSpec)element);
 		}
 
 		public boolean add(Object o) {
-			addScope((TagSpec) o);
-			return super.add(o);
+			TagSpec newTagSpec = (TagSpec)o;
+			// search for already existing tag spec with same name and same tag set name
+			for (int i=0; i<this.size(); i++) {
+				TagSpec tagSpec = (TagSpec) get(i);
+				if (tagSpec.getTagName().equals(newTagSpec.getTagName())) {
+					remove(tagSpec);
+					removeScope(tagSpec);
+				}	
+			}
+			// add the new tag spec
+			addScope(newTagSpec);
+			return super.add(newTagSpec);
 		}
 
 		public boolean addAll(Collection c) {
