@@ -9,6 +9,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
@@ -16,6 +19,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -38,9 +42,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
  * the underlying resource.
  * </p>
  * 
- */ 
-public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory{
-	
+ */
+public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
+
 	/**
 	 * <p>
 	 * Identifier used to link EJBArtifactEdit to a EJBEditAdapterFactory {@see
@@ -84,61 +88,66 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public EJBArtifactEdit(ArtifactEditModel model) {
 		super(model);
 	}
-	
+
 	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
-	 */ 
+	 */
 	public EJBArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
-	
+
 	/**
 	 * 
 	 * @return EJBResource from (@link getDeploymentDescriptorResource())
-	 *  
+	 * 
 	 */
 
 	public EJBResource getEJBJarXmiResource() {
 		return (EJBResource) getDeploymentDescriptorResource();
 	}
-	
+
 	/**
 	 * Experimental API subject to change
+	 * 
 	 * @return IVirtualFolder that contains the deployment descriptor resource.
 	 * @throws CoreException
 	 */
-	
+
 	public IVirtualFolder getDeploymentDescriptorFolder() throws CoreException {
 		IVirtualResource[] resources = getComponent().members();
-		if(resources != null && resources.length > 0) {
-			for(int i = 0; i < resources.length; i++) {
-			IVirtualResource resource = resources[i];
-			if(resource.getType() == IVirtualResource.FOLDER) {
-				IVirtualFolder folder = (IVirtualFolder)resource;
-				IVirtualResource ddResource = folder.findMember(J2EEConstants.EJBJAR_DD_URI);
-				if(ddResource != null)
-				  return folder;
+		if (resources != null && resources.length > 0) {
+			for (int i = 0; i < resources.length; i++) {
+				IVirtualResource resource = resources[i];
+				if (resource.getType() == IVirtualResource.FOLDER) {
+					IVirtualFolder folder = (IVirtualFolder) resource;
+					IVirtualResource ddResource = folder.findMember(J2EEConstants.EJBJAR_DD_URI);
+					if (ddResource != null)
+						return folder;
+				}
 			}
-		  }
 		}
 		return null;
-	 }
-	
+	}
+
 	/**
 	 * Experimental API subject to change
+	 * 
 	 * @return String form of the ejbModule folder path relative to the full path.
 	 * @throws CoreException
 	 */
-	
+
 	public String getEjbModuleRelative(String fullPath) throws CoreException {
 		if (fullPath != null) {
 			if (getDeploymentDescriptorFolder() != null) {
@@ -154,116 +163,117 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return fullPath;
 	}
-	
-	
+
+
 	/**
 	 * <p>
 	 * Retrieves J2EE version information from EJBResource.
 	 * </p>
 	 * 
 	 * @return an integer representation of a J2EE Spec version
-	 *  
+	 * 
 	 */
 
 	public int getJ2EEVersion() {
 		return getEJBJarXmiResource().getJ2EEVersionID();
 	}
-	
+
 	/**
 	 * <p>
 	 * Checks is a EJB Client Jar exists for the ejb module project
 	 * </p>
 	 * 
 	 * @return boolean
-	 *  
+	 * 
 	 */
-	
+
 	public boolean hasEJBClientJARProject() {
-		
-		if(getEJBClientJarModule() != null)
+
+		if (getEJBClientJarModule() != null)
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * <p>
 	 * Creates a new EJB module
 	 * </p>
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public Module createNewModule() {
 		return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createEjbModule();
 	}
 
-	
+
 	/**
 	 * @param project
 	 * @return WorkbenchComponent
 	 */
 	public IVirtualComponent getEJBClientJarModule() {
 		EJBJar jar = getEJBJar();
-		IVirtualComponent ejbComponent,ejbClientComponent = null;
+		IVirtualComponent ejbComponent, ejbClientComponent = null;
 		String clientJAR = null;
 		if (jar != null)
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {
-			 ejbComponent = ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName());
-			 ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent();
+			ejbComponent = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent();
 		}
 		return ejbClientComponent;
 	}
-	
-	
+
+
 	/**
 	 * <p>
 	 * Retrieves the underlying resource from the ArtifactEditModel using defined URI.
 	 * </p>
 	 * 
 	 * @return Resource
-	 *  
+	 * 
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(J2EEConstants.EJBJAR_DD_URI_OBJ);
 	}
-	
+
 	/**
 	 * 
 	 * @return EJBJar from (@link getDeploymentDescriptorRoot())
-	 *  
+	 * 
 	 */
 	public EJBJar getEJBJar() {
 		return (EJBJar) getDeploymentDescriptorRoot();
 	}
-	
+
 	/**
 	 * <p>
 	 * Obtains the EJBJar (@see EJBJar) root object from the EJBResource. If the root object does
-	 * not exist, then one is created (@link addEJBJarIfNecessary(getEJBJarXmiResource())).
-	 * The root object contains all other resource defined objects.
+	 * not exist, then one is created (@link addEJBJarIfNecessary(getEJBJarXmiResource())). The root
+	 * object contains all other resource defined objects.
 	 * </p>
 	 * 
 	 * @return EObject
-	 *  
+	 * 
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource());
+		addEJBJarIfNecessary((EJBResource) getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}
-	
+
 	/**
 	 * Returns the deployment descriptor type of the EJB module.
-	 * @return int 
+	 * 
+	 * @return int
 	 */
-	
+
 	public int getDeploymentDescriptorType() {
 		return XMLResource.EJB_TYPE;
 	}
-	
+
 	/**
 	 * <p>
 	 * Creates a deployment descriptor root object (EJBJar) and populates with data. Adds the root
@@ -273,35 +283,34 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * <p>
 	 * 
 	 * @param aModule
-	 *            A non-null pointing to a {@see XMLResource}
-	 * Note: This method is typically used for JUNIT - move?
-	 * </p>
+	 *            A non-null pointing to a {@see XMLResource} Note: This method is typically used
+	 *            for JUNIT - move?
+	 *            </p>
 	 */
 	protected void addEJBJarIfNecessary(XMLResource aResource) {
 		if (aResource != null) {
-		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
+			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
 				EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
 				aResource.getContents().add(ejbJar);
-		    }
-			EJBJar ejbJar = (EJBJar)aResource.getContents().get(0);
+			}
+			EJBJar ejbJar = (EJBJar) aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				ejbJar.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
-				//Ignore
+				// Ignore
 			}
 			aResource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
-			//TODO add more mandatory elements
+			// TODO add more mandatory elements
 			try {
 				aResource.saveIfNecessary();
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
@@ -332,6 +341,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return artifactEdit;
 	}
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
@@ -361,26 +371,29 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return artifactEdit;
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of EJBArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchComponent}. Instances of EJBArtifactEdit that are returned through this
+	 * method must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
-	 * be used for editing. Invocations of any save*() API on an instance returned from this method
-	 * will throw exceptions.
+	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
 	 * </p>
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
 	 * @return An instance of EJBArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
@@ -394,16 +407,16 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				return new EJBArtifactEdit(nature, aModule, true);
 			}
 		} catch (UnresolveableURIException uue) {
-			//Ignore
+			// Ignore
 		}
 		return null;
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchComponent}. Instances of EJBArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchComponent}. Instances of EJBArtifactEdit that are returned through this
+	 * method must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
 	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
@@ -413,10 +426,13 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * <b>This method may return null. </b>
 	 * </p>
 	 * 
-	 * <p>Note: This method is for internal use only. Clients should not call this method.</p>
+	 * <p>
+	 * Note: This method is for internal use only. Clients should not call this method.
+	 * </p>
+	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
-	 *            project in the workspace
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
 	 * @return An instance of EJBArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
@@ -428,17 +444,17 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				return new EJBArtifactEdit(nature, aModule, false);
 			}
 		} catch (UnresolveableURIException uue) {
-			//Ignore
+			// Ignore
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param module
 	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
-	 *         JST module
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is
+	 *         a JST module
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
@@ -449,30 +465,39 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
-	    return createModelRoot(getJ2EEVersion());
+		return createModelRoot(getJ2EEVersion());
 	}
-			
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
 	public EObject createModelRoot(int version) {
-	    EJBResource res = (EJBResource)getDeploymentDescriptorResource();
-	    res.setModuleVersionID(version);
-	    addEJBJarIfNecessary(res);
-		return ((EJBResource)getDeploymentDescriptorResource()).getRootObject();
+		EJBResource res = (EJBResource) getDeploymentDescriptorResource();
+		res.setModuleVersionID(version);
+		addEJBJarIfNecessary(res);
+		return ((EJBResource) getDeploymentDescriptorResource()).getRootObject();
 	}
 
 	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
-		
 		return getEJBArtifactEditForRead(aComponent);
 	}
 
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
-		
 		return getEJBArtifactEditForWrite(aComponent);
+	}
+
+	public Archive asArchive(boolean includeSource) throws OpenFailureException{
+		EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
+		loader.setExportSource(includeSource);
+		String uri = getComponent().getComponentHandle().toString();
+		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
 	}
 }
