@@ -41,8 +41,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		this.vComponent = vComponent;
 		filesList = new ArrayList();
 	}
-	
-	public boolean contains(String uri){
+
+	public boolean contains(String uri) {
 		return vComponent.getFile(new Path(uri)).exists();
 	}
 
@@ -121,10 +121,16 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
-		String filePath = vComponent.findMember(uri).getUnderlyingResource().getLocation().toOSString();
+		IVirtualResource vResource = vComponent.findMember(uri);
+		if (null == vResource || !vResource.exists()) {
+			String eString = EARArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_FileNotFound");//$NON-NLS-1$
+			throw new FileNotFoundException(eString);
+		}
+		String filePath = vResource.getUnderlyingResource().getLocation().toOSString();
 		java.io.File file = new java.io.File(filePath);
-	    InputStream inputStream = new FileInputStream(file);
-	    return inputStream;
+		InputStream inputStream = new FileInputStream(file);
+		return inputStream;
+
 	}
 
 	public boolean isClassLoaderNeeded() {

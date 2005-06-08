@@ -18,10 +18,14 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -585,5 +589,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
 		return getWebArtifactEditForWrite(aComponent);
+	}
+	
+	public Archive asArchive(boolean includeSource) throws OpenFailureException{
+		WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
+		loader.setExportSource(includeSource);
+		String uri = getComponent().getComponentHandle().toString();
+		return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
 	}
 }

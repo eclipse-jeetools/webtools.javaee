@@ -10,38 +10,40 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EnterpriseApplicationExportOperationNEW extends AbstractDataModelOperation {
+public class EnterpriseApplicationExportOperationNEW extends J2EEArtifactExportOperationNEW {
 
-    public EnterpriseApplicationExportOperationNEW() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public EnterpriseApplicationExportOperationNEW(IDataModel model) {
+		super(model);
+	}
+	
+	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		try {
+			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
+			EARComponentLoadStrategyImpl ls = new EARComponentLoadStrategyImpl(getComponent());
+			ls.setExportSource(isExportSource());
+			setModuleFile(caf.openEARFile(ls, getDestinationPath().toOSString()));
+			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
+		} catch (SaveFailureException ex) {
+			throw ex;
+		} catch (Exception e) {
+			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
+		}
+	}
 
-    public EnterpriseApplicationExportOperationNEW(IDataModel model) {
-        super(model);
-        // TODO Auto-generated constructor stub
-    }
+	protected String archiveString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 }

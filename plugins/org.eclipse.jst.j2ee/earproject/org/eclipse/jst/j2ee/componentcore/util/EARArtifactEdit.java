@@ -20,8 +20,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -486,6 +490,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
 		
 		return getEARArtifactEditForWrite(aComponent);
+	}
+	
+	public Archive asArchive(boolean includeSource) throws OpenFailureException{
+		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent());
+		loader.setExportSource(includeSource);
+		String uri = getComponent().getComponentHandle().toString();
+		return CommonarchiveFactory.eINSTANCE.openEARFile(loader, uri);
 	}
 	
 }

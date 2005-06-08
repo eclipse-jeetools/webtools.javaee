@@ -27,7 +27,10 @@ public class AppClientModuleExportOperationNEW extends J2EEArtifactExportOperati
 
 	public void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		try {
-			createModuleFile();
+			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
+			ApplicationClientComponentLoadStrategyImpl ls = new ApplicationClientComponentLoadStrategyImpl(getComponent());
+			ls.setExportSource(isExportSource());
+			setModuleFile(caf.openApplicationClientFile(ls, getDestinationPath().toOSString()));
 			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
 		} catch (SaveFailureException ex) {
 			throw ex;
@@ -38,18 +41,6 @@ public class AppClientModuleExportOperationNEW extends J2EEArtifactExportOperati
 
 	protected String archiveString() {
 		return AppClientArchiveOpsResourceHandler.getString("Application_Client_File_UI_"); //$NON-NLS-1$ = "Application Client File"
-	}
-
-	public void createModuleFile() throws SaveFailureException {
-
-		try {
-			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-			ApplicationClientComponentLoadStrategyImpl ls = new ApplicationClientComponentLoadStrategyImpl(getComponent());
-			ls.setExportSource(isExportSource());
-			setModuleFile(caf.openApplicationClientFile(ls, getDestinationPath().toOSString()));
-		} catch (Exception e) {
-			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e); //$NON-NLS-1$
-		}
 	}
 
 }

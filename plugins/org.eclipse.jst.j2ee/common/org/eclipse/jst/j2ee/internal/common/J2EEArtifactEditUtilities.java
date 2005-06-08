@@ -6,12 +6,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.internal.archive.operations.ApplicationClientComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.archive.operations.FlexibleApplicationClientLoadStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEArtifactEditUtilities {
-
 
 	/**
 	 * @return the EARFile representation of the IVirtualComponent
@@ -31,7 +30,7 @@ public class J2EEArtifactEditUtilities {
 		 * getJ2EEWorkbenchURIConverter()).getInputJARLocation().toOSString(); return
 		 * getCommonArchiveFactory().openApplicationClientFile(location); }
 		 */
-		FlexibleApplicationClientLoadStrategyImpl loader = new FlexibleApplicationClientLoadStrategyImpl(virtualComponent);
+		ApplicationClientComponentLoadStrategyImpl loader = new ApplicationClientComponentLoadStrategyImpl(virtualComponent);
 		loader.setExportSource(shouldExportSource);
 		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, virtualComponent.getName());
 	}

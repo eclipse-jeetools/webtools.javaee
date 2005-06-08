@@ -6,9 +6,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
@@ -366,7 +370,13 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
-		
 		return getConnectorArtifactEditForWrite(aComponent);
+	}
+	
+	public Archive asArchive(boolean includeSource) throws OpenFailureException{
+		ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
+		loader.setExportSource(includeSource);
+		String uri = getComponent().getComponentHandle().toString();
+		return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
 	}
 }

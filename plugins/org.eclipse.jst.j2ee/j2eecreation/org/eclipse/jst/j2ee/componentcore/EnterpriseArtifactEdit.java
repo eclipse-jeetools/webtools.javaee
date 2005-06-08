@@ -16,6 +16,8 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModel;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -215,4 +217,9 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 */
 
 	public abstract EObject createModelRoot(int version);
+	
+	
+	public Archive asArchive(boolean includeSource) throws OpenFailureException{
+		return null;
+	}
 }
