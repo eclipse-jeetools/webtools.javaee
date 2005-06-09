@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/11 22:41:11 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/09 13:38:13 $ 
  */
 import java.util.Map;
 
@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.core.JavaElement;
 
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
@@ -66,7 +65,7 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 	 * the source range.  This will be the source after the name which could include comments.
 	 */
 	protected String getFieldInitializerSource() {
-		IOpenable openable = ((JavaElement) getSourceField()).getOpenableParent();
+		IOpenable openable = getSourceField().getOpenable();
 		try {
 			ISourceRange nameRange, sourceRange;
 			int start = -1, length = 0;
