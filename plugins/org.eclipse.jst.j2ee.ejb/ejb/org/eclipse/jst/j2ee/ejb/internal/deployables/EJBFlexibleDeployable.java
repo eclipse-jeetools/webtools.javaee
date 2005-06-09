@@ -7,13 +7,13 @@
 package org.eclipse.jst.j2ee.ejb.internal.deployables;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.server.core.IEJBModule;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -22,7 +22,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJBModule {
 
-	public static String EJB_TYPE = "jst.ejb";
+	public static String EJB_TYPE = IModuleConstants.JST_EJB_MODULE;
 
 	public EJBFlexibleDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
 		super(project, aFactoryId, aComponent);
@@ -31,37 +31,10 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 	}
 
 	public String getJ2EESpecificationVersion() {
-		String Version = "1.2"; //$NON-NLS-1$
-
-		EJBArtifactEdit ejbEdit = null;
-		try {
-			
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
-			if (ejbEdit != null) {
-				int nVersion = ejbEdit.getJ2EEVersion();
-				switch (nVersion) {
-					case 12 :
-						Version = IModuleConstants.J2EE_VERSION_1_2;
-						break;
-					case 13 :
-						Version = IModuleConstants.J2EE_VERSION_1_3;
-						break;
-					case 14 :
-						Version = IModuleConstants.J2EE_VERSION_1_4;
-						break;
-					default :
-						Version = IModuleConstants.J2EE_VERSION_1_2;
-						break;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ejbEdit != null)
-				ejbEdit.dispose();
-		}
-
-		return Version;
+		if (component != null)
+			return String.valueOf(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(component.getVersion()));
+		else
+			return null;
 	}
 
 
@@ -87,11 +60,6 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 
 	}
 
-	public IPath getRootFolder() {
-
-		return component.getProject().getFullPath();
-	}
-
 	public String getType() {
 		return "j2ee.ejb"; //$NON-NLS-1$
 	}
@@ -104,23 +72,10 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 
 
 	public String getEJBSpecificationVersion() {
-		EJBArtifactEdit ejbEdit = null;
-		EJBJar jar = null;
-		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
-			if (ejbEdit != null) {
-				jar = ejbEdit.getEJBJar();
-				return jar.getVersion();
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ejbEdit != null)
-				ejbEdit.dispose();
-		}
-
-		return null;
+		if (component != null)
+			return component.getVersion();
+		else
+			return null;
 	}
 
 }

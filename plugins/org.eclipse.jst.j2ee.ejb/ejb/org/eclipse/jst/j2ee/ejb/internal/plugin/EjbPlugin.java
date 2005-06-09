@@ -209,6 +209,16 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		EJBJarResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
+	}
+
+	public String getString(String key, boolean translate) {
+		// TODO For now...  translate not supported
+		return getString(key);
+	}
+
+	public String getString(String key, Object[] substitutions, boolean translate) {
+		// TODO For now...  translate not supported
+		return getString(key,substitutions);
 	}	
 
 }

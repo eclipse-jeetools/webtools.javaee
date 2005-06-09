@@ -38,6 +38,15 @@ public class EJBProviderLibrariesResourceHandler {
 		public String getString(String arg0, Object[] arg1) {
 			return EJBProviderLibrariesResourceHandler.getString(arg0, arg1);
 		}
+		public String getString(String key, boolean translate) {
+			// TODO For now...  translate not supported
+			return getString(key);
+		}
+
+		public String getString(String key, Object[] substitutions, boolean translate) {
+			// TODO For now...  translate not supported
+			return getString(key,substitutions);
+		}
 	};
 
 	/**
