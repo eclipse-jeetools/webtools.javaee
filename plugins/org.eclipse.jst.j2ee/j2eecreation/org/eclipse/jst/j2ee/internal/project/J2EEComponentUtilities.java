@@ -28,7 +28,7 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 			IVirtualReference[] references = earComponent.getReferences();
 			for (int j = 0; j < references.length; j++) {
 				IVirtualReference reference = references[j];
-				if (reference.getReferencedComponent().getComponentTypeId().equals(component.getComponentTypeId())) {
+				if (reference.getReferencedComponent().getName().equals(component.getName())) {
 					referencedEARComponents.add(earComponent);
 				}
 			}

@@ -120,15 +120,6 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return selectedEARComponent;
 	}
 
-	/**
-	 * Sets the selectedEARComponent.
-	 * 
-	 * @param selectedEARComponent
-	 *            The selectedEARComponent to set
-	 */
-	public void setSelectedEARComponent(IVirtualComponent selectedEARComponent) {
-		this.selectedEARComponent = selectedEARComponent;
-	}
 
 	public String getArchiveURI() {
 		if (selectedEARComponent != null) {
