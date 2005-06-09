@@ -14,7 +14,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -126,7 +125,7 @@ public class ComponentUtilities {
 
 
 
-	public static IFile findFile(IVirtualComponent comp, IPath aPath) {
+	public static IFile findFile(IVirtualComponent comp, IPath aPath) throws CoreException {
 		IVirtualResource[] members = comp.members();
 		for (int i = 0; i < members.length; i++) {
 			IVirtualResource resource = members[i];
