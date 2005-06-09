@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -21,7 +22,7 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 
 	public static IVirtualComponent[] getReferencingEARComponents(IVirtualComponent component) {
 		Set referencedEARComponents = new HashSet();
-		List earComponents = getAllComponentsInWorkspaceOfType(component.getComponentTypeId());
+		List earComponents = getAllComponentsInWorkspaceOfType(IModuleConstants.JST_EAR_MODULE);
 		for (int i = 0; i < earComponents.size(); i++) {
 			IVirtualComponent earComponent = (IVirtualComponent) earComponents.get(i);
 			IVirtualReference[] references = earComponent.getReferences();
@@ -36,7 +37,7 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 	}
 
 	public static boolean isStandaloneComponent(IVirtualComponent component) {
-		List earComponents = getAllComponentsInWorkspaceOfType(component.getComponentTypeId());
+		List earComponents = getAllComponentsInWorkspaceOfType(IModuleConstants.JST_EAR_MODULE);
 		for (int i = 0; i < earComponents.size(); i++) {
 			IVirtualComponent earComponent = (IVirtualComponent) earComponents.get(i);
 			IVirtualReference[] references = earComponent.getReferences();
