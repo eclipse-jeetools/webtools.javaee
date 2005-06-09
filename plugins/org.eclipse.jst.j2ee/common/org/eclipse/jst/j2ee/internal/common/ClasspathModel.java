@@ -149,7 +149,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			return;
 		}
 		try {
-			earFile = J2EEArtifactEditUtilities.asEARFile(selectedEARComponent);
+			earFile = (EARFile)getEARArtifactEdit().asArchive(false);
 		} catch (OpenFailureException ex) {
 			handleOpenFailureException(ex);
 		}
