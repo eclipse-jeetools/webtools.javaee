@@ -526,7 +526,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				return prop.getValue();
 			}
 		}			
-		return "WebContent";
+		// If all else fails...
+		return null;
 	}
 	
 	/**

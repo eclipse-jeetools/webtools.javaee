@@ -21,10 +21,14 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainer;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -123,6 +127,21 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         try {
             super.execute( IModuleConstants.JST_WEB_MODULE, monitor );
+	        // Add "Web App Libraries" container to the project classpath.
+	        
+	        final IJavaProject jproject = JemProjectUtilities.getJavaProject( getProject() );
+	        final List cp = new ArrayList();
+	        final IClasspathEntry[] old = jproject.getRawClasspath();
+	        for( int i = 0; i < old.length; i++ )
+	        {
+	            cp.add( old[ i ] );
+	        }
+	        final String name = getModuleDeployName();
+	        cp.add( WebAppContainer.convert( name ) );
+
+	        final IClasspathEntry[] cparray = new IClasspathEntry[ cp.size() ];
+	        cp.toArray( cparray );
+	        jproject.setRawClasspath( cparray, null );
         } catch (CoreException e) {
             Logger.getLogger().log(e.getMessage());
         } catch (InvocationTargetException e) {
@@ -130,6 +149,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         } catch (InterruptedException e) {
             Logger.getLogger().log(e.getMessage());
         }
+	        
         return OK_STATUS;
     }
 

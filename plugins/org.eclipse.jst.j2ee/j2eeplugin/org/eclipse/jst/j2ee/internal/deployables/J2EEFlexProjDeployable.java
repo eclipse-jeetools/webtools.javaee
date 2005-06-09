@@ -118,5 +118,17 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 
 	}
 
+	public IPath getRootfolder() {
+		   
+		IPath path = null;
+	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
+     	if( component != null ){
+     		IFolder outputContainer = StructureEdit.getOutputContainerRoot(component);
+     		path = outputContainer.getProjectRelativePath();
+     	}
+     }    
+		return path;
+	}
+
 
 }

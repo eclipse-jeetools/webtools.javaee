@@ -559,5 +559,14 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			this.preferences = new J2EEPreferences(this);
 		return this.preferences;
 	}
+	public String getString(String key, boolean translate) {
+		// TODO For now...  translate not supported
+		return getString(key);
+	}
+
+	public String getString(String key, Object[] substitutions, boolean translate) {
+		// TODO For now...  translate not supported
+		return getString(key,substitutions);
+	}
 
 }

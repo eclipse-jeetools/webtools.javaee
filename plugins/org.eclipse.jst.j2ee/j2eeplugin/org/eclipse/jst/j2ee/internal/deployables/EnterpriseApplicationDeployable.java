@@ -28,7 +28,7 @@ import org.eclipse.wst.server.core.IModule;
 
 public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable implements IEnterpriseApplication, ILooseArchiveSupport {
 
-	public static final String EAR_MODULE_TYPE = "jst.ear"; //$NON-NLS-1$
+	public static final String EAR_MODULE_TYPE = IModuleConstants.JST_EAR_MODULE;
 
 	public EnterpriseApplicationDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
 		super(project, aFactoryId, aComponent);

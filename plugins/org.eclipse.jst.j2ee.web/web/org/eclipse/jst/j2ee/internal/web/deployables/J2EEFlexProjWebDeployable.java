@@ -40,7 +40,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     protected String contextRoot;
 
     protected ILooseArchive[] archives;
-    private IPath rootfolder = null;
+    public IPath rootfolder = null;
 
     protected Map uris = new HashMap();
 
@@ -410,16 +410,6 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     public String getModuleTypeVersion(){
         return getVersion();
     }
-
-	public IPath getRootfolder() {
-//	    if (ModuleCoreNature.getModuleCoreNature(project) != null ) {  
-//			if (wbModule != null ) {   		
-//				IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
-//				IPath path = outputContainer.getProjectRelativePath();
-//			}
-//		}    
-		return rootfolder;
-	}
 
 	public IModule[] getLooseArchives() {
 		// TODO Auto-generated method stub

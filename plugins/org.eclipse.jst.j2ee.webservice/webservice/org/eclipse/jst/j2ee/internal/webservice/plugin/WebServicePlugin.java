@@ -219,4 +219,13 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
+	public String getString(String key, boolean translate) {
+		// TODO For now...  translate not supported
+		return getString(key);
+	}
+
+	public String getString(String key, Object[] substitutions, boolean translate) {
+		// TODO For now...  translate not supported
+		return getString(key,substitutions);
+	}
 }

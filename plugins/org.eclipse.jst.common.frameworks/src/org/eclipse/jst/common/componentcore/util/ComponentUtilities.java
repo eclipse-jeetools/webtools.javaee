@@ -14,6 +14,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -202,6 +203,11 @@ public class ComponentUtilities {
 		ArtifactEditRegistryReader reader = ArtifactEditRegistryReader.instance();
 		IArtifactEditFactory factory = reader.getArtifactEdit(comp.getComponentTypeId());
 		return factory.createArtifactEditForWrite(comp);
+	}
+	public static IVirtualComponent findComponent(EObject anObject) {
+		IProject project = ProjectUtilities.getProject(anObject);
+		Resource res = anObject.eResource();
+		return findComponent(project, res);
 	}
 
 	public static IVirtualComponent findComponent(Resource aResource) {
