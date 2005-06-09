@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.17 $  $Date: 2005/05/19 21:34:25 $ 
+ *  $Revision: 1.18 $  $Date: 2005/06/09 13:37:56 $ 
  */
 
 import java.util.*;
@@ -586,19 +586,42 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 */
 	protected void setSuper() throws InheritanceCycleException {
 		String superName = null;
+		IType superType = null;
 		try {
 			if (!getSourceType().isInterface()) {
 				superName = getSourceType().getSuperclassName();
+				if ((superName != null) && isTargetInner()) {
+					IType parentType = getSourceType().getDeclaringType();
+					//Get all parent InnerTypes
+					IType[] inners = parentType.getTypes();
+					for (int i = 0; i < inners.length; i++) {
+						IType type = inners[i];
+						if (superName.equals(type.getElementName())) {
+							superName = parentType.getElementName() + '.' + superName;
+							reflectInnerClasses(parentType);
+							superType = type;
+							break;
+						}
+					}
+				}
+				
 				//Source files return null if extends does not exist.
 				if (superName == null && !getSourceType().getFullyQualifiedName().equals(OBJECT_TYPE_NAME))
 					superName = OBJECT_TYPE_NAME;
 				if (superName != null) {
 					JavaClass javaClassTarget = (JavaClass) getTarget();
-					javaClassTarget.setSupertype(reflectJavaClass(superName));
+					if (superType != null)
+						javaClassTarget.setSupertype(reflectJavaClass(superType));
+					else
+						javaClassTarget.setSupertype(reflectJavaClass(superName));
 				}
 			}
 		} catch (JavaModelException npe) {
 		}
+	}
+	private boolean isTargetInner() {
+		JavaClassImpl javaClass = (JavaClassImpl) getTarget();
+		return (javaClass.getName().indexOf('$') != -1);
 	}
 	/**
 	 * Return true if the sourceType can be found.
@@ -617,6 +640,26 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			JavaClass inner;
 			ResourceSet set = getTargetResource().getResourceSet();
 			String packageName = getSourceType().getPackageFragment().getElementName();
+			for (int i = 0; i < innerClasses.length; i++) {
+				inner = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(packageName, innerClasses[i].getTypeQualifiedName(), set);
+				declaredClasses.add(inner);
+			}
+		}
+	}
+	protected void reflectInnerClasses(IType aType) {
+		IType[] innerClasses = null;
+		try {
+			innerClasses = aType.getTypes();
+		} catch (JavaModelException e) {
+		}
+		if (innerClasses != null && innerClasses.length != 0) {
+			ResourceSet set = getTargetResource().getResourceSet();
+			String packageName = aType.getPackageFragment().getElementName();
+			JavaClassImpl parentType = (JavaClassImpl) JavaRefFactory.eINSTANCE.reflectType(packageName, aType.getTypeQualifiedName(), set);
+			List declaredClasses = parentType.getDeclaredClassesGen();
+			JavaClass inner;
+			
+			
 			for (int i = 0; i < innerClasses.length; i++) {
 				inner = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(packageName, innerClasses[i].getTypeQualifiedName(), set);
 				declaredClasses.add(inner);
