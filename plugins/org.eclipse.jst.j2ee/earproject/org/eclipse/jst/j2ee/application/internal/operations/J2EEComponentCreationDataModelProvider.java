@@ -108,13 +108,13 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (earDM != null)
 					earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
 			}
-		} 
-		else if (propertyName.equals(ADD_TO_EAR)) {
+		} else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(NESTED_EAR_COMPONENT_CREATION_DM, IDataModel.DEFAULT_CHG);
-		}else if (propertyName.equals(COMPONENT_VERSION)) {
+		} else if (propertyName.equals(COMPONENT_VERSION)) {
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
                 setProperty(USE_ANNOTATIONS, Boolean.FALSE);
             model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
+            model.notifyPropertyChange(EAR_COMPONENT_NAME, DataModelEvent.VALID_VALUES_CHG);
 			//this will force to  reload all the server types which are valid for this component version
 			if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
 				model.notifyPropertyChange(SERVER_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
