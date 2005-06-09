@@ -115,17 +115,24 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
 		ChooseEjbTypeWizardPage.this.model.setProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER,preferred);
 		boolean selected = false;
+		String providerS = null;
 		for (int i = 0; i < provider.length; i++) {
 			String name = provider[i];
 			annotationProvider.add(name);
 			if( preferred.equals(name)){
+				providerS = name;
 				annotationProvider.select(i);
 				selected = true;
 			}
 			
 		}
-		if(! selected)
+		if(! selected){
+		 providerS = provider[0];
 		 annotationProvider.select(0);
+		}
+		
+		if( model != null)
+			model.setProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER,providerS);
 		
 		annotationProvider.addSelectionListener(new SelectionListener(){
 
