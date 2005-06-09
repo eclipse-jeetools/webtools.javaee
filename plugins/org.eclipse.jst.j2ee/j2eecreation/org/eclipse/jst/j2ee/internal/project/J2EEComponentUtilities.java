@@ -22,7 +22,7 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 
 	public static IVirtualComponent[] getReferencingEARComponents(IVirtualComponent component) {
 		Set referencedEARComponents = new HashSet();
-		List earComponents = getAllEARComponentsInWorkspace();
+		List earComponents = getAllComponentsInWorkspaceOfType(component.getComponentTypeId());
 		for (int i = 0; i < earComponents.size(); i++) {
 			IVirtualComponent earComponent = (IVirtualComponent) earComponents.get(i);
 			IVirtualReference[] references = earComponent.getReferences();
@@ -37,7 +37,7 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 	}
 
 	public static boolean isStandaloneComponent(IVirtualComponent component) {
-		List earComponents = getAllEARComponentsInWorkspace();
+		List earComponents = getAllComponentsInWorkspaceOfType(component.getComponentTypeId());
 		for (int i = 0; i < earComponents.size(); i++) {
 			IVirtualComponent earComponent = (IVirtualComponent) earComponents.get(i);
 			IVirtualReference[] references = earComponent.getReferences();
@@ -50,14 +50,14 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 		return true;
 	}
 
-	public static List getAllEARComponentsInWorkspace() {
+	public static List getAllComponentsInWorkspaceOfType(String type) {
 		List earComponents = new ArrayList();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
 			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(projects[i]);
 			IVirtualComponent[] components = flexProject.getComponents();
 			for (int j = 0; j < components.length; j++) {
-				if (components[j].getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
+				if (components[j].getComponentTypeId().equals(type))
 					earComponents.add(components[j]);
 			}
 		}
