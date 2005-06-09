@@ -93,9 +93,9 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	}
 
 	protected void saveToWorkbenchPath(IPath workbenchPath, InputStream in) throws Exception {
-		IFile iFile = vComponent.getProject().getFile(workbenchPath);
+		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(workbenchPath);
+		//IFile iFile = vComponent.getProject().getFile(workbenchPath);
 		saveToIFile(iFile, in);
-
 	}
 
 	/**

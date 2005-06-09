@@ -35,6 +35,8 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
@@ -48,10 +50,10 @@ public class WebModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
-		IFolder folder = WebPropertiesUtil.getWebLibFolder(virtualComponent.getProject());
-		if (!folder.exists()) {
+		IVirtualFolder libFolder = WebPropertiesUtil.getWebLibFolder(virtualComponent);
+		if (!libFolder.exists()) {
 			try {
-				folder.create(true, true, new NullProgressMonitor());
+				libFolder.create(IFolder.FORCE, new NullProgressMonitor());
 			} catch (CoreException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -72,6 +74,7 @@ public class WebModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	private void addExtraClasspathEntries(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException, JavaModelException {
@@ -79,13 +82,15 @@ public class WebModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 		IJavaProject javaProject = JavaCore.create(virtualComponent.getProject());
 		extraEntries = new ArrayList();
 		importWebLibraryProjects(monitor, extraEntries, javaProject);
-
-		IResource[] libs = WebPropertiesUtil.getWebLibFolder(virtualComponent.getProject()).members();
+		IVirtualFolder libFolder = WebPropertiesUtil.getWebLibFolder(virtualComponent);
+		IVirtualResource [] libs = libFolder.members();
+		IResource lib = null;
 		for (int i = 0; i < libs.length; i++) {
-			if (!javaProject.isOnClasspath(libs[i]))
-				extraEntries.add(JavaCore.newLibraryEntry(libs[i].getFullPath(), libs[i].getFullPath(), null));
+			lib = libs[i].getUnderlyingResource();
+			if (!javaProject.isOnClasspath(lib))
+				extraEntries.add(JavaCore.newLibraryEntry(lib.getFullPath(), lib.getFullPath(), null));
 		}
-		// addToClasspath(extraEntries);
+		addToClasspath(model, extraEntries);
 	}
 
 	private void importWebLibraryProjects(IProgressMonitor monitor, List extraEntries, IJavaProject javaProject) throws InvocationTargetException, InterruptedException {

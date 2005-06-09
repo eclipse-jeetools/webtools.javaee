@@ -33,10 +33,13 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public class WebPropertiesUtil {
-	//private static final char[] BAD_CHARS = {'/', '\\', ':'};
+	// private static final char[] BAD_CHARS = {'/', '\\', ':'};
 	private static final char[] BAD_CHARS = {':'};
 	public static final String DEFAULT_JAVA_SOURCE_NAME = "Java Source"; //$NON-NLS-1$
 
@@ -60,14 +63,12 @@ public class WebPropertiesUtil {
 		boolean success = false;
 		if (project.exists() && project.isOpen()) {
 
-	/*		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
-			if (webContentName == null) {
-				if (webNature.isStatic()) {
-					webContentName = J2EEWebNatureRuntimeUtilities.getDefaultStaticWebContentName();
-				} else {
-					webContentName = J2EEWebNatureRuntimeUtilities.getDefaultJ2EEWebContentName();
-				}
-			}*/
+			/*
+			 * IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project); if
+			 * (webContentName == null) { if (webNature.isStatic()) { webContentName =
+			 * J2EEWebNatureRuntimeUtilities.getDefaultStaticWebContentName(); } else {
+			 * webContentName = J2EEWebNatureRuntimeUtilities.getDefaultJ2EEWebContentName(); } }
+			 */
 
 			IPath newPath = new Path(webContentName);
 			if (getModuleServerRoot(project).getProjectRelativePath().equals(newPath))
@@ -98,47 +99,47 @@ public class WebPropertiesUtil {
 
 		if (!getModuleServerRoot(project).equals(webContentName)) {
 
-			//if (webModuleArtifact.isJ2EE) {
-				// Update the library references
-				IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
+			// if (webModuleArtifact.isJ2EE) {
+			// Update the library references
+			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 
-				IClasspathEntry[] classpath = javaProject.getRawClasspath();
-				IClasspathEntry[] newClasspath = new IClasspathEntry[classpath.length];
+			IClasspathEntry[] classpath = javaProject.getRawClasspath();
+			IClasspathEntry[] newClasspath = new IClasspathEntry[classpath.length];
 
-				for (int i = 0; i < classpath.length; i++) {
-					if (classpath[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
-						IClasspathEntry library = classpath[i];
-						IPath libpath = library.getPath();
-						IPath modServerRootPath = getModuleServerRoot(project).getFullPath();
-						if (modServerRootPath.isPrefixOf(libpath)) {
-							IPath prunedPath = libpath.removeFirstSegments(modServerRootPath.segmentCount());
-							IPath relWebContentPath = new Path(webContentName + "/" + prunedPath.toString()); //$NON-NLS-1$
-							IResource absWebContentPath = project.getFile(relWebContentPath);
+			for (int i = 0; i < classpath.length; i++) {
+				if (classpath[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+					IClasspathEntry library = classpath[i];
+					IPath libpath = library.getPath();
+					IPath modServerRootPath = getModuleServerRoot(project).getFullPath();
+					if (modServerRootPath.isPrefixOf(libpath)) {
+						IPath prunedPath = libpath.removeFirstSegments(modServerRootPath.segmentCount());
+						IPath relWebContentPath = new Path(webContentName + "/" + prunedPath.toString()); //$NON-NLS-1$
+						IResource absWebContentPath = project.getFile(relWebContentPath);
 
-							IPath srcAttachmentPath = library.getSourceAttachmentPath();
-							if(null != srcAttachmentPath){
-								prunedPath = srcAttachmentPath.removeFirstSegments(modServerRootPath.segmentCount());
-							}
-							IResource absWebContentSrcAttachmentPath = project.getFile(relWebContentPath);
-
-							newClasspath[i] = JavaCore.newLibraryEntry(absWebContentPath.getFullPath(), absWebContentSrcAttachmentPath.getFullPath(), library.getSourceAttachmentRootPath(), library.isExported());
-
-						} else {
-							newClasspath[i] = classpath[i];
+						IPath srcAttachmentPath = library.getSourceAttachmentPath();
+						if (null != srcAttachmentPath) {
+							prunedPath = srcAttachmentPath.removeFirstSegments(modServerRootPath.segmentCount());
 						}
+						IResource absWebContentSrcAttachmentPath = project.getFile(relWebContentPath);
+
+						newClasspath[i] = JavaCore.newLibraryEntry(absWebContentPath.getFullPath(), absWebContentSrcAttachmentPath.getFullPath(), library.getSourceAttachmentRootPath(), library.isExported());
 
 					} else {
 						newClasspath[i] = classpath[i];
 					}
-			//	}
+
+				} else {
+					newClasspath[i] = classpath[i];
+				}
+				// }
 
 				// Set the java output folder
 				IFolder outputFolder = project.getFolder(getModuleServerRoot(project).getFullPath());
 				javaProject.setRawClasspath(newClasspath, outputFolder.getFullPath(), new SubProgressMonitor(progressMonitor, 1));
 			}
-			//update websettings
-			//TODO add to WebArtifactEdit
-				//webNature.setModuleServerRootName(webContentName);
+			// update websettings
+			// TODO add to WebArtifactEdit
+			// webNature.setModuleServerRootName(webContentName);
 		}
 	}
 
@@ -195,7 +196,7 @@ public class WebPropertiesUtil {
 			//$NON-NLS-1$ = "Sychronize Class Path"
 
 			IFolder lib_folder = getWebLibFolder(project);
-			//Nothing to do if the lib folder does not exist.
+			// Nothing to do if the lib folder does not exist.
 			if (lib_folder == null || !lib_folder.isAccessible())
 				return;
 			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
@@ -205,16 +206,16 @@ public class WebPropertiesUtil {
 			IClasspathEntry[] cp = javaProject.getRawClasspath();
 
 			boolean needsToBeModified = false;
-			//Create a map of the lib projects in the current project
+			// Create a map of the lib projects in the current project
 			Hashtable lib_jars = new Hashtable();
 			IResource[] children = lib_folder.members();
 			monitor.subTask(ProjectSupportResourceHandler.getString("Catalog_Lib_Directory__UI_")); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Catalog Lib Directory:"
 			for (int j = 0; j < children.length; j++) {
 				IResource child = children[j];
-				//monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory__UI_") +
+				// monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory__UI_") +
 				// child); //$NON-NLS-1$ = "Catalog Lib Directory:"
-				//Make sure it is a zip or a jar file
+				// Make sure it is a zip or a jar file
 				if (child.getType() == IResource.FILE && (child.getFullPath().toString().toLowerCase().endsWith(".jar") //$NON-NLS-1$
 							|| child.getFullPath().toString().toLowerCase().endsWith(".zip"))) { //$NON-NLS-1$
 					lib_jars.put(child.getFullPath(), child);
@@ -225,25 +226,25 @@ public class WebPropertiesUtil {
 			monitor.worked(1);
 			monitor.subTask(ProjectSupportResourceHandler.getString("Update_ClassPath__UI_")); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Update ClassPath:"
-			//Loop through all the classpath dirs looking for ones that may have
-			//been deleted
+			// Loop through all the classpath dirs looking for ones that may have
+			// been deleted
 			Vector newClassPathVector = new Vector();
 			for (int j = 0; j < cp.length; j++) {
 
-				//If it is a lib_path
+				// If it is a lib_path
 				if (cp[j].getPath().toString().startsWith(lib_path.toString()) || cp[j].getPath().toString().startsWith(lib_full_path.toString())) {
-					//It was already in the class path
+					// It was already in the class path
 					if (lib_jars.get(cp[j].getPath()) != null) {
 						newClassPathVector.add(cp[j]);
-						//Remove it from the hash table of paths to add back
-						//monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory__UI_")
+						// Remove it from the hash table of paths to add back
+						// monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory__UI_")
 						// + cp[j].getPath()); //$NON-NLS-1$ = "Catalog Lib Directory:"
 						lib_jars.remove(cp[j].getPath());
 
 					} else {
-						//You have removed something form the class path you
-						//will need to re-build
-						//monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory_Remo_UI_")
+						// You have removed something form the class path you
+						// will need to re-build
+						// monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory_Remo_UI_")
 						// + cp[j].getPath()); //$NON-NLS-1$ = "Catalog Lib Directory:Remove "
 						needsToBeModified = true;
 					}
@@ -257,14 +258,14 @@ public class WebPropertiesUtil {
 			monitor.subTask(ProjectSupportResourceHandler.getString("Update_ClassPath__UI_")); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Update ClassPath:"
 
-			//Add any entries not already found
+			// Add any entries not already found
 			Enumeration aenum = lib_jars.keys();
 			while (aenum.hasMoreElements()) {
 				IPath path = (IPath) aenum.nextElement();
 				newClassPathVector.add(JavaCore.newLibraryEntry(path, null, null));
-				//You have added something form the class path you
-				//will need to re-build
-				//monitor.setTaskName(ResourceHandler.getString("23concat_UI_", (new Object[] {
+				// You have added something form the class path you
+				// will need to re-build
+				// monitor.setTaskName(ResourceHandler.getString("23concat_UI_", (new Object[] {
 				// path }))); //$NON-NLS-1$ = "Catalog Lib Directory:Add {0}"
 				needsToBeModified = true;
 			}
@@ -273,14 +274,14 @@ public class WebPropertiesUtil {
 			monitor.subTask(ProjectSupportResourceHandler.getString("Set_ClassPath__UI_")); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Set ClassPath:"
 
-			//Tansfer the vector to an array
+			// Tansfer the vector to an array
 			IClasspathEntry[] newClassPathArray = new IClasspathEntry[newClassPathVector.size()];
 
 			for (int j = 0; j < newClassPathArray.length; j++) {
 				newClassPathArray[j] = (IClasspathEntry) newClassPathVector.get(j);
 			}
 
-			//Only change the class path if there has been a modification
+			// Only change the class path if there has been a modification
 			if (needsToBeModified) {
 
 				try {
@@ -303,15 +304,15 @@ public class WebPropertiesUtil {
 		if (project.exists() && project.isOpen()) {
 			WebArtifactEdit webEdit = null;
 			try {
-				//TODO migrate to flex projects
-				//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
+				// TODO migrate to flex projects
+				// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 				if (webEdit != null)
 					webEdit.setServerContextRoot(contextRoot);
 			} finally {
 				if (webEdit != null)
 					webEdit.dispose();
 			}
-		
+
 		}
 	}
 
@@ -337,7 +338,7 @@ public class WebPropertiesUtil {
 
 		String name = contextRoot;
 		if (name.equals("") || name == null) { //$NON-NLS-1$
-			//  this was added because the error message shouldnt be shown initially. It should be
+			// this was added because the error message shouldnt be shown initially. It should be
 			// shown only if context root field is edited to
 			errorMessage = ProjectSupportResourceHandler.getString("Context_Root_cannot_be_empty_2"); //$NON-NLS-1$
 			return errorMessage;
@@ -356,9 +357,9 @@ public class WebPropertiesUtil {
 				for (int i = 0; i < token.length(); i++) {
 					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
 						if (Character.isWhitespace(token.charAt(i))) {
-							//Removed because context roots can contain white space
-							//errorMessage =
-							//	ResourceHandler.getString("_Context_root_cannot_conta_UI_");//$NON-NLS-1$
+							// Removed because context roots can contain white space
+							// errorMessage =
+							// ResourceHandler.getString("_Context_root_cannot_conta_UI_");//$NON-NLS-1$
 							// = " Context root cannot contain whitespaces."
 						} else {
 							errorMessage = ProjectSupportResourceHandler.getString("The_character_is_invalid_in_a_context_root", new Object[]{(new Character(token.charAt(i))).toString()}); //$NON-NLS-1$
@@ -449,18 +450,19 @@ public class WebPropertiesUtil {
 	 * @throws CoreException
 	 *             The exception that occured during the version change operation.
 	 */
-/*	static public boolean updateNatureToCurrentVersion(J2EEWebNatureRuntime webNature) throws CoreException {
-
-		boolean success = false;
-
-		if (webNature.getVersion() != WEB.CURRENT_VERSION) {
-			webNature.setVersion(J2EESettings.CURRENT_VERSION);
-			success = true;
-		}
-		((J2EEModuleWorkbenchURIConverterImpl) webNature.getResourceSet().getURIConverter()).recomputeContainersIfNecessary();
-
-		return success;
-	}*/
+	/*
+	 * static public boolean updateNatureToCurrentVersion(J2EEWebNatureRuntime webNature) throws
+	 * CoreException {
+	 * 
+	 * boolean success = false;
+	 * 
+	 * if (webNature.getVersion() != WEB.CURRENT_VERSION) {
+	 * webNature.setVersion(J2EESettings.CURRENT_VERSION); success = true; }
+	 * ((J2EEModuleWorkbenchURIConverterImpl)
+	 * webNature.getResourceSet().getURIConverter()).recomputeContainersIfNecessary();
+	 * 
+	 * return success; }
+	 */
 
 	/**
 	 * Move the old source folder to the new default folder.
@@ -484,7 +486,7 @@ public class WebPropertiesUtil {
 			else
 				newPath = new Path(javaSourceName);
 
-			//Make sure new path is different form old path
+			// Make sure new path is different form old path
 			if (!project.getFolder(newPath).getFullPath().equals(oldSourceFolder.getFullPath())) {
 				oldSourceFolder.move(newPath, IResource.FORCE | IResource.KEEP_HISTORY, new SubProgressMonitor(progressMonitor, 1));
 				JemProjectUtilities.removeFromJavaClassPath(project, oldSourceFolder);
@@ -517,48 +519,59 @@ public class WebPropertiesUtil {
 		}
 		return oldSourceFolder;
 	}
-	
+
 	public static IFolder getModuleServerRoot(IProject project) {
-		//TODO need to implement module server root properly
+		// TODO need to implement module server root properly
 		return project.getFolder("WebContent");
 	}
-	
-	public static IFolder getWebLibFolder(IProject project) {
-		//TODO needs to be implemented
-		return null;
+
+	public static IVirtualFolder getWebLibFolder(IVirtualComponent webComponent) {
+		IPath path = new Path("/" + J2EEConstants.WEB_INF + "/" + "lib");
+		IVirtualFolder libFolder = webComponent.getFolder(path);
+		return libFolder;
 	}
-	
+
+	//TODO delete jsholl
+	/**
+	 * @deprecated use getWebLibFolder(IVirtualComponent webComponent)
+	 * @param project
+	 * @return
+	 */
+	public static IFolder getWebLibFolder(IProject project) {
+		throw new RuntimeException("getWebLibFolder(IProject project) is deprecateed use getWebLibFolder(IVirtualComponent webComponent)");
+	}
+
 	//	
-	//	static public boolean isImportedClassesJARFileInLibDir(IResource resource) {
-	//		if (resource == null || !resource.exists())
-	//			return false;
-	//		return resource.getType() == resource.FILE &&
+	// static public boolean isImportedClassesJARFileInLibDir(IResource resource) {
+	// if (resource == null || !resource.exists())
+	// return false;
+	// return resource.getType() == resource.FILE &&
 	// resource.getName().endsWith(IWebNatureConstants.IMPORTED_CLASSES_SUFFIX) && isZip(resource);
-	//	}
+	// }
 	//	
-	//	static public boolean isLibDirJARFile(IResource resource) {
-	//		if (resource == null || !resource.exists())
-	//			return false;
-	//		return resource.getType() == resource.FILE && isZip(resource);
-	//	}
+	// static public boolean isLibDirJARFile(IResource resource) {
+	// if (resource == null || !resource.exists())
+	// return false;
+	// return resource.getType() == resource.FILE && isZip(resource);
+	// }
 	//	
-	//	static public boolean isZip(IResource resource) {
-	//		String path = resource.getLocation().toOSString();
-	//		ZipFile zip = null;
+	// static public boolean isZip(IResource resource) {
+	// String path = resource.getLocation().toOSString();
+	// ZipFile zip = null;
 	//
-	//		try {
-	//			zip = new ZipFile(path);
-	//		} catch (IOException notAZip) {
-	//			return false;
-	//		} finally {
-	//			if (zip != null) {
-	//				try {
-	//					zip.close();
-	//				} catch (IOException ex) {}
-	//			}
-	//		}
-	//		return zip != null;
-	//	}
+	// try {
+	// zip = new ZipFile(path);
+	// } catch (IOException notAZip) {
+	// return false;
+	// } finally {
+	// if (zip != null) {
+	// try {
+	// zip.close();
+	// } catch (IOException ex) {}
+	// }
+	// }
+	// return zip != null;
+	// }
 
 
 }
