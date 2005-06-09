@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -36,6 +37,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected boolean exportSource;
 	protected ArrayList filesList;
 	protected Set visitedURIs;
+	private int javaOutputFolderSegmentCount;
 
 	public ComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		this.vComponent = vComponent;
@@ -55,11 +57,40 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		try {
 			IVirtualResource[] members = vComponent.members();
 			filesList = getFiles(members);
+//			String javaOutputPath = vComponent.getMetaProperties().getProperty(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);
+//			IFolder javaOutputFolder = vComponent.getProject().getFolder(new Path(javaOutputPath));
+//			javaOutputFolderSegmentCount = javaOutputFolder.getProjectRelativePath().segmentCount();
+//			filesList = getFiles(javaOutputFolder.members());
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		return filesList;
+	}
+
+	protected ArrayList getFiles(IResource[] resources) throws CoreException {
+		for (int i = 0; i < resources.length; i++) {
+			File cFile = null;
+			if (resources[i].getType() == IResource.FILE) {
+				// We have to avoid duplicates between the source and output folders (non-java
+				// resources)
+				IPath runtimePath = resources[i].getProjectRelativePath().removeFirstSegments(javaOutputFolderSegmentCount);
+				String uri = runtimePath == null ? null : runtimePath.toString();
+				if (uri == null)
+					continue;
+				if (!shouldInclude(uri)) //$NON-NLS-1$
+					continue;
+				if (getVisitedURIs().contains(uri))
+					continue;
+				cFile = createFile(uri);
+				cFile.setLastModified(getLastModified(resources[i]));
+				getVisitedURIs().add(uri);
+				filesList.add(cFile);
+			} else if (shouldInclude((IContainer) resources[i])) {
+				getFiles(((IContainer) resources[i]).members());
+			}
+		}
 		return filesList;
 	}
 
@@ -104,6 +135,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	public boolean isExportSource() {
 		return exportSource;
+	}
+
+	protected boolean shouldInclude(IContainer container) {
+		return true;
 	}
 
 	protected boolean shouldInclude(IVirtualContainer vContainer) {

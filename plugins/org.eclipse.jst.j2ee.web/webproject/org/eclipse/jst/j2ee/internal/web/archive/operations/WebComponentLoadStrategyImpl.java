@@ -17,7 +17,6 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 	public WebComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		super(vComponent);
-		// TODO Auto-generated constructor stub
 	}
 
 }
