@@ -562,6 +562,14 @@
             id="org.eclipse.jst.j2ee.J2EEPerspective">
       </perspective>
    </extension>	
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.jst.j2ee.J2EEPerspective">
+         <perspectiveShortcut id="org.eclipse.debug.ui.DebugPerspective"/>
+         <perspectiveShortcut id="org.eclipse.jdt.ui.JavaPerspective"/>
+         <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
+      </perspectiveExtension>
+   </extension>	
 
    <!-- <extension
          point="org.eclipse.jem.util.uiContextSensitiveClass">
