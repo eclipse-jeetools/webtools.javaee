@@ -5,12 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -31,6 +33,7 @@ import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryRe
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
@@ -123,10 +126,16 @@ public class ComponentUtilities {
 
 
 
-	public static IVirtualComponent findComponent(EObject anObject) {
-		IProject project = ProjectUtilities.getProject(anObject);
-		Resource res = anObject.eResource();
-		return findComponent(project, res);
+	public static IFile findFile(IVirtualComponent comp, IPath aPath) {
+		IVirtualResource[] members = comp.members();
+		for (int i = 0; i < members.length; i++) {
+			IVirtualResource resource = members[i];
+			if (resource.getType() == IVirtualResource.FOLDER) {
+				IVirtualResource file = ((IVirtualContainer)resource).findMember(aPath);
+				if (file != null) return (IFile)file.getUnderlyingResource();
+			}
+		}
+		return null;
 	}
 
 	private static IVirtualComponent findComponent(IProject project, Resource res) {
