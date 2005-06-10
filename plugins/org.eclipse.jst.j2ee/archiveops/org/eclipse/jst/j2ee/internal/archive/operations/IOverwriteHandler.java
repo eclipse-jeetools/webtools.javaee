@@ -75,7 +75,7 @@ public interface IOverwriteHandler {
 	 * 
 	 * @return boolean
 	 */
-	void setEjbSaveStrategy(J2EESaveStrategyImpl newEjbSaveStrategy);
+	void setEjbSaveStrategy(J2EEComponentSaveStrategyImpl newEjbSaveStrategy);
 
 	/**
 	 * Sets the RAR SaveStrategy.
@@ -83,7 +83,7 @@ public interface IOverwriteHandler {
 	 * @param RARProjectSaveStrategyImpl
 	 *            rarSaveStrategy - The rar save strategy to set.
 	 */
-	void setRARSaveStrategy(J2EESaveStrategyImpl newRARSaveStrategy);
+	void setRARSaveStrategy(J2EEComponentSaveStrategyImpl newRARSaveStrategy);
 
 	void setOverwriteAll(boolean newAllTrue);
 
@@ -108,7 +108,7 @@ public interface IOverwriteHandler {
 	 * 
 	 * @return boolean
 	 */
-	void setWarSaveStrategy(J2EESaveStrategyImpl newWarSaveStrategy);
+	void setWarSaveStrategy(J2EEComponentSaveStrategyImpl newWarSaveStrategy);
 
 	/**
 	 * Insert the method's description here. Creation date: (4/16/2001 3:13:38 PM)
