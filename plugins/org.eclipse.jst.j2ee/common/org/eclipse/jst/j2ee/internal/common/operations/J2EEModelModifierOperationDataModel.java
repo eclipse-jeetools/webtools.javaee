@@ -94,5 +94,9 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 		}
 		return null;
 	}
+	
+	public ArtifactEdit getArtifactEditForRead() {
+		return ComponentUtilities.getArtifactEditForRead(getComponent());
+	}
 
 }
