@@ -9,7 +9,11 @@ package org.eclipse.wtp.headless.tests.savestrategy;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModelProvider;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -32,7 +36,18 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 	}
 
 	public void testEJB20Import() throws Exception {
-		testImport("Test13EJB", getFullPathForEJBJar("Test13EJB.jar"));
+		String projectName = "Test13EJB";
+		String fileName = getFullPathForEJBJar("Test13EJB.jar");
+		testImport(projectName, fileName);
+		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
+		EJBArtifactEdit ejbEdit = null;
+		try {
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+			ejbEdit.getJ2EEVersion();
+		} finally {
+			if (ejbEdit != null)
+				ejbEdit.dispose();
+		}
 	}
 
 	public String getFullPathForEJBJar(String jarName) {
