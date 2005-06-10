@@ -13,7 +13,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModel;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
