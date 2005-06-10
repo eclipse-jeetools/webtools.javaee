@@ -97,7 +97,8 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		return OK_STATUS;
 	}
 	
-	private void addModulesToEAR(IProgressMonitor monitor) {
+	private IStatus  addModulesToEAR(IProgressMonitor monitor) {
+		IStatus stat = OK_STATUS;
 		try{
 			IDataModel dm = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
@@ -110,6 +111,9 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 				    modList.add(modulesList.get(i));
                 }
 				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+				if( stat != OK_STATUS )
+					return stat;
 				dm.getDefaultOperation().execute(monitor, null);				
 			}	
 
@@ -139,6 +143,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);
 		 }
+		 return OK_STATUS;
 	}
     
 	protected  void addResources(WorkbenchComponent component ){

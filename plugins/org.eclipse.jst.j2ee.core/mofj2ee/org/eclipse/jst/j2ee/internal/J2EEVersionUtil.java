@@ -120,15 +120,15 @@ public class J2EEVersionUtil {
 	}
 	
 	public static int convertVersionStringToInt(IVirtualComponent comp) {
-		if (comp.getComponentTypeId() == IModuleConstants.JST_WEB_MODULE)
+		if (comp.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))
 			return convertWebVersionStringToJ2EEVersionID(comp.getVersion());
-		if (comp.getComponentTypeId() == IModuleConstants.JST_EJB_MODULE)
+		if (comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
 			return convertEJBVersionStringToJ2EEVersionID(comp.getVersion());
-		if (comp.getComponentTypeId() == IModuleConstants.JST_EAR_MODULE)
+		if (comp.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
 			return convertVersionStringToInt(comp.getVersion());
-		if (comp.getComponentTypeId() == IModuleConstants.JST_CONNECTOR_MODULE)
+		if (comp.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
 			return convertConnectorVersionStringToJ2EEVersionID(comp.getVersion());
-		if (comp.getComponentTypeId() == IModuleConstants.JST_APPCLIENT_MODULE)
+		if (comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
 			return convertAppClientVersionStringToJ2EEVersionID(comp.getVersion());
 		
 		return 0;

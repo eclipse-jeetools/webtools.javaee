@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -12,8 +14,12 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -60,6 +66,8 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
             return Boolean.FALSE;
         } else if (propertyName.equals(J2EE_COMPONENT_LIST)) {
             return Collections.EMPTY_LIST;
+        }else if (propertyName.equals(JAVA_PROJECT_LIST)){
+			return Collections.EMPTY_LIST;
         }
         return super.getDefaultProperty(propertyName);
     }
@@ -147,10 +155,31 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 	                }
 	            }
 			}
+        }else if(propertyName.equals(J2EE_COMPONENT_LIST)){
+			return validateTargetComponentVersion((List)model.getProperty(J2EE_COMPONENT_LIST));
         }
         return super.validate(propertyName);
     }
 
+	private IStatus validateTargetComponentVersion(List list) {
+
+		Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
+		int earVersion = version.intValue();
+		for (Iterator iter = list.iterator(); iter.hasNext();) {
+			ComponentHandle handle = (ComponentHandle)iter.next();
+			//IVirtualComponent comp = (IVirtualComponent) iter.next();
+			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+			int compVersion = J2EEVersionUtil.convertVersionStringToInt(comp);
+			if (earVersion < compVersion) {
+				String errorStatus = "The Module specification level of "+handle.getName()+", is incompatible with the containing EAR version"; //$NON-NLS-1$
+				return J2EEPlugin.newErrorStatus(errorStatus, null);
+			}
+			
+		}
+		return OK_STATUS;
+	}
+	
+	
     public boolean propertySet(String propertyName, Object propertyValue) {
         boolean returnValue = super.propertySet(propertyName, propertyValue);
         if (propertyName.equals(COMPONENT_NAME)) {

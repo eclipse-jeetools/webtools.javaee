@@ -64,10 +64,8 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		// TODO Auto-generated method stub
-		return null;
+		return new String[] {IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST};
 	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
