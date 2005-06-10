@@ -168,48 +168,54 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
 	private boolean isValidComponent() {
-		if(model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) { 
-        	this.setErrorMessage("Java Jar Dependencies is not valid for EAR modules");
-        	return false;
+		if (model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+			this.setErrorMessage("Java Jar Dependencies is not valid for EAR modules");
+			return false;
+		} else if ((ComponentUtilities.getComponentsForProject(model.getProject())).length > 1) {
+			this.setErrorMessage("Java Jar Dependencies is valid only for one module per flexible project");
+			return false;
+		} else if (J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) && !model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
+			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
+			return false;
 		}
-        else if((ComponentUtilities.getComponentsForProject(model.getProject())).length > 1) { 
-        	this.setErrorMessage("Java Jar Dependencies is valid only for one module per flexible project");
-        	return false;
-        }
-        else if(J2EEComponentUtilities.isStandaloneComponent(model.getComponent())) { 
-        	this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
-        	return false;
-        }
 		return true;
 	}
 
     protected void createProjectLabelsGroup(Composite parent) {
 
-        Composite labelsGroup = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 2;
-        labelsGroup.setLayout(layout);
-        labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Composite labelsGroup = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		labelsGroup.setLayout(layout);
+		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        Label label = new Label(labelsGroup, SWT.NONE);
-        label.setText(ManifestUIResourceHandler.getString("Project_name__UI_")); //$NON-NLS-1$ = "Project name:"
+		Label label = new Label(labelsGroup, SWT.NONE);
+		label.setText(ManifestUIResourceHandler.getString("Project_name__UI_")); //$NON-NLS-1$ = "Project name:"
 
-        componentNameText = new Text(labelsGroup, SWT.BORDER);
-        GridData data = new GridData(GridData.FILL_HORIZONTAL);
-        componentNameText.setEditable(false);
-        componentNameText.setLayoutData(data);
-        componentNameText.setText(project.getName());
+		componentNameText = new Text(labelsGroup, SWT.BORDER);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		componentNameText.setEditable(false);
+		componentNameText.setLayoutData(data);
+		componentNameText.setText(project.getName());
 
-        label = new Label(labelsGroup, SWT.NONE);
-        label.setText(ManifestUIResourceHandler.getString("EAR_Project_Name__UI__UI_")); //$NON-NLS-1$ = "EAR project name:"
+		createEnterpriseAppsControls(labelsGroup);
 
-        availableAppsCombo = new CCombo(labelsGroup, SWT.READ_ONLY | SWT.BORDER);
-        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-        availableAppsCombo.setLayoutData(gd);
+	}
 
-        availableAppsCombo.addListener(SWT.Selection, this);
+	private void createEnterpriseAppsControls(Composite labelsGroup) {
+		 
+		if (!J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent())) {
 
-    }
+			Label label = new Label(labelsGroup, SWT.NONE);
+			label.setText(ManifestUIResourceHandler.getString("EAR_Project_Name__UI__UI_")); //$NON-NLS-1$ = "EAR project name:"
+
+			availableAppsCombo = new CCombo(labelsGroup, SWT.READ_ONLY | SWT.BORDER);
+			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+			availableAppsCombo.setLayoutData(gd);
+
+			availableAppsCombo.addListener(SWT.Selection, this);
+		}
+	}
 
     protected void createListGroup(Composite parent) {
         Composite listGroup = new Composite(parent, SWT.NONE);
@@ -239,17 +245,19 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     protected void createTextGroup(Composite parent) {
-        Composite textGroup = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 1;
-        textGroup.setLayout(layout);
-        textGroup.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL));
+		if (!J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent())) {
+			Composite textGroup = new Composite(parent, SWT.NONE);
+			GridLayout layout = new GridLayout();
+			layout.numColumns = 1;
+			textGroup.setLayout(layout);
+			textGroup.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL));
 
-        Label label = new Label(textGroup, SWT.NONE);
-        label.setText(ManifestUIResourceHandler.getString("Manifest_Class-Path__UI_")); //$NON-NLS-1$ = "Manifest Class-Path:"
+			Label label = new Label(textGroup, SWT.NONE);
+			label.setText(ManifestUIResourceHandler.getString("Manifest_Class-Path__UI_")); //$NON-NLS-1$ = "Manifest Class-Path:"
 
-        createClassPathText(textGroup);
-    }
+			createClassPathText(textGroup);
+		}
+	}
 
     protected void createClassPathText(Composite textGroup) {
         classPathText = new Text(textGroup, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
@@ -267,15 +275,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         tableManager = new ClasspathTableManager(this, model, validateEditListener);
         tableManager.setReadOnly(isReadOnly());
         tableManager.fillComposite(composite);
-    }
-
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ibm.etools.j2ee.common.ui.classpath.IClasspathTableOwner#createHideEJBClientJARsButton(org.eclipse.swt.widgets.Composite)
-	 */
-    public Button createHideEJBClientJARsButton(Composite parent) {
-        return new Button(parent, SWT.CHECK);
     }
 
     /**
@@ -354,32 +353,38 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         model.selectEAR(index);
     }
     protected void populateApps() {
-        IVirtualComponent[] components = model.getAvailableEARComponents();
-        String[] values = new String[components.length];
-        for (int i = 0; i < components.length; i++) {
-            values[i] = components[i].getProject().getName();
-        }
-        availableAppsCombo.setItems(values);
-        IVirtualComponent selected = model.getSelectedEARComponent();
-        if (selected != null) {
-            int index = Arrays.asList(components).indexOf(selected);
-            availableAppsCombo.select(index);
-        } else
-            availableAppsCombo.clearSelection();
-    }
-
- 
+		IVirtualComponent[] components = model.getAvailableEARComponents();
+		String[] values = new String[components.length];
+		for (int i = 0; i < components.length; i++) {
+			values[i] = components[i].getProject().getName();
+		}
+		if (availableAppsCombo != null) {
+			availableAppsCombo.setItems(values);
+			IVirtualComponent selected = model.getSelectedEARComponent();
+			if (selected != null) {
+				int index = Arrays.asList(components).indexOf(selected);
+				availableAppsCombo.select(index);
+			} else
+				availableAppsCombo.clearSelection();
+		}
+	}
 
     protected void refresh() {
-        populateApps();
+     boolean isStandAloneWebModule = J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent());
+    	if(!isStandAloneWebModule)
+    		populateApps();
         tableManager.refresh();
-        refreshText();
+        if(isStandAloneWebModule)
+        	refreshText();
+     
     }
 
     public void refreshText() {
-        ClassPathSelection sel = model.getClassPathSelection();
-        classPathText.setText(sel == null ? "" : sel.toString()); //$NON-NLS-1$
-    }
+		if (!J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent())) {
+			ClassPathSelection sel = model.getClassPathSelection();
+			classPathText.setText(sel == null ? "" : sel.toString()); //$NON-NLS-1$
+		}
+	}
 
     /**
 	 * @see ClasspathModelListener#modelChanged(ClasspathModelEvent)

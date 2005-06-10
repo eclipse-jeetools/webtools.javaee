@@ -43,11 +43,15 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 			IVirtualReference[] references = earComponent.getReferences();
 			for (int j = 0; j < references.length; j++) {
 				IVirtualReference reference = references[j];
-				if (reference.getReferencedComponent().getComponentTypeId().equals(component.getComponentTypeId()))
+				if (reference.getReferencedComponent().getName().equals(component.getName()))
 					return false;
 			}
 		}
 		return true;
+	}
+	
+	public static boolean isStandaloneWebComponent(IVirtualComponent component) {
+		return (component.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE) && isStandaloneComponent(component));	
 	}
 
 	public static List getAllComponentsInWorkspaceOfType(String type) {

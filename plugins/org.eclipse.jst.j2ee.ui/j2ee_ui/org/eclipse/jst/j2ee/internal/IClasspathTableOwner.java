@@ -22,6 +22,6 @@ public interface IClasspathTableOwner {
 	Button primCreateRadioButton(String label, Composite parent);
 	CheckboxTableViewer createAvailableJARsViewer(Composite parent);
 	Composite createButtonColumnComposite(Composite parent);
-	Button createHideEJBClientJARsButton(Composite parent);
+	//Button createHideEJBClientJARsButton(Composite parent); This method is never used hence commeting it out - vkb
 	Group createGroup(Composite parent);
 }

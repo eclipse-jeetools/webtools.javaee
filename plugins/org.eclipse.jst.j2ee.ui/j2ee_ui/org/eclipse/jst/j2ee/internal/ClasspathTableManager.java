@@ -18,6 +18,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
+import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -73,7 +74,8 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		layout.marginHeight = 0;
 		parent.setLayout(layout);
 		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
-		createRadioGroup(parent);
+		if (!J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent()))
+			createRadioGroup(parent);
 		createTable(parent);
 		createButtonColumn(parent);
 	}
