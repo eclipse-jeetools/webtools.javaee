@@ -68,7 +68,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			if (propertyValue == null)
 				setProperty(UTILITY_JAR_LIST, EMPTY_ARRAY);
 			else
-				super.doSetProperty(UTILITY_JAR_LIST, propertyValue);
+				model.setProperty(UTILITY_JAR_LIST, propertyValue);
 
 		} else if (PROJECT_ROOT.equals(propertyName)) {
 			if (propertyValue == null || ((String) propertyValue).length() == 0)
