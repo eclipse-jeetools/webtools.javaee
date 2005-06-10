@@ -6,10 +6,11 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -31,6 +32,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -100,7 +102,9 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 				if (!ignoreCheckedState) {
-					(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedElementsAsList());
+					getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedJ2EEElementsAsList());
+					getDataModel().setProperty(JAVA_PROJECT_LIST, getCheckedJavaProjectsAsList());
+					//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedJ2EEElementsAsList());
 				}
 			}
 		});
@@ -125,16 +129,49 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		setCheckedItemsFromModel();
 	}
 
-	protected List getCheckedElementsAsList() {
+//	protected List getCheckedElementsAsList() {
+//		Object[] elements = moduleProjectsViewer.getCheckedElements();
+//		List list;
+//		if (elements == null || elements.length == 0)
+//			list = Collections.EMPTY_LIST;
+//		else
+//			list = Arrays.asList(elements);
+//		return list;
+//	}
+
+	protected List getCheckedJ2EEElementsAsList() {
 		Object[] elements = moduleProjectsViewer.getCheckedElements();
 		List list;
 		if (elements == null || elements.length == 0)
 			list = Collections.EMPTY_LIST;
-		else
-			list = Arrays.asList(elements);
+		else{
+			list = new ArrayList(); 
+			for( int i=0; i< elements.length; i++){
+				if( elements[i] instanceof ComponentHandle ) {
+					list.add(elements[i]);
+				}
+			}
+		}	
 		return list;
 	}
-
+	
+	protected List getCheckedJavaProjectsAsList() {
+		Object[] elements = moduleProjectsViewer.getCheckedElements();
+		List list;
+		if (elements == null || elements.length == 0)
+			list = Collections.EMPTY_LIST;
+		else{
+			list = new ArrayList(); 
+			for( int i=0; i< elements.length; i++){
+				if( elements[i] instanceof IProject ) {
+					list.add(elements[i]);
+				}
+			}
+		}	
+		return list;
+	}
+	
+	
 	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
 		Composite buttonGroup = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -213,7 +250,11 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(false);
+			//getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
+			//IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);	
+			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedJ2EEElementsAsList());
 			getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
+			getDataModel().setProperty(JAVA_PROJECT_LIST, null);			
 		} finally {
 			ignoreCheckedState = false;
 		}
@@ -226,7 +267,13 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(true);
-			getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+			//getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedElementsAsList());
+			//IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
+			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedJ2EEElementsAsList());
+			
+			getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedJ2EEElementsAsList());
+			getDataModel().setProperty(JAVA_PROJECT_LIST, getCheckedJavaProjectsAsList());
+			
 		} finally {
 			ignoreCheckedState = false;
 		}

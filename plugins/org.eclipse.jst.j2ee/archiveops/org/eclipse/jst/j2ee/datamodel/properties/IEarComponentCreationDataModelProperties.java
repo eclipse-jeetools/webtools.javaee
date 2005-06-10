@@ -34,5 +34,6 @@ public interface IEarComponentCreationDataModelProperties extends IJ2EEComponent
 	 * Required, type List, the list of j2EE modules which are contained in  the EAR.
 	 */
 	public static final String J2EE_COMPONENT_LIST = "IEarComponentCreationDataModel.J2EE_COMPONENT_LIST"; //$NON-NLS-1$
+	public static final String JAVA_PROJECT_LIST = "IEarComponentCreationDataModel.JAVA_PROJECT_LIST"; //$NON-NLS-1$	
 
 }

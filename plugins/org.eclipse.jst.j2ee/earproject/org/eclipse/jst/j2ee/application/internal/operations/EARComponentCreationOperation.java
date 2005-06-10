@@ -13,6 +13,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -21,10 +23,12 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentCreationOperation extends ComponentCreationOperation implements IEarComponentCreationDataModelProperties{
@@ -98,7 +102,39 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 			IDataModel dm = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
-			dm.getDefaultOperation().execute(monitor, null);
+			
+			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
+            List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+			if (modulesList != null && !modulesList.isEmpty()) {
+				for(int i=0; i<modulesList.size(); i++){
+				    modList.add(modulesList.get(i));
+                }
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+				dm.getDefaultOperation().execute(monitor, null);				
+			}	
+
+			
+			List javaProjectsList = (List)model.getProperty(JAVA_PROJECT_LIST);
+			if( !javaProjectsList.isEmpty()){
+				
+				for( int i=0; i< javaProjectsList.size(); i++){
+					IProject proj = (IProject) javaProjectsList.get(i);
+				    IDataModel migrationdm = DataModelFactory.createDataModel( new JavaProjectMigrationDataModelProvider());
+					migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
+					migrationdm.getDefaultOperation().execute(monitor, null);
+					
+					
+					IDataModel refdm = DataModelFactory.createDataModel( new CreateReferenceComponentsDataModelProvider());
+		            List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+					
+					IVirtualComponent targetcomponent = ComponentCore.createComponent(proj, proj.getName());
+					targetCompList.add(targetcomponent.getComponentHandle());
+					
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetCompList);
+					refdm.getDefaultOperation().execute(monitor, null);
+				}
+			}
 
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);

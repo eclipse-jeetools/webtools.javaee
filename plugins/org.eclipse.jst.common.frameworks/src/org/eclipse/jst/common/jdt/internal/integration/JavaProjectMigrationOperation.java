@@ -28,6 +28,9 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.ComponentType;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -113,9 +116,11 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 			IClasspathEntry[] entries = javaProject.getRawClasspath();
 			for( int i=0; i< entries.length; i++){
 				if( entries[i].getEntryKind() ==  IClasspathEntry.CPE_SOURCE){
-					IPath path = entries[i].getPath();
+					IPath path = entries[i].getPath().removeFirstSegments(1);
+					if( path.isEmpty() ){
+						path = new Path("/");
+					}
 					IPath out = entries[i].getOutputLocation();
-					
 					IVirtualFolder javaSourceFolder = component.getFolder( out );
 					javaSourceFolder.createLink( path, 0, null);
 				}
@@ -123,6 +128,15 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 		}catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
 		}
+		
+		setupComponentType(aComponentName, aProject, IModuleConstants.JST_UTILITY_MODULE);
+    }
+	
+    protected void setupComponentType(String aComponentName, IProject aProject, String typeID) {
+        IVirtualComponent component = ComponentCore.createComponent(aProject, aComponentName);
+        ComponentType componentType = ComponentcoreFactory.eINSTANCE.createComponentType();
+        componentType.setComponentTypeId(typeID);
+        StructureEdit.setComponentType(component, componentType);
     }
 	
 	protected boolean migrate(IProject project) {

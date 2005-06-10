@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -46,16 +47,26 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 			// get flexible project
 			IProject project = projects[i];
 			IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
-			IVirtualComponent[] comps = flexProj.getComponents();
-			for (int j = 0; j < comps.length; j++) {
-				IVirtualComponent component = comps[j];
-				String compType = component.getComponentTypeId();
-				if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)))
-					validCompList.add(component.getComponentHandle());
-			}
+			if( flexProj.isFlexible()){
+				IVirtualComponent[] comps = flexProj.getComponents();
+				for (int j = 0; j < comps.length; j++) {
+					IVirtualComponent component = comps[j];
+					String compType = component.getComponentTypeId();
+					if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
+							(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
+							(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
+							(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
+							(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) )
+						validCompList.add(component.getComponentHandle());
+				}
+			} else
+				try {
+					if (project.hasNature("org.eclipse.jdt.core.javanature")){
+						validCompList.add(project);
+					}
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
 		}
 		return validCompList.toArray();
 	}

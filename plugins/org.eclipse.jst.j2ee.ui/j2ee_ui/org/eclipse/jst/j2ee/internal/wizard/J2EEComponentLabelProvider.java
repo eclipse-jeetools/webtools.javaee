@@ -6,6 +6,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
@@ -39,7 +40,9 @@ public class J2EEComponentLabelProvider implements ILabelProvider {
 		if (element instanceof ComponentHandle) {
 			ComponentHandle handle = (ComponentHandle)element;
 			return handle.getName();
-		}		
+		}else if(element instanceof IProject){
+			return ((IProject)element).getName();
+		}
 		return null;
 	}
 

@@ -46,7 +46,7 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
     }
 
     public String[] getPropertyNames() {
-        String[] props = new String[] { J2EE_COMPONENT_LIST };
+        String[] props = new String[] { J2EE_COMPONENT_LIST, JAVA_PROJECT_LIST };
         return combineProperties(super.getPropertyNames(), props);
     }
     
