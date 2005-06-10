@@ -35,7 +35,7 @@ public class ApplicationClientFlexibleDeployable extends J2EEFlexProjDeployable 
 
 	public String getJ2EESpecificationVersion() {
 		if (component != null)
-			return String.valueOf(J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(component.getVersion()));
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(component.getVersion()));
 		else
 			return null;
 	}

@@ -35,7 +35,7 @@ public class ConnectorFlexibleDeployable extends J2EEFlexProjDeployable implemen
 
 	public String getJ2EESpecificationVersion() {
 		if (component != null)
-			return String.valueOf(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(component.getVersion()));
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(component.getVersion()));
 		else
 			return null;
 	}

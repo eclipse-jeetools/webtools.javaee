@@ -19,10 +19,10 @@ import java.util.Properties;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
@@ -82,66 +82,23 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	       
 
 
-    public String getJ2EESpecificationVersion() {
-    	String Version = "1.2"; //$NON-NLS-1$
-
-            WebArtifactEdit webEdit = null;
-           	try {
-           		webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-           		if(webEdit != null) {
-               		int nVersion = webEdit.getJ2EEVersion();	
-               		switch( nVersion ){
-	    	    		case 12:
-	    	    			Version = IModuleConstants.J2EE_VERSION_1_2;	    			
-	    	    			break;
-	    	    		case 13:
-	    	    			Version = IModuleConstants.J2EE_VERSION_1_3;
-	    	    			break;
-	    	    		case 14:	
-	    	    			Version = IModuleConstants.J2EE_VERSION_1_4;
-	    	    			break;
-	    	    		default:
-	    	    			Version = IModuleConstants.J2EE_VERSION_1_2;
-	    	    			break;               			
-               		}
-           		}
-           	}
-           	catch(Exception e){
-                e.printStackTrace();
-           	} finally {
-           		if(webEdit != null)
-           			webEdit.dispose();
-           	}
-  	    
-        return Version;
-    }
+	public String getJ2EESpecificationVersion() {
+		if (component != null)
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(component.getVersion()));
+		else
+			return null;
+	}
 
     public String getJSPFileMapping(String jspFile) {
         return null;
     }
 
-    private int getServletVersion(){
-        WebArtifactEdit webEdit = null;
-        int nVersion = 22;
-       	try{
-       		webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-       		if(webEdit != null) {
-       			nVersion = webEdit.getServletVersion();
-       		}
-       	}	
-      	catch(Exception e){
-            e.printStackTrace();
-       	} finally {
-       		if(webEdit != null)
-       			webEdit.dispose();
-       	}       
-       	return nVersion;
-    }
     
     public String getJSPSpecificationVersion() {
 
     	String ret = "1.2"; //$NON-NLS-1$
-    	int nVersion = getServletVersion();
+    	String stringVersion = getServletSpecificationVersion();
+		int nVersion = J2EEVersionUtil.convertVersionStringToInt(stringVersion);
        	switch( nVersion ){
     	
     		case 22:
@@ -162,25 +119,11 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
     public String getServletSpecificationVersion() {
 
-    	String ret = "2.3"; //$NON-NLS-1$
-    	int nVersion = getServletVersion();
-    	switch( nVersion ){
-    	
-    		case 22:
-    			ret = IModuleConstants.SERVLET_VERSION_2_2;
-    			break;
-    		case 23:
-    			ret = IModuleConstants.SERVLET_VERSION_2_3;
-    			break;
-    		case 24:	
-    			ret = IModuleConstants.SERVLET_VERSION_2_4;
-    			break;
-    		default:
-    			ret = IModuleConstants.SERVLET_VERSION_2_3;
-    			break;
-    	}
-    	return ret;    	
-    }
+		if (component != null)
+			return component.getVersion();
+		else
+			return null;
+	}
 
     
     public String getServletMapping(String className) {

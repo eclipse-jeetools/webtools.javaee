@@ -37,37 +37,11 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 	}
 
 	public String getJ2EESpecificationVersion() {
-		String Version = "1.2"; //$NON-NLS-1$
-
-		EARArtifactEdit earEdit = null;
-		try {
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-			if (earEdit != null) {
-				int nVersion = earEdit.getJ2EEVersion();
-				switch (nVersion) {
-					case 12 :
-						Version = IModuleConstants.J2EE_VERSION_1_2;
-						break;
-					case 13 :
-						Version = IModuleConstants.J2EE_VERSION_1_3;
-						break;
-					case 14 :
-						Version = IModuleConstants.J2EE_VERSION_1_4;
-						break;
-					default :
-						Version = IModuleConstants.J2EE_VERSION_1_2;
-						break;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (earEdit != null)
-				earEdit.dispose();
+			if (component != null)
+				return component.getVersion();
+			else
+				return null;
 		}
-
-		return Version;
-	}
 
 	public IModule[] getModules() {
 		List modules = new ArrayList(3);
