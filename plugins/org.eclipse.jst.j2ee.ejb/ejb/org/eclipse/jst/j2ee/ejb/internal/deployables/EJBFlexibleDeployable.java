@@ -32,7 +32,7 @@ public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJ
 
 	public String getJ2EESpecificationVersion() {
 		if (component != null)
-			return String.valueOf(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(component.getVersion()));
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(component.getVersion()));
 		else
 			return null;
 	}
