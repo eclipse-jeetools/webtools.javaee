@@ -16,13 +16,12 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperationDataModel;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -33,7 +32,6 @@ import org.eclipse.wst.server.core.ServerCore;
  * Generation>Code and Comments
  */
 public abstract class J2EEModelModifierOperationDataModel extends ModelModifierOperationDataModel {
-	protected ArtifactEdit artifactEdit;
 
 	/*
 	 * (non-Javadoc)
@@ -43,17 +41,8 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean notify = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.equals(MODULE_NAME))
-			updateArtifactEdit((String)propertyValue);
 		return notify;
 	}
-	
-	private void updateArtifactEdit(String moduleName) {
-		IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
-		artifactEdit = ArtifactEdit.getArtifactEditForWrite(ComponentHandle.create(project,moduleName));
-		
-	}
-
 
 	/**
 	 * This will be the type of the deployment descriptor docuemnt.
@@ -64,34 +53,44 @@ public abstract class J2EEModelModifierOperationDataModel extends ModelModifierO
 	 * @see XMLResource#WEB_APP_TYPE
 	 * @see XMLResource#RAR_TYPE
 	 */
-	public int getDeploymentDescriptorType() {
-		if (artifactEdit != null)
-			return ((XMLResource)artifactEdit.getContentModelRoot().eResource()).getType();
+	public int getDeploymentDescriptorType(){
+		String componentType = getComponent().getComponentTypeId();
+		if (componentType.equals(IModuleConstants.JST_EAR_MODULE))
+			return XMLResource.APPLICATION_TYPE;
+		if (componentType.equals(IModuleConstants.JST_APPCLIENT_MODULE))
+			return XMLResource.APP_CLIENT_TYPE;
+		if (componentType.equals(IModuleConstants.JST_EJB_MODULE))
+			return XMLResource.EJB_TYPE;
+		if (componentType.equals(IModuleConstants.JST_CONNECTOR_MODULE))
+			return XMLResource.RAR_TYPE;
+		if (componentType.equals(IModuleConstants.JST_WEB_MODULE))
+			return XMLResource.WEB_APP_TYPE;
 		return -1;
 	}
 
 	public EObject getDeploymentDescriptorRoot() {
-		if (artifactEdit != null)
-			return artifactEdit.getContentModelRoot();
-		return null;
+		ArtifactEdit edit = null;
+		try {
+			edit = ComponentUtilities.getArtifactEditForRead(getComponent());
+			return edit.getContentModelRoot();
+		} finally {
+			if (edit != null)
+				edit.dispose();
+		}
 	}
 
 	public String getServerTargetID() {
-		if (artifactEdit != null) {
-			IRuntime target = ServerCore.getProjectProperties(ProjectUtilities.getProject(artifactEdit.getContentModelRoot())).getRuntimeTarget();
-			if (null != target) {
-				return target.getId();
-			}
+		IRuntime target = ServerCore.getProjectProperties(getComponent().getProject()).getRuntimeTarget();
+		if (null != target) {
+			return target.getId();
 		}
 		return null;
 	}
 
 	public String getServerTargetTypeID() {
-		if (artifactEdit != null) {
-			IRuntime target = ServerCore.getProjectProperties(ProjectUtilities.getProject(artifactEdit.getContentModelRoot())).getRuntimeTarget();
-			if (null != target) {
-				return target.getRuntimeType().getId();
-			}
+		IRuntime target = ServerCore.getProjectProperties(getComponent().getProject()).getRuntimeTarget();
+		if (null != target) {
+			return target.getRuntimeType().getId();
 		}
 		return null;
 	}
