@@ -54,7 +54,7 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 						(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
 						(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
 						(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)))
-					validCompList.add(component);
+					validCompList.add(component.getComponentHandle());
 			}
 		}
 		return validCompList.toArray();

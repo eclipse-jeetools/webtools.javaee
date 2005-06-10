@@ -25,7 +25,6 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentCreationOperation extends ComponentCreationOperation implements IEarComponentCreationDataModelProperties{
@@ -96,18 +95,11 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 	
 	private void addModulesToEAR(IProgressMonitor monitor) {
 		try{
-			IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+			IDataModel dm = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
-			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
-            List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-			if (modulesList != null && !modulesList.isEmpty()) {
-				for(int i=0; i<modulesList.size(); i++){
-				    modList.add(((IVirtualComponent)modulesList.get(i)).getComponentHandle());
-                }
-                dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
-                dm.getDefaultOperation().execute(monitor, null);
-		   }
+			dm.getDefaultOperation().execute(monitor, null);
+
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);
 		 }
