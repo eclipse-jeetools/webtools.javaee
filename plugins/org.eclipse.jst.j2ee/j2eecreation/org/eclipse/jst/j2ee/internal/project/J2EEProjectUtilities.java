@@ -42,6 +42,7 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -53,6 +54,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -62,6 +64,11 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEProjectUtilities extends ProjectUtilities {
 
@@ -283,14 +290,13 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 	public static IFile getManifestFile(IProject p) {
-		IContainer source = null;
-		J2EENature nature = J2EENature.getRegisteredRuntime(p);
-		if (nature != null)
-			source = nature.getEMFRoot();
-		else
-			source = getSourceFolderOrFirst(p, null);
-		if (source != null)
-			return source.getFile(new Path(ArchiveConstants.MANIFEST_URI));
+		IFlexibleProject core = ComponentCore.createFlexibleProject(p);
+		IVirtualComponent component = core.getComponents()[0];
+		try {
+			return ComponentUtilities.findFile(component, new Path(ArchiveConstants.MANIFEST_SHORT_NAME));
+		} catch (CoreException ce) {
+			Logger.getLogger().log(ce);
+		}
 		return null;
 	}
 
