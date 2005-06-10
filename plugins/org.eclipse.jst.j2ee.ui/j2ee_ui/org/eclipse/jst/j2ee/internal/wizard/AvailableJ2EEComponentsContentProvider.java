@@ -61,7 +61,7 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 				}
 			} else
 				try {
-					if (project.hasNature("org.eclipse.jdt.core.javanature")){
+					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){
 						validCompList.add(project);
 					}
 				} catch (CoreException e) {
