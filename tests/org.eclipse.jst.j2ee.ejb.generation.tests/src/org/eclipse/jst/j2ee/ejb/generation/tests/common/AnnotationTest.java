@@ -66,7 +66,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationOperation;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
@@ -75,7 +75,6 @@ import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataMod
 import org.eclipse.jst.server.generic.core.internal.GenericServerRuntime;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
@@ -111,15 +110,15 @@ public abstract class AnnotationTest extends TestCase {
 	protected TestProject testProject;
 	public static final String XDOCLET = "XDoclet";
 
-	protected FlexibleProjectCreationOperation createFlexibleProject() throws Exception {
-		FlexibleJavaProjectCreationDataModel creationDataModel = new FlexibleJavaProjectCreationDataModel();
-		creationDataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, PROJECT_NAME);
+	protected IDataModelOperation createFlexibleProject() throws Exception {
+		FlexibleJavaProjectCreationDataModelProvider provider = new FlexibleJavaProjectCreationDataModelProvider();
+		IDataModel creationDataModel = provider.getDataModel();
+		creationDataModel.setProperty(FlexibleJavaProjectCreationDataModelProvider.PROJECT_NAME, PROJECT_NAME);
 		IRuntime runtime = getRuntimeTarget();
 		creationDataModel.setProperty(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID, runtime.getId());
 
-		FlexibleProjectCreationOperation operation = new FlexibleProjectCreationOperation(creationDataModel);
 
-		return operation;
+		return provider.getDefaultOperation();
 	}
 
 	public IRuntime getRuntimeTarget() throws Exception {
@@ -203,8 +202,8 @@ public abstract class AnnotationTest extends TestCase {
 
 	protected IDataModelOperation createEjbModuleAndProject() throws Exception {
 
-		FlexibleProjectCreationOperation flexibleJavaProjectCreationOperation = createFlexibleProject();
-		flexibleJavaProjectCreationOperation.doRun(new NullProgressMonitor());
+		IDataModelOperation flexibleJavaProjectCreationOperation = createFlexibleProject();
+		flexibleJavaProjectCreationOperation.execute(new NullProgressMonitor(),null);
 		EjbComponentCreationDataModelProvider aProvider = new EjbComponentCreationDataModelProvider();
 		IDataModel a = aProvider.getDataModel();
 		a.setBooleanProperty(EjbComponentCreationDataModelProvider.ADD_TO_EAR, false);

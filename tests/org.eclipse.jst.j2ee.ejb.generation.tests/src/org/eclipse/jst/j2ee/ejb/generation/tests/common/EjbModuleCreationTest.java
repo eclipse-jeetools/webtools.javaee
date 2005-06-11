@@ -7,7 +7,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
@@ -33,7 +32,7 @@ public class EjbModuleCreationTest extends AnnotationTest {
 		EnterpriseBeanClassDataModel commonDataModel = createDefaultSessionModel();
 		AddSessionBeanOperation sessionBeanOperation = new AddSessionBeanOperation(commonDataModel);
 		sessionBeanOperation.doRun(new NullProgressMonitor());
-		IProject project = 	ProjectUtilities.getProject(PROJECT_NAME);
+		IProject project = 	null ; //Project.getProject(PROJECT_NAME);
 		IFile bean = project.getFile(new Path("/zoo/ejbModule/com/farm/CowBean.java"));
 		StructureEdit moduleCore = null;
 
