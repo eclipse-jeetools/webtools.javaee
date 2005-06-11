@@ -169,6 +169,13 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			String[] providers = AnnotationUtilities.getProviderNames();
 			if(providers!= null && providers.length > 0)
 				return providers[0];
+		}else if( propertyName.equals(SOURCE_FOLDER)){
+			try {
+				Object srcFolder = super.getDefaultProperty(propertyName);
+				return srcFolder;
+			} catch (Exception e) {
+			}
+			return "";
 		}
 
 		return super.getDefaultProperty(propertyName);
