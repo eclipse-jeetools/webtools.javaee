@@ -162,7 +162,27 @@ public class ComponentUtilities {
 		}
 		return ComponentCore.createComponent(project, module.getName());
 	}
-
+    
+    public static IVirtualComponent findComponent(IProject project, IResource res) {
+        
+        StructureEdit moduleCore = null;
+        WorkbenchComponent module = null;
+        try {
+            moduleCore = StructureEdit.getStructureEditForRead(project);
+            ComponentResource[] resources = moduleCore.findResourcesBySourcePath(res.getFullPath());
+            for (int i = 0; i < resources.length; i++) {
+                module = resources[i].getComponent();
+                if (module != null)
+                    break;
+            }
+        } catch (UnresolveableURIException e) {
+            // Ignore
+        } finally {
+            if (moduleCore != null)
+                moduleCore.dispose();
+        }
+        return ComponentCore.createComponent(project, module.getName());
+    }
 	public static IVirtualComponent[] getAllWorkbenchComponents() {
 		List components = new ArrayList();
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
