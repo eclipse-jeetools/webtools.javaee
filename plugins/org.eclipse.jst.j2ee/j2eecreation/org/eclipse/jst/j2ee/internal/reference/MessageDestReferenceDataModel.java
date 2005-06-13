@@ -28,7 +28,6 @@ import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
@@ -119,7 +118,7 @@ public class MessageDestReferenceDataModel extends ReferenceDataModel {
 				return WTPCommonPlugin.createErrorStatus(J2EECreationResourceHandler.getString("MessageDestReferenceDataModel.9")); //$NON-NLS-1$
 		} else if (propertyName.equals(TARGET)) {
 			Object target = getProperty(TARGET);
-			if (target == null || !(target instanceof EnterpriseBean))
+			if (getBooleanProperty(HAS_LINK) && (target == null || !(target instanceof MessageDestination)))
 				return WTPCommonPlugin.createErrorStatus(J2EECreationResourceHandler.getString("EJBReferenceDataModel_UI_12")); //$NON-NLS-1$
 		}
 		return status;
@@ -221,15 +220,14 @@ public class MessageDestReferenceDataModel extends ReferenceDataModel {
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		if (TARGET.equals(propertyName)) {
-			MessageDriven target = (MessageDriven) propertyValue;
+			MessageDestination target = (MessageDestination) propertyValue;
 			//setup Link
 			if (target == null)
 				return super.doSetProperty(propertyName, propertyValue);
-			if (target.getLink() != null) {
+			if (target != null) {
 				setProperty(HAS_LINK, Boolean.TRUE);
-				setProperty(LINK, target.getLink());
+				setProperty(LINK, target.getName());
 			} else {
-
 				setProperty(HAS_LINK, Boolean.FALSE);
 				setProperty(LINK, target.getName());
 			}

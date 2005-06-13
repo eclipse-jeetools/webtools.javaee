@@ -126,7 +126,7 @@ public class ServiceRefItemProvider extends CompatibilityDescriptionGroupItemPro
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
 			//childrenReferences.add(Webservice_clientPackage.eINSTANCE.getServiceRef_PortComponentRefs());
-			//childrenReferences.add(Webservice_clientPackage.eINSTANCE.getServiceRef_Handlers());
+			childrenReferences.add(Webservice_clientPackage.eINSTANCE.getServiceRef_Handlers());
 			//childrenReferences.add(Webservice_clientPackage.eINSTANCE.getServiceRef_ServiceQname());
 		}
 		return childrenReferences;
