@@ -34,7 +34,7 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         try {
             ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME)), model.getStringProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME));
             Object dd = null;
-			webEdit = (WebArtifactEdit) WebArtifactEdit.getWebArtifactEditForRead(handle);
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
        		if(webEdit != null) 
        			dd = (WebApp) webEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);

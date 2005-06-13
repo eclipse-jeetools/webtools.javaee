@@ -59,7 +59,7 @@ public class TestInvalidXmlMultiplicity extends AbstractArchiveTest {
 		try {
 			war.getDeploymentDescriptor();
 		} catch (DeploymentDescriptorLoadException ddex) {
-			ex = (IWrappedException) ddex;
+			ex = ddex;
 		}
 		assertNotNull("Exception should have been caught", ex);
 		Exception inner = ex.getNestedException();

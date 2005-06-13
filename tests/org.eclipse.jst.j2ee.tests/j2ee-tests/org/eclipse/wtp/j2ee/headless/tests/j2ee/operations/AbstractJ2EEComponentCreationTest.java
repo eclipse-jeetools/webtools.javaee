@@ -229,7 +229,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 		projectCreationDataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(projectName, true);
 
-		return (IProject) ProjectUtility.getProject(projectName);
+		return ProjectUtility.getProject(projectName);
 	}
 
 

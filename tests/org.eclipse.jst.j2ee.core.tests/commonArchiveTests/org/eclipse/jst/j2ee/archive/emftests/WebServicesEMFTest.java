@@ -12,7 +12,6 @@ import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -78,7 +77,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 	}
 	public EObject createInstance(EReference ref,EObject eObject) {
 
-        if (JaxrpcmapPackage.eINSTANCE.getInterfaceMapping().equals((EClass)ref.getEType()))
+        if (JaxrpcmapPackage.eINSTANCE.getInterfaceMapping().equals(ref.getEType()))
             return createInterfaceMap();
 
         return super.createInstance(ref, eObject);

@@ -85,7 +85,7 @@ public class TestModuleClassLoading extends TestCase {
 		try {
 			JavaClass javaClass =
 				(JavaClass) JavaClassImpl.reflect(testClass, module.getResourceSet());
-			if (!((JavaClass) javaClass).isExistingType()) {
+			if (!(javaClass).isExistingType()) {
 				// This is what happens if the class can't be loaded.
 				System.out.println("- NOT FOUND - isExistingType returns false.");
 			} else {

@@ -161,7 +161,7 @@ public class MethodElementTest extends EjbEMFTestBase {
     public void test_getTypeJavaClass() throws Exception {
     	init();
     	EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
-    	List enterpriseBeans = (List)DD.getEJBJar().getEnterpriseBeans();
+    	List enterpriseBeans = DD.getEJBJar().getEnterpriseBeans();
     	EnterpriseBean eb = (EnterpriseBean)enterpriseBeans.get(0);
         MethodElement objMethodElement = getInstance();
         objMethodElement.setEnterpriseBean(eb);

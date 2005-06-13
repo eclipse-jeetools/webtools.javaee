@@ -35,7 +35,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         try {
             ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IEjbComponentCreationDataModelProperties.PROJECT_NAME)), model.getStringProperty(IEjbComponentCreationDataModelProperties.COMPONENT_NAME));
             Object dd = null;
-            ejbEdit = (EJBArtifactEdit) EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
             if (ejbEdit != null)
                 dd = (EJBJar) ejbEdit.getDeploymentDescriptorRoot();
             Assert.assertNotNull("Deployment Descriptor Null", dd);

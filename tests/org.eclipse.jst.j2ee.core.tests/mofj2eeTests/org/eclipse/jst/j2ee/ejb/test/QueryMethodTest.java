@@ -42,7 +42,7 @@ public class QueryMethodTest extends EjbEMFTestBase {
 		EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
 		
 		AssemblyDescriptor assemblyDescriptor = DD.getEJBJar().getAssemblyDescriptor();
-		List enterpriseBeans = (List)DD.getEJBJar().getEnterpriseBeans();
+		List enterpriseBeans = DD.getEJBJar().getEnterpriseBeans();
 		ContainerManagedEntity entityBean = null;
 		EnterpriseBean bean = null;
 		for (int x=0; x< enterpriseBeans.size(); ++x) {

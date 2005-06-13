@@ -33,7 +33,7 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         try {
             ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IConnectorComponentCreationDataModelProperties.PROJECT_NAME)), model.getStringProperty(IConnectorComponentCreationDataModelProperties.COMPONENT_NAME));
             Object dd = null;
-			jcaEdit = (ConnectorArtifactEdit) ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			jcaEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
        		if(jcaEdit != null) 
        			dd = (ApplicationClient) jcaEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);

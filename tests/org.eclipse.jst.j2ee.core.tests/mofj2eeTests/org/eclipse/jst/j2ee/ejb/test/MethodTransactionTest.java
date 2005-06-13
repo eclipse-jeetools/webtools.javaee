@@ -32,7 +32,7 @@ public class MethodTransactionTest extends EjbEMFTestBase {
     	EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
 		AssemblyDescriptor assemblyDescriptor = DD.getEJBJar().getAssemblyDescriptor();
 		assertNotNull(assemblyDescriptor);
-		List enterpriseBeans = (List)DD.getEJBJar().getEnterpriseBeans();
+		List enterpriseBeans = DD.getEJBJar().getEnterpriseBeans();
 		EnterpriseBean eb1 = (EnterpriseBean)enterpriseBeans.get(0);
 		// create a method transaction
 		MethodTransaction methodTransaction = getEjbFactory().createMethodTransaction();

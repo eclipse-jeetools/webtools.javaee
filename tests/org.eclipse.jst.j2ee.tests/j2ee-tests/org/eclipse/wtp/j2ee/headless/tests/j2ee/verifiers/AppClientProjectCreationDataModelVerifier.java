@@ -32,7 +32,7 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
         try {
 			ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME)),model.getStringProperty(IAppClientComponentCreationDataModelProperties.COMPONENT_NAME));
 			Object dd = null;
-			appClientEdit = (AppClientArtifactEdit) AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
        		if(appClientEdit != null) 
        			dd = (ApplicationClient) appClientEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);

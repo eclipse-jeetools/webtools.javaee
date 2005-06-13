@@ -28,7 +28,7 @@ public class AssemblyDescriptorTest extends EjbEMFTestBase {
 		EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
 		AssemblyDescriptor assemblyDescriptor = DD.getEJBJar().getAssemblyDescriptor();
 		assertNotNull(assemblyDescriptor);
-		List enterpriseBeans = (List)DD.getEJBJar().getEnterpriseBeans();
+		List enterpriseBeans = DD.getEJBJar().getEnterpriseBeans();
 		EnterpriseBean eb1 = (EnterpriseBean)enterpriseBeans.get(0);
 		List methodPermissionList = assemblyDescriptor.getMethodPermissionMethodElements(eb1);
 		
@@ -86,7 +86,7 @@ public class AssemblyDescriptorTest extends EjbEMFTestBase {
     	EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
 		AssemblyDescriptor assemblyDescriptor = DD.getEJBJar().getAssemblyDescriptor();
 		assertNotNull(assemblyDescriptor);
-		List enterpriseBeans = (List)DD.getEJBJar().getEnterpriseBeans();
+		List enterpriseBeans = DD.getEJBJar().getEnterpriseBeans();
 		EnterpriseBean eb1 = (EnterpriseBean)enterpriseBeans.get(0);
 		List methodTransactionList = assemblyDescriptor.getMethodTransactionMethodElements(eb1);
 		
@@ -200,7 +200,7 @@ public class AssemblyDescriptorTest extends EjbEMFTestBase {
     	EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
 		AssemblyDescriptor assemblyDescriptor = DD.getEJBJar().getAssemblyDescriptor();
 		assertNotNull(assemblyDescriptor);
-		List enterpriseBeans = (List)DD.getEJBJar().getEnterpriseBeans();
+		List enterpriseBeans = DD.getEJBJar().getEnterpriseBeans();
 		EnterpriseBean eb1 = (EnterpriseBean)enterpriseBeans.get(0);
 		List methodTransactionList = assemblyDescriptor.getMethodTransactionMethodElements(eb1);
 		List methodPermissionList = assemblyDescriptor.getMethodPermissionMethodElements(eb1);

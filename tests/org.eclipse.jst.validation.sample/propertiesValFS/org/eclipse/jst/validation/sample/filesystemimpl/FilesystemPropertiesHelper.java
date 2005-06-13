@@ -49,7 +49,7 @@ public class FilesystemPropertiesHelper implements IFilesystemHelper {
 	 * @see com.ibm.etools.validation.core.IValidationContext#loadModel(String)
 	 */
 	public Object loadModel(String symbolicName) {
-		return (Object) loadModel(symbolicName, null);
+		return loadModel(symbolicName, null);
 	}
 
 	/**

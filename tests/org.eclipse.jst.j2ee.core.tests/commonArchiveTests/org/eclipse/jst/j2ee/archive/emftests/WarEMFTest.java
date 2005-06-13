@@ -8,7 +8,6 @@ import java.util.Map;
 import junit.framework.TestSuite;
 
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
@@ -156,9 +155,9 @@ public class WarEMFTest extends GeneralEMFPopulationTest {
 
     public EObject createInstance(EReference ref,EObject eObject) {
 
-        if (WebapplicationPackage.eINSTANCE.getWebType().equals((EClass)ref.getEType()))
+        if (WebapplicationPackage.eINSTANCE.getWebType().equals(ref.getEType()))
             return createWebType();
-        else if (WebapplicationPackage.eINSTANCE.getErrorPage().equals((EClass)ref.getEType()))
+        else if (WebapplicationPackage.eINSTANCE.getErrorPage().equals(ref.getEType()))
             return createErrorPage();
 
         return super.createInstance(ref, eObject);
