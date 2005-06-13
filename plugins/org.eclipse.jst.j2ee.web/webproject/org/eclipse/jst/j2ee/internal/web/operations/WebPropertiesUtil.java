@@ -35,6 +35,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
@@ -538,7 +540,8 @@ public class WebPropertiesUtil {
 	 * @return
 	 */
 	public static IFolder getWebLibFolder(IProject project) {
-		throw new RuntimeException("getWebLibFolder(IProject project) is deprecateed use getWebLibFolder(IVirtualComponent webComponent)");
+		IFlexibleProject flex = ComponentCore.createFlexibleProject(project);
+		return getWebLibFolder(flex.getComponents()[0]).getUnderlyingFolder();
 	}
 
 	//	
