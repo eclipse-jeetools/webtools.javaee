@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;

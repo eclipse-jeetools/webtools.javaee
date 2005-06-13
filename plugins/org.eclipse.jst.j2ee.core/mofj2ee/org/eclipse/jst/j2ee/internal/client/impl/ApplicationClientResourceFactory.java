@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
-import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
@@ -71,7 +70,7 @@ public class ApplicationClientResourceFactory extends TranslatorResourceFactory 
 
 	
 	public static Resource.Factory getRegisteredFactory() {
-		return WTPResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.APP_CLIENT_DD_URI_OBJ);
+		return J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.APP_CLIENT_DD_URI_OBJ);
 	}
 
 }

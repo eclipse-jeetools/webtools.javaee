@@ -88,6 +88,5 @@ Require-Bundle: org.eclipse.jem,
  org.eclipse.wst.common.emf,
  org.eclipse.core.runtime,
  org.eclipse.wst.validation,
- org.eclipse.wst.common.modulecore,
  org.eclipse.jem.util
 Eclipse-AutoStart: true

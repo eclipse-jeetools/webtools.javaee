@@ -19,7 +19,7 @@ import java.util.Properties;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
