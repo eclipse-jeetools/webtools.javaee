@@ -851,5 +851,16 @@
             class="org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider"
             id="org.eclipse.jst.j2ee.internal.earcreation.IEarComponentCreationDataModelProperties"/>
 	</extension>
+	
+	<extension
+         id="context.Sensitive.Class.workingCopyManager"
+         name="Working Copy Manager - UI Context Class"
+         point="org.eclipse.jem.util.uiContextSensitiveClass">
+      <uiContextSensitiveClass
+            context="UI"
+            key="workingCopyManager"
+            className="org.eclipse.jst.common.jdt.internal.integration.ui.WTPUIWorkingCopyManager">
+      </uiContextSensitiveClass>
+   </extension>
 
 </plugin>
