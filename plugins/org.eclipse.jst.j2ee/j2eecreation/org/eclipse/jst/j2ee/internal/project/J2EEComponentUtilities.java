@@ -9,6 +9,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -51,12 +54,11 @@ public class J2EEComponentUtilities extends ComponentUtilities {
 		return true;
 	}
 	
-	public static Archive asArchive(String jarUri, IVirtualComponent component, boolean exportSource) {
-		/*
-		ComponentLoadStrategyImpl strat = new ComponentLoadStrategyImpl(component);
+	public static Archive asArchive(String jarUri, IVirtualComponent component, boolean exportSource) throws OpenFailureException {
+		JavaComponentLoadStrategyImpl strat = new JavaComponentLoadStrategyImpl(component);
 		strat.setExportSource(exportSource);
-		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri); */
-		return null;
+		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
+		
 	}
 	
 	public static boolean isWebComponent(IVirtualComponent component) {
