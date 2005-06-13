@@ -40,127 +40,116 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class WebComponentCreationOperation extends J2EEComponentCreationOperation implements IWebComponentCreationDataModelProperties{
+public class WebComponentCreationOperation extends J2EEComponentCreationOperation implements IWebComponentCreationDataModelProperties {
 
-    public WebComponentCreationOperation(IDataModel model) {
-        super(model);
-        // TODO Auto-generated constructor stub
-    }
+	public WebComponentCreationOperation(IDataModel model) {
+		super(model);
+	}
 
-    protected void createAndLinkJ2EEComponentsForMultipleComponents() throws CoreException {
-        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
-        component.create(0, null);
-        //create and link javaSource Source Folder
-        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$       
-        javaSourceFolder.createLink(new Path("/" + getModuleName() + "/JavaSource"), 0, null);
-        
-        //create and link META-INF and WEB-INF folder
-        IVirtualFolder webContent = component.getFolder(new Path("/")); //$NON-NLS-1$       
-        webContent.createLink(new Path("/" + getModuleName() + "/" + "WebContent" ), 0, null);
-        
-        IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
-        webInfFolder.create(IResource.FORCE, null);     
-        
-        IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
-        metaInfFolder.create(IResource.FORCE,null);
+	protected void createAndLinkJ2EEComponentsForMultipleComponents() throws CoreException {
+		createWebStructure("/" + getModuleName());
+	}
 
-        IVirtualFolder webLib = webInfFolder.getFolder("lib");
-        webLib.create(IResource.FORCE, null);
-    }
-    
-    protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
-        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
-        component.create(0, null);
-        //create and link javaSource Source Folder
-        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$       
-        javaSourceFolder.createLink(new Path("/JavaSource"), 0, null);
-        
-        //create and link META-INF and WEB-INF folder
-        IVirtualFolder webContent = component.getFolder(new Path("/")); //$NON-NLS-1$       
-        webContent.createLink(new Path("/" + "WebContent" ), 0, null);
-        
-        IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
-        webInfFolder.create(IResource.FORCE, null);     
-        
-        IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
-        metaInfFolder.create(IResource.FORCE,null);
+	protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
+		createWebStructure("");
+	}
 
-        IVirtualFolder webLib = webInfFolder.getFolder("lib");
-        webLib.create(IResource.FORCE, null);
-    }
-    protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        
+	protected void createWebStructure(String prefix) throws CoreException {
+		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+		component.create(0, null);
+		// create and link javaSource Source Folder
+		IVirtualFolder javaSourceFolder = component.getFolder(new Path("/" + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$       
+		javaSourceFolder.createLink(new Path(prefix + model.getStringProperty(JAVASOURCE_FOLDER)), 0, null);
+
+		// create and link META-INF and WEB-INF folder
+		IVirtualFolder webContent = component.getFolder(new Path("/")); //$NON-NLS-1$       
+		webContent.createLink(new Path(prefix + "/WebContent"), 0, null);
+
+		IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
+		webInfFolder.create(IResource.FORCE, null);
+
+		IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
+		metaInfFolder.create(IResource.FORCE, null);
+
+		IVirtualFolder webLib = webInfFolder.getFolder("lib");
+		webLib.create(IResource.FORCE, null);
+	}
+
+
+	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+
 		WebArtifactEdit webEdit = null;
-        try {
-			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
-            webEdit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
-            Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
-            webEdit.createModelRoot(version.intValue());
-            webEdit.save(monitor);
-        }
-        catch(Exception e){
-            Logger.getLogger().logError(e);
-        } finally {
-            if(webEdit != null)
-                webEdit.dispose();
-            webEdit = null;
-        }   
-    }
+		try {
+			ComponentHandle handle = ComponentHandle.create(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
+			webEdit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
+			webEdit.createModelRoot(version.intValue());
+			webEdit.save(monitor);
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+			webEdit = null;
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
-     */
-    protected String getVersion() {
-        int version = model.getIntProperty(COMPONENT_VERSION);
-        return J2EEVersionUtil.getServletTextVersion(version);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
+	 */
+	protected String getVersion() {
+		int version = model.getIntProperty(COMPONENT_VERSION);
+		return J2EEVersionUtil.getServletTextVersion(version);
 
-    }
-    protected List getProperties() {
-        List newProps = new ArrayList();
-        Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
-        prop.setName(J2EEConstants.CONTEXTROOT);
-        prop.setValue(model.getStringProperty(CONTEXT_ROOT));
-        newProps.add(prop);
-        return newProps;
-    }
+	}
 
-    public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-        try {
-            super.execute( IModuleConstants.JST_WEB_MODULE, monitor );
-	        // Add "Web App Libraries" container to the project classpath.
-	        
-	        final IJavaProject jproject = JemProjectUtilities.getJavaProject( getProject() );
-	        final List cp = new ArrayList();
-	        final IClasspathEntry[] old = jproject.getRawClasspath();
-	        for( int i = 0; i < old.length; i++ )
-	        {
-	            cp.add( old[ i ] );
-	        }
-	        final String name = getModuleDeployName();
-	        cp.add( WebAppContainer.convert( name ) );
+	protected List getProperties() {
+		List newProps = new ArrayList();
+		Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
+		prop.setName(J2EEConstants.CONTEXTROOT);
+		prop.setValue(model.getStringProperty(CONTEXT_ROOT));
+		newProps.add(prop);
+		return newProps;
+	}
 
-	        final IClasspathEntry[] cparray = new IClasspathEntry[ cp.size() ];
-	        cp.toArray( cparray );
-	        jproject.setRawClasspath( cparray, null );
-        } catch (CoreException e) {
-            Logger.getLogger().log(e.getMessage());
-        } catch (InvocationTargetException e) {
-            Logger.getLogger().log(e.getMessage());
-        } catch (InterruptedException e) {
-            Logger.getLogger().log(e.getMessage());
-        }
-	        
-        return OK_STATUS;
-    }
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		try {
+			super.execute(IModuleConstants.JST_WEB_MODULE, monitor);
+			// Add "Web App Libraries" container to the project classpath.
 
-    public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+			final IJavaProject jproject = JemProjectUtilities.getJavaProject(getProject());
+			final List cp = new ArrayList();
+			final IClasspathEntry[] old = jproject.getRawClasspath();
+			for (int i = 0; i < old.length; i++) {
+				cp.add(old[i]);
+			}
+			final String name = getModuleDeployName();
+			cp.add(WebAppContainer.convert(name));
 
-    public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+			final IClasspathEntry[] cparray = new IClasspathEntry[cp.size()];
+			cp.toArray(cparray);
+			jproject.setRawClasspath(cparray, null);
+		} catch (CoreException e) {
+			Logger.getLogger().log(e.getMessage());
+		} catch (InvocationTargetException e) {
+			Logger.getLogger().log(e.getMessage());
+		} catch (InterruptedException e) {
+			Logger.getLogger().log(e.getMessage());
+		}
+
+		return OK_STATUS;
+	}
+
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
