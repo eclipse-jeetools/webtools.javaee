@@ -10,15 +10,25 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModuleType;
+import org.eclipse.wst.server.core.model.IModuleResource;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
 /**
@@ -27,6 +37,7 @@ import org.eclipse.wst.server.core.util.ProjectModule;
 public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule {
 	private String factoryId;
     protected IVirtualComponent component = null;
+    private boolean outputMembersAdded = false;
 
 
 	/**
@@ -117,9 +128,12 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 		};
 
 	}
+    public IModuleResource[] members() throws CoreException {
+        outputMembersAdded = false;
+        return super.members();
+    }
 
-	public IPath getRootfolder() {
-		   
+	public IPath getRootfolder() {		   
 		IPath path = null;
 	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
      	if( component != null ){
@@ -129,6 +143,36 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
      }    
 		return path;
 	}
-
+    
+    protected IContainer getContainerResource(IResource resource){
+        if(resource instanceof IFolder) {
+            IJavaElement element =JavaCore.create((IFolder)resource);
+            if (element != null && element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
+                //means this is a source folder add output once and only once
+                return addOutputFolderIfNecessary(element);
+        }
+        return (IContainer)resource;
+    }
+    
+    private IContainer addOutputFolderIfNecessary(IJavaElement je) {
+        if(!outputMembersAdded){
+            outputMembersAdded = true;
+            IPath javaOutputPath = null;
+            try {
+                if (je.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT) {
+                    IPackageFragmentRoot root = (IPackageFragmentRoot) je;
+                    if (root.getKind() == IPackageFragmentRoot.K_SOURCE) {
+                        IClasspathEntry ce = root.getRawClasspathEntry();
+                        javaOutputPath = ce.getOutputLocation();
+                        javaOutputPath = javaOutputPath.removeFirstSegments(1);
+                        return getProject().getFolder(javaOutputPath);
+                    }
+                }
+            } catch (JavaModelException e) {
+                Logger.getLogger().log(e.getMessage());
+            }
+        }
+        return null;
+    }
 
 }
