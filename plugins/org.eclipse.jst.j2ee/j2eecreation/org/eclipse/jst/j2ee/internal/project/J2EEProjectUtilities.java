@@ -24,7 +24,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -57,7 +56,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.JavaProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
@@ -111,31 +109,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			}
 		}
 		return null;
-		//TODO - release the DD here to free up space
-	}
-
-	/**
-	 * @param uri
-	 * @param projectName
-	 * @param exportSource
-	 * @param includeProjectMetaFiles
-	 * @return
-	 */
-	public static Archive asArchive(String jarUri, IProject aProject, boolean exportSource, boolean includeProjectMetaFiles) throws OpenFailureException {
-		if (JemProjectUtilities.isBinaryProject(aProject))
-			return asArchiveFromBinary(jarUri, aProject);
-		return asArchiveFromSource(jarUri, aProject, exportSource, includeProjectMetaFiles);
-	}
-
-	public static Archive asArchive(String jarUri, IProject aProject, boolean exportSource) throws OpenFailureException {
-		return asArchive(jarUri, aProject, exportSource, false);
-	}
-
-	public static Archive asArchiveFromSource(String jarUri, IProject aProject, boolean exportSource, boolean includeProjectMetaFiles) throws OpenFailureException {
-		JavaProjectLoadStrategyImpl strat = new JavaProjectLoadStrategyImpl(aProject);
-		strat.setExportSource(exportSource);
-		strat.setIncludeProjectMetaFiles(includeProjectMetaFiles);
-		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
+		// TODO - release the DD here to free up space
 	}
 
 	/**
@@ -170,10 +144,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 
-	public static Archive asArchiveFromSource(String jarUri, IProject aProject, boolean exportSource) throws OpenFailureException {
-		return asArchiveFromSource(jarUri, aProject, exportSource, false);
-	}
-
 	public static Archive asArchiveFromBinary(String jarUri, IProject aProject) throws OpenFailureException {
 		IPath path = getBinaryProjectJARLocation(aProject);
 		if (path != null) {
@@ -183,18 +153,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return anArchive;
 		}
 		return null;
-	}
-
-	public static Archive asArchive(String jarUri, String projectName, boolean exportSource, boolean includeProjectMetaFiles) throws OpenFailureException {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		if (!project.exists())
-			return null;
-
-		return asArchive(jarUri, project, exportSource, includeProjectMetaFiles);
-	}
-
-	public static Archive asArchive(String jarUri, String projectName, boolean exportSource) throws OpenFailureException {
-		return asArchive(jarUri, projectName, exportSource, false);
 	}
 
 	public static EARNatureRuntime[] getReferencingEARProjects(IProject aProject) {
@@ -263,7 +221,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 	}
 
-	
+
 	public static ArchiveManifest readManifest(IProject p) {
 
 		InputStream in = null;
@@ -306,7 +264,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			out.close();
 		}
 	}
-	
+
 	public static void writeManifest(IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
 		if (aFile != null) {
 			OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
@@ -314,7 +272,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			out.close();
 		}
 	}
-	
+
 
 	public static String getUtilityJARUriInFirstEAR(IProject project) {
 		EARNatureRuntime[] earNatures = getReferencingEARProjects(project);
@@ -419,7 +377,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		if (pPre.getDevice() != null || pDep.getDevice() != null)
 			return null;
 		pPre = pPre.makeRelative();
-		pDep = pDep.makeRelative(); //referenced Archive path URI
+		pDep = pDep.makeRelative(); // referenced Archive path URI
 
 		while (pPre.segmentCount() > 1 && pDep.segmentCount() > 1 && pPre.segment(0).equals(pDep.segment(0))) {
 			pPre = pPre.removeFirstSegments(1);
@@ -562,9 +520,9 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		IProject project = (IProject) parent;
 		try {
-			if(!project.isAccessible())
+			if (!project.isAccessible())
 				return false;
-			
+
 			IProjectDescription desc = project.getDescription();
 			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
 				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;

@@ -42,7 +42,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.IServerTargetConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
@@ -137,18 +136,18 @@ public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2E
 				UtilityJARMapping map = (UtilityJARMapping) utilMaps.get(i);
 				String uri = map.getUri();
 				String projectName = map.getProjectName();
-				try {
-					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, projectName, exportSource);
-					if (utilJAR == null)
-						continue;
-					setIncludeProjectMetaFiles(utilJAR);
-					if (existingFiles.containsKey(uri))
-						filesList.remove(existingFiles.get(uri));
-					filesList.add(utilJAR);
-				} catch (OpenFailureException oe) {
-					String message = EARArchiveOpsResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
-				}
+//				try {
+//					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, projectName, exportSource);
+//					if (utilJAR == null)
+//						continue;
+//					setIncludeProjectMetaFiles(utilJAR);
+//					if (existingFiles.containsKey(uri))
+//						filesList.remove(existingFiles.get(uri));
+//					filesList.add(utilJAR);
+//				} catch (OpenFailureException oe) {
+//					String message = EARArchiveOpsResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
+//					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+//				}
 			}
 		} finally {
 			if (editModel != null)

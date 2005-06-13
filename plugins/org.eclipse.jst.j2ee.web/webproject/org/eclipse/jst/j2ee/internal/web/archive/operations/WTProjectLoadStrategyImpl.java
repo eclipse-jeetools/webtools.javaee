@@ -28,12 +28,9 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -74,15 +71,15 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 			ILibModule iLibModule = libModules[i];
 			String uri = new Path(iLibModule.getURI()).makeRelative().toString();
 			String projectName = iLibModule.getProjectName();
-			try {
-				Archive utilJAR = J2EEProjectUtilities.asArchive(uri, projectName, isExportSource(), shouldIncludeProjectMetaFiles());
-				if (utilJAR == null)
-					continue;
-				filesList.add(utilJAR);
-			} catch (OpenFailureException oe) {
-				String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
-			}
+//			try {
+//				Archive utilJAR = J2EEProjectUtilities.asArchive(uri, projectName, isExportSource(), shouldIncludeProjectMetaFiles());
+//				if (utilJAR == null)
+//					continue;
+//				filesList.add(utilJAR);
+//			} catch (OpenFailureException oe) {
+//				String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
+//				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+//			}
 		}
 	}
 
