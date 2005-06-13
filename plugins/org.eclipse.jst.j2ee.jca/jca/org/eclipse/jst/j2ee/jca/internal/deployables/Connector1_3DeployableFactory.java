@@ -44,7 +44,12 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	public String getFactoryId() {
 		return ID;
 	}
-
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
+     */
+    protected List createModules(ModuleCoreNature nature) {
+        return null;
+    }
 	/*
 	 * @see J2EEDeployableFactory#getNatureID()
 	 */
@@ -70,14 +75,6 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
             }
         }
         return module;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
-     */
-    protected List createModules(ModuleCoreNature nature) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 	/* (non-Javadoc)
@@ -113,8 +110,28 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
 	 */
 	protected List createModuleDelegates(IVirtualComponent[] components) throws CoreException {
-		// TODO Auto-generated method stub
-		return null;
+        ConnectorFlexibleDeployable moduleDelegate = null;
+        IModule module = null;
+        List moduleList = new ArrayList(components.length);
+        for (int i = 0; i < components.length; i++) {
+            IVirtualComponent component = components[i];
+            try {
+                if(IModuleConstants.JST_CONNECTOR_MODULE.equals(component.getComponentTypeId())) {
+                    moduleDelegate = new ConnectorFlexibleDeployable(component.getProject(), ID, component);
+                    module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+                    moduleList.add(module);
+                    moduleDelegate.initialize(module);
+                }
+            } catch (Exception e) {
+                Logger.getLogger().write(e);
+            } finally {
+                if (module != null) {
+                    if (getModuleDelegate(module) == null)
+                        moduleDelegates.add(moduleDelegate);
+                }
+            }
+        }
+        return moduleList;
 	}
 
 }

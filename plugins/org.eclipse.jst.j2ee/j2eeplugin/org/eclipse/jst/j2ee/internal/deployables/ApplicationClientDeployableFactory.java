@@ -81,7 +81,6 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
      * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
      */
     protected List createModules(ModuleCoreNature nature) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -118,8 +117,28 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
 	 */
 	protected List createModuleDelegates(IVirtualComponent[] components) {
-		// TODO Auto-generated method stub
-		return null;
+        ApplicationClientFlexibleDeployable moduleDelegate = null;
+        IModule module = null;
+        List moduleList = new ArrayList(components.length);
+        for (int i = 0; i < components.length; i++) {
+            IVirtualComponent component = components[i];
+            try {
+                if(IModuleConstants.JST_APPCLIENT_MODULE.equals(component.getComponentTypeId())) {
+                    moduleDelegate = new ApplicationClientFlexibleDeployable(component.getProject(), ID, component);
+                    module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+                    moduleList.add(module);
+                    moduleDelegate.initialize(module);
+                }
+            } catch (Exception e) {
+                Logger.getLogger().write(e);
+            } finally {
+                if (module != null) {
+                    if (getModuleDelegate(module) == null)
+                        moduleDelegates.add(moduleDelegate);
+                }
+            }
+        }
+        return moduleList;
 	}
 
 }
