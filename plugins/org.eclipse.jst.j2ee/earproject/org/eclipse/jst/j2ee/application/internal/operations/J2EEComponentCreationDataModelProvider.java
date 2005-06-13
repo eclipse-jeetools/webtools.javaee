@@ -190,7 +190,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		
 		ArrayList validServers = new ArrayList();
 		
-		IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+		IDataModel projectdm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
 		DataModelPropertyDescriptor[] desc =  projectdm.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID);
 		for (int i = 0; i < desc.length; i++) {
 			DataModelPropertyDescriptor descriptor  = desc[i];

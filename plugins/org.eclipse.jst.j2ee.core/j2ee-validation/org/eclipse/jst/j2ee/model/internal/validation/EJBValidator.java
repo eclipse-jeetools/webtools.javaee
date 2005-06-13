@@ -100,7 +100,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		}
 		
 		for(int i=0; i<fileURIs.length; i++) {
-			String uri = (String)fileURIs[i];
+			String uri = fileURIs[i];
 			if(uri.endsWith(J2EEConstants.EJBJAR_DD_SHORT_NAME)) {
 				return true;
 			}

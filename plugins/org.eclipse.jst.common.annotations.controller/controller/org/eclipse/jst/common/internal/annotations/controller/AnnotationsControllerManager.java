@@ -19,7 +19,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.WeakHashMap;
 
-import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -34,6 +33,7 @@ import org.eclipse.wst.common.frameworks.internal.enablement.IEnablementIdentifi
 import org.eclipse.wst.common.frameworks.internal.enablement.IEnablementIdentifierListener;
 import org.eclipse.wst.common.frameworks.internal.enablement.Identifiable;
 import org.eclipse.wst.common.frameworks.internal.enablement.IdentifiableComparator;
+import org.eclipse.wst.common.internal.emf.utilities.Assert;
 
 
 /**

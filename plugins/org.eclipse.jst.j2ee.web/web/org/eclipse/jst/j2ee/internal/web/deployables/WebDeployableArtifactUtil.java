@@ -76,7 +76,7 @@ public class WebDeployableArtifactUtil {
 				Resource servResource = servlet.eResource();
 				IVirtualResource[] resources = null;
 				try {
-					IResource eclipeServResoruce = (IResource) WorkbenchResourceHelper.getFile(servResource);
+					IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
 					resources = ComponentCore.createResources(eclipeServResoruce);
 				} catch (Exception e) {
 					e.printStackTrace();

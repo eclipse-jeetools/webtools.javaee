@@ -45,7 +45,7 @@ public class FlexibleProjectCreationOperation extends AbstractDataModelOperation
 
     private void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         IDataModel projModel = model.getNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_PROJECT_CREATION);
-        IDataModelOperation op = (IDataModelOperation)projModel.getDefaultOperation();
+        IDataModelOperation op = projModel.getDefaultOperation();
         op.execute(monitor, null);
     }
     

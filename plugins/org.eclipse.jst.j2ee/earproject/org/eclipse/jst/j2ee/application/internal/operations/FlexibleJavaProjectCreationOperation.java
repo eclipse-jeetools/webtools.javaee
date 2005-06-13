@@ -31,7 +31,7 @@ public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreatio
     }
     private void addServerTarget(IProgressMonitor monitor)  throws CoreException, InvocationTargetException, InterruptedException, ExecutionException{
         IDataModel serverModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
-        IDataModelOperation op = (IDataModelOperation)serverModel.getDefaultOperation();
+        IDataModelOperation op = serverModel.getDefaultOperation();
         op.execute(monitor, null);
     }
     

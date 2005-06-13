@@ -60,10 +60,10 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 //			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
 //            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, propertyValue);
         } else if(LOCATION.equals(propertyName)) {
-			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
             dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyValue);
         } else if(SERVER_TARGET_ID.equals(propertyName)) {
-			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
             dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, propertyValue);
         }
         return status;
@@ -90,7 +90,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 		} else if (propertyName.equals(SERVER_TARGET_ID)) {
 			//if multiple modules are  supported, the  project is already been created, no need for validation here
             if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
-	            IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+	            IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
 	            IStatus nestedValiation = dm.validate();
 	            if(!nestedValiation.isOK())
 	                return nestedValiation;

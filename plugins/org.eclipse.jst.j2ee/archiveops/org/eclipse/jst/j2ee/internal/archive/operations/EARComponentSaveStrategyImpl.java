@@ -97,7 +97,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		for (int i = 0; i < createdProjectsList.size(); i++) {
 			importDM = (IDataModel) createdProjectsList.get(i);
 			anArchive = (Archive) importDM.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
-			createdProjectsMap.put(anArchive.getURI(), (IProject) importDM.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT));
+			createdProjectsMap.put(anArchive.getURI(), importDM.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT));
 		}
 	}
 

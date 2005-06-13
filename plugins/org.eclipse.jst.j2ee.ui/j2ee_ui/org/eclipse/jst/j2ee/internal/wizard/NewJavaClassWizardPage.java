@@ -585,7 +585,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		// selection;
 		IJavaElement element = getInitialJavaElement(selection);
 		if (element != null && element.getJavaProject() != null)
-			return (IProject) element.getJavaProject().getProject();
+			return element.getJavaProject().getProject();
 		return null;
 	}
 

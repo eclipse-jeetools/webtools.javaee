@@ -40,7 +40,7 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
     public boolean propertySet(String propertyName, Object propertyValue) {
         boolean status = super.propertySet(propertyName, propertyValue);
         if (PROJECT_NAME.equals(propertyName)) {
-            IDataModel projModel = (IDataModel)model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
+            IDataModel projModel = model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
             projModel.setProperty(IProjectCreationProperties.PROJECT_NAME, propertyValue);
         }
         return status;
