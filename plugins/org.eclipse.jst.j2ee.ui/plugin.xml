@@ -569,6 +569,9 @@
          <perspectiveShortcut id="org.eclipse.jdt.ui.JavaPerspective"/>
          <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
       </perspectiveExtension>
+      <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+         <perspectiveShortcut id="org.eclipse.jst.j2ee.J2EEPerspective"/>
+      </perspectiveExtension>
    </extension>	
 
    <!-- <extension
