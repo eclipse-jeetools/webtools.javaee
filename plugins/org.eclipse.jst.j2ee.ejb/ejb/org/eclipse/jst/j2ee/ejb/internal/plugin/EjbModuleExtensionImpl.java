@@ -187,7 +187,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 */
 	public J2EEComponentCreationOperation createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
-            IDataModel model = (IDataModel) option.getModel();
+            IDataModel model = option.getModel();
 			model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);
 		}

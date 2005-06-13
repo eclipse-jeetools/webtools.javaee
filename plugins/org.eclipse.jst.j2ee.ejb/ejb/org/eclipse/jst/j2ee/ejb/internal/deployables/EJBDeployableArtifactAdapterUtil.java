@@ -143,7 +143,7 @@ public class EJBDeployableArtifactAdapterUtil {
 		IVirtualResource[] resources = null;
 		IVirtualComponent component = null;
 		try {
-			IResource eclipeServResoruce = (IResource) WorkbenchResourceHelper.getFile(refResource);
+			IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(refResource);
 			resources = ComponentCore.createResources(eclipeServResoruce);
 			if (resources[0] != null)
 				component = resources[0].getComponent();
