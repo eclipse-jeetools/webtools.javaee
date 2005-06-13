@@ -31,6 +31,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
@@ -38,6 +39,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class ComponentUtilities {
+	
+	public static String JAVA_NATURE = "org.eclipse.jdt.core.javanature";
 
 	/**
 	 * Retrieve all the source containers for a given virtual workbench component
@@ -163,18 +166,12 @@ public class ComponentUtilities {
 	public static IVirtualComponent[] getAllWorkbenchComponents() {
 		List components = new ArrayList();
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
-		StructureEdit moduleCore = null;
 		for (int i = 0; i < projects.size(); i++) {
-			try {
-				moduleCore = StructureEdit.getStructureEditForRead((IProject) projects.get(i));
-				WorkbenchComponent[] wbComp = moduleCore.getWorkbenchModules();
+				IFlexibleProject flexProject = ComponentCore.createFlexibleProject((IProject) projects.get(i));
+				IVirtualComponent[] wbComp = flexProject.getComponents();
 				for (int j = 0; j < wbComp.length; j++) {
 					components.add(ComponentCore.createComponent((IProject) projects.get(i), wbComp[j].getName()));
 				}
-			} finally {
-				if (moduleCore != null)
-					moduleCore.dispose();
-			}
 		}
 		VirtualComponent[] temp = (VirtualComponent[]) components.toArray(new VirtualComponent[components.size()]);
 		return temp;
@@ -213,6 +210,17 @@ public class ComponentUtilities {
 	public static IVirtualComponent findComponent(Resource aResource) {
 		IProject project = ProjectUtilities.getProject(aResource);
 		return findComponent(project, aResource);
+	}
+	
+	public static List getAllJavaNonFlexProjects() throws CoreException {
+		List nonFlexJavaProjects = new ArrayList();
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for (int i = 0; i < projects.length; i++) {
+			if(projects[i].hasNature(JAVA_NATURE) && !projects[i].hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+				nonFlexJavaProjects.add(projects[i]);
+			}
+		}
+		return nonFlexJavaProjects;
 	}
 
 }
