@@ -31,8 +31,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
+import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
@@ -44,6 +46,10 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	}
 
 	public void save(File aFile, FileIterator iterator) throws SaveFailureException {
+		if (aFile.isArchive() && operationHandlesNested((Archive)aFile)) {
+			return;
+		}
+
 		if (aFile.isArchive() && shouldIterateOver((Archive) aFile)) {
 			save((Archive) aFile);
 		} else {
@@ -64,6 +70,20 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 				}
 			}
 		}
+	}
+
+	protected boolean operationHandlesNested(Archive archive) {
+		if (null != dataModel) {
+			List list = (List) dataModel.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_COMPONENTS);
+			IDataModel tempModel = null;
+			for (int i = 0; i < list.size(); i++) {
+				tempModel = (IDataModel) list.get(i);
+				if (tempModel.getProperty(IWebComponentImportDataModelProperties.FILE) == archive) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	protected void saveFiles() throws SaveFailureException {
@@ -157,7 +177,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 			IPath javaPath = getJavaSourcePath();
 			importedClassesPath = javaPath.removeLastSegments(1).append(LibCopyBuilder.IMPORTED_CLASSES_PATH);
 			try {
-				IPath workspacePath = vComponent.getProject().getFullPath().append(importedClassesPath); 
+				IPath workspacePath = vComponent.getProject().getFullPath().append(importedClassesPath);
 				mkdirs(workspacePath, ResourcesPlugin.getWorkspace().getRoot());
 				IVirtualFolder javaSourceFolder = vComponent.getFolder(new Path("/" + J2EEConstants.WEB_INF + "/classes"));
 				javaSourceFolder.createLink(workspacePath.removeFirstSegments(1), 0, null);

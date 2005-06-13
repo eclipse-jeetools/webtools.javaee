@@ -42,24 +42,17 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// if (model.getBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT)) {
-		// IProject project = model.getProject();
-		// if (project.exists()) {
-		// project.delete(true, true, new NullProgressMonitor());
-		// }
-		// }
-
 		IDataModel nestedComonentCreationDM = model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		IVirtualComponent component = (IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT);
 
-
-		if (!((IProject) model.getProperty(IJavaUtilityJarImportDataModelProperties.PROJECT_NAME)).exists()) {
+		if (!component.exists()) {
 			model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION).getDefaultOperation().execute(monitor, info);
 		}
 
-		IProject javaProject = (IProject) model.getProperty(IJavaUtilityJarImportDataModelProperties.PROJECT_NAME);
+		IProject javaProject = component.getProject();
 		Archive jarFile = (Archive) model.getProperty(IJavaUtilityJarImportDataModelProperties.FILE);
 
-		J2EEJavaComponentSaveStrategyImpl strat = new J2EEJavaComponentSaveStrategyImpl((IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT));
+		J2EEJavaComponentSaveStrategyImpl strat = new J2EEJavaComponentSaveStrategyImpl(component);
 
 		strat.setProgressMonitor(new SubProgressMonitor(monitor, 1));
 		try {

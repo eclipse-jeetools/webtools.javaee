@@ -31,9 +31,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
+	protected IDataModel dataModel;
 	protected IVirtualComponent vComponent;
 	protected IOverwriteHandler overwriteHandler;
 	protected IProgressMonitor progressMonitor;
@@ -46,6 +48,10 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		this.vComponent = vComponent;
 	}
 
+	public void setDataModel(IDataModel dataModel){
+		this.dataModel = dataModel;
+	}
+	
 	public void setOverwriteHandler(IOverwriteHandler newOverwriteHandler) {
 		overwriteHandler = newOverwriteHandler;
 	}

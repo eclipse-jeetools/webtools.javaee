@@ -91,6 +91,7 @@ public abstract class J2EEArtifactImportOperationNew extends AbstractDataModelOp
 			J2EEComponentSaveStrategyImpl aStrategy = (J2EEComponentSaveStrategyImpl) createSaveStrategy(virtualComponent);
 			aStrategy.setProgressMonitor(monitor);
 			aStrategy.setOverwriteHandler((IOverwriteHandler) model.getProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER));
+			aStrategy.setDataModel(model);
 			modifyStrategy(aStrategy);
 			moduleFile.save(aStrategy);
 		} catch (OverwriteHandlerException oe) {
