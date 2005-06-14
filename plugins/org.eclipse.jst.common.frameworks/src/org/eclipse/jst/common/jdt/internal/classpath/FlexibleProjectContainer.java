@@ -202,7 +202,7 @@ public abstract class FlexibleProjectContainer
     {
         for( int i = 0; i < this.watchlist.length; i++ )
         {
-            if( delta.findMember( this.watchlist[ i ] ) != null )
+            if(delta != null && delta.findMember( this.watchlist[ i ] ) != null )
             {
                 return true;
             }
