@@ -27,6 +27,7 @@ package org.eclipse.jst.j2ee.web.datamodel.properties;
  * @see org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties
  * @since 1.0
  */
+import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 
 public interface IWebComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
@@ -34,7 +35,7 @@ public interface IWebComponentCreationDataModelProperties extends IJ2EEComponent
      /**
      * Required, type String, the user defined name of the context root for the web component
      */
-    public static final String CONTEXT_ROOT = "IWebComponentCreationDataModelProperties.CONTEXT_ROOT";
+    public static final String CONTEXT_ROOT = IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT;
 
 
 }

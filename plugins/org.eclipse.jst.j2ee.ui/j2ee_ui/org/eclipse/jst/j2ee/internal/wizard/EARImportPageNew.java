@@ -68,8 +68,7 @@ public class EARImportPageNew extends J2EEImportPageNew {
 		composite.setLayout(layout);
 		createFileNameComposite(composite);
 		createProjectNameComposite(composite);
-		createImportEARComposite(10, composite);
-		createServerTargetComposite(composite);
+		//createServerTargetComposite(composite);
 		createAnnotationsStandaloneGroup(composite);
 		restoreWidgetValues();
 		return composite;
@@ -85,20 +84,6 @@ public class EARImportPageNew extends J2EEImportPageNew {
 
 	protected String getProjectImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PROJECT_LABEL);
-	}
-
-	/**
-	 * @param composite
-	 */
-	private void createImportEARComposite(int indent, Composite parent) {
-		importEARButton = new Button(parent, SWT.CHECK);
-		importEARButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_INCLUDE_EAR_PROJECT));
-		importEARButton.setSelection(true);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalIndent = indent;
-		gd.horizontalSpan = 3;
-		importEARButton.setLayoutData(gd);
-		synchHelper.synchCheckbox(importEARButton, IEARComponentImportDataModelProperties.IMPORT_EAR_PROJECT, null);
 	}
 
 	/*
@@ -156,7 +141,7 @@ public class EARImportPageNew extends J2EEImportPageNew {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IEARComponentImportDataModelProperties.FILE_NAME, IEARComponentImportDataModelProperties.PROJECT_NAME, IEARComponentImportDataModelProperties.IMPORT_EAR_PROJECT, IAnnotationsDataModel.USE_ANNOTATIONS};
+		return new String[]{IEARComponentImportDataModelProperties.FILE_NAME, IEARComponentImportDataModelProperties.PROJECT_NAME, IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
 
 	/*

@@ -97,7 +97,6 @@ public class J2EEUIMessages extends Messages {
 	public static final String EAR_EXPORT_INCLUDE_PROJECT_FILES = "70"; //$NON-NLS-1$
 	public static final String EAR_EXPORT_INCLUDE_PROJECT_FILES_DESC = "71"; //$NON-NLS-1$
 	public static final String EAR_IMPORT_INCLUDE_PROJECT = "72"; //$NON-NLS-1$
-	public static final String EAR_IMPORT_INCLUDE_EAR_PROJECT = "73"; //$NON-NLS-1$
 	public static final String EAR_IMPORT_OVERWRITE_NESTED = "74"; //$NON-NLS-1$
 	public static final String DELETE_PROJECT = "75"; //$NON-NLS-1$
 	public static final String EAR_IMPORT_PROJECT_LABEL = "76"; //$NON-NLS-1$

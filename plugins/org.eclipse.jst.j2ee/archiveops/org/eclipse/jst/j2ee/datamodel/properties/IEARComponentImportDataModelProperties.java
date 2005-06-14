@@ -26,14 +26,8 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  * @since 1.0
  */
 public interface IEARComponentImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
-    /**
-     * Optional, type Boolean, default true, This flag is set to allow the EAR project to be
-     * imported or not. If it is not imported, it is still possible for the nested projects (moduel &
-     * utility projects) to be imported.
-     */
-    public static final String IMPORT_EAR_PROJECT = "IEnterpriseApplicationImportDataModelProperties.IMPORT_EAR_PROJECT"; //$NON-NLS-1$
 
-    /**
+	/**
      * Optional, type IPath default is ear location
      */
     public static final String NESTED_MODULE_ROOT = "IEnterpriseApplicationImportDataModelProperties.NESTED_MODULE_ROOT"; //$NON-NLS-1$

@@ -263,6 +263,6 @@ public abstract class J2EEImportPageNew extends DataModelWizardPage {
 		super.enter();
 	}
 
-	protected Button importEARButton;
+	
 
 }

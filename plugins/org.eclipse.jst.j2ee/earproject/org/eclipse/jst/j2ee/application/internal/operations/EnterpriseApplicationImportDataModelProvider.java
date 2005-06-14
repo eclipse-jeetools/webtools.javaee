@@ -42,6 +42,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperationNew;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
@@ -97,7 +98,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
 
 	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{NESTED_MODULE_ROOT, UTILITY_LIST, MODULE_MODELS_LIST, EJB_CLIENT_LIST, UTILITY_MODELS_LIST, NESTED_PROJECTS_VALIDATION, SELECTED_MODELS_LIST, OVERWRITE_NESTED_PROJECTS, IMPORT_EAR_PROJECT, SYNC_SERVER_TARGETS_WITH_EAR, USE_ANNOTATIONS, ALL_PROJECT_MODELS_LIST, UNHANDLED_PROJECT_MODELS_LIST, HANDLED_PROJECT_MODELS_LIST});
+		return combineProperties(super.getPropertyNames(), new String[]{NESTED_MODULE_ROOT, UTILITY_LIST, MODULE_MODELS_LIST, EJB_CLIENT_LIST, UTILITY_MODELS_LIST, NESTED_PROJECTS_VALIDATION, SELECTED_MODELS_LIST, OVERWRITE_NESTED_PROJECTS, SYNC_SERVER_TARGETS_WITH_EAR, USE_ANNOTATIONS, ALL_PROJECT_MODELS_LIST, UNHANDLED_PROJECT_MODELS_LIST, HANDLED_PROJECT_MODELS_LIST});
 	}
 
 	public Object getDefaultProperty(String propertyName) {
@@ -107,8 +108,6 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			return Collections.EMPTY_LIST;
 		} else if (OVERWRITE_NESTED_PROJECTS.equals(propertyName)) {
 			return Boolean.FALSE;
-		} else if (IMPORT_EAR_PROJECT.equals(propertyName)) {
-			return Boolean.TRUE;
 		} else if (SYNC_SERVER_TARGETS_WITH_EAR.equals(propertyName)) {
 			return Boolean.TRUE;
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
@@ -320,8 +319,6 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				}
 				projects.put(tempProjectName, tempArchive);
 			}
-		} else if (propertyName.equals(PROJECT_NAME) && !getBooleanProperty(IMPORT_EAR_PROJECT)) {
-			return OK_STATUS;
 		}
 		// TODO: check context root is not inside current working
 		// directory...this is invalid
@@ -496,7 +493,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				model.setProperty(FILE, temp);
 				model.setProperty(IJ2EEModuleImportDataModelProperties.EAR_NAME, earProjectName);
 				model.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
-				model.setProperty(SERVER_TARGET_ID, getProperty(ServerTargetDataModel.RUNTIME_TARGET_ID));
+				model.setProperty(SERVER_TARGET_ID, getProperty(SERVER_TARGET_ID));
 				model.addListener(this);
 				model.addListener(nestedListener);
 				moduleModels.add(model);
@@ -686,7 +683,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 	}*/
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
-		return null;
+		return DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
 	}
 
 	public IDataModelOperation getDefaultOperation() {

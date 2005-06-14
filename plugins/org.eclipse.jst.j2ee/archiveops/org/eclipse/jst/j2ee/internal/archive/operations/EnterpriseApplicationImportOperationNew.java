@@ -9,7 +9,6 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 
 public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportOperationNew {
 
@@ -52,8 +50,10 @@ public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportO
 	 * @param monitor
 	 *            the progress monitor to use to display progress
 	 */
-	protected void doExecute(IProgressMonitor monitor) {
-		monitor.beginTask(null, earFile.getFiles().size());
+	protected void doExecute(IProgressMonitor monitor) throws ExecutionException{
+		super.doExecute(monitor);
+		//monitor.beginTask(null, earFile.getFiles().size());
+		
 
 		// virtualComponent =
 		// createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION),
@@ -216,17 +216,6 @@ public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportO
 		return extraEntries;
 	}
 
-	protected void importEARProject(IProgressMonitor monitor) throws InvocationTargetException {
-		try {
-			EARComponentSaveStrategyImpl saveStrat = new EARComponentSaveStrategyImpl(model);
-			saveStrat.setProgressMonitor(monitor);
-			earFile.save(saveStrat);
-		} catch (Exception ex) {
-			String errorString = EARArchiveOpsResourceHandler.getString("ERROR_IMPORTING_EAR_FILE"); //$NON-NLS-1$
-			throw new WFTWrappedException(ex, errorString);
-		}
-	}
-
 	private void releaseDeploymentDescriptor() {
 		try {
 			if (earFile != null && earFile.isDeploymentDescriptorSet()) {
@@ -244,7 +233,6 @@ public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportO
 	}
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		// TODO Auto-generated method stub
-		return null;
+		return new EARComponentSaveStrategyImpl(virtualComponent);
 	}
 }
