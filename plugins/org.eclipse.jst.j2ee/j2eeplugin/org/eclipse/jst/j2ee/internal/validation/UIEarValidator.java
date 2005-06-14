@@ -284,8 +284,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			try {
 				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
 						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently
-						//IVirtualResource resource = component.findMember(new Path(uri));
-					IVirtualResource resource = component.getResource(new Path(uri));
+					IVirtualResource resource = component.findMember(new Path(uri));
 						if (resource == null || !resource.exists()) {
 							invalidClassPathEntryWarning(cp[i], uri, anArchive);
 						}
