@@ -26,20 +26,27 @@ import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class WebAppContainer extends FlexibleProjectContainer
+public final class WebAppContainer 
+    
+    extends FlexibleProjectContainer
+    
 {
-	
-
-	private static final IPath[] paths = new IPath[] { new Path( "WEB-INF/lib" ), new Path( "WEB-INF/classes" ) };
-	private static final PathType[] types  = new PathType[] { PathType.LIB_DIRECTORY, PathType.CLASSES_DIRECTORY }; 
-	public static final String CONTAINER_ID = "org.eclipse.jst.j2ee.internal.web.container";
+    private static final IPath[] paths 
+        = new IPath[] { new Path( "WEB-INF/lib" ), 
+                        new Path( "WEB-INF/classes" ) };
+    
+    private static final PathType[] types 
+        = new PathType[] { PathType.LIB_DIRECTORY, PathType.CLASSES_DIRECTORY };
+    
+    public static final String CONTAINER_ID 
+        = "org.eclipse.jst.j2ee.internal.web.container";
     
     public WebAppContainer( final IPath path,
-							final IJavaProject jproject )
+                            final IJavaProject jproject )
     {
-		 super( path, jproject, jproject.getProject(), path.segment( 1 ), 
-	              paths, types );
-	}
+         super( path, jproject, jproject.getProject(), path.segment( 1 ), 
+                paths, types );
+    }
     
     public String getDescription()
     {

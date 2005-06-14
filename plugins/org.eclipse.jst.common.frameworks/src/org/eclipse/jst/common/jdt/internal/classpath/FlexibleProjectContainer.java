@@ -24,6 +24,8 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IAccessRule;
+import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -61,6 +63,7 @@ public abstract class FlexibleProjectContainer
     }
     
     private static IWorkspace workspace;
+    private static ClasspathDecorationsManager decorations; 
 
     static
     {
@@ -70,6 +73,11 @@ public abstract class FlexibleProjectContainer
         
         workspace = ResourcesPlugin.getWorkspace();
         workspace.addResourceChangeListener( new Listener() );
+        
+        // Read the decorations from the workspace metadata.
+        
+        final String plugin = CommonFrameworksPlugin.PLUGIN_ID;
+        decorations = new ClasspathDecorationsManager( plugin );
     }
 
     protected final IPath path;
@@ -105,6 +113,8 @@ public abstract class FlexibleProjectContainer
             return;
         }
               
+        final String cid = this.path.toString(); 
+            
         final IFlexibleProject fp 
             = ComponentCore.createFlexibleProject( this.project );
         
@@ -137,7 +147,7 @@ public abstract class FlexibleProjectContainer
                     
                     if( f.isFile() && fname.endsWith( ".jar" ) )
                     {
-                        cp.add( JavaCore.newLibraryEntry( p, null, null ) );
+                        cp.add( newLibraryEntry( p ) );
                     }
                 }
                 
@@ -158,7 +168,7 @@ public abstract class FlexibleProjectContainer
                     
                     if( ! isSourceDirectory( p ) )
                     {
-                        cp.add( JavaCore.newLibraryEntry( p, null, null ) );
+                        cp.add( newLibraryEntry( p ) );
                     }
                 }
             }
@@ -203,6 +213,33 @@ public abstract class FlexibleProjectContainer
     
     public abstract void refresh();
     
+    static ClasspathDecorationsManager getDecorationsManager()
+    {
+        return decorations;
+    }
+    
+    private IClasspathEntry newLibraryEntry( final IPath p )
+    {
+        IPath srcpath = null;
+        IPath srcrootpath = null;
+        IClasspathAttribute[] attrs = {};
+        IAccessRule[] access = {};
+        
+        final ClasspathDecorations dec 
+            = decorations.getDecorations( getPath().toString(), p.toString() );
+        
+        if( dec != null )
+        {
+            srcpath = dec.getSourceAttachmentPath();
+            srcrootpath = dec.getSourceAttachmentRootPath();
+            attrs = dec.getExtraAttributes();
+        }
+        
+        return JavaCore.newLibraryEntry( p, srcpath, srcrootpath, access, attrs,
+                                         false );
+        
+    }
+    
     private boolean isSourceDirectory( final IPath path )
     {
         try
@@ -223,7 +260,7 @@ public abstract class FlexibleProjectContainer
          
             return false;
         }
-       catch( JavaModelException e )
+        catch( JavaModelException e )
         {
             CommonFrameworksPlugin.log( e );
             return false;
