@@ -387,23 +387,24 @@ public class EJBValidator extends AbstractEJBValidator {
 		List beans = ejbJar.getEnterpriseBeans();
 		Iterator iterator = beans.iterator();
 		id = null;
-		while(iterator.hasNext()) {
-			EnterpriseBean bean = (EnterpriseBean)iterator.next();
-			JavaClass[] classes = getJavaClass(bean);
-			for(int i=0; i<classes.length; i++) {
-				JavaClass clazz = classes[i];
-				id = EJBValidationRuleFactory.getFactory().getRuleId(vc, clazz, bean);
-		
-				IValidationRule clazzRule = EJBValidationRuleFactory.getFactory().getRule(vc, id);
-				if(clazzRule == null) {
-					// This has already been logged by the AbstractEJBValidationRuleFactory (if it's
-					// an error - this is expected if the key is a primitive primary key).
-					continue;
-				}
-		
-				run(clazzRule, bean, clazz); // true = full validation
-			}
-		}
+		//To do: problem with JEM
+//		while(iterator.hasNext()) {
+//			EnterpriseBean bean = (EnterpriseBean)iterator.next();
+//			JavaClass[] classes = getJavaClass(bean);
+//			for(int i=0; i<classes.length; i++) {
+//				JavaClass clazz = classes[i];
+//				id = EJBValidationRuleFactory.getFactory().getRuleId(vc, clazz, bean);
+//		
+//				IValidationRule clazzRule = EJBValidationRuleFactory.getFactory().getRule(vc, id);
+//				if(clazzRule == null) {
+//					// This has already been logged by the AbstractEJBValidationRuleFactory (if it's
+//					// an error - this is expected if the key is a primitive primary key).
+//					continue;
+//				}
+//		
+//				run(clazzRule, bean, clazz); // true = full validation
+//			}
+//		}
 	}
 	
 	protected JavaClass[] getJavaClass(EnterpriseBean bean) {
