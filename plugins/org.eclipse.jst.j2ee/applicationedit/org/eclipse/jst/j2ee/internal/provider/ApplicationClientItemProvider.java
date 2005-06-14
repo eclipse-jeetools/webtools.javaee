@@ -261,6 +261,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	public Collection getChildren(Object object) {
 		ApplicationClient client = (ApplicationClient) object;
 		Collection myChildren = super.getChildren(object);
+		myChildren.addAll(client.getMessageDestinations());
 		if (client.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID) {
 			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 			myChildren.addAll(serviceHelper.get13ServiceRefs(client));
