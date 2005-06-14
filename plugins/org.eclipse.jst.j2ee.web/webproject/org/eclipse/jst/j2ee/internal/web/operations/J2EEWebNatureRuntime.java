@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
@@ -27,10 +28,7 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -39,7 +37,6 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -49,6 +46,7 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.impl.ComponentCoreURIConverter;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
@@ -218,46 +216,11 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	}
 
 	public Archive asArchive() throws OpenFailureException {
-		return asWARFile();
+		return null;
 	}
 
 	public Archive asArchive(boolean shouldExportSource) throws OpenFailureException {
-		if (getWebNatureType() == IWebNatureConstants.J2EE_WEB_PROJECT)
-			return asWARFile(shouldExportSource);
-
 		return null;
-	}
-
-	public org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile asWARFile() throws OpenFailureException {
-		if (getWebNatureType() == IWebNatureConstants.J2EE_WEB_PROJECT) {
-			IProject proj = getProject();
-			if (proj == null)
-				return null;
-			LoadStrategy loader = new WTProjectLoadStrategyImpl(proj);
-			loader.setResourceSet(getResourceSet());
-			return getCommonArchiveFactory().openWARFile(loader, proj.getName());
-		}
-		return null;
-
-	}
-
-	public WARFile asWARFile(boolean shouldExportSource) throws OpenFailureException {
-		if (getWebNatureType() == IWebNatureConstants.J2EE_WEB_PROJECT) {
-			IProject proj = getProject();
-			if (proj == null)
-				return null;
-			WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
-			loader.setExportSource(shouldExportSource);
-			loader.setResourceSet(getResourceSet());
-			ArchiveOptions options = new ArchiveOptions();
-			options.setLoadStrategy(loader);
-			if (isBinaryProject()) {
-				options.setIsReadOnly(true);
-			}
-			return getCommonArchiveFactory().openWARFile(options, proj.getName());
-		}
-		return null;
-
 	}
 
 	/**

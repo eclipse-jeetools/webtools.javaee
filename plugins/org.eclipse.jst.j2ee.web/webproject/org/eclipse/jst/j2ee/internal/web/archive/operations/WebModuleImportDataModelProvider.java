@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
@@ -58,6 +59,25 @@ public final class WebModuleImportDataModelProvider extends J2EEModuleImportData
 		return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString("Temp String for none WARFile")); //$NON-NLS-1$);
 	}
 
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		super.propertySet(propertyName, propertyValue);
+		if (propertyName.equals(FILE)) {
+			Archive archive = (Archive) propertyValue;
+			if (null != archive) {
+				WARFile war = (WARFile) archive;
+				List libs = war.getLibArchives();
+				List nestedModels = new ArrayList();
+				for (int i = 0; i < libs.size(); i++) {
+					IDataModel localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
+					localModel.setProperty(FILE, libs.get(i));
+					nestedModels.add(localModel);
+				}
+				setProperty(WEB_LIB_COMPONENTS, nestedModels);
+			}
+		}
+		return true;
+	}
+
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		Archive archive = CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri);
 		return archive;
@@ -82,17 +102,7 @@ public final class WebModuleImportDataModelProvider extends J2EEModuleImportData
 		}
 	}
 
-	public boolean handlesArchive(Archive archive) {
-		List list = (List) getProperty(WEB_LIB_COMPONENTS);
-		IDataModel tempModel = null;
-		for (int i = 0; i < list.size(); i++) {
-			tempModel = (IDataModel) list.get(i);
-			if (tempModel.getProperty(FILE) == archive) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());

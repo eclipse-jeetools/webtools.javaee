@@ -82,7 +82,7 @@ public class RollupRolesCommand extends AbstractCommand {
 	 */
 	public void execute() {
 		try {
-			EARFile earFile = EARNatureRuntime.getRuntime(getEarProject()).asEARFile(true, false);
+			EARFile earFile = (EARFile)EARNatureRuntime.getRuntime(getEarProject()).asArchive();
 			earFile.rollUpRoles();
 		} catch (OpenFailureException e) {
 			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);

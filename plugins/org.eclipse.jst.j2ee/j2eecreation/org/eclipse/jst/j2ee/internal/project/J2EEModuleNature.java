@@ -44,10 +44,12 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
- * @author jlanuti
+ * @deprecated
+ * Use
+ * <p>
+ * 		ArtifactEdit
+ * </p>
  * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
  */
 public abstract class J2EEModuleNature extends J2EENature {
 

@@ -53,7 +53,7 @@ public class ClasspathSelectionHelper {
 		EARFile earFile = null;
 		try {
 			EARNatureRuntime earNature = (EARNatureRuntime) earProject.getNature(IEARNatureConstants.NATURE_ID);
-			earFile = earNature.asEARFile(true, false);
+			earFile = (EARFile)earNature.asArchive();
 
 			CommonarchiveFactory factory = getCommonArchiveFactory();
 			CommonarchivePackage pkg = getCommonArchiveFactory().getCommonarchivePackage();

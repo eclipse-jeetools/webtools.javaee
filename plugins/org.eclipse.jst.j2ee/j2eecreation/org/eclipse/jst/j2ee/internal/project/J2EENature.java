@@ -46,7 +46,6 @@ import org.eclipse.wst.server.core.IModule;
  * </p>
  * 
  */
-
 public abstract class J2EENature extends EditModelNature implements ISynchronizerExtender {
 
 	/** Used to keep documents loaded */

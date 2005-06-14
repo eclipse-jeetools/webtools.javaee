@@ -28,15 +28,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.EARProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
@@ -74,7 +69,7 @@ public class EARNatureRuntime extends J2EENature {
 	 * Return the key for the sourcePath.
 	 */
 	public Archive asArchive() throws OpenFailureException {
-		return asEARFile();
+		return null;
 	}
 
 	/**
@@ -82,18 +77,6 @@ public class EARNatureRuntime extends J2EENature {
 	 */
 	public Archive asArchive(boolean shouldExportSource) throws OpenFailureException {
 		return null;
-	}
-
-	public EARFile asEARFile() throws OpenFailureException {
-		IProject proj = getProject();
-		if (proj == null)
-			return null;
-		ArchiveOptions options = new ArchiveOptions();
-		options.setIsReadOnly(true);
-		LoadStrategy loader = new EARProjectLoadStrategyImpl(proj);
-		options.setLoadStrategy(loader);
-		loader.setResourceSet(getResourceSet());
-		return CommonarchiveFactory.eINSTANCE.openEARFile(options, proj.getName());
 	}
 
 	/**
@@ -109,20 +92,6 @@ public class EARNatureRuntime extends J2EENature {
 	public int getJ2EEVersion() {
 
 		return getModuleVersion();
-	}
-
-	public EARFile asEARFile(boolean exportSource, boolean mergeDependents) throws OpenFailureException {
-		IProject proj = getProject();
-		if (proj == null)
-			return null;
-		ArchiveOptions options = new ArchiveOptions();
-		options.setIsReadOnly(true);
-		EARProjectLoadStrategyImpl loader = new EARProjectLoadStrategyImpl(proj);
-		options.setLoadStrategy(loader);
-		loader.setResourceSet(getResourceSet());
-		loader.setExportSource(true);
-		loader.setMergeDependentJars(false);
-		return CommonarchiveFactory.eINSTANCE.openEARFile(options, proj.getName());
 	}
 
 	/**

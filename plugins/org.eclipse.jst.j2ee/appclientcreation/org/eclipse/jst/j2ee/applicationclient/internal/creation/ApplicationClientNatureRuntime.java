@@ -19,26 +19,22 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.archive.operations.ApplicationClientProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 /**
- * @deprecated
- * Use
- * <p>
- * 		AppClientArtifactEdit
- * </p>
+ * @deprecated Use
+ *             <p>
+ *             AppClientArtifactEdit
+ *             </p>
  */
 public class ApplicationClientNatureRuntime extends J2EEModuleNature implements IApplicationClientNatureConstants {
 
@@ -53,37 +49,18 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 		super();
 	}
 
-	public ApplicationClientFile asApplicationClientFile() throws OpenFailureException {
-		return asApplicationClientFile(true);
-	}
-
-	public ApplicationClientFile asApplicationClientFile(boolean shouldExportSource) throws OpenFailureException {
-		IProject proj = getProject();
-		if (proj == null)
-			return null;
-
-		if (isBinaryProject()) {
-			String location = ((J2EEModuleWorkbenchURIConverterImpl) getJ2EEWorkbenchURIConverter()).getInputJARLocation().toOSString();
-			return getCommonArchiveFactory().openApplicationClientFile(location);
-		}
-		ApplicationClientProjectLoadStrategyImpl loader = new ApplicationClientProjectLoadStrategyImpl(proj);
-		loader.setExportSource(shouldExportSource);
-		loader.setResourceSet(this.getResourceSet());
-		return getCommonArchiveFactory().openApplicationClientFile(loader, proj.getName());
-	}
-
 	/**
 	 * Return a "virtual" archive on this nature's project; used for export
 	 */
 	public Archive asArchive() throws OpenFailureException {
-		return asApplicationClientFile();
+		return null;
 	}
 
 	/**
 	 * Return a "virtual" archive on this nature's project; used for export
 	 */
 	public Archive asArchive(boolean shouldExportSource) throws OpenFailureException {
-		return asApplicationClientFile(shouldExportSource);
+		return null;
 	}
 
 	protected EditModel createCacheEditModel() {
@@ -112,17 +89,17 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 	/**
 	 * Create a new nature runtime from the project info
 	 */
-	//	public static ApplicationClientNatureRuntime
+	// public static ApplicationClientNatureRuntime
 	// createRuntime(ApplicationClientProjectInfo info) throws CoreException {
-	//		IProject project = info.getProject();
-	//		if (!hasRuntime(project)) {
-	//			addNatureToProject(project, info.getNatureId());
-	//			ApplicationClientNatureRuntime runtime = getRuntime(project);
-	//			runtime.initializeFromInfo(info);
-	//			return runtime;
-	//		}
-	//		return getRuntime(project);
-	//	}
+	// IProject project = info.getProject();
+	// if (!hasRuntime(project)) {
+	// addNatureToProject(project, info.getNatureId());
+	// ApplicationClientNatureRuntime runtime = getRuntime(project);
+	// runtime.initializeFromInfo(info);
+	// return runtime;
+	// }
+	// return getRuntime(project);
+	// }
 	public String getEditModelKey() {
 		return EDIT_MODEL_ID;
 	}

@@ -18,15 +18,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.jca.archive.operations.RARProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
@@ -34,11 +31,10 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 /**
- * @deprecated
- * Use
- * <p>
- * 	ConnectorArtifactEdit
- * </p>
+ * @deprecated Use
+ *             <p>
+ *             ConnectorArtifactEdit
+ *             </p>
  */
 public class ConnectorNatureRuntime extends J2EEModuleNature {
 
@@ -60,23 +56,23 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @return ConnectorNatureRuntime
 	 * @throws CoreException
 	 */
-	//	public static ConnectorNatureRuntime createRuntime(ConnectorProjectInfo cpInfo) throws
+	// public static ConnectorNatureRuntime createRuntime(ConnectorProjectInfo cpInfo) throws
 	// CoreException {
 	//
-	//		IProject project = cpInfo.getProject();
+	// IProject project = cpInfo.getProject();
 	//
-	//		if (!hasRuntime(project)) {
-	//			addNatureToProject(project, cpInfo.getNatureId());
-	//			ConnectorNatureRuntime cnRuntime = getRuntime(project);
-	//			cnRuntime.initializeFromInfo(cpInfo);
+	// if (!hasRuntime(project)) {
+	// addNatureToProject(project, cpInfo.getNatureId());
+	// ConnectorNatureRuntime cnRuntime = getRuntime(project);
+	// cnRuntime.initializeFromInfo(cpInfo);
 	//			
 	//			
-	//			return cnRuntime;
-	//		} // if
+	// return cnRuntime;
+	// } // if
 	//
-	//		return getRuntime(project);
+	// return getRuntime(project);
 	//
-	//	} // createRuntime
+	// } // createRuntime
 	/**
 	 * Returns the edit for write operation.
 	 * 
@@ -172,7 +168,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @throws OpenFailureException
 	 */
 	public Archive asArchive() throws OpenFailureException {
-		return this.asRARFile();
+		return null;
 	}// asArchive
 
 	/**
@@ -184,55 +180,8 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @throws OpenFailureException
 	 */
 	public Archive asArchive(boolean shouldExportSource) throws OpenFailureException {
-		return this.asRARFile(shouldExportSource);
+		return null;
 	}// asArchive
-
-
-
-	/**
-	 * Returns a RAR file from the current project.
-	 * 
-	 * @return RARFile
-	 * @throws OpenFailureException
-	 */
-	public RARFile asRARFile() throws OpenFailureException {
-
-		IProject aProject = this.getProject();
-
-		if (aProject == null) {
-			return null;
-		}// if
-
-		LoadStrategy loader = new RARProjectLoadStrategyImpl(aProject);
-		loader.setResourceSet(this.getResourceSet());
-
-		return this.getCommonArchiveFactory().openRARFile(loader, aProject.getName());
-
-	}// asRARFile
-
-	/**
-	 * Returns a RAR file from the current project.
-	 * 
-	 * @param boolean
-	 *            shouldExportSource - Sets export soruce flag.
-	 * @return RARFile
-	 * @throws OpenFailureException
-	 */
-	public RARFile asRARFile(boolean shouldExportSource) throws OpenFailureException {
-
-		IProject aProject = this.getProject();
-
-		if (aProject == null) {
-			return null;
-		}// if
-
-		RARProjectLoadStrategyImpl loader = new RARProjectLoadStrategyImpl(aProject);
-		loader.setExportSource(shouldExportSource);
-		loader.setResourceSet(this.getResourceSet());
-
-		return getCommonArchiveFactory().openRARFile(loader, aProject.getName());
-
-	}// asRARFile
 
 	/**
 	 * Method used for adding a Connector project to an ear project; subclasses must override to
