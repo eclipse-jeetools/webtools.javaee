@@ -25,6 +25,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -39,8 +42,14 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
@@ -62,6 +71,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	protected ResourceStateValidator stateValidator;
 	protected ArchiveManifest manifest;
 	public static String NO_EAR_MESSAGE = CommonEditResourceHandler.getString("NO_EAR_JARDEP_FOR_MOD_UI_"); //$NON-NLS-1$
+	protected List targetWLPRefComponentList;
+	protected boolean isWLPModel = false;
 
 	protected Comparator comparator = new Comparator() {
 		public int compare(Object o1, Object o2) {
@@ -276,7 +287,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 */
 	public void setSelection(ClasspathElement element, boolean selected) {
 		element.setSelected(selected);
-		updateManifestClasspath();
+		if (!isWLPModel())
+			updateManifestClasspath();
 	}
 
 	/**
@@ -523,6 +535,24 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	public void checkActivation(ResourceStateValidatorPresenter presenter) throws CoreException {
 		getStateValidator().checkActivation(presenter);
 	}
+	
+	public JavaProjectMigrationOperation createFlexJavaProjectForJavaProject(IProject project) {
+		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+		JavaProjectMigrationOperation op = new JavaProjectMigrationOperation(model);
+		return op;
+	}
+    
+    public CreateReferenceComponentsOp  createReferenceComponentOperation(IVirtualComponent sourceComponent, IVirtualComponent targetComponent ) {
+    	IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponent.getComponentHandle());
+    	if(targetWLPRefComponentList == null)
+    		targetWLPRefComponentList = new ArrayList();
+    	targetWLPRefComponentList.add(targetComponent.getComponentHandle());
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetWLPRefComponentList);
+    	CreateReferenceComponentsOp op = new CreateReferenceComponentsOp(model);
+    	return op;
+    }
 
 	/**
 	 * @see ResourceStateValidator#lostActivation(ResourceStateValidatorPresenter)
@@ -558,6 +588,37 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	public void setComponent(IVirtualComponent component) {
 		this.component = component;
+	}
+
+	public ClassPathSelection getClassPathSelectionForWLPs() {
+		classPathSelection = initializeSelectionForWLPs();
+		return classPathSelection;
+	}
+
+	private ClassPathSelection initializeSelectionForWLPs() {
+		ClassPathSelection selection = new ClassPathSelection();
+		try {
+			List allValidUtilityProjects = J2EEComponentUtilities.getAllJavaNonFlexProjects();
+			allValidUtilityProjects.addAll(J2EEComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_UTILITY_MODULE));
+			for (int i = 0; i < allValidUtilityProjects.size(); i++) {
+				IProject utilProject = null;
+				if (allValidUtilityProjects.get(i) instanceof IProject)
+					utilProject = (IProject) allValidUtilityProjects.get(i);
+				else if (allValidUtilityProjects.get(i) instanceof IVirtualComponent)
+					utilProject = ((IVirtualComponent) allValidUtilityProjects.get(i)).getProject();
+			selection.createProjectElement(utilProject);
+			}
+		} catch (CoreException e) {
+		}
+		return selection;
+	}
+
+	public boolean isWLPModel() {
+		return isWLPModel;
+	}
+
+	public void setWLPModel(boolean isWLPModel) {
+		this.isWLPModel = isWLPModel;
 	}
 
 }

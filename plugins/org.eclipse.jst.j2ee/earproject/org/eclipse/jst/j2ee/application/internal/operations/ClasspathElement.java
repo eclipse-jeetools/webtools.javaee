@@ -64,6 +64,11 @@ public class ClasspathElement {
 		super();
 		archive = anArchive;
 	}
+	
+	public ClasspathElement(IProject project) {
+		super();
+		this.project = project;
+	}
 
 	protected void computeRelativeText() {
 

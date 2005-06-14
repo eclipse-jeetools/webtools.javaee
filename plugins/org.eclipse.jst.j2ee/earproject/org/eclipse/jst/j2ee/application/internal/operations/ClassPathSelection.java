@@ -32,7 +32,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -81,6 +80,13 @@ public class ClassPathSelection {
 		initializeEARProject(earFile);
 		initializeElements();
 	}
+	
+	/**
+	 * ClassPathSelection constructor comment.
+	 */
+	public ClassPathSelection() {
+		super();
+	}
 
 	protected ClasspathElement createElement(Archive referencingArchive, Archive referencedArchive, String cpEntry) {
 		ClasspathElement element = new ClasspathElement(referencingArchive);
@@ -105,6 +111,16 @@ public class ClassPathSelection {
 		setInvalidProject(element);
 		return element;
 	}
+	
+	public ClasspathElement createProjectElement(IProject project) {
+		ClasspathElement element = new ClasspathElement(project);
+		element.setValid(true);
+		element.setSelected(true);
+		element.setText(project.getName());
+		element.setProject(project);
+		addClasspathElement(element,element.getProjectName());
+		return element;
+	}
 
 	/**
 	 * @param element
@@ -118,8 +134,7 @@ public class ClassPathSelection {
 		if (edit != null) {
 			String moduleName = element.getRelativeText();
 			if(moduleName != null) {
-				String componentName = moduleName.substring(0,moduleName.indexOf('.'));
-				IVirtualComponent modComponent = edit.getModule(componentName);
+				IVirtualComponent modComponent = edit.getModule(moduleName);
 				if(modComponent != null) {
 				IProject mappedProject = modComponent.getProject();
 				element.setProject(mappedProject);
@@ -140,6 +155,8 @@ public class ClassPathSelection {
 	 * @return java.util.List
 	 */
 	public java.util.List getClasspathElements() {
+		if(classpathElements == null)
+			classpathElements = new ArrayList();
 		return classpathElements;
 	}
 
@@ -211,9 +228,6 @@ public class ClassPathSelection {
 
 	protected IProject getProject(Archive anArchive) {
 		LoadStrategy loader = anArchive.getLoadStrategy();
-		if (!(loader instanceof ComponentLoadStrategyImpl))
-			return ModuleMapHelper.getProject(anArchive.getURI(), getEARFile());
-
 		return ((ComponentLoadStrategyImpl) loader).getComponent().getProject();
 	}
 
@@ -310,8 +324,8 @@ public class ClassPathSelection {
 	}
 
 	protected void addClasspathElement(ClasspathElement element, String uri) {
-		classpathElements.add(element);
-		urisToElements.put(uri, element);
+		getClasspathElements().add(element);
+		getUrisToElements().put(uri, element);
 		element.setParentSelection(this);
 	}
 
@@ -608,11 +622,16 @@ public class ClassPathSelection {
 	}
 
 	public boolean isMyClientJAR(ClasspathElement element) {
-		if (element == null)
+		if (element == null || ejbToClientJARs == null)
 			return false;
-
 		Archive myClientJar = (Archive) ejbToClientJARs.get(archive);
 		return myClientJar != null && myClientJar == element.getTargetArchive();
+	}
+
+	public Map getUrisToElements() {
+		if(urisToElements == null)
+			urisToElements = new HashMap();
+		return urisToElements;
 	}
 
 }

@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
-import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -49,6 +48,8 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	protected ClasspathModel model;
 	protected CheckboxTableViewer availableJARsViewer;
 	protected IValidateEditListener validateEditListener;
+	protected boolean isWLPEntry;
+	protected Group radioGroup;
 	
 	protected boolean readOnly;
 	protected AvailableJarsProvider availableJarsProvider;
@@ -74,8 +75,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		layout.marginHeight = 0;
 		parent.setLayout(layout);
 		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
-		if (!J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent()))
-			createRadioGroup(parent);
+		createRadioGroup(parent);
 		createTable(parent);
 		createButtonColumn(parent);
 	}
@@ -126,7 +126,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	private void createRadioGroup(Composite parent) {
-		Group radioGroup = owner.createGroup(parent);
+		radioGroup = owner.createGroup(parent);
 		radioGroup.setText(EJB_CLIENT_RADIO_UI_);
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		data.horizontalSpan = 2;
@@ -345,16 +345,36 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	public void refresh() {
-		availableJARsViewer.setInput(getClasspathSelection());
-		GridData data = new GridData(GridData.FILL_BOTH);
-		int numlines = Math.min(10, availableJARsViewer.getTable().getItemCount());
-		data.heightHint = availableJARsViewer.getTable().getItemHeight() * numlines;
-		availableJARsViewer.getTable().setLayoutData(data);
-		refreshCheckedItems();
-		updateButtonEnablements();
+		if (!isWLPEntry()) {
+			availableJARsViewer.setInput(getClasspathSelection());
+			model.setWLPModel(false);
+			GridData data = new GridData(GridData.FILL_BOTH);
+			int numlines = Math.min(10, availableJARsViewer.getTable().getItemCount());
+			data.heightHint = availableJARsViewer.getTable().getItemHeight() * numlines;
+			availableJARsViewer.getTable().setLayoutData(data);
+			refreshCheckedItems();
+			updateButtonEnablements();
+		} else {
+			availableJARsViewer.setInput(model.getClassPathSelectionForWLPs());
+			model.setWLPModel(true);
+			GridData data = new GridData(GridData.FILL_BOTH);
+			int numlines = Math.min(10, availableJARsViewer.getTable().getItemCount());
+			data.heightHint = availableJARsViewer.getTable().getItemHeight() * numlines;
+			availableJARsViewer.getTable().setLayoutData(data);
+			refreshWLPCheckedItems();
+		}
 	}
 	
-	
+	private void refreshWLPCheckedItems() {
+		if (model == null)
+			return;
+		java.util.List elements = model.getClassPathSelectionForWLPs().getClasspathElements();
+		for (int i = 0; i < elements.size(); i++) {
+			ClasspathElement element = (ClasspathElement) elements.get(i);
+			availableJARsViewer.setChecked(element, element.isSelected());
+		}
+	}
+
 	/**
 	 * Gets the model.
 	 * @return Returns a ClasspathModel
@@ -387,6 +407,14 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	 */
 	public void setReadOnly(boolean readOnly) {
 		this.readOnly = readOnly;
+	}
+
+	public boolean isWLPEntry() {
+		return isWLPEntry;
+	}
+
+	public void setWLPEntry(boolean isWLPEntry) {
+		this.isWLPEntry = isWLPEntry;
 	}
 
 
