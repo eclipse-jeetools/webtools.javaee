@@ -20,7 +20,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
@@ -219,15 +218,17 @@ public class EJBProjectResources {
 
 				EJBJarFile ejbJarFile = null;
 				try {
-					ejbJarFile = ejbNature.asEJBJarFile();
-				} catch (OpenFailureException exc) {
-					// Failed to open EJBJar file.
-					// non-NLS
-					if (logger.isLoggingLevel(Level.FINE)) {
-						logger.write(Level.FINE, exc);
-					}
-					return null;
-				} catch (NullPointerException exc) {
+					ejbJarFile = null;// ejbNature.asEJBJarFile();
+				}
+				// catch (OpenFailureException exc) {
+				// // Failed to open EJBJar file.
+				// // non-NLS
+				// if (logger.isLoggingLevel(Level.FINE)) {
+				// logger.write(Level.FINE, exc);
+				// }
+				// return null;
+				// }
+				catch (NullPointerException exc) {
 					// this happens when there's no ejb-jar.xml file
 					// non-NLS
 					if (logger.isLoggingLevel(Level.FINE)) {
