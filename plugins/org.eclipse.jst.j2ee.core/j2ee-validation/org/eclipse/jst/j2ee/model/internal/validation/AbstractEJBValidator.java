@@ -110,6 +110,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	 */
 	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		//Default
+		super.validate(helper, reporter);
 	}
 	
     public void run(IValidationRule rule, Object targetParent, Object target) throws ValidationException {

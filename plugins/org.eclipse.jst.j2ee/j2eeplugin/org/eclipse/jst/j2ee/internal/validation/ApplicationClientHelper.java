@@ -13,12 +13,19 @@ package org.eclipse.jst.j2ee.internal.validation;
 
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
 /**
@@ -51,27 +58,28 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 	}
 
 	/**
-	 * Get the WAR file for validation
+	 * Get the AppClient file for validation
 	 */
+
 	public EObject loadApplicationClientFile() {
-		ApplicationClientNatureRuntime appClientNature = null;
-		//	openFilesCache = new ArrayList();
-		IProject proj = getProject();
-		if (proj != null) {
-			appClientNature = ApplicationClientNatureRuntime.getRuntime(getProject());
-			if (appClientNature != null) {
-				try {
-					appClientFile = (ApplicationClientFile) appClientNature.asArchive(true);
-					//						openFilesCache.add(appClientFile);
-				} catch (Exception e) {
-					// nothing to do, we're gonna return null
-				}
+
+		ComponentHandle handle = getComponentHandle();
+		IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+		
+		try {
+			Archive archive = ((AppClientArtifactEdit) edit).asArchive(false);
+			return archive;
+		} catch (OpenFailureException e1) {
+			Logger.getLogger().log(e1);
+		}finally {
+			if (edit != null) {
+				edit.dispose();
 			}
-
 		}
-		return appClientFile;
-	}
-
+		return null;
+	}	
+	
 	public void closeApplicationClientFile() {
 		if (appClientFile != null)
 			appClientFile.close();

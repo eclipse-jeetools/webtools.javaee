@@ -17,6 +17,7 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
@@ -71,34 +72,50 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 	protected void setRarFile(RARFile rarFile) {
 		this.rarFile = rarFile;
 	}
-	
-	
-	
 		
+	/**
+	 * Does the validation.
+	 * 
+	 * @throws ValidationException
+	 */
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
+		super.validate(inHelper, inReporter);
 		
-		/**
-		 * Does the validation.
-		 * 
-		 * @throws ValidationException
-		 */
-		public void validate(IValidationContext inHelper, IReporter inReporter)
-		throws ValidationException {
-			super.validate(inHelper, inReporter);
-			try {
-				setRarFile( (RARFile) inHelper.loadModel(CONNECTOR_MODEL_NAME));
-				if ( rarFile != null ) {
-					setConnectorDD( rarFile.getDeploymentDescriptor() );
-				} else {
-					IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
-					throw new ValidationException(errorMsg);
-				}// if
-			} catch (ValidationException ex) {
-				throw ex;
-			} catch (Exception e) {
-				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_CONNECTOR_VALIDATION_FAILED);
-				throw new ValidationException(errorMsg, e);
-			}// try 
-		}// validate
-		
+		// First remove all previous msg. for this project
+		_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
+	
+		try {
+			setRarFile((RARFile) inHelper.loadModel(CONNECTOR_MODEL_NAME));
+			if (rarFile != null) {
+				setConnectorDD( rarFile.getDeploymentDescriptor() );
+				//validateJ2EE14DocType();
+			} else {
+				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
+				throw new ValidationException(errorMsg);
+			}
+	
+		} catch (ValidationException ex) {
+			throw ex;
+		} catch (Exception e) {
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_CONNECTOR_VALIDATION_FAILED);
+			throw new ValidationException(errorMsg, e);
+		}		
+	}	
 
+	protected void validateJ2EE14DocType() {
+	
+		if ( getConnectorDD().getVersionID() < J2EEVersionConstants.JCA_1_5_ID) {
+			String[] params = new String[3];
+			params[0] = DOCTYPE_1_4;
+			//params[1] = helper.getProject().getName();
+			params[2] = DOCTYPE_1_3;
+			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
+		} else if (getConnectorDD().getVersionID() != J2EEVersionConstants.JCA_1_0_ID) {
+			String[] params = new String[3];
+			params[0] = DOCTYPE_1_3;
+			//params[1] = helper.getProject().getName();
+			params[2] = DOCTYPE_1_4;
+			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
+		}// if
+	}// validateDocTypeVsNature
 }

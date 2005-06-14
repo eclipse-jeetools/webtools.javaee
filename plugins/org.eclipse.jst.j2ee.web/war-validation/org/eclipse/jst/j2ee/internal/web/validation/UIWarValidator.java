@@ -13,10 +13,7 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
@@ -34,37 +31,11 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * @author: Administrator
  */
 public class UIWarValidator extends WarValidator {
-	/**
-	 * Method validateLibModules.
-	 * 
-	 * 
-	 */
 	
-	//TODO create validation for modules
-/*	protected void validateLibModules(J2EEWebNatureRuntime webNature) {
-		if (webNature != null) {
-			ILibModule[] libModules = webNature.getLibModules();
-			IProject project = webNature.getProject();
+	protected org.eclipse.jst.j2ee.internal.web.validation.UIWarHelper warHelper;	
 
-			for (int i = 0; i < libModules.length; i++) {
-				ILibModule lib = libModules[i];
-				IProject tProject = lib.getProject();
-				if (tProject != null) { // Project could be null if JavaProject is deleted, for
-										// example
-					if (!tProject.exists() || !tProject.isOpen()) {
-						addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_MISSING_WLP_PROJECT, new String[]{tProject.getName()}, webNature.getProject());
-					}
-				}
 
-				String jarName = lib.getJarName();
-				IPath jarPath = webNature.getLibraryFolder().getFullPath().append(jarName);
-				if (((Resource) project).findExistingResourceVariant(jarPath) != null)
-					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_CONFLICTING_WLP_PROJECT, new String[]{jarName}, webNature.getProject());
-			}
-		}
-	}*/
 
-	protected org.eclipse.jst.j2ee.internal.web.validation.UIWarHelper warHelper;
 
 	/**
 	 * UIWarValidator constructor comment.
@@ -114,24 +85,13 @@ public class UIWarValidator extends WarValidator {
 		for(int i = 0; i < virComps.length; i++) {
             IVirtualComponent wbModule = virComps[i];
             if(!wbModule.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))
-            	return;
-            WebArtifactEdit webEdit = null;
-           	try{
-				ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
-           		webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
-           		if(webEdit != null) {
-               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
-               		super.validate(inHelper, inReporter, webApp);
-           		}
-           	}
-           	catch(Exception e){
-				Logger.getLogger().logError(e);
-           	} finally {
-           		if(webEdit != null)
-           			webEdit.dispose();
-          	}
-		}    
-	}
+            	continue;
+			
+			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());
+			getWarHelper().setComponentHandle(handle);
+			super.validate(inHelper, inReporter);
+		}
+	}	
 		
 	
 	
@@ -178,4 +138,34 @@ public class UIWarValidator extends WarValidator {
 //		}
 
 	}
+	
+	/**
+	 * Method validateLibModules.
+	 * 
+	 * 
+	 */
+	
+	//TODO create validation for modules
+/*	protected void validateLibModules(J2EEWebNatureRuntime webNature) {
+		if (webNature != null) {
+			ILibModule[] libModules = webNature.getLibModules();
+			IProject project = webNature.getProject();
+
+			for (int i = 0; i < libModules.length; i++) {
+				ILibModule lib = libModules[i];
+				IProject tProject = lib.getProject();
+				if (tProject != null) { // Project could be null if JavaProject is deleted, for
+										// example
+					if (!tProject.exists() || !tProject.isOpen()) {
+						addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_MISSING_WLP_PROJECT, new String[]{tProject.getName()}, webNature.getProject());
+					}
+				}
+
+				String jarName = lib.getJarName();
+				IPath jarPath = webNature.getLibraryFolder().getFullPath().append(jarName);
+				if (((Resource) project).findExistingResourceVariant(jarPath) != null)
+					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_CONFLICTING_WLP_PROJECT, new String[]{jarName}, webNature.getProject());
+			}
+		}
+	}*/	
 }

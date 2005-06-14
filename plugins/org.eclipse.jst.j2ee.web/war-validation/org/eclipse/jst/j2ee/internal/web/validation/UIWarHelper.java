@@ -12,11 +12,6 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 import java.util.Hashtable;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-
 
 /**
  * Insert the type's description here. Creation date: (10/2/2001 7:06:43 PM)
@@ -32,44 +27,5 @@ public class UIWarHelper extends WarHelper {
 	 */
 	public UIWarHelper() {
 		super();
-	}
-
-	/**
-	 * 
-	 * This is a war specific helper, get file here always mean get web.xml .
-	 * 
-	 * @param object
-	 *            org.omg.CORBA.Object
-	 */
-	public IFile getFile(Object object) {
-
-		IFile warFile;
-		IProject project = getProject();
-
-		warFile = (IFile) aWarFileMap.get(project.toString());
-		if (warFile != null)
-			return warFile;
-		
-		IPath path = getDeploymentDescriptorPath(project);
-		IPath projectPath = project.getFullPath();
-		path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make it relative
-		warFile = project.getFile(path);
-		aWarFileMap.put(project.toString(), warFile);
-		
-		return warFile;
-	}
-	
-	protected IPath getDeploymentDescriptorPath(IProject project) {
-		WebArtifactEdit webArtifactEdit = null; 
-		try {
-			//TODO migrate to flex projects
-			//webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
-			if (webArtifactEdit != null)
-				return webArtifactEdit.getDeploymentDescriptorPath();
-		} finally {
-			if (webArtifactEdit!=null)
-				webArtifactEdit.dispose();
-		}
-		return null;
 	}
 }

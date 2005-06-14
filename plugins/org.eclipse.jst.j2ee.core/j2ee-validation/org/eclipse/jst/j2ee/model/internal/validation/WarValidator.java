@@ -242,15 +242,15 @@ private void validateUrlPattern() {
  * If <code>changedFiles</code> is null, or if it is an empty array, then a full build
  * is performed. Otherwise, validation on just the files listed in the Vector is performed.
  */
+
 public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
-
 	super.validate(inHelper, inReporter);
-
+	
 	// First remove all previous msg. for this project
 	_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
 
+	warFile = (WARFile) _helper.loadModel(WAR_MODEL_NAME);
 	try {
-		warFile = (WARFile) _helper.loadModel(WAR_MODEL_NAME);
 		if (warFile != null) {
 			webDD = warFile.getDeploymentDescriptor();
 			validate();
@@ -268,29 +268,6 @@ public void validate(IValidationContext inHelper, IReporter inReporter) throws V
 		throw new ValidationException(errorMsg, e);
 	}
 }
-
-
-public void validate(IValidationContext inHelper, IReporter inReporter, WebApp webApp) throws ValidationException {
-
-	super.validate(inHelper, inReporter);
-
-	// First remove all previous msg. for this project
-	_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
-
-	try {
-		webDD = webApp;
-		validate();
-		
-	} catch (ValidationException ex) {
-		throw ex;
-	} catch (Exception e) {
-		String[] parms = new String[1];
-		parms[0] = e.toString();
-		IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms );
-		throw new ValidationException(errorMsg, e);
-	}
-}
-
 
 /**
  * This validator can be used for validation when the reporter and helper have

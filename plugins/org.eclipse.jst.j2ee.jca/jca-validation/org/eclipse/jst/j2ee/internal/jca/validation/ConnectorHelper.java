@@ -17,13 +17,20 @@
 package org.eclipse.jst.j2ee.internal.jca.validation;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
+import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorMessageConstants;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
 /**
@@ -47,23 +54,23 @@ public class ConnectorHelper extends J2EEValidationHelper {
 	 * Get the Rar file for validation
 	 */
 	public EObject loadRarFile() {
-		RARFile sRarFile = null;
-		ConnectorNatureRuntime connectorNature = null;
-		//	openFilesCache = new ArrayList();
-		IProject proj = getProject();
-		if (proj != null) {
-			connectorNature = ConnectorNatureRuntime.getRuntime(getProject());
-			if (connectorNature != null) {
-				try {
-					sRarFile = (RARFile) connectorNature.asArchive(true);
-				} catch (Exception e) {
-					return null;
-				}
+
+		ComponentHandle handle = getComponentHandle();
+		IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+		
+		try {
+			Archive archive = ((ConnectorArtifactEdit) edit).asArchive(false);
+			return archive;
+		} catch (OpenFailureException e1) {
+			Logger.getLogger().log(e1);
+		}finally {
+			if (edit != null) {
+				edit.dispose();
 			}
 		}
-		return sRarFile;
-	}
-
+		return null;
+	}		
 	/**
 	 * Given a resource, return its non-eclipse-specific location. If this resource, or type of
 	 * resource, isn't handled by this helper, return null.

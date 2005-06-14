@@ -17,11 +17,13 @@
 package org.eclipse.jst.j2ee.internal.jca.validation;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorEditModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 
@@ -43,55 +45,46 @@ public class UIConnectorValidator extends ConnectorValidator {
 	/**
 	 * Does the validation.
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
-		inReporter.removeAllMessages(this);
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
+		
 		ConnectorHelper helper = (ConnectorHelper) inHelper;
-		ConnectorEditModel editModel = getConnectorEditModel(helper.getProject());
-		try {
-			super.validate(helper, inReporter);
-			validateJ2EE14DocType(helper, editModel);
-
-		} finally {
-			if (editModel != null) {
-				editModel.releaseAccess(this);
-			}//if
-			if (rarFile != null)
-				rarFile.close();
-		}// try
-	}// validate
-
-	/**
-	 * Get the connector edit model.
-	 * 
-	 * @param IProject
-	 *            connectorProject - Current project to get the editmodel.
-	 * @return ConnectorEditModel
-	 */
-	public ConnectorEditModel getConnectorEditModel(IProject appClientProject) {
-		ConnectorNatureRuntime connectorNature = ConnectorNatureRuntime.getRuntime(appClientProject);
-		return connectorNature.getConnectortEditModelForRead(this);
-	}// getAppClientEditModel
+		
+		IProject proj = ((IWorkbenchContext) inHelper).getProject();
+		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
+		IVirtualComponent[] virComps = flexProject.getComponents();
+		
+		for(int i = 0; i < virComps.length; i++) {
+            IVirtualComponent wbModule = virComps[i];
+            if(!wbModule.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
+            	continue;
+			
+			ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
+			helper.setComponentHandle(handle);
+			super.validate(inHelper, inReporter);
+			//validateJ2EE14DocType(helper, editModel);
+		}
+	}
 
 
 	/**
 	 * Checks if the nature is consistent with doc type.
 	 */
-	protected void validateJ2EE14DocType(ConnectorHelper helper, ConnectorEditModel editModel) {
-
-		if (editModel.getConnectorNature().getJ2EEVersion() == J2EEVersionConstants.J2EE_1_4_ID && getConnectorDD().getVersionID() < J2EEVersionConstants.JCA_1_5_ID) {
-			String[] params = new String[3];
-			params[0] = DOCTYPE_1_4;
-			params[1] = helper.getProject().getName();
-			params[2] = DOCTYPE_1_3;
-			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
-		} else if (editModel.getConnectorNature().getJ2EEVersion() == J2EEVersionConstants.J2EE_1_3_ID && getConnectorDD().getVersionID() != J2EEVersionConstants.JCA_1_0_ID) {
-			String[] params = new String[3];
-			params[0] = DOCTYPE_1_3;
-			params[1] = helper.getProject().getName();
-			params[2] = DOCTYPE_1_4;
-			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
-		}// if
-	}// validateDocTypeVsNature
+//	protected void validateJ2EE14DocType(ConnectorHelper helper, ConnectorEditModel editModel) {
+//
+//		if (editModel.getConnectorNature().getJ2EEVersion() == J2EEVersionConstants.J2EE_1_4_ID && getConnectorDD().getVersionID() < J2EEVersionConstants.JCA_1_5_ID) {
+//			String[] params = new String[3];
+//			params[0] = DOCTYPE_1_4;
+//			params[1] = helper.getProject().getName();
+//			params[2] = DOCTYPE_1_3;
+//			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
+//		} else if (editModel.getConnectorNature().getJ2EEVersion() == J2EEVersionConstants.J2EE_1_3_ID && getConnectorDD().getVersionID() != J2EEVersionConstants.JCA_1_0_ID) {
+//			String[] params = new String[3];
+//			params[0] = DOCTYPE_1_3;
+//			params[1] = helper.getProject().getName();
+//			params[2] = DOCTYPE_1_4;
+//			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
+//		}// if
+//	}// validateDocTypeVsNature
 
 
 }

@@ -14,23 +14,27 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 import java.util.Hashtable;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+
 
 
 public class WarHelper extends J2EEValidationHelper {
 	Hashtable warFileMap = new Hashtable();
 	final static String HelperID = "org.eclipse.wst.validation.internal.core.war.workbenchimpl.WarHelper"; //$NON-NLS-1$
+
 
 	/**
 	 * WarHelper constructor comment.
@@ -94,34 +98,26 @@ public class WarHelper extends J2EEValidationHelper {
 		return ret;
 	}
 
-	/**
-	 * Get the WAR file for validation
-	 */
-
+	
+	//public EObject loadWarFile(ComponentHandle handle) {
 	public EObject loadWarFile() {
-		IProject proj = getProject();
-		if (proj == null)
-			return null;
-		//      openFilesCache = new ArrayList();
-		WARFile warFile = null; // Default return value.
-		WebArtifactEdit webEdit = null;
-		Resource webDD = null;
-		try {
-			WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
-			//migrate to use components
-			//webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(proj);
-       		if (webEdit != null)
-       			webDD = webEdit.getDeploymentDescriptorResource();
-			loader.setResourceSet(webDD.getResourceSet());
-			warFile = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory().openWARFile(loader, proj.getName());
-			//openFilesCache.add(warFile);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}  finally{
-			if( webEdit != null )
-				webEdit.dispose();
+		ComponentHandle handle = getComponentHandle();
+		if( handle != null ){
+			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			
+			try {
+				Archive archive = ((WebArtifactEdit) edit).asArchive(false);
+				return archive;
+			} catch (OpenFailureException e1) {
+				Logger.getLogger().log(e1);
+			}finally {
+				if (edit != null) {
+					edit.dispose();
+				}
+			}
 		}
-		return warFile;
-	}
+		return null;
+	}	
 	
 }

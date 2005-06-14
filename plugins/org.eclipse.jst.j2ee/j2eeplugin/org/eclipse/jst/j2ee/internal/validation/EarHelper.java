@@ -11,14 +11,21 @@ package org.eclipse.jst.j2ee.internal.validation;
 
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
 public class EarHelper extends J2EEValidationHelper {
@@ -66,29 +73,26 @@ public class EarHelper extends J2EEValidationHelper {
 	/**
 	 * Get the WAR file for validation
 	 */
+	
 	public EObject loadEarFile() {
-		EARNatureRuntime earNature = null;
-		if (earFile != null && earFile.isOpen())
-			return earFile;
-		//	openFilesCache = new java.util.ArrayList();
-		IProject proj = getProject();
-		if (proj != null) {
 
-			if (EARNatureRuntime.hasRuntime(proj)) {
-				earNature = EARNatureRuntime.getRuntime(getProject());
-				if (earNature != null) {
-					try {
-						earFile = earNature.asEARFile(true, false);
-						//						openFilesCache.add(earFile);
-					} catch (Exception e) {
-						// nothing to do, we're gonna return null
-					}
-				}
+		ComponentHandle handle = getComponentHandle();
+		IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+		
+		try {
+			Archive archive = ((EARArtifactEdit) edit).asArchive(false);
+			return archive;
+		} catch (OpenFailureException e1) {
+			Logger.getLogger().log(e1);
+		}finally {
+			if (edit != null) {
+				edit.dispose();
 			}
 		}
-		return earFile;
+		return null;
 	}
-
+	
 	public void closeEARFile() {
 		if (earFile != null) {
 			earFile.close();

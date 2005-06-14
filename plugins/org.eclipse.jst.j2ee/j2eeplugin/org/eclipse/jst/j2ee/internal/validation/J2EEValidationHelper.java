@@ -15,12 +15,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 
 
 public abstract class J2EEValidationHelper extends WorkbenchContext {
+	private ComponentHandle componentHandle = null;
 	/**
 	 * Constructor for J2EEValidationHelper.
 	 */
@@ -84,12 +85,12 @@ public abstract class J2EEValidationHelper extends WorkbenchContext {
 		return null;
 	}
 
-	protected IFile getXmlFile(String xmlFileName, J2EENature nature) {
-		if (nature == null) {
-			return null;
-		}
-		return nature.getMetaFolder().getFile(xmlFileName);
-	}
+//	protected IFile getXmlFile(String xmlFileName, J2EENature nature) {
+//		if (nature == null) {
+//			return null;
+//		}
+//		return nature.getMetaFolder().getFile(xmlFileName);
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -100,6 +101,14 @@ public abstract class J2EEValidationHelper extends WorkbenchContext {
 		if (object != null)
 			return object.toString();
 		return null;
+	}
+
+	public ComponentHandle getComponentHandle() {
+		return componentHandle;
+	}
+
+	public void setComponentHandle(ComponentHandle componentHandle) {
+		this.componentHandle = componentHandle;
 	}
 
 }
