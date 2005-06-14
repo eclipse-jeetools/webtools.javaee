@@ -9,9 +9,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.Module;
-import org.eclipse.wst.server.core.internal.ModuleFactory;
-import org.eclipse.wst.server.core.internal.ServerPlugin;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
 
 public class FlexibleProjectServerUtil {
 	public static final String JST_EJB_ID = "jst.ejb";
