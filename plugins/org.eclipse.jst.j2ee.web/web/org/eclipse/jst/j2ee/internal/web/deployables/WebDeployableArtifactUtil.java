@@ -67,6 +67,8 @@ public class WebDeployableArtifactUtil {
 		IResource resource = null;
 		if (obj instanceof IResource)
 			resource = (IResource) obj;
+		if (obj instanceof IModuleArtifact)
+			resource = ((IModuleArtifact) obj).getModule().getProject();
 		else if (obj instanceof IAdaptable)
 			resource = (IResource) ((IAdaptable) obj).getAdapter(IResource.class);
 		else if (obj instanceof EObject) {

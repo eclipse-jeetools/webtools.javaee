@@ -212,7 +212,13 @@
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-       </factory>    
+       </factory> 
+       <factory
+             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.server.core.Servlet">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+       </factory>
+          
    </extension>  
    
 <!-- =============================================================== -->
