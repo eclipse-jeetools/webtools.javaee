@@ -35,6 +35,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * Generation>Code and Comments
  */
 public class AddSecurityRoleOperationDataModel extends J2EEModelModifierOperationDataModel {
+	private EObject ddRoot;
 	/**
 	 * Required - The name of the new role.
 	 * 
@@ -89,7 +90,9 @@ public class AddSecurityRoleOperationDataModel extends J2EEModelModifierOperatio
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_SECURITY_ROLE_EMPTY);
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		boolean exists = roleExists(roleName, getDeploymentDescriptorRoot());
+		if (ddRoot == null)
+			ddRoot = getDeploymentDescriptorRoot();
+		boolean exists = roleExists(roleName);
 		if (exists) {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_SECURITY_ROLE_EXIST, new String[]{roleName});
 			return WTPCommonPlugin.createErrorStatus(msg);
@@ -102,14 +105,14 @@ public class AddSecurityRoleOperationDataModel extends J2EEModelModifierOperatio
 	 * @param root
 	 * @return
 	 */
-	private boolean roleExists(String roleName, EObject root) {
+	private boolean roleExists(String roleName) {
 		switch (getDeploymentDescriptorType()) {
 			case XMLResource.APPLICATION_TYPE :
-				return roleExists(roleName, (Application) root);
+				return roleExists(roleName, (Application) ddRoot);
 			case XMLResource.EJB_TYPE :
-				return roleExists(roleName, (EJBJar) root);
+				return roleExists(roleName, (EJBJar) ddRoot);
 			case XMLResource.WEB_APP_TYPE :
-				return roleExists(roleName, (WebApp) root);
+				return roleExists(roleName, (WebApp) ddRoot);
 		}
 		return false;
 	}
