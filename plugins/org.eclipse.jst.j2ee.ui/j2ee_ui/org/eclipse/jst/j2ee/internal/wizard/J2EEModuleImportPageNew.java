@@ -59,7 +59,7 @@ public abstract class J2EEModuleImportPageNew extends J2EEImportPageNew {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IAppClientComponentImportDataModelProperties.FILE_NAME, IAppClientComponentImportDataModelProperties.PROJECT_NAME, IAppClientComponentImportDataModelProperties.EAR_NAME, /* IAppClientComponentImportDataModelProperties.SERVER_TARGET_ID, */IAppClientComponentImportDataModelProperties.ADD_TO_EAR};
+		return new String[]{IAppClientComponentImportDataModelProperties.FILE_NAME, IAppClientComponentImportDataModelProperties.PROJECT_NAME, IAppClientComponentImportDataModelProperties.EAR_COMPONENT_NAME, /* IAppClientComponentImportDataModelProperties.SERVER_TARGET_ID, */IAppClientComponentImportDataModelProperties.ADD_TO_EAR};
 	}
 
 }

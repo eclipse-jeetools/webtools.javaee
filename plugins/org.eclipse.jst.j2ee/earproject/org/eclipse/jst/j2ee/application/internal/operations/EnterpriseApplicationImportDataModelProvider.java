@@ -199,7 +199,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			IDataModel nestedModel = null;
 			for (int i = 0; i < nestedModels.size(); i++) {
 				nestedModel = (IDataModel) nestedModels.get(i);
-				nestedModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_NAME, propertyValue);
+				nestedModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, propertyValue);
 			}
 			nestedModels = (List) getProperty(UTILITY_MODELS_LIST);
 			for (int i = 0; i < nestedModels.size(); i++) {
@@ -491,7 +491,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			}
 			if (model != null) {
 				model.setProperty(FILE, temp);
-				model.setProperty(IJ2EEModuleImportDataModelProperties.EAR_NAME, earProjectName);
+				model.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, earProjectName);
 				model.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
 				model.setProperty(SERVER_TARGET_ID, getProperty(SERVER_TARGET_ID));
 				model.addListener(this);

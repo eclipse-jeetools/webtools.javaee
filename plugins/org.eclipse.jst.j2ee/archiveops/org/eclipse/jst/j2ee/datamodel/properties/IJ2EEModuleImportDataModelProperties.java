@@ -33,7 +33,7 @@ public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImpo
      * Optional, type String.  This property is nested from the J2EEComponentCreationDataModel and set only if user is attempting to add the component to an EAR.
      * Some J2EE components such as Web do not require an EAR.
      */
-    public static final String EAR_NAME = IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME;
+    public static final String EAR_COMPONENT_NAME = IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME;
     /**
      * Optional, type Boolean.  This property defaults to True, but changes if user wishs to import a component
      * without adding it to an EAR.
