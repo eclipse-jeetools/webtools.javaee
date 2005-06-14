@@ -81,15 +81,7 @@ public class ServerEarAndStandaloneGroup implements IJ2EEComponentCreationDataMo
 			gd.horizontalSpan = 2;
 			addToEAR.setLayoutData(gd);
 			synchHelper.synchCheckbox(addToEAR, ADD_TO_EAR, null);
-			addToEAR.addSelectionListener(new SelectionListener() {
-				public void widgetSelected(SelectionEvent e) {
-					handleAddToEarSelection();
-				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-					//do nothing
-				}
-			});
+			
 			// Create EAR Group
 			earLabel = new Label(parent, SWT.NONE);
 			earLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION));
@@ -114,16 +106,6 @@ public class ServerEarAndStandaloneGroup implements IJ2EEComponentCreationDataMo
 			Control[] deps = new Control[]{earLabel, newEAR};
 			synchHelper.synchCombo(earCombo, EAR_COMPONENT_NAME, deps);
 		}
-	}
-
-	/**
-	 *  
-	 */
-	protected void handleAddToEarSelection() {
-		boolean selection = addToEAR.getSelection();
-		earLabel.setEnabled(selection);
-		earCombo.setEnabled(selection);
-		newEAR.setEnabled(selection);
 	}
 
 	/**

@@ -26,7 +26,7 @@ public abstract class J2EEModuleImportDataModelProvider extends J2EEArtifactImpo
 
 
 	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{EAR_NAME, ADD_TO_EAR, EXTENDED_IMPORT_FACTORY});
+		return combineProperties(super.getPropertyNames(), new String[]{EXTENDED_IMPORT_FACTORY});
 	}
 
 	private int getModuleSpecVersion() {

@@ -10,8 +10,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
@@ -109,6 +109,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 					earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
 			}
 		} else if (propertyName.equals(ADD_TO_EAR)) {
+			model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.ENABLE_CHG);
 			model.notifyPropertyChange(NESTED_EAR_COMPONENT_CREATION_DM, IDataModel.DEFAULT_CHG);
 		} else if (propertyName.equals(COMPONENT_VERSION)) {
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
