@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
-import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -54,6 +53,6 @@ public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreatio
 	protected void createJavaEMFNature() throws CoreException {
 		JavaEMFNature.createRuntime(getProject());
 		JavaEMFNature nature = JavaEMFNature.getRuntime(getProject());
-		nature.primaryContributeToContext(WorkbenchResourceHelperBase.getEMFContext(getProject()));
+		nature.getResourceSet();
 	}
 }
