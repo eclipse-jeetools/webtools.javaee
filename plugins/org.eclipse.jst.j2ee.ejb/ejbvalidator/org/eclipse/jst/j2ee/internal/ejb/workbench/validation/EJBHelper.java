@@ -44,10 +44,14 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -57,11 +61,10 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBProjectResources;
 import org.eclipse.jst.j2ee.internal.validation.AWorkbenchMOFHelper;
 import org.eclipse.jst.j2ee.internal.validation.DependencyUtil;
@@ -71,6 +74,10 @@ import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.InvalidInputException;
 import org.eclipse.jst.j2ee.model.internal.validation.MessageUtility;
 import org.eclipse.jst.j2ee.model.internal.validation.ValidationRuleUtility;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
@@ -79,11 +86,13 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
  * Load the EJB MOF model and return resources for the EJB Validator.
  */
 public class EJBHelper extends AWorkbenchMOFHelper {
-	protected EJBProjectResources _projectResources = null;
+	//protected EJBProjectResources _projectResources = null;
 	private IJavaProject[] _dependentJavaProjects = null;
 	private IJavaProject[] _requiredJavaProjects = null;
 	private IJavaProject _javaProject = null; // this IProject, as an
 	// IJavaProject
+	
+	private ComponentHandle componentHandle = null;
 	private Set _tempSet = null;
 	private Map _projectMap = null; // Key is IJavaProject instance, value is
 	// either IJavaMOFNature (for non-EJB
@@ -148,10 +157,10 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * If the cleanup is a long-running operation, subtask messages should be sent to the IReporter.
 	 */
 	public void cleanup(WorkbenchReporter reporter) {
-		if (_projectResources != null) {
-			_projectResources.cleanup();
-			_projectResources = null;
-		}
+//		if (_projectResources != null) {
+//			_projectResources.cleanup();
+//			_projectResources = null;
+//		}
 		if (_projectMap != null) {
 			Iterator iterator = _projectMap.values().iterator();
 			while (iterator.hasNext()) {
@@ -301,7 +310,9 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		if (uri == null) {
 			return null;
 		}
-		IFile file = getProjectResources().getEJBNature().getFile(uri);
+		//ToDo:revisit this
+		IFile file = null;
+		//IFile file = getProjectResources().getEJBNature().getFile(uri);
 		if ((file == null) || (!file.exists())) {
 			return null;
 		}
@@ -320,14 +331,16 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		}
 		// First check this project for beans
 		Set tempSet = getTempSet();
-		addBeans(clazz, getProjectResources(), tempSet);
-		// And then check all projects which depend on this one
-		for (int i = 0; i < _dependentJavaProjects.length; i++) {
-			Object value = _projectMap.get(_dependentJavaProjects[i]);
-			if (value instanceof EJBProjectResources) {
-				addBeans(clazz, (EJBProjectResources) value, tempSet);
-			}
-		}
+		
+//		ToDO: fix  this
+//		addBeans(clazz, getProjectResources(), tempSet);
+//		// And then check all projects which depend on this one
+//		for (int i = 0; i < _dependentJavaProjects.length; i++) {
+//			Object value = _projectMap.get(_dependentJavaProjects[i]);
+//			if (value instanceof EJBProjectResources) {
+//				addBeans(clazz, (EJBProjectResources) value, tempSet);
+//			}
+//		}
 		List list = new ArrayList();
 		list.addAll(tempSet);
 		return list;
@@ -522,14 +535,43 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * Load the EJB MOF model.
 	 */
 	public EObject loadEjbFile() {
-		return _projectResources.getEJBFile();
+		if( getComponentHandle()!= null ){
+			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			
+			try {
+				return  ((EJBArtifactEdit) edit).asArchive(false);
+			} catch (OpenFailureException e1) {
+				Logger.getLogger().log(e1);
+			}finally {
+				if (edit != null) {
+					edit.dispose();
+				}
+			}
+		}
+		return null;		
 	}
 
 	/**
 	 * Load the EJB MOF model.
 	 */
 	public EObject loadEjbModel() {
-		return _projectResources.getEJBJar();
+		if( getComponentHandle()!= null ){
+			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			
+			try {
+				Archive archive = ((EJBArtifactEdit) edit).asArchive(false);
+				return ((EJBJarFileImpl)archive).getDeploymentDescriptor();
+			} catch (OpenFailureException e1) {
+				Logger.getLogger().log(e1);
+			}finally {
+				if (edit != null) {
+					edit.dispose();
+				}
+			}
+		}
+		return null;		
 	}
 
 	/**
@@ -539,21 +581,24 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * that the helper does not support this symbolic model.
 	 */
 	public Boolean loadClientJAR(String clientJARName) {
-		EJBProjectResources res = getProjectResources();
-		EJBNatureRuntime nature = res.getEJBNature();
-		if (nature != null) {
-			IProject project = nature.getDefinedEJBClientJARProject();
-			if (project == null) {
-				EARNatureRuntime[] earNatures = nature.getReferencingEARProjects();
-				for (int i = 0; i < earNatures.length; i++) {
-					EARNatureRuntime earNature = earNatures[i];
-					IFile file = earNature.getFile(clientJARName);
-					if (file == null)
-						return Boolean.FALSE;
-				}
-			} else if (!project.isAccessible())
-				return Boolean.FALSE;
-		}
+		//ToDO: fix  this
+		
+//		EJBProjectResources res = getProjectResources();
+//		EJBNatureRuntime nature = res.getEJBNature();
+//		if (nature != null) {
+//			IProject project = nature.getDefinedEJBClientJARProject();
+//			if (project == null) {
+//				EARNatureRuntime[] earNatures = nature.getReferencingEARProjects();
+//				for (int i = 0; i < earNatures.length; i++) {
+//					EARNatureRuntime earNature = earNatures[i];
+//					IFile file = earNature.getFile(clientJARName);
+//					if (file == null)
+//						return Boolean.FALSE;
+//				}
+//			} else if (!project.isAccessible())
+//				return Boolean.FALSE;
+//		}
+//		return Boolean.TRUE;
 		return Boolean.TRUE;
 	}
 
@@ -591,18 +636,18 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		// was run with this project, then _projectResources will be null,
 		// because cleanup(WorkbenchReporter) is called after validation
 		// completes.
-		if (_projectResources != null) {
-			cleanup(null);
-		}
-		_projectResources = new EJBProjectResources(getProject());
+//		if (_projectResources != null) {
+//			cleanup(null);
+//		}
+//		_projectResources = new EJBProjectResources(getProject());
 		// Now build the cache of IJavaProjects which depend on this IProject.
 		_javaProject = JavaCore.create(getProject());
 		_dependentJavaProjects = DependencyUtil.getDependentJavaProjects(_javaProject);
 	}
 
-	protected EJBProjectResources getProjectResources() {
-		return _projectResources;
-	}
+//	protected EJBProjectResources getProjectResources() {
+//		return _projectResources;
+//	}
 
 	// Can't assume that the JavaClass is in this project, so load its IType,
 	// and retrieve the IJavaProject
@@ -621,7 +666,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 
 	protected JavaHelpers getJavaClass(IType type) {
 		try {
-			ResourceSet resourceSet = getResourceSet();
+			ResourceSet resourceSet = getJEMResourceSet();
 			if (resourceSet == null) {
 				return null;
 			}
@@ -658,7 +703,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	// project, so
 	// it's worth
 	// the overhead to keep a cache.
-	protected ResourceSet getResourceSet() {
+	protected ResourceSet getJEMResourceSet() {
 		JavaEMFNature nature = JavaEMFNature.getRuntime(getProject());
 		if (nature == null) {
 			return null;
@@ -734,5 +779,13 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		}
 		// else there's nothing to remove, so just return without doing
 		// anything
+	}
+
+	public ComponentHandle getComponentHandle() {
+		return componentHandle;
+	}
+
+	public void setComponentHandle(ComponentHandle componentHandle) {
+		this.componentHandle = componentHandle;
 	}
 }
