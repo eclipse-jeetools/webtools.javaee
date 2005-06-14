@@ -45,15 +45,7 @@ public class FlexibleProjectServerUtil {
 	}
 
 	public static IJ2EEModule getModuleDelegate(Module module) {
-		ModuleFactory[] factories = ServerPlugin.getModuleFactories();
-		for (int i = 0; i < factories.length; i++) {
-			if (factories[i].getDelegate() == null)
-				continue;
-			ModuleDelegate moduleDel = factories[i].getDelegate().getModuleDelegate(module);
-			if (moduleDel != null)
-				return (IJ2EEModule) moduleDel;
-		}
-		return null;
+		return (IJ2EEModule) module.loadAdapter(IJ2EEModule.class, null);
 	}
 
 	public static IModule getModule(WorkbenchComponent component) {
