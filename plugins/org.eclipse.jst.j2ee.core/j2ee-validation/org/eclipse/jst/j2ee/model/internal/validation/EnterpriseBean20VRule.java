@@ -163,7 +163,10 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 		try {
 			// Check if the bean parts are reflected. Some rules can be validated
 			// whether or not the bean is reflected.
-			boolean reflected = validateBeanComponentsReflected(vc, ejbJar, bean);
+			
+			//Todo: remaining work here
+			boolean reflected = false;
+			//boolean reflected = validateBeanComponentsReflected(vc, ejbJar, bean);
 
 			// These rules can be validated whether or not the bean is reflected.
 			validateEJBNameElement(vc, ejbJar, bean);
