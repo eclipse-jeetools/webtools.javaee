@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleImportOperationNew;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
@@ -32,7 +33,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  * 
  * @since WTP 1.0
  */
-public final class EJBModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IEJBComponentImportDataModelProperties{
+public final class EJBModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IEJBComponentImportDataModelProperties {
 
 	protected int getType() {
 		return XMLResource.EJB_TYPE;
@@ -67,6 +68,8 @@ public final class EJBModuleImportDataModelProvider extends J2EEModuleImportData
 	}
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
-		return DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
+		IDataModel ejbCreationDM = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
+		ejbCreationDM.setBooleanProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, false);
+		return ejbCreationDM;
 	}
 }
