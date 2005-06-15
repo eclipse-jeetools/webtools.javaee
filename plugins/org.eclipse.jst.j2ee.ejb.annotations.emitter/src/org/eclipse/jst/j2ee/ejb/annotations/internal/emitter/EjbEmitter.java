@@ -8,6 +8,7 @@
  **************************************************************************************************/
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter;
+
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
@@ -29,7 +30,9 @@ public abstract class EjbEmitter {
 	protected IEmitterClasspathProvider classpathProvider;
 	protected String base;
 	protected IProgressMonitor monitor;
-	public EjbEmitter(IConfigurationElement emitterConfig) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException {
+
+	public EjbEmitter(IConfigurationElement emitterConfig) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException {
 		this.emitterConfig = emitterConfig;
 		String pluginDescriptor = emitterConfig.getDeclaringExtension().getNamespace();
 
@@ -41,10 +44,19 @@ public abstract class EjbEmitter {
 		IProgressMonitor monitor = new NullProgressMonitor();
 		project.delete(true, true, monitor);
 	}
-	public abstract String emitTypeComment(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
-	public abstract String emitTypeStub(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
-	public abstract String emitInterfaceMethods(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
-	public abstract String emitFields(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException, IllegalAccessException, CoreException;
+
+	public abstract String emitTypeComment(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+
+	public abstract String emitTypeStub(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+
+	public abstract String emitInterfaceMethods(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+
+	public abstract String emitFields(IEnterpriseBean enterpriseBean) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+
 	/**
 	 * @param uri
 	 * @return
@@ -62,14 +74,16 @@ public abstract class EjbEmitter {
 		}
 		return emitter;
 	}
+
 	public String generate(String templatesBase, String template, IEnterpriseBean enterpriseBean) throws CoreException {
 		String uri = base + templatesBase + template;
 		String result = "";
 		IProgressMonitor aMonitor = this.getMonitor();
 		WTPJETEmitter emitter = createJetEmitter(uri);
-		result = emitter.generate(aMonitor, new Object[]{enterpriseBean});
+		result = emitter.generate(aMonitor, new Object[] { enterpriseBean });
 		return result;
 	}
+
 	/**
 	 * @return Returns the monitor.
 	 */
@@ -77,36 +91,51 @@ public abstract class EjbEmitter {
 		if (monitor == null) {
 			monitor = new IProgressMonitor() {
 				private boolean cancelled = false;
+
 				public void beginTask(String name, int totalWork) {
 					System.out.println(this.getClass() + " Progress (" + totalWork + "): " + name);
 				}
+
 				public void done() {
 				}
+
 				public void internalWorked(double work) {
 				}
+
 				public boolean isCanceled() {
 					return cancelled;
 				}
+
 				public void setCanceled(boolean value) {
 					cancelled = value;
 				}
+
 				public void setTaskName(String name) {
 					System.out.println(this.getClass() + " Progress Task(" + name + "): ");
 				}
+
 				public void subTask(String name) {
 					System.out.println(this.getClass() + " Progress SubTask(" + name + "): ");
 				}
+
 				public void worked(int work) {
 				}
 			};
 		}
 		return monitor;
 	}
+
 	/**
 	 * @param monitor
 	 *            The monitor to set.
 	 */
 	public void setMonitor(IProgressMonitor monitor) {
 		this.monitor = monitor;
+	}
+
+	public void deleteProject() throws CoreException {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(EJBEMITTERPROJECT);
+		IProgressMonitor monitor = new NullProgressMonitor();
+		project.delete(true, true, monitor);
 	}
 }
