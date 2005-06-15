@@ -11,14 +11,12 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 
+import org.eclipse.core.commands.Command;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 
 
 /**
@@ -27,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
  * @author: Administrator
  */
 public abstract class ModuleInEARProjectCommand extends AbstractCommand {
-	protected EAREditModel editModel;
+	protected EARArtifactEdit earArtifactEdit;
 	protected IProject earProject;
 	protected IProject nestedJ2EEProject;
 	protected String moduleUri;
@@ -40,8 +38,9 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 	/**
 	 * AddModuleToEARProjectCommand constructor comment.
 	 */
-	protected ModuleInEARProjectCommand() {
+	protected ModuleInEARProjectCommand(EARArtifactEdit earArtifactEdit) {
 		super();
+		this.earArtifactEdit = earArtifactEdit;
 	}
 
 	/**
@@ -81,28 +80,28 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 			return;
 		}
 		Module m = dd.getFirstModule(moduleUri);
-		if (m == null) {
-			J2EEModuleNature j2eeNature = (J2EEModuleNature) J2EENature.getRegisteredRuntime(getNestedJ2EEProject());
-			m = j2eeNature.createNewModule();
-
-			if (m == null)
-				return;
-			m.setUri(moduleUri);
-			m.setAltDD(moduleAltDD);
-			if (m instanceof WebModule) {
-				((WebModule) m).setContextRoot(moduleContextRoot);
-			}
-			dd.getModules().add(m);
-		}
+//		if (m == null) {
+//			J2EEModuleNature j2eeNature = (J2EEModuleNature) J2EENature.getRegisteredRuntime(getNestedJ2EEProject());
+//			m = j2eeNature.createNewModule();
+//
+//			if (m == null)
+//				return;
+//			m.setUri(moduleUri);
+//			m.setAltDD(moduleAltDD);
+//			if (m instanceof WebModule) {
+//				((WebModule) m).setContextRoot(moduleContextRoot);
+//			}
+//			dd.getModules().add(m);
+//		}
 		setModule(m);
 	}
 
-	protected void addModuleMapping() {
-		if (module != null) {
-			ModuleMapping map = editModel.addModuleMapping(module, getNestedJ2EEProject());
-			mapSuccessful = (map != null);
-		}
-	}
+//	protected void addModuleMapping() {
+//		if (module != null) {
+//			ModuleMapping map = editModel.addModuleMapping(module, getNestedJ2EEProject());
+//			mapSuccessful = (map != null);
+//		}
+//	}
 
 	public void dispose() {
 		setNestedJ2EEProject(null);
@@ -113,20 +112,20 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 	 * @see Command
 	 */
 	public void execute() {
-		try {
-			setupEditModel();
-			if (editModel != null) {
+//		try {
+//			setupEditModel();
+//			if (editModel != null) {
 				primExecute();
-				editModel.saveIfNecessary(this);
-			} else
-				moduleSuccessful = false;
-		} finally {
-			releaseEditModel();
-		}
+//				editModel.saveIfNecessary(this);
+//			} else
+//				moduleSuccessful = false;
+//		} finally {
+//			releaseEditModel();
+//		}
 	}
 
 	protected Application getApplication() {
-		return editModel.getApplication();
+		return earArtifactEdit.getApplication();
 	}
 
 	/**
@@ -206,24 +205,24 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 		execute();
 	}
 
-	protected void releaseEditModel() {
-		if (editModel != null) {
-			editModel.releaseAccess(this);
-			editModel = null;
-		}
-	}
+//	protected void releaseEditModel() {
+//		if (editModel != null) {
+//			editModel.releaseAccess(this);
+//			editModel = null;
+//		}
+//	}
 
 	protected void removeModule() {
 		getApplication().getModules().remove(getModule());
 	}
 
-	protected void removeModuleMapping() {
-
-		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping map = editModel.getModuleMapping(module);
-		if (map != null)
-			editModel.getModuleMappings().remove(map);
-
-	}
+//	protected void removeModuleMapping() {
+//
+//		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping map = editModel.getModuleMapping(module);
+//		if (map != null)
+//			editModel.getModuleMappings().remove(map);
+//
+//	}
 
 	/**
 	 * Insert the method's description here. Creation date: (03/29/01 5:34:26 PM)
@@ -285,21 +284,21 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 		nestedJ2EEProject = newNestedJ2EEProject;
 	}
 
-	protected void setupEditModel() {
-		EARNatureRuntime nature = getNature();
-		if (nature != null)
-			editModel = nature.getEarEditModelForWrite(this);
-		else
-			editModel = null; // arived here with a valid project, but not an EAR nature.
-	}
+//	protected void setupEditModel() {
+//		EARNatureRuntime nature = getNature();
+//		if (nature != null)
+//			editModel = nature.getEarEditModelForWrite(this);
+//		else
+//			editModel = null; // arived here with a valid project, but not an EAR nature.
+//	}
 
 	public void undo() {
-		try {
-			setupEditModel();
+//		try {
+//			setupEditModel();
 			primUndo();
-			editModel.saveIfNecessary(this);
-		} finally {
-			releaseEditModel();
-		}
+//			editModel.saveIfNecessary(this);
+//		} finally {
+//			releaseEditModel();
+//		}
 	}
 }

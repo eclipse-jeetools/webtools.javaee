@@ -13,10 +13,9 @@ package org.eclipse.jst.j2ee.internal.earcreation;
 
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 
 
 /**
@@ -25,8 +24,9 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
  * @author: Administrator
  */
 public class RemoveModuleFromEARProjectCommand extends ModuleInEARProjectCommand {
-	public RemoveModuleFromEARProjectCommand(Module module, IProject anEarProject) {
-		super();
+	public RemoveModuleFromEARProjectCommand(EARArtifactEdit earArtifactEdit, 
+			Module module, IProject anEarProject) {
+		super(earArtifactEdit);
 		setEarProject(anEarProject);
 		setModuleUri(module.getUri());
 		setModuleAltDD(module.getAltDD());
@@ -34,7 +34,7 @@ public class RemoveModuleFromEARProjectCommand extends ModuleInEARProjectCommand
 	}
 
 	public boolean canExecute() {
-		return super.canExecute() && EARNatureRuntime.getRuntime(getEarProject()) != null;
+		return super.canExecute();
 	}
 
 	protected void primExecute() {
@@ -42,13 +42,13 @@ public class RemoveModuleFromEARProjectCommand extends ModuleInEARProjectCommand
 		refreshModule();
 		// Set up nestedJ2EEProject before the map removed
 		// It is needed for undo remove
-		if (editModel != null) {
-			ModuleMapping map = editModel.getModuleMapping(module);
-			if (map != null)
-				setNestedJ2EEProject(ResourcesPlugin.getWorkspace().getRoot().getProject(map.getProjectName()));
-		}
-		removeModuleMapping();
-		if (mapSuccessful)
+//		if (editModel != null) {
+//			ModuleMapping map = editModel.getModuleMapping(module);
+//			if (map != null)
+//				setNestedJ2EEProject(ResourcesPlugin.getWorkspace().getRoot().getProject(map.getProjectName()));
+//		}
+//		removeModuleMapping();
+//		if (mapSuccessful)
 			removeModule();
 	}
 
@@ -69,10 +69,10 @@ public class RemoveModuleFromEARProjectCommand extends ModuleInEARProjectCommand
 			addModule();
 			moduleSuccessful = false;
 		}
-		if (mapSuccessful) {
-			addModuleMapping();
-			mapSuccessful = false;
-		}
+//		if (mapSuccessful) {
+//			addModuleMapping();
+//			mapSuccessful = false;
+//		}
 	}
 
 	protected void removeModule() {
@@ -81,10 +81,10 @@ public class RemoveModuleFromEARProjectCommand extends ModuleInEARProjectCommand
 		moduleSuccessful = true;
 	}
 
-	protected void removeModuleMapping() {
-		super.removeModuleMapping();
-		mapSuccessful = true;
-	}
+//	protected void removeModuleMapping() {
+//		super.removeModuleMapping();
+//		mapSuccessful = true;
+//	}
 
 	// override
 	public String getLabel() {
