@@ -38,6 +38,13 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 	/**
 	 * AddModuleToEARProjectCommand constructor comment.
 	 */
+	protected ModuleInEARProjectCommand() {
+		super();
+	}
+
+	/**
+	 * AddModuleToEARProjectCommand constructor comment.
+	 */
 	protected ModuleInEARProjectCommand(EARArtifactEdit earArtifactEdit) {
 		super();
 		this.earArtifactEdit = earArtifactEdit;
@@ -96,12 +103,12 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 		setModule(m);
 	}
 
-//	protected void addModuleMapping() {
+	protected void addModuleMapping() {
 //		if (module != null) {
 //			ModuleMapping map = editModel.addModuleMapping(module, getNestedJ2EEProject());
 //			mapSuccessful = (map != null);
 //		}
-//	}
+	}
 
 	public void dispose() {
 		setNestedJ2EEProject(null);
@@ -216,13 +223,13 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 		getApplication().getModules().remove(getModule());
 	}
 
-//	protected void removeModuleMapping() {
+	protected void removeModuleMapping() {
 //
 //		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping map = editModel.getModuleMapping(module);
 //		if (map != null)
 //			editModel.getModuleMappings().remove(map);
 //
-//	}
+	}
 
 	/**
 	 * Insert the method's description here. Creation date: (03/29/01 5:34:26 PM)

@@ -24,6 +24,13 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
  * @author: Administrator
  */
 public class RemoveModuleFromEARProjectCommand extends ModuleInEARProjectCommand {
+	public RemoveModuleFromEARProjectCommand(Module module, IProject anEarProject) {
+		super();
+		setEarProject(anEarProject);
+		setModuleUri(module.getUri());
+		setModuleAltDD(module.getAltDD());
+		setModule(module);
+	}
 	public RemoveModuleFromEARProjectCommand(EARArtifactEdit earArtifactEdit, 
 			Module module, IProject anEarProject) {
 		super(earArtifactEdit);
