@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -247,7 +247,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
 	public IDataModel createImportDataModel() {
-		return DataModelFactory.createDataModel(new WebModuleImportDataModelProvider());
+		return DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
 	}
 
 	public String getNatureID() {

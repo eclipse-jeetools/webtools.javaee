@@ -8,11 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 5, 2003
- * 
- * To change the template for this generated file go to Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
@@ -45,11 +40,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
 
-public class WebModuleImportOperationNew extends J2EEArtifactImportOperationNew {
+public class WebComponentImportOperation extends J2EEArtifactImportOperationNew {
 	/**
 	 * @param model
 	 */
-	public WebModuleImportOperationNew(IDataModel model) {
+	public WebComponentImportOperation(IDataModel model) {
 		super(model);
 	}
 

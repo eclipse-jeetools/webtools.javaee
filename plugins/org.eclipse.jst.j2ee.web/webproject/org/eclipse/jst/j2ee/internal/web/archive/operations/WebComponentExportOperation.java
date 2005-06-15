@@ -21,13 +21,13 @@ import org.eclipse.jst.j2ee.internal.archive.operations.AppClientArchiveOpsResou
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperationNEW;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class WebModuleExportOperationNEW extends J2EEArtifactExportOperationNEW {
+public class WebComponentExportOperation extends J2EEArtifactExportOperationNEW {
 
-	public WebModuleExportOperationNEW() {
+	public WebComponentExportOperation() {
 		super();
 	}
 
-	public WebModuleExportOperationNEW(IDataModel model) {
+	public WebComponentExportOperation(IDataModel model) {
 		super(model);
 	}
 

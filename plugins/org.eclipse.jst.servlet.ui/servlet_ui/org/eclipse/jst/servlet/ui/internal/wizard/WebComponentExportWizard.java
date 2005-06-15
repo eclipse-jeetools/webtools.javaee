@@ -12,7 +12,7 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -25,7 +25,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * Archive *.war file.  
  * </p>
  */
-public final class WebModuleExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
+public final class WebComponentExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
 
 	/**
 	 * <p>
@@ -34,7 +34,7 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * operation will be created as needed.
 	 * </p>
 	 */
-	public WebModuleExportWizard() {
+	public WebComponentExportWizard() {
 		super();
 	}
 	
@@ -45,23 +45,23 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public WebModuleExportWizard(IDataModel model) {
+	public WebComponentExportWizard(IDataModel model) {
 		super(model);
 	}
     
     protected IDataModelProvider getDefaultProvider() {
-        return new WebModuleExportDataModelProvider();
+        return new WebComponentExportDataModelProvider();
     }
 	/**
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * 	<li> {@link WARExportPage} as the main wizard page ({@link #MAIN_PG}) 
+	 * 	<li> {@link WebComponentExportPage} as the main wizard page ({@link #MAIN_PG}) 
 	 * </ul>
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new WARExportPage(getDataModel(), MAIN_PG, getSelection()));
+		addPage(new WebComponentExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
 
 	/**

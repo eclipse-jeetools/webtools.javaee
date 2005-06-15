@@ -71,8 +71,8 @@
     <wizard
             name="%WarImportWizard.name"
             icon="icons/full/ctool16/importwar_wiz.gif"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizardNew"
-            id="org.eclipse.jst.servlet.ui.WebModuleImportWizardNew">
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard"
+            id="org.eclipse.jst.servlet.ui.WebComponentImportWizard">
          <description>
             %WarImportWizard.description
          </description>
@@ -88,8 +88,8 @@
     <wizard
             name="%WarexportWizard.name"
             icon="icons/full/ctool16/exportwar_wiz.gif"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleExportWizard"
-            id="org.eclipse.jst.servlet.ui.WebModuleExportWizard">
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard"
+            id="org.eclipse.jst.servlet.ui.WebComponentExportWizard">
          <description>
             %WarexportWizard.description
          </description>

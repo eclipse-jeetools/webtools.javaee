@@ -34,7 +34,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * @since WTP 1.0
  */
-public final class WebModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IWebComponentImportDataModelProperties {
+public final class WebComponentImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IWebComponentImportDataModelProperties {
 
 	public String[] getPropertyNames() {
 		return combineProperties(super.getPropertyNames(), new String[]{WEB_LIB_MODELS, WEB_LIB_ARCHIVES_SELECTED});
@@ -88,7 +88,7 @@ public final class WebModuleImportDataModelProvider extends J2EEModuleImportData
 	}
 
 	public IDataModelOperation getDefaultOperation() {
-		return new WebModuleImportOperationNew(model);
+		return new WebComponentImportOperation(model);
 	}
 
 }

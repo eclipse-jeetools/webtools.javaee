@@ -13,7 +13,7 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportWizardNew;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -24,7 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * existing Web Application *.war file.
  * </p>
  */
-public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
+public final class WebComponentImportWizard extends J2EEModuleImportWizardNew {
 
 	protected static final String WEB_LIBS_PG = "WEB_LIBS_PG";
 	
@@ -34,7 +34,7 @@ public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public WebModuleImportWizardNew() {
+	public WebComponentImportWizard() {
 		super();
 	}
 
@@ -47,7 +47,7 @@ public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public WebModuleImportWizardNew(IDataModel model) {
+	public WebComponentImportWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -57,8 +57,8 @@ public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new WARImportPageNew(getDataModel(), MAIN_PG));
-		addPage(new WARImportWebLibsPage(getDataModel(), MAIN_PG));
+		addPage(new WebComponentImportPage(getDataModel(), MAIN_PG));
+		addPage(new WebComponentImportWebLibsPage(getDataModel(), MAIN_PG));
 	}
 
 	/**
@@ -87,7 +87,7 @@ public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
 	// }
 
 	protected IDataModelProvider getDefaultProvider() {
-		return new WebModuleImportDataModelProvider();
+		return new WebComponentImportDataModelProvider();
 	}
 
 

@@ -24,8 +24,8 @@ import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWiz
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizardNew;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard;
-import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleExportWizard;
-import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizardNew;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public interface IJ2EEWizardConstants {
 
 	String IMPORT_ENTERPRISE_BEAN_WIZARD_ID = EJBModuleImportWizardNew.class.getName();
 
-	String IMPORT_WEB_MODULE_WIZARD_ID = WebModuleImportWizardNew.class.getName();
+	String IMPORT_WEB_MODULE_WIZARD_ID = WebComponentImportWizard.class.getName();
 
 	String IMPORT_UTILITY_JAR_WIZARD_ID = J2EEUtilityJarImportWizardNew.class.getName();
 
@@ -70,5 +70,5 @@ public interface IJ2EEWizardConstants {
 
 	String EXPORT_ENTERPRISE_BEAN_WIZARD_ID = EJBModuleExportWizard.class.getName();
 
-	String EXPORT_WEB_MODULE_WIZARD_ID = WebModuleExportWizard.class.getName();
+	String EXPORT_WEB_MODULE_WIZARD_ID = WebComponentExportWizard.class.getName();
 }

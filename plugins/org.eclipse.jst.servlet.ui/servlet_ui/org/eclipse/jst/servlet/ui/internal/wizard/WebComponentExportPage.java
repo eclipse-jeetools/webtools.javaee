@@ -8,12 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 3, 2003
- *
- * To change the template for this generated file go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -24,19 +18,12 @@ import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-
-/**
- * @author cbridgha
- * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
- */
-public class WARExportPage extends J2EEModuleExportPage {
+public class WebComponentExportPage extends J2EEModuleExportPage {
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public WARExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
+	public WebComponentExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_EXPORT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_EXPORT_MAIN_PG_DESC));

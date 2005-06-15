@@ -30,12 +30,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class WARImportPageNew extends J2EEModuleImportPageNew {
+public class WebComponentImportPage extends J2EEModuleImportPageNew {
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public WARImportPageNew(IDataModel model, String pageName) {
+	public WebComponentImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_MAIN_PG_DESC));

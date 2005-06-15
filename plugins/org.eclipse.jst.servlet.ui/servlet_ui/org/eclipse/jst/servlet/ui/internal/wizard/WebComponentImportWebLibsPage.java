@@ -8,11 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 8, 2003
- * 
- * To change the template for this generated file go to Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import java.util.ArrayList;
@@ -48,7 +43,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class WARImportWebLibsPage extends J2EEImportPageNew {
+public class WebComponentImportWebLibsPage extends J2EEImportPageNew {
 	private Button deselectAllButton;
 	private Button selectAllButton;
 	protected WARFile warFile;
@@ -59,7 +54,7 @@ public class WARImportWebLibsPage extends J2EEImportPageNew {
 	 * @param model
 	 * @param pageName
 	 */
-	public WARImportWebLibsPage(IDataModel model, String pageName) {
+	public WebComponentImportWebLibsPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_DESC));

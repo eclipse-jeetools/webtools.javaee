@@ -16,14 +16,14 @@ import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentExportDataMode
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class WebModuleExportDataModelProvider extends J2EEModuleExportDataModelProvider implements IWebComponentExportDataModelProperties {
+public class WebComponentExportDataModelProvider extends J2EEModuleExportDataModelProvider implements IWebComponentExportDataModelProperties {
 
-    public WebModuleExportDataModelProvider() {
+    public WebComponentExportDataModelProvider() {
         super();
     }
     
     public IDataModelOperation getDefaultOperation() {
-        return new WebModuleExportOperationNEW(model);
+        return new WebComponentExportOperation(model);
     }
     
     public String[] getPropertyNames() {
