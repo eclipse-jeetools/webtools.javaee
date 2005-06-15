@@ -14,7 +14,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -44,7 +44,7 @@ public class WebImportOperationTest extends ModuleImportOperationTestCase {
 	}
 
 	protected IDataModel getModelInstance() {
-		return DataModelFactory.createDataModel(new WebModuleImportDataModelProvider());
+		return DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
 	}
 
 }

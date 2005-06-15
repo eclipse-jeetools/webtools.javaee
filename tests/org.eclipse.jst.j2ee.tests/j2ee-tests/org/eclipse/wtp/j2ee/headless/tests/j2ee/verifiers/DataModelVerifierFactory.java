@@ -8,12 +8,7 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
 import java.util.Map;
 
-import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
-import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBExportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.jca.verifiers.JCAExportDataModelVerifier;
-import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebExportDataModelVerifier;
 
 /**
  * @author Administrator
@@ -39,10 +34,10 @@ public class DataModelVerifierFactory extends org.eclipse.wst.common.tests.DataM
 			//verifierMap.put(WebModuleImportDataModel.class.getName(), WebImportDataModelVerifier.class.getName());
 			//verifierMap.put(AppClientModuleImportDataModel.class.getName(), AppClientImportDataModelVerifier.class.getName());
 			
-			verifierMap.put(EJBModuleExportDataModel.class.getName(), EJBExportDataModelVerifier.class.getName());
+//			verifierMap.put(EJBModuleExportDataModel.class.getName(), EJBExportDataModelVerifier.class.getName());
 			verifierMap.put(JCAExportDataModelVerifier.class.getName(), JCAExportDataModelVerifier.class.getName());
-			verifierMap.put(WebModuleExportDataModel.class.getName(), WebExportDataModelVerifier.class.getName());
-			verifierMap.put(AppClientModuleExportDataModel.class.getName(), AppClientExportDataModelVerifier.class.getName());
+//			verifierMap.put(WebModuleExportDataModel.class.getName(), WebExportDataModelVerifier.class.getName());
+//			verifierMap.put(AppClientModuleExportDataModel.class.getName(), AppClientExportDataModelVerifier.class.getName());
 //TODO: add verifiers for new IDataModels			
 //			verifierMap.put(WebComponentCreationDataModel.class.getName(), WebProjectCreationDataModelVerifier.class.getName());
 //			verifierMap.put(EARComponentCreationDataModel.class.getName(), EARProjectCreationDataModelVerifier.class.getName());

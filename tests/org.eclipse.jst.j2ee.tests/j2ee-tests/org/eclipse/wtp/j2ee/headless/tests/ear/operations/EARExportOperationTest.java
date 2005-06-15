@@ -9,7 +9,6 @@ package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 import junit.framework.Test;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -35,21 +34,21 @@ public class EARExportOperationTest extends OperationTestCase {
     }
 
     public static void exportEARProject(String projectName, IPath exportPath, boolean exportSource) throws Exception {
-    	EnterpriseApplicationExportDataModel model = new EnterpriseApplicationExportDataModel();
-        model.setProperty(EnterpriseApplicationExportDataModel.PROJECT_NAME, projectName);
-        model.setProperty(EnterpriseApplicationExportDataModel.ARCHIVE_DESTINATION, exportPath.toOSString());
-        model.setBooleanProperty(EnterpriseApplicationExportDataModel.EXPORT_SOURCE_FILES, exportSource);
-        runAndVerify(model);
+//    	EnterpriseApplicationExportDataModel model = new EnterpriseApplicationExportDataModel();
+//        model.setProperty(EnterpriseApplicationExportDataModel.PROJECT_NAME, projectName);
+//        model.setProperty(EnterpriseApplicationExportDataModel.ARCHIVE_DESTINATION, exportPath.toOSString());
+//        model.setBooleanProperty(EnterpriseApplicationExportDataModel.EXPORT_SOURCE_FILES, exportSource);
+//        runAndVerify(model);
     }
 
     public static void exportEARProjectWithMetaData(String projectName, IPath exportPath, boolean exportSource) throws Exception {
-    	EnterpriseApplicationExportDataModel model = new EnterpriseApplicationExportDataModel();
-        model.setProperty(EnterpriseApplicationExportDataModel.PROJECT_NAME, projectName);
-        model.setProperty(EnterpriseApplicationExportDataModel.ARCHIVE_DESTINATION, exportPath.toOSString());
-        model.setBooleanProperty(EnterpriseApplicationExportDataModel.EXPORT_SOURCE_FILES, exportSource);
-        model.setBooleanProperty(EnterpriseApplicationExportDataModel.OVERWRITE_EXISTING, true);
-        model.setBooleanProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, true);
-        runAndVerify(model);
+//    	EnterpriseApplicationExportDataModel model = new EnterpriseApplicationExportDataModel();
+//        model.setProperty(EnterpriseApplicationExportDataModel.PROJECT_NAME, projectName);
+//        model.setProperty(EnterpriseApplicationExportDataModel.ARCHIVE_DESTINATION, exportPath.toOSString());
+//        model.setBooleanProperty(EnterpriseApplicationExportDataModel.EXPORT_SOURCE_FILES, exportSource);
+//        model.setBooleanProperty(EnterpriseApplicationExportDataModel.OVERWRITE_EXISTING, true);
+//        model.setBooleanProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, true);
+//        runAndVerify(model);
     }
 
     public void testEAR12Export() throws Exception {
