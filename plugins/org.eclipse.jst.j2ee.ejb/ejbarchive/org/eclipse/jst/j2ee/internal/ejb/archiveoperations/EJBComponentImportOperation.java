@@ -18,13 +18,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBComponentSaveStrategyImpl;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperationNew;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EJBModuleImportOperationNew extends J2EEArtifactImportOperationNew {
+public class EJBComponentImportOperation extends J2EEArtifactImportOperation {
 
-	public EJBModuleImportOperationNew(IDataModel dataModel) {
+	public EJBComponentImportOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 

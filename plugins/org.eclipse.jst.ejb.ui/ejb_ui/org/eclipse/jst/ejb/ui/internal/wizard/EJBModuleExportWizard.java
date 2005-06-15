@@ -10,7 +10,7 @@
  *******************************************************************************/ 
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
@@ -50,7 +50,7 @@ public final class EJBModuleExportWizard extends J2EEArtifactExportWizard implem
 	}
 
     protected IDataModelProvider getDefaultProvider() {
-        return new EJBModuleExportDataModelProvider();
+        return new EJBComponentExportDataModelProvider();
     }
 	/**
 	 * <p>

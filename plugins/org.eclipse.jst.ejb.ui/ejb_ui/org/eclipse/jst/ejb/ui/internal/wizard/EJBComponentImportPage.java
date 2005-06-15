@@ -8,12 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 3, 2003
- *
- * To change the template for this generated file go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
@@ -21,7 +15,7 @@ import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPageNew;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -32,12 +26,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EJBImportPageNew extends J2EEModuleImportPageNew {
+public class EJBComponentImportPage extends J2EEModuleImportPage {
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBImportPageNew(IDataModel model, String pageName) {
+	public EJBComponentImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_IMPORT_MAIN_PG_TITLE));
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_IMPORT_MAIN_PG_DESC));

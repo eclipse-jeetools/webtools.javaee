@@ -11,20 +11,20 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleExportOperationNEW;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentExportOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class EJBModuleExportDataModelProvider extends J2EEModuleExportDataModelProvider {
+public class EJBComponentExportDataModelProvider extends J2EEComponentExportDataModelProvider {
 
-	public EJBModuleExportDataModelProvider() {
+	public EJBComponentExportDataModelProvider() {
 		super();
 	}
 
 	public IDataModelOperation getDefaultOperation() {
-		return new EJBModuleExportOperationNEW(model);
+		return new EJBComponentExportOperation(model);
 	}
 
 	protected String getComponentID() {

@@ -17,19 +17,17 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperationNEW;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EJBModuleExportOperationNEW extends J2EEArtifactExportOperationNEW {
+public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 
-	public EJBModuleExportOperationNEW() {
+	public EJBComponentExportOperation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public EJBModuleExportOperationNEW(IDataModel model) {
+	public EJBComponentExportOperation(IDataModel model) {
 		super(model);
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
