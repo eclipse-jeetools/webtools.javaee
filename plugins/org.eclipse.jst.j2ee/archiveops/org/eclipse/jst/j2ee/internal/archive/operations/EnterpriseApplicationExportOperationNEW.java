@@ -13,10 +13,10 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EnterpriseApplicationExportOperationNEW extends J2EEArtifactExportOperationNEW {
@@ -24,24 +24,29 @@ public class EnterpriseApplicationExportOperationNEW extends J2EEArtifactExportO
 	public EnterpriseApplicationExportOperationNEW(IDataModel model) {
 		super(model);
 	}
-	
+
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+		EARArtifactEdit artifactEdit = null;
 		try {
-			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-			EARComponentLoadStrategyImpl ls = new EARComponentLoadStrategyImpl(getComponent());
-			ls.setExportSource(isExportSource());
-			setModuleFile(caf.openEARFile(ls, getDestinationPath().toOSString()));
-			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
+			artifactEdit = (EARArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
+			EARFile archive = (EARFile) artifactEdit.asArchive(isExportSource());
+			String destination = getDestinationPath().toOSString();
+			archive.setURI(destination);
+			setModuleFile(archive);
+			archive.saveAsNoReopen(destination);
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
 			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
+		} finally {
+			if (null != artifactEdit) {
+				artifactEdit.dispose();
+			}
 		}
 	}
 
 	protected String archiveString() {
-		// TODO Auto-generated method stub
-		return null;
+		return "EAR";
 	}
 
 
