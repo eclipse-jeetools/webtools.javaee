@@ -58,6 +58,7 @@ public class AppClientComponentCreationWizard extends J2EEComponentCreationWizar
 	protected void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APPCLIENT_COMPONENT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_PROJECT_WIZARD_BANNER));
+		preFillSelectedEARProject();
 	} 
 	 
 	/**

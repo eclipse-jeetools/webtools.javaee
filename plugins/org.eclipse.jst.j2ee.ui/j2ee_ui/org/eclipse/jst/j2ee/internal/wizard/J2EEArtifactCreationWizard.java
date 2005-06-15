@@ -24,7 +24,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
@@ -224,7 +223,7 @@ public abstract class J2EEArtifactCreationWizard extends DataModelWizard impleme
 			BasicNewProjectResourceWizard.updatePerspective(element);
 		} else
 			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
-        String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
+		String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 		BasicNewResourceWizard.selectAndReveal(ProjectUtilities.getProject(projName), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 
@@ -274,13 +273,7 @@ public abstract class J2EEArtifactCreationWizard extends DataModelWizard impleme
 		return (configurationElement != null) ? configurationElement.getDeclaringExtension().getDeclaringPluginDescriptor().getUniqueIdentifier() : ""; //$NON-NLS-1$
 	}
 
-	/**
-	 * @return Returns the EAR module selected in the view used to launch the wizard.
-	 */
-	protected final WorkbenchComponent getSelectedEARModule() {
-		//TODO return the selected ear module if applicable
-		return null;
-	}
+
 
 	protected final IConfigurationElement getConfigurationElement() {
 		return configurationElement;

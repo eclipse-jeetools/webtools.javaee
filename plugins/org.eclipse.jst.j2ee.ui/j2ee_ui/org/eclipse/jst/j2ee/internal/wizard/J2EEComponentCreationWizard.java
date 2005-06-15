@@ -10,13 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -33,7 +35,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * @see org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard
  */
-public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWizard implements IJ2EEComponentCreationDataModelProperties{
+public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWizard implements IJ2EEComponentCreationDataModelProperties {
 
 	/**
 	 * <p>
@@ -84,7 +86,7 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * Subclasses which override this method should always call super.addModulesPageIfNecessary()
 	 * ahead of before their own pages.
 	 * </p>
-	 *  
+	 * 
 	 */
 	protected void addModulesPageIfNecessary() {
 		if (getDataModel().getBooleanProperty(UI_SHOW_EAR_SECTION)) {
@@ -163,26 +165,42 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * @see J2EEModuleCreationDataModelOld#getClassPathSelection() is non-empty.
 	 */
 	protected final boolean shouldShowModulesPageForEAR() {
-		//TODO is this what we want here?
+		// TODO is this what we want here?
 		return true;
 	}
 
-	private void preFillSelectedEARProject() {
-		WorkbenchComponent earModule = getSelectedEARModule();
-		EARArtifactEdit earEdit = null;
-		int j2eeVersion = 0;
-		if (earModule != null && getDataModel() != null) {
+	/**
+	 * @return Returns the EAR module selected in the view used to launch the wizard.
+	 */
+	protected IVirtualComponent getSelectedEARModule() {
+		IStructuredSelection selection = getSelection();
+		if (null != selection) {
+			Object obj = selection.getFirstElement();
+			if (obj instanceof EObject) {
+				IVirtualComponent comp = ComponentUtilities.findComponent((EObject) obj);
+				if (null != comp && comp.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+					return comp;
+				}
+			}
+		}
+		return null;
+	}
+
+	protected void preFillSelectedEARProject() {
+		IVirtualComponent earComponent = getSelectedEARModule();
+		if (earComponent != null) {
+			EARArtifactEdit earEdit = null;
+			int j2eeVersion = 0;
 			try {
-				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(earModule),earModule.getName());
-				earEdit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(earComponent);
 				j2eeVersion = earEdit.getJ2EEVersion();
 			} finally {
 				if (earEdit != null)
 					earEdit.dispose();
 			}
-            getDataModel().setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-            getDataModel().setIntProperty(COMPONENT_VERSION, j2eeVersion);
-            getDataModel().setProperty(EAR_COMPONENT_NAME, earModule.getName());
+			IDataModel dm = getDataModel();
+			dm.setIntProperty(COMPONENT_VERSION, j2eeVersion);
+			dm.setProperty(EAR_COMPONENT_NAME, earComponent.getName());
 		}
 	}
 }
