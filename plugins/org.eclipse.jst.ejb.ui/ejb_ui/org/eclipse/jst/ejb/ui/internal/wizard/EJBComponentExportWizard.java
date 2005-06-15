@@ -25,7 +25,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * Archive *.jar file.  
  * </p>
  */
-public final class EJBModuleExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
+public final class EJBComponentExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
 
 	/**
 	 * <p>
@@ -34,7 +34,7 @@ public final class EJBModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * operation will be created as needed.
 	 * </p>
 	 */
-	public EJBModuleExportWizard() {
+	public EJBComponentExportWizard() {
 		super();
 	}
 
@@ -45,7 +45,7 @@ public final class EJBModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public EJBModuleExportWizard(IDataModel model) {
+	public EJBComponentExportWizard(IDataModel model) {
 		super(model);
 	}
 

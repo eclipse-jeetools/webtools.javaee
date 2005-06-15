@@ -18,7 +18,7 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
@@ -45,7 +45,7 @@ public class ExportEJBAction extends BaseAction {
 	 * @see org.eclipse.jst.j2ee.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
 	protected void primRun(Shell shell) {
-		EJBModuleExportWizard wizard = new EJBModuleExportWizard();
+		EJBComponentExportWizard wizard = new EJBComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 		wizard.init(plugin.getWorkbench(), selection);
 

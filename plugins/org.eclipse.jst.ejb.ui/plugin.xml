@@ -34,7 +34,7 @@
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/export_ejbjar_wiz.gif"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard"
             id="org.eclipse.jst.ejb.ui.EJBModuleExportWizard">
          <description>
             %ejb.export.description_ui_
@@ -140,7 +140,7 @@
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/import_ejbjar.gif"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizardNew"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"
             id="org.eclipse.jst.ejb.ui.EJBModuleImportWizardNew">
          <description>
             %ejb.import.description_ui_
