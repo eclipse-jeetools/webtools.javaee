@@ -242,9 +242,11 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	private String addJbossTask() {
 		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.EJB_JBOSS))
 			return ""; //$NON-NLS-1$
-		return "<jboss version=\"" + XDocletPreferenceStore.getProperty(XDocletPreferenceStore.EJB_JBOSS + "_VERSION") + "\"" + "    unauthenticatedPrincipal=\"nobody\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-					+ "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${ejb.dd.dir}\"" + "    validatexml=\"false\"" + "    datasource=\"\\${data.source.name}\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-					+ "    datasourcemapping=\"PLEASE_MODIFY_THIS\"" + "    preferredrelationmapping=\"PLEASE_MODIFY_THIS\" />"; //$NON-NLS-1$ //$NON-NLS-2$
+		return "<jboss version=\"" 
+		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.EJB_JBOSS + "_VERSION") + "\"" 
+		+ "    xmlencoding=\"UTF-8\"" 
+		+ "    destdir=\"\\${ejb.dd.dir}\"" 
+		+ "    validatexml=\"false\" />"; //$NON-NLS-1$ //$NON-NLS-2$
 
 	}
 

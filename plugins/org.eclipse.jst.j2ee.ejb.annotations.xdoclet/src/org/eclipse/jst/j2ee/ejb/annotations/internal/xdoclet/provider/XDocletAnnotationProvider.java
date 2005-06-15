@@ -87,6 +87,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 				comment = ejbEmitter.emitTypeComment(delegate);
 				stub = ejbEmitter.emitTypeStub(delegate);
 				method = ejbEmitter.emitInterfaceMethods(delegate);
+				ejbEmitter.deleteProject();
 			}catch (CoreException e) {
 				throw e;
 			} catch (Exception e) {
@@ -137,6 +138,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 				comment = ejbEmitter.emitTypeComment(delegate);
 				stub = ejbEmitter.emitTypeStub(delegate);
 				method = ejbEmitter.emitInterfaceMethods(delegate);
+				ejbEmitter.deleteProject();
 			} catch (CoreException e) {
 				throw e;
 			} catch (Exception e) {
