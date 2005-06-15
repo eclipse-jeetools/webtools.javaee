@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.35 $  $Date: 2005/05/19 21:34:29 $ 
+ *  $Revision: 1.36 $  $Date: 2005/06/15 20:19:31 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -1015,7 +1015,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
 						// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
 					} else {
-						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + uri + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
 					}
 				}
 				// In case it happened after creating resource but during load. Need to get rid of it in the finally.	

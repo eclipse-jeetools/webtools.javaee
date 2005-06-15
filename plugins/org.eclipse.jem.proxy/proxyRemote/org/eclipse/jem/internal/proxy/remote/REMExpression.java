@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.11 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -149,9 +149,10 @@ public class REMExpression extends Expression {
 			try {
 				if (workerValue == null)
 					workerValue = new Commands.ValueObject();
-				if (expressionProcesserController == null)
-					connection.startExpressionProcessing(getREMExpressionID());	// It is a new expression.
-				else {
+				if (expressionProcesserController == null) {
+					byte trace = !isTraceSet() ? ExpressionCommands.TRACE_DEFAULT : (isTrace() ? ExpressionCommands.TRACE_ON : ExpressionCommands.TRACE_OFF); 
+					connection.startExpressionProcessing(getREMExpressionID(), trace);	// It is a new expression.
+				} else {
 					fillProxy(expressionProcesserController, workerValue);
 					connection.resumeExpression(getREMExpressionID(), workerValue);
 					expressionProcesserController = null;

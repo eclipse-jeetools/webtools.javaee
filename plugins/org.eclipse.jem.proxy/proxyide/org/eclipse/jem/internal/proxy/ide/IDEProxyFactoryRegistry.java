@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 import java.net.URL;
@@ -28,8 +28,9 @@ import org.eclipse.jem.internal.proxy.core.*;
  * that the Eclipse IDE is running
  */
 
-public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry {
+public class IDEProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 
+	public static final String IDE_REGISTRY_TYPE_ID = "org.eclipse.jem.IDE";	//$NON-NLS-1$
 	protected String fName;
 	protected ClassLoader fClassLoader;
 	protected IDECallbackRegistry fCallbackRegistry;
@@ -110,6 +111,7 @@ public static ClassLoader createSpecialLoader(String pluginName, URL[] otherURLs
 }
 
 public IDEProxyFactoryRegistry(String aName, ClassLoader loader) {
+	super(IDE_REGISTRY_TYPE_ID);
 	fName = aName;
 	fClassLoader = loader;
 }

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -32,6 +32,10 @@ import java.util.logging.Level;
  */
 public class ExpressionProxy implements IProxy {
 
+	public ProxyFactoryRegistry getProxyFactoryRegistry() {
+		return getExpression().getRegistry();
+	}
+	
 	/**
 	 * The event object for the resolved event of the proxy listener.
 	 * <p>

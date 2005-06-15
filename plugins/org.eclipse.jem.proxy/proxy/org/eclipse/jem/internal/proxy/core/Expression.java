@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -62,6 +62,44 @@ public abstract class Expression implements IExpression {
 	
 	protected final ProxyFactoryRegistry registry;
 	protected final IStandardBeanProxyFactory beanProxyFactory;
+	protected Boolean traceFlag;
+	
+	/**
+	 * Answer whether trace has been explicitly set.
+	 * This is not in the IExpression interface because it is for advanced users.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean isTraceSet() {
+		return traceFlag != null; 
+	}
+	
+	/**
+	 * Answer if trace is on. If not explicitly set this will answer false.
+	 * Use {@link Expression#isTraceSet()} first to determine if this
+	 * should be called or not.
+	 * This is not in the IExpression interface because it is for advanced users.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean isTrace() {
+		return traceFlag != null ? traceFlag.booleanValue() : false;
+	}
+	
+	/**
+	 * Explicitly set the trace flag. This will only be honoured before any
+	 * expressions have been created. After that this will be ignored.
+	 * The trace is initially set to use default. Once set it cannot be unset.
+	 * This is not in the IExpression interface because it is for advanced users.
+	 * @param trace
+	 * 
+	 * @since 1.1.0
+	 */
+	public void setTrace(boolean trace) {
+		traceFlag = Boolean.valueOf(trace);
+	}
 	
 	/**
 	 * Push an object onto the control stack.

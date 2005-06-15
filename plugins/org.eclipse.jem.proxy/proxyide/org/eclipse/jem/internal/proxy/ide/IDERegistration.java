@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 import java.net.URL;
@@ -78,58 +78,52 @@ public class IDERegistration {
 
 		final IJavaProject jp = javaProject;
 
-		// Add in any classpaths the contributors want to add.
-		if (contributors != null) {
-			final ProxyLaunchSupport.LaunchInfo launchInfo = new ProxyLaunchSupport.LaunchInfo();
-			contributors = ProxyLaunchSupport.fillInLaunchInfo(contributors, launchInfo, jp != null ? jp.getElementName() : null);
-			final LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(classPaths, new URL[3][], launchInfo);
-			final IConfigurationContributor[] contribs = contributors;
-			for (int i = 0; i < contributors.length; i++) {
-				final int ii = i;
-				// Run in safe mode so that anything happens we don't go away.
-				Platform.run(new ISafeRunnable() {
-					public void handleException(Throwable exception) {
-						// Don't need to do anything. Platform.run logs it for me.
-					}
+		final ProxyLaunchSupport.LaunchInfo launchInfo = new ProxyLaunchSupport.LaunchInfo();
+		contributors = ProxyLaunchSupport.fillInLaunchInfo(contributors == null ? ProxyLaunchSupport.EMPTY_CONFIG_CONTRIBUTORS : contributors, launchInfo, jp != null ? jp.getElementName() : null);
+		final LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(classPaths, new URL[3][], launchInfo);
+		final IConfigurationContributor[] contribs = contributors;
+		for (int i = 0; i < contributors.length; i++) {
+			final int ii = i;
+			// Run in safe mode so that anything happens we don't go away.
+			Platform.run(new ISafeRunnable() {
+				public void handleException(Throwable exception) {
+					// Don't need to do anything. Platform.run logs it for me.
+				}
 
-					public void run() throws Exception {
-						contribs[ii].initialize(launchInfo.getConfigInfo());
-					}
-				});				
-			}			
-			for (int i = 0; i < contributors.length; i++) {
-				final int ii = i;
-				// Run in safe mode so that anything happens we don't go away.
-				Platform.run(new ISafeRunnable() {
-					public void handleException(Throwable exception) {
-						// Don't need to do anything. Platform.run logs it for me.
-					}
+				public void run() throws Exception {
+					contribs[ii].initialize(launchInfo.getConfigInfo());
+				}
+			});				
+		}			
+		for (int i = 0; i < contributors.length; i++) {
+			final int ii = i;
+			// Run in safe mode so that anything happens we don't go away.
+			Platform.run(new ISafeRunnable() {
+				public void handleException(Throwable exception) {
+					// Don't need to do anything. Platform.run logs it for me.
+				}
 
-					public void run() throws Exception {
-						contribs[ii].contributeClasspaths(controller);
-					}
-				});				
-			}
-			classPaths = controller.getFinalClasspath();
+				public void run() throws Exception {
+					contribs[ii].contributeClasspaths(controller);
+				}
+			});				
 		}
+		classPaths = controller.getFinalClasspath();
 
-		final ProxyFactoryRegistry registry = createIDEProxyFactoryRegistry(vmName, pluginName, classPaths);
-		// Contribute to the registry from contributors.
-		if (contributors != null) {
-			final IConfigurationContributor[] contribs = contributors;
-			for (int i = 0; i < contributors.length; i++) {
-				final int ii = i;
-				// Run in safe mode so that anything happens we don't go away.
-				Platform.run(new ISafeRunnable() {
-					public void handleException(Throwable exception) {
-						// Don't need to do anything. Platform.run logs it for me.
-					}
+		final BaseProxyFactoryRegistry registry = (BaseProxyFactoryRegistry) createIDEProxyFactoryRegistry(vmName, pluginName, classPaths);
+		ProxyLaunchSupport.performExtensionRegistrations(registry, launchInfo);
+		for (int i = 0; i < contribs.length; i++) {
+			final int ii = i;
+			// Run in safe mode so that anything happens we don't go away.
+			Platform.run(new ISafeRunnable() {
+				public void handleException(Throwable exception) {
+					// Don't need to do anything. Platform.run logs it for me.
+				}
 
-					public void run() throws Exception {
-						contribs[ii].contributeToRegistry(registry);
-					}
-				});	
-			}
+				public void run() throws Exception {
+					contribs[ii].contributeToRegistry(registry);
+				}
+			});	
 		}
 
 		return registry;

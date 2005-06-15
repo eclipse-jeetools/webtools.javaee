@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionCommands.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.common.remote;
 
@@ -43,6 +43,12 @@ public class ExpressionCommands {
 	public static final int
 		EXPRESSIONPROXY_VOIDTYPE = 0,	// Expression proxy resolves to void type.
 		EXPRESSIONPROXY_NOTRESOLVED = 1;	// Expression proxy not resolved.
+	
+	// These are the trace values sent in START_EXPRESSION_TREE_PROCESSING
+	public static final byte
+		TRACE_DEFAULT = -1,
+		TRACE_OFF = 0,
+		TRACE_ON = 1;
 
 	public static final String EXPRESSIONTRACE = "proxyvm.expressionTrace";	// The system property for turning on expression tracing. //$NON-NLS-1$
 	public static final String EXPRESSIONTRACE_TIMER_THRESHOLD = "proxyvm.expressionTraceTimerThreshold";	// The system property for timer threshold. //$NON-NLS-1$
@@ -53,8 +59,11 @@ public class ExpressionCommands {
 	 * 		be streaming the data over the line. At the end we will flush and then catch up. That way
 	 * 		we aren't waiting for the other side as we send the data.
 	 * 
-	 * START_EXPRESSION_TREE_PROCESSING: 0b
+	 * START_EXPRESSION_TREE_PROCESSING: 0b, trace
 	 * 	Start processing.
+	 *  byte(trace): -1 : do default
+	 *                0 : no trace
+	 *                1 : do trace
 	 * 
 	 * PUSH_EXPRESSION: 1b, b
 	 * 	Push an expression. Where "b" is the expression type from IInternalExpressionConstants. 
@@ -95,17 +104,19 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send the start expression processing command.
-	 * @param expressionID 
+	 * @param expressionID
+	 * @param trace 
 	 * @param os
 	 * 
 	 * @throws IOException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendStartExpressionProcessingCommand(int expressionID, DataOutputStream os) throws IOException {
+	public static void sendStartExpressionProcessingCommand(int expressionID, byte trace, DataOutputStream os) throws IOException {
 		os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
 		os.writeInt(expressionID);
 		os.writeByte(START_EXPRESSION_TREE_PROCESSING);
+		os.writeByte(trace);
 	}
 	
 	/**

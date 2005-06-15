@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.18 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.19 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 
@@ -231,9 +231,9 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#startExpressionProcessing()
 	 */
-	public void startExpressionProcessing(int expressionID) throws IOException {
+	public void startExpressionProcessing(int expressionID, byte trace) throws IOException {
 		if (isConnected())
-			ExpressionCommands.sendStartExpressionProcessingCommand(expressionID, out);
+			ExpressionCommands.sendStartExpressionProcessingCommand(expressionID, trace, out);
 	}
 
 	/* (non-Javadoc)

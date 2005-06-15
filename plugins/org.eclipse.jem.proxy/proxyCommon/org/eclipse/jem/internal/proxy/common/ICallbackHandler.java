@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common;
 /*
  *  $RCSfile: ICallbackHandler.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 /**
@@ -64,6 +64,10 @@ public interface ICallbackHandler {
 	 *    be used sparingly, only if there isn't much data in the array and
 	 *    all of the array would be used on the client. That way transmitting
 	 *    the entire array will be faster than accessing individual components.
+	 * <p>
+	 * If the array contains only one entry or the parm itself is null, then {@link org.eclipse.jem.internal.proxy.core.ICallback#calledBack(int, IBeanProxy)}
+	 * will be called. Else {@link org.eclipse.jem.internal.proxy.core.ICallback#calledBack(int, Object[])} will be called with all of the parms
+	 * turned into proxies as mentioned in the previous paragraph.
 	 *
 	 * @param callbackID The id of the callback. This will be given
 	 *    to the callback when it is created, and it must pass

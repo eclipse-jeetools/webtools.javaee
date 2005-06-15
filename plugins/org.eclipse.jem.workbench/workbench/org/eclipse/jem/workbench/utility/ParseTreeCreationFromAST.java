@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.11 $  $Date: 2005/02/15 23:09:27 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/15 20:19:32 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -290,17 +290,19 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.ClassInstanceCreation)
 	 */
 	public boolean visit(ClassInstanceCreation node) {
-		if (node.getAnonymousClassDeclaration() != null) {
-			throw new InvalidExpressionException(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations_EXC_")); //$NON-NLS-1$
+		if (node.getAnonymousClassDeclaration() != null) { throw new InvalidExpressionException(WorkbenchUtilityMessages
+				.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations_EXC_")); //$NON-NLS-1$
 		}
 		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
 		// If ast level = 2, then you must use getName, but the name needs to be turned into a type
 		// so that it can be resolved. If ast level > 2, then it will return a type to be resolved.
 		// Note: can't just use resolve name on the name because if a field and a class were spelled
 		// the same then the codegen resolver would return an instance ref to the field instead.
-		cic.setType(node.getAST().apiLevel() == AST.JLS2 ? 
-				resolver.resolveType(node.getName()) :
-				resolver.resolveType(node.getType())); 					
+		String type = node.getAST().apiLevel() == AST.JLS2 ? resolver.resolveType(node.getName()) : resolver.resolveType(node.getType());
+		if (type == null) {
+			type = node.getAST().apiLevel() == AST.JLS2 ? node.getName().getFullyQualifiedName() : node.getType().toString();
+		}
+		cic.setType(type);
 		List args = cic.getArguments();
 		List nargs = node.arguments();
 		int nsize = nargs.size();
@@ -309,10 +311,12 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		}
 		expression = cic;
 		return false;
-		
+
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.ConditionalExpression)
 	 */
 	public boolean visit(ConditionalExpression node) {

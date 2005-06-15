@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.50 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.51 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 
@@ -676,9 +676,11 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributors"; //$NON-NLS-1$
+	public static final String PI_EXTENSION_REGISTRATION_EXTENSION_POINT = "org.eclipse.jem.proxy.extensions"; //$NON-NLS-1$
 	public static final String PI_CONTAINER = "container"; //$NON-NLS-1$
 	public static final String PI_PLUGIN = "plugin"; //$NON-NLS-1$
 	public static final String PI_CLASS = "class"; //$NON-NLS-1$
+	public static final String PI_REGISTRY_TYPE = "registryType";	//$NON-NLS-1$
 	public static final Map pluginRequiredMap = new HashMap(50);
 	
 	/*
@@ -689,6 +691,16 @@ public class ProxyPlugin extends Plugin {
 	 * Map of plugin id's to their ordered array of contribution config elements.
 	 */
 	protected Map pluginToContributions = null;
+	
+	/*
+	 * Map of container id's to their ordered array of extension config elements.
+	 */
+	protected Map containerToExtensions = null;
+	/*
+	 * Map of plugin id's to their ordered array of contribution config elements.
+	 */
+	protected Map pluginToExtension = null;
+
 
 	/**
 	 * These are public only so that jem.ui can access this constant. Not meant to be accessed by others.
@@ -722,13 +734,46 @@ public class ProxyPlugin extends Plugin {
 			processProxyContributionExtensionPoint();
 		return (IConfigurationElement[]) pluginToContributions.get(pluginid);
 	}
-	
+
+	/**
+	 * Return the plugin ordered array of configuration elements for the given container, or <code>null</code> if not contributed.
+	 * 
+	 * @param containerid
+	 * @return Array of extension registration elements or <code>null</code> if this container has no contributions.
+	 * 
+	 * @since 1.0.0
+	 */
+	public synchronized IConfigurationElement[] getContainerExtensions(String containerid) {
+		if (containerToExtensions == null)
+			processProxyExtensionExtensionPoint();
+		return (IConfigurationElement[]) containerToExtensions.get(containerid);
+	}
+
+	/**
+	 * Return the plugin ordered array of configuration elements for the given plugin, or <code>null</code> if not contributed.
+	 * 
+	 * @param pluginid
+	 * @return Array of configuration elements or <code>null</code> if this plugin has no contributions.
+	 * 
+	 * @since 1.0.0
+	 */
+	public synchronized IConfigurationElement[] getPluginExtensions(String pluginid) {
+		if (pluginToExtension == null)
+			processProxyExtensionExtensionPoint();
+		return (IConfigurationElement[]) pluginToExtension.get(pluginid);
+	}
+
 	protected synchronized void processProxyContributionExtensionPoint() {
 		ContributorExtensionPointInfo info = processContributionExtensionPoint(PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT);
 		containerToContributions = info.containerToContributions;
 		pluginToContributions = info.pluginToContributions;
 	}
 	
+	protected synchronized void processProxyExtensionExtensionPoint() {
+		ContributorExtensionPointInfo info = processContributionExtensionPoint(PI_EXTENSION_REGISTRATION_EXTENSION_POINT);
+		containerToExtensions = info.containerToContributions;
+		pluginToExtension = info.pluginToContributions;
+	}	
 	
 	/**
 	 * Result form processContributionExtensionPoint.

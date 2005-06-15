@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.11 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -101,7 +101,7 @@ public class ExpressionProcesser {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			return "FieldAccess{"+field.toString()+"} on "+receiver.toString(); //$NON-NLS-1$ //$NON-NLS-2$
+			return "FieldAccess{"+field.toString()+"} on "+(receiver != null ? receiver.toString() : "<static access>"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 	
@@ -2564,6 +2564,9 @@ public class ExpressionProcesser {
 					System.out.print(reflectMethod);					
 				}
 				
+				if (!Modifier.isStatic(reflectMethod.getModifiers()) && receiver == null)
+					throw new NullPointerException("No receiver for non-static method: "+reflectMethod.toString());
+					
 				Object value = reflectMethod.invoke(receiver, args);
 				
 				if (traceOn) {

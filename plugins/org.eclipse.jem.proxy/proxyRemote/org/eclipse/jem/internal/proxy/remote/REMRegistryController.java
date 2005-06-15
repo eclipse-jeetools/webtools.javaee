@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMRegistryController.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 import java.util.HashMap;
@@ -32,6 +32,8 @@ public class REMRegistryController {
 	
 	private Map fActiveRegistries = new HashMap();	// Access to this must be sync(REMRegistryController)
 	private static final long CLEANUP_INTERVAL = 60000l;	// The interval between clean up job execution.
+	
+	protected boolean inShutdown;	// Are we in shutdown mode. Terminate registries runs differently in shutdown mode.
 	
 	// Thread to clean up GC'd proxies. Runs as a daemon at the lowest priority
 	private Job processQueueJob= new Job(ProxyRemoteMessages.getString("CleanupJob.title")) { //$NON-NLS-1$
@@ -83,6 +85,16 @@ public class REMRegistryController {
 		processQueueJob.setPriority(Job.SHORT);
 		processQueueJob.schedule(CLEANUP_INTERVAL);
 
+	}
+	
+	/**
+	 * Answer whether we are shutting down or not.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean inShutDown() {
+		return inShutdown;
 	}
 	
 	/*
@@ -146,6 +158,16 @@ public class REMRegistryController {
 				(REMProxyFactoryRegistry[]) fActiveRegistries.values().toArray(
 					new REMProxyFactoryRegistry[fActiveRegistries.size()]);
 		}
+		
+		inShutdown = true;	// We are now in shutdown mode.
+		// In shutdown mode the registries will not create the job that waits for the process
+		// to terminate, and if it doesn't in 1.5 secs it does a force.
+		// Instead what we will do is shutdown all of the registries. If they don't
+		// shutdown on their own then they stay out there. But they do have an
+		// internal timer that checks every five minutes to see if the host is 
+		// still there, and if it isn't they will shut themselves down. They
+		// would have to be really hosed if the suicide timer wasn't working.
+		
 		for (int i = 0; i < registries.length; i++)
 			registries[i].terminateRegistry();
 			
@@ -163,6 +185,7 @@ public class REMRegistryController {
 		} catch(InterruptedException e) {
 		}
 		
+		REMProxyFactoryRegistry.cancelAllTerminateJobs();
 	}
 	
 	/**

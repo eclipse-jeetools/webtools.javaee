@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
  
@@ -21,6 +21,14 @@ package org.eclipse.jem.internal.proxy.core;
  * @since 1.1.0
  */
 public interface IProxy {
+
+	/**
+	 * Return the registry this proxy was created with.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public ProxyFactoryRegistry getProxyFactoryRegistry();
 	
 	/**
 	 * Is this a bean proxy (including all of the subinterfaces of it, like IMethodProxy).

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.18 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.19 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 
@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.IProcess;
@@ -36,7 +37,10 @@ import org.eclipse.jem.internal.proxy.core.*;
  * That way while the IDE is up, the remove vm won't time out.
  */
 
-public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
+public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
+	
+	public static final String REMOTE_REGISTRY_TYPE_ID = "org.eclipse.jem.REMOTE";	//$NON-NLS-1$
+	
 	protected int fServerPort = 0;	// The server port to use when making connections.
 	protected REMCallbackRegistry fCallbackServer;	// The callback server thread for this remote vm.
 	protected Stack fConnectionPool = new Stack();	// Stack of free connections.
@@ -49,12 +53,14 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 	protected Integer fRegistryKey;
 	protected REMRegistryController fRegistryController;
 	
+	protected final static Object TERMINATE_JOB_FAMILY = new Object();
+	
 	// Package protected because only the ProxyVMStarter should set this flag. It would set it if
 	// working with a debugger because we don't how long it will be to respond to requests when 
 	// someone is working with a debugger.
 	boolean fNoTimeouts = false;
 	
-	// This is set via the static setGlobalNoTimeouts() method. It is here so that
+	// This is set via the static setGlobalNoTimeouts() method, or via debug options flag. It is here so that
 	// when debugging callbacks, but not debugging remote vm, that no timeouts for any registry will occur.
 	// Or it can be set through the debug .options flag.
 	static boolean fGlobalNoTimeouts = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName()+ProxyRemoteUtil.NO_TIMEOUTS)); //$NON-NLS-1$;
@@ -110,6 +116,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 
 	
 	public REMProxyFactoryRegistry(REMRegistryController registryController, String name) {
+		super(REMOTE_REGISTRY_TYPE_ID);
 		fRegistryController = registryController;		
 		fRegistryKey = fRegistryController.registerRegistry(this);	// Register the registry with the plugin.		
 		fName = name;		
@@ -189,12 +196,34 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		return fCallbackServer;
 	}
 	
+	/**
+	 * This is called by the registry controller to tell
+	 * the registry to terminate with prejudice all 
+	 * pending TerminateJobs.
+	 * 
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void cancelAllTerminateJobs() {
+		IJobManager jobManager = Platform.getJobManager();
+		jobManager.cancel(TERMINATE_JOB_FAMILY);
+		try {
+			jobManager.join(TERMINATE_JOB_FAMILY, null);
+		} catch (OperationCanceledException e) {
+		} catch (InterruptedException e) {
+		}
+	}
+	
 	private static class TerminateProcess extends Job {
 		private IProcess process;
 		
 		public TerminateProcess(IProcess process) {
 			super(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.Job.TerminateProcess.Title"));	 //$NON-NLS-1$
 			this.process = process;
+		}
+		
+		public boolean belongsTo(Object family) {
+			return family == TERMINATE_JOB_FAMILY || super.belongsTo(family);
 		}
 		
 		
@@ -267,7 +296,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			fConnectionPool.clear();
 			fServerPort = 0;
 			
-			if (fProcess != null) {
+			if (fProcess != null && fRegistryController.inShutDown()) {
 				tjob = new TerminateProcess(fProcess);
 				tjob.setSystem(true);
 				tjob.schedule();

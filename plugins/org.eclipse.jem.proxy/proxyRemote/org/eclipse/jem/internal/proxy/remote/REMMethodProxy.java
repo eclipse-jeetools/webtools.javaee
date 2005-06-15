@@ -11,14 +11,15 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMMethodProxy.java,v $
- *  $Revision: 1.10 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.11 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jem.internal.proxy.core.*;
+
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
+import org.eclipse.jem.internal.proxy.core.*;
 /**
  * Remote VM implementation of the MethodProxy
  */
@@ -125,46 +126,51 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 
 			Commands.ValueObject parmsValue = new Commands.ValueObject();
 
+			class Retriever implements Commands.ValueRetrieve {
+				int index = 0;
+				Object[] array;
+				Commands.ValueObject worker = new Commands.ValueObject();
+				IStandardBeanTypeProxyFactory typeFactory = fFactory.getBeanTypeProxyFactory();
+
+				public Retriever(Object[] anArray) {
+					array = anArray;
+				}
+				
+				public void reset() {
+					index = 0;
+				}
+
+				public Commands.ValueObject nextValue() {
+					Object parm = array[index++];
+					if (parm != null)
+						if (parm instanceof IREMBeanProxy)
+							 ((IREMBeanProxy) parm).renderBean(worker);
+						else if (parm instanceof TransmitableArray) {
+							// It is another array, create a new retriever.
+							worker.setArrayIDS(
+								new Retriever(((TransmitableArray) parm).array),
+								((TransmitableArray) parm).array.length,
+								((TransmitableArray) parm).componentTypeID);
+						} else {
+							// It's an object. Need to get bean type so that we can send it.
+							IREMBeanProxy type = (IREMBeanProxy) typeFactory.getBeanTypeProxy(parm.getClass().getName());
+							if (type == null)
+								throw new IllegalArgumentException();
+							int classID = type.getID().intValue();
+							worker.setAsObject(parm, classID);
+						}
+					else
+						worker.set();
+					return worker; 
+				}
+			};
+			
+			Retriever retriever = null;
+
 			if (parms != null) {
 				// Have a local definition of the retriever so that the retriever can create
 				// another one of itself if necessary.
-				final IStandardBeanTypeProxyFactory typeFactory = fFactory.getBeanTypeProxyFactory();
-
-				class Retriever implements Commands.ValueRetrieve {
-					int index = 0;
-					Object[] array;
-					Commands.ValueObject worker = new Commands.ValueObject();
-
-					public Retriever(Object[] anArray) {
-						array = anArray;
-					}
-
-					public Commands.ValueObject nextValue() {
-						Object parm = array[index++];
-						if (parm != null)
-							if (parm instanceof IREMBeanProxy)
-								 ((IREMBeanProxy) parm).renderBean(worker);
-							else if (parm instanceof TransmitableArray) {
-								// It is another array, create a new retriever.
-								worker.setArrayIDS(
-									new Retriever(((TransmitableArray) parm).array),
-									((TransmitableArray) parm).array.length,
-									((TransmitableArray) parm).componentTypeID);
-							} else {
-								// It's an object. Need to get bean type so that we can send it.
-								IREMBeanProxy type = (IREMBeanProxy) typeFactory.getBeanTypeProxy(parm.getClass().getName());
-								if (type == null)
-									throw new IllegalArgumentException();
-								int classID = type.getID().intValue();
-								worker.setAsObject(parm, classID);
-							}
-						else
-							worker.set();
-						return worker; 
-					}
-				};
-
-				parmsValue.setArrayIDS(new Retriever(parms), parms.length, Commands.OBJECT_CLASS); // Create Object[].
+				parmsValue.setArrayIDS(retriever = new Retriever(parms), parms.length, Commands.OBJECT_CLASS); // Create Object[].
 			}
 
 			Commands.ValueObject returnValue = new Commands.ValueObject();
@@ -178,6 +184,8 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 					connect = null;
 					connect = fFactory.getFreeConnection();
 					try {
+						if (retriever != null)
+							retriever.reset();
 						invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
 						return proxyFactory.getBeanProxy(returnValue);
 					} catch (CommandException eAgain) {

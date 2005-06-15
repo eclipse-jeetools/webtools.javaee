@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.10 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.11 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 
@@ -199,31 +199,6 @@ public abstract class ProxyFactoryRegistry {
 	
 	
 	/**
-	 Register the current registered bean proxy factory to be used for creating IBeanProxy instances
-	 */
-	public void registerBeanProxyFactory(IStandardBeanProxyFactory aStandardFactory) {
-		fCurrentStandardBeanProxyFactory = aStandardFactory;
-	}
-	/**
-	 Register a factory to be used for creating IBeanProxy instances
-	 */
-	public void registerBeanProxyFactory(String packageName, IBeanProxyFactory aFactory) {
-		fRegisteredExtensionBeanProxyFactories.put(packageName, aFactory);
-	}
-	
-	/**
-	 Register the current registered bean type proxy factory to be used for creating IBeanTypeProxy instances
-	 */
-	public void registerBeanTypeProxyFactory(IStandardBeanTypeProxyFactory aStandardFactory) {
-		fCurrentStandardBeanTypeProxyFactory = aStandardFactory;
-	}
-	/**
-	 Register a factory to be used for creating IBeanTypeProxy instances
-	 */
-	public void registerBeanTypeProxyFactory(String packageName, IBeanTypeProxyFactory aFactory) {
-		fRegisteredExtensionBeanTypeProxyFactories.put(packageName, aFactory);
-	}
-	/**
 	 * Set the requested constants entry for this VM.
 	 */
 	public void registerConstants(Object key, Object constant) {
@@ -239,13 +214,6 @@ public abstract class ProxyFactoryRegistry {
     public void deregisterConstants(Object key) {
         fRegisteredConstants.remove(key);
     }
-	/**
-	 * Set the Method Proxy Factory for this VM.
-	 * Creation date: (3/13/00 10:58:19 AM)
-	 */
-	public void registerMethodProxyFactory(IMethodProxyFactory newMethodProxyFactory) {
-		fMethodProxyFactory = newMethodProxyFactory;
-	}
 	/**
 	 * Release the proxy, no longer needed.
 	 * This is a helper method to easily access the release from the bean proxy factory.

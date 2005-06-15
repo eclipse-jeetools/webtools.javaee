@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.23 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.24 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -163,7 +163,7 @@ public class ProxyLaunchSupport {
 		}
 		
 	}
-	
+		
 	/**
 	 * LaunchInfo for a launch. Stored by key and retrievable by the key.
 	 * This is only passed to launch delegates. It should not be passed on to
@@ -179,7 +179,7 @@ public class ProxyLaunchSupport {
 	 */
 	public static class LaunchInfo {
 		/**
-		 * Contributors for this launch
+		 * Contributors for this launch. It will never be <code>null</code>. It may be empty.
 		 */
 		public IConfigurationContributor[] contributors;
 		
@@ -444,6 +444,9 @@ public class ProxyLaunchSupport {
 					reg.terminateRegistry();
 				return null;
 			}
+			
+			performExtensionRegistrations((BaseProxyFactoryRegistry) reg, launchInfo);
+			
 //			TimerTests.basicTest.startStep("contribute to registry");
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
@@ -495,15 +498,23 @@ public class ProxyLaunchSupport {
 		return configInfo;
 
 	}
+	
+	/**
+	 * Use in calling {@link ProxyLaunchSupport#fillInLaunchInfo(IConfigurationContributor[], LaunchInfo, String)} for the configuration
+	 * contributors array if there are no incoming contributors.
+	 * 
+	 * @since 1.1.0
+	 */
+	public static final IConfigurationContributor[] EMPTY_CONFIG_CONTRIBUTORS = new IConfigurationContributor[0];
 	/**
 	 * Fill in the launch info config info and contribs. The contribs sent in may be expanded due to extension
 	 * points and a new one created. Either the expanded copy or the original (if no change) will be stored in
 	 * the launchinfo and returned from this call.
 	 * 
-	 * @param aContribs
+	 * @param aContribs this should never be <code>null</code>. Pass in {@link ProxyLaunchSupport#EMPTY_CONFIG_CONTRIBUTORS} in that case.
 	 * @param launchInfo
 	 * @param projectName
-	 * @return a modified aContribs if any change was made to it.
+	 * @return a modified aContribs if any change was made to it.  This will never be <code>null</code>. It will return an empty list if aContribs was null and no changes were made.
 	 * @throws JavaModelException
 	 * @throws CoreException
 	 * 
@@ -556,9 +567,11 @@ public class ProxyLaunchSupport {
 						
 						// Now turn into array
 						if (!computedContributors.isEmpty()) {
-							IConfigurationContributor[] newContribs = new IConfigurationContributor[aContribs.length+computedContributors.size()];
+							IConfigurationContributor[] newContribs = new IConfigurationContributor[aContribs.length
+									+ computedContributors.size()];
 							System.arraycopy(aContribs, 0, newContribs, 0, aContribs.length);
-							IConfigurationContributor[] cContribs = (IConfigurationContributor[]) computedContributors.toArray(new IConfigurationContributor[computedContributors.size()]);
+							IConfigurationContributor[] cContribs = (IConfigurationContributor[]) computedContributors
+									.toArray(new IConfigurationContributor[computedContributors.size()]);
 							System.arraycopy(cContribs, 0, newContribs, aContribs.length, cContribs.length);
 							aContribs = newContribs;
 						}
@@ -570,6 +583,85 @@ public class ProxyLaunchSupport {
 		launchInfo.contributors = aContribs;
 		return aContribs;
 	}
+	
+	/**
+	 * Execute the extension registrations that are valid for this type of registry and the launchinfo paths.
+	 * <p>
+	 * This is meant to be called only by registry implementations that do not launch through a launch configration after the registry is created but
+	 * before the {@link IConfigurationContributor#contributeToRegistry(ProxyFactoryRegistry)} is called. This will be called automatically
+	 * by registries that used a launch configuration to launch.
+	 * 
+	 * @param baseRegistry
+	 * @param launchInfo
+	 * @throws CoreException 
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void performExtensionRegistrations(final BaseProxyFactoryRegistry baseRegistry, LaunchInfo launchInfo) throws CoreException {
+		IConfigurationContributionInfo configInfo = launchInfo.configInfo;
+		String registryID = baseRegistry.getRegistryTypeID();
+		if (!configInfo.getContainerIds().isEmpty() || !configInfo.getPluginIds().isEmpty()) {
+			// Note: We don't care about the visibility business here. For contributors to proxy it means
+			// some classes in the projects/plugins/etc. need configuration whether they are visible or not.
+			// This is because even though not visible, some other visible class may instantiate it. So it
+			// needs the configuration.
+			
+			// First call registrations that exist for a container id.
+			for (Iterator iter = configInfo.getContainerIds().keySet().iterator(); iter.hasNext();) {
+				String containerid = (String) iter.next();
+				IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerExtensions(containerid);
+				if (contributors != null)
+					for (int i = 0; i < contributors.length; i++) {
+						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {
+							try {
+								final IExtensionRegistration contributor = (IExtensionRegistration) contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
+								Platform.run(new ISafeRunnable() {
+								
+									public void run() throws Exception {
+										contributor.register(baseRegistry);
+									}
+								
+									public void handleException(Throwable exception) {
+										// Don't need to do anything, Platform logs it for me.
+									}
+								
+								});
+							} catch (ClassCastException e) {
+								// If not right class, just ignore it.
+							}
+						}
+					}
+			}
+			
+			// Finally add in contributors that exist for a plugin id.
+			for (Iterator iter = configInfo.getPluginIds().keySet().iterator(); iter.hasNext();) {
+				String pluginId = (String) iter.next();
+				IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginExtensions(pluginId);
+				if (contributors != null)
+					for (int i = 0; i < contributors.length; i++) {
+						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {
+							try {
+								final IExtensionRegistration contributor = (IExtensionRegistration) contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
+								Platform.run(new ISafeRunnable() {
+								
+									public void run() throws Exception {
+										contributor.register(baseRegistry);
+									}
+								
+									public void handleException(Throwable exception) {
+										// Don't need to do anything, Platform logs it for me.
+									}
+								
+								});
+							} catch (ClassCastException e) {
+								// If not right class, just ignore it.
+							}
+						}
+					}
+			}
+	}
+}
+
 
 	/*
 	 * Run the build. If the original launch was in the UI thread, this will

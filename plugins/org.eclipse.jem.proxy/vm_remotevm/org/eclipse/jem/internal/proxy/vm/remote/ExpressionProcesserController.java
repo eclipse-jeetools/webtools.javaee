@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.8 $  $Date: 2005/06/03 19:16:34 $ 
+ *  $Revision: 1.9 $  $Date: 2005/06/15 20:19:11 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -58,13 +58,25 @@ public class ExpressionProcesserController {
 	private ClassLoader classLoader;
 	
 	/**
-	 * Create with a default expression processer.
+	 * Create with a default expression processer and use default flag for trace.
 	 * @param server
 	 * 
 	 * @since 1.0.0
 	 */
 	public ExpressionProcesserController(RemoteVMServerThread server, ConnectionHandler connHandler) {
 		this(server, connHandler, new ExpressionProcesser(Boolean.getBoolean(ExpressionCommands.EXPRESSIONTRACE), Long.getLong(ExpressionCommands.EXPRESSIONTRACE_TIMER_THRESHOLD, -1L).longValue()));
+	}
+	
+	/**
+	 * Construct with a default expression processer.
+	 * @param server
+	 * @param connHandler
+	 * @param trace
+	 * 
+	 * @since 1.1.0
+	 */
+	public ExpressionProcesserController(RemoteVMServerThread server, ConnectionHandler connHandler, boolean trace) {
+		this(server, connHandler, new ExpressionProcesser(trace, Long.getLong(ExpressionCommands.EXPRESSIONTRACE_TIMER_THRESHOLD, -1L).longValue()));
 	}
 	
 	/**

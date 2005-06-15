@@ -11,12 +11,13 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStandardAWTBeanProxyFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/15 20:19:11 $ 
  */
 
 
 import org.eclipse.jem.internal.proxy.awt.*;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.ide.IDEProxyFactoryRegistry;
 /**
  * Standard AWT Bean Proxy Factory.
  * Package protected because it should not referenced
@@ -26,7 +27,7 @@ class IDEStandardAWTBeanProxyFactory implements IStandardAwtBeanProxyFactory {
 
 	final IDEStandardAWTBeanTypeProxyFactory fAWTBeanTypeFactory;
 	
-public IDEStandardAWTBeanProxyFactory(ProxyFactoryRegistry factory) {
+public IDEStandardAWTBeanProxyFactory(IDEProxyFactoryRegistry factory) {
 	factory.registerBeanProxyFactory(IStandardAwtBeanProxyFactory.REGISTRY_KEY, this);
 	fAWTBeanTypeFactory = (IDEStandardAWTBeanTypeProxyFactory)factory.getBeanTypeProxyFactoryExtension(IDEStandardAWTBeanTypeProxyFactory.BEAN_TYPE_FACTORY_KEY);
 }

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.8 $ $Date: 2005/05/18 23:11:26 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.9 $ $Date: 2005/06/15 20:19:11 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -32,7 +32,9 @@ public class IDEExpression extends Expression {
 	private final IDEStandardBeanTypeProxyFactory beantypefactory;
 	protected final ExpressionProcesser eproc;
 	{
-		boolean useTracing = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING)); //$NON-NLS-1$
+		boolean useTracing = !isTraceSet() ? 
+			"true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACING)) : //$NON-NLS-1$
+			isTrace();
 		long threshold = Long.getLong(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyLaunchSupport.EXPRESSION_TRACEING_TIMER_THRESHOLD), -1L).longValue();
 		eproc = new ExpressionProcesser(useTracing, threshold);
 	}
