@@ -105,12 +105,8 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
 			
 			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
-            List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 			if (modulesList != null && !modulesList.isEmpty()) {
-				for(int i=0; i<modulesList.size(); i++){
-				    modList.add(modulesList.get(i));
-                }
-				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modulesList);
 				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 				if( stat != OK_STATUS )
 					return stat;

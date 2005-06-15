@@ -13,14 +13,15 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -98,12 +99,10 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
-				IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 				if (!ignoreCheckedState) {
 					getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedJ2EEElementsAsList());
 					getDataModel().setProperty(JAVA_PROJECT_LIST, getCheckedJavaProjectsAsList());
-					//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedJ2EEElementsAsList());
-				}
+                }
 			}
 		});
 		TableLayout tableLayout = new TableLayout();
@@ -117,8 +116,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 	 *  
 	 */
 	private void setCheckedItemsFromModel() {
-		IDataModel nestedModel = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-		List components = (List) nestedModel.getProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST);
+		List components = (List) getDataModel().getProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST);
 		moduleProjectsViewer.setCheckedElements(components.toArray());
 	}
 
@@ -126,16 +124,6 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		moduleProjectsViewer.refresh();
 		setCheckedItemsFromModel();
 	}
-
-//	protected List getCheckedElementsAsList() {
-//		Object[] elements = moduleProjectsViewer.getCheckedElements();
-//		List list;
-//		if (elements == null || elements.length == 0)
-//			list = Collections.EMPTY_LIST;
-//		else
-//			list = Arrays.asList(elements);
-//		return list;
-//	}
 
 	protected List getCheckedJ2EEElementsAsList() {
 		Object[] elements = moduleProjectsViewer.getCheckedElements();
@@ -224,9 +212,38 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		if (dialog.open() != IDialogConstants.CANCEL_ID) {
 			IWorkspaceRoot input = ResourcesPlugin.getWorkspace().getRoot();
 			moduleProjectsViewer.setInput(input);
+            setNewModules(aModel);
+            refreshModules();
 		}
 	}
-
+    /**
+     * @param model
+     */
+    private void setNewModules(IDataModel defaultModel) {
+        List newComponents = new ArrayList();
+        collectNewComponents(defaultModel, newComponents);
+        List oldComponents = (List) getDataModel().getProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST);
+        newComponents.addAll(oldComponents);
+        getDataModel().setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, newComponents);
+    }
+    
+    private void collectNewComponents(IDataModel defaultModel, List newProjects) {
+        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_EJB), newProjects);
+        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_WEB), newProjects);
+        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_CLIENT), newProjects);
+        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_JCA), newProjects);
+    }
+    private void collectComponents(IDataModel compDM, List newProjects) {
+        if (compDM != null) {
+            String projectName = compDM.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+            if(projectName == null) return;
+            IProject project = ProjectUtilities.getProject(projectName);
+            String compName = compDM.getStringProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME);
+            if (project != null && project.exists())
+                newProjects.add(ComponentHandle.create(project, compName));
+        }
+    }
+    
 	private IDataModel createNewModuleModel() {
 		IDataModel defaultModel = DataModelFactory.createDataModel(new DefaultJ2EEComponentCreationDataModelProvider());
 		// transfer properties, project name
@@ -250,7 +267,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 			moduleProjectsViewer.setAllChecked(false);
 			//getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
 			//IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);	
-			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedJ2EEElementsAsList());
+			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider., getCheckedJ2EEElementsAsList());
 			getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
 			getDataModel().setProperty(JAVA_PROJECT_LIST, null);			
 		} finally {
@@ -267,7 +284,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 			moduleProjectsViewer.setAllChecked(true);
 			//getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 			//IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider.TARGET_COMPONENTS_HANDLE_LIST, getCheckedJ2EEElementsAsList());
+			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider., getCheckedJ2EEElementsAsList());
 			
 			getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedJ2EEElementsAsList());
 			getDataModel().setProperty(JAVA_PROJECT_LIST, getCheckedJavaProjectsAsList());
