@@ -6,21 +6,15 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-/*
- * Created on Dec 4, 2003
- * 
- * To change the template for this generated file go to Window - Preferences - Java - Code
- * Generation - Code and Comments
- */
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class AppClientModuleImportOperationNew extends J2EEArtifactImportOperationNew {
+public class AppClientComponentImportOperation extends J2EEArtifactImportOperation {
 
-	public AppClientModuleImportOperationNew(IDataModel model) {
+	public AppClientComponentImportOperation(IDataModel model) {
 		super(model);
 	}
 

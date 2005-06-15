@@ -12,17 +12,17 @@ package org.eclipse.jst.j2ee.navigator.internal;
 
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizardNew;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleExportWizard;
-import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizardNew;
+import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizardNew;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizardNew;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizardNew;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentImportWizard;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard;
@@ -50,19 +50,19 @@ public interface IJ2EEWizardConstants {
 
 	String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
 
-	String IMPORT_EAR_WIZARD_ID = EnterpriseApplicationImportWizardNew.class.getName();
+	String IMPORT_EAR_WIZARD_ID = EARComponentImportWizard.class.getName();
 
-	String IMPORT_APPCLIENT_WIZARD_ID = AppClientModuleImportWizardNew.class.getName();
+	String IMPORT_APPCLIENT_WIZARD_ID = AppClientComponentImportWizard.class.getName();
 
-	String IMPORT_CONNECTOR_WIZARD_ID = ConnectorModuleImportWizardNew.class.getName();
+	String IMPORT_CONNECTOR_WIZARD_ID = ConnectorComponentImportWizard.class.getName();
 
-	String IMPORT_ENTERPRISE_BEAN_WIZARD_ID = EJBModuleImportWizardNew.class.getName();
+	String IMPORT_ENTERPRISE_BEAN_WIZARD_ID = EJBComponentImportWizard.class.getName();
 
 	String IMPORT_WEB_MODULE_WIZARD_ID = WebComponentImportWizard.class.getName();
 
 	String IMPORT_UTILITY_JAR_WIZARD_ID = J2EEUtilityJarImportWizardNew.class.getName();
 
-	String EXPORT_EAR_WIZARD_ID = EnterpriseApplicationExportWizard.class.getName();
+	String EXPORT_EAR_WIZARD_ID = EARComponentExportWizard.class.getName();
 
 	String EXPORT_APPCLIENT_WIZARD_ID = AppClientModuleExportWizard.class.getName();
 

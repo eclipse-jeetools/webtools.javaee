@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-public abstract class J2EEModuleExportDataModelProvider extends J2EEArtifactExportDataModelProvider {
+public abstract class J2EEComponentExportDataModelProvider extends J2EEArtifactExportDataModelProvider {
 
-    public J2EEModuleExportDataModelProvider() {
+    public J2EEComponentExportDataModelProvider() {
         super();
     }
 }

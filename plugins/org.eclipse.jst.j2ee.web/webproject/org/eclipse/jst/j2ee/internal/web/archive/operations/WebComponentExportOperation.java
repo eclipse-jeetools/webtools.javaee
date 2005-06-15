@@ -18,10 +18,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientArchiveOpsResourceHandler;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperationNEW;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class WebComponentExportOperation extends J2EEArtifactExportOperationNEW {
+public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 
 	public WebComponentExportOperation() {
 		super();

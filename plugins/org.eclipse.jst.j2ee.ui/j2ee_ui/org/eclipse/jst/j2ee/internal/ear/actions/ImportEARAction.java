@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizardNew;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -41,7 +41,7 @@ public class ImportEARAction extends BaseAction {
 
 	protected void primRun(Shell shell) {
 
-		EnterpriseApplicationImportWizardNew wizard = new EnterpriseApplicationImportWizardNew();
+		EARComponentImportWizard wizard = new EARComponentImportWizard();
 
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 

@@ -55,7 +55,7 @@
       <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/import_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizardNew"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentImportWizard"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizardNew">
          <description>
             %connector.import.description_ui_
@@ -72,7 +72,7 @@
      <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/export_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentExportWizard"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard">
          <description>
             %connector.export.description_ui_

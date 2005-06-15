@@ -30,13 +30,13 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 
-public abstract class J2EEArtifactImportOperationNew extends AbstractDataModelOperation {
+public abstract class J2EEArtifactImportOperation extends AbstractDataModelOperation {
 
 	protected ModuleFile moduleFile;
 	protected IVirtualComponent virtualComponent;
 	protected IAdaptable info;
 
-	public J2EEArtifactImportOperationNew(IDataModel model) {
+	public J2EEArtifactImportOperation(IDataModel model) {
 		super(model);
 	}
 

@@ -10,56 +10,55 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleExportOperationNEW;
+import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
+public class EARComponentExportDataModelProvider extends J2EEArtifactExportDataModelProvider {
 
-public class AppClientModuleExportDataModelProvider extends J2EEModuleExportDataModelProvider {
-
-    public AppClientModuleExportDataModelProvider() {
+    public EARComponentExportDataModelProvider() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
+    
     public IDataModelOperation getDefaultOperation() {
-        return new AppClientModuleExportOperationNEW(model);
+        return new EARComponentExportOperation(model);
     }
 
     protected String getModuleExtension() {
-        return ".jar"; //$NON-NLS-1$
+        return ".ear"; //$NON-NLS-1$
     }
 
     protected String getWrongComponentTypeString(String projectName) {
-        return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_APP_CLIENT, new Object[]{projectName});
+        return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_EAR, new Object[]{projectName});
     }
 
     protected String getComponentID() {
-        return IModuleConstants.JST_APPCLIENT_MODULE;
+        return IModuleConstants.JST_EAR_MODULE;
     }
     /**
-     * Exports the specified Application Client Module project to the specified Application Client
-     * Jar file.
+     * Exports the specified Enterprise Appliction project to the specified EAR file.
      * 
-     * @param appClientProjectName
-     *            The name of the Application Client Module project to export.
-     * @param appClientJarFileName
-     *            The fully qualified Application Client Jar file location to export the specified
-     *            Application Client Module project.
+     * @param earProjectName
+     *            The name of the Enterprise Application project to export.
+     * @param earFileName
+     *            The fully qualified EAR file location to export the specified Enterprise
+     *            Application project.
      * @param overwriteExisting
      *            If this is <code>true</code> then an existing file at the location specified by
      *            <code>earFileName</code> will be overwritten.
      * @param exportSource
-     *            If this is <code>true</code> then all source files in the specified Application
-     *            Client Module will be included in the resulting Application Client Jar file.
+     *            If this is <code>true</code> then all source files in the specified Enterprise
+     *            Application Project and all its modules will be included in the resulting EAR
+     *            file.
      * @since WTP 1.0
      */
-//    public static void exportProject(String appClientProjectName, String appClientJarFileName, boolean overwriteExisting, boolean exportSource) {
-//        AppClientModuleExportDataModel dataModel = new AppClientModuleExportDataModel();
-//        dataModel.setProperty(PROJECT_NAME, appClientProjectName);
+//TODO: can this be done in the new datamodel framework?
+//    public static void exportProject(String earProjectName, String earFileName, boolean overwriteExisting, boolean exportSource) {
+//        EnterpriseApplicationExportDataModel dataModel = new EnterpriseApplicationExportDataModel();
+//        dataModel.setProperty(PROJECT_NAME, earProjectName);
 //        dataModel.setBooleanProperty(OVERWRITE_EXISTING, overwriteExisting);
-//        dataModel.setProperty(ARCHIVE_DESTINATION, appClientJarFileName);
+//        dataModel.setProperty(ARCHIVE_DESTINATION, earFileName);
 //        dataModel.setBooleanProperty(EXPORT_SOURCE_FILES, exportSource);
 //        try {
 //            dataModel.getDefaultOperation().run(null);

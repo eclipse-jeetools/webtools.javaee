@@ -20,18 +20,18 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperationNew;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class ConnectorModuleImportOperationNew extends J2EEArtifactImportOperationNew {
+public class ConnectorComponentImportOperation extends J2EEArtifactImportOperation {
 
 	private static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
 
 	/**
 	 * @param model
 	 */
-	public ConnectorModuleImportOperationNew(IDataModel model) {
+	public ConnectorComponentImportOperation(IDataModel model) {
 		super(model);
 	}
 

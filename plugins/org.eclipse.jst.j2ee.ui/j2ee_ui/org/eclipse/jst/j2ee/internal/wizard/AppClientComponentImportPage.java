@@ -8,12 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 3, 2003
- *
- * To change the template for this generated file go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
@@ -24,18 +18,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-/**
- * @author cbridgha
- * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
- */
-public class AppClientImportPageNew extends J2EEModuleImportPageNew {
+public class AppClientComponentImportPage extends J2EEModuleImportPage {
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public AppClientImportPageNew(IDataModel model, String pageName) {
+	public AppClientComponentImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_MAIN_PG_DESC));

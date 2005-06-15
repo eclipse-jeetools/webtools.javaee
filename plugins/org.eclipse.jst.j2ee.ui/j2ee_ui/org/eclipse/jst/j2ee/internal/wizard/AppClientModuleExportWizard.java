@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.AppClientComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IExportWizard;
@@ -48,7 +48,7 @@ public final class AppClientModuleExportWizard extends J2EEArtifactExportWizard 
 		super(model);
 	}
     protected IDataModelProvider getDefaultProvider() {
-        return new AppClientModuleExportDataModelProvider();
+        return new AppClientComponentExportDataModelProvider();
     }
 
 	/**

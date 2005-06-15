@@ -6,39 +6,48 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.applicationclient.internal.creation;
+package org.eclipse.jst.j2ee.internal.jca.operations;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleImportOperationNew;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
+/**
+ * This dataModel is used for to import Connector Modules (from RAR files) into the workspace.
+ * 
+ * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
+ * the new project structures are adopted. Use at your own risk.
+ * 
+ * @since WTP 1.0
+ */
+public final class ConnectorComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider {
 
-public final class AppClientModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IAppClientComponentImportDataModelProperties {
-
-	public AppClientModuleImportDataModelProvider() {
-		super();
+	public void init() {
+		super.init();
+		setIntProperty(IConnectorComponentCreationDataModelProperties.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
 	}
 
 	protected int getType() {
-		return XMLResource.APP_CLIENT_TYPE;
+		return XMLResource.RAR_TYPE;
 	}
 
 	protected Archive openArchive(String uri) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(getArchiveOptions(), uri);
-	}
-
-	public IDataModelOperation getDefaultOperation() {
-		return new AppClientModuleImportOperationNew(model);
+		Archive archive = CommonarchiveFactory.eINSTANCE.openRARFile(getArchiveOptions(), uri);
+		return archive;
 	}
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
-		return DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
+		return DataModelFactory.createDataModel(new ConnectorComponentCreationDataModelProvider());
 	}
+
+	public IDataModelOperation getDefaultOperation() {
+		return new ConnectorComponentImportOperation(model);
+	}
+
 }

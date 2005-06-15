@@ -34,7 +34,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public abstract class J2EEArtifactExportOperationNEW extends AbstractDataModelOperation {
+public abstract class J2EEArtifactExportOperation extends AbstractDataModelOperation {
 
 	protected IProgressMonitor progressMonitor;
 	private IVirtualComponent component;
@@ -42,11 +42,11 @@ public abstract class J2EEArtifactExportOperationNEW extends AbstractDataModelOp
 	private ModuleFile moduleFile;
 	private boolean exportSource = false;
 
-	public J2EEArtifactExportOperationNEW() {
+	public J2EEArtifactExportOperation() {
 		super();
 	}
 
-	public J2EEArtifactExportOperationNEW(IDataModel model) {
+	public J2EEArtifactExportOperation(IDataModel model) {
 		super(model);
 	}
 

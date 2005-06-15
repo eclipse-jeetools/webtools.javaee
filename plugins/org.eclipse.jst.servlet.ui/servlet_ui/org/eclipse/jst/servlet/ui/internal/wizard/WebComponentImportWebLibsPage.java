@@ -23,7 +23,7 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEImportPageNew;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEImportPage;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
@@ -43,7 +43,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class WebComponentImportWebLibsPage extends J2EEImportPageNew {
+public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	private Button deselectAllButton;
 	private Button selectAllButton;
 	protected WARFile warFile;

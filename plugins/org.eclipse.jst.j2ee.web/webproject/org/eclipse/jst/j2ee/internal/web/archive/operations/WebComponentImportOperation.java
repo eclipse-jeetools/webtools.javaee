@@ -27,7 +27,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperationNew;
+import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
@@ -40,7 +40,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
 
-public class WebComponentImportOperation extends J2EEArtifactImportOperationNew {
+public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 	/**
 	 * @param model
 	 */

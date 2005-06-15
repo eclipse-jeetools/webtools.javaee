@@ -14,14 +14,14 @@ import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPageNew;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class RARImportPageNew extends J2EEModuleImportPageNew {
+public class ConnectorComponentImportPage extends J2EEModuleImportPage {
 
-	public RARImportPageNew(IDataModel model, String pageName) {
+	public ConnectorComponentImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_IMPORT_MAIN_PG_TITLE));
 		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_IMPORT_MAIN_PG_DESC));

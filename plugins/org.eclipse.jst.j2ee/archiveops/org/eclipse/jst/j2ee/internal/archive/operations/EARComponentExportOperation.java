@@ -19,9 +19,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EnterpriseApplicationExportOperationNEW extends J2EEArtifactExportOperationNEW {
+public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 
-	public EnterpriseApplicationExportOperationNEW(IDataModel model) {
+	public EARComponentExportOperation(IDataModel model) {
 		super(model);
 	}
 

@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.ear.actions;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -40,7 +40,7 @@ public class ExportEARAction extends BaseAction {
 	}
 
 	public void primRun(Shell shell) {
-		EnterpriseApplicationExportWizard wizard = new EnterpriseApplicationExportWizard();
+		EARComponentExportWizard wizard = new EARComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 
 		wizard.init(plugin.getWorkbench(), selection);

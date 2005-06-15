@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -34,7 +34,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * @since WTP 1.0
  */
-public final class WebComponentImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IWebComponentImportDataModelProperties {
+public final class WebComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider implements IWebComponentImportDataModelProperties {
 
 	public String[] getPropertyNames() {
 		return combineProperties(super.getPropertyNames(), new String[]{WEB_LIB_MODELS, WEB_LIB_ARCHIVES_SELECTED});

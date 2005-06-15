@@ -22,7 +22,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * @since WTP 1.0
  */
-public abstract class J2EEModuleImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties{
+public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties{
 
 
 	public String[] getPropertyNames() {

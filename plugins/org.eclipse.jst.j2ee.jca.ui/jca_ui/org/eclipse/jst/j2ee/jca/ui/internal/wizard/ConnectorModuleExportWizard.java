@@ -10,7 +10,7 @@
  *******************************************************************************/ 
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleExportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
@@ -50,7 +50,7 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	}
 
     protected IDataModelProvider getDefaultProvider() {
-        return new ConnectorModuleExportDataModelProvider();
+        return new ConnectorComponentExportDataModelProvider();
     }
 	/**
 	 * <p>

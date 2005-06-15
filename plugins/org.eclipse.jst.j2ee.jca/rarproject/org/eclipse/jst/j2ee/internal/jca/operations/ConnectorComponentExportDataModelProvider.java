@@ -10,21 +10,20 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorModuleExportOperationNEW;
+import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorComponentExportOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class ConnectorModuleExportDataModelProvider extends J2EEModuleExportDataModelProvider {
+public class ConnectorComponentExportDataModelProvider extends J2EEComponentExportDataModelProvider {
 
-    public ConnectorModuleExportDataModelProvider() {
+    public ConnectorComponentExportDataModelProvider() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public IDataModelOperation getDefaultOperation() {
-        return new ConnectorModuleExportOperationNEW(model);
+        return new ConnectorComponentExportOperation(model);
     }
     
     protected String getComponentID() {

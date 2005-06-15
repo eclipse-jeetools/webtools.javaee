@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.jca.archive.operations;
+package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -17,34 +17,30 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperationNEW;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class ConnectorModuleExportOperationNEW extends J2EEArtifactExportOperationNEW {
+public class AppClientComponentExportOperation extends J2EEArtifactExportOperation {
 
-	public ConnectorModuleExportOperationNEW() {
-		super();
-	}
-
-	public ConnectorModuleExportOperationNEW(IDataModel model) {
+	public AppClientComponentExportOperation(IDataModel model) {
 		super(model);
 	}
 
-	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+	public void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		try {
 			CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-			ConnectorComponentLoadStrategyImpl ls = new ConnectorComponentLoadStrategyImpl(getComponent());
+			AppClientComponentLoadStrategyImpl ls = new AppClientComponentLoadStrategyImpl(getComponent());
 			ls.setExportSource(isExportSource());
-			setModuleFile(caf.openRARFile(ls, getDestinationPath().toOSString()));
+			setModuleFile(caf.openApplicationClientFile(ls, getDestinationPath().toOSString()));
 			getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
+		} catch (SaveFailureException ex) {
+			throw ex;
 		} catch (Exception e) {
-			throw new SaveFailureException(J2EEPluginResourceHandler.getString("Error_opening_archive_for_export_2"), e);//$NON-NLS-1$
+			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
 		}
 	}
 
 	protected String archiveString() {
-		//TODO fill in string
-		return "";
+		return AppClientArchiveOpsResourceHandler.getString("Application_Client_File_UI_"); //$NON-NLS-1$ = "Application Client File"
 	}
+
 }

@@ -40,7 +40,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelPrope
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperationNew;
+import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentImportOperation;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
@@ -691,7 +691,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 	}
 
 	public IDataModelOperation getDefaultOperation() {
-		return new EnterpriseApplicationImportOperationNew(model);
+		return new EARComponentImportOperation(model);
 	}
 
 }

@@ -8,23 +8,22 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
+package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportWizardNew;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * <p>
- * Wizard used to import J2EE Connector module structures into the Eclipse Workbench from an
- * existing Connector *.rar file.
+ * Wizard used to import J2EE Application Client module structures into the Eclipse Workbench from
+ * an existing Application Client *.jar file.
  * </p>
  */
-public final class ConnectorModuleImportWizardNew extends J2EEModuleImportWizardNew {
+public final class AppClientComponentImportWizard extends J2EEComponentImportWizard {
 
 	/**
 	 * <p>
@@ -32,7 +31,7 @@ public final class ConnectorModuleImportWizardNew extends J2EEModuleImportWizard
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public ConnectorModuleImportWizardNew() {
+	public AppClientComponentImportWizard() {
 		super();
 	}
 
@@ -45,17 +44,31 @@ public final class ConnectorModuleImportWizardNew extends J2EEModuleImportWizard
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public ConnectorModuleImportWizardNew(IDataModel model) {
+	public AppClientComponentImportWizard(IDataModel model) {
 		super(model);
 	}
 
+	// /**
+	// * {@inheritDoc}
+	// *
+	// * <p>
+	// * Returns an {@link AppClientImportOperation}using the model either supplied in the
+	// * constructor or created from {@link #createDefaultModel()}.
+	// * </p>
+	// *
+	// * @return Returns the operation to be executed when the Wizard completes.
+	// */
+	// protected WTPOperation getImportOperation() {
+	// return new AppClientModuleImportOperation(getSpecificDataModel());
+	// }
+
 	/**
 	 * <p>
-	 * Adds an {@link RARImportPage} as the main wizard page ({@link #MAIN_PG}).
+	 * Adds an {@link AppClientImportPage}as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new RARImportPageNew(getDataModel(), MAIN_PG));
+		addPage(new AppClientComponentImportPage(getDataModel(), MAIN_PG));
 	}
 
 	/**
@@ -67,16 +80,20 @@ public final class ConnectorModuleImportWizardNew extends J2EEModuleImportWizard
 	 */
 	public final void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
-		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_IMPORT_WIZARD_BANNER));
+		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_IMPORT_WIZARD_BANNER));
 		// updateEARToModelFromSelection(getSpecificDataModel());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleImportWizard#getModuleValidatorStrings()
+	 */
 	protected String[] getModuleValidatorStrings() {
-		return new String[]{"org.eclipse.jst.j2ee.internal.jca.validation.UIConnectorValidator"}; //$NON-NLS-1$
+		return new String[]{"org.eclipse.jst.j2ee.internal.validation.UIApplicationClientValidator"}; //$NON-NLS-1$
 	}
 
 	protected IDataModelProvider getDefaultProvider() {
-		return new ConnectorModuleImportDataModelProvider();
+		return new AppClientComponentImportDataModelProvider();
 	}
-
 }

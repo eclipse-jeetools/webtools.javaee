@@ -34,11 +34,11 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EnterpriseApplicationImportOperationNew extends J2EEArtifactImportOperationNew {
+public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
 	private EARFile earFile;
 
-	public EnterpriseApplicationImportOperationNew(IDataModel dataModel) {
+	public EARComponentImportOperation(IDataModel dataModel) {
 		super(dataModel);
 		earFile = (EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE);
 	}
