@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WTP EJB UI Plug-in
 Bundle-SymbolicName: org.eclipse.jst.ejb.ui; singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 0.7.0
 Bundle-ClassPath: ejb_ui.jar
 Bundle-Activator: org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin
 Bundle-Vendor: %providerName
