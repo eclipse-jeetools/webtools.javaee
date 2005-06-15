@@ -28,12 +28,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public abstract class J2EEModuleImportPageNew extends J2EEImportPageNew {
+public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public J2EEModuleImportPageNew(IDataModel model, String pageName) {
+	public J2EEModuleImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 	}
 

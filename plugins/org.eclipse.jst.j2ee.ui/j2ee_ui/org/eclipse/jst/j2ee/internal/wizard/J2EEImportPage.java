@@ -8,11 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 3, 2003
- * 
- * To change the template for this generated file go to Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
@@ -35,13 +30,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-/**
- * @author cbridgha
- * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
- */
-public abstract class J2EEImportPageNew extends DataModelWizardPage {
+public abstract class J2EEImportPage extends DataModelWizardPage {
 
 	private Combo componentCombo;
 	private Combo fileNameCombo;
@@ -54,7 +43,7 @@ public abstract class J2EEImportPageNew extends DataModelWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public J2EEImportPageNew(IDataModel model, String pageName) {
+	public J2EEImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 	}
 

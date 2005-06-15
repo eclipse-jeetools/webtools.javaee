@@ -36,7 +36,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * <li>{@link #doDispose()()}
  * </ul>
  */
-public abstract class J2EEModuleImportWizardNew extends J2EEArtifactImportWizardNew implements IImportWizard, IExecutableExtension {
+public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard implements IImportWizard, IExecutableExtension {
 
 	private static final String[] VALIDATOR_STRINGS = new String[]{"org.eclipse.jst.j2ee.internal.validation.UIEarValidator"}; //$NON-NLS-1$
 
@@ -48,7 +48,7 @@ public abstract class J2EEModuleImportWizardNew extends J2EEArtifactImportWizard
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public J2EEModuleImportWizardNew() {
+	public J2EEComponentImportWizard() {
 		super();
 		setWindowTitle(J2EEUIMessages.getResourceString("38")); //$NON-NLS-1$
 	}
@@ -62,7 +62,7 @@ public abstract class J2EEModuleImportWizardNew extends J2EEArtifactImportWizard
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEModuleImportWizardNew(IDataModel model) {
+	public J2EEComponentImportWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(J2EEUIMessages.getResourceString("38"));//$NON-NLS-1$ 
 	}

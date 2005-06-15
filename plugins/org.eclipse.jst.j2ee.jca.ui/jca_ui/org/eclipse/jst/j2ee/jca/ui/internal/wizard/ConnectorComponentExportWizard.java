@@ -25,7 +25,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * Archive *.rar file.  
  * </p>
  */
-public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
+public final class ConnectorComponentExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
 
 	/**
 	 * <p>
@@ -34,7 +34,7 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	 * operation will be created as needed.
 	 * </p>
 	 */
-	public ConnectorModuleExportWizard() {
+	public ConnectorComponentExportWizard() {
 		super();
 	}
 	
@@ -45,7 +45,7 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public ConnectorModuleExportWizard(IDataModel model) {
+	public ConnectorComponentExportWizard(IDataModel model) {
 		super(model);
 	}
 

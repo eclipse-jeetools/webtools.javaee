@@ -55,7 +55,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARImportProjectsPageNew extends J2EEImportPageNew implements ICellModifier {
+public class EARComponentProjectsPage extends J2EEImportPage implements ICellModifier {
 
 	private CheckboxTableViewer earFileListViewer;
 
@@ -67,7 +67,7 @@ public class EARImportProjectsPageNew extends J2EEImportPageNew implements ICell
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportProjectsPageNew(IDataModel model, String pageName) {
+	public EARComponentProjectsPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PROJECT_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PROJECT_PG_DESC));

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.AppClientComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IExportWizard;
@@ -19,11 +19,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * <p>
- * Wizard used to export J2EE Enterprise Application structures from the Eclipse Workbench to a
- * deployable Enterprise Application Archive *.ear file.
+ * Wizard used to export J2EE Application Client module structures from the Eclipse Workbench to a
+ * deployable Application Client Archive *.jar file.
  * </p>
  */
-public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
+public final class AppClientComponentExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
 
 	/**
 	 * <p>
@@ -31,7 +31,7 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public EnterpriseApplicationExportWizard() {
+	public AppClientComponentExportWizard() {
 		super();
 	}
 
@@ -44,24 +44,23 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public EnterpriseApplicationExportWizard(IDataModel model) {
+	public AppClientComponentExportWizard(IDataModel model) {
 		super(model);
 	}
-
     protected IDataModelProvider getDefaultProvider() {
-        return new EnterpriseApplicationExportDataModelProvider();
+        return new AppClientComponentExportDataModelProvider();
     }
 
 	/**
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * <li>{@link EARExportPage}as the main wizard page ({@link #MAIN_PG})
+	 * <li>{@link AppClientExportPage}as the main wizard page ({@link #MAIN_PG})
 	 * </ul>
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EARExportPage(getDataModel(), MAIN_PG, getSelection()));
+		addPage(new AppClientExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
 
 	/**
@@ -72,7 +71,6 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 * </p>
 	 */
 	protected void doInit() {
-		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_EXPORT_WIZARD_BANNER));
+		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_EXPORT_WIZARD_BANNER));
 	}
-
 }

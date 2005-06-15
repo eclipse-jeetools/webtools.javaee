@@ -23,7 +23,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * the EAR module.
  * </p>
  */
-public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizardNew implements IImportWizard {
+public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizard implements IImportWizard {
 
 	/**
 	 * <p>

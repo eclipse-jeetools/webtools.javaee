@@ -44,7 +44,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 /**
  * @author mdelder
  */
-public class J2EEUtilityJarImportPageNew extends J2EEImportPageNew {
+public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 
 	private static final String STORE_LABEL = "J2EE_UTILITY_JAR_LIST_IMPORT_"; //$NON-NLS-1$
 	// private static final int SIZING_TEXT_FIELD_WIDTH = 305;

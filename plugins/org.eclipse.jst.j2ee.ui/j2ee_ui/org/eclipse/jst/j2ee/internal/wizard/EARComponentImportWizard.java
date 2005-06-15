@@ -25,7 +25,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * Enterprise Application Archive *.ear file.
  * </p>
  */
-public final class EnterpriseApplicationImportWizardNew extends J2EEArtifactImportWizardNew implements IExecutableExtension, IImportWizard {
+public final class EARComponentImportWizard extends J2EEArtifactImportWizard implements IExecutableExtension, IImportWizard {
 
 	/**
 	 * <p>
@@ -47,7 +47,7 @@ public final class EnterpriseApplicationImportWizardNew extends J2EEArtifactImpo
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public EnterpriseApplicationImportWizardNew() {
+	public EARComponentImportWizard() {
 		super();
 		setWindowTitle(J2EEUIMessages.getResourceString("38")); //$NON-NLS-1$
 	}
@@ -61,7 +61,7 @@ public final class EnterpriseApplicationImportWizardNew extends J2EEArtifactImpo
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public EnterpriseApplicationImportWizardNew(IDataModel model) {
+	public EARComponentImportWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(J2EEUIMessages.getResourceString("38")); //$NON-NLS-1$
 	}
@@ -70,17 +70,17 @@ public final class EnterpriseApplicationImportWizardNew extends J2EEArtifactImpo
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * <li>{@link EARImportPageNew}as the main wizard page ({@link #MAIN_PG})
-	 * <li>{@link EARImportOptionsPageNew}as the options wizard page ({@link #OPTIONS_PG})
-	 * <li>{@link EARImportProjectsPageNew}as the project wizard page ({@link #PROJECT_PG})
+	 * <li>{@link EARComponentImportPage}as the main wizard page ({@link #MAIN_PG})
+	 * <li>{@link EARComponentImportOptionsPage}as the options wizard page ({@link #OPTIONS_PG})
+	 * <li>{@link EARComponentProjectsPage}as the project wizard page ({@link #PROJECT_PG})
 	 * </ul>
 	 * 
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EARImportPageNew(getDataModel(), MAIN_PG));
-		addPage(new EARImportOptionsPageNew(getDataModel(), OPTIONS_PG));
-		addPage(new EARImportProjectsPageNew(getDataModel(), PROJECT_PG));
+		addPage(new EARComponentImportPage(getDataModel(), MAIN_PG));
+		addPage(new EARComponentImportOptionsPage(getDataModel(), OPTIONS_PG));
+		addPage(new EARComponentProjectsPage(getDataModel(), PROJECT_PG));
 	}
 
 

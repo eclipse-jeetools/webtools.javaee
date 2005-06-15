@@ -53,7 +53,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARImportOptionsPageNew extends J2EEImportPageNew {
+public class EARComponentImportOptionsPage extends J2EEImportPage {
 	private Button deselectAllButton;
 	private Button selectAllButton;
 	private Label moduleProjectLocationLabel;
@@ -68,7 +68,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportOptionsPageNew(IDataModel model, String pageName) {
+	public EARComponentImportOptionsPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_DESC));

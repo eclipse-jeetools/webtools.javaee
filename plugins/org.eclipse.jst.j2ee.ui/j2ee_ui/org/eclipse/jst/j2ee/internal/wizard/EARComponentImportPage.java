@@ -42,14 +42,14 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARImportPageNew extends J2EEImportPageNew {
+public class EARComponentImportPage extends J2EEImportPage {
 	protected Combo serverTargetCombo;
 
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportPageNew(IDataModel dataModel, String pageName) {
+	public EARComponentImportPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_DESC));

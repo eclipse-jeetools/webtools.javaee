@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.client.actions;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleExportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -39,7 +39,7 @@ public class ExportApplicationClientAction extends BaseAction {
 	}
 
 	protected void primRun(Shell shell) {
-		AppClientModuleExportWizard wizard = new AppClientModuleExportWizard();
+		AppClientComponentExportWizard wizard = new AppClientComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 		wizard.init(plugin.getWorkbench(), selection);
 

@@ -104,7 +104,7 @@
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_import_wiz.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizardNew"
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard"
             id="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizardNew">
          <description>
             %client.import.description_ui_
@@ -116,7 +116,7 @@
        <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/import_ear.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizardNew"
+            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentImportWizard"
             id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizardNew">
          <description>
             %ear.import.description_ui_
@@ -155,7 +155,7 @@
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_export.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleExportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentExportWizard"
             id="org.eclipse.jst.j2ee.ui.AppClientModuleExportWizard">
          <description>
             %client.export.description_ui_
@@ -167,7 +167,7 @@
       <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/export_ear.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentExportWizard"
             id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationExportWizard">
          <description>
             %ear.export.description_ui_

@@ -31,12 +31,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARExportPage extends J2EEExportPage {
+public class EARComponentExportPage extends J2EEExportPage {
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public EARExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
+	public EARComponentExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_MAIN_PG_DESC));

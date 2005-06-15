@@ -46,7 +46,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
  * be made available to subclasses via {@link #getCurrentSelection()}.
  * </p>
  */
-public abstract class J2EEArtifactImportWizardNew extends DataModelWizard implements IImportWizard, IExecutableExtension {
+public abstract class J2EEArtifactImportWizard extends DataModelWizard implements IImportWizard, IExecutableExtension {
 
 	/**
 	 * <p>
@@ -66,7 +66,7 @@ public abstract class J2EEArtifactImportWizardNew extends DataModelWizard implem
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public J2EEArtifactImportWizardNew() {
+	public J2EEArtifactImportWizard() {
 		super();
 	}
 
@@ -79,7 +79,7 @@ public abstract class J2EEArtifactImportWizardNew extends DataModelWizard implem
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEArtifactImportWizardNew(IDataModel model) {
+	public J2EEArtifactImportWizard(IDataModel model) {
 		super(model);
 	}
 
