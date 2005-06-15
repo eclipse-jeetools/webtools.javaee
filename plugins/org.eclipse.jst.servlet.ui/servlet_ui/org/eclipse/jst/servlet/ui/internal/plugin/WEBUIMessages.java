@@ -30,6 +30,11 @@ public class WEBUIMessages extends Messages {
 	public static final String WEB_IMPORT_CONTEXT_ROOT = "11"; //$NON-NLS-1$
 	public static final String WEB_CONVERT_MAIN_PG_DESC = "12"; //$NON-NLS-1$
 	public static final String WEB_CONVERT_MAIN_PG_TITLE = "13"; //$NON-NLS-1$
+	public static final String WEB_IMPORT_WEB_LIB_PG_TITLE = "14"; //$NON-NLS-1$
+	public static final String WEB_IMPORT_WEB_LIB_PG_DESC = "15"; //$NON-NLS-1$
+	public static final String WAR_IMPORT_SELECT_ALL_LIBS_BUTTON = "16"; //$NON-NLS-1$
+	public static final String WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON = "17"; //$NON-NLS-1$
+	
 
 	private static final WEBUIMessages INSTANCE = new WEBUIMessages();
 

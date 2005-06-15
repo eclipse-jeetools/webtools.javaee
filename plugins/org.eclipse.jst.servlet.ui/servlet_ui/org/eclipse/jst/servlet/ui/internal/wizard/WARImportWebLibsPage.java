@@ -13,9 +13,8 @@
  * 
  * To change the template for this generated file go to Window>Preferences>Java>Code Generation>Code and Comments
  */
-package org.eclipse.jst.j2ee.internal.wizard;
+package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,12 +25,12 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEImportPageNew;
+import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
+import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -39,10 +38,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
@@ -53,14 +48,10 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARImportOptionsPageNew extends J2EEImportPageNew {
+public class WARImportWebLibsPage extends J2EEImportPageNew {
 	private Button deselectAllButton;
 	private Button selectAllButton;
-	private Label moduleProjectLocationLabel;
-	protected Button browseButton;
-	protected Button useAlternateRootBtn;
-	protected Text systemDefaultText;
-	protected EARFile earFile;
+	protected WARFile warFile;
 	public CheckboxTableViewer availableJARsViewer;
 	public boolean utilJarSelectionChanged = false;
 
@@ -68,11 +59,11 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportOptionsPageNew(IDataModel model, String pageName) {
+	public WARImportWebLibsPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_TITLE));
-		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_DESC));
-		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
+		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_TITLE));
+		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_DESC));
+		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_IMPORT_WIZARD_BANNER));
 	}
 
 	/*
@@ -82,13 +73,12 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
-		setInfopopID(IJ2EEUIContextIds.IMPORT_EAR_WIZARD_P2);
 		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
 		composite.setLayout(layout);
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		createJARsComposite(composite);
-		createProjectRootComposite(composite);
-
+		createAvailableJarsList(composite);
+		createButtonsGroup(composite);
 		return composite;
 	}
 
@@ -105,9 +95,9 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		availableJARsViewer.getControl().setLayoutData(gData);
-		AvailableUtilJarsAndWebLibProvider availableUtilJARsProvider = new AvailableUtilJarsAndWebLibProvider();
-		availableJARsViewer.setContentProvider(availableUtilJARsProvider);
-		availableJARsViewer.setLabelProvider(availableUtilJARsProvider);
+		AvailableWebLibProvider libsProvider = new AvailableWebLibProvider();
+		availableJARsViewer.setContentProvider(libsProvider);
+		availableJARsViewer.setLabelProvider(libsProvider);
 		availableJARsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				availableJARCheckStateChanged(event);
@@ -125,8 +115,8 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 
 		model.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
-				if (event.getPropertyName().equals(IEARComponentImportDataModelProperties.UTILITY_LIST)) {
-					availableJARsViewer.setCheckedElements(((List) model.getProperty(IEARComponentImportDataModelProperties.UTILITY_LIST)).toArray());
+				if (event.getPropertyName().equals(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED)) {
+					availableJARsViewer.setCheckedElements(((List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED)).toArray());
 				}
 			}
 		});
@@ -134,7 +124,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 
 	private void handleDeselectAllButtonPressed() {
 		ArrayList emptySelection = new ArrayList(2);
-		model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, emptySelection);
+		model.setProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED, emptySelection);
 	}
 
 	private void handleSelectAllButtonPressed() {
@@ -143,34 +133,12 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		for (int i = 0; (null != (selection = availableJARsViewer.getElementAt(i))); i++) {
 			allSelection.add(selection);
 		}
-		model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, allSelection);
+		model.setProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED, allSelection);
 	}
 
-	/**
-	 * Open an appropriate directory browser
-	 */
-	protected void handleBrowseButtonPressed() {
-		DirectoryDialog dialog = new DirectoryDialog(browseButton.getShell());
-		dialog.setMessage(J2EEUIMessages.getResourceString(J2EEUIMessages.SELECT_DIRECTORY_DLG));
+	
 
-		String dirName = getBrowseStartLocation();
-
-		if (!isNullOrEmpty(dirName)) {
-			File path = new File(dirName);
-			if (path.exists())
-				dialog.setFilterPath(dirName);
-		}
-
-		String selectedDirectory = dialog.open();
-		if (selectedDirectory != null)
-			systemDefaultText.setText(selectedDirectory);
-
-	}
-
-	protected String getBrowseStartLocation() {
-		String text = systemDefaultText.getText();
-		return text;
-	}
+	
 
 	protected void createButtonsGroup(org.eclipse.swt.widgets.Composite parent) {
 		Composite buttonGroup = new Composite(parent, SWT.NONE);
@@ -180,7 +148,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
-		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Select All"
+		selectAllButton.setText(WEBUIMessages.getResourceString(WEBUIMessages.WAR_IMPORT_SELECT_ALL_LIBS_BUTTON));
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
@@ -193,7 +161,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		});
 
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
-		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Deselect All"
+		deselectAllButton.setText(WEBUIMessages.getResourceString(WEBUIMessages.WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 2;
 		gd.heightHint = 22;
@@ -206,62 +174,13 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 		});
 	}
 
-	protected void createJARsComposite(Composite parent) {
-		Group group = new Group(parent, SWT.NULL);
-		group.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_JARS_GROUP));
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
-		group.setLayout(layout);
-		group.setLayoutData(new GridData(GridData.FILL_BOTH));
+	
 
-		Label description = new Label(group, SWT.NULL);
-		description.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_UTIL_JARS_TO_BE_PROJECTS));
-		GridData gd2 = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd2.horizontalSpan = 3;
-		description.setLayoutData(gd2);
-
-		// create jars check box viewer
-		createAvailableJarsList(group);
-		createButtonsGroup(group);
-	}
-
-	protected void createProjectRootComposite(Composite parent) {
-		Group group = new Group(parent, SWT.NULL);
-		group.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.PROJECT_LOCATIONS_GROUP));
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 3;
-		group.setLayout(layout);
-		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		Label description = new Label(group, SWT.NULL);
-		description.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_PROJECT_GROUP_DESCRIPTION));
-		GridData gd2 = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd2.horizontalSpan = 3;
-		description.setLayoutData(gd2);
-
-		moduleProjectLocationLabel = new Label(group, SWT.NULL);
-		moduleProjectLocationLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.USE_DEFAULT_ROOT_RADIO));
-		moduleProjectLocationLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-
-		systemDefaultText = new Text(group, SWT.READ_ONLY | SWT.WRAP | SWT.BORDER);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		systemDefaultText.setLayoutData(gd);
-		synchHelper.synchText(systemDefaultText, IEARComponentImportDataModelProperties.NESTED_MODULE_ROOT, null);
-
-		browseButton = new Button(group, SWT.PUSH);
-		browseButton.setText(defBrowseButtonLabel);
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		browseButton.setLayoutData(gd);
-		browseButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				handleBrowseButtonPressed();
-			}
-		});
-	}
+	
 
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
-			earFile = (EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE);
+			warFile = (WARFile) model.getProperty(IWebComponentImportDataModelProperties.FILE);
 			refresh();
 		}
 	}
@@ -275,11 +194,11 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 	}
 
 	private void refresh() {
-		availableJARsViewer.setInput(earFile);
+		availableJARsViewer.setInput(warFile);
 	}
 
 	public boolean isEARFileChanged() {
-		return earFile != model.getProperty(IEARComponentImportDataModelProperties.FILE);
+		return warFile != model.getProperty(IWebComponentImportDataModelProperties.FILE);
 	}
 
 	protected void enter() {
@@ -288,7 +207,7 @@ public class EARImportOptionsPageNew extends J2EEImportPageNew {
 	}
 
 	public void availableJARCheckStateChanged(CheckStateChangedEvent event) {
-		model.setProperty(IEARComponentImportDataModelProperties.UTILITY_LIST, getJARsForProjects());
+		model.setProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED, getJARsForProjects());
 		validatePage();
 	}
 

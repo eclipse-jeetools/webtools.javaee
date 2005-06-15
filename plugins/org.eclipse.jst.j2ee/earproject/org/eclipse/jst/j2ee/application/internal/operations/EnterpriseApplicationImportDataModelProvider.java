@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
@@ -257,13 +258,16 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				utilJars.add(file);
 			}
 			if (file.isWARFile()) {
-				List webLib = ((WARFileImpl) file).getLibArchives();
-				if (!webLib.isEmpty())
-					utilJars.addAll(webLib);
+				utilJars.addAll(getWebLibs((WARFile)file));
 			}
 		}
 		return utilJars;
 	}
+	
+	public static List getWebLibs(WARFile warFile){
+		return ((WARFileImpl) warFile).getLibArchives();
+	}
+	
 
 	protected boolean forceResetOnPreserveMetaData() {
 		return false;

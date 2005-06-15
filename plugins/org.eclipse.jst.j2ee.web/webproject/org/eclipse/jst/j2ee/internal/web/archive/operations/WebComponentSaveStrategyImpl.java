@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
@@ -74,14 +73,8 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	protected boolean operationHandlesNested(Archive archive) {
 		if (null != dataModel) {
-			List list = (List) dataModel.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_COMPONENTS);
-			IDataModel tempModel = null;
-			for (int i = 0; i < list.size(); i++) {
-				tempModel = (IDataModel) list.get(i);
-				if (tempModel.getProperty(IWebComponentImportDataModelProperties.FILE) == archive) {
-					return true;
-				}
-			}
+			List list = (List) dataModel.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
+			return list.contains(archive);
 		}
 		return false;
 	}

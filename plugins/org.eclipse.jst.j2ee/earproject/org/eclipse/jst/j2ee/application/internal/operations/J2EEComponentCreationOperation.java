@@ -62,7 +62,6 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 
     public J2EEComponentCreationOperation(IDataModel model) {
         super(model);
-        // TODO Auto-generated constructor stub
     }
 
     protected void execute(String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {

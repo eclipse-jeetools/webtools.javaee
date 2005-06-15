@@ -26,6 +26,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  */
 public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
 
+	protected static final String WEB_LIBS_PG = "WEB_LIBS_PG";
+	
 	/**
 	 * <p>
 	 * The default constructor. Creates a wizard with no selection, no model instance, and no
@@ -56,6 +58,7 @@ public final class WebModuleImportWizardNew extends J2EEModuleImportWizardNew {
 	 */
 	public void doAddPages() {
 		addPage(new WARImportPageNew(getDataModel(), MAIN_PG));
+		addPage(new WARImportWebLibsPage(getDataModel(), MAIN_PG));
 	}
 
 	/**

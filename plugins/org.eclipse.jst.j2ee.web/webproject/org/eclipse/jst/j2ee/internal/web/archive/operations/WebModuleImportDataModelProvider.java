@@ -37,11 +37,11 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 public final class WebModuleImportDataModelProvider extends J2EEModuleImportDataModelProvider implements IWebComponentImportDataModelProperties {
 
 	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{WEB_LIB_COMPONENTS});
+		return combineProperties(super.getPropertyNames(), new String[]{WEB_LIB_MODELS, WEB_LIB_ARCHIVES_SELECTED});
 	}
 
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(WEB_LIB_COMPONENTS)) {
+		if (propertyName.equals(WEB_LIB_MODELS) || propertyName.equals(WEB_LIB_ARCHIVES_SELECTED)) {
 			return Collections.EMPTY_LIST;
 		}
 		return super.getDefaultProperty(propertyName);
@@ -72,7 +72,7 @@ public final class WebModuleImportDataModelProvider extends J2EEModuleImportData
 					localModel.setProperty(FILE, libs.get(i));
 					nestedModels.add(localModel);
 				}
-				setProperty(WEB_LIB_COMPONENTS, nestedModels);
+				setProperty(WEB_LIB_MODELS, nestedModels);
 			}
 		}
 		return true;
@@ -83,27 +83,6 @@ public final class WebModuleImportDataModelProvider extends J2EEModuleImportData
 		return archive;
 	}
 
-	public void extractHandled(List newList, boolean addModels) {
-		List handledList = new ArrayList();
-		WARFile warFile = (WARFile) getArchiveFile();
-		List libArchives = warFile.getLibArchives();
-		IDataModel tempModel = null;
-		for (int i = newList.size() - 1; i > -1; i--) {
-			tempModel = (IDataModel) newList.get(i);
-			if (libArchives.contains(tempModel.getProperty(FILE))) {
-				if (addModels) {
-					handledList.add(tempModel);
-				}
-				newList.remove(tempModel);
-			}
-		}
-		if (addModels) {
-			setProperty(WEB_LIB_COMPONENTS, handledList);
-		}
-	}
-
-	
-
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
 	}
@@ -111,6 +90,5 @@ public final class WebModuleImportDataModelProvider extends J2EEModuleImportData
 	public IDataModelOperation getDefaultOperation() {
 		return new WebModuleImportOperationNew(model);
 	}
-
 
 }

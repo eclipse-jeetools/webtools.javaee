@@ -99,23 +99,28 @@ public class WebModuleImportOperationNew extends J2EEArtifactImportOperationNew 
 	}
 
 	private void importWebLibraryProjects(IProgressMonitor monitor, List extraEntries, IJavaProject javaProject) throws InvocationTargetException, InterruptedException, ExecutionException {
-		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_COMPONENTS);
+		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
+		List libProjects = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_MODELS);
 		IDataModel importModel = null;
 		IVirtualComponent nestedComponent = null;
 		ArrayList libModules = new ArrayList();
 		String jarName = null;
+		Archive libArchive = null;
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
-			nestedComponent = (IVirtualComponent) importModel.getProperty(IWebComponentImportDataModelProperties.COMPONENT);
-			jarName = ((Archive) importModel.getProperty(IWebComponentImportDataModelProperties.FILE)).getName();
-			libModules.add(new LibModule(jarName, nestedComponent.getProject().getName()));
-			importModel.getDefaultOperation().execute(monitor, info);
-			if (extraEntries != null) {
-				if (!javaProject.isOnClasspath(nestedComponent.getProject())) {
-					extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath()));
+			libArchive = (Archive) importModel.getProperty(IWebComponentImportDataModelProperties.FILE);
+			if (selectedLibs.contains(libArchive)) {
+				jarName = libArchive.getName();
+				nestedComponent = (IVirtualComponent) importModel.getProperty(IWebComponentImportDataModelProperties.COMPONENT);
+				libModules.add(new LibModule(jarName, nestedComponent.getProject().getName()));
+				importModel.getDefaultOperation().execute(monitor, info);
+				if (extraEntries != null) {
+					if (!javaProject.isOnClasspath(nestedComponent.getProject())) {
+						extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath()));
+					}
 				}
+				ComponentCore.createReference(virtualComponent, nestedComponent, new Path("/WEB-INF/lib/")).create(0, monitor);
 			}
-			ComponentCore.createReference(virtualComponent, nestedComponent, new Path("/WEB-INF/lib/")).create(0, monitor);
 		}
 
 

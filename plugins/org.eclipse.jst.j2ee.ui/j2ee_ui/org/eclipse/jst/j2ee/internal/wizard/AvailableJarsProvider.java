@@ -178,7 +178,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 		return invalidImage;
 	}
 
-	protected static Image getUtilImage() {
+	public static Image getUtilImage() {
 		if (utilImage == null)
 			utilImage = getImageDescriptor("jar_obj").createImage();//$NON-NLS-1$
 		return utilImage;
