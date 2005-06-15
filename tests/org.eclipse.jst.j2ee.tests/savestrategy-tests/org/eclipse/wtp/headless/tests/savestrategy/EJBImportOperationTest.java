@@ -12,7 +12,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -68,7 +68,7 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 	}
 
 	protected IDataModel getModelInstance() {
-		return DataModelFactory.createDataModel(new EJBModuleImportDataModelProvider());
+		return DataModelFactory.createDataModel(new EJBComponentImportDataModelProvider());
 	}
 
 }

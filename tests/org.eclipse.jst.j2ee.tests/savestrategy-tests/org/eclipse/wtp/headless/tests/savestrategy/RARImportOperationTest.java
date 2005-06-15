@@ -11,7 +11,7 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -40,7 +40,7 @@ public class RARImportOperationTest extends ModuleImportOperationTestCase {
 	}
 
 	protected IDataModel getModelInstance() {
-		return DataModelFactory.createDataModel(new ConnectorModuleImportDataModelProvider());
+		return DataModelFactory.createDataModel(new ConnectorComponentImportDataModelProvider());
 	}
 
 }

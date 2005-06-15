@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.headless.tests.savestrategy;
 
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModelProvider;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentImportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -27,7 +27,7 @@ public class AppClientImportOperationTest extends ModuleImportOperationTestCase 
 	}
 
 	protected IDataModel getModelInstance() {
-		return DataModelFactory.createDataModel(new AppClientModuleImportDataModelProvider());
+		return DataModelFactory.createDataModel(new AppClientComponentImportDataModelProvider());
 	}
 
 }
