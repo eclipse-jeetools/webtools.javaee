@@ -46,6 +46,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -62,7 +63,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	protected EARFile earFile;
 	protected IVirtualComponent component;
 	protected Archive archive;
-	protected EARArtifactEdit earArtifactEdit;
+	public EARArtifactEdit earArtifactEdit;
 	/** The EAR nature runtimes for all the open EAR projects in the workspace */
 	protected IVirtualComponent[] availableEARComponents = null;
 	protected ClassPathSelection classPathSelection;
@@ -543,13 +544,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return op;
 	}
     
-    public CreateReferenceComponentsOp  createReferenceComponentOperation(IVirtualComponent sourceComponent, IVirtualComponent targetComponent ) {
+    public CreateReferenceComponentsOp  createReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
     	IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponent.getComponentHandle());
-    	if(targetWLPRefComponentList == null)
-    		targetWLPRefComponentList = new ArrayList();
-    	targetWLPRefComponentList.add(targetComponent.getComponentHandle());
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetWLPRefComponentList);
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponentHandle);
+    	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+    	modHandlesList.addAll(targetComponentsHandles);
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
     	CreateReferenceComponentsOp op = new CreateReferenceComponentsOp(model);
     	return op;
     }

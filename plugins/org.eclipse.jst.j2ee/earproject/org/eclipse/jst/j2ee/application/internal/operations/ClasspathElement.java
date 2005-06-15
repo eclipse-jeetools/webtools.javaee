@@ -71,10 +71,11 @@ public class ClasspathElement {
 	}
 
 	protected void computeRelativeText() {
-
-		relativeText = J2EEProjectUtilities.computeRelativeText(archive.getURI(), getText());
-		if (relativeText == null)
-			relativeText = getText();
+		if (archive != null) {
+			relativeText = J2EEProjectUtilities.computeRelativeText(archive.getURI(), getText());
+			if (relativeText == null)
+				relativeText = getText();
+		}
 	}
 
 	/**

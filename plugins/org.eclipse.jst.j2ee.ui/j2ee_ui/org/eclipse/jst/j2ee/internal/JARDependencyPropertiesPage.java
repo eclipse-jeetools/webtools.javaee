@@ -9,6 +9,7 @@ package org.eclipse.jst.j2ee.internal;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.jar.Manifest;
@@ -25,7 +26,6 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -87,7 +87,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     protected Label enterpriseApplicationLabel;
     protected Label availableDependentJars;
   
-    
 
     /**
 	 * Constructor for JARDependencyPropertiesPage.
@@ -103,6 +102,14 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         model.addListener(this);
         updateModelManifest();
         initializeValidateEditListener();
+    }
+    
+    public void dispose() {
+    	super.dispose();
+    	if(model.earArtifactEdit != null) {
+    		model.earArtifactEdit.dispose();
+    		model.earArtifactEdit = null;
+    	}
     }
 
     private void updateModelManifest() {
@@ -181,10 +188,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
 	private void handleStandaloneWebModule() {
-		if(enableWLPCheckBox != null && enableWLPCheckBox.getSelection() == true) {
-        	handleWLPSupport(enableWLPCheckBox);
-        	enableWLPCheckBox.setEnabled(false);
-        }
+		if (enableWLPCheckBox != null && enableWLPCheckBox.getSelection() == true) {
+			model.setWLPModel(true);
+			handleWLPSupport(enableWLPCheckBox);
+			enableWLPCheckBox.setEnabled(false);
+		}
 	}
 
 	private boolean isValidComponent() {
@@ -482,12 +490,12 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	 * @see IPreferencePage#performOk()
 	 */
     public boolean performOk() {
-    	if(!isWLPProjectSetting())
-    		return performJavaJarDependencyOp();
+    	if(isWLPProjectSetting())
+    		return performWLPSettingOp();
     	else
-    		performWLPSettingOp();
-    	return true;
+    		return performJavaJarDependencyOp();
 	}
+    
     private boolean performWLPSettingOp() {
 		try {
 			boolean createdFlexProjects = runWLPOp(createFlexProjectOperations());
@@ -551,27 +559,35 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
 	private WorkspaceModifyComposedOperation createComponentDependencyOperations() {
-		WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
+		WorkspaceModifyComposedOperation composedOp = null;
 		List elements = model.getClassPathSelectionForWLPs().getClasspathElements();
+		List targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < elements.size(); i++) {
 			ClasspathElement element = (ClasspathElement) elements.get(i);
 			IProject elementProject = element.getProject();
 			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
-			IVirtualComponent sourceComp = flexProject.getComponents()[0];
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(model.createReferenceComponentOperation(sourceComp, model.getComponent())));
+			IVirtualComponent targetComp = flexProject.getComponents()[0];
+			targetComponentsHandles.add(targetComp.getComponentHandle());
+		}
+		if (!targetComponentsHandles.isEmpty()) {
+			composedOp = new WorkspaceModifyComposedOperation();
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(model.createReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
 		}
 		return composedOp;
 	}
 	
 	private WorkspaceModifyComposedOperation createFlexProjectOperations() {
-		WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
+		WorkspaceModifyComposedOperation composedOp = null;
 		try {
 			List elements = model.getClassPathSelectionForWLPs().getClasspathElements();
 			for (int i = 0; i < elements.size(); i++) {
 				ClasspathElement element = (ClasspathElement) elements.get(i);
 				IProject elementProject = element.getProject();
-				if (!elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID))
+				if (!elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+					if(composedOp == null)
+						composedOp = new WorkspaceModifyComposedOperation();
 					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(model.createFlexJavaProjectForJavaProject(elementProject)));
+				}
 			}
 		} catch (CoreException ce) {
 		}
@@ -584,7 +600,9 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
     
     protected boolean isWLPProjectSetting() {
-    	return enableWLPCheckBox.getSelection();
+    	if(enableWLPCheckBox != null)
+    		return enableWLPCheckBox.getSelection();
+    	return false;
     }
     
     protected UpdateManifestOperation createManifestOperation() {
