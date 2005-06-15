@@ -145,8 +145,13 @@ public class XDocletPreferencePage extends PreferencePage implements
 		XDocletPreferenceStore.setProperty(XDocletPreferenceStore.XDOCLETHOME,itemValue);
 
 		Combo combo = ((Combo)panel.preferences[1]);
-		itemValue = combo.getItem(combo.getSelectionIndex());
-		XDocletPreferenceStore.setProperty(XDocletPreferenceStore.XDOCLETVERSION,itemValue);
+		int itemIndex = combo.getSelectionIndex();
+		if(itemIndex !=  -1){
+			itemValue = combo.getItem(combo.getSelectionIndex());
+			XDocletPreferenceStore.setProperty(XDocletPreferenceStore.XDOCLETVERSION,itemValue);
+		}else{
+			return false;
+		}
 		
 		XDocletPreferenceStore.setPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE,((Button)panel.preferences[0]).getSelection() );
 		
