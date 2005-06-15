@@ -95,14 +95,15 @@ public class XDocletPreferenceStore {
 		store.setDefault(prefix+ EJB_WEBLOGIC + "_VERSION.value", "6.1");
 		store.setDefault(prefix+ EJB_WEBSPHERE + "_VERSION.value", "all");
 
-		XDocletPreferenceStore.setPropertyActive(XDOCLETBUILDERACTIVE , true);
-		XDocletPreferenceStore.setPropertyActive(EJB_JBOSS , false);
-		XDocletPreferenceStore.setPropertyActive(EJB_JONAS , false);
-		XDocletPreferenceStore.setPropertyActive(EJB_WEBSPHERE , false);
-		XDocletPreferenceStore.setPropertyActive(EJB_WEBLOGIC , false);
-		XDocletPreferenceStore.setPropertyActive(EJB_ORACLE , false);
-		XDocletPreferenceStore.setPropertyActive(EJB_ORION , false);
-		XDocletPreferenceStore.setPropertyActive(EJB_JRUN , false);
+		
+		store.setDefault(prefix +"."+XDOCLETBUILDERACTIVE , true);
+		store.setDefault(prefix +"."+EJB_JBOSS , false);
+		store.setDefault(prefix +"."+EJB_JONAS , false);
+		store.setDefault(prefix +"."+EJB_WEBSPHERE , false);
+		store.setDefault(prefix +"."+EJB_WEBLOGIC , false);
+		store.setDefault(prefix +"."+EJB_ORACLE , false);
+		store.setDefault(prefix +"."+EJB_ORION , false);
+		store.setDefault(prefix +"."+EJB_JRUN , false);
 	}
 
 }
