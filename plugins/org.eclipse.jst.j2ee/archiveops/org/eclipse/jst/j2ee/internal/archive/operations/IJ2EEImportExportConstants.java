@@ -11,6 +11,11 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
+//TODO DELETE
+/**
+ * @deprecated
+ *
+ */
 public interface IJ2EEImportExportConstants {
 
 	public String CLASSPATH_FILE_URI = ProjectUtilities.DOT_CLASSPATH;

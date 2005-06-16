@@ -108,6 +108,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					continue;
 				if (getVisitedURIs().contains(uri))
 					continue;
+				if(uri.charAt(0) == Path.SEPARATOR){
+					uri = uri.substring(1);
+				}
 				cFile = createFile(uri);
 				cFile.setLastModified(getLastModified(virtualResources[i].getUnderlyingResource()));
 				getVisitedURIs().add(uri);
