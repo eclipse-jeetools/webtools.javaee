@@ -55,7 +55,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
         component.create(0, null);
         //create and link META-INF folder
         IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$     
-		root.createLink(new Path("/"), 0, null); //$NON-NLS-1$
+		root.createLink(new Path("/" + getModuleName()), 0, null); //$NON-NLS-1$
 		
         IVirtualFolder metaInfFolder = root.getFolder(J2EEConstants.META_INF);
         metaInfFolder.create(IResource.FORCE, null);
