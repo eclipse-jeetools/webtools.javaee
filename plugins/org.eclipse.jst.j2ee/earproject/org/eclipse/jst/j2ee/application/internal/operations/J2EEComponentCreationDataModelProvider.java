@@ -12,6 +12,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModel
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
@@ -393,6 +394,24 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return validateComponentVersionProperty();
 		} else if (propertyName.equals(VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME)) {
 			return OK_STATUS;
+		}else if(propertyName.equals(ADD_TO_EAR)){
+			boolean val = getBooleanProperty(ADD_TO_EAR);
+			if( val ){
+				String serverID = model.getStringProperty(SERVER_TARGET_ID);
+				IRuntime runtime = getServerTargetByID(serverID);
+				if( serverID.equals("") || runtime == null ){
+					String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+	                return WTPCommonPlugin.createErrorStatus(msg);
+				}
+				Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
+				int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());
+				String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
+				String msg =  isTypeSupported(runtime.getRuntimeType(), IModuleConstants.JST_EAR_MODULE, j2eeVer);
+				if( !msg.equals(OK)){
+                    msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+                    return WTPCommonPlugin.createErrorStatus(msg);					
+				}
+			}
 		}
 		return super.validate(propertyName);
 	}
