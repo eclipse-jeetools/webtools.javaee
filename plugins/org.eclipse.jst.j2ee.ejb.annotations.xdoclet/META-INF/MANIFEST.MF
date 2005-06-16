@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Xdoclet Annotations Plug-in
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotations.xdoclet; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: xdocletAnnotation.jar
+Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin

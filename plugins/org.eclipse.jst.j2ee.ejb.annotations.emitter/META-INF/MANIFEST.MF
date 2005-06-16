@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EJB Emitter Plug-in
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotations.emitter; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: ejbEmitter.jar
+Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitterPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
