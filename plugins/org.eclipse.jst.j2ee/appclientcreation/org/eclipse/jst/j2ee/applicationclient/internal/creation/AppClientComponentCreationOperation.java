@@ -36,6 +36,7 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
 public class AppClientComponentCreationOperation extends J2EEComponentCreationOperation implements IAppClientComponentCreationDataModelProperties {
 
@@ -97,9 +98,11 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
                 mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, getProject().getName());
                 mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
                 mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
-                String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + model.getStringProperty(JAVASOURCE_FOLDER);
+                String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + model.getStringProperty(JAVASOURCE_FOLDER);;
+                if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
+                    projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + model.getStringProperty(JAVASOURCE_FOLDER);             
                 mainClassDataModel.setProperty(NewJavaClassDataModel.SOURCE_FOLDER, projRelativeSourcePath);
-                //mainClassDataModel.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, "default");//$NON-NLS-1$
+               // mainClassDataModel.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, "appclient");//$NON-NLS-1$
                 mainClassDataModel.getDefaultOperation().run(monitor);
                 
                 createManifestEntryForMainClass(monitor);
