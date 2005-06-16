@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EJB Annotation Model Plug-in
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotation.model; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: ejbAnnotationModel.jar
+Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
