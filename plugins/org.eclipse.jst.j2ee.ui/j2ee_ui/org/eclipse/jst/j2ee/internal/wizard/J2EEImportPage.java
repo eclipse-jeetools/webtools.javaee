@@ -16,6 +16,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -100,11 +101,30 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 			// }
 			// });
 			// newProjectButton.setEnabled(true);
-
 			synchHelper.synchCombo(componentCombo, IAppClientComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel});
+			new Label(parent, SWT.NULL);
+			createServerTargetComposite(parent);
 		}
 	}
 
+	protected void createServerTargetComposite(Composite parent) {
+		Label label = new Label(parent, SWT.NONE);
+		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+		Combo serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
+		serverTargetCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Button newServerTargetButton = new Button(parent, SWT.NONE);
+		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
+		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
+			}
+		});
+		Control[] deps = new Control[]{label, newServerTargetButton};
+		synchHelper.synchCombo(serverTargetCombo, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, deps);
+        if(serverTargetCombo.getVisibleItemCount() != 0)
+            serverTargetCombo.select(0);		
+	}
+	
 	/**
 	 * 
 	 */
