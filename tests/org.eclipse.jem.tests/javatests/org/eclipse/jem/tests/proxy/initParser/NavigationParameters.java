@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: NavigationParameters.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 19:27:19 $ 
  */
 
 import java.io.*;
@@ -28,6 +28,12 @@ import java.awt.*;
  * get good hit results on the test succeeding by a perfect toString() match
  */
 public class NavigationParameters implements java.io.Serializable {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = 5289530492833484640L;
 	protected int x = Integer.MIN_VALUE;
 	protected int y = Integer.MIN_VALUE;
 	protected boolean boolA, boolB, boolC;

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: NeedsCodingTest.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:39 $ 
+ *  $Revision: 1.5 $  $Date: 2005/06/16 19:27:19 $ 
  */
 
 /**
@@ -40,7 +40,14 @@ public class NeedsCodingTest extends AbstractInitParserTestCase {
 	
 	public void testInnerClasses() throws Throwable {
          //	Inner classes need coding but we have a test to make sure we throw an explicit exception
-		 testHelper.testInitString("new javax.swing.table.DefaultTableModel(){}",new javax.swing.table.DefaultTableModel(){},true, true);	
+		 testHelper.testInitString("new javax.swing.table.DefaultTableModel(){}",new javax.swing.table.DefaultTableModel(){
+
+			/**
+			 * Comment for <code>serialVersionUID</code>
+			 * 
+			 * @since 1.1.0
+			 */
+			private static final long serialVersionUID = 1L;},true, true);	
 	}
 	public void testParamsThreeFloats() throws Throwable {
 		testHelper.testInitString("org.eclipse.jem.tests.proxy.initParser.NavigationParameters.get((float)12,(float)24,(float)50)",org.eclipse.jem.tests.proxy.initParser.NavigationParameters.get(12,24,50));		
