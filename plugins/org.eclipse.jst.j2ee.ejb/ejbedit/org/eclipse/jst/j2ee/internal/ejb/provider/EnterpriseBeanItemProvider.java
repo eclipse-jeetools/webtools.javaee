@@ -152,12 +152,12 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 * @generated
 	 */
 	public Collection getChildrenReferences(Object object) {
-		if (childrenFeatures == null) {
+		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
-			childrenFeatures.add(EjbPackage.eINSTANCE.getEnterpriseBean_SecurityRoleRefs());
-			childrenFeatures.add(EjbPackage.eINSTANCE.getEnterpriseBean_SecurityIdentity());
+            childrenReferences.add(EjbPackage.eINSTANCE.getEnterpriseBean_SecurityRoleRefs());
+            childrenReferences.add(EjbPackage.eINSTANCE.getEnterpriseBean_SecurityIdentity());
 		}
-		return childrenFeatures;
+		return childrenReferences;
 	}
 
 	/**
