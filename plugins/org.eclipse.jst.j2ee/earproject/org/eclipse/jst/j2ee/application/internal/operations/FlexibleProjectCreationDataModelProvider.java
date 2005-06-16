@@ -42,6 +42,9 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
         if (PROJECT_NAME.equals(propertyName)) {
             IDataModel projModel = model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
             projModel.setProperty(IProjectCreationProperties.PROJECT_NAME, propertyValue);
+        } else if (PROJECT_LOCATION.equals(propertyName)) {
+            IDataModel projModel = model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
+            projModel.setProperty(IProjectCreationProperties.PROJECT_LOCATION, propertyValue);
         }
         return status;
     }
