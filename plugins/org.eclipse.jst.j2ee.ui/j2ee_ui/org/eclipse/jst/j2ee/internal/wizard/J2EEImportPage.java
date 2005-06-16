@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 public abstract class J2EEImportPage extends DataModelWizardPage {
@@ -75,33 +76,33 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	 * @param composite
 	 */
 	protected void createProjectNameComposite(Composite parent) {
+		if (FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()) {
+			new NewModuleDataModelGroup(parent, getDataModel(), synchHelper);
+		} else {
+			Label componentLabel = new Label(parent, SWT.NONE);
 
-		Label componentLabel = new Label(parent, SWT.NONE);
+			componentLabel.setText(getProjectImportLabel());
+			componentLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 
-		componentLabel.setText(getProjectImportLabel());
-		componentLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+			// setting up combo
+			componentCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
+			GridData data = new GridData(GridData.FILL_HORIZONTAL);
+			data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+			componentCombo.setLayoutData(data);
 
-		// setting up combo
-		componentCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-		componentCombo.setLayoutData(data);
+			// // setting up button
+			// Button newProjectButton = new Button(parent, SWT.PUSH);
+			// newProjectButton.setText(defNewButtonLabel); //$NON-NLS-1$
+			// newProjectButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
+			// newProjectButton.addSelectionListener(new SelectionAdapter() {
+			// public void widgetSelected(SelectionEvent e) {
+			// // handleNewProjectButtonPressed();
+			// }
+			// });
+			// newProjectButton.setEnabled(true);
 
-		// // setting up button
-		// Button newProjectButton = new Button(parent, SWT.PUSH);
-		// newProjectButton.setText(defNewButtonLabel); //$NON-NLS-1$
-		// newProjectButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		// newProjectButton.addSelectionListener(new SelectionAdapter() {
-		// public void widgetSelected(SelectionEvent e) {
-		// // handleNewProjectButtonPressed();
-		// }
-		// });
-		// newProjectButton.setEnabled(true);
-
-		synchHelper.synchCombo(componentCombo, IAppClientComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel /*
-																																			 * ,
-																																			 * newProjectButton
-																																			 */});
+			synchHelper.synchCombo(componentCombo, IAppClientComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel});
+		}
 	}
 
 	/**
@@ -252,6 +253,6 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		super.enter();
 	}
 
-	
+
 
 }
