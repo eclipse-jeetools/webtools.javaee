@@ -12,5 +12,12 @@
          </run>
       </runtime>
    </extension>
+   
+   <extension
+         point="org.eclipse.jem.util.nature_registration">
+      <nature
+            id="org.eclipse.jem.workbench.JavaEMFNature">
+      </nature>
+   </extension>   
 
 </plugin>
