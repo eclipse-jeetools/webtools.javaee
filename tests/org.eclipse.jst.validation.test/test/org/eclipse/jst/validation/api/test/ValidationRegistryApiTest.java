@@ -25,7 +25,7 @@ public class ValidationRegistryApiTest extends TestCase {
 	public void test_getValidator() {
 	try {
 		ValidationFactory valFactory = ValidationFactory.instance;
-		IValidator validator = valFactory.getValidator("org.eclipse.jst.j2ee.model.internal.validation.EJBValidator");
+		IValidator validator = valFactory.getValidator("org.eclipse.jst.j2ee.internal.ejb.workbench.validation.UIEjbValidator");
 		Assert.assertNotNull(validator);
 	 } catch (Exception e) {
 		e.printStackTrace();
