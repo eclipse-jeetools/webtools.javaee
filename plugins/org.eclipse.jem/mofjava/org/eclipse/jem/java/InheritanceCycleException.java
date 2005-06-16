@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: InheritanceCycleException.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:37:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/06/16 17:46:17 $ 
  */
 import java.text.MessageFormat;
 
@@ -24,6 +24,12 @@ import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class InheritanceCycleException extends Exception {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -2385690847427897656L;
 	private static String MSG_PATTERN = ResourceHandler.getString("Java_Inh_Cycle_ERROR_");//$NON-NLS-1$
 
 	/**

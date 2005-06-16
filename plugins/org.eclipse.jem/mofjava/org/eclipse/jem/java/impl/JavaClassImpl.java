@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.17 $  $Date: 2005/05/19 21:34:26 $ 
+ *  $Revision: 1.18 $  $Date: 2005/06/16 17:46:17 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -1594,6 +1594,13 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	public EList getImplementsInterfacesGen() {
 		if (implementsInterfaces == null) {
 			implementsInterfaces = new EObjectResolvingEList(JavaClass.class, this, JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES) {
+
+				/**
+				 * Comment for <code>serialVersionUID</code>
+				 * 
+				 * @since 1.1.0
+				 */
+				private static final long serialVersionUID = 1L;
 
 				public Object get(int index) {
 					if (isInterface())

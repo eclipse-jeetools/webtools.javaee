@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: AmbiguousMethodException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:54:34 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 package org.eclipse.jem.internal.proxy.common;
  
@@ -19,6 +19,12 @@ package org.eclipse.jem.internal.proxy.common;
  * Ambiguous Method Exception. I.E. There is more than one that could be used.
  */
 public class AmbiguousMethodException extends Exception {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -7084137612344373381L;
 	public AmbiguousMethodException() {
 	}
 	public AmbiguousMethodException(String msg) {

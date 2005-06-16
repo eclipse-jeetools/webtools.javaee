@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.36 $  $Date: 2005/06/15 20:19:31 $ 
+ *  $Revision: 1.37 $  $Date: 2005/06/16 17:46:12 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -1176,6 +1176,13 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 		
 		UniqueEList.FastCompare allProperties = new UniqueEList.FastCompare() {
+			/**
+			 * Comment for <code>serialVersionUID</code>
+			 * 
+			 * @since 1.1.0
+			 */
+			private static final long serialVersionUID = 1L;
+
 			protected Object[] newData(int capacity) {
 				return new EStructuralFeature[capacity];
 			}
@@ -1809,6 +1816,13 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		UniqueEList.FastCompare allOperations = new UniqueEList.FastCompare() {
+			/**
+			 * Comment for <code>serialVersionUID</code>
+			 * 
+			 * @since 1.1.0
+			 */
+			private static final long serialVersionUID = 1L;
+
 			protected Object[] newData(int capacity) {
 				return new EOperation[capacity];
 			}
@@ -2112,6 +2126,13 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		UniqueEList.FastCompare allEvents = new UniqueEList.FastCompare() {
+			/**
+			 * Comment for <code>serialVersionUID</code>
+			 * 
+			 * @since 1.1.0
+			 */
+			private static final long serialVersionUID = 1L;
+
 			protected Object[] newData(int capacity) {
 				return new JavaEvent[capacity];
 			}

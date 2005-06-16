@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common;
  *******************************************************************************/
 /*
  *  $RCSfile: CommandException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:54:34 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 /**
  * An error occurred during command processing.
@@ -19,6 +19,12 @@ package org.eclipse.jem.internal.proxy.common;
  */
 
 public class CommandException extends Exception {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -2519238571145682514L;
 	protected final Object fExceptionData;
 	
 	public CommandException() {

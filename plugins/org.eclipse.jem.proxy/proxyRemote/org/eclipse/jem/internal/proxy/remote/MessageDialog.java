@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: MessageDialog.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 import java.awt.*;
@@ -23,6 +23,12 @@ import java.awt.*;
  * don't have AWT because it won't be loaded in that case.
  */
 class MessageDialog extends Dialog {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = 2547670349372067345L;
 	private java.awt.Panel ivjContentsPane = null;
 	IvjEventHandler ivjEventHandler = new IvjEventHandler();
 	private java.awt.TextArea ivjTextArea1 = null;

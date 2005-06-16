@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/16 17:46:14 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -44,6 +44,12 @@ public class ExpressionProxy implements IProxy {
 	 */
 	public static class ProxyEvent extends EventObject {
 		
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0
+		 */
+		private static final long serialVersionUID = -2305781662465107377L;
 		private final IBeanProxy proxy;
 
 		/**

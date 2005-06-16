@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:45:49 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/16 17:46:12 $ 
  */
 
 import java.beans.*;
@@ -69,6 +69,12 @@ public abstract class ModelingBeanInfo implements ICallback {
 
 	static class FeatureEqualitySet extends HashSet {
 
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0
+		 */
+		private static final long serialVersionUID = -3744776740604328324L;
 		private FeatureDescriptorEquality workingKey;
 
 		public FeatureEqualitySet(List features) {

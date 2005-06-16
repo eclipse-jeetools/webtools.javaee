@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: IdentityMap.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:57:54 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 
@@ -23,6 +23,13 @@ import java.util.*;
 
 public class IdentityMap extends HashMap{
 	
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -6817274833221383683L;
+
 	/**
 	 * Key that returns true on equals() only
 	 * if the item it is wrappering is '=='

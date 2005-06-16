@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NoExpressionValueException.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.2 $  $Date: 2005/06/16 17:46:14 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
  
@@ -25,6 +25,13 @@ package org.eclipse.jem.internal.proxy.initParser.tree;
  */
 public class NoExpressionValueException extends Exception {
 	
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -7953101867782417964L;
+
 	/**
 	 * Construct with no arguments.
 	 * 

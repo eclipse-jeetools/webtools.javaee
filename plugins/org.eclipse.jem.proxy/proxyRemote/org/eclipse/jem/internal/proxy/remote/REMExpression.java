@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.12 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.13 $  $Date: 2005/06/16 17:46:14 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -892,6 +892,14 @@ public class REMExpression extends Expression {
 	 * @since 1.1.0
 	 */
 	private static class REMNoExpressionValueException extends NoExpressionValueException {
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0
+		 */
+		private static final long serialVersionUID = 1692406777391812694L;
+
+
 		public REMNoExpressionValueException(ThrowableProxy e) {
 			super(e);
 		}

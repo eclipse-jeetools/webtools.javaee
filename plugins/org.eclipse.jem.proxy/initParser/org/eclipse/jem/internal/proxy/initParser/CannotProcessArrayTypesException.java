@@ -11,12 +11,19 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: CannotProcessArrayTypesException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 /**
  * Exception to indicate that the initStringParser can't deal with arrays right now
  */
 public class CannotProcessArrayTypesException extends RuntimeException {
+
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -4245984020065761634L;
 	
 }

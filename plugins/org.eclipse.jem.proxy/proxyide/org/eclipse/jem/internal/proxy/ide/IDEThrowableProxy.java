@@ -11,13 +11,19 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEThrowableProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
 
 public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = 7162757961175978338L;
 	protected IBeanTypeProxy fBeanTypeProxy;
 
 	protected IDEThrowableProxy(Throwable exc, IBeanTypeProxy aBeanTypeProxy) {

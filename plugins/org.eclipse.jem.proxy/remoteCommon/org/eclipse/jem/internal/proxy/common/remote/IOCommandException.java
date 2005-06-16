@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: IOCommandException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:39 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 import java.io.IOException;
@@ -23,6 +23,12 @@ import org.eclipse.jem.internal.proxy.common.CommandException;
  */
 
 public class IOCommandException extends IOException {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -2308947195164382779L;
 	protected CommandException fException;
 	
 	public IOCommandException(CommandException e) {

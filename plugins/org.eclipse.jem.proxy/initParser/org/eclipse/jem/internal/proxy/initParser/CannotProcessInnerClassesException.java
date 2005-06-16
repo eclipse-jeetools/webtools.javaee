@@ -11,12 +11,19 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: CannotProcessInnerClassesException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 /**
  * This exception is thrown to indicate that inner classes cannot be processed
  */
 public class CannotProcessInnerClassesException extends RuntimeException {
+
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = 8290504580738499445L;
 
 }

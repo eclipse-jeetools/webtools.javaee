@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMThrowableBeanProxy.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 
@@ -25,6 +25,12 @@ import org.eclipse.jem.internal.proxy.common.remote.*;
  */
 public class REMThrowableBeanProxy extends ThrowableProxy implements IREMBeanProxy {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = 2076777336810215206L;
 	private Integer fID;
 	protected final REMProxyFactoryRegistry fFactory;
 	private IBeanTypeProxy fTypeProxy;

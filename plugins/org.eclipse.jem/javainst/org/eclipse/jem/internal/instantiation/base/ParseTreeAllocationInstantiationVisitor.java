@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/11 19:01:16 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/16 17:46:17 $ 
  */
 package org.eclipse.jem.internal.instantiation.base;
 
@@ -50,6 +50,13 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 */
 	public static class ProcessingException extends RuntimeException {
 		
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0
+		 */
+		private static final long serialVersionUID = 1268624222490406643L;
+
 		/**
 		 * @param cause
 		 * 

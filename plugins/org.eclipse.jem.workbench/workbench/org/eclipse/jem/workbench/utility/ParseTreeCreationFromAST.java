@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.12 $  $Date: 2005/06/15 20:19:32 $ 
+ *  $Revision: 1.13 $  $Date: 2005/06/16 17:46:07 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -127,6 +127,13 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 */
 	protected static class InvalidExpressionException extends IllegalArgumentException {
 		
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0
+		 */
+		private static final long serialVersionUID = 2429845631915206678L;
+
 		/**
 		 * @param s The message to be used in the final invalid expression.
 		 * 

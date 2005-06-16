@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: InitializationStringEvaluationException.java,v $
- *  $Revision: 1.3 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 
@@ -19,6 +19,12 @@ package org.eclipse.jem.internal.proxy.initParser;
 public class InitializationStringEvaluationException extends Exception {
 	
 	
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -8633390926210276727L;
 public InitializationStringEvaluationException(Throwable exc){
 	super(exc);
 }

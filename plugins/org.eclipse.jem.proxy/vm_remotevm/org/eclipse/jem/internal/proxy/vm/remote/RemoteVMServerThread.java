@@ -11,12 +11,14 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/18 23:11:27 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 
 import java.util.*;
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.*;
 import org.eclipse.jem.internal.proxy.common.remote.*;
 import org.eclipse.jem.internal.proxy.common.*;
@@ -36,7 +38,7 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 	protected List threads = Collections.synchronizedList(new LinkedList());	// List of active threads.
 	protected ServerSocket server;	// Server Socket for this application
 	private int highestIdentityID = 0;	// Identity codes to identify objects between server and client.
-	private IdentityMap objectToIDMap = new IdentityMap(100);	// Map from object to identity id
+	private Map objectToIDMap;
 	private HashMap idToObjectMap = new HashMap(100);	// Map from identity id to object
 	
 	protected Stack fCallbackHandlerPool = new Stack();	// Stack of free callback handlers
@@ -52,8 +54,37 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 	// in Linux 1.4. So on Linux 1.3 need to put timeouts in on those sockets that can be separately closed while reading/accepting.
 	static boolean LINUX_1_3 = "linux".equalsIgnoreCase(System.getProperty("os.name")) && System.getProperty("java.version","").startsWith("1.3");	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	
+	// If version 1.3.x, we need to use our IdentidyMap, if 1.4 or greater then we can use Java's IdentidyHashMap, which is more efficient than ours.
+	static Constructor IDENTIDYMAP_CLASS_CTOR;
+	static {
+		Class idClass;
+		try {
+			idClass = Class.forName("java.util.IdentityHashMap");
+		} catch (ClassNotFoundException e) {
+			idClass = IdentityMap.class;
+		}
+		try {
+			IDENTIDYMAP_CLASS_CTOR = idClass.getConstructor(new Class[] {Integer.TYPE});
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public RemoteVMServerThread(String name) {
 		super(name);
+		try {
+			objectToIDMap = (Map) IDENTIDYMAP_CLASS_CTOR.newInstance(new Object[] {new Integer(100)});
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// The purpose of this thread is to wait 5 minutes, then see if the IDE is still

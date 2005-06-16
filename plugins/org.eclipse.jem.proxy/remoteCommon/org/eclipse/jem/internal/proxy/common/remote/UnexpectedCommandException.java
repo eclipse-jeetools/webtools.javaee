@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: UnexpectedCommandException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:39 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
@@ -24,6 +24,12 @@ import org.eclipse.jem.internal.proxy.common.CommandException;
  *
  */
 public class UnexpectedCommandException extends CommandException {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = 7097693384453243113L;
 	private final Object fErrorType;
 	private final boolean fRecoverable;
 	

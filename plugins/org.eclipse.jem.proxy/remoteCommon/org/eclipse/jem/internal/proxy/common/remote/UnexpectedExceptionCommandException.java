@@ -11,13 +11,20 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: UnexpectedExceptionCommandException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:56:39 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/16 17:46:14 $ 
  */
 
 /**
  * Wrapper an unexpected exception in a Command Exception.
  */
 public class UnexpectedExceptionCommandException extends UnexpectedCommandException {
+
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 * 
+	 * @since 1.1.0
+	 */
+	private static final long serialVersionUID = -1654134370115650969L;
 
 	public UnexpectedExceptionCommandException(boolean recoverable, Throwable data) {
 		super(Commands.SOME_UNEXPECTED_EXCEPTION, recoverable, data);
