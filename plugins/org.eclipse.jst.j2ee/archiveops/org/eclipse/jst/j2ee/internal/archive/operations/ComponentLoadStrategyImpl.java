@@ -24,12 +24,20 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
@@ -48,6 +56,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return vComponent.getFile(new Path(uri)).exists();
 	}
 
+	protected void initializeResourceSet() {
+		resourceSet = WorkbenchResourceHelper.getResourceSet(vComponent.getProject());
+	}
 	protected boolean primContains(String uri) {
 		return false;
 	}
@@ -171,6 +182,22 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	}
 
+	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
+		try {
+			URI compUri = ModuleURIUtil.fullyQualifyURI(vComponent.getComponentHandle());
+			IPath requestPath = new Path(compUri.path()).append(new Path(uri));
+			URI resourceURI = URI.createURI(PlatformURLModuleConnection.MODULE_PROTOCOL + requestPath.toString());
+			return getResourceSet().getResource(resourceURI, true);
+		} catch (WrappedException wrapEx) {
+			if ((ExtendedEcoreUtil.getFileNotFoundDetector().isFileNotFound(wrapEx))) {
+				FileNotFoundException fileNotFoundEx = ExtendedEcoreUtil.getInnerFileNotFoundException(wrapEx);
+				throw fileNotFoundEx;
+			}
+			throwResourceLoadException(uri, wrapEx);
+			return null; //never happens - compiler expects it though
+		}
+	
+	}
 	public boolean isClassLoaderNeeded() {
 		return false;
 	}

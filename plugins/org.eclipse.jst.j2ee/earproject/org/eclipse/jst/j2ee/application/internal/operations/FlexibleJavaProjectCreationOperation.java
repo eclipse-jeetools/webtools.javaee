@@ -51,8 +51,7 @@ public class FlexibleJavaProjectCreationOperation extends FlexibleProjectCreatio
         return status;
     }
 	protected void createJavaEMFNature() throws CoreException {
-		JavaEMFNature.createRuntime(getProject());
-		JavaEMFNature nature = JavaEMFNature.getRuntime(getProject());
+		JavaEMFNature nature = JavaEMFNature.createRuntime(getProject());
 		nature.getResourceSet();
 	}
 }
