@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperation;
@@ -68,10 +67,24 @@ public class AddSecurityRoleOperation extends ModelModifierOperation {
 		SecurityRole role = CommonFactory.eINSTANCE.createSecurityRole();
 		role.setRoleName(model.getStringProperty(AddSecurityRoleOperationDataModel.ROLE_NAME));
 		String desc = (String) model.getProperty(AddSecurityRoleOperationDataModel.ROLE_DESCRIPTION);
-		J2EENature nature = J2EENature.getRegisteredRuntime(model.getTargetProject());
+//		J2EENature nature = J2EENature.getRegisteredRuntime(model.getTargetProject());
 		if (desc != null) {
 			role.setDescription(desc);
-			if (nature.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_4_ID) {
+//			if (nature.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_4_ID) {
+			EObject root = model.getDeploymentDescriptorRoot();
+			int j2eeVertion = 0;
+			switch (model.getDeploymentDescriptorType()) {
+				case XMLResource.APPLICATION_TYPE :
+					j2eeVertion = ((Application)root).getJ2EEVersionID();
+					break;
+				case XMLResource.EJB_TYPE :
+					j2eeVertion = ((EJBJar)root).getJ2EEVersionID();
+					break;
+				case XMLResource.WEB_APP_TYPE :
+					j2eeVertion = ((WebApp)root).getJ2EEVersionID();
+					break;
+			}
+			if (j2eeVertion >= J2EEVersionConstants.J2EE_1_4_ID) {
 				Description description = CommonFactory.eINSTANCE.createDescription();
 				description.setValue(desc);
 				role.getDescriptions().add(description);
