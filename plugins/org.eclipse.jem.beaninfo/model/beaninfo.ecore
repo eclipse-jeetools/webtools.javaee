@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="beaninfo"
     nsURI="http:///org/eclipse/jem/internal/beaninfo/beaninfo.ecore" nsPrefix="org.eclipse.jem.internal.beaninfo.beaninfo">
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureDecorator" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EAnnotation">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureDecorator" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Equivalent to FeatureDescriptor in java.&#xD;&#xA;&lt;p>&#xD;&#xA;Note: If any attribute is explicitly set then the BeanInfo/Reflection will not be merged into the decorator. This provides a way of overriding the BeanInfos. Also for any many-valued attribute, if it is desired to have it explicitly empty and not have BeanInfo fill it in, there will be another attribute named of the form &quot;attibutueExplicitEmpty&quot; If this is true then the BeanInfo will not merge in and will leave it empty.&#xD;&#xA;&lt;p>&#xD;&#xA;These comments about merging apply to all subclasses of this decorator too. "/>
     </eAnnotations>
@@ -192,7 +192,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Equivalent to PropertyDecorator in java."/>
     </eAnnotations>
-    <eOperations name="getPropertyType" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClassifier"/>
+    <eOperations name="getPropertyType" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constrained" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -236,7 +236,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="indexedWriteMethod" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//Method"
         unsettable="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodProxy" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="MethodProxy" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EOperation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="This is just a wrapper of a java Method. It allows access to the method but doesn't duplicate the interface for it.&#xD;&#xA;&lt;p>&#xD;&#xA;MethodProxies will be in the eBehaviors setting for any methods that are in the JavaClass methods setting so that they are not duplicated.&#xD;&#xA;&lt;p>&#xD;&#xA;MethodProxies would also have MethodDecorators."/>
     </eAnnotations>

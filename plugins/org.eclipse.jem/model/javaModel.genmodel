@@ -5,7 +5,7 @@
     editDirectory="/org.eclipse.jem.edit/src" editorDirectory="/org.eclipse.jem.editor/src"
     modelPluginID="" modelName="Java" modelPluginClass="" editPluginClass="java.provider.JavaEditPlugin"
     editorPluginClass="java.presentation.JavaEditorPlugin" updateClasspath="false"
-    usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore">
+    usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <foreignModel>..\rose\javaModel.mdl</foreignModel>
   <foreignModel>WorkspaceRoot</foreignModel>
   <foreignModel>../..</foreignModel>

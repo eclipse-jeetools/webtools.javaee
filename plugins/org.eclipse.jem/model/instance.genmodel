@@ -5,7 +5,7 @@
     editDirectory="/org.eclipse.jem.edit/src" editorDirectory="/org.eclipse.jem.editor/src"
     modelPluginID="" modelName="instance" editPluginClass="org.eclipse.jem.internal.instantiation.provider.instanceEditPlugin"
     editorPluginClass="org.eclipse.jem.internal.instantiation.presentation.instanceEditorPlugin"
-    updateClasspath="false" usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore">
+    updateClasspath="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <foreignModel>..\rose\instance.mdl</foreignModel>
   <foreignModel>WorkspaceRoot</foreignModel>
   <foreignModel>../..</foreignModel>

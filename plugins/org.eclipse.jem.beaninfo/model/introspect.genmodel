@@ -5,7 +5,7 @@
     editDirectory="/org.eclipse.jem.beaninfo.edit/src" editorDirectory="/org.eclipse.jem.beaninfo.editor/src"
     modelPluginID="" modelName="Beaninfo" editPluginClass="org.eclipse.jem.internal.beaninfo.provider.BeaninfoEditPlugin"
     editorPluginClass="org.eclipse.jem.internal.beaninfo.presentation.BeaninfoEditorPlugin"
-    updateClasspath="false" usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
+    updateClasspath="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
   <foreignModel>..\rose\introspect.mdl</foreignModel>
   <foreignModel>WorkspaceRoot</foreignModel>
   <foreignModel>../..</foreignModel>

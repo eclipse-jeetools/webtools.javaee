@@ -6,7 +6,7 @@
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="Changes to synch up with Java3e:&#xD;&#xA;- deleted JavaElement, BodyElement which didn't add anything useful&#xD;&#xA;- deleted NestedClass and the association which described nesting, contents can be used instead&#xD;&#xA;- deleted extends/extendedBy which is replaced with MOF subtype/supertype&#xD;&#xA;- deleted the clumsy main diagram&#xD;&#xA;- moved the MOF inheritance details to the MOF binding diagram&#xD;&#xA;- deleted &quot;final&quot; on JavaParameter, don't know what that was supposed to be&#xD;&#xA;- deleted the Category junk&#xD;&#xA;- changed the Block-typed attributes on Field, Method, Initializer to be associations to Block&#xD;&#xA;&#xD;&#xA;Outstanding questions/issues:&#xD;&#xA;- JavaParameterKind should go away if we get the base Parameter kind fixed up&#xD;&#xA;"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaClass" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClass">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaClass" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass">
     <eOperations name="isNested" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eOperations name="getField" eType="#//Field">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -163,7 +163,7 @@
         transient="true" eOpposite="#//JavaClass/initializers"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Block"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaParameter" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EParameter">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaParameter" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EParameter">
     <eOperations name="isArray" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Is this parameter type an array type."/>
@@ -179,7 +179,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameterKind" eType="#//JavaParameterKind"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EOperation">
     <eOperations name="getContainingJavaClass" eType="#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Return the java class that this method is defined in."/>
@@ -243,7 +243,7 @@
         transient="true" eOpposite="#//JavaClass/methods"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Block"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Field" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//ETypedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Field" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement">
     <eOperations name="getContainingJavaClass" eType="#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Get the class that this field is within."/>
@@ -281,7 +281,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//Block"/>
   <eClassifiers xsi:type="ecore:EClass" name="Statement" eSuperTypes="#//Block"/>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaPackage" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EPackage">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaPackage" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage">
     <eStructuralFeatures xsi:type="ecore:EReference" name="javaClasses" upperBound="-1"
         eType="#//JavaClass" changeable="false" volatile="true" transient="true" eOpposite="#//JavaClass/javaPackage"/>
   </eClassifiers>
@@ -303,7 +303,7 @@
     <eLiterals name="INOUT" value="2"/>
     <eLiterals name="RETURN" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaDataType" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClass">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaDataType" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass">
     <eOperations name="getDefaultValueString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Return the default string representing the default value of the primitive."/>
@@ -337,7 +337,7 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="arrayDimensions" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentType" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClassifier"/>
+        eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="JTypeJavaHelpers" instanceClassName="org.eclipse.jem.java.JavaHelpers">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -349,5 +349,5 @@
       <details key="documentation" value="java.util.List type"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaEvent" abstract="true" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EStructuralFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaEvent" abstract="true" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EStructuralFeature"/>
 </ecore:EPackage>
