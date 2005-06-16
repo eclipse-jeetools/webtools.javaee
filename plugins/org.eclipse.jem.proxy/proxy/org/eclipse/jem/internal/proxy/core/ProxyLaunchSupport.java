@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.24 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.25 $  $Date: 2005/06/16 15:21:25 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -599,8 +599,8 @@ public class ProxyLaunchSupport {
 	 */
 	public static void performExtensionRegistrations(final BaseProxyFactoryRegistry baseRegistry, LaunchInfo launchInfo) throws CoreException {
 		IConfigurationContributionInfo configInfo = launchInfo.configInfo;
-		String registryID = baseRegistry.getRegistryTypeID();
-		if (!configInfo.getContainerIds().isEmpty() || !configInfo.getPluginIds().isEmpty()) {
+		if (configInfo != null && (!configInfo.getContainerIds().isEmpty() || !configInfo.getPluginIds().isEmpty())) {
+			String registryID = baseRegistry.getRegistryTypeID();
 			// Note: We don't care about the visibility business here. For contributors to proxy it means
 			// some classes in the projects/plugins/etc. need configuration whether they are visible or not.
 			// This is because even though not visible, some other visible class may instantiate it. So it
