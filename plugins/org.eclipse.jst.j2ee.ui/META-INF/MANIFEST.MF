@@ -8,6 +8,7 @@ Bundle-Activator: org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Export-Package: .,
+ org.eclipse.jst.common.jdt.internal.integration.ui,
  org.eclipse.jst.j2ee.internal,
  org.eclipse.jst.j2ee.internal.actions,
  org.eclipse.jst.j2ee.internal.client.actions,
