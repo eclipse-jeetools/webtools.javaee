@@ -11,6 +11,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
@@ -260,10 +261,20 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
         if (defaultModulesButton.getSelection()) {
             setSelectedNode(null);
             showDefaultModulesComposite();
-        } else
+            setDefaultModulesSelection(true);
+        } else {
+            setDefaultModulesSelection(false);
             showNewModulesCompsite();
+        }
         setButtonEnablement();
         validatePage();
+    }
+
+    private void setDefaultModulesSelection(boolean selection) {
+        getDataModel().setBooleanProperty(CREATE_APPCLIENT, selection);
+        getDataModel().setBooleanProperty(CREATE_CONNECTOR, selection);
+        getDataModel().setBooleanProperty(CREATE_EJB, selection);
+        getDataModel().setBooleanProperty(CREATE_WEB, selection);
     }
 
     private void showDefaultModulesComposite() {
@@ -329,7 +340,9 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    return new AppClientComponentCreationWizard(DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider()));
+                    IDataModel dm = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
+                    dm.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
+                    return new AppClientComponentCreationWizard(dm);
                 }
             };
         }
@@ -348,12 +361,15 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    IWizard result = null;
+                    J2EEComponentCreationWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
                     IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard"); //$NON-NLS-1$
                     try {
-                        result = descriptor.createWizard();
+                        result = (J2EEComponentCreationWizard)descriptor.createWizard();
+                        IDataModel dm = result.getDataModel();
+                        dm.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
+                        result.setDataModel(dm);
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
@@ -376,12 +392,15 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    IWizard result = null;
+                    J2EEComponentCreationWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
                     IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"); //$NON-NLS-1$
                     try {
-                        result = descriptor.createWizard();
+                        result = (J2EEComponentCreationWizard)descriptor.createWizard();
+                        IDataModel dm = result.getDataModel();
+                        dm.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
+                        result.setDataModel(dm);
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
