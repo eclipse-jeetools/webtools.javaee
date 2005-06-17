@@ -22,6 +22,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -37,6 +40,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ComponentUtilities {
 	
@@ -244,6 +249,13 @@ public class ComponentUtilities {
 			}
 		}
 		return nonFlexJavaProjects;
+	}
+	
+	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
+		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+		JavaProjectMigrationOperation op = new JavaProjectMigrationOperation(model);
+		return op;
 	}
 
 }
