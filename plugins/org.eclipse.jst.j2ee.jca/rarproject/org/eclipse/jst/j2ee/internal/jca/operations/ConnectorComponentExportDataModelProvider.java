@@ -27,7 +27,7 @@ public class ConnectorComponentExportDataModelProvider extends J2EEComponentExpo
     }
     
     protected String getComponentID() {
-        return ".rar"; //$NON-NLS-1$
+        return IModuleConstants.JST_CONNECTOR_MODULE;
     }
 
     protected String getWrongComponentTypeString(String projectName) {
@@ -35,7 +35,7 @@ public class ConnectorComponentExportDataModelProvider extends J2EEComponentExpo
     }
 
     protected String getModuleExtension() {
-        return IModuleConstants.JST_CONNECTOR_MODULE;
+        return ".rar"; //$NON-NLS-1$
     }
     /**
      * Exports the specified Connector Module project to the specified Connector RAR file.
