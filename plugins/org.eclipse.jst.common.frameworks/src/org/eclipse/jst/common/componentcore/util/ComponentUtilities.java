@@ -28,13 +28,17 @@ import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOpera
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
@@ -257,5 +261,15 @@ public class ComponentUtilities {
 		JavaProjectMigrationOperation op = new JavaProjectMigrationOperation(model);
 		return op;
 	}
+	
+	public static CreateReferenceComponentsOp  createReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
+    	IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponentHandle);
+    	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+    	modHandlesList.addAll(targetComponentsHandles);
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
+    	CreateReferenceComponentsOp op = new CreateReferenceComponentsOp(model);
+    	return op;
+    }
 
 }
