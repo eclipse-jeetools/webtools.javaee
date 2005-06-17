@@ -88,9 +88,10 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * 
 	 */
 	protected void addModulesPageIfNecessary() {
-		if (getDataModel().getBooleanProperty(UI_SHOW_EAR_SECTION)) {
-			addPage(new J2EEModulesDependencyPage(getDataModel(), MODULE_PG));
-		}
+        //TODO: add modules page back for 0.7
+//		if (getDataModel().getBooleanProperty(UI_SHOW_EAR_SECTION)) {
+//			addPage(new J2EEModulesDependencyPage(getDataModel(), MODULE_PG));
+//		}
 	}
 
 	/**
