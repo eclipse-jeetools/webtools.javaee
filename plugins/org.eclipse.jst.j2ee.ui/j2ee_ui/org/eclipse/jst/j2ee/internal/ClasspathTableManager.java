@@ -367,12 +367,12 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 	
 	private void refreshWLPCheckedItems() {
-		if (model == null)
-			return;
-		java.util.List elements = model.getClassPathSelectionForWLPs().getClasspathElements();
-		for (int i = 0; i < elements.size(); i++) {
-			ClasspathElement element = (ClasspathElement) elements.get(i);
-			availableJARsViewer.setChecked(element, element.isSelected());
+		if (availableJARsViewer.getInput() != null) {
+			java.util.List elements = ((ClassPathSelection) availableJARsViewer.getInput()).getClasspathElements();
+			for (int i = 0; i < elements.size(); i++) {
+				ClasspathElement element = (ClasspathElement) elements.get(i);
+				availableJARsViewer.setChecked(element, element.isSelected());
+			}
 		}
 	}
 

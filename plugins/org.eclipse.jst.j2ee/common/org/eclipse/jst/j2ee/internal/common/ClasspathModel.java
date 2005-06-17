@@ -23,11 +23,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOperation;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -42,15 +42,9 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
@@ -74,6 +68,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	public static String NO_EAR_MESSAGE = CommonEditResourceHandler.getString("NO_EAR_JARDEP_FOR_MOD_UI_"); //$NON-NLS-1$
 	protected List targetWLPRefComponentList;
 	protected boolean isWLPModel = false;
+	protected ClassPathSelection classPathWLPSelection;
 
 	protected Comparator comparator = new Comparator() {
 		public int compare(Object o1, Object o2) {
@@ -536,23 +531,6 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	public void checkActivation(ResourceStateValidatorPresenter presenter) throws CoreException {
 		getStateValidator().checkActivation(presenter);
 	}
-	
-	public JavaProjectMigrationOperation createFlexJavaProjectForJavaProject(IProject project) {
-		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
-		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
-		JavaProjectMigrationOperation op = new JavaProjectMigrationOperation(model);
-		return op;
-	}
-    
-    public CreateReferenceComponentsOp  createReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
-    	IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponentHandle);
-    	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-    	modHandlesList.addAll(targetComponentsHandles);
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
-    	CreateReferenceComponentsOp op = new CreateReferenceComponentsOp(model);
-    	return op;
-    }
 
 	/**
 	 * @see ResourceStateValidator#lostActivation(ResourceStateValidatorPresenter)
@@ -591,13 +569,16 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	public ClassPathSelection getClassPathSelectionForWLPs() {
-		classPathSelection = initializeSelectionForWLPs();
-		return classPathSelection;
+		if(classPathWLPSelection == null)
+			initializeSelectionForWLPs();
+		return classPathWLPSelection;
 	}
 
-	private ClassPathSelection initializeSelectionForWLPs() {
-		ClassPathSelection selection = new ClassPathSelection();
+	private void initializeSelectionForWLPs() {
+		classPathWLPSelection = new ClassPathSelection();
 		try {
+			IJavaProject javaProject = JemProjectUtilities.getJavaProject(component.getProject());
+			IClasspathEntry[] entry = javaProject.getRawClasspath();
 			List allValidUtilityProjects = J2EEComponentUtilities.getAllJavaNonFlexProjects();
 			allValidUtilityProjects.addAll(J2EEComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_UTILITY_MODULE));
 			for (int i = 0; i < allValidUtilityProjects.size(); i++) {
@@ -606,11 +587,19 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 					utilProject = (IProject) allValidUtilityProjects.get(i);
 				else if (allValidUtilityProjects.get(i) instanceof IVirtualComponent)
 					utilProject = ((IVirtualComponent) allValidUtilityProjects.get(i)).getProject();
-			selection.createProjectElement(utilProject);
+				boolean existingEntry = false;
+				for (int j = 0; j < entry.length; j++) {
+					IClasspathEntry eachEntry = entry[j];
+					if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) {
+						existingEntry = true;
+						break;
+					}
+				}
+				classPathWLPSelection.createProjectElement(utilProject, existingEntry);
+				classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
 			}
 		} catch (CoreException e) {
 		}
-		return selection;
 	}
 
 	public boolean isWLPModel() {

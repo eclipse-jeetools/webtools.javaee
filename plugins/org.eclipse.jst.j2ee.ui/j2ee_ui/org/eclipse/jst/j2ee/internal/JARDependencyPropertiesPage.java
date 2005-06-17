@@ -570,7 +570,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		}
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(model.createReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
 		}
 		return composedOp;
 	}
@@ -578,14 +578,14 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	private WorkspaceModifyComposedOperation createFlexProjectOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		try {
-			List elements = model.getClassPathSelectionForWLPs().getClasspathElements();
-			for (int i = 0; i < elements.size(); i++) {
-				ClasspathElement element = (ClasspathElement) elements.get(i);
+			Object[] elements = tableManager.availableJARsViewer.getCheckedElements();
+			for (int i = 0; i < elements.length; i++) {
+				ClasspathElement element = (ClasspathElement) elements[i];
 				IProject elementProject = element.getProject();
 				if (!elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 					if(composedOp == null)
 						composedOp = new WorkspaceModifyComposedOperation();
-					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(model.createFlexJavaProjectForJavaProject(elementProject)));
+					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createFlexJavaProjectForProjectOperation(elementProject)));
 				}
 			}
 		} catch (CoreException ce) {
@@ -595,10 +595,19 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	
 	protected IRunnableWithProgress createBuildPathOperation() {
         IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection()));
+        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs()));
     }
     
-    protected boolean isWLPProjectSetting() {
+    private ClassPathSelection getSelectedClassPathSelectionForWLPs() {
+    		ClassPathSelection selection = new ClassPathSelection();
+    		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
+    		for(int i = 0; i < checkedElements.length; i++) {
+    			selection.getClasspathElements().add((ClasspathElement)checkedElements[i]);
+    		}
+    		return selection;
+	}
+
+	protected boolean isWLPProjectSetting() {
     	if(enableWLPCheckBox != null)
     		return enableWLPCheckBox.getSelection();
     	return false;

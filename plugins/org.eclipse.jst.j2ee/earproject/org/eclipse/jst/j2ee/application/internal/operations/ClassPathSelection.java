@@ -121,6 +121,16 @@ public class ClassPathSelection {
 		addClasspathElement(element,element.getProjectName());
 		return element;
 	}
+	
+	public ClasspathElement createProjectElement(IProject project, boolean existingEntry ) {
+		ClasspathElement element = new ClasspathElement(project);
+		element.setValid(true);
+		element.setSelected(existingEntry);
+		element.setText(project.getName());
+		element.setProject(project);
+		addClasspathElement(element,element.getProjectName());
+		return element;
+	}
 
 	/**
 	 * @param element
