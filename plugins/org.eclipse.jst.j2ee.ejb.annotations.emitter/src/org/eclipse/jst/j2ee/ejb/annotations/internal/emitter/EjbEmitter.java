@@ -65,7 +65,7 @@ public abstract class EjbEmitter {
 	protected WTPJETEmitter createJetEmitter(String uri) throws JETException {
 		WTPJETEmitter emitter = new WTPJETEmitter(uri, this.getClass().getClassLoader());
 		emitter.setProjectName(EJBEMITTERPROJECT);
-		emitter.setIntelligentLinkingEnabled(true);
+		emitter.setIntelligentLinkingEnabled(false); // TODO: Change to false to workaround a bug in WtpJetEmitter
 		Iterator iterator = classpathProvider.getClasspathItems().iterator();
 		int count = 0;
 		while (iterator.hasNext()) {
