@@ -220,7 +220,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 			if (prereq != null) {
 				addProjectToClasspath(p, prereq, projectCpEntries);
 			} else {
-				addFileToClasspath(p, vComponent.getFile(uri).getUnderlyingFile(), projectCpEntries);
+				addFileToClasspath(p, vComponent.getRootFolder().getFile(uri).getUnderlyingFile(), projectCpEntries);
 				traverseClasspaths(p, depArchive, projectCpEntries, visitedArchives);
 			}
 		}

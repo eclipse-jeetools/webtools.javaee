@@ -43,7 +43,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
 		//create and link META-INF folder
-		IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$		
+		IVirtualFolder root = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$		
 		root.createLink(new Path("/" + getModuleName()), 0, null); //$NON-NLS-1$
 		
     	IVirtualFolder metaInfFolder = root.getFolder(J2EEConstants.META_INF);
@@ -54,9 +54,9 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link META-INF folder
-        IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$     
-		root.createLink(new Path("/" + getModuleName()), 0, null); //$NON-NLS-1$
-		
+        IVirtualFolder root = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$     
+        root.createLink(new Path("/" + getModuleName()), 0, null); //$NON-NLS-1$
+        
         IVirtualFolder metaInfFolder = root.getFolder(J2EEConstants.META_INF);
         metaInfFolder.create(IResource.FORCE, null);
     }
@@ -103,7 +103,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 			IDataModel dm = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
-			
+
 			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
 			if (modulesList != null && !modulesList.isEmpty()) {
 				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modulesList);
@@ -111,9 +111,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 				if( stat != OK_STATUS )
 					return stat;
 				dm.getDefaultOperation().execute(monitor, null);				
-			}	
-
-			
+			}				
 			List javaProjectsList = (List)model.getProperty(JAVA_PROJECT_LIST);
 			if( !javaProjectsList.isEmpty()){
 				

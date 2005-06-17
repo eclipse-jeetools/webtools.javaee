@@ -546,7 +546,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 					// only show source folders
 					ArtifactEditOperationDataModel dataModel = ((ArtifactEditOperationDataModel) model);
 					
-					IVirtualResource[] resources = dataModel.getComponent().getResources("java");
+					IVirtualResource[] resources = dataModel.getComponent().getRootFolder().getResources("java");
 					for (int i = 0; i < resources.length; i++) {
 						IVirtualFolder resource = (IVirtualFolder)resources[i];
 						if (resource.getUnderlyingFolder().equals(folder))

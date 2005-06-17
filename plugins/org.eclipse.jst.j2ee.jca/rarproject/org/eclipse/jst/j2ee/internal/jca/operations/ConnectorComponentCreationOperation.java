@@ -42,7 +42,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link connectorModule Source Folder
-        IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$        
+        IVirtualFolder connectorModuleFolder = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
         connectorModuleFolder.createLink(new Path("/" + getModuleName() + "/connectorModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
@@ -54,7 +54,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link connectorModule Source Folder
-        IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$        
+        IVirtualFolder connectorModuleFolder = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
         connectorModuleFolder.createLink(new Path("/connectorModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder

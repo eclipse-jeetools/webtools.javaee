@@ -35,6 +35,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -53,7 +54,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public boolean contains(String uri) {
-		return vComponent.getFile(new Path(uri)).exists();
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		return rootFolder.getFile(new Path(uri)).exists();
 	}
 
 	protected void initializeResourceSet() {
@@ -66,7 +68,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public List getFiles() {
 		filesList.clear();
 		try {
-			IVirtualResource[] members = vComponent.members();
+			IVirtualFolder rootFolder = vComponent.getRootFolder();
+			IVirtualResource[] members = rootFolder.members();
 			filesList = getFiles(members);
 //			String javaOutputPath = vComponent.getMetaProperties().getProperty(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);
 //			IFolder javaOutputFolder = vComponent.getProject().getFolder(new Path(javaOutputPath));
@@ -170,7 +173,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
-		IVirtualResource vResource = vComponent.findMember(uri);
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualResource vResource = rootFolder.findMember(uri);
 		if (null == vResource || !vResource.exists()) {
 			String eString = EARArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_FileNotFound");//$NON-NLS-1$
 			throw new FileNotFoundException(eString);

@@ -122,7 +122,10 @@ public abstract class FlexibleProjectContainer
         
         for( int i = 0; i < paths.length; i++ )
         {
-            final IVirtualFolder vf = vc.getFolder( paths[ i ] );
+            //final IVirtualFolder vf = vc.getFolder( paths[ i ] );			
+			IVirtualFolder rootFolder = vc.getRootFolder();
+			final IVirtualFolder vf = rootFolder.getFolder( paths[ i ] );
+
             
             if( types[ i ] == PathType.LIB_DIRECTORY )
             {

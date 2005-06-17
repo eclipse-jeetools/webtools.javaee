@@ -231,7 +231,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		if (mofRoot == null || !mofRoot.exists())
 			return false;
 
-		return mofRoot.exists(new Path(component.getProjectRelativePath().toString() + "//" + ArchiveConstants.APPLICATION_DD_URI));
+		return mofRoot.exists(new Path(component.getRootFolder().getProjectRelativePath().toString() + "//" + ArchiveConstants.APPLICATION_DD_URI));
 	}
 
 	protected void handleOpenFailureException(OpenFailureException ex) {

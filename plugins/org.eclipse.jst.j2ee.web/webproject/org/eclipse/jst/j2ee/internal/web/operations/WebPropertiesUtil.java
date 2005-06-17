@@ -529,7 +529,7 @@ public class WebPropertiesUtil {
 
 	public static IVirtualFolder getWebLibFolder(IVirtualComponent webComponent) {
 		IPath path = new Path("/" + J2EEConstants.WEB_INF + "/" + "lib");
-		IVirtualFolder libFolder = webComponent.getFolder(path);
+		IVirtualFolder libFolder = webComponent.getRootFolder().getFolder(path);
 		return libFolder;
 	}
 

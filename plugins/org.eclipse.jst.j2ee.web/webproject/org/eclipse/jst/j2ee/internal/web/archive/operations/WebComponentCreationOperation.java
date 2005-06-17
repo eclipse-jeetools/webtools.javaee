@@ -58,11 +58,11 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
 		component.create(0, null);
 		// create and link javaSource Source Folder
-		IVirtualFolder javaSourceFolder = component.getFolder(new Path("/" + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$       
-		javaSourceFolder.createLink(new Path(model.getStringProperty(JAVASOURCE_FOLDER)), 0, null);
+		IVirtualFolder javaSourceFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$       
+		javaSourceFolder.createLink(new Path(prefix + model.getStringProperty(JAVASOURCE_FOLDER)), 0, null);
 
 		// create and link META-INF and WEB-INF folder
-		IVirtualFolder webContent = component.getFolder(new Path("/")); //$NON-NLS-1$       
+		IVirtualFolder webContent = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$       
 		webContent.createLink(new Path(prefix + "/WebContent"), 0, null);
 
 		IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);

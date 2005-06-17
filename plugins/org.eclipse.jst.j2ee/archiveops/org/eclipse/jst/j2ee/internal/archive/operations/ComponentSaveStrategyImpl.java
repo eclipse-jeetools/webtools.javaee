@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
@@ -112,7 +113,8 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 	 * @throws Exception
 	 */
 	protected void saveToOutputPath(IPath outputPath, InputStream in) throws Exception {
-		IVirtualFile vFile = vComponent.getFile(outputPath);
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualFile vFile = rootFolder.getFile(outputPath);
 		IFile iFile = vFile.getUnderlyingFile();
 		saveToIFile(iFile, in);
 	}

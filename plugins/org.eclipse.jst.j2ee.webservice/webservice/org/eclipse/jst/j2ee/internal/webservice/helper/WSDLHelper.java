@@ -224,7 +224,7 @@ public class WSDLHelper {
 		// Get a handle on the WSDL file.
 		IVirtualComponent component = ComponentCore.createComponent(handle.getProject(),handle.getName());
 		if (component != null) {
-			IVirtualFolder moduleRoot = component.getFolder("/"); //$NON-NLS-1$
+			IVirtualFolder moduleRoot = component.getRootFolder().getFolder("/"); //$NON-NLS-1$
 			IFile wsdlFile = moduleRoot.getFile(wsdlFileRelPath).getUnderlyingFile();
 			if (!wsdlFile.exists()) {
 				return ""; //$NON-NLS-1$

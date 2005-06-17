@@ -172,7 +172,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 			try {
 				IPath workspacePath = vComponent.getProject().getFullPath().append(importedClassesPath);
 				mkdirs(workspacePath, ResourcesPlugin.getWorkspace().getRoot());
-				IVirtualFolder javaSourceFolder = vComponent.getFolder(new Path("/" + J2EEConstants.WEB_INF + "/classes"));
+				IVirtualFolder javaSourceFolder = vComponent.getRootFolder().getFolder(new Path("/" + J2EEConstants.WEB_INF + "/classes"));
 				javaSourceFolder.createLink(workspacePath.removeFirstSegments(1), 0, null);
 			} catch (CoreException e) {
 				// TODO
@@ -203,7 +203,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	protected IPath convertToContentPath(String uri) {
 		if (webContentPath == null) {
-			webContentPath = vComponent.getFolder("/").getUnderlyingResource().getFullPath();
+			webContentPath = vComponent.getRootFolder().getFolder("/").getUnderlyingResource().getFullPath();
 		}
 		return webContentPath.append(uri);
 	}

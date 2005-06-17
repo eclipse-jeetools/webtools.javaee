@@ -83,11 +83,11 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getComponentDeployName());
         component.create(0, null);
         //create and link javaSource Source Folder
-        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$     
+        IVirtualFolder javaSourceFolder = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$     
         javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
         
         //create and link META-INF folder
-        IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
+        IVirtualFolder metaInfFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
         metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
     
     }
@@ -97,11 +97,11 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 		component.create(0, null);
         //create and link javaSource Source Folder
 		
-        IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$   
+        IVirtualFolder javaSourceFolder = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$   
         javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
         
         //create and link META-INF folder
-        IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
+        IVirtualFolder metaInfFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
         metaInfFolder.createLink(new Path("/" + J2EEConstants.META_INF), 0, null);
     }
 	

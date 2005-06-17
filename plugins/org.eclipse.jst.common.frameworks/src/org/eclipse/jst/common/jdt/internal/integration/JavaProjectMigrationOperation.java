@@ -109,7 +109,10 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
     protected void createComponent(String aComponentName, IProject aProject) throws CoreException {
         IVirtualComponent component = ComponentCore.createComponent(aProject, aComponentName);
         component.create(0, null);
-        IVirtualFolder rootFolder = component.getFolder(new Path("/")); //$NON-NLS-1$  
+
+		IVirtualFolder compRootFolder = component.getRootFolder();
+		IVirtualFolder rootFolder = compRootFolder.getFolder(new Path("/")); //$NON-NLS-1$
+        //IVirtualFolder rootFolder = component.getFolder(new Path("/")); //$NON-NLS-1$  
 	
 		IJavaProject javaProject = JavaCore.create( aProject );
 		try {
@@ -121,7 +124,8 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 						path = new Path("/");
 					}
 					IPath out = entries[i].getOutputLocation();
-					IVirtualFolder javaSourceFolder = component.getFolder( out );
+					//IVirtualFolder javaSourceFolder = component.getFolder( out );
+					IVirtualFolder javaSourceFolder = compRootFolder.getFolder( out );
 					javaSourceFolder.createLink( path, 0, null);
 				}
 			}

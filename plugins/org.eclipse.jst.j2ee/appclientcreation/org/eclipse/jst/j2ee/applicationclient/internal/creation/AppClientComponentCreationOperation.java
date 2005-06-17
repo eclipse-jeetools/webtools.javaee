@@ -48,7 +48,8 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link appClientModule Source Folder
-        IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$        
+		IVirtualFolder rootFolder = component.getRootFolder();
+        IVirtualFolder appClientModuleFolder = rootFolder.getFolder(new Path("/")); //$NON-NLS-1$        
         appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/appClientModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
@@ -60,7 +61,8 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link appClientModule Source Folder
-        IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$        
+		IVirtualFolder rootFolder = component.getRootFolder();
+        IVirtualFolder appClientModuleFolder = rootFolder.getFolder(new Path("/")); //$NON-NLS-1$        
         appClientModuleFolder.createLink(new Path("/appClientModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder

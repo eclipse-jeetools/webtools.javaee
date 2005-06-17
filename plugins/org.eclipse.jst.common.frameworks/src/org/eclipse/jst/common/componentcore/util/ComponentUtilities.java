@@ -13,6 +13,7 @@ import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -32,6 +33,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -60,7 +62,8 @@ public class ComponentUtilities {
 	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent wc) {
 		List sourceFolders = new ArrayList();
 		try {
-			IVirtualResource[] resources = wc.members();
+			IVirtualFolder rootFolder = wc.getRootFolder();
+			IVirtualResource[] resources = rootFolder.members();
 			//recursively collect the source folders from the top level component folders
 			addSourceContainers(sourceFolders,resources);
 		} catch (CoreException ce) {
@@ -118,7 +121,10 @@ public class ComponentUtilities {
 
 	public static IFolder createFolderInComponent(IVirtualComponent component, String folderName) throws CoreException {
 		if (folderName != null) {
-			IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(component.getProjectRelativePath().append(folderName));
+			IVirtualFolder rootfolder = component.getRootFolder();
+			IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(rootfolder.getProjectRelativePath().append(folderName));
+			
+			//IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(component.getProjectRelativePath().append(folderName));
 			if (!folder.exists()) {
 				ProjectUtilities.ensureContainerNotReadOnly(folder);
 				folder.create(true, true, null);
@@ -142,7 +148,8 @@ public class ComponentUtilities {
 
 
 	public static IFile findFile(IVirtualComponent comp, IPath aPath) throws CoreException {
-		IVirtualResource[] members = comp.members();
+		//IVirtualResource[] members = comp.members();
+		IVirtualResource[] members = comp.getRootFolder().members();
 		for (int i = 0; i < members.length; i++) {
 			IVirtualResource resource = members[i];
 			if (resource.getType() == IVirtualResource.FOLDER) {
@@ -254,7 +261,7 @@ public class ComponentUtilities {
 		}
 		return nonFlexJavaProjects;
 	}
-	
+
 	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
 		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
@@ -270,6 +277,47 @@ public class ComponentUtilities {
     	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
     	CreateReferenceComponentsOp op = new CreateReferenceComponentsOp(model);
     	return op;
-    }
+    }	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 * @description the passed name should have  either lib or var as its first segment
+	 * e.g. lib/D:/foo/foo.jar  or  var/<CLASSPATHVAR>/foo.jar
+	 */
+	public static IPath getResolvedPathForArchiveComponent(String name) {
 
+		URI uri = URI.createURI( name );
+
+		String resourceType = uri.segment( 0 );
+		URI contenturi = ModuleURIUtil.trimToRelativePath( uri, 1 );
+		String contentName = contenturi.toString();
+		
+		if( resourceType.equals("lib")){
+			//module:/classpath/lib/D:/foo/foo.jar
+			return Path.fromOSString( contentName );
+			
+		}else if( resourceType.equals("var")){
+			
+			//module:/classpath/var/<CLASSPATHVAR>/foo.jar
+			String  classpathVar = contenturi.segment( 0 );
+			URI remainingPathuri = ModuleURIUtil.trimToRelativePath( contenturi, 1 );
+			String remainingPath = remainingPathuri.toString();			
+			
+			String[] classpathvars = JavaCore.getClasspathVariableNames();
+			boolean found = false;
+			for( int i=0; i<classpathvars.length; i++ ){
+				if( classpathVar.equals(classpathvars[i])){
+					found = true;
+					break;
+				}
+			}
+			if( found ){
+				IPath path = JavaCore.getClasspathVariable( classpathVar );
+				URI finaluri = URI.createURI(  path.toOSString() + IPath.SEPARATOR + remainingPath );
+				return Path.fromOSString( finaluri.toString() );
+			}
+		}	
+		return null;
+	}		
 }

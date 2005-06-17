@@ -471,7 +471,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	    IVirtualReference[] refComponents = comp.getReferences();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i = 0; i < refComponents.length; i++) {
-			comp.getFolder(WEBLIB);	
+			comp.getRootFolder().getFolder(WEBLIB);	
 			if (refComponents[i].getRuntimePath().equals(WEBLIB))
 				result.add(refComponents[i]);
 		}

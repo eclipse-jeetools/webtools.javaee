@@ -284,7 +284,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			try {
 				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
 						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently
-					IVirtualResource resource = component.findMember(new Path(uri));
+					IVirtualResource resource = component.getRootFolder().findMember(new Path(uri));
 						if (resource == null || !resource.exists()) {
 							invalidClassPathEntryWarning(cp[i], uri, anArchive);
 						}
@@ -635,7 +635,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	protected void validateModuleURIExtension(IVirtualComponent module) {
 		
-		String fileExt = module.getFileExtension();
+		String fileExt = module.getRootFolder().getFileExtension();
 		if (fileExt != null && fileExt.length() > 0) {
 			if (module.getComponentTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
 				String[] params = new String[1];
@@ -750,13 +750,13 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		for (int i = 0; i < modules.size(); i++) {
 			IVirtualReference reference = (IVirtualReference) modules.get(i);
 			IVirtualComponent module = reference.getReferencedComponent();
-			if (module != null && module.getRuntimePath() != null) {
+			if (module != null && module.getRootFolder().getRuntimePath() != null) {
 				IProject currentEARProject = earHelper.getProject();
 				try {
-					IFile exFile = currentEARProject.getFile(module.getRuntimePath());
+					IFile exFile = currentEARProject.getFile(module.getRootFolder().getRuntimePath());
 					if (exFile != null && exFile.exists()) {
 						String[] params = new String[2];
-						params[0] = module.getRuntimePath().toString();
+						params[0] = module.getRootFolder().getRuntimePath().toString();
 						params[1] = currentEARProject.getName();
 						addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
 					}
