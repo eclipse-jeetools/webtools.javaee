@@ -126,7 +126,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 	public IVirtualFolder getDeploymentDescriptorFolder() throws CoreException {
-		IVirtualResource[] resources = getComponent().members();
+		IVirtualResource[] resources = getComponent().getRootFolder().members();
 		if (resources != null && resources.length > 0) {
 			for (int i = 0; i < resources.length; i++) {
 				IVirtualResource resource = resources[i];

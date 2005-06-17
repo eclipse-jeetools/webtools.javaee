@@ -132,7 +132,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
             WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
             ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
             IVirtualComponent component = ComponentCore.createComponent( ejbProject, ejbwc.getName());
-            IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF")); //$NON-NLS-1$
+            IVirtualFile vf = component.getRootFolder().getFile( new Path("/META-INF/MANIFEST.MF")); //$NON-NLS-1$
             manifestmf = vf.getUnderlyingFile();
         }finally {
                if (null != moduleCore) {

@@ -42,7 +42,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link ejbModule Source Folder
-        IVirtualFolder ejbModule = component.getFolder(new Path("/")); //$NON-NLS-1$        
+        IVirtualFolder ejbModule = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
         ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
@@ -54,7 +54,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
         //create and link ejbModule Source Folder
-        IVirtualFolder ejbModule = component.getFolder(new Path("/")); //$NON-NLS-1$        
+        IVirtualFolder ejbModule = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
         ejbModule.createLink(new Path("/ejbModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
