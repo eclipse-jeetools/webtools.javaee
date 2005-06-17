@@ -52,7 +52,9 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 	public IStatus validate(String propertyName) {
 		if (PROJECT_NAME.equals(propertyName)) {
 			return validateProjectName();
-		} 
+		} else if (PROJECT_LOCATION.equals(propertyName)) {
+            return validateProjectLocation();
+		}
 		return OK_STATUS;
 	}
 	
@@ -60,6 +62,10 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 		IDataModel projModel = model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
 		return projModel.validateProperty(IProjectCreationProperties.PROJECT_NAME);
 	}
+    private IStatus validateProjectLocation() {
+        IDataModel projModel = model.getNestedModel(NESTED_MODEL_PROJECT_CREATION);
+        return projModel.validateProperty(IProjectCreationProperties.PROJECT_LOCATION);
+    }
 
 	private String getDefaultLocation() {
 		IPath path = getRootLocation();
