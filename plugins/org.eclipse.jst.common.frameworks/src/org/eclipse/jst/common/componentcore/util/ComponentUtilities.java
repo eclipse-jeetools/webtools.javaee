@@ -321,18 +321,14 @@ public class ComponentUtilities {
 		return null;
 	}
 	
-	public static List getAllComponentsInWorkspaceOfType(String type) {
-		List earComponents = new ArrayList();
+	public static IVirtualComponent[] getAllComponentsInWorkspaceOfType(String type) {
+		List result = new ArrayList();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
-			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(projects[i]);
-			IVirtualComponent[] components = flexProject.getComponents();
-			for (int j = 0; j < components.length; j++) {
-				if (components[j].getComponentTypeId().equals(type))
-					earComponents.add(components[j]);
-			}
+			IFlexibleProject project = ComponentCore.createFlexibleProject(projects[i]);
+			result.addAll(Arrays.asList(project.getComponentsOfType(type)));
 		}
-		return earComponents;
+		return (IVirtualComponent[]) result.toArray(new IVirtualComponent[result.size()]);
 	}
 	
 }

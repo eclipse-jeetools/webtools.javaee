@@ -76,10 +76,11 @@ import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -198,17 +199,12 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		if (projectNameCombo.getText().length() == 0)
 			return;
 		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(project);
-			WorkbenchComponent[] components = moduleCore.findComponentsByType(moduleType);
-			for (int j = 0; j < components.length; j++) {
-				if (!componentList.contains(components[j].getName()))
-					componentList.add(components[j].getName());
-			}
-		} finally {
-			if (moduleCore != null)
-				moduleCore.dispose();
+		IVirtualComponent[] components = ComponentCore.createFlexibleProject(project).getComponentsOfType(moduleType);
+		for (int i=0; i<components.length; i++) {
+			if (!componentList.contains(components[i].getName()))
+				componentList.add(components[i].getName());
 		}
+		
 		String[] componentNames = new String[componentList.size()];
 		for (int i = 0; i < componentList.size(); i++) {
 			componentNames[i] = (String) componentList.get(i);
@@ -262,7 +258,8 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			IProject project = workspaceProjects[i];
 			try {
 				if (project.isAccessible() && project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					items.add(project.getName());
+					if (ComponentCore.createFlexibleProject(project).getComponentsOfType(moduleType).length>0)
+						items.add(project.getName());
 				}
 			} catch (CoreException ce) {
 				// Ignore

@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -579,8 +580,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		try {
 			IJavaProject javaProject = JemProjectUtilities.getJavaProject(component.getProject());
 			IClasspathEntry[] entry = javaProject.getRawClasspath();
-			List allValidUtilityProjects = J2EEComponentUtilities.getAllJavaNonFlexProjects();
-			allValidUtilityProjects.addAll(J2EEComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_UTILITY_MODULE));
+			List allValidUtilityProjects = ComponentUtilities.getAllJavaNonFlexProjects();
+			allValidUtilityProjects.addAll(Arrays.asList(ComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_UTILITY_MODULE)));
 			for (int i = 0; i < allValidUtilityProjects.size(); i++) {
 				IProject utilProject = null;
 				if (allValidUtilityProjects.get(i) instanceof IProject)
