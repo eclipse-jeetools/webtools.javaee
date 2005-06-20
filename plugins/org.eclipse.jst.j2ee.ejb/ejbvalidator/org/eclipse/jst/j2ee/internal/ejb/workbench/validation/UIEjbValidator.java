@@ -11,17 +11,13 @@
 package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -48,21 +44,11 @@ public class UIEjbValidator extends EJBValidator {
             if(!wbModule.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
             	continue;
 			
-			
-			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead( wbModule );
-			
-			Archive archive = null;
-			try {
-				archive = ((EJBArtifactEdit) edit).asArchive(false);
-			} catch (OpenFailureException e1) {
-				Logger.getLogger().log(e1);
-			}finally {
-				if (edit != null) {
-					edit.dispose();
-				}
-			}		
-			((EJBHelper)inHelper).setComponentHandle(wbModule.getComponentHandle());
-			super.validate(inHelper, inReporter);
+			IVirtualFile ejbDD = wbModule.getRootFolder().getFile(J2EEConstants.EJBJAR_DD_URI);
+			if( ejbDD.exists()){			
+				((EJBHelper)inHelper).setComponentHandle(wbModule.getComponentHandle());
+				super.validate(inHelper, inReporter);
+			}
 		}
 	}		
 
