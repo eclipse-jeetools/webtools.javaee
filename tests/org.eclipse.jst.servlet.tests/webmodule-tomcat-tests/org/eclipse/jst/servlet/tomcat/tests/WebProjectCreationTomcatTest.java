@@ -45,7 +45,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * @param dataModel
      */
     public void setServerTargetProperty(IDataModel dataModel) {
-        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, AllTomcatTests.TOMCAT_RUNTIME.getId());
+        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, AllTomcatTests.TOMCAT_RUNTIME.getId());
     }
 
     public static void createServlet(NewServletClassDataModel model) throws Exception {

@@ -48,7 +48,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	 * @param dataModel
 	 */
 	public void setServerTargetProperty(IDataModel dataModel) {
-		dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
+		dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
 	}
     
 	public void runAll(){
