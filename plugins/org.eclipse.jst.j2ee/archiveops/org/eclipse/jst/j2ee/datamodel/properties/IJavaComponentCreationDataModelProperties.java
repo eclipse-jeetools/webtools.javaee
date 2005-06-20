@@ -8,6 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 
 /**
@@ -47,5 +48,5 @@ public interface IJavaComponentCreationDataModelProperties extends IComponentCre
      * Required, type String. This is used to specify the server target.
      * 
      */
-    public static final String SERVER_TARGET_ID = "IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID";	
+    public static final String RUNTIME_TARGET_ID = IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID;	
 }

@@ -36,7 +36,7 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
     }
     
     public String[] getPropertyNames() {
-        String[] props = new String[]{NESTED_MODEL_SERVER_TARGET, ADD_SERVER_TARGET, SERVER_TARGET_ID};
+        String[] props = new String[]{NESTED_MODEL_SERVER_TARGET, ADD_SERVER_TARGET, RUNTIME_TARGET_ID};
         return combineProperties(super.getPropertyNames(), props);
     }
     public Object getDefaultProperty(String propertyName) {
@@ -51,7 +51,7 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
         if (PROJECT_NAME.equals(propertyName)) {
             IDataModel projModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
             projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.PROJECT_NAME, propertyValue);
-        } else if (SERVER_TARGET_ID.equals(propertyName)) {
+        } else if (RUNTIME_TARGET_ID.equals(propertyName)) {
             IDataModel projModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
 			projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
         }
@@ -63,7 +63,7 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 	
 	
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
-		if (propertyName.equals(SERVER_TARGET_ID)) {
+		if (propertyName.equals(RUNTIME_TARGET_ID)) {
 			IDataModel serverTargetModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
 			return serverTargetModel.getValidPropertyDescriptors(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
 		}

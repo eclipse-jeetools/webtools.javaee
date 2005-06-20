@@ -137,7 +137,7 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (runtime != null){
 					serverTargetText.setText(runtime.getName());
-					synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID, runtime.getName());
+					synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, runtime.getName());
 				}	
 			}
 		});
@@ -183,7 +183,7 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 			IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
 			if (runtime != null){
 				serverTargetText.setText(runtime.getName());
-				synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID, runtime.getName());
+				synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, runtime.getName());
 			}
 		}
 	}
@@ -267,7 +267,7 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (runtime != null){
 					serverTargetText.setText(runtime.getName());
-					synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.SERVER_TARGET_ID, runtime.getName());
+					synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, runtime.getName());
 				}	
 			}
 		}

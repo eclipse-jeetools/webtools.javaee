@@ -33,7 +33,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 	
 	
 	public String[] getPropertyNames() {
-		String[] props = new String[]{JAVASOURCE_FOLDER, MANIFEST_FOLDER, SERVER_TARGET_ID};
+		String[] props = new String[]{JAVASOURCE_FOLDER, MANIFEST_FOLDER, RUNTIME_TARGET_ID};
 		return combineProperties(super.getPropertyNames(), props);
 	}
 	
@@ -62,9 +62,9 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
         } else if(LOCATION.equals(propertyName)) {
 			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
             dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyValue);
-        } else if(SERVER_TARGET_ID.equals(propertyName)) {
+        } else if(RUNTIME_TARGET_ID.equals(propertyName)) {
 			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-            dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, propertyValue);
+            dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
         }
         return status;
     }
@@ -87,7 +87,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 				status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
 			}
 			return status;
-		} else if (propertyName.equals(SERVER_TARGET_ID)) {
+		} else if (propertyName.equals(RUNTIME_TARGET_ID)) {
 			//if multiple modules are  supported, the  project is already been created, no need for validation here
             if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
 	            IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
@@ -142,7 +142,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
     }
 	
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
-		if (propertyName.equals(SERVER_TARGET_ID)) {
+		if (propertyName.equals(RUNTIME_TARGET_ID)) {
 			//IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
 			//return projectdm.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID);
 		}

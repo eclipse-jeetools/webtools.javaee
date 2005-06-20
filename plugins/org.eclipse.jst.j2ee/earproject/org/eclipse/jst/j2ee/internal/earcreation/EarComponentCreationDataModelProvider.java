@@ -68,6 +68,8 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
             return Collections.EMPTY_LIST;
         }else if (propertyName.equals(JAVA_PROJECT_LIST)){
 			return Collections.EMPTY_LIST;
+        } else if(propertyName.equals(NESTED_EAR_COMPONENT_CREATION_DM)){
+        	return model;
         }
         return super.getDefaultProperty(propertyName);
     }
@@ -184,6 +186,8 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
         boolean returnValue = super.propertySet(propertyName, propertyValue);
         if (propertyName.equals(COMPONENT_NAME)) {
             setProperty(COMPONENT_DEPLOY_NAME, getDataModel().getStringProperty(COMPONENT_NAME));
+        } else if(propertyName.equals(NESTED_EAR_COMPONENT_CREATION_DM)){
+        	throw new RuntimeException();
         }
         return returnValue;
     }

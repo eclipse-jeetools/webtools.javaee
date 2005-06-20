@@ -10,7 +10,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -37,7 +36,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPa
 import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
-public class FlexibleProjectCreationWizardPage extends DataModelWizardPage implements IFlexibleJavaProjectCreationDataModelProperties, IJ2EEProjectServerTargetDataModelProperties {
+public class FlexibleProjectCreationWizardPage extends DataModelWizardPage implements IFlexibleJavaProjectCreationDataModelProperties {
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
 
 	protected NewFlexibleProjectGroup projectNameGroup;
@@ -277,7 +276,7 @@ public class FlexibleProjectCreationWizardPage extends DataModelWizardPage imple
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IProjectCreationProperties.PROJECT_NAME, PROJECT_LOCATION, SERVER_TARGET_ID, RUNTIME_TARGET_ID};
+		return new String[]{IProjectCreationProperties.PROJECT_NAME, PROJECT_LOCATION, RUNTIME_TARGET_ID};
 	}
 
 	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {

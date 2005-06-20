@@ -15,7 +15,6 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -77,8 +76,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	private Object getDefaultEarCreationDM() {
-		if (earCreationDM == null)
+		if (earCreationDM == null){
 			earCreationDM = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
+			setProperty(NESTED_EAR_COMPONENT_CREATION_DM, earCreationDM);
+		}
 		return earCreationDM;
 	}
 
@@ -119,8 +120,11 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
             model.notifyPropertyChange(EAR_COMPONENT_NAME, DataModelEvent.VALID_VALUES_CHG);
 			//this will force to  reload all the server types which are valid for this component version
 			if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
-				model.notifyPropertyChange(SERVER_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
+				model.notifyPropertyChange(RUNTIME_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
 	        }			
+        } else if (RUNTIME_TARGET_ID.equals(propertyName)){
+        	IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+        	earDM.setProperty(RUNTIME_TARGET_ID, propertyValue);
         }
 		return status;
 	}
@@ -161,14 +165,14 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			return getEARPropertyDescriptor(j2eeVersion);
-		}else if(propertyName.equals(SERVER_TARGET_ID)){
+		}else if(propertyName.equals(RUNTIME_TARGET_ID)){
 			return validJ2EEServerPropertyDescriptors();
 		}
 		return super.getValidPropertyDescriptors(propertyName);
 	}
 
 	protected String isvalidJComponentVersionsSupportedByServer(){
-		String serverID = model.getStringProperty(SERVER_TARGET_ID);
+		String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 		IRuntime runtime = getServerTargetByID(serverID);
 	
 		if( serverID.equals("") || runtime == null ){
@@ -189,7 +193,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		ArrayList validServers = new ArrayList();
 		
 		IDataModel projectdm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-		DataModelPropertyDescriptor[] desc =  projectdm.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID);
+		DataModelPropertyDescriptor[] desc =  projectdm.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
 		for (int i = 0; i < desc.length; i++) {
 			DataModelPropertyDescriptor descriptor  = desc[i];
 			String name = descriptor.getPropertyDescription();
@@ -397,7 +401,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		}else if(propertyName.equals(ADD_TO_EAR)){
 			boolean val = getBooleanProperty(ADD_TO_EAR);
 			if( val ){
-				String serverID = model.getStringProperty(SERVER_TARGET_ID);
+				String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 				IRuntime runtime = getServerTargetByID(serverID);
 				if( serverID.equals("") || runtime == null ){
 					String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);

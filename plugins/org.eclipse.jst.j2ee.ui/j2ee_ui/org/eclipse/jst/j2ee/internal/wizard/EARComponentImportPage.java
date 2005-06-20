@@ -123,7 +123,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 		// }
 		// });
 		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, IEarComponentCreationDataModelProperties.SERVER_TARGET_ID, deps);
+		synchHelper.synchCombo(serverTargetCombo, IEarComponentCreationDataModelProperties.RUNTIME_TARGET_ID, deps);
 	}
 
 	/*

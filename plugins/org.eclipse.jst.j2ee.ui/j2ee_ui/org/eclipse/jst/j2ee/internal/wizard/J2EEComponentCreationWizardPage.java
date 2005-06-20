@@ -22,7 +22,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -53,7 +52,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPa
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
-public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties, IJ2EEProjectServerTargetDataModelProperties{
+public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
 
     private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
     protected static final String MODULE_VERSION = "Module Version:";
@@ -303,7 +302,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         });
         Control[] deps = new Control[]{label, newServerTargetButton};
         //synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
-        synchHelper.synchCombo(serverTargetCombo, SERVER_TARGET_ID, deps);
+        synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
         if(serverTargetCombo.getVisibleItemCount() != 0)
             serverTargetCombo.select(0);
     }
@@ -313,7 +312,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     }
 
     protected String[] getValidationPropertyNames() {
-        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR, SERVER_TARGET_ID, RUNTIME_TARGET_ID};
+        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR, RUNTIME_TARGET_ID};
     }
 
     protected void createVersionComposite(Composite parent) {
@@ -449,11 +448,11 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 
     
     public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
-        DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(SERVER_TARGET_ID);
+        DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
         boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
         if (isOK && model != null) {
 
-            DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(SERVER_TARGET_ID);
+            DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
             Object[] preAddition = new Object[preAdditionDescriptors.length];
             for (int i = 0; i < preAddition.length; i++) {
                 preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
@@ -464,9 +463,9 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
             }
             Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
 
-            model.notifyPropertyChange(SERVER_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+            model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
             if (newAddition != null)
-                model.setProperty(SERVER_TARGET_ID, newAddition);
+                model.setProperty(RUNTIME_TARGET_ID, newAddition);
         }
         return isOK;
     }   

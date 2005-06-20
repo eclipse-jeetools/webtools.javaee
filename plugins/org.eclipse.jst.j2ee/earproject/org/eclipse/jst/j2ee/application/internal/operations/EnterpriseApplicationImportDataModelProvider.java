@@ -174,12 +174,12 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			model.notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		} else if (UTILITY_LIST.equals(propertyName)) {
 			updateUtilityModels((List) propertyValue);
-		} else if (SERVER_TARGET_ID.equals(propertyName)) {
+		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
 			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
 			IDataModel nestedModel = null;
 			for (int i = 0; i < projectModels.size(); i++) {
 				nestedModel = (IDataModel) projectModels.get(i);
-				nestedModel.setProperty(SERVER_TARGET_ID, propertyValue);
+				nestedModel.setProperty(RUNTIME_TARGET_ID, propertyValue);
 			}
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
 			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
@@ -210,7 +210,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			if (null != project && project.exists()) {
 				IRuntime target = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (null != target) {
-					setProperty(SERVER_TARGET_ID, target.getId());
+					setProperty(RUNTIME_TARGET_ID, target.getId());
 				}
 			}
 		}
@@ -496,7 +496,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				model.setProperty(FILE, temp);
 				model.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, earProjectName);
 				model.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
-				model.setProperty(SERVER_TARGET_ID, getProperty(SERVER_TARGET_ID));
+				model.setProperty(RUNTIME_TARGET_ID, getProperty(RUNTIME_TARGET_ID));
 				model.addListener(this);
 				model.addListener(nestedListener);
 				moduleModels.add(model);
@@ -646,7 +646,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		if (!super.isPropertyEnabled(propertyName)) {
 			return false;
 		}
-		if (propertyName.equals(IEarComponentCreationDataModelProperties.SERVER_TARGET_ID)) {
+		if (propertyName.equals(IEarComponentCreationDataModelProperties.RUNTIME_TARGET_ID)) {
 			IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
 			if (null == project || !project.exists()) {
 				return true;

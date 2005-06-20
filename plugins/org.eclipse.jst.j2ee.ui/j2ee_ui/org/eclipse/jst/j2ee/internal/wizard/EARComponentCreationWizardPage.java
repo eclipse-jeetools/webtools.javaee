@@ -39,7 +39,7 @@ public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardP
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-        return new String[] {IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION,SERVER_TARGET_ID, RUNTIME_TARGET_ID };
+        return new String[] {IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID };
     }
 
 	public void dispose() {

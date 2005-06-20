@@ -35,7 +35,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	/**
 	 * Extended attributes
 	 */
-	public static final String SERVER_TARGET_ID = IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID;
+	protected static final String RUNTIME_TARGET_ID = IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID;
 
 	private IDataModel componentCreationDM;
 	private OpenFailureException cachedOpenFailureException = null;

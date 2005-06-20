@@ -252,7 +252,7 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (runtime != null){
 					serverTargetText.setText(runtime.getName());
-					synchHelper.synchText(serverTargetText, SERVER_TARGET_ID, null);
+					synchHelper.synchText(serverTargetText, RUNTIME_TARGET_ID, null);
 				}	
 			}
 		}
