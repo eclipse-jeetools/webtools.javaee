@@ -45,8 +45,6 @@ public interface IFlexibleJavaProjectCreationDataModelProperties extends IFlexib
     /**
      * Optional, type String. This is used to specify the server target and is required if 
      * the <code>ADD_SERVER_TARGET</code> property is set to <code>Boolean.TRUE</code>.
-     * 
-     * @see org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel
      */
     public static final String SERVER_TARGET_ID = "IFlexibleProjectCreationDataModelProperties.SERVER_TARGET_ID";
 

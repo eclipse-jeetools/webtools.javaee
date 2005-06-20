@@ -48,7 +48,6 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -647,7 +646,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		if (!super.isPropertyEnabled(propertyName)) {
 			return false;
 		}
-		if (propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
+		if (propertyName.equals(IEarComponentCreationDataModelProperties.SERVER_TARGET_ID)) {
 			IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
 			if (null == project || !project.exists()) {
 				return true;
