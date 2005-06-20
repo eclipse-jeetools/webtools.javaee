@@ -299,7 +299,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	protected void availableJARCheckStateChanged(CheckStateChangedEvent event) {
-		if (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked())) {
+		if (!J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) && (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked()))) {
 			availableJARsViewer.setChecked(event.getElement(), !event.getChecked());
 			return;
 		}
