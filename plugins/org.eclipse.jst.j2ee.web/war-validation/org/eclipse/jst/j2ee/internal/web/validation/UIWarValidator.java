@@ -13,12 +13,14 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
@@ -88,8 +90,12 @@ public class UIWarValidator extends WarValidator {
             	continue;
 			
 			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());
-			getWarHelper().setComponentHandle(handle);
-			super.validate(inHelper, inReporter);
+			IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
+			if( webFile.exists()) {
+				getWarHelper().setComponentHandle(handle);
+				super.validate(inHelper, inReporter);				
+			}
+
 		}
 	}	
 		

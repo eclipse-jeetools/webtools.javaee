@@ -17,12 +17,14 @@
 package org.eclipse.jst.j2ee.internal.jca.validation;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -59,8 +61,11 @@ public class UIConnectorValidator extends ConnectorValidator {
             	continue;
 			
 			ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
-			helper.setComponentHandle(handle);
-			super.validate(inHelper, inReporter);
+			IVirtualFile rarDD = wbModule.getRootFolder().getFile(J2EEConstants.RAR_DD_URI);
+			if( rarDD.exists()) {			
+				helper.setComponentHandle(handle);
+				super.validate(inHelper, inReporter);
+			}
 			//validateJ2EE14DocType(helper, editModel);
 		}
 	}

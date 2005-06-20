@@ -57,6 +57,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -205,8 +206,11 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
             	continue;
 			
 			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());
-			earHelper.setComponentHandle(handle);
-			super.validate(inHelper, inReporter);
+			IVirtualFile ddFile = wbModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
+			if( ddFile.exists()) {				
+				earHelper.setComponentHandle(handle);
+				super.validate(inHelper, inReporter);
+			}
 //			validateModuleMaps(earEdit,earModule);
 //			validateManifests(earModule,earFile);
 //			validateUtilJarMaps(earEdit,earModule);
