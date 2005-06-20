@@ -16,8 +16,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.jem.internal.instantiation.*;
-import org.eclipse.jem.internal.instantiation.InstantiationPackage;
-import org.eclipse.jem.internal.instantiation.PTInstanceReference;
 
 import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
 
@@ -162,6 +160,10 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	protected void accept0(ParseVisitor visitor) {
 		visitor.visit(this);
 		visitor.endVisit(this);
+	}
+	
+	public String toString() {
+		return "InstanceRef{" + object + "}";
 	}
 
 } //PTInstanceReferenceImpl

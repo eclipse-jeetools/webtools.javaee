@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.15 $  $Date: 2005/05/12 22:17:05 $ 
+ *  $Revision: 1.16 $  $Date: 2005/06/20 18:48:56 $ 
  */
 
 import java.util.List;
@@ -82,7 +82,7 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 	
 	public String toString() {
 		// EObject's toString is too big for us, so we do a customized one.
-		StringBuffer result = new StringBuffer(getClass().getName());
+		StringBuffer result = new StringBuffer("JavaObjectInstance");
 		result.append('@');
 		result.append(Integer.toHexString(hashCode()));
 		
