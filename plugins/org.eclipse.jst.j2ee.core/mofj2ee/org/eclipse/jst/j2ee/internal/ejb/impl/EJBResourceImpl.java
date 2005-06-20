@@ -207,5 +207,9 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 			ejbJar.setVersion(newVersion);
 	}
 
+	public boolean isBatchMode() {
+		return renderer.isBatchMode();
+	}
+
 
 }

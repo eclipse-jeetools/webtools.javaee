@@ -34,5 +34,9 @@ public interface EJBResource extends XMLResource {
 	 * @param batchMode The batchMode to set
 	 */
 	public void setBatchMode(boolean isBatch);
+	/**
+	 * Gets the batchmode - from the renderer
+	 */
+	public boolean isBatchMode();
 
 }

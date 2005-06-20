@@ -418,6 +418,9 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 			isBatchChanges = false;
 		}
 	}
+	public boolean isBatchMode() {
+		return isBatchChanges;
+	}
 
 	private void setRootNodeAdapterNotificationEnabled(boolean b) {
 		EObject root = resource.getRootObject();
