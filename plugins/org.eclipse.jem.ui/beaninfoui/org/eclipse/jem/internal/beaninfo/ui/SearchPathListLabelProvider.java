@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/11 22:41:35 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/21 19:59:49 $ 
  */
 
 import java.net.URL;
@@ -135,20 +135,20 @@ public class SearchPathListLabelProvider extends LabelProvider {
 					IResource resource = fRoot.findMember(path);
 					if (resource instanceof IFolder) {
 						pathString =
-							MessageFormat.format(BeanInfoUIMessages.getString("LabelProvider.Library.Folder"), new Object[] { path.makeRelative().toString()}); //$NON-NLS-1$
+							MessageFormat.format(BeanInfoUIMessages.LabelProvider_Library_Folder, new Object[] { path.makeRelative().toString()}); 
 					} else if (resource instanceof IFile) {
 						if (ArchiveFileFilter.isArchivePath(path)) {
 							// Internal library
 							String[] args =
 								new String[] { path.lastSegment(), path.removeLastSegments(1).makeRelative().toString()};
-							pathString = MessageFormat.format(BeanInfoUIMessages.getString("LabelProvider.Library.(PathLastSegment,PathRelative)"), args); //$NON-NLS-1$
+							pathString = MessageFormat.format(BeanInfoUIMessages.LabelProvider_Library__PathLastSegment_PathRelative_, args); 
 						}
 					} else {
 						if (ArchiveFileFilter.isArchivePath(path)) {
 							// External library
 							String[] args =
 								new String[] { path.lastSegment(), path.removeLastSegments(1).toString()};
-							pathString = MessageFormat.format(BeanInfoUIMessages.getString("LabelProvider.Library.(PathLastSegment,PathExceptLast)"), args); //$NON-NLS-1$
+							pathString = MessageFormat.format(BeanInfoUIMessages.LabelProvider_Library__PathLastSegment_PathExceptLast_, args); 
 						} else {
 							// should not come here
 							pathString = path.makeRelative().toString();
@@ -162,7 +162,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 					if (entryPath != null)
 						pathString =
 							MessageFormat.format(
-								BeanInfoUIMessages.getString("LabelProvider.Variable.(name,PathOSString)"), //$NON-NLS-1$
+								BeanInfoUIMessages.LabelProvider_Variable__name_PathOSString_, 
 								new Object[] { name, entryPath.append(path.removeFirstSegments(1)).toOSString()});
 					else
 						pathString = name;
@@ -200,7 +200,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 				String packageName = ((SearchpathEntry) docEntry).getPackage();
 				if (packageName != null && packageName.length() > 0)
 					if (pathString != null)
-						return MessageFormat.format(BeanInfoUIMessages.getString("LabelProvider.(packageName,Path)"), new Object[] { packageName, pathString }); //$NON-NLS-1$
+						return MessageFormat.format(BeanInfoUIMessages.LabelProvider__packageName_Path_, new Object[] { packageName, pathString }); 
 					else
 						return packageName;
 			}

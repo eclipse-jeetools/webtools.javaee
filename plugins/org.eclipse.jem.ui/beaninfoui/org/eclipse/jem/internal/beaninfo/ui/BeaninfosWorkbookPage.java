@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/11 22:41:35 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/21 19:59:49 $ 
  */
 
 import java.util.*;
@@ -70,15 +70,15 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 		fDialogSettings= JEMUIPlugin.getPlugin().getDialogSettings();
 		
 		String[] buttonLabels= new String[] { 
-			/* 0 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.AddFolders"), //$NON-NLS-1$
-			/* 1 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.AddJARs"), //$NON-NLS-1$
-			/* 2 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.AddExternalJAR"), //$NON-NLS-1$
-			/* 3 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.AddVariable"), //$NON-NLS-1$
-			/* 4 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.AddProjects"), //$NON-NLS-1$
+			BeanInfoUIMessages.BeanInfosWorkbookPage_AddFolders, 
+			BeanInfoUIMessages.BeanInfosWorkbookPage_AddJARs, 
+			BeanInfoUIMessages.BeanInfosWorkbookPage_AddExternalJAR, 
+			BeanInfoUIMessages.BeanInfosWorkbookPage_AddVariable, 
+			BeanInfoUIMessages.BeanInfosWorkbookPage_AddProjects, 
 			/* 5 */ null,
-			/* 6 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.ModifyPaths"), //$NON-NLS-1$
+			BeanInfoUIMessages.BeanInfosWorkbookPage_ModifyPaths, 
 			/* 7 */ null,  
-			/* 8 */ BeanInfoUIMessages.getString("BeanInfosWorkbookPage.Remove") //$NON-NLS-1$
+			BeanInfoUIMessages.BeanInfosWorkbookPage_Remove
 		};		
 				
 		BeaninfosAdapter adapter= new BeaninfosAdapter();
@@ -86,7 +86,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 		labelProvider = new SearchPathListLabelProvider();	// kept around so can be updated with java project later
 		fBeaninfosList= new ListDialogField(adapter, buttonLabels, labelProvider);
 		fBeaninfosList.setDialogFieldListener(adapter);
-		fBeaninfosList.setLabelText(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.List.Text")); //$NON-NLS-1$
+		fBeaninfosList.setLabelText(BeanInfoUIMessages.BeanInfosWorkbookPage_List_Text); 
 		fBeaninfosList.setRemoveButtonIndex(8);
 		fBeaninfosList.enableButton(6, false);	// Need to initially disable it and let the selection state handle it from there.
 		
@@ -258,8 +258,8 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 
 		ElementTreeSelectionDialog dialog= new ElementTreeSelectionDialog(getShell(), lp, cp);
 		dialog.setValidator(validator);
-		dialog.setTitle(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.Classes.Title")); //$NON-NLS-1$
-		dialog.setMessage(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.Classes.Prompt"));  //$NON-NLS-1$
+		dialog.setTitle(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_Classes_Title); 
+		dialog.setMessage(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_Classes_Prompt);  
 		dialog.addFilter(filter);
 		dialog.setInput(fWorkspaceRoot);
 		dialog.setInitialSelection(fCurrJProject.getProject());
@@ -287,8 +287,8 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 
 		ElementTreeSelectionDialog dialog= new ElementTreeSelectionDialog(getShell(), lp, cp);
 		dialog.setValidator(validator);
-		dialog.setTitle(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.JARs.Title")); //$NON-NLS-1$
-		dialog.setMessage(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.JARs.Message")); //$NON-NLS-1$
+		dialog.setTitle(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_JARs_Title); 
+		dialog.setMessage(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_JARs_Message); 
 		dialog.addFilter(filter);
 		dialog.setInput(fWorkspaceRoot);
 		dialog.setInitialSelection(fCurrJProject.getProject());		
@@ -389,7 +389,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 			lastUsedPath= ""; //$NON-NLS-1$
 		}
 		FileDialog dialog= new FileDialog(getShell(), SWT.MULTI);
-		dialog.setText(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.ExtJARs.Text")); //$NON-NLS-1$
+		dialog.setText(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_ExtJARs_Text); 
 		dialog.setFilterExtensions(new String[] {"*.jar;*.zip"}); //$NON-NLS-1$
 		dialog.setFilterPath(lastUsedPath);
 		String res= dialog.open();
@@ -451,8 +451,8 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 
 		ElementListSelectionDialog dialog= new ElementListSelectionDialog(getShell(), lp);
 		dialog.setValidator(validator);
-		dialog.setTitle(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.Projects.Title")); //$NON-NLS-1$
-		dialog.setMessage(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.SelectionDialog.Projects.Prompt")); //$NON-NLS-1$
+		dialog.setTitle(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_Projects_Title); 
+		dialog.setMessage(BeanInfoUIMessages.BeanInfosWorkbookPage_SelectionDialog_Projects_Prompt); 
 		dialog.setElements(allProjects.toArray());
 		
 		if (dialog.open() == Window.OK) {

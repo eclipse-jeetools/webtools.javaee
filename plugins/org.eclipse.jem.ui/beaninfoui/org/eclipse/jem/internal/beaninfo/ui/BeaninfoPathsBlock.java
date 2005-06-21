@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.9 $  $Date: 2005/06/21 19:08:31 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/21 19:59:49 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -73,20 +73,18 @@ public class BeaninfoPathsBlock {
 		BuildPathAdapter adapter = new BuildPathAdapter();
 
 		String[] buttonLabels = new String[] {
-			/* 0 */
-			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.up.button"), //$NON-NLS-1$
-			/* 1 */
-			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.down.button"), //$NON-NLS-1$ 
+			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_up_button, 
+			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_down_button, 
 			/* 2 */ null,
-			/* 3 */ BeanInfoUIMessages.getString("BeanInfoPathsBlock.ExportAll") , //$NON-NLS-1$
-			/* 4 */ BeanInfoUIMessages.getString("BeanInfoPathsBlock.UnexportAll") //$NON-NLS-1$
+			BeanInfoUIMessages.BeanInfoPathsBlock_ExportAll , 
+			BeanInfoUIMessages.BeanInfoPathsBlock_UnexportAll
 			};
 		
 		labelProvider = new SearchPathListLabelProvider();	// We keep around to update with latest project.
 		fSearchOrder = new CheckedListDialogField(null, buttonLabels, labelProvider);
 		fSearchOrder.setDialogFieldListener(adapter);
 		fSearchOrder.setLabelText(
-			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.label")); //$NON-NLS-1$
+			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_label); 
 		fSearchOrder.setUpButtonIndex(0);
 		fSearchOrder.setDownButtonIndex(1);
 		fSearchOrder.setCheckAllButtonIndex(3);
@@ -94,7 +92,7 @@ public class BeaninfoPathsBlock {
 
 		fEnableBeaninfoDialogField = new SelectionButtonDialogField(SWT.CHECK);
 		fEnableBeaninfoDialogField.setLabelText(
-			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.enablebeaninfo")); //$NON-NLS-1$
+			BeanInfoUIMessages.BeaninfoPathsBlock_UI__enablebeaninfo); 
 
 		fSearchStatus = new StatusInfo();
 
@@ -152,7 +150,7 @@ public class BeaninfoPathsBlock {
 
 		fPackagesPage = new PackagesWorkbookPage(fWorkspaceRoot, this, interestedDialogFields);
 		item = new TabItem(folder, SWT.NONE);
-		item.setText(BeanInfoUIMessages.getString("BeanInfoPathsBlock.Page.Tab.Packages")); //$NON-NLS-1$
+		item.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Packages); 
 		item.setImage(imageRegistry.get(JavaPluginImages.IMG_OBJS_PACKAGE));
 		item.setData(fPackagesPage);
 		item.setControl(fPackagesPage.getControl(folder));
@@ -168,7 +166,7 @@ public class BeaninfoPathsBlock {
 				
 		fBeaninfosPage= new BeaninfosWorkbookPage(fWorkspaceRoot, this, interestedDialogFields);		
 		item= new TabItem(folder, SWT.NONE);
-		item.setText(BeanInfoUIMessages.getString("BeanInfoPathsBlock.Page.Tab.Classes")); //$NON-NLS-1$
+		item.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Classes); 
 		item.setImage(fBeanImage);
 		item.setData(fBeaninfosPage);
 		item.setControl(fBeaninfosPage.getControl(folder));
@@ -179,7 +177,7 @@ public class BeaninfoPathsBlock {
 		
 		SearchpathOrderingWorkbookPage ordpage = new SearchpathOrderingWorkbookPage(fSearchOrder, interestedDialogFields);
 		item = new TabItem(folder, SWT.NONE);
-		item.setText(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.serachpath.tab.order")); //$NON-NLS-1$
+		item.setText(BeanInfoUIMessages.BeaninfoPathsBlock_UI__serachpath_tab_order); 
 		item.setImage(cpoImage);
 		item.setData(ordpage);
 		item.setControl(ordpage.getControl(folder));
@@ -445,7 +443,7 @@ public class BeaninfoPathsBlock {
 
 			if (entryMissing) {
 				fSearchStatus.setWarning(
-					BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.warning.EntryMissing")); //$NON-NLS-1$
+					BeanInfoUIMessages.BeaninfoPathsBlock_UI__warning_EntryMissing); 
 			}
 		} finally {
 			inUpdate = false;
@@ -467,7 +465,7 @@ public class BeaninfoPathsBlock {
 					monitor = new NullProgressMonitor();
 				}
 				monitor.beginTask(
-					BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.operationdescription"), //$NON-NLS-1$
+					BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_operationdescription, 
 					10);
 				try {
 					setBeaninfoSearchpath(wantNature, searchPathEntries, monitor);

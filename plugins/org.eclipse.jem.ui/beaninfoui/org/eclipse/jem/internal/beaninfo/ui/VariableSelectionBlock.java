@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
 /*
  *  $RCSfile: VariableSelectionBlock.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 23:02:54 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/21 19:59:49 $ 
  */
 
 public class VariableSelectionBlock {
@@ -65,13 +65,13 @@ public class VariableSelectionBlock {
 		VariableSelectionAdapter adapter= new VariableSelectionAdapter();
 		fVariableField= new StringButtonDialogField(adapter);
 		fVariableField.setDialogFieldListener(adapter);
-		fVariableField.setLabelText(BeanInfoUIMessages.getString("VariableSelectionBlock.variable.label")); //$NON-NLS-1$
-		fVariableField.setButtonLabel(BeanInfoUIMessages.getString("VariableSelectionBlock.variable.button")); //$NON-NLS-1$
+		fVariableField.setLabelText(BeanInfoUIMessages.VariableSelectionBlock_variable_label); 
+		fVariableField.setButtonLabel(BeanInfoUIMessages.VariableSelectionBlock_variable_button); 
 
 		fExtensionField= new StringButtonDialogField(adapter);
 		fExtensionField.setDialogFieldListener(adapter);
-		fExtensionField.setLabelText(BeanInfoUIMessages.getString("VariableSelectionBlock.extension.label")); //$NON-NLS-1$
-		fExtensionField.setButtonLabel(BeanInfoUIMessages.getString("VariableSelectionBlock.extension.button")); //$NON-NLS-1$
+		fExtensionField.setLabelText(BeanInfoUIMessages.VariableSelectionBlock_extension_label); 
+		fExtensionField.setButtonLabel(BeanInfoUIMessages.VariableSelectionBlock_extension_button); 
 
 		if (varPath != null) {
 			fVariableField.setText(varPath.segment(0));
@@ -128,7 +128,7 @@ public class VariableSelectionBlock {
 		
 		Label label= new Label(inner, SWT.LEFT);
 		label.setLayoutData(new GridData());
-		label.setText(BeanInfoUIMessages.getString("VariableSelectionBlock.fullpath.label")); //$NON-NLS-1$
+		label.setText(BeanInfoUIMessages.VariableSelectionBlock_fullpath_label); 
 		
 		fFullPath= new CLabel(inner, SWT.NONE);
 		fFullPath.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
@@ -190,12 +190,12 @@ public class VariableSelectionBlock {
 		String name= fVariableField.getText();
 		if (name.length() == 0) {
 			if (!fIsEmptyAllowed) {
-				status.setError(BeanInfoUIMessages.getString("VariableSelectionBlock.error.entername_ERROR_")); //$NON-NLS-1$
+				status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_entername_ERROR_); 
 			} else {
 				fVariable= ""; //$NON-NLS-1$
 			}
 		} else if (JavaCore.getClasspathVariable(name) == null) {
-			status.setError(BeanInfoUIMessages.getString("VariableSelectionBlock.error.namenotexists_ERROR_")); //$NON-NLS-1$
+			status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_namenotexists_ERROR_); 
 		} else {
 			fVariable= name;
 		}
@@ -207,7 +207,7 @@ public class VariableSelectionBlock {
 		StatusInfo status= new StatusInfo();
 		String extension= fExtensionField.getText();
 		if (extension.length() > 0 && !Path.ROOT.isValidPath(extension)) {
-			status.setError(BeanInfoUIMessages.getString("VariableSelectionBlock.error.invalidextension_ERROR_")); //$NON-NLS-1$
+			status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_invalidextension_ERROR_); 
 		}
 		return status;
 	}
@@ -217,12 +217,12 @@ public class VariableSelectionBlock {
 		IPath path= getResolvedPath();
 		if (path != null) {
 			if (findPath(path)) {
-				status.setError(BeanInfoUIMessages.getString("VariableSelectionBlock.error.pathexists_ERROR_")); //$NON-NLS-1$
+				status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_pathexists_ERROR_); 
 			} else if (!path.toFile().isFile()) {
-				status.setWarning(BeanInfoUIMessages.getString("VariableSelectionBlock.warning.pathnotexists_WARN_")); //$NON-NLS-1$
+				status.setWarning(BeanInfoUIMessages.VariableSelectionBlock_warning_pathnotexists_WARN_); 
 			}
 		} else {
-			status.setWarning(BeanInfoUIMessages.getString("VariableSelectionBlock.warning.pathnotexists_WARN_")); //$NON-NLS-1$
+			status.setWarning(BeanInfoUIMessages.VariableSelectionBlock_warning_pathnotexists_WARN_); 
 		}
 		return status;
 	}
@@ -269,7 +269,7 @@ public class VariableSelectionBlock {
 		FileDialog dialog= new FileDialog(getShell(), SWT.SINGLE);
 		dialog.setFilterExtensions(new String[] {"*.jar;*.zip"}); //$NON-NLS-1$
 		dialog.setFilterPath(lastUsedPath);
-		dialog.setText(BeanInfoUIMessages.getString("VariableSelectionBlock.ExtJarDialog.title")); //$NON-NLS-1$
+		dialog.setText(BeanInfoUIMessages.VariableSelectionBlock_ExtJarDialog_title); 
 		String res= dialog.open();
 		if (res == null) {
 			return null;

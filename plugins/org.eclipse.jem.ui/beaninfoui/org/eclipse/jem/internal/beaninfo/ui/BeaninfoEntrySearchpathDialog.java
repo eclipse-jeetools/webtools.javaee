@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfoEntrySearchpathDialog.java,v $
- *  $Revision: 1.6 $  $Date: 2005/06/21 19:08:31 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/21 19:59:49 $ 
  */
 
 import java.text.MessageFormat;
@@ -79,21 +79,17 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 		DialogAdapter adapter = new DialogAdapter();
 
 		String[] buttonLabels = new String[] {
-			/* 0 */
-			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.up.button"), //$NON-NLS-1$
-			/* 1 */
-			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.down.button"), //$NON-NLS-1$
+			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_up_button, 
+			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_down_button, 
 			/* 2 */
 			null,
-			/* 3 */
-			BeanInfoUIMessages.getString("SearchPathDialog.ChoosePackages"), //$NON-NLS-1$
+			BeanInfoUIMessages.SearchPathDialog_ChoosePackages, 
 			/* 4 */
 			null,
-			/* 5 */
-			BeanInfoUIMessages.getString("SearchPathDialog.Remove") }; //$NON-NLS-1$
+			BeanInfoUIMessages.SearchPathDialog_Remove }; 
 
 		listField = new ListDialogField(adapter, buttonLabels, new SearchPathListLabelProvider(jProject));
-		listField.setLabelText(BeanInfoUIMessages.getString("SearchPathDialog.Desc.Label")); //$NON-NLS-1$
+		listField.setLabelText(BeanInfoUIMessages.SearchPathDialog_Desc_Label); 
 		listField.setUpButtonIndex(0);
 		listField.setDownButtonIndex(1);
 		listField.setRemoveButtonIndex(5);
@@ -103,7 +99,7 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 		super.configureShell(newShell);
 		newShell.setText(
 			MessageFormat.format(
-				BeanInfoUIMessages.getString("SearchPathDialog.ModifySearchPaths"), //$NON-NLS-1$
+				BeanInfoUIMessages.SearchPathDialog_ModifySearchPaths, 
 				new Object[] { infoElement.getEntry().getPath().toString()}));
 	}
 
@@ -130,7 +126,7 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 		if (infoElement.getEntry().getKind() == BeaninfoEntry.BIE_PLUGIN) {
 			// We don't allow these to be updated. They should only be used through
 			// registered mechanisms and we won't be showing them here normally.
-			listField.setLabelText(BeanInfoUIMessages.getString("SearchPathDialog.NotEditable_INFO_")); //$NON-NLS-1$
+			listField.setLabelText(BeanInfoUIMessages.SearchPathDialog_NotEditable_INFO_); 
 			listField.setEnabled(false);
 			return;
 		}
@@ -203,10 +199,10 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 			ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
 			ElementTreeSelectionDialog dialog =
 				new ElementTreeSelectionDialog(getShell(), labelProvider, provider);
-			dialog.setTitle(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.title")); //$NON-NLS-1$
+			dialog.setTitle(BeanInfoUIMessages.BeaninfoPathsBlock_UI__addsearchpath_title); 
 
 			dialog.setValidator(validator);
-			dialog.setMessage(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.description")); //$NON-NLS-1$
+			dialog.setMessage(BeanInfoUIMessages.BeaninfoPathsBlock_UI__addsearchpath_description); 
 			dialog.addFilter(filter);
 			dialog.setInput(Arrays.asList(getBeaninfoRoots()));
 
@@ -222,13 +218,13 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 			IInputValidator validator = new IInputValidator() {
 				public String isValid(String newText) {
 					if (existingPackagenames.contains(newText))
-						return BeanInfoUIMessages.getString("SearchPathDialog.PackagePresent_INFO_"); //$NON-NLS-1$
+						return BeanInfoUIMessages.SearchPathDialog_PackagePresent_INFO_; 
 						
 					IStatus status = JavaConventions.validatePackageName(newText);
 					return status.getSeverity() == IStatus.OK ? null : status.getMessage();
 				}
 			};
-			InputDialog dialog = new InputDialog(getShell(), BeanInfoUIMessages.getString("SearchPathDialog.InputDialog.Title"), BeanInfoUIMessages.getString("SearchPathDialog.InputDialog.Message"), null, validator); //$NON-NLS-1$ //$NON-NLS-2$
+			InputDialog dialog = new InputDialog(getShell(), BeanInfoUIMessages.SearchPathDialog_InputDialog_Title, BeanInfoUIMessages.SearchPathDialog_InputDialog_Message, null, validator); 
 			if (dialog.open() == Window.OK)
 				newPackageNames.add(dialog.getValue());
 		}

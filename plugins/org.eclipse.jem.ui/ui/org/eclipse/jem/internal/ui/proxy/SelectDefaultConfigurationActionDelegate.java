@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: SelectDefaultConfigurationActionDelegate.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/18 21:52:31 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/21 20:01:55 $ 
  */
 package org.eclipse.jem.internal.ui.proxy;
 
@@ -192,8 +192,8 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 					return new Composite(composite, SWT.NONE);	// We don't want selection buttons since only one can be selected at a time.
 				}
 			};
-			dialog.setTitle(ProxyUIMessages.getString("Select.title")); //$NON-NLS-1$	
-			dialog.setMessage(MessageFormat.format(ProxyUIMessages.getString("Select.message"), new Object[] { javaproject.getElementName()})); //$NON-NLS-1$			
+			dialog.setTitle(ProxyUIMessages.Select_title); 
+			dialog.setMessage(MessageFormat.format(ProxyUIMessages.Select_message, new Object[] { javaproject.getElementName()})); 
 
 			ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurations();
 			List configsList = new ArrayList(configs.length+1);

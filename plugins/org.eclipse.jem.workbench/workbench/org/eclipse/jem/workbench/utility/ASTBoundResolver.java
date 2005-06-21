@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.7 $  $Date: 2005/05/18 22:05:58 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/21 20:05:18 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -55,13 +55,13 @@ public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 						fa.setField(variableBinding.getName());
 						return fa;
 					} else {
-						throwInvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ASTBoundResolver.CannotHandleLocalField_EXC_"), new Object[]{variableBinding.getName()})); //$NON-NLS-1$
+						throwInvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.ASTBoundResolver_CannotHandleLocalField_EXC_, new Object[]{variableBinding.getName()})); 
 //						push(new PushFieldVariable(variableId, getTypeSignature(declaringTypeBinding), fCounter));
 //						push(new PushThis(getEnclosingLevel(node, declaringTypeBinding)));
 //						storeInstruction();
 					}
 				} else {
-					throwInvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ASTBoundResolver.CannotHandleLocalVariable_EXC_"), new Object[]{variableBinding.getName()})); //$NON-NLS-1$
+					throwInvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.ASTBoundResolver_CannotHandleLocalVariable_EXC_, new Object[]{variableBinding.getName()})); 
 //					push(new PushLocalVariable(variableId));
 				}				
 		}

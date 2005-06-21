@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.13 $  $Date: 2005/06/16 17:46:07 $ 
+ *  $Revision: 1.14 $  $Date: 2005/06/21 20:05:18 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -169,7 +169,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 			return perform(astExpression);
 		} catch (InvalidExpressionException e) {
 			// Create a msg that is formed of the exception message and the full init string.
-			String msg = MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.0"), new Object[] {e.getLocalizedMessage(), astExpression.toString()}); //$NON-NLS-1$
+			String msg = MessageFormat.format(WorkbenchUtilityMessages.ParseTreeCreationFromAST_0, new Object[] {e.getLocalizedMessage(), astExpression.toString()}); 
 			PTInvalidExpression exp = InstantiationFactory.eINSTANCE.createPTInvalidExpression();
 			exp.setMessage(msg);
 			return exp;
@@ -198,7 +198,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 			expression = null;
 			astExpression.accept(this);
 			if (expression == null)
-				throw new InvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.ExpressionTooComplicated_EXC_"), new Object[] {astExpression.toString()})); //$NON-NLS-1$
+				throw new InvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.ParseTreeCreationFromAST_ExpressionTooComplicated_EXC_, new Object[] {astExpression.toString()})); 
 			return expression;
 		} else
 			return null;	// This is ok. It means an optional expression was being processed and the expression didn't exist.
@@ -297,8 +297,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.ClassInstanceCreation)
 	 */
 	public boolean visit(ClassInstanceCreation node) {
-		if (node.getAnonymousClassDeclaration() != null) { throw new InvalidExpressionException(WorkbenchUtilityMessages
-				.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations_EXC_")); //$NON-NLS-1$
+		if (node.getAnonymousClassDeclaration() != null) { throw new InvalidExpressionException(WorkbenchUtilityMessages.ParseTreeCreationFromAST_CannotProcessAnonymousDeclarations_EXC_); //$NON-NLS-1$
 		}
 		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
 		// If ast level = 2, then you must use getName, but the name needs to be turned into a type
@@ -383,7 +382,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (inoper == null) {
 			// It is not one we can handle.
 			throw new InvalidExpressionException(
-					MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle_EXC_"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
+					MessageFormat.format(WorkbenchUtilityMessages.ParseTreeCreationFromAST_OperatorTooComplicatedToHandle_EXC_, new Object[] { node.getOperator().toString() })); 
 		}
 		inf.setOperator(inoper);
 		inf.setRightOperand(perform(node.getRightOperand()));
@@ -497,7 +496,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (ptoper == null) {
 			// It is not one we can handle.
 			throw new InvalidExpressionException(
-				MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle_EXC_"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
+				MessageFormat.format(WorkbenchUtilityMessages.ParseTreeCreationFromAST_OperatorTooComplicatedToHandle_EXC_, new Object[] { node.getOperator().toString() })); 
 		}
 		pe.setOperator(ptoper);
 		expression = pe;

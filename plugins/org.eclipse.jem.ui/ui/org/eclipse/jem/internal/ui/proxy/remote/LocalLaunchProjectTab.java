@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalLaunchProjectTab.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/18 21:52:31 $ 
+ *  $Revision: 1.5 $  $Date: 2005/06/21 20:03:14 $ 
  */
 package org.eclipse.jem.internal.ui.proxy.remote;
 
@@ -77,7 +77,7 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 		projComp.setFont(font);
 		
 		fProjLabel = new Label(projComp, SWT.NONE);
-		fProjLabel.setText(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.Project")); //$NON-NLS-1$
+		fProjLabel.setText(ProxyRemoteUIMessages.LocalLaunchProjectTab_Project); 
 		gd = new GridData();
 		gd.horizontalSpan = 2;
 		fProjLabel.setLayoutData(gd);
@@ -93,7 +93,7 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 			}
 		});
 		
-		fProjButton = createPushButton(projComp, ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.Browse"), null); //$NON-NLS-1$
+		fProjButton = createPushButton(projComp, ProxyRemoteUIMessages.LocalLaunchProjectTab_Browse, null); 
 		fProjButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				handleProjectButtonSelected();
@@ -163,8 +163,8 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 		
 		ILabelProvider labelProvider= new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
 		ElementListSelectionDialog dialog= new ElementListSelectionDialog(getShell(), labelProvider);
-		dialog.setTitle(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.Project_Selection")); //$NON-NLS-1$
-		dialog.setMessage(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ChooseProject")); //$NON-NLS-1$
+		dialog.setTitle(ProxyRemoteUIMessages.LocalLaunchProjectTab_Project_Selection); 
+		dialog.setMessage(ProxyRemoteUIMessages.LocalLaunchProjectTab_ChooseProject); 
 		dialog.setElements(projects);
 		
 		IJavaProject javaProject = getJavaProject();
@@ -218,15 +218,15 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 			if (status.isOK()) {
 				IProject project= ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 				if (!project.exists()) {
-					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectNotExist_ERROR_"), new String[] {name})); //$NON-NLS-1$
+					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.LocalLaunchProjectTab_ProjectNotExist_ERROR_, new String[] {name})); 
 					return false;
 				}
 				if (!project.isOpen()) {
-					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectNotOpen_ERROR_"), new String[] {name})); //$NON-NLS-1$
+					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.LocalLaunchProjectTab_ProjectNotOpen_ERROR_, new String[] {name})); 
 					return false;
 				}
 			} else {
-				setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectValidateError_ERROR_"), new String[]{status.getMessage()})); //$NON-NLS-1$
+				setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.LocalLaunchProjectTab_ProjectValidateError_ERROR_, new String[]{status.getMessage()})); 
 				return false;
 			}
 		}
@@ -255,7 +255,7 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
 	 */
 	public String getName() {
-		return ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.name"); //$NON-NLS-1$
+		return ProxyRemoteUIMessages.LocalLaunchProjectTab_name; 
 	}
 
 	/**

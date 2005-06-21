@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.7 $  $Date: 2005/06/21 19:08:31 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/21 19:59:49 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -95,7 +95,7 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 	 */	
 	private Control createWithoutJava(Composite parent) {
 		Label label= new Label(parent, SWT.LEFT);
-		label.setText(BeanInfoUIMessages.getString("BeaninfoPropertiesPage_INFO_.nojavaproject")); //$NON-NLS-1$ 
+		label.setText(BeanInfoUIMessages.BeaninfoPropertiesPage_INFO__nojavaproject); 
 		
 		fBuildPathsBlock= null;
 		setValid(true);
@@ -107,7 +107,7 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 	 */		
 	private Control createForClosedProject(Composite parent) {
 		Label label= new Label(parent, SWT.LEFT);
-		label.setText(BeanInfoUIMessages.getString("BeaninfoPropertiesPage_INFO_.closedproject")); //$NON-NLS-1$
+		label.setText(BeanInfoUIMessages.BeaninfoPropertiesPage_INFO__closedproject); 
 		
 		fBuildPathsBlock= null;
 		setValid(true);
@@ -146,8 +146,8 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 			try {
 				PlatformUI.getWorkbench().getProgressService().run(false, false, op);
 			} catch (InvocationTargetException e) {
-				String title= BeanInfoUIMessages.getString("Beaninfo_UI_.errortitle"); //$NON-NLS-1$
-				String message= BeanInfoUIMessages.getString("Beaninfo_UI_.error"); //$NON-NLS-1$ 
+				String title= BeanInfoUIMessages.Beaninfo_UI__errortitle; 
+				String message= BeanInfoUIMessages.Beaninfo_UI__error; 
 				ExceptionHandler.handle(e, shell, title, message);
 				return false;
 			} catch (InterruptedException e) {

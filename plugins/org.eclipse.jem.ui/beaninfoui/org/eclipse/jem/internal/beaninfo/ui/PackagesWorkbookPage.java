@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: PackagesWorkbookPage.java,v $
- *  $Revision: 1.6 $  $Date: 2005/06/21 19:08:31 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/21 19:59:49 $ 
  */
 
 import java.util.*;
@@ -104,19 +104,16 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		String[] buttonLabels;
 
 		buttonLabels = new String[] {
-			/* 0 */
-			BeanInfoUIMessages.getString("PackagesWorkbook.ChoosePackages"), //$NON-NLS-1$
-			/* 1 */
-			BeanInfoUIMessages.getString("PackagesWorkbook.ChooseDefinedPaths"), //$NON-NLS-1$
+			BeanInfoUIMessages.PackagesWorkbook_ChoosePackages, 
+			BeanInfoUIMessages.PackagesWorkbook_ChooseDefinedPaths, 
 			/* 2 */
 			null,
-			/* 3 */
-			BeanInfoUIMessages.getString("PackagesWorkbook.Remove") }; //$NON-NLS-1$
+			BeanInfoUIMessages.PackagesWorkbook_Remove }; 
 
 		labelProvider = new SearchPathListLabelProvider();
 		fSearchPackagesList = new ListDialogField(adapter, buttonLabels, labelProvider);
 		fSearchPackagesList.setDialogFieldListener(adapter);
-		fSearchPackagesList.setLabelText(BeanInfoUIMessages.getString("PackagesWorkbook.LabelText")); //$NON-NLS-1$
+		fSearchPackagesList.setLabelText(BeanInfoUIMessages.PackagesWorkbook_LabelText); 
 		fSearchPackagesList.setRemoveButtonIndex(3);
 
 		fSearchPackagesList.setViewerSorter(new SPListElementSorter());
@@ -303,10 +300,10 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
 		ElementTreeSelectionDialog dialog =
 			new ElementTreeSelectionDialog(getShell(), labelProvider, provider);
-		dialog.setTitle(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.title"));
+		dialog.setTitle(BeanInfoUIMessages.BeaninfoPathsBlock_UI__addsearchpath_title);
 
 		dialog.setValidator(validator);
-		dialog.setMessage(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.description"));
+		dialog.setMessage(BeanInfoUIMessages.BeaninfoPathsBlock_UI__addsearchpath_description);
 		dialog.addFilter(filter);
 		dialog.setInput(fCurrJProject);
 
@@ -379,9 +376,9 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		ILabelProvider labelProvider1 = new SearchPathListLabelProvider(fCurrJProject);
 		ElementListSelectionDialog dialog =
 			new ElementListSelectionDialog(getShell(), labelProvider1);
-		dialog.setTitle(BeanInfoUIMessages.getString("PackagesWorkbook.SelectionDialog.DefinedPaths.Title")); //$NON-NLS-1$
+		dialog.setTitle(BeanInfoUIMessages.PackagesWorkbook_SelectionDialog_DefinedPaths_Title); 
 
-		dialog.setMessage(BeanInfoUIMessages.getString("PackagesWorkbook.SelectionDialog.DefinedPaths.Message")); //$NON-NLS-1$
+		dialog.setMessage(BeanInfoUIMessages.PackagesWorkbook_SelectionDialog_DefinedPaths_Message); 
 		dialog.setElements(inputs.toArray());
 
 		if (dialog.open() == Window.OK)
