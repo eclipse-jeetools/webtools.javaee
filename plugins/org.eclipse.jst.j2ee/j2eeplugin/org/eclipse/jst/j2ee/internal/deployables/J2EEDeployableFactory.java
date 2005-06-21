@@ -42,7 +42,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
 	private long cachedStamp = -2;
 
-	protected static boolean isFlexableProject(IProject project) {
+	protected static boolean isFlexibleProject(IProject project) {
 		return ModuleCoreNature.getModuleCoreNature(project) != null;
 	}
 
@@ -50,33 +50,14 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		super();
 	}
 
-	/*
-	 * protected void addModuleProject(IProject project) { if (!isFlexableProject(project)) {
-	 * super.addModuleProject(project); return; } ModuleCoreNature nature = null; try { nature =
-	 * (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID); } catch
-	 * (CoreException e) { Logger.getLogger().write(e); } List modules = createModules(nature); List
-	 * oldModules = (List) getProjectModules().get(project); if (oldModules != null &&
-	 * !oldModules.isEmpty()) addNewModules(modules, oldModules); else
-	 * getProjectModules().put(project, modules); if (added == null) added = new ArrayList(2);
-	 * added.addAll(modules); }
-	 */
-
-	/*    *//**
-			 * @param newModules
-			 */
-	/*
-	 * private void addNewModules(List newModules, List oldModules) { for (int i = 0; i <
-	 * newModules.size(); i++) { if (!oldModules.contains(newModules.get(i)))
-	 * oldModules.add(newModules.get(i)); }
-	 *  }
-	 */
-
 
 
 	protected boolean needsUpdating(IProject project) {
 		if(!initialized)
 			return true;
 		IFile wtpmodules = project.getFile(IModuleConstants.WTPMODULE_FILE_PATH);
+		if (!wtpmodules.exists())
+			return false;
 		if(wtpmodules.getModificationStamp() != cachedStamp) {
 			cachedStamp = wtpmodules.getModificationStamp();
 			return true;
@@ -137,7 +118,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	
 	protected boolean isValidModule(IProject project) {
 		try {
-			return isFlexableProject(project);
+			return isFlexibleProject(project);
 		} catch (Exception e) {
 			//Ignore
 		}

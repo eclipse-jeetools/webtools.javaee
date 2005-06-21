@@ -104,7 +104,7 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	}
 	
 	protected boolean isValidModule(IProject project) {
-		if (isFlexableProject(project)) {
+		if (isFlexibleProject(project)) {
 	        IFlexibleProject flex = ComponentCore.createFlexibleProject(project);
 	        IVirtualComponent[] comps = flex.getComponents();
 	        for (int i = 0; i < comps.length; i++) {
