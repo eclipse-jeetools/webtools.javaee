@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
@@ -373,6 +374,8 @@ public class WebDeployableArtifactUtil {
 
 	protected static boolean hasInterestedComponents(IProject project) {
 		StructureEdit edit = null;
+		if (ModuleCoreNature.getModuleCoreNature(project) == null)
+			return false;
 		try {
 			edit = StructureEdit.getStructureEditForWrite(project);
 			WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
