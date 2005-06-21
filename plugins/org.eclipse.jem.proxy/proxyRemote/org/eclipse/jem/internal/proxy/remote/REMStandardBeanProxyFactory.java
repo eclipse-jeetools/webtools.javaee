@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.11 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/21 19:51:52 $ 
  */
 
 
@@ -251,7 +251,7 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationSt
 				case Commands.CLASS_CAST_EXCEPTION:
 					// The result was not of the correct type.
 					throw new ClassCastException(
-						MessageFormat.format(ProxyRemoteMessages.getString("Classcast_EXC_"), new Object[] {extractFirstLine(initializationString), aTypeProxy.getTypeName()})); //$NON-NLS-1$
+						MessageFormat.format(ProxyRemoteMessages.Classcast_EXC_, new Object[] {extractFirstLine(initializationString), aTypeProxy.getTypeName()})); 
 				case Commands.CANNOT_EVALUATE_STRING:
 					// Want to log the exception that caused it to not evaluate.
 					// Don't need to log this side, just log the RemoteVM side of the trace.
@@ -260,7 +260,7 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationSt
 					((ThrowableProxy) e.getErrorObject()).printProxyStackTrace(w);
 					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, s.toString(), null));
 					throw new InstantiationException(
-						MessageFormat.format(ProxyRemoteMessages.getString("Instantiate_EXC_"), new Object[] {extractFirstLine(initializationString)})); //$NON-NLS-1$
+						MessageFormat.format(ProxyRemoteMessages.Instantiate_EXC_, new Object[] {extractFirstLine(initializationString)})); 
 				default:
 					throw e; //$NON-NLS-1$
 			}
@@ -511,7 +511,7 @@ public void processErrorReturn(CommandErrorException e) throws CommandException,
 			data = t;
 		}
 	}
-	throw new CommandErrorException(MessageFormat.format(ProxyRemoteMessages.getString("RemoteCmd_EXC_"), new Object[] {new Integer(code)}), code, e.getValue(), data);	// Create a new one and throw it containing the proxied data. //$NON-NLS-1$
+	throw new CommandErrorException(MessageFormat.format(ProxyRemoteMessages.RemoteCmd_EXC_, new Object[] {new Integer(code)}), code, e.getValue(), data);	// Create a new one and throw it containing the proxied data. //$NON-NLS-1$
 }
 	 
 

@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.proxy.remote;
 
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.12 $  $Date: 2005/05/18 23:11:26 $ 
+ *  $Revision: 1.13 $  $Date: 2005/06/21 19:51:52 $ 
  */
 
 import java.text.MessageFormat;
@@ -203,8 +203,7 @@ public final class REMStandardBeanTypeProxyFactory implements IStandardBeanTypeP
 		} catch (ThrowableProxy ep) {
 			// Print out the trace and return proxy with init error.
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", ep)); //$NON-NLS-1$
-			IREMBeanTypeProxy proxy = new REMInitErrorBeanTypeProxy(fFactoryRegistry, MessageFormat.format(ProxyRemoteMessages
-					.getString("ExceptionErrorMsg_EXC_"), new Object[] { ep.getTypeProxy().getTypeName(), ep.getProxyLocalizedMessage()}), typeName); //$NON-NLS-1$
+			IREMBeanTypeProxy proxy = new REMInitErrorBeanTypeProxy(fFactoryRegistry, MessageFormat.format(ProxyRemoteMessages.ExceptionErrorMsg_EXC_, new Object[] { ep.getTypeProxy().getTypeName(), ep.getProxyLocalizedMessage()}), typeName); //$NON-NLS-1$
 			registerBeanTypeProxy(proxy, false);
 			return proxy;
 		}
