@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.30 $  $Date: 2005/05/18 20:59:17 $ 
+ *  $Revision: 1.31 $  $Date: 2005/06/21 19:08:29 $ 
  */
 
 import java.io.*;
@@ -138,7 +138,7 @@ public class BeaninfoNature implements IProjectNature {
 					BeaninfoPlugin.PI_BEANINFO_PLUGINID,
 					0,
 					MessageFormat.format(
-						BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
+						BeanInfoAdapterMessages.getString("INTROSPECT_FAILED_EXC_"), //$NON-NLS-1$
 						new Object[] { project.getName(), BeanInfoAdapterMessages.getString("BeaninfoNature.InvalidProject")}), //$NON-NLS-1$
 					null));
 

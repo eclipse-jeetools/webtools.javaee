@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoAdapterMessages.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/06/21 19:08:29 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -26,9 +26,6 @@ public class BeanInfoAdapterMessages {
 
 	private static final String BUNDLE_NAME = "org.eclipse.jem.internal.beaninfo.adapters.messages";	//$NON-NLS-1$
 
-	// Keys for messages/strings within the resource bundle.
-	static public final String
-		INTROSPECTFAILED = "INTROSPECT_FAILED_EXC_"; //$NON-NLS-1$
 	private static final ResourceBundle RESOURCE_BUNDLE =
 		ResourceBundle.getBundle(BUNDLE_NAME);
 

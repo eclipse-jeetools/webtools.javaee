@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.6 $  $Date: 2005/06/16 17:46:17 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/21 19:08:28 $ 
  */
 package org.eclipse.jem.internal.instantiation.base;
 
@@ -483,7 +483,7 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTThisLiteral)
 	 */
 	public boolean visit(PTThisLiteral node) {
-		throw new IllegalArgumentException(InstantiationBaseMessages.getString("ParseTreeAllocationInstantiationVisitor.CurrentlyThisNotSupported_EXC_")); //$NON-NLS-1$
+		throw new IllegalArgumentException(InstantiationBaseMessages.ParseTreeAllocationInstantiationVisitor_CurrentlyThisNotSupported_EXC_); 
 	}
 
 	/* (non-Javadoc)
