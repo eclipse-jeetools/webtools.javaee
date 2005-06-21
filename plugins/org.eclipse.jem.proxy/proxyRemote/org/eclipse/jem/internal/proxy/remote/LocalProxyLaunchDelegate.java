@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.27 $ $Date: 2005/06/21 20:27:52 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.28 $ $Date: 2005/06/21 20:35:07 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -54,7 +54,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 		String launchKey = configuration.getAttribute(IProxyConstants.ATTRIBUTE_LAUNCH_KEY, (String) null);
 		if (launchKey == null)
-			abort(ProxyRemoteMessages.getString("ProxyRemoteNoLaunchKey"), null, 0); //$NON-NLS-1$
+			abort(ProxyRemoteMessages.ProxyRemoteNoLaunchKey, null, 0); 
 
 		// In Eclipse, even if private, a launch will show up in the debug process tree and in the console viewer.
 		// To be absolutely private, we need to remove the launch which has already been added.
@@ -67,9 +67,9 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		IJavaProject project = getJavaProject(configuration);
 		String name = configuration.getAttribute(IProxyConstants.ATTRIBUTE_VM_TITLE, (String) null);
 		if (name == null)
-			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMName"), new Object[] { project != null ? project.getProject().getName() : "" }); //$NON-NLS-1$ //$NON-NLS-2$
+			name = MessageFormat.format(ProxyRemoteMessages.ProxyRemoteVMName, new Object[] { project != null ? project.getProject().getName() : "" }); 
 		else
-			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMNameWithComment"), new Object[] { project != null ? project.getProject().getName() : "", name }); //$NON-NLS-1$ //$NON-NLS-2$
+			name = MessageFormat.format(ProxyRemoteMessages.ProxyRemoteVMNameWithComment, new Object[] { project != null ? project.getProject().getName() : "", name }); 
 
 		String stepId = "Launch VM ( " + name + " )"; //$NON-NLS-1$ //$NON-NLS-2$
 		TimerTests.basicTest.startStep(stepId);
@@ -78,7 +78,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			name = name.replace('"', '\'');
 
 		pm.beginTask("", 500); //$NON-NLS-1$
-		pm.subTask(MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteLaunchVM"), new Object[] { name })); //$NON-NLS-1$
+		pm.subTask(MessageFormat.format(ProxyRemoteMessages.ProxyRemoteLaunchVM, new Object[] { name })); 
 		// check for cancellation
 		if (pm.isCanceled())
 			return;
@@ -87,7 +87,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 		IVMRunner runner = vm.getVMRunner(mode);
 		if (runner == null) {
-			abort(MessageFormat.format(ProxyRemoteMessages.getString("Proxy_NoRunner_ERROR_"), new Object[] { name }), null, 0); //$NON-NLS-1$
+			abort(MessageFormat.format(ProxyRemoteMessages.Proxy_NoRunner_ERROR_, new Object[] { name }), null, 0); 
 		}
 
 		File workingDir = verifyWorkingDirectory(configuration);
@@ -309,16 +309,16 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			java.io.StringWriter s = new java.io.StringWriter();
 			java.io.PrintWriter w = new java.io.PrintWriter(s);
 
-			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_INFO_")); //$NON-NLS-1$
-			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE1")); //$NON-NLS-1$
+			w.println(ProxyRemoteMessages.VM_TERMINATED_INFO_); 
+			w.println(ProxyRemoteMessages.VM_TERMINATED_LINE1); 
 			w.println(stProxy.getErrorStreamMonitor().getContents());
-			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE2")); //$NON-NLS-1$
+			w.println(ProxyRemoteMessages.VM_TERMINATED_LINE2); 
 			w.println(stProxy.getOutputStreamMonitor().getContents());
-			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE3")); //$NON-NLS-1$
+			w.println(ProxyRemoteMessages.VM_TERMINATED_LINE3); 
 			w.close();
 
-			String msg = MessageFormat.format(ProxyRemoteMessages.getString("Proxy_Terminated_too_soon_ERROR_"), new Object[] { name }); //$NON-NLS-1$
-			dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
+			String msg = MessageFormat.format(ProxyRemoteMessages.Proxy_Terminated_too_soon_ERROR_, new Object[] { name }); 
+			dh.displayErrorMessage(ProxyRemoteMessages.Proxy_Error_Title, msg); 
 			throw new CoreException(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, s.toString(), null));
 		} else {
@@ -341,7 +341,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 					printJob = new Job("") { //$NON-NLS-1$
 
 						protected IStatus run(IProgressMonitor monitor) {
-							monitor.beginTask(ProxyRemoteMessages.getString("LocalProxyLaunchDelegate.Monitor.PrintRemoteTrace.Text"), 1); //$NON-NLS-1$
+							monitor.beginTask(ProxyRemoteMessages.LocalProxyLaunchDelegate_Monitor_PrintRemoteTrace_Text, 1); 
 							while(true) {
 								String output = null;
 								synchronized (gatheredText) {

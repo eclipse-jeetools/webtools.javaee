@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMRegistryController.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/21 20:27:52 $ 
+ *  $Revision: 1.11 $  $Date: 2005/06/21 20:35:08 $ 
  */
 
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class REMRegistryController {
 	protected boolean inShutdown;	// Are we in shutdown mode. Terminate registries runs differently in shutdown mode.
 	
 	// Thread to clean up GC'd proxies. Runs as a daemon at the lowest priority
-	private Job processQueueJob= new Job(ProxyRemoteMessages.getString("CleanupJob.title")) { //$NON-NLS-1$
+	private Job processQueueJob= new Job(ProxyRemoteMessages.CleanupJob_title) { 
 		public IStatus run(IProgressMonitor m) {
 				REMProxyFactoryRegistry[] registries = null;
 				synchronized (REMRegistryController.this) {

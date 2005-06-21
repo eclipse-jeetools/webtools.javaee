@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.22 $  $Date: 2005/06/21 20:27:52 $ 
+ *  $Revision: 1.23 $  $Date: 2005/06/21 20:35:07 $ 
  */
 
 
@@ -160,18 +160,18 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 						java.io.StringWriter s = new java.io.StringWriter();
 						java.io.PrintWriter w = new java.io.PrintWriter(s);
 		
-						String msg = MessageFormat.format(ProxyRemoteMessages.getString("Proxy_Terminated_too_soon_ERROR_"), new Object[] {fName}); //$NON-NLS-1$
+						String msg = MessageFormat.format(ProxyRemoteMessages.Proxy_Terminated_too_soon_ERROR_, new Object[] {fName}); 
 						w.println(msg);						
-						w.println(ProxyRemoteMessages.getString("VM_TERMINATED_INFO_")); //$NON-NLS-1$
-						w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE1")); //$NON-NLS-1$
+						w.println(ProxyRemoteMessages.VM_TERMINATED_INFO_); 
+						w.println(ProxyRemoteMessages.VM_TERMINATED_LINE1); 
 						w.println(stProxy.getErrorStreamMonitor().getContents());
-						w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE2")); //$NON-NLS-1$
+						w.println(ProxyRemoteMessages.VM_TERMINATED_LINE2); 
 						w.println(stProxy.getOutputStreamMonitor().getContents());
-						w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE3")); //$NON-NLS-1$
+						w.println(ProxyRemoteMessages.VM_TERMINATED_LINE3); 
 						w.close();
 		
 						DebugModeHelper dh = new DebugModeHelper();
-						dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
+						dh.displayErrorMessage(ProxyRemoteMessages.Proxy_Error_Title, msg); 
 						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, s.toString(), null));
 						processListener = null;
 						DebugPlugin.getDefault().removeDebugEventListener(this);						
@@ -218,7 +218,7 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 		private IProcess process;
 		
 		public TerminateProcess(IProcess process) {
-			super(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.Job.TerminateProcess.Title"));	 //$NON-NLS-1$
+			super(ProxyRemoteMessages.REMProxyFactoryRegistry_Job_TerminateProcess_Title);	 
 			this.process = process;
 		}
 		
@@ -365,7 +365,7 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 				if (c.isConnected())
 					return c;
 				else
-					throw new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.CallbackConnectionNotWorking_EXC_")); //$NON-NLS-1$
+					throw new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_CallbackConnectionNotWorking_EXC_); 
 			}
 		}
 		synchronized(fConnectionPool) {
@@ -421,8 +421,8 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 			
 			if (scArray[0] == null)  {
 				// Log where we are at so we can know where it was we down.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.ConnectionCreationFailed_INFO_"))));	//$NON-NLS-1$ //$NON-NLS-2$
-				throw new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.CouldNotCreateSocketConnectionToRemoteVM_EXC_"));	// Couldn't get one, probably server is down. //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_ConnectionCreationFailed_INFO_)));	
+				throw new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_CouldNotCreateSocketConnectionToRemoteVM_EXC_);	// Couldn't get one, probably server is down. //$NON-NLS-1$
 			}
 
 			REMConnection connection = new REMConnection(scArray[0], fNoTimeouts);
@@ -437,7 +437,7 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 		} else
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "No Server to retrieve a connection.", null));	///$NON-NLS-1$
 		
-		throw new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.CouldNotCreateSocketConnectionToRemoteVM_EXC_")); //$NON-NLS-1$
+		throw new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_CouldNotCreateSocketConnectionToRemoteVM_EXC_); 
 	}
 		 
 	/**
