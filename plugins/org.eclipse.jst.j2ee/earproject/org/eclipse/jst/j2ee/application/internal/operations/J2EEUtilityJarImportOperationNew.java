@@ -45,7 +45,7 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		IDataModel nestedComonentCreationDM = model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
 		IVirtualComponent component = (IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT);
 
-		if (!component.getRootFolder().exists()) {
+		if (!component.exists()) {
 			model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION).getDefaultOperation().execute(monitor, info);
 		}
 
