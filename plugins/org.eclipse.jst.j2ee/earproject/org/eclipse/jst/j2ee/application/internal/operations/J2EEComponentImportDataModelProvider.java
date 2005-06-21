@@ -39,8 +39,8 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
-		if (!set && (propertyName.equals(FILE_NAME) || propertyName.equals(FILE))) {
-			IDataModel moduleDM = model.getNestedModel(this.NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		if (propertyName.equals(FILE)) {
+			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
 			if (getModuleFile() != null) {
 				moduleDM.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, getModuleSpecVersion());
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
