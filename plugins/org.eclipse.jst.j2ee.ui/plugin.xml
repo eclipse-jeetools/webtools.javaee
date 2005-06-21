@@ -486,7 +486,8 @@
 <!--           J2EE Dependencies properties page            -->
 <!-- ====================================================== -->
 <!-- =========== org.eclipse.jst.j2ee.internal.EARNature ============ -->
-      <page
+      <!-- Disabling J2EE property pages for all J2EE modules
+     	<page
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
             name="%j2ee"
@@ -496,9 +497,10 @@
                name="nature"
                value="org.eclipse.jst.j2ee.EARNature">
          </filter>
-      </page>
+      </page>-->
 <!-- =========== org.eclipse.jst.j2ee.internal.J2EEPropertiesPage ============ -->
-      <page
+      <!-- Disabling J2EE property pages for all J2EE modules
+      	<page
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
             name="%j2ee"
@@ -508,7 +510,7 @@
                name="nature"
                value="org.eclipse.jdt.core.javanature">
          </filter>
-      </page>
+      </page>-->
 <!-- =========== org.eclipse.jst.j2ee.internal.JARDependencyProperties============ -->
          <page
             objectClass="org.eclipse.core.resources.IProject"
