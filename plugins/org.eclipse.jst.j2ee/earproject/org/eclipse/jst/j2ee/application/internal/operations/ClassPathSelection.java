@@ -177,8 +177,8 @@ public class ClassPathSelection {
 	protected IClasspathEntry[] getClasspathEntries(boolean filterSelected) {
 		List result = new ArrayList();
 		IClasspathEntry[] array = null;
-		;
 		ClasspathElement element = null;
+		if(classpathElements != null) {
 		for (int i = 0; i < classpathElements.size(); i++) {
 			element = (ClasspathElement) classpathElements.get(i);
 			if (filterSelected && !element.isSelected())
@@ -192,6 +192,8 @@ public class ClassPathSelection {
 			}
 		}
 		return (IClasspathEntry[]) result.toArray(new IClasspathEntry[result.size()]);
+		}
+		return null;
 	}
 
 	/**

@@ -26,6 +26,8 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferencePage;
+import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
@@ -504,7 +506,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			boolean createdBuildPathSettings = false;
 			if (createdComponentDependency) {
 				WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
-				composedOp.addRunnable(createBuildPathOperation());
+				composedOp.addRunnable(createWLPBuildPathOperation());
 				createdBuildPathSettings = runWLPOp(composedOp);
 			}
 			return createdBuildPathSettings;
@@ -559,10 +561,12 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
 	private WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
-		List elements = model.getClassPathSelectionForWLPs().getClasspathElements();
+		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
+		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
+		
 		List targetComponentsHandles = new ArrayList();
-		for (int i = 0; i < elements.size(); i++) {
-			ClasspathElement element = (ClasspathElement) elements.get(i);
+		for (int i = 0; i < selected.size(); i++) {
+			ClasspathElement element = (ClasspathElement) selected.get(i);
 			IProject elementProject = element.getProject();
 			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
 			IVirtualComponent targetComp = flexProject.getComponents()[0];
@@ -571,6 +575,18 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
 			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
+		}
+		targetComponentsHandles = new ArrayList();
+		for (int i = 0; i < unselected.size(); i++) {
+			ClasspathElement element = (ClasspathElement) unselected.get(i);
+			IProject elementProject = element.getProject();
+			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
+			IVirtualComponent targetComp = flexProject.getComponents()[0];
+			targetComponentsHandles.add(targetComp.getComponentHandle());
+		}
+		if (!targetComponentsHandles.isEmpty()) {
+			composedOp = new WorkspaceModifyComposedOperation();
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
 		}
 		return composedOp;
 	}
@@ -597,6 +613,26 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
         return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs()));
     }
+	
+	protected IRunnableWithProgress createWLPBuildPathOperation() {
+        IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
+        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathSelectionForWLPs()));
+    }
+	
+	private ClassPathSelection getUnSelectedClassPathSelectionForWLPs() {
+		ClassPathSelection selection = new ClassPathSelection();
+		List uncheckedElements = new ArrayList();
+		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
+		List modelElements = model.getClassPathSelectionForWLPs().getClasspathElements();
+		for (int i = 0; i < modelElements.size(); i++) {
+			List checkedElementsList = Arrays.asList(checkedElements);
+			if (!checkedElementsList.contains((ClasspathElement) modelElements.get(i))) {
+				selection.getClasspathElements().add((ClasspathElement) modelElements.get(i));
+			}
+		}
+		return selection;
+	}
+	
     
     private ClassPathSelection getSelectedClassPathSelectionForWLPs() {
     		ClassPathSelection selection = new ClassPathSelection();

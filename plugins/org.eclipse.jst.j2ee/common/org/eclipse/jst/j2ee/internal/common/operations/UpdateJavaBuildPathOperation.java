@@ -41,6 +41,7 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 	protected ClassPathSelection classPathSelection;
 	//All the Java build path entries created by the classpath selection
 	protected Set allClasspathEntries;
+	protected List allUnselectedClasspathEntries;
 
 	/**
 	 * UpdateJavaBuildPathOperation constructor comment.
@@ -51,6 +52,22 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 		classPathSelection = aClassPathSelection;
 		allClasspathEntries = new HashSet();
 		allClasspathEntries.addAll(Arrays.asList(aClassPathSelection.getClasspathEntriesForSelected()));
+	}
+	
+	/**
+	 * UpdateJavaBuildPathOperation constructor comment.
+	 */
+	public UpdateJavaBuildPathOperation(IJavaProject aJavaProject, ClassPathSelection selected,ClassPathSelection unselected) {
+		super();
+		javaProject = aJavaProject;
+		classPathSelection = selected;
+		allClasspathEntries = new HashSet();
+		if(selected != null && !selected.getClasspathElements().isEmpty())
+			allClasspathEntries.addAll(Arrays.asList(selected.getClasspathEntriesForSelected()));
+		
+		allUnselectedClasspathEntries = new ArrayList();
+		if(unselected != null && !unselected.getClasspathElements().isEmpty())
+			allUnselectedClasspathEntries.addAll(unselected.getClasspathElements());
 	}
 
 	protected void ensureClasspathEntryIsExported(List cp, IClasspathEntry entry) {
@@ -139,6 +156,19 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 				cp.remove(index);
 		}
 	}
+	
+	protected void ensureRemoveElementInList(List cp, ClasspathElement element) {
+		IClasspathEntry[] cpEntries = element.newClasspathEntries();
+		if (cpEntries == null || cpEntries.length == 0)
+			return;
+		for (int i = 0; i < cpEntries.length; i++) {
+			if (cp.contains(cpEntries[i])) {
+				int index = getIndex(cp, cpEntries[i]);
+				if (index != -1)
+					cp.remove(index);
+			}
+		}
+	}
 
 	/**
 	 * Runs this operation. Progress should be reported to the given progress monitor. This method
@@ -177,11 +207,21 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 				} else
 					ensureElementNotInList(cp, element);
 			}
+			filterUnselectedEntries(cp);
 			IClasspathEntry[] newCp = ((IClasspathEntry[]) cp.toArray(new IClasspathEntry[cp.size()]));
 			javaProject.setRawClasspath(newCp, monitor);
 			updateRequiredProjects(javaProject, prevRequiredProjects, new SubProgressMonitor(monitor, 1));
 		} catch (Exception ex) {
 			throw new WFTWrappedException(ex);
+		}
+	}
+
+	private void filterUnselectedEntries(List cp) {
+		if (allUnselectedClasspathEntries != null) {
+			for (int i = 0; i < allUnselectedClasspathEntries.size(); i++) {
+				ClasspathElement element = (ClasspathElement) allUnselectedClasspathEntries.get(i);
+				ensureRemoveElementInList(cp, element);
+			}
 		}
 	}
 
