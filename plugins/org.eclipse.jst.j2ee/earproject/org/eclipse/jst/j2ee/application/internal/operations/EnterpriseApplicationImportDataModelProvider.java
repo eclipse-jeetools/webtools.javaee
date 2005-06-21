@@ -449,29 +449,29 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		List moduleFiles = getEARFile().getModuleFiles();
 		List moduleModels = new ArrayList();
 		List clientJarArchives = new ArrayList();
-		IDataModel model;
+		IDataModel localModel;
 		String earProjectName = getStringProperty(PROJECT_NAME);
 		List defaultModuleNames = new ArrayList();
 		List collidingModuleNames = null;
 		Hashtable ejbJarsWithClients = new Hashtable();
 		for (int i = 0; i < moduleFiles.size(); i++) {
-			model = null;
+			localModel = null;
 			ModuleFile temp = (ModuleFile) moduleFiles.get(i);
 			if (temp.isApplicationClientFile()) {
-				model = null; // new AppClientModuleImportDataModel();
+				localModel = null; // new AppClientModuleImportDataModel();
 			} else if (temp.isWARFile()) {
 				WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
 				if (webExt != null) {
-					model = webExt.createImportDataModel();
+					localModel = webExt.createImportDataModel();
 					WebModule webModule = (WebModule) getEARFile().getModule(temp.getURI(), null);
 					if (null != webModule && null != webModule.getContextRoot()) {
-						model.setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, webModule.getContextRoot());
+						localModel.setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, webModule.getContextRoot());
 					}
 				}
 			} else if (temp.isEJBJarFile()) {
 				EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 				if (ejbExt != null) {
-					model = ejbExt.createImportDataModel();
+					localModel = ejbExt.createImportDataModel();
 				}
 				EJBJar jar = ((EJBJarFile) temp).getDeploymentDescriptor();
 				if (jar != null) {
@@ -480,7 +480,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 						try {
 							Archive clientArchive = (Archive) getEARFile().getFile(clientName);
 							clientJarArchives.add(clientArchive);
-							ejbJarsWithClients.put(model, clientArchive);
+							ejbJarsWithClients.put(localModel, clientArchive);
 						} catch (Exception e) {
 							// TODO: handle exception
 						}
@@ -489,18 +489,18 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			} else if (temp.isRARFile()) {
 				JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
 				if (rarExt != null) {
-					model = rarExt.createImportDataModel();
+					localModel = rarExt.createImportDataModel();
 				}
 			}
-			if (model != null) {
-				model.setProperty(FILE, temp);
-				model.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, earProjectName);
-				model.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
-				model.setProperty(RUNTIME_TARGET_ID, getProperty(RUNTIME_TARGET_ID));
-				model.addListener(this);
-				model.addListener(nestedListener);
-				moduleModels.add(model);
-				String moduleName = model.getStringProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME);
+			if (localModel != null) {
+				localModel.setProperty(FILE, temp);
+				localModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, earProjectName);
+				localModel.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
+				localModel.setProperty(RUNTIME_TARGET_ID, getProperty(RUNTIME_TARGET_ID));
+				localModel.addListener(this);
+				localModel.addListener(nestedListener);
+				moduleModels.add(localModel);
+				String moduleName = localModel.getStringProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME);
 				if (defaultModuleNames.contains(moduleName)) {
 					if (collidingModuleNames == null) {
 						collidingModuleNames = new ArrayList();
@@ -530,10 +530,10 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		}
 
 		for (int i = 0; collidingModuleNames != null && i < moduleModels.size(); i++) {
-			model = (IDataModel) moduleModels.get(i);
-			String moduleName = model.getStringProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME);
+			localModel = (IDataModel) moduleModels.get(i);
+			String moduleName = localModel.getStringProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME);
 			if (collidingModuleNames.contains(moduleName)) {
-				ModuleFile module = (ModuleFile) model.getProperty(IJ2EEModuleImportDataModelProperties.FILE);
+				ModuleFile module = (ModuleFile) localModel.getProperty(IJ2EEModuleImportDataModelProperties.FILE);
 				String suffix = null;
 				if (module.isApplicationClientFile()) {
 					suffix = "_AppClient"; //$NON-NLS-1$
@@ -549,7 +549,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 					for (; defaultModuleNames.contains(moduleName + suffix + count) && count < 10; count++);
 					suffix += count;
 				}
-				model.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, moduleName + suffix);
+				localModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, moduleName + suffix);
 			}
 		}
 		return moduleModels;
