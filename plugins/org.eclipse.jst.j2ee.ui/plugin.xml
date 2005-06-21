@@ -534,7 +534,30 @@
       </page>
    </extension>
   
-
+<!-- =========== org.eclipse.jst.j2ee.internal.AddModulestoEARPropertiesPage============ -->
+	<extension point="org.eclipse.ui.propertyPages">
+         <page
+            objectClass="org.eclipse.core.resources.IProject"
+            name="%addmodulestoear.props_ui_"
+            class="org.eclipse.jst.j2ee.internal.AddModulestoEARPropertiesPage"
+            id="AddModulestoEARPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.jdt.core.javanature">
+         </filter>
+      </page>
+      <page
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            name="%addmodulestoear.props_ui_"
+            class="org.eclipse.jst.j2ee.internal.AddModulestoEARPropertiesPage"
+            id="AddModulestoEARPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.jdt.core.javanature">
+         </filter>
+      </page>      
+   </extension>
+   
 	<extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
 	  
 		<renameParticipant
