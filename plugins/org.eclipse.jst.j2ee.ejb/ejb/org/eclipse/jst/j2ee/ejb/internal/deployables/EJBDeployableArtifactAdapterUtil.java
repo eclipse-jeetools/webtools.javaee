@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -72,6 +73,8 @@ public class EJBDeployableArtifactAdapterUtil {
 
 	protected static boolean hasInterestedComponents(IProject project) {
 		StructureEdit edit = null;
+		if (ModuleCoreNature.getModuleCoreNature(project) == null)
+			return false;
 		try {
 			edit = StructureEdit.getStructureEditForWrite(project);
 			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
