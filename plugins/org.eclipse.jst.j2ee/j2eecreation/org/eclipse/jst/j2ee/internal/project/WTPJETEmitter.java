@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.project;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -43,9 +44,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.ILibrary;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -63,6 +62,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
+import org.eclipse.osgi.util.ManifestElement;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.Constants;
 
 /**
  * @author schacher, mdelder
@@ -132,13 +135,11 @@ public class WTPJETEmitter extends JETEmitter {
 
 		try {
 			// This ensures that the JRE variables are initialized.
-			//
 			try {
 				JavaRuntime.getDefaultVMInstall();
 			} catch (Throwable throwable) {
 				// This is kind of nasty to come here.
-				//
-				URL jreURL = new URL(Platform.getPlugin("org.eclipse.emf.codegen").getDescriptor().getInstallURL(), "plugin.xml"); //$NON-NLS-1$ //$NON-NLS-2$
+				URL jreURL = Platform.find(Platform.getBundle("org.eclipse.emf.codegen"),new Path("plugin.xml")); //$NON-NLS-1$ //$NON-NLS-2$
 				IPath jrePath = new Path(Platform.asLocalURL(jreURL).getFile());
 				jrePath = jrePath.removeLastSegments(1).append(new Path("../../jre/lib/rt.jar")); //$NON-NLS-1$
 				if (!jrePath.equals(JavaCore.getClasspathVariable(JavaRuntime.JRELIB_VARIABLE))) {
@@ -386,11 +387,17 @@ public class WTPJETEmitter extends JETEmitter {
 	 * @return
 	 */
 	protected boolean hasOutputDirectory(String pluginId) {
-		IPluginDescriptor pluginDescriptor = Platform.getPlugin(pluginId).getDescriptor();
-		URL outputDirectory = pluginDescriptor.find(new Path("bin")); //$NON-NLS-1$
+		Bundle bundle = Platform.getBundle(pluginId);
+		URL outputDirectory = Platform.find(bundle,new Path("bin")); //$NON-NLS-1$
 		if (outputDirectory == null)
 			return false;
-		java.io.File outputDirectoryFile = new File(outputDirectory.getPath());
+		URL installLocation = null;
+		try {
+			installLocation = Platform.asLocalURL(outputDirectory);
+		} catch (IOException e) {
+			Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{installLocation}) + e); //$NON-NLS-1$
+		}
+		File outputDirectoryFile = new File(installLocation.getPath());// new File(location);
 		return outputDirectoryFile.canRead() && outputDirectoryFile.isDirectory() && outputDirectoryFile.listFiles().length > 0;
 	}
 
@@ -400,21 +407,30 @@ public class WTPJETEmitter extends JETEmitter {
 	 * @param pluginId
 	 */
 	protected void addRuntimeJarsAsLibrary(IProject project, String pluginId) {
-		IPluginDescriptor pluginDescriptor = Platform.getPlugin(pluginId).getDescriptor();
-		ILibrary[] runtimeLibs = pluginDescriptor.getRuntimeLibraries();
+		ManifestElement[] elements = null;
+		try {
+			String requires = (String) Platform.getBundle(pluginId).getHeaders().get(Constants.BUNDLE_CLASSPATH);
+			elements = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, requires);
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+			elements = new ManifestElement[0];
+		}
 		IClasspathEntry entry = null;
 		IPath runtimeLibFullPath = null;
 		URL fullurl = null;
-		for (int i = 0; i < runtimeLibs.length; i++) {
-			fullurl = pluginDescriptor.find(runtimeLibs[i].getPath());
+		for (int i = 0; i < elements.length; i++) {
+			String value = elements[i].getValue();
+			if (".".equals(value)) //$NON-NLS-1$
+	            value = "/"; //$NON-NLS-1$
+			fullurl = Platform.getBundle(pluginId).getEntry(elements[i].getValue());
 			// fix the problem with leading slash that caused dup classpath entries
-			File file = new File(fullurl.getPath());
-			runtimeLibFullPath = new Path(file.toString());
-			entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null, /*
-																																													   * Source
-																																													   * attachment
-																																													   * root
-																																													   */
+			if (fullurl==null) continue;
+			try {
+				runtimeLibFullPath = new Path(Platform.asLocalURL(fullurl).getPath());
+			} catch (Exception e) {
+				Logger.getLogger().logError(e);
+			}
+			entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
 			null, /* Source attachment root */
 			null, /* specific output folder */
 			false,
@@ -486,8 +502,9 @@ public class WTPJETEmitter extends JETEmitter {
 
 	protected void addLinkedFolderAsLibrary(IProject project, String variableName, String pluginID) {
 		try {
-			IPluginDescriptor pluginDescriptor = Platform.getPlugin(pluginID).getDescriptor();
-			URL outputDirectory = pluginDescriptor.find(new Path("bin")); //$NON-NLS-1$
+			URL outputDirectory = Platform.find(Platform.getBundle(pluginID),new Path("bin")); //$NON-NLS-1$
+//			IPluginDescriptor pluginDescriptor = Platform.getPlugin(pluginID).getDescriptor();
+//			URL outputDirectory = pluginDescriptor.find(new Path("bin")); //$NON-NLS-1$
 			String pathString = Platform.asLocalURL(outputDirectory).getPath();
 			if (pathString.endsWith("/")) //$NON-NLS-1$
 				pathString = pathString.substring(0, pathString.length() - 1);
