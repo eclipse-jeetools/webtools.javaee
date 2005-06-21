@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.26 $  $Date: 2005/06/21 19:34:50 $ 
+ *  $Revision: 1.27 $  $Date: 2005/06/21 19:36:48 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -273,7 +273,7 @@ public class ProxyLaunchSupport {
 							ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 							0,
 							MessageFormat.format(
-									ProxyMessages.getString("Not_Java_Project_WARN_"), //$NON-NLS-1$
+									ProxyMessages.Not_Java_Project_WARN_, 
 									new Object[] { project.getName()}),
 							null));
 		}
@@ -362,7 +362,7 @@ public class ProxyLaunchSupport {
 		final ILaunchConfigurationWorkingCopy configwc = config.getWorkingCopy();
 		
 		pm.beginTask("", 400); //$NON-NLS-1$
-		pm.subTask(ProxyMessages.getString("ProxyLaunch"));	//$NON-NLS-1$
+		pm.subTask(ProxyMessages.ProxyLaunch);	
 		if (waitForBuild) {
 			// See if build needed or waiting or inprogress, if so, wait for it to complete. We've
 			// decided too difficult to determine if build would affect us or not, so just wait.		
@@ -438,7 +438,7 @@ public class ProxyLaunchSupport {
 			
 			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
 			if (!pm.isCanceled() && reg == null)
-				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("ProxyLaunchSupport.RegistryCouldNotStartForSomeReason_WARN_"), null)); //$NON-NLS-1$
+				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.ProxyLaunchSupport_RegistryCouldNotStartForSomeReason_WARN_, null)); 
 			if (pm.isCanceled()) {
 				if (reg != null)
 					reg.terminateRegistry();
@@ -694,7 +694,7 @@ public class ProxyLaunchSupport {
 					// We are not within a build job. If we were, then we don't do the build. We will take
 					// that risk. The problem is that if within the build, we can't wait for it to finish because
 					// we would stop the thread and so the build would not complete.
-					pm.subTask(ProxyMessages.getString("ProxyWaitForBuild")); //$NON-NLS-1$
+					pm.subTask(ProxyMessages.ProxyWaitForBuild); 
 					try {
 						while (true) {
 							try {

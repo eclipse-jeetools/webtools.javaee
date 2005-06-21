@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: EnumerationBeanProxyWrapper.java,v $
- *  $Revision: 1.8 $  $Date: 2005/06/21 19:34:50 $ 
+ *  $Revision: 1.9 $  $Date: 2005/06/21 19:36:48 $ 
  */
 
 
@@ -66,7 +66,7 @@ public class EnumerationBeanProxyWrapper {
 			return ((IBooleanBeanProxy) fConstants.getEnumerationHasMoreElements().invoke(fEnumeration)).booleanValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("UnexpectedException_EXC_"), e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.UnexpectedException_EXC_, e)); 
 			return false;
 		}			
 	}

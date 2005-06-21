@@ -1,37 +1,46 @@
-package org.eclipse.jem.internal.proxy.core;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- *  $RCSfile: ProxyMessages.java,v $
- *  $Revision: 1.3 $  $Date: 2005/06/21 19:34:50 $ 
- */
+package org.eclipse.jem.internal.proxy.core;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class ProxyMessages {
+public final class ProxyMessages extends NLS {
 
-	private static final String BUNDLE_NAME = "org.eclipse.jem.internal.proxy.core.messages";	//$NON-NLS-1$
-
-	private static final ResourceBundle RESOURCE_BUNDLE =
-		ResourceBundle.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "org.eclipse.jem.internal.proxy.core.messages";//$NON-NLS-1$
 
 	private ProxyMessages() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String UnexpectedException_EXC_;
+	public static String ClassCast_EXC__IncorrectType;
+	public static String ProxyFactory_EXC__NoBeanProxyFactory;
+	public static String ProxyFactory_EXC__NoBeanTypeProxyFactory;
+	public static String Not_Java_Project_WARN_;
+	public static String No_VM_WARN_;
+	public static String No_Implementation_WARN_;
+	public static String ProxyLaunch;
+	public static String ProxyWaitForBuild;
+	public static String Expression_InInvalidStateDueTo_EXC_;
+	public static String Expression_InInvalidState_EXC_;
+	public static String Expression_TypeSentInInvalidOrder_EXC_;
+	public static String Expression_ArrayTypeNotAnArray_EXC_;
+	public static String Expression_CannotHandleNoReceiveOnFieldAccess_EXC_;
+	public static String Expression_MethodsNeedReceiver_EXC_;
+	public static String Expression_InvalidMarkNesting;
+	public static String ProxyPlugin_CleanupDefaultProxyLaunchConfigurations;
+	public static String ProxyLaunchSupport_RegistryCouldNotStartForSomeReason_WARN_;
+	public static String Expression_CreateProxyReassignmentExpression_InvalidForReassignment_EXC_;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, ProxyMessages.class);
 	}
 }

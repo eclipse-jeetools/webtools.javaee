@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.11 $  $Date: 2005/06/21 19:36:48 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -431,14 +431,14 @@ public abstract class Expression implements IExpression {
 				return;	
 			}
 		} else {
-			String expMsg = invalidMsg != null ? MessageFormat.format(ProxyMessages.getString("Expression.InInvalidStateDueTo_EXC_"), new Object[] {invalidMsg}) : ProxyMessages.getString("Expression.InInvalidState_EXC_"); //$NON-NLS-1$ //$NON-NLS-2$
+			String expMsg = invalidMsg != null ? MessageFormat.format(ProxyMessages.Expression_InInvalidStateDueTo_EXC_, new Object[] {invalidMsg}) : ProxyMessages.Expression_InInvalidState_EXC_; 
 			throw new IllegalStateException(expMsg);
 		}
 		
 		// If we got here, then invalid.
 		ForExpression expected = nextForExpressionStack[nextForExpressionStackPos];
 		expressionValid = false;
-		throw new IllegalStateException(MessageFormat.format(ProxyMessages.getString("Expression.TypeSentInInvalidOrder_EXC_"), new Object[] {forExpression, expected})); //$NON-NLS-1$
+		throw new IllegalStateException(MessageFormat.format(ProxyMessages.Expression_TypeSentInInvalidOrder_EXC_, new Object[] {forExpression, expected})); 
 	}
 	
 	/**
@@ -463,7 +463,7 @@ public abstract class Expression implements IExpression {
 	 */
 	private void throwInvalidMarkNesting() throws IllegalStateException {
 		expressionValid = false;
-		throw new IllegalStateException(MessageFormat.format(ProxyMessages.getString("Expression.InvalidMarkNesting"), new Object[] {new Integer(currentMarkEntry != null ? currentMarkEntry.markID : 0)})); //$NON-NLS-1$
+		throw new IllegalStateException(MessageFormat.format(ProxyMessages.Expression_InvalidMarkNesting, new Object[] {new Integer(currentMarkEntry != null ? currentMarkEntry.markID : 0)})); 
 	}
 	
 	/**
@@ -944,11 +944,11 @@ public abstract class Expression implements IExpression {
 				int i = at.lastIndexOf("[]"); //$NON-NLS-1$
 				if (i == -1)
 					throw new IllegalArgumentException(MessageFormat.format(
-							ProxyMessages.getString("Expression.ArrayTypeNotAnArray_EXC_"), new Object[] { arrayType})); //$NON-NLS-1$
+							ProxyMessages.Expression_ArrayTypeNotAnArray_EXC_, new Object[] { arrayType})); 
 				arrayType = getProxyBeanType(at);
 			} else if (!(arrayType instanceof IProxyBeanType)) {
 				throw new IllegalArgumentException(MessageFormat.format(
-						ProxyMessages.getString("Expression.ArrayTypeNotAnArray_EXC_"), new Object[] { arrayType})); //$NON-NLS-1$
+						ProxyMessages.Expression_ArrayTypeNotAnArray_EXC_, new Object[] { arrayType})); 
 			}
 			push(new Integer(++stripCount));
 			push(arrayType);
@@ -1081,7 +1081,7 @@ public abstract class Expression implements IExpression {
 			// static it will fail at evaluation time.
 			if (!hasReceiver)
 				throw new IllegalArgumentException(MessageFormat.format(
-						ProxyMessages.getString("Expression.CannotHandleNoReceiveOnFieldAccess_EXC_"), new Object[] { fieldName})); //$NON-NLS-1$
+						ProxyMessages.Expression_CannotHandleNoReceiveOnFieldAccess_EXC_, new Object[] { fieldName})); 
 			pushFieldAccess(forExpression, fieldName, hasReceiver);
 		} catch (RuntimeException e) {
 			markInvalid();
@@ -1225,7 +1225,7 @@ public abstract class Expression implements IExpression {
 			// static it will fail at evaluation time.
 			if (!hasReceiver)
 				throw new IllegalArgumentException(MessageFormat.format(
-						ProxyMessages.getString("Expression.MethodsNeedReceiver_EXC_"), new Object[] { name})); //$NON-NLS-1$
+						ProxyMessages.Expression_MethodsNeedReceiver_EXC_, new Object[] { name})); 
 
 			pushMethodInvocation(forExpression, name, hasReceiver, argumentCount);
 		} catch (RuntimeException e) {
@@ -1635,7 +1635,7 @@ public abstract class Expression implements IExpression {
 		try {
 			checkForExpression(forExpression);
 			if (!proxy.isValidForReassignment())
-				throw new IllegalArgumentException(MessageFormat.format(ProxyMessages.getString("Expression.CreateProxyReassignmentExpression.InvalidForReassignment_EXC_"), new Object[]{proxy.toString()})); //$NON-NLS-1$
+				throw new IllegalArgumentException(MessageFormat.format(ProxyMessages.Expression_CreateProxyReassignmentExpression_InvalidForReassignment_EXC_, new Object[]{proxy.toString()})); 
 			push(proxy);
 			push(InternalExpressionTypes.ASSIGNMENT_PROXY_EXPRESSION);
 

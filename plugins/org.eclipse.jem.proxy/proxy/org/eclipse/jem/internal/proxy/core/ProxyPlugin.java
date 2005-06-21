@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.51 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.52 $  $Date: 2005/06/21 19:36:48 $ 
  */
 
 
@@ -569,7 +569,7 @@ public class ProxyPlugin extends Plugin {
 		}
 	};
 	
-	private Job cleanupJob = new Job(ProxyMessages.getString("ProxyPlugin.CleanupDefaultProxyLaunchConfigurations")) { //$NON-NLS-1$
+	private Job cleanupJob = new Job(ProxyMessages.ProxyPlugin_CleanupDefaultProxyLaunchConfigurations) { 
 		{
 			setSystem(true);	// So it doesn't show up in progress monitor. No need to interrupt user.
 			setPriority(Job.SHORT);	// A quick running job.
