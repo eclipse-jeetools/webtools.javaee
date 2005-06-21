@@ -4,124 +4,6 @@
 
      <extension-point id="componentWorkingSet" name="Component Working Set" schema="schema/componentWorkingSet.exsd"/>
    
-   	
-<!--============================-->
-<!-- J2EE Filters               -->
-<!--============================  
-   <extension
-         point="org.eclipse.wst.common.navigator.views.navigatorContent">
-      <navigatorContent
-            name="J2EE"
-            priority="5"
-            icon="icons/J2EEPerspective.gif"
-            class="org.eclipse.jst.j2ee.navigator.internal.J2EENavigatorContentExtension"
-            id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent">
-         <enables>
-         <or>
-            <and>
-               <objectClass
-                     name="org.eclipse.core.resources.IProject">
-               </objectClass>
-               <or>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.EARNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.web.WebNature">
-                  </objectState>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-                  </objectState>
-               </or>
-            </and>
-            </or>
-         </enables>
-         <emfEnablement>
-         	<package uri="org.eclipse.emf.ecore.resource" />
-         	<package uri="common.xmi" />         	
-         	<package uri="application.xmi" />         	         	
-         	<package uri="client.xmi" />         	         	
-         	<package uri="modulemap.xmi" />           	
-         	<package uri="ejb.xmi" />                 	
-         	<package uri="jca.xmi" />                 	
-         	<package uri="webapplication.xmi" />                 	
-         	<package uri="jsp.xmi" />                 	
-         	<package uri="wsdd.xmi" />                 	
-         	<package uri="webservice_client.xmi" />           	         	
-         	<package uri="wscommon.xmi" />  
-         </emfEnablement>
-      </navigatorContent>
-   </extension>
-   -->  
-   <extension
-         id="EARGroup"
-         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
-      <navigatorGroup
-            displayName="%Enterprise_Applications"
-            sortOrder="0"
-            icon="icons/eargroup_obj.gif"
-            natureID="org.eclipse.jst.j2ee.EARNature">
-      </navigatorGroup>
-   </extension>
-   <extension
-         id="AppClientGroup"
-         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
-      <navigatorGroup
-            displayName="%Application_Client_Projects"
-            sortOrder="1"
-            icon="icons/appclientgroup_obj.gif"
-            natureID="org.eclipse.jst.j2ee.ApplicationClientNature">
-      </navigatorGroup>
-   </extension>
-   <extension
-         id="ConnectorGroup"
-         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
-      <navigatorGroup
-            displayName="%Connector_Projects"
-            sortOrder="2"
-            icon="icons/connectorgroup_obj.gif"
-            natureID="org.eclipse.jst.j2ee.jca.ConnectorNature">
-      </navigatorGroup>
-   </extension>
-   <extension
-         id="EJBGroup"
-         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
-      <navigatorGroup
-            displayName="%EJB_Projects"
-            sortOrder="3"
-            icon="icons/ejbgroup_obj.gif"
-            natureID="org.eclipse.jst.j2ee.ejb.EJBNature">
-      </navigatorGroup>
-   </extension>
-   <extension
-         id="WebGroup"
-         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
-      <navigatorGroup
-            displayName="%Web_Projects"
-            sortOrder="4"
-            icon="icons/webgroup_obj.gif"
-            natureID="org.eclipse.jst.j2ee.web.WebNature">
-      </navigatorGroup>
-   </extension>
-   <extension
-         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
-      <navigatorGroup
-            displayName="%Other_Projects"
-            icon="icons/folder.gif"
-            natureID="nongrouped">
-      </navigatorGroup>
-   </extension>
 <!-- Drop Adapter for Adding Modules to EARs -->
    <extension
          id="org.eclipse.jst.j2ee.internal.ui.navigator.addModule.dropHandler"
@@ -367,11 +249,10 @@
       </dropHandler>
    </extension>
    
-   <!-- Experimental -->
    <extension
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
-            name="Experimental J2EE"
+            name="%extension.j2ee.name"
             priority="higher"
             icon="icons/J2EEPerspective.gif" 
             contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
@@ -635,6 +516,7 @@
        </commonWizard>
        
    </extension>
+     
      
      
 </plugin>
