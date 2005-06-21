@@ -36,6 +36,8 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
+import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
@@ -265,8 +267,7 @@ public class ComponentUtilities {
 	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
 		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
 		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
-		JavaProjectMigrationOperation op = new JavaProjectMigrationOperation(model);
-		return op;
+		return new JavaProjectMigrationOperation(model);
 	}
 	
 	public static CreateReferenceComponentsOp  createReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
@@ -275,9 +276,19 @@ public class ComponentUtilities {
     	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
     	modHandlesList.addAll(targetComponentsHandles);
     	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
-    	CreateReferenceComponentsOp op = new CreateReferenceComponentsOp(model);
-    	return op;
+    	return new CreateReferenceComponentsOp(model);
     }	
+	
+	public static RemoveReferenceComponentOperation  removeReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
+    	IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponentHandle);
+    	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+    	modHandlesList.addAll(targetComponentsHandles);
+    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
+    	return new RemoveReferenceComponentOperation(model);
+    	
+    }
+	
 	/**
 	 * 
 	 * @param name
