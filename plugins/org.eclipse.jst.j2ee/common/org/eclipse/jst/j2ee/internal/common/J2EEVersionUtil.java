@@ -119,6 +119,43 @@ public class J2EEVersionUtil {
 		// default
 		return J2EEVersionConstants.J2EE_1_4_ID;
 	}
+
+	public static int convertJ2EEVersionIDToEJBVersionID(int j2eeVersionId) {
+		switch (j2eeVersionId) {
+			case J2EEVersionConstants.J2EE_1_2_ID:
+				return J2EEVersionConstants.EJB_1_1_ID;
+			case J2EEVersionConstants.J2EE_1_3_ID:
+				return J2EEVersionConstants.EJB_2_0_ID;
+			case J2EEVersionConstants.J2EE_1_4_ID:
+				return J2EEVersionConstants.EJB_2_1_ID;
+		}
+		// default
+		return J2EEVersionConstants.EJB_2_1_ID;
+	}
+
+	public static int convertJ2EEVersionIDToWebVersionID(int j2eeVersionId) {
+		switch (j2eeVersionId) {
+			case J2EEVersionConstants.J2EE_1_2_ID:
+				return J2EEVersionConstants.WEB_2_2_ID;
+			case J2EEVersionConstants.J2EE_1_3_ID:
+				return J2EEVersionConstants.WEB_2_3_ID;
+			case J2EEVersionConstants.J2EE_1_4_ID:
+				return J2EEVersionConstants.WEB_2_4_ID;
+		}
+		// default
+		return J2EEVersionConstants.WEB_2_4_ID;
+	}
+
+	public static int convertJ2EEVersionIDToConnectorVersionID(int j2eeVersionId) {
+		switch (j2eeVersionId) {
+			case J2EEVersionConstants.J2EE_1_3_ID:
+				return J2EEVersionConstants.JCA_1_0_ID;
+			case J2EEVersionConstants.J2EE_1_4_ID:
+				return J2EEVersionConstants.JCA_1_5_ID;
+		}
+		// default
+		return J2EEVersionConstants.JCA_1_5_ID;
+	}
 	
 	public static int convertVersionStringToInt(IVirtualComponent comp) {
 		if (comp.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))

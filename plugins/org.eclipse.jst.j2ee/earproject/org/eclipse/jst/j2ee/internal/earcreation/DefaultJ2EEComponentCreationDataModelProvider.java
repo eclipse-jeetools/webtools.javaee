@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponent
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
@@ -303,12 +304,19 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
     }
 
     private void setNestedJ2EEVersion(Object j2eeVersion) {
-        if (ejbModel != null)
-            ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-        if (webModel != null)
-            webModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-        if (jcaModel != null)
-            jcaModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
+    	int j2eeVer = ((Integer)j2eeVersion).intValue();
+        if (ejbModel != null) {
+        	int ejbVersion = J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(j2eeVer);
+            ejbModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, ejbVersion);
+        }
+        if (webModel != null) {
+        	int webVersion = J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(j2eeVer);
+            webModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, webVersion);
+        } 
+        if (jcaModel != null) {
+        	int jcaVersion = J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(j2eeVer);
+            jcaModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, jcaVersion);
+        }
         if (clientModel != null)
             clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
     }
