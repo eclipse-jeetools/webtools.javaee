@@ -15,8 +15,8 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -28,7 +28,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public abstract class J2EEModuleImportPage extends J2EEImportPage {
+public abstract class J2EEModuleImportPage extends J2EEImportPage implements IJ2EEModuleImportDataModelProperties{
 	/**
 	 * @param model
 	 * @param pageName
@@ -55,11 +55,11 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @param composite
 	 */
 	private void createServerEarAndStandaloneGroup(Composite composite) {
-		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
+		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IAppClientComponentImportDataModelProperties.FILE_NAME, IAppClientComponentImportDataModelProperties.PROJECT_NAME, IAppClientComponentImportDataModelProperties.EAR_COMPONENT_NAME, /* IAppClientComponentImportDataModelProperties.SERVER_TARGET_ID, */IAppClientComponentImportDataModelProperties.ADD_TO_EAR};
+		return new String[]{FILE_NAME, PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, EAR_COMPONENT_NAME, ADD_TO_EAR};
 	}
 
 }

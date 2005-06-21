@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
@@ -68,5 +69,16 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 			return serverTargetModel.getValidPropertyDescriptors(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
 		}
 		return null;
+	}
+	
+	public IStatus validate(String propertyName) {
+		IStatus status = super.validate(propertyName);
+		if(!status.isOK()){
+			return status;
+		}else if(propertyName.equals(NESTED_MODEL_SERVER_TARGET)){
+			IDataModel stModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+			return stModel.validate();
+		}
+		return OK_STATUS;
 	}
 }
