@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.24 $ $Date: 2005/05/18 23:11:26 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.25 $ $Date: 2005/06/21 19:48:17 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -309,12 +309,12 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			java.io.StringWriter s = new java.io.StringWriter();
 			java.io.PrintWriter w = new java.io.PrintWriter(s);
 
-			w.println(ProxyRemoteMessages.getString(ProxyRemoteMessages.VM_TERMINATED));
-			w.println(ProxyRemoteMessages.getString(ProxyRemoteMessages.VM_TERMINATED_LINE1));
+			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_INFO_")); //$NON-NLS-1$
+			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE1")); //$NON-NLS-1$
 			w.println(stProxy.getErrorStreamMonitor().getContents());
-			w.println(ProxyRemoteMessages.getString(ProxyRemoteMessages.VM_TERMINATED_LINE2));
+			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE2")); //$NON-NLS-1$
 			w.println(stProxy.getOutputStreamMonitor().getContents());
-			w.println(ProxyRemoteMessages.getString(ProxyRemoteMessages.VM_TERMINATED_LINE3));
+			w.println(ProxyRemoteMessages.getString("VM_TERMINATED_LINE3")); //$NON-NLS-1$
 			w.close();
 
 			String msg = MessageFormat.format(ProxyRemoteMessages.getString("Proxy_Terminated_too_soon_ERROR_"), new Object[] { name }); //$NON-NLS-1$

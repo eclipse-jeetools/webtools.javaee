@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: DebugModeHelper.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/21 19:51:52 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -357,7 +357,7 @@ class DebugModeHelper {
 	
 	protected void displayErrorMessageAWT(String title, String msg) {
 		try {
-		 	fDoit.invoke(null, new Object[] {title, msg, ProxyRemoteMessages.getString("OK_7"), null}); //$NON-NLS-1$
+		 	fDoit.invoke(null, new Object[] {title, msg, ProxyRemoteMessages.OK_7, null}); 
 		} catch (InvocationTargetException e) {
 		} catch (IllegalAccessException e) {
 		}
