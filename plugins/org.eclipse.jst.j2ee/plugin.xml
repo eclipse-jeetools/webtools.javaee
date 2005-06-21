@@ -152,6 +152,66 @@
 <!-- DTD and XSD Contributions                         -->
 <!-- Removing these until final location is known...   -->
 <!--===================================================-->
+<extension
+         point="org.eclipse.wst.internet.cache.cacheresource">
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD J2EE Application Client 1.2//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD J2EE Application Client 1.3//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/j2ee_1_4.xsd"/>
+       <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd"/>
+       <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://www.ibm.com/webservices/xsd/j2ee_web_services_1_1.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"/>             
+     
+   </extension>
+
+
 <!--   <extension
          point="org.eclipse.wst.xml.uriresolver.catalogContributor">
       <catalogContributor
