@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.11 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/21 19:34:50 $ 
  */
 
 
@@ -156,7 +156,7 @@ public abstract class ProxyFactoryRegistry {
 	 */
 	public IStandardBeanProxyFactory getBeanProxyFactory() {
 		if (fCurrentStandardBeanProxyFactory == null) {
-			throw new RuntimeException(ProxyMessages.getString(ProxyMessages.PROXYFACTORY_NOBEANPROXY));//$NON-NLS-1$
+			throw new RuntimeException(ProxyMessages.getString("ProxyFactory_EXC_.NoBeanProxyFactory"));//$NON-NLS-1$
 		}
 		return fCurrentStandardBeanProxyFactory;
 	}
@@ -172,7 +172,7 @@ public abstract class ProxyFactoryRegistry {
 	 */
 	public IStandardBeanTypeProxyFactory getBeanTypeProxyFactory() {
 		if (fCurrentStandardBeanTypeProxyFactory == null) {
-			throw new RuntimeException(ProxyMessages.getString(ProxyMessages.PROXYFACTORY_NOBEANTYPEPROXY));//$NON-NLS-1$
+			throw new RuntimeException(ProxyMessages.getString("ProxyFactory_EXC_.NoBeanTypeProxyFactory"));//$NON-NLS-1$
 		}
 		return fCurrentStandardBeanTypeProxyFactory;
 	}

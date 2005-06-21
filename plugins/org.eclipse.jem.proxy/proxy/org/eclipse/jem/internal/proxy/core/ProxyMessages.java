@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyMessages.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:45 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/21 19:34:50 $ 
  */
 
 import java.util.MissingResourceException;
@@ -20,16 +20,6 @@ import java.util.ResourceBundle;
 public class ProxyMessages {
 
 	private static final String BUNDLE_NAME = "org.eclipse.jem.internal.proxy.core.messages";	//$NON-NLS-1$
-
-	// Keys for messages/strings within the resource bundle.
-	static public final String
-		CLASSCAST_INCORRECTTYPE = "ClassCast_EXC_.IncorrectType", //$NON-NLS-1$
-		UNEXPECTED_EXCEPTION = "UnexpectedException_EXC_", //$NON-NLS-1$
-		PROXYFACTORY_NOBEANPROXY = "ProxyFactory_EXC_.NoBeanProxyFactory", //$NON-NLS-1$
-		PROXYFACTORY_NOBEANTYPEPROXY = "ProxyFactory_EXC_.NoBeanTypeProxyFactory", //$NON-NLS-1$
-		NOT_JAVA_PROJECT = "Not_Java_Project_WARN_", //$NON-NLS-1$
-		NO_VM = "No_VM_WARN_", //$NON-NLS-1$
-		NO_IMPLEMENTATION = "No_Implementation_WARN_"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE =
 		ResourceBundle.getBundle(BUNDLE_NAME);

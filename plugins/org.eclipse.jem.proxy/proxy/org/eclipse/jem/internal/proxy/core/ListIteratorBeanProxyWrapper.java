@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ListIteratorBeanProxyWrapper.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/21 19:34:50 $ 
  */
 
 
@@ -34,7 +34,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 		super(anIteratorProxy);
 		
 		if (!anIteratorProxy.getTypeProxy().isKindOf(anIteratorProxy.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.util.ListIterator"))) //$NON-NLS-1$
-			throw new ClassCastException(MessageFormat.format(ProxyMessages.getString(ProxyMessages.CLASSCAST_INCORRECTTYPE), new Object[] {anIteratorProxy.getTypeProxy().getTypeName(), "java.util.ListIterator"})); //$NON-NLS-1$
+			throw new ClassCastException(MessageFormat.format(ProxyMessages.getString("ClassCast_EXC_.IncorrectType"), new Object[] {anIteratorProxy.getTypeProxy().getTypeName(), "java.util.ListIterator"})); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	
@@ -49,7 +49,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 			return ((IBooleanBeanProxy) fConstants.getListIteratorHasPrevious().invoke(fIterator)).booleanValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("UnexpectedException_EXC_"), e)); //$NON-NLS-1$
 			return false;
 		}			
 	}
@@ -58,7 +58,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 			return ((IIntegerBeanProxy) fConstants.getListIteratorNextIndex().invoke(fIterator)).intValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("UnexpectedException_EXC_"), e)); //$NON-NLS-1$
 			return -1;
 		}			
 	}			
@@ -70,7 +70,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 			return ((IIntegerBeanProxy) fConstants.getListIteratorPreviousIndex().invoke(fIterator)).intValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("UnexpectedException_EXC_"), e)); //$NON-NLS-1$
 			return -1;
 		}
 	}

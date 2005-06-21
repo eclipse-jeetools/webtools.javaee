@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.25 $  $Date: 2005/06/16 15:21:25 $ 
+ *  $Revision: 1.26 $  $Date: 2005/06/21 19:34:50 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -273,7 +273,7 @@ public class ProxyLaunchSupport {
 							ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 							0,
 							MessageFormat.format(
-									ProxyMessages.getString(ProxyMessages.NOT_JAVA_PROJECT),
+									ProxyMessages.getString("Not_Java_Project_WARN_"), //$NON-NLS-1$
 									new Object[] { project.getName()}),
 							null));
 		}
