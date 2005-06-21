@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMThrowableBeanProxy.java,v $
- *  $Revision: 1.9 $  $Date: 2005/06/21 19:51:52 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/21 20:27:52 $ 
  */
 
 
@@ -167,27 +167,27 @@ public class REMThrowableBeanProxy extends ThrowableProxy implements IREMBeanPro
 	 */
 	public void printStackTrace() { 
 		synchronized (System.err) {
-			System.err.println(ProxyRemoteMessages.REMOTE_VM_TRACE_INFO_); 
+			System.err.println(ProxyRemoteMessages.getString("REMOTE_VM_TRACE_INFO_")); //$NON-NLS-1$
 			printProxyStackTrace();
-			System.err.println(ProxyRemoteMessages.REMOTE_VM_LOCAL_TRACE_INFO_); 
+			System.err.println(ProxyRemoteMessages.getString("REMOTE_VM_LOCAL_TRACE_INFO_")); //$NON-NLS-1$
 			super.printStackTrace();
 		}
 	}
 
 	public void printStackTrace(java.io.PrintWriter s) { 
 		synchronized (s) {
-			s.println(ProxyRemoteMessages.REMOTE_VM_TRACE_INFO_); 
+			s.println(ProxyRemoteMessages.getString("REMOTE_VM_TRACE_INFO_")); //$NON-NLS-1$
 			printProxyStackTrace(s);
-			s.println(ProxyRemoteMessages.REMOTE_VM_LOCAL_TRACE_INFO_); 
+			s.println(ProxyRemoteMessages.getString("REMOTE_VM_LOCAL_TRACE_INFO_")); //$NON-NLS-1$
 			super.printStackTrace(s);
 		}
 	}
 
 	public void printStackTrace(java.io.PrintStream s) { 
 		synchronized (s) {
-			s.println(ProxyRemoteMessages.REMOTE_VM_TRACE_INFO_); 
+			s.println(ProxyRemoteMessages.getString("REMOTE_VM_TRACE_INFO_")); //$NON-NLS-1$
 			printProxyStackTrace(s);
-			s.println(ProxyRemoteMessages.REMOTE_VM_LOCAL_TRACE_INFO_); 
+			s.println(ProxyRemoteMessages.getString("REMOTE_VM_LOCAL_TRACE_INFO_")); //$NON-NLS-1$
 			super.printStackTrace(s);
 		}
 	}
