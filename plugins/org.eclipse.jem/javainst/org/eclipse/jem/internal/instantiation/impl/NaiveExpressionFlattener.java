@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/21 19:12:44 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
@@ -216,7 +216,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTInvalidExpression)
 	 */
 	public boolean visit(PTInvalidExpression node) {
-		buffer.append(MessageFormat.format(InstantiationImplMessages.getString("NaiveExpressionFlattener.InvalidExpression"), new Object[]{node.getMessage()})); //$NON-NLS-1$
+		buffer.append(MessageFormat.format(InstantiationImplMessages.NaiveExpressionFlattener_InvalidExpression, new Object[]{node.getMessage()})); 
 		return false;
 	}
 

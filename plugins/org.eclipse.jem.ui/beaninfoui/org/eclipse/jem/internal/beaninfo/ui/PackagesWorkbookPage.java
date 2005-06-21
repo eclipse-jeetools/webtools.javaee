@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: PackagesWorkbookPage.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 23:02:54 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/21 19:08:31 $ 
  */
 
 import java.util.*;
@@ -303,10 +303,10 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
 		ElementTreeSelectionDialog dialog =
 			new ElementTreeSelectionDialog(getShell(), labelProvider, provider);
-		dialog.setTitle(BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_ADDSEARCHPATH_TITLE));
+		dialog.setTitle(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.title"));
 
 		dialog.setValidator(validator);
-		dialog.setMessage(BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_ADDSEARCHPATH_DESC));
+		dialog.setMessage(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.description"));
 		dialog.addFilter(filter);
 		dialog.setInput(fCurrJProject);
 

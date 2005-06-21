@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.12 $  $Date: 2005/05/18 20:59:17 $ 
+ *  $Revision: 1.13 $  $Date: 2005/06/21 19:17:03 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -118,7 +118,7 @@ class CreateRegistryJobHandler {
 		
 		if (!gotRuleLocally) {
 			// Spawn off to a job and wait for it. Hopefully we don't have a deadlock somewhere.
-			Job doCreateJob = new Job(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry")) { //$NON-NLS-1$
+			Job doCreateJob = new Job(BeanInfoAdapterMessages.UICreateRegistryJobHandler_StartBeaninfoRegistry) { 
 
 				protected IStatus run(IProgressMonitor monitor) {
 					doCreateRegistry(nature, monitor);

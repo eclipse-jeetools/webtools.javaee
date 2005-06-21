@@ -17,7 +17,7 @@ import java.text.MessageFormat;
  *******************************************************************************/
 /*
  *  $RCSfile: PrimitiveOperation.java,v $
- *  $Revision: 1.3 $  $Date: 2005/05/18 23:11:27 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/21 19:21:07 $ 
  */
 
 public class PrimitiveOperation extends Expression {
@@ -41,7 +41,7 @@ public class PrimitiveOperation extends Expression {
 				return new Integer(((Integer)leftHandSide).intValue() & ((Integer)rightHandSide).intValue());				
 			}
 		}
-		throw new RuntimeException(MessageFormat.format(ProxyInitParserMessages.getString("PrimitiveOperation.Evaluate.InvalidOperator_EXC_"), new Object[]{getOperDescription(), leftHandSide, rightHandSide}));		 //$NON-NLS-1$
+		throw new RuntimeException(MessageFormat.format(ProxyInitParserMessages.PrimitiveOperation_Evaluate_InvalidOperator_EXC_, new Object[]{getOperDescription(), leftHandSide, rightHandSide}));		 
 	}
 	protected String getOperDescription(){
 		if(operation == BitOR) return "|"; //$NON-NLS-1$

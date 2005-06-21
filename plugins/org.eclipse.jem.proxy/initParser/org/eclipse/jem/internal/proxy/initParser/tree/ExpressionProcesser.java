@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.12 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.13 $  $Date: 2005/06/21 19:24:21 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -59,7 +59,7 @@ public class ExpressionProcesser {
 			// If static, then receiver is ignored.
 			if (!Modifier.isStatic(field.getModifiers())) {
 				if (!field.getDeclaringClass().isInstance(receiver))
-					throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CreateFieldAccessReference.FieldsTypesNotMatching_EXC_"), new Object[]{field.getType(), (receiver!=null ? receiver.getClass() : null)})); //$NON-NLS-1$
+					throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_CreateFieldAccessReference_FieldsTypesNotMatching_EXC_, new Object[]{field.getType(), (receiver!=null ? receiver.getClass() : null)})); 
 			}
 			field.setAccessible(true);	// Make it always accessible. Trust it. 
 			return new FieldAccessReference(field, receiver);
@@ -132,7 +132,7 @@ public class ExpressionProcesser {
 		public static ArrayAccessReference createArrayAccessReference(Object array, int index) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
 			int len = Array.getLength(array);
 			if (index < 0 || len <= index)
-				throw new ArrayIndexOutOfBoundsException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CreateArrayAccessReference.OutOfBounds_EXC_"), new Object[]{new Integer(index), new Integer(len)})); //$NON-NLS-1$
+				throw new ArrayIndexOutOfBoundsException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_CreateArrayAccessReference_OutOfBounds_EXC_, new Object[]{new Integer(index), new Integer(len)})); 
 			return new ArrayAccessReference(array, index);
 		}
 		/**
@@ -423,7 +423,7 @@ public class ExpressionProcesser {
 		try {
 			Class result = (Class) expressionTypeStack.remove(expressionTypeStack.size()-1);
 			if (!allowVoid && result == Void.TYPE)
-				throw new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.PopExpressionType.ExpressionVoid_EXC_")); //$NON-NLS-1$
+				throw new NoExpressionValueException(InitparserTreeMessages.ExpressionProcesser_PopExpressionType_ExpressionVoid_EXC_); 
 			return result;
 				
 		} catch (IndexOutOfBoundsException e) {
@@ -728,7 +728,7 @@ public class ExpressionProcesser {
 				} else {
 					if (doTrace)
 						printTrace("Return Proxy #" + proxyid + ": Not resolved", false); //$NON-NLS-1$ //$NON-NLS-2$
-					NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.GetExpressionProxyValue.ExpressionProxyNotSet_EXC_")); //$NON-NLS-1$
+					NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.ExpressionProcesser_GetExpressionProxyValue_ExpressionProxyNotSet_EXC_); 
 					if (pull)
 						throw e;
 					else
@@ -738,7 +738,7 @@ public class ExpressionProcesser {
 			} else {
 				if (doTrace)
 					printTrace("Return Proxy #" + proxyid + ": Never created.", false); //$NON-NLS-1$ //$NON-NLS-2$
-				NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.GetExpressionProxyValue.ExpressionProxyDoesntExist_EXC_")); //$NON-NLS-1$
+				NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.ExpressionProcesser_GetExpressionProxyValue_ExpressionProxyDoesntExist_EXC_); 
 				if (pull)
 					throw e;
 				else
@@ -946,7 +946,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwClassCast(Class returnType, Object bean) throws ClassCastException {
-		throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY_EXC_"), new Object[] {bean != null ? bean.getClass().getName() : null, returnType.getName()})); //$NON-NLS-1$
+		throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_CannotCastXToY_EXC_, new Object[] {bean != null ? bean.getClass().getName() : null, returnType.getName()})); 
 	}
 
 	/**
@@ -1495,7 +1495,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwInvalidPrefix(PrefixOperator operator, Object exp) throws IllegalArgumentException {
-		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfPrefixOperator_EXC_"), new Object[] {exp != null ? exp.toString() : null, operator.toString()})); //$NON-NLS-1$
+		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_InvalidOperandOfPrefixOperator_EXC_, new Object[] {exp != null ? exp.toString() : null, operator.toString()})); 
 	}		
 	
 	private static final Object INFIX_IGNORE = "INFIX IGNORE";	// Flag for infix in ingore //$NON-NLS-1$
@@ -2071,7 +2071,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwInvalidInfix(InfixOperator operator, Object value) throws IllegalArgumentException {
-		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfOperator_EXC_"), new Object[] {value != null ? value.toString() : null, operator.toString()})); //$NON-NLS-1$
+		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_InvalidOperandOfOperator_EXC_, new Object[] {value != null ? value.toString() : null, operator.toString()})); 
 	}
 	
 	private void testValidBitType(Class type, InfixOperator operator) {
@@ -2172,7 +2172,7 @@ public class ExpressionProcesser {
 					}
 					
 					if (dimcount < indexCount)
-						throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.XIsGreaterThanNumberOfDimensionsInArray_EXC_"), new Object[] {new Integer(indexCount), new Integer(dimcount)})); //$NON-NLS-1$
+						throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_XIsGreaterThanNumberOfDimensionsInArray_EXC_, new Object[] {new Integer(indexCount), new Integer(dimcount)})); 
 					
 					// Now start accessing one index at a time, stop just before the last one. The last one will be turned into an ArrayAccessReference.
 					Object value = array;	// Final value, start with full array.
@@ -2185,7 +2185,7 @@ public class ExpressionProcesser {
 						printObjectAndType(arrayValue, componentTypes[pullCount]);
 					pushExpressionValue(arrayValue, componentTypes[pullCount]);
 				}  else
-					 throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.NotAnArray_EXC_"), new Object[] {arrayType})); //$NON-NLS-1$
+					 throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_NotAnArray_EXC_, new Object[] {arrayType})); 
 	
 			} catch (NoExpressionValueException e) {
 				processSyntaxException(e);
@@ -2230,7 +2230,7 @@ public class ExpressionProcesser {
 					for(int i=0; i < dimensionCount && componentType != null; i++)
 						componentType = componentType.getComponentType();
 					if (componentType == null)
-						throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.ArraytypeHasFewerDimensionsThanRequested_EXC_"), new Object[] {arrayType, new Integer(dimensionCount)})); //$NON-NLS-1$
+						throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_ArraytypeHasFewerDimensionsThanRequested_EXC_, new Object[] {arrayType, new Integer(dimensionCount)})); 
 					
 					// We need to pull in the dimension initializers. They are stacked in reverse order.
 					int[] dimInit = new int[dimensionCount];
@@ -2280,7 +2280,7 @@ public class ExpressionProcesser {
 			try {
 				if (!arrayType.isArray()) {
 					// It is not an array type.
-					throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY_EXC_"), new Object[] {arrayType, "array"})); //$NON-NLS-1$ //$NON-NLS-2$
+					throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_CannotCastXToY_EXC_, new Object[] {arrayType, "array"})); 
 				} 
 				// Strip off the number of dimensions specified.
 				while(stripCount-->0) {
@@ -2732,7 +2732,7 @@ public class ExpressionProcesser {
 				return;
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (blocks == null || topBlock < 0 || blocks[topBlock] != blockNumber) {
-				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushBlockEnd.ReceivedEndBlocksOutOfOrder_EXC_"))); //$NON-NLS-1$
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.ExpressionProcesser_PushBlockEnd_ReceivedEndBlocksOutOfOrder_EXC_)); 
 			} else {
 				topBlock--;
 				if (ignoreExpression == BLOCK_IGNORE && blockNumber == breakBlock) {
@@ -2894,7 +2894,7 @@ public class ExpressionProcesser {
 			
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryCatchClause.CatchReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.ExpressionProcesser_PushTryCatchClause_CatchReceivedOutOfOrder_EXC_)); 
 			} else {
 				if (ignoreExpression == null) {
 					// Normal flow, no throw in progress, so just ignore now until the finally or end try reached.
@@ -2946,7 +2946,7 @@ public class ExpressionProcesser {
 				return;
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryFinallyClause.FinallyReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.ExpressionProcesser_PushTryFinallyClause_FinallyReceivedOutOfOrder_EXC_)); 
 			} else {
 				if (tryNumber == breakTry && (ignoreExpression == TRY_THROW_IGNORE || ignoreExpression == TRY_FINAL_IGNORE)) {
 					// We are here due to a throw occuring in this try block or a catch was reached (in which case all intervening catch's were ignored).
@@ -2984,10 +2984,10 @@ public class ExpressionProcesser {
 				return;
 			// We are not checking ignore because we need to make sure this is not called out of order.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryRethrow.RethrowReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.ExpressionProcesser_PushTryRethrow_RethrowReceivedOutOfOrder_EXC_)); 
 			} else if (ignoreExpression == null) {
 				if (trysInCatch[topTry] == null || trysInCatch[topTry] == FINAL_CATCH)
-					processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryRethrow.RetryReceivedOutOfExecutingCatchClause_EXC_"))); //$NON-NLS-1$
+					processSyntaxException(new IllegalStateException(InitparserTreeMessages.ExpressionProcesser_PushTryRethrow_RetryReceivedOutOfExecutingCatchClause_EXC_)); 
 				else {
 					throwException(trysInCatch[topTry]);
 				}
@@ -3008,7 +3008,7 @@ public class ExpressionProcesser {
 				return;
 			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
 			if (trys == null || topTry < 0 || trys[topTry] != tryNumber) {
-				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushTryEnd.TryEndReceivedOutOfOrder_EXC_"))); //$NON-NLS-1$
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.ExpressionProcesser_PushTryEnd_TryEndReceivedOutOfOrder_EXC_)); 
 			} else {
 				boolean inCatch = trysInCatch[topTry] != null;
 				trysInCatch[topTry] = null;
@@ -3210,7 +3210,7 @@ public class ExpressionProcesser {
 					}
 				}
 				// But to be safe, if we got here, this is bad. We tried restore a mark we didn't have.
-				processSyntaxException(new IllegalStateException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.PushEndmark.EndMarkOnNonExistingID_EXC_"), new Object[]{new Integer(markID)}))); //$NON-NLS-1$
+				processSyntaxException(new IllegalStateException(MessageFormat.format(InitparserTreeMessages.ExpressionProcesser_PushEndmark_EndMarkOnNonExistingID_EXC_, new Object[]{new Integer(markID)}))); 
 			}
 		} finally {
 			if (traceOn)

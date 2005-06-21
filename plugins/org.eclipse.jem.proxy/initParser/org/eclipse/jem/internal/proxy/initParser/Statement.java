@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: Statement.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/21 19:21:07 $ 
  */
 
 
@@ -39,7 +39,7 @@ public Object evaluate() throws Exception {
 	if ( currentExpression != null ) {
 		return currentExpression.evaluate();
 	} else {
-		throw new RuntimeException(ProxyInitParserMessages.getString(ProxyInitParserMessages.STATEMENT_UNEXPECTED_EXECUTION));	// This is not an evaluation error, it shouldn't of occured, so it is a parser error.
+		throw new RuntimeException(ProxyInitParserMessages.Statement_UnexpectedExecution_EXC_);	// This is not an evaluation error, it shouldn't of occured, so it is a parser error. //$NON-NLS-1$
 	}
 }
 /**
@@ -195,7 +195,7 @@ public boolean isPrimitive() throws Exception {
 	if ( currentExpression != null ) {
 		return currentExpression.isPrimitive();
 	} else {
-		throw new RuntimeException(ProxyInitParserMessages.getString(ProxyInitParserMessages.STATEMENT_UNEXPECTED_EXECUTION));
+		throw new RuntimeException(ProxyInitParserMessages.Statement_UnexpectedExecution_EXC_); 
 	}
 }
 }

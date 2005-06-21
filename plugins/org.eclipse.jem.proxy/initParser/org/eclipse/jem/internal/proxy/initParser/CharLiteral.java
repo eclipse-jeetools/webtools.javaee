@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: CharLiteral.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/21 19:21:07 $ 
  */
 
 import java.text.MessageFormat;
@@ -38,7 +38,7 @@ public Object evaluate() throws Exception {
 		return new Character(valueBuffer.charAt(0));
 	else
 		throw new EvaluationException(
-			new IllegalArgumentException(MessageFormat.format(ProxyInitParserMessages.getString("CharTooComplicated_EXC_"), //$NON-NLS-1$
+			new IllegalArgumentException(MessageFormat.format(ProxyInitParserMessages.CharTooComplicated_EXC_, 
 				new Object[] {valueBuffer.toString()})));
 }
 

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.38 $  $Date: 2005/06/21 19:08:29 $ 
+ *  $Revision: 1.39 $  $Date: 2005/06/21 19:17:03 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -478,7 +478,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
 						0,
 						MessageFormat.format(
-							BeanInfoAdapterMessages.getString("INTROSPECT_FAILED_EXC_"), //$NON-NLS-1$
+							BeanInfoAdapterMessages.INTROSPECT_FAILED_EXC_, 
 							new Object[] { getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
 						e));
 			} finally {
@@ -758,8 +758,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 										} catch (ThrowableProxy e) {
 											BeaninfoPlugin.getPlugin().getLogger().log(
 													new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
-															MessageFormat.format(BeanInfoAdapterMessages
-																	.getString("INTROSPECT_FAILED_EXC_"), new Object[] { //$NON-NLS-1$
+															MessageFormat.format(BeanInfoAdapterMessages.INTROSPECT_FAILED_EXC_, new Object[] { //$NON-NLS-1$
 																	getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
 																	e));
 										}
@@ -768,17 +767,16 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 										BeaninfoPlugin.getPlugin().getLogger()
 										.log(
 												new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
-														MessageFormat.format(BeanInfoAdapterMessages
-																.getString("INTROSPECT_FAILED_EXC_"), new Object[] { //$NON-NLS-1$
+														MessageFormat.format(BeanInfoAdapterMessages.INTROSPECT_FAILED_EXC_, new Object[] { //$NON-NLS-1$
 																getJavaClass().getJavaName(), targetType.getInitializationError()}), null));
 									}
 								} else {
 									// The class itself could not be found. Just log it, but treat as no proxy.
 									BeaninfoPlugin.getPlugin().getLogger().log(
 											new Status(IStatus.INFO, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0, MessageFormat.format(
-													BeanInfoAdapterMessages.getString("INTROSPECT_FAILED_EXC_"), new Object[] { //$NON-NLS-1$
+													BeanInfoAdapterMessages.INTROSPECT_FAILED_EXC_, new Object[] { 
 															getJavaClass().getJavaName(),
-															BeanInfoAdapterMessages.getString("BeaninfoClassAdapter.ClassNotFound")}), //$NON-NLS-1$
+															BeanInfoAdapterMessages.BeaninfoClassAdapter_ClassNotFound}), 
 															null));
 								}
 								

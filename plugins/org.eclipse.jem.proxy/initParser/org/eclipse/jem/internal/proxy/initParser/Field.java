@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: Field.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/21 19:21:07 $ 
  */
 
 
@@ -114,7 +114,7 @@ public Expression push(char[] token, char tokenDelimiter) {
 	// Ignore spaces as this maybe padding between the field and the next valid token
 	if(token.length == 0 && tokenDelimiter == ' ') return this;
 
-	throw new RuntimeException(java.text.MessageFormat.format(ProxyInitParserMessages.getString(ProxyInitParserMessages.UNEXPECTED_TOKEN), new Object[] {new StringBuffer(token.length+1).append(token).append(tokenDelimiter).toString()}));
+	throw new RuntimeException(java.text.MessageFormat.format(ProxyInitParserMessages.UnexpectedToken_EXC_, new Object[] {new StringBuffer(token.length+1).append(token).append(tokenDelimiter).toString()})); 
 	
 }
 public String toString(){

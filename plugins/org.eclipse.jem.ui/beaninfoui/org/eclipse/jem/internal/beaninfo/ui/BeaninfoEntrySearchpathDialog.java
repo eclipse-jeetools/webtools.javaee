@@ -11,49 +11,28 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfoEntrySearchpathDialog.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 23:02:54 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/21 19:08:31 $ 
  */
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaConventions;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.util.PixelConverter;
 import org.eclipse.jdt.internal.ui.wizards.TypedViewerFilter;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.IListAdapter;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.LayoutUtil;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.ListDialogField;
+import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
+import org.eclipse.jface.dialogs.*;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IInputValidator;
-import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.*;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoEntry;
 import org.eclipse.jem.internal.beaninfo.core.SearchpathEntry;
@@ -101,9 +80,9 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 
 		String[] buttonLabels = new String[] {
 			/* 0 */
-			BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_SEARCHPATH_UP),
+			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.up.button"), //$NON-NLS-1$
 			/* 1 */
-			BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_SEARCHPATH_DOWN),
+			BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.searchpath.down.button"), //$NON-NLS-1$
 			/* 2 */
 			null,
 			/* 3 */
@@ -224,10 +203,10 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 			ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
 			ElementTreeSelectionDialog dialog =
 				new ElementTreeSelectionDialog(getShell(), labelProvider, provider);
-			dialog.setTitle(BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_ADDSEARCHPATH_TITLE));
+			dialog.setTitle(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.title")); //$NON-NLS-1$
 
 			dialog.setValidator(validator);
-			dialog.setMessage(BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_ADDSEARCHPATH_DESC));
+			dialog.setMessage(BeanInfoUIMessages.getString("BeaninfoPathsBlock_UI_.addsearchpath.description")); //$NON-NLS-1$
 			dialog.addFilter(filter);
 			dialog.setInput(Arrays.asList(getBeaninfoRoots()));
 

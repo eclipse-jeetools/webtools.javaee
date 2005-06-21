@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.31 $  $Date: 2005/06/21 19:08:29 $ 
+ *  $Revision: 1.32 $  $Date: 2005/06/21 19:17:03 $ 
  */
 
 import java.io.*;
@@ -138,8 +138,8 @@ public class BeaninfoNature implements IProjectNature {
 					BeaninfoPlugin.PI_BEANINFO_PLUGINID,
 					0,
 					MessageFormat.format(
-						BeanInfoAdapterMessages.getString("INTROSPECT_FAILED_EXC_"), //$NON-NLS-1$
-						new Object[] { project.getName(), BeanInfoAdapterMessages.getString("BeaninfoNature.InvalidProject")}), //$NON-NLS-1$
+						BeanInfoAdapterMessages.INTROSPECT_FAILED_EXC_, 
+						new Object[] { project.getName(), BeanInfoAdapterMessages.BeaninfoNature_InvalidProject}), 
 					null));
 
 		addNatureToProject(project, NATURE_ID);
@@ -478,7 +478,7 @@ public class BeaninfoNature implements IProjectNature {
 	 * done when build not in progress and serial access.
 	 */
 	void createRegistry(IProgressMonitor pm) {
-		pm.beginTask(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry"), 100); //$NON-NLS-1$		
+		pm.beginTask(BeanInfoAdapterMessages.UICreateRegistryJobHandler_StartBeaninfoRegistry, 100); 
 		if (isRegistryCreated()) {
 			pm.done();
 			return; // It had already been created. Could of been because threads were racing to do the creation, and one got there first.
