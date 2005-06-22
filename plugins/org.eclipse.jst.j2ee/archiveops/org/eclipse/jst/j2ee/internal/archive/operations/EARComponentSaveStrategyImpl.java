@@ -215,7 +215,8 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 				continue;
 			Archive depArchive = (Archive) aFile;
 
-			IProject prereq = (IProject) createdComponentsMap.get(uri);
+			IVirtualComponent depComponent = (IVirtualComponent) createdComponentsMap.get(uri);
+			IProject prereq = depComponent.getProject();
 
 			if (prereq != null) {
 				addProjectToClasspath(p, prereq, projectCpEntries);
