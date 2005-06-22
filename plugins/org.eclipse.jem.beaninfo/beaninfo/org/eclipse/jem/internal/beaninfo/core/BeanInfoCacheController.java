@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.9 $  $Date: 2005/05/18 20:59:17 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/22 16:38:57 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -1386,7 +1386,7 @@ public class BeanInfoCacheController {
 	private void queueClassEntry(ClassEntry ce, ResourceSet rset) {
 		if (cacheWriteQueue == null) {
 			cacheWriteQueue = Collections.synchronizedList(new LinkedList());
-			cacheWriteJob = new Job(BeaninfoCoreMessages.getString("BeanInfoCacheController.Job.WriteBeaninfoCache.Title")) { //$NON-NLS-1$
+			cacheWriteJob = new Job(BeaninfoCoreMessages.BeanInfoCacheController_Job_WriteBeaninfoCache_Title) { 
 
 				protected IStatus run(IProgressMonitor monitor) {
 					monitor.beginTask("", cacheWriteQueue.size() + 10); // This is actually can change during the run, so we add 10 for the heck of it. //$NON-NLS-1$
