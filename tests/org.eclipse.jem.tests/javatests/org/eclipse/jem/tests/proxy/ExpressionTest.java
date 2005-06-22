@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/16 20:18:51 $ 
+ *  $Revision: 1.11 $  $Date: 2005/06/22 21:05:20 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -3246,5 +3246,27 @@ public class ExpressionTest extends AbstractTestProxy {
 
 		expression.transferThread();
 		exp.invokeExpression();
+	}
+	
+	public void testSubexpression() throws IllegalStateException, IllegalArgumentException, ThrowableProxy, NoExpressionValueException {
+		IExpression exp = proxyFactory.createExpression();
+		exp.createArrayCreation(ForExpression.ROOTEXPRESSION, "int[][][]", 2);
+		exp.createPrimitiveLiteral(ForExpression.ARRAYCREATION_DIMENSION, 2);
+		ExpressionProxy secondDimensionProxy = null;
+		// This tests that we can put an expression right in the middle of another expression and 
+		// pick it where it left off.
+		exp.createSubexpression();
+		exp.createTry();
+		secondDimensionProxy = exp.createProxyAssignmentExpression(ForExpression.ROOTEXPRESSION);
+		exp.createPrimitiveLiteral(ForExpression.ASSIGNMENT_RIGHT, 4);
+		exp.createTryEnd();
+		exp.createSubexpressionEnd();
+		exp.createProxyExpression(ForExpression.ARRAYCREATION_DIMENSION, secondDimensionProxy);		
+		IBeanProxy result = exp.getExpressionValue();
+		assertNotNull(result);
+		assertEquals("int[][][]", result.getTypeProxy().getFormalTypeName());
+		assertEquals(2, ((IArrayBeanProxy) result).getLength());
+		assertEquals(4, ((IArrayBeanProxy)((IArrayBeanProxy) result).get(0)).getLength());
+		assertNull(((IArrayBeanProxy)((IArrayBeanProxy) result).get(0)).get(0));
 	}
 }
