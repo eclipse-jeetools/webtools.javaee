@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.11 $  $Date: 2005/06/21 19:36:48 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/22 21:05:17 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -401,6 +401,9 @@ public abstract class Expression implements IExpression {
 	// This is pushed onto the next expression stack for begin thread transfer and will test if this there to make sure that it is being called correctly.
 	private static final ForExpression THREADTRANSFER_EXPRESSION = new ExpressionEnum(TRYCATCH_EXPRESSION.getValue()-1, "Catch Expression"); //$NON-NLS-1$
 
+	// This is pushed onto the next expression stack for end subexpression and will test if this there to make sure that it is being called correctly.
+	private static final ForExpression SUBEXPRESSIONEND_EXPRESSION = new ExpressionEnum(THREADTRANSFER_EXPRESSION.getValue()-2, "End Subexpression"); //$NON-NLS-1$
+
 	/**
 	 * Check the for expression, and if legal, set to the next valid for expression type,
 	 * if it can. If the stack entry is ROOTEXPRESSION, and the forExpression is ROOTEXPRESSION,
@@ -613,9 +616,13 @@ public abstract class Expression implements IExpression {
 						break;												
 					case InternalExpressionTypes.IF_ELSE_EXPRESSION_VALUE:
 						pushIfElseToProxy((InternalIfElseOperandType) pop());
+						break;	
+					case InternalExpressionTypes.SUBEXPRESSION_END_EXPRESSION_VALUE:
+						pushSubexpressionEndToProxy(((Integer) pop()).intValue());
 						break;						
 					default:
 						internalProcessUnknownExpressionType(expType);
+						break;
 				}
 			} catch (RuntimeException e) {
 				markInvalid();
@@ -1739,6 +1746,39 @@ public abstract class Expression implements IExpression {
 		return result;
 	}
 	
+	private int subexpressionNumber = -1;	// Current subexpression number. This is always incrementing.
+	
+	public void createSubexpression() throws IllegalStateException {
+		try {
+			// Subexpressions are special, they can be anywhere.
+			pushForExpression(PROCESS_EXPRESSION);
+			pushForExpression(SUBEXPRESSIONEND_EXPRESSION);
+			pushForExpression(ForExpression.ROOTEXPRESSION);
+
+			pushSubexpressionBeginToProxy(++subexpressionNumber);
+			push(new Integer(subexpressionNumber));
+			push(InternalExpressionTypes.SUBEXPRESSION_END_EXPRESSION);
+			processExpression();
+			return;
+		} catch (RuntimeException e) {
+			markInvalid();
+			throw e;
+		}
+	}
+
+	public void createSubexpressionEnd() throws IllegalStateException {
+		try {
+			checkForExpression(ForExpression.ROOTEXPRESSION);
+			popForExpression(); // Remove the root expression since block is done.
+			checkForExpression(SUBEXPRESSIONEND_EXPRESSION); // This needs to be next for it to be valid.
+			processExpression(); // Now let it handle the previously pushed end subexpression, containing the subexpression number being ended.
+		} catch (RuntimeException e) {
+			markInvalid();
+			throw e;
+		}
+	}
+
+	
 	private int tryNumber = -1;	// Current try number. This is always incrementing.
 	
 	/* (non-Javadoc)
@@ -2442,5 +2482,20 @@ public abstract class Expression implements IExpression {
 	 * @since 1.1.0
 	 */
 	protected abstract void pushTransferThreadToProxy();
-
+	
+	/**
+	 * Push the subexpression begin to proxy.
+	 * @param subexpressionNumber
+	 * 
+	 * @since 1.1.0
+	 */
+	protected abstract void pushSubexpressionBeginToProxy(int subexpressionNumber);
+	
+	/**
+	 * Push the subexpression end to proxy.
+	 * @param subexpressionNumber
+	 * 
+	 * @since 1.1.0
+	 */
+	protected abstract void pushSubexpressionEndToProxy(int subexpressionNumber);
 }

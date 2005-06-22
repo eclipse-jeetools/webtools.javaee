@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.14 $  $Date: 2005/06/21 20:22:51 $ 
+ *  $Revision: 1.15 $  $Date: 2005/06/22 21:05:17 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -347,6 +347,11 @@ public class ExpressionProcesser {
 	 */
 	protected final Object popExpression(boolean deReference) throws NoExpressionValueException {
 		try {
+			// Do not pop above the current subexpression pos, if any.
+			if (topSubexpression != -1)
+				if (expressionStack.size() == subexpressionStackPos[topSubexpression])
+					throw new NoExpressionValueException();
+			
 			Object result = expressionStack.remove(expressionStack.size()-1);
 			if (deReference && result instanceof VariableReference)
 				result = ((VariableReference) result).dereference();
@@ -377,6 +382,11 @@ public class ExpressionProcesser {
 	 */
 	protected final Object getExpression(int fromTop) throws NoExpressionValueException {
 		try {
+			// Do not pull above the current subexpression pos, if any.			
+			if (topSubexpression != -1)
+				if (expressionStack.size()-fromTop < subexpressionStackPos[topSubexpression])
+					throw new NoExpressionValueException();
+			
 			return expressionStack.get(expressionStack.size()-fromTop);
 		} catch (IndexOutOfBoundsException e) {
 			throw new NoExpressionValueException();
@@ -394,8 +404,12 @@ public class ExpressionProcesser {
 	 */
 	protected final void popExpressions(int count) throws NoExpressionValueException {
 		try {
+			// Do not pop above the current subexpression pos, if any.
+			int stop = topSubexpression != -1 ? subexpressionStackPos[topSubexpression] : -1;
 			int remove = expressionStack.size()-1;
 			while (count-- > 0) {
+				if (expressionStack.size() <= stop)
+					throw new NoExpressionValueException();	// Try to go above the current subexpression.
 				expressionStack.remove(remove);
 				expressionTypeStack.remove(remove--);
 			}
@@ -3039,7 +3053,10 @@ public class ExpressionProcesser {
 		// Block state
 		public int topBlock;
 		public int breakBlock;
-		
+
+		// Subexpression state
+		public int topSubexpression;
+
 		// Try state
 		public int topTry;
 		public int breakTry;
@@ -3077,6 +3094,8 @@ public class ExpressionProcesser {
 			this.topBlock = ep.topBlock;
 			this.breakBlock = ep.breakBlock;
 			
+			this.topSubexpression = ep.topSubexpression;
+			
 			this.topTry = ep.topTry;
 			this.breakTry = ep.breakTry;
 			this.catchThrowable = ep.catchThrowable;
@@ -3106,6 +3125,8 @@ public class ExpressionProcesser {
 			ExpressionProcesser ep = ExpressionProcesser.this;
 			ep.topBlock = this.topBlock;
 			ep.breakBlock = this.breakBlock;
+
+			ep.topSubexpression = this.topSubexpression;
 			
 			ep.topTry = this.topTry;
 			ep.breakTry = this.breakTry;
@@ -3115,7 +3136,7 @@ public class ExpressionProcesser {
 					ep.trysInCatch[i] = null;
 				}
 			}
-			
+
 			ep.errorOccurred = this.errorOccurred;
 			ep.novalueException = ep.novalueException;
 			ep.exception = this.exception;
@@ -3217,5 +3238,78 @@ public class ExpressionProcesser {
 				printTraceEnd();
 		}
 	}
+	
+	private int[] subexpressions;	// Stack of subexpression numbers currently evaluating.
+	private int[] subexpressionStackPos;	// Stack of the expression stack positions (next entry index) for currently evaluating expressions. The evaluation stack cannot be popped beyond the current top. And at end it will be cleaned up to the position.
+	private int topSubexpression = -1;	// Top subexpression index.
+
+	
+	/**
+	 * Push a begin subexpression.
+	 * @param subexpressionNumber
+	 * 
+	 * @since 1.1.0
+	 */
+	public final void pushSubexpressionBegin(int subexpressionNumber) {
+		if (traceOn) {
+			printTrace("Begin Subexpression #"+subexpressionNumber, errorOccurred); //$NON-NLS-1$
+			indent(true);
+		}
+		try {
+			if (errorOccurred)
+				return;
+			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
+			if (subexpressions == null) {
+				subexpressions = new int[10];
+				subexpressionStackPos = new int[10];
+			}
+			if (++topSubexpression >= subexpressions.length) {
+				int[] newList = new int[subexpressions.length*2];
+				System.arraycopy(subexpressions, 0, newList, 0, subexpressions.length);
+				subexpressions = newList;
+				newList = new int[subexpressionStackPos.length*2];
+				System.arraycopy(subexpressionStackPos, 0, newList, 0, subexpressionStackPos.length);
+				subexpressionStackPos = newList;				
+			}
+			subexpressions[topSubexpression] = subexpressionNumber;
+			subexpressionStackPos[topSubexpression] = expressionStack.size();
+		} finally {
+			if (traceOn)
+				printTraceEnd();
+		}
+	}
+	
+	/**
+	 * Push a subexpression end. The current subexpression must be the given number, or it is an error.
+	 * 
+	 * @param subexpressionNumber
+	 * 
+	 * @since 1.1.0
+	 */
+	public final void pushSubexpressionEnd(int subexpressionNumber) {
+		try {
+			if (traceOn) {
+				indent(false);
+				printTrace("End Subexpression #"+subexpressionNumber, errorOccurred); //$NON-NLS-1$
+			}
+			if (errorOccurred)
+				return;
+			// We are not checking ignore because this is a structural concept instead of executable expressions, so we need to keep track of these.
+			if (subexpressions == null || topSubexpression < 0 || subexpressions[topSubexpression] != subexpressionNumber) {
+				processSyntaxException(new IllegalStateException(InitparserTreeMessages.getString("ExpressionProcesser.PushSubexpressionEnd.ReceivedEndSubexpressionsOutOfOrder_EXC_"))); //$NON-NLS-1$
+			} else {
+				try {
+					popExpressions(expressionStack.size()-subexpressionStackPos[topSubexpression]);
+					topSubexpression--;
+				} catch (NoExpressionValueException e) {
+					processSyntaxException(e);
+				}
+			}
+		} finally {
+			if (traceOn)
+				printTraceEnd();
+		}			
+	}
+
 
 }

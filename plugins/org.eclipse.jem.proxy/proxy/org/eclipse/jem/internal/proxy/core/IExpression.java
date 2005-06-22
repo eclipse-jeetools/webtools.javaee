@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IExpression.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/16 19:11:23 $ 
+ *  $Revision: 1.5 $  $Date: 2005/06/22 21:05:18 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -617,6 +617,53 @@ public interface IExpression extends IExpressionConstants {
 	 * @since 1.0.0
 	 */
 	public void createStringLiteral(ForExpression forExpression, String value) throws IllegalStateException;
+	
+	/**
+	 * Create a subexpression.
+	 * <p>
+	 * A subexpression allows, at any time, to fork off the expression stack and do some other sets of expressions.
+	 * When the cooresponding {@link #createSubexpressionEnd()} is called, all of the expression results on the
+	 * stack that accumulated during the subexpression evaluation will be thrown away and the stack will be
+	 * what it was at the start of subexpression. Any ExpressionProxies that were resolved during the evaluation 
+	 * will not be thrown away and will still be valid.
+	 * <p>
+	 * This is useful if in the middle of an expression (such as method invocation and an argument is needed) to
+	 * go off and get the necessary value. This will allow expressions that require ROOTEXPRESSION state like a 
+	 * try/catch. If you know the expression doesn't need this, then it is more efficient to not use subexpression.
+	 * <p>
+	 * For example:
+	 * <pre><code>
+	 *   new XYZ(
+	 *     {(subexpression)
+	 *      try {
+	 *         x = 3*y.get();
+	 *      } catch (Exception e) {
+	 *         x =4;
+	 *      }
+	 *     (end subexpression)}
+	 *     x);
+	 * </code></pre>
+	 * 
+	 * In the above example, we needed to calculate "x" as the argument for XYZ, but it was too complicated and
+	 * could throw exceptions. So we used a subexpression instead. 
+	 * <p>
+	 * Of course the following would of been the better way to do it without subexpressions. But sometimes
+	 * your code is in a position that you don't know you need to do this until it is too late.
+	 *  <pre><code>
+	 *   try {
+	 *      x = 3*y.get();
+	 *   } catch (Exception e) {
+	 *      x =4;
+	 *   }
+	 *   new XYZ(x);
+	 * </code></pre>
+	 * @throws IllegalStateException
+	 * 
+	 * @since 1.1.0
+	 */
+	public void createSubexpression() throws IllegalStateException;
+	
+	public void createSubexpressionEnd() throws IllegalStateException;
 	
 	/**
 	 * Create an expression that has an existing bean proxy as its value.

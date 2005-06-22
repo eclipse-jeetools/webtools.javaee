@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.16 $  $Date: 2005/06/21 20:35:07 $ 
+ *  $Revision: 1.17 $  $Date: 2005/06/22 21:05:17 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -1809,4 +1809,56 @@ public class REMExpression extends Expression {
 		// will hook up the expression processor controller for us. This way if nothing happens in this thread then we won't
 		// waste communication time on it.
 	}
+
+	private static class SubexpressionBegin extends PendingTransaction {
+		public int subexpressionNumber;
+		
+		public SubexpressionBegin(int subexpressionNumber) {
+			this.subexpressionNumber = subexpressionNumber;
+		}
+		
+		public void pushTransaction(REMExpression remExpression) {
+			IREMExpressionConnection connection = remExpression.getConnection();
+			try {
+				// Format of push to subexpression begin proxy command is:
+				//	PushExpressionCommand(push subexpression begin proxy to proxy) followed by:
+				//		int: subexpression id
+				connection.pushExpressionCommand(remExpression.getREMExpressionID(), (byte)InternalExpressionTypes.SUBEXPRESSION_BEGIN_EXPRESSION_VALUE);
+				connection.pushInt(subexpressionNumber);
+			} catch (IOException e) {
+				connection.close();
+				ProxyPlugin.getPlugin().getLogger().log(e);
+				remExpression.markInvalid(e.getLocalizedMessage());
+				remExpression.throwIllegalStateException(IO_EXCEPTION_MSG);
+			}			
+		}
+		
+	}
+
+	protected void pushSubexpressionBeginToProxy(int subexpressionNumber) {
+		addPendingTransaction(new SubexpressionBegin(subexpressionNumber));
+	}
+
+	protected void pushSubexpressionEndToProxy(int subexpressionNumber) {
+		// See if the top pending transactions is SubexpressionBegin(subexpressionNumber). If it is then the SubexpressionBegin can be thrown away.
+		PendingTransaction topEntry = getPendingEntryFromTop(1);
+		if (topEntry instanceof SubexpressionBegin && ((SubexpressionBegin) topEntry).subexpressionNumber == subexpressionNumber) {
+			popPendingEntry(1);
+			topEntry = getPendingEntryFromTop(1);
+		}
+		processPendingTransactions();
+		IREMExpressionConnection connection = getConnection();
+		try {
+			// Format of push to block end proxy command is:
+			//	PushExpressionCommand(push subexpression end proxy to proxy) followed by:
+			//		int: subexpression id
+			connection.pushExpressionCommand(getREMExpressionID(), (byte)InternalExpressionTypes.SUBEXPRESSION_END_EXPRESSION_VALUE);
+			connection.pushInt(subexpressionNumber);
+		} catch (IOException e) {
+			connection.close();
+			ProxyPlugin.getPlugin().getLogger().log(e);
+			markInvalid(e.getLocalizedMessage());
+			throwIllegalStateException(IO_EXCEPTION_MSG);
+		}
+		}
 }

@@ -270,6 +270,23 @@ public class InternalExpressionTypes extends AbstractEnum {
 	public final static InternalExpressionTypes ENDMARK = new InternalExpressionTypes(ENDMARK_VALUE,
 			"Push End Mark Expression"); //$NON-NLS-1$
 
+	/**
+	 * Subexpression End expression.
+	 */
+	public final static int SUBEXPRESSION_BEGIN_EXPRESSION_VALUE = 34;
+	
+	public final static InternalExpressionTypes SUBEXPRESSION_BEGIN_EXPRESSION = new InternalExpressionTypes(SUBEXPRESSION_BEGIN_EXPRESSION_VALUE,
+			"Begin Subexpression Expression"); //$NON-NLS-1$
+
+	/**
+	 * Subexpression End expression.
+	 */
+	public final static int SUBEXPRESSION_END_EXPRESSION_VALUE = 35;
+	
+	public final static InternalExpressionTypes SUBEXPRESSION_END_EXPRESSION = new InternalExpressionTypes(SUBEXPRESSION_END_EXPRESSION_VALUE,
+			"End Subexpression Expression"); //$NON-NLS-1$
+	
+	
 	private InternalExpressionTypes(int value, String name) {
 		super(value, name);
 	}

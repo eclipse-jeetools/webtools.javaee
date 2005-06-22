@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.9 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.10 $  $Date: 2005/06/22 21:05:17 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -513,6 +513,17 @@ public class ExpressionProcesserController {
 					boolean restore = in.readBoolean();
 					exp.pushEndmark(markID, restore);
 					break;
+					
+				case InternalExpressionTypes.SUBEXPRESSION_BEGIN_EXPRESSION_VALUE:
+					// Get a begin subexpression proxy expression. The subexpression id is sent as an int.
+					exp.pushSubexpressionBegin(in.readInt());
+					break;
+					
+				case InternalExpressionTypes.SUBEXPRESSION_END_EXPRESSION_VALUE:
+					// Get a end subexpression proxy expression. The subexpression id is sent as an int.
+					exp.pushSubexpressionEnd(in.readInt());
+					break;
+					
 			}
 			
 		} catch (RuntimeException e) {
