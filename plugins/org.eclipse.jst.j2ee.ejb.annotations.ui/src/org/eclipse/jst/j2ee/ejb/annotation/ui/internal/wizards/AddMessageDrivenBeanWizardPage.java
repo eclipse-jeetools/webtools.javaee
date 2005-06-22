@@ -159,7 +159,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		Label statelessLabel = new Label(composite, SWT.LEFT);
 		statelessLabel.setText(IEJBAnnotationConstants.DESTINATION_LABEL);
 		statelessLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		destinationButton = new Combo(composite, SWT.CHECK);
+		destinationButton = new Combo(composite,SWT.DROP_DOWN |  SWT.READ_ONLY);
 		destinationButton.setItems(new String[]{DestinationType.QUEUE_LITERAL.getName(),DestinationType.TOPIC_LITERAL.getName()});
 		destinationButton.setText(DestinationType.QUEUE_LITERAL.getName());
 		destinationButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -174,7 +174,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		Label txLabel = new Label(composite, SWT.LEFT);
 		txLabel.setText(IEJBAnnotationConstants.TRANSACTION_LABEL);
 		txLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		transactionButton = new Combo(composite, SWT.CHECK);
+		transactionButton = new Combo(composite, SWT.DROP_DOWN |  SWT.READ_ONLY);
 		transactionButton.setItems(new String[]{TransactionType.CONTAINER_LITERAL.getName(),TransactionType.BEAN_LITERAL.getName()});
 		transactionButton.setText(TransactionType.CONTAINER_LITERAL.getName());
 		transactionButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));

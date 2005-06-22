@@ -159,7 +159,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		Label statelessLabel = new Label(composite, SWT.LEFT);
 		statelessLabel.setText(IEJBAnnotationConstants.STATELESS_LABEL);
 		statelessLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		statelessButton = new Combo(composite, SWT.CHECK);
+		statelessButton = new Combo(composite, SWT.DROP_DOWN |  SWT.READ_ONLY);
 		statelessButton.setItems(new String[]{SessionType.STATELESS_LITERAL.getName(),SessionType.STATEFUL_LITERAL.getName()});
 		statelessButton.setText(SessionType.STATELESS_LITERAL.getName());
 		statelessButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -173,10 +173,11 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		Label txLabel = new Label(composite, SWT.LEFT);
 		txLabel.setText(IEJBAnnotationConstants.TRANSACTION_LABEL);
 		txLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		transactionButton = new Combo(composite, SWT.CHECK);
+		transactionButton = new Combo(composite, SWT.DROP_DOWN |  SWT.READ_ONLY);
 		transactionButton.setItems(new String[]{TransactionType.CONTAINER_LITERAL.getName(),TransactionType.BEAN_LITERAL.getName()});
 		transactionButton.setText(TransactionType.CONTAINER_LITERAL.getName());
 		transactionButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
 		synchHelper.synchCombo(transactionButton, SessionBeanDataModel.TRANSACTIONTYPE, null);
 		transactionButton.select(0);
 
