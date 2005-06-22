@@ -124,9 +124,7 @@ public class ComponentUtilities {
 	public static IFolder createFolderInComponent(IVirtualComponent component, String folderName) throws CoreException {
 		if (folderName != null) {
 			IVirtualFolder rootfolder = component.getRootFolder();
-			IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(rootfolder.getProjectRelativePath().append(folderName));
-			
-			//IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(component.getProjectRelativePath().append(folderName));
+			IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(rootfolder.getProject().getName()).append(folderName));
 			if (!folder.exists()) {
 				ProjectUtilities.ensureContainerNotReadOnly(folder);
 				folder.create(true, true, null);
