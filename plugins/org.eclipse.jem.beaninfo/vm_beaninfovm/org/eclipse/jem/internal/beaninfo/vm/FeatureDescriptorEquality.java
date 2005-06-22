@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureDescriptorEquality.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:45:49 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/22 21:33:32 $ 
  */
 
 import java.beans.*;
@@ -50,7 +50,6 @@ public class FeatureDescriptorEquality {
 		IndexedPropertyDescriptorEquality.INIT();
 		MethodDescriptorEquality.INIT();		
 		ParameterDescriptorEquality.INIT();
-		PropertyDescriptorEquality.INIT();
 	}
 			
 	/**

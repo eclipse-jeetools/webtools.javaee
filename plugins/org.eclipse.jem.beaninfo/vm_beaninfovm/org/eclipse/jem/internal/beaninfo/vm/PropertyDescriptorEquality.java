@@ -11,21 +11,14 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: PropertyDescriptorEquality.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:45:49 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/22 21:33:32 $ 
  */
 
 import java.beans.*;
 /**
  * PropertyDescriptor equality tester
  */
-public class PropertyDescriptorEquality extends FeatureDescriptorEquality {
-	
-	static void INIT() {
-		try {
-			MAP_EQUALITY.put(PropertyDescriptor.class, (PropertyDescriptorEquality.class).getConstructor(new Class[] {PropertyDescriptor.class}));
-		} catch (NoSuchMethodException e) {
-		}
-	}	
+public abstract class PropertyDescriptorEquality extends FeatureDescriptorEquality {	
 	
 	public PropertyDescriptorEquality() {
 	}

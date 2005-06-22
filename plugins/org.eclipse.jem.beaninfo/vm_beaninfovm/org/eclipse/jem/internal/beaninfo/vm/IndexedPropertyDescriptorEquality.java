@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: IndexedPropertyDescriptorEquality.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/15 22:45:49 $ 
+ *  $Revision: 1.4 $  $Date: 2005/06/22 21:33:32 $ 
  */
 
 import java.beans.*;
@@ -22,7 +22,8 @@ public class IndexedPropertyDescriptorEquality extends PropertyDescriptorEqualit
 
 	static void INIT() {
 		try {
-			MAP_EQUALITY.put(IndexedPropertyDescriptor.class, (IndexedPropertyDescriptorEquality.class).getConstructor(new Class[] {IndexedPropertyDescriptor.class}));
+			MAP_EQUALITY.put(IndexedPropertyDescriptor.class, (IndexedPropertyDescriptorEquality.class).getConstructor(new Class[] {PropertyDescriptor.class}));
+			MAP_EQUALITY.put(PropertyDescriptor.class, (IndexedPropertyDescriptorEquality.class).getConstructor(new Class[] {PropertyDescriptor.class}));
 		} catch (NoSuchMethodException e) {
 		}
 	}	
@@ -30,7 +31,7 @@ public class IndexedPropertyDescriptorEquality extends PropertyDescriptorEqualit
 	public IndexedPropertyDescriptorEquality() {
 	}
 	
-	public IndexedPropertyDescriptorEquality(IndexedPropertyDescriptor descr) {
+	public IndexedPropertyDescriptorEquality(PropertyDescriptor descr) {
 		super(descr);
 	}	
 	/**
@@ -45,33 +46,41 @@ public class IndexedPropertyDescriptorEquality extends PropertyDescriptorEqualit
 	 */
 	protected int calculateHashCode() {
 		int hashcode = super.calculateHashCode();
-		IndexedPropertyDescriptor pd = (IndexedPropertyDescriptor) fFeature;
-		
-		int hc = pd.getIndexedPropertyType().hashCode();
-
-		if (pd.getIndexedReadMethod() != null)
-			hc += pd.getIndexedReadMethod().hashCode();
-		if (pd.getIndexedWriteMethod() != null)
-			hc += pd.getIndexedWriteMethod().hashCode();		
-						
-		return hashcode*31 + hc;
+		if (fFeature instanceof IndexedPropertyDescriptor) {
+			IndexedPropertyDescriptor pd = (IndexedPropertyDescriptor) fFeature;
+			
+			int hc = pd.getIndexedPropertyType().hashCode();
+	
+			if (pd.getIndexedReadMethod() != null)
+				hc += pd.getIndexedReadMethod().hashCode();
+			if (pd.getIndexedWriteMethod() != null)
+				hc += pd.getIndexedWriteMethod().hashCode();
+			return hashcode*31 + hc;
+		} else
+			return hashcode;
 	}
 
 	public boolean equals(Object obj) {
+		if (!(obj instanceof FeatureDescriptorEquality))
+			return false;
 		if (identityTest(obj))
 			return true;
+		if (fFeature.getClass() != ((FeatureDescriptorEquality) obj).fFeature.getClass())
+			return false;	// If they aren't both PropertyDesciptors or IndexedPropertyDescriptors, then they don't match.
 		if (!super.equals(obj))
 			return false;
  	
-		IndexedPropertyDescriptor op = (IndexedPropertyDescriptor) ((FeatureDescriptorEquality) obj).fFeature;
-		IndexedPropertyDescriptor fp = (IndexedPropertyDescriptor) fFeature;
- 		
-		if (op.getIndexedPropertyType() != fp.getIndexedPropertyType())
-			return false;
-		if (op.getIndexedReadMethod() != fp.getIndexedReadMethod())
-			return false;
-		if (op.getIndexedWriteMethod() != fp.getIndexedWriteMethod())
-			return false;													
+		if (fFeature instanceof IndexedPropertyDescriptor) {
+			IndexedPropertyDescriptor op = (IndexedPropertyDescriptor) ((FeatureDescriptorEquality) obj).fFeature;
+			IndexedPropertyDescriptor fp = (IndexedPropertyDescriptor) fFeature;
+
+			if (op.getIndexedPropertyType() != fp.getIndexedPropertyType())
+				return false;
+			if (op.getIndexedReadMethod() != fp.getIndexedReadMethod())
+				return false;
+			if (op.getIndexedWriteMethod() != fp.getIndexedWriteMethod())
+				return false; 
+		}													
 			
 		return true;
 	}
