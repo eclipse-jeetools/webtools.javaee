@@ -34,6 +34,7 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeNode;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
@@ -50,6 +51,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 public class ComponentUtilities {
 	
@@ -167,7 +169,8 @@ public class ComponentUtilities {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(project);
 			URI uri = WorkbenchResourceHelperBase.getNonPlatformURI(res.getURI());
-			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(uri);
+			IPath projPath = WorkbenchResourceHelper.getPathInProject(project,new Path(uri.path()));
+			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(projPath,ResourceTreeNode.CREATE_RESOURCE_ALWAYS);
 			for (int i = 0; i < resources.length; i++) {
 				module = resources[i].getComponent();
 				if (module != null)
@@ -179,7 +182,10 @@ public class ComponentUtilities {
 			if (moduleCore != null)
 				moduleCore.dispose();
 		}
-		return ComponentCore.createComponent(project, module.getName());
+		if (module == null)
+			return null;
+		else
+			return ComponentCore.createComponent(project, module.getName());
 	}
     
     public static IVirtualComponent findComponent(IProject project, IResource res) {
