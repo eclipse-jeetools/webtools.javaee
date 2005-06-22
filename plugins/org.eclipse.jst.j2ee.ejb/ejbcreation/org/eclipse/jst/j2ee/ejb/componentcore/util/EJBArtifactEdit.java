@@ -132,7 +132,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				IVirtualResource resource = resources[i];
 				if (resource.getType() == IVirtualResource.FOLDER) {
 					IVirtualFolder folder = (IVirtualFolder) resource;
-					IVirtualResource ddResource = folder.findMember(J2EEConstants.EJBJAR_DD_URI);
+					IVirtualResource ddResource = folder.findMember(J2EEConstants.EJBJAR_DD_SHORT_NAME);
 					if (ddResource != null)
 						return folder;
 				}
