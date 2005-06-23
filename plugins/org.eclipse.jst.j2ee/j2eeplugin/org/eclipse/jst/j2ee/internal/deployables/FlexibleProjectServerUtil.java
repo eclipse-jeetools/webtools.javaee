@@ -34,7 +34,7 @@ public class FlexibleProjectServerUtil {
 		IModule[] modules  = getModules(component);
 		for (int i = 0; i < modules.length; i++) {
 			Module module = (Module) modules[i];
-			if (module.getName().equals(component.getName()) && module.getAdapter(IJ2EEModule.class) != null)
+			if (module.getName().equals(component.getName()))
 				return module;
 		}
 

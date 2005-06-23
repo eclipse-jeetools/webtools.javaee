@@ -29,10 +29,12 @@ import org.eclipse.wst.server.core.IModule;
 public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable implements IEnterpriseApplication, ILooseArchiveSupport {
 
 	public static final String EAR_MODULE_TYPE = IModuleConstants.JST_EAR_MODULE;
+	
 
 	public EnterpriseApplicationDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
 		super(project, aFactoryId, aComponent);
 
+		update();
 
 	}
 
@@ -89,6 +91,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		
 		return aURI;
 	}
+	
 
 	public boolean containsLooseModules() {
 		// TODO Auto-generated method stub
@@ -100,7 +103,6 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	public String getURI(ILooseArchive archive) {
 		// TODO Auto-generated method stub
 		return null;
