@@ -174,7 +174,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
             ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
             if(ejbEdit != null) {
                 EJBJarImpl ejbres = (EJBJarImpl)ejbEdit.getDeploymentDescriptorRoot();
-                ejbres.setEjbClientJar(clientDeployName);
+                ejbres.setEjbClientJar(clientDeployName + ".jar");//$NON-NLS-1$
                 ejbEdit.saveIfNecessary(monitor);
             }
         }
