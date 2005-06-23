@@ -390,6 +390,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	protected boolean isEARSupported(){
+		if( this instanceof EarComponentCreationDataModelProvider )
+			return false;
 		String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 		IRuntime runtime = getServerTargetByID(serverID);		
 		Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
