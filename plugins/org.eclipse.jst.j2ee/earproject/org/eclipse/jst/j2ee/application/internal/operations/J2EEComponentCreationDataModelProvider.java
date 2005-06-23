@@ -113,11 +113,17 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.ENABLE_CHG);
 			model.notifyPropertyChange(NESTED_EAR_COMPONENT_CREATION_DM, IDataModel.DEFAULT_CHG);
+			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+			earDM.setProperty(COMPONENT_VERSION, new Integer(getJ2EEVersion()));			
 		} else if (propertyName.equals(COMPONENT_VERSION)) {
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
                 setProperty(USE_ANNOTATIONS, Boolean.FALSE);
             model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
             model.notifyPropertyChange(EAR_COMPONENT_NAME, DataModelEvent.VALID_VALUES_CHG);
+			if( getBooleanProperty(ADD_TO_EAR)){
+				IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+				earDM.setProperty(COMPONENT_VERSION, new Integer(getJ2EEVersion()));
+			}			
 			//this will force to  reload all the server types which are valid for this component version
 			if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
 				model.notifyPropertyChange(RUNTIME_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
@@ -125,7 +131,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
         } else if (RUNTIME_TARGET_ID.equals(propertyName)){
         	IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
         	earDM.setProperty(RUNTIME_TARGET_ID, propertyValue);
-        }
+        }	
 		return status;
 	}
 
@@ -140,23 +146,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return handle;
 	}
 
-	/**
-	 * @param workbenchComp
-	 */
-//	protected void setEARComponentIfJ2EEModuleCreationOnly(WorkbenchComponent workbenchComp, Object propertyValue) {
-//
-//		
-//		getAddComponentToEARDataModel().setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.ARCHIVE_MODULE, workbenchComp);
-//		getAddComponentToEARDataModel().setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
-//		getAddComponentToEARDataModel().setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.EAR_COMPONENT_NAME, model.getStringProperty(EAR_COMPONENT_NAME));
-//		if (!model.isPropertySet(EAR_COMPONENT_NAME)) {
-//			String earModuleName = model.getStringProperty(EAR_COMPONENT_NAME);
-//			model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
-//
-//		}
-//		((UpdateManifestDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM)).setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
-//		
-//	}
 
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(COMPONENT_VERSION)) {
