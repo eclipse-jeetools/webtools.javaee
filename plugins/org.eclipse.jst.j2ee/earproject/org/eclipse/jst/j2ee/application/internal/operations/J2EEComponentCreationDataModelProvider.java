@@ -101,14 +101,17 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			model.setProperty(EAR_COMPONENT_HANDLE, handle);
 
 		} else if (propertyName.equals(COMPONENT_NAME)) {
-			if (!model.isPropertySet(EAR_COMPONENT_NAME)) {
-				model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
-				model.setProperty(EAR_COMPONENT_DEPLOY_NAME, getProperty(EAR_COMPONENT_NAME));
-				IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-				ComponentHandle handle = computeEARHandle();
-				model.setProperty(EAR_COMPONENT_HANDLE, handle);
-				if (earDM != null)
-					earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
+			
+			if( getBooleanProperty(ADD_TO_EAR)){
+				if (!model.isPropertySet(EAR_COMPONENT_NAME)) {
+					model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
+					model.setProperty(EAR_COMPONENT_DEPLOY_NAME, getProperty(EAR_COMPONENT_NAME));
+					IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+					ComponentHandle handle = computeEARHandle();
+					model.setProperty(EAR_COMPONENT_HANDLE, handle);
+					if (earDM != null && handle != null)
+						earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
+				}
 			}
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.ENABLE_CHG);
@@ -142,7 +145,11 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
 		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
 		
-		ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earCompName);
+		ComponentHandle handle = null;
+		
+		if( earProjname != null && !earProjname.equals("")){
+			handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earCompName);
+		}
 		return handle;
 	}
 
