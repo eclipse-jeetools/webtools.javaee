@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: StringLiteral.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/06/23 01:48:07 $ 
  */
 
 
@@ -54,20 +54,49 @@ protected String getTypeClassName() {
  *This string might be broken into a few tokens
  *so we need a StringBuffer.
  * 
- * For now can only handle \" and \\ as escapes. 
- * Any other escapes will be left untouched. (i.e.
- * "\r" will be a backslash followed by "r", not a
- * return char.
  */
 public Expression push(char[] token , char delimiter){
-	
+	int appendTokenStart = 0;
+	int appendTokenLength = token.length;
 	if (isEscaped) {
 		isEscaped = false;
 		if (token.length != 0) {
-			// Had an escape followed by stuff, so not a true esc for our current definition
-			valueBuffer.append(DelimiterEscape);
+			char c = token[0];
+			switch (c) {
+				case 'b':
+					valueBuffer.append('\b');
+					appendTokenStart = 1;
+					appendTokenLength--;
+					break;
+				case 't':
+					valueBuffer.append('\t');
+					appendTokenStart = 1;
+					appendTokenLength--;
+					break;
+				case 'n':
+					valueBuffer.append('\n');
+					appendTokenStart = 1;
+					appendTokenLength--;
+					break;
+				case 'r':
+					valueBuffer.append('\r');
+					appendTokenStart = 1;
+					appendTokenLength--;
+					break;
+				case 'u':
+					// Unicode, next four gather for text;
+					if (appendTokenLength>=5) {
+						valueBuffer.append((char) Integer.parseInt(new String(token, 1, 4), 16));
+						appendTokenStart=5;
+						appendTokenLength-=5;
+					}
+					break;
+			}
+			// If we didn't append anything, then not a true escape, so put the escape on.
+			if (appendTokenStart==0)
+				valueBuffer.append(DelimiterEscape);
 		} else {
-			if (delimiter == DelimiterQuote || delimiter == DelimiterEscape)
+			if (delimiter == DelimiterQuote || delimiter == DelimiterEscape || delimiter == DelimiterSingleQuote)
 				valueBuffer.append(delimiter);	// It was a true escape.
 			else {
 				valueBuffer.append(DelimiterEscape);	// If wasn't a true escape
@@ -77,7 +106,8 @@ public Expression push(char[] token , char delimiter){
 		}
 	}
 	
-	valueBuffer.append(token);
+	if (appendTokenLength > 0)
+		valueBuffer.append(token, appendTokenStart, appendTokenLength);
 	
 	if (delimiter == DelimiterQuote){		
 		isComplete =true;
