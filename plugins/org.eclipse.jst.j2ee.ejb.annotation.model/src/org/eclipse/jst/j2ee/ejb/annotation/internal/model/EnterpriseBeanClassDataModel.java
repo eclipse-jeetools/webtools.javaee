@@ -17,7 +17,6 @@ import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.EJBAnnotationMessages;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
@@ -198,7 +197,7 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			return validateTransaction(getStringProperty(propertyName));
 		return super.doValidateProperty(propertyName);
 	}
-	protected IStatus validateJavaClassName(String className) {
+	protected IStatus validateClassName(String className) {
 		IStatus status =  super.validateJavaClassName(className);
 		if( status != WTPCommonPlugin.OK_STATUS)
 			return status;
@@ -207,7 +206,7 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			
 		}else if( (className.endsWith("Bean") || className.endsWith("EJB"))  )
 			return status;
-		String msg = EJBAnnotationMessages.getResourceString(IEJBAnnotationConstants.ERR_CLASS_NAME_MUSTEND_WITH_BEAN) ;
+		String msg = IEJBAnnotationConstants.ERR_CLASS_NAME_MUSTEND_WITH_BEAN ;
 		return WTPCommonPlugin.createErrorStatus(msg);
 		
 	}
@@ -224,7 +223,7 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			}
 		}
 		if( packageName == null || packageName.trim().length() == 0  ){
-			String msg = EJBAnnotationMessages.getResourceString(IEJBAnnotationConstants.ERR_MUST_ENTER_A_PACKAGE_NAME) ;
+			String msg = IEJBAnnotationConstants.ERR_MUST_ENTER_A_PACKAGE_NAME ;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		return WTPCommonPlugin.OK_STATUS;
@@ -317,7 +316,7 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
-	protected IStatus validateClassName(String prop) {
+	protected IStatus validateJavaClassName(String prop) {
 		// check for empty
 		if (prop == null || prop.trim().length() == 0) {
 			String msg = J2EECommonMessages.getResourceString(
