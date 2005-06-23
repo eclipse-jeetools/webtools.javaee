@@ -116,8 +116,14 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.ENABLE_CHG);
 			model.notifyPropertyChange(NESTED_EAR_COMPONENT_CREATION_DM, IDataModel.DEFAULT_CHG);
+			ComponentHandle handle = computeEARHandle();
+			model.setProperty(EAR_COMPONENT_HANDLE, handle);			
 			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-			earDM.setProperty(COMPONENT_VERSION, new Integer(getJ2EEVersion()));			
+			if (earDM != null && handle != null){
+				earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);			
+				earDM.setProperty(COMPONENT_VERSION, new Integer(getJ2EEVersion()));
+			}	
+			
 		} else if (propertyName.equals(COMPONENT_VERSION)) {
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
                 setProperty(USE_ANNOTATIONS, Boolean.FALSE);
