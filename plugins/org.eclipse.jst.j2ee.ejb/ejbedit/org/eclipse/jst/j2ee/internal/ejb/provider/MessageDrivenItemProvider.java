@@ -66,9 +66,9 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			childrenReferences = (List) super.getChildrenReferences(object);
-			childrenReferences.add(EjbPackage.eINSTANCE.getMessageDriven_Destination());
-			childrenReferences.add(EjbPackage.eINSTANCE.getMessageDriven_ActivationConfig());
-			childrenReferences.add(EjbPackage.eINSTANCE.getActivationConfig_ConfigProperties());
+			//childrenReferences.add(EjbPackage.eINSTANCE.getMessageDriven_Destination());
+			//childrenReferences.add(EjbPackage.eINSTANCE.getMessageDriven_ActivationConfig());
+			//childrenReferences.add(EjbPackage.eINSTANCE.getActivationConfig_ConfigProperties());
 
 		}
 		return childrenReferences;
