@@ -65,30 +65,28 @@ public class ComponentUtilities {
 	 */
 	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent wc) {
 		List sourceFolders = new ArrayList();
-		try {
-			IVirtualFolder rootFolder = wc.getRootFolder();
-			IVirtualResource[] resources = rootFolder.members();
-			//recursively collect the source folders from the top level component folders
-			addSourceContainers(sourceFolders,resources);
-		} catch (CoreException ce) {
-			Logger.getLogger().log(ce);
-		}
+
+		IVirtualFolder rootFolder = wc.getRootFolder();
+		IResource[] resources = rootFolder.getUnderlyingResources();
+		// recursively collect the source folders from the top level component folders
+		addSourceContainers(sourceFolders, resources);
+
 		return (IPackageFragmentRoot[]) sourceFolders.toArray(new IPackageFragmentRoot[sourceFolders.size()]);
 	}
 	
-	private static void addSourceContainers(List sourceFolders, IVirtualResource[] resources) {
+	private static void addSourceContainers(List sourceFolders, IResource[] resources) {
 		if (resources != null || resources.length > 0) {
 			for (int i = 0; i < resources.length; i++) {
-				IVirtualResource resource = resources[i];
+				IResource resource = resources[i];
 				// if the virtual resource is of type folder, check to see if it is source folder
-				if (resource.getType() == IVirtualResource.FOLDER) {
-					IVirtualResource[] childResources = null;
+				if (resource.getType() == IResource.FOLDER) {
+					IResource[] childResources = null;
 					try {
-						childResources = ((IVirtualFolder) resource).members();
+						childResources = ((IFolder) resource).members();
 					} catch (CoreException ce) {
 						Logger.getLogger().log(ce);
 					} 
-					IFolder folder = ((IVirtualFolder) resource).getUnderlyingFolder();
+					IFolder folder = ((IFolder) resource);
 					IJavaElement element = JavaCore.create(folder);
 					// if it is a java package fragment add it to the result
 					if (element != null && element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
