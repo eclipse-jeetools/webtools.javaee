@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
@@ -92,9 +91,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	  	  for (int x=0; x< artifacts.size(); ++x) {
 	  	  	 artifactEdit = (ArtifactEdit)artifacts.get(x);
 	  	     contentModelRoot = artifactEdit.getContentModelRoot();
-			 if (contentModelRoot == null) {
-				 Logger.getLogger().logError("Error retrieving Deployment Descriptor for module in Project : " + getProject().getName());
-			 } else {
+			 if (contentModelRoot != null) {
 		  	     flexibleObjects.add(contentModelRoot);
 		  	     artifactEditToRootObject.put(artifactEdit,contentModelRoot);
 			 }
