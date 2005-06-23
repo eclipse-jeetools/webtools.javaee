@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
@@ -215,7 +216,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			List resources = anEvent.getChangedResources();
 			for (int i=0; i<resources.size(); i++) {
 				Resource res = (Resource) resources.get(i);
-				if (res instanceof WsddResource) 
+				if (res instanceof WsddResource || res instanceof WebServicesResource) 
 					getViewer().refresh(getNavigatorGroup());
 			}
 		}
