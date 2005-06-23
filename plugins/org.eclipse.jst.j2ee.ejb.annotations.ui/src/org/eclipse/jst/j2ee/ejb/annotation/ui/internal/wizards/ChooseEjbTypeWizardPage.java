@@ -7,6 +7,7 @@ import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
@@ -38,6 +39,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 
 	protected ChooseEjbTypeWizardPage(WTPOperationDataModel model, String pageName) {
 		super(model, pageName);
+		this.setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
 	}
 
 	/*

@@ -56,6 +56,8 @@ public class AddEjbWizard extends NewEjbWizard {
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
+		this.setForcePreviousAndNextButtons(true);  
+		// Otherwise number of pages will be used (1) without the nested wizards
 		this.sessionEjbWizard =  new AddSessionEjbWizard();
 		this.messageDrivenEjbWizard = new AddMessageDrivenEjbWizard();
 		sessionEjbWizard.init(workbench, selection);

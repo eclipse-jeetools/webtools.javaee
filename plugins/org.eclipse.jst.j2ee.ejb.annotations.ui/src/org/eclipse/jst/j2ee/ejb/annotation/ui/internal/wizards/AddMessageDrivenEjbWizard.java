@@ -18,8 +18,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOpera
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
 
 public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	protected NewEjbClassWizardPage newJavaClassWizardPage = null;
@@ -43,26 +41,6 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 		this(null);
 	}
 
-	private void initializeEjbNameListener(final EnterpriseBeanClassDataModel dataModel) {
-		dataModel.addListener(new WTPOperationDataModelListener() {
-
-			public void propertyChanged(WTPOperationDataModelEvent event) {
-				if (EnterpriseBeanClassDataModel.CLASS_NAME.equals(event.getPropertyName())) {
-					String className = (String) event.getProperty();
-					int i = className.toLowerCase().indexOf("bean");
-					if (i < 0)
-						i = className.toLowerCase().indexOf("ejb");
-					if (i >= 0)
-						className = className.substring(0, i);
-					if (className.length() > 0) {
-						dataModel.setProperty(EnterpriseBeanClassDataModel.EJB_NAME, className);
-						dataModel.setProperty(EnterpriseBeanClassDataModel.JNDI_NAME, className);
-						dataModel.setProperty(EnterpriseBeanClassDataModel.DISPLAY_NAME, className);
-					}
-				}
-			}
-		});
-	}
 
 	/*
 	 * (non-Javadoc)
