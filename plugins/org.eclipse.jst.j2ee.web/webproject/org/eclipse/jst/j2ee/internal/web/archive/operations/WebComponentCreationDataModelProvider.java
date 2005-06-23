@@ -113,23 +113,12 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 //      return buf.toString();
 //  }
 
-    private Object updateAddToEar() {
-        //IRuntime type = getServerTargetDataModel().getRuntimeTarget();
-//      Boolean ret = Boolean.FALSE;
-//      IRuntime type = getProjectDataModel().getServerTargetDataModel().getRuntimeTarget();
-//      if (type == null)
-//          return Boolean.TRUE;
-//      IRuntimeType rType = type.getRuntimeType();
-//      if (rType == null)
-//          return Boolean.TRUE;
-//      return ret;
-        //return new Boolean(!rType.getVendor().equals(APACHE_VENDER_NAME));
-        return null;
-    }
+
 
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(ADD_TO_EAR)) {
-            return updateAddToEar();
+			if( isEARSupported() )
+				setProperty(ADD_TO_EAR, Boolean.TRUE);
         }
 //      if (propertyName.equals(WEB_CONTENT)) {
 //          String webContentFolderPref = J2EEPlugin.getDefault().getJ2EEPreferences().getJ2EEWebContentFolderName();
@@ -284,11 +273,9 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
     public IStatus validate(String propertyName) {
         if (propertyName.equals(CONTEXT_ROOT)) {
             if (getBooleanProperty(ADD_TO_EAR)) {
-//                //return getAddComponentToEARDataModel().validateProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT);
 				return getAddComponentToEARDataModel().validateProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT);
             }
             return OK_STATUS;
-
         }
         return super.validate(propertyName);
     }
