@@ -12,19 +12,36 @@
 package org.eclipse.jst.j2ee.internal.actions;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.Servlet;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
+import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
+import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * Action for opening a J2EE resource from the J2EE navigator.
@@ -88,13 +105,22 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	public void run() {
 		if (!isEnabled())
 			return;
-
+		
 		if (srcObject instanceof J2EEJavaClassProviderHelper) {
 			((J2EEJavaClassProviderHelper) srcObject).openInEditor();
 			return;
 		}
-		
-		//openAppropriateEditor(WorkbenchResourceHelper.getFile(srcObject));
+		if (srcObject instanceof EObject) {
+			EObject ro = (EObject) srcObject;
+			IProject p = ProjectUtilities.getProject(ro);
+			if (ro instanceof BeanLink) {
+				openBeanLinkInJavaEditor((BeanLink) ro, p);
+				return;
+			}
+			openAppropriateEditor(WorkbenchResourceHelper.getFile((EObject)srcObject));
+		}
+		else if (srcObject instanceof Resource)
+			openAppropriateEditor(WorkbenchResourceHelper.getFile((Resource)srcObject));
 	}
 
 	/**
@@ -119,6 +145,14 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			currentDescriptor = getJavaEditorDescriptor();
 		else if (obj instanceof BeanLink)
 			currentDescriptor = getBaseJavaEditorDescriptor();	
+		else if (obj instanceof EObject) {
+			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
+			currentDescriptor = registry.getDefaultEditor(WorkbenchResourceHelper.getFile((EObject)obj).getName());
+		}
+		else if (obj instanceof Resource) {
+			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
+			currentDescriptor = registry.getDefaultEditor(WorkbenchResourceHelper.getFile((Resource)obj).getName());
+		}
 		else {
 			currentDescriptor = null;
 			return false;
@@ -126,6 +160,57 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		setAttributesFromDescriptor();
 		srcObject = obj;
 		return true;
+	}
+	
+	/**
+	 * @param link
+	 */
+	private void openBeanLinkInJavaEditor(BeanLink link, IProject p) {
+		String linkName = null;
+		JavaClass javaClass = null;
+		IVirtualComponent comp = ComponentUtilities.findComponent(link);
+		// Handle EJB Link case
+		if (link instanceof EJBLink) {
+			linkName = ((EJBLink) link).getEjbLink();
+			EJBArtifactEdit artifactEdit = null;
+			try {
+				artifactEdit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
+				EJBJar ejbJar = artifactEdit.getEJBJar();
+				if (ejbJar == null)
+					return;
+				EnterpriseBean bean = ejbJar.getEnterpriseBeanNamed(linkName);
+				if (bean == null)
+					return;
+				javaClass = bean.getEjbClass();
+			} finally {
+				if (artifactEdit!=null)
+					artifactEdit.dispose();
+			}
+		}
+		// Handle Servlet Link case
+		else {
+			linkName = ((ServletLink) link).getServletLink();
+			WebArtifactEdit artifactEdit = null;
+			try {
+				artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(comp);
+				WebApp webApp = artifactEdit.getWebApp();
+			if (webApp == null)
+				return;
+			Servlet servlet = webApp.getServletNamed(linkName);
+			if (servlet == null)
+				return;
+			javaClass = servlet.getServletClass();
+			} finally {
+				if (artifactEdit!=null)
+					artifactEdit.dispose();
+			}
+		}
+		// Open java editor on the selected objects associated java file
+		try {
+			J2EEEditorUtility.openInEditor(javaClass, p);
+		} catch (Exception cantOpen) {
+			cantOpen.printStackTrace();
+		}
 	}
 
 	protected EObject getRootObject(Object obj) {

@@ -6,16 +6,21 @@
  */
 package org.eclipse.jst.j2ee.internal.webservice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
+import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
-import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
+import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.wsdl.internal.impl.ServiceImpl;
 
 /**
  * @author jlanuti
@@ -39,7 +44,7 @@ public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 		if (selection == null || selection.getFirstElement()==null)
 			return;
 		Object selectedObject = selection.getFirstElement();
-		if (selectedObject instanceof ServiceImplBean || serviceHelper==null)
+		if (serviceHelper==null)
 			return;
 		else if (serviceHelper.isWSDLResource(selectedObject)) {
 			Resource wsdl = (Resource) selectedObject;
@@ -49,6 +54,16 @@ public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 				openExternalWSDLAction.run();
 				return;
 			}
+			openAction.selectionChanged(selection);
+			openAction.run();
+		}
+		else if (selectedObject instanceof ServiceImpl) {
+			WsddResource resource = WebServicesManager.getInstance().getWsddResource((ServiceImpl)selectedObject);
+			List wsddSelection = new ArrayList();
+			wsddSelection.add(resource);
+			
+			openAction.selectionChanged(new StructuredSelection(wsddSelection));
+			openAction.run();
 		}
 		else {
 			openAction.selectionChanged(selection);
