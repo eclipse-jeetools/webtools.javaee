@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/18 20:59:33 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/24 14:31:44 $ 
  */
 
 import java.awt.Image;
@@ -70,6 +70,13 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 * @since 1.1.0
 	 */
 	public static final String DISPLAYNAME = "displayName";//$NON-NLS-1$
+	/**
+	 * Indicator used to describe a factory instantiation pattern.  Not API as will change to become more extensible 
+	 * via .override mechanism in future
+	 * 
+	 * @since 1.1
+	 */	
+	public static final String FACTORY_CREATION = "FACTORY_CREATION";//$NON-NLS-1$	
 
 	/**
 	 * Expert indicator for apply property arguments.
