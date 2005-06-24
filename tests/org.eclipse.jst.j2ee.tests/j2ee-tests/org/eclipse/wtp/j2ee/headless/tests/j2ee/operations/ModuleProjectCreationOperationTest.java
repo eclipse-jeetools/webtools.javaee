@@ -17,6 +17,7 @@ import org.eclipse.wtp.j2ee.headless.tests.jca.operations.ConnectorProjectCreati
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 
 public abstract class ModuleProjectCreationOperationTest extends OperationTestCase {
+	private long componentSeed = System.currentTimeMillis();
     
     public static String DEFAULT_PROJECT_NAME = "SimpleProject";
     public static String DEFAULT_EAR_PROJECT_NAME = "SimpleEARProject";
@@ -41,10 +42,11 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     }
     
     public void testDefaults() throws Exception {
-        createSimpleModule(DEFAULT_COMPONENT_NAME);
+        createSimpleModule(DEFAULT_COMPONENT_NAME + componentSeed);
     }
 
-    private void createSimpleEARModule(String componentName) throws Exception {
+
+	private void createSimpleEARModule(String componentName) throws Exception {
 		IDataModel dataModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
         dataModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
         runAndVerify(dataModel);
