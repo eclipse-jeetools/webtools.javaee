@@ -130,11 +130,10 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	protected void mkdirs(IPath newPath, IWorkspaceRoot root) throws CoreException {
 		if (newPath.segmentCount() <= 2)
 			return;
-		IPath parentPath = newPath.removeLastSegments(1);
-		IFolder folder = root.getFolder(parentPath);
-		if (!folder.exists()) {
-			mkdirs(parentPath, root);
-			folder.create(true, true, null);
+		IFolder newFolder = root.getFolder(newPath);
+		if(!newFolder.exists()){
+			mkdirs(newPath.removeLastSegments(1), root);
+			newFolder.create(true, true, null);
 		}
 	}
 
