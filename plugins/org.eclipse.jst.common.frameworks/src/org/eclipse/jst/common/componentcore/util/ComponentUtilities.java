@@ -17,9 +17,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -54,7 +55,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 public class ComponentUtilities {
-	
+
 	public static String JAVA_NATURE = "org.eclipse.jdt.core.javanature";
 
 	/**
@@ -63,40 +64,31 @@ public class ComponentUtilities {
 	 * @param wc
 	 * @return the array of IPackageFragmentRoots
 	 */
-	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent wc) {
-		List sourceFolders = new ArrayList();
-
-		IVirtualFolder rootFolder = wc.getRootFolder();
-		IResource[] resources = rootFolder.getUnderlyingResources();
-		// recursively collect the source folders from the top level component folders
-		addSourceContainers(sourceFolders, resources);
-
-		return (IPackageFragmentRoot[]) sourceFolders.toArray(new IPackageFragmentRoot[sourceFolders.size()]);
-	}
-	
-	private static void addSourceContainers(List sourceFolders, IResource[] resources) {
-		if (resources != null || resources.length > 0) {
-			for (int i = 0; i < resources.length; i++) {
-				IResource resource = resources[i];
-				// if the virtual resource is of type folder, check to see if it is source folder
-				if (resource.getType() == IResource.FOLDER) {
-					IResource[] childResources = null;
-					try {
-						childResources = ((IFolder) resource).members();
-					} catch (CoreException ce) {
-						Logger.getLogger().log(ce);
-					} 
-					IFolder folder = ((IFolder) resource);
-					IJavaElement element = JavaCore.create(folder);
-					// if it is a java package fragment add it to the result
-					if (element != null && element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
-						sourceFolders.add(element);
-					// otherwise recursively check that folders child folders
-					else if (childResources.length>0)
-						addSourceContainers(sourceFolders,childResources);
+	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent vc) {
+		List list = new ArrayList();
+		IProject project = vc.getProject();
+		IJavaProject jProject = JavaCore.create(project);
+		IPackageFragmentRoot[] roots;
+		try {
+			roots = jProject.getPackageFragmentRoots();
+			for (int i = 0; i < roots.length; i++) {
+				IResource resource = roots[i].getResource();
+				if (null != resource) {
+					IVirtualResource[] vResources = ComponentCore.createResources(resource);
+					boolean found = false;
+					for (int j = 0; !found && j < vResources.length; j++) {
+						if (vResources[j].getComponent().equals(vc)) {
+							list.add(roots[i]);
+							found = true;
+						}
+					}
 				}
 			}
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
 		}
+
+		return (IPackageFragmentRoot[]) list.toArray(new IPackageFragmentRoot[list.size()]);
 	}
 
 	/**
@@ -148,27 +140,28 @@ public class ComponentUtilities {
 
 
 	public static IFile findFile(IVirtualComponent comp, IPath aPath) throws CoreException {
-		//IVirtualResource[] members = comp.members();
+		// IVirtualResource[] members = comp.members();
 		IVirtualResource[] members = comp.getRootFolder().members();
 		for (int i = 0; i < members.length; i++) {
 			IVirtualResource resource = members[i];
 			if (resource.getType() == IVirtualResource.FOLDER) {
-				IVirtualResource file = ((IVirtualContainer)resource).findMember(aPath);
-				if (file != null) return (IFile)file.getUnderlyingResource();
+				IVirtualResource file = ((IVirtualContainer) resource).findMember(aPath);
+				if (file != null)
+					return (IFile) file.getUnderlyingResource();
 			}
 		}
 		return null;
 	}
 
 	private static IVirtualComponent findComponent(IProject project, Resource res) {
-		
+
 		StructureEdit moduleCore = null;
 		WorkbenchComponent module = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(project);
 			URI uri = WorkbenchResourceHelperBase.getNonPlatformURI(res.getURI());
-			IPath projPath = WorkbenchResourceHelper.getPathInProject(project,new Path(uri.path()));
-			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(projPath,ResourceTreeNode.CREATE_RESOURCE_ALWAYS);
+			IPath projPath = WorkbenchResourceHelper.getPathInProject(project, new Path(uri.path()));
+			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(projPath, ResourceTreeNode.CREATE_RESOURCE_ALWAYS);
 			for (int i = 0; i < resources.length; i++) {
 				module = resources[i].getComponent();
 				if (module != null)
@@ -185,41 +178,42 @@ public class ComponentUtilities {
 		else
 			return ComponentCore.createComponent(project, module.getName());
 	}
-    
-    public static IVirtualComponent findComponent(IProject project, IResource res) {
-        
-        StructureEdit moduleCore = null;
-        WorkbenchComponent module = null;
-        try {
-            moduleCore = StructureEdit.getStructureEditForRead(project);
-            ComponentResource[] resources = moduleCore.findResourcesBySourcePath(res.getFullPath());
-            for (int i = 0; i < resources.length; i++) {
-                module = resources[i].getComponent();
-                if (module != null)
-                    break;
-            }
-        } catch (UnresolveableURIException e) {
-            // Ignore
-        } finally {
-            if (moduleCore != null)
-                moduleCore.dispose();
-        }
-        return ComponentCore.createComponent(project, module.getName());
-    }
+
+	public static IVirtualComponent findComponent(IProject project, IResource res) {
+
+		StructureEdit moduleCore = null;
+		WorkbenchComponent module = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(project);
+			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(res.getFullPath());
+			for (int i = 0; i < resources.length; i++) {
+				module = resources[i].getComponent();
+				if (module != null)
+					break;
+			}
+		} catch (UnresolveableURIException e) {
+			// Ignore
+		} finally {
+			if (moduleCore != null)
+				moduleCore.dispose();
+		}
+		return ComponentCore.createComponent(project, module.getName());
+	}
+
 	public static IVirtualComponent[] getAllWorkbenchComponents() {
 		List components = new ArrayList();
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
 		for (int i = 0; i < projects.size(); i++) {
-				IFlexibleProject flexProject = ComponentCore.createFlexibleProject((IProject) projects.get(i));
-				IVirtualComponent[] wbComp = flexProject.getComponents();
-				for (int j = 0; j < wbComp.length; j++) {
-					components.add(ComponentCore.createComponent((IProject) projects.get(i), wbComp[j].getName()));
-				}
+			IFlexibleProject flexProject = ComponentCore.createFlexibleProject((IProject) projects.get(i));
+			IVirtualComponent[] wbComp = flexProject.getComponents();
+			for (int j = 0; j < wbComp.length; j++) {
+				components.add(ComponentCore.createComponent((IProject) projects.get(i), wbComp[j].getName()));
+			}
 		}
 		VirtualComponent[] temp = (VirtualComponent[]) components.toArray(new VirtualComponent[components.size()]);
 		return temp;
 	}
-	
+
 	public static IVirtualComponent[] getComponentsForProject(IProject project) {
 		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
 		return flexProject.getComponents();
@@ -244,6 +238,7 @@ public class ComponentUtilities {
 		IArtifactEditFactory factory = reader.getArtifactEdit(comp.getComponentTypeId());
 		return factory.createArtifactEditForWrite(comp);
 	}
+
 	public static IVirtualComponent findComponent(EObject anObject) {
 		IProject project = ProjectUtilities.getProject(anObject);
 		Resource res = anObject.eResource();
@@ -254,12 +249,12 @@ public class ComponentUtilities {
 		IProject project = ProjectUtilities.getProject(aResource);
 		return findComponent(project, aResource);
 	}
-	
+
 	public static List getAllJavaNonFlexProjects() throws CoreException {
 		List nonFlexJavaProjects = new ArrayList();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
-			if(projects[i].hasNature(JAVA_NATURE) && !projects[i].hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+			if (projects[i].hasNature(JAVA_NATURE) && !projects[i].hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 				nonFlexJavaProjects.add(projects[i]);
 			}
 		}
@@ -271,69 +266,69 @@ public class ComponentUtilities {
 		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
 		return new JavaProjectMigrationOperation(model);
 	}
-	
-	public static CreateReferenceComponentsOp  createReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
-    	IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponentHandle);
-    	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-    	modHandlesList.addAll(targetComponentsHandles);
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
-    	return new CreateReferenceComponentsOp(model);
-    }	
-	
-	public static RemoveReferenceComponentOperation  removeReferenceComponentOperation(ComponentHandle sourceComponentHandle,List targetComponentsHandles ) {
-    	IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE,sourceComponentHandle);
-    	List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-    	modHandlesList.addAll(targetComponentsHandles);
-    	model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST,modHandlesList);
-    	return new RemoveReferenceComponentOperation(model);
-    	
-    }
-	
+
+	public static CreateReferenceComponentsOp createReferenceComponentOperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+		modHandlesList.addAll(targetComponentsHandles);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		return new CreateReferenceComponentsOp(model);
+	}
+
+	public static RemoveReferenceComponentOperation removeReferenceComponentOperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+		modHandlesList.addAll(targetComponentsHandles);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		return new RemoveReferenceComponentOperation(model);
+
+	}
+
 	/**
 	 * 
 	 * @param name
 	 * @return
-	 * @description the passed name should have  either lib or var as its first segment
-	 * e.g. lib/D:/foo/foo.jar  or  var/<CLASSPATHVAR>/foo.jar
+	 * @description the passed name should have either lib or var as its first segment e.g.
+	 *              lib/D:/foo/foo.jar or var/<CLASSPATHVAR>/foo.jar
 	 */
 	public static IPath getResolvedPathForArchiveComponent(String name) {
 
-		URI uri = URI.createURI( name );
+		URI uri = URI.createURI(name);
 
-		String resourceType = uri.segment( 0 );
-		URI contenturi = ModuleURIUtil.trimToRelativePath( uri, 1 );
+		String resourceType = uri.segment(0);
+		URI contenturi = ModuleURIUtil.trimToRelativePath(uri, 1);
 		String contentName = contenturi.toString();
-		
-		if( resourceType.equals("lib")){
-			//module:/classpath/lib/D:/foo/foo.jar
-			return Path.fromOSString( contentName );
-			
-		}else if( resourceType.equals("var")){
-			
-			//module:/classpath/var/<CLASSPATHVAR>/foo.jar
-			String  classpathVar = contenturi.segment( 0 );
-			URI remainingPathuri = ModuleURIUtil.trimToRelativePath( contenturi, 1 );
-			String remainingPath = remainingPathuri.toString();			
-			
+
+		if (resourceType.equals("lib")) {
+			// module:/classpath/lib/D:/foo/foo.jar
+			return Path.fromOSString(contentName);
+
+		} else if (resourceType.equals("var")) {
+
+			// module:/classpath/var/<CLASSPATHVAR>/foo.jar
+			String classpathVar = contenturi.segment(0);
+			URI remainingPathuri = ModuleURIUtil.trimToRelativePath(contenturi, 1);
+			String remainingPath = remainingPathuri.toString();
+
 			String[] classpathvars = JavaCore.getClasspathVariableNames();
 			boolean found = false;
-			for( int i=0; i<classpathvars.length; i++ ){
-				if( classpathVar.equals(classpathvars[i])){
+			for (int i = 0; i < classpathvars.length; i++) {
+				if (classpathVar.equals(classpathvars[i])) {
 					found = true;
 					break;
 				}
 			}
-			if( found ){
-				IPath path = JavaCore.getClasspathVariable( classpathVar );
-				URI finaluri = URI.createURI(  path.toOSString() + IPath.SEPARATOR + remainingPath );
-				return Path.fromOSString( finaluri.toString() );
+			if (found) {
+				IPath path = JavaCore.getClasspathVariable(classpathVar);
+				URI finaluri = URI.createURI(path.toOSString() + IPath.SEPARATOR + remainingPath);
+				return Path.fromOSString(finaluri.toString());
 			}
-		}	
+		}
 		return null;
 	}
-	
+
 	public static IVirtualComponent[] getAllComponentsInWorkspaceOfType(String type) {
 		List result = new ArrayList();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -343,5 +338,5 @@ public class ComponentUtilities {
 		}
 		return (IVirtualComponent[]) result.toArray(new IVirtualComponent[result.size()]);
 	}
-	
+
 }

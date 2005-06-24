@@ -21,6 +21,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -45,7 +46,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	}
 
 	public void save(File aFile, FileIterator iterator) throws SaveFailureException {
-		if (aFile.isArchive() && operationHandlesNested((Archive)aFile)) {
+		if (aFile.isArchive() && operationHandlesNested((Archive) aFile)) {
 			return;
 		}
 
@@ -185,7 +186,8 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	private IPath javaSourcePath;
 
 	private void loadJavaSource() {
-		javaSourcePath = ComponentUtilities.getSourceContainers(vComponent)[0].getPath();
+		 IPackageFragmentRoot [] containers = ComponentUtilities.getSourceContainers(vComponent);
+		 javaSourcePath = containers[0].getPath();
 	}
 
 	protected IPath getJavaSourcePath() {
