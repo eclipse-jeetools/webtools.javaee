@@ -20,10 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -124,16 +121,6 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 			progressMonitor.worked(1);
 		} catch (IOException e) {
 			throw new SaveFailureException(anArchive.getURI(), e);
-		}
-	}
-
-	protected void mkdirs(IPath newPath, IWorkspaceRoot root) throws CoreException {
-		if (newPath.segmentCount() <= 2)
-			return;
-		IFolder newFolder = root.getFolder(newPath);
-		if(!newFolder.exists()){
-			mkdirs(newPath.removeLastSegments(1), root);
-			newFolder.create(true, true, null);
 		}
 	}
 
