@@ -408,8 +408,9 @@ public class WTPJETEmitter extends JETEmitter {
 	 */
 	protected void addRuntimeJarsAsLibrary(IProject project, String pluginId) {
 		ManifestElement[] elements = null;
+		Bundle bundle = Platform.getBundle(pluginId);
 		try {
-			String requires = (String) Platform.getBundle(pluginId).getHeaders().get(Constants.BUNDLE_CLASSPATH);
+			String requires = (String) bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
 			elements = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, requires);
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
@@ -422,7 +423,8 @@ public class WTPJETEmitter extends JETEmitter {
 			String value = elements[i].getValue();
 			if (".".equals(value)) //$NON-NLS-1$
 	            value = "/"; //$NON-NLS-1$
-			fullurl = Platform.getBundle(pluginId).getEntry(elements[i].getValue());
+			fullurl = Platform.getBundle(pluginId).getEntry(value);
+			
 			// fix the problem with leading slash that caused dup classpath entries
 			if (fullurl==null) continue;
 			try {
@@ -430,6 +432,14 @@ public class WTPJETEmitter extends JETEmitter {
 			} catch (Exception e) {
 				Logger.getLogger().logError(e);
 			}
+			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
+			if (bundle.getLocation().endsWith(".jar")) {
+				String jarPluginPath = bundle.getLocation().substring(7);
+				String installPath = Platform.getInstallLocation().getURL().getPath();
+				runtimeLibFullPath = new Path(installPath+"/"+jarPluginPath);
+			}
+			if (!"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension()))
+				continue;
 			entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
 			null, /* Source attachment root */
 			null, /* specific output folder */
