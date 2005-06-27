@@ -62,7 +62,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public class AddModulestoEARPropertiesPage extends PropertyPage implements Listener, ICommonManifestUIConstants {
 
 	protected IProject project;
-	protected IVirtualComponent earComponent;
+	protected IVirtualComponent earComponent = null;
 	protected Text componentNameText;
 	protected Label availableModules;
 	protected CheckboxTableViewer availableComponentsViewer;
@@ -165,38 +165,39 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	private IStatus addModulesToEAR(IProgressMonitor monitor) {
 		IStatus stat = OK_STATUS;
 		try {
-
-			IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-
-			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, this.earComponent.getComponentHandle());
-
-
-			if (j2eeComponentList != null && !j2eeComponentList.isEmpty()) {
-				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, j2eeComponentList);
-				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-				if (stat != OK_STATUS)
-					return stat;
-				dm.getDefaultOperation().execute(monitor, null);
-			}
-
-			if (!javaProjectsList.isEmpty()) {
-
-				for (int i = 0; i < javaProjectsList.size(); i++) {
-					IProject proj = (IProject) javaProjectsList.get(i);
-					IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
-					migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
-					migrationdm.getDefaultOperation().execute(monitor, null);
-
-
-					IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-					List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-
-					IVirtualComponent targetcomponent = ComponentCore.createComponent(proj, proj.getName());
-					targetCompList.add(targetcomponent.getComponentHandle());
-
-					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());
-					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetCompList);
-					refdm.getDefaultOperation().execute(monitor, null);
+			if( earComponent != null ){
+				IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+	
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());
+	
+	
+				if (j2eeComponentList != null && !j2eeComponentList.isEmpty()) {
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, j2eeComponentList);
+					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+					if (stat != OK_STATUS)
+						return stat;
+					dm.getDefaultOperation().execute(monitor, null);
+				}
+	
+				if (!javaProjectsList.isEmpty()) {
+	
+					for (int i = 0; i < javaProjectsList.size(); i++) {
+						IProject proj = (IProject) javaProjectsList.get(i);
+						IDataModel migrationdm = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+						migrationdm.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, proj.getName());
+						migrationdm.getDefaultOperation().execute(monitor, null);
+	
+	
+						IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+						List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+	
+						IVirtualComponent targetcomponent = ComponentCore.createComponent(proj, proj.getName());
+						targetCompList.add(targetcomponent.getComponentHandle());
+	
+						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());
+						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetCompList);
+						refdm.getDefaultOperation().execute(monitor, null);
+					}
 				}
 			}
 
