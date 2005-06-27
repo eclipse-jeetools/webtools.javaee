@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.7 $ $Date: 2005/05/13 14:16:40 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.8 $ $Date: 2005/06/27 16:07:07 $
  */
 
 import java.net.URL;
@@ -20,10 +20,12 @@ import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
 
+import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
 /**
@@ -34,6 +36,26 @@ import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 public class JemProjectUtilities extends ProjectUtilities {
 	
 	private JemProjectUtilities(){
+	}
+	
+	/**
+	 * The nature id for JEM Nature.
+	 * 
+	 * @since 1.1.0
+	 */
+	public static final String JEM_EMF_NatureID = JavaEMFNature.NATURE_ID;
+	
+	/**
+	 * Get the EMF nature for JEM for the project. 
+	 * @param project
+	 * @param addNature <code>true</code> if add the nature to the project if not set. <code>false</code> if don't add nature if not already on project.
+	 * @return the EMFNature or <code>null</code> if not found and addNature was <code>false</code> or it was not a java project.
+	 * @throws CoreException 
+	 * 
+	 * @since 1.1.0
+	 */
+	public static EMFNature getJEM_EMF_Nature(IProject project, boolean addNature) throws CoreException {
+		return addNature ? JavaEMFNature.createRuntime(project) : JavaEMFNature.getRuntime(project);
 	}
 
 	/**

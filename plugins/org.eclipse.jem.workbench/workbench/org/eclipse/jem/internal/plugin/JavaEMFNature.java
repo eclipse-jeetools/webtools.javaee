@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.12 $ $Date: 2005/05/18 22:05:58 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.13 $ $Date: 2005/06/27 16:07:07 $
  */
 
 import java.util.List;
@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jdt.core.JavaCore;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
@@ -44,7 +45,10 @@ public JavaEMFNature() {
  */
 public static JavaEMFNature createRuntime(IProject project) throws CoreException {
 	if(!hasRuntime(project))
-		addNatureToProject(project, NATURE_ID);
+		if (JavaCore.create(project).exists())
+			addNatureToProject(project, NATURE_ID);
+		else
+			return null;
 
 	return getRuntime(project);
 }
