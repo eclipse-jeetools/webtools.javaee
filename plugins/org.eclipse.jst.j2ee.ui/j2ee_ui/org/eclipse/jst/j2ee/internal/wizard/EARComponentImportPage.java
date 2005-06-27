@@ -26,6 +26,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -116,12 +118,11 @@ public class EARComponentImportPage extends J2EEImportPage {
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
 		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
-		// newServerTargetButton.addSelectionListener(new SelectionAdapter() {
-		// public void widgetSelected(SelectionEvent e) {
-		// FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(),
-		// getJ2EEProjectCreationDataModel().getServerTargetDataModel());
-		// }
-		// });
+        newServerTargetButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+                FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
+            }
+        });
 		Control[] deps = new Control[]{label, newServerTargetButton};
 		synchHelper.synchCombo(serverTargetCombo, IEarComponentCreationDataModelProperties.RUNTIME_TARGET_ID, deps);
 	}
