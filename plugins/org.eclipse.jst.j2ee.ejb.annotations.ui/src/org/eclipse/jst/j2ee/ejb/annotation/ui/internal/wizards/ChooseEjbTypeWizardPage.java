@@ -223,9 +223,10 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 			annotationProvider = AnnotationUtilities.findAnnotationProviderByName(provider);
 		} catch (Exception ex) {
 		}
-		if (annotationProvider != null && annotationProvider.isValid())
+		if (annotationProvider != null && annotationProvider.isValid()){
 			this.setErrorMessage(null);
-		else
+			this.setPageComplete(true);
+		} else
 			this.setErrorMessage("Annotation provider definition is not valid, please check the preferences. ");
 		getContainer().updateMessage();
 	}
