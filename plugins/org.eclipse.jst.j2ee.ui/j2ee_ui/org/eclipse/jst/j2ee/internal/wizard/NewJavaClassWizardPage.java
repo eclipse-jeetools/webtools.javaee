@@ -23,6 +23,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -42,6 +43,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
@@ -578,8 +580,9 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		ISelection selection = window.getSelectionService().getSelection();
 		if (selection == null)
 			return null;
-		// StructuredSelection stucturedSelection = (StructuredSelection)
-		// selection;
+		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		if (stucturedSelection.getFirstElement() instanceof EObject)
+			return ProjectUtilities.getProject(stucturedSelection.getFirstElement());
 		IJavaElement element = getInitialJavaElement(selection);
 		if (element != null && element.getJavaProject() != null)
 			return element.getJavaProject().getProject();
