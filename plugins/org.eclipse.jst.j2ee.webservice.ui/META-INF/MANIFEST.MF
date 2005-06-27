@@ -29,5 +29,6 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.jst.common.navigator.java,
  org.eclipse.wst.common.navigator.views,
  org.eclipse.jem.util,
- org.wsdl4j
+ org.wsdl4j,
+ org.eclipse.jst.common.frameworks
 Eclipse-AutoStart: true

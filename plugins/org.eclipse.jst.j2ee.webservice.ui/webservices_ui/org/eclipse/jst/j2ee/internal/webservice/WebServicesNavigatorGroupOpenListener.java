@@ -14,11 +14,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
+import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.wsdl.internal.impl.ServiceImpl;
 
@@ -63,6 +67,23 @@ public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 			wsddSelection.add(resource);
 			
 			openAction.selectionChanged(new StructuredSelection(wsddSelection));
+			openAction.run();
+		}
+		else if (selectedObject instanceof ServiceRef) {
+			if (!WebServicesManager.getInstance().isJ2EE14((ServiceRef)selectedObject)) {
+				IVirtualComponent component = ComponentUtilities.findComponent((ServiceRef)selectedObject);
+				ArtifactEdit artifactEdit = null;
+				try {
+					artifactEdit = ArtifactEdit.getArtifactEditForRead(component);
+					List module = new ArrayList();
+					module.add(artifactEdit.getContentModelRoot());
+					selection = new StructuredSelection(module);
+				} finally {
+					if (artifactEdit != null)
+						artifactEdit.dispose();
+				}
+			}
+			openAction.selectionChanged(selection);
 			openAction.run();
 		}
 		else {
