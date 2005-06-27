@@ -142,6 +142,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	public WebServices getWebServices() {
 		if (!getComponentHandle().getProject().isAccessible())
 			return null;
+		if (getWsddXmiResource().getContents().isEmpty())
+			return null;
 		return (WebServices) getDeploymentDescriptorRoot();
 	}
 

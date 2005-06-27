@@ -801,19 +801,17 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected void addedWsdl(IFile wsdl) {
 		if (!wsdl.exists())
 			return;
-		//ComponentHandle handle = getComponentHandle(wsdl);
-		//WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
+		ComponentHandle handle = getComponentHandle(wsdl);
+		if (handle != null)
+			getWSArtifactEdit(handle);
 	}
 
 	protected void addedWsil(IFile wsil) {
 		if (!wsil.exists())
 			return;
-		//ComponentHandle handle = getComponentHandle(wsil);
-		//WSDDArtifactEdit artifactEdit = getWSArtifactEdit(handle);
-		// forward an edit model event to manager's listeners
-		// TODO forward edit model event?
-		//notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,wsArtifactEdit));
-		
+		ComponentHandle handle = getComponentHandle(wsil);
+		if (handle != null)
+			getWSArtifactEdit(handle);
 	}
 	
 	private ComponentHandle getComponentHandle(IFile res) {
