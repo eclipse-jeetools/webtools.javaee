@@ -10,7 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 
@@ -18,4 +30,22 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		super(vComponent);
 	}
 
+	public void save(ArchiveManifest aManifest) throws SaveFailureException {
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualFile vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
+		IFile iFile = vFile.getUnderlyingFile();
+		validateEdit(iFile);
+		OutputStream out = new WorkbenchByteArrayOutputStream(iFile);
+		try {
+			aManifest.write(out);
+		} catch (IOException e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+	}
 }
