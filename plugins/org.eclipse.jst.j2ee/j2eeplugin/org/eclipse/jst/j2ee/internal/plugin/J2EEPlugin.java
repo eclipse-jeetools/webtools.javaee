@@ -58,6 +58,7 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
@@ -514,11 +515,14 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 *  
 	 */
 	private void ensureDefaultReferencedXMIResourceFactoryRegistration() {
-		J2EEResourceFactoryRegistry reg = J2EEResourceFactoryRegistry.INSTANCE;
-		ReferencedXMIFactoryImpl factory = new ReferencedXMIFactoryImpl();
-		reg.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, factory);
+		J2EEResourceFactoryRegistry reg1 = J2EEResourceFactoryRegistry.INSTANCE;
+		WTPResourceFactoryRegistry reg2 = WTPResourceFactoryRegistry.INSTANCE;
+		ReferencedXMIFactoryImpl factory = new ReferencedComponentXMIResourceFactory();
+		reg1.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, factory);
+		reg2.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, factory);
 		// add xmi because other plugins are registering it globally
-		reg.getExtensionToFactoryMap().put("xmi", factory); //$NON-NLS-1$
+		reg1.getExtensionToFactoryMap().put("xmi", factory); //$NON-NLS-1$
+		reg2.getExtensionToFactoryMap().put("xmi", factory); //$NON-NLS-1$
 	}
 
 	/**
