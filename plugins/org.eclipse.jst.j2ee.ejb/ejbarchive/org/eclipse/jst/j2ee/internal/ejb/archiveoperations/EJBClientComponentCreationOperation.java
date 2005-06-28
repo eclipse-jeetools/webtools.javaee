@@ -145,7 +145,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, ejbprojectName);
         updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
         updateManifestDataModel.setProperty(UpdateManifestDataModel.MANIFEST_FILE, manifestmf);
-        updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(clientDeployName) );
+        updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(clientDeployName + ".jar") );//$NON-NLS-1$
         
         UpdateManifestOperation mop = new UpdateManifestOperation(updateManifestDataModel);     
         mop.run(aMonitor);
