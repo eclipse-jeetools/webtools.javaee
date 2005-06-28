@@ -17,7 +17,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
@@ -25,16 +24,11 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -70,7 +64,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 		composite.setLayout(layout);
 		createFileNameComposite(composite);
 		createProjectNameComposite(composite);
-		//createServerTargetComposite(composite);
+		// createServerTargetComposite(composite);
 		createAnnotationsStandaloneGroup(composite);
 		restoreWidgetValues();
 		return composite;
@@ -105,28 +99,6 @@ public class EARComponentImportPage extends J2EEImportPage {
 	protected String[] getFilterExpression() {
 		return new String[]{"*.ear"}; //$NON-NLS-1$
 	}
-
-	protected void createServerTargetComposite(Composite parent) {
-		Label label = new Label(parent, SWT.NONE);
-		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
-		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
-		serverTargetCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		// if (!org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
-		// serverTargetCombo.setEnabled(false);
-		// }
-
-		Button newServerTargetButton = new Button(parent, SWT.NONE);
-		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
-        newServerTargetButton.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent e) {
-                FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
-            }
-        });
-		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, IEarComponentCreationDataModelProperties.RUNTIME_TARGET_ID, deps);
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -142,7 +114,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IEARComponentImportDataModelProperties.FILE_NAME, IEARComponentImportDataModelProperties.PROJECT_NAME, IAnnotationsDataModel.USE_ANNOTATIONS};
+		return new String[]{IEARComponentImportDataModelProperties.FILE_NAME, IEARComponentImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
 
 	/*
