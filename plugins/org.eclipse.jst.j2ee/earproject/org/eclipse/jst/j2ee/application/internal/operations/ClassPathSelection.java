@@ -240,7 +240,9 @@ public class ClassPathSelection {
 
 	protected IProject getProject(Archive anArchive) {
 		LoadStrategy loader = anArchive.getLoadStrategy();
-		return ((ComponentLoadStrategyImpl) loader).getComponent().getProject();
+		if (loader instanceof ComponentLoadStrategyImpl)
+			return ((ComponentLoadStrategyImpl) loader).getComponent().getProject();
+		return null;
 	}
 
 	public String getText() {
