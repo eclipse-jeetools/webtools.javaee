@@ -502,8 +502,10 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	public void validateModuleMaps(EARArtifactEdit edit, IVirtualComponent module) {
 		List modules = edit.getJ2EEModuleReferences();
+		StructureEdit mc = null;
 		if (modules.size() > 0) {
 			for (int i = 0; i < modules.size(); i++) {
+				try {
 				IVirtualReference aModuleRef =  (IVirtualReference)modules.get(i);
 				IVirtualComponent component = aModuleRef.getEnclosingComponent();
 				boolean uriExists = edit.uriExists(module.getName());
@@ -516,7 +518,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 						String[] params = new String[]{component.getName(), earHelper.getProject().getName()};
 						addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 					} else {
-						StructureEdit mc = StructureEdit.getStructureEditForRead(earHelper.getProject());
+						mc = StructureEdit.getStructureEditForRead(earHelper.getProject());
 						WorkbenchComponent deployModule = mc.findComponentByName(projectName);
 						if (deployModule == null) {
 							String[] params = new String[]{deployModule.getName(),component.getName(), earHelper.getProject().getName()};
@@ -532,6 +534,10 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 					}
 				}
 				validateModuleURIExtension(module);
+				} finally {
+					if (mc != null)
+						mc.dispose();
+				}
 			}
 		}
 		//validateEARServerTargetJ2EESpecLevel(earEditModel);
