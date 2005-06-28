@@ -134,13 +134,24 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	protected boolean shouldSave(File aFile) {
 		if (aFile.isArchive()) {
-			// TODO
-			// if (dataModel.handlesArchive((Archive) aFile)) {
-			// return false;
-			// }
+			if (operationHandlesNested((Archive) aFile)) {
+				return false;
+			}
 			return getFilter().shouldSave(aFile.getURI(), getArchive());
 		}
 		return super.shouldSave(aFile);
+	}
+
+	protected boolean operationHandlesNested(Archive archive) {
+		if (null != dataModel) {
+			List list = (List) dataModel.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
+			for (int i = 0; i < list.size(); i++) {
+				if (archive == ((IDataModel) list.get(i)).getProperty(IEARComponentImportDataModelProperties.FILE)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	protected boolean shouldSave(String uri) {
