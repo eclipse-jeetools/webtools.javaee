@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.WebModule;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -57,6 +58,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
+//TODO rename to EARComponentImportDataModelProvider
 /**
  * This dataModel is used for to import Enterprise Applications(from EAR files) into the workspace.
  * 
@@ -458,7 +460,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			localModel = null;
 			ModuleFile temp = (ModuleFile) moduleFiles.get(i);
 			if (temp.isApplicationClientFile()) {
-				localModel = null; // new AppClientModuleImportDataModel();
+				localModel = DataModelFactory.createDataModel(new AppClientComponentImportDataModelProvider());
 			} else if (temp.isWARFile()) {
 				WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
 				if (webExt != null) {
