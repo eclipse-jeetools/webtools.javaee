@@ -22,6 +22,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
@@ -614,14 +615,12 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	 * @return IFolder default java source folder
 	 */
 	protected IFolder getDefaultJavaSourceFolder() {
-		// Ensure project is not null
-		if (!isSet(ArtifactEditOperationDataModel.PROJECT_NAME))
-			return null;
-		IProject project = getTargetProject();
-		if (project == null)
-			return null;
-		
-		return (IFolder) WebPropertiesUtil.getJavaSourceFolder(project);
+		if (getComponent()!=null) {
+			IPackageFragmentRoot[] sourceContainers = ComponentUtilities.getSourceContainers(getComponent());
+			if (sourceContainers.length>0)
+				return (IFolder) sourceContainers[0].getResource();
+		}
+		return null;
 	}
 	
 	/**
