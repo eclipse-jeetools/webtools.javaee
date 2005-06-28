@@ -129,7 +129,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				getURIResourceMap().put(uri, resources[i]);
 				filesList.add(cFile);
 			} else if (shouldInclude((IContainer) resources[i])) {
-				getFiles(((IContainer) resources[i]).members());
+				IResource[] nestedResources = ((IContainer) resources[i]).members();
+				getFiles(nestedResources);
 			}
 		}
 		return filesList;
@@ -157,8 +158,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				getVisitedURIs().add(uri);
 				filesList.add(cFile);
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
-				getFiles(((IVirtualContainer) virtualResources[i]).members());
-				IResource[] resources = virtualResources[i].getUnderlyingResources();
+				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
+				getFiles(nestedVirtualResources);
 			}
 		}
 		return filesList;
