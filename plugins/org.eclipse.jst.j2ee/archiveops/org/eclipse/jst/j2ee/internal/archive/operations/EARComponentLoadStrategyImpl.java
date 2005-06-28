@@ -63,7 +63,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				} else if (IModuleConstants.JST_UTILITY_MODULE.equals(componentTypeId)) {
 					try {
 						String uri = referencedComponent.getName() + ".jar";
-						Archive archive = J2EEComponentUtilities.asArchive(uri, vComponent, exportSource);
+						Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
 						filesList.add(archive);
 					} catch (OpenFailureException e) {
 						Logger.getLogger().logError(e);
