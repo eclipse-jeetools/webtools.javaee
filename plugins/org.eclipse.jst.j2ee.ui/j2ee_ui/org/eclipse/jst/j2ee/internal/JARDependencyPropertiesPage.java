@@ -581,8 +581,10 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			ClasspathElement element = (ClasspathElement) unselected.get(i);
 			IProject elementProject = element.getProject();
 			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
-			IVirtualComponent targetComp = flexProject.getComponents()[0];
-			targetComponentsHandles.add(targetComp.getComponentHandle());
+			if (flexProject.getComponents().length > 0) {
+				IVirtualComponent targetComp = flexProject.getComponents()[0];
+				targetComponentsHandles.add(targetComp.getComponentHandle());
+			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
