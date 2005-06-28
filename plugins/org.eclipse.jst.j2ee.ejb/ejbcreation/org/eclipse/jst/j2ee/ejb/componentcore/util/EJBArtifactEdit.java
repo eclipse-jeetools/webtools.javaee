@@ -153,12 +153,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			if (getDeploymentDescriptorFolder() != null) {
 				String modulePath;
 				if (fullPath.indexOf('/') == 0)
-					modulePath = getDeploymentDescriptorFolder().getProjectRelativePath().toOSString();
+					modulePath = getDeploymentDescriptorFolder().getProjectRelativePath().removeLastSegments(1).toOSString();
 				else
-					modulePath = getDeploymentDescriptorFolder().getProjectRelativePath().makeRelative().toOSString();
-				int indx = fullPath.indexOf(modulePath);
+					modulePath = getDeploymentDescriptorFolder().getProjectRelativePath().removeLastSegments(1).makeRelative().toOSString();
+				int indx = (fullPath.indexOf(modulePath) + modulePath.length() + 1);
 				if (indx != -1)
-					return fullPath.substring(modulePath.length() + 1);
+					return fullPath.substring(indx);
 			}
 		}
 		return fullPath;
