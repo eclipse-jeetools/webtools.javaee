@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveToEARDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -31,7 +30,10 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentImportOperation extends J2EEArtifactImportOperation {
@@ -50,85 +52,40 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 	 * @param monitor
 	 *            the progress monitor to use to display progress
 	 */
-	protected void doExecute(IProgressMonitor monitor) throws ExecutionException{
+	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
-		//monitor.beginTask(null, earFile.getFiles().size());
-		
+		// monitor.beginTask(null, earFile.getFiles().size());
+
 
 		// virtualComponent =
 		// createVirtualComponent(model.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION),
 		// monitor);
 
-		List modelsNotToAddToEAR = (List) model.getProperty(IEARComponentImportDataModelProperties.UNHANDLED_PROJECT_MODELS_LIST);
+		// List modelsNotToAddToEAR = (List)
+		// model.getProperty(IEARComponentImportDataModelProperties.UNHANDLED_PROJECT_MODELS_LIST);
 		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
 		try {
 			IDataModel importModel = null;
 			List allModels = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
-			IProject earProject = virtualComponent.getProject();
-			IProject archiveProject = null;
-			AddArchiveToEARDataModel addArchiveProjectToEARDataModel = null;
-			boolean synchServerTarget = true; // model.getBooleanProperty(IEARComponentImportDataModelProperties.SYNC_SERVER_TARGETS_WITH_EAR);
-			boolean moduleImported = false;
+			List componentHandlesToAdd = new ArrayList();
 			for (int i = 0; i < allModels.size(); i++) {
-				moduleImported = false;
 				importModel = (IDataModel) allModels.get(i);
 				if (modelsToImport.contains(importModel)) {
-					moduleImported = true;
 					importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
 					try {
 						importModel.getDefaultOperation().execute(monitor, info);
 					} catch (ExecutionException e) {
 						Logger.getLogger().logError(e);
 					}
-				}
-				if (earProject.exists() && (moduleImported) && !modelsNotToAddToEAR.contains(importModel)) {
-					// archiveProject = importModel.getProject();
-					// if (archiveProject.exists()) {
-					// if (importModel instanceof J2EEModuleImportDataModel) {
-					// // TODO initialize data model
-					// // addArchiveProjectToEARDataModel =
-					// // AddModuleToEARDataModel.createAddToEARDataModel(earProject.getName(),
-					// // archiveProject).getAppropriateDataModel();
-					// addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI,
-					// importModel.getStringProperty(J2EEArtifactImportDataModel.URI_FOR_MODULE_MAPPING));
-					// addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME,
-					// synchServerTarget);
-					// if
-					// (addArchiveProjectToEARDataModel.isProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT)
-					// && importModel.isProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
-					// addArchiveProjectToEARDataModel.setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT,
-					// importModel.getProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT));
-					// }
-					// addArchiveProjectToEARDataModel.getDefaultOperation().run(monitor);
-					// if (synchServerTarget &&
-					// importModel.isProperty("WARImportDataModel.HANDLED_ARCHIVES")) {
-					// //$NON-NLS-1$
-					// List weblibs = (List)
-					// importModel.getProperty("WARImportDataModel.HANDLED_ARCHIVES"); //$NON-NLS-1$
-					// for (int j = 0; null != weblibs && j < weblibs.size(); j++) {
-					// IProject webLibProject = ((J2EEUtilityJarImportDataModel)
-					// weblibs.get(j)).getProject();
-					// ServerTargetDataModel sModel = new ServerTargetDataModel();
-					// sModel.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID,
-					// model.getProperty(EnterpriseApplicationImportDataModel.SERVER_TARGET_ID));
-					// sModel.setProperty(ServerTargetDataModel.PROJECT_NAME,
-					// webLibProject.getName());
-					// sModel.getDefaultOperation().run(monitor);
-					// }
-					// }
-					// } else if (importModel instanceof J2EEUtilityJarImportDataModel) {
-					// addArchiveProjectToEARDataModel =
-					// AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProject.getName(),
-					// archiveProject);
-					// addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI,
-					// importModel.getStringProperty(J2EEArtifactImportDataModel.URI_FOR_MODULE_MAPPING));
-					// addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME,
-					// synchServerTarget);
-					// addArchiveProjectToEARDataModel.getDefaultOperation().run(monitor);
-					// }
-					// }
+					componentHandlesToAdd.add(((IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getComponentHandle());
 				}
 			}
+			if (componentHandlesToAdd.size() > 0) {
+				IDataModel addComponentsDM = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, virtualComponent.getComponentHandle());
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, componentHandlesToAdd);
+			}
+
 		} finally {
 			resetDisposeImportModels();
 			// FileSet.printState();
@@ -155,10 +112,10 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 		IDataModel importModel;
 		for (int i = 0; i < selectedModels.size(); i++) {
 			importModel = (IDataModel) selectedModels.get(i);
-			Archive archive = (Archive)importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
+			Archive archive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			String[] manifestClasspath = archive.getManifest().getClassPathTokenized();
 			if (manifestClasspath.length > 0) {
-				List extraEntries = fixupClasspath(earProject, manifestClasspath, new ArrayList(), archive, ((IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
+				List extraEntries = fixupClasspath(earProject, manifestClasspath, new ArrayList(), archive, ((IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
 				addToClasspath(importModel, extraEntries);
 			}
 		}
