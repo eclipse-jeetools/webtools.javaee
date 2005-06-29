@@ -273,6 +273,17 @@ public class ComponentUtilities {
 		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		
+		return new CreateReferenceComponentsOp(model);
+	}
+	
+	public static CreateReferenceComponentsOp createWLPReferenceComponentOperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+		modHandlesList.addAll(targetComponentsHandles);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib");
 		return new CreateReferenceComponentsOp(model);
 	}
 

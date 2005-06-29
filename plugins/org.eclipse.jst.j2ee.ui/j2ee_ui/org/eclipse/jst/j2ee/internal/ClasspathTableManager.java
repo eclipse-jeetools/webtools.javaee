@@ -313,7 +313,9 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	 */
 	private boolean isMyClientJAR(CheckStateChangedEvent event) {
 		ClasspathElement element = (ClasspathElement) event.getElement();
-		return getClasspathSelection().isMyClientJAR(element);
+		if(getClasspathSelection() != null)
+			return getClasspathSelection().isMyClientJAR(element);
+		return false;
 	}
 
 	protected void addSelectionListener() {
