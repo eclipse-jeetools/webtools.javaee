@@ -85,19 +85,28 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			outputFolders = new IFolder[roots.length];
 			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 			for (int i = 0; i < roots.length; i++) {
+				IResource source;
 				IPath outputPath = roots[i].getRawClasspathEntry().getOutputLocation();
-				outputFolders[i] = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-
-				IPath sourcePath = roots[i].getPath();
-				IResource source = workspaceRoot.getFolder(sourcePath);
-				IVirtualResource[] virtualSources = ComponentCore.createResources(source);
-				IResource actualResource = virtualSources[0].getUnderlyingResource();
-				int sourceOffset = actualResource.getProjectRelativePath().segmentCount() - sourcePath.segmentCount();
-				int runtimeOffset = outputPath.segmentCount() - virtualSources[0].getRuntimePath().segmentCount();
-
-				javaOutputFolderSegmentCount = sourceOffset + runtimeOffset;
-
-				getFiles(new IResource[]{outputFolders[i]});
+				
+				if( outputPath != null ){
+					outputFolders[i] = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
+	
+					IPath sourcePath = roots[i].getPath();
+					
+					if( sourcePath.segmentCount() > 1 )
+						source = workspaceRoot.getFolder(sourcePath);
+					else
+						source = getComponent().getProject();
+					IVirtualResource[] virtualSources = ComponentCore.createResources(source);
+					IResource actualResource = virtualSources[0].getUnderlyingResource();
+					int sourceOffset = actualResource.getProjectRelativePath().segmentCount() - sourcePath.segmentCount();
+					int runtimeOffset = outputPath.segmentCount() - virtualSources[0].getRuntimePath().segmentCount();
+	
+					javaOutputFolderSegmentCount = sourceOffset + runtimeOffset;
+	
+					getFiles(new IResource[]{outputFolders[i]});
+				}
+			
 			}
 
 
