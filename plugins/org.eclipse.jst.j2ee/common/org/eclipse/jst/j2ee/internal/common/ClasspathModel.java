@@ -92,6 +92,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	public void setProject(IProject project) {
 		this.project = project;
 		initializeComponent();
+		getAvailableEARComponents();
 	}
 
 	private void initializeComponent() {
