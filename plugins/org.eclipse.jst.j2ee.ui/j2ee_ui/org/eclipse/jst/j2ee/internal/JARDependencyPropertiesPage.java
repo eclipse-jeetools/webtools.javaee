@@ -488,7 +488,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     /**
-	 * @see IPreferencePage#performOk()
+	 * @see IPreferencePage#performOk() 
 	 */
     public boolean performOk() {
     	if(isWLPProjectSetting())
@@ -587,7 +587,8 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
-			composedOp = new WorkspaceModifyComposedOperation();
+			if(composedOp == null)
+				composedOp = new WorkspaceModifyComposedOperation();
 			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
 		}
 		return composedOp;
