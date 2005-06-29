@@ -147,7 +147,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	private ComponentHandle computeEARHandle(){
-		String earCompName = (String) model.getProperty(EAR_COMPONENT_NAME);
 		String earProjname = (String) model.getProperty(EAR_COMPONENT_NAME);
 		
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
@@ -155,8 +154,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		
 		ComponentHandle handle = null;
 		
-		if( earProjname != null && !earProjname.equals("")){
-			handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earCompName);
+		if( earProjname != null && !earProjname.equals("") && validate(EAR_COMPONENT_NAME).isOK()){
+			handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earProjname);
 		}
 		return handle;
 	}
