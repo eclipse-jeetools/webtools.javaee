@@ -10,15 +10,17 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/18 20:59:33 $ 
+ *  $Revision: 1.6 $  $Date: 2005/06/29 15:16:23 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
 import org.eclipse.jem.internal.proxy.common.MapTypes;
 
  
@@ -267,6 +269,10 @@ public class FeatureAttributeValue implements Serializable {
 		public StringParser(String input) {
 			this.input = input;
 			this.length = input.length();
+		}
+		
+		public String toString() {
+			return "StringParser: \""+input+'"';
 		}
 		
 		public void skipWhitespace() {
@@ -616,8 +622,14 @@ public class FeatureAttributeValue implements Serializable {
 											// Good, reached the end.
 											break;
 										} else {
-											parser.backup();
-											entry = parseString(parser);	// Technically this should be invalid, but we'll let a whitespace also denote next entry.
+											if (!parser.atEnd()) {
+												parser.backup();
+												entry = parseString(parser); // Technically this should be invalid, but we'll let a whitespace also denote next entry.
+											} else {
+												// It's really screwed up. The string just ended.
+												BeaninfoPlugin.getPlugin().getLogger().log(new IllegalStateException(parser.toString()), Level.WARNING);
+												return InvalidObject.INSTANCE;
+											}
 										}
 									}
 									
