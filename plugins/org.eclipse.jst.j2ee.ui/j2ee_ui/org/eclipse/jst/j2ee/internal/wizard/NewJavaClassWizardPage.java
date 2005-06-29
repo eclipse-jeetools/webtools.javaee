@@ -47,11 +47,11 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.swt.SWT;
@@ -83,8 +83,6 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
@@ -538,17 +536,14 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			public boolean select(Viewer viewer, Object parent, Object element) {
 				if (element instanceof IProject) {
 					IProject project = (IProject) element;
-					return ServerTargetHelper.hasJavaNature(project)
-							&& project.getName().equals(model.getProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
+					return project.getName().equals(model.getProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders
 					ArtifactEditOperationDataModel dataModel = ((ArtifactEditOperationDataModel) model);
-					
-					IVirtualResource[] resources = dataModel.getComponent().getRootFolder().getResources("java");
-					for (int i = 0; i < resources.length; i++) {
-						IVirtualFolder resource = (IVirtualFolder)resources[i];
-						if (resource.getUnderlyingFolder().equals(folder))
+					IPackageFragmentRoot[] sourceFolders = ComponentUtilities.getSourceContainers(dataModel.getComponent());
+					for (int i = 0; i < sourceFolders.length; i++) {
+						if (sourceFolders[i].getResource()!= null && sourceFolders[i].getResource().equals(folder))
 							return true;
 					}
 				}
