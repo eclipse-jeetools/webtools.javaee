@@ -39,7 +39,7 @@
         	<include name="*/**/ant.jar"/>
       	</fileset>
         <fileset dir="${xdoclet.home}">
-            	<include name="*/**/*.jar"/>
+            	<include name="**/*.jar"/>
         </fileset>
 
         <!-- append the external classpath lastly -->
