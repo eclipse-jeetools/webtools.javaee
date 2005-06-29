@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/22 16:38:57 $ 
+ *  $Revision: 1.11 $  $Date: 2005/06/29 20:47:02 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -38,6 +38,8 @@ import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoClassAdapter;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin.CleanResourceChangeListener;
 
 /**
  * Controller of the BeanInfo cache. There is one per workspace (it is a static).
@@ -93,16 +95,77 @@ public class BeanInfoCacheController {
 	public static final BeanInfoCacheController INSTANCE = new BeanInfoCacheController();
 
 	private BeanInfoCacheController() {
-		// Start up save participent.
-		// TODO For now it only handles final save. It doesn't handle deltas and crashes.
-		// It should actually be a job that handles in the background, with a way of cache entries being accessed even when it isn't finished. Such
-		// as until finished when checking mod stamp it will check actual file and compare to cache entry to determine if stale.
+		// Start up save participent. This only is used for saving indexes and shutdown. Currently the saved state delta
+		// is of no interest. If a project is deleted while we were not up, then the project index would be gone, so
+		// our data will automatically be gone for the project. 
+		// If a class was deleted while the project's beaninfo was not active, the cache will still contain it. If the class ever came back it
+		// would be stale and so recreated. If it never comes back, until a clean is done, it would just hang around.
+		// The problem with delete is it is hard to determine that the file is actually a class of interest. The javamodel
+		// handles that for us but we won't have a javamodel to handle this on start up to tell us the file was a class of interest. So
+		// we'll take the hit of possible cache for non-existant classes. A clean will take care of this.
 		saveParticipant = new SaveParticipant();
 		try {
 			ResourcesPlugin.getWorkspace().addSaveParticipant(BeaninfoPlugin.getPlugin(), saveParticipant);
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
+		
+		// Create a cleanup listener to handle clean requests and project deletes. We need to know about project deletes while
+		// active because we may have a project index in memory and that needs to be thrown away.
+		JEMUtilPlugin.addCleanResourceChangeListener(new CleanResourceChangeListener() {
+		
+			protected void cleanProject(IProject project) {
+				// Get rid of the project index and the data for the project.
+				synchronized (BeanInfoCacheController.this) {
+					try {
+						Index projectIndex = (Index) project.getSessionProperty(PROJECT_INDEX_KEY);
+						if (projectIndex != null) {
+							project.setSessionProperty(PROJECT_INDEX_KEY, null);
+							projectIndex.markDead();
+							cleanDirectory(getCacheDir(project).toFile(), true);
+						}
+					} catch (CoreException e) {
+						// Shouldn't occur. 
+					}
+				}
+			}
+			
+			protected void cleanAll() {
+				synchronized(BeanInfoCacheController.this) {
+					// Get MAIN_INDEX, mark it dead, and then delete everything under it.
+					if (MAIN_INDEX != null) {
+						MAIN_INDEX.markDead();
+						MAIN_INDEX = null;
+						cleanDirectory(getCacheDir(null).toFile(), true);
+					}
+				}
+				super.cleanAll();
+			}
+			
+			public void resourceChanged(IResourceChangeEvent event) {
+				// We don't need to handle PRE_CLOSE because SaveParticipent project save will handle closing.
+				switch (event.getType()) {
+					case IResourceChangeEvent.PRE_DELETE:
+						// Don't need to clear the cache directory because Eclipse will get rid of it.
+						synchronized (BeanInfoCacheController.this) {
+							try {
+								Index projectIndex = (Index) event.getResource().getSessionProperty(PROJECT_INDEX_KEY);
+								if (projectIndex != null) {
+									// No need to remove from the project because the project is going away and will clean itself up.
+									projectIndex.markDead();
+								}
+							} catch (CoreException e) {
+								// Shouldn't occur.
+							}
+						}
+						break;
+					default:
+						super.resourceChanged(event);
+						break;
+				}
+			}
+		
+		}, IResourceChangeEvent.PRE_DELETE);
 	}
 
 	protected SaveParticipant saveParticipant;
@@ -124,6 +187,7 @@ public class BeanInfoCacheController {
 		 */
 		transient private boolean dirty;
 
+		private static final int DEAD = -1;	// Used in highRootNumber to indicate the index is dead.
 		/**
 		 * The highest root number used. It is incremented everytime one is needed. It doesn't ever decrease to recover removed roots.
 		 * 
@@ -162,6 +226,27 @@ public class BeanInfoCacheController {
 			synchronized (BeanInfoCacheController.INSTANCE) {
 				return dirty;
 			}
+		}
+		
+		/**
+		 * Answer if this index is dead. It is dead if a clean has occurred. This is needed because there could be some ClassEntry's still
+		 * around (such as in the pending write queue) that are for cleaned roots. This is used to test if it has been cleaned.
+		 * @return
+		 * 
+		 * @since 1.1.0
+		 */
+		public boolean isDead() {
+			return highRootNumber == DEAD;
+		}
+		
+		/**
+		 * Mark the index as dead.
+		 * 
+		 * 
+		 * @since 1.1.0
+		 */
+		void markDead() {
+			highRootNumber = DEAD;
 		}
 
 		private void writeObject(ObjectOutputStream os) throws IOException {
@@ -212,6 +297,16 @@ public class BeanInfoCacheController {
 			this.rootName = rootName;
 			classNameToClassEntry = new HashMap(100); // When created brand new, put in a map. Otherwise object stream will create the map.
 			this.index = index;
+		}
+		
+		/**
+		 * Get the index that points to this root.
+		 * @return
+		 * 
+		 * @since 1.1.0
+		 */
+		Index getIndex() {
+			return index;
 		}
 
 		/**
@@ -691,10 +786,15 @@ public class BeanInfoCacheController {
 	private static Index MAIN_INDEX;
 
 	/*
-	 * Map of project indexes. They are read in as needed. The key will be an IProject and the value will be an Index. This variable should not be
+	 * Key into the Project's session data for the project index. The Project index is stored in the project's session data. That
+	 * way when the project is closed or deleted it will go away. 
+	 * 
+	 * The project indexes will be read in as needed on a per-project basis. This variable should not be
 	 * referenced directly except through the getProjectIndex(IProject) accessor. That controls synchronization and restoration as needed.
+	 * Only during cleanup and such where we don't want to create one if it doesn't exist you must use sync(this). Be careful to keep 
+	 * the sync small.
 	 */
-	private static Map PROJECT_INDEXES = new HashMap();
+	private static final QualifiedName PROJECT_INDEX_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "project_index");	//$NON-NLS-1$
 
 	/*
 	 * Suffix for class cache files.
@@ -1018,40 +1118,45 @@ public class BeanInfoCacheController {
 	 * Get the project index. Synchronized so that we can create it if necessary and not get race conditions.
 	 */
 	private synchronized Index getProjectIndex(IProject project) {
-		Index index = (Index) PROJECT_INDEXES.get(project);
-		if (index == null) {
-			// Read the index in.
-			File indexDirFile = getCacheDir(project).append(INDEXFILENAME).toFile();
-			if (indexDirFile.canRead()) {
-				ObjectInputStream ois = null;
-				try {
-					ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(indexDirFile)));
-					index = (Index) ois.readObject();
-				} catch (IOException e) {
-					BeaninfoPlugin.getPlugin().getLogger().log(e);
-				} catch (ClassNotFoundException e) {
-					BeaninfoPlugin.getPlugin().getLogger().log(e);
-				} finally {
-					if (ois != null)
-						try {
-							ois.close();
-						} catch (IOException e) {
-							BeaninfoPlugin.getPlugin().getLogger().log(e);
-						}
-				}
-			}
-
+		try {
+			Index index = (Index) project.getSessionProperty(PROJECT_INDEX_KEY);
 			if (index == null) {
-				// Doesn't yet exist or it couldn't be read for some reason, or it was downlevel cache in which case we just throw it away and create
-				// new).
-				index = new Index();
-				index.highRootNumber = 0;
-				index.rootToRootIndex = new HashMap();
-			}
+				// Read the index in.
+				File indexDirFile = getCacheDir(project).append(INDEXFILENAME).toFile();
+				if (indexDirFile.canRead()) {
+					ObjectInputStream ois = null;
+					try {
+						ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(indexDirFile)));
+						index = (Index) ois.readObject();
+					} catch (IOException e) {
+						BeaninfoPlugin.getPlugin().getLogger().log(e);
+					} catch (ClassNotFoundException e) {
+						BeaninfoPlugin.getPlugin().getLogger().log(e);
+					} finally {
+						if (ois != null)
+							try {
+								ois.close();
+							} catch (IOException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							}
+					}
+				}
 
-			PROJECT_INDEXES.put(project, index); // We either created a new one, or we were able to load it. Put it into the map of projects.
+				if (index == null) {
+					// Doesn't yet exist or it couldn't be read for some reason, or it was downlevel cache in which case we just throw it away and create
+					// new).
+					index = new Index();
+					index.highRootNumber = 0;
+					index.rootToRootIndex = new HashMap();
+				}
+
+				project.setSessionProperty(PROJECT_INDEX_KEY, index); // We either created a new one, or we were able to load it.
+			}
+			return index;
+		} catch (CoreException e) {
+			// Shouldn't occur,
+			return null;
 		}
-		return index;
 	}
 
 	/*
@@ -1131,13 +1236,16 @@ public class BeanInfoCacheController {
 				case ISaveContext.PROJECT_SAVE:
 					IProject project = context.getProject();
 					synchronized (BeanInfoCacheController.INSTANCE) {
-						Index projectIndex = (Index) PROJECT_INDEXES.get(project);
+						// Write the index. The cache save job will eventually run and at that point write out the pending cache files too.
+						// They don't need to be written before the project save is complete.
+						Index projectIndex = (Index) project.getSessionProperty(PROJECT_INDEX_KEY);
 						if (projectIndex != null && projectIndex.isDirty())
-							if (cleanIndexDirectory(project, projectIndex))
+							if (reconcileIndexDirectory(project, projectIndex))
 								writeIndex(project, projectIndex);
 							else {
-								// It was empty, just get rid of it the index.
-								PROJECT_INDEXES.remove(project);
+								// It was empty, just get rid of the index. The directories have already been cleared.
+								projectIndex.markDead();
+								project.setSessionProperty(PROJECT_INDEX_KEY, null);
 							}
 					}
 					break;
@@ -1148,40 +1256,40 @@ public class BeanInfoCacheController {
 				case ISaveContext.SNAPSHOT:
 					// For a snapshot, just the dirty indexes, no clean up. If fullsave, cleanup the indexes, but only save the dirty.
 					synchronized (BeanInfoCacheController.INSTANCE) {
-						try {
-							if (MAIN_INDEX != null) {
-								if (fullsave) {
-									if (cleanIndexDirectory(null, MAIN_INDEX)) {
-										if (MAIN_INDEX.isDirty())
-											writeIndex(null, MAIN_INDEX);
-									} else {
-										// It was empty, just get rid of the index.
-										MAIN_INDEX = null;
-									}
-								} else if (MAIN_INDEX.isDirty())
-									writeIndex(null, MAIN_INDEX);
+						if (MAIN_INDEX != null) {
+							if (fullsave) {
+								if (reconcileIndexDirectory(null, MAIN_INDEX)) {
+									if (MAIN_INDEX.isDirty())
+										writeIndex(null, MAIN_INDEX);
+								} else {
+									// It was empty, just get rid of the index. The directories have already been cleared.
+									MAIN_INDEX.markDead();
+									MAIN_INDEX = null;
+								}
+							} else if (MAIN_INDEX.isDirty())
+								writeIndex(null, MAIN_INDEX);
+						}
+						// Now do the project indexes. We have to walk all open projects to see which have an index. Since we are
+						// doing a major save, the hit will ok
+						IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+						for (int i=0; i<projects.length; i++) {
+							project = projects[i];
+							if (project.isOpen()) {
+								Index index = (Index) project.getSessionProperty(PROJECT_INDEX_KEY);
+								if (index != null) {
+									if (fullsave) {
+										if (reconcileIndexDirectory(project, index)) {
+											if (index.isDirty())
+												writeIndex(project, index);
+										} else {
+											// It was empty, just get rid of the index from memory. It has already been deleted from disk.
+											index.markDead();
+											project.setSessionProperty(PROJECT_INDEX_KEY, null);
+										}
+									} else if (index.isDirty())
+										writeIndex(project, index);
+								}
 							}
-							// Now do the project indexes.
-							for (Iterator projectIndexEntryItr = PROJECT_INDEXES.entrySet().iterator(); projectIndexEntryItr.hasNext();) {
-								Map.Entry entry = (Map.Entry) projectIndexEntryItr.next();
-								project = (IProject) entry.getKey();
-								Index index = (Index) entry.getValue();
-								if (fullsave) {
-									if (cleanIndexDirectory(project, index)) {
-										if (index.isDirty())
-											writeIndex(project, index);
-									} else {
-										// It was empty, just get rid of the index.
-										projectIndexEntryItr.remove();
-									}
-								} else if (index.isDirty())
-									writeIndex(project, index);
-							}
-						} catch (RuntimeException e) {
-							e.printStackTrace();
-							// TODO Need to fix the case whereas the cache has been removed
-							// by Project-->Clean but the memory cache still thinks it exists.
-							// This try/catch should be remove once that is fixed.
 						}
 					}
 			}
@@ -1210,53 +1318,57 @@ public class BeanInfoCacheController {
 		}
 
 		/*
-		 * Clean the index directory of unused root directories. If after cleaning the index is empty, then it will delete the index file too. @return
+		 * Reconcile the index directory of unused (empty) root directories. If after reconciling the index is empty, then it will delete the index file too. @return
 		 * true if index not empty, false if index was empty and was erased too.
 		 */
-		private boolean cleanIndexDirectory(IProject project, Index index) {
+		private boolean reconcileIndexDirectory(IProject project, Index index) {
 			// clean out unused rootIndexes
 			File indexDir = getCacheDir(project).toFile();
-			// Create a set of all root names for quick look up.
-			if (index.rootToRootIndex.isEmpty()) {
-				// It is empty, clear everything, including index file.
-				cleanDirectory(indexDir, false);
-				return false;
-			} else {
-				// Need a set of the valid rootnames for quick lookup of names in the directory list.
-				// And while accumulating this list, clean out the root indexes cache too (i.e. the class cache files).
-				final Set validFiles = new HashSet(index.rootToRootIndex.size());
-				validFiles.add(INDEXFILENAME);
-				for (Iterator itr = index.rootToRootIndex.values().iterator(); itr.hasNext();) {
-					RootIndex rootIndex = (RootIndex) itr.next();
-					if (cleanClassCacheDirectory(rootIndex, project)) {
-						// The class cache has been cleaned, and there are still some classes left, so keep the root index.
-						validFiles.add(rootIndex.getRootName());
-					} else {
-						itr.remove(); // The root index is empty, so get rid of it. Since not a valid name, it will be deleted in next step.
-						index.setDirty(true); // Also set it dirty in case it wasn't because we need to write out the container Index since it was
-											  // changed.
+			if (indexDir.canWrite()) {
+				// Create a set of all root names for quick look up.
+				if (index.rootToRootIndex.isEmpty()) {
+					// It is empty, clear everything, including index file.
+					cleanDirectory(indexDir, false);
+					return false;
+				} else {
+					// Need a set of the valid rootnames for quick lookup of names in the directory list.
+					// And while accumulating this list, clean out the root indexes cache too (i.e. the class cache files).
+					final Set validFiles = new HashSet(index.rootToRootIndex.size());
+					validFiles.add(INDEXFILENAME);
+					for (Iterator itr = index.rootToRootIndex.values().iterator(); itr.hasNext();) {
+						RootIndex rootIndex = (RootIndex) itr.next();
+						if (reconcileClassCacheDirectory(rootIndex, project)) {
+							// The class cache has been reconciled, and there are still some classes left, so keep the root index.
+							validFiles.add(rootIndex.getRootName());
+						} else {
+							itr.remove(); // The root index is empty, so get rid of it. Since not a valid name, it will be deleted in next step.
+							index.setDirty(true); // Also set it dirty in case it wasn't because we need to write out the container Index since it was
+							// changed.
+						}
 					}
-				}
-				// Get list of files and delete those that are not a valid name (used root name, or index file)
-				String[] fileNames = indexDir.list();
-				for (int i = 0; i < fileNames.length; i++) {
-					if (!validFiles.contains(fileNames[i])) {
-						File file = new File(indexDir, fileNames[i]);
-						if (file.isDirectory())
-							cleanDirectory(file, true);
-						else
-							file.delete();
+					// Get list of files and delete those that are not a valid name (used root name, or index file)
+					String[] fileNames = indexDir.list();
+					for (int i = 0; i < fileNames.length; i++) {
+						if (!validFiles.contains(fileNames[i])) {
+							File file = new File(indexDir, fileNames[i]);
+							if (file.isDirectory())
+								cleanDirectory(file, true);
+							else
+								file.delete();
+						}
 					}
-				}
-				return true;
-			}
+					return true;
+				} 
+			} else 
+				return true;	// Can't write, so treat as leave alone.
 		}
 
 		/*
-		 * Clean out the class cache directory for the root index. Return true if cleaned good but not empty. Return false if the class cache
-		 * directory is now empty. In this case we should actually get rid of the entire root index.
+		 * Reconcile the class cache directory for the root index. Return true if reconciled good but not empty. Return false if the class cache
+		 * directory is now empty. In this case we should actually get rid of the entire root index. This makes sure that the directory matches
+		 * the contents of the index by removing any file not found in the index.
 		 */
-		private boolean cleanClassCacheDirectory(RootIndex rootIndex, IProject project) {
+		private boolean reconcileClassCacheDirectory(RootIndex rootIndex, IProject project) {
 			if (rootIndex.classNameToClassEntry.isEmpty())
 				return false; // There are no classes, so get rid the entire root index.
 			else {
@@ -1294,8 +1406,10 @@ public class BeanInfoCacheController {
 				return true;
 			}
 		}
-
-		private void cleanDirectory(File dir, boolean eraseDir) {
+	}
+	
+	private static void cleanDirectory(File dir, boolean eraseDir) {
+		if (dir.canWrite()) {
 			File[] files = dir.listFiles();
 			for (int i = 0; i < files.length; i++) {
 				if (files[i].isDirectory())
@@ -1306,7 +1420,7 @@ public class BeanInfoCacheController {
 			if (eraseDir)
 				dir.delete();
 		}
-	}
+	}	
 
 	//-------------- Save Class Cache Entry Job -------------------
 	// This is write queue for class caches. It is a FIFO queue. It is sychronized so that adds/removes are controlled.
@@ -1394,11 +1508,18 @@ public class BeanInfoCacheController {
 						BeaninfoPlugin.getPlugin().getLogger().log("Starting write BeanInfo Cache files.", Level.FINER); //$NON-NLS-1$
 					while (!monitor.isCanceled() && !cacheWriteQueue.isEmpty()) {
 						ClassEntry ce = (ClassEntry) cacheWriteQueue.remove(0); // Get first one.
+						boolean dead = false;
+						synchronized (BeanInfoCacheController.this) {
+							if (ce.getRootIndex().getIndex().isDead()) {
+								dead = true;	// The index is dead, so don't write it. We still need to go through and get the pending resource out of its resource set so that it goes away.
+							}
+						}
 						synchronized (ce) {
 							Resource cres = ce.getPendingResource();
 							if (cres != null) {
 								try {
-									cres.save(SAVE_CACHE_OPTIONS);
+									if (!dead)
+										cres.save(SAVE_CACHE_OPTIONS);
 								} catch (IOException e) {
 									BeaninfoPlugin.getPlugin().getLogger().log(e);
 								} finally {
@@ -1410,7 +1531,8 @@ public class BeanInfoCacheController {
 							cres = ce.getPendingOverrideResource();
 							if (cres != null) {
 								try {
-									cres.save(SAVE_CACHE_OPTIONS);
+									if (!dead)
+										cres.save(SAVE_CACHE_OPTIONS);
 								} catch (IOException e) {
 									BeaninfoPlugin.getPlugin().getLogger().log(e);
 								} finally {
