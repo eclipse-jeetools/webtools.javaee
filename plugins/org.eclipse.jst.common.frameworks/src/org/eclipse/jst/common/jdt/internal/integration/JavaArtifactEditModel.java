@@ -145,7 +145,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 		if (aResource != null) {
 			boolean isRefRes = aResource instanceof ReferencedResource;
 			if (isRefRes)
-				super.release((ReferencedResource) aResource);
+				release((ReferencedResource) aResource);
 			if (!isDisposing())
 				resetWorkingCopyManager();
 			}
