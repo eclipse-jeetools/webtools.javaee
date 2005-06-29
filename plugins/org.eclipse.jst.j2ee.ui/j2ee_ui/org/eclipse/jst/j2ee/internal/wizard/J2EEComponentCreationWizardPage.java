@@ -233,6 +233,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         moduleNameText.setLayoutData(data);
         new Label(parent, SWT.NONE); // pad
         synchHelper.synchText(moduleNameText, COMPONENT_NAME, new Control[]{projectNameLabel});
+        moduleNameText.setFocus();
     }
 
     /**
