@@ -37,6 +37,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
@@ -216,22 +217,23 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			List resources = anEvent.getChangedResources();
 			for (int i=0; i<resources.size(); i++) {
 				Resource res = (Resource) resources.get(i);
-				if (res instanceof WsddResource || res instanceof WebServicesResource) 
-					getViewer().refresh(getNavigatorGroup());
+				if (res instanceof WsddResource || res instanceof WebServicesResource) {
+					Display d = null;
+					try {
+						d = getViewer().getControl().getDisplay();
+					} catch (Exception e) {
+					}
+					if (d != Display.getCurrent() & d != null) {
+						d.syncExec(new Runnable() {
+							public void run() {
+								getViewer().refresh(getNavigatorGroup());
+							}
+						});
+					} else
+						getViewer().refresh(getNavigatorGroup());
+				}
 			}
 		}
-		
-//		if (Display.getCurrent() != null) {
-//			abstractViewer.refresh(getNavigatorGroup());
-//		} else {
-//			// Create and schedule a UI Job to update the Navigator Content Viewer 
-//			new UIJob("Update the Viewer for the Common Adapter Factory Content Provider") { //$NON-NLS-1$
-//				public IStatus runInUIThread(IProgressMonitor monitor) {
-//					abstractViewer.refresh(getNavigatorGroup());
-//					return Status.OK_STATUS;
-//				}
-//			}.schedule();
-//		}
 	}
 	
 	/*
