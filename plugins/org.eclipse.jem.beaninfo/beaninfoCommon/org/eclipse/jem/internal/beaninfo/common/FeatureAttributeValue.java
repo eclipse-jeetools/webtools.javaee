@@ -10,17 +10,15 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.6 $  $Date: 2005/06/29 15:16:23 $ 
+ *  $Revision: 1.7 $  $Date: 2005/06/29 15:32:03 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
 import org.eclipse.jem.internal.proxy.common.MapTypes;
 
  
@@ -627,7 +625,7 @@ public class FeatureAttributeValue implements Serializable {
 												entry = parseString(parser); // Technically this should be invalid, but we'll let a whitespace also denote next entry.
 											} else {
 												// It's really screwed up. The string just ended.
-												BeaninfoPlugin.getPlugin().getLogger().log(new IllegalStateException(parser.toString()), Level.WARNING);
+												new IllegalStateException(parser.toString()).printStackTrace();	// This is in common jar, so logger not available.
 												return InvalidObject.INSTANCE;
 											}
 										}
