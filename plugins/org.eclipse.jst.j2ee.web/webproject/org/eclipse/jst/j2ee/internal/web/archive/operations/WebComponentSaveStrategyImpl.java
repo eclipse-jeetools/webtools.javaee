@@ -205,7 +205,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	protected IPath convertToContentPath(String uri) {
 		if (webContentPath == null) {
-			webContentPath = vComponent.getRootFolder().getFolder("/").getUnderlyingResource().getFullPath();
+			webContentPath = vComponent.getRootFolder().getWorkspaceRelativePath();
 		}
 		return webContentPath.append(uri);
 	}
