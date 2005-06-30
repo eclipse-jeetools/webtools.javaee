@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.32 $  $Date: 2005/06/21 19:17:03 $ 
+ *  $Revision: 1.33 $  $Date: 2005/06/30 16:23:58 $ 
  */
 
 import java.io.*;
@@ -60,27 +60,6 @@ public class BeaninfoNature implements IProjectNature {
 	
 	public static final QualifiedName CONFIG_INFO_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "CONFIG_INFO"); //$NON-NLS-1$
 	public static final QualifiedName BEANINFO_CONTRIBUTORS_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "BEANINFO_CONTRIBUTORS"); //$NON-NLS-1$
-
-	private ResourceTracker resourceTracker;
-	// This class listens for changes to the beaninfo paths file, and if changed it marks all stale
-	// so the next time anything is needed it will recycle the vm. It will also listen about to close or
-	// about to delete of the project so that it can cleanup.
-	private class ResourceTracker implements IResourceChangeListener{
-		public void resourceChanged(IResourceChangeEvent e) {
-			// About to close or delete the project and it is ours, so we need to cleanup.
-			// Performance: It has been noted that dres.equals(...) can be slow with the number
-			// of visits done. Checking just the last segment (getName()) first before checking
-			// the entire resource provides faster testing. If the last segment is not equal,
-			// then the entire resource could not be equal.
-			IResource eventResource = e.getResource();
-			if (eventResource.getName().equals(getProject().getName()) && eventResource.equals(getProject())) {
-				cleanup(false, true);	// No need to clean up resources (false parm) because in this case Java EMF Model will always be going away.
-				return;
-			}
-			// Note: the BeaninfoModelSynchronizer takes care of both .classpath and .beaninfoconfig changes
-			// in this project and any required projects.
-		}
-	}
 
 	private ProxyFactoryRegistry.IRegistryListener registryListener = new ProxyFactoryRegistry.IRegistryListener() {
 		/**
@@ -277,6 +256,9 @@ public class BeaninfoNature implements IProjectNature {
 	 * This should be called ONLY when this instance of the nature is no longer needed. It
 	 * will be recreated for any new uses. That is because we will be removing ourselves
 	 * from the list of active natures in the BeanInfoPlugin.
+	 * <p>
+	 * <b>Note:</b> This will be called from the BeanInfoCacheController. It knows when the project is
+	 * being closed or deleted.
 	 * 
 	 * @param clearResults clear the results such that any JEM model objects have no BeanInfo
 	 * adapters attached to them. This allows BeanInfo to be GC'd without being hung onto.
@@ -284,11 +266,9 @@ public class BeaninfoNature implements IProjectNature {
 	 * @param deregister Deregister from the BeanInfoPlugin. Normally this will always be true, but it
 	 * will be called with false when BeanInfoPlugin is calling back to shutdown.
 	 */
-	protected void cleanup(boolean clearResults, boolean deregister) {
+	public void cleanup(boolean clearResults, boolean deregister) {
 		if (deregister)
 			BeaninfoPlugin.getPlugin().removeBeanInfoNature(this);
-		getProject().getWorkspace().removeResourceChangeListener(resourceTracker);
-		resourceTracker = null;
 		fSynchronizer.stopSynchronizer(clearResults);
 		Init.cleanup(javaRSet, clearResults);
 		if (fRegistry != null)
@@ -318,6 +298,7 @@ public class BeaninfoNature implements IProjectNature {
 	 * @param project the project to which this nature applies
 	 */
 	public void setProject(IProject project) {
+//		BeanInfoCacheController.INSTANCE.getClass();	// Instantiates the controller if not already started.
 		fProject = project;
 		BeaninfoPlugin.getPlugin().addBeanInfoNature(this);
 
@@ -353,9 +334,8 @@ public class BeaninfoNature implements IProjectNature {
 				new BeaninfoModelSynchronizer(
 					(BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(javaRSet.getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY),
 					JavaCore.create(javaNature.getProject()));
-			resourceTracker = new ResourceTracker();
-			project.getWorkspace().addResourceChangeListener(resourceTracker, IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 		} catch (CoreException e) {
+e.printStackTrace();			
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
 	}

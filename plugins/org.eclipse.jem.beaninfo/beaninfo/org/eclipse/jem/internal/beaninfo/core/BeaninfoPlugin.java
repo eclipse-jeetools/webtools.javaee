@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.15 $  $Date: 2005/05/18 20:59:17 $ 
+ *  $Revision: 1.16 $  $Date: 2005/06/30 16:23:58 $ 
  */
 
 
@@ -72,13 +72,16 @@ public class BeaninfoPlugin extends Plugin {
 		
 	
 	/*
-	 * List of open natures. This list is needed because on shutdown of beaninfo plugin we need
+	 * Map of open natures. This map is needed because on shutdown of beaninfo plugin we need
 	 * to shutdown the natures. If we don't do that there is a slight possibility of an error
 	 * because proxy plugin will shutdown and this can cause a callback into beaninfo which has
 	 * already been shutdown. It calls back through the registry listener that BeaninfoNature
 	 * added to the registry to notify that the registry is being shutdown.
+	 * 
+	 * Also BeanInfoCacheController needs to know so that it can tell it the project is closing or
+	 * being deleted or that it needs to be cleared due to a clear request.
 	 */
-	private List openNatures;
+	private Map openNatures;
 	
 	private Map containerIdsToBeaninfoEntryContributions;
 	private Map pluginToBeaninfoEntryContributions;
@@ -654,8 +657,8 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	public void addBeanInfoNature(BeaninfoNature nature) {
 		if (openNatures == null)
-			openNatures = new ArrayList();
-		openNatures.add(nature);
+			openNatures = new HashMap();
+		openNatures.put(nature.getProject(), nature);
 	}
 	
 	/**
@@ -669,17 +672,30 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	public void removeBeanInfoNature(BeaninfoNature nature) {
 		if (openNatures != null)
-			openNatures.remove(nature);
+			openNatures.remove(nature.getProject());
 	}
 	
+	/**
+	 * Return the registered nature, if any, for the project. This will not cause the
+	 * nature to be created.
+	 * <p>
+	 * <package-protected> because only BeanInfoCacheController should access it.
+	 * @param project
+	 * @return nature for project or <code>null</code> if not registered.
+	 * 
+	 * @since 1.1.0
+	 */
+	BeaninfoNature getNature(IProject project) {
+		return (BeaninfoNature) openNatures.get(project);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		if (openNatures != null) {
-			for (int i = 0; i < openNatures.size(); i++) {
-				BeaninfoNature nature = (BeaninfoNature) openNatures.get(i);
+		if (openNatures != null && !openNatures.isEmpty()) {
+			for (Iterator natureItr = openNatures.values().iterator(); natureItr.hasNext();) {
+				BeaninfoNature nature = (BeaninfoNature) natureItr.next();
 				nature.shutdown();
 			}
 		}

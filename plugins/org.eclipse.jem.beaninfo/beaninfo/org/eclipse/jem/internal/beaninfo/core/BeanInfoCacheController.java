@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.11 $  $Date: 2005/06/29 20:47:02 $ 
+ *  $Revision: 1.12 $  $Date: 2005/06/30 16:23:58 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -21,8 +21,7 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.*;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -34,7 +33,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jdt.core.*;
 
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoClassAdapter;
+import org.eclipse.jem.internal.beaninfo.adapters.*;
+import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -124,6 +124,13 @@ public class BeanInfoCacheController {
 							projectIndex.markDead();
 							cleanDirectory(getCacheDir(project).toFile(), true);
 						}
+						BeaninfoNature nature = BeaninfoPlugin.getPlugin().getNature(project);
+						if (nature != null) {
+							BeaninfoAdapterFactory adapterFactory = (BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(nature.getResourceSet().getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY);
+							if (adapterFactory != null) {
+								adapterFactory.markAllStale();
+							}
+						}						
 					} catch (CoreException e) {
 						// Shouldn't occur. 
 					}
@@ -158,6 +165,14 @@ public class BeanInfoCacheController {
 								// Shouldn't occur.
 							}
 						}
+						// Flow into PRE_CLOSE to release the nature.
+					case IResourceChangeEvent.PRE_CLOSE:
+						// About to close or delete, so release the nature, if any.
+						IProject project = (IProject) event.getResource();
+						BeaninfoNature nature = BeaninfoPlugin.getPlugin().getNature(project);
+						if (nature != null) {
+							nature.cleanup(false, true);
+						}
 						break;
 					default:
 						super.resourceChanged(event);
@@ -165,7 +180,7 @@ public class BeanInfoCacheController {
 				}
 			}
 		
-		}, IResourceChangeEvent.PRE_DELETE);
+		}, IResourceChangeEvent.PRE_DELETE | IResourceChangeEvent.PRE_CLOSE);
 	}
 
 	protected SaveParticipant saveParticipant;
