@@ -19,7 +19,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;

@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
