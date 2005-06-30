@@ -10,13 +10,14 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.7 $  $Date: 2005/06/29 15:32:03 $ 
+ *  $Revision: 1.8 $  $Date: 2005/06/30 13:47:26 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
 import java.io.*;
-import java.lang.reflect.Array;
+import java.lang.reflect.*;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 import org.eclipse.jem.internal.proxy.common.MapTypes;
@@ -624,8 +625,28 @@ public class FeatureAttributeValue implements Serializable {
 												parser.backup();
 												entry = parseString(parser); // Technically this should be invalid, but we'll let a whitespace also denote next entry.
 											} else {
-												// It's really screwed up. The string just ended.
-												new IllegalStateException(parser.toString()).printStackTrace();	// This is in common jar, so logger not available.
+												// It's really screwed up. The string just ended. Log it.
+												Exception e = new IllegalStateException(parser.toString());
+												try {
+													// See if Beaninfo plugin is available (we are running under eclipse). If so, use it, else just print to error.
+													// We may be in the remote vm and so it won't be available.
+													Class biPluginClass = Class.forName("org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin");
+													Method getPlugin = biPluginClass.getMethod("getPlugin", null);
+													Method getLogger = biPluginClass.getMethod("getLogger", null);
+													Method log = getLogger.getReturnType().getMethod("log", new Class[] {Throwable.class, Level.class});
+													Object biPlugin = getPlugin.invoke(null, null);
+													Object logger = getLogger.invoke(biPlugin, null);
+													log.invoke(logger, new Object[] {e, Level.WARNING});
+													return InvalidObject.INSTANCE;
+												} catch (SecurityException e1) {
+												} catch (IllegalArgumentException e1) {
+												} catch (ClassNotFoundException e1) {
+												} catch (NoSuchMethodException e1) {
+												} catch (IllegalAccessException e1) {
+												} catch (InvocationTargetException e1) {
+												} catch (NullPointerException e1) {
+												}
+												e.printStackTrace();	// Not in eclipse, so just print stack trace.
 												return InvalidObject.INSTANCE;
 											}
 										}
