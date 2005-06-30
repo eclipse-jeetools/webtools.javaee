@@ -77,13 +77,6 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 		return module;
 	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
-     */
-    protected List createModules(ModuleCoreNature nature) {
-        return null;
-    }
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
 	 */

@@ -44,12 +44,6 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	public String getFactoryId() {
 		return ID;
 	}
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
-     */
-    protected List createModules(ModuleCoreNature nature) {
-        return null;
-    }
 	/*
 	 * @see J2EEDeployableFactory#getNatureID()
 	 */

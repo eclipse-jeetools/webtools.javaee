@@ -103,6 +103,9 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String getType() {
+		return "j2ee.ear"; //$NON-NLS-1$
+	}
 	public String getURI(ILooseArchive archive) {
 		// TODO Auto-generated method stub
 		return null;
