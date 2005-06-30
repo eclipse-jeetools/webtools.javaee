@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager.Descriptor;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
@@ -219,9 +220,13 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	 * up to be more extensible throughout the workbench.
 	 * @see NewServletClassOperation#generateUsingTemplates(IProgressMonitor, IPackageFragment)
 	 * 
-	 * @deprecated
+	 * 
 	 */
 	private void addAnnotationsBuilder() {
+		// If an extended annotations processor is added, ignore the default xdoclet one
+		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getComponent().getComponentHandle().getProject());
+		if (descriptor != null)
+			return;
 		try {
 			NewServletClassDataModel dataModel = (NewServletClassDataModel) operationDataModel;
 			// Find the xdoclet builder from the extension registry
