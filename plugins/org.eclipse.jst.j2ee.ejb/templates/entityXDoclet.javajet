@@ -1,4 +1,4 @@
-<%@ jet package="com.ibm.wtp.ejb" imports="com.ibm.wtp.ejb.operations.*" class="EntityBeanTemplate" %> 
+<%@ jet package="com.ibm.wtp.ejb" imports="com.ibm.etools.j2ee.ejb.creation.operations.*" class="EntityBeanTemplate" %> 
 <% CreateEntityBeanTemplateModel model = (CreateEntityBeanTemplateModel) argument; %>
 package <%=model.getBeanClassPackageName()%>;
 import javax.ejb.EntityBean;

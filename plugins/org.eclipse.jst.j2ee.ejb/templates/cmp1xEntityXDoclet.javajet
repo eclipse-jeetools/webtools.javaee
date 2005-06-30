@@ -1,5 +1,5 @@
 <%@ jet package="com.ibm.wtp.ejb" 
-	imports="com.ibm.wtp.ejb.operations.* java.util.* com.ibm.etools.ejb.creation.*" 
+	imports="com.ibm.etools.j2ee.ejb.creation.operations.* java.util.* com.ibm.etools.ejb.creation.*" 
 	class="CMP1xEntityBeanTemplate" %> 
 	
 <%@ include file="cmpHeader.template" %> 

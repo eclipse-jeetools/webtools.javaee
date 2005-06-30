@@ -1,4 +1,4 @@
-<%@ jet package="com.ibm.wtp.ejb" imports="com.ibm.wtp.ejb.operations.*" class="MessageDrivenBeanTemplate" %> 
+<%@ jet package="com.ibm.wtp.ejb" imports="com.ibm.etools.j2ee.ejb.creation.operations.*" class="MessageDrivenBeanTemplate" %> 
 <% CreateMessageDrivenBeanTemplateModel model = (CreateMessageDrivenBeanTemplateModel) argument; %>
 package <%=model.getBeanClassPackageName()%>;
 import javax.ejb.MessageDrivenBean;
