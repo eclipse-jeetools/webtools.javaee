@@ -106,7 +106,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 	 * Default constructor
 	 */
 	public AnnotationsControllerManager() {
-		super("org.eclipse.wst.common.internal.annotations.controller", "annotationsController"); //$NON-NLS-1$ //$NON-NLS-2$
+		super("org.eclipse.jst.common.annotations.controller", "annotationsController"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

@@ -29,6 +29,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager.Descriptor;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -199,9 +201,12 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
      * 
      * @see EJBModuleCreationOperation#execute(IProgressMonitor)
      * 
-     * @deprecated
      */
     protected final void addAnnotationsBuilder() {
+    	//If there is an extended annotations processor, let it add itself instead of xdoclet
+    	Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)));
+    	if (descriptor!=null) 
+    		return;
         try {
             // Find the xdoclet builder from the extension registry
             IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);

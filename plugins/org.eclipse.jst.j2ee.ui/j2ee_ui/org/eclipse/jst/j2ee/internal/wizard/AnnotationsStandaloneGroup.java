@@ -26,6 +26,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
@@ -37,11 +39,12 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
  */
 public class AnnotationsStandaloneGroup {
 
-	protected WTPOperationDataModel model;
-	protected WTPDataModelSynchHelper synchHelper;
+	protected Object model;
+	protected Object synchHelper;
 	protected Button useAnnotations;
 	private boolean isForBean;
 	private boolean useServletString = false;
+	private boolean deprecatedWTPDataModel = false;
 
 	public static final String EJBTAGSET = "ejb"; //$NON-NLS-1$
 	public static boolean shouldBeanDefaultUseAnnotations = false;
@@ -67,19 +70,25 @@ public class AnnotationsStandaloneGroup {
 	/**
 	 * Constructor
 	 */
-	public AnnotationsStandaloneGroup(Composite parent, WTPOperationDataModel model, boolean forBean) {
+	public AnnotationsStandaloneGroup(Composite parent, Object model, boolean forBean) {
 		this(parent, model, forBean, false);
 	}
 
 	/**
 	 * Constructor
 	 */
-	public AnnotationsStandaloneGroup(Composite parent, WTPOperationDataModel model, boolean forBean, boolean useServlet) {
+	public AnnotationsStandaloneGroup(Composite parent, Object model, boolean forBean, boolean useServlet) {
 		super();
+		if (model instanceof WTPOperationDataModel) {
+			deprecatedWTPDataModel = true;
+			synchHelper = new WTPDataModelSynchHelper((WTPOperationDataModel)model);
+		}
+		else 
+			synchHelper = new DataModelSynchHelper((IDataModel)model);
 		this.model = model;
 		this.isForBean = forBean;
 		this.useServletString = useServlet;
-		synchHelper = new WTPDataModelSynchHelper(model);
+		
 		buildComposites(parent);
 	}
 
@@ -107,7 +116,10 @@ public class AnnotationsStandaloneGroup {
 		else
 			labelText = J2EEUIMessages.getResourceString(J2EEUIMessages.ADD_ANNOTATIONS_SUPPORT);
 		useAnnotations.setText(labelText);
-		synchHelper.synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
+		if (deprecatedWTPDataModel)
+			((WTPDataModelSynchHelper)synchHelper).synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
+		else
+			((DataModelSynchHelper)synchHelper).synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
 		useAnnotations.addSelectionListener(checkboxSelectionListener);
 		GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
 		gd2.horizontalSpan = 2;
@@ -118,7 +130,10 @@ public class AnnotationsStandaloneGroup {
 	}
 
 	public void dispose() {
-		model.removeListener(synchHelper);
+		if (deprecatedWTPDataModel)
+			((WTPOperationDataModel)model).removeListener((WTPDataModelSynchHelper)synchHelper);
+		else
+			((IDataModel)model).removeListener((DataModelSynchHelper)synchHelper);
 		synchHelper = null;
 		model = null;
 	}
@@ -166,7 +181,10 @@ public class AnnotationsStandaloneGroup {
 	public void setUseAnnotations(boolean aBoolean) {
 		if (useAnnotations != null) {
 			useAnnotations.setSelection(aBoolean);
-			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
+			if (deprecatedWTPDataModel)
+				((WTPOperationDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
+			else
+				((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
 		}
 	}
 }
