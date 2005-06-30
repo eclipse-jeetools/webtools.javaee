@@ -207,7 +207,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         return advancedComposite;
     }
     
-    private void createModuleGroup(Composite parent) {
+    protected void createModuleGroup(Composite parent) {
         // Add the module name label
         if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
             new NewModuleDataModelGroup(parent, getDataModel(),synchHelper);
