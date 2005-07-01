@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.28 $ $Date: 2005/06/21 20:35:07 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.29 $ $Date: 2005/07/01 14:09:13 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -178,19 +178,6 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		boolean useNoverify = ProxyPlugin.getPlugin().getPluginPreferences().getBoolean(ProxyPlugin.PREFERENCES_VM_NOVERIFY_KEY);
 
 		String[] evmArgs = execArgs.getVMArgumentsArray();
-//TODO: this is a temporary solution for the fact that spaces
-//      are not allowed in the libPath
-		for (int i = 0; i < evmArgs.length; i++) {
-			if (evmArgs[i].startsWith("-Djava.library.path")) { //$NON-NLS-1$
-				StringBuffer b = new StringBuffer(evmArgs[i]);
-				int idx=b.indexOf("%20"); //$NON-NLS-1$
-				while (idx>=0) {
-					b.replace(idx,idx+3," "); //$NON-NLS-1$
-					idx=b.indexOf("%20"); //$NON-NLS-1$
-				}
-				evmArgs[i]=b.toString();
-			}			
-		}
 		
 		int extraArgs = 4;	// Number of extra standard args added (if number changes below, this must change)
 		if (debugMode)
