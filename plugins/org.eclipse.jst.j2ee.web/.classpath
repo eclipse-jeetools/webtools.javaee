@@ -6,7 +6,7 @@
 	<classpathentry kind="src" path="webproject/"/>
 	<classpathentry kind="src" path="property_files/"/>
 	<classpathentry kind="src" path="taglib/"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
