@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="propertiesValFS/"/>
 	<classpathentry kind="src" path="propertiesValWB/"/>
 	<classpathentry kind="src" path="filesystemFWK/"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
