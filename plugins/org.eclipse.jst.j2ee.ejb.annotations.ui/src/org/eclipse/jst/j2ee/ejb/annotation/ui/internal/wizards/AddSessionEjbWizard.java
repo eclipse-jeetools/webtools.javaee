@@ -117,8 +117,6 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 		addSessionBeanWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(addSessionBeanWizardPage);
 		addSessionBeanWizardPage.setPageComplete(false);
-		
-		addSessionBeanWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 
 		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(
 				(ArtifactEditOperationDataModel)createDefaultModel(), 
