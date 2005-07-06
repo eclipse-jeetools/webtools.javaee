@@ -420,11 +420,19 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return null;
 	}
-		
-	
-	
+    /**
+     * This method will return the an IVirtualComponent for the given module name.  The method take either moduleName or 
+     * moduleName + ".module_extension" (module_extension = ".jar" || ".war" || ".rar") which allows users to get a IVirtualComponent 
+     * for a given entry in an application.xml
+     * 
+     * @return - a IVirtualComponent for module name
+     */
 	public IVirtualComponent getModule (String moduleName) {
-		List references = getJ2EEModuleReferences();
+        if(moduleName == null)
+            return null;
+        if(moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
+            moduleName = moduleName.substring(0, (moduleName.length()- IJ2EEModuleConstants.JAR_EXT.length()));
+        List references = getJ2EEModuleReferences();
 		references.addAll(getUtilityModuleReferences());
 		for(int i = 0; i < references.size(); i++) {
 			IVirtualReference ref = (IVirtualReference)references.get(i);
