@@ -73,7 +73,7 @@ public class EJBComponentExportDataModelProvider extends J2EEComponentExportData
 	 * @param exportSource
 	 *            If this is <code>true</code> then all source files in the specified EJB Module
 	 *            will be included in the resulting EJB JAR file.
-	 * @since WTP 1.0
+	 * @plannedfor WTP 1.0
 	 */
 	// TODO: how should this be handled in new dm providers
 	// public static void exportProject(String ejbProjectName, String ejbJarFileName, boolean
