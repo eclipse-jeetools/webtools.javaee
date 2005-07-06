@@ -165,6 +165,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		destinationButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchCombo(destinationButton, MessageDrivenBeanDataModel.DESTINATIONTYPE, null);
 		destinationButton.select(0);
+		model.setProperty(MessageDrivenBeanDataModel.DESTINATIONTYPE,DestinationType.QUEUE_LITERAL.getName());
 
 	}
 
@@ -180,6 +181,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		transactionButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchCombo(transactionButton, EnterpriseBeanClassDataModel.TRANSACTIONTYPE, null);
 		transactionButton.select(0);
+		model.setProperty(MessageDrivenBeanDataModel.TRANSACTIONTYPE,TransactionType.CONTAINER_LITERAL.getName());
 
 	}
 
