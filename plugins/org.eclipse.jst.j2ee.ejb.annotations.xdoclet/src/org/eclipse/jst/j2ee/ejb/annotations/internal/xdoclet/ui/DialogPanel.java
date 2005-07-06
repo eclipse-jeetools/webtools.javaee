@@ -155,7 +155,7 @@ public class DialogPanel extends Composite {
 		final Text fText = new Text(defPanel, SWT.SHADOW_IN | SWT.BORDER);
 		gridData = new GridData(GridData.FILL_HORIZONTAL
 				| GridData.GRAB_HORIZONTAL);
-		gridData.horizontalSpan = 1;
+		gridData.horizontalSpan = 2;
 		fText.setLayoutData(gridData);
 		fText.setText(value);
 		Button fButton = new Button(defPanel, SWT.PUSH);
