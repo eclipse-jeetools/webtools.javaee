@@ -26,6 +26,12 @@
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejb.preference">
      </page>
+     <page
+            name="webdoclet"
+            category="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage"
+            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.web.preference">
+     </page>
    </extension>
 
    <extension

@@ -143,7 +143,6 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			ReferencedComponent refedComp = (ReferencedComponent) refComps.next();
 			WorkbenchComponent clientEjbJarComp = core.findComponentByURI(refedComp.getHandle());
 			if( clientEjbJarComp.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE)){
-				IFolder folder = StructureEdit.getOutputContainerRoot(clientEjbJarComp);
 				properties.put("ejb.dd.clientjar", clientEjbJarComp.getName() + ".jar"); //$NON-NLS-1$
 				setClientJarSourcepath(properties, ejbModule, clientEjbJarComp);
 			}

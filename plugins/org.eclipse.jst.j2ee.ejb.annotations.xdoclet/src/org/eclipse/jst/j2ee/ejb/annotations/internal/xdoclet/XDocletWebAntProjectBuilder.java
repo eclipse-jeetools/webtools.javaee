@@ -31,6 +31,8 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
+	String contextRoot = ""; //$NON-NLS-1$
+
 	public XDocletWebAntProjectBuilder() {
 		super();
 		templateUrl = Platform.getBundle(XDocletAnnotationPlugin.PLUGINID).getEntry("/templates/builder/xdocletweb.xml"); //$NON-NLS-1$
@@ -43,6 +45,12 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 	protected HashMap createTemplates(String beanPath) {
 		HashMap templates = new HashMap();
 		templates.put("@servlets@", beanPath); //$NON-NLS-1$
+
+		templates.put("@jboss@", addJbossTask(contextRoot)); //$NON-NLS-1$
+		templates.put("@jonas@", addJonasTask(contextRoot)); //$NON-NLS-1$
+		templates.put("@weblogic@", addWeblogicTask(contextRoot)); //$NON-NLS-1$
+		templates.put("@websphere@", addWebSphereTask(contextRoot)); //$NON-NLS-1$
+		
 		return templates;
 	}
 
@@ -64,12 +72,10 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
 			int j2eeVersion = 0;
-			String contextRoot = ""; //$NON-NLS-1$
 			if (webEdit != null) {
 				j2eeVersion = webEdit.getJ2EEVersion();
 				//TODO
-				//contextRoot = webEdit.getServerContextRoot();
-				contextRoot = wbModule.getName();
+				contextRoot = webEdit.getServerContextRoot();
 			}
 			properties.put("web.module.webinf",getWebInfFolder(wbModule).toString() ); //$NON-NLS-1$
 			properties.put("web", contextRoot); //$NON-NLS-1$
@@ -162,6 +168,56 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		if(webXML.length > 0)
 			return webXML[0].getSourcePath().removeLastSegments(1);
 		return null;
+	}
+
+	
+	private String addJbossTask(String contextRoot) {
+		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_JBOSS))
+			return ""; //$NON-NLS-1$
+		return "<jbosswebxml version=\"" 
+		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.WEB_JBOSS + "_VERSION") + "\"" 
+		+ "    contextroot=\""+contextRoot+"\"" 
+		+ "    xmlencoding=\"UTF-8\"" 
+		+ "    destdir=\"\\${web.dd.dir}\"" 
+		+ "    validatexml=\"false\"" 
+		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
+	
+	}
+
+	private String addJonasTask(String contextRoot) {
+		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_JONAS))
+			return ""; //$NON-NLS-1$
+		return "<jonaswebxml version=\"" 
+		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.WEB_JONAS + "_VERSION") + "\"" 
+		+ "    contextroot=\""+contextRoot+"\"" 
+		+ "    xmlencoding=\"UTF-8\"" 
+		+ "    destdir=\"\\${web.dd.dir}\"" 
+		+ "    validatexml=\"false\"" 
+		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
+	
+	}
+
+	private String addWeblogicTask(String contextRoot) {
+		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_WEBLOGIC))
+			return ""; //$NON-NLS-1$
+		return "<weblogicwebxml version=\"" 
+		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.WEB_WEBLOGIC + "_VERSION") + "\"" 
+		+ "    contextRoot=\""+contextRoot+"\"" 
+		+ "    xmlencoding=\"UTF-8\"" 
+		+ "    destdir=\"\\${web.dd.dir}\"" 
+		+ "    validatexml=\"false\"" 
+		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
+	
+	}
+
+	private String addWebSphereTask(String contextRoot) {
+		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_WEBSPHERE))
+			return ""; //$NON-NLS-1$
+		return "<webspherewebxml "
+		+ "    xmlencoding=\"UTF-8\"" 
+		+ "    destdir=\"\\${web.dd.dir}\"" 
+		+ "    validateXML=\"false\"" 
+		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
 	}	
 
 	

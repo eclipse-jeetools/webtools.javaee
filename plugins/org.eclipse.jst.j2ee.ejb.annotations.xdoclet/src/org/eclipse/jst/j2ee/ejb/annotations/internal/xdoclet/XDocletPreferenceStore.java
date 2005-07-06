@@ -42,6 +42,13 @@ public class XDocletPreferenceStore {
 	public static final String EJB_ORION = "EJB_ORION";
 	public static final String EJB_JRUN = "EJB_JRUN";
 
+	public static final String WEB_JBOSS = "WEB_JBOSS";
+	public static final String WEB_JONAS = "WEB_JONAS";
+	public static final String WEB_WEBSPHERE = "WEB_WEBSPHERE";
+	public static final String WEB_WEBLOGIC = "WEB_WEBLOGIC";
+	public static final String WEB_ORACLE = "WEB_ORACLE";
+	public static final String WEB_ORION = "WEB_ORION";
+	public static final String WEB_JRUN = "WEB_JRUN";
 
 	private static IPreferenceStore getPreferenceStore() {
 		if (preferenceStore == null) {
@@ -95,6 +102,11 @@ public class XDocletPreferenceStore {
 		store.setDefault(prefix+ EJB_WEBLOGIC + "_VERSION.value", "6.1");
 		store.setDefault(prefix+ EJB_WEBSPHERE + "_VERSION.value", "all");
 
+		store.setDefault(prefix+ WEB_JBOSS + "_VERSION.value", "2.4");
+		store.setDefault(prefix+ WEB_JONAS + "_VERSION.value", "2.6");
+		store.setDefault(prefix+ WEB_WEBLOGIC + "_VERSION.value", "6.1");
+		store.setDefault(prefix+ WEB_WEBSPHERE + "_VERSION.value", "all");
+
 		
 		store.setDefault(prefix +"."+XDOCLETBUILDERACTIVE , true);
 		store.setDefault(prefix +"."+EJB_JBOSS , false);
@@ -104,6 +116,14 @@ public class XDocletPreferenceStore {
 		store.setDefault(prefix +"."+EJB_ORACLE , false);
 		store.setDefault(prefix +"."+EJB_ORION , false);
 		store.setDefault(prefix +"."+EJB_JRUN , false);
-	}
+
+		store.setDefault(prefix +"."+WEB_JBOSS , false);
+		store.setDefault(prefix +"."+WEB_JONAS , false);
+		store.setDefault(prefix +"."+WEB_WEBSPHERE , false);
+		store.setDefault(prefix +"."+WEB_WEBLOGIC , false);
+		store.setDefault(prefix +"."+WEB_ORACLE , false);
+		store.setDefault(prefix +"."+WEB_ORION , false);
+		store.setDefault(prefix +"."+WEB_JRUN , false);
+}
 
 }

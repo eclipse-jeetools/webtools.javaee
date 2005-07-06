@@ -28,9 +28,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util.AntLauncherUtility;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
@@ -41,8 +39,6 @@ public abstract class XDocletAntProjectBuilder {
 	public static class Factory {
 
 		public static XDocletAntProjectBuilder newInstance(IResource resource) {
-			WebArtifactEdit webEdit = null;
-			StructureEdit moduleCore = null;
 			IVirtualResource[] vResources = ComponentCore.createResources(resource);
 			if( vResources.length == 0)
 				return null;

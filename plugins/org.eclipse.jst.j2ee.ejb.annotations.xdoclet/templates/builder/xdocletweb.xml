@@ -72,6 +72,16 @@
     	<!-- SERVLETS END -->
   		<deploymentdescriptor servletspec="${servlet.spec.version}" destdir="${web.dd.dir}">
         </deploymentdescriptor> 
+    	
+
+
+    	  @jboss@
+    	  @jonas@
+    	  @weblogic@
+    	  @websphere@
+            
+
+    	
    	</webdoclet>
  
    </target>
