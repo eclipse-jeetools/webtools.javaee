@@ -160,7 +160,7 @@ public interface MessageDriven extends EnterpriseBean{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Config</em>' containment reference.
 	 * @see #setActivationConfig(ActivationConfig)
@@ -189,7 +189,7 @@ public interface MessageDriven extends EnterpriseBean{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destination</em>' reference.
 	 * @see #setMessageDestination(JavaClass)
@@ -249,7 +249,7 @@ public interface MessageDriven extends EnterpriseBean{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * The messaging-type element specifies the message
 	 *         listener interface of the message-driven bean. If
 	 *         the messaging-type element is not specified, it is

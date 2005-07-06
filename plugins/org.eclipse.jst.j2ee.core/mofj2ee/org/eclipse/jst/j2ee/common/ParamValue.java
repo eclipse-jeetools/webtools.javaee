@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * This type is a general type that can be used to declare
  * parameter/value lists.
  * <!-- end-model-doc -->
@@ -106,7 +106,7 @@ public interface ParamValue extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4 deprecated, becomes descriptions
+	 * @plannedfor J2EE1.4 deprecated, becomes descriptions
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)

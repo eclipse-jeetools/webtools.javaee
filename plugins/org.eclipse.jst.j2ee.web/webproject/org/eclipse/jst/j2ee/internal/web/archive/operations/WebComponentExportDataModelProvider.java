@@ -62,7 +62,7 @@ public class WebComponentExportDataModelProvider extends J2EEComponentExportData
      * @param exportSource
      *            If this is <code>true</code> then all source files in the specified Web Module
      *            will be included in the resulting WAR file.
-     * @since WTP 1.0
+     * @plannedfor WTP 1.0
      */
 //TODO: determine plan for new DM Provider
 //    public static void exportProject(String webProjectName, String warFileName, boolean overwriteExisting, boolean exportSource) {

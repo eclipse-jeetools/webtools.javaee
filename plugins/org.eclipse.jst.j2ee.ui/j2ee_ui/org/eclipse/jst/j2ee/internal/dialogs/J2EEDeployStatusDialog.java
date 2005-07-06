@@ -83,7 +83,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	 * Called just after the operation is run. Default behaviour is to decrement the nesting depth,
 	 * and close the dialog.
 	 * 
-	 * @since 3.0
+	 * @plannedfor 3.0
 	 */
 	protected void finishedRun() {
 		decrementNestingDepth();

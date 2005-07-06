@@ -24,7 +24,7 @@ import org.eclipse.jface.util.Assert;
  * Quick sort to sort key-value pairs. The keys and arrays are specified in
  * separate arrays.
  * 
- * @since 2.0
+ * @plannedfor 2.0
  */
 public class TwoArrayQuickSorter {
 

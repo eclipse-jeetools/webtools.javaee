@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The jsp-configType is used to provide global configuration
  * information for the JSP files in a web application. It has
  * two subelements, taglib and jsp-property-group.

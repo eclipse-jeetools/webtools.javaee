@@ -138,7 +138,7 @@ CMPAttribute removePersistentAttribute(String aName) ;
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4 moved from CME
+	 * @plannedfor J2EE1.4 moved from CME
 	 * The optional query elements must be present if the persistence-type is Container and the cmp-version is 2.x and query methods other than findByPrimaryKey have been defined for the entity bean.
 	 * 
 	 * @invariant see description

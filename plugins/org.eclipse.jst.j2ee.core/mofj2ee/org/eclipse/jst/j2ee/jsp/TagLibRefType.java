@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * A taglib can be used to provide information on a tag
  * library that is used by a JSP page within the Web
  * Application.

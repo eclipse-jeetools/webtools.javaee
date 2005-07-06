@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The messageadapterType specifies information about the
  * messaging capabilities of the resource adapter. This
  * contains information specific to the implementation of the

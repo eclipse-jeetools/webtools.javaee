@@ -52,7 +52,7 @@ public class AppClientComponentExportDataModelProvider extends J2EEComponentExpo
      * @param exportSource
      *            If this is <code>true</code> then all source files in the specified Application
      *            Client Module will be included in the resulting Application Client Jar file.
-     * @since WTP 1.0
+     * @plannedfor WTP 1.0
      */
 //    public static void exportProject(String appClientProjectName, String appClientJarFileName, boolean overwriteExisting, boolean exportSource) {
 //        AppClientModuleExportDataModel dataModel = new AppClientModuleExportDataModel();

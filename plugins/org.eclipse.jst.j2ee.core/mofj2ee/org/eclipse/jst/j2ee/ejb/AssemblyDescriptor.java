@@ -98,7 +98,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destinations</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getAssemblyDescriptor_MessageDestinations()

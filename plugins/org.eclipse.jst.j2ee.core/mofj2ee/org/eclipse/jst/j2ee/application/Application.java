@@ -72,7 +72,7 @@ public boolean isVersion1_3Descriptor();
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4 
+	 * @plannedfor J2EE1.4 
 	 * The required value for the version is 1.4.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.

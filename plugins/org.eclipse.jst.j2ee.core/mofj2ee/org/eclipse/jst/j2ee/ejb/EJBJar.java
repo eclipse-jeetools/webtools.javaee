@@ -129,7 +129,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * The version specifies the version of the
 	 *     EJB specification that the instance document must
 	 *     comply with. This information enables deployment tools

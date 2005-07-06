@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4 deprecated
+ * @plannedfor J2EE1.4 deprecated
  * <!-- end-model-doc -->
  *
  * <p>

@@ -26,7 +26,7 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
  * @see org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties
  * @see org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties
- * @since 1.0
+ * @plannedfor 1.0
  */
 
 public interface IEarComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {

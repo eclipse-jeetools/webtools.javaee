@@ -26,7 +26,7 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
  * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
  * 
- * @since 1.0
+ * @plannedfor 1.0
  */
 public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
     /**

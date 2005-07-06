@@ -38,7 +38,7 @@ public interface ServletMapping extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * The servlet-name element contains the canonical name of the
 	 * servlet. Each servlet name is unique within the web
 	 * application.

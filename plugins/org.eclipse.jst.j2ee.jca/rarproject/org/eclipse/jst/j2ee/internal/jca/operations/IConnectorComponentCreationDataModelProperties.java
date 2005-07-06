@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModel
  * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
  * @see org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties
  * @see org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties
- * @since 1.0
+ * @plannedfor 1.0
  */
 
 public interface IConnectorComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {

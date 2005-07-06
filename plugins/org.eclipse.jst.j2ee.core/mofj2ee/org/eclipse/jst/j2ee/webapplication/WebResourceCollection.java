@@ -56,7 +56,7 @@ public void addURL(String urlPattern);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Url Pattern</em>' attribute list.
 	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebResourceCollection_UrlPattern()
@@ -76,7 +76,7 @@ public void addURL(String urlPattern);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Http Method</em>' attribute list.
 	 * @see org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum
@@ -121,7 +121,7 @@ public void addURL(String urlPattern);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebResourceCollection_Descriptions()

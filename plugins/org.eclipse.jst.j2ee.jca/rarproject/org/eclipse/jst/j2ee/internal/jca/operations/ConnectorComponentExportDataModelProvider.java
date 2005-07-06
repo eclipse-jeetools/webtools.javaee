@@ -51,7 +51,7 @@ public class ConnectorComponentExportDataModelProvider extends J2EEComponentExpo
      * @param exportSource
      *            If this is <code>true</code> then all source files in the specified Connector
      *            Module will be included in the resulting Connector RAR file.
-     * @since WTP 1.0
+     * @plannedfor WTP 1.0
      */
 //    public static void exportProject(String connectorProjectName, String rarFileName, boolean overwriteExisting, boolean exportSource) {
 //        ConnectorModuleExportDataModel dataModel = new ConnectorModuleExportDataModel();

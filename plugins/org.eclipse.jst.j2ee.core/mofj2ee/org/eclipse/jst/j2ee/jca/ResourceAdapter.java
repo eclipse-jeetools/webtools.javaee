@@ -247,7 +247,7 @@ public interface ResourceAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * The connectionfactory-interface element content must be
 	 *         unique in the outbound-resourceadapter. Multiple connection-definitions
 	 *         can not use the same connectionfactory-type.
@@ -279,7 +279,7 @@ public interface ResourceAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inbound Resource Adapter</em>' containment reference.
 	 * @see #setInboundResourceAdapter(InboundResourceAdapter)
@@ -309,7 +309,7 @@ public interface ResourceAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Admin Objects</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getResourceAdapter_AdminObjects()

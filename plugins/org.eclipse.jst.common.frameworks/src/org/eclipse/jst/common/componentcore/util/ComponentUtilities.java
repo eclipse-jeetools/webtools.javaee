@@ -99,7 +99,7 @@ public class ComponentUtilities {
 	 * 
 	 * @param resource
 	 *            workspace resource to make read/write
-	 * @since 1.0.0
+	 * @plannedfor 1.0.0
 	 */
 	public static void ensureContainerNotReadOnly(IResource resource) {
 		if (resource != null && !resource.exists()) { // it must be new

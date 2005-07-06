@@ -51,7 +51,7 @@ public class EARComponentExportDataModelProvider extends J2EEArtifactExportDataM
      *            If this is <code>true</code> then all source files in the specified Enterprise
      *            Application Project and all its modules will be included in the resulting EAR
      *            file.
-     * @since WTP 1.0
+     * @plannedfor WTP 1.0
      */
 //TODO: can this be done in the new datamodel framework?
 //    public static void exportProject(String earProjectName, String earFileName, boolean overwriteExisting, boolean exportSource) {

@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The description type is used by a description element to
  * provide text describing the parent element.  The elements
  * that use this type should include any information that the

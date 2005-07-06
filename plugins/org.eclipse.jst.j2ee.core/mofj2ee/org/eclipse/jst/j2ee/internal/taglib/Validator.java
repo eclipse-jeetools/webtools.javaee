@@ -48,7 +48,7 @@ public interface Validator extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getValidator_Descriptions()

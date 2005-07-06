@@ -24,7 +24,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
  * the new project structures are adopted. Use at your own risk.
  * 
- * @since WTP 1.0
+ * @plannedfor WTP 1.0
  */
 public final class ConnectorComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider {
 

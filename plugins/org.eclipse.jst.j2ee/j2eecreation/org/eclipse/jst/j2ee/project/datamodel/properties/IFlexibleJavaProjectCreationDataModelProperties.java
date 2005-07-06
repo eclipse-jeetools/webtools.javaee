@@ -25,7 +25,7 @@ import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCr
  * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
  * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
  * 
- * @since 1.0
+ * @plannedfor 1.0
  */
 public interface IFlexibleJavaProjectCreationDataModelProperties extends IFlexibleProjectCreationDataModelProperties {
     /**

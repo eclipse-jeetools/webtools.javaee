@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * Defines an action in this tag library that is implemented
  * as a .tag file.
  * 

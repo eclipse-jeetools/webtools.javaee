@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The required-config-propertyType contains a declaration
  * of a single configuration property used for specifying a
  * required configuration property name. It is used

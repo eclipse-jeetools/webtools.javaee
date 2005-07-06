@@ -120,7 +120,7 @@ public interface TagLib extends CompatibilityDescriptionGroup{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @since J2EE1.4
+	 * @plannedfor J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Functions</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getTagLib_Functions()

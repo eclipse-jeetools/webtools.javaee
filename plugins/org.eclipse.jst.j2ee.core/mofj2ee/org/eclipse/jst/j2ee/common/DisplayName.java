@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The display-name type contains a short name that is intended
  * to be displayed by tools. It is used by display-name
  * elements.  The display name need not be unique.

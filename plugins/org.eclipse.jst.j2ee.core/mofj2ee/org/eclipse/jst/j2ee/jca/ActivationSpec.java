@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The activationspecType specifies an activation
  * specification.  The information includes fully qualified
  * Java class name of an activation specification and a set of

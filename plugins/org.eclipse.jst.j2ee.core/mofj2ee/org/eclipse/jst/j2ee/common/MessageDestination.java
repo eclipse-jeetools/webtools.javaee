@@ -18,7 +18,7 @@ package org.eclipse.jst.j2ee.common;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The message-destinationType specifies a message
  * destination. The logical destination described by this
  * element is mapped to a physical destination by the Deployer.

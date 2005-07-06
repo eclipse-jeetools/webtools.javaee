@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @since J2EE1.4
+ * @plannedfor J2EE1.4
  * The messagelistenerType specifies information about a
  * specific message listener supported by the messaging
  * resource adapter. It contains information on the Java type
