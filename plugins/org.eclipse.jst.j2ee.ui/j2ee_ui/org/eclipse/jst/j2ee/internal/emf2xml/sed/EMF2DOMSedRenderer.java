@@ -411,8 +411,9 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 		} else {
 			setRootNodeAdapterNotificationEnabled(false);
 			try {
-				getXMLModel().changedModel();
+				getXMLModel().aboutToChangeModel();
 			} finally {
+				getXMLModel().changedModel();
 				setRootNodeAdapterNotificationEnabled(true);
 			}
 			isBatchChanges = false;
