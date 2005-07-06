@@ -212,6 +212,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
             IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
             String builderID = configurationElements[0].getNamespace() + "." + configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
             IProject project = ProjectUtilities.getProject(model.getProperty(PROJECT_NAME));
+            if(project != null && project.isAccessible()) {
             IProjectDescription description = project.getDescription();
             ICommand[] commands = description.getBuildSpec();
             boolean found = false;
@@ -233,6 +234,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
                 desc.setBuildSpec(newCommands);
                 project.setDescription(desc, null);
             }
+           }
         } catch (Exception e) {
             // Ignore
         }
