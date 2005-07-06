@@ -23,7 +23,10 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 	private static String ID_WST_SNIPPETS_VIEW = "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$	
 	private static String ID_EJB_PROJECT_WIZARD = "org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"; //$NON-NLS-1$
-	private static String ID_DYNAMIC_WEB_COMPONENT_WIZARD = "org.eclipse.jst.servlet.ui.WebComponentCreationWizard"; //$NON-NLS-1$
+	private static String ID_RAR_PROJECT_WIZARD = "org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard"; //$NON-NLS-1$
+	private static String ID_APPCLIENT_PROJECT_WIZARD = "org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard"; //$NON-NLS-1$
+	private static String ID_EAR_PROJECT_WIZARD = "org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard"; //$NON-NLS-1$
+    private static String ID_DYNAMIC_WEB_COMPONENT_WIZARD = "org.eclipse.jst.servlet.ui.WebComponentCreationWizard"; //$NON-NLS-1$
 	private static String ID_STATIC_WEB_COMPONENT_WIZARD = "org.eclipse.wst.web.ui.internal.wizards.SimpleWebModuleCreation"; //$NON-NLS-1$
 	private static final String ID_SEARCH_VIEW = "org.eclipse.search.ui.views.SearchView"; //$NON-NLS-1$
 	public static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
@@ -71,9 +74,12 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 				// views - debugging
 		layout.addShowViewShortcut(ID_CONSOLE_VIEW);
 
-		layout.addNewWizardShortcut(ID_STATIC_WEB_COMPONENT_WIZARD);
 		layout.addNewWizardShortcut(ID_DYNAMIC_WEB_COMPONENT_WIZARD);
+        layout.addNewWizardShortcut(ID_STATIC_WEB_COMPONENT_WIZARD);
 		layout.addNewWizardShortcut(ID_EJB_PROJECT_WIZARD);
+        layout.addNewWizardShortcut(ID_RAR_PROJECT_WIZARD);
+        layout.addNewWizardShortcut(ID_APPCLIENT_PROJECT_WIZARD);
+        layout.addNewWizardShortcut(ID_EAR_PROJECT_WIZARD);
 
 		// Add "new wizards"
         layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.project");//$NON-NLS-1$
