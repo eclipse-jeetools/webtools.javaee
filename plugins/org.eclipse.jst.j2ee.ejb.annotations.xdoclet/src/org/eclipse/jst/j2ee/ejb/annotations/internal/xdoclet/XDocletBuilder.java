@@ -8,7 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.ICommand;
@@ -16,8 +15,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IResourceVisitor;
