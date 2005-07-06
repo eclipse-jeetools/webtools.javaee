@@ -71,6 +71,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         if (propertyName.equals(ADD_TO_EAR)) {
             if (!((Boolean) propertyValue).booleanValue()) {
                 model.setProperty(CREATE_CLIENT, propertyValue);
+                model.notifyPropertyChange(CREATE_CLIENT, IDataModel.ENABLE_CHG);
             }
             model.notifyPropertyChange(CREATE_CLIENT, DataModelEvent.ENABLE_CHG);
         } else if (propertyName.equals(USE_ANNOTATIONS)) {
@@ -284,6 +285,11 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
             if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
                 return false;
             return true;
+        }
+        if (CREATE_CLIENT.equals(propertyName)) {
+        	if(getBooleanProperty(ADD_TO_EAR))
+        		return true;
+        	return false;
         }
         return super.isPropertyEnabled(propertyName);
     }
