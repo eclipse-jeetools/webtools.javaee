@@ -17,6 +17,7 @@ package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -115,6 +116,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			IResource javaFile = bean.getCorrespondingResource();
 			IProject project = dataModel.getTargetProject();
 			initializeBuilder(monitor, preferredAnnotation,javaFile, project);
+			project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
 		
 		
 	}
@@ -163,6 +165,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			IResource javaFile = bean.getCorrespondingResource();
 			IProject project = dataModel.getTargetProject();
 			initializeBuilder(monitor, emitterConfiguration, javaFile, project);
+			project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
 
 		}
 

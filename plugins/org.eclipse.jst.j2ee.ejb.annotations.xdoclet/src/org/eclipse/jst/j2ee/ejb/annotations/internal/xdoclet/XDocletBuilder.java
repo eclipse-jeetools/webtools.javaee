@@ -43,46 +43,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 
 	private static boolean isGloballyEnabled = true;
 
-	protected static class ProjectChangeListener implements IResourceChangeListener, IResourceDeltaVisitor {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
-		 */
-		public void resourceChanged(IResourceChangeEvent event) {
-			IResourceDelta delta = event.getDelta();
-			if (delta.getResource() != null) {
-				int resourceType = delta.getResource().getType();
-				if (resourceType == IResource.PROJECT || resourceType == IResource.ROOT) {
-					try {
-						delta.accept(this);
-					} catch (CoreException e) {
-						Logger.logException("Exception managing buildspec list", e); //$NON-NLS-1$
-					}
-				}
-			}
-		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
-		 */
-		public boolean visit(IResourceDelta delta) throws CoreException {
-			IResource resource = delta.getResource();
-			if (resource != null) {
-				if (resource.getType() == IResource.ROOT)
-					return true;
-				else if (resource.getType() == IResource.PROJECT) {
-					if (delta.getKind() == IResourceDelta.ADDED) {
-						add(new NullProgressMonitor(), (IProject) resource, null);
-					}
-					return false;
-				}
-			}
-			return false;
-		}
-	}
 
 	/**
 	 * Add the XDocletBuilder to the build spec of a single IProject
@@ -239,6 +200,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		}
 		localMonitor.worked(1);
 		localMonitor.done();
+		
 		return new IProject[]{getProject()};
 	}
 
@@ -262,7 +224,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		if (!isGloballyEnabled || currentProject == null || !currentProject.isAccessible()) {
 			return;
 		}
-		doFullBuild(IncrementalProjectBuilder.CLEAN_BUILD, new HashMap(0), monitor, getProject());
+		//doFullBuild(IncrementalProjectBuilder.CLEAN_BUILD, new HashMap(0), monitor, getProject());
 	}
 
 	boolean isXDocletAnnotatedResource(IResource resource) {
@@ -307,11 +269,15 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 
 		final IProgressMonitor visitorMonitor = monitor;
 		IResourceVisitor internalBuilder = new IResourceVisitor() {
+			//xdoclet builder completes the whole project at once so no need to
+			// repeat the build with each annotated bean.  Stop after the first one
+			boolean buildComplete = false; 
 			public boolean visit(IResource resource) throws CoreException {
-				if (resource.getType() == IResource.FILE) {
+				if (resource.getType() == IResource.FILE && buildComplete==false) {
 					// for any supported file type, record the resource
-					if (isXDocletAnnotatedResource(resource)) {
+					if (!buildComplete  && isXDocletAnnotatedResource(resource)) {
 						build(localKind, localArgs, resource, null, subMonitor);
+						buildComplete=true;
 						visitorMonitor.worked(1);
 					}
 					return false;
@@ -340,10 +306,16 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		final int localKind = kind;
 		final IProgressMonitor localMonitor = monitor;
 		IResourceDeltaVisitor participantVisitor = new IResourceDeltaVisitor() {
+			//xdoclet builder completes the whole project at once so no need to
+			// repeat the build with each annotated bean.  Stop after the first one
+			boolean buildComplete = false; 
+
 			public boolean visit(IResourceDelta delta) throws CoreException {
 				if (!localMonitor.isCanceled() && delta.getResource().getType() == IResource.FILE) {
-					if (isXDocletAnnotatedResource(delta.getResource()))
+					if (!buildComplete  && isXDocletAnnotatedResource(delta.getResource())){
 						build(localKind, localArgs, delta.getResource(), null, localMonitor);
+						buildComplete=true;
+					}
 				}
 				return delta.getAffectedChildren().length > 0;
 			}
