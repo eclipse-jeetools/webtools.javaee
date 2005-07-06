@@ -39,6 +39,7 @@ import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.SWT;
@@ -64,6 +65,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.FileSystemElement;
 import org.eclipse.ui.dialogs.WizardResourceImportPage;
+import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.internal.dialogs.DialogUtil;
 import org.eclipse.ui.internal.ide.dialogs.IElementFilter;
 import org.eclipse.ui.internal.ide.dialogs.ResourceTreeAndListGroup;
@@ -282,6 +284,7 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 	 */
 	public void createControl(Composite parent) {
 		//super.createControl(parent);
+		WorkbenchHelp.setHelp(parent, IJ2EEUIContextIds.IMPORT_CLASS_WIZARD_P2);
 		initializeDialogUnits(parent);
 
 		Composite composite = new Composite(parent, SWT.NULL);

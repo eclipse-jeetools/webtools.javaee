@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -74,7 +75,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		Composite modulesGroup = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		modulesGroup.setLayout(layout);
-//		setInfopopID(IJ2EEUIContextIds.NEW_EAR_ADD_MODULES_PAGE);
+		setInfopopID(IJ2EEUIContextIds.NEW_EAR_ADD_MODULES_PAGE);
 		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
 		modulesGroup.setLayoutData(gridData);
 		createModuleProjectOptions(modulesGroup);

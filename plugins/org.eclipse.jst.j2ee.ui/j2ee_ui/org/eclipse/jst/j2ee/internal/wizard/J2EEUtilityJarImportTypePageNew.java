@@ -31,6 +31,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -106,6 +107,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		setTitle(""); //$NON-NLS-1$
 		setDescription(""); //$NON-NLS-1$
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
+		setInfopopID(IJ2EEUIContextIds.IMPORT_UTILITY_JAR_WIZARD_P2);
 	}
 
 	public J2EEUtilityJarImportTypePageNew(IDataModel model, String pageName, IStructuredSelection selection) {

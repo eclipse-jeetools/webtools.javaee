@@ -70,7 +70,7 @@ public class EARComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 */
 	protected void doAddPages() {
 		EARComponentCreationWizardPage page1 = new EARComponentCreationWizardPage(getDataModel(), MAIN_PG);
-//		page.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
+		page1.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
 		addPage(page1);
 		EARComponentCreationSecondPage page2 = new EARComponentCreationSecondPage(getDataModel(), SECOND_PG);
 		addPage(page2);

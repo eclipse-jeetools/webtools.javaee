@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -76,6 +77,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		setTitle(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_0")); //$NON-NLS-1$
 		setDescription(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_1")); //$NON-NLS-1$
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
+		setInfopopID(IJ2EEUIContextIds.IMPORT_UTILITY_JAR_WIZARD_P1);
 	}
 
 	/*

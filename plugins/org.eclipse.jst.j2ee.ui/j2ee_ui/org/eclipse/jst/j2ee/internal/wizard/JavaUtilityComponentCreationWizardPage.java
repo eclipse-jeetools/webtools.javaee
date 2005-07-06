@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -44,6 +45,7 @@ public class JavaUtilityComponentCreationWizardPage extends DataModelWizardPage 
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVAUTILITY_MAIN_PG_DESC));
 		ImageDescriptor desc = AbstractUIPlugin.imageDescriptorFromPlugin(WSTWebPlugin.PLUGIN_ID, "icons/full/wizban/newwprj_wiz.gif"); //$NON-NLS-1$
 		setImageDescriptor(desc);
+		setInfopopID(IJ2EEUIContextIds.NEW_JAVA_COMPONENT_WIZARD_P1);
 		setPageComplete(true);
 	}
 

@@ -44,19 +44,31 @@ public interface IJ2EEUIContextIds {
 	public static final String NEW_EJB_WIZARD_P2 = J2EEUIPlugin.PLUGIN_ID + ".EJB_NEW_EJB_WIZARD_PAGE2"; //$NON-NLS-1$
 	public static final String NEW_EJB_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".EJB_NEW_EJB_WIZARD_PAGE3"; //$NON-NLS-1$
 
-	//New App Client project Wizard - 3 Pages
+	// New App Client project Wizard
 	public static final String NEW_APPCLIENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".APPCLIENT_NEW_APPCLIENT_WIZARD_PAGE1"; //$NON-NLS-1$
 
-	//Import App Client wizard - 3 Pages
+	// New Java component Wizard
+	public static final String NEW_JAVA_COMPONENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_JAVA_COMPONENT_WIZARD_PAGE1"; //$NON-NLS-1$
+	public static final String NEW_JAVA_CLASS_OPTION_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_JAVA_CLASS_OPTION_WIZARD_PAGE1"; //$NON-NLS-1$
+
+	// Import App Client wizard - 3 Pages
 	public static final String IMPORT_APPCLIENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".APPCLIENT_IMPORT_APPCLIENT_WIZARD_PAGE1"; //$NON-NLS-1$
 
 	public static final String IMPORT_RAR_WIZARD_PAGE = J2EEUIPlugin.PLUGIN_ID + ".IMPORT_RAR_WIZARD_PAGE"; //$NON-NLS-1$
 	public static final String EXPORT_RAR_WIZARD_PAGE = J2EEUIPlugin.PLUGIN_ID + ".EXPORT_RAR_WIZARD_PAGE"; //$NON-NLS-1$
 
-	//Import EJB wizard - 3 Pages
+	// Import EJB wizard - 3 Pages
 	public static final String IMPORT_EJB_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EJB_IMPORT_EJB_WIZARD_PAGE1"; //$NON-NLS-1$
 
-	//Import EAR Wizard - 3 Pages
+	// Import Utility jar wizard
+	public static final String IMPORT_UTILITY_JAR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".IMPORT_UTILITY_JAR_WIZARD_PAGE1"; //$NON-NLS-1$
+	public static final String IMPORT_UTILITY_JAR_WIZARD_P2 = J2EEUIPlugin.PLUGIN_ID + ".IMPORT_UTILITY_JAR_WIZARD_PAGE2"; //$NON-NLS-1$
+
+	// Import Class wizard
+	public static final String IMPORT_CLASS_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".IMPORT_CLASS_WIZARD_PAGE1"; //$NON-NLS-1$
+	public static final String IMPORT_CLASS_WIZARD_P2 = J2EEUIPlugin.PLUGIN_ID + ".IMPORT_CLASS_WIZARD_PAGE2"; //$NON-NLS-1$
+
+	//Import EAR Wizard 
 	public static final String IMPORT_EAR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EAR_IMPORT_EAR_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String IMPORT_EAR_WIZARD_P2 = J2EEUIPlugin.PLUGIN_ID + ".EAR_IMPORT_EAR_WIZARD_PAGE2"; //$NON-NLS-1$
 	public static final String IMPORT_EAR_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".EAR_IMPORT_EAR_WIZARD_PAGE3"; //$NON-NLS-1$

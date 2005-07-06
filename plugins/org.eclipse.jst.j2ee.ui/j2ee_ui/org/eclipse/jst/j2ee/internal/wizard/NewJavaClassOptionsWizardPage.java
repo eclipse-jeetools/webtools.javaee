@@ -32,6 +32,7 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -76,6 +77,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		super(model, pageName);
 		setDescription(pageDesc);
 		this.setTitle(pageTitle);
+		setInfopopID(IJ2EEUIContextIds.NEW_JAVA_CLASS_OPTION_WIZARD_P1);
 	}
 
 	/*
