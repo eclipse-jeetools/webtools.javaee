@@ -89,6 +89,7 @@
          <entitycmp/>
          <entitybmp/>
          <session/>
+      	 <mdb/>
 
   	     @deploymentdescriptor@
 
@@ -111,6 +112,7 @@
 			    <exclude name="**/*Bean.java"/>
 			    <exclude name="**/*EJB.java"/>
 			    <exclude name="**/*Session.java"/>
+			    <exclude name="**/*Mdb.java"/>
 			</fileset>
 	   	  </move>		
 	</target>
