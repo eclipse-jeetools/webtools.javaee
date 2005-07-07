@@ -80,7 +80,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 	
-	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 
 	/**
 	 * 
