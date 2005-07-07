@@ -7,8 +7,10 @@
 package org.eclipse.jst.j2ee.internal.perspective;
 
 import org.eclipse.debug.ui.IDebugUIConstants;
+import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.progress.IProgressConstants;
 
 /**
  * 
@@ -94,23 +96,28 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		String editorArea = layout.getEditorArea();
 
 		// Top left.
-		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.26, editorArea);//$NON-NLS-1$
+		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, 0.25f, editorArea);//$NON-NLS-1$
 		topLeft.addView(ID_J2EE_HIERARCHY_VIEW);
 		topLeft.addPlaceholder(IPageLayout.ID_RES_NAV);
-
-		// Bottom left.
-		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, (float) 0.66, "topLeft");//$NON-NLS-1$ //$NON-NLS-2$
-		bottomLeft.addView(IPageLayout.ID_OUTLINE);
+		topLeft.addPlaceholder(JavaUI.ID_TYPE_HIERARCHY);
+		topLeft.addPlaceholder(JavaUI.ID_PACKAGES_VIEW);
 
 		// Bottom right.
-		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, (float) 0.66, editorArea);//$NON-NLS-1$
+		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.7f, editorArea);//$NON-NLS-1$
 		bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
 		bottomRight.addView(IPageLayout.ID_TASK_LIST);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 		bottomRight.addView(ID_SERVERS_VIEW);
+		bottomRight.addView(ID_WST_SNIPPETS_VIEW);
+		
+		bottomRight.addPlaceholder(ID_CONSOLE_VIEW);
+		bottomRight.addPlaceholder(IPageLayout.ID_BOOKMARKS);
+		bottomRight.addPlaceholder(IProgressConstants.PROGRESS_VIEW_ID);
+		bottomRight.addPlaceholder(ID_SEARCH_VIEW);
 
-		// Fast views
-		layout.addFastView(ID_WST_SNIPPETS_VIEW, (float) 0.25);
+		// Top right.
+		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, 0.7f, editorArea);//$NON-NLS-1$
+		topRight.addView(IPageLayout.ID_OUTLINE);
 	}
 }
 
