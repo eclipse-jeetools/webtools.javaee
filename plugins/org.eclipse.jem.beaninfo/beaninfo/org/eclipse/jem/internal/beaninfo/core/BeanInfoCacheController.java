@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.12 $  $Date: 2005/06/30 16:23:58 $ 
+ *  $Revision: 1.13 $  $Date: 2005/07/07 19:38:57 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -1316,8 +1316,10 @@ public class BeanInfoCacheController {
 		private void writeIndex(IProject project, Index index) {
 			ObjectOutputStream oos = null;
 			try {
-				File indexDirFile = getCacheDir(project).append(INDEXFILENAME).toFile();
-				oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(indexDirFile)));
+				File indexDirFile = getCacheDir(project).toFile();
+				indexDirFile.mkdirs();
+				File indexFile = new File(indexDirFile, INDEXFILENAME);
+				oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(indexFile)));
 				oos.writeObject(index);
 				index.setDirty(false);
 			} catch (IOException e) {
