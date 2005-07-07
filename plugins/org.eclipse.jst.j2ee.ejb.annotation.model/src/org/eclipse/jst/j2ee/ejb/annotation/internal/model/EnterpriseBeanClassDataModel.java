@@ -94,7 +94,7 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 	protected Boolean basicIsEnabled(String propertyName) {
 		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
 		if (USE_ANNOTATIONS.equals(propertyName)) {
-			return Boolean.FALSE;
+			return Boolean.TRUE;
 //			if (!isAnnotationsSupported())
 //				return Boolean.FALSE;
 //			return Boolean.TRUE;
