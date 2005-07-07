@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.39 $  $Date: 2005/06/21 19:17:03 $ 
+ *  $Revision: 1.40 $  $Date: 2005/07/07 22:26:16 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -701,6 +701,11 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									doIDs();
 									doIntrospection = false;
 								} catch (RuntimeException e) {
+									BeaninfoPlugin.getPlugin().getLogger().log(
+										MessageFormat.format(
+												BeanInfoAdapterMessages.INTROSPECT_FAILED_EXC_, 
+												new Object[] { getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
+										Level.WARNING);
 									BeaninfoPlugin.getPlugin().getLogger().log(e);
 								} finally {
 									// Remove the cres since it is now invalid. The applies cause them to be invalid.
@@ -1020,7 +1025,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				overrideRes = rset.getResource(uri, false);				
 			} catch (Exception e) {
 				// Couldn't load it for some reason.
-				BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
+				BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + uri + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
 				overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load so that we can get rid of it.
 			} finally {
 				if (overrideRes != null)
