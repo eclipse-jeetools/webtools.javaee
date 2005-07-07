@@ -68,7 +68,7 @@
 <!-- Purpose: Define the default deployable project factory          -->
 <!-- Extension point: com.ibm.etools.server.core.deployableFactories -->
 <!-- =============================================================== -->
-  <!-- <extension
+   <extension
          point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
             projects="true"
@@ -79,7 +79,7 @@
                types="j2ee.connector">
          </moduleType>
       </moduleFactory>
-   </extension> -->
+   </extension>
    
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
