@@ -334,7 +334,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		try {
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
 			if (webEdit == null)
-				return false;
+				return true;
 			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
 		} catch (Exception e) {
 			e.printStackTrace();

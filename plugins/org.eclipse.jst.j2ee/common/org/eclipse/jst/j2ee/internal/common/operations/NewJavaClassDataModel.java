@@ -314,7 +314,7 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Ensure that the source folder path is absolute
-		else if (!folderFullPath.startsWith("\\")) { //$NON-NLS-1$
+		else if (!new Path(folderFullPath).isAbsolute()) {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE);
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
