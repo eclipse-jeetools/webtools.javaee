@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
@@ -57,6 +58,8 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 			return Boolean.FALSE;
 		else if (propertyName.equals(DESTINATIONNAME))
 			return getProperty(JNDI_NAME);
+		else if (propertyName.equals(DESTINATIONTYPE))
+			return DestinationType.QUEUE_LITERAL.getName();
 		else if (propertyName.equals(EJB_TYPE))
 			return "MessageDrivenBean";
 		else if (propertyName.equals(MODIFIER_ABSTRACT))
@@ -111,6 +114,10 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 		MessageDrivenBeanDelegate delegate = new MessageDrivenBeanDelegate();
 		delegate.setDataModel(this);
 		this.setProperty(MODELDELEGATE,delegate);
+		//Set the defaults so that they are propagated via events
+		this.setProperty(DESTINATIONTYPE, this.getProperty(DESTINATIONTYPE));
+		this.setProperty(TRANSACTIONTYPE, this.getProperty(TRANSACTIONTYPE));
+		this.setProperty(DESTINATIONNAME, this.getProperty(DESTINATIONNAME));
 	}
 
 

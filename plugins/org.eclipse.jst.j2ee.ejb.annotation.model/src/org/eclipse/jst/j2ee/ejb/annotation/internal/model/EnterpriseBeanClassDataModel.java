@@ -17,6 +17,7 @@ import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
@@ -155,6 +156,8 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			return className;
 		} else if (propertyName.equals(JNDI_NAME)) {
 			return getProperty(EJB_NAME);
+		} else if (propertyName.equals(TRANSACTIONTYPE)) {
+			return TransactionType.CONTAINER_LITERAL.getName();
 		} else if (propertyName.equals(EJB_TYPE)) {
 			return "SessionBean";
 		} else if (propertyName.equals(DISPLAY_NAME)) {
@@ -176,7 +179,6 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			}
 			return "";
 		}
-
 		return super.getDefaultProperty(propertyName);
 	}
 	

@@ -77,7 +77,7 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 			destination.setType(dType);
 			destination.setBean(messageDriven);
 			messageDriven.setDestination(destination);
-		} else if (MessageDrivenBeanDataModel.DESTINATIONNAME.equals(property)) {
+		} else if (MessageDrivenBeanDataModel.DESTINATIONNAME.equals(property) || MessageDrivenBeanDataModel.JNDI_NAME.equals(property)) {
 			messageDriven.setMessageSelector((String) propertyValue);
 		} else if (EnterpriseBeanClassDataModel.TRANSACTIONTYPE.equals(property)) {
 			TransactionType transactionType = TransactionType.CONTAINER_LITERAL;

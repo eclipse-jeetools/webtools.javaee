@@ -24,8 +24,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.jst.j2ee.ejb.MessageDriven;
-import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IMessageDrivenBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ISessionBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
@@ -71,14 +69,12 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 	public void generateSession(ISessionBean delegate, IProgressMonitor monitor) throws CoreException, InterruptedException {
 		
 		SessionBeanDataModel dataModel = (SessionBeanDataModel) delegate.getDataModel();
-		Session sessionBean = (Session) delegate.getEnterpriseBean();
 
 		
 		
 			String comment = "";
 			String stub = "";
 			String method="";
-			String className = sessionBean.getEjbClassName();
 
 			IConfigurationElement preferredAnnotation = EmitterUtilities.findEmitter("XDoclet");
 			
@@ -124,13 +120,11 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 	public void generateMessageDriven(IMessageDrivenBean delegate, IProgressMonitor monitor) throws CoreException, InterruptedException {
 
 			MessageDrivenBeanDataModel dataModel = (MessageDrivenBeanDataModel) delegate.getDataModel();
-			MessageDriven messageDriven = (MessageDriven) delegate.getEnterpriseBean();
 
 			String comment = "";
 			String stub = "";
 			String method = "";
 			String fields = "";
-			String className = messageDriven.getEjbClassName();
 			IConfigurationElement emitterConfiguration = EmitterUtilities.findEmitter("XDoclet");
 
 			try {

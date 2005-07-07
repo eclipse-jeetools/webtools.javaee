@@ -11,22 +11,18 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -41,18 +37,10 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 	private Text ejbNameText;
 	private Text jndiNameText;
 	private Text displayNameText;
-	private Text descriptionText;
-
-	private Label classLabel;
-
-	private Text classText;
-
-	private Button classButton;
 
 	private Combo statelessButton;
 
 	
-	private AnnotationsStandaloneGroup annotationsGroup = null;
 	private Combo transactionButton;
 
 	public AddSessionBeanWizardPage(EnterpriseBeanClassDataModel model, String pageName) {
@@ -162,7 +150,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		statelessButton = new Combo(composite, SWT.DROP_DOWN |  SWT.READ_ONLY);
 		statelessButton.setItems(new String[]{SessionType.STATELESS_LITERAL.getName(),SessionType.STATEFUL_LITERAL.getName()});
 		statelessButton.setText(SessionType.STATELESS_LITERAL.getName());
-		statelessButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		statelessButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));		
 		synchHelper.synchCombo(statelessButton, SessionBeanDataModel.STATELESS, null);
 		statelessButton.select(0);
 
@@ -193,16 +181,7 @@ public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWiza
 		return false;
 	}
 
-	/**
-	 * Create annotations group and set default enablement
-	 */
-	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
-		IProject project = null;
-		project = ProjectUtilities.getProject(model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME));
-		annotationsGroup.setEnablement(project);
-		annotationsGroup.setUseAnnotations(true);
-	}
+
 
 	public String getDisplayName() {
 		return displayNameText.getText();

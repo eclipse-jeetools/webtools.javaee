@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
@@ -52,6 +53,8 @@ public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implement
 			return Boolean.FALSE;
 		else if (propertyName.equals(EJB_TYPE))
 			return "SessionBean";
+		else if (propertyName.equals(STATELESS))
+			return SessionType.STATELESS_LITERAL.getName();
 		else if (propertyName.equals(MODIFIER_ABSTRACT))
 			return Boolean.TRUE;
 		else if (propertyName.equals(SUPERCLASS))
@@ -104,6 +107,9 @@ public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implement
 		SessionBeanDelegate delegate = new SessionBeanDelegate();
 		delegate.setDataModel(this);
 		this.setProperty(MODELDELEGATE,delegate);
+		//Set the defaults so that they are propagated via events
+		this.setProperty(STATELESS, this.getProperty(STATELESS));
+		this.setProperty(TRANSACTIONTYPE, this.getProperty(TRANSACTIONTYPE));
 	}
 	
 }

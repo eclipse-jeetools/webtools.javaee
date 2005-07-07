@@ -11,22 +11,18 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -41,18 +37,10 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 	private Text ejbNameText;
 	private Text jndiNameText;
 	private Text displayNameText;
-	private Text descriptionText;
-
-	private Label classLabel;
-
-	private Text classText;
-
-	private Button classButton;
 
 	private Combo destinationButton;
 
 	
-	private AnnotationsStandaloneGroup annotationsGroup = null;
 	private Combo transactionButton;
 
 	public AddMessageDrivenBeanWizardPage(EnterpriseBeanClassDataModel model, String pageName) {
@@ -122,7 +110,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		jndiNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		jndiNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		jndiNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(jndiNameText, EnterpriseBeanClassDataModel.JNDI_NAME, null);
+		synchHelper.synchText(jndiNameText, MessageDrivenBeanDataModel.DESTINATIONNAME, null);
 
 		// display name
 		Label displayNameLabel = new Label(composite, SWT.LEFT);
@@ -156,16 +144,16 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 	protected void createDestinationGroup(Composite composite) {
 
 		// description
-		Label statelessLabel = new Label(composite, SWT.LEFT);
-		statelessLabel.setText(IEJBAnnotationConstants.DESTINATION_LABEL);
-		statelessLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+		Label destinationLabel = new Label(composite, SWT.LEFT);
+		destinationLabel.setText(IEJBAnnotationConstants.DESTINATION_LABEL);
+		destinationLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+		
 		destinationButton = new Combo(composite,SWT.DROP_DOWN |  SWT.READ_ONLY);
 		destinationButton.setItems(new String[]{DestinationType.QUEUE_LITERAL.getName(),DestinationType.TOPIC_LITERAL.getName()});
 		destinationButton.setText(DestinationType.QUEUE_LITERAL.getName());
 		destinationButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(destinationButton, MessageDrivenBeanDataModel.DESTINATIONTYPE, null);
 		destinationButton.select(0);
-		model.setProperty(MessageDrivenBeanDataModel.DESTINATIONTYPE,DestinationType.QUEUE_LITERAL.getName());
+		synchHelper.synchCombo(destinationButton, MessageDrivenBeanDataModel.DESTINATIONTYPE, null);
 
 	}
 
@@ -179,9 +167,8 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		transactionButton.setItems(new String[]{TransactionType.CONTAINER_LITERAL.getName(),TransactionType.BEAN_LITERAL.getName()});
 		transactionButton.setText(TransactionType.CONTAINER_LITERAL.getName());
 		transactionButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(transactionButton, EnterpriseBeanClassDataModel.TRANSACTIONTYPE, null);
 		transactionButton.select(0);
-		model.setProperty(MessageDrivenBeanDataModel.TRANSACTIONTYPE,TransactionType.CONTAINER_LITERAL.getName());
+		synchHelper.synchCombo(transactionButton, EnterpriseBeanClassDataModel.TRANSACTIONTYPE, null);
 
 	}
 
@@ -195,24 +182,12 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		return false;
 	}
 
-	/**
-	 * Create annotations group and set default enablement
-	 */
-	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
-		IProject project = null;
-		project = ProjectUtilities.getProject(model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME));
-		annotationsGroup.setEnablement(project);
-		annotationsGroup.setUseAnnotations(true);
-	}
+
 
 	public String getDisplayName() {
 		return displayNameText.getText();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.ui.internal.IBeanWizardPage#getEjbName()
-	 */
 	public String getEjbName() {
 		return model.getStringProperty(MessageDrivenBeanDataModel.EJB_NAME);
 	}
