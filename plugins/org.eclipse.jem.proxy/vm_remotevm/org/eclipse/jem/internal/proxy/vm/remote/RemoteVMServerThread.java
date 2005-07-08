@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/16 17:46:14 $ 
+ *  $Revision: 1.11 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 
@@ -34,7 +34,7 @@ import org.eclipse.jem.internal.proxy.common.*;
  *   proxyvm.bufsize - Buffer size to use for TCP/IP buffers (default is system default)
  */
 
-public class RemoteVMServerThread extends Thread implements IVMServer {
+public class RemoteVMServerThread extends Thread implements IVMServer, IVMCallbackServer {
 	protected List threads = Collections.synchronizedList(new LinkedList());	// List of active threads.
 	protected ServerSocket server;	// Server Socket for this application
 	private int highestIdentityID = 0;	// Identity codes to identify objects between server and client.
@@ -257,7 +257,7 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 				objectToIDMap.put(getMethod, new Integer(Commands.GET_METHOD_ID));
 				idToObjectMap.put(new Integer(Commands.GET_METHOD_ID), getMethod);	
 				
-				java.lang.reflect.Method initMethod = ICallback.class.getMethod("initializeCallback", new Class[] {IVMServer.class, Integer.TYPE}); //$NON-NLS-1$
+				java.lang.reflect.Method initMethod = ICallback.class.getMethod("initializeCallback", new Class[] {IVMCallbackServer.class, Integer.TYPE}); //$NON-NLS-1$
 				objectToIDMap.put(initMethod, new Integer(Commands.INITIALIZECALLBACK_METHOD_ID));
 				idToObjectMap.put(new Integer(Commands.INITIALIZECALLBACK_METHOD_ID), initMethod);	
 				
@@ -467,7 +467,22 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 			}
 			
 			fCallbackHandlerPool.clear();
-		}					
+		}	
+		
+		List runnables = null;
+		synchronized (this) {
+			runnables = shutdownRunnables;
+			shutdownRunnables = null;
+		}
+		if (runnables != null) {
+			for (Iterator itr = runnables.iterator(); itr.hasNext();) {
+				try {
+					((Runnable) itr.next()).run();
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	/**
@@ -678,5 +693,25 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 		}
 			
 		return scArray[0];
+	}
+	
+	private List shutdownRunnables;
+	
+	public synchronized void addShutdownListener(Runnable runnable) {
+		if (shutdownRunnables == null) {
+			shutdownRunnables = new ArrayList();
+		} else if (shutdownRunnables.contains(runnable))
+			return;
+		shutdownRunnables.add(runnable);
+	}
+	
+	public synchronized void removeShutdownListener(Runnable runnable) {
+		if (shutdownRunnables != null)
+			shutdownRunnables.remove(runnable);
+	}
+
+
+	public IVMServer getIVMServer() {
+		return this;
 	}
 }

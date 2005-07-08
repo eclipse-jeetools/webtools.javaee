@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.9 $ $Date: 2005/05/18 23:11:26 $
+ * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.10 $ $Date: 2005/07/08 17:51:47 $
  */
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import org.eclipse.jem.internal.proxy.common.IVMServer;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.initParser.InitializationStringParser;
 
@@ -24,6 +25,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 
 	protected IDEProxyFactoryRegistry fRegistry;
 	protected IDEStandardBeanTypeProxyFactory fBeanTypeProxyFactory;
+	private IBeanProxy ivmServerProxy;
 	
 	/*
 	 * Return a bean proxy for the argument. To do this create through the correct BeanTypeProxy
@@ -39,6 +41,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 		fRegistry = aRegistry;
 		fRegistry.registerBeanProxyFactory(this);
 		fBeanTypeProxyFactory = (IDEStandardBeanTypeProxyFactory) aRegistry.getBeanTypeProxyFactory();
+		ivmServerProxy = fRegistry.getBeanProxy(IVMServer.class, fRegistry);
 	}
 	
 	public IStringBeanProxy createBeanProxyWith(String aString) {
@@ -250,6 +253,10 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc)); //$NON-NLS-1$
 			return null;
 		}
+	}
+
+	public IBeanProxy getIVMServerProxy() {
+		return ivmServerProxy;
 	}
 
 }

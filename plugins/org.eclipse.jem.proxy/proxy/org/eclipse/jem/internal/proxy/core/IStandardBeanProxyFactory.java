@@ -13,7 +13,7 @@ package org.eclipse.jem.internal.proxy.core;
 
 /*
  *  $RCSfile: IStandardBeanProxyFactory.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.6 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 
@@ -25,6 +25,21 @@ package org.eclipse.jem.internal.proxy.core;
  * @author: Joe Winchester
  */
 public interface IStandardBeanProxyFactory extends IBeanProxyFactory {
+	
+/**
+ * Get the {@link org.eclipse.jem.internal.proxy.common.IVMServer} proxy for the
+ * this registry. This is only needed if you need to give the IVMserver to a proxy so that
+ * it can access it.
+ * <p>
+ * <b>Note:</b> Does not need to be given to callback proxies because they are given
+ * an {@link org.eclipse.jem.internal.proxy.common.IVMCallbackServer} on initialization, and
+ * that interface implements the IVMServer interface too.
+ * 
+ * @return
+ * 
+ * @since 1.1.0
+ */
+public IBeanProxy getIVMServerProxy();
 /**
  * Return a new bean proxy for the primitive integer argument
  * Creation date: (12/3/99 11:52:20 AM)

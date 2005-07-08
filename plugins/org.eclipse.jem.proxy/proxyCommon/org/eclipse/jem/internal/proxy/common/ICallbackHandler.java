@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common;
 /*
  *  $RCSfile: ICallbackHandler.java,v $
- *  $Revision: 1.6 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.7 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 /**
@@ -41,7 +41,7 @@ public interface ICallbackHandler {
 	 * @return
 	 * @throws CommandException
 	 * 
-	 * @see IVMServer#requestStream(int, int)
+	 * @see IVMCallbackServer#requestStream(int, int)
 	 * @since 1.0.0
 	 */
 	public Object callbackAsConstants(int callbackID, int msgID, Object parm) throws CommandException;

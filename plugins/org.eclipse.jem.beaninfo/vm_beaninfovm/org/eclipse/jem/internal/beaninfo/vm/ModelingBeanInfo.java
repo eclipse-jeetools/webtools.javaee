@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.6 $  $Date: 2005/06/16 17:46:12 $ 
+ *  $Revision: 1.7 $  $Date: 2005/07/08 17:51:48 $ 
  */
 
 import java.beans.*;
@@ -526,7 +526,7 @@ public abstract class ModelingBeanInfo implements ICallback {
 
 	// The modeling beaninfo is also used to send itself back in serialized mode as a callback.
 
-	private IVMServer vmServer;
+	private IVMCallbackServer vmServer;
 
 	private int callbackID;
 
@@ -535,7 +535,7 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * 
 	 * @see org.eclipse.jem.internal.proxy.common.ICallback#initializeCallback(org.eclipse.jem.internal.proxy.common.IVMServer, int)
 	 */
-	public void initializeCallback(IVMServer vmServer, int callbackID) {
+	public void initializeCallback(IVMCallbackServer vmServer, int callbackID) {
 		this.vmServer = vmServer;
 		this.callbackID = callbackID;
 	}

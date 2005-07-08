@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackRegistry.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/11 19:01:12 $ 
+ *  $Revision: 1.5 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 import java.net.Socket;
@@ -35,7 +35,7 @@ class REMCallbackRegistry implements ICallbackRegistry {
 	Map fCallbackProxyToId = new HashMap(5);	// Callback to ID map. This will also hold onto the callback proxies so that they don't get GC'd while the callback is registered.
 		
 	IREMMethodProxy fInitializeCallback;
-	IREMBeanProxy fRemoteServer;
+	IBeanProxy fRemoteServer;
 	
 	boolean registryOpen = true;
 	
@@ -45,22 +45,16 @@ class REMCallbackRegistry implements ICallbackRegistry {
 		fNamePostfix = name;
 		
 		// Now register common proxies.
-		REMStandardBeanTypeProxyFactory typeFactory = (REMStandardBeanTypeProxyFactory) fFactory.getBeanTypeProxyFactory();
-		IREMBeanTypeProxy vmserverType = new REMInterfaceBeanTypeProxy(fFactory, new Integer(Commands.IVMSERVER_CLASS), "org.eclipse.jem.internal.proxy.vm.remote.IVMServer"); //$NON-NLS-1$
 		IREMBeanTypeProxy callbackType = new REMInterfaceBeanTypeProxy(fFactory, new Integer(Commands.ICALLBACK_CLASS), "org.eclipse.jem.internal.proxy.vm.remote.ICallback"); //$NON-NLS-1$
-		IREMBeanTypeProxy serverType = typeFactory.objectClass.newBeanTypeForClass(new Integer(Commands.REMOTEVMSERVER_CLASS), "org.eclipse.jem.internal.proxy.vm.remote.RemoteVMServerThread", false); //$NON-NLS-1$
 	
 		fInitializeCallback = (IREMMethodProxy) ((REMMethodProxyFactory) fFactory.getMethodProxyFactory()).methodType.newBeanProxy(new Integer(Commands.INITIALIZECALLBACK_METHOD_ID));
 		
-		fRemoteServer = serverType.newBeanProxy(new Integer(Commands.REMOTESERVER_ID));
+		fRemoteServer = aFactory.getBeanProxyFactory().getIVMServerProxy();	// For us, the IVMServer on the remote vm ALSO implements IVMCallbackServer.
 
-		((REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory()).registerProxy(vmserverType);
-		((REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory()).registerProxy(callbackType);
+		((REMStandardBeanTypeProxyFactory) fFactory.getBeanTypeProxyFactory()).registerBeanTypeProxy(callbackType, true);
 		((REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory()).registerProxy(fInitializeCallback);
-		((REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory()).registerProxy(fRemoteServer);		
 		
 	}
-	
 	
 	public boolean createCallback(Socket incoming) {
 		if (registryOpen) {

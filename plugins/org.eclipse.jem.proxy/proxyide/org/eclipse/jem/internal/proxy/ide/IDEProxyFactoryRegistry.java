@@ -11,15 +11,19 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.11 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
+import org.eclipse.jem.internal.proxy.common.IVMServer;
 import org.eclipse.jem.internal.proxy.core.*;
 /**
  * This implementation runs the Beans inside the Eclipse IDE
@@ -28,7 +32,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  * that the Eclipse IDE is running
  */
 
-public class IDEProxyFactoryRegistry extends BaseProxyFactoryRegistry {
+public class IDEProxyFactoryRegistry extends BaseProxyFactoryRegistry implements IVMServer {
 
 	public static final String IDE_REGISTRY_TYPE_ID = "org.eclipse.jem.IDE";	//$NON-NLS-1$
 	protected String fName;
@@ -120,7 +124,21 @@ ClassLoader getPluginClassLoader(){
 	return fClassLoader;
 }
 
-protected void registryTerminated(boolean wait){	
+protected void registryTerminated(boolean wait){
+	List runnables = null;
+	synchronized (this) {
+		runnables = shutdownRunnables;
+		shutdownRunnables = null;
+	}
+	if (runnables != null) {
+		for (Iterator itr = runnables.iterator(); itr.hasNext();) {
+			try {
+				((Runnable) itr.next()).run();
+			} catch (RuntimeException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
 
 Class loadClass(String aClassName) throws ClassNotFoundException, ExceptionInInitializerError, LinkageError {
@@ -167,6 +185,21 @@ IBeanProxy getBeanProxy(Class returnType, Object bean) {
 	} else {
 		throw new RuntimeException("Unknown primitive type " + returnType.getName()); //$NON-NLS-1$
 	}
+}
+
+List shutdownRunnables;
+
+public synchronized void addShutdownListener(Runnable runnable) {
+	if (shutdownRunnables == null) {
+		shutdownRunnables = new ArrayList();
+	} else if (shutdownRunnables.contains(runnable))
+		return;
+	shutdownRunnables.add(runnable);
+}
+
+public synchronized void removeShutdownListener(Runnable runnable) {
+	if (shutdownRunnables != null)
+		shutdownRunnables.remove(runnable);
 }
 
 }

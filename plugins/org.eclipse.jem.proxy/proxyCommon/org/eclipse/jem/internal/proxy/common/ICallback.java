@@ -11,12 +11,12 @@ package org.eclipse.jem.internal.proxy.common;
  *******************************************************************************/
 /*
  *  $RCSfile: ICallback.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:54:34 $ 
+ *  $Revision: 1.3 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 /**
  * This interface is to be implemented by any callback.
- * The callback will use the IVMServer passed in to
+ * The callback will use the IVMCallbackServer passed in to
  * get callback handlers, and the id passed in is
  * to be passed to these handlers.
  */
@@ -25,6 +25,6 @@ public interface ICallback {
 	/**
 	 * Initialize the callback
 	 */
-	public void initializeCallback(IVMServer vmServer, int callbackID);
+	public void initializeCallback(IVMCallbackServer vmServer, int callbackID);
 
 }

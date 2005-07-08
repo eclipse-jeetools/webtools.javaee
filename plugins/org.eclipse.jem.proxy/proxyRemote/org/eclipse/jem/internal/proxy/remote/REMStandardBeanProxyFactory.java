@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.14 $  $Date: 2005/06/21 20:35:07 $ 
+ *  $Revision: 1.15 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 
@@ -33,6 +33,7 @@ import org.eclipse.jem.internal.proxy.common.remote.Commands;
 public final class REMStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 	protected final REMProxyFactoryRegistry fRegistry;
 	protected final REMStandardBeanTypeProxyFactory fBeanTypeProxyFactory;	// Convenience field.
+	protected final IREMBeanProxy vmServerProxy;
 
 	
 	// We need a map for mapping object id's to the proxy. The entry will actually be
@@ -142,6 +143,10 @@ REMStandardBeanProxyFactory(REMProxyFactoryRegistry aRegistry) {
 	fBeanTypeProxyFactory = (REMStandardBeanTypeProxyFactory) aRegistry.getBeanTypeProxyFactory();
 	fBeanTypeProxyFactory.initialize(this);	// Now we're ready for the beantype factory to be initialized.
 	
+	IREMBeanTypeProxy serverType = fBeanTypeProxyFactory.objectClass.newBeanTypeForClass(new Integer(Commands.REMOTEVMSERVER_CLASS), "org.eclipse.jem.internal.proxy.vm.remote.RemoteVMServerThread", false); //$NON-NLS-1$
+	fBeanTypeProxyFactory.registerBeanTypeProxy(serverType, true);
+	vmServerProxy = serverType.newBeanProxy(new Integer(Commands.REMOTESERVER_ID));
+	registerProxy(vmServerProxy);
 }
 
 
@@ -838,6 +843,11 @@ public void terminateFactory(boolean wait) {
 			default:
 				return nonPrimitiveProxy;
 		}
+	}
+
+
+	public IBeanProxy getIVMServerProxy() {
+		return vmServerProxy;
 	}
 }
 

@@ -1,7 +1,6 @@
-package org.eclipse.jem.internal.proxy.common;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
@@ -11,32 +10,41 @@ package org.eclipse.jem.internal.proxy.common;
  *******************************************************************************/
 /*
  *  $RCSfile: IVMServer.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:54:34 $ 
+ *  $Revision: 1.3 $  $Date: 2005/07/08 17:51:47 $ 
  */
-
-import java.io.OutputStream;
+package org.eclipse.jem.internal.proxy.common;
+ 
 /**
- * This is the interface for accessing the 
- * VM  Server. It will be given to an
- * ICallback so that the callback can access
- * the server to request a callback.
+ * This is the base server for the vm on the vm side (i.e. not the client side).
+ * <p>
+ * It can be passed to proxies if they need to access the vm server.
+ * @since 1.1.0
  */
 public interface IVMServer {
-	
-	
-	/**
-	 * Process a callback. The runnable contains the
-	 * actual code.
-	 */
-	public Object doCallback(ICallbackRunnable runnable) throws CommandException;
-	
-	/**
-	 * Request a stream for writing a lot of data (suggested for larger
-	 * than several thousand bytes). The connection will be assigned
-	 * to this stream until the stream is closed.
-	 */
-	public OutputStream requestStream(int callbackID, int msgID) throws CommandException;
 
-	
+	/**
+	 * Add a runnable that will be called if shutdown is requested. If already added,
+	 * it will not be added again.
+	 * <p>
+	 * The body of the runnable must not do any vm server calls. That is because
+	 * the server is shutdown at this point. The body must simply do clean up code.
+	 * The shutdown will not continue until the call to the runnable is returned.
+	 * <p>
+	 * Calls to this will be ignored if shutdown has already started.
+	 * @param runnable
+	 * 
+	 * @since 1.1.0
+	 */
+	public void addShutdownListener(Runnable runnable);
+
+	/**
+	 * Remove the shutdown runnable from the list. If not added, then not an error to call this.
+	 * <p>
+	 * Calls to this will be ignored if shutdown has already started.
+	 * @param runnable
+	 * 
+	 * @since 1.1.0
+	 */
+	public void removeShutdownListener(Runnable runnable);
 
 }

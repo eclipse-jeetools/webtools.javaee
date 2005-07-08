@@ -11,14 +11,14 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEVMServer.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.5 $  $Date: 2005/07/08 17:51:47 $ 
  */
 
 import java.io.OutputStream;
 
 import org.eclipse.jem.internal.proxy.common.*;
 
-public class IDEVMServer implements IVMServer {
+public class IDEVMServer implements IVMCallbackServer {
 	
 	IDECallbackRegistry fCallbackRegistry;
 	IDEStandardBeanProxyFactory fBeanProxyFactory;
@@ -75,4 +75,9 @@ public Object doCallback(ICallbackRunnable aRunnable){
 public OutputStream requestStream(int callbackID, int msgID) throws CommandException {
 	return fCallbackRegistry.requestStream(callbackID,msgID);
 }
+public IVMServer getIVMServer() {
+	return fCallbackRegistry.fProxyFactoryRegistry;
+}
+
+
 }
