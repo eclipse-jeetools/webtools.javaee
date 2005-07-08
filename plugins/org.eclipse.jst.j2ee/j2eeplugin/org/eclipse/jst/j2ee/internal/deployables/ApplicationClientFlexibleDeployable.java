@@ -18,13 +18,12 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
-import org.eclipse.jst.server.core.IConnectorModule;
+import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
-public class ApplicationClientFlexibleDeployable extends J2EEFlexProjDeployable implements IConnectorModule {
+public class ApplicationClientFlexibleDeployable extends J2EEFlexProjDeployable implements IApplicationClientModule {
 
 	public static String APP_CLIENT_TYPE = IModuleConstants.JST_APPCLIENT_MODULE;
 
