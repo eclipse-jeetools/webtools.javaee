@@ -11,20 +11,20 @@ package org.eclipse.jem.tests.proxy.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: TestCallbackStream.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 23:00:32 $ 
+ *  $Revision: 1.3 $  $Date: 2005/07/08 17:51:46 $ 
  */
 
 import java.io.IOException;
 import java.io.OutputStream;
 
 import org.eclipse.jem.internal.proxy.common.ICallback;
-import org.eclipse.jem.internal.proxy.common.IVMServer;
+import org.eclipse.jem.internal.proxy.common.IVMCallbackServer;
 /**
  * This is a test for testing callback streams.
  */
 public class TestCallbackStream implements ICallback {
 	
-	IVMServer vmServer;
+	IVMCallbackServer vmServer;
 	int callbackID;
 	boolean stop = false;
 
@@ -55,7 +55,7 @@ public class TestCallbackStream implements ICallback {
 	/**
 	 * It is being initialized.
 	 */
-	public void initializeCallback(IVMServer server, int id) {
+	public void initializeCallback(IVMCallbackServer server, int id) {
 		vmServer = server;
 		callbackID = id;
 	}

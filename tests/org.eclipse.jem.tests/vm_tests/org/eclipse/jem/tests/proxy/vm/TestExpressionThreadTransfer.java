@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.proxy.vm;
 /*
  *  $RCSfile: TestExpressionThreadTransfer.java,v $
- *  $Revision: 1.1 $  $Date: 2005/05/16 19:11:16 $ 
+ *  $Revision: 1.2 $  $Date: 2005/07/08 17:51:46 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.*;
@@ -20,7 +20,7 @@ import org.eclipse.jem.internal.proxy.common.*;
  */
 public class TestExpressionThreadTransfer implements ICallback {
 	
-	IVMServer vmServer;
+	IVMCallbackServer vmServer;
 	int callbackID;
 	boolean stop = false;
 
@@ -60,7 +60,7 @@ public class TestExpressionThreadTransfer implements ICallback {
 	/**
 	 * It is being initialized.
 	 */
-	public void initializeCallback(IVMServer server, int id) {
+	public void initializeCallback(IVMCallbackServer server, int id) {
 		vmServer = server;
 		callbackID = id;
 	}

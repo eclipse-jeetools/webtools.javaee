@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.proxy.vm;
 /*
  *  $RCSfile: TestCallback.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 23:00:32 $ 
+ *  $Revision: 1.5 $  $Date: 2005/07/08 17:51:46 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.*;
@@ -20,7 +20,7 @@ import org.eclipse.jem.internal.proxy.common.*;
  */
 public class TestCallback implements ICallback {
 	
-	IVMServer vmServer;
+	IVMCallbackServer vmServer;
 	int callbackID;
 	boolean stop = false;
 
@@ -79,7 +79,7 @@ public class TestCallback implements ICallback {
 	/**
 	 * It is being initialized.
 	 */
-	public void initializeCallback(IVMServer server, int id) {
+	public void initializeCallback(IVMCallbackServer server, int id) {
 		vmServer = server;
 		callbackID = id;
 	}
