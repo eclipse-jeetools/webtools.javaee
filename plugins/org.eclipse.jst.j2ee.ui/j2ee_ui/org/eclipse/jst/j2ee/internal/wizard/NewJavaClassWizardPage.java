@@ -51,9 +51,6 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
-import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -67,7 +64,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -79,7 +75,6 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -174,7 +169,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		data.horizontalSpan = 1;
 		componentNameCombo.setLayoutData(data);
 		initializeComponentList();
-		synchHelper.synchCombo(componentNameCombo, NewServletClassDataModel.MODULE_NAME, new Control[] {});
+		synchHelper.synchCombo(componentNameCombo, ArtifactEditOperationDataModel.MODULE_NAME, new Control[] {});
 		if (!hasNewModuleButton) {
 			new Label(composite, SWT.NONE);
 		} else {
@@ -195,7 +190,6 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 	private void initializeComponentList() {
 		List componentList = new ArrayList();
-		StructureEdit moduleCore = null;
 		if (projectNameCombo.getText().length() == 0)
 			return;
 		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
@@ -218,8 +212,9 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		}
 		// update source folder
 		if (folderText != null) {
-			IContainer sourceFolder = WebPropertiesUtil.getJavaSourceFolder(project);
-			folderText.setText(sourceFolder.getFullPath().toOSString());
+			String sourceFolder = getModel().getStringProperty(NewJavaClassDataModel.SOURCE_FOLDER);
+			if (sourceFolder != null)
+				folderText.setText(sourceFolder);
 		}
 	}
 
@@ -243,7 +238,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 				initializeComponentList();
 			}
 		});
-		synchHelper.synchCombo(projectNameCombo, NewServletClassDataModel.PROJECT_NAME, new Control[] {});
+		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, new Control[] {});
 		initializeProjectList();
 		new Label(parent, SWT.NONE);
 	}
@@ -302,7 +297,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		folderText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		folderText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(folderText, NewServletClassDataModel.SOURCE_FOLDER, null);
+		synchHelper.synchText(folderText, NewJavaClassDataModel.SOURCE_FOLDER, null);
 
 		folderButton = new Button(composite, SWT.PUSH);
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
@@ -667,13 +662,6 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 	protected IWorkspaceRoot getWorkspaceRoot() {
 		return ResourcesPlugin.getWorkspace().getRoot();
-	}
-
-	private IWorkbenchPage internalGetActivePage() {
-		IWorkbenchWindow window = J2EEUIPlugin.getActiveWorkbenchWindow();
-		if (window == null)
-			return null;
-		return J2EEUIPlugin.getActiveWorkbenchWindow().getActivePage();
 	}
 
 	public void setHasNewModuleButton(boolean hasNewModuleButton) {
