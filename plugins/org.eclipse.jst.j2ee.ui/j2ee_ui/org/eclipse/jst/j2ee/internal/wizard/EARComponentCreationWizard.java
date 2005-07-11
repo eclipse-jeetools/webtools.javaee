@@ -7,6 +7,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -70,7 +71,7 @@ public class EARComponentCreationWizard extends J2EEComponentCreationWizard impl
 	 */
 	protected void doAddPages() {
 		EARComponentCreationWizardPage page1 = new EARComponentCreationWizardPage(getDataModel(), MAIN_PG);
-		page1.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
+		page1.setInfopopID(IJ2EEUIContextIds.NEW_EAR_COMP_PAGE); //$NON-NLS-1$
 		addPage(page1);
 		EARComponentCreationSecondPage page2 = new EARComponentCreationSecondPage(getDataModel(), SECOND_PG);
 		addPage(page2);

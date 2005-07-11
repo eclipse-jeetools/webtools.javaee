@@ -41,10 +41,11 @@ public interface IJ2EEUIContextIds {
 	public static final String JAR_DEPENDENCIES_EDITOR_P4 = J2EEUIPlugin.PLUGIN_ID + ".EJB_JAR_DEPENDENCIES_EDITOR_PAGE4"; //$NON-NLS-1$
 	public static final String JAR_DEPENDENCIES_EDITOR_P6 = J2EEUIPlugin.PLUGIN_ID + ".JAR_DEPENDENCIES_EDITOR_PAGE6"; //$NON-NLS-1$
 
-	// New EAR project wizard, page 1
+	// New EAR project wizard
 	public static final String NEW_EAR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EAR_NEW_EAR_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String NEW_EAR_ADD_MODULES_PAGE = J2EEUIPlugin.PLUGIN_ID + ".NEW_EAR_ADD_MODULES_PAGE"; //$NON-NLS-1$
 	public static final String EAR_NEW_MODULE_PROJECTS_PAGE = J2EEUIPlugin.PLUGIN_ID + ".EAR_NEW_MODULE_PROJECTS_PAGE"; //$NON-NLS-1$
+	public static final String NEW_EAR_COMP_PAGE = J2EEUIPlugin.PLUGIN_ID + ".NEW_EAR_COMP_PAGE"; //$NON-NLS-1$
 
 	// New EJB project wizard, page - 3 Pages
 	public static final String NEW_EJB_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EJB_NEW_EJB_WIZARD_PAGE1"; //$NON-NLS-1$
