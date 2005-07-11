@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.16 $  $Date: 2005/07/11 18:04:42 $ 
+ *  $Revision: 1.17 $  $Date: 2005/07/11 19:40:00 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -2549,6 +2549,7 @@ public class ExpressionProcesser {
 			if (traceOn)
 				printTrace("Invoke: ", false); //$NON-NLS-1$
 			
+			Method reflectMethod = null;
 			try {
 				// We need to pull in the arguments. They are stacked in reverse order.
 				Object[]  args = new Object[argCount];
@@ -2567,7 +2568,6 @@ public class ExpressionProcesser {
 				}
 				
 				// Now we need to find the appropriate method. If it is a string then there must be a receiver, otherwise no way to know.
-				Method reflectMethod;
 				if (methodIsString) {
 					reflectMethod = MethodHelper.findCompatibleMethod(receiverType, (String) method, argTypes);
 				} else
@@ -2591,13 +2591,13 @@ public class ExpressionProcesser {
 				}
 				pushExpressionValue(value, reflectMethod.getReturnType());
 			} catch (RuntimeException e) {
-				processException(e);
+				processException(fixUpMethodException(e, reflectMethod));
 			} catch (NoExpressionValueException e) {
-				processSyntaxException(e);
+				processException(fixUpMethodException(e, reflectMethod));
 			} catch (IllegalAccessException e) {
-				processException(e);
+				processException(fixUpMethodException(e, reflectMethod));
 			} catch (InvocationTargetException e) {
-				processException(e);
+				processException(fixUpMethodException(e.getCause(), reflectMethod));
 			} catch (NoSuchMethodException e) {
 				processException(e);
 			} catch (AmbiguousMethodException e) {
@@ -2608,6 +2608,31 @@ public class ExpressionProcesser {
 				printTraceEnd();
 		}
 			
+	}
+	
+	/*
+	 * Many of the exceptions don't add in what method had the error, so we
+	 * will do that here.
+	 */
+	private Throwable fixUpMethodException(Throwable e, Method method) {
+		if (method == null)
+			return e;
+		try {
+			String msg = e.getMessage();
+			Constructor eWithStringCtor = e.getClass().getConstructor(new Class[] {String.class});
+			String newMsg;
+			if (msg == null) {
+				newMsg = method.toString();
+			} else {
+				newMsg = method.toString()+": \""+msg+'\"';
+			}
+			Exception fixedupE = (Exception) eWithStringCtor.newInstance(new Object[] {newMsg});
+			fixedupE.setStackTrace(e.getStackTrace());
+			return fixedupE;
+		} catch (Exception e1) {
+			return e;
+		}
+  
 	}
 
 	private static final Object CONDITIONAL_IGNORE = "CONDITIONAL IGNORE";	// Flag for conditional in ingore //$NON-NLS-1$
