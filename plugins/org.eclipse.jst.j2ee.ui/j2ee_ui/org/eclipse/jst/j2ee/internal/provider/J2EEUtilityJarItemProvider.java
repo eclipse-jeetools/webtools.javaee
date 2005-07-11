@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -26,13 +26,16 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.edit.provider.ItemProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 /**
  * @author jsholl
@@ -95,35 +98,39 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	 */
 	private void computeChildren() {
 		childrenLoaded = true;
-		IProject project = ProjectUtilities.getProject(application);
-		if (project != null) {
-			IResource[] members;
-			try {
-				members = project.members();
-			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
-				return;
+		IVirtualComponent ear = ComponentUtilities.findComponent(application);
+		if (ear!=null) {
+			IVirtualReference[] modules = ear.getReferences();
+			for (int i=0; i<modules.length; i++) {
+				IVirtualComponent module = modules[i].getReferencedComponent();
+				// return only jars for utility components
+				if (IModuleConstants.JST_UTILITY_MODULE.equals(module.getComponentTypeId())) {
+					IProject project = ProjectUtilities.getProject(application);
+					if (project == null)
+						continue;
+					// we will assume the component name is in synch with the module uri
+					IFile utilityJar = project.getFile(module.getName()+".jar"); //$NON-NLS-1$
+					if (utilityJar !=null)
+						children.add(utilityJar);
+				}	
 			}
-			List list = new ArrayList();
-			getJars(list, members);
-			children.addAll(list);
 		}
 	}
 
-	private Collection getJars(List list, IResource[] members) {
-		for (int i = 0; i < members.length; i++) {
-			if (isJarFile(members[i])) {
-				list.add(members[i]);
-			} else if (members[i].getType() == IResource.FOLDER) {
-				try {
-					getJars(list, ((IFolder) members[i]).members());
-				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
-				}
-			}
-		}
-		return list;
-	}
+//	private Collection getJars(List list, IResource[] members) {
+//		for (int i = 0; i < members.length; i++) {
+//			if (isJarFile(members[i])) {
+//				list.add(members[i]);
+//			} else if (members[i].getType() == IResource.FOLDER) {
+//				try {
+//					getJars(list, ((IFolder) members[i]).members());
+//				} catch (CoreException e) {
+//					Logger.getLogger().logError(e);
+//				}
+//			}
+//		}
+//		return list;
+//	}
 
 	public static boolean isJarFile(IResource member) {
 		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(".jar"); //$NON-NLS-1$
