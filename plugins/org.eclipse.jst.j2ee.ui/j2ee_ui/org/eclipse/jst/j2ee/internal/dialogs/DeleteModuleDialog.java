@@ -10,13 +10,14 @@ package org.eclipse.jst.j2ee.internal.dialogs;
 
 
 
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.delete.DeleteOptions;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.help.WorkbenchHelp;
+import org.eclipse.ui.PlatformUI;
 
 
 public class DeleteModuleDialog extends J2EEDeleteDialog implements J2EEDeleteUIConstants {
@@ -28,7 +29,7 @@ public class DeleteModuleDialog extends J2EEDeleteDialog implements J2EEDeleteUI
 	}
 
 	protected Control createCustomArea(Composite parent) {
-		WorkbenchHelp.setHelp(parent, "com.ibm.etools.commonedit.navm2000"); //$NON-NLS-1$
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, IJ2EEUIContextIds.DELEATE_MODULE_DIALOG_1); //$NON-NLS-1$
 		deleteComposite = new DeleteModuleComposite(parent, SWT.NONE);
 		GridData data = new GridData(GridData.FILL_BOTH);
 		data.horizontalIndent = 10;

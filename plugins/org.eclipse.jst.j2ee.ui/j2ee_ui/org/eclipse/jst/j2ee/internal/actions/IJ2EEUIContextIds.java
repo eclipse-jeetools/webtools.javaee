@@ -28,6 +28,12 @@ public interface IJ2EEUIContextIds {
 	//J2EE project view
 	public static final String J2EE_PROEJCT_VIEW_P1 = "org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator"; //$NON-NLS-1$
 
+	// dialogs
+	public static final String DELEATE_EAR_DIALOG_1 = J2EEUIPlugin.PLUGIN_ID + ".navm2000"; //$NON-NLS-1$
+	public static final String DELEATE_MODULE_DIALOG_1 = J2EEUIPlugin.PLUGIN_ID + ".navm2010"; //$NON-NLS-1$
+	public static final String RENAME_EAR_DIALOG_1 = J2EEUIPlugin.PLUGIN_ID + ".navm3000"; //$NON-NLS-1$
+	public static final String RENAME_MODULE_DIALOG_1 = J2EEUIPlugin.PLUGIN_ID + ".navm3010"; //$NON-NLS-1$
+	
 	//jar dependency editor, page - 3 Pages
 	public static final String JAR_DEPENDENCIES_EDITOR_P1 = J2EEUIPlugin.PLUGIN_ID + ".EJB_JAR_DEPENDENCIES_EDITOR_PAGE1"; //$NON-NLS-1$
 	public static final String JAR_DEPENDENCIES_EDITOR_P2 = J2EEUIPlugin.PLUGIN_ID + ".EJB_JAR_DEPENDENCIES_EDITOR_PAGE2"; //$NON-NLS-1$
