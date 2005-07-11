@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.15 $  $Date: 2005/06/22 21:05:17 $ 
+ *  $Revision: 1.16 $  $Date: 2005/07/11 18:04:42 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -2463,6 +2463,8 @@ public class ExpressionProcesser {
 			} catch (NoSuchMethodException e) {
 				processException(e);
 			} catch (AmbiguousMethodException e) {
+				processException(e);
+			} catch (LinkageError e) {
 				processException(e);
 			}
 		} finally {
