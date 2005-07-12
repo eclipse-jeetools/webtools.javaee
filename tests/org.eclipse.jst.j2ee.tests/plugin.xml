@@ -45,6 +45,10 @@
       <suite
             class="org.eclipse.wtp.headless.tests.savestrategy.AllTests"
             name="SaveStrategy Tests"/>
+      <suite
+            class="org.eclipse.jst.j2ee.defect.tests.AllTests"
+            name="J2EE Defect Tests"/>
+            
    </extension>
    
 
