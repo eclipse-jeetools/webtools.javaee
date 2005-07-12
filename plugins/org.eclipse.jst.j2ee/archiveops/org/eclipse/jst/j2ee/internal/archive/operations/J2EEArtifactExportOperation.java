@@ -11,19 +11,26 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -31,6 +38,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -85,6 +93,8 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	}
 
 	protected IVirtualComponent getComponent() {
+		if (component == null)
+			component = ComponentUtilities.getComponent(model.getStringProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME))[0];
 		return component;
 	}
 
@@ -165,6 +175,36 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		}
 		return null;
 
+	}
+
+	public ISchedulingRule getSchedulingRule() {
+		
+		Set projs = gatherDependentProjects(getComponent());
+		if (!projs.contains(getComponent().getProject()))
+			projs.add(getComponent().getProject());
+	        ISchedulingRule combinedRule = null;
+	        IResourceRuleFactory ruleFactory = 
+	              ResourcesPlugin.getWorkspace().getRuleFactory();
+	        for (Iterator iter = projs.iterator(); iter.hasNext();) {
+				IProject proj = (IProject) iter.next();
+				ISchedulingRule rule = ruleFactory.createRule(proj);
+				combinedRule = MultiRule.combine(rule, combinedRule);
+	        }
+	        combinedRule = MultiRule.combine(ruleFactory.buildRule(),combinedRule);
+		       
+		return combinedRule;
+	}
+
+	private Set gatherDependentProjects(IVirtualComponent comp) {
+		Set projs = new HashSet();
+		IVirtualReference[] refs = comp.getReferences();
+		for (int i = 0; i < refs.length; i++) {
+			IVirtualReference refComp = refs[i];
+			projs.addAll(gatherDependentProjects(refComp.getReferencedComponent()));
+			projs.add(refComp.getReferencedComponent().getProject());
+		}			
+		return projs;	
+		
 	}
 
 }
