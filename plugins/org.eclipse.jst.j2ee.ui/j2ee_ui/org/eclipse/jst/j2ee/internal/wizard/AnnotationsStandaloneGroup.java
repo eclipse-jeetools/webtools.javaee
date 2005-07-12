@@ -17,7 +17,11 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -164,7 +168,28 @@ public class AnnotationsStandaloneGroup {
 	public void setEnablement(IProject project) {
 		//TODO
 		//boolean isEnabled = isAnnotationsSupported(project);
-		useAnnotations.setEnabled(true);
+		boolean isControllerEnabled = AnnotationsControllerManager.INSTANCE.isAnyAnnotationsSupported();
+		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
+		IAnnotationProvider annotationProvider = null;
+		boolean isProviderEnabled = false;
+		if (preferred !=null) {
+			try {
+				annotationProvider = AnnotationUtilities.findAnnotationProviderByName(preferred);
+			} catch (Exception ex) { 
+				//Default
+			}
+			if (annotationProvider != null && annotationProvider.isValid()){
+				isProviderEnabled = true;
+			}
+		}
+		boolean shouldEnable = isControllerEnabled || isProviderEnabled;
+		if (!shouldEnable) {
+			if (deprecatedWTPDataModel)
+				((WTPOperationDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
+			else
+				((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
+		}
+		useAnnotations.setEnabled(shouldEnable);
 //		if (!isEnabled || (!isForBean && !shouldProjectDefaultUseAnnotations) || (isForBean && !shouldBeanDefaultUseAnnotations)) {
 //			useAnnotations.setSelection(false);
 //			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
@@ -173,6 +198,8 @@ public class AnnotationsStandaloneGroup {
 //			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.TRUE);
 //		}
 	}
+	
+	
 
 	public void setUseServlet(boolean aBoolean) {
 		useServletString = aBoolean;
