@@ -14,6 +14,7 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wtp.headless.tests.savestrategy.WebImportOperationTest;
 
 /**
  * @author jsholl
@@ -33,9 +34,9 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("WEB Tests");
-       // addTest(WebExportOperationTest.suite());
-       // addTest(WebImportOperationTest.suite());
-        addTest(WebProjectCreationOperationTest.suite());
+       addTest(WebImportOperationTest.suite());
+       addTest(WebExportOperationTest.suite());
+       addTest(WebProjectCreationOperationTest.suite());
        // addTest(WebComponentCreationTest.suite());
 		//addTest(new SimpleTestSuite(WebSaveStrategyTests.class));
     }

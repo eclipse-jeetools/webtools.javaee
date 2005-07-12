@@ -16,11 +16,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelPr
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
-import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientImportOperationTest;
-import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBImportOperationTest;
-import org.eclipse.wtp.j2ee.headless.tests.jca.operations.RARImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
-import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
 /**
  * @author Administrator
@@ -67,10 +63,10 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		IDataModel dataModel = getModelInstance();
 		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filename);
 		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, projectName);
-		setServerTargetProperty(dataModel);
+		//setServerTargetProperty(dataModel);
 
 		if (dataModelShouldBeValid)
-			runAndVerify(dataModel);
+			runDataModel(dataModel);
 		else
 			verifyInvalidDataModel(dataModel);
 	}
@@ -136,6 +132,15 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	public void testImportTestCase_rest() throws Exception {
 		List projects = getImportableArchiveFileNames();
 		for (int i = 10; i < projects.size(); i++) {
+			String jarName = projects.get(i).toString();
+			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1, jarName.length() - 4);
+			testImport(projectName, jarName);
+		}
+	}
+	public void testAllImportTestCases() throws Exception {
+
+		List projects = getImportableArchiveFileNames();
+		for (int i = 0; i < projects.size(); i++) {
 			String jarName = projects.get(i).toString();
 			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1, jarName.length() - 4);
 			testImport(projectName, jarName);

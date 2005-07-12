@@ -9,9 +9,12 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wtp.headless.tests.savestrategy.EJBImportOperationTest;
+import org.eclipse.wtp.headless.tests.savestrategy.ModuleImportOperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
 
 /**
  * @author Administrator
@@ -33,7 +36,7 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getExportModel()
 	 */
 	protected IDataModel getModelInstance() {
-		return null;
+		return DataModelFactory.createDataModel(new EJBComponentExportDataModelProvider());
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getImportTestCase()

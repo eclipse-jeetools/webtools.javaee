@@ -13,9 +13,11 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
+import org.eclipse.wtp.headless.tests.savestrategy.ModuleImportOperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.RARExportOperationTest;
@@ -96,10 +98,10 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 	public void testExport(String projectName, String filename) throws Exception {
 
 		IDataModel dataModel = getModelInstance();
-//		dataModel.setProperty(J2EEModuleExportDataModel.ARCHIVE_DESTINATION, TESTS_OUTPUT_PATH + filename);
-//		dataModel.setProperty(J2EEModuleExportDataModel.PROJECT_NAME, projectName);
-//		dataModel.setBooleanProperty(J2EEModuleExportDataModel.EXPORT_SOURCE_FILES, exportSourceFiles);
-//		dataModel.setBooleanProperty(J2EEModuleExportDataModel.OVERWRITE_EXISTING, overwriteExisting);
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, TESTS_OUTPUT_PATH + filename);
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.COMPONENT_NAME, projectName);
+		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.EXPORT_SOURCE_FILES, exportSourceFiles);
+		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.OVERWRITE_EXISTING, overwriteExisting);
 
 		if (dataModelShouldBeValid)
 			runAndVerify(dataModel);

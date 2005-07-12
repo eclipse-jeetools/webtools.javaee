@@ -9,6 +9,8 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.wtp.headless.tests.savestrategy.AppClientImportOperationTest;
+
 /**
  * @author jsholl
  *
@@ -22,9 +24,8 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("App Client Tests");
-     //   addTest(AppClientExportOperationTest.suite());
-     //   addTest(AppClientImportOperationTest.suite());
+        addTest(AppClientExportOperationTest.suite());
+        addTest(AppClientImportOperationTest.suite());
         addTest(AppClientProjectCreationOperationTest.suite());
-        //addTest(AppClientComponentTest.suite());
     }
 }

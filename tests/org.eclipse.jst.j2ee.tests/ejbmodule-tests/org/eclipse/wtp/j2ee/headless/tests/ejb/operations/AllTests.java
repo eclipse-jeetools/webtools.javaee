@@ -6,6 +6,8 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 
+import org.eclipse.wtp.headless.tests.savestrategy.EJBImportOperationTest;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -23,10 +25,9 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("EJB Tests");
-      //  addTest(EJBExportOperationTest.suite());
-     //   addTest(EJBImportOperationTest.suite());
+        addTest(EJBExportOperationTest.suite());
+        addTest(EJBImportOperationTest.suite());
         addTest(EJBProjectCreationOperationTest.suite());
-        //addTest(EJBComponentCreationTest.suite());
     }
     
 }

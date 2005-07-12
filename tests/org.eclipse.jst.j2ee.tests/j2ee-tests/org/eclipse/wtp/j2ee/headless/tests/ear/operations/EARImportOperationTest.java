@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.framework.Test;
 
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -12,10 +13,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
-import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
+import org.eclipse.wtp.headless.tests.savestrategy.ModuleImportOperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 /**
@@ -24,18 +27,17 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
  * To change the template for this generated type comment go to Window - Preferences - Java - Code Generation - Code
  * and Comments
  */
-public class EARImportOperationTest extends OperationTestCase {
+public class EARImportOperationTest extends ModuleImportOperationTestCase {
 
     public static String fileSep = System.getProperty("file.separator");
 
-    /**
-     *  
-     */
-    public EARImportOperationTest() {
-        super();
-    }
+   
 
-    public List getUtilityJarsInEAR(EARFile earFile) {
+    public EARImportOperationTest(String name) {
+		super(name);
+	}
+
+	public List getUtilityJarsInEAR(EARFile earFile) {
         List utilJars = new ArrayList();
         try {
             List files = earFile.getArchiveFiles();
@@ -288,5 +290,17 @@ public class EARImportOperationTest extends OperationTestCase {
         }
         return moduleArchives;
     }
+
+    protected String getDirectory() {
+		return "EARImportTests";
+	}
+
+    protected List getImportableArchiveFileNames() {
+		return ProjectUtility.getEarsInDirectory(HeadlessTestsPlugin.getDefault(), TESTS_PATH);
+	}
+
+	protected IDataModel getModelInstance() {
+		return DataModelFactory.createDataModel(new EnterpriseApplicationImportDataModelProvider());
+	}
 
 }

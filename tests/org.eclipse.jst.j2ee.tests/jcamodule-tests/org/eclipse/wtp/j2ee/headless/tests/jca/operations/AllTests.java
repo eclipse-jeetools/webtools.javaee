@@ -9,6 +9,8 @@ package org.eclipse.wtp.j2ee.headless.tests.jca.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.wtp.headless.tests.savestrategy.RARImportOperationTest;
+
 /**
  * @author jsholl
  *
@@ -24,8 +26,8 @@ public class AllTests extends TestSuite {
     public AllTests(){
         super("JCA Tests");
         addTest(ConnectorProjectCreationOperationTest.suite());
-      //  addTest(RARExportOperationTest.suite());
-      //  addTest(RARImportOperationTest.suite());
+        addTest(RARExportOperationTest.suite());
+       addTest(RARImportOperationTest.suite());
     }
     
 }

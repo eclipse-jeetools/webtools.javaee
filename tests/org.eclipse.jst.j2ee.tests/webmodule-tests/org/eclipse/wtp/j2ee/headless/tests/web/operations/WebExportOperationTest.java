@@ -9,9 +9,12 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wtp.headless.tests.savestrategy.ModuleImportOperationTestCase;
+import org.eclipse.wtp.headless.tests.savestrategy.WebImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
 
 /**
  * @author Administrator
@@ -54,11 +57,8 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getModelInstance()
 	 */
 	protected IDataModel getModelInstance() {
-		// WebModuleExportDataModel dataModel = new WebModuleExportDataModel();
-		// dataModel.setBooleanProperty(WebModuleExportDataModel.EXCLUDE_COMPILE_JSP,
-		// excludeCompileJsp);
-		// return dataModel;
-		return null;
+		return DataModelFactory.createDataModel(new WebComponentExportDataModelProvider());
+		
 	}
 
 
