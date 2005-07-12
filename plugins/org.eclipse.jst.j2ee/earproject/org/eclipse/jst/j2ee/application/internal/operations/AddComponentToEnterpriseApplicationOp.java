@@ -29,86 +29,89 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 	public AddComponentToEnterpriseApplicationOp(IDataModel model) {
 		super(model);
 	}
-	
+
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		super.execute(monitor,info);
+		super.execute(monitor, info);
 		updateEARDD(monitor);
 		return OK_STATUS;
 	}
 
 
-	protected void updateEARDD(IProgressMonitor monitor){
-		
+	protected void updateEARDD(IProgressMonitor monitor) {
+
 		EARArtifactEdit earEdit = null;
-       	try {
+		try {
 			ComponentHandle handle = (ComponentHandle) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE);
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
-			if(earEdit != null){
+			if (earEdit != null) {
 				Application application = earEdit.getApplication();
-				List list = (List)model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
-						ComponentHandle comphandle = (ComponentHandle)list.get(i);
-						IVirtualComponent wc = ComponentCore.createComponent(comphandle.getProject(), comphandle.getName());						
-						addModule(application, wc);	
+						ComponentHandle comphandle = (ComponentHandle) list.get(i);
+						IVirtualComponent wc = ComponentCore.createComponent(comphandle.getProject(), comphandle.getName());
+						addModule(application, wc);
 					}
 				}
-			}	
+			}
 			earEdit.saveIfNecessary(monitor);
-       	}
-       	catch(Exception e){
-       		Logger.getLogger().logError(e);
-       	} finally {			
-       		if(earEdit != null)
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (earEdit != null)
 				earEdit.dispose();
-       	}		
+		}
 	}
+
 	protected Module createNewModule(IVirtualComponent wc) {
-		
+
 		String type = wc.getComponentTypeId();
-		if ( type.equals(IModuleConstants.JST_WEB_MODULE) ){
+		if (type.equals(IModuleConstants.JST_WEB_MODULE)) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createWebModule();
-		}else if ( type.equals(IModuleConstants.JST_EJB_MODULE)) {
+		} else if (type.equals(IModuleConstants.JST_EJB_MODULE)) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createEjbModule();
-		}else if ( type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
+		} else if (type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
-		}else if ( type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+		} else if (type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createConnectorModule();
 		}
 		return null;
 	}
-	
+
 	protected void addModule(Application application, IVirtualComponent wc) {
 		Application dd = application;
-		
-		Module m = createNewModule(wc);
 
 		String name = wc.getName();
 		String type = wc.getComponentTypeId();
-		
-		if ( type.equals(IModuleConstants.JST_WEB_MODULE) ){
+
+		if (type.equals(IModuleConstants.JST_WEB_MODULE)) {
 			name += ".war"; //$NON-NLS-1$
-		}else if ( type.equals(IModuleConstants.JST_EJB_MODULE)) {
+		} else if (type.equals(IModuleConstants.JST_EJB_MODULE)) {
 			name += ".jar"; //$NON-NLS-1$
-		}else if ( type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
+		} else if (type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
 			name += ".jar"; //$NON-NLS-1$
-		}else if ( type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+		} else if (type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
 			name += ".rar"; //$NON-NLS-1$
 		}
-		
-		if( m!= null){
-			m.setUri(name);
-			if (m instanceof WebModule) {
+		Module existingModule = dd.getFirstModule(name);
 
-					
-			Properties props = wc.getMetaProperties();
-			String contextroot = ""; //$NON-NLS-1$
-			if(( props != null ) && ( props.containsKey(J2EEConstants.CONTEXTROOT)))
-				contextroot = props.getProperty(J2EEConstants.CONTEXTROOT);
-				((WebModule) m).setContextRoot(contextroot);
-			}		
-			dd.getModules().add(m);	
-		}	
+		if (existingModule == null) {
+			Module m = createNewModule(wc);
+			if (m != null) {
+
+				m.setUri(name);
+				if (m instanceof WebModule) {
+
+
+					Properties props = wc.getMetaProperties();
+					String contextroot = ""; //$NON-NLS-1$
+					if ((props != null) && (props.containsKey(J2EEConstants.CONTEXTROOT)))
+						contextroot = props.getProperty(J2EEConstants.CONTEXTROOT);
+					((WebModule) m).setContextRoot(contextroot);
+				}
+				dd.getModules().add(m);
+			}
+		}
 	}
 
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
