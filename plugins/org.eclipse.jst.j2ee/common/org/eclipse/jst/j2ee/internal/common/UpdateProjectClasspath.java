@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.internal.common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -62,6 +63,7 @@ public class UpdateProjectClasspath {
 		try {
 	
 			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
+            List oldEntriesList = new ArrayList();
 			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, jProject);
 			
 			int oldSize = oldEntries.length;
@@ -70,12 +72,15 @@ public class UpdateProjectClasspath {
 			IClasspathEntry[] classpathEnties = new IClasspathEntry[oldSize + newSize];
 			int k = 0;
 			for (int i = 0; i < oldEntries.length; i++) {
-				classpathEnties[i] = oldEntries[i];
+				classpathEnties[k] = oldEntries[i];
+                oldEntriesList.add(oldEntries[i]);
 				k++;
 			}
 			for( int j=0; j< newEntries.length; j++){
-				classpathEnties[k] = newEntries[j];
-				k++;
+                if(!oldEntriesList.contains(newEntries[j])) {
+                    classpathEnties[k] = newEntries[j];
+                    k++;
+                }
 			}
 			javaProject.setRawClasspath(classpathEnties, null);
 		}
