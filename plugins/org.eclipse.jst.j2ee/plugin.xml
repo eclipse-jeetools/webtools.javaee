@@ -686,5 +686,11 @@
 		<ProviderDefinesType
       		providerType="jst.utility.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+       	<DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.deployables.ImportedClassesComponentBuilderDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.deployables.ImportedClassesComponentBuilderDataModelProvider"/>
+     	<ProviderDefinesType
+      		providerType="jst.utility.imported.classes.builder"
+      		providerID="org.eclipse.jst.j2ee.internal.deployables.ImportedClassesComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>

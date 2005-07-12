@@ -37,6 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.builder.ComponentStructuralBuilder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -52,10 +53,13 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
      * @see org.eclipse.core.commands.operations.IUndoableOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
      */
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
+        StructureEdit sEdit = null;
 		try {
-            WorkbenchComponent workbenchModule = (WorkbenchComponent)model.getProperty(WORKBENCH_COMPONENT);
+            IVirtualComponent vComponent = (IVirtualComponent)model.getProperty(VIRTUAL_COMPONENT);
+            sEdit = StructureEdit.getStructureEditForRead(vComponent.getProject());
+            WorkbenchComponent wbComponent = sEdit.findComponentByName(vComponent.getName());
             
-            IProject project = (IProject)model.getProperty(PROJECT);
+            IProject project = vComponent.getProject();
             IPath projectPath = project.getFullPath();
             IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
             List javaSourceFolderList = JemProjectUtilities.getSourceContainers(project);
@@ -69,7 +73,7 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
             IPath outputContainerPath = outputContainer.getFullPath();
 
             // copy resources except the java source folder
-            List resourceList = workbenchModule.getResources();
+            List resourceList = wbComponent.getResources();
             List javaOutputPathList = new ArrayList();
             for (int i = 0; i < resourceList.size(); i++) {
             	ComponentResource wmr = (ComponentResource)resourceList.get(i);  
@@ -141,6 +145,10 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
             Logger.getLogger().log(e.getMessage());
         } catch (CoreException e) {
             Logger.getLogger().log(e.getMessage());
+        } finally{
+        	if(sEdit != null){
+        		sEdit.dispose();
+        	}
         }
 		return OK_STATUS;
     }

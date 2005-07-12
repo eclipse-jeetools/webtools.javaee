@@ -106,7 +106,6 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	
 					getFiles(new IResource[]{outputFolders[i]});
 				}
-			
 			}
 
 
