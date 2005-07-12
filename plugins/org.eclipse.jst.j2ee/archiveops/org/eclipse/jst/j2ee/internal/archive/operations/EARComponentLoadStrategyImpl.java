@@ -10,13 +10,24 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.DirectoryArchiveLoadStrategyImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
@@ -62,9 +73,11 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					}
 				} else if (IModuleConstants.JST_UTILITY_MODULE.equals(componentTypeId)) {
 					try {
-						String uri = referencedComponent.getName() + ".jar";
-						Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
-						filesList.add(archive);
+						if( !referencedComponent.isBinary()){
+							String uri = referencedComponent.getName() + ".jar";
+							Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
+							filesList.add(archive);
+						}
 					} catch (OpenFailureException e) {
 						Logger.getLogger().logError(e);
 					}
@@ -77,4 +90,16 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			}
 		}
 	}
+
+	public ZipFileLoadStrategyImpl createLoadStrategy(String uri) throws FileNotFoundException, IOException {
+		String filename = uri.replace('/', java.io.File.separatorChar);
+		java.io.File file = new java.io.File(filename);
+		if (!file.exists()) {
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+		}
+		if (file.isDirectory()) {
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+		}
+		return new org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl(file);
+	}	
 }

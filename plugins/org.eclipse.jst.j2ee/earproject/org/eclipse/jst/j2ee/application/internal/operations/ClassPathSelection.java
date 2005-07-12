@@ -11,6 +11,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,13 +22,19 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
@@ -35,11 +42,13 @@ import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategy
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 
 public class ClassPathSelection {
 	protected Archive archive;
 	protected IProject earProject;
+	protected IVirtualComponent earComponent;
 	protected List classpathElements;
 	protected Map urisToElements;
 	protected boolean modified;
@@ -91,7 +100,17 @@ public class ClassPathSelection {
 	protected ClasspathElement createElement(Archive referencingArchive, Archive referencedArchive, String cpEntry) {
 		ClasspathElement element = new ClasspathElement(referencingArchive);
 		element.setValid(true);
-		element.setText(referencedArchive.getURI());
+				
+		String uriString = referencedArchive.getURI();
+		URI uri = URI.createURI(uriString);
+
+		boolean hasAbsolutePath = uri.hasAbsolutePath();
+		if( hasAbsolutePath ){
+			uriString = uri.lastSegment();
+		}
+		
+		//element.setText(referencedArchive.getURI());
+		element.setText(uriString);
 		element.setTargetArchive(referencedArchive);
 		element.setEarProject(earProject);
 		setProjectValues(element, referencedArchive);
@@ -252,8 +271,19 @@ public class ClassPathSelection {
 	protected Archive getArchive(String uri, List archives) {
 		for (int i = 0; i < archives.size(); i++) {
 			Archive anArchive = (Archive) archives.get(i);
-			if (anArchive.getURI().equals(uri))
+			
+			String archiveURIString = anArchive.getURI();
+			URI archiveURI = URI.createURI(archiveURIString);
+			boolean hasAbsolutePath = archiveURI.hasAbsolutePath();
+			if( hasAbsolutePath ){
+				archiveURIString = archiveURI.lastSegment();
+			}
+			if (archiveURIString.equals(uri))
 				return anArchive;
+			
+			
+//			if (anArchive.getURI().equals(uri))
+//				return anArchive;
 		}
 		return null;
 	}
@@ -304,12 +334,129 @@ public class ClassPathSelection {
 				}
 			}
 		}
+		List classPathArchives = loadClassPathArchives();
+		for (int i = 0; i < classPathArchives.size(); i++) {
+			other = (Archive) classPathArchives.get(i);
+			if (other != archive && ArchiveUtil.isValidDependency(other, archive)) {
+				IProject project = getProject(other);
+				if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
+					boolean inClassPath = false;
+					for (int j = 0; j < cp.length; j++) {
+						String cpEntry = cp[j];
+						
+						if( other != null && other.getName().equals(cpEntry)){
+							if( isClassPathArchive(cpEntry, classPathArchives) ){
+								other = getClassPathArchive(cpEntry, classPathArchives);
+								if (other != null && ArchiveUtil.isValidDependency(other, archive)) {
+									element = createElement(archive, other, cpEntry);
+									//archives.remove(other);
+									//classPathArchives.remove(other);
+									inClassPath = true;
+									break;
+								}
+							}
+						}
+					}
+					if( !inClassPath ){
+						element = createElement(archive, other, null);
+						element.setProject(getProject(other));
+						addClasspathElement(element, other.getURI());							
+					}					
+
+				}
+			}
+		}
+		
 	}
 
+	protected List loadClassPathArchives(){
+		LoadStrategy loadStrat = archive.getLoadStrategy();
+		
+		List archives = new ArrayList();
+		
+		if( earComponent!= null){
+			IVirtualReference[] newrefs = earComponent.getReferences();
+			for( int i=0; i < newrefs.length; i++){
+				IVirtualReference ref = newrefs[i];
+				IVirtualComponent referencedComponent = ref.getReferencedComponent();
+				boolean isBinary = referencedComponent.isBinary();
+			
+				if( isBinary ){
+					String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+		
+					try {
+						ZipFileLoadStrategyImpl strat = createLoadStrategy(uri);
+						Archive archive = null;
+						try {
+							archive = CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, uri);
+						} catch (OpenFailureException e) {
+							// TODO Auto-generated catch block
+							Logger.getLogger().logError(e);
+						}
+
+						archives.add(archive);
+						
+					} catch (FileNotFoundException e) {
+						Logger.getLogger().logError(e);
+					} catch (IOException e) {
+						Logger.getLogger().logError(e);
+					}
+				}
+				
+			}
+		}
+		return archives;
+	}
+	
+	Archive getClassPathArchive(String uri, List archives){
+		for (int i = 0; i < archives.size(); i++) {
+			Archive anArchive = (Archive) archives.get(i);
+			
+			String archiveURIString = anArchive.getURI();
+			URI archiveURI = URI.createURI(archiveURIString);
+			boolean hasAbsolutePath = archiveURI.hasAbsolutePath();
+			if( hasAbsolutePath ){
+				archiveURIString = archiveURI.lastSegment();
+			}
+			if (archiveURIString.equals(uri))
+				return anArchive;
+		}
+		return null;
+	}
+	
+	boolean  isClassPathArchive(String uri, List archives){
+		for (int i = 0; i < archives.size(); i++) {
+			Archive anArchive = (Archive) archives.get(i);
+			
+			String archiveURIString = anArchive.getURI();
+			URI archiveURI = URI.createURI(archiveURIString);
+			boolean hasAbsolutePath = archiveURI.hasAbsolutePath();
+			if( archiveURI.lastSegment().equals(uri) ){
+				return true;
+			}
+		}
+		return false;
+	}	
+	
+	public ZipFileLoadStrategyImpl createLoadStrategy(String uri) throws FileNotFoundException, IOException {
+		String filename = uri.replace('/', java.io.File.separatorChar);
+		java.io.File file = new java.io.File(filename);
+		if (!file.exists()) {
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+		}
+		if (file.isDirectory()) {
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+		}
+		return new org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl(file);
+	}
+	
+	
 	private void initializeEARProject(EARFile earFile) {
 		LoadStrategy loadStrat = earFile.getLoadStrategy();
-		if (loadStrat instanceof EARComponentLoadStrategyImpl)
+		if (loadStrat instanceof EARComponentLoadStrategyImpl){
+			earComponent = ((EARComponentLoadStrategyImpl) loadStrat).getComponent();
 			earProject = ((EARComponentLoadStrategyImpl) loadStrat).getComponent().getProject();
+		}	
 	}
 
 	private void setType(ClasspathElement element, Archive other) {

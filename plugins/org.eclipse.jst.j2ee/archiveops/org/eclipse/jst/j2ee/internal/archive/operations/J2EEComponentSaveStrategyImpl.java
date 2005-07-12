@@ -138,10 +138,11 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 			newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(importedClassesJar.getFullPath(), null, null, true);
 			javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
 
-			IVirtualComponent importedClassesComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), importedClassesJar.getProjectRelativePath().toString());
-			//importedClassesComponent.create(0, null);
-			//importedClassesComponent.getRootFolder().createLink(new Path(importedClassesComponentName), 0, null);
-			//importedClassesComponent.setComponentTypeId(IModuleConstants.JST_UTILITY_IMPORTED_CLASSES_MODULE);
+			IVirtualComponent importedClassesComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), "lib/" + importedClassesJar.getRawLocation().toString());
+			// importedClassesComponent.create(0, null);
+			// importedClassesComponent.getRootFolder().createLink(new
+			// Path(importedClassesComponentName), 0, null);
+			// importedClassesComponent.setComponentTypeId(IModuleConstants.JST_UTILITY_IMPORTED_CLASSES_MODULE);
 			IVirtualReference ref = ComponentCore.createReference(vComponent, importedClassesComponent);
 			ref.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
 			ref.create(0, null);

@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -179,6 +180,19 @@ public class ClasspathElement {
 		if (representsImportedJar())
 			return new IClasspathEntry[]{JavaCore.newLibraryEntry(getImportedJarAsIFile().getFullPath(), null, null)};
 
+		//if( archiveComponent())
+			//return new IClasspathEntry[]{JavaCore.newLibraryEntry(getImportedJarAsIFile().getFullPath(), null, null)};
+		
+		if( targetArchive != null ){
+			String uri = targetArchive.getOriginalURI();
+
+			java.io.File file = new java.io.File(uri);
+			if( file.exists()){
+				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(uri), null, null)};
+			}
+
+		}	
+		
 		if (!valid && isSelected())
 			return new IClasspathEntry[0];
 
@@ -203,6 +217,7 @@ public class ClasspathElement {
 	}
 
 	protected IClasspathEntry newClasspathEntryFromEARProj() {
+		//String text = getText();
 		IPath path = earProject.getFile(getText()).getFullPath();
 		return JavaCore.newLibraryEntry(path, path, null, true);
 	}

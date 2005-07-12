@@ -14,9 +14,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.ui.wizards.buildpaths.CPListElement;
+import org.eclipse.jdt.ui.wizards.BuildPathDialogAccess;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -68,6 +74,8 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	protected CheckboxTableViewer availableComponentsViewer;
 	protected Button selectAllButton;
 	protected Button deselectAllButton;
+	protected Button externalJarButton;
+	protected Button addVariableButton;
 	protected Composite buttonColumn;
 
 	protected List j2eeComponentList = new ArrayList();
@@ -212,6 +220,10 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			handleSelectAllButtonPressed();
 		else if (event.widget == deselectAllButton)
 			handleDeselectAllButtonPressed();
+		else if(event.widget == externalJarButton)
+			handleSelectExternalJarButton();
+		else if(event.widget == addVariableButton)
+			handleSelectVariableButton();		
 	}
 
 	private void handleSelectAllButtonPressed() {
@@ -225,7 +237,82 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		j2eeComponentList = new ArrayList();
 		javaProjectsList = new ArrayList();
 	}
+	
+	private void handleSelectExternalJarButton(){
+		IPath[] selected= BuildPathDialogAccess.chooseExternalJAREntries(getShell());
 
+		if (selected != null) {
+			for (int i= 0; i < selected.length; i++) {
+				
+				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), "lib/" +
+							selected[i].toString());
+				
+				ArrayList vlist = new ArrayList();
+				IVirtualReference[] oldrefs = earComponent.getReferences();
+				for (int j = 0; j < oldrefs.length; j++) {
+					IVirtualReference ref = (IVirtualReference) oldrefs[j];
+					vlist.add(ref);
+				}		
+			
+				//To do: check if archive component already exists
+				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
+				vlist.add(ref);	
+				
+				IVirtualReference[] refs = new IVirtualReference[vlist.size()];
+				for (int j = 0; j < vlist.size(); j++) {
+					IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
+					refs[j] = tmpref;
+				}				
+				earComponent.setReferences(refs);
+			}
+			refresh();
+		}
+		
+	}
+
+	private void handleSelectVariableButton(){
+		IPath existingPath[] = new Path[0];
+		IPath[] paths =  BuildPathDialogAccess.chooseVariableEntries(getShell(), existingPath);
+		
+		if (paths != null) {
+			refresh();
+			ArrayList result= new ArrayList();
+			for (int i = 0; i < paths.length; i++) {
+				//CPListElement elem= new CPListElement(fCurrJProject, IClasspathEntry.CPE_VARIABLE, paths[i], null);
+				IPath resolvedPath= JavaCore.getResolvedVariablePath(paths[i]);
+
+				
+				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), "var/" +
+							paths[i].toString());
+				
+				ArrayList vlist = new ArrayList();
+				IVirtualReference[] oldrefs = earComponent.getReferences();
+				for (int j = 0; j < oldrefs.length; j++) {
+					IVirtualReference ref = (IVirtualReference) oldrefs[j];
+					vlist.add(ref);
+				}		
+			
+				//To do: check if archive component already exists
+				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
+				vlist.add(ref);	
+				
+				IVirtualReference[] refs = new IVirtualReference[vlist.size()];
+				for (int j = 0; j < vlist.size(); j++) {
+					IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
+					refs[j] = tmpref;
+				}				
+				earComponent.setReferences(refs);
+				
+//				elem.setIsMissing((resolvedPath == null) || !resolvedPath.toFile().exists());
+//				if (!existingElements.contains(elem)) {
+//					result.add(elem);
+//				}
+			}
+			//return (CPListElement[]) result.toArray(new CPListElement[result.size()]);
+		}	
+
+	}
+	
 	protected void createTableComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridData gData = new GridData(GridData.FILL_BOTH);
@@ -253,6 +340,8 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	protected void createPushButtons() {
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR"));//$NON-NLS-1$
+		//addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$
 	}
 
 	protected Button createPushButton(String label) {

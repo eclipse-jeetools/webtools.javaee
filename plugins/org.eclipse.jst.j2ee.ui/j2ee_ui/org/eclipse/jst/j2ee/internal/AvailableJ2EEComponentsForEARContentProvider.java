@@ -24,6 +24,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class AvailableJ2EEComponentsForEARContentProvider implements IStructuredContentProvider, ITableLabelProvider {
 	private int j2eeVersion;
@@ -65,6 +66,23 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 						int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
 						if( compJ2EEVersion <= j2eeVersion)
 							validCompList.add(component.getComponentHandle());
+					}else if(compType.equals(IModuleConstants.JST_EAR_MODULE)){
+						//find the ArchiveComponent
+						if( component.equals( earComponent )){
+							IVirtualReference[] newrefs = component.getReferences();
+							for( int k=0; k< newrefs.length; k++ ){
+								IVirtualReference tmpref = newrefs[k];
+								//IVirtualComponent enclosingcomp = tmpref.getEnclosingComponent();
+								//boolean isBinary = enclosingcomp.isBinary();
+								IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
+								String name = referencedcomp.getName();
+								boolean isBinary = referencedcomp.isBinary();
+								if( isBinary ){
+									validCompList.add(referencedcomp.getComponentHandle());
+									//IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(name);
+								}	
+							}	
+						}
 					}
 				}
 			} else
