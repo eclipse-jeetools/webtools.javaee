@@ -123,7 +123,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		List projects = getImportableArchiveFileNames();
 		if (index < projects.size()) {
 			String jarName = projects.get(index).toString();
-			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1, jarName.length() - 4);
+			String projectName = jarName.substring(jarName.lastIndexOf(File.separator) + 1, jarName.length() - 4);
 			testImport(projectName, jarName);
 		}
 	}
@@ -133,7 +133,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		List projects = getImportableArchiveFileNames();
 		for (int i = 10; i < projects.size(); i++) {
 			String jarName = projects.get(i).toString();
-			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1, jarName.length() - 4);
+			String projectName = jarName.substring(jarName.lastIndexOf(File.separator) + 1, jarName.length() - 4);
 			testImport(projectName, jarName);
 		}
 	}
@@ -142,7 +142,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		List projects = getImportableArchiveFileNames();
 		for (int i = 0; i < projects.size(); i++) {
 			String jarName = projects.get(i).toString();
-			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1, jarName.length() - 4);
+			String projectName = jarName.substring(jarName.lastIndexOf(File.separator) + 1, jarName.length() - 4);
 			testImport(projectName, jarName);
 		}
 	}

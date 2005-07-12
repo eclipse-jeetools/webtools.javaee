@@ -52,7 +52,7 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 
 	public String getFullPathForEJBJar(String jarName) {
 		try {
-			return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(), TESTS_PATH + "\\" + jarName);
+			return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(), TESTS_PATH + jarName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
