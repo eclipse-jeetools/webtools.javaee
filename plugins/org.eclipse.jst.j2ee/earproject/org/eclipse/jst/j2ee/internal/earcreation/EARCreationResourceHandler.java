@@ -32,6 +32,7 @@ public class EARCreationResourceHandler {
 	public static final String NOT_A_RAR = "14"; //$NON-NLS-1$
 	public static final String NOT_A_WAR = "15"; //$NON-NLS-1$
 	public static final String SERVER_TARGET_NOT_SUPPORT_EAR = "16"; //$NON-NLS-1$
+	public static final String EAR_PROJECTNAME_SAMEAS_MODULE= "EAR_PROJECTNAME_SAMEAS_MODULE"; //$NON-NLS-1$	
 
 	private static ResourceBundle fgResourceBundle;
 
