@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The message-destination-ref element contains a declaration
  * of Deployment Component's reference to a message destination
  * associated with a resource in Deployment Component's

@@ -108,7 +108,7 @@ public interface ConfigProperty extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConfigProperty_Descriptions()

@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The activation-configType defines information about the
  * expected configuration properties of the message-driven bean
  * in its operational environment. This may include information

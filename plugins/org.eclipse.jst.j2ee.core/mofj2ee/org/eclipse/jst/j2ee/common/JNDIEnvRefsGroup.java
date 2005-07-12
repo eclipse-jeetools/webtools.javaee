@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * This group keeps the usage of the contained JNDI environment
  * reference elements consistent across J2EE deployment descriptors.
  * <!-- end-model-doc -->

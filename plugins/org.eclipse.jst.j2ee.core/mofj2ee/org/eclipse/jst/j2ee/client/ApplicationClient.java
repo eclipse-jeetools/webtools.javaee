@@ -48,7 +48,7 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * The required value for the version is 1.4.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
@@ -151,7 +151,7 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Refs</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.client.ClientPackage#getApplicationClient_ServiceRefs()
@@ -170,7 +170,7 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * The message-destination-ref-name element specifies the
 	 *     name of a message destination reference; its value is
 	 *     the message destination reference name used in the
@@ -195,7 +195,7 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destinations</em>' containment reference list.
 	 * @see org.eclipse.jst.j2ee.internal.client.ClientPackage#getApplicationClient_MessageDestinations()

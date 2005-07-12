@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * This group keeps the usage of the contained description related
  * elements consistent across J2EE deployment descriptors.
  * <!-- end-model-doc -->

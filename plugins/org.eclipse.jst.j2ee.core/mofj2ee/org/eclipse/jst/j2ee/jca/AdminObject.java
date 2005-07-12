@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The adminobjectType specifies information about an
  * administered object.  Administered objects are specific to a
  * messaging style or message provider.  This contains

@@ -116,7 +116,7 @@ public interface Session extends EnterpriseBean{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * The service-endpoint element contains the
 	 *         fully-qualified name of the enterprise bean's web
 	 *         service endpoint interface. The service-endpoint

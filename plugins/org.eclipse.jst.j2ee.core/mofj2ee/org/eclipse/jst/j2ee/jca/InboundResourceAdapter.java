@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The inbound-resourceadapterType specifies information
  * about an inbound resource adapter. This contains information
  * specific to the implementation of the resource adapter

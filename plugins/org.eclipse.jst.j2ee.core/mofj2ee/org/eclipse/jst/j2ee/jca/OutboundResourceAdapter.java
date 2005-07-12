@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The outbound-resourceadapterType specifies information about
  * an outbound resource adapter. The information includes fully
  * qualified names of classes/interfaces required as part of

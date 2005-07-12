@@ -25,7 +25,7 @@ public interface SecurityConstraint extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4 deprecated, becomes displayNames
+	 * @version J2EE1.4 deprecated, becomes displayNames
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Display Name</em>' attribute.
 	 * @see #setDisplayName(String)

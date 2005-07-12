@@ -241,7 +241,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 *  <!-- begin-user-doc -->
-	 * @plannedfor J2EE1.4 deprecated, use getUrlPattern()
+	 * @version J2EE1.4 deprecated, use getUrlPattern()
 	 * <!-- end-user-doc -->
 	 * 
 	 */
@@ -266,7 +266,7 @@ public WebapplicationFactory getFactory() {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * @plannedfor J2EE1.4 deprecated, use getHttpMethods()
+	 * @version J2EE1.4 deprecated, use getHttpMethods()
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

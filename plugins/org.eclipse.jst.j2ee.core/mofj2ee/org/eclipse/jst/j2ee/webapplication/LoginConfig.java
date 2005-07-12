@@ -87,7 +87,7 @@ public interface LoginConfig extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Authorization Method</em>' attribute.
 	 * @see #setAuthorizationMethod(String)

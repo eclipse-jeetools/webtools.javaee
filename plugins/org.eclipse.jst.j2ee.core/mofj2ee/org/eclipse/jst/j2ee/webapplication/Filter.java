@@ -68,7 +68,7 @@ public void setFilterClassName(String filterClassName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * @plannedfor J2EE1.4
+	 * @version J2EE1.4
 	 * The init-param element contains a name/value pair as
 	 *         an initialization param of a servlet filter
 	 * <!-- end-model-doc -->

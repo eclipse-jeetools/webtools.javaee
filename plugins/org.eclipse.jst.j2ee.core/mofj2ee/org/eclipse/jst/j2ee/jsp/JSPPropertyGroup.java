@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The jsp-property-groupType is used to group a number of
  * files so they can be given global property information.
  * All files so described are deemed to be JSP files. The

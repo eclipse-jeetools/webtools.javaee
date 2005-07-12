@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * @plannedfor J2EE1.4
+ * @version J2EE1.4
  * The function element is used to provide information on each
  * function in the tag library that is to be exposed to the EL.
  * 
