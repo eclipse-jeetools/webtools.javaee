@@ -118,6 +118,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		Archive archive = getArchiveFile();
 		if (archive != null) {
 			archive.close();
+			setProperty(FILE, null);
 		}
 		String uri = getStringProperty(FILE_NAME);
 		if (!archiveExistsOnFile())
@@ -145,16 +146,16 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	}
 
 	public IStatus validate(String propertyName) {
-		if (FILE_NAME.equals(propertyName)) {
-			String fileName = (String) getProperty(FILE_NAME);
-			if (fileName != null && fileName.equals("")) { //$NON-NLS-1$
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())})); //$NON-NLS-1$);
+		if (FILE_NAME.equals(propertyName) && !isPropertySet(FILE)) {
+			String fileName = getStringProperty(propertyName);
+			if (fileName == null || fileName.length() == 0) {
+				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())})); 
 			} else if (cachedOpenFailureException != null) {
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(cachedOpenFailureException.getMessage())); //$NON-NLS-1$);
+				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(cachedOpenFailureException.getMessage()));
 			} else if (fileName != null && !archiveExistsOnFile()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.FILE_DOES_NOT_EXIST_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			}
-		}
+		} 
 		return OK_STATUS;
 	}
 
