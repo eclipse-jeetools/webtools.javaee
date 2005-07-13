@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: MapTypes.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/18 23:11:27 $ 
+ *  $Revision: 1.6 $  $Date: 2005/07/13 15:56:31 $ 
  */
 package org.eclipse.jem.internal.proxy.common;
 
@@ -101,13 +101,13 @@ public class MapTypes {
 		if (jniName.charAt(0) == '[') {
 			// It is an array
 			int dims = jniName.lastIndexOf('[')+1;	// Number of dimensions
-			int startType = dims+1;
+			int startType = dims;
 			StringBuffer fName = new StringBuffer(jniName.length()+(2*dims)); 
 			if (jniName.charAt(dims) == 'L')
 				fName.append(jniName.substring(startType, jniName.length()-1));	// For "Ljava.lang.String;" return "java.lang.String"
 			else if (jniName.length() == startType+1) {
 				// Possible primitive
-				Class type = (Class) MAP_SHORTSIG_TO_TYPE.get(jniName.substring(startType, startType));
+				Class type = (Class) MAP_SHORTSIG_TO_TYPE.get(jniName.substring(startType, startType+1));
 				if (type != null) {
 					fName.append(type.getName());
 				} else
