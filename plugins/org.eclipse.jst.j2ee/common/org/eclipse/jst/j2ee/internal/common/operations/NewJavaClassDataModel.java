@@ -545,6 +545,11 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 					
-		return super.doSetProperty(propertyName, propertyValue);
+		boolean result = super.doSetProperty(propertyName, propertyValue);
+		if (result) {
+			if (MODULE_NAME.equals(propertyName))
+				setProperty(SOURCE_FOLDER, getDefaultJavaSourceFolder().getFullPath().toOSString());
+		}
+		return result;
 	}
 }

@@ -235,10 +235,11 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		projectNameCombo.setLayoutData(data);
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
 				initializeComponentList();
 			}
 		});
-		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, new Control[] {});
+		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, null);
 		initializeProjectList();
 		new Label(parent, SWT.NONE);
 	}
