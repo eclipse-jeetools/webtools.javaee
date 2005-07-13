@@ -92,13 +92,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					outputFolders[i] = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
 	
 					IPath sourcePath = roots[i].getPath();
-					
-					if( sourcePath.segmentCount() > 1 )
-						source = workspaceRoot.getFolder(sourcePath);
-					else
-						source = getComponent().getProject();
+					boolean sourceIsProject = sourcePath.segmentCount() <= 1;  
+					source = sourceIsProject ? (IResource)getComponent().getProject(): workspaceRoot.getFolder(sourcePath); 
 					IVirtualResource[] virtualSources = ComponentCore.createResources(source);
-					IResource actualResource = virtualSources[0].getUnderlyingResource();
+					IResource actualResource = sourceIsProject ? source : virtualSources[0].getUnderlyingResource();
 					int sourceOffset = actualResource.getProjectRelativePath().segmentCount() - sourcePath.segmentCount();
 					int runtimeOffset = outputPath.segmentCount() - virtualSources[0].getRuntimePath().segmentCount();
 	
