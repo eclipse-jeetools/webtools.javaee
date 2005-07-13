@@ -146,7 +146,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return status;
 	}
 
-	private ComponentHandle computeEARHandle(){
+	protected ComponentHandle computeEARHandle(){
 		String earProjname = (String) model.getProperty(EAR_COMPONENT_NAME);
 		
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
@@ -438,18 +438,24 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				}
 			}
 		}else if(propertyName.equals(PROJECT_NAME)){
-			String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-			ComponentHandle earHandle = (ComponentHandle) earDM.getProperty(EAR_COMPONENT_HANDLE);
-			if( earHandle != null && earHandle.getProject() != null ){
-				String earProjName = earHandle.getProject().getName();
-				if( earProjName.equalsIgnoreCase(projName)){
-					String msg = msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE);
-					return WTPCommonPlugin.createErrorStatus(msg);
+			if (!isCreatingEarComponent()) {
+				String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
+				IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
+				ComponentHandle earHandle = (ComponentHandle) earDM.getProperty(EAR_COMPONENT_HANDLE);
+				if( earHandle != null && earHandle.getProject() != null ){
+					String earProjName = earHandle.getProject().getName();
+					if( earProjName.equalsIgnoreCase(projName)){
+						String msg = msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE);
+						return WTPCommonPlugin.createErrorStatus(msg);
+					}
 				}
 			}
 		}
 		return super.validate(propertyName);
+	}
+	
+	protected boolean isCreatingEarComponent() {
+		return false;
 	}
 
 	private IStatus validateComponentVersionProperty() {

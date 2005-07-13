@@ -21,6 +21,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
@@ -204,5 +205,23 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
 		return super.getValidPropertyDescriptors(propertyName);
 	}	
+	
+	protected boolean isCreatingEarComponent() {
+		return true;
+	}
+
+	protected ComponentHandle computeEARHandle(){
+		String earProjname = (String) model.getProperty(COMPONENT_NAME);
+		
+		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
+		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
+		
+		ComponentHandle handle = null;
+		
+		if( earProjname != null && !earProjname.equals("") && validate(COMPONENT_NAME).isOK()){
+			handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earProjname);
+		}
+		return handle;
+	}
 
 }
