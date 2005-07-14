@@ -34,7 +34,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
     }
 
     public String[] getPropertyNames() {
-        return new String[] { COMPONENT_NAME, ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD };
+        return new String[] { COMPONENT_NAME, PROJECT_NAME,  ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD };
     }
 
     protected abstract String getComponentID();
@@ -54,6 +54,20 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
             return Boolean.TRUE;
         }
         return super.getDefaultProperty(propertyName);
+    }
+    public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean set = super.propertySet(propertyName, propertyValue);
+		if (propertyName.equals(COMPONENT_NAME)) {
+			IVirtualComponent[] comps = ComponentUtilities.getAllWorkbenchComponents();
+			for (int i = 0; i < comps.length; i++) {
+				IVirtualComponent component = comps[i];
+				if (component.getName().equals(propertyValue)) {
+					setProperty(PROJECT_NAME,component.getProject().getName());
+					break;
+				}
+			}
+		}
+		return set;
     }
 
     /**

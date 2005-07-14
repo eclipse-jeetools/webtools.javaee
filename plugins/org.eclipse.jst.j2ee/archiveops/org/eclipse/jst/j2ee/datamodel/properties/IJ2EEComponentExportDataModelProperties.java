@@ -37,7 +37,7 @@ public interface IJ2EEComponentExportDataModelProperties extends IDataModelPrope
     /**
      * Required, type String. The user defined name of the component to be exported.
      */
-  //  public static final String PROJECT_NAME = "IJ2EEComponentExportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
+    public static final String PROJECT_NAME = "IJ2EEComponentExportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
     /**
      * Required, type IPath.  The user defined export location including fully qualified Path and archive file
      * to be created name. 
