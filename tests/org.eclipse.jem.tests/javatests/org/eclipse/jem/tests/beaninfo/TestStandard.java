@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.10 $  $Date: 2005/07/14 14:48:47 $ 
  */
 
 import java.util.Iterator;
@@ -410,11 +410,11 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 				assertTrue(pd instanceof IndexedPropertyDecorator);
 				IndexedPropertyDecorator ip = (IndexedPropertyDecorator) pd;
 				JavaHelpers type = (JavaHelpers) ip.getPropertyType();
-				assertEquals("java.lang.String[]", type.getQualifiedName()); //$NON-NLS-1$
+				assertEquals("Ljava.lang.String[]", type.getQualifiedName()); //$NON-NLS-1$
 				Method mthd = ip.getReadMethod();
 				assertSame(rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo#Test2Class.getFooBar("), true), mthd); //$NON-NLS-1$
 				mthd = ip.getWriteMethod();
-				assertSame(rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo#Test2Class.setFooBar(java.lang.String[]"), true), mthd); //$NON-NLS-1$
+				assertSame(rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo#Test2Class.setFooBar(Ljava.lang.String[]"), true), mthd); //$NON-NLS-1$
 				mthd = ip.getIndexedReadMethod();
 				assertSame(rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo#Test2Class.getFooBar(int"), true), mthd); //$NON-NLS-1$
 				mthd = ip.getIndexedWriteMethod();
