@@ -110,7 +110,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 	}
 
 	//TODO: Uncomment these test after fixing Edit model threading issues in M8.
-	/*public void testAllWithExportSourceFilesWithOverwriteExisting() throws Exception {
+	public void testAllWithExportSourceFilesWithOverwriteExisting() throws Exception {
 		exportSourceFiles = true;
 		overwriteExisting = true;
 
@@ -122,7 +122,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		overwriteExisting = false;
 
 		testAllExportTestCases();
-	}*/
+	}
 
 	public void testAllWithoutExportSourceFilesWithoutOverwriteExisting() throws Exception {
 		exportSourceFiles = false;
