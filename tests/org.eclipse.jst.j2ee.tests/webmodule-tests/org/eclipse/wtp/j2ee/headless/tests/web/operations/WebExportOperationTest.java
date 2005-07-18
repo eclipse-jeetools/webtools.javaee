@@ -9,7 +9,11 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.headless.tests.savestrategy.ModuleImportOperationTestCase;
@@ -76,6 +80,28 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 	 */
 	public String getModuleExportFileExt() {
 		return ".war";
+	}
+	
+	public void testExport(IVirtualComponent component, String filename) throws Exception {
+		super.testExport(component,filename);
+		//verify web dd
+		testDDExported(component);
+	}
+	
+	protected void testDDExported(IVirtualComponent component) throws Exception {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
+			WARFileImpl archive = (WARFileImpl) webEdit.asArchive(true);
+			try {
+			Resource res = archive.getDeploymentDescriptorResource();
+			} catch (Exception e) {
+				fail("Web deployment descriptor is null.");
+			}
+		} finally {
+			if (webEdit !=null)
+				webEdit.dispose();
+		}
 	}
 
 }

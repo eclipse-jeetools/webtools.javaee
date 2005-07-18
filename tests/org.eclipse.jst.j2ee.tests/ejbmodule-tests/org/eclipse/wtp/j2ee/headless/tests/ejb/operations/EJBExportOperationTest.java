@@ -9,7 +9,11 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.headless.tests.savestrategy.EJBImportOperationTest;
@@ -45,6 +49,27 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 		return new EJBImportOperationTest("");
 	}
 	
+	public void testExport(IVirtualComponent component, String filename) throws Exception {
+		super.testExport(component,filename);
+		//verify ejb dd
+		testDDExported(component);
+	}
+	
+	protected void testDDExported(IVirtualComponent component) throws Exception {
+		EJBArtifactEdit ejbEdit = null;
+		try {
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
+			EJBJarFileImpl archive = (EJBJarFileImpl) ejbEdit.asArchive(true);
+			try {
+			Resource res = archive.getDeploymentDescriptorResource();
+			} catch (Exception e) {
+				fail("EJB deployment descriptor is null.");
+			}
+		} finally {
+			if (ejbEdit !=null)
+				ejbEdit.dispose();
+		}
+	}
 	
 
 }
