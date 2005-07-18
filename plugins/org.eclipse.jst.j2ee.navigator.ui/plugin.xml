@@ -287,7 +287,21 @@
          	<package uri="ejb.xmi" />                 	
          	<package uri="jca.xmi" />                 	
          	<package uri="webapplication.xmi" />                 	
-         	<package uri="jsp.xmi" />                 	
+         	<package uri="jsp.xmi" />    
+          <package uri="commonext.xmi" />
+          <package uri="localtran.xmi" />          
+          <package uri="ejbext.xmi" />                    
+          <package uri="webappext.xmi" />                    
+          <package uri="applicationext.xmi" />            
+          <package uri="applicationclientext.xmi" />                  
+          <package uri="ejbbnd.xmi" />                  
+          <package uri="webappbnd.xmi" />                  
+          <package uri="commonbnd.xmi" />  
+          <package uri="j2cbnd.xmi" />                  
+          <package uri="clientbnd.xmi" />                  
+          <package uri="applicationbnd.xmi" />                  
+          <package uri="ejbrdbmapping.xmi" />        
+         	             	
          </emfEnablement>
       </navigatorContent>
    </extension>
