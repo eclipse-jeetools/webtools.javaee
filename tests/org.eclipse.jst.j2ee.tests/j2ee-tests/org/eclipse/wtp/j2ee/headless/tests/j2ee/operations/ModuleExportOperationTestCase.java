@@ -14,6 +14,9 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -95,11 +98,10 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		return ProjectUtility.getAllProjects();
 	}
 
-	public void testExport(String projectName, String filename) throws Exception {
-
+	public void testExport(IVirtualComponent component, String filename) throws Exception {
 		IDataModel dataModel = getModelInstance();
 		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, TESTS_OUTPUT_PATH + filename);
-		dataModel.setProperty(J2EEComponentExportDataModelProvider.COMPONENT_NAME, projectName);
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.COMPONENT, component);
 		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.EXPORT_SOURCE_FILES, exportSourceFiles);
 		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.OVERWRITE_EXISTING, overwriteExisting);
 
@@ -109,8 +111,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 			verifyInvalidDataModel(dataModel);
 	}
 
-	//TODO: Uncomment these test after fixing Edit model threading issues in M8.
-	/*public void testAllWithExportSourceFilesWithOverwriteExisting() throws Exception {
+	public void testAllWithExportSourceFilesWithOverwriteExisting() throws Exception {
 		exportSourceFiles = true;
 		overwriteExisting = true;
 
@@ -122,7 +123,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		overwriteExisting = false;
 
 		testAllExportTestCases();
-	}*/
+	}
 
 	public void testAllWithoutExportSourceFilesWithoutOverwriteExisting() throws Exception {
 		exportSourceFiles = false;
@@ -164,7 +165,8 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		}
 		IProject[] projects = getExportableProjects();
 		for (int i = 0; i < projects.length; i++) {
-			testExport(projects[i].getName(), getFileName(projects[i].getName()));
+			IFlexibleProject project = ComponentCore.createFlexibleProject(projects[i]);
+			testExport(project.getComponents()[0], getFileName(projects[i].getName()));
 		}
 	}
 
