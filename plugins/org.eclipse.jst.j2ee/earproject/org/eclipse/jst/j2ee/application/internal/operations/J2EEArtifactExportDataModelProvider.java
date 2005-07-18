@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IResource;
@@ -28,13 +29,15 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataModelProvider implements IJ2EEComponentExportDataModelProperties {
+	
+	public HashMap componentMap;
 
     public J2EEArtifactExportDataModelProvider() {
         super();
     }
 
     public String[] getPropertyNames() {
-        return new String[] { COMPONENT_NAME, PROJECT_NAME,  ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD };
+        return new String[] { COMPONENT_NAME, PROJECT_NAME,  ARCHIVE_DESTINATION, EXPORT_SOURCE_FILES, OVERWRITE_EXISTING, RUN_BUILD, COMPONENT };
     }
 
     protected abstract String getComponentID();
@@ -58,20 +61,32 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
     public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(COMPONENT_NAME)) {
-			IVirtualComponent[] comps = ComponentUtilities.getAllWorkbenchComponents();
-			for (int i = 0; i < comps.length; i++) {
-				IVirtualComponent component = comps[i];
+				if(getComponentMap().isEmpty())
+					intializeComponentMap();
+				IVirtualComponent component = (IVirtualComponent)getComponentMap().get(propertyValue);
 				if (component.getName().equals(propertyValue)) {
+					setProperty(COMPONENT,component);
 					setProperty(PROJECT_NAME,component.getProject().getName());
-					break;
 				}
 			}
-		}
 		return set;
+    }
+    
+    public HashMap getComponentMap() {
+    	if(componentMap == null) 
+    		componentMap = new HashMap();
+    	return componentMap;
+    }
+    
+    public void intializeComponentMap() {
+    	IVirtualComponent[] comps = ComponentUtilities.getAllWorkbenchComponents();
+		for(int i = 0; i < comps.length; i++) {
+			getComponentMap().put(comps[i].getName(),comps[i]);
+		}
     }
 
     /**
-     * Populate the resource name combo with connector projects that are not encrypted.
+     * Populate the resource name combo with  projects that are not encrypted.
      */
     public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
         //TODO: populate valid components
@@ -81,8 +96,10 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 
             List relevantComponents = new ArrayList();
             for (int i = 0; i < wbComps.length; i++) {
-                if (wbComps[i].getComponentTypeId().equals(getComponentID()))
+                if (wbComps[i].getComponentTypeId().equals(getComponentID())) {
                     relevantComponents.add(wbComps[i]);
+                	getComponentMap().put(wbComps[i].getName(),wbComps[i]);
+                }
             }
 
             if (relevantComponents == null || relevantComponents.size() == 0)
@@ -110,11 +127,11 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
             String componentName = (String) model.getProperty(COMPONENT_NAME);
             if (componentName == null || componentName.equals(""))
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
-            IVirtualComponent[] component = ComponentUtilities.getComponent(componentName);
-            if (component.length == 0 || component[0] == null) {
+            IVirtualComponent component = (IVirtualComponent)componentMap.get(componentName);
+            if (component == null) {
                 return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
             }
-            if (!component[0].getComponentTypeId().equals(getComponentID())) {
+            if (!component.getComponentTypeId().equals(getComponentID())) {
                 return WTPCommonPlugin.createErrorStatus(getWrongComponentTypeString(componentName));
             }
         }

@@ -448,11 +448,13 @@ public class NewJavaClassOperation extends WTPOperation {
 		if (model.getBooleanProperty(NewJavaClassDataModel.CONSTRUCTOR)) {
 			// Implement constructors from superclass
 			try {
-				IMethod[] methods = superClassType.getMethods();
-				for (int j = 0; j < methods.length; j++) {
-					if (methods[j].isConstructor() && !Flags.isPrivate(methods[j].getFlags())) {
-						String methodStub = getMethodStub(methods[j], superclassName, className);
-						sb.append(methodStub);
+				if (superClassType != null) {
+					IMethod[] methods = superClassType.getMethods();
+					for (int j = 0; j < methods.length; j++) {
+						if (methods[j].isConstructor() && !Flags.isPrivate(methods[j].getFlags())) {
+							String methodStub = getMethodStub(methods[j], superclassName, className);
+							sb.append(methodStub);
+						}
 					}
 				}
 			} catch (JavaModelException e) {

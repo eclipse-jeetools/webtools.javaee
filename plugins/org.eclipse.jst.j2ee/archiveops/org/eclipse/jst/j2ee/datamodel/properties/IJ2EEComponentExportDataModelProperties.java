@@ -59,4 +59,6 @@ public interface IJ2EEComponentExportDataModelProperties extends IDataModelPrope
      * and archived.  However, if <code>Boolean.FALSE</code> the component is archived as is.
      */
     public static final String RUN_BUILD = "IJ2EEComponentExportDataModelProperties.RUN_BUILD"; //$NON-NLS-1$}
+    
+    public static final String COMPONENT = "IJ2EEComponentExportDataModelProperties.COMPONENT"; //$NON-NLS-1$
 }

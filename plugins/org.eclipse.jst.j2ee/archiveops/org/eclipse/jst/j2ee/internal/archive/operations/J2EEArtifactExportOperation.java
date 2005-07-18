@@ -32,13 +32,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -61,13 +58,13 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-
+		setComponent((IVirtualComponent)model.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT));
 		setDestinationPath(new Path(model.getStringProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION)));
 		setExportSource(model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES));
 		try {
 			setProgressMonitor(monitor);
 			// defect 240999
-			getComponent().getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+			component.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 			if (model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.RUN_BUILD)) {
 				runNecessaryBuilders(component, monitor);
 			}
@@ -95,17 +92,9 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	}
 
 	protected IVirtualComponent getComponent() {
-		if (component == null) {
-			component = getComponent(model.getStringProperty(IJ2EEComponentExportDataModelProperties.COMPONENT_NAME),model.getStringProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME));
-		}
-			return component;
-	}
-
-	private IVirtualComponent getComponent(String compName, String projName) {
-		IProject proj = ProjectUtilities.getProject(projName);
-		IFlexibleProject flexProj = ComponentCore.createFlexibleProject(proj);
-		IVirtualComponent comp = flexProj.getComponent(compName);
-		return comp;
+		if (component == null)
+			component = (IVirtualComponent) model.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT);
+		return component;
 	}
 
 	protected IPath getDestinationPath() {
