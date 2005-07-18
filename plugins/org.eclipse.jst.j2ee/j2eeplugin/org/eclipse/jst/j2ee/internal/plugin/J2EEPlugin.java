@@ -53,6 +53,7 @@ import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceFactory;
 import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactory;
+import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactory;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
@@ -60,6 +61,7 @@ import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
@@ -500,6 +502,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ApplicationResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		ApplicationClientResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		WSDLServiceExtensionRegistry.getInstance();
+		
+		manager.registerAdapters(new VirtualArchiveComponentAdapterFactory(), VirtualArchiveComponent.class );
 		
 	}
 

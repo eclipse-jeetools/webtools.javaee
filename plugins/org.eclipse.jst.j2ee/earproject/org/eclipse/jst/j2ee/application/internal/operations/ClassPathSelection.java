@@ -41,6 +41,8 @@ import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImp
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -150,6 +152,18 @@ public class ClassPathSelection {
 		addClasspathElement(element,element.getProjectName());
 		return element;
 	}
+	
+	
+	protected ClasspathElement createArchiveElement(URI uri, String name, String cpEntry) {
+		ClasspathElement element = new ClasspathElement(uri);
+		element.setValid(false);
+		element.setRelativeText(name);
+		if (cpEntry != null)
+			element.setValuesSelected(cpEntry);		
+		element.setText(name);
+		element.setEarProject(earProject);
+		return element;
+	}	
 
 	/**
 	 * @param element
@@ -280,10 +294,6 @@ public class ClassPathSelection {
 			}
 			if (archiveURIString.equals(uri))
 				return anArchive;
-			
-			
-//			if (anArchive.getURI().equals(uri))
-//				return anArchive;
 		}
 		return null;
 	}
@@ -334,41 +344,59 @@ public class ClassPathSelection {
 				}
 			}
 		}
-		List classPathArchives = loadClassPathArchives();
-		for (int i = 0; i < classPathArchives.size(); i++) {
-			other = (Archive) classPathArchives.get(i);
-			if (other != archive && ArchiveUtil.isValidDependency(other, archive)) {
-				IProject project = getProject(other);
-				if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
-					boolean inClassPath = false;
-					for (int j = 0; j < cp.length; j++) {
-						String cpEntry = cp[j];
-						
-						if( other != null && other.getName().equals(cpEntry)){
-							if( isClassPathArchive(cpEntry, classPathArchives) ){
-								other = getClassPathArchive(cpEntry, classPathArchives);
-								if (other != null && ArchiveUtil.isValidDependency(other, archive)) {
-									element = createElement(archive, other, cpEntry);
-									//archives.remove(other);
-									//classPathArchives.remove(other);
-									inClassPath = true;
-									break;
-								}
-							}
+		
+		if( earComponent!= null){
+			IVirtualReference[] newrefs = earComponent.getReferences();
+			for( int i=0; i < newrefs.length; i++){
+				IVirtualReference ref = newrefs[i];
+				IVirtualComponent referencedComponent = ref.getReferencedComponent();
+				boolean isBinary = referencedComponent.isBinary();
+				if( isBinary ){
+					String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+					String unresolvedURI = "";
+					try {
+						unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(referencedComponent.getComponentHandle().toString()));
+					} catch (UnresolveableURIException e) {
+						e.printStackTrace();
+					}
+					URI archiveURI = URI.createURI(unresolvedURI);	
+					
+					boolean  alreadyInList = false;
+					Iterator iter = getClasspathElements().iterator();
+					while(iter.hasNext()){
+						ClasspathElement tmpelement = (ClasspathElement)iter.next();
+						if( tmpelement.getText().equals(archiveURI.lastSegment())){
+							alreadyInList = true;
+							break;
 						}
 					}
-					if( !inClassPath ){
-						element = createElement(archive, other, null);
-						element.setProject(getProject(other));
-						addClasspathElement(element, other.getURI());							
-					}					
-
+					
+					if( !alreadyInList ){
+						if( inManifest(cp, archiveURI.lastSegment())){
+							element = createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), archiveURI.lastSegment());
+							addClasspathElement(element, unresolvedURI);
+						}else{
+							element = createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), null);
+							addClasspathElement(element, unresolvedURI);							
+						}
+					}
 				}
 			}
-		}
-		
+		}	
 	}
 
+	boolean inManifest(String[] cp, String archiveName ){
+		boolean result = false;
+		String cpEntry = "";
+		for (int i = 0; i < cp.length; i++) {
+			cpEntry = cp[i];
+			if( archiveName.equals(cpEntry)){
+				result = true;
+			}
+		}
+		return result;
+	}
+		
 	protected List loadClassPathArchives(){
 		LoadStrategy loadStrat = archive.getLoadStrategy();
 		

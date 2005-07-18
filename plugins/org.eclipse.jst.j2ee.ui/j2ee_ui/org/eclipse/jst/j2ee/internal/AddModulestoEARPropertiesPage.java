@@ -49,6 +49,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -242,7 +243,8 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		if (selected != null) {
 			for (int i= 0; i < selected.length; i++) {
 				
-				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), "lib/" +
+				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
+				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
 							selected[i].toString());
 				
 				ArrayList vlist = new ArrayList();
@@ -276,39 +278,38 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			refresh();
 			ArrayList result= new ArrayList();
 			for (int i = 0; i < paths.length; i++) {
-				//CPListElement elem= new CPListElement(fCurrJProject, IClasspathEntry.CPE_VARIABLE, paths[i], null);
 				IPath resolvedPath= JavaCore.getResolvedVariablePath(paths[i]);
 
+				java.io.File file = new java.io.File(resolvedPath.toOSString());
+				if( file.isFile() && file.exists()){
+					String type = VirtualArchiveComponent.VARARCHIVETYPE + IPath.SEPARATOR;
+					
+					IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
+								paths[i].toString());
+					
+					ArrayList vlist = new ArrayList();
+					IVirtualReference[] oldrefs = earComponent.getReferences();
+					for (int j = 0; j < oldrefs.length; j++) {
+						IVirtualReference ref = (IVirtualReference) oldrefs[j];
+						vlist.add(ref);
+					}		
 				
-				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), "var/" +
-							paths[i].toString());
-				
-				ArrayList vlist = new ArrayList();
-				IVirtualReference[] oldrefs = earComponent.getReferences();
-				for (int j = 0; j < oldrefs.length; j++) {
-					IVirtualReference ref = (IVirtualReference) oldrefs[j];
-					vlist.add(ref);
-				}		
-			
-				//To do: check if archive component already exists
-				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
-				vlist.add(ref);	
-				
-				IVirtualReference[] refs = new IVirtualReference[vlist.size()];
-				for (int j = 0; j < vlist.size(); j++) {
-					IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
-					refs[j] = tmpref;
-				}				
-				earComponent.setReferences(refs);
-				
-//				elem.setIsMissing((resolvedPath == null) || !resolvedPath.toFile().exists());
-//				if (!existingElements.contains(elem)) {
-//					result.add(elem);
-//				}
+					//To do: check if archive component already exists
+					IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
+					vlist.add(ref);	
+					
+					IVirtualReference[] refs = new IVirtualReference[vlist.size()];
+					for (int j = 0; j < vlist.size(); j++) {
+						IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
+						refs[j] = tmpref;
+					}				
+					earComponent.setReferences(refs);
+				}else{
+					//display error
+				}
 			}
-			//return (CPListElement[]) result.toArray(new CPListElement[result.size()]);
+			refresh();
 		}	
-
 	}
 	
 	protected void createTableComposite(Composite parent) {
@@ -339,7 +340,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
 		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR"));//$NON-NLS-1$
-		//addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$
+		addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$
 	}
 
 	protected Button createPushButton(String label) {

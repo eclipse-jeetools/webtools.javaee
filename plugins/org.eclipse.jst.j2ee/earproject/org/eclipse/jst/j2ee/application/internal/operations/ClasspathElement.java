@@ -16,19 +16,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 
 
 public class ClasspathElement {
@@ -60,6 +65,7 @@ public class ClasspathElement {
 	protected List importedJarPaths;
 	protected IProject earProject;
 	protected ClassPathSelection parentSelection;
+	protected URI archiveURI;
 
 	public ClasspathElement(Archive anArchive) {
 		super();
@@ -70,6 +76,11 @@ public class ClasspathElement {
 		super();
 		this.project = project;
 	}
+	
+	public ClasspathElement(URI  aArchiveURI) {
+		super();
+		archiveURI = aArchiveURI;
+	}	
 
 	protected void computeRelativeText() {
 		if (archive != null) {
@@ -169,6 +180,25 @@ public class ClasspathElement {
 		return earProject.getFile(getText());
 	}
 
+	public IClasspathEntry[] newClasspathEntriesForArchive() {
+		if( !archiveURI.equals("")){
+			String resourcePath = "";
+			try {
+				resourcePath = ModuleURIUtil.getArchiveName(archiveURI);
+			} catch (UnresolveableURIException e) {
+				Logger.getLogger().logError(e);
+			}
+			java.io.File file = new java.io.File(resourcePath);
+			if( file.exists()){
+				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(resourcePath), null, null)};
+			}else{
+				return new IClasspathEntry[]{JavaCore.newVariableEntry( new Path(resourcePath), null, null)};
+			}
+		}	
+		return new IClasspathEntry[0];
+	}
+	
+	
 	/**
 	 * Adapter method to convert this manifest class path element to zero or more classpath entries
 	 * for a java build path
@@ -179,20 +209,10 @@ public class ClasspathElement {
 		visited.add(this);
 		if (representsImportedJar())
 			return new IClasspathEntry[]{JavaCore.newLibraryEntry(getImportedJarAsIFile().getFullPath(), null, null)};
-
-		//if( archiveComponent())
-			//return new IClasspathEntry[]{JavaCore.newLibraryEntry(getImportedJarAsIFile().getFullPath(), null, null)};
 		
-		if( targetArchive != null ){
-			String uri = targetArchive.getOriginalURI();
-
-			java.io.File file = new java.io.File(uri);
-			if( file.exists()){
-				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(uri), null, null)};
-			}
-
-		}	
-		
+		if( archiveURI != null && !archiveURI.equals("") ){
+			return newClasspathEntriesForArchive();
+		}
 		if (!valid && isSelected())
 			return new IClasspathEntry[0];
 

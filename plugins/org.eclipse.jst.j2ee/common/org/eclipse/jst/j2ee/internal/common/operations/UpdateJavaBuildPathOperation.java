@@ -82,6 +82,8 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 			case IClasspathEntry.CPE_LIBRARY :
 				newEntry = JavaCore.newLibraryEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath(), true);
 				break;
+			case IClasspathEntry.CPE_VARIABLE:
+				newEntry = JavaCore.newVariableEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath());
 			default :
 				break;
 		}
