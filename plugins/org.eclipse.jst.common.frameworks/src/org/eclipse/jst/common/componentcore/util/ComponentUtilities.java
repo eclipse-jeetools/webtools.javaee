@@ -199,6 +199,15 @@ public class ComponentUtilities {
 		}
 		return ComponentCore.createComponent(project, module.getName());
 	}
+	
+	/**
+	 * **********************Please read java doc before using this api*******************
+	 * This is a very expensive api from a performance point as it does a structure edit
+	 * access and release for each component in the workspace. Use this api very sparingly
+	 * and if used cached the information returned by this api for further processing
+	 * @return - A an array of all virtual components in the workspace
+	 * ***********************************************************************************
+	 */
 
 	public static IVirtualComponent[] getAllWorkbenchComponents() {
 		List components = new ArrayList();
@@ -218,6 +227,15 @@ public class ComponentUtilities {
 		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
 		return flexProject.getComponents();
 	}
+	
+	/**
+	 * **********************Please read java doc before using this api*******************
+	 * This is a very expensive api from a performance point as it does a structure edit
+	 * access and release for each component in the workspace. Use this api very sparingly
+	 * and if used cached the information returned by this api for further processing
+	 * @return - A virtual component in the workspace
+	 * ***********************************************************************************
+	 */
 
 	public static IVirtualComponent[] getComponent(String componentName) {
 		IVirtualComponent[] allComponents = getAllWorkbenchComponents();
