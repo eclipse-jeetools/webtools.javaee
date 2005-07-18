@@ -111,6 +111,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			if (manifestClasspath.length > 0) {
 				List extraEntries = fixupClasspath(earComponent, manifestClasspath, new ArrayList(), archive, (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT));
 				addToClasspath(importModel, extraEntries);
+				fixModuleReference(importModel, manifestClasspath);
 			}
 		}
 	}

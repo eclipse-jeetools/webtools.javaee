@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -21,10 +22,16 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -104,6 +111,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	protected static void addToClasspath(IDataModel importModel, List extraEntries) throws JavaModelException {
 		if (extraEntries.size() > 0) {
 			IJavaProject javaProject = JavaCore.create(((IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
+			IVirtualComponent comp = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 			IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
 			List nonDuplicateList = new ArrayList();
 			for (int i = 0; i < extraEntries.size(); i++) {
@@ -125,6 +133,34 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 					newJavaClasspath[javaClasspath.length + j] = (IClasspathEntry) nonDuplicateList.get(j);
 				}
 				javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
+			}
+		}
+	}
+
+	//Assumes that the project exists with the same name as the
+	//entry in the manifest.
+	
+	protected void fixModuleReference(IDataModel importModel, String[] manifestEntries){
+		IVirtualComponent comp = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
+		
+		if ( comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE)  && manifestEntries.length > 0){
+			for (int j = 0; j < manifestEntries.length; j++) {
+				String name = manifestEntries[j];
+				name = name.substring(0, name.length() - 4);
+				IProject project = ProjectUtilities.getProject(name);
+				if( project.isAccessible() && project.exists()){
+					IVirtualComponent refcomp = ComponentCore.createComponent(project, name);
+					if( refcomp.exists()){
+						ArrayList list = new ArrayList();
+						list.add(refcomp.getComponentHandle());						
+						CreateReferenceComponentsOp op = ComponentUtilities.createReferenceComponentOperation(comp.getComponentHandle(), list);
+						try {
+							op.execute(null, null);
+						} catch (ExecutionException e) {
+							Logger.getLogger().logError(e);
+						}
+					}
+				}
 			}
 		}
 	}
