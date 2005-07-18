@@ -13,10 +13,13 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -57,12 +60,34 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		strat.setProgressMonitor(new SubProgressMonitor(monitor, 1));
 		try {
 			jarFile.save(strat);
-			JemProjectUtilities.appendJavaClassPath(javaProject, JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER"))); //$NON-NLS-1$)
-			JemProjectUtilities.forceClasspathReload(javaProject);
+			// To fix the defect that throws dup classpath exception.
+			// Because JemProjectUtilities.appendJavaClassPath() does not check dups, we have to check it here.
+			// check if JRE_CONTAINER is in the classpath. if not add it
+			IJavaProject javaProj = JemProjectUtilities.getJavaProject(javaProject);
+			IClasspathEntry[] classpath = javaProj.getRawClasspath();
+			String jrePathName = "org.eclipse.jdt.launching.JRE_CONTAINER"; //$NON-NLS-1$
+			boolean exists = false;
+			for (int i = 0; i < classpath.length; i++) {
+				if (classpath[i].getEntryKind() != IClasspathEntry.CPE_CONTAINER)
+					continue;
+				IPath path = classpath[i].getPath();
+				if (path.segmentCount() > 0) {
+					String name = path.segment(0).toString();
+					if (jrePathName.equals(name)) {
+						exists = true;
+						break;
+					}
+				}
+			}
+			if (!exists) {
+				IClasspathEntry newEntry = JavaCore.newContainerEntry(new Path(jrePathName));
+				JemProjectUtilities.appendJavaClassPath(javaProject, JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER"))); //$NON-NLS-1$)
+				JemProjectUtilities.forceClasspathReload(javaProject);
+			}
 		} catch (SaveFailureException e) {
 			Logger.getLogger().logError(e);
-		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+		} catch (JavaModelException je) {
+			Logger.getLogger().logError(je);
 		}
 		return OK_STATUS;
 	}
