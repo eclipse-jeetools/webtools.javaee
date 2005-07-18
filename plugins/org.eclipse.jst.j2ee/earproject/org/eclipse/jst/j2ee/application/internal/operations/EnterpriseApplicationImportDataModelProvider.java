@@ -215,6 +215,18 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 					setProperty(RUNTIME_TARGET_ID, target.getId());
 				}
 			}
+		} else if (COMPONENT_NAME.equals(propertyName)) {
+			List nestedModels = (List) getProperty(MODULE_MODELS_LIST);
+			IDataModel nestedModel = null;
+			for (int i = 0; i < nestedModels.size(); i++) {
+				nestedModel = (IDataModel) nestedModels.get(i);
+				nestedModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, propertyValue);
+			}
+			nestedModels = (List) getProperty(UTILITY_MODELS_LIST);
+			for (int i = 0; i < nestedModels.size(); i++) {
+				nestedModel = (IDataModel) nestedModels.get(i);
+				nestedModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_COMPONENT_NAME, propertyValue);
+			}
 		}
 		return doSet;
 	}
