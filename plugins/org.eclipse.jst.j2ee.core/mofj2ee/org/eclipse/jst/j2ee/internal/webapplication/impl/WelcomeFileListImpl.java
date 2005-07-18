@@ -196,7 +196,8 @@ public void addFileNamed(java.lang.String name) {
 				return;
 			case WebapplicationPackage.WELCOME_FILE_LIST__FILE:
 				getFile().clear();
-				getFile().addAll((Collection)newValue);
+				if (newValue != null)
+					getFile().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
