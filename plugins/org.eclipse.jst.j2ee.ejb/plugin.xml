@@ -272,6 +272,10 @@
             class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJarFileMoveOperation"
             id="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJarFileMoveOperation">
       </extendableOperation>
+       <extendableOperation
+           class="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentImportOperation"
+           id="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentImportOperation">
+      </extendableOperation>
    </extension>
 
 	<extension
