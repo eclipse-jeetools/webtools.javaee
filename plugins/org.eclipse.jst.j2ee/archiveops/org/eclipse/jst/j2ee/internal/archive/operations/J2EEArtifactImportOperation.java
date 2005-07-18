@@ -148,7 +148,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 				String name = manifestEntries[j];
 				name = name.substring(0, name.length() - 4);
 				IProject project = ProjectUtilities.getProject(name);
-				if( project.isAccessible() && project.exists()){
+				if( project != null && project.isAccessible() && project.exists()){
 					IVirtualComponent refcomp = ComponentCore.createComponent(project, name);
 					if( refcomp.exists()){
 						ArrayList list = new ArrayList();
