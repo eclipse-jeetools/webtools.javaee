@@ -182,6 +182,9 @@
             url="http://java.sun.com/dtd/ejb-jar_2_0.dtd"/>
       <cacheresource
             license="http://developers.sun.com/license/berkeley_license.html"
+            url="http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"/>
+      <cacheresource
+            license="http://developers.sun.com/license/berkeley_license.html"
             url="http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"/>
       <cacheresource
             license="http://developers.sun.com/license/berkeley_license.html"
