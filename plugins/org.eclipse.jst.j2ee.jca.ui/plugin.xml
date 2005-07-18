@@ -50,7 +50,7 @@
       </wizard>
     </extension>
 <!-- JCA Import Wizard --> 
-    <extension
+   <!-- <extension
          point="org.eclipse.ui.importWizards">
       <wizard
             name="%connector.jar.file_ui_"
