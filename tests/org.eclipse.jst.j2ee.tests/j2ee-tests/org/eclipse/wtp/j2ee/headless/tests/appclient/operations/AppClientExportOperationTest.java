@@ -6,9 +6,16 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Test;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.AppClientComponentExportDataModelProvider;
+import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -46,6 +53,18 @@ public class AppClientExportOperationTest extends ModuleExportOperationTestCase 
 	 */
 	protected ModuleImportOperationTestCase getImportTestCase() {
 		return new AppClientImportOperationTest("");
+	}
+	protected IProject[] getExportableProjects() throws Exception {
+		IProject[] projs = super.getExportableProjects();
+		List filteredProjs = new ArrayList();
+		for (int i = 0; i < projs.length; i++) {
+			IProject project = projs[i];
+			IFlexibleProject flex = ComponentCore.createFlexibleProject(project);
+			if (flex.getComponentsOfType(AppClientArtifactEdit.TYPE_ID).length > 0)
+				filteredProjs.add(project);
+		}
+		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);
+		
 	}
 
 }
