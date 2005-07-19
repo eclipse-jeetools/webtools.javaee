@@ -16,6 +16,7 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -27,6 +28,7 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -39,6 +41,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 
 /**
  * @version 1.0
@@ -225,8 +228,11 @@ public class EJBDeployableArtifactAdapterUtil {
 	protected static IModuleArtifact createModuleObject(IModule module, String ejbName, boolean remote, boolean local) {
 		if (module != null) {
 			String jndiName = null;
-			if (ejbName != null)
-				jndiName = ((EJBDeployable) module).getJNDIName(ejbName);
+			if (ejbName != null) {
+				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+				EJBFlexibleDeployable moduleDelegate = (EJBFlexibleDeployable)module.getAdapter(ModuleDelegate.class);
+				jndiName = moduleDelegate.getJNDIName(ejbName);
+			}
 			return new EJBBean(module, jndiName, remote, local);
 		}
 		return null;
