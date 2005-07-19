@@ -77,7 +77,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
      * @return org.eclipse.wst.server.core.model.IModule[]
      */
     public IModule[] getChildModules() {
-        return getChildModules();
+        return getModules();
     }
 
 	public String getURI(IJ2EEModule module) {
