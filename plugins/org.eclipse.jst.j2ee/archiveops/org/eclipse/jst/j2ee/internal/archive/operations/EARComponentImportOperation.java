@@ -131,7 +131,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					extraEntries.add(JavaCore.newLibraryEntry(file.getFullPath(), file.getFullPath(), null, true));
 					Archive archive = null;
 					try {
-						archive = (Archive) earFile.getFile(file.getProjectRelativePath().toString());
+						archive = (Archive) earFile.getFile(manifestURI);
 						String[] nestedManifestClasspath = archive.getManifest().getClassPathTokenized();
 						extraEntries.addAll(fixupClasspath(earComponent, nestedManifestClasspath, computedFiles, archive, nestedComponent));
 					} catch (FileNotFoundException e) {
