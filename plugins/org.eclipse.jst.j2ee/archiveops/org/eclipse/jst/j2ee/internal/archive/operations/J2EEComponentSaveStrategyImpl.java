@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -143,7 +144,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 			// importedClassesComponent.getRootFolder().createLink(new
 			// Path(importedClassesComponentName), 0, null);
 			// importedClassesComponent.setComponentTypeId(IModuleConstants.JST_UTILITY_IMPORTED_CLASSES_MODULE);
-			IVirtualReference ref = ComponentCore.createReference(vComponent, importedClassesComponent);
+			IVirtualReference ref = ComponentCore.createReference(vComponent, importedClassesComponent, getImportedClassesRuntimePath());
 			ref.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
 			ref.create(0, null);
 		} catch (IOException e) {
@@ -164,16 +165,26 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 
 	}
 
+	protected IPath getImportedClassesRuntimePath() {
+		return new Path("/");
+	}
+
 	protected Map getClassFilesWithoutSource() {
 		List files = archive.getFiles();
 		Map result = new HashMap();
 		for (int i = 0; i < files.size(); i++) {
 			File aFile = (File) files.get(i);
-			if (isClassWithoutSource(aFile))
-				result.put(aFile.getURI(), aFile);
+			if (isClassWithoutSource(aFile)){
+				result.put(getImportedClassesURI(aFile), aFile);
+			}
 		}
 		return result;
 	}
+	
+	protected String getImportedClassesURI(File aFile){
+		return aFile.getURI();
+	}
+	
 
 	protected boolean isClassWithoutSource(File aFile) {
 		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getURI());
