@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -30,6 +31,7 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationOperation;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -49,6 +51,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
@@ -164,28 +167,38 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	public boolean performOk() {
 		NullProgressMonitor monitor = new NullProgressMonitor();
 		IStatus stat = addModulesToEAR(monitor);
-		if (stat == OK_STATUS)
-			return true;
-		return false;
+		IStatus stat1 = removeModulesFromEAR(monitor);
+		return true;
 	}
 
+	private List newJ2EEModulesToAdd(){
+		List newComps = new ArrayList();
+		if (j2eeComponentList != null && !j2eeComponentList.isEmpty()){
+			for (int i = 0; i < j2eeComponentList.size(); i++){
+				ComponentHandle handle = (ComponentHandle)j2eeComponentList.get(i);
+				if( !inEARAlready(handle))
+					newComps.add(handle);
+			}
+		}
+		return newComps;
+	}
+	
 	private IStatus addModulesToEAR(IProgressMonitor monitor) {
 		IStatus stat = OK_STATUS;
 		try {
 			if( earComponent != null ){
-				IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-	
-				dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());
-	
-	
-				if (j2eeComponentList != null && !j2eeComponentList.isEmpty()) {
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, j2eeComponentList);
+				List list = newJ2EEModulesToAdd();				
+				if (list != null && !list.isEmpty()) {
+					IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+					
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());					
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, list);
 					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 					if (stat != OK_STATUS)
 						return stat;
 					dm.getDefaultOperation().execute(monitor, null);
 				}
-	
+				
 				if (!javaProjectsList.isEmpty()) {
 	
 					for (int i = 0; i < javaProjectsList.size(); i++) {
@@ -213,7 +226,49 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		}
 		return OK_STATUS;
 	}
-
+	
+	private IStatus removeModulesFromEAR(IProgressMonitor monitor) {
+		IStatus stat = OK_STATUS;
+		if( earComponent != null && j2eeComponentList != null){
+			List list = getComponentsToRemove();
+			if( !list.isEmpty()){
+				try {
+					RemoveComponentFromEnterpriseApplicationOperation op = removeComponentFromEAROperation(earComponent.getComponentHandle(), list);
+					op.execute(null, null);
+				} catch (ExecutionException e) {
+					Logger.getLogger().log(e);
+				}
+			}
+		}
+		return stat;
+	}		
+	
+	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+		modHandlesList.addAll(targetComponentsHandles);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		return new RemoveComponentFromEnterpriseApplicationOperation(model);
+	}
+	
+	protected List getComponentsToRemove(){
+		j2eeComponentList = getCheckedJ2EEElementsAsList();
+		List list = new ArrayList();
+		if( earComponent != null && list != null ){
+			IVirtualReference[] oldrefs = earComponent.getReferences();
+			for (int j = 0; j < oldrefs.length; j++) {
+				IVirtualReference ref = (IVirtualReference) oldrefs[j];
+				ComponentHandle handle = ref.getReferencedComponent().getComponentHandle();
+				if( !j2eeComponentList.contains(handle)){
+					list.add(handle);
+				}
+			}
+		}
+		return list;		
+	}
+	
+	
 	public void handleEvent(Event event) {
 		if (event.widget == selectAllButton)
 			handleSelectAllButtonPressed();
@@ -264,6 +319,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 					refs[j] = tmpref;
 				}				
 				earComponent.setReferences(refs);
+				j2eeComponentList.add(archive.getComponentHandle());
 			}
 			refresh();
 		}
@@ -304,6 +360,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 						refs[j] = tmpref;
 					}				
 					earComponent.setReferences(refs);
+					j2eeComponentList.add(archive.getComponentHandle());
 				}else{
 					//display error
 				}
@@ -437,9 +494,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			for (int i = 0; i < elements.length; i++) {
 				if (elements[i] instanceof ComponentHandle) {
 					ComponentHandle handle = (ComponentHandle) elements[i];
-					//to prevent the component from being added again
-					if( !inEARAlready( handle ) ) 
-						list.add(elements[i]);
+					list.add(elements[i]);
 				}
 			}
 		}
