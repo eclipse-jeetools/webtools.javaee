@@ -237,8 +237,7 @@ public class ClasspathElement {
 	}
 
 	protected IClasspathEntry newClasspathEntryFromEARProj() {
-		//String text = getText();
-		IPath path = earProject.getFile(getText()).getFullPath();
+        IPath path = earProject.getFullPath().append(earProject.getFile(getText()).getFullPath());
 		return JavaCore.newLibraryEntry(path, path, null, true);
 	}
 
