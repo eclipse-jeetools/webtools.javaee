@@ -58,7 +58,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
-//TODO rename to EARComponentImportDataModelProvider
+// TODO rename to EARComponentImportDataModelProvider
 /**
  * This dataModel is used for to import Enterprise Applications(from EAR files) into the workspace.
  * 
@@ -128,22 +128,15 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		super.propertyChanged(event);
 		if (event.getPropertyName().equals(PROJECT_NAME)) {
 			changeModuleCreationLocationForNameChange(getProjectModels());
+		} else if (event.getPropertyName().equals(RUNTIME_TARGET_ID) && event.getDataModel() == model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION)) {
+			Object propertyValue = event.getProperty();
+			IDataModel nestedModel = null;
+			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
+			for (int i = 0; i < projectModels.size(); i++) {
+				nestedModel = (IDataModel) projectModels.get(i);
+				nestedModel.setProperty(RUNTIME_TARGET_ID, propertyValue);
+			}
 		}
-		// if (event.getPropertyName().equals(J2EEArtifactImportDataModel.SERVER_TARGET_ID)) {
-		// changeModuleServerTargets((List) getProperty(MODULE_MODELS_LIST));
-		// }
-	}
-
-	/**
-	 * @param list
-	 */
-	private void changeModuleServerTargets(List projectModels) {
-		// IDataModel nestedModel = null;
-		// for (int i = 0; i < projectModels.size(); i++) {
-		// nestedModel = (IDataModel) projectModels.get(i);
-		// nestedModel.setProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID,
-		// getProperty(ServerTargetDataModel.RUNTIME_TARGET_ID));
-		// }
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
@@ -176,13 +169,6 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			model.notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		} else if (UTILITY_LIST.equals(propertyName)) {
 			updateUtilityModels((List) propertyValue);
-		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
-			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
-			IDataModel nestedModel = null;
-			for (int i = 0; i < projectModels.size(); i++) {
-				nestedModel = (IDataModel) projectModels.get(i);
-				nestedModel.setProperty(RUNTIME_TARGET_ID, propertyValue);
-			}
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
 			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
 			IDataModel nestedModel = null;
@@ -271,16 +257,16 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 				utilJars.add(file);
 			}
 			if (file.isWARFile()) {
-				utilJars.addAll(getWebLibs((WARFile)file));
+				utilJars.addAll(getWebLibs((WARFile) file));
 			}
 		}
 		return utilJars;
 	}
-	
-	public static List getWebLibs(WARFile warFile){
+
+	public static List getWebLibs(WARFile warFile) {
 		return ((WARFileImpl) warFile).getLibArchives();
 	}
-	
+
 
 	protected boolean forceResetOnPreserveMetaData() {
 		return false;
@@ -299,11 +285,11 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 			for (int i = 0; i < subProjects.size(); i++) {
 				subDataModel = (IDataModel) subProjects.get(i);
 				tempProjectName = subDataModel.getStringProperty(PROJECT_NAME);
-                //TODO: add manual validation
-//				IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
-//				if (!status.isOK()) {
-//					return status;
-//				}
+				// TODO: add manual validation
+				// IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
+				// if (!status.isOK()) {
+				// return status;
+				// }
 				tempArchive = (Archive) subDataModel.getProperty(FILE);
 				// if (!overwrite && subDataModel.getProject().exists()) {
 				// return
@@ -660,12 +646,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		if (!super.isPropertyEnabled(propertyName)) {
 			return false;
 		}
-		if (propertyName.equals(IEarComponentCreationDataModelProperties.RUNTIME_TARGET_ID)) {
-			IProject project = ProjectUtilities.getProject(getStringProperty(PROJECT_NAME));
-			if (null == project || !project.exists()) {
-				return true;
-			}
-		} else if (propertyName.equals(USE_ANNOTATIONS)) {
+		if (propertyName.equals(USE_ANNOTATIONS)) {
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				return false;
 			return true;
@@ -688,16 +669,15 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		if (earFile != null)
 			earFile.close();
 	}
-//TODO: Implement with J2EEArtifactImportDataModelProvider
-/*	public J2EEArtifactImportDataModel getMatchingEJBJarOrClient(J2EEArtifactImportDataModel model) {
-		if (clientJarToEjbJarModels.containsKey(model)) {
-			return (J2EEArtifactImportDataModel) clientJarToEjbJarModels.get(model);
-		} else if (ejbJarToClientJarModels.containsKey(model)) {
-			return (J2EEArtifactImportDataModel) ejbJarToClientJarModels.get(model);
-		} else {
-			return null;
-		}
-	}*/
+
+	// TODO: Implement with J2EEArtifactImportDataModelProvider
+	/*
+	 * public J2EEArtifactImportDataModel getMatchingEJBJarOrClient(J2EEArtifactImportDataModel
+	 * model) { if (clientJarToEjbJarModels.containsKey(model)) { return
+	 * (J2EEArtifactImportDataModel) clientJarToEjbJarModels.get(model); } else if
+	 * (ejbJarToClientJarModels.containsKey(model)) { return (J2EEArtifactImportDataModel)
+	 * ejbJarToClientJarModels.get(model); } else { return null; } }
+	 */
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
