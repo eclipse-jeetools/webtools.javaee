@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.proxy.ide;
 
 /*
  *  $RCSfile: IDEInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/15 22:57:26 $ 
+ *  $Revision: 1.6 $  $Date: 2005/07/20 19:27:25 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -28,13 +28,25 @@ public class IDEInitErrorBeanTypeProxy extends IDEBeanTypeProxy {
 	protected String classname;
 
 	protected String initializationError;
+	
+	protected Throwable cause;
 
-	protected IDEInitErrorBeanTypeProxy(IDEProxyFactoryRegistry registry, String classname, String initializationError) {
+	protected IDEInitErrorBeanTypeProxy(IDEProxyFactoryRegistry registry, String classname, String initializationError, Throwable cause) {
 		super(registry, null);
 		this.classname = classname;
 		this.initializationError = initializationError;
+		this.cause = cause;
 	}
 
+	/**
+	 * Get the throwable (cause) that made this bean type bad. 
+	 * @return the Throwable that was the cause, or null if not caused by an throwable.
+	 * 
+	 * @since 1.1.0
+	 */
+	public Throwable getCause() {
+		return cause;
+	}
 	/**
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(String[])
 	 */

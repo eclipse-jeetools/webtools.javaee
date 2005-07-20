@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NoExpressionValueException.java,v $
- *  $Revision: 1.2 $  $Date: 2005/06/16 17:46:14 $ 
+ *  $Revision: 1.3 $  $Date: 2005/07/20 19:27:25 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
  
@@ -31,6 +31,8 @@ public class NoExpressionValueException extends Exception {
 	 * @since 1.1.0
 	 */
 	private static final long serialVersionUID = -7953101867782417964L;
+	
+	private InternalExpressionProxy proxy;
 
 	/**
 	 * Construct with no arguments.
@@ -53,6 +55,33 @@ public class NoExpressionValueException extends Exception {
 	 * @since 1.0.0
 	 */
 	public NoExpressionValueException(String message) {
-		super(message);
+		this(message, null);
+	}
+	
+	/**
+	 * Construct with a message and a proxy. This is only used from {@link ExpressionProcesser#getExpressionProxyValue(int, Object[])} when
+	 * the proxy existed but it was not set.
+	 * 
+	 * @param message
+	 * @param proxy
+	 * 
+	 * @since 1.1.0
+	 */
+	public NoExpressionValueException(String message, InternalExpressionProxy proxy) {
+		super (message);
+		this.proxy = proxy;
+	}
+	
+	/**
+	 * Get the proxy if there is one. It will be a proxy if {@link ExpressionProcesser#getExpressionProxyValue(int, Object[])}
+	 * was for an existing proxy but that proxy was not set. Otherwise it will be null. This is here for callers to
+	 * put special info in the proxy for the not set condition and report better info.
+	 * 
+	 * @return the proxy (if not set) or <code>null</code> if no proxy available.
+	 * 
+	 * @since 1.1.0
+	 */
+	public InternalExpressionProxy getProxy() {
+		return proxy;
 	}
 }

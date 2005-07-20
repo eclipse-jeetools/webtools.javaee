@@ -7,7 +7,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 
 /*
- * $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $ $Revision: 1.10 $ $Date: 2005/05/18 23:11:26 $
+ * $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $ $Revision: 1.11 $ $Date: 2005/07/20 19:27:25 $
  */
 
 import java.lang.reflect.Array;
@@ -224,15 +224,15 @@ public class IDEStandardBeanTypeProxyFactory implements IStandardBeanTypeProxyFa
 			} catch (ClassNotFoundException e) {
 				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				String msg = MessageFormat.format("{0}({1})", new Object[] { e.getClass(), e.getMessage()}); //$NON-NLS-1$
-				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
+				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg, e);
 			} catch (ExceptionInInitializerError e) {
 				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				String msg = MessageFormat.format("{0}({1})", new Object[] { e.getClass(), e.getMessage()}); //$NON-NLS-1$
-				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
+				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg, e.getCause());
 			} catch (LinkageError e) {
 				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				String msg = MessageFormat.format("{0}({1})", new Object[] { e.getClass(), e.getMessage()}); //$NON-NLS-1$
-				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
+				beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg, e);
 			}
 
 			// Cache the instance so we can re-use it again

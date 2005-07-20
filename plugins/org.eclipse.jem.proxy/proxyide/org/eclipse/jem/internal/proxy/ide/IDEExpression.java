@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.10 $ $Date: 2005/06/22 21:05:17 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.11 $ $Date: 2005/07/20 19:27:25 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -718,9 +718,16 @@ public class IDEExpression extends Expression {
 			ep.setProxy(typeProxy);
 			eproc.allocateExpressionProxy(ep);
 			if (!typeProxy.isValid()) {
-				throw new IDEThrowableProxy(
-						new Exception(typeProxy.getInitializationError()),
-						getIDEBeanTypeFactory().getBeanTypeProxy(Exception.class));
+				Throwable cause = ((IDEInitErrorBeanTypeProxy) typeProxy).getCause();
+				if (cause == null)
+					throw new IDEThrowableProxy(
+							new Exception(typeProxy.getInitializationError()),
+							getIDEBeanTypeFactory().getBeanTypeProxy(Exception.class));
+				else
+					throw new IDEThrowableProxy(
+							cause,
+							getIDEBeanTypeFactory().getBeanTypeProxy(cause.getClass()));
+
 			}
 		} catch (ThrowableProxy e) {
 			eproc.processException(e);
@@ -876,7 +883,7 @@ public class IDEExpression extends Expression {
 			IDEMethodProxy methodProxy = ((IDEMethodProxyFactory) registry.getMethodProxyFactory()).getMethodProxy(declaringClass, methodName, parameterClasses);
 			if (methodProxy == null) {
 				String parms = ""; //$NON-NLS-1$
-				if (parameterTypes != null || parameterTypes.length > 0) {
+				if (parameterTypes != null && parameterTypes.length > 0) {
 					StringBuffer st = new StringBuffer(100);
 					for (int i = 0; i < parameterClasses.length; i++) {
 						if (i > 0)

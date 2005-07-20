@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/22 21:05:17 $ 
+ *  $Revision: 1.11 $  $Date: 2005/07/20 19:27:25 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -177,11 +177,9 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushCast(classValue);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
-					} 
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
+					}
 					break;
 
 				case InternalExpressionTypes.INSTANCEOF_EXPRESSION_VALUE:
@@ -190,11 +188,9 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushInstanceof(classValue);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
-					} 
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
+					}
 					break;
 
 				case InternalExpressionTypes.INFIX_EXPRESSION_VALUE:
@@ -223,12 +219,9 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushArrayCreation(classValue, arrayCreation_dimCount);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
-					} 
-
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
+					}
 					break;
 
 				case InternalExpressionTypes.ARRAY_INITIALIZER_EXPRESSION_VALUE:
@@ -239,10 +232,8 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushArrayInitializer(classValue, stripCount, arrayInitializer_expressionCount);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
 					}
 					break;
 
@@ -253,10 +244,8 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushClassInstanceCreation(classValue, newInstance_argCount);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
 					}
 					break;
 
@@ -266,10 +255,8 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushExpression(classValue, classValue);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
 					}
 					break;
 
@@ -282,8 +269,8 @@ public class ExpressionProcesserController {
 						exp.pushFieldAccess(fieldAccess, workerValue.getType() == Commands.STRING, has_fieldAccess_receiver);
 					} catch (ClassCastException e) {
 						exp.processException(e);	// Let the processor know we have a stopping error.						
-					} catch (NoSuchFieldException e1) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
 					}
 					break;
 
@@ -295,11 +282,9 @@ public class ExpressionProcesserController {
 					try {
 						Object method = getMethodValue(workerValue);					
 						exp.pushMethodInvocation(method, workerValue.getType() == Commands.STRING, has_method_receiver, method_argCount);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (NoSuchMethodException e) {
-						// Do nothing, already processed.
-					}						
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
+					}
 					break;
 
 				case InternalExpressionTypes.CONDITIONAL_EXPRESSION_VALUE:
@@ -320,7 +305,19 @@ public class ExpressionProcesserController {
 					
 				case InternalExpressionTypes.PUSH_TO_EXPRESSION_PROXY_EXPRESSION_VALUE:
 					// Get a push expression proxy expression. The proxy id is sent as an int.
-					exp.pushExpressionProxy(in.readInt());
+					// First test if a possible FailedExpressionProxy because we could of been pushing
+					// a failed reflection proxy.
+					proxyid = in.readInt();
+					try {
+						exp.getExpressionProxy(proxyid, new Object[] {null, null});
+					} catch (NoExpressionValueException e1) {						
+						if (e1.getProxy() != null) {
+							FailedRemoteExpressionProxy failure = (FailedRemoteExpressionProxy) e1.getProxy();
+							exp.processException((Throwable) failure.getValue());
+							break;	// Don't go on, we processed it. A standard no expression value should be passed on and let following code handle it.
+						}
+					}
+					exp.pushExpressionProxy(proxyid);
 					break;
 				
 				case InternalExpressionTypes.BLOCK_BEGIN_EXPRESSION_VALUE:
@@ -350,11 +347,9 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushTryCatchClause(tryNumber, classValue, proxyid != -1 ? new RemoteExpressionProxy(proxyid) : null);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
-					}					
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
+					}
 					break;
 
 				case InternalExpressionTypes.TRY_FINALLY_EXPRESSION_VALUE:
@@ -386,9 +381,13 @@ public class ExpressionProcesserController {
 						rep.setProxy(classValue, Class.class);
 						exp.allocateExpressionProxy(rep);
 					} catch (ClassNotFoundException e) {
-						exp.processException(e);
+						FailedRemoteExpressionProxy rep = new FailedRemoteExpressionProxy(proxyid);
+						rep.setProxy(e, e.getClass());
+						exp.allocateExpressionProxy(rep);
 					} catch (LinkageError e) {
-						exp.processException(e);
+						FailedRemoteExpressionProxy rep = new FailedRemoteExpressionProxy(proxyid);
+						rep.setProxy(e, e.getClass());
+						exp.allocateExpressionProxy(rep);
 					}
 					break;
 					
@@ -427,10 +426,10 @@ public class ExpressionProcesserController {
 						RemoteExpressionProxy rep = new RemoteExpressionProxy(proxyid);
 						rep.setProxy(m, Method.class);
 						exp.allocateExpressionProxy(rep);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						FailedRemoteExpressionProxy rep = new FailedRemoteExpressionProxy(proxyid);
+						rep.setProxy(e.getCause(), e.getCause().getClass());
+						exp.allocateExpressionProxy(rep);
 					} catch (NoSuchMethodException e) {
 						// The default trace doesn't show what method was being searched for, so recreate with that.
 						StringBuffer s = new StringBuffer();
@@ -448,7 +447,9 @@ public class ExpressionProcesserController {
 						s.append(')');
 						NoSuchMethodException ne = new NoSuchMethodException(s.toString());
 						ne.setStackTrace(e.getStackTrace());
-						exp.processException(ne);	// Let the processor know we have a stopping error.
+						FailedRemoteExpressionProxy rep = new FailedRemoteExpressionProxy(proxyid);
+						rep.setProxy(ne, ne.getClass());
+						exp.allocateExpressionProxy(rep);
 					}					
 					break;
 					
@@ -468,12 +469,14 @@ public class ExpressionProcesserController {
 						RemoteExpressionProxy rep = new RemoteExpressionProxy(proxyid);
 						rep.setProxy(f, Method.class);
 						exp.allocateExpressionProxy(rep);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						FailedRemoteExpressionProxy rep = new FailedRemoteExpressionProxy(proxyid);
+						rep.setProxy(e.getCause(), e.getCause().getClass());
+						exp.allocateExpressionProxy(rep);
 					} catch (NoSuchFieldException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
+						FailedRemoteExpressionProxy rep = new FailedRemoteExpressionProxy(proxyid);
+						rep.setProxy(e, e.getClass());
+						exp.allocateExpressionProxy(rep);
 					}					
 					break;					
 					
@@ -494,10 +497,8 @@ public class ExpressionProcesserController {
 					try {
 						Class classValue = getBeanTypeValue(workerValue);
 						exp.pushNewInstanceFromString(initString, classValue, classLoader);
-					} catch (ClassCastException e) {
-						exp.processException(e);	// Let the processor know we have a stopping error.
-					} catch (ClassNotFoundException e) {
-						// Do nothing, already processed.
+					} catch (FailedProxyException e) {
+						exp.processException(e.getCause());	// Let the processor know we have a stopping error.
 					}
 					break;
 					
@@ -534,26 +535,55 @@ public class ExpressionProcesserController {
 	}
 	
 	/**
+	 * This is an exception that is thrown from the getBeanType, field, method (reflect type stuff)
+	 * that wrappers the real throwable that occurred during the previous reflection. This is
+	 * because reflection is done out of sequence with the use of the reflect value. So we need
+	 * to store the reflection exception in this exception and then store this exception in
+	 * a {@link FailedRemoteExpressionProxy}. This will then be picked up when trying to be
+	 * used and it will get the true exception out of the {@link Throwable#getCause()}.
+	 * 
+	 * @since 1.1.0
+	 */
+	private static class FailedProxyException extends Exception {
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0
+		 */
+		private static final long serialVersionUID = 2872325672166348923L;
+
+		public FailedProxyException(Throwable realThrowable) {
+			super(realThrowable);
+		}
+	}
+	
+	/**
 	 * Get the beantype (class) out of the value object sent in. It can handle the beantype sent or
 	 * as an expression proxy to a beantype expression proxy.
 	 * 
 	 * @param value
 	 * @return
-	 * @throws ClassCastException means either not a type sent in, or proxy was not a type.
-	 * @throws ClassNotFoundException the expression proxy did not resolve. In that case it has already been processed by the expression processor.
+	 * @throws FailedProxyException Wrappers the real throwable that caused the bean type to not be found.
 	 * 
 	 * @since 1.1.0
 	 */
-	protected Class getBeanTypeValue(Commands.ValueObject value) throws ClassCastException, ClassNotFoundException {
+	protected Class getBeanTypeValue(Commands.ValueObject value) throws FailedProxyException {
 		Object beantype = connHandler.getInvokableObject(value);
 		// It is either a type directly or is an expression proxy.
 		if (value.type == Commands.INT) {
 			// It is an expression proxy request.
 			Object[] expvalue = new Object[2];
-			if (exp.getExpressionProxyValue(((Integer) beantype).intValue(), expvalue)) {
+			try {
+				exp.getExpressionProxy(((Integer) beantype).intValue(), expvalue);
 				beantype = expvalue[0]; 
-			} else
-				throw new ClassNotFoundException();
+			} catch (NoExpressionValueException e) {
+				// See if there is a failed proxy.
+				if (e.getProxy() != null) {
+					FailedRemoteExpressionProxy failure = (FailedRemoteExpressionProxy) e.getProxy();
+					throw new FailedProxyException((Throwable) failure.getValue());
+				} else
+					throw new FailedProxyException(new ClassNotFoundException());	// This shouldn't of occurred.
+			} 
 		}
 		return (Class) beantype;
 	}
@@ -563,21 +593,27 @@ public class ExpressionProcesserController {
 	 * as an expression proxy to a method expression proxy.
 	 * @param value
 	 * @return method if a method or string if a string or get the method if an expression proxy.
-	 * @throws NoSuchMethodException the expression proxy did not resolve. In that case it has already been processed by the expression processor.
-	 * @throws ClassCastException means either not a method sent in, or proxy was not a method.
+	 * @throws FailedProxyException Wrappers the real Throwable that caused the method to not be found.
 	 * 
 	 * @since 1.1.0
 	 */
-	protected Object getMethodValue(Commands.ValueObject value) throws NoSuchMethodException, ClassCastException {
+	protected Object getMethodValue(Commands.ValueObject value) throws FailedProxyException {
 		Object method = connHandler.getInvokableObject(value);
 		// It is either a method directly or is an expression proxy.
 		if (value.type == Commands.INT) {
 			// It is an expression proxy request.
 			Object[] expvalue = new Object[2];
-			if (exp.getExpressionProxyValue(((Integer) method).intValue(), expvalue)) {
+			try {
+				exp.getExpressionProxy(((Integer) method).intValue(), expvalue);
 				method = expvalue[0]; 
-			} else
-				throw new NoSuchMethodException();
+			} catch (NoExpressionValueException e) {
+				// See if there is a failed proxy.
+				if (e.getProxy() != null) {
+					FailedRemoteExpressionProxy failure = (FailedRemoteExpressionProxy) e.getProxy();
+					throw new FailedProxyException((Throwable) failure.getValue());
+				} else
+					throw new FailedProxyException(new NoSuchMethodException());	// This shouldn't of occurred.
+			}
 		}
 		return method;
 	}	
@@ -587,21 +623,28 @@ public class ExpressionProcesserController {
 	 * as an expression proxy to a field expression proxy.
 	 * @param value
 	 * @return field if a field or string if a string or get the field if an expression proxy.
-	 * @throws NoSuchFieldException the expression proxy did not resolve. In that case it has already been processed by the expression processor.
-	 * @throws ClassCastException means either not a field sent in, or proxy was not a field.
+	 * @throws FailedProxyException Wrappers the real throwable that caused the field to not be found.
 	 * 
 	 * @since 1.1.0
 	 */
-	protected Object getFieldValue(Commands.ValueObject value) throws NoSuchFieldException, ClassCastException {
+	protected Object getFieldValue(Commands.ValueObject value) throws FailedProxyException {
 		Object field = connHandler.getInvokableObject(value);
 		// It is either a field directly or is an expression proxy.
 		if (value.type == Commands.INT) {
 			// It is an expression proxy request.
 			Object[] expvalue = new Object[2];
-			if (exp.getExpressionProxyValue(((Integer) field).intValue(), expvalue)) {
+			try {
+				exp.getExpressionProxy(((Integer) field).intValue(), expvalue);
 				field = expvalue[0]; 
-			} else
-				throw new NoSuchFieldException();
+			} catch (NoExpressionValueException e) {
+				// See if there is a failed proxy.
+				if (e.getProxy() != null) {
+					FailedRemoteExpressionProxy failure = (FailedRemoteExpressionProxy) e.getProxy();
+					throw new FailedProxyException((Throwable) failure.getValue());
+				} else
+					throw new FailedProxyException(new NoSuchFieldException());	// This shouldn't of occurred.
+
+			} 
 		}
 		return field;
 	}	
@@ -672,6 +715,41 @@ public class ExpressionProcesserController {
 			this.type = type;
 			set = true;
 		}
+		
+		public boolean isFailedExpression() {
+			return false;
+		}
+	}
+	
+	/**
+	 * Used for the java.lang.reflect things (class, field, method) to indicate
+	 * why they aren't found.
+	 * <p>
+	 * The exception will be placed into value, BUT this should never be sent
+	 * back to the caller. It is intended only as a place-holder for subsequent
+	 * usage. Use the {@link RemoteExpressionProxy#isFailedExpression()} method
+	 * to determine if it is a failed one.
+	 * <p>
+	 * This is used because the reflect calls are done out of sequence from where
+	 * they are used and so if there was an error, the error is reported in the
+	 * wrong place.
+	 * 
+	 * @since 1.1.0
+	 */
+	private static class FailedRemoteExpressionProxy extends RemoteExpressionProxy {
+
+		public FailedRemoteExpressionProxy(int proxyID) {
+			super(proxyID);
+		}
+		
+		public boolean isFailedExpression() {
+			return true;
+		}
+		
+		public boolean isSet() {
+			return false;	// This should never be considered to be set. It is holder of info only.
+		}
+		
 	}
 	
 

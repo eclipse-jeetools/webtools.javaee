@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.17 $  $Date: 2005/07/11 19:40:00 $ 
+ *  $Revision: 1.18 $  $Date: 2005/07/20 19:27:25 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -713,6 +713,20 @@ public class ExpressionProcesser {
 		}
 	}
 	
+	/**
+	 * Get the expression proxy value, or the NoExpressionValueException if not resolved. This
+	 * is useful for callers that need to handle the proxy itself for failed calls.
+	 * 
+	 * @param proxyid
+	 * @param value
+	 * @throws NoExpressionValueException
+	 * 
+	 * @since 1.1.0
+	 */
+	public void getExpressionProxy(int proxyid, Object[] value) throws NoExpressionValueException {
+		getExpressionProxyValue(proxyid, value, true, false);
+	}
+	
 	/*
 	 * Internal method use to actually get the value, but to distinquish between pull and get of the public interface.
 	 * Get will process the errors as normal execution errors, while pull will throw the errors. finalTrace is when
@@ -742,7 +756,7 @@ public class ExpressionProcesser {
 				} else {
 					if (doTrace)
 						printTrace("Return Proxy #" + proxyid + ": Not resolved", false); //$NON-NLS-1$ //$NON-NLS-2$
-					NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.GetExpressionProxyValue.ExpressionProxyNotSet_EXC_")); //$NON-NLS-1$
+					NoExpressionValueException e = new NoExpressionValueException(InitparserTreeMessages.getString("ExpressionProcesser.GetExpressionProxyValue.ExpressionProxyNotSet_EXC_"), proxy); //$NON-NLS-1$
 					if (pull)
 						throw e;
 					else
