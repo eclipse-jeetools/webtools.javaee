@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.23 $  $Date: 2005/06/21 20:35:07 $ 
+ *  $Revision: 1.24 $  $Date: 2005/07/20 22:59:17 $ 
  */
 
 
@@ -296,7 +296,7 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 			fConnectionPool.clear();
 			fServerPort = 0;
 			
-			if (fProcess != null && fRegistryController.inShutDown()) {
+			if (fProcess != null && !fRegistryController.inShutDown()) {
 				tjob = new TerminateProcess(fProcess);
 				tjob.setSystem(true);
 				tjob.schedule();
