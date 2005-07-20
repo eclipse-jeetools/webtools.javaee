@@ -69,9 +69,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * </p>
 	 */
 	public static final Class ADAPTER_TYPE = WebArtifactEdit.class;
-	public static final String WEB_CONTENT = "WebContent";
-	public static final String WEB_INF = "WEB-INF";
-	public static final String META_INF = "META-INF";
+	public static final String WEB_CONTENT = "WebContent"; //$NON-NLS-1$
+	public static final String WEB_INF = "WEB-INF"; //$NON-NLS-1$
+	public static final String META_INF = "META-INF"; //$NON-NLS-1$
 	
 	/**
 	 * <p>
@@ -126,8 +126,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static WebArtifactEdit getWebArtifactEditForRead(ComponentHandle aHandle) {
 		WebArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new WebArtifactEdit(aHandle, true);
-		} catch (IllegalArgumentException iae) {
+			if (isValidWebModule(aHandle.createComponent()))
+				artifactEdit = new WebArtifactEdit(aHandle, true);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
@@ -155,8 +156,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static WebArtifactEdit getWebArtifactEditForWrite(ComponentHandle aHandle) {
 		WebArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new WebArtifactEdit(aHandle, false);
-		} catch (IllegalArgumentException iae) {
+			if (isValidWebModule(aHandle.createComponent()))
+				artifactEdit = new WebArtifactEdit(aHandle, false);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
@@ -509,7 +511,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = getComponentHandle();;
+		ComponentHandle handle = getComponentHandle();
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(handle.getProject());
 			wbComponent = moduleCore.findComponentByName(handle.getName());
@@ -542,7 +544,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public void setServerContextRoot(String contextRoot) {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = getComponentHandle();;
+		ComponentHandle handle = getComponentHandle();
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(handle.getProject());
 			wbComponent = moduleCore.findComponentByName(handle.getName());

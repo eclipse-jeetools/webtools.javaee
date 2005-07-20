@@ -104,8 +104,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static EARArtifactEdit getEARArtifactEditForRead(ComponentHandle aHandle) {
 		EARArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new EARArtifactEdit(aHandle, true);
-		} catch (IllegalArgumentException iae) {
+			if (isValidEARModule(aHandle.createComponent()))
+				artifactEdit = new EARArtifactEdit(aHandle, true);
+		} catch (Exception iae) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
@@ -134,8 +135,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static EARArtifactEdit getEARArtifactEditForWrite(ComponentHandle aHandle) {
 		EARArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new EARArtifactEdit(aHandle, false);
-		} catch (IllegalArgumentException iae) {
+			if (isValidEARModule(aHandle.createComponent()))
+				artifactEdit = new EARArtifactEdit(aHandle, false);
+		} catch (Exception iae) {
 			artifactEdit = null;
 		}
 		return artifactEdit;

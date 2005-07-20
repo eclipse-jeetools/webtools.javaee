@@ -206,8 +206,9 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public static AppClientArtifactEdit getAppClientArtifactEditForRead(ComponentHandle aHandle) {
 		AppClientArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new AppClientArtifactEdit(aHandle, true);
-		} catch (IllegalArgumentException iae) {
+			if (isValidApplicationClientModule(aHandle.createComponent())) 
+				artifactEdit = new AppClientArtifactEdit(aHandle, true);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
@@ -235,8 +236,9 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(ComponentHandle aHandle) {
 		AppClientArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new AppClientArtifactEdit(aHandle, false);
-		} catch (IllegalArgumentException iae) {
+			if (isValidApplicationClientModule(aHandle.createComponent()))
+				artifactEdit = new AppClientArtifactEdit(aHandle, false);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;

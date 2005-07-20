@@ -195,8 +195,9 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(ComponentHandle aHandle) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new ConnectorArtifactEdit(aHandle, true);
-		} catch (IllegalArgumentException iae) {
+			if (isValidConnectorModule(aHandle.createComponent()))
+				artifactEdit = new ConnectorArtifactEdit(aHandle, true);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
@@ -226,8 +227,9 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(ComponentHandle aHandle) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new ConnectorArtifactEdit(aHandle, false);
-		} catch (IllegalArgumentException iae) {
+			if (isValidConnectorModule(aHandle.createComponent()))
+				artifactEdit = new ConnectorArtifactEdit(aHandle, false);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
