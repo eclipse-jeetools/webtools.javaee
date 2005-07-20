@@ -135,10 +135,8 @@ public class WebDeployableArtifactUtil {
 			return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
-		resourcePath = trim(resourcePath, component.getName());
-		resourcePath = trim(resourcePath, WebArtifactEdit.WEB_CONTENT);
-		// resourcePath = trim(resourcePath,WebArtifactEdit.META_INF);
-		// resourcePath = trim(resourcePath,WebArtifactEdit.WEB_INF);
+        
+        resourcePath = resources[0].getRuntimePath();
 
 		// Extension read to get the correct URL for Java Server Faces file if
 		// the jsp is of type jsfaces.
