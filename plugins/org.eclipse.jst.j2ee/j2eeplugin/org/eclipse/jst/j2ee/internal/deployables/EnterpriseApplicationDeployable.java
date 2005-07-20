@@ -51,12 +51,13 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		try {
 			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
 			if (earEdit != null) {
-				List components = earEdit.getJ2EEModuleReferences();
+				List components = earEdit.getComponentReferences();
 				for (Iterator iter = components.iterator(); iter.hasNext();) {
 					IVirtualReference reference = (IVirtualReference) iter.next();
 					IVirtualComponent virtualComp = reference.getReferencedComponent();
 					Object module = FlexibleProjectServerUtil.getModule(virtualComp);
-					modules.add(module);
+					if (module!=null)
+						modules.add(module);
 				}
 			}
 		} catch (Exception e) {

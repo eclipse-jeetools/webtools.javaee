@@ -434,8 +434,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
             return null;
         if(moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
             moduleName = moduleName.substring(0, (moduleName.length()- IJ2EEModuleConstants.JAR_EXT.length()));
-        List references = getJ2EEModuleReferences();
-		references.addAll(getUtilityModuleReferences());
+        List references = getComponentReferences();
 		for(int i = 0; i < references.size(); i++) {
 			IVirtualReference ref = (IVirtualReference)references.get(i);
 			IVirtualComponent component = ref.getReferencedComponent();
