@@ -336,8 +336,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static EJBArtifactEdit getEJBArtifactEditForRead(ComponentHandle aHandle) {
 		EJBArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new EJBArtifactEdit(aHandle, true);
-		} catch (IllegalArgumentException iae) {
+			if (isValidEJBModule(aHandle.createComponent()))
+				artifactEdit = new EJBArtifactEdit(aHandle, true);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
@@ -366,8 +367,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static EJBArtifactEdit getEJBArtifactEditForWrite(ComponentHandle aHandle) {
 		EJBArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new EJBArtifactEdit(aHandle, false);
-		} catch (IllegalArgumentException iae) {
+			if (isValidEJBModule(aHandle.createComponent()))
+				artifactEdit = new EJBArtifactEdit(aHandle, false);
+		} catch (Exception e) {
 			artifactEdit = null;
 		}
 		return artifactEdit;
