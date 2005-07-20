@@ -21,6 +21,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -111,6 +112,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		}
 		IFile importedClassesJar = folder.getFile(new Path("importedClasses.jar"));
 		ZipFileExporter zipFileExporter = null;
+		IJavaProject javaProject = null;
 		try {
 			zipFileExporter = new ZipFileExporter(importedClassesJar.getRawLocation().toOSString(), true);
 			Iterator keys = importedClassFiles.keySet().iterator();
@@ -126,13 +128,13 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 				} catch (CoreException e) {
 					Logger.getLogger().logError(e);
 				} finally {
-					if (null != inputStream) {
+					if (inputStream != null) {
 						inputStream.close();
 					}
 				}
 			}
 			folder.refreshLocal(1, null);
-			IJavaProject javaProject = JavaCore.create(vComponent.getProject());
+			javaProject = JavaCore.create(vComponent.getProject());
 			IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
 			IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
 			System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
@@ -157,8 +159,11 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 			if (zipFileExporter != null) {
 				try {
 					zipFileExporter.finished();
+					javaProject.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 				} catch (IOException e) {
 					Logger.getLogger().logError(e);
+				} catch (CoreException ex) {
+					Logger.getLogger().logError(ex);
 				}
 			}
 		}
