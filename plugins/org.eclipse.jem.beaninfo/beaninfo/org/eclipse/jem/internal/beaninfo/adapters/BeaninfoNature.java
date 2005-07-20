@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.33 $  $Date: 2005/06/30 16:23:58 $ 
+ *  $Revision: 1.34 $  $Date: 2005/07/20 22:57:42 $ 
  */
 
 import java.io.*;
@@ -272,7 +272,7 @@ public class BeaninfoNature implements IProjectNature {
 		fSynchronizer.stopSynchronizer(clearResults);
 		Init.cleanup(javaRSet, clearResults);
 		if (fRegistry != null)
-			fRegistry.terminateRegistry();
+			fRegistry.terminateRegistry(true);
 
 		javaRSet = null;
 		fRegistry = null;
