@@ -199,7 +199,7 @@ public class PropertiesHelper extends WorkbenchContext {
 			return false;
 		}
 		
-		if(!res.getFileExtension().equals("properties")) { //$NON-NLS-1$
+		if(!"properties".equals(res.getFileExtension())) { //$NON-NLS-1$
 			return false; 		
 		}
 		
