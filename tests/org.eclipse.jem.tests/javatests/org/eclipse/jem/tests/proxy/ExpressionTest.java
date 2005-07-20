@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.11 $  $Date: 2005/06/22 21:05:20 $ 
+ *  $Revision: 1.12 $  $Date: 2005/07/20 19:27:27 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -261,7 +261,7 @@ public class ExpressionTest extends AbstractTestProxy {
 			exp.getExpressionValue();
 			fail("Should not of gotton a result.");
 		} catch (ThrowableProxy e) {
-			System.out.println("Test successful: "+e.getProxyLocalizedMessage());
+			assertEquals("java.lang.ClassNotFoundException", e.getTypeProxy().getFormalTypeName());
 		}
 	}
 	
@@ -1241,6 +1241,21 @@ public class ExpressionTest extends AbstractTestProxy {
 		assertEquals("int", result.getTypeProxy().getFormalTypeName());
 		assertEquals(1, ((INumberBeanProxy) result).intValue());
 	}	
+	
+	public void testFieldAccessFailWithExpressionProxy() throws IllegalStateException, NoExpressionValueException {
+		IBeanTypeProxy pointType = proxyTypeFactory.getBeanTypeProxy("java.awt.Point");
+		IExpression exp = proxyFactory.createExpression();
+		try {
+			exp.createFieldAccess(ForExpression.ROOTEXPRESSION, pointType.getFieldProxy(exp, "z"), true);
+			exp.createClassInstanceCreation(ForExpression.FIELD_RECEIVER, "java.awt.Point", 2);
+			exp.createPrimitiveLiteral(ForExpression.CLASSINSTANCECREATION_ARGUMENT, 1);
+			exp.createPrimitiveLiteral(ForExpression.CLASSINSTANCECREATION_ARGUMENT, 2);
+			exp.getExpressionValue();
+			fail("Should of had exception");
+		} catch (ThrowableProxy e) {
+			assertEquals("java.lang.NoSuchFieldException", e.getTypeProxy().getFormalTypeName());
+		}
+	}
 
 	public void testMethodInvokeStatic() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
 		IExpression exp = proxyFactory.createExpression();
@@ -1251,6 +1266,22 @@ public class ExpressionTest extends AbstractTestProxy {
 		assertNotNull(result);
 		assertEquals("java.lang.String", result.getTypeProxy().getFormalTypeName());
 		assertEquals("true", ((IStringBeanProxy) result).stringValue());
+	}
+	
+	public void testMethodInvokeProxyFail() throws IllegalStateException, NoExpressionValueException {
+		IExpression exp = proxyFactory.createExpression();
+		IBeanTypeProxy intType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer");
+		try {
+			exp.createMethodInvocation(ForExpression.ROOTEXPRESSION, intType.getMethodProxy(exp, "goobldy-gook"), true, 1);
+			exp.createClassInstanceCreation(ForExpression.METHOD_RECEIVER, intType, 1);
+			exp.createPrimitiveLiteral(ForExpression.CLASSINSTANCECREATION_ARGUMENT, 3);
+			exp.createClassInstanceCreation(ForExpression.METHOD_ARGUMENT, "java.lang.Integer", 1);
+			exp.createPrimitiveLiteral(ForExpression.CLASSINSTANCECREATION_ARGUMENT, 4);
+			exp.getExpressionValue();
+			fail("Should of gotten exception");
+		} catch (ThrowableProxy e) {
+			assertEquals("java.lang.NoSuchMethodException", e.getTypeProxy().getFormalTypeName());
+		}
 	}
 
 	public void testMethodInvokeNonStatic() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
