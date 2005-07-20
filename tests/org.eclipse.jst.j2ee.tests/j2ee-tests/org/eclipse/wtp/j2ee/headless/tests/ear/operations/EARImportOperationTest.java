@@ -251,7 +251,7 @@ public class EARImportOperationTest extends ModuleImportOperationTestCase {
         String earName = "TestData" + fileSep + "EARImportTests" + fileSep;
         List projects = ProjectUtility.getEarsInDirectory(HeadlessTestsPlugin.getDefault(),getFullTestDataPath(earName));
         for (int i = 0; i < projects.size(); i++) {
-            ProjectUtility.deleteAllProjects();
+            deleteAllProjects();
             LogUtility.getInstance().resetLogging();
             load(projectName, earName + projects.get(i));
         }

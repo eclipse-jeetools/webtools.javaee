@@ -89,7 +89,8 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getExportableProjects()
 	 */
 	protected IProject[] getExportableProjects() throws Exception {
-		ProjectUtility.deleteAllProjects();
+		
+		deleteAllProjects();
 		ModuleImportOperationTestCase importTestCase = getImportTestCase(); 
 		importTestCase.testAllImportTestCases();
 
