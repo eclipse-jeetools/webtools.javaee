@@ -120,6 +120,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String CREATE_DEFAULT_SESSION_BEAN = "96"; //$NON-NLS-1$
 	
 	public static final String MODULE_NAME = "99"; //$NON-NLS-1$
+	public static final String MODULE_VERSION_LABEL = "100"; //$NON-NLS-1$
 
 	public static final String J2EE_UTILITY_JAR_LISTEAR_IMPORT_SELECT_UTIL_JARS_TO_BE_PROJECTS = "97"; //$NON-NLS-1$
 

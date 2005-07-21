@@ -321,7 +321,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     }
 
     protected String getVersionLabel() {
-        return MODULE_VERSION;
+        return J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_VERSION_LABEL);
     }
 
     public void dispose() {
