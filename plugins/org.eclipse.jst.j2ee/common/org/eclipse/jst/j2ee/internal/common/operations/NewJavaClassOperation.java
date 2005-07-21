@@ -462,7 +462,7 @@ public class NewJavaClassOperation extends WTPOperation {
 			}
 		}
 		// Add unimplemented methods defined in the interfaces list
-		if (model.getBooleanProperty(NewJavaClassDataModel.ABSTRACT_METHODS)) {
+		if (model.getBooleanProperty(NewJavaClassDataModel.ABSTRACT_METHODS) && superClassType != null) {
 			String methodStub = getUnimplementedMethodsFromSuperclass(superClassType, className);
 			if (methodStub != null && methodStub.trim().length() > 0)
 				sb.append(methodStub);
@@ -471,9 +471,11 @@ public class NewJavaClassOperation extends WTPOperation {
 				sb.append(methodStub);
 		}
 		// Add any user defined method stubs
-		String userDefined = getUserDefinedMethodStubs(superClassType);
-		if (userDefined != null && userDefined.trim().length() > 0)
-			sb.append(userDefined);
+		if (superClassType != null) {
+			String userDefined = getUserDefinedMethodStubs(superClassType);
+			if (userDefined != null && userDefined.trim().length() > 0)
+				sb.append(userDefined);
+		}
 		// Return the methods string
 		return sb.toString();
 	}
