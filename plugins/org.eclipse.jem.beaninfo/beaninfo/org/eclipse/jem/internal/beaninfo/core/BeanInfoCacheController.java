@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.13 $  $Date: 2005/07/07 19:38:57 $ 
+ *  $Revision: 1.14 $  $Date: 2005/07/21 20:53:01 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -495,6 +495,14 @@ public class BeanInfoCacheController {
 
 		public static final long DELETED_MODIFICATION_STAMP = Long.MIN_VALUE; // This flag won't be seen externally. It is used to indicate the entry
 																			  // has been deleted for those that have been holding a CE.
+		
+		/**
+		 * Check against the super modification stamp and the interface stamps to see if they were set
+		 * by undefined super class or interface at cache creation time. 
+		 * 
+		 * @since 1.1.0
+		 */
+		public static final long SUPER_UNDEFINED_MODIFICATION_STAMP = Long.MIN_VALUE+1;	
 
 		private long modificationStamp;
 		private long superModificationStamp;	// Stamp of superclass, if any, at time of cache creation.
@@ -929,7 +937,11 @@ public class BeanInfoCacheController {
 				if (!supers.isEmpty()) {
 					// We assume that they all have been introspected. This was done back in main introspection. If they are introspected they will have a class entry.
 					BeaninfoClassAdapter bca = BeaninfoClassAdapter.getBeaninfoClassAdapter((EObject) supers.get(0));
-					ce.setSuperModificationStamp(bca.getClassEntry().getModificationStamp());
+					ClassEntry superCE = bca.getClassEntry();
+					if (superCE != null)
+						ce.setSuperModificationStamp(superCE.getModificationStamp());
+					else
+						ce.setSuperModificationStamp(ClassEntry.SUPER_UNDEFINED_MODIFICATION_STAMP);	// No classentry means undefined. So put something in so that when it becomes defined we will know.
 					if(supers.size() == 1) {
 						ce.setInterfaceNames(null);
 						ce.setInterfaceModificationStamps(null);
@@ -940,8 +952,12 @@ public class BeanInfoCacheController {
 							JavaClass javaClass = (JavaClass) supers.get(i);
 							bca = BeaninfoClassAdapter.getBeaninfoClassAdapter(javaClass);
 							bca.introspectIfNecessary();	// Force introspection to get a valid super mod stamp.
+							superCE = bca.getClassEntry();
 							interNames[indx] = javaClass.getQualifiedNameForReflection();
-							interMods[indx] = bca.getClassEntry().getModificationStamp();
+							if (superCE != null)
+								interMods[indx] = superCE.getModificationStamp();
+							else
+								interMods[indx] = ClassEntry.SUPER_UNDEFINED_MODIFICATION_STAMP;	// No classentry means undefined. So put something in so that when it becomes defined we will know.
 						}
 						ce.setInterfaceNames(interNames);
 						ce.setInterfaceModificationStamps(interMods);

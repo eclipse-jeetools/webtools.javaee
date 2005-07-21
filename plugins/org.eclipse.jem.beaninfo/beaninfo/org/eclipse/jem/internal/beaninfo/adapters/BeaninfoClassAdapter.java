@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.40 $  $Date: 2005/07/07 22:26:16 $ 
+ *  $Revision: 1.41 $  $Date: 2005/07/21 20:53:00 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.common.*;
 import org.eclipse.jem.internal.beaninfo.core.*;
+import org.eclipse.jem.internal.beaninfo.core.BeanInfoCacheController.ClassEntry;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.java.*;
@@ -526,8 +527,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		List supers = getJavaClass().getESuperTypes();
 		if (!supers.isEmpty()) {
 			BeaninfoClassAdapter bca = getBeaninfoClassAdapter((EObject) supers.get(0));
-			if (bca.getClassEntry().getModificationStamp() != classEntry.getSuperModificationStamp())
-				return false; // Out-of-date wrt/super.
+			ClassEntry superCE = bca.getClassEntry();
+			// If super is defined and out of date don't use cache. If super is undefined and super modification stamp is not super_undefined,
+			// then that means it was defined at time of cache and now not defined, so don't use cache.
+			if (superCE != null) {
+				if (superCE.getModificationStamp() != classEntry.getSuperModificationStamp())
+					return false; // Out-of-date wrt/super.
+			} else if (classEntry.getSuperModificationStamp() != ClassEntry.SUPER_UNDEFINED_MODIFICATION_STAMP)
+				return false;	// was previously defined, and now undefined, so out of date.
 			String[] iNames = classEntry.getInterfaceNames();
 			if (iNames != null) {
 				if (iNames.length != supers.size() - 1)
@@ -549,9 +556,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						}
 					} while ((++indx)%iNames.length != stop);
 					if (!found)
-						return false;	// Couldn't find it, so we are stale.
-					if (iStamp[indx] != getBeaninfoClassAdapter(javaClass).getClassEntry().getModificationStamp())
-						return false;	// We didn't match it, so we are stale.
+						return false;	// Couldn't find it, so we are stale.]
+					
+					superCE = getBeaninfoClassAdapter(javaClass).getClassEntry();
+					if (superCE != null) {
+						if (superCE.getModificationStamp() != iStamp[indx])
+							return false; // Out-of-date wrt/interface.
+					} else if (iStamp[indx] != ClassEntry.SUPER_UNDEFINED_MODIFICATION_STAMP)
+						return false;	// was previously defined, and now undefined, so out of date.
 				}
 			}
 		}
