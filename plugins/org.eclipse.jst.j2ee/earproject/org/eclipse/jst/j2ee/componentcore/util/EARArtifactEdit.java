@@ -477,6 +477,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				if (module.getProject() == null || !module.getProject().isAccessible())
+					continue;
 				//if component types passed in is null then return all components
 				if (componentTypes == null || componentTypes.size()==0)
 					components.add(refComponents[i]);

@@ -103,6 +103,8 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 			IVirtualReference[] modules = ear.getReferences();
 			for (int i=0; i<modules.length; i++) {
 				IVirtualComponent module = modules[i].getReferencedComponent();
+				if (module.getProject() == null || !module.getProject().isAccessible())
+					continue;
 				// return only jars for utility components
 				if (IModuleConstants.JST_UTILITY_MODULE.equals(module.getComponentTypeId())) {
 					IProject project = ProjectUtilities.getProject(application);

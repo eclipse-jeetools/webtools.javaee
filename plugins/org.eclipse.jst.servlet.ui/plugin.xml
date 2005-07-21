@@ -47,7 +47,7 @@
          point="org.eclipse.ui.newWizards">
       <category
             name="%web.category_ui_"
-            id="org.eclipse.jst.servlet.ui">
+            id="org.eclipse.wst.web.ui">
       </category>
       <wizard
             name="%web.project_ui_"
