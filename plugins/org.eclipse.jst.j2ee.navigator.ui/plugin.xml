@@ -361,7 +361,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.ejb"
                   icon = "icons/ejbgroup_obj.gif"
-                  label = "Ejb Projects">
+                  label = "%EJB_Projects">
              </componentWorkingSet>
       </extension>
       <extension 
@@ -370,7 +370,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.web"
                   icon = "icons/webgroup_obj.gif"
-                  label = "Dynamic Web Projects">
+                  label = "%Web_Projects">
              </componentWorkingSet>
       </extension>
       <extension 
@@ -379,7 +379,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.ear"
                   icon = "icons/eargroup_obj.gif"
-                  label = "Enterprise Applications">
+                  label = "%Enterprise_Applications">
              </componentWorkingSet>
       </extension>
       
@@ -389,7 +389,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.appclient"
                   icon = "icons/appclientgroup_obj.gif"
-                  label = "Application Client Projects">
+                  label = "%Application_Client_Project">
              </componentWorkingSet>
       </extension>
       
@@ -399,7 +399,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.connector"
                   icon = "icons/connectorgroup_obj.gif"
-                  label = "Connector Projects">
+                  label = "%Connector_Projects">
              </componentWorkingSet>
       </extension>
       
