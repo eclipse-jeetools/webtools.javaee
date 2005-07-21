@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.16 $  $Date: 2005/06/20 18:48:56 $ 
+ *  $Revision: 1.17 $  $Date: 2005/07/21 19:01:37 $ 
  */
 
 import java.util.List;
@@ -65,6 +65,23 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 			} 
 		}
 		return result;
+	}
+	
+	public boolean isAnyFeatureSet() {
+		if (eHasSettings()) {
+			JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties();
+
+			Object[] setPropertyValues = settings.eSettings();
+			if (setPropertyValues != null) {
+				for (int i = 0; i < setPropertyValues.length; i++) {
+					Object propertyValue = setPropertyValues[i];
+					if (propertyValue != null) {
+						return true;
+					}
+				}
+			} 
+		}
+		return false;
 	}
 		
 	public boolean isSetAllocation() {

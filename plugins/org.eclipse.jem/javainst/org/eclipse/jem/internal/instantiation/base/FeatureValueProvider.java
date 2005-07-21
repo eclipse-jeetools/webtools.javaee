@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: FeatureValueProvider.java,v $
- *  $Revision: 1.6 $  $Date: 2005/05/20 21:02:33 $ 
+ *  $Revision: 1.7 $  $Date: 2005/07/21 19:01:37 $ 
  */
 
 import java.util.Iterator;
@@ -66,6 +66,33 @@ public interface FeatureValueProvider {
 			}
 		}
 		
+		/**
+		 * Answers whether any feature is set or not.
+		 * <p>
+		 * <b>Note:</b> This SHOULD NOT be used as a test before deciding whether to do visitSetFeatures or not. It is more efficient to just call
+		 * visitSetFeatures. It should be used only to see if any features are set.
+		 * 
+		 * @param eobject
+		 * @return
+		 * 
+		 * @since 1.1.0
+		 */
+		public static boolean isAnyFeatureSet(EObject eobject) {
+			if (eobject instanceof FeatureValueProvider)
+				return ((FeatureValueProvider)eobject).isAnyFeatureSet();
+			else {
+				// Not a FeatureValueProvider, so do normal.
+				Iterator features = eobject.eClass().getEAllStructuralFeatures().iterator();
+				while(features.hasNext()){
+					EStructuralFeature sf = (EStructuralFeature)features.next();
+					if(eobject.eIsSet(sf)){
+						return true;
+					}
+				}
+				return false;
+			}			
+		}
+		
 		private FeatureValueProviderHelper() {
 		}
 	}
@@ -94,4 +121,16 @@ public interface FeatureValueProvider {
 	 * @since 1.1.0
 	 */
 	public Object visitSetFeatures(Visitor aVisitor);
+	
+	/**
+	 * Answers whether any feature is set or not.
+	 * <p>
+	 * <b>Note:</b> This SHOULD NOT be used as a test before deciding whether to do visitSetFeatures or not. It is
+	 * more efficient to just call visitSetFeatures. It should be used only to see if any features are set.
+	 * 
+	 * @return <code>true</code> if any features are set.
+	 * 
+	 * @since 1.1.0
+	 */
+	public boolean isAnyFeatureSet();
 }
