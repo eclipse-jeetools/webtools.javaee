@@ -389,7 +389,7 @@
              	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
                   typeId = "jst.appclient"
                   icon = "icons/appclientgroup_obj.gif"
-                  label = "%Application_Client_Project">
+                  label = "%Application_Client_Projects">
              </componentWorkingSet>
       </extension>
       
