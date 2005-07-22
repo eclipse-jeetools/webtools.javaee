@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.7 $  $Date: 2005/07/08 17:51:48 $ 
+ *  $Revision: 1.8 $  $Date: 2005/07/22 14:42:41 $ 
  */
 
 import java.beans.*;
@@ -156,6 +156,8 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * If this parameter is false, then if the explicit beaninfo is not found, then no introspection will be done and null will be returned.
 	 */
 	public static ModelingBeanInfo introspect(Class introspectClass, boolean introspectIfNoBeanInfo, int doFlags) throws IntrospectionException {
+		if (!Beans.isDesignTime())
+			Beans.setDesignTime(true);	// Since this a jem beaninfo specific vm, we should also be considered design time.
 		if (!introspectIfNoBeanInfo) {
 			// Need to check if the beaninfo is explicitly supplied.
 			// If not, then we return null.
