@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/swg_info_common.css" />
+<title>EJB architecture</title>
+</head>
+<body id="cearch"><a name="cearch"><!-- --></a>
+
+<h1 class="topictitle1">EJB architecture</h1>
+<div><p>This topic provides a high-level overview of the distributed component
+architecture defined in the Sun Microsystems Enterprise JavaBeans™ (EJB)
+architecture specification.</p>
+<p>The complete Enterprise JavaBeans specifications and descriptions
+of the technology are available from the <a href="http://java.sun.com/products/ejb/docs.html#specs" target="_blank">java.sun.com</a> Web site.</p>
+<p>Enterprise beans provide several benefits for application developers: </p>
+<ul><li>They allow you to build distributed applications by combining components
+developed using tools from different vendors. </li>
+<li>They make it easy to write applications. You do not have to deal with
+low-level details of transaction and state management, multithreading, resource
+pooling, and other complex low-level APIs. However, if necessary, expert programmers
+can still gain direct access to the low-level APIs.</li>
+<li>They can be developed once and then deployed on multiple platforms without
+recompilation or source code modification. </li>
+<li>The EJB specification that governs the use of enterprise beans is compatible
+with other Java™ APIs and CORBA. It also provides for interoperability
+between enterprise beans and non-Java applications.</li>
+</ul>
+<dl><dt class="dlterm">Enterprise beans</dt>
+<dd>An <em>enterprise bean</em> is a non-visual component of a distributed,
+transaction-oriented enterprise application. Enterprise beans are typically
+deployed in EJB containers and run on EJB servers. You can customize them
+by changing their deployment descriptors and you can assemble them with other
+beans to create new applications. There are three types of enterprise beans: <em>session
+beans</em>, <em>entity beans</em>, and <em>message-driven</em> beans.<div class="p"><blockquote> <ul><li><span class="uicontrol">Session beans</span>: <em>Session beans</em> are non-persistent
+enterprise beans. They can be stateful or stateless. A <em>stateful session
+bean</em> acts on behalf of a single client and maintains client-specific session
+information (called conversational state) across multiple method calls and
+transactions. It exists for the duration of a single client/server session.
+A <em>stateless session bean</em>, by comparison, does not maintain any conversational
+state. Stateless session beans are pooled by their container to handle multiple
+requests from multiple clients.</li>
+<li><span class="uicontrol">Entity beans</span>: <em>Entity beans</em> are enterprise
+beans that contain persistent data and that can be saved in various persistent
+data stores. Each entity bean carries its own identity. Entity beans that
+manage their own persistence are called <em>bean-managed persistence (BMP)
+ entity beans</em>. Entity beans that delegate their persistence to their EJB
+container are called <em>container-managed persistence (CMP) entity beans</em>.</li>
+<li><span class="uicontrol">Message-driven beans</span>: <em>Message-driven beans</em> are
+enterprise beans that receive and process JMS messages. Unlike session or
+entity beans, message-driven beans have no interfaces. They can be accessed
+only through messaging and they do not maintain any conversational state.
+ Message-driven beans allow asynchronous communication between the queue and
+the listener, and provide separation between message processing and business
+logic.</li>
+</ul>
+</blockquote>
+</div>
+</dd>
+</dl>
+<dl><dt class="dlterm">Remote client view</dt>
+<dd>The <em>remote client view</em> specification became available beginning
+with EJB 1.1. The remote client view of an enterprise bean is location independent.
+A client running in the same JVM as a bean instance uses the same API to access
+the bean as a client running in a different JVM on the same or different machine.<ul><li><span class="uicontrol">Remote interface</span>: The <em>remote interface</em> specifies
+the remote business methods that a client can call on an enterprise bean.</li>
+<li><span class="uicontrol">Remote home interface</span>: The <em>remote home interface</em> specifies
+the methods used by remote clients for locating, creating, and removing instances
+of enterprise bean classes.</li>
+</ul>
+</dd>
+</dl>
+<dl><dt class="dlterm">Local client view</dt>
+<dd>The <em>local client view</em> specification is available in EJB 2.0 or
+later. Unlike the remote client view, the local client view of a bean is location
+dependent. Local client view access to an enterprise bean requires both the
+local client and the enterprise bean that provides the local client view to
+be in the same JVM. The local client view therefore does not provide the location
+transparency provided by the remote client view. Local interfaces and local
+home interfaces provide support for lightweight access from enterprise bean
+that are local clients. Session and entity beans can be tightly couple with
+their clients, allowing access without the overhead typically associated with
+remote method calls.<ul><li><span class="uicontrol">Local interface</span>: The <em>local interface</em> is
+a lightweight version of the remote interface, but for local clients. It includes
+business logic methods that can be called by a local client.</li>
+<li><span class="uicontrol">Local home interface</span>: The <em>local home interface</em> specifies
+the methods used by local clients for locating, creating, and removing instances
+of enterprise bean classes.</li>
+</ul>
+</dd>
+<dt class="dlterm">Web service client view</dt>
+<dd>In the EJB 2.1 specification, the EJB architecture introduced the support
+for Web services. A client for a session bean can be a Web service client.
+A Web service client can make use of the Web service client view of a stateless
+session bean, which has a corresponding service endpoint interface.<dl><dt class="dlterm">Service endpoint interface</dt>
+<dd>The <em>service endpoint interface</em> for a stateless session bean exposes
+the functionality of the session bean as a Web service endpoint. The Web Service
+Description Language (WSDL) document for a Web service describes the Web service
+as a set of endpoints operating on messages. A WSDL document can include the
+service endpoint interface of a stateless session bean as one of its endpoints.
+An existing stateless session bean can be modified to include a Web service
+client view, or a service endpoint interface can be mapped from an existing
+WSDL to provide the correct interface.<p>A Web service client view is independent
+of location and can be accessed through remote calls.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl><dt class="dlterm">EJB client JAR file</dt>
+<dd>An EJB client JAR file is an optional JAR file that can contain the client
+interfaces that a client program needs to use the client views of the enterprise
+beans that are contained in the EJB JAR file. If you decide not to create
+an EJB client JAR file for an EJB module, all of the client interface classes
+will be in the EJB JAR file. By default, the workbench creates EJB client
+JAR projects for each corresponding EJB project.</dd>
+</dl>
+<dl><dt class="dlterm">EJB container</dt>
+<dd>An <em>EJB container</em> is a runtime environment that manages one or more
+enterprise beans. The EJB container manages the life cycles of enterprise
+bean objects, coordinates distributed transactions, and implements object
+security. Generally, each EJB container is provided by an EJB server and contains
+a set of enterprise beans that run on the server.</dd>
+<dt class="dlterm">Deployment descriptor</dt>
+<dd>A <em>deployment descriptor</em> is an XML file packaged with the enterprise
+beans in an EJB JAR file or an EAR file. It contains metadata describing the
+contents and structure of the enterprise beans, and runtime transaction and
+security information for the EJB container.</dd>
+<dt class="dlterm">EJB server</dt>
+<dd>An <em>EJB server</em> is a high-level process or application that provides
+a runtime environment to support the execution of server applications that
+use enterprise beans. An EJB server provides a JNDI-accessible naming service,
+manages and coordinates the allocation of resources to client applications,
+provides access to system resources, and provides a transaction service. An
+EJB server could be provided by, for example, a database or application server.</dd>
+</dl>
+</div>
+<p>
+		(C) Copyright IBM Corporation 2000, 2005. All Rights Reserved.
+		</p> 
+</body>
+</html>

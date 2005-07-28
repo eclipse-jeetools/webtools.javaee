@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/swg_info_common.css" />
+<title>Exporting EJB projects to EJB JAR files</title>
+</head>
+<body id="teexp"><a name="teexp"><!-- --></a>
+
+<h1 class="topictitle1">Exporting EJB projects to EJB JAR files</h1>
+<div><p>After you have tested your enterprise beans, you can export the
+module into an EJB JAR file.</p>
+<div class="section"><p>When you export an EJB module, or project, the contents of the
+project are exported into an EJB JAR file regardless of whether deployment
+code has been generated or not. You can use the exported server-side JAR file
+as the client JAR file, since it contains all of the required code from both
+a server-side and client-side perspective.</p>
+<div class="important" id="teexp__exportEJBClientJAR"><a name="teexp__exportEJBClientJAR"><!-- --></a><span class="importanttitle">Important: </span>If you use the Export EJB JAR file wizard to export an EJB
+project, the export wizard does not include an EJB project's associated EJB
+client JAR project. To include the EJB client JAR file, it is recommended
+that you export the enterprise application EAR file that contains the EJB
+project. The resulting EAR file will include any dependent EJB client JAR
+files as utility JAR files. Alternatively, you can export the EJB client JAR
+project separately as a JAR file.</div>
+<p>To export an EJB project:</p>
+</div>
+<ol><li class="stepexpand"><span>In the Project Explorer view of the J2EE perspective, right-click
+the EJB module that you want to export.</span></li>
+<li class="stepexpand"><span>Select <span class="menucascade"><span class="uicontrol">Export</span> &gt; <span class="uicontrol">EJB
+JAR file</span></span> from the pop-up menu. The Export wizard
+opens.</span> </li>
+<li class="stepexpand"><span>Select the EJB module to export from the drop-down list.</span></li>
+<li class="stepexpand"><span>In the <span class="uicontrol">Destination</span> field, provide the full
+path and JAR file name for the exported EJB module.</span></li>
+<li class="stepexpand"><strong>Optional: </strong><span>To include source files in the exported JAR
+file, select the <span class="uicontrol">Export source files</span> check box.</span></li>
+<li class="stepexpand"><strong>Optional: </strong><span>If you are exporting to an existing JAR file
+and you do not want to be warned about overwriting it, select <span class="uicontrol">Overwrite
+existing files without warning</span></span></li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span></li>
+</ol>
+<div class="section"> <p>To deploy your EJB JAR file to an application server after you
+export it, you need to use the deployment tools provided by the vendor of
+that server.</p>
+</div>
+</div>
+<p>
+		(C) Copyright IBM Corporation 2000, 2005. All Rights Reserved.
+		</p> 
+</body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/swg_info_common.css" />
+<title>EJB development resources</title>
+</head>
+<body id="ceresrc"><a name="ceresrc"><!-- --></a>
+
+<h1 class="topictitle1">EJB development resources</h1>
+<div><p>This topic describes resources and development tools that are commonly
+used in EJB development.</p>
+<dl><dt class="dlterm">EJB modules</dt>
+<dd> <p>EJB modules are displayed in the Project Explorer view of the J2EE
+perspective, and they correspond to EJB projects.</p>
+<p>An EJB module is used
+to assemble one or more enterprise beans into a single deployable unit. An
+EJB module is developed in an EJB project, and it can be exported as either
+a standalone EJB JAR file, or it can be combined with other EJB or Web modules
+within an enterprise application. An EJB JAR file uses the format of a standard Java™ archive
+file. An EJB module contains the following: </p>
+<ul><li>One or more enterprise beans and their associated .class and .java files.</li>
+<li>Graphics and other files depending on the need of the enterprise bean. </li>
+<li>A deployment descriptor. The file type for the deployment descriptor is
+Extensible Markup Language (XML). This file declares the contents of the EJB
+module, defines the structure of the beans in the module, and provides a description
+of how the beans are to be used at run time. </li>
+<li>a MANIFEST.MF file in the META-INF directory. The manifest file can contain
+a class path entry, with references to other JAR files or EJB modules in a
+J2EE enterprise application. It defines the module's external dependencies.</li>
+</ul>
+<p>An EJB module is installed and runs in an EJB container.</p>
+<p>An
+enterprise bean is a Java component that can be combined with
+other resources to create distributed client/server applications.</p>
+<div class="note"><span class="notetitle">Note: </span>If
+you choose to create an EJB client JAR file for your EJB module, the client
+interface classes for the enterprise beans will not be included in the EJB
+JAR file, but are included in the EJB client JAR file.</div>
+</dd>
+<dt class="dlterm">EJB projects</dt>
+<dd> <p>In the workbench, you create and maintain resources for enterprise
+applications in projects. An EJB project is a logical module that allows you
+to organize your enterprise beans. In the Project Explorer view, an EJB project
+is shown as an EJB module.</p>
+<p>The workbench supports EJB 1.1, EJB 2.0,
+and EJB 2.1 projects. The J2EE specification level of a containing EAR project
+must be set to J2EE 1.3 or higher for EJB 2.0 projects, and J2EE 1.4 for EJB
+2.1 projects. In an EJB 1.1 project, you will only be able to create EJB 1.1
+beans.</p>
+<p>An EJB project is a specialized Java project. The source and the output
+files of the project are located in the <span class="uicontrol">ejbModule</span> folder.
+As you make changes and generate deployment code, the Java classes
+are compiled into the <span class="uicontrol">ejbModule</span> folder. You cannot
+use the EJB project as the source folder; doing so will cause errors.</p>
+<div class="note"><span class="notetitle">Note: </span>If
+you choose to create an EJB client JAR file for your EJB module, the client
+interface classes for the enterprise beans will not be included in the EJB
+project, but in separate EJB client JAR project. EJB client JAR projects are
+displayed in the Project Explorer as Java projects under the Other projects node.</div>
+</dd>
+<dt class="dlterm">EJB client projects</dt>
+<dd> <p>The EJB tooling supports the creation of EJB client JAR projects for
+EJB modules. An EJB client JAR project contains all the interface classes
+that a client program needs to use the client views of the enterprise beans
+that are contained in the EJB project. When you create an EJB client project
+for an EJB project, a new Java project is created and added to your
+workspace. The EJB client project is added as a project utility JAR file to
+each module that the EJB project belongs to.</p>
+<p>By default, when you use
+the wizard to create an EJB project, an EJB client JAR project is also created.
+However, you can clear this option in the wizard.</p>
+<div class="tip"><span class="tiptitle">Tip: </span>You
+can also add the EJB client project to another enterprise application that
+does not include the EJB project as a module. This will ensure that the EJB
+client JAR file is exported and packaged with the EAR file when the application
+is exported.</div>
+</dd>
+<dt class="dlterm">Enterprise beans</dt>
+<dd> <p>An enterprise bean is a Java component that can be combined with
+other resources to create distributed client/server applications.</p>
+<p>There
+are three types of enterprise beans: entity beans, session beans, and message-driven
+beans. Typically, all types of beans are used together within an enterprise
+application.</p>
+<dl><dt class="dlterm">Entity beans</dt>
+<dd>Entity beans store permanent data. Entity beans with container-managed
+persistence (CMP) require database connections. Entity beans with bean-managed
+persistence manage permanent data in whichever manner is defined in the bean
+code. This can include writing to databases or XML files, for example.</dd>
+<dt class="dlterm">Session beans</dt>
+<dd>Session beans do not <em>require</em> database access, though they can obtain
+it indirectly (as needed) by accessing entity beans. Session beans can also
+obtain direct access to databases (and other resources) through the use of
+resource references.</dd>
+<dt class="dlterm">Message-driven beans</dt>
+<dd>Message-driven beans are a special kind of enterprise bean that acts as
+a message consumer in the JMS messaging system. As with standard JMS message
+consumers, message-driven beans perform business logic based on the message
+contents. In several ways, the dynamic creation and allocation of message-driven
+bean instances mimics the behavior of stateless session enterprise beans.
+However, message-driven beans are different from stateless session enterprise
+beans (and other types of enterprise beans) in a couple of ways:<ul><li>Message-driven beans process multiple JMS messages asynchronously, rather
+than processing a serialized sequence of method calls.</li>
+<li>Message-driven beans have no home or remote interface, and therefore cannot
+be directly accessed by internal or external clients.</li>
+</ul>
+</dd>
+</dl>
+<p>Beans requiring data access use <em>data sources</em>, administrative
+resources defining pools of database connections.</p>
+</dd>
+<dt class="dlterm">Deployment descriptors</dt>
+<dd> <p>A deployment descriptor contains configuration data that the runtime
+environment uses for an application. A deployment descriptor can include information
+about the following: </p>
+<ul><li>The structure and content (enterprise beans, for example) of the application.</li>
+<li>References to internal and external dependencies. For example, an enterprise
+bean in an EJB module can require another enterprise bean that is not bundled
+in the same module.</li>
+<li>References to resource factory objects, such as URLs or JDBC data sources.</li>
+<li>Security roles that the container uses when implementing the required
+access control for the application.</li>
+<li>Transactional information about how (and whether) the container is to
+manage transactions for the application.</li>
+</ul>
+<p>Deployment descriptors are XML files packaged with the application's
+files in a Java archive file. An EJB deployment descriptor is called
+ejb-jar.xml and is located in the <span class="uicontrol">META-INF</span> folder of
+an EJB project. A J2EE application contains one application-level deployment
+descriptor file, governing the application as a whole. It also contains several
+component-level deployment descriptors, one for each module in the application.</p>
+</dd>
+</dl>
+</div>
+<p>
+		(C) Copyright IBM Corporation 2000, 2005. All Rights Reserved.
+		</p> 
+</body>
+</html>
