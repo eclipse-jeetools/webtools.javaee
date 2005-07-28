@@ -22,12 +22,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jst.doc.isv"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.eclipse.jst.ejb.doc.user"
          download-size="0"
          install-size="0"
@@ -40,7 +34,7 @@
          version="0.0.0"/>
          
    <plugin
-         id="org.eclipse.jst.jsp.infopop"
+         id="org.eclipse.jst.jsp.ui.infopop"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
