@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.18 $  $Date: 2005/06/09 13:37:56 $ 
+ *  $Revision: 1.19 $  $Date: 2005/07/28 17:38:01 $ 
  */
 
 import java.util.*;
@@ -590,17 +590,20 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		try {
 			if (!getSourceType().isInterface()) {
 				superName = getSourceType().getSuperclassName();
-				if ((superName != null) && isTargetInner()) {
-					IType parentType = getSourceType().getDeclaringType();
-					//Get all parent InnerTypes
-					IType[] inners = parentType.getTypes();
-					for (int i = 0; i < inners.length; i++) {
-						IType type = inners[i];
-						if (superName.equals(type.getElementName())) {
-							superName = parentType.getElementName() + '.' + superName;
-							reflectInnerClasses(parentType);
-							superType = type;
-							break;
+				// binary types will always have fully-qualified super names, so no need to do any searching.
+				if (!getSourceType().isBinary() && superName != null && isTargetInner()) {
+					IType declaringType = getSourceType().getDeclaringType();
+					if (declaringType != null) {
+						//Get all parent InnerTypes
+						IType[] inners = declaringType.getTypes();
+						for (int i = 0; i < inners.length; i++) {
+							IType type = inners[i];
+							if (superName.equals(type.getElementName())) {
+								superName = declaringType.getElementName() + '.' + superName;
+								reflectInnerClasses(declaringType);
+								superType = type;
+								break;
+							}
 						}
 					}
 				}
