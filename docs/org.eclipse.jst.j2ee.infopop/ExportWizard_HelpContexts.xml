@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+<context id="APPCLIENT_EXPORT_APPCLIENT_WIZARD_PAGE1">
+<description>Use this wizard to export an application client project into a JAR file.  Select the application project to export, and provide a directory and filename for the exported JAR file.
+
+Select <b>Export source files</b> to include source files in the JAR file. 
+
+Select <b>Overwrite existing file</b> to replace an existing file. 
+</description>
+<!--topic label="Exporting an application client project" href="../com.ibm.etools.j2eeapp.doc/topics/tjexpapp.html"/-->
+<!--topic label="Creating an application client project" href="../com.ibm.etools.j2eeapp.doc/topics/tjappproj.html"/-->
+</context>
+<context id="EAR_EXPORT_PAGE1">
+<description>Use this wizard to export an enterprise application project into an EAR file. Select the enterprise application project to export, and provide a directory and filename for the exported EAR file.
+
+Select <b>Export source files</b> to include source files in the EAR file. 
+
+Select <b>Overwrite existing file</b> to replace an existing file. 
+</description>
+<!--topic label="Exporting an enterprise application into an EAR file" href="../com.ibm.etools.j2eeapp.doc/topics/tjexpear.html"/-->
+<!--topic label="Creating an enterprise application project" href="../com.ibm.etools.j2eeapp.doc/topics/tjear.html"/-->
+</context>
+<context id="EJB_EXPORT_PAGE1">
+<description>Use this wizard to export an EJB module into a JAR file. Select the EJB module to export, and provide a directory and filename for the exported JAR file.
+
+Select <b>Export source files</b> to include source files in the JAR file. 
+
+Select <b>Overwrite existing file</b> to replace an existing file. </description>
+<!--topic label="Exporting an EJB JAR file" href="../com.ibm.etools.ejb.assembly.doc/topics/teexp.html"/-->
+<!--topic label="Importing an EJB JAR file" href="../com.ibm.etools.ejb.assembly.doc/topics/teimp.html"/-->
+</context>
+
+<context id="EXPORT_RAR_WIZARD_PAGE">
+<description>Use this wizard to export a connector project into a RAR file.  Select the connector project to export, and provide a directory and filename for the exported RAR file.
+
+Select <b>Export source files</b> to include source files in the RAR file. 
+
+Select <b>Overwrite existing file</b> to replace an existing file. 
+</description>
+<!--topic label="Exporting a connector project to a RAR file" href="../com.ibm.etools.j2ee.doc/topics/tjexprar.html"/-->
+<!--topic label="Creating a connector project" href="../com.ibm.etools.j2ee.doc/topics/tjrar.html"/-->
+</context>
+</contexts>

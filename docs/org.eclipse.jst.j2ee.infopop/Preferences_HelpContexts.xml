@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+
+<contexts>
+<!--Eclipse preferences -->
+
+<context id="FlexibleProject">
+	<!-- Flexible Java Project  preferences-->
+<description>Select <b>Allow Multiple modules per project</b> to allow an enterprise application (EAR) project to contain more than one module
+of a particular type. For instance, more than one Application Client module. 
+</description>
+<!-- links to Flexible java project stuff-->
+<!--topic label="" href=""/-->
+<!--topic label="" href=""/-->
+</context>
+
+<context id="J2EEAnnotations_PAGE1">
+	<!-- J2EE Annotations  preferences main-->
+<description>Select the J2EE Annotation Provider  to use. 
+
+J2EE Annotations allow programmers to add specialized Javadoc tags to their source code, which can be used to generate code artifacts from templates.
+</description>
+<!-- links to annotation stuff (XDoclet and ejbdoclet, and generic info) -->
+<!-- http://xdoclet.sourceforge.net/xdoclet/index.html -->
+<!--topic label="" href=""/-->
+<!--topic label="" href=""/-->
+</context>
+
+<context id="J2EEAnnotations_PAGE2">
+	<!-- J2EE Annotations  preferences XDoclet-->
+<description>Use this page to set the XDoclet runtime preferences. XDoclet must be installed on the local system to use this function.
+
+Select <b>Enable XDoclet Builder</b> to turn on annotation-based artifact creation.
+
+Select the <b>Version</b> of XDoclet. Supported versions include 1.2.1, 1.2.2, 1.2.3; XDoclet version 1.1.2 is no longer supported.
+
+Provide the installation directory (<b>XDoclet Home</b>) for XDoclet on the local system.
+</description>
+<!-- links to annotation stuff (XDoclet and ejbdoclet, and generic info) -->
+<!-- http://xdoclet.sourceforge.net/xdoclet/index.html -->
+<!--topic label="" href=""/-->
+<!--topic label="" href=""/-->
+</context>
+
+<context id="J2EEAnnotations_PAGE3">
+	<!-- J2EE Annotations  preferences ejbdoclet-->
+<description>Ejbdoclet is a subset of the XDoclet specification that specifies details on EJB deployment descriptors.
+The syntax of deployment descriptors differs, depending on the vendor of  the Application Server being used. 
+
+Use this page to define which Application Server vendors to support. You can select one or more Application Server
+vendors, including JBoss, JOnAS, WebLogic, and WebSphere. Also select the version of the Application Server to support.
+</description>
+<!-- links to annotation stuff (XDoclet and ejbdoclet, and generic info) -->
+<!--http://xdoclet.sourceforge.net/xdoclet/ant/xdoclet/modules/ejb/EjbDocletTask.html -->
+<!-- http://www.jboss.org-->
+<!-- http://jonas.objectweb.org/-->
+<!-- http:/www.bea.com-->
+<!-- http://www.ibm.com/software/websphere/-->
+<!--topic label="" href=""/-->
+<!--topic label="" href=""/-->
+</context>
+
+
+
+</contexts>
+

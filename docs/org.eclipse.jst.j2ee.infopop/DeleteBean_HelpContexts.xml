@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+<context id="com.ibm.wtp.generic.Delete">
+    <!-- function scheduled for WTP 1.0 -->
+<description>Use this dialog box to specify the deletion options for the enterprise bean:
+
+-  <b>Delete deployed code:</b> Select to delete the generated deployment code for the enterprise bean.
+-  <b>Delete generated AccessBean:</b> Select to delete the access beans associated with the enterprise bean.
+-  <b>Delete Bean from Deployment Descriptor:</b> Select to delete the bean entry from the deployment descriptor, but do not delete the bean.
+-  <b>Delete Bean Classes:</b> Select to delete the classes associated with this bean.
+</description>
+</context>
+</contexts>

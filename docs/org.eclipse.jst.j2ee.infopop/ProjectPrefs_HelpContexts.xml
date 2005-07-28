@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+
+<contexts>
+<!-- project preferences -->
+
+<context id="JARdep">
+		<!-- JAR dependencies preferences-->
+<description>Use this page to specify dependent JAR files for modules within the associated project.
+
+Select <b>Use EJB JARs</b>, <b>Use EJB client JARs</b>, or <b>Allow both</b> to control which JAR files are listed.  Then, select the JAR files from the list. This will update the run-time class path and Java project build path with the appropriate JAR files.
+
+The <b>Manifest Class-Path</b> field displays the manifest class-path changes based on the JAR files selected. This field is display only and shows you the class path for your module file.
+</description>
+<!-- need links to EJB base info, EJB Client info, project class paths-->
+<!--topic label="" href=""/-->
+<!--topic label="" href=""/-->
+</context>
+
+<context id="EARmod">
+	<!-- EAR modules preferences-->
+<description><!-- page is blank at the time of this writing -->
+</description>
+<!--topic label="" href=""/-->
+<!--topic label="" href=""/-->
+</context>
+
+
+
+</contexts>
+
