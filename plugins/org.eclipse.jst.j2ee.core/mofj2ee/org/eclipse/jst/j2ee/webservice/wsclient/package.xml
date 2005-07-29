@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <meta
+            name="root"
+            content="../../../../../../../" />
+        <title>EJB Artifact Edit api overview</title>
+    </head>
+
+    <body>  
+		<abstract>
+        This package includes the web services client model api. Using this api the artifacts of a web services client
+        can be created and accessed.
+		</abstract>
+
+	<a href="#top">top</a>
+    </body>
+</html>    
+    

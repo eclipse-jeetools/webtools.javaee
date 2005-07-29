@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <meta
+            name="root"
+            content="../../../../../../../" />
+        <title>WebArtifactEdit api overview</title>
+    </head>
+
+    <body>  
+		<abstract>
+        This package includes the ConnectorArtifactEdit api. This api is used to work with the emf model
+        of a flexible connector module. It contains api to read and serialize out the emf model for connector modules.
+		</abstract>
+
+	<a href="#top">top</a>
+    </body>
+</html>    
+    
