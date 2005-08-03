@@ -12,20 +12,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -99,14 +94,15 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 	 */
 	public static final String TARGET_ALSO_IN_EAR = "EJBReferenceDataModel.TARGET_ALSO_IN_EAR"; //$NON-NLS-1$
 
-
-
 	public static final String TARGET_AND_SOURCE_HAVE_SAME_EARS = "EJBReferenceDataModel.TARGET_AND_SOURCE_HAVE_SAME_EARS"; //$NON-NLS-1$
+	public static final String TARGET_COMPONENT = "EJBReferenceDataModel.TARGET_COMPONENT"; //$NON-NLS-1$
 
 
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	private static final String LOCAL_STRING = "Local"; //$NON-NLS-1$
 	private static final String REMOTE_STRING = "Remote"; //$NON-NLS-1$
+	
+	private IVirtualComponent[] targetCompEARs;
 
 	protected void init() {
 		super.init();
@@ -134,6 +130,7 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 		addValidBaseProperty(TARGET_IN_SAME_PROJECT);
 		addValidBaseProperty(TARGET_ALSO_IN_EAR);
 		addValidBaseProperty(TARGET_AND_SOURCE_HAVE_SAME_EARS);
+		addValidBaseProperty(TARGET_COMPONENT);
 		super.initValidBaseProperties();
 	}
 
@@ -198,6 +195,21 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 		}
 		return status;
 	}
+	
+//	private IVirtualComponent getTargetComponent(EObject target) {
+//		if (targetComponent == null) {
+//			targetComponent = J2EEComponentUtilities.findComponent(target);
+//		}
+//		return targetComponent;
+//	}
+	
+	private IVirtualComponent[] getTargetCompEARs() {
+		if (targetCompEARs == null) {
+			IVirtualComponent targetComp = (IVirtualComponent)getProperty(EJBReferenceDataModel.TARGET_COMPONENT);
+			targetCompEARs = J2EEComponentUtilities.getReferencingEARComponents(targetComp);
+		}
+		return targetCompEARs;
+	}
 
 	/**
 	 * @return
@@ -209,16 +221,16 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 			setProperty(TARGET_ALSO_IN_EAR, null);
 			setBooleanProperty(TARGET_AND_SOURCE_HAVE_SAME_EARS, false);
 			EnterpriseBean target = (EnterpriseBean) getProperty(TARGET);
-			IProject sourceProject = getTargetProject();
-			IProject targetProject = J2EEProjectUtilities.getProject(target);
+			IVirtualComponent targetComp = (IVirtualComponent) getProperty(TARGET_COMPONENT);
+			IVirtualComponent sourceComp = getComponent();
 			boolean foundEAR = false;
-			if (targetProject.equals(sourceProject)) {
+			if (targetComp.equals(sourceComp)) {
 				setBooleanProperty(TARGET_IN_SAME_PROJECT, true);
 				setBooleanProperty(TARGET_AND_SOURCE_HAVE_SAME_EARS, true);
 				foundEAR = true;
 			} else {
-				EARNatureRuntime[] sourceEARs = J2EEProjectUtilities.getReferencingEARProjects(sourceProject);
-				EARNatureRuntime[] targetEARs = J2EEProjectUtilities.getReferencingEARProjects(targetProject);
+				IVirtualComponent[] targetEARs = getTargetCompEARs();
+				IVirtualComponent[] sourceEARs = J2EEComponentUtilities.getReferencingEARComponents(sourceComp);
 				ApplicationImpl app = (ApplicationImpl) getProperty(TARGET_EAR);
 				IProject earProject = app != null ? J2EEProjectUtilities.getProject(app) : null;
 
@@ -230,7 +242,7 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 					for (int i = 0; bSameEARsForSourceAndTarget && i < sourceEARs.length; i++) {
 						boolean bFind = false;
 						for (int j = 0; !bFind && j < targetEARs.length; ++j) {
-							if (sourceEARs[i] == targetEARs[j])
+							if (sourceEARs[i].equals(targetEARs[j]))
 								bFind = true;
 						}
 						bSameEARsForSourceAndTarget = bFind;
@@ -468,8 +480,9 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 					IProject ownerProject = getOwnerProject();
 					IProject project = (IProject) getProperty(TARGET_ALSO_IN_EAR);
 					if (project != null && ownerProject != null) {
-						EARNatureRuntime earRuntime = EARNatureRuntime.getRuntime(project);
-						return WTPCommonPlugin.createWarningStatus(J2EECreationResourceHandler.getString("TARGET_ALSO_EXIST_IN_SAME_EAR", new String[]{earRuntime.getApplication().getDisplayName(), ownerProject.getName()})); //$NON-NLS-1$
+//						EARNatureRuntime earRuntime = EARNatureRuntime.getRuntime(project);
+						return WTPCommonPlugin.createWarningStatus(J2EECreationResourceHandler.getString("TARGET_ALSO_EXIST_IN_SAME_EAR",  //$NON-NLS-1$
+								new String[]{ownerProject.getName()}));
 					}
 
 				}
@@ -510,18 +523,24 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 		EnterpriseBean targetBean = (EnterpriseBean) getProperty(TARGET);
 		if (targetBean == null)
 			return EMPTY_STRING; //$NON-NLS-1$
-		IProject targetModuleProject = ProjectUtilities.getProject(targetBean.getEjbJar());
-		if (targetModuleProject == null)
+		IVirtualComponent targetComp = (IVirtualComponent) getProperty(TARGET_COMPONENT);
+		if (targetComp == null)
 			return EMPTY_STRING; //$NON-NLS-1$
-
-		IProject ownerProject = getOwnerProject();
-		if (targetModuleProject.equals(ownerProject)) {
+		if ((ownerType == EJB_TYPE && ((EnterpriseBean) getProperty(OWNER)).getVersionID() <= J2EEVersionConstants.EJB_1_1_ID) 
+				|| (ownerType == APP_CLIENT_TYPE && ((ApplicationClient) getProperty(OWNER)).getVersionID() == J2EEVersionConstants.J2EE_1_2_ID)) {
 			return targetBean.getName();
 		}
-		if ((ownerType == EJB_TYPE && ((EnterpriseBean) getProperty(OWNER)).getVersionID() <= J2EEVersionConstants.EJB_1_1_ID) || (ownerType == APP_CLIENT_TYPE && ((ApplicationClient) getProperty(OWNER)).getVersionID() == J2EEVersionConstants.J2EE_1_2_ID)) {
+		IVirtualComponent sourceComp = getComponent();
+		if (targetComp.equals(sourceComp)) {
 			return targetBean.getName();
 		}
-		return calculateLinkForEARRelativeBean(targetBean, ownerProject, targetModuleProject);
+		String sourceCompName = sourceComp.getComponentHandle().getName();
+		String sourceCompUri = sourceCompName + ".jar"; //$NON-NLS-1$
+		if (ownerType == WEB_TYPE)
+			sourceCompUri = sourceCompName + ".war"; //$NON-NLS-1$
+		String targetCompName = targetComp.getComponentHandle().getName();
+		String targetCompUri = targetCompName + ".jar"; //$NON-NLS-1$
+		return J2EEProjectUtilities.computeRelativeText(sourceCompUri, targetCompUri, targetBean);
 	}
 
 	/**
@@ -536,36 +555,6 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 			ownerProject = ProjectUtilities.getProject(getProperty(OWNER));
 		}
 		return ownerProject;
-	}
-
-	private String calculateLinkForEARRelativeBean(EnterpriseBean bean, IProject ownerProject, IProject targetModuleProject) {
-		J2EEModuleNature targetNature = (J2EEModuleNature) J2EENature.getRuntime(targetModuleProject, IEJBNatureConstants.NATURE_ID);
-		if (targetNature == null)
-			return EMPTY_STRING; //$NON-NLS-1$
-		EARNatureRuntime[] runtimes = targetNature.getReferencingEARProjects();
-		if (runtimes.length < 1)
-			return EMPTY_STRING; //$NON-NLS-1$
-		Module targetModule = runtimes[0].getModule(targetModuleProject);
-
-		J2EEModuleNature ownerNature = null;
-		Module ownerModule = null;
-		if (ownerType == EJB_TYPE) {
-			ownerNature = (J2EEModuleNature) J2EEModuleNature.getRuntime(ownerProject, IEJBNatureConstants.NATURE_ID);
-		} else if (ownerType == APP_CLIENT_TYPE) {
-			ownerNature = (J2EEModuleNature) J2EEModuleNature.getRuntime(ownerProject, IApplicationClientNatureConstants.NATURE_ID);
-		} else if (ownerType == WEB_TYPE) {
-			ownerNature = (J2EEModuleNature) J2EEModuleNature.getRuntime(ownerProject, IWebNatureConstants.J2EE_NATURE_ID);
-		}
-		if (ownerNature == null)
-			return EMPTY_STRING; //$NON-NLS-1$
-		runtimes = ownerNature.getReferencingEARProjects();
-		if (runtimes.length < 1)
-			return EMPTY_STRING; //$NON-NLS-1$
-		ownerModule = runtimes[0].getModule(ownerProject);
-
-		if (ownerModule == null || targetModule == null)
-			return EMPTY_STRING; //$NON-NLS-1$
-		return J2EEProjectUtilities.computeRelativeText(ownerModule.getUri(), targetModule.getUri(), bean);
 	}
 
 	/*
