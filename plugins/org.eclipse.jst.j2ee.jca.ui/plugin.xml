@@ -30,8 +30,8 @@
          id="J2EEUIProjectWizards"
          point="org.eclipse.ui.newWizards">
       <category
-            name="%web.category_ui_"
-            id="org.eclipse.jst.servlet.ui">
+            name="%jca.module_ui_"
+            id="org.eclipse.jst.j2ee.jca.ui">
       </category>
       <wizard
             name="%connector_module_ui_"
