@@ -41,7 +41,7 @@ public class FwkTestHelper extends AWorkbenchMOFHelper {
 					return false; // if the resource isn't accessible then neither are its children
 				}
 				
-				if((res instanceof IFile) && (res.getFileExtension().equals("java"))) { //$NON-NLS-1$
+				if((res instanceof IFile) && ( (res.getFileExtension() != null) && res.getFileExtension().equals("java"))) { //$NON-NLS-1$
 					WorkbenchFileDelta newFileDelta = new WorkbenchFileDelta(res.getFullPath().toString(), IFileDelta.CHANGED, res);
 					files.add(newFileDelta);
 				}
