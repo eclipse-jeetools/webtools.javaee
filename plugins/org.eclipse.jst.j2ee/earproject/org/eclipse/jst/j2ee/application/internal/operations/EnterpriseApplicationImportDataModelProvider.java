@@ -131,7 +131,7 @@ public final class EnterpriseApplicationImportDataModelProvider extends J2EEArti
 		} else if (event.getPropertyName().equals(RUNTIME_TARGET_ID) && event.getDataModel() == model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION)) {
 			Object propertyValue = event.getProperty();
 			IDataModel nestedModel = null;
-			List projectModels = (List) getProperty(MODULE_MODELS_LIST);
+			List projectModels = (List) getProperty(ALL_PROJECT_MODELS_LIST);
 			for (int i = 0; i < projectModels.size(); i++) {
 				nestedModel = (IDataModel) projectModels.get(i);
 				nestedModel.setProperty(RUNTIME_TARGET_ID, propertyValue);
