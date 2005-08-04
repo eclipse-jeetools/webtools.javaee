@@ -607,11 +607,11 @@ public void validateErrorPages(EList errorPageList) {
 		
 	}
 	
-	// If exception-type...  the specified class must be or inherit from java.lang.Exception
+	// If exception-type...  the specified class must be or inherit from java.lang.Throwable
 	else if (nextPage.isExceptionType()) {
 		ExceptionTypeErrorPage etep = (ExceptionTypeErrorPage)nextPage;
 		JavaClass javaType = etep.getExceptionType();
-		String exceptionType = "java.lang.Exception";//$NON-NLS-1$
+		String exceptionType = "java.lang.Throwable";//$NON-NLS-1$
 		String specifiedClassName = etep.getExceptionTypeName();
 		if ( javaType != null ) {
 			ResourceSet lookupSet = javaType.eResource().getResourceSet();		
