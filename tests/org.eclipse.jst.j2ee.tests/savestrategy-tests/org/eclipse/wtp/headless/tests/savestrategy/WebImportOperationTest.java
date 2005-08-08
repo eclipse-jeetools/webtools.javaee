@@ -8,6 +8,7 @@ package org.eclipse.wtp.headless.tests.savestrategy;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Test;
@@ -49,6 +50,19 @@ public class WebImportOperationTest extends ModuleImportOperationTestCase {
 
 	protected IDataModel getModelInstance() {
 		return DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
+	}
+	public void testWebLibDupClasspath() throws Exception {
+		// Test for defect: 105225
+		List projects = getImportableArchiveFileNames();
+		String warPath = null;
+		for (Iterator iter = projects.iterator(); iter.hasNext();) {
+			String path = (String) iter.next();
+			if (path.indexOf("WebContainerClientApp.war") != -1)
+				warPath = path;
+		}
+		String projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		testImport(projectName,warPath);
+		
 	}
 
 	public void testThreading() throws Exception {
