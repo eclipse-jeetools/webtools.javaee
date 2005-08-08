@@ -15,6 +15,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
@@ -26,9 +27,12 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationD
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
 public class PortedComponentCreationTest extends TestCase {
 
@@ -46,16 +50,18 @@ public class PortedComponentCreationTest extends TestCase {
         super(name);
     }
 
-/*    public void testCreateFlexibleProject() throws Exception {
+    /*
+    public void testCreateFlexibleProject() throws Exception {
         IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleProjectCreationDataModelProvider());
         dataModel.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, DEFAULT_PROJECT_NAME + "_");
         dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
     }
-
-    public void testCreateFlexibleJavaProject() throws Exception {
+    */
+    
+    public void createFlexibleJavaProject() throws Exception {
         createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_Java");
     }
-*/
+
     public void testCreateJavaUtiltyComponent() throws Exception {
         //createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_JavaUtil");
         createJavaUtilComponent(DEFAULT_PROJECT_NAME + "_JavaUtil", DEFAULT_PROJECT_NAME + "_JavaUtil");
@@ -64,7 +70,14 @@ public class PortedComponentCreationTest extends TestCase {
     public void testCreateConnectorComponent() throws Exception {
        // createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_ConnectorProject");
         createConnectorComponent(15, "TestConnector", DEFAULT_PROJECT_NAME + "_ConnectorProject");
+        
+        //trying to add same compoennt in ear, right now datamodelverifyer in not enabled
+        //needs to be enabled to see the error.
+        FlexibleJavaProjectPreferenceUtil.setMultipleModulesPerProjectProp(true);
+        createConnectorComponent(15, "TestConnector", DEFAULT_PROJECT_NAME + "_ConnectorProject2");
+        FlexibleJavaProjectPreferenceUtil.setMultipleModulesPerProjectProp(false);
     }
+
     
     public void testCreateWebComponent() throws Exception {
       //  createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_WebProject");
@@ -85,12 +98,14 @@ public class PortedComponentCreationTest extends TestCase {
        // createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_EARProject");
         createEARComponent(14, "TestEAR", DEFAULT_PROJECT_NAME+"_EARProject");
     }
-//    private void createFlexibleJavaProject(String projectName) throws Exception {
-//        IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
-//        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, projectName);
-//        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
-//        dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
-//    }
+    
+    
+    private void createFlexibleJavaProject(String projectName) throws Exception {
+        IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
+        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, projectName);
+        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
+        dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
+    }
 
     private void createJavaUtilComponent(String aModuleName, String projectName) throws Exception {
         IDataModel model = DataModelFactory.createDataModel(new JavaComponentCreationDataModelProvider());
