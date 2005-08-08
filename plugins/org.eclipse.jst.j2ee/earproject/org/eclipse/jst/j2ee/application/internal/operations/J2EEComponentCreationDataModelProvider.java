@@ -14,6 +14,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDat
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
@@ -23,6 +24,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -412,6 +414,25 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return false;
 	}
 	
+	protected boolean validateComponentAlreadyInEar(){
+		IVirtualComponent component = ComponentCore.createComponent( getProject(), getModuleName());
+		
+		ComponentHandle earHandle = (ComponentHandle)model.getProperty(EAR_COMPONENT_HANDLE);
+		if( earHandle != null && earHandle.getProject() != null && earHandle.getProject().exists() ){
+			IVirtualComponent earComp = ComponentCore.createComponent(earHandle.getProject(), earHandle.getName());
+			if( earComp != null && earComp.exists()){
+				IVirtualReference[] refs = earComp.getReferences();
+				for( int i=0; i< refs.length; i++){
+					IVirtualReference ref = refs[i];
+					IVirtualComponent referencedComp = ref.getReferencedComponent();
+					if( referencedComp.getName().equalsIgnoreCase(component.getName()))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public IStatus validate(String propertyName) {
 		if (EAR_COMPONENT_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
@@ -435,6 +456,11 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if( !msg.equals(OK)){
                     msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
                     return WTPCommonPlugin.createErrorStatus(msg);					
+				}else{
+					if( validateComponentAlreadyInEar() ){
+						msg = J2EECreationResourceHandler.getString("COMPONENT_ALREADYINEAR"); //$NON-NLS-1$
+	                    return WTPCommonPlugin.createErrorStatus(msg);											
+					}
 				}
 			}
 		}else if(propertyName.equals(PROJECT_NAME)){

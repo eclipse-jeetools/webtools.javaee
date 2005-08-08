@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
@@ -148,4 +149,8 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
 		return super.getValidPropertyDescriptors(propertyName);
 	}	
+	
+    public IStatus validate(String propertyName) {
+        return super.validate(propertyName);
+    }	
 }
