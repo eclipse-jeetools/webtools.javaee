@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.xml.sax.InputSource;
 
 
@@ -24,11 +25,11 @@ public class J2EEXmlDtDEntityResolver implements org.xml.sax.EntityResolver {
 	/** All the dtds that this resolver knows about; import strategies register these
 	 * at startup */ 
 	protected static Map supportedDtDs;
-//	static {
-//		registerDtD("http://www.w3.org/2001/xml.xsd", "xml.xsd");  //$NON-NLS-1$ //$NON-NLS-2$
-//		registerDtD("XMLSchema.dtd", "XMLSchema.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
-//		registerDtD("datatypes.dtd", "datatypes.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
-//	}
+	static {
+		registerDtD("http://www.w3.org/2001/xml.xsd", "xml.xsd");  //$NON-NLS-1$ //$NON-NLS-2$
+		registerDtD("XMLSchema.dtd", "XMLSchema.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
+		registerDtD("datatypes.dtd", "datatypes.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
+	}
 	public static J2EEXmlDtDEntityResolver INSTANCE = new J2EEXmlDtDEntityResolver();
 /**
  * EjbXmlEntityResolver constructor comment.
@@ -45,9 +46,20 @@ public static Map getSupportedDtDs() {
  * Maps the system id for the dtd to a local id to be retrieved loaded from the class path
  */
 public static void registerDtD(String systemID, String localID) { 
-    //TODO Removing Registration mechanism until final location is found
-	/*getSupportedDtDs().put(systemID, localID);
-	getSupportedDtDs().put(getShortName(systemID), localID);*/
+    //Make sure local file exists on classpath first.
+	
+	ClassLoader loader = J2EEXmlDtDEntityResolver.class.getClassLoader();
+	URL url = null;
+	if (loader == null) {	    
+		url = ClassLoader.getSystemResource(localID);
+	} else {	    
+		url = loader.getResource(localID);
+	}
+	if (url == null) {
+		return;
+	}
+	getSupportedDtDs().put(systemID, localID);
+	getSupportedDtDs().put(getShortName(systemID), localID);
 }
 /**
  * for a system id with a URL that begins with "http://java.sun.com/", check to see if that is a recognized dtd;
@@ -72,10 +84,6 @@ public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) t
 	}
 		
 	if (localResourceName == null) {
-		if (isJavaSytemId) {
-			String message = J2EEXMLResourceHandler.getString("unsupported_type_EXC_", (new Object[] {publicId, systemId })); //$NON-NLS-1$ = "Type is unrecognized or not yet supported: PUBLIC_ID= {0};SYSTEM_ID={1}"
-			throw new org.xml.sax.SAXException(new NotSupportedException(message));
-		}
 		return null;
 	} 
 	ClassLoader loader = getClass().getClassLoader();
@@ -100,11 +108,10 @@ public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) t
 	return result;
 }
 protected boolean shouldBeRegistered(String systemId) {
-	//TODO  Removed Resolver function until file location is known...
-	return false;
-	/*return systemId.startsWith(J2EEConstants.JAVA_SUN_COM_URL) 
+	
+	return systemId.startsWith(J2EEConstants.JAVA_SUN_COM_URL) 
 		|| systemId.startsWith(J2EEConstants.WWW_W3_ORG_URL)
-		|| systemId.startsWith(J2EEConstants.WWW_IBM_COM_URL);*/
+		|| systemId.startsWith(J2EEConstants.WWW_IBM_COM_URL);
 }
 
 /**
