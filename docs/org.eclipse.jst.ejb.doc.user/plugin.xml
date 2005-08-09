@@ -7,11 +7,7 @@
 <!-- contributions for the j2ee.doc component       -->
 <!-- ================================================= -->
 
-<plugin
-   id="org.eclipse.jst.ejb.doc.user"
-   name="%Plugin.name"
-   version="0.7.0"
-   provider-name="Eclipse.org">
+<plugin>
 	
 <!-- ============================================================================= -->
 <!-- Define TOCs                                                                   -->
