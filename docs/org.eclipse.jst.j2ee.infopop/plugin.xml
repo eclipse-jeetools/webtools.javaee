@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.contexts"?>
 
-<plugin
-   id="org.eclipse.jst.j2ee.infopop"
-   name="%Plugin.name"
-   version="0.7.0"
-   provider-name="Eclipse.org">
+<plugin>
    
    <extension point="org.eclipse.help.contexts">
 	<contexts file="ExportWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
