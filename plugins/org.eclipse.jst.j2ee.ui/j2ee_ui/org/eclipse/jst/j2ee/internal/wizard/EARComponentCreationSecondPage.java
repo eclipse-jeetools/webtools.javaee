@@ -169,21 +169,21 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_SELECT));
 		selectAllButton.addListener(SWT.Selection, this);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.heightHint = 22;
+		gd.heightHint = 25;
 		gd.widthHint = 120;
 		selectAllButton.setLayoutData(gd);
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_DESELECT));
 		deselectAllButton.addListener(SWT.Selection, this);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.heightHint = 22;
+		gd.heightHint = 25;
 		gd.widthHint = 120;
 		deselectAllButton.setLayoutData(gd);
 		newModuleButton = new Button(buttonGroup, SWT.PUSH);
 		newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_NEW));
 		newModuleButton.addListener(SWT.Selection, this);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.heightHint = 22;
+		gd.heightHint = 25;
 		gd.widthHint = 120;
 		newModuleButton.setLayoutData(gd);
 	}
