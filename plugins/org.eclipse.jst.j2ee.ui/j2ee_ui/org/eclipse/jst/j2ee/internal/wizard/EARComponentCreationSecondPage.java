@@ -169,21 +169,18 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_SELECT));
 		selectAllButton.addListener(SWT.Selection, this);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.heightHint = 25;
 		gd.widthHint = 120;
 		selectAllButton.setLayoutData(gd);
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_DESELECT));
 		deselectAllButton.addListener(SWT.Selection, this);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.heightHint = 25;
 		gd.widthHint = 120;
 		deselectAllButton.setLayoutData(gd);
 		newModuleButton = new Button(buttonGroup, SWT.PUSH);
 		newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_NEW));
 		newModuleButton.addListener(SWT.Selection, this);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.heightHint = 25;
 		gd.widthHint = 120;
 		newModuleButton.setLayoutData(gd);
 	}
@@ -229,10 +226,10 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
     }
     
     private void collectNewComponents(IDataModel defaultModel, List newProjects) {
-        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_EJB), newProjects);
-        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_WEB), newProjects);
-        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_CLIENT), newProjects);
-        collectComponents((IDataModel)defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_JCA), newProjects);
+        collectComponents(defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_EJB), newProjects);
+        collectComponents(defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_WEB), newProjects);
+        collectComponents(defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_CLIENT), newProjects);
+        collectComponents(defaultModel.getNestedModel(IDefaultJ2EEComponentCreationDataModelProperties.NESTED_MODEL_JCA), newProjects);
     }
     private void collectComponents(IDataModel compDM, List newProjects) {
         if (compDM != null) {
