@@ -13,22 +13,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 
 public class AddEjbWizard extends NewEjbWizard {
 	protected ChooseEjbTypeWizardPage chooseEjbTypeWizardPage = null;
-
-	
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
-	
-	
 	private AddSessionEjbWizard sessionEjbWizard;
 	private AddMessageDrivenEjbWizard messageDrivenEjbWizard;
 	
@@ -36,7 +31,7 @@ public class AddEjbWizard extends NewEjbWizard {
 	/**
 	 * @param model
 	 */
-	public AddEjbWizard(EnterpriseBeanClassDataModel model) {
+	public AddEjbWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_WINDOW_TITLE);
 		setDefaultPageImageDescriptor(EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/full/wizban/newejb_wiz_ban.gif")); //$NON-NLS-1$
@@ -44,14 +39,6 @@ public class AddEjbWizard extends NewEjbWizard {
 	
 	public AddEjbWizard() {
 	    this(null);
-	}
-	
-	
-	/* (non-Javadoc)
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		return null;
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -69,9 +56,7 @@ public class AddEjbWizard extends NewEjbWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		
-		
-		chooseEjbTypeWizardPage = new ChooseEjbTypeWizardPage(createDefaultModel(),PAGE_ONE);
+		chooseEjbTypeWizardPage = new ChooseEjbTypeWizardPage(getDataModel(),PAGE_ONE);
 		chooseEjbTypeWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_0);
 		addPage(chooseEjbTypeWizardPage);
 
@@ -97,10 +82,10 @@ public class AddEjbWizard extends NewEjbWizard {
 		IWizard wizard = this;
 		if( page == chooseEjbTypeWizardPage && "SessionBean".equals(chooseEjbTypeWizardPage.getEJBType())){
 			wizard = sessionEjbWizard;
-			sessionEjbWizard.createDefaultModel().setProperty(SessionBeanDataModel.ANNOTATIONPROVIDER,model.getProperty(SessionBeanDataModel.ANNOTATIONPROVIDER));
+			sessionEjbWizard.getDataModel().setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER,getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
 		} else if( page == chooseEjbTypeWizardPage && "MessageDrivenBean".equals(chooseEjbTypeWizardPage.getEJBType())){
 			wizard = messageDrivenEjbWizard;
-			sessionEjbWizard.createDefaultModel().setProperty(MessageDrivenBeanDataModel.ANNOTATIONPROVIDER,model.getProperty(SessionBeanDataModel.ANNOTATIONPROVIDER));
+			sessionEjbWizard.getDataModel().setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER,getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
 		}
 		if( wizard != this  && wizard !=null)
 			nextPage = wizard.getStartingPage();
@@ -111,12 +96,9 @@ public class AddEjbWizard extends NewEjbWizard {
 		IWizardPage previousPage = super.getPreviousPage(page);
 		return previousPage;
 	}
-
-	protected WTPOperationDataModel createDefaultModel() {
-		if(model == null)
-			model = new SessionBeanDataModel();
-		return model;
-	}
 	
+	protected IDataModelProvider getDefaultProvider() {
+		return new SessionBeanDataModelProvider();
+	}
 		
 }

@@ -23,12 +23,11 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IMessageDrivenBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ISessionBean;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IEJBGenerator;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.classgen.EjbBuilder;
@@ -38,8 +37,8 @@ import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmi
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletRuntime;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGenerator {
 
@@ -63,20 +62,20 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 	}
 
 	public String getName() {
-		return "XDocletAnnotionProvider";
+		return "XDocletAnnotionProvider"; //$NON-NLS-1$
 	}
 
 	public void generateSession(ISessionBean delegate, IProgressMonitor monitor) throws CoreException, InterruptedException {
 		
-		SessionBeanDataModel dataModel = (SessionBeanDataModel) delegate.getDataModel();
+		IDataModel dataModel = delegate.getDataModel();
 
 		
 		
-			String comment = "";
-			String stub = "";
-			String method="";
+			String comment = ""; //$NON-NLS-1$
+			String stub = ""; //$NON-NLS-1$
+			String method=""; //$NON-NLS-1$
 
-			IConfigurationElement preferredAnnotation = EmitterUtilities.findEmitter("XDoclet");
+			IConfigurationElement preferredAnnotation = EmitterUtilities.findEmitter("XDoclet"); //$NON-NLS-1$
 			
 			try {
 				EjbEmitter ejbEmitter = new SessionEjbEmitter(preferredAnnotation);
@@ -96,10 +95,10 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			EjbBuilder ejbBuilder = new EjbBuilder();
 			ejbBuilder.setConfigurationElement(preferredAnnotation);
 			ejbBuilder.setMonitor(monitor);
-			ejbBuilder.setPackageFragmentRoot(dataModel.getJavaPackageFragmentRoot());
+			ejbBuilder.setPackageFragmentRoot((IPackageFragmentRoot)dataModel.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT));
 			ejbBuilder.setEnterpriseBeanDelegate(delegate);
-			ejbBuilder.setTypeName(dataModel.getStringProperty(NewJavaClassDataModel.CLASS_NAME));
-			ejbBuilder.setPackageName(dataModel.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE));
+			ejbBuilder.setTypeName(dataModel.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME));
+			ejbBuilder.setPackageName(dataModel.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE));
 				
 			ejbBuilder.setTypeComment(comment);
 			ejbBuilder.setTypeStub(stub);
@@ -110,7 +109,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			
 			IType bean = ejbBuilder.getCreatedType();
 			IResource javaFile = bean.getCorrespondingResource();
-			IProject project = dataModel.getTargetProject();
+			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
 			initializeBuilder(monitor, preferredAnnotation,javaFile, project);
 			project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
 		
@@ -119,7 +118,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 
 	public void generateMessageDriven(IMessageDrivenBean delegate, IProgressMonitor monitor) throws CoreException, InterruptedException {
 
-			MessageDrivenBeanDataModel dataModel = (MessageDrivenBeanDataModel) delegate.getDataModel();
+			IDataModel dataModel = delegate.getDataModel();
 
 			String comment = "";
 			String stub = "";
@@ -144,10 +143,10 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			EjbBuilder ejbBuilder = new EjbBuilder();
 			ejbBuilder.setConfigurationElement(emitterConfiguration);
 			ejbBuilder.setMonitor(monitor);
-			ejbBuilder.setPackageFragmentRoot(dataModel.getJavaPackageFragmentRoot());
+			ejbBuilder.setPackageFragmentRoot((IPackageFragmentRoot)dataModel.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT));
 			ejbBuilder.setEnterpriseBeanDelegate(delegate);
-			ejbBuilder.setTypeName(dataModel.getStringProperty(NewJavaClassDataModel.CLASS_NAME));
-			ejbBuilder.setPackageName(dataModel.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE));
+			ejbBuilder.setTypeName(dataModel.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME));
+			ejbBuilder.setPackageName(dataModel.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE));
 
 			ejbBuilder.setTypeComment(comment);
 			ejbBuilder.setTypeStub(stub);
@@ -157,7 +156,8 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			ejbBuilder.createType();
 			IType bean = ejbBuilder.getCreatedType();
 			IResource javaFile = bean.getCorrespondingResource();
-			IProject project = dataModel.getTargetProject();
+			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
+
 			initializeBuilder(monitor, emitterConfiguration, javaFile, project);
 			project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
 

@@ -9,49 +9,50 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.InvalidRegistryObjectException;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IMessageDrivenBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.Logger;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IEJBGenerator;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class AddMessageDrivenBeanOperation extends WTPOperation {
+public class AddMessageDrivenBeanOperation extends AbstractDataModelOperation {
 
 	/**
 	 * @param dataModel
 	 */
-	public AddMessageDrivenBeanOperation(EnterpriseBeanClassDataModel dataModel) {
+	public AddMessageDrivenBeanOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		try {
-			IEJBGenerator generator = AnnotationUtilities.findEjbGeneratorByName(this.getOperationDataModel().getStringProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER));
-			MessageDrivenBeanDataModel dataModel = (MessageDrivenBeanDataModel) this.getOperationDataModel();
-			IMessageDrivenBean delegate = (IMessageDrivenBean) dataModel.getDelegate();
+			IEJBGenerator generator = AnnotationUtilities.findEjbGeneratorByName(getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
+			IMessageDrivenBean delegate = (IMessageDrivenBean) getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.MODELDELEGATE);
 			if( generator != null )
 				generator.generateMessageDriven(delegate,monitor);
 			else{
 				//TODO MUST RAISE A WARNING HERE
 				Logger.log(Logger.WARNING,"There is no generator");
 			}
-		} catch (InvalidRegistryObjectException e) {
-			Logger.logException(e);
-		} catch (ClassNotFoundException e) {
-			Logger.logException(e);
-		} catch (InstantiationException e) {
-			Logger.logException(e);
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			Logger.logException(e);
 		}
+		return OK_STATUS;
 	}
-
-
+	
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

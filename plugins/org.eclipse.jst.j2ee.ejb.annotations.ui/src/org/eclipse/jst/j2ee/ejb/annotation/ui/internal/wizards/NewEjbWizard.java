@@ -20,15 +20,15 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
-public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
+public abstract class NewEjbWizard extends DataModelWizard implements INewWizard {
 
 	/**
 	 * @param model
 	 */
-	public NewEjbWizard(WTPOperationDataModel model) {
+	public NewEjbWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -42,18 +42,11 @@ public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected abstract WTPOperationDataModel createDefaultModel();
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
 	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		createDefaultModel();
+		
 	}
 
 	protected IProject getDefaultEjbProject() {

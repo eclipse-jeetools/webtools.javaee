@@ -13,17 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 
 /**
  * @author naci
  *
  */
-public  abstract class EnterpriseBeanDelegate implements IEnterpriseBean, WTPOperationDataModelListener {
+public  abstract class EnterpriseBeanDelegate implements IEnterpriseBean, IDataModelListener {
 
-	private final static String DEFAULT_DATA_MODEL="EnterpriseBeanDelegate.DATA_MODEL";
+	private final static String DEFAULT_DATA_MODEL="EnterpriseBeanDelegate.DATA_MODEL"; //$NON-NLS-1$
 	
 	private Map dataModels;
 	private EnterpriseBean enterpriseBean;
@@ -43,29 +44,29 @@ public  abstract class EnterpriseBeanDelegate implements IEnterpriseBean, WTPOpe
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean#getDataModel()
 	 */
-	public EnterpriseBeanClassDataModel getDataModel() {
-		return (EnterpriseBeanClassDataModel)dataModels.get(DEFAULT_DATA_MODEL);
+	public IDataModel getDataModel() {
+		return (IDataModel)dataModels.get(DEFAULT_DATA_MODEL);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean#getDataModel()
 	 */
-	public void setDataModel(EnterpriseBeanClassDataModel dataModel) {
+	public void setDataModel(IDataModel dataModel) {
 		if(this.getDataModel() != null)
 			this.getDataModel().removeListener(this);
 		dataModel.addListener(this);
 		dataModels.put(DEFAULT_DATA_MODEL, dataModel);
-		enterpriseBean.setName((String)dataModel.getEjbName());
-		enterpriseBean.setDescription((String)dataModel.getDescription());
-		enterpriseBean.setDisplayName((String)dataModel.getDisplayName());
-		enterpriseBean.setEjbClassName(dataModel.getQualifiedClassName());
+		enterpriseBean.setName(dataModel.getStringProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME));
+		enterpriseBean.setDescription(dataModel.getStringProperty(IEnterpriseBeanClassDataModelProperties.DESCRIPTION));
+		enterpriseBean.setDisplayName(dataModel.getStringProperty(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME));
+		enterpriseBean.setEjbClassName(dataModel.getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME));
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean#getDataModelFor(java.lang.String)
 	 */
-	public WTPOperationDataModel getDataModelFor(String feature) {
-		return (WTPOperationDataModel)dataModels.get(feature);
+	public IDataModel getDataModelFor(String feature) {
+		return (IDataModel)dataModels.get(feature);
 	}
 
 	public void setEnterpriseBean(EnterpriseBean enterpriseBean) {
@@ -74,34 +75,34 @@ public  abstract class EnterpriseBeanDelegate implements IEnterpriseBean, WTPOpe
 
 
 	public String getJndiName() {
-		return this.getDataModel().getJndiName();
+		return getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.JNDI_NAME);
 	}
 	
 	public String getEjbName() {
-		return this.getDataModel().getEjbName();
+		return getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME);
 	}
 
 	public String getInterfaces() {
-		return this.getDataModel().getInterfaces();
+		return getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.INTERFACES_AS_STRING);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getSimpleClassName()
 	 */
 	public String getSimpleClassName() {
-		return this.getDataModel().getSimpleClassName();
+		return getDataModel().getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 	}
 
 
 	public String getDisplayName() {
-		return this.getDataModel().getDisplayName();
+		return getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getDescription()
 	 */
 	public String getDescription() {
-		return this.getDataModel().getDescription();
+		return getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.DESCRIPTION);
 	}
 
 	public abstract String getTransactionType() ;
@@ -112,20 +113,19 @@ public  abstract class EnterpriseBeanDelegate implements IEnterpriseBean, WTPOpe
 	 * in sync with the  changes in the datamodel
 	 */
 	
-	public void propertyChanged(WTPOperationDataModelEvent event) {
+	public void propertyChanged(DataModelEvent event) {
 		String property = event.getPropertyName();
 		Object propertyValue = event.getProperty();
 		if( enterpriseBean == null)
 			return;
-		
-		if( EnterpriseBeanClassDataModel.EJB_NAME.equals(property)){
+		if( IEnterpriseBeanClassDataModelProperties.EJB_NAME.equals(property)){
 			enterpriseBean.setName((String)propertyValue);
-		}else if(EnterpriseBeanClassDataModel.DESCRIPTION.equals(property)){
+		}else if(IEnterpriseBeanClassDataModelProperties.DESCRIPTION.equals(property)){
 			enterpriseBean.setDescription((String)propertyValue);
-		}else if(EnterpriseBeanClassDataModel.DISPLAY_NAME.equals(property)){
+		}else if(IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME.equals(property)){
 			enterpriseBean.setDisplayName((String)propertyValue);
-		} else if(EnterpriseBeanClassDataModel.CLASS_NAME.equals(property)){
-			enterpriseBean.setEjbClassName(((EnterpriseBeanClassDataModel)event.getDataModel()).getQualifiedClassName());
+		} else if(INewJavaClassDataModelProperties.CLASS_NAME.equals(property)){
+			enterpriseBean.setEjbClassName(event.getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME));
 		} 
 	}
 

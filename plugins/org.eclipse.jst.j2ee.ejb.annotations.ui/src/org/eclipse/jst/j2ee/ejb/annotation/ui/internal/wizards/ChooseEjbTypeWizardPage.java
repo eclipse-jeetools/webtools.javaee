@@ -8,7 +8,7 @@ import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
@@ -25,19 +25,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
  * @author naci
  */
-public class ChooseEjbTypeWizardPage extends WTPWizardPage {
+public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 	protected Button sessionType;
 	protected Button messageDrivenType;
 	protected Combo annotationProvider;
 
-	protected ChooseEjbTypeWizardPage(WTPOperationDataModel model, String pageName) {
+	protected ChooseEjbTypeWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		this.setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
 	}
@@ -48,7 +48,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[] { EnterpriseBeanClassDataModel.EJB_TYPE };
+		return new String[] { IEnterpriseBeanClassDataModelProperties.EJB_TYPE };
 	}
 
 	/*
@@ -90,7 +90,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				if (sessionType.getSelection()) {
-					ChooseEjbTypeWizardPage.this.model.setProperty(EnterpriseBeanClassDataModel.EJB_TYPE, "SessionBean");
+					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "SessionBean");
 				}
 			}
 
@@ -103,7 +103,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				if (messageDrivenType.getSelection()) {
-					ChooseEjbTypeWizardPage.this.model.setProperty(EnterpriseBeanClassDataModel.EJB_TYPE, "MessageDrivenBean");
+					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "MessageDrivenBean");
 				}
 			}
 
@@ -126,7 +126,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 		annotationProvider = new Combo(annotationGroup, SWT.RADIO);
 		String[] provider = AnnotationUtilities.getProviderNames();
 		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
-		ChooseEjbTypeWizardPage.this.model.setProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER, preferred);
+		ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, preferred);
 		boolean selected = false;
 		String providerS = null;
 		for (int i = 0; i < provider.length; i++) {
@@ -147,7 +147,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 		validateProvider();
 
 		if (model != null)
-			model.setProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER, providerS);
+			model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, providerS);
 
 		annotationProvider.addSelectionListener(new SelectionListener() {
 
@@ -164,7 +164,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 	}
 
 	public String getEJBType() {
-		return model.getStringProperty(EnterpriseBeanClassDataModel.EJB_TYPE);
+		return model.getStringProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE);
 	}
 
 	public boolean isPageComplete() {
@@ -217,7 +217,7 @@ public class ChooseEjbTypeWizardPage extends WTPWizardPage {
 
 	private void validateProvider() {
 		String provider = annotationProvider.getText();
-		ChooseEjbTypeWizardPage.this.model.setProperty(EnterpriseBeanClassDataModel.ANNOTATIONPROVIDER, provider);
+		ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, provider);
 		IAnnotationProvider annotationProvider = null;
 		try {
 			annotationProvider = AnnotationUtilities.findAnnotationProviderByName(provider);

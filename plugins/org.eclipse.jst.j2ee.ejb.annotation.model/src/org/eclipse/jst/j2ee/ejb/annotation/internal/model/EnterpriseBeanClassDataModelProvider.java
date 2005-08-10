@@ -23,61 +23,29 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel implements IAnnotationsDataModel {
+public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassDataModelProvider implements IEnterpriseBeanClassDataModelProperties {
 
-	public static final String EJB_TYPE = "IEjbCommonDataModel.EJB_TYPE"; //$NON-NLS-1$
-
-	public static final String EJB_NAME = "IEjbCommonDataModel.EJB_NAME"; //$NON-NLS-1$
-
-	public static final String JNDI_NAME = "IEjbCommonDataModel.JNDI_NAME"; //$NON-NLS-1$
-
-	public static final String DISPLAY_NAME = "IEjbCommonDataModel.DISPLAY_NAME"; //$NON-NLS-1$
-
-	public static final String DESCRIPTION = "IEjbCommonDataModel.DESCRIPTION"; //$NON-NLS-1$
-
-	public static final String TRANSACTIONTYPE = "IEjbCommonDataModel.TRANSACTIONTYPE";//$NON-NLS-1$
-
-	public static final String ANNOTATIONPROVIDER = "IEjbCommonDataModel.ANNOTATIONPROVIDER";//$NON-NLS-1$
-
-	public static final String MODELDELEGATE = "IEjbCommonDataModel.MODELDELEGATE";//$NON-NLS-1$
-	
-	
-	
-	
-	
-	
-	public EnterpriseBeanClassDataModel() {
+	public EnterpriseBeanClassDataModelProvider() {
 		super();
-		initializeDelegate();
+		//initializeDelegate();
 	}
 
 	protected abstract void initializeDelegate();
 	
 	/**
-	 * Subclasses may extend this method to add their own specific data model properties as valid
-	 * base properties.  This implementation adds the ejb specific properties to those added
-	 * by the NewJavaClassDataModel.
-	 * @see NewJavaClassDataModel#initValidBaseProperties()
-	 * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel#initValidBaseProperties()
+	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	protected void initValidBaseProperties() {
-		super.initValidBaseProperties();
-		// Add ejb specific properties defined in this data model
-		addValidBaseProperty(USE_ANNOTATIONS);
-		addValidBaseProperty(EJB_TYPE);
-		addValidBaseProperty(EJB_NAME);
-		addValidBaseProperty(DISPLAY_NAME);
-		addValidBaseProperty(JNDI_NAME);
-		addValidBaseProperty(DESCRIPTION);
-		addValidBaseProperty(CLASS_NAME);
-		addValidBaseProperty(TRANSACTIONTYPE);
-		addValidBaseProperty(ANNOTATIONPROVIDER);
-		addValidBaseProperty(MODELDELEGATE);
+	public String[] getPropertyNames() {
+		String[] props = new String[]{USE_ANNOTATIONS, EJB_TYPE, EJB_NAME, DISPLAY_NAME, JNDI_NAME,
+				DESCRIPTION, CLASS_NAME, TRANSACTIONTYPE, ANNOTATIONPROVIDER, MODELDELEGATE, INTERFACES_AS_STRING};
+        return combineProperties(super.getPropertyNames(), props);
 	}
 	
 	/**
@@ -91,24 +59,24 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 	 * @param propertyName
 	 * @return Boolean should property be enabled?
 	 */
-	protected Boolean basicIsEnabled(String propertyName) {
+	public boolean isPropertyEnabled(String propertyName) {
 		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
 		if (USE_ANNOTATIONS.equals(propertyName)) {
-			return Boolean.TRUE;
+			return true;
 //			if (!isAnnotationsSupported())
 //				return Boolean.FALSE;
 //			return Boolean.TRUE;
 		}
 		// Otherwise return super implementation
-		return super.basicIsEnabled(propertyName);
+		return super.isPropertyEnabled(propertyName);
 	}
 	
 	
 	protected boolean isAnnotationsSupported() {
-		if (getTargetProject()==null || getComponent()==null) return true;
+		if (getTargetProject()==null || getTargetComponent()==null) return true;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getComponent().getName());
+			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getTargetComponent().getName());
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit == null)
 				return false;
@@ -122,29 +90,29 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 		}
 	}
 
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
+	public boolean propertySet(String propertyName, Object propertyValue) {
 
-		boolean result = super.doSetProperty(propertyName, propertyValue);
+		boolean result = super.propertySet(propertyName, propertyValue);
 		// After the property is set, if project changed, update the nature and the annotations enablement
-		if (propertyName.equals(MODULE_NAME)) {
-			notifyEnablementChange(USE_ANNOTATIONS);
+		if (propertyName.equals(COMPONENT_NAME)) {
+			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		} else if (propertyName.equals(CLASS_NAME)) {
-			if (!isSet(EJB_NAME))
-				notifyDefaultChange(EJB_NAME);
+			if (!isPropertySet(EJB_NAME))
+				getDataModel().notifyPropertyChange(EJB_NAME, IDataModel.DEFAULT_CHG);
 		} else if (propertyName.equals(EJB_NAME)) {
-			if (!isSet(JNDI_NAME))
-				notifyDefaultChange(JNDI_NAME);
-			else if (!isSet(DISPLAY_NAME))
-				notifyDefaultChange(DISPLAY_NAME);
-			if (!isSet(DESCRIPTION))
-				notifyDefaultChange(DESCRIPTION);
+			if (!isPropertySet(JNDI_NAME))
+				getDataModel().notifyPropertyChange(JNDI_NAME, IDataModel.DEFAULT_CHG);
+			else if (!isPropertySet(DISPLAY_NAME))
+				getDataModel().notifyPropertyChange(DISPLAY_NAME, IDataModel.DEFAULT_CHG);
+			if (!isPropertySet(DESCRIPTION))
+				getDataModel().notifyPropertyChange(DESCRIPTION, IDataModel.DEFAULT_CHG);
 		}
 		
 		
 		return result;
 	}
 
-	protected Object getDefaultProperty(String propertyName) {
+	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.TRUE;
 		else if (propertyName.equals(CLASS_NAME))
@@ -175,14 +143,19 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			try {
 				Object srcFolder = super.getDefaultProperty(propertyName);
 				return srcFolder;
-			} catch (Exception e) {
+			} catch (Exception e) {//Ignore
 			}
-			return "";
+			return ""; //$NON-NLS-1$
+		} else if (propertyName.equals(INTERFACES_AS_STRING))
+			return getInterfacesString();
+		else if (propertyName.equals(MODELDELEGATE)) {
+			initializeDelegate();
+			return getProperty(MODELDELEGATE);
 		}
 		return super.getDefaultProperty(propertyName);
 	}
 	
-	protected IStatus doValidateProperty(String propertyName) {
+	public IStatus validate(String propertyName) {
 		if (propertyName.equals(JAVA_PACKAGE))
 			return validateEjbJavaPackage(getStringProperty(propertyName));
 		if (propertyName.equals(EJB_NAME))
@@ -197,10 +170,12 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 			return validateClassName(getStringProperty(propertyName));
 		if (propertyName.equals(TRANSACTIONTYPE))
 			return validateTransaction(getStringProperty(propertyName));
-		return super.doValidateProperty(propertyName);
+		return super.validate(propertyName);
 	}
 	protected IStatus validateClassName(String className) {
 		IStatus status =  super.validateJavaClassName(className);
+		if (status.isOK())
+			status = canCreateTypeInClasspath(className);
 		if( status != WTPCommonPlugin.OK_STATUS)
 			return status;
 		
@@ -352,16 +327,7 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
-	
-	public String getJndiName() {
-		return this.getStringProperty(MessageDrivenBeanDataModel.JNDI_NAME);
-	}
-	
-	public String getEjbName() {
-		return this.getStringProperty(MessageDrivenBeanDataModel.EJB_NAME);
-	}
-
-	public String getInterfaces() {
+	protected String getInterfacesString() {
 		List ints = (List)this.getProperty(INTERFACES);
 		Iterator iterator =  ints.iterator();
 		String intStr = (iterator.hasNext()? (String)iterator.next() : getDefaultInterfaces());
@@ -384,32 +350,5 @@ public abstract class EnterpriseBeanClassDataModel extends NewJavaClassDataModel
 	}
 
 	protected abstract List getEJBInterfaces() ;
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getSimpleClassName()
-	 */
-	public String getSimpleClassName() {
-		return this.getStringProperty(CLASS_NAME);
-	}
-
-
-	public String getDisplayName() {
-		return this.getStringProperty(MessageDrivenBeanDataModel.DISPLAY_NAME);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getDescription()
-	 */
-	public String getDescription() {
-		return this.getStringProperty(MessageDrivenBeanDataModel.DESCRIPTION);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getDescription()
-	 */
-	public IEnterpriseBean getDelegate() {
-		return (IEnterpriseBean)this.getProperty(MessageDrivenBeanDataModel.MODELDELEGATE);
-	}
-
 
 }

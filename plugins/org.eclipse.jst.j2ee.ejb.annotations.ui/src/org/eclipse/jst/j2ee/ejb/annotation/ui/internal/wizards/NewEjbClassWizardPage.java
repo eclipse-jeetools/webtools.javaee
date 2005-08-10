@@ -18,14 +18,13 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationD
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 
-	public NewEjbClassWizardPage(ArtifactEditOperationDataModel model, String pageName, String pageDesc, String pageTitle, String moduleType) {
+	public NewEjbClassWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle, String moduleType) {
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 		this.setHasNewModuleButton(true);
 	}

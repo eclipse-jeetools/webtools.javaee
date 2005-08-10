@@ -10,7 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author naci
@@ -19,8 +19,8 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 public interface IEnterpriseBean {
 	
 	public EnterpriseBean getEnterpriseBean();
-	public EnterpriseBeanClassDataModel getDataModel();
-	public WTPOperationDataModel getDataModelFor(String feature);
+	public IDataModel getDataModel();
+	public IDataModel getDataModelFor(String feature);
 
 	public String getTransactionType();
 	public String getEjbName();

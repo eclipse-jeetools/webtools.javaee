@@ -9,15 +9,15 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddEjbOperation;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	protected NewEjbClassWizardPage newJavaClassWizardPage = null;
@@ -31,7 +31,7 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	/**
 	 * @param model
 	 */
-	public AddMessageDrivenEjbWizard(EnterpriseBeanClassDataModel model) {
+	public AddMessageDrivenEjbWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_WINDOW_TITLE);
 		setDefaultPageImageDescriptor(EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/full/wizban/newejb_wiz_ban.gif")); //$NON-NLS-1$
@@ -45,26 +45,19 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
+	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		if (model != null)
-			return model;
-		this.model = new MessageDrivenBeanDataModel();
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		super.init(workbench,selection);
 		IProject project = getDefaultEjbProject();
 		if (project != null) {
-			model.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
+		    getDataModel().setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
 		}
-		return model;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new AddEjbOperation((EnterpriseBeanClassDataModel) model);
+	protected IDataModelProvider getDefaultProvider() {
+		return new MessageDrivenBeanDataModelProvider();
 	}
 
 	/*
@@ -73,18 +66,18 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		newJavaClassWizardPage = new NewEjbClassWizardPage((ArtifactEditOperationDataModel) model, PAGE_TWO,
+		newJavaClassWizardPage = new NewEjbClassWizardPage(getDataModel(), PAGE_TWO,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE, IModuleConstants.JST_EJB_MODULE);
 		newJavaClassWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
 		addPage(newJavaClassWizardPage);
 
-		addMessageDrivenBeanWizardPage = new AddMessageDrivenBeanWizardPage((EnterpriseBeanClassDataModel) model, PAGE_THREE);
+		addMessageDrivenBeanWizardPage = new AddMessageDrivenBeanWizardPage(getDataModel(), PAGE_THREE);
 		addMessageDrivenBeanWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(addMessageDrivenBeanWizardPage);
 		addMessageDrivenBeanWizardPage.setPageComplete(false);
 
-		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage((ArtifactEditOperationDataModel) model, PAGE_FOUR,
+		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(getDataModel(), PAGE_FOUR,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC, IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
 		newEjbClassOptionsWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);
 		addPage(newEjbClassOptionsWizardPage);

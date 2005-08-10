@@ -13,22 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
-public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel implements IAnnotationsDataModel {
-	public static final String DESTINATIONNAME = "MessageDrivenBeanDataModel.DESTINATIONNAME"; //$NON-NLS-1$
-	public static final String DESTINATIONTYPE = "MessageDrivenBeanDataModel.DESTINATIONTYPE"; //$NON-NLS-1$
-
-	public final static String EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
-	public final static String[] EJB_INTERFACES = {"javax.ejb.MessageDrivenBean" //$NON-NLS-1$
-													, "javax.jms.MessageListener" //$NON-NLS-1$ 
-	};
+public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements IMessageDrivenBeanDataModelProperties {
+	
+	public final static String DEFAULT_EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
+	public final static String[] DEFAULT_EJB_INTERFACES = {"javax.ejb.MessageDrivenBean", "javax.jms.MessageListener"}; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	private List interfaceList;
 
@@ -37,23 +32,20 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
-	public WTPOperation getDefaultOperation() {
-		return new AddMessageDrivenBeanOperation(this);
+	public IDataModelOperation getDefaultOperation() {
+		return new AddMessageDrivenBeanOperation(getDataModel());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperationDataModel#initValidBaseProperties()
+	/**
+	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	protected void initValidBaseProperties() {
-		super.initValidBaseProperties();
-		addValidBaseProperty(DESTINATIONTYPE);
-		addValidBaseProperty(DESTINATIONNAME);
+	public String[] getPropertyNames() {
+		String[] props = new String[]{DESTINATIONTYPE, DESTINATIONNAME, EJB_INTERFACES};
+        return combineProperties(super.getPropertyNames(), props);
 	}
 
-
-	protected Object getDefaultProperty(String propertyName) {
+	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.FALSE;
 		else if (propertyName.equals(DESTINATIONNAME))
@@ -65,7 +57,9 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 		else if (propertyName.equals(MODIFIER_ABSTRACT))
 			return Boolean.FALSE;
 		else if (propertyName.equals(SUPERCLASS))
-			return getEjbSuperclassName();
+			return DEFAULT_EJB_SUPERCLASS;
+		else if (propertyName.equals(EJB_INTERFACES))
+			return DEFAULT_EJB_INTERFACES;
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -74,12 +68,12 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
-	protected IStatus doValidateProperty(String propertyName) {
+	public IStatus validate(String propertyName) {
 		if (propertyName.equals(DESTINATIONNAME))
 			return validateJndiName(getStringProperty(propertyName));
 		if (propertyName.equals(DESTINATIONTYPE))
 			return validateDestinationType(getStringProperty(propertyName));
-		return super.doValidateProperty(propertyName);
+		return super.validate(propertyName);
 	}
 
 	private IStatus validateDestinationType(String prop) {
@@ -94,17 +88,12 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 		String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_VALUE;
 		return WTPCommonPlugin.createErrorStatus(msg);
 	}
-
-
-	public String getEjbSuperclassName() {
-		return EJB_SUPERCLASS;
-	}
-
-	public List getEJBInterfaces() {
+	
+	protected List getEJBInterfaces() {
 		if (this.interfaceList == null) {
 			this.interfaceList = new ArrayList();
-			for (int i = 0; i < EJB_INTERFACES.length; i++) {
-				this.interfaceList.add(EJB_INTERFACES[i]);
+			for (int i = 0; i < ((String[])getProperty(EJB_INTERFACES)).length; i++) {
+				this.interfaceList.add(((String[])getProperty(EJB_INTERFACES))[i]);
 			}
 		}
 		return this.interfaceList;
@@ -112,7 +101,7 @@ public class MessageDrivenBeanDataModel extends EnterpriseBeanClassDataModel imp
 
 	protected void initializeDelegate() {
 		MessageDrivenBeanDelegate delegate = new MessageDrivenBeanDelegate();
-		delegate.setDataModel(this);
+		delegate.setDataModel(getDataModel());
 		this.setProperty(MODELDELEGATE,delegate);
 		//Set the defaults so that they are propagated via events
 		this.setProperty(DESTINATIONTYPE, this.getProperty(DESTINATIONTYPE));

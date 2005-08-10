@@ -13,19 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
-public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implements IAnnotationsDataModel {
-	public static final String STATELESS = "SessionBeanDataModel.STATELESS";
-	public final static String EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
-	public final static String[] EJB_INTERFACES = {"javax.ejb.SessionBean" //$NON-NLS-1$
-	};
+public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements ISessionBeanDataModelProperties {
+	protected final static String DEFAULT_EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
+	protected final static String[] DEFAULT_EJB_INTERFACES = {"javax.ejb.SessionBean"}; //$NON-NLS-1$
 
 	private List interfaceList;
 
@@ -34,31 +31,32 @@ public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implement
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
-	public WTPOperation getDefaultOperation() {
-		return new AddSessionBeanOperation(this);
+	public IDataModelOperation getDefaultOperation() {
+		return new AddSessionBeanOperation(getDataModel());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperationDataModel#initValidBaseProperties()
+	/**
+	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	protected void initValidBaseProperties() {
-		super.initValidBaseProperties();
-		addValidBaseProperty(STATELESS);
+	public String[] getPropertyNames() {
+		String[] props = new String[]{STATELESS, EJB_INTERFACES};
+        return combineProperties(super.getPropertyNames(), props);
 	}
-
-	protected Object getDefaultProperty(String propertyName) {
+	
+	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.FALSE;
 		else if (propertyName.equals(EJB_TYPE))
-			return "SessionBean";
+			return "SessionBean"; //$NON-NLS-1$
 		else if (propertyName.equals(STATELESS))
 			return SessionType.STATELESS_LITERAL.getName();
 		else if (propertyName.equals(MODIFIER_ABSTRACT))
 			return Boolean.TRUE;
 		else if (propertyName.equals(SUPERCLASS))
-			return getEjbSuperclassName();
+			return DEFAULT_EJB_SUPERCLASS;
+		else if (propertyName.equals(EJB_INTERFACES))
+			return DEFAULT_EJB_INTERFACES;
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -67,28 +65,21 @@ public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implement
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
-	protected IStatus doValidateProperty(String propertyName) {
+	public IStatus validate(String propertyName) {
 		if (propertyName.equals(STATELESS))
 			return validateStateless(getStringProperty(propertyName));
-		return super.doValidateProperty(propertyName);
+		return super.validate(propertyName);
 	}
 
-
-	public String getEjbSuperclassName() {
-		return EJB_SUPERCLASS;
-	}
-
-	public List getEJBInterfaces() {
+	protected List getEJBInterfaces() {
 		if (this.interfaceList == null) {
 			this.interfaceList = new ArrayList();
-			for (int i = 0; i < EJB_INTERFACES.length; i++) {
-				this.interfaceList.add(EJB_INTERFACES[i]);
+			for (int i = 0; i < ((String[])getProperty(EJB_INTERFACES)).length; i++) {
+				this.interfaceList.add(((String[])getProperty(EJB_INTERFACES))[i]);
 			}
 		}
 		return this.interfaceList;
 	}
-
-
 
 	private IStatus validateStateless(String prop) {
 		// check for empty
@@ -96,7 +87,7 @@ public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implement
 			String msg = IEJBAnnotationConstants.ERR_STATELESS_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		if (prop.indexOf("Stateless") >= 0 || prop.indexOf("Stateful") >= 0) {
+		if (prop.indexOf("Stateless") >= 0 || prop.indexOf("Stateful") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
 			return WTPCommonPlugin.OK_STATUS;
 		}
 		String msg = IEJBAnnotationConstants.ERR_STATELESS_VALUE;
@@ -105,7 +96,7 @@ public class SessionBeanDataModel extends EnterpriseBeanClassDataModel implement
 	
 	protected void initializeDelegate() {
 		SessionBeanDelegate delegate = new SessionBeanDelegate();
-		delegate.setDataModel(this);
+		delegate.setDataModel(getDataModel());
 		this.setProperty(MODELDELEGATE,delegate);
 		//Set the defaults so that they are propagated via events
 		this.setProperty(STATELESS, this.getProperty(STATELESS));

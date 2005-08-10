@@ -4,4 +4,16 @@
 
      <extension-point id="ejbGenerator" name="org.eclipse.jst.j2ee.ejb.generator" schema="schema/ejbGenerator.exsd"/>
 
+	<extension
+         point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+        <DataModelProvider
+            class="org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModelProvider"
+            id="org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModelProvider"/>
+     	<DataModelProvider
+            class="org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModelProvider"
+            id="org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModelProvider"/>
+        <DataModelProvider
+            class="org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider"
+            id="org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider"/>
+	</extension>
 </plugin>

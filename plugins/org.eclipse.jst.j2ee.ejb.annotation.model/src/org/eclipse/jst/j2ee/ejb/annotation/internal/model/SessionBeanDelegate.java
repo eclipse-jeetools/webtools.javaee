@@ -13,9 +13,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-
-
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 
 public class SessionBeanDelegate extends EnterpriseBeanDelegate implements ISessionBean {
 	public SessionBeanDelegate() {
@@ -43,20 +41,20 @@ public class SessionBeanDelegate extends EnterpriseBeanDelegate implements ISess
 	 * in sync with the  changes in the datamodel
 	 */
 	
-	public void propertyChanged(WTPOperationDataModelEvent event) {
+	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
 		String property = event.getPropertyName();
 		Object propertyValue = event.getProperty();
 		Session session = (Session)this.getEnterpriseBean();
-		if( session == null)
+		if(session == null)
 			return;
 		
-		if( SessionBeanDataModel.STATELESS.equals(property)){
+		if(ISessionBeanDataModelProperties.STATELESS.equals(property)){
 			SessionType sessionBeanType = SessionType.STATELESS_LITERAL;
 			if( propertyValue.equals(SessionType.STATEFUL_LITERAL.getName()))
 				sessionBeanType = SessionType.STATEFUL_LITERAL;
 			session.setSessionType(sessionBeanType);
-		}else if( EnterpriseBeanClassDataModel.TRANSACTIONTYPE.equals(property))
+		}else if(IEnterpriseBeanClassDataModelProperties.TRANSACTIONTYPE.equals(property))
 		{
 			TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
 			if(propertyValue.equals(TransactionType.BEAN_LITERAL.getName()))

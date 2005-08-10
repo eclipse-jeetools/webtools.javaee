@@ -10,39 +10,41 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-
-
-public class AddEjbOperation extends WTPOperation {
+public class AddEjbOperation extends AbstractDataModelOperation {
 	/**
 	 * @param dataModel
 	 */
-	public AddEjbOperation(EnterpriseBeanClassDataModel dataModel) {
+	public AddEjbOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
-
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		createEjb(monitor);
-		
+		return OK_STATUS;
+	}
+	
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	private void createEjb(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		
-		EnterpriseBeanClassDataModel ejbCommonDataModel =  (EnterpriseBeanClassDataModel)this.getOperationDataModel();
-		if( "SessionBean".equals(ejbCommonDataModel.getStringProperty(EnterpriseBeanClassDataModel.EJB_TYPE))){
-			SessionBeanDataModel ejbModel = (SessionBeanDataModel)ejbCommonDataModel;
-			(new AddSessionBeanOperation(ejbModel)).execute(monitor);
-		}else if( "MessageDrivenBean".equals(ejbCommonDataModel.getStringProperty(EnterpriseBeanClassDataModel.EJB_TYPE))){
-			MessageDrivenBeanDataModel ejbModel = (MessageDrivenBeanDataModel)ejbCommonDataModel;
-			(new AddMessageDrivenBeanOperation(ejbModel)).execute(monitor);
+	private void createEjb(IProgressMonitor monitor) throws ExecutionException {
+		if( "SessionBean".equals(getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE))){ //$NON-NLS-1$
+			(new AddSessionBeanOperation(getDataModel())).execute(monitor, null);
+		}else if( "MessageDrivenBean".equals(getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE))){ //$NON-NLS-1$
+			(new AddMessageDrivenBeanOperation(getDataModel())).execute(monitor, null);
 		}
 	}
 

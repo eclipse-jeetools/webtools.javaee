@@ -14,7 +14,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 
 public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements IMessageDrivenBean {
 
@@ -61,7 +61,7 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 	 * This method permits us to keep emf model for the bean
 	 * in sync with the  changes in the datamodel
 	 */
-	public void propertyChanged(WTPOperationDataModelEvent event) {
+	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
 		String property = event.getPropertyName();
 		Object propertyValue = event.getProperty();
@@ -69,7 +69,7 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 		if (messageDriven == null)
 			return;
 
-		if (MessageDrivenBeanDataModel.DESTINATIONTYPE.equals(property)) {
+		if (IMessageDrivenBeanDataModelProperties.DESTINATIONTYPE.equals(property)) {
 			DestinationType dType = DestinationType.QUEUE_LITERAL;
 			if (propertyValue.equals(DestinationType.TOPIC_LITERAL.getName()))
 				dType = DestinationType.TOPIC_LITERAL;
@@ -77,9 +77,9 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 			destination.setType(dType);
 			destination.setBean(messageDriven);
 			messageDriven.setDestination(destination);
-		} else if (MessageDrivenBeanDataModel.DESTINATIONNAME.equals(property) || MessageDrivenBeanDataModel.JNDI_NAME.equals(property)) {
+		} else if (IMessageDrivenBeanDataModelProperties.DESTINATIONNAME.equals(property) || IEnterpriseBeanClassDataModelProperties.JNDI_NAME.equals(property)) {
 			messageDriven.setMessageSelector((String) propertyValue);
-		} else if (EnterpriseBeanClassDataModel.TRANSACTIONTYPE.equals(property)) {
+		} else if (IEnterpriseBeanClassDataModelProperties.TRANSACTIONTYPE.equals(property)) {
 			TransactionType transactionType = TransactionType.CONTAINER_LITERAL;
 			if (propertyValue.equals(TransactionType.BEAN_LITERAL.getName()))
 				transactionType = TransactionType.BEAN_LITERAL;
