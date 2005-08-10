@@ -478,53 +478,37 @@
    </extension> -->
 <!-- Navigator Object Contributions -->
 
-   
-   
-    <extension
-         point="org.eclipse.ui.propertyPages">
-<!-- ====================================================== -->
-<!--           J2EE Dependencies properties page            -->
-<!-- ====================================================== -->
-<!-- =========== org.eclipse.jst.j2ee.internal.EARNature ============ -->
-      <!-- Disabling J2EE property pages for all J2EE modules
-     	<page
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jst.j2ee.EARNature">
-         </filter>
-      </page>-->
-<!-- =========== org.eclipse.jst.j2ee.internal.J2EEPropertiesPage ============ -->
-      <!-- Disabling J2EE property pages for all J2EE modules
-      	<page
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jdt.core.javanature">
-         </filter>
-      </page>-->
+    <extension point="org.eclipse.ui.propertyPages">
+    
+<!-- =========== org.eclipse.jst.j2ee.internal.J2EEDependencyPage (Category Page)============ -->
+      <page
+      		objectClass="org.eclipse.core.resources.IProject"
+      		name="%J2EEDependenciesPage.name"
+            class="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
+            id="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage">
+      </page>
+      <page
+      		objectClass="org.eclipse.jdt.core.IJavaProject"
+      		name="%J2EEDependenciesPage.name"
+            class="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
+            id="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage">
+      </page>
 <!-- =========== org.eclipse.jst.j2ee.internal.JARDependencyProperties============ -->
-         <page
+      <page
             objectClass="org.eclipse.core.resources.IProject"
             name="%jar.dependencies.props_ui_"
+            category="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             class="org.eclipse.jst.j2ee.internal.JARDependencyPropertiesPage"
             id="JARDependenciesPropertiesPage">
-         <filter
+          <filter
                name="nature"
                value="org.eclipse.jdt.core.javanature">
-         </filter>
-      </page>
+          </filter>
+     	 </page>
       <page
             objectClass="org.eclipse.jdt.core.IJavaProject"
             name="%jar.dependencies.props_ui_"
+             category="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             class="org.eclipse.jst.j2ee.internal.JARDependencyPropertiesPage"
             id="JARDependenciesPropertiesPage">
          <filter
@@ -532,13 +516,36 @@
                value="org.eclipse.jdt.core.javanature">
          </filter>
       </page>
-   </extension>
-  
+<!-- =========== org.eclipse.jst.j2ee.internal.WebLibDependencyPropertiesPage ============ -->
+         <page
+            objectClass="org.eclipse.core.resources.IProject"
+            name="%weblib.dependencies.props_ui_"
+            category="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
+            class="org.eclipse.jst.j2ee.internal.WebLibDependencyPropertiesPage"
+            id="WebLibDependencyPropertiesPage">
+          <filter
+               name="nature"
+               value="org.eclipse.jdt.core.javanature">
+          </filter>
+     	 </page>
+      <page
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            name="%weblib.dependencies.props_ui_"
+            category="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
+            class="org.eclipse.jst.j2ee.internal.WebLibDependencyPropertiesPage"
+            id="WebLibDependencyPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.jdt.core.javanature">
+         </filter>
+      </page>
+  	</extension>
 <!-- =========== org.eclipse.jst.j2ee.internal.AddModulestoEARPropertiesPage============ -->
 	<extension point="org.eclipse.ui.propertyPages">
          <page
             objectClass="org.eclipse.core.resources.IProject"
             name="%addmodulestoear.props_ui_"
+            category="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             class="org.eclipse.jst.j2ee.internal.AddModulestoEARPropertiesPage"
             id="AddModulestoEARPropertiesPage">
          <filter
@@ -549,6 +556,7 @@
       <page
             objectClass="org.eclipse.jdt.core.IJavaProject"
             name="%addmodulestoear.props_ui_"
+            category="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             class="org.eclipse.jst.j2ee.internal.AddModulestoEARPropertiesPage"
             id="AddModulestoEARPropertiesPage">
          <filter
@@ -571,7 +579,7 @@
             	</iterate>
             </with>
             <with
-                  variable="element">
+               variable="element">
                <instanceof
                      value="org.eclipse.core.resources.IProject">
                </instanceof>
@@ -579,6 +587,28 @@
          </enablement> 
 		</renameParticipant>
 	</extension>
+	<extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
+	  
+		<renameParticipant
+				class="org.eclipse.jst.j2ee.internal.actions.J2EEComponentRenameParticipant"
+				id="org.eclipse.jst.j2ee.internal.actions.J2EEComponentRenameParticipant" 
+				name="J2EE Rename Participant"> 
+		<enablement> 
+		   	<with variable="affectedNatures">
+            	<iterate operator="or"> 
+            			<equals value="org.eclipse.wst.common.modulecore.ModuleCoreNature" />  
+            	</iterate>
+            </with>
+            <with
+                  variable="element">
+               <instanceof
+                     value="org.eclipse.wst.common.componentcore.resources.IVirtualComponent">
+               </instanceof>
+            </with>
+         </enablement> 
+		</renameParticipant>
+	</extension>
+	
   <extension
          point="org.eclipse.ui.perspectives">
       <perspective

@@ -83,7 +83,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     protected CCombo availableAppsCombo;
     protected ClasspathTableManager tableManager;
     protected IValidateEditListener validateEditListener;
-    protected Button enableWLPCheckBox;
     protected Label manifestLabel;
     protected Label enterpriseApplicationLabel;
     protected Label availableDependentJars;
@@ -172,7 +171,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	 */
     protected Control createContents(Composite parent) {
         initialize();
-        Composite composite = new Composite(parent, SWT.NONE);
+        Composite composite = createBasicComposite(parent);
         GridLayout layout = new GridLayout();
         layout.marginWidth = 0;
         layout.marginWidth = 0;
@@ -184,26 +183,31 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         createListGroup(composite);
         createTextGroup(composite);
         refresh();
-        handleStandaloneWebModule();
         return composite;
     }
-
-	private void handleStandaloneWebModule() {
-		if (enableWLPCheckBox != null && enableWLPCheckBox.getSelection() == true) {
-			model.setWLPModel(true);
-			handleWLPSupport(enableWLPCheckBox);
-			enableWLPCheckBox.setEnabled(false);
-		}
+	
+	/**
+	 * @param comp
+	 * @return
+	 */
+	protected Composite createBasicComposite(Composite comp) {
+		Composite composite = new Composite(comp, SWT.NONE);
+		GridLayout layout = new GridLayout();
+        layout.marginWidth = 0;
+        layout.marginWidth = 0;
+        composite.setLayout(layout);
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		return composite;
 	}
 
-	private boolean isValidComponent() {
+	protected boolean isValidComponent() {
 		if (model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
 			this.setErrorMessage("Java Jar Dependencies is not valid for EAR modules");
 			return false;
 		} else if ((ComponentUtilities.getComponentsForProject(model.getProject())).length > 1) {
 			this.setErrorMessage("Java Jar Dependencies is valid only for one module per flexible project");
 			return false;
-		} else if (J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) && !model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
+		} else if (J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) ) {
 			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
 			return false;
 		}
@@ -227,14 +231,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		componentNameText.setLayoutData(data);
 		componentNameText.setText(project.getName());
 		
-		if(J2EEComponentUtilities.isWebComponent(model.getComponent()))
-        	createEnableWLPProjectCheckbox(labelsGroup);
-
 		createEnterpriseAppsControls(labelsGroup);
 
 	}
 
-	private void createEnterpriseAppsControls(Composite labelsGroup) {
+    private void createEnterpriseAppsControls(Composite labelsGroup) {
 
 		enterpriseApplicationLabel = new Label(labelsGroup, SWT.NONE);
 		enterpriseApplicationLabel.setText(ManifestUIResourceHandler.getString("EAR_Project_Name__UI__UI_")); //$NON-NLS-1$ = "EAR project name:"
@@ -246,7 +247,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		availableAppsCombo.addListener(SWT.Selection, this);
 
 	}
-
+    
     protected void createListGroup(Composite parent) {
         Composite listGroup = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -298,7 +299,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         classPathText.setLayoutData(gData);
         classPathText.setEditable(false);
     }
-
+    
     protected void createTableComposite(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
         GridData gData = new GridData(GridData.FILL_BOTH);
@@ -378,43 +379,8 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     public void handleEvent(Event event) {
         if (event.widget == availableAppsCombo)
             availableAppsSelected(event);
-        if(event.widget == enableWLPCheckBox) {
-        	handleWLPSupport(event.widget);
-        	tableManager.refresh();
-        }
     }
-    private void handleWLPSupport(Widget widget) {
-		if (((Button) widget).getSelection() == true) {
-			tableManager.setWLPEntry(true);
-			makeJarDependencyControlsInvisible();
-			availableDependentJars.setText("Select utility projects to add as Web Library projects to the web module"); //$NON-NLS-1$
-		} else {
-			tableManager.setWLPEntry(false);
-			makeJarDependencyControlsVisible();
-			availableDependentJars.setText(ManifestUIResourceHandler.getString("Available_dependent_JARs__UI_")); //$NON-NLS-1$ = "Available dependent JARs:"
-		}
-	}
-
-	private void makeJarDependencyControlsVisible() {
-		availableAppsCombo.setVisible(true);
-		tableManager.upButton.setVisible(true);
-		tableManager.downButton.setVisible(true);
-		tableManager.radioGroup.setVisible(true);
-		manifestLabel.setVisible(true);
-		classPathText.setVisible(true);
-		enterpriseApplicationLabel.setVisible(true);
-	}
-
-	private void makeJarDependencyControlsInvisible() {
-		availableAppsCombo.setVisible(false);
-		tableManager.upButton.setVisible(false);
-		tableManager.downButton.setVisible(false);
-		tableManager.radioGroup.setVisible(false);
-		manifestLabel.setVisible(false);
-		classPathText.setVisible(false);
-		enterpriseApplicationLabel.setVisible(false);
-	}
-
+    
 	protected void availableAppsSelected(Event event) {
         int index = availableAppsCombo.getSelectionIndex();
         model.selectEAR(index);
@@ -442,19 +408,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		refreshText();
 	}
     
-    protected void createEnableWLPProjectCheckbox(Composite parent) {
-		enableWLPCheckBox = new Button(parent, SWT.CHECK);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.horizontalSpan = 2;
-		data.horizontalIndent = 20;
-		enableWLPCheckBox.setLayoutData(data);
-		enableWLPCheckBox.setText("Set Web Library Project dependency");
-		enableWLPCheckBox.addListener(SWT.Selection, this);
-		if (J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent()))
-			enableWLPCheckBox.setSelection(true);
-		else
-			enableWLPCheckBox.setSelection(false);
-	}
 
     public void refreshText() {
 		ClassPathSelection sel = model.getClassPathSelection();
@@ -491,50 +444,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	 * @see IPreferencePage#performOk() 
 	 */
     public boolean performOk() {
-    	if(isWLPProjectSetting())
-    		return performWLPSettingOp();
-    	else
-    		return performJavaJarDependencyOp();
-	}
-    
-    private boolean performWLPSettingOp() {
-		try {
-			boolean createdFlexProjects = runWLPOp(createFlexProjectOperations());
-			boolean createdComponentDependency = false;
-			if (createdFlexProjects)
-				createdComponentDependency = runWLPOp(createComponentDependencyOperations());
-			boolean createdBuildPathSettings = false;
-			if (createdComponentDependency) {
-				WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
-				composedOp.addRunnable(createWLPBuildPathOperation());
-				createdBuildPathSettings = runWLPOp(composedOp);
-			}
-			return createdBuildPathSettings;
-		} finally {
-			model.dispose();
-		}
-	}
-    
-    private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
-    	try {
-			if (composed != null)
-				new ProgressMonitorDialog(getShell()).run(true, true, composed);
-		} catch (InvocationTargetException ex) {
-			String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
-			String msg = title;
-			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
-				msg = ex.getTargetException().getMessage();
-			MessageDialog.openError(this.getShell(), title, msg);
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
-			return false;
-		} catch (InterruptedException e) {
-			// cancelled
-			return false;
-		}
-		return true;
-    }
-
-	private boolean performJavaJarDependencyOp() {
         if (!isDirty)
             return true;
         WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createManifestOperation());
@@ -558,8 +467,27 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         isDirty = false;
         return true;
     }
+    
+    private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
+    	try {
+			if (composed != null)
+				new ProgressMonitorDialog(getShell()).run(true, true, composed);
+		} catch (InvocationTargetException ex) {
+			String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
+			String msg = title;
+			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
+				msg = ex.getTargetException().getMessage();
+			MessageDialog.openError(this.getShell(), title, msg);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+			return false;
+		} catch (InterruptedException e) {
+			// cancelled
+			return false;
+		}
+		return true;
+    }
 
-	private WorkspaceModifyComposedOperation createComponentDependencyOperations() {
+	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
 		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
@@ -594,7 +522,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		return composedOp;
 	}
 	
-	private WorkspaceModifyComposedOperation createFlexProjectOperations() {
+	protected WorkspaceModifyComposedOperation createFlexProjectOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		try {
 			Object[] elements = tableManager.availableJARsViewer.getCheckedElements();
@@ -622,7 +550,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathSelectionForWLPs()));
     }
 	
-	private ClassPathSelection getUnSelectedClassPathSelectionForWLPs() {
+	protected ClassPathSelection getUnSelectedClassPathSelectionForWLPs() {
 		ClassPathSelection selection = new ClassPathSelection();
 		List uncheckedElements = new ArrayList();
 		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
@@ -645,12 +573,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     		}
     		return selection;
 	}
-
-	protected boolean isWLPProjectSetting() {
-    	if(enableWLPCheckBox != null)
-    		return enableWLPCheckBox.getSelection();
-    	return false;
-    }
     
     protected UpdateManifestOperation createManifestOperation() {
         return new UpdateManifestOperation(project.getName(), model.getClassPathSelection().toString(), true);

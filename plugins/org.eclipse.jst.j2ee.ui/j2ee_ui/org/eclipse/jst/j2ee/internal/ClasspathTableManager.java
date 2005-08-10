@@ -81,6 +81,16 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		createButtonColumn(parent);
 	}
 	
+	public void fillWLPComposite(Composite parent) {
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		layout.marginHeight = 0;
+		parent.setLayout(layout);
+		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
+		createTable(parent);
+		createWLPButtonColumn(parent);
+	}
+	
 	private void initializeEJBClientDefaults() {
 		if (model == null || model.getClassPathSelection() == null)
 			return;
@@ -142,12 +152,18 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		initializeEJBClientDefaults();
 	}
 	
-
 	protected void createButtonColumn(Composite parent) {
 		buttonColumn = owner.createButtonColumnComposite(parent);
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		buttonColumn.setLayoutData(data);
 		createPushButtons();
+	}
+	
+	protected void createWLPButtonColumn(Composite parent) {
+		buttonColumn = owner.createButtonColumnComposite(parent);
+		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		buttonColumn.setLayoutData(data);
+		createWLPPushButtons();
 	}
 	
 	protected void createTable(Composite parent) {
@@ -158,6 +174,15 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		availableJARsViewer.setContentProvider(availableJarsProvider);
 		availableJARsViewer.setLabelProvider(availableJarsProvider);
 		addTableListeners();
+	}
+	
+	protected void createWLPPushButtons() {
+		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
+		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		if (isReadOnly()) {
+			selectAllButton.setEnabled(false);
+			deselectAllButton.setEnabled(false);
+		} 
 	}
 		
 
@@ -171,7 +196,16 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			downButton.setEnabled(false);
 			selectAllButton.setEnabled(false);
 			deselectAllButton.setEnabled(false);
-		}
+		} 
+	}
+	
+	protected void createWebLibPushButtons() {
+		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
+		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		if (isReadOnly()) {
+			selectAllButton.setEnabled(false);
+			deselectAllButton.setEnabled(false);
+		} 
 	}
 
 	protected Button createPushButton(String label) {
@@ -262,8 +296,10 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	 */
 	protected void updateButtonEnablements() {
 		int[] indices = availableJARsViewer.getTable().getSelectionIndices();
-		upButton.setEnabled(canMoveUp(indices));
-		downButton.setEnabled(canMoveDown(indices, availableJARsViewer.getTable().getItemCount()));
+		if (upButton != null && downButton != null) {
+			upButton.setEnabled(canMoveUp(indices));
+			downButton.setEnabled(canMoveDown(indices, availableJARsViewer.getTable().getItemCount()));
+		}
 	}
 
 	protected boolean canMoveUp(int[] indices) {
