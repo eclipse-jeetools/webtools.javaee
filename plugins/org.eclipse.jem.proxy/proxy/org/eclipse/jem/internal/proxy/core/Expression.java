@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.12 $  $Date: 2005/06/22 21:05:17 $ 
+ *  $Revision: 1.13 $  $Date: 2005/08/10 15:47:18 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -708,6 +708,21 @@ public abstract class Expression implements IExpression {
 		}
 		return 0;
 	}
+	
+	/**
+	 * Called to validate this is a valid proxy for this expression. This could happen
+	 * if a proxy from another expression is sent to this expression. If the proxy
+	 * is a bean proxy or is an expression proxy for this expression, then this
+	 * just returns. Else it will throw the {@link IllegalArgumentException}. 
+	 * @param proxy
+	 * @throws IllegalArgumentException if the proxy is an expression proxy for another expression.
+	 * 
+	 * @since 1.1.0.1
+	 */
+	private void validateProxy(IProxy proxy) throws IllegalArgumentException {
+		if (proxy != null && (proxy.isExpressionProxy() && ((ExpressionProxy) proxy).getExpression() != this))
+			throw new IllegalArgumentException(ProxyMessages.Expression_InvalidProxy);
+	}
 		
 	/**
 	 * Called by subclass to fill in the value of an expression proxy. See {@link Expression#pullProxyValue(int, List))} for an example of who would call it.
@@ -868,14 +883,14 @@ public abstract class Expression implements IExpression {
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createArrayCreation(org.eclipse.jem.internal.proxy.initParser.tree.ForExpression, org.eclipse.jem.internal.proxy.core.IProxyBeanType, int)
 	 */
 	public final void createArrayCreation(ForExpression forExpression, IProxyBeanType type, int dimensionExpressionCount)
-		throws IllegalStateException {
+		throws IllegalStateException, IllegalArgumentException {
 		pushArrayCreation(forExpression, type, dimensionExpressionCount);
 	}
 
-	private void pushArrayCreation(ForExpression forExpression, IProxyBeanType type, int dimensionExpressionCount) throws IllegalStateException {
+	private void pushArrayCreation(ForExpression forExpression, IProxyBeanType type, int dimensionExpressionCount) throws IllegalStateException, IllegalArgumentException {
 		try {
 			checkForExpression(forExpression);
-
+			validateProxy(type);
 			switch (dimensionExpressionCount) {
 				case 0:
 					push(ARRAY_CREATION_DIMENSION_0);
@@ -984,16 +999,17 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createCastExpression(org.eclipse.jem.internal.proxy.initParser.tree.ForExpression, org.eclipse.jem.internal.proxy.core.IProxyBeanType)
 	 */
-	public final void createCastExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException {
+	public final void createCastExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException {
 		pushCast(forExpression, type); // Push this onto the local stack to wait for completion.
 	}
 	
 	/*
 	 * Push for a cast.
 	 */
-	private void pushCast(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException {
+	private void pushCast(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException {
 		try {
 			checkForExpression(forExpression);
+			validateProxy(type);
 			push(type);
 			push(InternalExpressionTypes.CAST_EXPRESSION);
 			pushForExpression(PROCESS_EXPRESSION);
@@ -1018,16 +1034,17 @@ public abstract class Expression implements IExpression {
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createClassInstanceCreation(org.eclipse.jem.internal.proxy.initParser.tree.ForExpression, org.eclipse.jem.internal.proxy.core.IProxyBeanType, int)
 	 */
 	public final void createClassInstanceCreation(ForExpression forExpression, IProxyBeanType type, int argumentCount)
-		throws IllegalStateException {
+		throws IllegalStateException, IllegalArgumentException {
 		pushClassInstanceCreation(forExpression, type, argumentCount);	// Push this onto the local stack to wait for completion.
 	}
 
 	/*
 	 * Push for a class instance creation
 	 */
-	private void pushClassInstanceCreation(ForExpression forExpression, IProxyBeanType type, int argumentCount) throws IllegalStateException {
+	private void pushClassInstanceCreation(ForExpression forExpression, IProxyBeanType type, int argumentCount) throws IllegalStateException, IllegalArgumentException {
 		try {
 			checkForExpression(forExpression);
+			validateProxy(type);
 			switch (argumentCount) {
 				case 0:
 					push(CLASS_INSTANCE_CREATION_ARGUMENTS_0);
@@ -1200,16 +1217,17 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createInstanceofExpression(org.eclipse.jem.internal.proxy.initParser.tree.ForExpression, org.eclipse.jem.internal.proxy.core.IProxyBeanType)
 	 */
-	public final void createInstanceofExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException {
+	public final void createInstanceofExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException {
 		pushInstanceof(forExpression, type);	// Push this onto the local stack to wait for completion.
 	}
 	
 	/*
 	 * Push for a cast.
 	 */
-	private void pushInstanceof(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException {
+	private void pushInstanceof(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException {
 		try {
 			checkForExpression(forExpression);
+			validateProxy(type);
 			push(type);
 			push(InternalExpressionTypes.INSTANCEOF_EXPRESSION);
 			pushForExpression(PROCESS_EXPRESSION);
@@ -1310,12 +1328,15 @@ public abstract class Expression implements IExpression {
 	 * @param forExpression
 	 * @param initializationString
 	 * @param type
+	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.1.0
 	 */
-	public final void createNewInstance(ForExpression forExpression, String initializationString, IProxyBeanType type) {
+	public final void createNewInstance(ForExpression forExpression, String initializationString, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException{
 		try {
 			checkForExpression(forExpression);
+			validateProxy(type);
 			pushNewInstanceToProxy(initializationString, type);
 			processExpression();
 		} catch (RuntimeException e) {
@@ -1356,7 +1377,8 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createTypeReceiver(org.eclipse.jem.internal.proxy.core.IProxyBeanType)
 	 */
-	public final void createTypeReceiver(IProxyBeanType type) throws IllegalStateException {
+	public final void createTypeReceiver(IProxyBeanType type) throws IllegalStateException, IllegalArgumentException {
+		validateProxy(type);
 		pushTypeReceiver(type);
 	}
 
@@ -1520,9 +1542,10 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createProxyExpression(int, org.eclipse.jem.internal.proxy.core.IProxy)
 	 */
-	public final void createProxyExpression(ForExpression forExpression, IProxy proxy) throws IllegalStateException {
+	public final void createProxyExpression(ForExpression forExpression, IProxy proxy) throws IllegalStateException, IllegalArgumentException {
 		try {
 			checkForExpression(forExpression);
+			validateProxy(proxy);
 			pushToProxy(proxy);
 			processExpression();
 		} catch (RuntimeException e) {
@@ -1605,9 +1628,16 @@ public abstract class Expression implements IExpression {
 	 * @param parameterTypes parameter types or <code>null</code> if no parameter types.
 	 * @return
 	 * 
+	 * @throws IllegalArgumentException
 	 * @since 1.1.0
 	 */
-	public final IProxyMethod createMethodExpressionProxy(IProxyBeanType declaringType, String methodName, IProxyBeanType[] parameterTypes) {
+	public final IProxyMethod createMethodExpressionProxy(IProxyBeanType declaringType, String methodName, IProxyBeanType[] parameterTypes) throws IllegalArgumentException{
+		validateProxy(declaringType);
+		if (parameterTypes != null && parameterTypes.length > 0) {
+			for (int i = 0; i < parameterTypes.length; i++) {
+				validateProxy(parameterTypes[i]);
+			}
+		}
 		ExpressionProxy proxy = allocateExpressionProxy(METHOD_EXPRESSION_PROXY);
 		// This can be sent at any time. It doesn't matter what is on the expression stack. It will be sent to be resolved immediately.
 		pushMethodToProxy(proxy, declaringType, methodName, parameterTypes);
@@ -1623,12 +1653,13 @@ public abstract class Expression implements IExpression {
 	 * 
 	 * @param declaringType
 	 * @param fieldName
-	 * 
 	 * @return
 	 * 
+	 * @throws IllegalArgumentException
 	 * @since 1.1.0
 	 */
-	public final IProxyField createFieldExpressionProxy(IProxyBeanType declaringType, String fieldName) {
+	public final IProxyField createFieldExpressionProxy(IProxyBeanType declaringType, String fieldName) throws IllegalArgumentException {
+		validateProxy(declaringType);
 		ExpressionProxy proxy = allocateExpressionProxy(FIELD_EXPRESSION_PROXY);
 		// This can be sent at any time. It doesn't matter what is on the expression stack. It will be sent to be resolved immediately.
 		pushFieldToProxy(proxy, declaringType, fieldName);
@@ -1680,7 +1711,8 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createFieldAccess(org.eclipse.jem.internal.proxy.initParser.tree.ForExpression, org.eclipse.jem.internal.proxy.core.IProxyField, boolean)
 	 */
-	public final void createFieldAccess(ForExpression forExpression, IProxyField fieldProxy, boolean hasReceiver) throws IllegalStateException {
+	public final void createFieldAccess(ForExpression forExpression, IProxyField fieldProxy, boolean hasReceiver) throws IllegalStateException, IllegalArgumentException {
+		validateProxy(fieldProxy);
 		pushFieldAccess(forExpression, fieldProxy, hasReceiver);
 	}
 	
@@ -1690,6 +1722,7 @@ public abstract class Expression implements IExpression {
 	 */
 	public final void createMethodInvocation(ForExpression forExpression, IProxyMethod methodProxy, boolean hasReceiver, int argumentCount) throws IllegalArgumentException,
 			IllegalStateException {
+		validateProxy(methodProxy);
 		pushMethodInvocation(forExpression, methodProxy, hasReceiver, argumentCount);
 	}
 	
@@ -1697,7 +1730,9 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createSimpleFieldAccess(org.eclipse.jem.internal.proxy.core.IProxyField, org.eclipse.jem.internal.proxy.core.IProxy)
 	 */
-	public final ExpressionProxy createSimpleFieldAccess(IProxyField field, IProxy receiver) throws IllegalStateException {
+	public final ExpressionProxy createSimpleFieldAccess(IProxyField field, IProxy receiver) throws IllegalStateException, IllegalArgumentException {
+		validateProxy(field);
+		validateProxy(receiver);
 		ExpressionProxy result = createProxyAssignmentExpression(ForExpression.ROOTEXPRESSION);
 		createFieldAccess(ForExpression.ASSIGNMENT_RIGHT, field, receiver != null);
 		if (receiver != null)
@@ -1709,7 +1744,9 @@ public abstract class Expression implements IExpression {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createSimpleFieldSet(org.eclipse.jem.internal.proxy.core.IProxyField, org.eclipse.jem.internal.proxy.core.IProxy, org.eclipse.jem.internal.proxy.core.IProxy, boolean)
 	 */
-	public final ExpressionProxy createSimpleFieldSet(IProxyField field, IProxy receiver, IProxy value, boolean wantResult) throws IllegalStateException {
+	public final ExpressionProxy createSimpleFieldSet(IProxyField field, IProxy receiver, IProxy value, boolean wantResult) throws IllegalStateException, IllegalArgumentException {
+		validateProxy(field);
+		validateProxy(receiver);
 		ExpressionProxy result = null;
 		ForExpression forExpression = ForExpression.ROOTEXPRESSION;
 		if (wantResult) {
@@ -1728,7 +1765,14 @@ public abstract class Expression implements IExpression {
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createSimpleMethodInvoke(org.eclipse.jem.internal.proxy.core.IMethodProxy, org.eclipse.jem.internal.proxy.core.IProxy, org.eclipse.jem.internal.proxy.core.IProxy[], boolean)
 	 */
 	public final ExpressionProxy createSimpleMethodInvoke(IProxyMethod method, IProxy receiver, IProxy[] arguments, boolean wantResult)
-			throws IllegalStateException {
+			throws IllegalStateException, IllegalArgumentException {
+		validateProxy(method);
+		validateProxy(receiver);
+		if (arguments != null && arguments.length > 0) {
+			for (int i = 0; i < arguments.length; i++) {
+				validateProxy(arguments[i]);
+			}
+		}
 		ForExpression nextExpression = ForExpression.ROOTEXPRESSION;
 		ExpressionProxy result = null;
 		if (wantResult) {
@@ -1807,7 +1851,8 @@ public abstract class Expression implements IExpression {
 	 * @see org.eclipse.jem.internal.proxy.core.IExpression#createTryCatchClause(org.eclipse.jem.internal.proxy.core.IProxyBeanType, boolean)
 	 */
 	public final ExpressionProxy createTryCatchClause(IProxyBeanType exceptionType, boolean wantExceptionReturned)
-			throws IllegalStateException {
+			throws IllegalStateException, IllegalArgumentException {
+		validateProxy(exceptionType);
 		return pushTryCatch(exceptionType, wantExceptionReturned);
 	}
 	

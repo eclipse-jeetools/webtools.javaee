@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IExpression.java,v $
- *  $Revision: 1.5 $  $Date: 2005/06/22 21:05:18 $ 
+ *  $Revision: 1.6 $  $Date: 2005/08/10 15:47:18 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -193,10 +193,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param type This is the type. This must be the actual type with the correct total number of dimensions (e.g. "java.lang.Object[][]").
 	 * @param dimensionExpressionCount number of int valued expressions that follow that give the size for each dimension.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void createArrayCreation(ForExpression forExpression, IProxyBeanType type, int dimensionExpressionCount) throws IllegalStateException;
+	public void createArrayCreation(ForExpression forExpression, IProxyBeanType type, int dimensionExpressionCount) throws IllegalStateException, IllegalArgumentException;
 	
 	/**
 	 * Create an array initializer. (e.g. <code>{2,3}</code>).
@@ -238,10 +239,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param forExpression
 	 * @param type This is the type.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void createCastExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException;
+	public void createCastExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException;
 		
 	/**
 	 * Create a new class instance expression (e.g. <code>new java.lang.Integer(5)</code>)
@@ -268,10 +270,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param type This is the type.
 	 * @param argumentCount
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void createClassInstanceCreation(ForExpression forExpression, IProxyBeanType type, int argumentCount) throws IllegalStateException;
+	public void createClassInstanceCreation(ForExpression forExpression, IProxyBeanType type, int argumentCount) throws IllegalStateException, IllegalArgumentException;
 	
 	/**
 	 * Create a conditional expression (e.g. <code>x != 3 ? 4 : 5</code>)
@@ -325,11 +328,12 @@ public interface IExpression extends IExpressionConstants {
 	 * @param fieldProxy The field proxy for the field.
 	 * @param hasReceiver Has a receiver flag.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @see IExpression#createTypeReceiver(String)
 	 * @since 1.0.0
 	 */
-	public void createFieldAccess(ForExpression forExpression, IProxyField fieldProxy, boolean hasReceiver) throws IllegalStateException;
+	public void createFieldAccess(ForExpression forExpression, IProxyField fieldProxy, boolean hasReceiver) throws IllegalStateException, IllegalArgumentException;
 
 	/**
 	 * Create an if/else stmt. Since this is a statment, there is no ForExpression. ROOT_EXPRESSION must be the next expression type.
@@ -393,10 +397,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param forExpression
 	 * @param type This is the type.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void createInstanceofExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException;
+	public void createInstanceofExpression(ForExpression forExpression, IProxyBeanType type) throws IllegalStateException, IllegalArgumentException;
 	
 	/**
 	 * Create a method invocation expression (e.g. <code>java.lang.String.valueOf(10)</code>).
@@ -513,10 +518,11 @@ public interface IExpression extends IExpressionConstants {
 	 * 
 	 * @param type This is the type proxy.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void createTypeReceiver(IProxyBeanType type) throws IllegalStateException;
+	public void createTypeReceiver(IProxyBeanType type) throws IllegalStateException, IllegalArgumentException;
 	
 	/**
 	 * Create a boolean primitive literal (e.g. <code>true</code>).
@@ -671,10 +677,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param forExpression This is for what expression this expression is being created.
 	 * @param proxy The proxy that should be used as a value, either a bean proxy or an expression proxy.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void createProxyExpression(ForExpression forExpression, IProxy proxy) throws IllegalStateException;
+	public void createProxyExpression(ForExpression forExpression, IProxy proxy) throws IllegalStateException, IllegalArgumentException;
 		
 	/**
 	 * Create an assignment expression between a VariableReference and an expression. The left operand must be a variable reference (e.g. FieldAccess or
@@ -749,10 +756,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param wantResult <code>true</code> if you want an ExpressionProxy back, otherwise it will return <code>null</code>. For performance reasons, only use <code>true</code> if you really need the expression proxy.
 	 * @return expression proxy if "wantResult" was true, else <code>null</code>.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.1.0
 	 */
-	public ExpressionProxy createSimpleMethodInvoke(IProxyMethod method, IProxy receiver, IProxy[] arguments, boolean wantResult) throws IllegalStateException;
+	public ExpressionProxy createSimpleMethodInvoke(IProxyMethod method, IProxy receiver, IProxy[] arguments, boolean wantResult) throws IllegalStateException, IllegalArgumentException;
 
 	/**
 	 * A simple field access. This is a helper to make it easier for a simple field access. It uses only the 
@@ -765,10 +773,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param receiver the receiver proxy. It may be <code>null</code> for static fields.
 	 * @return expression proxy to the result of the access.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.1.0
 	 */
-	public ExpressionProxy createSimpleFieldAccess(IProxyField field, IProxy receiver) throws IllegalStateException;
+	public ExpressionProxy createSimpleFieldAccess(IProxyField field, IProxy receiver) throws IllegalStateException, IllegalArgumentException;
 
 	/**
 	 * A simple field set. This is a helper to make it easier for a simple field access. It uses only the 
@@ -781,10 +790,11 @@ public interface IExpression extends IExpressionConstants {
 	 * @param wantResult <code>true</code> if you want an ExpressionProxy back, otherwise it will return <code>null</code>. For performance reasons, only use <code>true</code> if you really need the expression proxy.
 	 * @return expression proxy if "wantResult" was true, else <code>null</code>.
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * 
 	 * @since 1.1.0
 	 */
-	public ExpressionProxy createSimpleFieldSet(IProxyField field, IProxy receiver, IProxy value, boolean wantResult) throws IllegalStateException;
+	public ExpressionProxy createSimpleFieldSet(IProxyField field, IProxy receiver, IProxy value, boolean wantResult) throws IllegalStateException, IllegalArgumentException;
 
 	/**
 	 * Begin a block. No need for a forExpression because it must currently be at ROOTEXPRESSION.
@@ -859,9 +869,10 @@ public interface IExpression extends IExpressionConstants {
 	 * @return the ExpressionProxy for the exception if <code>wantExceptionReturned</code> is <code>true</code>, <code>null</code> otherwise.
 	 * 
 	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
 	 * @since 1.1.0
 	 */
-	public ExpressionProxy createTryCatchClause(IProxyBeanType exceptionType, boolean wantExceptionReturned) throws IllegalStateException;;
+	public ExpressionProxy createTryCatchClause(IProxyBeanType exceptionType, boolean wantExceptionReturned) throws IllegalStateException, IllegalArgumentException;
 
 	/**
 	 * Create a catch clause for the inner most try statement. No need for a forExpression because it must currently be at ROOTEXPRESSION.

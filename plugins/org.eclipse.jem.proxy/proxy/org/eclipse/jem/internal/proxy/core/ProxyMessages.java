@@ -43,4 +43,6 @@ public final class ProxyMessages extends NLS {
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ProxyMessages.class);
 	}
+
+	public static String Expression_InvalidProxy;
 }

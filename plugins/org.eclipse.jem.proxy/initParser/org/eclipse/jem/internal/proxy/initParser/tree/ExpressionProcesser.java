@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.18 $  $Date: 2005/07/20 19:27:25 $ 
+ *  $Revision: 1.19 $  $Date: 2005/08/10 15:47:18 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -101,7 +101,7 @@ public class ExpressionProcesser {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			return "FieldAccess{"+field.toString()+"} on "+(receiver != null ? receiver.toString() : "<static access>"); //$NON-NLS-1$ //$NON-NLS-2$
+			return "FieldAccess{"+field.toString()+"} on "+(receiver != null ? receiver.toString() : "<static access>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 	}
 	
@@ -263,8 +263,11 @@ public class ExpressionProcesser {
 	 * @since 1.1.0
 	 */
 	protected final void processSyntaxException(NoExpressionValueException e) {
-		if (traceOn)
+		if (traceOn) {
+			// This can happen at any time, so make sure we are on a new line.
+			System.out.println();
 			printTrace("Expression has no value", false); //$NON-NLS-1$
+		}
 		try {
 			errorOccurred = true;
 			novalueException = true;
@@ -824,9 +827,9 @@ public class ExpressionProcesser {
 						printObjectAndType(proxy.getValue(), proxy.getType());
 					pushExpressionValue(proxy.getValue(), proxy.getType());	// Can push a VariableReference. This is ok. When used it will then deref with the current value.
 				} else
-					processSyntaxException(new NoExpressionValueException());
+					processSyntaxException(new NoExpressionValueException("Proxy id: "+proxyid)); //$NON-NLS-1$
 			} else
-				processSyntaxException(new NoExpressionValueException());
+				processSyntaxException(new NoExpressionValueException("Proxy id: "+proxyid)); //$NON-NLS-1$
 		} finally {
 			if (traceOn)
 				printTraceEnd();
@@ -2595,7 +2598,7 @@ public class ExpressionProcesser {
 				}
 				
 				if (!Modifier.isStatic(reflectMethod.getModifiers()) && receiver == null)
-					throw new NullPointerException("No receiver for non-static method: "+reflectMethod.toString());
+					throw new NullPointerException("No receiver for non-static method: "+reflectMethod.toString()); //$NON-NLS-1$
 					
 				Object value = reflectMethod.invoke(receiver, args);
 				
@@ -2638,7 +2641,7 @@ public class ExpressionProcesser {
 			if (msg == null) {
 				newMsg = method.toString();
 			} else {
-				newMsg = method.toString()+": \""+msg+'\"';
+				newMsg = method.toString()+": \""+msg+'\"'; //$NON-NLS-1$
 			}
 			Exception fixedupE = (Exception) eWithStringCtor.newInstance(new Object[] {newMsg});
 			fixedupE.setStackTrace(e.getStackTrace());
