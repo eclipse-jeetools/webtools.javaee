@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/21 19:59:49 $ 
+ *  $Revision: 1.11 $  $Date: 2005/08/10 19:15:15 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -234,7 +234,7 @@ public class BeaninfoPathsBlock {
 							Object[] paths = be.getClasspath(fCurrJProject);
 							if (paths != null && paths.length > 0) {
 								for (int j = 0; !isMissing && j < paths.length; j++) {
-									Object path = paths[i];
+									Object path = paths[j];
 									if (path instanceof IProject)
 										isMissing = !((IProject) path).exists();
 									else if (path instanceof String) {
