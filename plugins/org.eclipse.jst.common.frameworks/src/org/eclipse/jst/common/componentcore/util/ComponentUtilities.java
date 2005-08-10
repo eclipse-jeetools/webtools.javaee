@@ -22,20 +22,14 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeNode;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
@@ -153,51 +147,9 @@ public class ComponentUtilities {
 		return null;
 	}
 
-	private static IVirtualComponent findComponent(IProject project, Resource res) {
+	public static IVirtualComponent findComponent(IResource res) {
 
-		StructureEdit moduleCore = null;
-		WorkbenchComponent module = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(project);
-			URI uri = WorkbenchResourceHelperBase.getNonPlatformURI(res.getURI());
-			IPath projPath = WorkbenchResourceHelper.getPathInProject(project, new Path(uri.path()));
-			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(projPath, ResourceTreeNode.CREATE_RESOURCE_ALWAYS);
-			for (int i = 0; i < resources.length; i++) {
-				module = resources[i].getComponent();
-				if (module != null)
-					break;
-			}
-		} catch (UnresolveableURIException e) {
-			// Ignore
-		} finally {
-			if (moduleCore != null)
-				moduleCore.dispose();
-		}
-		if (module == null)
-			return null;
-		else
-			return ComponentCore.createComponent(project, module.getName());
-	}
-
-	public static IVirtualComponent findComponent(IProject project, IResource res) {
-
-		StructureEdit moduleCore = null;
-		WorkbenchComponent module = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(project);
-			ComponentResource[] resources = moduleCore.findResourcesBySourcePath(res.getFullPath());
-			for (int i = 0; i < resources.length; i++) {
-				module = resources[i].getComponent();
-				if (module != null)
-					break;
-			}
-		} catch (UnresolveableURIException e) {
-			// Ignore
-		} finally {
-			if (moduleCore != null)
-				moduleCore.dispose();
-		}
-		return ComponentCore.createComponent(project, module.getName());
+		return (IVirtualComponent)res.getAdapter(IVirtualComponent.class);
 	}
 	
 	/**
@@ -260,12 +212,11 @@ public class ComponentUtilities {
 	public static IVirtualComponent findComponent(EObject anObject) {
 		IProject project = ProjectUtilities.getProject(anObject);
 		Resource res = anObject.eResource();
-		return findComponent(project, res);
+		return findComponent(res);
 	}
 
 	public static IVirtualComponent findComponent(Resource aResource) {
-		IProject project = ProjectUtilities.getProject(aResource);
-		return findComponent(project, aResource);
+		return (IVirtualComponent)WorkbenchResourceHelper.getFile(aResource).getAdapter(IVirtualComponent.class);
 	}
 
 	public static List getAllJavaNonFlexProjects() throws CoreException {
