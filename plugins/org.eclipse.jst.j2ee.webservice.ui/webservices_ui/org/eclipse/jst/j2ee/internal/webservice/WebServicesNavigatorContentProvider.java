@@ -29,18 +29,16 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
+import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceEvent;
+import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerListener;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
-import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 import org.eclipse.wst.common.navigator.internal.provisional.views.INavigatorContentProvider;
 
 /**
@@ -49,7 +47,7 @@ import org.eclipse.wst.common.navigator.internal.provisional.views.INavigatorCon
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryContentProvider implements INavigatorContentProvider, EditModelListener {
+public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryContentProvider implements INavigatorContentProvider, WebServiceManagerListener {
 
 	private WebServicesManager webServicesManager = null;
 	private boolean activityEnabled = false;
@@ -210,30 +208,22 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 * 
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
-	public void editModelChanged(EditModelEvent anEvent) {
-		
-		if (anEvent.getEventCode()==EditModelEvent.UNLOADED_RESOURCE) {
-			if (getViewer()==null) return;
-			List resources = anEvent.getChangedResources();
-			for (int i=0; i<resources.size(); i++) {
-				Resource res = (Resource) resources.get(i);
-				if (res instanceof WsddResource || res instanceof WebServicesResource) {
-					Display d = null;
-					try {
-						d = getViewer().getControl().getDisplay();
-					} catch (Exception e) {
-					}
-					if (d != Display.getCurrent() & d != null) {
-						d.syncExec(new Runnable() {
-							public void run() {
-								getViewer().refresh(getNavigatorGroup());
-							}
-						});
-					} else
-						getViewer().refresh(getNavigatorGroup());
-				}
-			}
+	public void webServiceManagerChanged(WebServiceEvent anEvent) {
+		if (getViewer()==null) return;
+		Display d = null;
+		try {
+			d = getViewer().getControl().getDisplay();
+		} catch (Exception e) {
+			//Ignore
 		}
+		if (d != Display.getCurrent() & d != null) {
+			d.syncExec(new Runnable() {
+				public void run() {
+					getViewer().refresh(getNavigatorGroup());
+				}
+			});
+		} else
+			getViewer().refresh(getNavigatorGroup()); 
 	}
 	
 	/*

@@ -172,7 +172,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	/**
 	 * Add aListener to the list of listeners.
 	 */
-	public void addListener(EditModelListener aListener) {
+	public void addListener(WebServiceManagerListener aListener) {
 		if (aListener != null && !getListeners().contains(aListener))
 			getListeners().add(aListener);
 	}
@@ -183,7 +183,16 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
-		if (anEvent.getEventCode() == EditModelEvent.PRE_DISPOSE) {
+		if (anEvent.getEventCode()==EditModelEvent.UNLOADED_RESOURCE) {
+			List resources = anEvent.getChangedResources();
+			for (int i=0; i<resources.size(); i++) {
+				Resource res = (Resource) resources.get(i);
+				if (res instanceof WsddResource || res instanceof WebServicesResource) {
+					notifyListeners(anEvent.getEventCode());
+				}
+			}
+		}
+		else if (anEvent.getEventCode() == EditModelEvent.PRE_DISPOSE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) anEvent.getEditModel();
 			ComponentHandle handle = editModel.getComponentHandle();
 			WSDDArtifactEdit wsArtifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(handle);
@@ -194,8 +203,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			getWSClientArtifactEdits().remove(handle);
 			wsClientArtifactEdit.removeListener(this);
 			wsClientArtifactEdit.dispose();
+			notifyListeners(anEvent.getEventCode());
 		}
-		notifyListeners(anEvent);
 	}
 	
 	private WSDDArtifactEdit getWSArtifactEdit(ComponentHandle handle) {
@@ -228,7 +237,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * 
 	 * @anEvent.
 	 */
-	protected void notifyListeners(EditModelEvent anEvent) {
+	protected void notifyListeners(int anEventType) {
 		if (listeners == null)
 			return;
 		synchronized (this) {
@@ -236,8 +245,10 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		}
 		try {
 			List list = getListeners();
-			for (int i = 0; i < list.size(); i++)
-				((EditModelListener) list.get(i)).editModelChanged(anEvent);
+			for (int i = 0; i < list.size(); i++) {
+				WebServiceEvent webServiceEvent = new WebServiceEvent(WebServiceEvent.REFRESH);
+				((WebServiceManagerListener) list.get(i)).webServiceManagerChanged(webServiceEvent);
+			}
 		} finally {
 			synchronized (this) {
 				isNotifing = false;
@@ -253,7 +264,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	/**
 	 * Remove aListener from the list of listeners.
 	 */
-	public synchronized boolean removeListener(EditModelListener aListener) {
+	public synchronized boolean removeListener(WebServiceManagerListener aListener) {
 		if (aListener != null) {
 			if (isNotifing)
 				return removedListeners.add(aListener);
@@ -619,14 +630,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		Iterator iter = getWSArtifactEdits().values().iterator();
 		while (iter.hasNext()) {
 			WSDDArtifactEdit artifactEdit = (WSDDArtifactEdit) iter.next();
-			IProject project = artifactEdit.getComponentHandle().getProject();
-			if (project != null) {
-				List files = ProjectUtilities.getAllProjectFiles(project);
-				for (int j = 0; j < files.size(); j++) {
-					IFile file = (IFile) files.get(j);
-					if (file != null && WSIL_EXT.equals(file.getFileExtension()))
-						result.add(file);
-				}
+			List files = artifactEdit.getWSILResources();
+			for (int j = 0; j < files.size(); j++) {
+				IFile file = (IFile) files.get(j);
+				if (file != null && WSIL_EXT.equals(file.getFileExtension()))
+					result.add(file);
 			}
 		}
 		return result;
@@ -776,11 +784,18 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		}
 		
 		else if (resource.getType() == IResource.FILE && isInterrestedInFile((IFile) resource)) {
-			if ((delta.getKind() == IResourceDelta.ADDED) || ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0))
+			// Handle WSIL and WSDL File additions
+			if ((delta.getKind() == IResourceDelta.ADDED) || ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0)) {
 				if (resource.getFileExtension().equals(WSDL_EXT))
 				    addedWsdl((IFile) resource);
 				else if (resource.getFileExtension().equals(WSIL_EXT))
 				    addedWsil((IFile)resource);
+			}
+			// Handle WSIL or WSDL file removals
+			else if ((delta.getKind() == IResourceDelta.REMOVED) || ((delta.getFlags() & IResourceDelta.MOVED_FROM) != 0)) {
+				if (resource.getFileExtension().equals(WSDL_EXT) || resource.getFileExtension().equals(WSIL_EXT))
+				notifyListeners(EditModelEvent.UNLOADED_RESOURCE);
+			}
 			return false;
 		}
 		return true;
@@ -802,16 +817,20 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		if (!wsdl.exists())
 			return;
 		ComponentHandle handle = getComponentHandle(wsdl);
-		if (handle != null)
+		if (handle != null) {
 			getWSArtifactEdit(handle);
+			notifyListeners(EditModelEvent.LOADED_RESOURCE);
+		}
 	}
 
 	protected void addedWsil(IFile wsil) {
 		if (!wsil.exists())
 			return;
 		ComponentHandle handle = getComponentHandle(wsil);
-		if (handle != null)
+		if (handle != null) {
 			getWSArtifactEdit(handle);
+			notifyListeners(EditModelEvent.LOADED_RESOURCE);
+		}
 	}
 	
 	private ComponentHandle getComponentHandle(IFile res) {

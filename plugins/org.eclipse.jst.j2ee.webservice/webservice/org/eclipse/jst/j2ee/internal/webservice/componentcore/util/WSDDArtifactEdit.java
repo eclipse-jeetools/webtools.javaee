@@ -3,10 +3,12 @@ package org.eclipse.jst.j2ee.internal.webservice.componentcore.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
@@ -14,11 +16,14 @@ import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 /**
  * <p>
@@ -398,7 +403,17 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	
 	public List getWSILResources() {
-		return getResources(WSIL_FILE_EXT);
+		List result = new ArrayList();
+		List files = ProjectUtilities.getAllProjectFiles(getComponentHandle().getProject());
+		for (int i=0; i<files.size(); i++) {
+			IFile file = (IFile) files.get(i);
+			if (file.getFileExtension().equals(WSIL_FILE_EXT)) {
+				IVirtualResource[] vResources = ComponentCore.createResources(file);
+				if (vResources.length>0 && !result.contains(file))
+					result.add(file);
+			}
+		}
+		return result;
 	}
 
 	public List getWSDLResources() {
