@@ -51,7 +51,9 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 		javaProject = aJavaProject;
 		classPathSelection = aClassPathSelection;
 		allClasspathEntries = new HashSet();
-		allClasspathEntries.addAll(Arrays.asList(aClassPathSelection.getClasspathEntriesForSelected()));
+		IClasspathEntry[] classpathEntry = aClassPathSelection.getClasspathEntriesForSelected();
+		if(classpathEntry != null)
+			allClasspathEntries.addAll(Arrays.asList(classpathEntry));
 	}
 	
 	/**
