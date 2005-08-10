@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.14 $  $Date: 2005/06/21 20:05:18 $ 
+ *  $Revision: 1.15 $  $Date: 2005/08/10 19:02:37 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -499,6 +499,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 				MessageFormat.format(WorkbenchUtilityMessages.ParseTreeCreationFromAST_OperatorTooComplicatedToHandle_EXC_, new Object[] { node.getOperator().toString() })); 
 		}
 		pe.setOperator(ptoper);
+		pe.setExpression(perform(node.getOperand()));
 		expression = pe;
 		return false;
 	}
