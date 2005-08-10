@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -20,10 +21,13 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -34,28 +38,29 @@ import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControl
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager.Descriptor;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
- * The NewServletClassOperation is a WTPOperation following the WTP wizard data model and
+ * The NewServletClassOperation is an IDataModelOperation following the IDataModel wizard and
  * operation framework.
- * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperation
- * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
  * 
- * It extends EditModelOperation to provide servlet specific java class generation.
- * @see org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
+ * It extends ArtifactEditProviderOperation to provide servlet specific java class generation.
+ * @see org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation
  * 
  * This operation is used by the AddServletOperation to generate either an annotated or
- * non annotated java class for an added servlet.  It shares the NewServletClassDataModel
+ * non annotated java class for an added servlet.  It shares the NewServletClassDataModelProvider
  * with the AddServletOperation to store the appropriate properties required to generate
  * the new servlet.
  * @see org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation
- * @see org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel
+ * @see org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider
  * 
  * In the annotated case, a WTPJetEmitter servlet template is created and used to generate the
  * servlet java class with the embedded annotated tags.
@@ -70,7 +75,7 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
  *
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class NewServletClassOperation extends ArtifactEditOperation {
+public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	
 	/**
 	 * The extension name for a java class
@@ -102,13 +107,13 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	 * This is the constructor which should be used when creating a NewServletClassOperation.  An instance of
 	 * the NewServletClassDataModel should be passed in.  This does not accept null parameter.  It will
 	 * not return null.  
-	 * @see EditModelOperation#EditModelOperation(EditModelOperationDataModel)
+	 * @see ArtifactEditProviderOperation#ArtifactEditProviderOperation(IDataModel)
 	 * @see NewServletClassDataModel
 	 * 
 	 * @param dataModel
 	 * @return NewServletClassOperation
 	 */
-	public NewServletClassOperation(ArtifactEditOperationDataModel dataModel) {
+	public NewServletClassOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -129,29 +134,33 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	 * @throws InterruptedException
 	 * @throws InvocationTargetException
 	 */
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// Create source folder if it does not exist
 		createJavaSourceFolder();
 		// Create java package if it does not exist
 		IPackageFragment pack = createJavaPackage();
 		// Generate using templates
-		generateUsingTemplates(monitor, pack);
+		try {
+			generateUsingTemplates(monitor, pack);
+		} catch (Exception e) {
+			return WTPCommonPlugin.createErrorStatus(e.toString());
+		}
+		return OK_STATUS;
 	}
 	
 	/**
 	 * This method will return the java package as specified by the new java class data model.
 	 * If the package does not exist, it will create the package.  This method should not return
 	 * null.
-	 * @see NewJavaClassDataModel#JAVA_PACKAGE
+	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
 	 * @see IPackageFragmentRoot#createPackageFragment(java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 * 
 	 * @return IPackageFragment the java package
 	 */
 	protected final IPackageFragment createJavaPackage() {
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Retrieve the package name from the java class data model
-		String packageName = model.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE);
-		IPackageFragmentRoot packRoot = model.getJavaPackageFragmentRoot();
+		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
 		IPackageFragment pack = packRoot.getPackageFragment(packageName);
 		// Handle default package
 		if (pack == null) {
@@ -169,7 +178,7 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 		// Return the package
 		return pack;
 	}
-
+	
 	/**
 	 * Subclasses may extend this method to provide their own template based creation
 	 * of an annotated servlet java class file.  This implementation uses the creation of
@@ -187,7 +196,7 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment) throws WFTWrappedException, CoreException {
 		// Create the servlet template model
 		CreateServletTemplateModel tempModel = createTemplateModel();
-		IProject project = ((ArtifactEditOperationDataModel)getOperationDataModel()).getTargetProject();
+		IProject project = getTargetProject();
 		String source;
 		// Using the WTPJetEmitter, generate the java source based on the servlet template model
 		try {
@@ -224,15 +233,14 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	 */
 	private void addAnnotationsBuilder() {
 		// If an extended annotations processor is added, ignore the default xdoclet one
-		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getComponent().getComponentHandle().getProject());
+		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getComponentHandle().getProject());
 		if (descriptor != null)
 			return;
 		try {
-			NewServletClassDataModel dataModel = (NewServletClassDataModel) operationDataModel;
 			// Find the xdoclet builder from the extension registry
 			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
 			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-			IProject project = dataModel.getTargetProject(); 
+			IProject project = getTargetProject(); 
 			IProjectDescription description = project.getDescription();
 			ICommand[] commands = description.getBuildSpec();
 			boolean found = false;
@@ -276,11 +284,11 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	private String generateTemplateSource(CreateServletTemplateModel tempModel, IProgressMonitor monitor) throws JETException {
 		String templateURI;
 		// If annotated, use annotated template
-		if (((NewServletClassDataModel) getOperationDataModel()).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
-			templateURI = PLATFORM_PLUGIN + WebPlugin.PLUGIN_ID + TEMPLATE_DIR + NewServletClassDataModel.TEMPLATE_FILE;
+		if (model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			templateURI = PLATFORM_PLUGIN + WebPlugin.PLUGIN_ID + TEMPLATE_DIR + getDataModel().getStringProperty(INewServletClassDataModelProperties.TEMPLATE_FILE);
 		// Otherwise use non annotated template
 		else
-			templateURI = PLATFORM_PLUGIN + WebPlugin.PLUGIN_ID + TEMPLATE_DIR + NewServletClassDataModel.NON_ANNOTATED_TEMPLATE_FILE;
+			templateURI = PLATFORM_PLUGIN + WebPlugin.PLUGIN_ID + TEMPLATE_DIR + getDataModel().getStringProperty(INewServletClassDataModelProperties.NON_ANNOTATED_TEMPLATE_FILE);
 		WTPJETEmitter emitter = new WTPJETEmitter(templateURI, this.getClass().getClassLoader());
 		emitter.setIntelligentLinkingEnabled(true);
 		emitter.addVariable(WEB_PLUGIN, WebPlugin.PLUGIN_ID);
@@ -298,22 +306,21 @@ public class NewServletClassOperation extends ArtifactEditOperation {
 	 */
 	private CreateServletTemplateModel createTemplateModel() {
 		// Create the CreateServletTemplateModel instance with the new servlet class data model
-		CreateServletTemplateModel model = new CreateServletTemplateModel((NewServletClassDataModel) getOperationDataModel());
-		return model;
+		CreateServletTemplateModel templateModel = new CreateServletTemplateModel(model);
+		return templateModel;
 	}
 	
 	/**
 	 * This method will return the java source folder as specified in the java class data model. 
 	 * It will create the java source folder if it does not exist.  This method may return null.
-	 * @see NewJavaClassDataModel#SOURCE_FOLDER
+	 * @see INewJavaClassDataModelProperties#SOURCE_FOLDER
 	 * @see IFolder#create(boolean, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 * 
 	 * @return IFolder the java source folder
 	 */
 	protected final IFolder createJavaSourceFolder() {
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Get the source folder name from the data model
-		String folderFullPath = model.getStringProperty(NewJavaClassDataModel.SOURCE_FOLDER);
+		String folderFullPath = model.getStringProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFolder folder = root.getFolder(new Path(folderFullPath));
 		// If folder does not exist, create the folder with the specified path

@@ -30,7 +30,7 @@
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doDelete(arg0, arg1);
+		super.doDelete(request, response);
 	} <% } %> 	<% if (model.shouldGenDoGet()) { %>
 	
 	/* (non-Java-doc)
@@ -50,7 +50,7 @@
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse arg1) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPut(request, response);
 	} <% } %>  	<% if (model.shouldGenGetServletInfo()) { %>

@@ -679,6 +679,9 @@
    <!--============================-->
    <extension
          point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+        <DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider"/>
      	<DataModelProvider
             class="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"
             id="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>

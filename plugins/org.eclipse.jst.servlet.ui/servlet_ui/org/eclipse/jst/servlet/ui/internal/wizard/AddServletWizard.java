@@ -16,17 +16,19 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  * New servlet wizard
@@ -38,7 +40,7 @@ public class AddServletWizard extends NewWebWizard {
 	/**
 	 * @param model
 	 */
-	public AddServletWizard(NewServletClassDataModel model) {
+	public AddServletWizard(IDataModel model) {
 		super(model);
 		setWindowTitle(IWebWizardConstants.ADD_SERVLET_WIZARD_WINDOW_TITLE);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor("newservlet_wiz")); //$NON-NLS-1$
@@ -49,45 +51,22 @@ public class AddServletWizard extends NewWebWizard {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-	    if (model != null)
-	        return model;
-	    model = new NewServletClassDataModel();
-		model.setProperty(NewJavaClassDataModel.SUPERCLASS, NewServletClassDataModel.SERVLET_SUPERCLASS);
-		model.setProperty(NewJavaClassDataModel.INTERFACES, ((NewServletClassDataModel)model).getServletInterfaces());
-		
-		//IProject project = getDefaultWebProject();
-		//if (project != null)
-		//    model.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
-		return model;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected WTPOperation createBaseOperation() {
-		return new AddServletOperation((NewServletClassDataModel)model) ;
-	}
-	
-	/* (non-Javadoc)
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
 		
 		NewJavaClassWizardPage page1 = new NewJavaClassWizardPage(
-				(NewServletClassDataModel)model, 
+				getDataModel(), 
 				PAGE_ONE,
 				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE, IModuleConstants.JST_WEB_MODULE);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
 		addPage(page1);
-		AddServletWizardPage page2 = new AddServletWizardPage((NewServletClassDataModel) model, PAGE_TWO);
+		AddServletWizardPage page2 = new AddServletWizardPage(getDataModel(), PAGE_TWO);
 		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
 		addPage(page2);
 		NewServletClassOptionsWizardPage page3 = new NewServletClassOptionsWizardPage(
-				(NewServletClassDataModel)model, 
+				getDataModel(), 
 				PAGE_THREE,
 				IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);
@@ -109,7 +88,7 @@ public class AddServletWizard extends NewWebWizard {
 		if (firstPage != null && firstPage.isPageComplete() && secondPage.isPageComplete() ) {
 			return true;
 		}
-		return false;//super.canFinish();
+		return false;
 	}
 	
 	protected void postPerformFinish() throws InvocationTargetException {
@@ -117,9 +96,10 @@ public class AddServletWizard extends NewWebWizard {
 		WebArtifactEdit artifactEdit = null;
 		try {
 			JavaClass javaClass = null;
-			String className = ((NewServletClassDataModel)getModel()).getQualifiedClassName();
-			IProject p = ((NewServletClassDataModel)getModel()).getComponent().getComponentHandle().getProject();
-			artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(((NewServletClassDataModel)getModel()).getComponent());
+			String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
+			IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
+			IVirtualComponent component = ComponentCore.createComponent(p,getDataModel().getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME));
+			artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
 			ResourceSet resourceSet = artifactEdit.getDeploymentDescriptorResource().getResourceSet();
 			javaClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(className,resourceSet);
 			J2EEEditorUtility.openInEditor(javaClass, p );
@@ -129,5 +109,9 @@ public class AddServletWizard extends NewWebWizard {
 			if (artifactEdit!=null)
 				artifactEdit.dispose();
 		}	
+	}
+
+	protected IDataModelProvider getDefaultProvider() {
+		return new NewServletClassDataModelProvider();
 	}
 }

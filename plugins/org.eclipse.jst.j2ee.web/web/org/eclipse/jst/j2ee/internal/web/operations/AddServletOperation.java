@@ -13,15 +13,19 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -29,29 +33,30 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
- * This class, AddServlet Operation is a WTPOperation following the WTP wizard data model and
+ * This class, AddServlet Operation is a IDataModelOperation following the IDataModel wizard and
  * operation framework.
- * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperation
- * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
  * 
- * This operation subclasses the EditModelOperation so the changes made to the deployment descriptor
- * models are saved to the edit model.
- * @see org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
+ * This operation subclasses the ArtifactEditProviderOperation so the changes made to the deployment descriptor
+ * models are saved to the artifact edit model.
+ * @see org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation
  * 
  * It is the operation which should be used when adding a new servlet to
  * a web app, whether that be an annotated servlet or a non annotated servlet.  This uses the
- * NewServletClassDataModel to retrieve properties set by the user in order to create the custom
+ * NewServletClassDataModelProvider to retrieve properties set by the user in order to create the custom
  * servet.
- * @see org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel
+ * @see org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider
  * 
  * In the non annotated case, this operation will add the metadata necessary into the web deployment
  * descriptor.  In the annotated case, it will not, it will leave this up to the parsing of the
  * annotations to build the deployment descriptor artifacts.  To actually create the java class for
  * the servlet, the operation uses the NewServletClassOperation. The NewServletClassOperation 
- * shares the same data model.
+ * shares the same data model provider.
  * @see org.eclipse.jst.j2ee.internal.web.operations.NewServletClassOperation
  * 
  * Clients may subclass this operation to provide their own behaviour on servlet creation.  The execute
@@ -59,17 +64,17 @@ import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOpera
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddServletOperation extends ArtifactEditOperation {
+public class AddServletOperation extends ArtifactEditProviderOperation {
 	
 	/**
 	 * This is the constructor which should be used when creating the operation.
 	 * It will not accept null parameter.  It will not return null.
-	 * @see WTPOperation#WTPOperation(WTPOperationDataModel)
+	 * @see ArtifactEditProviderOperation#ArtifactEditProviderOperation(IDataModel)
 	 * 
-	 * @param dataModel NewServletClassDataModel
+	 * @param dataModel 
 	 * @return AddServletOperation
 	 */
-	public AddServletOperation(NewServletClassDataModel dataModel) {
+	public AddServletOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -79,20 +84,20 @@ public class AddServletOperation extends ArtifactEditOperation {
 	 * implementation will create the servlet class, and then if the servlet is not
 	 * annotated, it will create the servlet metadata for the web deployment descriptor.
 	 * This method will accept null as a parameter.
-	 * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperation#execute(IProgressMonitor)
+	 * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 * @see AddServletOperation#createServletClass()
 	 * @see AddServletOperation#generateServletMetaData(NewServletClassDataModel, String, boolean)
 	 * 
 	 * @param monitor IProgressMonitor
+	 * @param info IAdaptable
 	 * @throws CoreException
 	 * @throws InterruptedException
 	 * @throws InvocationTargetException
 	 */
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		//Retrieve values set in the newservletclass data model
-		NewServletClassDataModel model = (NewServletClassDataModel) operationDataModel;
-		boolean isServletType = model.getBooleanProperty(NewServletClassDataModel.IS_SERVLET_TYPE);
-		String qualifiedClassName = model.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
+		boolean isServletType = model.getBooleanProperty(INewServletClassDataModelProperties.IS_SERVLET_TYPE);
+		String qualifiedClassName = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 		
 		// If it is servlet type, create the java class
 		if (isServletType)
@@ -101,32 +106,50 @@ public class AddServletOperation extends ArtifactEditOperation {
 		// If the servlet is not annotated, generate the servlet metadata for the DD
 		if (!model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
 			generateServletMetaData(model, qualifiedClassName, isServletType);
+		
+		return OK_STATUS;
 	}
 	
 	/**
 	 * Subclasses may extend this method to add their own creation of the actual servlet java class.
 	 * This implementation uses the NewServletClassOperation which is a subclass of the NewJavaClassOperation.
-	 * The NewServletClassOperation will use the same NewServletClassDataModel to retrieve the properties in
+	 * The NewServletClassOperation will use the same NewServletClassDataModelProvider to retrieve the properties in
 	 * order to create the java class accordingly.  This method will not return null.
 	 * @see NewServletClassOperation
 	 * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation
-	 * @see NewServletClassDataModel
+	 * @see NewServletClassDataModelProvider
 	 * 
 	 * @return String qualified servlet classname
 	 */
 	protected String createServletClass() {
 		//	Create servlet java class file using the NewServletClassOperation.  The same data model is shared.
-		NewServletClassDataModel model = (NewServletClassDataModel) operationDataModel;
 		NewServletClassOperation op = new NewServletClassOperation(model);
 		try {
-			op.run(null);
-		} catch (InvocationTargetException e) {
+			op.execute(new NullProgressMonitor(), null);
+		} catch (Exception e) {
 			Logger.getLogger().log(e);
-		} catch (InterruptedException e) {
-			Logger.getLogger().log(e);
-		}
+		} 
 		// Return the qualified classname of the newly created java class for the servlet
-		return model.getQualifiedClassName();
+		return getQualifiedClassName();
+	}
+	
+	/**
+	 * This method will return the qualified java class name as specified by the class name
+	 * and package name properties in the data model.
+	 * This method should not return null.
+	 * @see INewJavaClassDataModelProperties#CLASS_NAME
+	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
+	 * 
+	 * @return String qualified java classname
+	 */
+	public final String getQualifiedClassName() {
+		// Use the java package name and unqualified class name to create a qualified java class name
+		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
+		String className = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
+		//Ensure the class is not in the default package before adding package name to qualified name
+		if (packageName != null && packageName.trim().length() > 0)
+			return packageName + "." + className; //$NON-NLS-1$
+		return className;
 	}
 
 	/**
@@ -140,21 +163,21 @@ public class AddServletOperation extends ArtifactEditOperation {
 	 * @see AddServletOperation#setUpInitParams(List, Servlet)
 	 * @see AddServletOperation#setUpURLMappings(List, Servlet)
 	 * 
-	 * @param model
+	 * @param aModel
 	 * @param qualifiedClassName
 	 * @param isServletType
 	 */
-	protected void generateServletMetaData(NewServletClassDataModel model, String qualifiedClassName, boolean isServletType) {
+	protected void generateServletMetaData(IDataModel aModel, String qualifiedClassName, boolean isServletType) {
 		// Set up the servlet modelled object
 		Servlet servlet = createServlet(qualifiedClassName, isServletType);
 
 		// Set up the InitParams if any
-		List initParamList = (List) model.getProperty(NewServletClassDataModel.INIT_PARAM);
+		List initParamList = (List) aModel.getProperty(INewServletClassDataModelProperties.INIT_PARAM);
 		if (initParamList != null)
 			setUpInitParams(initParamList,servlet);
-
+		
 		// Set up the servlet URL mappings if any
-		List urlMappingList = (List) model.getProperty(NewServletClassDataModel.URL_MAPPINGS);
+		List urlMappingList = (List) aModel.getProperty(INewServletClassDataModelProperties.URL_MAPPINGS);
 		if (urlMappingList != null)
 			setUpURLMappings(urlMappingList, servlet);
 	}
@@ -174,9 +197,8 @@ public class AddServletOperation extends ArtifactEditOperation {
 	 */
 	private Servlet createServlet(String qualifiedClassName, boolean isServletType) {
 		// Get values from data model
-		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
-		String displayName = model.getStringProperty(NewServletClassDataModel.DISPLAY_NAME);
-		String description = model.getStringProperty(NewServletClassDataModel.DESCRIPTION);
+		String displayName = model.getStringProperty(INewServletClassDataModelProperties.DISPLAY_NAME);
+		String description = model.getStringProperty(INewServletClassDataModelProperties.DESCRIPTION);
 		
 		// Create the servlet instance and set up the parameters from data model
 		Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
@@ -196,7 +218,7 @@ public class AddServletOperation extends ArtifactEditOperation {
 			servlet.setWebType(jspType);
 		}
 		// Add the servlet to the web application model
-		WebApp webApp = (WebApp) getArtifactEdit().getContentModelRoot();
+		WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
 		webApp.getServlets().add(servlet);
 		// Return the servlet instance
 		return servlet;
@@ -214,7 +236,7 @@ public class AddServletOperation extends ArtifactEditOperation {
 	 */
 	private void setUpInitParams(List initParamList, Servlet servlet) {
 		// Get the web app instance from the data model
-		WebApp webApp = (WebApp) getArtifactEdit().getContentModelRoot();
+		WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
 		int nP = initParamList.size();
 		// If J2EE 1.4, add the param value and description info instances to the servlet init params
 		if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
@@ -265,7 +287,7 @@ public class AddServletOperation extends ArtifactEditOperation {
 	 */
 	private void setUpURLMappings(List urlMappingList, Servlet servlet) {
 		// Get the web app modelled object from the data model
-		WebApp webApp = (WebApp) getArtifactEdit().getContentModelRoot();
+		WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
 		int nM = urlMappingList.size();
 		// Create the servlet mappings if any
 		for (int iM = 0; iM < nM; iM++) {

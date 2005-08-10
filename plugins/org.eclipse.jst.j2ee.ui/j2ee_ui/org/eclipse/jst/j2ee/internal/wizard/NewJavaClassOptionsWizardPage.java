@@ -33,7 +33,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -48,8 +48,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.Workbench;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 /**
  * @author jialin
@@ -57,7 +57,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
  * To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Generation - Code and Comments
  */
-public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
+public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 
 	protected Button publicButton;
 	protected Button abstractButton;
@@ -73,7 +73,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public NewJavaClassOptionsWizardPage(ArtifactEditOperationDataModel model, String pageName, String pageDesc, String pageTitle) {
+	public NewJavaClassOptionsWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName);
 		setDescription(pageDesc);
 		this.setTitle(pageTitle);
@@ -86,7 +86,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{NewJavaClassDataModel.MODIFIER_ABSTRACT, NewJavaClassDataModel.MODIFIER_FINAL};
+		return new String[]{INewJavaClassDataModelProperties.MODIFIER_ABSTRACT, INewJavaClassDataModelProperties.MODIFIER_FINAL};
 	}
 
 	/*
@@ -135,15 +135,15 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 
 		publicButton = new Button(composite, SWT.CHECK);
 		publicButton.setText(J2EEUIMessages.JAVA_CLASS_PUBLIC_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(publicButton, NewJavaClassDataModel.MODIFIER_PUBLIC, null);
+		synchHelper.synchCheckbox(publicButton, INewJavaClassDataModelProperties.MODIFIER_PUBLIC, null);
 
 		abstractButton = new Button(composite, SWT.CHECK);
 		abstractButton.setText(J2EEUIMessages.JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(abstractButton, NewJavaClassDataModel.MODIFIER_ABSTRACT, null);
+		synchHelper.synchCheckbox(abstractButton, INewJavaClassDataModelProperties.MODIFIER_ABSTRACT, null);
 
 		finalButton = new Button(composite, SWT.CHECK);
 		finalButton.setText(J2EEUIMessages.JAVA_CLASS_FINAL_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(finalButton, NewJavaClassDataModel.MODIFIER_FINAL, null);
+		synchHelper.synchCheckbox(finalButton, INewJavaClassDataModelProperties.MODIFIER_FINAL, null);
 	}
 
 	protected void createInterfaceControls(Composite parent) {
@@ -160,7 +160,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		interfaceViewer.getList().setLayoutData(new GridData(GridData.FILL_BOTH));
 		interfaceViewer.setContentProvider(getInterfaceContentProvider());
 		interfaceViewer.setLabelProvider(getInterfaceLabelProvider());
-		interfaceViewer.setInput(model.getProperty(NewJavaClassDataModel.INTERFACES));
+		interfaceViewer.setInput(model.getProperty(INewJavaClassDataModelProperties.INTERFACES));
 
 		Composite buttonCompo = new Composite(composite, SWT.NULL);
 		layout = new GridLayout();
@@ -221,15 +221,15 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 
 		mainMethodButton = new Button(buttonCompo, SWT.CHECK);
 		mainMethodButton.setText(J2EEUIMessages.JAVA_CLASS_MAIN_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(mainMethodButton, NewJavaClassDataModel.MAIN_METHOD, null);
+		synchHelper.synchCheckbox(mainMethodButton, INewJavaClassDataModelProperties.MAIN_METHOD, null);
 
 		inheritButton = new Button(buttonCompo, SWT.CHECK);
 		inheritButton.setText(J2EEUIMessages.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(inheritButton, NewJavaClassDataModel.ABSTRACT_METHODS, null);
+		synchHelper.synchCheckbox(inheritButton, INewJavaClassDataModelProperties.ABSTRACT_METHODS, null);
 
 		constructorButton = new Button(buttonCompo, SWT.CHECK);
 		constructorButton.setText(J2EEUIMessages.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(constructorButton, NewJavaClassDataModel.CONSTRUCTOR, null);
+		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
 	}
 
 	/**
@@ -327,7 +327,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 * Browse for a new Super Interface Class
 	 */
 	protected void handleInterfaceAddButtonSelected() {
-		IProject project = ((ArtifactEditOperationDataModel)model).getTargetProject();
+		IProject project = (IProject) model.getProperty(INewJavaClassDataModelProperties.PROJECT);
 		IRunnableContext context = Workbench.getInstance().getActiveWorkbenchWindow();
 		IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 		// this eliminates the non-exported classpath entries
@@ -342,7 +342,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 			interfaceViewer.add(superclassFullPath);
 		}
 		List valueList = Arrays.asList(interfaceViewer.getList().getItems());
-		model.setProperty(NewJavaClassDataModel.INTERFACES, valueList);
+		model.setProperty(INewJavaClassDataModelProperties.INTERFACES, valueList);
 	}
 
 	/**
@@ -362,7 +362,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 				valueList.remove(items.get(i));
 			}
 			interfaceViewer.setInput(valueList);
-			model.setProperty(NewJavaClassDataModel.INTERFACES, valueList);
+			model.setProperty(INewJavaClassDataModelProperties.INTERFACES, valueList);
 		}
 	}
 }

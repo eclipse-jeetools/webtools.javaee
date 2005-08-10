@@ -29,12 +29,15 @@ import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifa
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 
@@ -96,16 +99,16 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
             super.execute( IModuleConstants.JST_APPCLIENT_MODULE, monitor );
             
             if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
-                NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
-                mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, getProject().getName());
-                mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
-                mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
-                String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + model.getStringProperty(JAVASOURCE_FOLDER);;
+            	IDataModel mainClassDataModel = DataModelFactory.createDataModel(NewJavaClassDataModelProvider.class);
+                mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, getProject().getName());
+                mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
+                mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
+                String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + model.getStringProperty(JAVASOURCE_FOLDER);
                 if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
                     projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + model.getStringProperty(JAVASOURCE_FOLDER);             
-                mainClassDataModel.setProperty(NewJavaClassDataModel.SOURCE_FOLDER, projRelativeSourcePath);
-               // mainClassDataModel.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, "appclient");//$NON-NLS-1$
-                mainClassDataModel.getDefaultOperation().run(monitor);
+                mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
+                // mainClassDataModel.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, "appclient");//$NON-NLS-1$
+                mainClassDataModel.getDefaultOperation().execute(monitor,null);
                 
                 createManifestEntryForMainClass(monitor);
             }

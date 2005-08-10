@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author jialin
@@ -138,12 +138,12 @@ public class StringArrayTableWizardSection extends Composite {
 	private Button removeButton;
 	private String title;
 	private String[] labelsForText;
-	private WTPOperationDataModel model;
+	private IDataModel model;
 	private String propertyName;
 	private Image labelProviderImage;
 
 	public StringArrayTableWizardSection(Composite parent, String title, String addButtonLabel, String removeButtonLabel, String[] labelsForText, Image labelProviderImage,
-			WTPOperationDataModel model, String propertyName) {
+			IDataModel model, String propertyName) {
 		super(parent, SWT.NONE);
 		this.title = title;
 		this.labelsForText = labelsForText;

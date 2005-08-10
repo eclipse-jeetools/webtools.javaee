@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -24,21 +24,22 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 /**
  * Servlet Wizard Setting Page
  */
-public class AddServletWizardPage extends WTPWizardPage {
+public class AddServletWizardPage extends DataModelWizardPage {
 	final static String[] JSPEXTENSIONS = {"jsp"}; //$NON-NLS-1$
 
 	private Text displayNameText;
 
 	private StringArrayTableWizardSection urlSection;
 
-	public AddServletWizardPage(NewServletClassDataModel model, String pageName) {
+	public AddServletWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_DESC);
 		this.setTitle(IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);
@@ -50,7 +51,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{NewServletClassDataModel.DISPLAY_NAME, NewServletClassDataModel.INIT_PARAM, NewServletClassDataModel.URL_MAPPINGS};
+		return new String[]{INewServletClassDataModelProperties.DISPLAY_NAME, INewServletClassDataModelProperties.INIT_PARAM, INewServletClassDataModelProperties.URL_MAPPINGS};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -63,10 +64,10 @@ public class AddServletWizardPage extends WTPWizardPage {
 		createNameDescription(composite);
 		new StringArrayTableWizardSection(composite, IWebWizardConstants.INIT_PARAM_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL,
 				IWebWizardConstants.REMOVE_BUTTON_LABEL, new String[]{IWebWizardConstants.NAME_LABEL, IWebWizardConstants.VALUE_LABEL, IWebWizardConstants.DESCRIPTION_LABEL}, null,// WebPlugin.getDefault().getImage("initializ_parameter"),
-				model, NewServletClassDataModel.INIT_PARAM);
+				model, INewServletClassDataModelProperties.INIT_PARAM);
 		urlSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.URL_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.REMOVE_BUTTON_LABEL,
 				new String[]{IWebWizardConstants.URL_PATTERN_LABEL}, null,// WebPlugin.getDefault().getImage("url_type"),
-				model, NewServletClassDataModel.URL_MAPPINGS);
+				model, INewServletClassDataModelProperties.URL_MAPPINGS);
 		displayNameText.setFocus();
 
 		IStatus projectStatus = validateProjectName();
@@ -79,7 +80,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 
 	protected IStatus validateProjectName() {
 		// check for empty
-		if (model.getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME) == null || model.getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME).trim().length() == 0) {
+		if (model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME) == null || model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME).trim().length() == 0) {
 			return WTPCommonPlugin.createErrorStatus(IWebWizardConstants.NO_WEB_PROJECTS);
 		}
 		return WTPCommonPlugin.OK_STATUS;
@@ -105,7 +106,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 			}
 
 		});
-		synchHelper.synchText(displayNameText, NewServletClassDataModel.DISPLAY_NAME, null);
+		synchHelper.synchText(displayNameText, INewServletClassDataModelProperties.DISPLAY_NAME, null);
 
 		// description
 		Label descLabel = new Label(composite, SWT.LEFT);
@@ -113,7 +114,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 		descLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(descText, NewServletClassDataModel.DESCRIPTION, null);
+		synchHelper.synchText(descText, INewServletClassDataModelProperties.DESCRIPTION, null);
 	}
 
 	public String getDisplayName() {

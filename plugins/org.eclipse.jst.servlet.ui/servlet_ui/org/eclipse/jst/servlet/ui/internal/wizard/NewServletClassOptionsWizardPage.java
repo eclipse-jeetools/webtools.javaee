@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -21,12 +21,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
- * @author jialin
  * 
- * To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Generation - Code and Comments
  */
 public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardPage {
 	protected Button initButton;
@@ -38,7 +36,7 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 	protected Button destroyButton;
 	protected Button doGetButton;
 
-	public NewServletClassOptionsWizardPage(NewServletClassDataModel model, String pageName, String pageDesc, String pageTitle) {
+	public NewServletClassOptionsWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName, pageDesc, pageTitle);
 	}
 	/**
@@ -60,11 +58,11 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 
 		constructorButton = new Button(buttonCompo, SWT.CHECK);
 		constructorButton.setText(IWebWizardConstants.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(constructorButton, NewJavaClassDataModel.CONSTRUCTOR, null);
+		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
 
 		inheritButton = new Button(buttonCompo, SWT.CHECK);
 		inheritButton.setText(IWebWizardConstants.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
-		synchHelper.synchCheckbox(inheritButton, NewJavaClassDataModel.ABSTRACT_METHODS, null);
+		synchHelper.synchCheckbox(inheritButton, INewJavaClassDataModelProperties.ABSTRACT_METHODS, null);
 		inheritButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				boolean enable = inheritButton.getSelection();
@@ -91,35 +89,35 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 		comp.setLayoutData(data);
 
 		initButton = new Button(comp, SWT.CHECK);
-		initButton.setText("Init"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(initButton, NewServletClassDataModel.INIT, null);
+		initButton.setText("init"); //$NON-NLS-1$
+		synchHelper.synchCheckbox(initButton, INewServletClassDataModelProperties.INIT, null);
 
 		toStringButton = new Button(comp, SWT.CHECK);
 		toStringButton.setText("toString"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(toStringButton, NewServletClassDataModel.TO_STRING, null);
+		synchHelper.synchCheckbox(toStringButton, INewServletClassDataModelProperties.TO_STRING, null);
 
 		getInfoButton = new Button(comp, SWT.CHECK);
 		getInfoButton.setText("getServletInfo"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(getInfoButton, NewServletClassDataModel.GET_SERVLET_INFO, null);
+		synchHelper.synchCheckbox(getInfoButton, INewServletClassDataModelProperties.GET_SERVLET_INFO, null);
 
 		doPostButton = new Button(comp, SWT.CHECK);
 		doPostButton.setText("doPost"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(doPostButton, NewServletClassDataModel.DO_POST, null);
+		synchHelper.synchCheckbox(doPostButton, INewServletClassDataModelProperties.DO_POST, null);
 
 		doPutButton = new Button(comp, SWT.CHECK);
 		doPutButton.setText("doPut"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(doPutButton, NewServletClassDataModel.DO_PUT, null);
+		synchHelper.synchCheckbox(doPutButton, INewServletClassDataModelProperties.DO_PUT, null);
 
 		doDeleteButton = new Button(comp, SWT.CHECK);
 		doDeleteButton.setText("doDelete"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(doDeleteButton, NewServletClassDataModel.DO_DELETE, null);
+		synchHelper.synchCheckbox(doDeleteButton, INewServletClassDataModelProperties.DO_DELETE, null);
 
 		destroyButton = new Button(comp, SWT.CHECK);
 		destroyButton.setText("destroy"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(destroyButton, NewServletClassDataModel.DESTROY, null);
+		synchHelper.synchCheckbox(destroyButton, INewServletClassDataModelProperties.DESTROY, null);
 
 		doGetButton = new Button(comp, SWT.CHECK);
 		doGetButton.setText("doGet"); //$NON-NLS-1$
-		synchHelper.synchCheckbox(doGetButton, NewServletClassDataModel.DO_GET, null);
+		synchHelper.synchCheckbox(doGetButton, INewServletClassDataModelProperties.DO_GET, null);
 	}
 }

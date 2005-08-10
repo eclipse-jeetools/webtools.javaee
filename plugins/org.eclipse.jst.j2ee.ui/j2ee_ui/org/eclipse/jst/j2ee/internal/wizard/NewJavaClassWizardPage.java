@@ -48,7 +48,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -75,16 +75,17 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 /**
  *
  */
-public class NewJavaClassWizardPage extends WTPWizardPage {
+public class NewJavaClassWizardPage extends DataModelWizardPage {
 
 	private Text folderText;
 	private Button folderButton;
@@ -104,7 +105,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public NewJavaClassWizardPage(ArtifactEditOperationDataModel model, String pageName, String pageDesc, String pageTitle,
+	public NewJavaClassWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle,
 			String moduleType) {
 		super(model, pageName);
 		setDescription(pageDesc);
@@ -119,12 +120,12 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	 * 
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{ArtifactEditOperationDataModel.PROJECT_NAME, 
-					 		ArtifactEditOperationDataModel.MODULE_NAME, 
-					 		NewJavaClassDataModel.SOURCE_FOLDER, 
-					 		NewJavaClassDataModel.JAVA_PACKAGE, 
-					 		NewJavaClassDataModel.CLASS_NAME, 
-					 		NewJavaClassDataModel.SUPERCLASS};
+		return new String[]{IArtifactEditOperationDataModelProperties.PROJECT_NAME, 
+				IArtifactEditOperationDataModelProperties.COMPONENT_NAME, 
+				INewJavaClassDataModelProperties.SOURCE_FOLDER, 
+				INewJavaClassDataModelProperties.JAVA_PACKAGE, 
+				INewJavaClassDataModelProperties.CLASS_NAME, 
+				INewJavaClassDataModelProperties.SUPERCLASS};
 	}
 
 	/**
@@ -169,7 +170,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		data.horizontalSpan = 1;
 		componentNameCombo.setLayoutData(data);
 		initializeComponentList();
-		synchHelper.synchCombo(componentNameCombo, ArtifactEditOperationDataModel.MODULE_NAME, new Control[] {});
+		synchHelper.synchCombo(componentNameCombo, IArtifactEditOperationDataModelProperties.COMPONENT_NAME, new Control[] {});
 		if (!hasNewModuleButton) {
 			new Label(composite, SWT.NONE);
 		} else {
@@ -203,16 +204,14 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		for (int i = 0; i < componentList.size(); i++) {
 			componentNames[i] = (String) componentList.get(i);
 		}
-		model.setIgnorePropertyChanges(true);
 		componentNameCombo.setItems(componentNames);
-		model.setIgnorePropertyChanges(false);
 		if (componentNames.length > 0) {
 			componentNameCombo.setText(componentNames[0]);
-			model.setProperty(ArtifactEditOperationDataModel.MODULE_NAME, componentNameCombo.getText());
+			model.setProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME, componentNameCombo.getText());
 		}
 		// update source folder
 		if (folderText != null) {
-			String sourceFolder = getModel().getStringProperty(NewJavaClassDataModel.SOURCE_FOLDER);
+			String sourceFolder = model.getStringProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER);
 			if (sourceFolder != null)
 				folderText.setText(sourceFolder);
 		}
@@ -239,7 +238,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 				initializeComponentList();
 			}
 		});
-		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, null);
+		synchHelper.synchCombo(projectNameCombo, IArtifactEditOperationDataModelProperties.PROJECT_NAME, null);
 		initializeProjectList();
 		new Label(parent, SWT.NONE);
 	}
@@ -272,7 +271,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			if (selectedProject != null && selectedProject.isAccessible()
 					&& selectedProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 				projectNameCombo.setText(selectedProject.getName());
-				model.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, selectedProject.getName());
+				model.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, selectedProject.getName());
 			}
 		} catch (CoreException ce) {
 			// Ignore
@@ -282,7 +281,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		if ((projectNameCombo.getText() == null || projectNameCombo.getText().length() == 0) && projectName != null) {
 			projectNameCombo.setText(projectName);
-			model.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, projectName);
+			model.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, projectName);
 		}
 
 	}
@@ -298,7 +297,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		folderText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		folderText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(folderText, NewJavaClassDataModel.SOURCE_FOLDER, null);
+		synchHelper.synchText(folderText, INewJavaClassDataModelProperties.SOURCE_FOLDER, null);
 
 		folderButton = new Button(composite, SWT.PUSH);
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
@@ -328,10 +327,10 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		IPackageFragment packageFragment = getSelectedPackageFragment();
 		if (packageFragment != null && packageFragment.exists()) {
 			projectNameCombo.setText(packageFragment.getElementName());
-			model.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, packageFragment.getElementName());
+			model.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE, packageFragment.getElementName());
 		}
 
-		synchHelper.synchText(packageText, NewJavaClassDataModel.JAVA_PACKAGE, null);
+		synchHelper.synchText(packageText, INewJavaClassDataModelProperties.JAVA_PACKAGE, null);
 
 		packageButton = new Button(composite, SWT.PUSH);
 		packageButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
@@ -358,7 +357,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		classText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		classText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(classText, NewJavaClassDataModel.CLASS_NAME, null);
+		synchHelper.synchText(classText, INewJavaClassDataModelProperties.CLASS_NAME, null);
 
 		new Label(composite, SWT.LEFT);
 	}
@@ -389,7 +388,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 		superText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		superText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(superText, NewJavaClassDataModel.SUPERCLASS, null);
+		synchHelper.synchText(superText, INewJavaClassDataModelProperties.SUPERCLASS, null);
 
 		superButton = new Button(composite, SWT.PUSH);
 		superButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
@@ -419,7 +418,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		dialog.setTitle(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_TITLE);
 		dialog.setMessage(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_DESC);
 		dialog.addFilter(filter);
-		IProject project = ((NewJavaClassDataModel) model).getTargetProject();
+		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 
 		if (project != null)
@@ -449,7 +448,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	}
 
 	protected void handlePackageButtonPressed() {
-		IPackageFragmentRoot packRoot = ((NewJavaClassDataModel) model).getJavaPackageFragmentRoot();
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
 		if (packRoot == null)
 			return;
 		IJavaElement[] packages = null;
@@ -479,7 +478,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 
 	protected void handleSuperButtonPressed() {
 		getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
-		IPackageFragmentRoot packRoot = ((NewJavaClassDataModel) model).getJavaPackageFragmentRoot();
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
 		if (packRoot == null)
 			return;
 
@@ -532,12 +531,13 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			public boolean select(Viewer viewer, Object parent, Object element) {
 				if (element instanceof IProject) {
 					IProject project = (IProject) element;
-					return project.getName().equals(model.getProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
+					return project.getName().equals(model.getProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders
-					ArtifactEditOperationDataModel dataModel = ((ArtifactEditOperationDataModel) model);
-					IPackageFragmentRoot[] sourceFolders = ComponentUtilities.getSourceContainers(dataModel.getComponent());
+					IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
+					IVirtualComponent component = ComponentCore.createComponent(project,model.getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME));
+					IPackageFragmentRoot[] sourceFolders = ComponentUtilities.getSourceContainers(component);
 					for (int i = 0; i < sourceFolders.length; i++) {
 						if (sourceFolders[i].getResource()!= null && sourceFolders[i].getResource().equals(folder))
 							return true;
@@ -554,9 +554,9 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, IModuleConstants.JST_EJB_MODULE.equals(moduleType),
 				IModuleConstants.JST_WEB_MODULE.equals(moduleType));
-		if (!model.isSet(ArtifactEditOperationDataModel.PROJECT_NAME))
+		if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
 			return;
-		IProject project = ((NewJavaClassDataModel) model).getTargetProject();
+		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
 		// annotationsGroup.setUseAnnotations(true);
 	}

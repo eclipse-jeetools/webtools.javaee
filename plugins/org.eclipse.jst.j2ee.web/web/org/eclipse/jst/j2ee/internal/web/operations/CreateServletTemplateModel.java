@@ -15,7 +15,8 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.List;
 
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 /**
@@ -23,7 +24,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
  */
 public class CreateServletTemplateModel {
 
-	NewServletClassDataModel dataModel = null;
+	IDataModel dataModel = null;
 	public static final String INIT = "init"; //$NON-NLS-1$
 	public static final String TO_STRING = "toString"; //$NON-NLS-1$
 	public static final String GET_SERVLET_INFO = "getServletInfo"; //$NON-NLS-1$
@@ -40,17 +41,17 @@ public class CreateServletTemplateModel {
 	/**
 	 * Constructor
 	 */
-	public CreateServletTemplateModel(NewServletClassDataModel dataModel) {
+	public CreateServletTemplateModel(IDataModel dataModel) {
 		super();
 		this.dataModel = dataModel;
 	}
 
 	public String getServletClassName() {
-		return getProperty(NewJavaClassDataModel.CLASS_NAME);
+		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 	}
 
 	public String getJavaPackageName() {
-		return getProperty(NewJavaClassDataModel.JAVA_PACKAGE);
+		return getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
 	}
 
 	public String getQualifiedJavaClassName() {
@@ -58,27 +59,27 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getSuperclassName() {
-		return getProperty(NewJavaClassDataModel.SUPERCLASS);
+		return getProperty(INewJavaClassDataModelProperties.SUPERCLASS);
 	}
 
 	public String getServletName() {
-		return getProperty(NewJavaClassDataModel.CLASS_NAME);
+		return getProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 	}
 
 	public boolean isPublic() {
-		return this.dataModel.getBooleanProperty(NewJavaClassDataModel.MODIFIER_PUBLIC);
+		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC);
 	}
 
 	public boolean isFinal() {
-		return this.dataModel.getBooleanProperty(NewJavaClassDataModel.MODIFIER_FINAL);
+		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL);
 	}
 
 	public boolean isAbstract() {
-		return this.dataModel.getBooleanProperty(NewJavaClassDataModel.MODIFIER_ABSTRACT);
+		return dataModel.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT);
 	}
 
 	protected String getProperty(String propertyName) {
-		return this.dataModel.getStringProperty(propertyName);
+		return dataModel.getStringProperty(propertyName);
 	}
 
 	public boolean shouldGenInit() {
@@ -114,7 +115,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public List getInitParams() {
-		return (List) dataModel.getProperty(NewServletClassDataModel.INIT_PARAM);
+		return (List) dataModel.getProperty(INewServletClassDataModelProperties.INIT_PARAM);
 	}
 
 	public String getInitParam(int index, int type) {
@@ -127,7 +128,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public List getServletMappings() {
-		return (List) dataModel.getProperty(NewServletClassDataModel.URL_MAPPINGS);
+		return (List) dataModel.getProperty(INewServletClassDataModelProperties.URL_MAPPINGS);
 	}
 
 	public String getServletMapping(int index) {
@@ -140,30 +141,30 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getServletDescription() {
-		return dataModel.getStringProperty(NewServletClassDataModel.DESCRIPTION);
+		return dataModel.getStringProperty(INewServletClassDataModelProperties.DESCRIPTION);
 	}
 
 	public List getInterfaces() {
-		return (List) this.dataModel.getProperty(NewJavaClassDataModel.INTERFACES);
+		return (List) this.dataModel.getProperty(INewJavaClassDataModelProperties.INTERFACES);
 	}
 
 	protected boolean implementImplementedMethod(String methodName) {
 		if (methodName.equals(INIT))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.INIT);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.INIT);
 		else if (methodName.equals(TO_STRING))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.TO_STRING);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.TO_STRING);
 		else if (methodName.equals(GET_SERVLET_INFO))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.GET_SERVLET_INFO);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.GET_SERVLET_INFO);
 		else if (methodName.equals(DO_POST))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_POST);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_POST);
 		else if (methodName.equals(DO_PUT))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_PUT);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_PUT);
 		else if (methodName.equals(DO_DELETE))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_DELETE);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_DELETE);
 		else if (methodName.equals(DESTROY))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.DESTROY);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DESTROY);
 		else if (methodName.equals(DO_GET))
-			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_GET);
+			return dataModel.getBooleanProperty(INewServletClassDataModelProperties.DO_GET);
 		else
 			return false;
 	}

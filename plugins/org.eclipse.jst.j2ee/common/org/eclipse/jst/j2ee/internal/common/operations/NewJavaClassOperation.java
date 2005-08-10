@@ -13,14 +13,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.Flags;
@@ -34,17 +37,17 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
- * NewJavaClassOperation is a WTP operation that is used to create a default instance of a new java class
- * based on the input and properties set in the NewJavaClassDataModel.  
- * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel
+ * NewJavaClassOperation is a data model operation that is used to create a default instance of a new java class
+ * based on the input and properties set in the NewJavaClassDataModelProvider.  
+ * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider
  * 
- * It is a subclass of WTPOperation and clients can invoke this operation as is or it may be subclassed to
+ * It is a subclass of ArtifactEditProviderOperation and clients can invoke this operation as is or it may be subclassed to
  * add additional or modify behaviour.  The execute() method can be extended to drive this behaviour.
- * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperation
+ * @see org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation
  * 
  * The new java class is generated through the use of adding a series of static tokens defined within to
  * an ongoing string buffer.
@@ -53,7 +56,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * 
  * This needs to be removed as it is legacy inherited from another team
  */
-public class NewJavaClassOperation extends WTPOperation {
+public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 
 	// Tokens for string buffer creation of default java class
 	protected static final String EMPTY_STRING = ""; //$NON-NLS-1$
@@ -100,12 +103,12 @@ public class NewJavaClassOperation extends WTPOperation {
 	/**
 	 * This is a NewJavaClassOperation constructor.  Data models passed in should be instances
 	 * of NewJavaClassDataModel.  This method does not accept null.  It will not return null.
-	 * @see NewJavaClassDataModel
+	 * @see NewJavaClassDataModelProvider
 	 * 
 	 * @param dataModel
 	 * @return NewJavaClassOperation
 	 */
-	public NewJavaClassOperation(WTPOperationDataModel dataModel) {
+	public NewJavaClassOperation(IDataModel dataModel) {
 		super(dataModel);
 		importStatements = new ArrayList();
 	}
@@ -115,34 +118,34 @@ public class NewJavaClassOperation extends WTPOperation {
 	 * The implementation of the execute method drives the running of the operation.  This
 	 * method will create the source folder, the java package, and then create the java file.
 	 * This method will accept null.
-	 * @see WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 * 
 	 * @param monitor ProgressMonitor
 	 * @throws CoreException
 	 * @throws InterruptedException
 	 * @throws InvocationTargetException
 	 */
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// Ensure source folder exists
 		IFolder sourceFolder = createJavaSourceFolder();
 		// Ensure java package exists
 		IPackageFragment pack = createJavaPackage();
 		// Create java class
 		createJavaFile(sourceFolder, pack);
+		return OK_STATUS;
 	}
 
 	/**
 	 * This method will return the java source folder as specified in the java class data model. 
 	 * It will create the java source folder if it does not exist.  This method may return null.
-	 * @see NewJavaClassDataModel#SOURCE_FOLDER
+	 * @see INewJavaClassDataModelProperties#SOURCE_FOLDER
 	 * @see IFolder#create(boolean, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 * 
 	 * @return IFolder the java source folder
 	 */
 	protected final IFolder createJavaSourceFolder() {
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Get the source folder name from the data model
-		String folderFullPath = model.getStringProperty(NewJavaClassDataModel.SOURCE_FOLDER);
+		String folderFullPath = model.getStringProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFolder folder = root.getFolder(new Path(folderFullPath));
 		// If folder does not exist, create the folder with the specified path
@@ -161,16 +164,15 @@ public class NewJavaClassOperation extends WTPOperation {
 	 * This method will return the java package as specified by the new java class data model.
 	 * If the package does not exist, it will create the package.  This method should not return
 	 * null.
-	 * @see NewJavaClassDataModel#JAVA_PACKAGE
+	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
 	 * @see IPackageFragmentRoot#createPackageFragment(java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
 	 * 
 	 * @return IPackageFragment the java package
 	 */
 	protected final IPackageFragment createJavaPackage() {
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Retrieve the package name from the java class data model
-		String packageName = model.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE);
-		IPackageFragmentRoot packRoot = model.getJavaPackageFragmentRoot();
+		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
+		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
 		IPackageFragment pack = packRoot.getPackageFragment(packageName);
 		// Handle default package
 		if (pack == null) {
@@ -196,17 +198,16 @@ public class NewJavaClassOperation extends WTPOperation {
 	 * built up using a string buffer.  The method getJavaFileContent will handle the building
 	 * of the string buffer while this method will write those contents to the file.
 	 * This method does not accept null parameters.
-	 * @see NewJavaClassDataModel#CLASS_NAME
+	 * @see INewJavaClassDataModelProperties#CLASS_NAME
 	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
 	 * 
 	 * @param sourceFolder
 	 * @param pack
 	 */
 	protected void createJavaFile(IFolder sourceFolder, IPackageFragment pack) {
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Retrieve properties from the java class data model
-		String packageName = model.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE);
-		String className = model.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
+		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
+		String className = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 		String fileName = className + ".java"; //$NON-NLS-1$
 		//ICompilationUnit cu = null;
 		try {
@@ -235,7 +236,7 @@ public class NewJavaClassOperation extends WTPOperation {
 	 * This is intended for internal use only.  This is where the string buffer for the contents
 	 * of the java file is built up using the properties in the data model and the predefined tokens.
 	 * This method will not accept null parameters. It will not return null.
-	 * @see NewJavaClassDataModel
+	 * @see NewJavaClassDataModelProvider
 	 * @see NewJavaClassOperation#createJavaFile(IFolder, IPackageFragment)
 	 * 
 	 * @param pack
@@ -243,10 +244,9 @@ public class NewJavaClassOperation extends WTPOperation {
 	 * @return String java file contents
 	 */
 	private String getJavaFileContent(IPackageFragment pack, String className) {
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Create the superclass name
-		String superclassName = model.getStringProperty(NewJavaClassDataModel.SUPERCLASS);
-		List interfaces = (List) model.getProperty(NewJavaClassDataModel.INTERFACES);
+		String superclassName = model.getStringProperty(INewJavaClassDataModelProperties.SUPERCLASS);
+		List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
 		String packageStatement = getPackageStatement(pack);
 		// Create the import statements
 		setupImportStatements(pack, superclassName, interfaces);
@@ -358,13 +358,12 @@ public class NewJavaClassOperation extends WTPOperation {
 	 */
 	private String getClassDeclaration(String superclassName, String className, List interfaces) {
 		StringBuffer sb = new StringBuffer();
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		// Append appropriate modifiers
-		if (model.getBooleanProperty(NewJavaClassDataModel.MODIFIER_PUBLIC))
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC))
 			sb.append(PUBLIC);
-		if (model.getBooleanProperty(NewJavaClassDataModel.MODIFIER_ABSTRACT))
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT))
 			sb.append(ABSTRACT);
-		if (model.getBooleanProperty(NewJavaClassDataModel.MODIFIER_FINAL))
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL))
 			sb.append(FINAL);
 		// Add the class token 
 		sb.append(CLASS);
@@ -422,10 +421,8 @@ public class NewJavaClassOperation extends WTPOperation {
 	 */
 	private String getMethodStubs(String superclassName, String className) {
 		StringBuffer sb = new StringBuffer();
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
-		IProject project = model.getTargetProject();
-		IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
-		if (model.getBooleanProperty(NewJavaClassDataModel.MAIN_METHOD)) {
+		IJavaProject javaProj = JemProjectUtilities.getJavaProject(getTargetProject());
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD)) {
 			// Add main method
 			sb.append(MAIN_METHOD);
 			sb.append(lineSeparator);
@@ -437,7 +434,7 @@ public class NewJavaClassOperation extends WTPOperation {
 		}
 
 		IType superClassType = null;
-		if (model.getBooleanProperty(NewJavaClassDataModel.CONSTRUCTOR) || model.getBooleanProperty(NewJavaClassDataModel.ABSTRACT_METHODS)) {
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR) || model.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS)) {
 			// Find super class type
 			try {
 				superClassType = javaProj.findType(superclassName);
@@ -445,7 +442,7 @@ public class NewJavaClassOperation extends WTPOperation {
 				Logger.getLogger().log(e);
 			}
 		}
-		if (model.getBooleanProperty(NewJavaClassDataModel.CONSTRUCTOR)) {
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.CONSTRUCTOR)) {
 			// Implement constructors from superclass
 			try {
 				if (superClassType != null) {
@@ -462,7 +459,7 @@ public class NewJavaClassOperation extends WTPOperation {
 			}
 		}
 		// Add unimplemented methods defined in the interfaces list
-		if (model.getBooleanProperty(NewJavaClassDataModel.ABSTRACT_METHODS) && superClassType != null) {
+		if (model.getBooleanProperty(INewJavaClassDataModelProperties.ABSTRACT_METHODS) && superClassType != null) {
 			String methodStub = getUnimplementedMethodsFromSuperclass(superClassType, className);
 			if (methodStub != null && methodStub.trim().length() > 0)
 				sb.append(methodStub);
@@ -524,10 +521,9 @@ public class NewJavaClassOperation extends WTPOperation {
 	 */
 	private String getUnimplementedMethodsFromInterfaces(IType superClassType, String className, IJavaProject javaProj) {
 		StringBuffer sb = new StringBuffer();
-		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		try {
 			// Implement defined methods from interfaces
-			List interfaces = (List) model.getProperty(NewJavaClassDataModel.INTERFACES);
+			List interfaces = (List) model.getProperty(INewJavaClassDataModelProperties.INTERFACES);
 			if (interfaces != null) {
 				for (int i = 0; i < interfaces.size(); i++) {
 					String qualifiedClassName = (String) interfaces.get(i);

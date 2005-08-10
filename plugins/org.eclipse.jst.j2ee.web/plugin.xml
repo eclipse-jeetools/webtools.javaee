@@ -540,6 +540,9 @@
      	<ProviderDefinesType
       		providerType="jst.web.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+		<DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider"/>
 	</extension>
 	
   <extension point="org.eclipse.jdt.core.classpathContainerInitializer">

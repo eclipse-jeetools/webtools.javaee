@@ -16,18 +16,18 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
 /**
  * @author jlanuti
  */
-public abstract class NewWebWizard extends WTPWizard implements INewWizard {
+public abstract class NewWebWizard extends DataModelWizard implements INewWizard {
 
 	/**
 	 * @param model
 	 */
-	public NewWebWizard(WTPOperationDataModel model) {
+	public NewWebWizard(IDataModel model) {
 		super(model);
 	}
 
@@ -45,7 +45,7 @@ public abstract class NewWebWizard extends WTPWizard implements INewWizard {
 	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		createDefaultModel();
+		getDataModel();
 	}
 
 	protected IStructuredSelection getCurrentSelection() {
