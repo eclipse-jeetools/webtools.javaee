@@ -7,20 +7,23 @@
 package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 
 import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
-import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
+import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
-import org.eclipse.wst.common.tests.ProjectUtility;
-import org.eclipse.wst.common.tests.SimpleTestSuite;
 
 /**
  * @author jialin
@@ -29,64 +32,68 @@ import org.eclipse.wst.common.tests.SimpleTestSuite;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class AddServletOperationTest extends OperationTestCase {
-    public static String WEB_PROJECT_NAME = "WebProject";
-    public static String SERVLET_NAME = "Servlet1";
+    public static String WEB_PROJECT_NAME = "WebProject"; //$NON-NLS-1$
+    public static String SERVLET_NAME = "Servlet1"; //$NON-NLS-1$
 
     private IDataModel webComponentDataModel;
-	private NewServletClassDataModel servletDataModel;
+	private IDataModel servletDataModel;
     
     /**
 	 * @param name
 	 */
 	public AddServletOperationTest(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * 
+	 * Default constructor
 	 */
 	public AddServletOperationTest() {
-		
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public static Test suite() {
-        return new SimpleTestSuite(AddServletOperationTest.class);
+        return new TestSuite(AddServletOperationTest.class);
     }
 
     public void testAddServlet() throws Exception {
     	createWebProject(WEB_PROJECT_NAME);
-    	WebApp webApp = getWebApp();
-    	addServlet(WEB_PROJECT_NAME, SERVLET_NAME);
-    	if (webApp != null){
-    		Servlet servlet = webApp.getServletNamed(SERVLET_NAME);
-			//TODO need to get the 
-    		//addInitParams(servlet,WEB_PROJECT_NAME);
+    	WebArtifactEdit webEdit = null;
+    	ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(WEB_PROJECT_NAME), WEB_PROJECT_NAME);
+    	try {
+    		webEdit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+    		WebApp webApp = webEdit.getWebApp();
+        	addServlet(WEB_PROJECT_NAME, SERVLET_NAME);
+        	if (webApp != null){
+        		Servlet servlet = webApp.getServletNamed(SERVLET_NAME);
+        		assertNotNull(servlet);
+    			//TODO need to get the 
+        		//addInitParams(servlet,WEB_PROJECT_NAME);
+        	}
+    	} finally {
+    		if (webEdit != null)
+    			webEdit.dispose();
     	}
+    	
     }
     
     public void createWebProject(String projectName) throws Exception {
     	webComponentDataModel = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-    	webComponentDataModel.setProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
-        runAndVerify(webComponentDataModel);
+    	webComponentDataModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, projectName);
+    	webComponentDataModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, projectName);
+    	runAndVerify(webComponentDataModel);
     }
     /**
      * @param projectName
      * @param servletName
      */
     public void addServlet(String projectName, String servletName) throws Exception {
-    	servletDataModel = new NewServletClassDataModel();
-    	servletDataModel.setProperty(NewServletClassDataModel.PROJECT_NAME, projectName);
-    	servletDataModel.setProperty(NewServletClassDataModel.DISPLAY_NAME, servletName);
-		
-        NewServletClassDataModel nestedModel = new NewServletClassDataModel();
-        servletDataModel.addNestedModel("NewServletClassDataModel", nestedModel); //$NON-NLS-1$
-		nestedModel.setProperty(NewServletClassDataModel.PROJECT_NAME, projectName);
-		nestedModel.setProperty(NewServletClassDataModel.CLASS_NAME, servletName);
-		nestedModel.setProperty(NewServletClassDataModel.SUPERCLASS, NewServletClassDataModel.SUPERCLASS);
-		nestedModel.setProperty(NewServletClassDataModel.INTERFACES, 
-				servletDataModel.getServletInterfaces());
+    	servletDataModel = DataModelFactory.createDataModel(NewServletClassDataModelProvider.class);
+    	servletDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, projectName);
+    	servletDataModel.setProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME, projectName);
+    	servletDataModel.setProperty(INewServletClassDataModelProperties.DISPLAY_NAME, servletName);
+    	servletDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, servletName);
+    	servletDataModel.setBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS,false);
         runAndVerify(servletDataModel);
     }
 	
@@ -105,18 +112,5 @@ public class AddServletOperationTest extends OperationTestCase {
 //        runAndVerify(initParamDataModel);
 //    }
     
-    protected WebApp getWebApp() {
-    	IProject webProject = null;
-    	if (servletDataModel != null){
-    		webProject = servletDataModel.getTargetProject();
-    	}
-    	else{
-    		webProject = ProjectUtility.getProject(WEB_PROJECT_NAME);
-    	}
-        J2EEWebNatureRuntime nature = (J2EEWebNatureRuntime)J2EENature.getRegisteredRuntime(webProject);
-
-        if (nature != null)
-        	return nature.getWebApp();
-    	return null;
-    }
+    
 }

@@ -12,14 +12,21 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
-import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -32,11 +39,10 @@ import org.eclipse.wst.common.tests.TaskViewUtility;
  * Preferences - Java - Code Generation - Code and Comments
  */
 public class WebProjectCreationTomcatTest extends TestCase {
-    protected String projectName = null;
-
+    
     public void createSimpleProject(String projectName) throws Exception {
         IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleProjectCreationDataModelProvider());
-        dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.PROJECT_NAME, projectName);
+        dataModel.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, projectName);
         setServerTargetProperty(dataModel);
         dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
     }
@@ -48,19 +54,14 @@ public class WebProjectCreationTomcatTest extends TestCase {
         dataModel.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, AllTomcatTests.TOMCAT_RUNTIME.getId());
     }
 
-    public static void createServlet(NewServletClassDataModel model) throws Exception {
-        // TODO fix up the create servlet operation
-        /*
-         * AddServletOperation op = new AddServletOperation(model);
-         * op.run(null);
-         * ProjectUtility.verifyProject(model.getTargetProject().getName(),
-         * true); TaskViewUtility.verifyNoErrors();
-         */
-
+    public static void createServlet(IDataModel model) throws Exception {
+         AddServletOperation op = new AddServletOperation(model);
+         op.execute(null,null);
+         ProjectUtility.verifyProject(op.getTargetProject().getName(), true); 
+         TaskViewUtility.verifyNoErrors();
     }
 
-    public IDataModel setupStandaloneWebProject(String aProjectName, int j2eeVersion) throws Exception {
-        projectName = aProjectName;
+    public IDataModel setupStandaloneWebProject(String projectName, int j2eeVersion) throws Exception {
         createSimpleProject(projectName);
         IDataModel model = getWebComponentCreationDataModel(projectName, j2eeVersion);
         createStandaloneWebProject(model);
@@ -68,8 +69,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
         return model;
     }
 
-    public IDataModel setupStandaloneAnnotatedWebProject(String aProjectName, int j2eeVersion) throws Exception {
-        projectName = aProjectName;
+    public IDataModel setupStandaloneAnnotatedWebProject(String projectName, int j2eeVersion) throws Exception {
         createSimpleProject(projectName);
 
         IDataModel model = getWebComponentCreationDataModel(projectName, j2eeVersion);
@@ -86,16 +86,15 @@ public class WebProjectCreationTomcatTest extends TestCase {
         TaskViewUtility.verifyNoErrors();
     }
     
-    private IDataModel getWebComponentCreationDataModel(String aProjectName, int j2eeVersion) {
-        projectName = aProjectName;
-        IProject javaProject = ProjectUtility.getProject(aProjectName);
-        String moduleName = aProjectName + "WebModule";
-        String moduleDeployName = moduleName + ".war";
+    private IDataModel getWebComponentCreationDataModel(String projectName, int j2eeVersion) {
+        IProject javaProject = ProjectUtility.getProject(projectName);
+        String moduleName = projectName + "WebModule"; //$NON-NLS-1$
+        String moduleDeployName = moduleName + ".war"; //$NON-NLS-1$
         IDataModel model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-        model.setProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME, javaProject.getName());
-        model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-        model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, moduleName);
-        model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME, moduleDeployName);
+        model.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, javaProject.getName());
+        model.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
+        model.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, moduleName);
+        model.setProperty(IComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME, moduleDeployName);
         return model;
     }
 
@@ -103,7 +102,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * @throws Exception
      */
     private void createServlet(String projectName) throws Exception {
-        NewServletClassDataModel servletModel = setupServletCreationDataModel(projectName);
+        IDataModel servletModel = setupServletCreationDataModel(projectName, false);
         createServlet(servletModel);
     }
 
@@ -111,25 +110,17 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * @throws Exception
      */
     private void createAnnotatedServlet(String projectName) throws Exception {
-        NewServletClassDataModel servletModel = setupAnnotatedServletCreationDataModel(projectName);
+        IDataModel servletModel = setupServletCreationDataModel(projectName, true);
         createServlet(servletModel);
     }
 
-    public NewServletClassDataModel setupAnnotatedServletCreationDataModel(String projectName) {
-        NewServletClassDataModel servletDataModel = new NewServletClassDataModel();
-        servletDataModel.setProperty(NewServletClassDataModel.PROJECT_NAME, projectName);
-        servletDataModel.setProperty(NewServletClassDataModel.CLASS_NAME, "FooServlet");
-        servletDataModel.setProperty(NewServletClassDataModel.DISPLAY_NAME, "FooServlet");
-        servletDataModel.setBooleanProperty(NewServletClassDataModel.USE_ANNOTATIONS, true);
-        return servletDataModel;
-    }
-
-    public NewServletClassDataModel setupServletCreationDataModel(String projectName) {
-        NewServletClassDataModel servletDataModel = new NewServletClassDataModel();
-        servletDataModel.setProperty(NewServletClassDataModel.PROJECT_NAME, projectName);
-        servletDataModel.setProperty(NewServletClassDataModel.CLASS_NAME, "FooServlet");
-        servletDataModel.setProperty(NewServletClassDataModel.DISPLAY_NAME, "FooServlet");
-        servletDataModel.setBooleanProperty(NewServletClassDataModel.USE_ANNOTATIONS, false);
+    public IDataModel setupServletCreationDataModel(String projectName, boolean isAnnotated) {
+    	IDataModel servletDataModel = DataModelFactory.createDataModel(NewServletClassDataModelProvider.class);
+        servletDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, projectName);
+        servletDataModel.setProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME, projectName);
+        servletDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "FooServlet"); //$NON-NLS-1$
+        servletDataModel.setProperty(INewServletClassDataModelProperties.DISPLAY_NAME, "FooServlet"); //$NON-NLS-1$
+        servletDataModel.setBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS, isAnnotated);
         return servletDataModel;
     }
 
@@ -166,7 +157,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
 
     public void testVaild12WebProjectNameCreation() throws Exception {
         ProjectUtility.deleteAllProjects();
-        createVaildProjectAndServletCreation("FooTomcatWebProject12", J2EEVersionConstants.WEB_2_2_ID);
+        createVaildProjectAndServletCreation("FooTomcatWebProject12", J2EEVersionConstants.WEB_2_2_ID); //$NON-NLS-1$
     }
 
     /*
@@ -179,7 +170,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
 
     public void testVaild13WebProjectNameCreation() throws Exception {
         ProjectUtility.deleteAllProjects();
-        createVaildProjectAndServletCreation("Foo1TomcatWebProject13", J2EEVersionConstants.WEB_2_3_ID);
+        createVaildProjectAndServletCreation("Foo1TomcatWebProject13", J2EEVersionConstants.WEB_2_3_ID); //$NON-NLS-1$
     }
 
     /*
@@ -192,7 +183,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
 
     public void testVaild14WebProjectNameCreation() throws Exception {
         ProjectUtility.deleteAllProjects();
-        createVaildProjectAndServletCreation("Foo1TomcatWebProject14", J2EEVersionConstants.WEB_2_4_ID);
+        createVaildProjectAndServletCreation("Foo1TomcatWebProject14", J2EEVersionConstants.WEB_2_4_ID); //$NON-NLS-1$
     }
 
     /*
