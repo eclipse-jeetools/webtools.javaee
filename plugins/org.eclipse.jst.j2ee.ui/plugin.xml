@@ -632,15 +632,6 @@
    </extension>	
 
    <extension
-         point="org.eclipse.jem.util.uiContextSensitiveClass">
-      <uiContextSensitiveClass
-            context="UI"
-            key="rendererFactory"
-            className="org.eclipse.jst.j2ee.internal.emf2xml.sed.EMF2DOMSedRendererFactory">
-      </uiContextSensitiveClass>
-   </extension>
-
-   <extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
           <!-- EAR New -->
           <commonWizard
