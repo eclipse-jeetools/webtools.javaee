@@ -108,7 +108,7 @@ public class AnnotationTagRegistry {
 			// search for already existing tag spec with same name and same tag set name
 			for (int i=0; i<this.size(); i++) {
 				TagSpec tagSpec = (TagSpec) get(i);
-				if (tagSpec.getTagName().equals(newTagSpec.getTagName())) {
+				if (tagSpec.getTagName().equals(newTagSpec.getTagName()) && tagSpec.getScope() == newTagSpec.getScope()) {
 					remove(tagSpec);
 					removeScope(tagSpec);
 				}	
