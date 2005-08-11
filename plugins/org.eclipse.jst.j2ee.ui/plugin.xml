@@ -587,7 +587,8 @@
          </enablement> 
 		</renameParticipant>
 	</extension>
-	<extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
+	
+<!--	<extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
 	  
 		<renameParticipant
 				class="org.eclipse.jst.j2ee.internal.actions.J2EEComponentRenameParticipant"
@@ -607,7 +608,7 @@
             </with>
          </enablement> 
 		</renameParticipant>
-	</extension>
+	</extension> -->
 	
   <extension
          point="org.eclipse.ui.perspectives">
