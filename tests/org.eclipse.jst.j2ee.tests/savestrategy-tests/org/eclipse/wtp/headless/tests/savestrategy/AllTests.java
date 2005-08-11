@@ -30,6 +30,7 @@ public class AllTests extends TestSuite {
 		addTest(new SimpleTestSuite(AppClientImportOperationTest.class));
 		addTest(new SimpleTestSuite(EJBImportOperationTest.class));
 		addTest(new SimpleTestSuite(WebImportOperationTest.class));
+		addTest(new SimpleTestSuite(ThreadingTest.class));
 	}
 
 }
