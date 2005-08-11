@@ -55,7 +55,7 @@ public class ComponentUtilities {
 	/**
 	 * Retrieve all the source containers for a given virtual workbench component
 	 * 
-	 * @param wc
+	 * @param vc
 	 * @return the array of IPackageFragmentRoots
 	 */
 	public static IPackageFragmentRoot[] getSourceContainers(IVirtualComponent vc) {
@@ -83,6 +83,28 @@ public class ComponentUtilities {
 		}
 
 		return (IPackageFragmentRoot[]) list.toArray(new IPackageFragmentRoot[list.size()]);
+	}
+	
+	/**
+	 * Retrieve all the output containers for a given virtual component.
+	 * 
+	 * @param vc
+	 * @return array of IContainers for the output folders
+	 */
+	public static IContainer[] getOutputContainers(IVirtualComponent vc) {
+		IPackageFragmentRoot[] sourceContainers = getSourceContainers(vc);
+		List result = new ArrayList();
+		for (int i=0; i<sourceContainers.length; i++) {
+			try {
+				IPath outputPath = sourceContainers[i].getRawClasspathEntry().getOutputLocation();
+				IFolder outputFolder = vc.getProject().getFolder(outputPath);
+				if (outputFolder != null)
+					result.add(outputFolder);
+			} catch (Exception e) {
+				continue;
+			}
+		}
+		return (IContainer[]) result.toArray(new IContainer[result.size()]);
 	}
 
 	/**
