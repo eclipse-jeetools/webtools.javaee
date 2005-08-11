@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IExpression.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/10 15:47:18 $ 
+ *  $Revision: 1.7 $  $Date: 2005/08/11 21:00:31 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -251,6 +251,10 @@ public interface IExpression extends IExpressionConstants {
 	 * This must be followed by createExpressions for:
 	 * 	argumentCount times an: <code>CLASSINSTANCECREATION_ARGUMENT</code>
 	 * 
+	 * <p>
+	 * <b>Note:</b> This method can throw {@link org.eclipse.jem.internal.proxy.common.UnresolvedCompilationError} while processing
+	 * and can be caught by an Expression try/catch. This is not thrown such that it can be caught by a real java try/catch.
+	 * 
 	 * @param forExpression
 	 * @param type This is the type. It must be fully-qualified and if an inner class, it must have the "$" format.
 	 * @param argumentCount
@@ -265,6 +269,10 @@ public interface IExpression extends IExpressionConstants {
 	 * <p>
 	 * This must be followed by createExpressions for:
 	 * 	argumentCount times an: <code>CLASSINSTANCECREATION_ARGUMENT</code>
+	 * 
+	 * <p>
+	 * <b>Note:</b> This method can throw {@link org.eclipse.jem.internal.proxy.common.UnresolvedCompilationError} while processing
+	 * and can be caught by an Expression try/catch. This is not thrown such that it can be caught by a real java try/catch.
 	 * 
 	 * @param forExpression
 	 * @param type This is the type.

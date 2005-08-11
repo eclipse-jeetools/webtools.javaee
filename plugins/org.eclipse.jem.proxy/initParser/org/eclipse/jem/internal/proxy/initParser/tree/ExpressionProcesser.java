@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.19 $  $Date: 2005/08/10 15:47:18 $ 
+ *  $Revision: 1.20 $  $Date: 2005/08/11 21:00:31 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -19,8 +19,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
-import org.eclipse.jem.internal.proxy.common.MethodHelper;
+import org.eclipse.jem.internal.proxy.common.*;
 import org.eclipse.jem.internal.proxy.initParser.InitializationStringEvaluationException;
 import org.eclipse.jem.internal.proxy.initParser.InitializationStringParser;
  
@@ -2483,6 +2482,12 @@ public class ExpressionProcesser {
 				processException(e);
 			} catch (LinkageError e) {
 				processException(e);
+			} catch (Error e) {
+				if (e.getClass() == Error.class) {
+					// If exactly Error.class, then process it. This is hopefully just a "unresolved compilation error".
+					processException(new UnresolvedCompilationError(e));
+				} else
+					throw e;	// All subclasses we throw on out.
 			}
 		} finally {
 			if (traceOn)
