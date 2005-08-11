@@ -109,11 +109,12 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
-		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
 		Combo serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
+		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);

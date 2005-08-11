@@ -247,7 +247,7 @@ public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationData
 	 */
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
-		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
 		serverTargetText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 //		serverTargetText..addSelectionListener(new SelectionAdapter() {
 //			public void widgetSelected(SelectionEvent e) {

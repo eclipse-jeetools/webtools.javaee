@@ -75,7 +75,7 @@ public class ServerTargetGroup implements IJ2EEProjectServerTargetDataModelPrope
 	 */
 	private void createServerTargetGroup(Composite parent) {
 		Label serverTargetLabel = new Label(parent, SWT.NONE);
-		serverTargetLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+		serverTargetLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
 		GridData data = new GridData();
 		serverTargetLabel.setLayoutData(data);
 

@@ -19,7 +19,7 @@ public class J2EEUIMessages extends Messages {
 	private static final J2EEUIMessages INSTANCE = new J2EEUIMessages();
 
 	public static final String PROJECT_LOC_LBL = "1"; //$NON-NLS-1$
-	public static final String TARGET_SERVER_LBL = "2"; //$NON-NLS-1$
+	public static final String TARGET_RUNTIME_LBL = "2"; //$NON-NLS-1$
 	public static final String J2EE_VERSION_LBL = "3"; //$NON-NLS-1$
 	public static final String IMAGE_LOAD_ERROR = "4"; //$NON-NLS-1$
 	public static final String APP_PROJECT_WIZ_TITLE = "5"; //$NON-NLS-1$

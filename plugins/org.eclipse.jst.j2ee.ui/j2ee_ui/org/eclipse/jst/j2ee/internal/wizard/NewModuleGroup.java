@@ -241,7 +241,7 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 	 */
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
-		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
 		serverTargetText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetText.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 		new Label(parent, SWT.NONE);

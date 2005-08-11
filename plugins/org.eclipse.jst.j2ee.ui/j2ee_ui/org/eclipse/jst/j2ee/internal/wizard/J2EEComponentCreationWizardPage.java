@@ -290,7 +290,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 
     protected void createServerTargetComposite(Composite parent) {
         Label label = new Label(parent, SWT.NONE);
-        label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
+        label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
         serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
         serverTargetCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         Button newServerTargetButton = new Button(parent, SWT.NONE);
