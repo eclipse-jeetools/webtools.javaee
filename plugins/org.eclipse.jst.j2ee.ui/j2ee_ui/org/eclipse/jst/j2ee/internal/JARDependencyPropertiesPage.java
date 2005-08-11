@@ -14,12 +14,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.jar.Manifest;
 
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
@@ -62,6 +64,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 
@@ -410,7 +413,8 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
     public void refreshText() {
 		ClassPathSelection sel = model.getClassPathSelection();
-		classPathText.setText(sel == null ? "" : sel.toString()); //$NON-NLS-1$
+		if( sel != null )
+			classPathText.setText(sel == null ? "" : sel.toString()); //$NON-NLS-1$
 	}
 
     /**
@@ -495,9 +499,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		for (int i = 0; i < selected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) selected.get(i);
 			IProject elementProject = element.getProject();
-			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
-			IVirtualComponent targetComp = flexProject.getComponents()[0];
-			targetComponentsHandles.add(targetComp.getComponentHandle());
+			if( elementProject != null ){
+				IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
+				IVirtualComponent targetComp = flexProject.getComponents()[0];
+				targetComponentsHandles.add(targetComp.getComponentHandle());
+			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
@@ -507,10 +513,26 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		for (int i = 0; i < unselected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) unselected.get(i);
 			IProject elementProject = element.getProject();
-			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
-			if (flexProject.getComponents().length > 0) {
-				IVirtualComponent targetComp = flexProject.getComponents()[0];
-				targetComponentsHandles.add(targetComp.getComponentHandle());
+			if( elementProject != null ){
+				IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
+				if (flexProject.getComponents().length > 0) {
+					IVirtualComponent targetComp = flexProject.getComponents()[0];
+					targetComponentsHandles.add(targetComp.getComponentHandle());
+				}
+			}else{
+				URI archiveURI = element.getArchiveURI();
+				if( archiveURI != null && !archiveURI.equals("") ){
+					//the name is toString returned from ComponentHandle [<project name>]:lib/... or 
+					//[<project name>]:var/...
+					String name = "";
+					int index = archiveURI.toString().lastIndexOf("]");
+					name = archiveURI.toString().substring(archiveURI.toString().lastIndexOf("]") +2);
+					if( !name.equals("")){
+						IVirtualReference ref = model.getComponent().getReference(name);
+						IVirtualComponent referenced = ref.getReferencedComponent();
+						targetComponentsHandles.add(referenced.getComponentHandle());
+					}	
+				}
 			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
@@ -528,7 +550,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			for (int i = 0; i < elements.length; i++) {
 				ClasspathElement element = (ClasspathElement) elements[i];
 				IProject elementProject = element.getProject();
-				if (!elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+				if ( elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 					if(composedOp == null)
 						composedOp = new WorkspaceModifyComposedOperation();
 					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createFlexJavaProjectForProjectOperation(elementProject)));

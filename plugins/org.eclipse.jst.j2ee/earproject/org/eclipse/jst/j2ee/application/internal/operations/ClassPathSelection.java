@@ -154,7 +154,7 @@ public class ClassPathSelection {
 	}
 	
 	
-	protected ClasspathElement createArchiveElement(URI uri, String name, String cpEntry) {
+	public ClasspathElement createArchiveElement(URI uri, String name, String cpEntry) {
 		ClasspathElement element = new ClasspathElement(uri);
 		element.setValid(false);
 		element.setRelativeText(name);
@@ -512,7 +512,7 @@ public class ClassPathSelection {
 		return result;
 	}
 
-	protected void addClasspathElement(ClasspathElement element, String uri) {
+	public void addClasspathElement(ClasspathElement element, String uri) {
 		getClasspathElements().add(element);
 		getUrisToElements().put(uri, element);
 		element.setParentSelection(this);

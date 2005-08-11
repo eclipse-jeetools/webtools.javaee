@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -23,8 +24,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
@@ -43,9 +46,12 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
@@ -600,10 +606,78 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				classPathWLPSelection.createProjectElement(utilProject, existingEntry);
 				classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
 			}
+			
+			if( component != null && component.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)){
+				IVirtualReference[] newrefs = component.getReferences();
+				for( int i=0; i < newrefs.length; i++){
+					IVirtualReference ref = newrefs[i];
+					IVirtualComponent referencedComponent = ref.getReferencedComponent();
+					boolean isBinary = referencedComponent.isBinary();
+					if( isBinary ){
+						String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+						String unresolvedURI = "";
+						try {
+							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(referencedComponent.getComponentHandle().toString()));
+						} catch (UnresolveableURIException e) {
+							e.printStackTrace();
+						}
+						URI archiveURI = URI.createURI(unresolvedURI);	
+						
+						boolean  alreadyInList = false;
+						Iterator iter = classPathWLPSelection.getClasspathElements().iterator();
+						while(iter.hasNext()){
+							ClasspathElement tmpelement = (ClasspathElement)iter.next();
+							if( tmpelement.getText().equals(archiveURI.lastSegment())){
+								alreadyInList = true;
+								break;
+							}
+						}
+						ClasspathElement element = null;
+						if( !alreadyInList ){
+							if( inClassPath(javaProject, archiveURI.lastSegment())){
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), archiveURI.lastSegment());
+								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
+							}
+							else
+							{
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), null);
+								classPathWLPSelection.addClasspathElement(element, unresolvedURI);							
+							}
+						}
+					}
+				}	//for
+			}	
+//			for (int j = 0; j < entry.length; j++) {
+//				IClasspathEntry eachEntry = entry[j];
+//				if (eachEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY ) {
+//					classPathWLPSelection.crcrecreateProjectElement(utilProject, existingEntry);
+//				}
+//			}			
 		} catch (CoreException e) {
 		}
 	}
 
+	boolean inClassPath(IJavaProject javaProject, String archiveName ){
+		boolean existingEntry = false;
+		IClasspathEntry[] entry = null;
+		try {
+			entry = javaProject.getRawClasspath();
+		} catch (JavaModelException e) {
+			e.printStackTrace();
+		}
+		for (int j = 0; j < entry.length; j++) {
+			IClasspathEntry eachEntry = entry[j];
+			if (eachEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY || eachEntry.getEntryKind() == IClasspathEntry.CPE_VARIABLE ) {
+				if( eachEntry.getPath().lastSegment().equals(archiveName)){
+					existingEntry = true;
+					break;
+				}
+			}
+		}
+		return existingEntry;
+	}
+	
+	
 	public boolean isWLPModel() {
 		return isWLPModel;
 	}

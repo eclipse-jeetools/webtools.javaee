@@ -190,7 +190,7 @@ public class ClasspathElement {
 			}
 			java.io.File file = new java.io.File(resourcePath);
 			if( file.exists()){
-				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(resourcePath), null, null)};
+				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(resourcePath), null, null, true)};
 			}else{
 				return new IClasspathEntry[]{JavaCore.newVariableEntry( new Path(resourcePath), null, null)};
 			}
@@ -431,6 +431,10 @@ public class ClasspathElement {
 	 */
 	public void setTargetArchive(Archive archive) {
 		targetArchive = archive;
+	}
+
+	public URI getArchiveURI() {
+		return archiveURI;
 	}
 
 }
