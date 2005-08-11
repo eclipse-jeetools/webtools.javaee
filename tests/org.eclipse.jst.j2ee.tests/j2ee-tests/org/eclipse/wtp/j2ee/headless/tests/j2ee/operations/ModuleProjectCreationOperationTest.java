@@ -3,8 +3,14 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
@@ -43,6 +49,14 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     
     public void testDefaults() throws Exception {
         createSimpleModule(DEFAULT_COMPONENT_NAME + componentSeed);
+    }
+    
+    public void testOutputContainer() throws Exception {
+    	createSimpleModule(DEFAULT_COMPONENT_NAME + componentSeed);
+    	IProject project = ProjectUtilities.getProject(DEFAULT_COMPONENT_NAME + componentSeed);
+    	IVirtualComponent component = ComponentCore.createComponent(project,DEFAULT_COMPONENT_NAME + componentSeed);
+    	IContainer[] ouputContainers = ComponentUtilities.getOutputContainers(component);
+    	assertNotNull(ouputContainers[0]);
     }
 
 
