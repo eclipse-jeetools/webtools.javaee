@@ -10,15 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -53,4 +57,34 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		return new Path("/" + ArchiveConstants.WEBAPP_CLASSES_URI);
 	}
 
+	protected IPath getOutputPathForFile(File aFile) {
+		if (null != nonStandardSourceFiles && nonStandardSourceFiles.containsKey(aFile)) {
+			return new Path((String) nonStandardSourceFiles.get(aFile));
+		}
+		return super.getOutputPathForFile(aFile);
+	}
+
+	/**
+	 * This map handles the case when a java source file is not in the same place as the .class
+	 * file. For example if all the source files were contained in WEB-INF/source
+	 */
+	protected Map nonStandardSourceFiles;
+
+	protected boolean isClassWithoutSource(File aFile) {
+		if (!super.isClassWithoutSource(aFile)) {
+			return false;
+		}
+		File sourceFile = ((WARFile) archive).getSourceFile(aFile);
+		if (null == sourceFile) {
+			return true;
+		}
+		if (nonStandardSourceFiles == null) {
+			nonStandardSourceFiles = new HashMap();
+		}
+		if (!nonStandardSourceFiles.containsKey(nonStandardSourceFiles)) {
+			String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getURI());
+			nonStandardSourceFiles.put(sourceFile, javaUri);
+		}
+		return false;
+	}
 }
