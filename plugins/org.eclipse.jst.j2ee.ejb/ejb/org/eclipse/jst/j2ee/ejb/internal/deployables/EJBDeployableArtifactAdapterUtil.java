@@ -27,8 +27,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -191,24 +191,27 @@ public class EJBDeployableArtifactAdapterUtil {
 		return null;
 	}
 
-	protected static EJBNatureRuntime getNature(IProject project) {
-		if (project != null)
-			return EJBNatureRuntime.getRuntime(project);
-		return null;
-	}
 
 	protected static IModuleArtifact getModuleJavaObject(IFile file) {
-		EJBNatureRuntime nat = getNature(file.getProject());
-		if (nat != null) {
+
+			IVirtualComponent comp = (IVirtualComponent)file.getAdapter(IVirtualComponent.class);
+			if (comp != null) {
 			JavaClass javaClass = JemProjectUtilities.getJavaClass(file);
 			if (javaClass != null) {
-				EJBJar jar = nat.getEJBJar();
+				EJBArtifactEdit edit = null;
+				try {
+				edit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
+				EJBJar jar = edit.getEJBJar();
 				if (jar != null) {
 					EnterpriseBean ejb = jar.getEnterpriseBeanWithReference(javaClass);
-					return createModuleObject(nat.getModule(), ejb.getName(), isRemote(ejb, javaClass), isLocal(ejb, javaClass));
+					return createModuleObject(getModule(comp.getProject(), comp), ejb.getName(), isRemote(ejb, javaClass), isLocal(ejb, javaClass));
+				}
+				} finally {
+					if (edit != null)
+						edit.dispose();
 				}
 			}
-		}
+			}
 		return null;
 	}
 

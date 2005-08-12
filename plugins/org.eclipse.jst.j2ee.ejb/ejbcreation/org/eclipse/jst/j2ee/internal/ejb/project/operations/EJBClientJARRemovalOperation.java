@@ -12,10 +12,7 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -26,7 +23,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -39,7 +35,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -80,22 +75,22 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.clientjarcreation.AbstractEJBClientJAROperation#initialize()
 	 */
 	protected void initialize() {
-		super.initialize();
-		clientProject = ejbNature.getDefinedEJBClientJARProject();
-		clientProjectPath = clientProject.getFullPath();
-		ejbProjectPath = ejbProject.getFullPath();
-		sourceContainers = JemProjectUtilities.getSourceContainers(clientProject);
-		libraryContainers = JemProjectUtilities.getLibraryContainers(clientProject);
-		IJavaProject proj = JavaCore.create(clientProject);
-		try {
-			outputPath = proj.getOutputLocation().removeFirstSegments(1);
-		} catch (JavaModelException e) {
-			//Ignore
-		}
-
-		ejbSourceContainer = ejbNature.getSourceFolder();
-		ejbSourcePath = ejbSourceContainer.getFullPath();
-		initializeEARNatures();
+//		super.initialize();
+//		clientProject = ejbNature.getDefinedEJBClientJARProject();
+//		clientProjectPath = clientProject.getFullPath();
+//		ejbProjectPath = ejbProject.getFullPath();
+//		sourceContainers = JemProjectUtilities.getSourceContainers(clientProject);
+//		libraryContainers = JemProjectUtilities.getLibraryContainers(clientProject);
+//		IJavaProject proj = JavaCore.create(clientProject);
+//		try {
+//			outputPath = proj.getOutputLocation().removeFirstSegments(1);
+//		} catch (JavaModelException e) {
+//			//Ignore
+//		}
+//
+//		ejbSourceContainer = ejbNature.getSourceFolder();
+//		ejbSourcePath = ejbSourceContainer.getFullPath();
+//		initializeEARNatures();
 	}
 
 	/*
@@ -128,10 +123,10 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	}
 
 	protected void initializeEARNatures() {
-		Set natures = new HashSet();
-		natures.addAll(Arrays.asList(ejbNature.getReferencingEARProjects()));
-		natures.addAll(Arrays.asList(J2EEProjectUtilities.getReferencingEARProjects(clientProject)));
-		earNatures = (EARNatureRuntime[]) natures.toArray(new EARNatureRuntime[natures.size()]);
+//		Set natures = new HashSet();
+//		natures.addAll(Arrays.asList(ejbNature.getReferencingEARProjects()));
+//		natures.addAll(Arrays.asList(J2EEProjectUtilities.getReferencingEARProjects(clientProject)));
+//		earNatures = (EARNatureRuntime[]) natures.toArray(new EARNatureRuntime[natures.size()]);
 	}
 
 	protected void execute(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -185,7 +180,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	 * Remove the client JAR entry from the deployment descriptor
 	 */
 	private void updateDD() {
-		((EJBEditModel) editModel).getEJBJar().setEjbClientJar(null);
+//		((EJBEditModel) editModel).getEJBJar().setEjbClientJar(null);
 	}
 
 	/*

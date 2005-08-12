@@ -65,7 +65,6 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBProjectResources;
 import org.eclipse.jst.j2ee.internal.validation.AWorkbenchMOFHelper;
 import org.eclipse.jst.j2ee.internal.validation.DependencyUtil;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
@@ -165,9 +164,9 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			Iterator iterator = _projectMap.values().iterator();
 			while (iterator.hasNext()) {
 				Object value = iterator.next();
-				if (value instanceof EJBProjectResources) {
-					((EJBProjectResources) value).cleanup();
-				}
+//				if (value instanceof EJBProjectResources) {
+//					((EJBProjectResources) value).cleanup();
+//				}
 			}
 			_projectMap.clear();
 		}
@@ -686,12 +685,24 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		return JDOMSearchHelper.findType(clazz.getJavaPackage().getName(), clazz.getName(), javaProj);
 	}
 
-	private void addBeans(JavaClass clazz, EJBProjectResources res, Set tempSet) {
-		EJBJar ejbJar = res.getEJBJar();
-		if (ejbJar == null) {
-			return;
+	private void addBeans(JavaClass clazz, Set tempSet) {
+		
+		if( getComponentHandle()!= null ){
+			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			
+			try {
+				EJBJar ejbJar = ((EJBArtifactEdit) edit).getEJBJar();
+				if (ejbJar == null) {
+					return;
+				}
+				tempSet.addAll(ejbJar.getEnterpriseBeansWithReference(clazz));
+			}finally {
+				if (edit != null) {
+					edit.dispose();
+				}
+			}
 		}
-		tempSet.addAll(ejbJar.getEnterpriseBeansWithReference(clazz));
 	}
 
 	// Can't assume that the IType is in the same project as the parent class

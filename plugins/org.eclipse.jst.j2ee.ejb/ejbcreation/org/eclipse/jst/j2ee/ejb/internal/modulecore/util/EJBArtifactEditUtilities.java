@@ -43,5 +43,18 @@ public class EJBArtifactEditUtilities {
 			return (J2EEModuleWorkbenchURIConverterImpl) conv;
 		return null;
 	}
+	public static EJBJar getEJBJar(IVirtualComponent comp) {
+		EJBArtifactEdit edit = null;
+		try {
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
+			if (edit != null)
+				edit.getEJBJar();
+		} finally {
+			if (edit != null)
+				edit.dispose();
+		}
+		return null;	
+			
+	}
 }
 

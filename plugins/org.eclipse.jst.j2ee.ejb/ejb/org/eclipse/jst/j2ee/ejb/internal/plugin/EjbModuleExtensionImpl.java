@@ -17,30 +17,33 @@ package org.eclipse.jst.j2ee.ejb.internal.plugin;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModelProvider;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBPostImportOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+
 
 public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements EjbModuleExtension {
 
@@ -54,10 +57,14 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#initializeEjbReferencesToModule(org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature)
 	 */
 	public void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand cmd) {
-		EJBEditModel editModel = ((EJBNatureRuntime) nature).getEJBEditModelForWrite(this);
+		
+		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(nature.getProject());
+		if (comps.length == 0)
+			return;
+		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
 		boolean foundRef = false;
 		try {
-			EJBJar jar = editModel.getEJBJar();
+			EJBJar jar = edit.getEJBJar();
 			if (jar != null) {
 				List ejbs = jar.getEnterpriseBeans();
 				int size = ejbs.size();
@@ -69,63 +76,27 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 				}
 			}
 			if (foundRef)
-				cmd.addNestedEditModel(editModel);
+				cmd.addNestedEditModel((J2EEEditModel)edit.getAdapter(ArtifactEditModel.class));
 		} finally {
-			if (!foundRef)
-				editModel.releaseAccess(this);
+			if (edit != null)
+				edit.dispose();
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createProjectInfo()
-	 */
-	// public J2EEJavaProjectInfo createProjectInfo() {
-	// return new EJBProjectInfo();
-	// }
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createProjectInfo()
-	 */
-	// public J2EEJavaProjectInfo createProjectInfo(int version) {
-	// EJBProjectInfo info = new EJBProjectInfo();
-	// info.setModuleVersion(version);
-	// return info;
-	// }
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createImportOperation(org.eclipse.core.resources.IProject,
-	 *      org.eclipse.jst.j2ee.internal.internal.commonarchivecore.EJBJarFile)
-	 */
-	// public J2EEImportOperationOLD createImportOperation(IProject proj,
-	// EJBJarFile ejbJarFile) {
-	// return new EJBJarImportOperationOLD(proj, ejbJarFile);
-	// }
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#createEJBPostImportOperation(org.eclipse.core.resources.IProject)
-	 */
-	public IHeadlessRunnableWithProgress createEJBPostImportOperation(IProject aProj) {
-		EJBNatureRuntime nature = EJBNatureRuntime.getRuntime(aProj);
-		return new EJBPostImportOperation(nature);
-	}
-
 	public EJBJar getEJBJar(IProject aProject) {
-		EJBNatureRuntime runtime = EJBNatureRuntime.getRuntime(aProject);
-		if (runtime == null)
+		//TODO  Method needs to be removed.
+		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(aProject);
+		if (comps.length == 0)
 			return null;
-		return runtime.getEJBJar();
+		return EJBArtifactEditUtilities.getEJBJar(comps[0]);
 	}
 
 	public IProject getDefinedEJBClientJARProject(IProject anEJBProject) {
-		EJBNatureRuntime runtime = EJBNatureRuntime.getRuntime(anEJBProject);
-		if (runtime == null)
+		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(anEJBProject);
+		if (comps.length == 0)
 			return null;
-		return runtime.getDefinedEJBClientJARProject();
+		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+		return edit.getEJBClientJarModule().getProject();
 	}
 
 	public JavaUtilityComponentCreationOperation createEJBClientJARProject(IProject anEJBProject) {
@@ -171,14 +142,6 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return DataModelFactory.createDataModel(new EJBComponentImportDataModelProvider());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNatureID()
-	 */
-	public String getNatureID() {
-		return IEJBNatureConstants.NATURE_ID;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -192,6 +155,10 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 			return createProjectCreationOperation(model);
 		}
 		return super.createProjectCreationOperation(option);
+	}
+
+	public String getCompTypeID() {
+		return IModuleConstants.JST_EJB_MODULE;
 	}
 
 }

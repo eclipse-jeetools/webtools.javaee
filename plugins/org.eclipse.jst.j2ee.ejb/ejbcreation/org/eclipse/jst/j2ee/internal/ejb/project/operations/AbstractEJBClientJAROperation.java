@@ -34,8 +34,6 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
@@ -52,7 +50,7 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 	protected IWorkspace workspace;
 	protected Object validateEditContext;
 	protected EARNatureRuntime[] earNatures;
-	protected EJBNatureRuntime ejbNature;
+	//protected EJBNatureRuntime ejbNature;
 	protected IOperationHandler operationHandler;
 	protected IProgressMonitor monitor;
 	protected IProgressMonitor moveResourceMonitor;
@@ -72,9 +70,9 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 
 
 	protected void initialize() {
-		workspace = ejbProject.getWorkspace();
-		ejbNature = (EJBNatureRuntime) J2EENature.getRegisteredRuntime(ejbProject);
-		earNatures = ejbNature.getReferencingEARProjects();
+//		workspace = ejbProject.getWorkspace();
+//		ejbNature = (EJBNatureRuntime) J2EENature.getRegisteredRuntime(ejbProject);
+//		earNatures = ejbNature.getReferencingEARProjects();
 	}
 
 	protected boolean verifyFilesInSync() throws CoreException {

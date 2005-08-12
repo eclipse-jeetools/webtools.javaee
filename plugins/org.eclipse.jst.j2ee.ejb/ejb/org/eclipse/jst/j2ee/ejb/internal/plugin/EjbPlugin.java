@@ -16,9 +16,6 @@ import java.text.MessageFormat;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
 import org.eclipse.core.resources.IResourceStatus;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -26,7 +23,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEJBArchiveTransformationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
@@ -178,34 +174,6 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
 	}
 
-	public IEJBArchiveTransformationOperation getExtendedArchiveOperation() {
-		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(J2EEPlugin.PLUGIN_ID, "PreAndPostArchiveOperation");//$NON-NLS-1$
-		IExtension[] extension = pct.getExtensions();
-		for (int l = 0; l < extension.length; ++l) {
-			IExtension config = extension[l];
-			IConfigurationElement[] cElems = config.getConfigurationElements();
-			for (int i = 0; i < cElems.length; i++) {
-				IConfigurationElement d = cElems[i];
-				if (d.getName().equals("operation")) //$NON-NLS-1$
-				{
-					// operation class
-					try {
-						return (IEJBArchiveTransformationOperation) d.createExecutableExtension("run");//$NON-NLS-1$
-						/*
-						 * Class aClass = null;
-						 * 
-						 * aClass = Class.forName(className);
-						 *  
-						 */
-					} catch (Exception ex) {
-						return null;
-					}
-				}
-			}
-		}
-		return null;
-	}
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		EJBJarResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);

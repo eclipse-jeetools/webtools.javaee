@@ -3,44 +3,7 @@
 <plugin>
 
     
-<!--============================-->
-<!-- EJB 1.1 Nature             -->
-<!--============================-->
-<!--============================-->
-<!-- EJB Project Nature Contributions - commented out for Flex project support - vkb  -->
-<!--============================-->
-   <!--<extension
-         id="EJBNature"
-         name="EJB Properties"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime">
-         </run>
-      </runtime>
-   </extension>
-   Register the nature id with the AbstractJavaMOFNature -->
-   <!-- <extension
-         point="org.eclipse.jem.workbench.nature_registration">
-      <nature
-            id="org.eclipse.jst.j2ee.ejb.EJBNature">
-      </nature>
-   </extension> -->
-   <extension
-         id="editModel.ejb"
-         name="EJB Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.ejb.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModelFactory">
-         <editModelResource
-               URI="META-INF/ejb-jar.xml">
-         </editModelResource>
-         <editModelResource
-               URI="META-INF/webservicesclient.xml">
-         </editModelResource>
-      </editModel>
-   </extension>
+
    <extension
          id="EJBModuleExtension"
          name="EJBModuleExtension"
