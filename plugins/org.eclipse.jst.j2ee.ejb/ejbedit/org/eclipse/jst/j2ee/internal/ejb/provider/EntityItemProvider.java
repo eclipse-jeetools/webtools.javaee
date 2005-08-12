@@ -163,7 +163,7 @@ public class EntityItemProvider extends EnterpriseBeanItemProvider implements IE
 		if (childrenReferences == null) {
 			childrenReferences = new ArrayList();
 			childrenReferences.addAll(super.getChildrenReferences(object));
-			childrenReferences.add(EjbPackage.eINSTANCE.getEntity_Reentrant());
+//			childrenReferences.add(EjbPackage.eINSTANCE.getEntity_Reentrant());
 		}
 		return childrenReferences;
 	}
