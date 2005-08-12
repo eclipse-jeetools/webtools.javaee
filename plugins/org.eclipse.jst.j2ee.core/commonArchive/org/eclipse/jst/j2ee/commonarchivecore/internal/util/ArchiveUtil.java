@@ -66,6 +66,8 @@ public class ArchiveUtil {
 	public static final String DOT_JAVA = ".java"; //$NON-NLS-1$
 
 	public static final String DOT_SQLJ = ".sqlj"; //$NON-NLS-1$
+	
+	public static final String DOT_JSP = ".jsp"; //$NON-NLS-1$
 
 	protected static boolean isRuntime = false;
 

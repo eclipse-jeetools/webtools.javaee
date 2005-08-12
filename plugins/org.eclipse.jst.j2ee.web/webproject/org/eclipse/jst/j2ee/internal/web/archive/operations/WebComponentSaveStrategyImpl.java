@@ -71,9 +71,24 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	protected Map nonStandardSourceFiles;
 
 	protected boolean isClassWithoutSource(File aFile) {
-		if (!super.isClassWithoutSource(aFile)) {
+		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getURI());
+		if (javaUri == null)
+			return false;
+		if (archive.containsFile(javaUri)) {
 			return false;
 		}
+		// see if it is a JSP
+		String jspUri = javaUri.substring(0, javaUri.indexOf(ArchiveUtil.DOT_JAVA));
+		int lastSlash = jspUri.lastIndexOf('/');
+		int _index = lastSlash == -1 ? ArchiveConstants.WEBAPP_CLASSES_URI.length() : lastSlash + 1;
+		if (jspUri.charAt(_index) == '_') {
+			jspUri = jspUri.substring(ArchiveConstants.WEBAPP_CLASSES_URI.length(), _index) + jspUri.substring(_index + 1) + ArchiveUtil.DOT_JSP;
+			if (archive.containsFile(jspUri)) {
+				return false;
+			}
+		}
+
+		// see if the source is in another directory
 		File sourceFile = ((WARFile) archive).getSourceFile(aFile);
 		if (null == sourceFile) {
 			return true;
@@ -82,7 +97,6 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 			nonStandardSourceFiles = new HashMap();
 		}
 		if (!nonStandardSourceFiles.containsKey(nonStandardSourceFiles)) {
-			String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getURI());
 			nonStandardSourceFiles.put(sourceFile, javaUri);
 		}
 		return false;
