@@ -183,6 +183,8 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
+		if (anEvent == null)
+			return;
 		if (anEvent.getEventCode()==EditModelEvent.UNLOADED_RESOURCE) {
 			List resources = anEvent.getChangedResources();
 			for (int i=0; i<resources.size(); i++) {
@@ -194,15 +196,27 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		}
 		else if (anEvent.getEventCode() == EditModelEvent.PRE_DISPOSE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) anEvent.getEditModel();
+			if (editModel == null || editModel.getComponentHandle() == null)
+				return;
 			ComponentHandle handle = editModel.getComponentHandle();
 			WSDDArtifactEdit wsArtifactEdit = (WSDDArtifactEdit) getWSArtifactEdits().get(handle);
-			getWSArtifactEdits().remove(handle);
-			wsArtifactEdit.removeListener(this);
-			wsArtifactEdit.dispose();
+			if (wsArtifactEdit != null) {
+				try {
+					getWSArtifactEdits().remove(handle);
+					wsArtifactEdit.removeListener(this);
+				} finally {
+					wsArtifactEdit.dispose();
+				}
+			}
 			WSCDDArtifactEdit wsClientArtifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(handle);
-			getWSClientArtifactEdits().remove(handle);
-			wsClientArtifactEdit.removeListener(this);
-			wsClientArtifactEdit.dispose();
+			if (wsClientArtifactEdit != null) {
+				try {
+					getWSClientArtifactEdits().remove(handle);
+					wsClientArtifactEdit.removeListener(this);
+				} finally {
+				wsClientArtifactEdit.dispose();
+				}
+			}
 			notifyListeners(anEvent.getEventCode());
 		}
 	}
