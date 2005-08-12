@@ -406,13 +406,13 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 *            earEditModel - The ear editmodel.
 	 */
 	protected void validateUtilJarContainsNoSpaces(EARArtifactEdit edit, IVirtualComponent module) {
-		List utilJars = edit.getUtilityModuleReferences();
+		IVirtualReference[] utilJars = edit.getUtilityModuleReferences();
 
 		if (utilJars == null)
 			return;
 
-		for (int i = 0; i < utilJars.size(); i++) {
-			IVirtualReference utilModule = (IVirtualReference) utilJars.get(i);
+		for (int i = 0; i < utilJars.length; i++) {
+			IVirtualReference utilModule = utilJars[i];
 			if (utilModule != null) {
 				ComponentHandle handle = ComponentHandle.create(project,utilModule.getReferencedComponent().getName());
 				String uri = ModuleURIUtil.fullyQualifyURI(handle).toString();
@@ -464,12 +464,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 *            earEditModel - The ear editmodel
 	 */
 	protected void validateDuplicateUtilJars(EARArtifactEdit edit, IVirtualComponent module) {
-		List utilJars = edit.getUtilityModuleReferences();
+		IVirtualReference[] utilJars = edit.getUtilityModuleReferences();
 		Set visitedUtilUri = new HashSet();
 		if (utilJars == null)
 			return;
-		for (int i = 0; i < utilJars.size(); i++) {
-			IVirtualReference utilModule =  (IVirtualReference)utilJars.get(i);
+		for (int i = 0; i < utilJars.length; i++) {
+			IVirtualReference utilModule = utilJars[i];
 			if (utilModule != null) {
 				ComponentHandle handle = ComponentHandle.create(project,utilModule.getReferencedComponent().getName());
 				String uri = ModuleURIUtil.fullyQualifyURI(handle).toString();
@@ -501,12 +501,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	}// duplicateUtilError
 
 	public void validateModuleMaps(EARArtifactEdit edit, IVirtualComponent module) {
-		List modules = edit.getJ2EEModuleReferences();
+		IVirtualReference[] modules = edit.getJ2EEModuleReferences();
 		StructureEdit mc = null;
-		if (modules.size() > 0) {
-			for (int i = 0; i < modules.size(); i++) {
+		if (modules.length > 0) {
+			for (int i = 0; i < modules.length; i++) {
 				try {
-				IVirtualReference aModuleRef =  (IVirtualReference)modules.get(i);
+				IVirtualReference aModuleRef = modules[i];
 				IVirtualComponent component = aModuleRef.getEnclosingComponent();
 				boolean uriExists = edit.uriExists(module.getName());
 				if (!uriExists) {
@@ -754,11 +754,11 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * Validates that conflicting jar does not exist in the ear project.
 	 */
 	public void validateUriAlreadyExistsInEar(EARArtifactEdit edit,IVirtualComponent component) {
-		List modules = edit.getJ2EEModuleReferences();
+		IVirtualReference[] modules = edit.getJ2EEModuleReferences();
 		if (modules == null)
 			return;
-		for (int i = 0; i < modules.size(); i++) {
-			IVirtualReference reference = (IVirtualReference) modules.get(i);
+		for (int i = 0; i < modules.length; i++) {
+			IVirtualReference reference = modules[i];
 			IVirtualComponent module = reference.getReferencedComponent();
 			if (module != null && module.getRootFolder().getRuntimePath() != null) {
 				IProject currentEARProject = earHelper.getProject();

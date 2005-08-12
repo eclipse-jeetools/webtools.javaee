@@ -9,7 +9,6 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -41,8 +40,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 	public String getJ2EESpecificationVersion() {
 			if (component != null)
 				return component.getVersion();
-			else
-				return null;
+			return null;
 		}
 
 	public IModule[] getModules() {
@@ -51,9 +49,9 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		try {
 			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
 			if (earEdit != null) {
-				List components = earEdit.getComponentReferences();
-				for (Iterator iter = components.iterator(); iter.hasNext();) {
-					IVirtualReference reference = (IVirtualReference) iter.next();
+				IVirtualReference[] components = earEdit.getComponentReferences();
+				for (int i=0; i<components.length; i++) {
+					IVirtualReference reference = components[i];
 					IVirtualComponent virtualComp = reference.getReferencedComponent();
 					Object module = FlexibleProjectServerUtil.getModule(virtualComp);
 					if (module!=null)

@@ -398,9 +398,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * This method will return the list of IVirtualReferences for all of the utility modules
 	 * contained in the EAR application
 	 * 
-	 * @return - a list of IVirtualReferences for utility modules in the EAR
+	 * @return - an array of IVirtualReferences for utility modules in the EAR
 	 */
-	public List getUtilityModuleReferences() {
+	public IVirtualReference[] getUtilityModuleReferences() {
 		List utilityModuleTypes = new ArrayList();
 		utilityModuleTypes.add(IModuleConstants.JST_UTILITY_MODULE);
 		return getComponentReferences(utilityModuleTypes);
@@ -434,10 +434,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
             return null;
         if(moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
             moduleName = moduleName.substring(0, (moduleName.length()- IJ2EEModuleConstants.JAR_EXT.length()));
-        List references = getComponentReferences();
-		for(int i = 0; i < references.size(); i++) {
-			IVirtualReference ref = (IVirtualReference)references.get(i);
-			IVirtualComponent component = ref.getReferencedComponent();
+        IVirtualReference[] references = getComponentReferences();
+		for(int i = 0; i < references.length; i++) {
+			IVirtualComponent component = references[i].getReferencedComponent();
 			if(component.getName().equals(moduleName)) {
 				return component;
 			}
@@ -449,9 +448,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * This method will return the list of IVirtualReferences for the J2EE module components
 	 * contained in this EAR application.
 	 * 
-	 * @return - a list of IVirtualReferences for J2EE modules in the EAR
+	 * @return - an array of IVirtualReferences for J2EE modules in the EAR
 	 */
-	public List getJ2EEModuleReferences() {
+	public IVirtualReference[] getJ2EEModuleReferences() {
 		List j2eeTypes = new ArrayList();
 		j2eeTypes.add(IModuleConstants.JST_APPCLIENT_MODULE);
 		j2eeTypes.add(IModuleConstants.JST_CONNECTOR_MODULE);
@@ -464,13 +463,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * This method will return the list of IVirtualReferences for all of the components
 	 * contained in this EAR application.
 	 * 
-	 * @return - a list of IVirtualReferences for components in the EAR
+	 * @return - an array of IVirtualReferences for components in the EAR
 	 */
-	public List getComponentReferences() {
+	public IVirtualReference[] getComponentReferences() {
 		return getComponentReferences(Collections.EMPTY_LIST);
 	}
 	
-	private List getComponentReferences(List componentTypes) {
+	private IVirtualReference[] getComponentReferences(List componentTypes) {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = getComponent();
 		if (earComponent.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
@@ -489,7 +488,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 					}
 				}
 			}
-		return components;
+		return (IVirtualReference[]) components.toArray(new IVirtualReference[components.size()]);
 	}
 
 	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {

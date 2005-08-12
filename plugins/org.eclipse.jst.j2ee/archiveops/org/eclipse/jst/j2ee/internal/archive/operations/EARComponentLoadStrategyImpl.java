@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -45,9 +44,9 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		EARArtifactEdit earArtifactEdit = null;
 		try {
 			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(vComponent);
-			List components = earArtifactEdit.getComponentReferences();
-			for (Iterator iterator = components.iterator(); iterator.hasNext();) {
-				IVirtualReference reference = (IVirtualReference) iterator.next();
+			IVirtualReference[] components = earArtifactEdit.getComponentReferences();
+			for (int i=0; i<components.length; i++) {
+				IVirtualReference reference = components[i];
 				IVirtualComponent referencedComponent = reference.getReferencedComponent();
 				String componentTypeId = referencedComponent.getComponentTypeId();
 				if (IModuleConstants.JST_APPCLIENT_MODULE.equals(componentTypeId) || IModuleConstants.JST_EJB_MODULE.equals(componentTypeId) || IModuleConstants.JST_WEB_MODULE.equals(componentTypeId) || IModuleConstants.JST_CONNECTOR_MODULE.equals(componentTypeId)) {
@@ -67,7 +66,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				} else if (IModuleConstants.JST_UTILITY_MODULE.equals(componentTypeId)) {
 					try {
 						if( !referencedComponent.isBinary()){
-							String uri = referencedComponent.getName() + ".jar";
+							String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
 							Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
 							filesList.add(archive);
 						}
