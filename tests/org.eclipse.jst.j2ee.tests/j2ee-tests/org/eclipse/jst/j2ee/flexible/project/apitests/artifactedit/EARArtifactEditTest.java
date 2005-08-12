@@ -14,6 +14,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class EARArtifactEditTest extends TestCase {
@@ -41,6 +42,20 @@ public class EARArtifactEditTest extends TestCase {
 			int version = edit.getJ2EEVersion();
 			Integer integer = new Integer(version);
 			assertTrue(integer.equals(TestWorkspace.EAR_PROJECT_VERSION));
+		} finally {
+			if (edit != null) {
+				edit.dispose();
+			}
+		}
+	}
+	
+	public void testGetJ2EEModuleReferences() {
+		EARArtifactEdit edit = null;
+		try {
+			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			IVirtualReference[] j2eeModuleRefs = edit.getJ2EEModuleReferences();
+			assertTrue(j2eeModuleRefs.length>0);
 		} finally {
 			if (edit != null) {
 				edit.dispose();
