@@ -101,6 +101,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
             if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
             	IDataModel mainClassDataModel = DataModelFactory.createDataModel(NewJavaClassDataModelProvider.class);
                 mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, getProject().getName());
+                mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME, getComponentName());
                 mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
                 mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
                 String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + model.getStringProperty(JAVASOURCE_FOLDER);
