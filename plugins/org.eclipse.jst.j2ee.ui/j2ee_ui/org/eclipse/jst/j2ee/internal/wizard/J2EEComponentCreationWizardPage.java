@@ -22,6 +22,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -288,6 +289,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         createServerEarAndStandaloneGroup(advanced);
     }
 
+
     protected void createServerTargetComposite(Composite parent) {
         Label label = new Label(parent, SWT.NONE);
         label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
@@ -297,8 +299,9 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
         newServerTargetButton.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                //J2EEComponentCreationWizardPage.launchNewRuntimeWizard(getShell(), (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM));
-                J2EEComponentCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
+                if(!J2EEComponentCreationWizardPage.launchNewRuntimeWizard(getShell(), model)){
+                	setErrorMessage(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_9"));
+                }
             }
         });
         Control[] deps = new Control[]{label, newServerTargetButton};
@@ -467,6 +470,8 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
             model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
             if (newAddition != null)
                 model.setProperty(RUNTIME_TARGET_ID, newAddition);
+            else
+            	return false;
         }
         return isOK;
     }   
