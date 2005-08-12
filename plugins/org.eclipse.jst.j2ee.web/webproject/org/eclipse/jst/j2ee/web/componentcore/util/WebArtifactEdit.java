@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -410,6 +411,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			
 			try{
 				aResource.saveIfNecessary();
+			}catch(java.net.ConnectException ex){
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
