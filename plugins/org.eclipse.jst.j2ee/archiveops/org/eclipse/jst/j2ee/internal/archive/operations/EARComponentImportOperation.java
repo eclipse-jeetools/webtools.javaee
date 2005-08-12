@@ -144,7 +144,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				} else {
 					String compSearchName = manifestURI.substring(0, manifestURI.length() - 4);
 					IVirtualReference vRef = earComponent.getReference(compSearchName);
-					if (null != vRef && !nestedComponent.equals(vRef.getReferencedComponent())) {
+					if (null != vRef && nestedComponent.getProject() != vRef.getReferencedComponent().getProject()) {
 						IProject project = vRef.getReferencedComponent().getProject();
 						extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));
 					}
