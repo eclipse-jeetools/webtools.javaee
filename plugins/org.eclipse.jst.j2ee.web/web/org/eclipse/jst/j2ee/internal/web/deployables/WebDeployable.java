@@ -26,7 +26,7 @@ public abstract class WebDeployable extends ProjectModule implements IModule, IW
 //	}
 
 	public String getFactoryId() {
-		return "com.ibm.wtp.web.server"; //$NON-NLS-1$
+		return WebDeployableFactory.ID; //$NON-NLS-1$
 	}
 
 	/**

@@ -15,7 +15,7 @@ import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate {
-	private static final String ID = "com.ibm.wtp.server.looseArchive"; //$NON-NLS-1$
+	private static final String ID = "org.eclipse.jst.j2ee.server.looseArchive"; //$NON-NLS-1$
 
 	/*
 	 * @see DeployableProjectFactoryDelegate#getFactoryID()

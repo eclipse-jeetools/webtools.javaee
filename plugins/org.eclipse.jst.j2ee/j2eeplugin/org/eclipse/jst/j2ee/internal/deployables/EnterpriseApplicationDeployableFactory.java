@@ -31,7 +31,7 @@ import org.eclipse.wst.server.core.IModule;
  */
 public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {
 
-	protected static final String ID = "com.ibm.wtp.server.j2ee.application"; //$NON-NLS-1$
+	protected static final String ID = "org.eclipse.jst.j2ee.server.application"; //$NON-NLS-1$
 
 	protected static final IPath[] PATHS = new IPath[]{new Path("META-INF/application.xml"), //$NON-NLS-1$
 				new Path("META-INF/.modulemaps") //$NON-NLS-1$

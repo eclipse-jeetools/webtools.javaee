@@ -29,7 +29,7 @@ import org.eclipse.wst.server.core.IModule;
  * @author
  */
 public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
-	private static final String ID = "com.ibm.wtp.server.j2ee.appclient"; //$NON-NLS-1$
+	private static final String ID = "org.eclipse.jst.j2ee.server.appclient"; //$NON-NLS-1$
 
 	/**
 	 * Constructor for ApplicationClientDeployableFactory.

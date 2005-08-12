@@ -28,7 +28,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
-	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.jst.j2ee.server.web"; //$NON-NLS-1$
 
 	protected static final IPath[] PATHS = new IPath[]{new Path(".j2ee") //$NON-NLS-1$
 	};

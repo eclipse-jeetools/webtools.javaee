@@ -329,7 +329,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     /**
      * Returns the child modules of this module.
      * 
-     * @return com.ibm.wtp.server.core.model.IModule[]
+     * @return org.eclipse.wst.server.core.model.IModule[]
      */
     public IModule[] getChildModules() {
         List list = new ArrayList();

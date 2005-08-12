@@ -556,7 +556,7 @@
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
     <moduleArtifactAdapter
-           id="com.ibm.wtp.server.j2ee.ear1"
+           id="org.eclipse.jst.j2ee.server.ear1"
            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
@@ -566,7 +566,7 @@
       </moduleArtifactAdapter>
    
      <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ear2"
+            id="org.eclipse.jst.j2ee.server.ear2"
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
@@ -576,7 +576,7 @@
       </moduleArtifactAdapter>
       
       <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ear3"
+            id="org.eclipse.jst.j2ee.server.ear3"
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
@@ -617,7 +617,7 @@
             projects="true"
             
             class="org.eclipse.jst.j2ee.internal.deployables.ApplicationClientDeployableFactory"
-            id="com.ibm.wtp.server.j2ee.appclient">
+            id="org.eclipse.jst.j2ee.server.appclient">
          <moduleType
                versions="*"
                types="j2ee.appClient">
@@ -628,7 +628,7 @@
             projects="true"
            
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableFactory"
-            id="com.ibm.wtp.server.j2ee.application">
+            id="org.eclipse.jst.j2ee.server.application">
          <moduleType
                versions="*"
                types="j2ee.ear">
@@ -638,7 +638,7 @@
             projects="true"
           
             class="org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory"
-            id="com.ibm.wtp.server.looseArchive">
+            id="org.eclipse.jst.j2ee.server.looseArchive">
          <moduleType
                versions="*"
                types="j2ee.loosearchive">

@@ -28,7 +28,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 
 public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
-	private static final String ID = "com.ibm.wtp.server.j2ee.connector13"; //$NON-NLS-1$
+	private static final String ID = "org.eclipse.jst.j2ee.server.connector13"; //$NON-NLS-1$
 
 	/**
 	 * Constructor for Connector1_3DeployableFactory
