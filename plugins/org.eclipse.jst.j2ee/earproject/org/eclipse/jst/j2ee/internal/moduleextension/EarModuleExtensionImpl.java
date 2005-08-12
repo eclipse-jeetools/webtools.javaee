@@ -14,10 +14,8 @@
  */
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
-import org.eclipse.core.internal.resources.Project;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
 
 public abstract class EarModuleExtensionImpl implements EarModuleExtension {
@@ -29,22 +27,13 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 		// TODO Auto-generated constructor stub
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNature(org.eclipse.core.internal.resources.Project)
-	 */
-	public J2EENature getNature(Project proj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNatureID()
 	 */
-	public abstract String getNatureID();
+	public abstract String getCompTypeID();
 
 	/*
 	 * (non-Javadoc)

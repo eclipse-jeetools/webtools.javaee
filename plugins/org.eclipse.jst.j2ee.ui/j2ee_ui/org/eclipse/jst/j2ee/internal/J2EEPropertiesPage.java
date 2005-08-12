@@ -15,8 +15,6 @@ import java.util.StringTokenizer;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
@@ -68,24 +66,24 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	}
 
 	private void fillInformation(IProject p, Composite c) {
-		try {
-			if (EARNatureRuntime.hasRuntime(p)) {
-				EARNatureRuntime nature = EARNatureRuntime.getRuntime(p);
-				fillJ2EELevel(nature, c);
-			} else if (EJBNatureRuntime.hasRuntime(p)) {
-				fillEJBLevel(p, c);
-			} else if (ApplicationClientNatureRuntime.hasRuntime(p)) {
-				fillAppClientLevel(p, c);
-			} else if (ConnectorNatureRuntime.hasRuntime(p)) {
-				fillConnectorLevel(p, c);
-			}
-			//Do: need to rework based on Module
-			//else if (J2EEWebNatureRuntime.hasRuntime(p)) {
-				//fillWebLevel(p, c);
-			//}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			if (EARNatureRuntime.hasRuntime(p)) {
+//				EARNatureRuntime nature = EARNatureRuntime.getRuntime(p);
+//				fillJ2EELevel(nature, c);
+//			} else if (EJBNatureRuntime.hasRuntime(p)) {
+//				fillEJBLevel(p, c);
+//			} else if (ApplicationClientNatureRuntime.hasRuntime(p)) {
+//				fillAppClientLevel(p, c);
+//			} else if (ConnectorNatureRuntime.hasRuntime(p)) {
+//				fillConnectorLevel(p, c);
+//			}
+//			//Do: need to rework based on Module
+//			//else if (J2EEWebNatureRuntime.hasRuntime(p)) {
+//				//fillWebLevel(p, c);
+//			//}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**
@@ -225,24 +223,24 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	 * @param c
 	 */
 	private void fillEJBLevel(IProject p, Composite c) {
-		EJBNatureRuntime nature = EJBNatureRuntime.getRuntime(p);
-		//fillJ2EELevel(nature, c);
-		Label label = new Label(c, SWT.NONE);
-		label.setText(EJB_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
-		String moduleDesc = null;
-		switch (nature.getModuleVersion()) {
-			case J2EEVersionConstants.EJB_1_1_ID :
-				moduleDesc = EJB_11_DESCRIPTION;
-				break;
-			case J2EEVersionConstants.EJB_2_0_ID :
-				moduleDesc = EJB_20_DESCRIPTION;
-				break;
-			case J2EEVersionConstants.EJB_2_1_ID :
-			default :
-				moduleDesc = EJB_21_DESCRIPTION;
-				break;
-		}
-		fillDescription(c, moduleDesc);
+//		EJBNatureRuntime nature = EJBNatureRuntime.getRuntime(p);
+//		//fillJ2EELevel(nature, c);
+//		Label label = new Label(c, SWT.NONE);
+//		label.setText(EJB_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
+//		String moduleDesc = null;
+//		switch (nature.getModuleVersion()) {
+//			case J2EEVersionConstants.EJB_1_1_ID :
+//				moduleDesc = EJB_11_DESCRIPTION;
+//				break;
+//			case J2EEVersionConstants.EJB_2_0_ID :
+//				moduleDesc = EJB_20_DESCRIPTION;
+//				break;
+//			case J2EEVersionConstants.EJB_2_1_ID :
+//			default :
+//				moduleDesc = EJB_21_DESCRIPTION;
+//				break;
+//		}
+//		fillDescription(c, moduleDesc);
 	}
 
 	private void fillDescription(Composite c, String s) {
@@ -300,7 +298,8 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	}
 
 	private static boolean isJ2EEProject(IProject p) {
-		return EARNatureRuntime.hasRuntime(p) || /* //To Do: need to rework based on Module J2EEWebNatureRuntime.hasRuntime(p) || */ EJBNatureRuntime.hasRuntime(p) || ApplicationClientNatureRuntime.hasRuntime(p) || ConnectorNatureRuntime.hasRuntime(p);
+		return false;
+//		return EARNatureRuntime.hasRuntime(p) || /* //To Do: need to rework based on Module J2EEWebNatureRuntime.hasRuntime(p) || */ EJBNatureRuntime.hasRuntime(p) || ApplicationClientNatureRuntime.hasRuntime(p) || ConnectorNatureRuntime.hasRuntime(p);
 	}
 
 

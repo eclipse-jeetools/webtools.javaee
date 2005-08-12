@@ -26,7 +26,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
@@ -35,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDa
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -250,7 +250,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 		return DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
 	}
 
-	public String getNatureID() {
-		return IWebNatureConstants.J2EE_NATURE_ID;
+	public String getCompTypeID() {
+		return IModuleConstants.JST_WEB_MODULE;
 	}
 }

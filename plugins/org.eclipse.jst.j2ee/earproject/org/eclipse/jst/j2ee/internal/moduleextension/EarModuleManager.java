@@ -18,9 +18,7 @@ package org.eclipse.jst.j2ee.internal.moduleextension;
 
 import java.util.HashMap;
 
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 
 /**
@@ -50,37 +48,37 @@ public class EarModuleManager {
 	 * @return
 	 */
 	public static EjbModuleExtension getEJBModuleExtension() {
-		return (EjbModuleExtension) getModuleExtension(IEJBNatureConstants.NATURE_ID);
+		return (EjbModuleExtension) getModuleExtension(IModuleConstants.JST_EJB_MODULE);
 	}
 
 	/**
 	 * @return
 	 */
 	public static JcaModuleExtension getJCAModuleExtension() {
-		return (JcaModuleExtension) getModuleExtension(IConnectorNatureConstants.NATURE_ID);
+		return (JcaModuleExtension) getModuleExtension(IModuleConstants.JST_CONNECTOR_MODULE);
 	}
 
 	/**
 	 * @return
 	 */
 	public static WebModuleExtension getWebModuleExtension() {
-		return (WebModuleExtension) getModuleExtension(IWebNatureConstants.J2EE_NATURE_ID);
+		return (WebModuleExtension) getModuleExtension(IModuleConstants.JST_WEB_MODULE);
 	}
 
 	public static boolean hasEJBModuleExtension() {
-		return (EjbModuleExtension) getModuleExtension(IEJBNatureConstants.NATURE_ID) != null;
+		return (EjbModuleExtension) getModuleExtension(IModuleConstants.JST_EJB_MODULE) != null;
 	}
 
 	public static boolean hasJCAModuleExtension() {
-		return (JcaModuleExtension) getModuleExtension(IConnectorNatureConstants.NATURE_ID) != null;
+		return (JcaModuleExtension) getModuleExtension(IModuleConstants.JST_CONNECTOR_MODULE) != null;
 	}
 
 	public static boolean hasWebModuleExtension() {
-		return (WebModuleExtension) getModuleExtension(IWebNatureConstants.J2EE_NATURE_ID) != null;
+		return (WebModuleExtension) getModuleExtension(IModuleConstants.JST_WEB_MODULE) != null;
 	}
 
 	public static void registerModuleExtension(EarModuleExtension ext) {
-		moduleExtensions.put(ext.getNatureID(), ext);
+		moduleExtensions.put(ext.getCompTypeID(), ext);
 	}
 
 	public static void removeModuleExtension(String key) {

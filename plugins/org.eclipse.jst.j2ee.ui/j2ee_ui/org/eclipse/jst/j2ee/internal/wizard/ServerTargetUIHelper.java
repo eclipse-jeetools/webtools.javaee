@@ -27,7 +27,6 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Shell;
@@ -128,20 +127,6 @@ public class ServerTargetUIHelper {
 		}
 	}
 
-	/**
-	 * @param project
-	 */
-	public static void setServerTargetForClientJarIfNecessary(Shell parentShell, IProject project, IRuntime runtime) {
-		EJBNatureRuntime natureRuntime = EJBNatureRuntime.getRuntime(project);
-		if (natureRuntime != null) {
-			IProject ejbClientJarProject = natureRuntime.getDefinedEJBClientJARProject();
-			if (ejbClientJarProject != null && ejbClientJarProject.exists()) {
-				if (runtime != null) {
-					setServerTargetForProject(null, ejbClientJarProject, runtime);
-				}
-			}
-		}
-	}
 
 	public static ServerTargetComboHelper getValidServerTargetComboItems(String j2eeType, String selectedVersion) {
 		List validServerTargets = ServerTargetHelper.getServerTargets(j2eeType, selectedVersion);

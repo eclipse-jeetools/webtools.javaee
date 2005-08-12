@@ -21,7 +21,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponent
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 
 /**
@@ -37,8 +36,6 @@ public interface EjbModuleExtension extends EarModuleExtension {
 	//J2EEJavaProjectInfo createProjectInfo();
 
 	//J2EEImportOperationOLD createImportOperation(IProject proj, EJBJarFile ejbJarFile);
-
-	IHeadlessRunnableWithProgress createEJBPostImportOperation(IProject aProj);
 
 	EJBJar getEJBJar(IProject aProject);
 

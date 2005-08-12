@@ -21,8 +21,8 @@ import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -66,10 +66,10 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getCompTypeID()
 	 */
-	public String getNatureID() {
-		return IConnectorNatureConstants.NATURE_ID;
+	public String getCompTypeID() {
+		return IModuleConstants.JST_CONNECTOR_MODULE;
 	}
 
 	/*

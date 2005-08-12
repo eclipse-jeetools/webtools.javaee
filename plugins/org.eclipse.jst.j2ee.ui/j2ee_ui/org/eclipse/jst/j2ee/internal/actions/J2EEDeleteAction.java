@@ -24,6 +24,7 @@ import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -33,7 +34,9 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation;
 import org.eclipse.jst.j2ee.internal.delete.DeleteOptions;
@@ -43,7 +46,6 @@ import org.eclipse.jst.j2ee.internal.dialogs.J2EEDeleteDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EEDeleteUIConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -51,8 +53,10 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
+import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
@@ -205,9 +209,12 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	 * @param localProjects
 	 */
 	private void addEJBClientProjectIfNecessary(IProject project, List localProjects) {
-		EJBNatureRuntime nature = EJBNatureRuntime.getRuntime(project);
-		if (nature != null && nature.hasEJBClientJARProject())
-			localProjects.add(nature.getEJBClientJARProject());
+		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(project);
+		if (comps.length == 0)
+			return;
+		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+		if (edit != null && edit.hasEJBClientJARProject())
+			localProjects.add(edit.getEJBClientJarModule().getProject());
 	}
 
 	/**

@@ -44,43 +44,7 @@
          </run>
       </validator>
    </extension>
-<!--============================-->
-<!-- Web Project Nature Contributions                     -->
-<!--============================-->
-<!--   <extension
-         id="WebNature"
-         name="Web Properties"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime">
-         </run>
-      </runtime>
-   </extension>  -->
- 
 
-<!-- Register the nature id with the AbstractJavaMOFNature -->
-<!--<extension
-         point="org.eclipse.jem.workbench.nature_registration">
-      <nature
-            id="org.eclipse.jst.j2ee.web.WebNature">
-      </nature>
-    </extension> -->
-   <extension
-         id="editModel.web"
-         name="Web Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.web.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.web.operations.WebEditModelFactory">
-         <editModelResource
-               URI="WEB-INF/web.xml">
-         </editModelResource>
-         <editModelResource
-               URI="WEB-INF/webservicesclient.xml">
-         </editModelResource>
-      </editModel>
-   </extension>
    <extension
          id="WebModuleExtension"
          name="WebModuleExtension"
