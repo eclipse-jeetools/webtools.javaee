@@ -38,7 +38,7 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
     
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(CREATE_DEFAULT_MAIN_CLASS)) {
-            return Boolean.TRUE;
+            return getProperty(CREATE_DEFAULT_FILES);
         } else if (propertyName.equals(ADD_TO_EAR)) {
             return Boolean.TRUE;
         } else if (propertyName.equals(MANIFEST_FOLDER)) {
