@@ -13,7 +13,8 @@ package org.eclipse.jst.common.jdt.internal.integration;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.wst.common.frameworks.internal.IValidationSelectionHandler;
+import org.eclipse.wst.validation.internal.IValidationSelectionHandler;
+
 
 /**
  * Java Project validation 

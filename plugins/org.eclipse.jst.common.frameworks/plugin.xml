@@ -16,7 +16,7 @@
    <extension
         id="javaProjectValidationHandler"
         name="javaProjectValidationHandler"
-        point="org.eclipse.wst.common.frameworks.validationSelectionHandler">
+        point="org.eclipse.wst.validation.validationSelectionHandler">
       <validationSelectionHandler
         id="javaProjectValidationHandler"
         handlerClass="org.eclipse.jst.common.jdt.internal.integration.JavaProjectValidationHandler"
