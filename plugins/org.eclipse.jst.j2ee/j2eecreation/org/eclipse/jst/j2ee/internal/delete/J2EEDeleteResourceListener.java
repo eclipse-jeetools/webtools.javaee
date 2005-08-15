@@ -15,7 +15,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -50,7 +50,7 @@ public class J2EEDeleteResourceListener implements IResourceChangeListener {
 						System.err.println("Hello, world!- WAR"); //$NON-NLS-1$
 						showWAROptions(project);
 					}
-				} else if (ApplicationClientNatureRuntime.hasRuntime(project)) {
+				} else if (J2EENature.hasRuntime(project,IApplicationClientNatureConstants.NATURE_ID)) {
 					if (!AppClientProjects.contains(project)) {
 						System.err.println("Hello, world!- AppClient"); //$NON-NLS-1$
 						showAppClientOptions(project);
@@ -84,7 +84,7 @@ public class J2EEDeleteResourceListener implements IResourceChangeListener {
 			} else if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
 				WARProjects.add(project);
 				System.err.println("There are " + WARProjects.size() + " projects now."); //$NON-NLS-1$ //$NON-NLS-2$
-			} else if (ApplicationClientNatureRuntime.hasRuntime(project)) {
+			} else if (J2EENature.hasRuntime(project,IApplicationClientNatureConstants.NATURE_ID)) {
 				AppClientProjects.add(project);
 			}
 		} catch (Throwable t) {

@@ -37,7 +37,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
@@ -76,7 +76,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 	protected ArchiveTypeDiscriminator getArchiveDiscriminator() {
 		if (nature.getNatureID().equals(IEJBNatureConstants.NATURE_ID))
 			return EjbJar11ImportStrategyImpl.getDiscriminator();
-		else if (nature instanceof ApplicationClientNatureRuntime)
+		else if (nature.getNatureID().equals(IApplicationClientNatureConstants.NATURE_ID))
 			return AppClient12ImportStrategyImpl.getDiscriminator();
 		return null;
 	}

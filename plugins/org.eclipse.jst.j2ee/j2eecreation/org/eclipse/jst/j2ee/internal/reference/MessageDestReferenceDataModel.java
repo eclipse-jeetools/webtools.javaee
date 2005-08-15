@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
@@ -166,8 +166,8 @@ public class MessageDestReferenceDataModel extends ReferenceDataModel {
 	 * @return
 	 */
 	private List getModuleMessageDestinationNames(IProject project) throws CoreException {
-		if (project.hasNature(ApplicationClientNatureRuntime.NATURE_ID)) {
-			J2EENature runtime = (J2EENature) project.getNature(ApplicationClientNatureRuntime.NATURE_ID);
+		if (project.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
+			J2EENature runtime = (J2EENature) project.getNature(IApplicationClientNatureConstants.NATURE_ID);
 			ApplicationClient appClient = (ApplicationClient) runtime.getDeploymentDescriptorRoot();
 			if (appClient != null)
 				return appClient.getMessageDestinations();

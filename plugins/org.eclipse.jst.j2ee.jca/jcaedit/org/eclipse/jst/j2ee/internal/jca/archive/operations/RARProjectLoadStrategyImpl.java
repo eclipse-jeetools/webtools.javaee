@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
@@ -35,7 +34,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 
 //TODO delete jsholl
 /**
@@ -240,10 +238,10 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	}
 
 	protected void init() {
-		ConnectorNatureRuntime connRT = ConnectorNatureRuntime.getRuntime(getProject());
-		moduleRoot = connRT.getModuleServerRoot();
-		projectURIConverter = new WorkbenchURIConverterImpl(moduleRoot);
-		moduleRootSegmentCount = moduleRoot.getProjectRelativePath().segmentCount();
+//		ConnectorNatureRuntime connRT = ConnectorNatureRuntime.getRuntime(getProject());
+//		moduleRoot = connRT.getModuleServerRoot();
+//		projectURIConverter = new WorkbenchURIConverterImpl(moduleRoot);
+//		moduleRootSegmentCount = moduleRoot.getProjectRelativePath().segmentCount();
 	}
 
 	public WorkbenchURIConverter getProjectURIConverter() {

@@ -15,9 +15,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientEditModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -85,7 +82,7 @@ public class UpdateModuleReferencesInEARProjectCommand extends ModuleInEARProjec
 				webExt.initializeEjbReferencesToModule(moduleNature, this);
 				break;
 			case XMLResource.APP_CLIENT_TYPE :
-				initializeEjbReferencesToModule((ApplicationClientNatureRuntime) moduleNature);
+				//initializeEjbReferencesToModule((ApplicationClientNatureRuntime) moduleNature);
 				break;
 			case XMLResource.RAR_TYPE :
 				JcaModuleExtension jcaExt = EarModuleManager.getJCAModuleExtension();
@@ -126,20 +123,20 @@ public class UpdateModuleReferencesInEARProjectCommand extends ModuleInEARProjec
 		nestedEditModels.add(anEditModel);
 	}
 
-	protected void initializeEjbReferencesToModule(ApplicationClientNatureRuntime moduleNature) {
-		AppClientEditModel anEditModel = moduleNature.getAppClientEditModelForWrite(this);
-		boolean foundRef = false;
-		try {
-			ApplicationClient appclient = anEditModel.getApplicationClient();
-			if (appclient != null)
-				foundRef = initializeEjbReferencesToModule(appclient.getEjbReferences());
-			if (foundRef)
-				addNestedEditModel(anEditModel);
-		} finally {
-			if (!foundRef)
-				anEditModel.releaseAccess(this);
-		}
-	}
+//	protected void initializeEjbReferencesToModule(ApplicationClientNatureRuntime moduleNature) {
+//		AppClientEditModel anEditModel = moduleNature.getAppClientEditModelForWrite(this);
+//		boolean foundRef = false;
+//		try {
+//			ApplicationClient appclient = anEditModel.getApplicationClient();
+//			if (appclient != null)
+//				foundRef = initializeEjbReferencesToModule(appclient.getEjbReferences());
+//			if (foundRef)
+//				addNestedEditModel(anEditModel);
+//		} finally {
+//			if (!foundRef)
+//				anEditModel.releaseAccess(this);
+//		}
+//	}
 
 	protected void updateEjbReferences() {
 		if (ejbRefernces != null && !ejbRefernces.isEmpty()) {

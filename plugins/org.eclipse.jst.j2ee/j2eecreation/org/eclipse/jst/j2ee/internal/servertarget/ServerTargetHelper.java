@@ -31,7 +31,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
@@ -351,9 +351,9 @@ public class ServerTargetHelper {
 		} else if (J2EENature.hasRuntime(project, IWebNatureConstants.J2EE_NATURE_ID)) {
 			projectAttr[0] = IServerTargetConstants.WEB_TYPE;
 			isJ2EE13 = J2EENature.getRuntime(project, IWebNatureConstants.J2EE_NATURE_ID).isJ2EE1_3();
-		} else if (ApplicationClientNatureRuntime.hasRuntime(project)) {
+		} else if (J2EENature.hasRuntime(project,IApplicationClientNatureConstants.NATURE_ID)) {
 			projectAttr[0] = IServerTargetConstants.APP_CLIENT_TYPE;
-			isJ2EE13 = ApplicationClientNatureRuntime.getRuntime(project).isJ2EE1_3();
+			isJ2EE13 = J2EENature.getRuntime(project,IApplicationClientNatureConstants.NATURE_ID).isJ2EE1_3();
 		} else if (J2EENature.hasRuntime(project, IConnectorNatureConstants.NATURE_ID)) {
 			projectAttr[0] = IServerTargetConstants.CONNECTOR_TYPE;
 			isJ2EE13 = J2EENature.getRuntime(project, IConnectorNatureConstants.NATURE_ID).isJ2EE1_3();

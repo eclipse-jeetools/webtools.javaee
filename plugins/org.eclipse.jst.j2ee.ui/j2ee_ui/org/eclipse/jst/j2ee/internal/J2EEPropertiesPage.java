@@ -14,8 +14,7 @@ import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
@@ -176,21 +175,21 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	 * @param c
 	 */
 	private void fillConnectorLevel(IProject p, Composite c) {
-		ConnectorNatureRuntime nature = ConnectorNatureRuntime.getRuntime(p);
-		//fillJ2EELevel(nature, c);
-		Label label = new Label(c, SWT.NONE);
-		label.setText(CONNECTOR_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
-		String moduleDesc = null;
-		switch (nature.getModuleVersion()) {
-			case J2EEVersionConstants.JCA_1_0_ID :
-				moduleDesc = CONNECTOR_10_DESCRIPTION;
-				break;
-			case J2EEVersionConstants.JCA_1_5_ID :
-			default :
-				moduleDesc = CONNECTOR_15_DESCRIPTION;
-				break;
-		}
-		fillDescription(c, moduleDesc);
+//		ConnectorNatureRuntime nature = ConnectorNatureRuntime.getRuntime(p);
+//		//fillJ2EELevel(nature, c);
+//		Label label = new Label(c, SWT.NONE);
+//		label.setText(CONNECTOR_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
+//		String moduleDesc = null;
+//		switch (nature.getModuleVersion()) {
+//			case J2EEVersionConstants.JCA_1_0_ID :
+//				moduleDesc = CONNECTOR_10_DESCRIPTION;
+//				break;
+//			case J2EEVersionConstants.JCA_1_5_ID :
+//			default :
+//				moduleDesc = CONNECTOR_15_DESCRIPTION;
+//				break;
+//		}
+//		fillDescription(c, moduleDesc);
 	}
 
 	/**
@@ -198,7 +197,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	 * @param c
 	 */
 	private void fillAppClientLevel(IProject p, Composite c) {
-		ApplicationClientNatureRuntime nature = ApplicationClientNatureRuntime.getRuntime(p);
+		J2EENature nature = J2EENature.getRuntime(p,IApplicationClientNatureConstants.NATURE_ID);
 		//fillJ2EELevel(nature, c);
 		Label label = new Label(c, SWT.NONE);
 		label.setText(APP_CLIENT_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
