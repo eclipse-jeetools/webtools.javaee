@@ -87,20 +87,20 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			for (int i = 0; i < roots.length; i++) {
 				IResource source;
 				IPath outputPath = roots[i].getRawClasspathEntry().getOutputLocation();
-				
-				if( outputPath != null ){
+
+				if (outputPath != null) {
 					outputFolders[i] = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-	
+
 					IPath sourcePath = roots[i].getPath();
-					boolean sourceIsProject = sourcePath.segmentCount() <= 1;  
-					source = sourceIsProject ? (IResource)getComponent().getProject(): workspaceRoot.getFolder(sourcePath); 
+					boolean sourceIsProject = sourcePath.segmentCount() <= 1;
+					source = sourceIsProject ? (IResource) getComponent().getProject() : workspaceRoot.getFolder(sourcePath);
 					IVirtualResource[] virtualSources = ComponentCore.createResources(source);
 					IResource actualResource = sourceIsProject ? source : virtualSources[0].getUnderlyingResource();
 					int sourceOffset = actualResource.getProjectRelativePath().segmentCount() - sourcePath.segmentCount();
 					int runtimeOffset = outputPath.segmentCount() - virtualSources[0].getRuntimePath().segmentCount();
-	
+
 					javaOutputFolderSegmentCount = sourceOffset + runtimeOffset;
-	
+
 					getFiles(new IResource[]{outputFolders[i]});
 				}
 			}
@@ -215,7 +215,25 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return uri.endsWith(ArchiveUtil.DOT_JAVA) || uri.endsWith(ArchiveUtil.DOT_SQLJ);
 	}
 
+	protected Map externalFiles;
+
+	protected void addExternalFile(String uri, java.io.File externalDiskFile) {
+		if(null == externalFiles){
+			externalFiles = new HashMap();
+		}
+		File aFile = getArchiveFactory().createFile();
+		aFile.setURI(uri);
+		aFile.setOriginalURI(uri);
+		aFile.setLoadingContainer(getContainer());
+		externalFiles.put(uri, externalDiskFile);
+		filesList.add(aFile);
+	}
+
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
+		if (null != externalFiles && externalFiles.containsKey(uri)) {
+			return new FileInputStream((java.io.File) externalFiles.get(uri));
+		}
+
 		IVirtualFolder rootFolder = vComponent.getRootFolder();
 		IVirtualResource vResource = rootFolder.findMember(uri);
 		String filePath = null;
@@ -259,5 +277,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public IVirtualComponent getComponent() {
 		return vComponent;
 	}
+
+
 
 }

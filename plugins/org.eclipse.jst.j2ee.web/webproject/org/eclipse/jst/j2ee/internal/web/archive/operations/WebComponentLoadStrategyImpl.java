@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImp
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -54,15 +55,22 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		for (int i = 0; i < libModules.length; i++) {
 			IVirtualReference iLibModule = libModules[i];
 			IVirtualComponent vComponent = iLibModule.getReferencedComponent();
-			String uri = iLibModule.getRuntimePath().toString() + "/" + vComponent.getName() + ".jar";
-			try {
-				Archive utilJAR = J2EEComponentUtilities.asArchive(uri, vComponent, isExportSource());
-				if (utilJAR == null)
-					continue;
-				filesList.add(utilJAR);
-			} catch (OpenFailureException oe) {
-				String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+			if (vComponent.isBinary()) {
+				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) vComponent;
+				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+				String uri = iLibModule.getRuntimePath().toString() + "/" + diskFile.getName();
+				addExternalFile(uri, diskFile);
+			} else {
+				String uri = iLibModule.getRuntimePath().toString() + "/" + vComponent.getName() + ".jar";
+				try {
+					Archive utilJAR = J2EEComponentUtilities.asArchive(uri, vComponent, isExportSource());
+					if (utilJAR == null)
+						continue;
+					filesList.add(utilJAR);
+				} catch (OpenFailureException oe) {
+					String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+				}
 			}
 		}
 	}

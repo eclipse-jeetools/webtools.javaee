@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -45,7 +46,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		try {
 			earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(vComponent);
 			IVirtualReference[] components = earArtifactEdit.getComponentReferences();
-			for (int i=0; i<components.length; i++) {
+			for (int i = 0; i < components.length; i++) {
 				IVirtualReference reference = components[i];
 				IVirtualComponent referencedComponent = reference.getReferencedComponent();
 				String componentTypeId = referencedComponent.getComponentTypeId();
@@ -65,10 +66,14 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					}
 				} else if (IModuleConstants.JST_UTILITY_MODULE.equals(componentTypeId)) {
 					try {
-						if( !referencedComponent.isBinary()){
+						if (!referencedComponent.isBinary()) {
 							String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
 							Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
 							filesList.add(archive);
+						} else {
+							java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
+							String uri = diskFile.getName();
+							addExternalFile(uri, diskFile);
 						}
 					} catch (OpenFailureException e) {
 						Logger.getLogger().logError(e);
@@ -93,5 +98,5 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
 		}
 		return new org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl(file);
-	}	
+	}
 }
