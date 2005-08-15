@@ -39,7 +39,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -170,7 +169,7 @@ public class ClassPathSelection {
 	 */
 	private void setInvalidProject(ClasspathElement element) {
 		IProject earProj = element.getEarProject();
-		IVirtualComponent component = J2EEComponentUtilities.getComponent(earProj.getName())[0];
+		IVirtualComponent component = ComponentUtilities.getComponent(earProj.getName());
 		EARArtifactEdit edit = null;
 		try {
 			edit = EARArtifactEdit.getEARArtifactEditForRead(component);

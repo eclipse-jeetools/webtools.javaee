@@ -50,7 +50,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 public class ComponentUtilities {
 
-	public static String JAVA_NATURE = "org.eclipse.jdt.core.javanature";
+	public static String JAVA_NATURE = "org.eclipse.jdt.core.javanature"; //$NON-NLS-1$
 
 	/**
 	 * Retrieve all the source containers for a given virtual workbench component
@@ -206,21 +206,18 @@ public class ComponentUtilities {
 	 * **********************Please read java doc before using this api*******************
 	 * This is a very expensive api from a performance point as it does a structure edit
 	 * access and release for each component in the workspace. Use this api very sparingly
-	 * and if used cached the information returned by this api for further processing
+	 * and if used cached the information returned by this api for further processing.
+	 * 
 	 * @return - A virtual component in the workspace
 	 * ***********************************************************************************
 	 */
-
-	public static IVirtualComponent[] getComponent(String componentName) {
+	public static IVirtualComponent getComponent(String componentName) {
 		IVirtualComponent[] allComponents = getAllWorkbenchComponents();
-		List matchingComponents = new ArrayList();
 		for (int i = 0; i < allComponents.length; i++) {
-			if (allComponents[i].getName().equals(componentName)) {
-				matchingComponents.add(allComponents[i]);
-			}
+			if (allComponents[i].getName().equals(componentName))
+				return allComponents[i];
 		}
-		VirtualComponent[] temp = (VirtualComponent[]) matchingComponents.toArray(new VirtualComponent[matchingComponents.size()]);
-		return temp;
+		return null;
 	}
 
 
@@ -232,7 +229,6 @@ public class ComponentUtilities {
 	}
 
 	public static IVirtualComponent findComponent(EObject anObject) {
-		IProject project = ProjectUtilities.getProject(anObject);
 		Resource res = anObject.eResource();
 		return findComponent(res);
 	}
@@ -274,7 +270,7 @@ public class ComponentUtilities {
 		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib");
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
 		return new CreateReferenceComponentsOp(model);
 	}
 
@@ -303,11 +299,11 @@ public class ComponentUtilities {
 		URI contenturi = ModuleURIUtil.trimToRelativePath(uri, 1);
 		String contentName = contenturi.toString();
 
-		if (resourceType.equals("lib")) {
+		if (resourceType.equals("lib")) { //$NON-NLS-1$
 			// module:/classpath/lib/D:/foo/foo.jar
 			return Path.fromOSString(contentName);
 
-		} else if (resourceType.equals("var")) {
+		} else if (resourceType.equals("var")) { //$NON-NLS-1$
 
 			// module:/classpath/var/<CLASSPATHVAR>/foo.jar
 			String classpathVar = contenturi.segment(0);
