@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -46,6 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -117,31 +116,7 @@ public class EARComponentProjectsPage extends J2EEImportPage implements ICellMod
 				IDataModel importDM = null;
 				for (int i = 0; i < list.size(); i++) {
 					importDM = (IDataModel) list.get(i);
-					if (!newList.contains(importDM) && !((IProject) importDM.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME)).exists()) {
-						newList.add(importDM);
-					}
-				}
-				model.setProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST, newList);
-			}
-		});
-
-		Button selectBinary = new Button(buttonGroup, SWT.PUSH);
-		selectBinary.setText(J2EEUIMessages.getResourceString("EARImportProjectsPage_UI_4")); //$NON-NLS-1$
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.horizontalSpan = 1;
-		gd.heightHint = 22;
-		gd.widthHint = 120;
-		selectBinary.setLayoutData(gd);
-		selectBinary.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				List list = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
-				List selectedList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
-				List newList = new ArrayList();
-				newList.addAll(selectedList);
-				IDataModel importDM = null;
-				for (int i = 0; i < list.size(); i++) {
-					importDM = (IDataModel) list.get(i);
-					if (!newList.contains(importDM) && JemProjectUtilities.isBinaryProject((IProject)importDM.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME))) {
+					if (!newList.contains(importDM) && !((IVirtualComponent) importDM.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).exists()) {
 						newList.add(importDM);
 					}
 				}

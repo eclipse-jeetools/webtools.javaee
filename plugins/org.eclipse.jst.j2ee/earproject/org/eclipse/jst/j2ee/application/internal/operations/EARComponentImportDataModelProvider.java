@@ -58,7 +58,6 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
-// TODO rename to EARComponentImportDataModelProvider
 /**
  * This dataModel is used for to import Enterprise Applications(from EAR files) into the workspace.
  * 
@@ -67,7 +66,7 @@ import org.eclipse.wst.server.core.ServerCore;
  * 
  * @plannedfor WTP 1.0
  */
-public final class EnterpriseApplicationImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IAnnotationsDataModel, IEARComponentImportDataModelProperties {
+public final class EARComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IAnnotationsDataModel, IEARComponentImportDataModelProperties {
 
 	/**
 	 * Optional, type Boolean, default false, This flag is set to allow nested projects (module

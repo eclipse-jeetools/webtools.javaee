@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -98,7 +98,7 @@ public final class EARComponentImportWizard extends J2EEArtifactImportWizard imp
 	}
 
 	protected IDataModelProvider getDefaultProvider() {
-		return new EnterpriseApplicationImportDataModelProvider();
+		return new EARComponentImportDataModelProvider();
 	}
 
 }
