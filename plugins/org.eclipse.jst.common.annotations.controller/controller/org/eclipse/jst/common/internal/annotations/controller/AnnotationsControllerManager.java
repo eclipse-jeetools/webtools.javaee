@@ -42,8 +42,7 @@ import org.eclipse.wst.common.internal.emf.utilities.Assert;
 public class AnnotationsControllerManager extends RegistryReader implements IEnablementIdentifierListener {
 
 	public static final AnnotationsControllerManager INSTANCE = new AnnotationsControllerManager();
-	public static final String ANNOTATION_BUILDER = "com.ibm.ws.rapiddeploy.annotations.core.AnnotationBuilder"; //$NON-NLS-1$
-
+	
 	static {
 		INSTANCE.readRegistry();
 	}
@@ -59,17 +58,21 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 		public static final String ATT_ID = "id"; //$NON-NLS-1$
 
 		public static final String CLASS = "class"; //$NON-NLS-1$
+		
+		public static final String BUILDER_ID = "builderID"; //$NON-NLS-1$
 
 		private final IConfigurationElement configElement;
 		private final String ID;
+		private String builderID;
 		private final int loadOrder;
 		private static int loadOrderCounter = 0;
 
 		public Descriptor(IConfigurationElement aConfigElement) {
 			super();
 			Assert.isLegal(ANNOTATIONS_CONTROLLER.equals(aConfigElement.getName()), AnnotationsControllerResources.getString("AnnotationsControllerManager_ERROR_0")); //$NON-NLS-1$
-			this.configElement = aConfigElement;
-			this.ID = this.configElement.getAttribute(ATT_ID);
+			configElement = aConfigElement;
+			ID = configElement.getAttribute(ATT_ID);
+			builderID = configElement.getAttribute(BUILDER_ID);
 			loadOrder = loadOrderCounter++;
 		}
 
@@ -80,6 +83,10 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 		 */
 		public String getID() {
 			return ID;
+		}
+		
+		public String getBuilderID() {
+			return builderID;
 		}
 
 		/*
@@ -169,7 +176,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 	public AnnotationsController getAnnotationsController(IProject project) {
 		AnnotationsController controller = (AnnotationsController) getAnnotationsControllers().get(project);
 		if (controller == null) {
-			if (!hasBuilder(project, ANNOTATION_BUILDER))
+			if (!hasAnnotationsBuilder(project))
 				return null;
 			Descriptor descriptor = getDescriptor(project);
 			if (descriptor != null)
@@ -186,6 +193,13 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 		if (annotationsControllers == null)
 			annotationsControllers = new WeakHashMap();
 		return annotationsControllers;
+	}
+	
+	public boolean hasAnnotationsBuilder(IProject project) {
+		Descriptor annotationsDescriptor = getDescriptor(project);
+		if (annotationsDescriptor==null)
+			return false;
+		return hasBuilder(project, annotationsDescriptor.getBuilderID());
 	}
 
 	public boolean hasBuilder(IProject project, String builderName) {

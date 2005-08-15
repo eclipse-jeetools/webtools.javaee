@@ -309,5 +309,30 @@
       id="org.eclipse.jst.j2ee.internal.web.container">
     </classpathContainerPage>
   </extension>
+  
+<!-- ====================================================== -->
+<!--           Label Decorators                             -->
+<!-- ====================================================== -->
+  
+    <extension
+         point="org.eclipse.ui.decorators">
+         <decorator
+               lightweight="true"
+               adaptable="true"
+               label="%servletAnnotationDecorator"
+               class="org.eclipse.jst.j2ee.internal.ui.util.AnnotationIconDecorator"
+               state="true"
+               location="TOP_LEFT"
+               id="org.eclipse.jst.j2ee.internal.ui.util.AnnotationIconDecorator_servlet">
+         <description>
+            %servletAnnotationDecorator.description
+         </description>
+         <enablement>
+              <objectClass
+                   name="org.eclipse.jst.j2ee.webapplication.Servlet">
+              </objectClass>
+         </enablement>
+      </decorator>
+    </extension> 
 	
 </plugin>

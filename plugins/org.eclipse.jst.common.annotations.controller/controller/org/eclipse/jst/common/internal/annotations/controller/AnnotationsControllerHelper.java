@@ -26,7 +26,6 @@ import org.eclipse.jst.common.internal.annotations.core.AnnotationsAdapter;
  *  
  */
 public class AnnotationsControllerHelper {
-	private static final String ANNOTATION_BUILDER = "com.ibm.ws.rapiddeploy.annotations.core.AnnotationBuilder"; //$NON-NLS-1$
 	public static final AnnotationsControllerHelper INSTANCE = new AnnotationsControllerHelper();
 
 	protected AnnotationsControllerHelper() {
@@ -148,6 +147,6 @@ public class AnnotationsControllerHelper {
 	 * @return
 	 */
 	public boolean hasAnnotationSupport(IProject project) {
-		return ProjectUtilities.hasBuilder(project, ANNOTATION_BUILDER);
+		return AnnotationsControllerManager.INSTANCE.hasAnnotationsBuilder(project);
 	}
 }
