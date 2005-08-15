@@ -105,29 +105,25 @@
          point="org.eclipse.ui.decorators">
          <decorator
                lightweight="true"
-               objectClass="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper"
-               adaptable="true"
-               label="%beanClassAnnotationDecorator"
-               class="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
-               state="true"
-               location="TOP_LEFT"
-               id="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator_beanClass">
-         <description>
-            %beanClassAnnotationDecorator.description
-         </description>
-      </decorator>
-      <decorator
-               lightweight="true"
-               objectClass="org.eclipse.jst.j2ee.ejb.EnterpriseBean"
                adaptable="true"
                label="%ejbAnnotationDecorator"
-               class="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
+               class="org.eclipse.jst.j2ee.internal.ui.util.AnnotationIconDecorator"
                state="true"
                location="TOP_LEFT"
-               id="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator">
+               id="org.eclipse.jst.j2ee.internal.ui.util.AnnotationIconDecorator_ejb">
          <description>
             %ejbAnnotationDecorator.description
          </description>
+         <enablement>
+         	<or>
+              <objectClass
+                   name="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper">
+              </objectClass>
+              <objectClass
+                   name="org.eclipse.jst.j2ee.ejb.EnterpriseBean">
+              </objectClass>
+            </or>
+         </enablement>
       </decorator>
     </extension> 
     
