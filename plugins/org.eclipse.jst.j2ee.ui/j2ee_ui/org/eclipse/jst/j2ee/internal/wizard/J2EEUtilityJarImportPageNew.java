@@ -383,7 +383,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
 	 */
 	protected String getFileNamesStoreID() {
-		return "UTILITY_JAR_DIRECTORY"; //$NON-NLS-1$
+		return "UTIL";//$NON-NLS-1$
 	}
 
 	/*

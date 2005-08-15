@@ -23,6 +23,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -41,7 +42,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private OpenFailureException cachedOpenFailureException = null;
 
 	public String[] getPropertyNames() {
-		return new String[]{FILE_NAME, FILE, SAVE_FILTER, OVERWRITE_HANDLER, CLOSE_ARCHIVE_ON_DISPOSE, COMPONENT, COMPONENT_NAME, PROJECT_NAME, DEFAULT_COMPONENT_NAME, FILE_SELECTION_HISTORY};
+		return new String[]{FILE_NAME, FILE, SAVE_FILTER, OVERWRITE_HANDLER, CLOSE_ARCHIVE_ON_DISPOSE, COMPONENT, COMPONENT_NAME, PROJECT_NAME, DEFAULT_COMPONENT_NAME};
 	}
 
 	public void init() {
@@ -149,13 +150,13 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		if (FILE_NAME.equals(propertyName) && !isPropertySet(FILE)) {
 			String fileName = getStringProperty(propertyName);
 			if (fileName == null || fileName.length() == 0) {
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())})); 
+				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			} else if (cachedOpenFailureException != null) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(cachedOpenFailureException.getMessage()));
 			} else if (fileName != null && !archiveExistsOnFile()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.FILE_DOES_NOT_EXIST_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			}
-		} 
+		}
 		return OK_STATUS;
 	}
 
@@ -205,6 +206,10 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	private SaveFilter getSaveFilter() {
 		return (SaveFilter) getProperty(SAVE_FILTER);
+	}
+
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
+		return super.getValidPropertyDescriptors(propertyName);
 	}
 
 	public void propertyChanged(DataModelEvent event) {

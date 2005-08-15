@@ -20,7 +20,6 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelPro
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -64,7 +63,6 @@ public class EARComponentImportPage extends J2EEImportPage {
 		composite.setLayout(layout);
 		createFileNameComposite(composite);
 		createProjectNameComposite(composite);
-		// createServerTargetComposite(composite);
 		createAnnotationsStandaloneGroup(composite);
 		restoreWidgetValues();
 		return composite;
@@ -99,6 +97,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	protected String[] getFilterExpression() {
 		return new String[]{"*.ear"}; //$NON-NLS-1$
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -123,7 +122,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
 	 */
 	protected String getFileNamesStoreID() {
-		return IEARNatureConstants.NATURE_ID;
+		return "EAR";//$NON-NLS-1$
 	}
 
 

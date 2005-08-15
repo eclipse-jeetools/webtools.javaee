@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import java.util.ArrayList;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
@@ -101,7 +101,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 			// }
 			// });
 			// newProjectButton.setEnabled(true);
-			synchHelper.synchCombo(componentCombo, IAppClientComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel});
+			synchHelper.synchCombo(componentCombo, IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel});
 			new Label(parent, SWT.NULL);
 			createServerTargetComposite(parent);
 		}
@@ -122,10 +122,10 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
 		synchHelper.synchCombo(serverTargetCombo, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, deps);
-        if(serverTargetCombo.getVisibleItemCount() != 0)
-            serverTargetCombo.select(0);		
+		if (serverTargetCombo.getVisibleItemCount() != 0)
+			serverTargetCombo.select(0);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -187,7 +187,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		});
 		browseButton.setEnabled(true);
 
-		synchHelper.synchCombo(fileNameCombo, IAppClientComponentImportDataModelProperties.FILE_NAME, new Control[]{fileLabel, browseButton});
+		synchHelper.synchCombo(fileNameCombo, IJ2EEComponentImportDataModelProperties.FILE_NAME, new Control[]{fileLabel, browseButton});
 	}
 
 	/**
@@ -199,7 +199,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		dialog.setFilterExtensions(getFilterExpression());
 		String filename = dialog.open();
 		if (filename != null)
-			model.setProperty(IAppClientComponentImportDataModelProperties.FILE_NAME, filename);
+			model.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filename);
 	}
 
 	/**
@@ -220,7 +220,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 				if (sourceNames[i] == null)
 					sourceNames[i] = ""; //$NON-NLS-1$
 			}
-			model.setProperty(IAppClientComponentImportDataModelProperties.FILE_SELECTION_HISTORY, sourceNames);
+			fileNameCombo.setItems(sourceNames);
 		}
 	}
 

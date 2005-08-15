@@ -58,7 +58,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
 						filesList.add(archive);
 					} catch (OpenFailureException oe) {
-						// TODO
+						Logger.getLogger().logError(oe);
 					} finally {
 						if (componentArtifactEdit != null) {
 							componentArtifactEdit.dispose();

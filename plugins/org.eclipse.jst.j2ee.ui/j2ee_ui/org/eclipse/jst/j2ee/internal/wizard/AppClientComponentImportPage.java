@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -41,7 +40,7 @@ public class AppClientComponentImportPage extends J2EEModuleImportPage {
 	}
 
 	protected String getFileNamesStoreID() {
-		return IApplicationClientNatureConstants.NATURE_ID;
+		return "APP_CLIENT"; //$NON-NLS-1$;
 	}
 
 	/*

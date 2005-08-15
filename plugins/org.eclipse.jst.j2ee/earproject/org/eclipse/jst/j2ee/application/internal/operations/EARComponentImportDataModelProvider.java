@@ -69,18 +69,6 @@ import org.eclipse.wst.server.core.ServerCore;
 public final class EARComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IAnnotationsDataModel, IEARComponentImportDataModelProperties {
 
 	/**
-	 * Optional, type Boolean, default false, This flag is set to allow nested projects (module
-	 * projects & utility projects to be overwritten or not.
-	 */
-	public static final String OVERWRITE_NESTED_PROJECTS = "EARImportDataModel.OVERWRITE_NESTED_PROJECTS"; //$NON-NLS-1$
-
-	/**
-	 * Booleam, default is true. When all the module projects are added to the ear, this controls
-	 * whether their server targets will be set to be the same as the one set on the ear.
-	 */
-	public static final String SYNC_SERVER_TARGETS_WITH_EAR = "EARImportDataModel.SYNC_SERVER_TARGETS_WITH_EAR"; //$NON-NLS-1$
-
-	/**
 	 * This is only to force validation for the nested projects; do not set.
 	 */
 	public static final String NESTED_PROJECTS_VALIDATION = "EARImportDataModel.NESTED_PROJECTS_VALIDATION"; //$NON-NLS-1$
@@ -99,7 +87,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
 
 	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{NESTED_MODULE_ROOT, UTILITY_LIST, MODULE_MODELS_LIST, EJB_CLIENT_LIST, UTILITY_MODELS_LIST, NESTED_PROJECTS_VALIDATION, SELECTED_MODELS_LIST, OVERWRITE_NESTED_PROJECTS, SYNC_SERVER_TARGETS_WITH_EAR, USE_ANNOTATIONS, ALL_PROJECT_MODELS_LIST, UNHANDLED_PROJECT_MODELS_LIST, HANDLED_PROJECT_MODELS_LIST});
+		return combineProperties(super.getPropertyNames(), new String[]{NESTED_MODULE_ROOT, UTILITY_LIST, MODULE_MODELS_LIST, EJB_CLIENT_LIST, UTILITY_MODELS_LIST, NESTED_PROJECTS_VALIDATION, SELECTED_MODELS_LIST, USE_ANNOTATIONS, ALL_PROJECT_MODELS_LIST, UNHANDLED_PROJECT_MODELS_LIST, HANDLED_PROJECT_MODELS_LIST});
 	}
 
 	public Object getDefaultProperty(String propertyName) {
@@ -107,10 +95,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			return getLocation().toOSString();
 		} else if (MODULE_MODELS_LIST.equals(propertyName) || UTILITY_LIST.equals(propertyName) || UTILITY_MODELS_LIST.equals(propertyName) || SELECTED_MODELS_LIST.equals(propertyName) || EJB_CLIENT_LIST.equals(propertyName)) {
 			return Collections.EMPTY_LIST;
-		} else if (OVERWRITE_NESTED_PROJECTS.equals(propertyName)) {
-			return Boolean.FALSE;
-		} else if (SYNC_SERVER_TARGETS_WITH_EAR.equals(propertyName)) {
-			return Boolean.TRUE;
 		} else if (USE_ANNOTATIONS.equals(propertyName)) {
 			return Boolean.FALSE;
 		} else if (ALL_PROJECT_MODELS_LIST.equals(propertyName)) {
@@ -141,13 +125,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (ALL_PROJECT_MODELS_LIST.equals(propertyName) || UNHANDLED_PROJECT_MODELS_LIST.equals(propertyName) || HANDLED_PROJECT_MODELS_LIST.equals(propertyName)) {
 			throw new RuntimeException(propertyName + " is an unsettable property");
-		}
-		if (OVERWRITE_NESTED_PROJECTS.equals(propertyName)) {
-			List projectModels = getProjectModels();
-			IDataModel nestedModel = null;
-			for (int i = 0; i < projectModels.size(); i++) {
-				nestedModel = (IDataModel) projectModels.get(i);
-			}
 		}
 		boolean doSet = super.propertySet(propertyName, propertyValue);
 		if (NESTED_MODULE_ROOT.equals(propertyName)) {
@@ -273,7 +250,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	public IStatus validate(String propertyName) {
 		if (propertyName.equals(NESTED_PROJECTS_VALIDATION)) {
-			boolean overwrite = getBooleanProperty(OVERWRITE_NESTED_PROJECTS);
 			String earProjectName = getStringProperty(PROJECT_NAME);
 			List subProjects = getSelectedModels();
 			IDataModel subDataModel = null;
