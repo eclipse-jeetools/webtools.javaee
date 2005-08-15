@@ -5,7 +5,7 @@ import java.util.List;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -300,7 +300,7 @@ public class EARImportOperationTest extends ModuleImportOperationTestCase {
 	}
 
 	protected IDataModel getModelInstance() {
-		return DataModelFactory.createDataModel(new EnterpriseApplicationImportDataModelProvider());
+		return DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
 	}
 
 }
