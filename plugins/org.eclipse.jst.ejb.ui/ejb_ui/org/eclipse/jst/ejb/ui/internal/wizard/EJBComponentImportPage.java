@@ -14,7 +14,6 @@ import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -39,7 +38,7 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 	}
 
 	protected String getFileNamesStoreID() {
-		return IEJBNatureConstants.NATURE_ID;
+		return "EJB";//$NON-NLS-1$
 	}
 
 	protected String getFileImportLabel() {
@@ -65,6 +64,6 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
-		//new AnnotationsStandaloneGroup(composite, getEJBDataModel(), false);
+		// new AnnotationsStandaloneGroup(composite, getEJBDataModel(), false);
 	}
 }
