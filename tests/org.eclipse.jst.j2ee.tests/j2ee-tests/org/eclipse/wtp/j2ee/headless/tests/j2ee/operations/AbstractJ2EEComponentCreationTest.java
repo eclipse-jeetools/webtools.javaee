@@ -15,7 +15,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsTo
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationD
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
@@ -321,7 +322,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 	}
 
 	public static void addJavaMainClassToApplicationModel(IProject appProject) {
-		ApplicationClientNatureRuntime runtime = ApplicationClientNatureRuntime.getRuntime(appProject);
+		J2EENature runtime = J2EENature.getRuntime(appProject,IApplicationClientNatureConstants.NATURE_ID);
 		IFile file = runtime.getEMFRoot().getFile(new Path(ArchiveConstants.MANIFEST_URI));
 		ArchiveManifestImpl manifest = null;
 		InputStream inputStream = null;
