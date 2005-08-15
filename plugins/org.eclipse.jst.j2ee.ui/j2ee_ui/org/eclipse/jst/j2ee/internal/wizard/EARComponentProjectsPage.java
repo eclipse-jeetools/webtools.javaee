@@ -54,7 +54,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class EARComponentProjectsPage extends J2EEImportPage implements ICellModifier {
+public class EARComponentProjectsPage extends J2EEImportPage {
 
 	private CheckboxTableViewer earFileListViewer;
 
@@ -254,22 +254,27 @@ public class EARComponentProjectsPage extends J2EEImportPage implements ICellMod
 		earFileListViewer.setColumnProperties(columnProperties);
 
 		setColumnEditors();
-		earFileListViewer.setCellModifier(this);
+		earFileListViewer.setCellModifier(new ICellModifier() {
+			public boolean canModify(Object element, String property) {
+				return PROJECT_COLUMN.equals(property);
+			}
+
+			public Object getValue(Object element, String property) {
+				TableItem[] items = earFileListViewer.getTable().getSelection();
+				TableItem item = items[0];
+				return item.getText(1);
+			}
+
+			public void modify(Object element, String property, Object value) {
+				TableItem elementHolder = (TableItem) element;
+				if (property.equals(PROJECT_COLUMN)) {
+					elementHolder.setText(1, (String) value);
+					((IDataModel) elementHolder.getData()).setProperty(IEARComponentImportDataModelProperties.COMPONENT_NAME, value);
+				}
+			}
+		});
 	}
 
-	public java.lang.Object getValue(java.lang.Object element, java.lang.String property) {
-		TableItem[] items = earFileListViewer.getTable().getSelection();
-		TableItem item = items[0];
-		return item.getText(1);
-	}
-
-	public void modify(Object element, String property, Object value) {
-		TableItem elementHolder = (TableItem) element;
-		if (property.equals(PROJECT_COLUMN)) {
-			elementHolder.setText(1, (String) value);
-			((IDataModel) elementHolder.getData()).setProperty(IEARComponentImportDataModelProperties.PROJECT_NAME, value);
-		}
-	}
 
 	protected void restoreWidgetValues() {
 		// This page doesn't implement...
@@ -283,8 +288,5 @@ public class EARComponentProjectsPage extends J2EEImportPage implements ICellMod
 		return new String[]{IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST};
 	}
 
-	public boolean canModify(Object element, String property) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 }
