@@ -144,8 +144,8 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
             if (advancedHeight == -1) {
                 Point controlSize = getControl().getSize();
                 if (controlSize.x != 0) {
+                	Point pageSize = getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT);
                     int minHeight = originalSize.y - controlSize.y;
-                    Point pageSize = getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT);
                     advancedHeight = pageSize.y + minHeight;
                 }
             }
@@ -429,7 +429,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
                         advancedController.setShellSizeForAdvanced();
                     }
                 }
-                advancedController.setShellSizeForAdvanced();
+//                advancedController.setShellSizeForAdvanced();
             }   
         }
     }
