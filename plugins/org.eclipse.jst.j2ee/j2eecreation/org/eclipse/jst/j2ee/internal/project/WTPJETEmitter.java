@@ -433,12 +433,19 @@ public class WTPJETEmitter extends JETEmitter {
 				Logger.getLogger().logError(e);
 			}
 			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
-			if (bundle.getLocation().endsWith(".jar")) {
-				String jarPluginPath = bundle.getLocation().substring(7);
-				String installPath = Platform.getInstallLocation().getURL().getPath();
-				runtimeLibFullPath = new Path(installPath+"/"+jarPluginPath);
+			if (bundle.getLocation().endsWith(".jar")) { //$NON-NLS-1$
+				String jarPluginLocation = bundle.getLocation().substring(7);
+				Path jarPluginPath = new Path(jarPluginLocation);
+				// handle case where jars are installed outside of eclipse installation
+				if (jarPluginPath.isAbsolute())
+					runtimeLibFullPath = jarPluginPath;
+				// handle normal case where all plugins under eclipse install
+				else {
+					String installPath = Platform.getInstallLocation().getURL().getPath();
+					runtimeLibFullPath = new Path(installPath+"/"+jarPluginLocation); //$NON-NLS-1$
+				}
 			}
-			if (!"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension()))
+			if (!"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension())) //$NON-NLS-1$ //$NON-NLS-2$
 				continue;
 			entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
 			null, /* Source attachment root */
