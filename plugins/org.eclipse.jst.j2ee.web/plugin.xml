@@ -82,17 +82,7 @@
             id="org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportOperation">
       </extendableOperation>
    </extension>
-<!-- ======================Lib Dir Builder ========================= -->
-   <extension
-         id="LibDirBuilder"
-         name="Lib Dir Builder"
-         point="org.eclipse.core.resources.builders">
-      <builder>
-         <run
-               class="org.eclipse.jst.j2ee.internal.web.operations.LibDirBuilder">
-         </run>
-      </builder>
-   </extension>
+
 <!-- ==================================================================== -->
 <!-- Extension point: org.eclipse.etools.server.core.moduleObjectAdapters -->
 <!-- Purpose: Define adapters for EJB and Web resources                   -->
@@ -219,28 +209,7 @@
             class="org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation"
             id="org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation">
       </extendableOperation>
-   </extension>
-   
-<!-- =============================================================== -->
-<!-- TagLib Server Target Listener Ext 						        -->
-<!-- =============================================================== -->
-   
-   <extension point="org.eclipse.wst.server.core.runtimeTargetHandlers">
-   <runtimeTargetHandler
-      id="com.ibm.wtp.webtools.taglib.runtimeTarget"
-      runtimeTypeIds="com.ibm.ws.ast.st.runtime.v60, com.ibm.etools.websphere*"
-      class="org.eclipse.jst.j2ee.internal.web.taglib.WebProjectServerTaglibListener"/>
-	</extension>
-
-
- 	<extension point="org.eclipse.jst.common.navigator.java.compressedProject">
- 		<compressedProject natureId="org.eclipse.jst.j2ee.web.WebNature" />
-		<compressedProject natureId="org.eclipse.wst.web.StaticWebNature" />
- 		
-	</extension> 		
-
-<!-- icon="icons/full/obj16/webapp_deploy.gif" -->
-
+   </extension>		
 
 <!-- =========================================================== -->
 <!--   Web Tag set definitions for XDoclet                       -->

@@ -11,7 +11,6 @@ package org.eclipse.jst.j2ee.internal.actions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -56,9 +55,6 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
-
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
 
@@ -267,20 +263,21 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	}
 
 	protected void computeReferencedProjects() {
-		getProjects();
-		referencedProjects = new HashSet();
-		for (int i = 0; i < projects.size(); i++) {
-			IProject project = (IProject) projects.get(i);
-			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
-			if (runtime == null)
-				continue;
-			EAREditModel editModel = runtime.getEarEditModelForRead(this);
-			try {
-				referencedProjects.addAll(editModel.getModuleMappedProjects());
-			} finally {
-				editModel.releaseAccess(this);
-			}
-		}
+		//TODO fix up to use components
+//		getProjects();
+//		referencedProjects = new HashSet();
+//		for (int i = 0; i < projects.size(); i++) {
+//			IProject project = (IProject) projects.get(i);
+//			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
+//			if (runtime == null)
+//				continue;
+//			EAREditModel editModel = runtime.getEarEditModelForRead(this);
+//			try {
+//				referencedProjects.addAll(editModel.getModuleMappedProjects());
+//			} finally {
+//				editModel.releaseAccess(this);
+//			}
+//		}
 	}
 
 	protected DeleteModuleOperation getDeleteModuleOperation() {
@@ -382,13 +379,15 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	}
 
 	protected boolean isJ2EEApplicationProject(Object o) {
-		boolean retVal = false;
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
-			if (EARNatureRuntime.hasRuntime(project))
-				retVal = true;
+			IVirtualComponent[] components = ComponentUtilities.getComponentsForProject(project);
+			for (int i=0; i<components.length; i++) {
+				if (IModuleConstants.JST_EAR_MODULE.equals(components[i].getComponentTypeId()))
+					return true;
+			}
 		}
-		return retVal;
+		return false;
 	}
 
 	protected void setEnabledFromSelection(IStructuredSelection selection) {

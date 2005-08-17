@@ -17,23 +17,17 @@
 package org.eclipse.jst.j2ee.internal.actions;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
 import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 
 /**
@@ -61,29 +55,30 @@ public class J2EERenameParticipant extends RenameParticipant {
 			if (J2EENature.getRegisteredRuntime(project) != null)
 				return true;
 
+			//TODO switch to use components and component references
 			// only return true for utility jar projects
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			EAREditModel model = null;
-			UtilityJARMapping mapping = null;
-			IProject[] allProjects = root.getProjects();
-			for (int i = 0; i < allProjects.length; i++) {
-				EARNatureRuntime earNature = EARNatureRuntime.getRuntime(allProjects[i]);
-				if (earNature != null) {
-					try {
-						model = earNature.getEarEditModelForRead(this);
-						mapping = model.getUtilityJARMapping(project);
-
-						if (mapping != null)
-							return true;
-
-					} finally {
-						if (model != null) {
-							model.releaseAccess(this);
-							model = null;
-						}
-					}
-				}
-			}
+//			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+//			EAREditModel model = null;
+//			UtilityJARMapping mapping = null;
+//			IProject[] allProjects = root.getProjects();
+//			for (int i = 0; i < allProjects.length; i++) {
+//				EARNatureRuntime earNature = EARNatureRuntime.getRuntime(allProjects[i]);
+//				if (earNature != null) {
+//					try {
+//						model = earNature.getEarEditModelForRead(this);
+//						mapping = model.getUtilityJARMapping(project);
+//
+//						if (mapping != null)
+//							return true;
+//
+//					} finally {
+//						if (model != null) {
+//							model.releaseAccess(this);
+//							model = null;
+//						}
+//					}
+//				}
+//			}
 		}
 		return false;
 	}

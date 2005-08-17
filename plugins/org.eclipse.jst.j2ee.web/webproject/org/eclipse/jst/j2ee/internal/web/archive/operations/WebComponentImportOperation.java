@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -27,15 +26,14 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
@@ -50,10 +48,10 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
-		IVirtualFolder libFolder = WebPropertiesUtil.getWebLibFolder(virtualComponent);
+		IVirtualFolder libFolder = virtualComponent.getRootFolder().getFolder(WebArtifactEdit.WEBLIB);
 		if (!libFolder.exists()) {
 			try {
-				libFolder.create(IFolder.FORCE, new NullProgressMonitor());
+				libFolder.create(IResource.FORCE, new NullProgressMonitor());
 			} catch (CoreException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -82,17 +80,6 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		IJavaProject javaProject = JavaCore.create(virtualComponent.getProject());
 		extraEntries = new ArrayList();
 		importWebLibraryProjects(monitor, extraEntries, javaProject);
-		IVirtualFolder libFolder = WebPropertiesUtil.getWebLibFolder(virtualComponent);
-		IVirtualResource[] libs = libFolder.members();
-		IResource lib = null;
-		
-//		Removing this block because WebApp lib container handles these entries
-//		for (int i = 0; i < libs.length; i++) {
-//			lib = libs[i].getUnderlyingResource();
-//			if (!javaProject.isOnClasspath(lib))
-//				extraEntries.add(JavaCore.newLibraryEntry(lib.getFullPath(), lib.getFullPath(), null));
-//		}
-//		addToClasspath(model, extraEntries);
 	}
 
 	private void importWebLibraryProjects(IProgressMonitor monitor, List extraEntries, IJavaProject javaProject) throws InvocationTargetException, InterruptedException, ExecutionException {
@@ -105,10 +92,10 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		Archive libArchive = null;
 		for (int i = 0; null != libProjects && i < libProjects.size(); i++) {
 			importModel = (IDataModel) libProjects.get(i);
-			libArchive = (Archive) importModel.getProperty(IWebComponentImportDataModelProperties.FILE);
+			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			if (selectedLibs.contains(libArchive)) {
 				jarName = libArchive.getName();
-				nestedComponent = (IVirtualComponent) importModel.getProperty(IWebComponentImportDataModelProperties.COMPONENT);
+				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				libModules.add(new LibModule(jarName, nestedComponent.getProject().getName()));
 				importModel.getDefaultOperation().execute(monitor, info);
 				if (extraEntries != null) {
@@ -116,7 +103,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 						extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath()));
 					}
 				}
-				ComponentCore.createReference(virtualComponent, nestedComponent, new Path("/WEB-INF/lib/")).create(0, monitor);
+				ComponentCore.createReference(virtualComponent, nestedComponent, new Path("/WEB-INF/lib/")).create(0, monitor); //$NON-NLS-1$
 			}
 		}
 
@@ -143,7 +130,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		}
 	}
 
-	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		return new WebComponentSaveStrategyImpl(virtualComponent);
+	protected SaveStrategy createSaveStrategy(IVirtualComponent aVirtualComponent) {
+		return new WebComponentSaveStrategyImpl(aVirtualComponent);
 	}
 }

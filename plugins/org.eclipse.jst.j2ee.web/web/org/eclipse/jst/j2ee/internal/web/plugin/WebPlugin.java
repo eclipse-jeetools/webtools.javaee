@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -36,9 +34,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
-import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibRegistryManager;
-import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -68,10 +63,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	public static final String LIBCOPY_BUILDER_ID = "org.eclipse.jst.j2ee.LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin
 	//Global ResourceSet (somewhat global)
-	protected ITaglibRegistryManager taglibRegistryManager;
 	private static IPath location;
-	private IResourceChangeListener fWebContentListener;
-
 	public static final String[] ICON_DIRS = new String[]{"icons/full/obj16", //$NON-NLS-1$
 				"icons/full/cview16", //$NON-NLS-1$
 				"icons/full/ctool16", //$NON-NLS-1$
@@ -169,7 +161,6 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * d:\installdir\plugin)
 	 */
 	public static IPath getPluginLocation(String pluginId) {
-		IExtensionRegistry registry = Platform.getExtensionRegistry();
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {
@@ -203,12 +194,6 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	public String getPreferenceWebASJar() {
 		//return getPreferenceStore().getString(IWebToolingCoreConstants.PROP_WEBAS_JAR);
 		return "THIS IS THE WRONG PATH - NEED TO CHANGE IMPLEMENTATION!!!!!"; //$NON-NLS-1$
-	}
-
-	public ITaglibRegistryManager getTaglibRegistryManager() {
-		if (this.taglibRegistryManager == null)
-			this.taglibRegistryManager = createTaglibRegistryManager();
-		return this.taglibRegistryManager;
 	}
 
 	public static IWorkspace getWorkspace() {
@@ -271,47 +256,12 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		return MessageFormat.format(getString(key), substitutions);
 	}
 
-	/*
-	 * Add the web content listener. This listener is used to detect when a web project's web
-	 * content folder has been renamed.
-	 */
-	private void addWebContentListener() {
-		this.fWebContentListener = new WebContentResourceChangeListener();
-		getWorkspace().addResourceChangeListener(this.fWebContentListener, IResourceChangeEvent.PRE_BUILD);
-	}
-
-	/*
-	 * Remove the web content listener.
-	 */
-	private void removeWebContentListener() {
-		if (this.fWebContentListener != null) {
-			if (getWorkspace() == null)
-				return;
-			getWorkspace().removeResourceChangeListener(this.fWebContentListener);
-			this.fWebContentListener = null;
-		}
-	}
-
-
-
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
-		if (this.taglibRegistryManager != null)
-			this.taglibRegistryManager.dispose();
-
-		// remove listener for web content changes
-		removeWebContentListener();
-	}
-
-	protected ITaglibRegistryManager createTaglibRegistryManager() {
-		return new TaglibRegistryManager();
 	}
 
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		// register the listener for link refactoring of moved/renamed files
-		// add listener for web content changes
-		addWebContentListener();
 		WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new WebEditAdapterFactory(), ArtifactEditModel.class);

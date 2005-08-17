@@ -22,16 +22,12 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProvider;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EENotificationImpl;
-
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class J2EEApplicationItemProvider extends ApplicationItemProvider implements IAdaptable {
 
@@ -66,20 +62,22 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 		// MDE: changed getParent(object) to just app
 		localChildren.add(new ModulesItemProvider(getAdapterFactory(), null, null, app, app.getModules()));
 
-		IProject project = ProjectUtilities.getProject(app);
-		EAREditModel editModel = null;
-		try {
-			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
-			if (runtime != null) {
-				editModel = runtime.getEarEditModelForRead(this);
-				EARProjectMap map = editModel.getEARProjectMap();
-				localChildren.add(map);
-				map.eResource().eAdapters().add(getNewAdapter(app));
-			}
-		} finally {
-			if (editModel != null)
-				editModel.releaseAccess(this);
-		}
+//		IProject project = ProjectUtilities.getProject(app);
+//		IVirtualComponent ear = ComponentUtilities.findComponent(app);
+		//TODO switch to retrieve referenceComponents
+//		EAREditModel editModel = null;
+//		try {
+//			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
+//			if (runtime != null) {
+//				editModel = runtime.getEarEditModelForRead(this);
+//				EARProjectMap map = editModel.getEARProjectMap();
+//				localChildren.add(map);
+//				map.eResource().eAdapters().add(getNewAdapter(app));
+//			}
+//		} finally {
+//			if (editModel != null)
+//				editModel.releaseAccess(this);
+//		}
 		localChildren.add(new J2EEUtilityJarItemProvider(app, getAdapterFactory(), this));
 
 		children.put(object, localChildren);

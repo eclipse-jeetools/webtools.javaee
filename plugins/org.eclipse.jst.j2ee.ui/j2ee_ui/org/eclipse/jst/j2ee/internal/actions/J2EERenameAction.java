@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -31,6 +32,7 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameDialog;
@@ -47,13 +49,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
+import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
-
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class J2EERenameAction extends SelectionDispatchAction implements J2EERenameUIConstants {
 
@@ -352,18 +355,15 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	}
 
 	protected boolean isJ2EEApplicationProject(Object o) {
-		boolean retVal = false;
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
-			try {
-				if (EARNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				}
-			} catch (Throwable t) {
-				retVal = false;
+			IVirtualComponent[] components = ComponentUtilities.getComponentsForProject(project);
+			for (int i=0; i<components.length; i++) {
+				if (IModuleConstants.JST_EAR_MODULE.equals(components[i].getComponentTypeId()))
+					return true;
 			}
 		}
-		return retVal;
+		return false;
 	}
 
 	protected boolean validateState() {
