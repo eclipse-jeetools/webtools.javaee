@@ -10,19 +10,20 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.defect.tests;
 
+import org.eclipse.wst.common.tests.SimpleTestSuite;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.wst.common.tests.SimpleTestSuite;
+public class DefectVerificationTestsSuite extends TestSuite {
 
-public class AllTests extends TestSuite {
+	public static Test suite() {
+		return new DefectVerificationTestsSuite();
+	}
 
-	public static Test suite(){
-        return new AllTests();
-    }
-    
-    public AllTests(){
-        super("J2EE Defect Tests");
-        addTest(new SimpleTestSuite(DefectTests.class));
-    }
+	public DefectVerificationTestsSuite() {
+		super("Defect Verification Tests");
+		addTest(new SimpleTestSuite(DefectVerificationTests.class));
+	}
+
 }
