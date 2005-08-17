@@ -26,8 +26,9 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author schacher

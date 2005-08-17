@@ -33,10 +33,11 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
+
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * TODO fix up this class to be on new hierarchy

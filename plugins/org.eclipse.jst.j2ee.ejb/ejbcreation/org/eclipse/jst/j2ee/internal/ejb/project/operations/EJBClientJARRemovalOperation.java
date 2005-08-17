@@ -32,13 +32,14 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author schacher
