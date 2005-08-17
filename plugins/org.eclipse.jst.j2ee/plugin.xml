@@ -65,46 +65,7 @@
 
 
 
-<!--============================-->
-<!-- Application Client J2EE 1.2 Nature             -->
-<!--============================-->
-<!--============================-->
-<!-- Application Client Project Nature Contributions - commented out for Flex project support - vkb -->
-<!--============================-->
-  <!-- <extension
-         id="ApplicationClientNature"
-         name="Application Client Properties"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime">
-         </run>
-      </runtime>
-   </extension> -->
-<!-- Register the nature id with the EMFNature -->
-   <!-- <extension
-         point="org.eclipse.jem.workbench.nature_registration">
-      <nature
-            id="org.eclipse.jst.j2ee.ApplicationClientNature">
-      </nature>
-   </extension> -->
-<!--============================-->
-<!-- Ear J2EE 12 Nature                -->
-<!--============================-->
-<!--============================-->
-<!-- EAR Project Nature Contributions-commented out for Flex project support - vkb -->
-<!--============================-->
 
-  <!-- <extension
-         id="EARNature"
-         name="EAR Properties"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime">
-         </run>
-      </runtime>
-   </extension> -->
 
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
@@ -140,13 +101,7 @@
             class="org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit">
       </artifactedit>
    </extension> 
-<!-- Register the nature id with the EMFNature -->
-   <!-- <extension
-         point="org.eclipse.jem.workbench.nature_registration">
-      <nature
-            id="org.eclipse.jst.j2ee.EARNature">
-      </nature>
-   </extension> -->
+
 <!--===================================================-->
 <!-- Register known J2EE DTDs and XSDs for XML editor  -->
 <!-- DTD and XSD Contributions                         -->
@@ -462,31 +417,7 @@
 <!-- Extendable Operations                                  -->
 <!-- These operation are extendable in other plugins        -->
 <!-- ====================================================== -->
-   <extension
-         id="baseEditModels"
-         name="Core Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.j2ee.application.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.earcreation.EAREditModelFactory">
-         <editModelResource
-               URI="META-INF/application.xml">
-         </editModelResource>
-         <editModelResource
-               URI="META-INF/.modulemaps">
-         </editModelResource>
-      </editModel>
-      <editModel
-            editModelID="org.eclipse.jst.j2ee.applicationClient.editModel"
-            factoryClass="org.eclipse.jst.j2ee.applicationclient.creation.AppClientEditModelFactory">
-         <editModelResource
-               URI="META-INF/application-client.xml">
-         </editModelResource>
-         <editModelResource
-               URI="META-INF/webservicesclient.xml">
-         </editModelResource>
-      </editModel>
-   </extension>
+
    <extension
          name="J2EE tools function group"
          point="org.eclipse.wst.common.frameworks.functionGroup">

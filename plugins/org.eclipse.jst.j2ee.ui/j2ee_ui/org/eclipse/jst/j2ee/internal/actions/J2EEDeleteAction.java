@@ -44,8 +44,6 @@ import org.eclipse.jst.j2ee.internal.dialogs.DeleteEARDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.DeleteModuleDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EEDeleteDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EEDeleteUIConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -58,6 +56,9 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
 

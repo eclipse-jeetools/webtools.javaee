@@ -24,6 +24,8 @@ import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
+
 
 public class UpdateModuleReferencesInEARProjectCommand extends ModuleInEARProjectCommand {
 	protected List ejbRefernces;

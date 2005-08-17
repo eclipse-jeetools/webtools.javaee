@@ -34,10 +34,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigFa
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class LooseConfigUpdateOperation extends WTPOperation implements ILooseConfigConstants {
 
@@ -152,7 +154,7 @@ public class LooseConfigUpdateOperation extends WTPOperation implements ILooseCo
 		if (map.getProjectName() == null)
 			return null;
 		IProject p = getProject(map.getProjectName());
-		J2EEModuleNature nature = (J2EEModuleNature) J2EENature.getRegisteredRuntime(p);
+		J2EENature nature = (J2EENature) J2EENature.getRegisteredRuntime(p);
 
 		return getAbsolutePath(nature);
 	}

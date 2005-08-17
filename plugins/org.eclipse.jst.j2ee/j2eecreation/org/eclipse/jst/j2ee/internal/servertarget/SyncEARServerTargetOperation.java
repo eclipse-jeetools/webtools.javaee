@@ -19,8 +19,9 @@ package org.eclipse.jst.j2ee.internal.servertarget;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.server.core.IRuntime;
+
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author vijayb

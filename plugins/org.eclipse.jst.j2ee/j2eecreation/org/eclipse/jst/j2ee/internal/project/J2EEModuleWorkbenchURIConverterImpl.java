@@ -64,7 +64,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 	 * @param aNature
 	 * @param aSynchronizer
 	 */
-	public J2EEModuleWorkbenchURIConverterImpl(J2EEModuleNature aNature, ResourceSetWorkbenchSynchronizer aSynchronizer) {
+	public J2EEModuleWorkbenchURIConverterImpl(J2EENature aNature, ResourceSetWorkbenchSynchronizer aSynchronizer) {
 		super(aNature, aSynchronizer);
 	}
 
@@ -145,8 +145,8 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 	 * @return boolean if the input JAR location changed
 	 */
 	public boolean recomputeInputJARLocation() {
-		if (!((J2EEModuleNature) nature).canBeBinary())
-			return false;
+//		if (!((J2EENature) nature).canBeBinary())
+//			return false;
 		IPath existing = inputJARLocation;
 		IPath newLoc = null;
 		boolean changed = false;

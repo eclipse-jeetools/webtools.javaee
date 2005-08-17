@@ -28,9 +28,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 
 /**

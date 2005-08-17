@@ -15,6 +15,8 @@ import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+
 
 public class AddModuleMapCommand extends AbstractCommand {
 	protected EAREditModel editModel;

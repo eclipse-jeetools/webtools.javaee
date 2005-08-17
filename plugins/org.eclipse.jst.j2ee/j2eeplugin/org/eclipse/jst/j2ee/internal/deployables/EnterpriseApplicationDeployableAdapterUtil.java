@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -124,22 +123,6 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 			component = resources[0].getComponent();
 		return getModule(proj,component);
 	}// getModule
-
-
-
-	/**
-	 * Gets the ear nature.
-	 * 
-	 * @param IProject
-	 *            project - The current project.
-	 * @return EARNatureRuntime
-	 */
-	protected static EARNatureRuntime getNature(IProject project) {
-		if (project != null) {
-			return EARNatureRuntime.getRuntime(project);
-		}// if
-		return null;
-	}// getNature
 
 
 

@@ -17,7 +17,6 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -50,30 +49,6 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	 */
 	public String getNatureID() {
 		return IApplicationClientNatureConstants.NATURE_ID;
-	}
-
-	/*
-	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
-	 */
-
-	public IModule createModule(J2EENature nature) {
-		if (nature == null)
-			return null;
-		ApplicationClientDeployable moduleDelegate = null;
-		IModule module = nature.getModule();
-		if (module == null) {
-			try {
-				moduleDelegate = new ApplicationClientDeployable(nature, ID);
-				module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-				nature.setModule(module);
-				moduleDelegate.initialize(module);
-			} catch (Exception e) {
-				Logger.getLogger().write(e);
-			} finally {
-				moduleDelegates.add(moduleDelegate);
-			}
-		}
-		return module;
 	}
 
 	/* (non-Javadoc)

@@ -40,14 +40,14 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
+
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author dfholttp
@@ -186,12 +186,12 @@ public class EJBReferenceCreationOperation extends ModelModifierOperation {
 		}
 		if (clientProj != null) {
 			J2EENature ownerNature = J2EENature.getRegisteredRuntime(ownerProj);
-			if (ownerNature != null && ownerNature instanceof J2EEModuleNature) {
-				EARNatureRuntime[] natures = ((J2EEModuleNature) ownerNature).getReferencingEARProjects();
-				for (int i = 0; i < natures.length; i++) {
-					addUtilityJarIfNecessary(clientProj, natures[i]);
-				}
-			}
+//			if (ownerNature != null && ownerNature instanceof J2EEModuleNature) {
+//				EARNatureRuntime[] natures = ((J2EEModuleNature) ownerNature).getReferencingEARProjects();
+//				for (int i = 0; i < natures.length; i++) {
+//					addUtilityJarIfNecessary(clientProj, natures[i]);
+//				}
+//			}
 		}
 	}
 

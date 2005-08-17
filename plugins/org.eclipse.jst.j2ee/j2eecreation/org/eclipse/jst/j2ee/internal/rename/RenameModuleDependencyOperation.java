@@ -36,15 +36,15 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class RenameModuleDependencyOperation extends WTPOperation {
 
@@ -149,14 +149,14 @@ public class RenameModuleDependencyOperation extends WTPOperation {
 		while (it.hasNext()) {
 			ClasspathRenameInfo info = (ClasspathRenameInfo) it.next();
 			IProject p = info.getTargetProject();
-			J2EEModuleNature nature = (J2EEModuleNature) J2EENature.getRegisteredRuntime(p);
+			J2EENature nature = (J2EENature) J2EENature.getRegisteredRuntime(p);
 			if (nature == null)
 				continue;
-			if (nature.isBinaryProject()) {
-				String message = J2EECreationResourceHandler.getString("Can_not_rename_module_dependency_from_project_UI_", new Object[]{p.getName()}); //$NON-NLS-1$ 
-				addErrorStatus(message);
-				continue;
-			}
+//			if (nature.isBinaryProject()) {
+//				String message = J2EECreationResourceHandler.getString("Can_not_rename_module_dependency_from_project_UI_", new Object[]{p.getName()}); //$NON-NLS-1$ 
+//				addErrorStatus(message);
+//				continue;
+//			}
 			try {
 				replaceManifest(nature, info);
 				replaceBuildPath(nature, info);

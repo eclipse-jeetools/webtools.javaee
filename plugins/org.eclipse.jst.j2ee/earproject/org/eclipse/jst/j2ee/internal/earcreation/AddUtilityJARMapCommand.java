@@ -11,6 +11,8 @@ package org.eclipse.jst.j2ee.internal.earcreation;
 
 import org.eclipse.core.resources.IProject;
 
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+
 
 public class AddUtilityJARMapCommand extends UtilityJARInEARProjectCommand {
 

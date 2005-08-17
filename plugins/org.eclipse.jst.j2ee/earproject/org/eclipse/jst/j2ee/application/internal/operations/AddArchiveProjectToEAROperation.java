@@ -40,7 +40,6 @@ import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.AddModuleToEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveModuleFromEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -50,6 +49,8 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
+
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 

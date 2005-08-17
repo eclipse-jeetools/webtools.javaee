@@ -25,6 +25,8 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+
 /**
 * @deprecated
 * Use

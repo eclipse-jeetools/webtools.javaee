@@ -52,6 +52,8 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataMo
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -296,7 +298,12 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 	}
 
 	public void linkArchiveToEAR(String earProjectName, String uriMapping, IProject utlityProject, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		AddUtilityProjectToEARDataModel addArchiveProjectToEARDataModel = AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProjectName, utlityProject);
+		IDataModel addComponentsDM = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
+		addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, virtualComponent.getComponentHandle());
+		addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, componentHandlesToAdd);
+		addComponentsDM.getDefaultOperation().execute(monitor, info);
+		
+		
 		addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI, uriMapping);
 		addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, true);
 		addArchiveProjectToEARDataModel.getDefaultOperation().run(monitor);

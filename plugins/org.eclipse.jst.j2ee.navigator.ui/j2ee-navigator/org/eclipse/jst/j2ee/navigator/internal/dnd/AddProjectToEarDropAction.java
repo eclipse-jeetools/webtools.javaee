@@ -16,8 +16,6 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.ui.part.PluginTransfer;
@@ -28,6 +26,9 @@ import org.eclipse.wst.common.navigator.internal.views.NavigatorPlugin;
 import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
 import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author jsholl

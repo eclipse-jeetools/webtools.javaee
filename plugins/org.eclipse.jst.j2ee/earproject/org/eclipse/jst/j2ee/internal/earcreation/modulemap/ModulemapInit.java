@@ -11,9 +11,10 @@ package org.eclipse.jst.j2ee.internal.earcreation.modulemap;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.utilities.ResourceDependencyRegister;
+
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
 /**
 * @deprecated
 * Use
@@ -41,7 +42,7 @@ public class ModulemapInit {
 								}
 							});
 			}
-			ResourceDependencyRegister.registerDependency(J2EEConstants.APPLICATION_DD_URI_OBJ, EAREditModel.MODULE_MAP_URI_OBJ);
+			//ResourceDependencyRegister.registerDependency(J2EEConstants.APPLICATION_DD_URI_OBJ, EAREditModel.MODULE_MAP_URI_OBJ);
 		}
 	}
 

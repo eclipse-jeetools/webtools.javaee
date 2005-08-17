@@ -22,6 +22,9 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 
+import com.ibm.etools.j2ee.internal.project.EAREditModel;
+import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
+
 
 /**
  * Insert the type's description here. Creation date: (03/29/01 4:48:46 PM)
@@ -68,7 +71,7 @@ public class RollupRolesCommand extends AbstractCommand {
 	}
 
 	public boolean canExecute() {
-		return super.canExecute() && org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime.getRuntime(getEarProject()) != null;
+		return super.canExecute() && com.ibm.etools.j2ee.internal.project.EARNatureRuntime.getRuntime(getEarProject()) != null;
 	}
 
 	public void dispose() {
