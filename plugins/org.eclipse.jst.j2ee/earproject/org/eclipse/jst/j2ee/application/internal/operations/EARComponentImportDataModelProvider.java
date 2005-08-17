@@ -76,7 +76,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	private IDataModelListener nestedListener = new IDataModelListener() {
 		public void propertyChanged(DataModelEvent event) {
-			if (event.getPropertyName().equals(PROJECT_NAME)) {
+			if (event.getPropertyName().equals(COMPONENT_NAME)) {
 				model.notifyPropertyChange(NESTED_PROJECTS_VALIDATION, IDataModel.DEFAULT_CHG);
 			}
 		}
@@ -426,7 +426,9 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		List clientJarArchives = new ArrayList();
 		IDataModel localModel;
 		String earProjectName = getStringProperty(PROJECT_NAME);
+		String earComponentName = getStringProperty(COMPONENT_NAME);
 		List defaultModuleNames = new ArrayList();
+		defaultModuleNames.add(earProjectName);
 		List collidingModuleNames = null;
 		Hashtable ejbJarsWithClients = new Hashtable();
 		for (int i = 0; i < moduleFiles.size(); i++) {
@@ -469,7 +471,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			}
 			if (localModel != null) {
 				localModel.setProperty(FILE, temp);
-				localModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, earProjectName);
+				localModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, earComponentName);
 				localModel.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, false);
 				localModel.setProperty(RUNTIME_TARGET_ID, getProperty(RUNTIME_TARGET_ID));
 				localModel.addListener(this);

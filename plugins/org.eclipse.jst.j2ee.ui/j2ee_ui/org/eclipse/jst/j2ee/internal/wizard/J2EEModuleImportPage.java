@@ -28,7 +28,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public abstract class J2EEModuleImportPage extends J2EEImportPage implements IJ2EEModuleImportDataModelProperties{
+public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	/**
 	 * @param model
 	 * @param pageName
@@ -55,11 +55,11 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage implements IJ2
 	 * @param composite
 	 */
 	private void createServerEarAndStandaloneGroup(Composite composite) {
-		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
+		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(IJ2EEModuleImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{FILE_NAME, PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, EAR_COMPONENT_NAME, ADD_TO_EAR};
+		return new String[]{IJ2EEModuleImportDataModelProperties.FILE_NAME, IJ2EEModuleImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, IJ2EEModuleImportDataModelProperties.ADD_TO_EAR};
 	}
 
 }

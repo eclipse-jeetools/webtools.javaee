@@ -19,7 +19,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -31,7 +30,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataModelProvider implements IJ2EEComponentImportDataModelProperties, IDataModelListener {
 
-	private static final String DEFAULT_COMPONENT_NAME = "J2EEImportDataModel.DEFAULT_PROJECT_NAME"; //$NON-NLS-1$
+	private static final String USE_DEFAULT_COMPONENT_NAME = "J2EEArtifactImportDataModelProvider.USE_DEFAULT_COMPONENT_NAME"; //$NON-NLS-1$
 
 	/**
 	 * Extended attributes
@@ -42,7 +41,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private OpenFailureException cachedOpenFailureException = null;
 
 	public String[] getPropertyNames() {
-		return new String[]{FILE_NAME, FILE, SAVE_FILTER, OVERWRITE_HANDLER, CLOSE_ARCHIVE_ON_DISPOSE, COMPONENT, COMPONENT_NAME, PROJECT_NAME, DEFAULT_COMPONENT_NAME};
+		return new String[]{FILE_NAME, FILE, SAVE_FILTER, OVERWRITE_HANDLER, CLOSE_ARCHIVE_ON_DISPOSE, USE_DEFAULT_COMPONENT_NAME};
 	}
 
 	public void init() {
@@ -60,15 +59,9 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(COMPONENT_NAME)) {
-			return componentCreationDM.getProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
-		} else if (propertyName.equals(PROJECT_NAME)) {
-			return componentCreationDM.getProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-		} else if (propertyName.equals(COMPONENT)) {
-			return ComponentCore.createComponent(getProject(), getStringProperty(COMPONENT_NAME));
-		} else if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
+		if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
-		} else if (propertyName.equals(DEFAULT_COMPONENT_NAME)) {
+		} else if (propertyName.equals(USE_DEFAULT_COMPONENT_NAME)) {
 			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
@@ -83,8 +76,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			}
 			updateDefaultComponentName();
 			return true;
-		} else if (propertyName.equals(COMPONENT_NAME)) {
-			componentCreationDM.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, propertyValue);
 		} else if (propertyName.equals(SAVE_FILTER) && getArchiveFile() != null) {
 			getArchiveFile().setSaveFilter(getSaveFilter());
 		} else if (FILE_NAME.equals(propertyName)) {
@@ -100,7 +91,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	private void updateDefaultComponentName() {
 		Archive archive = getArchiveFile();
-		if (null != archive && getBooleanProperty(DEFAULT_COMPONENT_NAME)) {
+		if (null != archive && getBooleanProperty(USE_DEFAULT_COMPONENT_NAME)) {
 			Path path = new Path(archive.getURI());
 			String defaultProjectName = path.segment(path.segmentCount() - 1);
 			if (defaultProjectName.indexOf('.') > 0) {
@@ -109,9 +100,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 					defaultProjectName = defaultProjectName.replace('.', '_');
 				}
 			}
-			componentCreationDM.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, defaultProjectName);
-			model.notifyPropertyChange(COMPONENT_NAME, IDataModel.DEFAULT_CHG);
-			setBooleanProperty(DEFAULT_COMPONENT_NAME, true);
+			setProperty(COMPONENT_NAME, defaultProjectName);
 		}
 	}
 
