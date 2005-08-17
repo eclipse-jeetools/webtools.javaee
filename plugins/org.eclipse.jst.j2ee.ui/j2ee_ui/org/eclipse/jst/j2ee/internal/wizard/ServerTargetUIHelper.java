@@ -61,7 +61,7 @@ public class ServerTargetUIHelper {
 	}
 
 	private static void setServerTargetForProject(Shell shell, IProject project, IRuntime runtime) {
-		ServerTargetHelper.cleanUpNonServerTargetClasspath(project);
+		//ServerTargetHelper.cleanUpNonServerTargetClasspath(project);
 		setServerTarget(shell, project, runtime, null);
 	}
 

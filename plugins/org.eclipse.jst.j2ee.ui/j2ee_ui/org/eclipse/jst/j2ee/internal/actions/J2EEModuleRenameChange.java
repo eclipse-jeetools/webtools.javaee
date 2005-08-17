@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.actions;
 
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.Collections;
 
 import org.eclipse.core.runtime.CoreException;
@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
@@ -89,10 +88,10 @@ public class J2EEModuleRenameChange extends Change {
 	 * @see org.eclipse.ltk.core.refactoring.Change#perform(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public Change perform(IProgressMonitor pm) throws CoreException {
-		try {
+//		try {
 
-			RenameModuleOperation renameOp = new RenameModuleOperation(getRenameOptions());
-			renameOp.run(pm);
+//			RenameModuleOperation renameOp = new RenameModuleOperation(getRenameOptions());
+//			renameOp.run(pm);
 
 			//String contextRoot = getServerContextRoot();
 			// TODO fix up rename and context root operations
@@ -102,11 +101,11 @@ public class J2EEModuleRenameChange extends Change {
 //				new UpdateWebContextRootMetadataOperation(target, contextRoot).run(pm);
 //			} else if (J2EENature.getRegisteredRuntime(target) == null)
 //				new RenameUtilityJarMetadataOperation(target, newTarget).run(pm);
-		} catch (InvocationTargetException e) {
-			//Ignore
-		} catch (InterruptedException e) {
-			//Ignore
-		}
+//		} catch (InvocationTargetException e) {
+//			//Ignore
+//		} catch (InterruptedException e) {
+//			//Ignore
+//		}
 		return null;
 	}
 	

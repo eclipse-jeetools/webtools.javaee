@@ -25,8 +25,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -38,12 +36,9 @@ import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.dialogs.RenameModuleDialog;
-import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
-import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
@@ -56,7 +51,6 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 
 public class J2EERenameAction extends SelectionDispatchAction implements J2EERenameUIConstants {
 
@@ -67,7 +61,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	protected RenameOptions options;
 	// added for IRefactoringAction behavior
 	protected ISelectionProvider provider = null;
-	protected RenameModuleOperation renameModuleOperation = null;
+//	protected RenameModuleOperation renameModuleOperation = null;
 
 	/**
 	 * Constructor for RenameModuleAction.
@@ -88,10 +82,10 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	}
 
 	protected void reset() {
-		if (renameModuleOperation != null) {
-			renameModuleOperation.release();
-			renameModuleOperation = null;
-		}
+//		if (renameModuleOperation != null) {
+//			renameModuleOperation.release();
+//			renameModuleOperation = null;
+//		}
 		referencedProjects = null;
 		modules = null;
 		options = null;
@@ -269,17 +263,17 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	protected void renameMetadataIfNecessary() {
 		if (!shouldRenameMetaData())
 			return;
-		RenameModuleOperation op = getRenameModuleOperation();
-		IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(op);
-		ProgressMonitorDialog monitorDialog = new ProgressMonitorDialog(shell);
-
-		try {
-			monitorDialog.run(false, false, runnable);
-		} catch (InvocationTargetException e) {
-			handleException(e);
-		} catch (InterruptedException e) {
-			//Ignore
-		}
+//		RenameModuleOperation op = getRenameModuleOperation();
+//		IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(op);
+//		ProgressMonitorDialog monitorDialog = new ProgressMonitorDialog(shell);
+//
+//		try {
+//			monitorDialog.run(false, false, runnable);
+//		} catch (InvocationTargetException e) {
+//			handleException(e);
+//		} catch (InterruptedException e) {
+//			//Ignore
+//		}
 	}
 
 	protected boolean shouldRenameMetaData() {
@@ -370,28 +364,29 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		if (!primShouldRenameMetaData())
 			return true;
 
-		IValidateEditListener listener = new ValidateEditListener(null, getRenameModuleOperation().getRenameEditModel());
-		listener.setShell(shell);
-		return listener.validateState().isOK();
+//		IValidateEditListener listener = new ValidateEditListener(null, getRenameModuleOperation().getRenameEditModel());
+//		listener.setShell(shell);
+//		return listener.validateState().isOK();
+		return false;
 	}
 
 	protected boolean primShouldRenameMetaData() {
 		return options != null && (options.shouldRenameModules() || options.shouldRenameModuleDependencies());
 	}
 
-	protected RenameModuleOperation getRenameModuleOperation() {
-		if (renameModuleOperation == null) {
-			renameModuleOperation = new RenameModuleOperation(options);
-		}
-		return renameModuleOperation;
-	}
+//	protected RenameModuleOperation getRenameModuleOperation() {
+//		if (renameModuleOperation == null) {
+//			renameModuleOperation = new RenameModuleOperation(options);
+//		}
+//		return renameModuleOperation;
+//	}
 
 	protected void presentStatusIfNeccessary() {
 		IStatus status = null;
 
-		if (renameModuleOperation != null) {
-			status = renameModuleOperation.getStatus();
-		}
+//		if (renameModuleOperation != null) {
+//			status = renameModuleOperation.getStatus();
+//		}
 
 		if (status == null || status.isOK())
 			return;

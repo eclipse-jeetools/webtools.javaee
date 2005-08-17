@@ -26,8 +26,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -37,7 +35,6 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
-import org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation;
 import org.eclipse.jst.j2ee.internal.delete.DeleteOptions;
 import org.eclipse.jst.j2ee.internal.dialogs.DeleteEARDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.DeleteModuleDialog;
@@ -54,7 +51,6 @@ import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
 
@@ -65,7 +61,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	protected DeleteOptions options;
 	// added for IRefactoringAction behavior
 	protected ISelectionProvider provider = null;
-	protected DeleteModuleOperation deleteModuleOperation;
+
 
 
 	/**
@@ -90,10 +86,6 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 		referencedProjects = null;
 		projects = null;
 		options = null;
-		if (deleteModuleOperation != null) {
-			deleteModuleOperation.release();
-			deleteModuleOperation = null;
-		}
 	}
 
 	protected boolean getEnableStateBasedOnSelection(IStructuredSelection selection) {
@@ -280,26 +272,26 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 //		}
 	}
 
-	protected DeleteModuleOperation getDeleteModuleOperation() {
-		if (deleteModuleOperation == null)
-			deleteModuleOperation = new DeleteModuleOperation(options);
-		return deleteModuleOperation;
-	}
+//	protected DeleteModuleOperation getDeleteModuleOperation() {
+//		if (deleteModuleOperation == null)
+//			deleteModuleOperation = new DeleteModuleOperation(options);
+//		return deleteModuleOperation;
+//	}
 
 	protected void deleteMetadataIfNecessary() {
 		if (!shouldDeleteMetaData())
 			return;
 
-		IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(getDeleteModuleOperation());
-		ProgressMonitorDialog monitorDialog = new ProgressMonitorDialog(shell);
-
-		try {
-			monitorDialog.run(false, false, runnable);
-		} catch (InvocationTargetException e) {
-			handleException(e);
-		} catch (InterruptedException e) {
-			//Ignore
-		}
+//		IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(getDeleteModuleOperation());
+//		ProgressMonitorDialog monitorDialog = new ProgressMonitorDialog(shell);
+//
+//		try {
+//			monitorDialog.run(false, false, runnable);
+//		} catch (InvocationTargetException e) {
+//			handleException(e);
+//		} catch (InterruptedException e) {
+//			//Ignore
+//		}
 	}
 
 	protected boolean shouldDeleteMetaData() {
@@ -422,8 +414,8 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 
 	protected void presentStatusIfNeccessary() {
 		IStatus status = null;
-		if (deleteModuleOperation != null)
-			status = deleteModuleOperation.getStatus();
+//		if (deleteModuleOperation != null)
+//			status = deleteModuleOperation.getStatus();
 
 		if (status == null || status.isOK())
 			return;
