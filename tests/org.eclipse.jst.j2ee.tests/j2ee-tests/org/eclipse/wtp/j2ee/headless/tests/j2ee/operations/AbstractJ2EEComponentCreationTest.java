@@ -11,7 +11,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
@@ -32,6 +31,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
@@ -365,10 +365,10 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 		IProject ejbProject = ProjectUtility.getProject(projectName);
 		ArrayList list = new ArrayList();
 		list.add(ejbProject);
-		earDataModel.setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, list);
-		earDataModel.setIntProperty(IEarComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-		earDataModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_MODELS);
-		return earDataModel.getStringProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME);
+		earDataModel.setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, list);
+		earDataModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
+//		earDataModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_MODELS);
+		return earDataModel.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 	}
 
 	public AbstractJ2EEComponentCreationTest() {
