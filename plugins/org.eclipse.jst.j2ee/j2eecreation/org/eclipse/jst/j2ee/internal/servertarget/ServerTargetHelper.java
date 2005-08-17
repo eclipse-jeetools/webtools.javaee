@@ -25,7 +25,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -53,22 +55,22 @@ public class ServerTargetHelper {
 		// TODO Auto-generated constructor stub
 	}
 
-//	public static void cleanUpNonServerTargetClasspath(IProject project) {
-//		List existingClasspathEntries = ServerTargetHelper.getExistingNonServerTargetClasspath(project);
-//		if (!existingClasspathEntries.isEmpty())
-//			ServerTargetHelper.removeNonSeverTargetClasspathEntries(project, existingClasspathEntries);
-//	}
+	public static void cleanUpNonServerTargetClasspath(IProject project) {
+		List existingClasspathEntries = ServerTargetHelper.getExistingNonServerTargetClasspath(project);
+		if (!existingClasspathEntries.isEmpty())
+			ServerTargetHelper.removeNonSeverTargetClasspathEntries(project, existingClasspathEntries);
+	}
 
 	/**
 	 * @param existingClasspathEntries
 	 */
-//	public static void removeNonSeverTargetClasspathEntries(IProject project, List existingClasspathEntries) {
-//		try {
-//			JemProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
-//		} catch (JavaModelException jme) {
-//			Logger.getLogger().logError(jme);
-//		}
-//	}
+	public static void removeNonSeverTargetClasspathEntries(IProject project, List existingClasspathEntries) {
+		try {
+			JemProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
+		} catch (JavaModelException jme) {
+			Logger.getLogger().logError(jme);
+		}
+	}
 
 	/**
 	 * @param project
