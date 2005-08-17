@@ -413,7 +413,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
     public void refreshText() {
 		ClassPathSelection sel = model.getClassPathSelection();
-		if( sel != null )
+		if( sel != null && classPathText != null )
 			classPathText.setText(sel == null ? "" : sel.toString()); //$NON-NLS-1$
 	}
 
