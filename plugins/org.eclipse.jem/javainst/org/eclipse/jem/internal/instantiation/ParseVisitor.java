@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseVisitor.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.5 $  $Date: 2005/08/17 18:36:32 $ 
  */
 package org.eclipse.jem.internal.instantiation;
  
@@ -103,6 +103,29 @@ package org.eclipse.jem.internal.instantiation;
  * @since 1.0.0
  */
 public class ParseVisitor {
+	
+	/**
+	 * Exception to throw to just stop visiting a parse visit. It doesn't mean error, it
+	 * just means stop visiting. ParseVisitors should throw this when they want to stop
+	 * visiting further without an explicit error.
+	 * <p>
+	 * If they want to indicate an error, parse visitors can throw any other RuntimeException. 
+	 * Those will also stop visiting, but the exception will be passed on out of the 
+	 * {@link PTExpression#accept(ParseVisitor)}. StopVisiting will not be passed on
+	 * but will be caught inside accept.
+	 * 
+	 * @since 1.1.0.1
+	 */
+	public static class StopVisiting extends RuntimeException {
+
+		/**
+		 * Comment for <code>serialVersionUID</code>
+		 * 
+		 * @since 1.1.0.1
+		 */
+		private static final long serialVersionUID = -5246860806568355520L;
+		
+	}
 	/**
 	 * Visits the given parse node prior to the type-specific visit. (before <code>visit</code>).
 	 * <p>

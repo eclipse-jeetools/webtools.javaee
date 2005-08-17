@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: PTExpressionImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.3 $  $Date: 2005/08/17 18:36:32 $ 
  */
 import java.util.List;
 
@@ -56,15 +56,11 @@ public abstract class PTExpressionImpl extends EObjectImpl implements PTExpressi
 	 * @see org.eclipse.jem.internal.instantiation.Expression#accept(org.eclipse.jem.internal.instantiation.ParseVisitor)
 	 */
 	public final void accept(ParseVisitor visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException();
+		try {
+			childAccept0(visitor);
+		} catch (ParseVisitor.StopVisiting e) {
+			// Do nothing, this is a normal way to just stop visiting.
 		}
-		// begin with the generic pre-visit
-		visitor.preVisit(this);
-		// dynamic dispatch to internal method for type-specific visit/endVisit
-		accept0(visitor);
-		// end with the generic post-visit
-		visitor.postVisit(this);
 	}
 
 	/**
@@ -103,13 +99,33 @@ public abstract class PTExpressionImpl extends EObjectImpl implements PTExpressi
 	 * 
 	 * @param visitor the visitor object
 	 * @param child the child Expression node to dispatch too, or <code>null</code>
-	 *    if none
+	 *    if none. It actually must be an instance of PTExpressionImpl, but 
+	 *    it would be too difficult to put the cast in each call to acceptChild.
 	 */
 	protected final void acceptChild(ParseVisitor visitor, PTExpression child) {
 		if (child == null) {
 			return;
 		}
-		child.accept(visitor);
+		((PTExpressionImpl) child).childAccept0(visitor);
+	}
+	
+	/**
+	 * Called ONLY by PTExpressionImpl for the child to accept the visitor, but
+	 * it doesn't catch StopVisiting.
+	 * @param visitor
+	 * 
+	 * @since 1.1.0.1
+	 */
+	protected final void childAccept0(ParseVisitor visitor) {
+		if (visitor == null) {
+			throw new IllegalArgumentException();
+		}
+		// begin with the generic pre-visit
+		visitor.preVisit(this);
+		// dynamic dispatch to internal method for type-specific visit/endVisit
+		accept0(visitor);
+		// end with the generic post-visit
+		visitor.postVisit(this);
 	}
 	
 	/**
