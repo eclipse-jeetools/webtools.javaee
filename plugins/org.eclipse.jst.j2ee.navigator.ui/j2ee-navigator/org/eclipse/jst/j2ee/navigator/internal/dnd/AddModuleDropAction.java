@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
@@ -35,8 +34,9 @@ public class AddModuleDropAction extends AddProjectToEarDropAction {
 	}
 
 	protected WTPOperationDataModel getDataModel(IProject earProject, IProject projectToAdd) {
-		//TODO fix up to use module
-		return AddModuleToEARDataModel.createAddToEARDataModel(null,null);
+		//TODO fix up to use components
+//		return AddModuleToEARDataModel.createAddToEARDataModel(null,null);
+		return null;
 	}
 
 }
