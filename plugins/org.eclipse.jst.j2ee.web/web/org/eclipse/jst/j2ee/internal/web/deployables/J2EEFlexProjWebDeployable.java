@@ -19,6 +19,7 @@ import java.util.Properties;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
@@ -26,7 +27,6 @@ import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
@@ -102,16 +102,16 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
        	switch( nVersion ){
     	
     		case 22:
-    			ret = IModuleConstants.JSP_VERSION_1_1;
+    			ret = J2EEVersionConstants.VERSION_1_1_TEXT;
     			break;
     		case 23:
-    			ret = IModuleConstants.JSP_VERSION_1_2;
+    			ret = J2EEVersionConstants.VERSION_1_2_TEXT;
     			break;
     		case 24:	
-    			ret = IModuleConstants.JSP_VERSION_2_0;
+    			ret = J2EEVersionConstants.VERSION_2_0_TEXT;
     			break;
       		default:
-    			ret = IModuleConstants.JSP_VERSION_1_1;
+    			ret = J2EEVersionConstants.VERSION_1_1_TEXT;
     			break;    			
     	}
     	return ret; 
