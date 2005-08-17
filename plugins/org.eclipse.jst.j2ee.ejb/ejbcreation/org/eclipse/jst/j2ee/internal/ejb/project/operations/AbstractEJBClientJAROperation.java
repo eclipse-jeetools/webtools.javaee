@@ -31,13 +31,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * TODO fix up this class to be on new hierarchy
@@ -50,8 +48,6 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 	protected IProject clientProject;
 	protected IWorkspace workspace;
 	protected Object validateEditContext;
-	protected EARNatureRuntime[] earNatures;
-	//protected EJBNatureRuntime ejbNature;
 	protected IOperationHandler operationHandler;
 	protected IProgressMonitor monitor;
 	protected IProgressMonitor moveResourceMonitor;
@@ -112,21 +108,22 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 
 	protected abstract void addAdditionalFilesForValidateEdit(List roFiles) throws CoreException;
 
-	protected List normalize(String[] mfEntries, EARNatureRuntime nature, boolean filterServiceLocator) {
-		String jarURI = nature.getJARUri(ejbProject);
-		if (jarURI == null)
+	protected List normalize(String[] mfEntries, EARArtifactEdit artifactEdit, boolean filterServiceLocator) {
+		//TODO switch to artifact edits
+		String jarURI = "";//artifactEdit.getJARUri(ejbProject);
+//		if (jarURI == null)
 			return Collections.EMPTY_LIST;
 
-		List result = new ArrayList(mfEntries.length);
-		for (int i = 0; i < mfEntries.length; i++) {
-			String norm = ArchiveUtil.deriveEARRelativeURI(mfEntries[i], jarURI);
-			if (norm == null)
-				norm = mfEntries[i];
-			//We know this is an implementation dependency so we don't want to move it
-			if (!SERVICE_LOCATOR_JAR_NAME.equals(norm) || !filterServiceLocator)
-				result.add(norm);
-		}
-		return result;
+//		List result = new ArrayList(mfEntries.length);
+//		for (int i = 0; i < mfEntries.length; i++) {
+//			String norm = ArchiveUtil.deriveEARRelativeURI(mfEntries[i], jarURI);
+//			if (norm == null)
+//				norm = mfEntries[i];
+//			//We know this is an implementation dependency so we don't want to move it
+//			if (!SERVICE_LOCATOR_JAR_NAME.equals(norm) || !filterServiceLocator)
+//				result.add(norm);
+//		}
+//		return result;
 	}
 
 	protected void copyOutgoingClasspathEntries(IProject source, IProject target, boolean filterServiceLocator) throws JavaModelException {

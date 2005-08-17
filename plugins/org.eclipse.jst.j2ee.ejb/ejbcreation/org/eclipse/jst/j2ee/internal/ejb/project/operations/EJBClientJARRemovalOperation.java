@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -27,19 +26,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
-import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
-
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author schacher
@@ -189,62 +179,65 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	 * EAR. If so, then we must add the EJB module as a utility JAR to the referencing EAR.
 	 */
 	private void ensureEJBJARInAllEARs() {
-		for (int i = 0; i < earNatures.length; i++) {
-			ensureEJBJARInEAR(earNatures[i]);
-		}
+		//TODO switch to use component API
+//		for (int i = 0; i < earNatures.length; i++) {
+//			ensureEJBJARInEAR(earNatures[i]);
+//		}
 	}
 
-	private void ensureEJBJARInEAR(EARNatureRuntime runtime) {
-		String ejbURI = runtime.getJARUri(ejbProject);
-		if (ejbURI != null)
-			return;
-		ejbURI = J2EEProjectUtilities.getUtilityJARUriInFirstEAR(ejbProject);
-		EAREditModel model = null;
-		try {
-			model = runtime.getEarEditModelForWrite(this);
-			AddUtilityJARMapCommand cmd = new AddUtilityJARMapCommand(model, ejbURI, ejbProject);
-			model.getCommandStack().execute(cmd);
-			IProgressMonitor subMonitor = createSubProgressMonitor(1);
-			model.saveIfNecessary(subMonitor, this);
-		} finally {
-			if (model != null)
-				model.releaseAccess(this);
-		}
-	}
+	//TODO fix up ensure method to use component API
+//	private void ensureEJBJARInEAR(EARNatureRuntime runtime) {
+//		String ejbURI = runtime.getJARUri(ejbProject);
+//		if (ejbURI != null)
+//			return;
+//		ejbURI = J2EEProjectUtilities.getUtilityJARUriInFirstEAR(ejbProject);
+//		EAREditModel model = null;
+//		try {
+//			model = runtime.getEarEditModelForWrite(this);
+//			AddUtilityJARMapCommand cmd = new AddUtilityJARMapCommand(model, ejbURI, ejbProject);
+//			model.getCommandStack().execute(cmd);
+//			IProgressMonitor subMonitor = createSubProgressMonitor(1);
+//			model.saveIfNecessary(subMonitor, this);
+//		} finally {
+//			if (model != null)
+//				model.releaseAccess(this);
+//		}
+//	}
 
 	/*
 	 * copy all JAR dependencies not already contained by the ejb module, from the client JAR to the
 	 * ejb module, and remove the module dependency from the EJB module
 	 */
 	private void updateEJBModuleJARDependencies() throws InvocationTargetException, InterruptedException {
-		JARDependencyDataModel dataModel = new JARDependencyDataModel();
-		dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbProject.getName());
-		ArrayList list = new ArrayList();
-		list.add(clientProject.getName() + ".jar"); //$NON-NLS-1$
-		dataModel.setProperty(JARDependencyDataModel.JAR_LIST, list);
-		dataModel.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[0].getProject().getName());
-		dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_REMOVE);
-		dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientProject.getName());
-		JARDependencyOperation op = new JARDependencyOperation(dataModel);
-		op.run(createSubProgressMonitor(1));
-		ArchiveManifest clientMf = J2EEProjectUtilities.readManifest(clientProject);
-		if (clientMf == null)
-			return;
-		String[] mfEntries = clientMf.getClassPathTokenized();
-		if (mfEntries.length == 0)
-			return;
-		createSubProgressMonitor(earNatures.length);
-		JARDependencyDataModel dataModel2 = null;
-		for (int i = 0; i < earNatures.length; i++) {
-			normalize(mfEntries, earNatures[i], false);
-			dataModel2 = new JARDependencyDataModel();
-			dataModel2.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbProject.getName());
-			dataModel.setProperty(JARDependencyDataModel.JAR_LIST, list);
-			dataModel2.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[i].getProject().getName());
-			dataModel2.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
-			JARDependencyOperation op2 = new JARDependencyOperation(dataModel2);
-			op2.run(createSubProgressMonitor(1));
-		}
+		//TODO fix up to use component API
+//		JARDependencyDataModel dataModel = new JARDependencyDataModel();
+//		dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbProject.getName());
+//		ArrayList list = new ArrayList();
+//		list.add(clientProject.getName() + ".jar"); //$NON-NLS-1$
+//		dataModel.setProperty(JARDependencyDataModel.JAR_LIST, list);
+//		dataModel.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[0].getProject().getName());
+//		dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_REMOVE);
+//		dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientProject.getName());
+//		JARDependencyOperation op = new JARDependencyOperation(dataModel);
+//		op.run(createSubProgressMonitor(1));
+//		ArchiveManifest clientMf = J2EEProjectUtilities.readManifest(clientProject);
+//		if (clientMf == null)
+//			return;
+//		String[] mfEntries = clientMf.getClassPathTokenized();
+//		if (mfEntries.length == 0)
+//			return;
+//		createSubProgressMonitor(earNatures.length);
+//		JARDependencyDataModel dataModel2 = null;
+//		for (int i = 0; i < earNatures.length; i++) {
+//			normalize(mfEntries, earNatures[i], false);
+//			dataModel2 = new JARDependencyDataModel();
+//			dataModel2.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbProject.getName());
+//			dataModel.setProperty(JARDependencyDataModel.JAR_LIST, list);
+//			dataModel2.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[i].getProject().getName());
+//			dataModel2.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
+//			JARDependencyOperation op2 = new JARDependencyOperation(dataModel2);
+//			op2.run(createSubProgressMonitor(1));
+//		}
 	}
 
 	/*
@@ -252,8 +245,9 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	 * from the client JAR to the EJB module
 	 */
 	private void moveIncomingJARDependencies() throws InvocationTargetException, InterruptedException {
-		InvertClientJARDependencyCompoundOperation op = new InvertClientJARDependencyCompoundOperation(earNatures, clientProject, ejbProject);
-		op.run(createSubProgressMonitor(1));
+		//TODO fix up to use component API
+//		InvertClientJARDependencyCompoundOperation op = new InvertClientJARDependencyCompoundOperation(earNatures, clientProject, ejbProject);
+//		op.run(createSubProgressMonitor(1));
 	}
 
 	/*
@@ -420,27 +414,29 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	 * module, then add the EJB JAR as a utility JAR
 	 */
 	private void removeClientProjectFromEARs() {
-		for (int i = 0; i < earNatures.length; i++) {
-			removeClientProjectFromEAR(earNatures[i]);
-		}
+		//TODO fix up to use component API
+//		for (int i = 0; i < earNatures.length; i++) {
+//			removeClientProjectFromEAR(earNatures[i]);
+//		}
 	}
 
-	private void removeClientProjectFromEAR(EARNatureRuntime runtime) {
-		EAREditModel model = null;
-		String clientURI = runtime.getJARUri(clientProject);
-		if (clientURI == null)
-			return;
-		try {
-			model = runtime.getEarEditModelForWrite(this);
-			RemoveUtilityJARMapCommand cmd = new RemoveUtilityJARMapCommand(model, clientURI, clientProject);
-			model.getCommandStack().execute(cmd);
-			IProgressMonitor subMonitor = createSubProgressMonitor(1);
-			model.saveIfNecessary(subMonitor, this);
-		} finally {
-			if (model != null)
-				model.releaseAccess(this);
-		}
-	}
+	//	TODO fix up to use component API
+//	private void removeClientProjectFromEAR(EARNatureRuntime runtime) {
+//		EAREditModel model = null;
+//		String clientURI = runtime.getJARUri(clientProject);
+//		if (clientURI == null)
+//			return;
+//		try {
+//			model = runtime.getEarEditModelForWrite(this);
+//			RemoveUtilityJARMapCommand cmd = new RemoveUtilityJARMapCommand(model, clientURI, clientProject);
+//			model.getCommandStack().execute(cmd);
+//			IProgressMonitor subMonitor = createSubProgressMonitor(1);
+//			model.saveIfNecessary(subMonitor, this);
+//		} finally {
+//			if (model != null)
+//				model.releaseAccess(this);
+//		}
+//	}
 
 	/*
 	 * remove the client project from the workspace

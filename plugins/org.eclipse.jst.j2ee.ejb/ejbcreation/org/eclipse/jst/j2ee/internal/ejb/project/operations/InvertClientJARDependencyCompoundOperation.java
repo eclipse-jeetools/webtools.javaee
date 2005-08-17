@@ -15,34 +15,29 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author schacher
  */
 public class InvertClientJARDependencyCompoundOperation extends WTPOperation {
 
-	protected EARNatureRuntime[] earNatures;
+//	protected EARNatureRuntime[] earNatures;
 	protected IProject oldProject;
 	protected IProject newProject;
 	protected List childOperations = null;
 	protected IProgressMonitor monitor;
 
-	public InvertClientJARDependencyCompoundOperation(EARNatureRuntime[] referencingEARs, IProject anOldProject, IProject aNewProject) {
-		earNatures = referencingEARs;
+	public InvertClientJARDependencyCompoundOperation(IVirtualComponent[] referencingEARs, IProject anOldProject, IProject aNewProject) {
+//		earNatures = referencingEARs;
 		oldProject = anOldProject;
 		newProject = aNewProject;
 	}
@@ -59,22 +54,23 @@ public class InvertClientJARDependencyCompoundOperation extends WTPOperation {
 	}
 
 	private void createChildOperations() {
-		childOperations = new ArrayList();
-		for (int i = 0; i < earNatures.length; i++) {
-			Iterator projects = earNatures[i].getAllMappedProjects().values().iterator();
-			while (projects.hasNext()) {
-				IProject project = (IProject) projects.next();
-				if (project != null && !project.equals(oldProject) && !project.equals(newProject) && !JemProjectUtilities.isBinaryProject(project)) {
-					JARDependencyDataModel model = new JARDependencyDataModel();
-					model.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_INVERT);
-					model.setProperty(JARDependencyDataModel.PROJECT_NAME, project.getName());
-					model.setProperty(JARDependencyDataModel.OPPOSITE_PROJECT_NAME, newProject.getName());
-					model.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[i].getProject().getName());
-					model.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, oldProject.getName());
-					childOperations.add(new JARDependencyOperation(model));
-				}
-			}
-		}
+		//TODO switch to components API
+//		childOperations = new ArrayList();
+//		for (int i = 0; i < earNatures.length; i++) {
+//			Iterator projects = earNatures[i].getAllMappedProjects().values().iterator();
+//			while (projects.hasNext()) {
+//				IProject project = (IProject) projects.next();
+//				if (project != null && !project.equals(oldProject) && !project.equals(newProject) && !JemProjectUtilities.isBinaryProject(project)) {
+//					JARDependencyDataModel model = new JARDependencyDataModel();
+//					model.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_INVERT);
+//					model.setProperty(JARDependencyDataModel.PROJECT_NAME, project.getName());
+//					model.setProperty(JARDependencyDataModel.OPPOSITE_PROJECT_NAME, newProject.getName());
+//					model.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[i].getProject().getName());
+//					model.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, oldProject.getName());
+//					childOperations.add(new JARDependencyOperation(model));
+//				}
+//			}
+//		}
 	}
 
 	private void executeChildOperations() throws InvocationTargetException, InterruptedException {

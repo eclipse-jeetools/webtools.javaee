@@ -14,21 +14,16 @@
  */
 package org.eclipse.jst.j2ee.ejb.internal.plugin;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
-import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
@@ -37,8 +32,6 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDa
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -56,32 +49,32 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EjbModuleExtension#initializeEjbReferencesToModule(org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature)
 	 */
-	public void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand cmd) {
-		
-		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(nature.getProject());
-		if (comps.length == 0)
-			return;
-		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
-		boolean foundRef = false;
-		try {
-			EJBJar jar = edit.getEJBJar();
-			if (jar != null) {
-				List ejbs = jar.getEnterpriseBeans();
-				int size = ejbs.size();
-				EnterpriseBean ejb;
-				for (int i = 0; i < size; i++) {
-					ejb = (EnterpriseBean) ejbs.get(i);
-					foundRef = foundRef || cmd.initializeEjbReferencesToModule(ejb.getEjbRefs());
-					foundRef = foundRef || cmd.initializeEjbReferencesToModule(ejb.getEjbLocalRefs());
-				}
-			}
-			if (foundRef)
-				cmd.addNestedEditModel((J2EEEditModel)edit.getAdapter(ArtifactEditModel.class));
-		} finally {
-			if (edit != null)
-				edit.dispose();
-		}
-	}
+//	public void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand cmd) {
+//		
+//		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(nature.getProject());
+//		if (comps.length == 0)
+//			return;
+//		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+//		boolean foundRef = false;
+//		try {
+//			EJBJar jar = edit.getEJBJar();
+//			if (jar != null) {
+//				List ejbs = jar.getEnterpriseBeans();
+//				int size = ejbs.size();
+//				EnterpriseBean ejb;
+//				for (int i = 0; i < size; i++) {
+//					ejb = (EnterpriseBean) ejbs.get(i);
+//					foundRef = foundRef || cmd.initializeEjbReferencesToModule(ejb.getEjbRefs());
+//					foundRef = foundRef || cmd.initializeEjbReferencesToModule(ejb.getEjbLocalRefs());
+//				}
+//			}
+//			if (foundRef)
+//				cmd.addNestedEditModel((J2EEEditModel)edit.getAdapter(ArtifactEditModel.class));
+//		} finally {
+//			if (edit != null)
+//				edit.dispose();
+//		}
+//	}
 
 	public EJBJar getEJBJar(IProject aProject) {
 		//TODO  Method needs to be removed.
