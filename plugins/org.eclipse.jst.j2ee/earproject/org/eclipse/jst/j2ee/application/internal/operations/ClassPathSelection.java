@@ -169,10 +169,11 @@ public class ClassPathSelection {
 	 */
 	private void setInvalidProject(ClasspathElement element) {
 		IProject earProj = element.getEarProject();
-		IVirtualComponent[] component = ComponentUtilities.getComponent(earProj.getName());
+		//IVirtualComponent[] component = ComponentUtilities.getComponent(earProj.getName());
+		IVirtualComponent component = ComponentUtilities.getComponent(earProj.getName());
 		EARArtifactEdit edit = null;
 		try {
-			edit = EARArtifactEdit.getEARArtifactEditForRead(component[0]);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(component);
 		if (edit != null) {
 			String moduleName = element.getRelativeText();
 			if(moduleName != null) {

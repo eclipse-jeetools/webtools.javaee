@@ -16,8 +16,8 @@
  */
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
-import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+//import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
+//import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
 
 /**
@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
  */
 public interface JcaModuleExtension extends EarModuleExtension {
 
-	void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand cmd);
+	//void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand cmd);
 
 	//J2EEJavaProjectInfo createProjectInfo();
 

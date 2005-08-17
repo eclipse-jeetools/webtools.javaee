@@ -18,33 +18,20 @@ package org.eclipse.jst.j2ee.internal.servertarget;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
 
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
+//import com.ibm.etools.j2ee.internal.project.EAREditModel;
+//import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
 
 /**
  * @author vijayb
@@ -66,22 +53,22 @@ public class ServerTargetHelper {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void cleanUpNonServerTargetClasspath(IProject project) {
-		List existingClasspathEntries = ServerTargetHelper.getExistingNonServerTargetClasspath(project);
-		if (!existingClasspathEntries.isEmpty())
-			ServerTargetHelper.removeNonSeverTargetClasspathEntries(project, existingClasspathEntries);
-	}
+//	public static void cleanUpNonServerTargetClasspath(IProject project) {
+//		List existingClasspathEntries = ServerTargetHelper.getExistingNonServerTargetClasspath(project);
+//		if (!existingClasspathEntries.isEmpty())
+//			ServerTargetHelper.removeNonSeverTargetClasspathEntries(project, existingClasspathEntries);
+//	}
 
 	/**
 	 * @param existingClasspathEntries
 	 */
-	public static void removeNonSeverTargetClasspathEntries(IProject project, List existingClasspathEntries) {
-		try {
-			JemProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
-		} catch (JavaModelException jme) {
-			Logger.getLogger().logError(jme);
-		}
-	}
+//	public static void removeNonSeverTargetClasspathEntries(IProject project, List existingClasspathEntries) {
+//		try {
+//			JemProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
+//		} catch (JavaModelException jme) {
+//			Logger.getLogger().logError(jme);
+//		}
+//	}
 
 	/**
 	 * @param project
@@ -238,136 +225,136 @@ public class ServerTargetHelper {
 	// }
 	// return null;
 	// }
-	public static void setNewServerTargetForEARModules(IRuntime newServerTarget, IProject project) {
-		List moduleProjects = ServerTargetHelper.getAllEarModuleProjects(project);
-		if (!moduleProjects.isEmpty()) {
-			for (int i = 0; i < moduleProjects.size(); i++) {
-				IProject moduleProject = (IProject) moduleProjects.get(i);
-				String[] projectAttr = ServerTargetHelper.getProjectTypeAndJ2EELevel(moduleProject);
-				if (projectAttr[0] != null && projectAttr[1] != null) {
-					IRuntime existingTargetType = ServerCore.getProjectProperties(moduleProject).getRuntimeTarget();
-					if (existingTargetType != null) {
-						if (!existingTargetType.getId().equals(newServerTarget.getId()))
-							setServerTargetForModuleProject(newServerTarget, moduleProject, projectAttr);
-						// TODO Move the WLP sync to this method
-					} else
-						setServerTargetForModuleProject(newServerTarget, moduleProject, projectAttr);
-				}
-			}
-		}
-	}
+//	public static void setNewServerTargetForEARModules(IRuntime newServerTarget, IProject project) {
+//		List moduleProjects = ServerTargetHelper.getAllEarModuleProjects(project);
+//		if (!moduleProjects.isEmpty()) {
+//			for (int i = 0; i < moduleProjects.size(); i++) {
+//				IProject moduleProject = (IProject) moduleProjects.get(i);
+//				String[] projectAttr = ServerTargetHelper.getProjectTypeAndJ2EELevel(moduleProject);
+//				if (projectAttr[0] != null && projectAttr[1] != null) {
+//					IRuntime existingTargetType = ServerCore.getProjectProperties(moduleProject).getRuntimeTarget();
+//					if (existingTargetType != null) {
+//						if (!existingTargetType.getId().equals(newServerTarget.getId()))
+//							setServerTargetForModuleProject(newServerTarget, moduleProject, projectAttr);
+//						// TODO Move the WLP sync to this method
+//					} else
+//						setServerTargetForModuleProject(newServerTarget, moduleProject, projectAttr);
+//				}
+//			}
+//		}
+//	}
 
-	public static void setServerTargetForModuleProject(IRuntime newServerTarget, IProject moduleProject, String[] projectAttr) {
-		ServerTargetHelper.cleanUpNonServerTargetClasspath(moduleProject);
-		setServerTarget(moduleProject, newServerTarget, null);
-	}
+//	public static void setServerTargetForModuleProject(IRuntime newServerTarget, IProject moduleProject, String[] projectAttr) {
+//		ServerTargetHelper.cleanUpNonServerTargetClasspath(moduleProject);
+//		setServerTarget(moduleProject, newServerTarget, null);
+//	}
 
-	public static List getWebProjectsInEAR(IProject earProject) {
-		List moduleProjects = ServerTargetHelper.getAllEarModuleProjects(earProject);
-		if (!moduleProjects.isEmpty()) {
-			List webProjects = new ArrayList();
-			for (int i = 0; i < moduleProjects.size(); i++) {
-				IProject project = (IProject) moduleProjects.get(i);
-				WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
-				if (webExt.hasRuntime(project))
-					webProjects.add(project);
-			}
-			return webProjects;
-		}
-		return Collections.EMPTY_LIST;
-	}
+//	public static List getWebProjectsInEAR(IProject earProject) {
+//		List moduleProjects = ServerTargetHelper.getAllEarModuleProjects(earProject);
+//		if (!moduleProjects.isEmpty()) {
+//			List webProjects = new ArrayList();
+//			for (int i = 0; i < moduleProjects.size(); i++) {
+//				IProject project = (IProject) moduleProjects.get(i);
+//				WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
+//				if (webExt.hasRuntime(project))
+//					webProjects.add(project);
+//			}
+//			return webProjects;
+//		}
+//		return Collections.EMPTY_LIST;
+//	}
 
 	/**
 	 * @param newServerTarget
 	 * @param tt
 	 * @param project
 	 */
-	public static void setNewServerTargetForEARUtilityJars(IRuntime newServerTarget, IProject project) {
-		EARNatureRuntime nature = EARNatureRuntime.getRuntime(project);
-		EAREditModel editModel = null;
-		Object key = new ServerTargetHelper();
-		try {
-			editModel = nature.getEarEditModelForRead(key);
-			List utilProjects = ServerTargetHelper.getAllEarUtilityProjects(editModel, project);
-			if (!utilProjects.isEmpty()) {
-				for (int i = 0; i < utilProjects.size(); i++) {
-					IProject moduleProject = (IProject) utilProjects.get(i);
-					IRuntime existingTargetType = ServerCore.getProjectProperties(moduleProject).getRuntimeTarget();
-					if (existingTargetType != null) {
-						if (!existingTargetType.getId().equals(newServerTarget.getId())) {
-							setServerTargetForUtilProject(newServerTarget, moduleProject);
-						}
-					} else {
-						setServerTargetForUtilProject(newServerTarget, moduleProject);
-					}
-				}
-			}
-		} finally {
-			editModel.releaseAccess(key);
-		}
-	}
+//	public static void setNewServerTargetForEARUtilityJars(IRuntime newServerTarget, IProject project) {
+//		EARNatureRuntime nature = EARNatureRuntime.getRuntime(project);
+//		EAREditModel editModel = null;
+//		Object key = new ServerTargetHelper();
+//		try {
+//			editModel = nature.getEarEditModelForRead(key);
+//			List utilProjects = ServerTargetHelper.getAllEarUtilityProjects(editModel, project);
+//			if (!utilProjects.isEmpty()) {
+//				for (int i = 0; i < utilProjects.size(); i++) {
+//					IProject moduleProject = (IProject) utilProjects.get(i);
+//					IRuntime existingTargetType = ServerCore.getProjectProperties(moduleProject).getRuntimeTarget();
+//					if (existingTargetType != null) {
+//						if (!existingTargetType.getId().equals(newServerTarget.getId())) {
+//							setServerTargetForUtilProject(newServerTarget, moduleProject);
+//						}
+//					} else {
+//						setServerTargetForUtilProject(newServerTarget, moduleProject);
+//					}
+//				}
+//			}
+//		} finally {
+//			editModel.releaseAccess(key);
+//		}
+//	}
 
-	public static void setServerTargetForUtilProject(IRuntime newServerTarget, IProject moduleProject) {
-		ServerTargetHelper.cleanUpNonServerTargetClasspath(moduleProject);
-		setServerTarget(moduleProject, newServerTarget, null);
-	}
+//	public static void setServerTargetForUtilProject(IRuntime newServerTarget, IProject moduleProject) {
+//		ServerTargetHelper.cleanUpNonServerTargetClasspath(moduleProject);
+//		setServerTarget(moduleProject, newServerTarget, null);
+//	}
 
-	public static void setServerTarget(IProject project, IRuntime runtime, IProgressMonitor monitor) {
-		try {
-			ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
-		} catch (CoreException ce) {
-			Logger.getLogger().logError(ce);
-		}
-	}
+//	public static void setServerTarget(IProject project, IRuntime runtime, IProgressMonitor monitor) {
+//		try {
+//			ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
+//		} catch (CoreException ce) {
+//			Logger.getLogger().logError(ce);
+//		}
+//	}
 
 	/**
 	 * @param earProject
 	 */
-	public static List getAllEarModuleProjects(IProject earProject) {
-		EARNatureRuntime nature = EARNatureRuntime.getRuntime(earProject);
-		EAREditModel editModel = null;
-		List moduleProjects = new ArrayList();
-		Object key = new ServerTargetHelper();
-		try {
-			editModel = nature.getEarEditModelForRead(key);
-			Set allModuleProjects = editModel.getModuleMappedModuleProjects();
-			if (!allModuleProjects.isEmpty())
-				moduleProjects.addAll(allModuleProjects);
-			return moduleProjects;
-		} finally {
-			if (editModel != null)
-				editModel.releaseAccess(key);
-		}
-	}
-
-	public static String[] getProjectTypeAndJ2EELevel(IProject project) {
-		String[] projectAttr = new String[2];
-		boolean isJ2EE13 = true;
-		if (EARNatureRuntime.hasRuntime(project)) {
-			projectAttr[0] = IServerTargetConstants.EAR_TYPE;
-			isJ2EE13 = EARNatureRuntime.getRuntime(project).isJ2EE1_3();
-		} else if (J2EENature.hasRuntime(project, IEJBNatureConstants.EJB_NATURE_IDS)) {
-			projectAttr[0] = IServerTargetConstants.EJB_TYPE;
-			isJ2EE13 = J2EENature.getRuntime(project, IEJBNatureConstants.EJB_NATURE_IDS).isJ2EE1_3();
-		} else if (J2EENature.hasRuntime(project, IWebNatureConstants.J2EE_NATURE_ID)) {
-			projectAttr[0] = IServerTargetConstants.WEB_TYPE;
-			isJ2EE13 = J2EENature.getRuntime(project, IWebNatureConstants.J2EE_NATURE_ID).isJ2EE1_3();
-		} else if (J2EENature.hasRuntime(project,IApplicationClientNatureConstants.NATURE_ID)) {
-			projectAttr[0] = IServerTargetConstants.APP_CLIENT_TYPE;
-			isJ2EE13 = J2EENature.getRuntime(project,IApplicationClientNatureConstants.NATURE_ID).isJ2EE1_3();
-		} else if (J2EENature.hasRuntime(project, IConnectorNatureConstants.NATURE_ID)) {
-			projectAttr[0] = IServerTargetConstants.CONNECTOR_TYPE;
-			isJ2EE13 = J2EENature.getRuntime(project, IConnectorNatureConstants.NATURE_ID).isJ2EE1_3();
-		} else if (hasJavaNature(project))
-			projectAttr[0] = null;
-		if (projectAttr[0] != null && projectAttr[0].length() > 0) {
-			if (isJ2EE13)
-				projectAttr[1] = IServerTargetConstants.J2EE_13;
-			else
-				projectAttr[1] = IServerTargetConstants.J2EE_12;
-		}
-		return projectAttr;
-	}
+//	public static List getAllEarModuleProjects(IProject earProject) {
+//		EARNatureRuntime nature = EARNatureRuntime.getRuntime(earProject);
+//		EAREditModel editModel = null;
+//		List moduleProjects = new ArrayList();
+//		Object key = new ServerTargetHelper();
+//		try {
+//			editModel = nature.getEarEditModelForRead(key);
+//			Set allModuleProjects = editModel.getModuleMappedModuleProjects();
+//			if (!allModuleProjects.isEmpty())
+//				moduleProjects.addAll(allModuleProjects);
+//			return moduleProjects;
+//		} finally {
+//			if (editModel != null)
+//				editModel.releaseAccess(key);
+//		}
+//	}
+//
+//	public static String[] getProjectTypeAndJ2EELevel(IProject project) {
+//		String[] projectAttr = new String[2];
+//		boolean isJ2EE13 = true;
+//		if (EARNatureRuntime.hasRuntime(project)) {
+//			projectAttr[0] = IServerTargetConstants.EAR_TYPE;
+//			isJ2EE13 = EARNatureRuntime.getRuntime(project).isJ2EE1_3();
+//		} else if (J2EENature.hasRuntime(project, IEJBNatureConstants.EJB_NATURE_IDS)) {
+//			projectAttr[0] = IServerTargetConstants.EJB_TYPE;
+//			isJ2EE13 = J2EENature.getRuntime(project, IEJBNatureConstants.EJB_NATURE_IDS).isJ2EE1_3();
+//		} else if (J2EENature.hasRuntime(project, IWebNatureConstants.J2EE_NATURE_ID)) {
+//			projectAttr[0] = IServerTargetConstants.WEB_TYPE;
+//			isJ2EE13 = J2EENature.getRuntime(project, IWebNatureConstants.J2EE_NATURE_ID).isJ2EE1_3();
+//		} else if (J2EENature.hasRuntime(project,IApplicationClientNatureConstants.NATURE_ID)) {
+//			projectAttr[0] = IServerTargetConstants.APP_CLIENT_TYPE;
+//			isJ2EE13 = J2EENature.getRuntime(project,IApplicationClientNatureConstants.NATURE_ID).isJ2EE1_3();
+//		} else if (J2EENature.hasRuntime(project, IConnectorNatureConstants.NATURE_ID)) {
+//			projectAttr[0] = IServerTargetConstants.CONNECTOR_TYPE;
+//			isJ2EE13 = J2EENature.getRuntime(project, IConnectorNatureConstants.NATURE_ID).isJ2EE1_3();
+//		} else if (hasJavaNature(project))
+//			projectAttr[0] = null;
+//		if (projectAttr[0] != null && projectAttr[0].length() > 0) {
+//			if (isJ2EE13)
+//				projectAttr[1] = IServerTargetConstants.J2EE_13;
+//			else
+//				projectAttr[1] = IServerTargetConstants.J2EE_12;
+//		}
+//		return projectAttr;
+//	}
 
 	/**
 	 * @param project
@@ -385,13 +372,13 @@ public class ServerTargetHelper {
 	/**
 	 * @param earProject
 	 */
-	public static List getAllEarUtilityProjects(EAREditModel earEditModel, IProject earProject) {
-		List utilityProjects = new ArrayList();
-		Set utilProjects = earEditModel.getModuleMappedUtilityJarProjects();
-		if (!utilProjects.isEmpty())
-			utilityProjects.addAll(utilProjects);
-		return utilityProjects;
-	}
+//	public static List getAllEarUtilityProjects(EAREditModel earEditModel, IProject earProject) {
+//		List utilityProjects = new ArrayList();
+//		Set utilProjects = earEditModel.getModuleMappedUtilityJarProjects();
+//		if (!utilProjects.isEmpty())
+//			utilityProjects.addAll(utilProjects);
+//		return utilityProjects;
+//	}
 
 	public static int getExistingServerTargetIndex(List validServerTargets, IProject project) {
 		if (validServerTargets != null) {
@@ -464,9 +451,9 @@ public class ServerTargetHelper {
 	 * @param st
 	 * @return
 	 */
-	public static boolean serverTargetValidForEAR(IProject earProject, IRuntime st) {
-		return !(J2EENature.hasRuntime(earProject, IEARNatureConstants.NATURE_ID) && st.getId().equals(IServerTargetConstants.aesV4ServerTargetId));
-	}
+//	public static boolean serverTargetValidForEAR(IProject earProject, IRuntime st) {
+//		return !(J2EENature.hasRuntime(earProject, IEARNatureConstants.NATURE_ID) && st.getId().equals(IServerTargetConstants.aesV4ServerTargetId));
+//	}
 
 	public static List getServerTargets(String type, String version) {
 		List targets = Arrays.asList(ServerUtil.getRuntimes(type, version));

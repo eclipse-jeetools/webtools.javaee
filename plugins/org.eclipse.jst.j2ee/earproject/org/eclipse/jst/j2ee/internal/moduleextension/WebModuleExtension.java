@@ -24,9 +24,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
+//import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+//import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
 
 /**
@@ -39,7 +39,7 @@ public interface WebModuleExtension extends EarModuleExtension {
 
 	static final String WEBSETTINGS_FILE_URI = ".j2ee"; //$NON-NLS-1$
 
-	void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand command);
+//	void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand command);
 
 	void addWLPProjects(IProject aProject, Set projectsToBuild);
 

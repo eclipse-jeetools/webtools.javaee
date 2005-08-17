@@ -56,15 +56,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
-import com.ibm.etools.j2ee.internal.project.EARNatureRuntime;
+
 
 public class J2EEProjectUtilities extends ProjectUtilities {
 
@@ -156,49 +153,50 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		return null;
 	}
 
-	public static EARNatureRuntime[] getReferencingEARProjects(IProject aProject) {
 
-		List earProjects = EARNatureRuntime.getAllEARProjectsInWorkbench();
-		List result = new ArrayList();
-		EAREditModel editModel = null;
-		for (int i = 0; i < earProjects.size(); i++) {
-			IProject earProject = (IProject) earProjects.get(i);
-			EARNatureRuntime earNature = EARNatureRuntime.getRuntime(earProject);
-			Object accessorKey = new Object();
-			try {
+//	public static EARNatureRuntime[] getReferencingEARProjects(IProject aProject) {
+//
+//		List earProjects = EARNatureRuntime.getAllEARProjectsInWorkbench();
+//		List result = new ArrayList();
+//		EAREditModel editModel = null;
+//		for (int i = 0; i < earProjects.size(); i++) {
+//			IProject earProject = (IProject) earProjects.get(i);
+//			EARNatureRuntime earNature = EARNatureRuntime.getRuntime(earProject);
+//			Object accessorKey = new Object();
+//			try {
+//
+//				editModel = earNature.getEarEditModelForRead(accessorKey);
+//				UtilityJARMapping map = editModel.getUtilityJARMapping(aProject);
+//				if (map != null)
+//					result.add(earNature);
+//				else {
+//					ModuleMapping modMap = editModel.getModuleMapping(aProject);
+//					if (modMap != null)
+//						result.add(earNature);
+//				}
+//			} finally {
+//				if (editModel != null)
+//					editModel.releaseAccess(accessorKey);
+//			}
+//		}
+//		return (EARNatureRuntime[]) result.toArray(new EARNatureRuntime[result.size()]);
+//	}
 
-				editModel = earNature.getEarEditModelForRead(accessorKey);
-				UtilityJARMapping map = editModel.getUtilityJARMapping(aProject);
-				if (map != null)
-					result.add(earNature);
-				else {
-					ModuleMapping modMap = editModel.getModuleMapping(aProject);
-					if (modMap != null)
-						result.add(earNature);
-				}
-			} finally {
-				if (editModel != null)
-					editModel.releaseAccess(accessorKey);
-			}
-		}
-		return (EARNatureRuntime[]) result.toArray(new EARNatureRuntime[result.size()]);
-	}
-
-	public static EARNatureRuntime getFirstReferencingEARProject(IProject aProject) {
-		EARNatureRuntime[] natures = getReferencingEARProjects(aProject);
-		if (natures.length != 0)
-			return natures[0];
-		return null;
-	}
+//	public static EARNatureRuntime getFirstReferencingEARProject(IProject aProject) {
+//		EARNatureRuntime[] natures = getReferencingEARProjects(aProject);
+//		if (natures.length != 0)
+//			return natures[0];
+//		return null;
+//	}
 
 	/**
 	 * If the project is referenced by the EAR, return the URI of the JAR or module
 	 * 
 	 * @deprecated use {@link EARNatureRuntime#getJARUri(IProject)}
 	 */
-	public static String getJARUri(EARNatureRuntime runtime, IProject project) {
-		return runtime.getJARUri(project);
-	}
+//	public static String getJARUri(EARNatureRuntime runtime, IProject project) {
+//		return runtime.getJARUri(project);
+//	}
 
 	public static ArchiveManifest readManifest(IFile aFile) {
 
@@ -275,16 +273,16 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 
-	public static String getUtilityJARUriInFirstEAR(IProject project) {
-		EARNatureRuntime[] earNatures = getReferencingEARProjects(project);
-		String uri;
-		for (int i = 0; i < earNatures.length; i++) {
-			uri = getJARUri(earNatures[i], project);
-			if (uri != null && uri.length() > 0)
-				return uri;
-		}
-		return null;
-	}
+//	public static String getUtilityJARUriInFirstEAR(IProject project) {
+//		EARNatureRuntime[] earNatures = getReferencingEARProjects(project);
+//		String uri;
+//		for (int i = 0; i < earNatures.length; i++) {
+//			uri = getJARUri(earNatures[i], project);
+//			if (uri != null && uri.length() > 0)
+//				return uri;
+//		}
+//		return null;
+//	}
 
 	/**
 	 * Keys are the EJB JAR files and the values are the respective client JARs; includes only key
@@ -334,27 +332,27 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	/**
 	 * If the project is referenced by the EAR, return the URI of the JAR or module
 	 */
-	public static boolean hasProjectMapping(EARNatureRuntime runtime, IProject project) {
-		if (runtime != null) {
-			EAREditModel model = null;
-			Object key = new Object();
-			try {
-				model = runtime.getEarEditModelForRead(key);
-				ModuleMapping moduleMap = model.getModuleMapping(project);
-				if (moduleMap != null) {
-					return true;
-				}
-				UtilityJARMapping jarMap = model.getUtilityJARMapping(project);
-				if (jarMap != null)
-					return true;
-
-			} finally {
-				if (model != null)
-					model.releaseAccess(key);
-			}
-		}
-		return false;
-	}
+//	public static boolean hasProjectMapping(EARNatureRuntime runtime, IProject project) {
+//		if (runtime != null) {
+//			EAREditModel model = null;
+//			Object key = new Object();
+//			try {
+//				model = runtime.getEarEditModelForRead(key);
+//				ModuleMapping moduleMap = model.getModuleMapping(project);
+//				if (moduleMap != null) {
+//					return true;
+//				}
+//				UtilityJARMapping jarMap = model.getUtilityJARMapping(project);
+//				if (jarMap != null)
+//					return true;
+//
+//			} finally {
+//				if (model != null)
+//					model.releaseAccess(key);
+//			}
+//		}
+//		return false;
+//	}
 
 	public static String computeRelativeText(String referencingURI, String referencedURI, EnterpriseBean bean) {
 		if (bean == null)

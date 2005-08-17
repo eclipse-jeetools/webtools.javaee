@@ -10,11 +10,9 @@ package org.eclipse.jst.j2ee.internal.earcreation.modulemap;
 
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
-import org.eclipse.wst.common.internal.emf.utilities.ResourceDependencyRegister;
 
-import com.ibm.etools.j2ee.internal.project.EAREditModel;
+//import com.ibm.etools.j2ee.internal.project.EAREditModel;
 /**
 * @deprecated
 * Use
