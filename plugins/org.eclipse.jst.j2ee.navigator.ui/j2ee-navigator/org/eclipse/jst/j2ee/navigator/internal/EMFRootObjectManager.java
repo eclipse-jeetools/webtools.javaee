@@ -25,10 +25,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.SWTException;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -64,10 +66,10 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 		if (projectEditModels == null)
 			return;
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-		J2EEEditModel editModel = null;
+		EditModel editModel = null;
 		Object[] keys = projectEditModels.keySet().toArray();
 		for (int i = 0; i < keys.length; i++) {
-			editModel = (J2EEEditModel) projectEditModels.remove(keys[i]);
+			editModel = (EditModel) projectEditModels.remove(keys[i]);
 			if (editModel != null) {
 				editModel.removeListener(this);
 				editModel.releaseAccess(this);
@@ -84,7 +86,7 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 			rootObject = projectRootObjects.get(project);
 
 			if (rootObject == null || ((EObject) rootObject).eResource() == null) {
-				J2EEEditModel editModel = getEditModelForProject(project);
+				EditModel editModel = getEditModelForProject(project);
 				if (editModel != null) {
 					rootObject = editModel.getPrimaryRootObject();
 					projectRootObjects.put(project, rootObject);
@@ -95,28 +97,37 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 	}
 
 
-	protected J2EEEditModel getEditModelForProject(IProject project) {
+	protected EditModel getEditModelForProject(IProject project) {
 		if (project == null)
 			return null;
-		J2EEEditModel editModel = null;
+		EditModel editModel = null;
 		synchronized (projectEditModels) {
-			editModel = (J2EEEditModel) projectEditModels.get(project);
-			if (editModel == null && project.isAccessible()) {
-				//System.out.println("getEditModelForProject " + project.getName());
-				J2EENature nature = J2EENature.getRegisteredRuntime(project);
-				if (nature != null) {
-					editModel = nature.getJ2EEEditModelForRead(this);
-					if (editModel != null) {
-						editModel.addListener(this);
-						addMapping(project, editModel);
+			editModel = (EditModel) projectEditModels.get(project);
+			IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(project);
+			if (comps.length==0)
+				return null;
+			IVirtualComponent component = comps[0];
+			ArtifactEdit artifactEdit = null;
+			try {
+				if (editModel == null && project.isAccessible()) {
+					artifactEdit = ArtifactEdit.getArtifactEditForRead(component);
+					if (artifactEdit != null) {
+						editModel = (EditModel) artifactEdit.getAdapter(EditModel.class);
+						if (editModel != null) {
+							editModel.addListener(this);
+							addMapping(project, editModel);
+						}
 					}
 				}
+			} finally {
+				if (artifactEdit!=null)
+					artifactEdit.dispose();
 			}
 		}
 		return editModel;
 	}
 
-	protected void addMapping(IProject project, J2EEEditModel editModel) {
+	protected void addMapping(IProject project, EditModel editModel) {
 		projectEditModels.put(project, editModel);
 	}
 
@@ -210,7 +221,7 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 		synchronized (projectEditModels) {
 			projectRootObjects.remove(affectedProject);
 			//System.out.println("REMOVING edit model: " + affectedProject.getName());
-			J2EEEditModel editModel = (J2EEEditModel) projectEditModels.remove(affectedProject);
+			EditModel editModel = (EditModel) projectEditModels.remove(affectedProject);
 			//System.out.println("REMOVED edit model " + affectedProject.getName());
 			if (editModel != null) {
 				editModel.removeListener(this);

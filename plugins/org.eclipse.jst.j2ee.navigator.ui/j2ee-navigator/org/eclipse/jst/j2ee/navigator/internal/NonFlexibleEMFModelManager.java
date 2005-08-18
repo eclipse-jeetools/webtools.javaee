@@ -8,8 +8,7 @@ package org.eclipse.jst.j2ee.navigator.internal;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.J2EEEditModel;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -21,7 +20,7 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
  */
 public class NonFlexibleEMFModelManager extends EMFModelManager implements EditModelListener{
 
-	private J2EEEditModel editModel;
+	private EditModel editModel;
 	private Object rootObject;
 	private static final Object[] EMPTY_OBJECT = new Object[0];
 	/**
@@ -43,7 +42,7 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 		
 		//synchronized (rootObject) {
 			if (rootObject == null || ((EObject) rootObject).eResource() == null) {
-				J2EEEditModel editModel = getEditModel();
+				EditModel editModel = getEditModel();
 				if (editModel != null) {
 					rootObject = editModel.getPrimaryRootObject();
 				}
@@ -97,22 +96,23 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 	
 	
 
-	protected J2EEEditModel getEditModel() {
+	protected EditModel getEditModel() {
 		IProject project = getProject();
 		if (project == null)
 			return null;
 		
+		//TODO fix up
 		//synchronized (editModel) {
-			if (editModel == null && project.isAccessible()) {
-				//System.out.println("getEditModelForProject " + project.getName());
-				J2EENature nature = J2EENature.getRegisteredRuntime(project);
-				if (nature != null) {
-					editModel = nature.getJ2EEEditModelForRead(this);
-					if (editModel != null) {
-						editModel.addListener(this);
-					}
-				}
-			}
+//			if (editModel == null && project.isAccessible()) {
+//				//System.out.println("getEditModelForProject " + project.getName());
+//				J2EENature nature = J2EENature.getRegisteredRuntime(project);
+//				if (nature != null) {
+//					editModel = nature.getJ2EEEditModelForRead(this);
+//					if (editModel != null) {
+//						editModel.addListener(this);
+//					}
+//				}
+//			}
 		//}
 		return editModel;
 	}

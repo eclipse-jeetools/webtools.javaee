@@ -21,15 +21,11 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -73,17 +69,18 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 	}
 
 	private boolean isValid(IProject project, int j2eeVersion) {
-		try {
-			if (project.hasNature(IEARNatureConstants.NATURE_ID))
-				return false;
-			J2EENature j2eeNature = J2EENature.getRegisteredRuntime(project);
-			if (j2eeNature != null) {
-				return j2eeNature.getJ2EEVersion() <= j2eeVersion;
-			} else if (project.hasNature(JavaCore.NATURE_ID))
-				return true;
-		} catch (CoreException e) {
-			//Ignore
-		}
+		//migrate to artifact edits
+//		try {
+//			if (project.hasNature(IEARNatureConstants.NATURE_ID))
+//				return false;
+//			J2EENature j2eeNature = J2EENature.getRegisteredRuntime(project);
+//			if (j2eeNature != null) {
+//				return j2eeNature.getJ2EEVersion() <= j2eeVersion;
+//			} else if (project.hasNature(JavaCore.NATURE_ID))
+//				return true;
+//		} catch (CoreException e) {
+//			//Ignore
+//		}
 		return false;
 	}
 

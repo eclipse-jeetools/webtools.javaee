@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
@@ -26,10 +24,11 @@ public class AddModuleDropAction extends AddProjectToEarDropAction {
 	}
 
 	protected boolean validateProjectToAdd(IProject projectToAdd, int earVersion) {
-		J2EENature moduleNature = J2EENature.getRegisteredRuntime(projectToAdd);
-		if (null == moduleNature || moduleNature.getNatureID().equals(IEARNatureConstants.NATURE_ID) || moduleNature.getJ2EEVersion() > earVersion) {
-			return false;
-		}
+		//TODO fix up to use components
+//		J2EENature moduleNature = J2EENature.getRegisteredRuntime(projectToAdd);
+//		if (null == moduleNature || moduleNature.getNatureID().equals(IEARNatureConstants.NATURE_ID) || moduleNature.getJ2EEVersion() > earVersion) {
+//			return false;
+//		}
 		return true;
 	}
 

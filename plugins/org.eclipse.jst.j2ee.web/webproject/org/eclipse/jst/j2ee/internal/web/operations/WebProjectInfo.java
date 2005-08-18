@@ -26,8 +26,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.wst.web.internal.ISimpleWebModuleConstants;
 
 
 /**
@@ -194,9 +195,9 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 
 		StringBuffer buf = new StringBuffer(getWebContentName());
 		buf.append(IPath.SEPARATOR);
-		buf.append(IWebNatureConstants.INFO_DIRECTORY);
+		buf.append(ISimpleWebModuleConstants.INFO_DIRECTORY);
 		buf.append(IPath.SEPARATOR);
-		buf.append(IWebNatureConstants.CLASSES_DIRECTORY);
+		buf.append(ISimpleWebModuleConstants.CLASSES_DIRECTORY);
 		return buf.toString();
 	}
 
@@ -217,17 +218,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 		return (String[]) wtFeatureIds.toArray(new String[wtFeatureIds.size()]);
 	}
 
-	/**
-	 * Insert the method's description here. Creation date: (10/31/2001 3:10:01 PM)
-	 * 
-	 * @return boolean
-	 */
-	public int getWebProjectType() {
-		if (fJ2EEWebProject)
-			return IWebNatureConstants.J2EE_WEB_PROJECT;
-
-		return 0;
-	}
+	
 
 	public boolean isJ2EEWebProject() {
 		return fJ2EEWebProject;

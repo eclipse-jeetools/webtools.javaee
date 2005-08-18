@@ -10,11 +10,10 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
-public abstract class WebDeployable extends ProjectModule implements IModule, IWebNatureConstants {
+public abstract class WebDeployable extends ProjectModule implements IModule {
 
 	public WebDeployable(IProject project) {
 		super(project);
@@ -48,12 +47,7 @@ public abstract class WebDeployable extends ProjectModule implements IModule, IW
 	public boolean exists() {
 		if (getProject() == null || !getProject().exists())
 			return false;
-		try {
-			return (this.project.hasNature(IWebNatureConstants.J2EE_NATURE_ID));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		return true;
 	}
 
 	/**

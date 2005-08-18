@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -40,13 +39,6 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	public EnterpriseApplicationDeployableFactory() {
 		super();
 	}
-
-
-
-	public IModule createModule(J2EENature nature) {
-		return null;
-	}
-
 
 	protected IPath[] getListenerPaths() {
 		return PATHS;

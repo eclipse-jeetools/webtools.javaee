@@ -15,22 +15,12 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
@@ -77,84 +67,85 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			int archiveType = ImportUtil.UNKNOWN;
 			Archive archive = null;
 			try {
-				archive = CommonarchiveFactoryImpl.getActiveFactory().openArchive(fileName);
-				archiveType = ImportUtil.getArchiveType(archive);
-				String[] possibleNatures = null;
-				switch (archiveType) {
-					case ImportUtil.EARFILE :
-						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID};
-						break;
-					case ImportUtil.EJBJARFILE :
-						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IEJBNatureConstants.NATURE_ID};
-						break;
-					case ImportUtil.CLIENTJARFILE :
-						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IApplicationClientNatureConstants.NATURE_ID};
-						break;
-					case ImportUtil.WARFILE :
-						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IWebNatureConstants.J2EE_NATURE_ID};
-						break;
-					case ImportUtil.RARFILE :
-						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IConnectorNatureConstants.NATURE_ID};
-						break;
-					default :
-						return false;
-				}
+//				archive = CommonarchiveFactoryImpl.getActiveFactory().openArchive(fileName);
+//				archiveType = ImportUtil.getArchiveType(archive);
+//				String[] possibleNatures = null;
+//				switch (archiveType) {
+//					case ImportUtil.EARFILE :
+//						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID};
+//						break;
+//					case ImportUtil.EJBJARFILE :
+//						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IEJBNatureConstants.NATURE_ID};
+//						break;
+//					case ImportUtil.CLIENTJARFILE :
+//						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IApplicationClientNatureConstants.NATURE_ID};
+//						break;
+//					case ImportUtil.WARFILE :
+//						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IWebNatureConstants.J2EE_NATURE_ID};
+//						break;
+//					case ImportUtil.RARFILE :
+//						possibleNatures = new String[]{IEARNatureConstants.NATURE_ID, IConnectorNatureConstants.NATURE_ID};
+//						break;
+//					default :
+//						return false;
+//				}
+//
+//				IProject project = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);
+				//TODO fix up to use components and artifact edits
+//				if (null != project) {
+//					try {
+//						boolean foundNature = false;
+//						for (int i = 0; !foundNature && i < possibleNatures.length; i++) {
+//							if (project.hasNature(possibleNatures[i])) {
+//								foundNature = true;
+//								J2EENature nature = (J2EENature) project.getNature(possibleNatures[i]);
+//								int projectJ2EEVersion = nature.getJ2EEVersion();
+//								int archiveModuleVersion = ArchiveUtil.getFastSpecVersion((ModuleFile) archive);
+//								boolean fail = false;
+//								switch (archiveType) {
+//									case ImportUtil.EARFILE :
+//									case ImportUtil.CLIENTJARFILE :
+//										if (projectJ2EEVersion < archiveModuleVersion) {
+//											fail = true;
+//										}
+//										break;
+//									case ImportUtil.EJBJARFILE :
+//										if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_2_ID && archiveModuleVersion > J2EEVersionConstants.EJB_1_1_ID) {
+//											fail = true;
+//										} else if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_3_ID && archiveModuleVersion > J2EEVersionConstants.EJB_2_0_ID) {
+//											fail = true;
+//										}
+//										break;
+//									case ImportUtil.WARFILE :
+//										if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_2_ID && archiveModuleVersion > J2EEVersionConstants.WEB_2_2_ID) {
+//											fail = true;
+//										} else if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_3_ID && archiveModuleVersion > J2EEVersionConstants.WEB_2_3_ID) {
+//											fail = true;
+//										}
+//										break;
+//									case ImportUtil.RARFILE :
+//										if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_2_ID) {
+//											fail = true;
+//										} else if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_3_ID && archiveModuleVersion > J2EEVersionConstants.JCA_1_0_ID) {
+//											fail = true;
+//										}
+//										break;
+//								}
+//								if (fail) {
+//									return false;
+//								}
+//								return true;
+//							}
+//						}
+//						if (!foundNature) {
+//							return false;
+//						}
+//					} catch (CoreException e) {
+//						return false;
+//					}
+//				}
 
-				IProject project = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);
-				if (null != project) {
-					try {
-						boolean foundNature = false;
-						for (int i = 0; !foundNature && i < possibleNatures.length; i++) {
-							if (project.hasNature(possibleNatures[i])) {
-								foundNature = true;
-								J2EENature nature = (J2EENature) project.getNature(possibleNatures[i]);
-								int projectJ2EEVersion = nature.getJ2EEVersion();
-								int archiveModuleVersion = ArchiveUtil.getFastSpecVersion((ModuleFile) archive);
-								boolean fail = false;
-								switch (archiveType) {
-									case ImportUtil.EARFILE :
-									case ImportUtil.CLIENTJARFILE :
-										if (projectJ2EEVersion < archiveModuleVersion) {
-											fail = true;
-										}
-										break;
-									case ImportUtil.EJBJARFILE :
-										if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_2_ID && archiveModuleVersion > J2EEVersionConstants.EJB_1_1_ID) {
-											fail = true;
-										} else if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_3_ID && archiveModuleVersion > J2EEVersionConstants.EJB_2_0_ID) {
-											fail = true;
-										}
-										break;
-									case ImportUtil.WARFILE :
-										if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_2_ID && archiveModuleVersion > J2EEVersionConstants.WEB_2_2_ID) {
-											fail = true;
-										} else if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_3_ID && archiveModuleVersion > J2EEVersionConstants.WEB_2_3_ID) {
-											fail = true;
-										}
-										break;
-									case ImportUtil.RARFILE :
-										if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_2_ID) {
-											fail = true;
-										} else if (projectJ2EEVersion == J2EEVersionConstants.J2EE_1_3_ID && archiveModuleVersion > J2EEVersionConstants.JCA_1_0_ID) {
-											fail = true;
-										}
-										break;
-								}
-								if (fail) {
-									return false;
-								}
-								return true;
-							}
-						}
-						if (!foundNature) {
-							return false;
-						}
-					} catch (CoreException e) {
-						return false;
-					}
-				}
-
-			} catch (OpenFailureException e) {
+			} catch (Exception e) {
 				return false;
 			} finally {
 				if (null != archive && archive.isOpen()) {
@@ -217,13 +208,13 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			IProject project = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);
 			if (null != project) {
 				try {
-					if (archiveType == ImportUtil.EARFILE || !project.hasNature(IEARNatureConstants.NATURE_ID)) {
+					if (archiveType == ImportUtil.EARFILE ) {
 						dataModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, project.getName());
 					} else {
 						dataModel.setProperty(IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, project.getName());
 						dataModel.setBooleanProperty(IJ2EEModuleImportDataModelProperties.ADD_TO_EAR, true);
 					}
-				} catch (CoreException e) {
+				} catch (Exception e) {
 					return false;
 				}
 			}

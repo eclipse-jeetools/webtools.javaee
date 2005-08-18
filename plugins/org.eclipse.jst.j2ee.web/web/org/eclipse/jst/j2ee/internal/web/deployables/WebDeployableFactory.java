@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -39,10 +38,6 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
 	public String getNatureID() {
 		return IModuleConstants.MODULE_NATURE_ID;
-	}
-
-	public IModule createModule(J2EENature nature) {
-		return null;
 	}
 
 	protected IPath[] getListenerPaths() {

@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -40,12 +39,6 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	 */
 	public String getFactoryId() {
 		return ID;
-	}
-	/*
-	 * @see J2EEDeployableFactory#getNatureID()
-	 */
-	public String getNatureID() {
-		return IConnectorNatureConstants.CONNECTOR_NATURE_ID;
 	}
 
 	/* (non-Javadoc)

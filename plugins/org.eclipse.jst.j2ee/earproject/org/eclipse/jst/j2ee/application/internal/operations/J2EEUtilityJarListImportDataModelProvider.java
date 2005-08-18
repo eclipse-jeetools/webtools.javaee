@@ -24,15 +24,12 @@ import java.util.List;
 import org.eclipse.core.resources.IPathVariableManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -248,7 +245,8 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 
 		for (int i = 0; i < projects.size(); i++) {
 			IProject project = (IProject) projects.get(i);
-			if (EMFNature.hasRuntime(project, IEARNatureConstants.NATURE_ID) && project.isOpen()) {
+			//TODO filter only on ear projects
+			if (project.isOpen()) {
 				projectsWithNature.add(project.getFullPath().toString());
 			}
 		}
@@ -262,10 +260,10 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			if (earProjectName != null && earProjectName.length() > 0) {
 				IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(earProjectName);
 				try {
-					if (!earProject.isAccessible() || !earProject.hasNature(IEARNatureConstants.NATURE_ID))
+					if (!earProject.isAccessible())
 						return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.getString("J2EEUtilityJarListImportDataModel_Specify_Valid_Project"), null); //$NON-NLS-1$
 					return Status.OK_STATUS;
-				} catch (CoreException e) {
+				} catch (Exception e) {
 					return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.getString("J2EEUtilityJarListImportDataModel_Specify_Valid_Project"), e); //$NON-NLS-1$
 				}
 			}

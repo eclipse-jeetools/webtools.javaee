@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -42,7 +41,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
@@ -55,7 +53,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -308,27 +305,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		return ejbClientJARs == null ? Collections.EMPTY_MAP : ejbClientJARs;
 	}
 
-	public static void makeJ2EENatureFirst(IProject proj) {
-		String natureID = J2EENature.getRegisteredRuntimeID(proj);
-		if (natureID != null) {
-			try {
-				IProjectDescription description = proj.getDescription();
-				String[] prevNatures = description.getNatureIds();
-				String[] newNatures = new String[prevNatures.length];
-				newNatures[0] = natureID;
-				int next = 1;
-				for (int i = 0; i < prevNatures.length; i++) {
-					if (!prevNatures[i].equals(natureID))
-						newNatures[next++] = prevNatures[i];
-				}
-				description.setNatureIds(newNatures);
-				proj.setDescription(description, null);
-			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
-			}
-		}
-	}
-
 	/**
 	 * If the project is referenced by the EAR, return the URI of the JAR or module
 	 */
@@ -521,18 +497,18 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		try {
 			if (!project.isAccessible())
 				return false;
-
-			IProjectDescription desc = project.getDescription();
-			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
-				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
-			} else if (desc.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
-				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
-			} else if (desc.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
-			} else if (desc.hasNature(IConnectorNatureConstants.NATURE_ID)) {
-				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
-			}
-		} catch (CoreException e) {
+			//TODO fix to use components API
+//			IProjectDescription desc = project.getDescription();
+//			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
+//				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
+//			} else if (desc.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
+//				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
+//			} else if (desc.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
+//				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
+//			} else if (desc.hasNature(IConnectorNatureConstants.NATURE_ID)) {
+//				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
+//			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;

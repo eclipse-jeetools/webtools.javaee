@@ -25,14 +25,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -366,7 +364,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		int selectedResourceCount = selections.size();
 		if (selectedResourceCount == 1) {
 			IResource resource = (IResource) selections.get(0);
-			if ((resource instanceof IProject) && checkForNature((IProject) resource)) {
+			if (resource instanceof IProject ) {
 				resourceNameCombo.setText(resource.getName().toString());
 			}
 		}
@@ -389,17 +387,6 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		if (resource != null)
 			resourceNameCombo.setText(resource.getName().toString());
 		return true;
-	}
-
-	protected boolean checkForNature(IProject project) {
-		return EMFNature.hasRuntime(project, getNatureID());
-	}
-
-	/**
-	 * @return
-	 */
-	protected String getNatureID() {
-		return IEARNatureConstants.NATURE_ID;
 	}
 
 	protected boolean isMetaTypeSupported(Object o) {

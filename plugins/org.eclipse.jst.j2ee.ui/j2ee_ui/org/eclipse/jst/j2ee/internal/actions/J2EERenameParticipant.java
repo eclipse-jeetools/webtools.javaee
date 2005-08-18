@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
@@ -52,8 +51,8 @@ public class J2EERenameParticipant extends RenameParticipant {
 		IProject project = (IProject) AdaptabilityUtility.getAdapter(element, IPROJECT_CLASS);
 		if (project.isAccessible()) {
 
-			if (J2EENature.getRegisteredRuntime(project) != null)
-				return true;
+//			if (J2EENature.getRegisteredRuntime(project) != null)
+//				return true;
 
 			//TODO switch to use components and component references
 			// only return true for utility jar projects

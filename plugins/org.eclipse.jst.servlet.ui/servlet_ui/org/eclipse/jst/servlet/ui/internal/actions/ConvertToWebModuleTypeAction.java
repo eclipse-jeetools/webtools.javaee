@@ -7,17 +7,17 @@ package org.eclipse.jst.servlet.ui.internal.actions;
  */
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
 
@@ -62,34 +62,14 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	}
 
 	/**
-	 * Is this a web project?
-	 */
-	boolean isAWebProject(IProject aProject) {
-		if (aProject == null)
-			return false;
-		try {
-			aProject.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-		} catch (CoreException coe) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * make sure a web project is selected.
 	 */
 	public boolean isValidProject(IProject aProject) {
-		if (isAWebProject(aProject)) {
-			try {
-				IBaseWebNature nature = (IBaseWebNature) aProject.getNature(IWebNatureConstants.STATIC_NATURE_ID);
-				if (nature == null)
-					return false;
+		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(aProject);
+		for (int i=0; i<comps.length; i++ ) {
+			if (IModuleConstants.WST_WEB_MODULE.equals(comps[i].getComponentTypeId()))
 				return true;
-			} catch (CoreException e) {
-				return false;
-			}
 		}
-
 		return false;
 	}
 

@@ -125,8 +125,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		return false;
 	}
 
-	protected abstract String getNatureID();
-
 	
 /*	protected IModule createModule(IProject project) {
 		try {
