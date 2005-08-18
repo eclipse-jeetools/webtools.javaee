@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.7 $  $Date: 2005/08/18 21:52:25 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -116,11 +116,23 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 			}
 		}
 	}
+	
+	/**
+	 * Mark all stale, but leave the overrides alone. The overrides aren't stale.
+	 * 
+	 * 
+	 * @since 1.1.0.1
+	 */
+	public void markAllStale() {
+		markAllStale(false);
+	}
 
 	/**
 	 * Mark ALL adapters as stale. This occurs because we've recycled the registry.
+	 * 
+	 * @param clearOverrides clear the overrides too. This is full-fledged stale. The overrides are stale too.
 	 */
-	public void markAllStale() {
+	public void markAllStale(boolean clearOverrides) {
 		ProxyFactoryRegistry fact = isRegistryCreated() ? getRegistry() : null;
 		processQueue();
 		synchronized (this) {
@@ -128,7 +140,7 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 			while (i.hasNext()) {
 				BeaninfoClassAdapter a = (BeaninfoClassAdapter) ((WeakValue) i.next()).get();
 				if (a != null)
-					a.markStaleFactory(fact);
+					a.markStaleFactory(fact, clearOverrides);
 			}
 			fInfoSupplier.closeRegistry();	// Get rid of the registry now since it is not needed. This way we won't accidentily hold onto it when not needed.
 		}

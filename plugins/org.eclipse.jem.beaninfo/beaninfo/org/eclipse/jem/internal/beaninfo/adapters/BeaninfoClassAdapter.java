@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.41 $  $Date: 2005/07/21 20:53:00 $ 
+ *  $Revision: 1.42 $  $Date: 2005/08/18 21:52:25 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -273,7 +273,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	protected final static int
 		NEVER_RETRIEVED_EXTENSION_DOCUMENT = 0,
 		RETRIEVED_ROOT_ONLY = 1,
-		RETRIEVED_FULL_DOCUMENT = 2;
+		RETRIEVED_FULL_DOCUMENT = 2,
+		CLEAR_EXTENSIONS = 3;
 	protected int retrievedExtensionDocument = NEVER_RETRIEVED_EXTENSION_DOCUMENT;
 
 	protected BeaninfoAdapterFactory adapterFactory;
@@ -647,11 +648,12 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						needsIntrospection = false;
 					}
 					
-					if (retrievedExtensionDocument == RETRIEVED_FULL_DOCUMENT) {
+					if (retrievedExtensionDocument == RETRIEVED_FULL_DOCUMENT || retrievedExtensionDocument == CLEAR_EXTENSIONS) {
 						// We've been defined at one point. Need to clear everything and step back
 						// to never retrieved so that we now get the root added in. If we had been
 						// previously defined, then we didn't have root. We will have to lose
 						// all other updates too. But they can come back when we're defined.
+						// Or we've been asked to clear all.
 						clearAll();
 						retrievedExtensionDocument = NEVER_RETRIEVED_EXTENSION_DOCUMENT;
 					}
@@ -681,9 +683,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					}
 
 					TimerTests.basicTest.startCumulativeStep(INTROSPECT);
-					if (retrievedExtensionDocument == RETRIEVED_ROOT_ONLY) {
+					if (retrievedExtensionDocument == RETRIEVED_ROOT_ONLY || retrievedExtensionDocument == CLEAR_EXTENSIONS) {
 						// We need to clear out EVERYTHING because we are coming from an undefined to a defined.
 						// Nothing previous is now valid. (Particularly the root stuff).
+						// Or we had a Clean requested and need to clear the extensions too.
 						clearAll();
 					}
 					boolean firstTime = false;
@@ -2390,9 +2393,21 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	}
 
 	/**
-	 * Mark this factory as the stale factory.
+	 * Marh the factory as stale, but leave the overrides alone. They are not stale.
+	 * @param stale
+	 * 
+	 * @since 1.1.0.1
 	 */
 	public void markStaleFactory(ProxyFactoryRegistry stale) {
+		markStaleFactory(stale, false);
+	}
+	
+	/**
+	 * Mark this factory as the stale factory.
+	 * 
+	 * @param clearOverriddes clear the overrides too. They are stale.
+	 */
+	public void markStaleFactory(ProxyFactoryRegistry stale, boolean clearOverriddes) {
 		if (staleFactory == null) {
 			// It's not stale so make it stale.
 			// So that next access will re-introspect
@@ -2415,6 +2430,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				a.notifyChanged(note);
 			synchronized (this) {
 				needsIntrospection = true;
+				if (clearOverriddes)
+					retrievedExtensionDocument = CLEAR_EXTENSIONS;
 			}
 		}
 	}
