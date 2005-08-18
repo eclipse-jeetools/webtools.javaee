@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -42,12 +41,6 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	public String getFactoryId() {
 		return ID;
 	}
-
-
-	public String getNatureID() {
-		return IEJBNatureConstants.NATURE_ID;
-	}
-
 
 	protected List createModuleDelegates(IVirtualComponent[] components) throws CoreException {
 		EJBFlexibleDeployable moduleDelegate = null;

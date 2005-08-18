@@ -2,12 +2,9 @@ package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
-import org.eclipse.jst.j2ee.internal.project.J2EEWorkbenchURIConverterImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
@@ -37,12 +34,6 @@ public class EJBArtifactEditUtilities {
 		return null;
 	}
 	
-	public static J2EEWorkbenchURIConverterImpl getJ2EEWorkbenchURIConverter(EJBArtifactEdit artifactEdit ) {
-		WorkbenchURIConverter conv =  (WorkbenchURIConverter) artifactEdit.getDeploymentDescriptorResource().getResourceSet().getURIConverter();
-		if (conv instanceof J2EEModuleWorkbenchURIConverterImpl)
-			return (J2EEModuleWorkbenchURIConverterImpl) conv;
-		return null;
-	}
 	public static EJBJar getEJBJar(IVirtualComponent comp) {
 		EJBArtifactEdit edit = null;
 		try {
