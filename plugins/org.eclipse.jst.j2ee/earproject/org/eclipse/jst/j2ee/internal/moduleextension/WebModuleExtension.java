@@ -23,8 +23,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-//import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 //import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
@@ -43,7 +41,6 @@ public interface WebModuleExtension extends EarModuleExtension {
 
 	void addWLPProjects(IProject aProject, Set projectsToBuild);
 
-	J2EEJavaProjectInfo createWebProjectInfo(Archive anArchive);
 
 	void setContextRootForModuleMapping(WebModule m, IProject nestedProject) throws CoreException;
 

@@ -22,14 +22,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -74,23 +72,6 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 		// }
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#createWebProjectInfo(org.eclipse.jst.j2ee.internal.internal.commonarchivecore.Archive)
-	 */
-	public J2EEJavaProjectInfo createWebProjectInfo(Archive anArchive) {
-		WebProjectInfo info = new WebProjectInfo();
-		// Moved this code below to EARProjectSaveStrategyImpl, to defer the
-		// work
-		// and avoid hangs in the wizard right after finish pressed
-		/*
-		 * boolean isVersion2_2 = !ArchiveUtil.isJ2EE13FastCheck((WARFile)anArchive); if
-		 * (isVersion2_2) { info.setJSPLevel(IJ2EEWebNature.JSPLEVEL_1_1);
-		 * info.setServletLevel(IJ2EEWebNature.SERVLETLEVEL_2_2);
-		 */
-		return info;
-	}
 
 	/*
 	 * (non-Javadoc)
