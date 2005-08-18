@@ -329,8 +329,8 @@ public class ServerTargetHelper {
 //		}
 //	}
 //
-//	public static String[] getProjectTypeAndJ2EELevel(IProject project) {
-//		String[] projectAttr = new String[2];
+	public static String[] getProjectTypeAndJ2EELevel(IProject project) {
+		String[] projectAttr = new String[2];
 //		boolean isJ2EE13 = true;
 //		if (EARNatureRuntime.hasRuntime(project)) {
 //			projectAttr[0] = IServerTargetConstants.EAR_TYPE;
@@ -355,8 +355,8 @@ public class ServerTargetHelper {
 //			else
 //				projectAttr[1] = IServerTargetConstants.J2EE_12;
 //		}
-//		return projectAttr;
-//	}
+		return projectAttr;
+	}
 
 	/**
 	 * @param project
