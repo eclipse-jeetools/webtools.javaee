@@ -208,7 +208,7 @@ public abstract class J2EEArtifactCreationWizard extends DataModelWizard impleme
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
-	protected final void postPerformFinish() throws InvocationTargetException {
+	protected void postPerformFinish() throws InvocationTargetException {
 		super.postPerformFinish();
 		if (getFinalPerspectiveID() != null && getFinalPerspectiveID().length() > 0) {
 
