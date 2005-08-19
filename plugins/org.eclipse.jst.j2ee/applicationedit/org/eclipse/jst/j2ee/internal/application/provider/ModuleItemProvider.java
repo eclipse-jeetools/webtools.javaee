@@ -64,7 +64,6 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 			super.getPropertyDescriptors(object);
 
 			ApplicationPackage pkg = ApplicationPackage.eINSTANCE;
-			;
 
 			// This is for the uri feature.
 			//

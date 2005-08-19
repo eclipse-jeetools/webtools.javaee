@@ -111,7 +111,6 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 			super.getPropertyDescriptors(object);
 
 			ApplicationPackage pkg = ApplicationPackage.eINSTANCE;
-			;
 
 			// This is for the contextRoot feature.
 			//
