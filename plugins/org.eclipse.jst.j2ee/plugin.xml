@@ -477,13 +477,7 @@
             id="org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
-   <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.reference.MessageDestReferenceCreationOperation"
-            id="org.eclipse.jst.j2ee.internal.reference.MessageDestReferenceCreationOperation">
-      </extendableOperation>
-    </extension>
+   
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
     <moduleArtifactAdapter
@@ -581,28 +575,6 @@
 <!-- WTP Operation extendable operations						        -->
 <!-- 																	 -->
 <!-- =============================================================== -->
-   <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.common.operations.RemoveSecurityRoleOperation"
-            id="org.eclipse.jst.j2ee.internal.common.operations.RemoveSecurityRoleOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.ejb.operations.EJBRelationshipCreationOperation"
-            id="org.eclipse.jst.j2ee.internal.ejb.operations.EJBRelationshipCreationOperation">
-      </extendableOperation>
-   </extension>
-   <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.reference.EJBReferenceCreationOperation"
-            id="org.eclipse.jst.j2ee.internal.reference.EJBReferenceCreationOperation">
-      </extendableOperation>
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation"
-            id="org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation">     
-	   </extendableOperation>             
-   </extension>
 
 
    <!--============================-->
