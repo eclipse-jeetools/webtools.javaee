@@ -15,7 +15,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 public class EJBClientComponentCreationWizard extends DataModelWizard {
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
@@ -44,15 +43,6 @@ public class EJBClientComponentCreationWizard extends DataModelWizard {
 	 */
 	public void doAddPages() {
 		addPage(new EJBClientComponentCreationWizardPage(getDataModel(), PAGE_ONE));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected WTPOperationDataModel createDefaultModel() {
-		return null;
 	}
 
 	/*

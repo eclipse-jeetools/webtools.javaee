@@ -26,12 +26,14 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -140,23 +142,30 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
            }
         }   
     
-
-        UpdateManifestDataModel updateManifestDataModel = new UpdateManifestDataModel();
-        updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, ejbprojectName);
-        updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
-        updateManifestDataModel.setProperty(UpdateManifestDataModel.MANIFEST_FILE, manifestmf);
-        updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(clientDeployName + ".jar") );//$NON-NLS-1$
+        IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+        updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, ejbprojectName);
+        updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+        updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
+        updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(clientDeployName + ".jar") );//$NON-NLS-1$
         
-        UpdateManifestOperation mop = new UpdateManifestOperation(updateManifestDataModel);     
-        mop.run(aMonitor);
+        UpdateManifestOperation mop = new UpdateManifestOperation(updateManifestDataModel); 
+        try {
+        	mop.execute(aMonitor, null);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
         
         if( !clientProjectName.equals( ejbprojectName )){
-            JARDependencyDataModel dataModel = new JARDependencyDataModel();
-            dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbprojectName);
-            dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientProjectName);
-            dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
+            IDataModel dataModel = DataModelFactory.createDataModel(JARDependencyDataModelProvider.class);
+            dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, ejbprojectName);
+            dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, clientProjectName);
+            dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
             JARDependencyOperation op = new JARDependencyOperation(dataModel);
-            op.run( aMonitor );
+            try {
+            	op.execute( aMonitor, null );
+	        } catch (Exception e) {
+	        	e.printStackTrace();
+	        }
         }   
     }
     /**
