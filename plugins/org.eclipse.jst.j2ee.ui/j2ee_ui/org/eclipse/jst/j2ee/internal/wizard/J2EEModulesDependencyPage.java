@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -38,7 +38,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
 /*
  * Created on Nov 13, 2003
@@ -184,8 +183,8 @@ public class J2EEModulesDependencyPage extends DataModelWizardPage implements IJ
 		ClasspathElement element = (ClasspathElement) event.getElement();
 		element.setSelected(event.getChecked());
 		String classEntry = element.getText();
-		UpdateManifestDataModel updateManifest = (UpdateManifestDataModel)model.getProperty(NESTED_UPDATE_MANIFEST_DM);
-		List classpathList = (List) updateManifest.getProperty(UpdateManifestDataModel.JAR_LIST);
+		IDataModel updateManifest = (IDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM);
+		List classpathList = (List) updateManifest.getProperty(UpdateManifestDataModelProperties.JAR_LIST);
 		if (event.getChecked()) {
 			if (!classpathList.contains(classEntry)) {
 				classpathList.add(classEntry);
@@ -193,8 +192,8 @@ public class J2EEModulesDependencyPage extends DataModelWizardPage implements IJ
 		} else if (classpathList.contains(classEntry)) {
 			classpathList.remove(classEntry);
 		}
-		updateManifest.setProperty(UpdateManifestDataModel.JAR_LIST, classpathList);
-		updateManifest.propertyChanged(new WTPOperationDataModelEvent(updateManifest, UpdateManifestDataModel.JAR_LIST, WTPOperationDataModelEvent.PROPERTY_CHG));
+		updateManifest.setProperty(UpdateManifestDataModelProperties.JAR_LIST, classpathList);
+//		updateManifest.propertyChanged(new WTPOperationDataModelEvent(updateManifest, UpdateManifestDataModel.JAR_LIST, WTPOperationDataModelEvent.PROPERTY_CHG));
 	}
 
 	protected void addResizeListenerToTable() {

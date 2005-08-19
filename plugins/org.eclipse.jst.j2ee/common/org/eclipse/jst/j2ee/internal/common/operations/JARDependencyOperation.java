@@ -15,9 +15,11 @@ package org.eclipse.jst.j2ee.internal.common.operations;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -25,21 +27,35 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
-public class JARDependencyOperation extends WTPOperation {
-	public JARDependencyOperation(JARDependencyDataModel dataModel) {
+public class JARDependencyOperation extends AbstractDataModelOperation {
+	public JARDependencyOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	private void saveModel(ClasspathModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException {
 		if (!model.isDirty())
 			return;
@@ -47,8 +63,12 @@ public class JARDependencyOperation extends WTPOperation {
 		monitor.beginTask("", 2); //$NON-NLS-1$
 		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
 		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
-		mfOperation.run(new SubProgressMonitor(monitor, 1));
-		buildPathOperation.run(new SubProgressMonitor(monitor, 1));
+		try {
+			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
+			buildPathOperation.run(new SubProgressMonitor(monitor, 1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -67,11 +87,11 @@ public class JARDependencyOperation extends WTPOperation {
 		return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
 	}
 
-	private org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation createManifestOperation(ClasspathModel model) {
-		UpdateManifestDataModel updateManifestDataModel = new UpdateManifestDataModel();
-		updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, model.getProject().getName());
-		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
-		updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(model.getClassPathSelection().toString()));
+	private UpdateManifestOperation createManifestOperation(ClasspathModel model) {
+		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, model.getProject().getName());
+		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(model.getClassPathSelection().toString()));
 		return new UpdateManifestOperation(updateManifestDataModel);
 	}
 
@@ -124,32 +144,31 @@ public class JARDependencyOperation extends WTPOperation {
 //		}
 //	}
 	
-	protected final void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		JARDependencyDataModel dataModel = (JARDependencyDataModel) operationDataModel;
+	public final IStatus execute(IProgressMonitor monitor, IAdaptable adaptable) throws ExecutionException {
 		
-		IProject proj = dataModel.getProject();
-		IProject refproj = dataModel.getReferencedProject();
+		IProject proj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.PROJECT_NAME));
+		IProject refproj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME));
 
 		try {
-			int jarManipulationType = dataModel.getIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE);
+			int jarManipulationType = model.getIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE);
 			switch (jarManipulationType) {
-				case JARDependencyDataModel.JAR_MANIPULATION_ADD : {
+				case JARDependencyDataModelProperties.JAR_MANIPULATION_ADD : {
 					updateProjectDependency(proj, refproj);
 				}
 				
 				break;
-				case JARDependencyDataModel.JAR_MANIPULATION_REMOVE : 
+				case JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE : 
 
 					break;
-				case JARDependencyDataModel.JAR_MANIPULATION_INVERT :
+				case JARDependencyDataModelProperties.JAR_MANIPULATION_INVERT :
 
 					break;
 			}
 		} finally {
-
 			if (monitor != null)
 				monitor.done();
 		}
+		return OK_STATUS;
 	}	
 	
 	private IClasspathEntry[] getProjectDependency(IProject clientProj){

@@ -19,14 +19,8 @@ import org.eclipse.jst.j2ee.internal.actions.J2EERenameAction;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionContext;
-import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.internal.WorkbenchMessages;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPGenericActionIds;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPOptionalOperationAction;
 import org.eclipse.wst.common.navigator.internal.provisional.views.ICommonActionProvider;
 import org.eclipse.wst.common.navigator.internal.provisional.views.NavigatorContentService;
 import org.eclipse.wst.common.navigator.internal.views.actions.CommonActionProvider;
@@ -39,8 +33,8 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 
 	private J2EERenameAction renameAction;
 
-	private WTPOptionalOperationAction genericDelete;
-
+	//private WTPOptionalOperationAction genericDelete;
+	//TODO add back generic delete
 	/**
 	 * 
 	 */
@@ -54,16 +48,16 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 *      org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService)
 	 */
 	public void init(IViewPart aViewPart, StructuredViewer aViewer, NavigatorContentService aContentService) {
-		viewPart = aViewPart;
-
-		openAction = new OpenJ2EEResourceAction();
-		renameAction = new J2EERenameAction(viewPart.getViewSite(), viewPart.getViewSite().getShell());
-
-		genericDelete = new WTPOptionalOperationAction(WTPGenericActionIds.DELETE, WorkbenchMessages.Workbench_delete); //$NON-NLS-1$
-		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
-		genericDelete.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
-		genericDelete.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
-		genericDelete.setWorkbenchSite(viewPart.getViewSite());
+//		viewPart = aViewPart;
+//
+//		openAction = new OpenJ2EEResourceAction();
+//		renameAction = new J2EERenameAction(viewPart.getViewSite(), viewPart.getViewSite().getShell());
+//
+//		genericDelete = new WTPOptionalOperationAction(WTPGenericActionIds.DELETE, WorkbenchMessages.Workbench_delete); //$NON-NLS-1$
+//		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+//		genericDelete.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+//		genericDelete.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
+//		genericDelete.setWorkbenchSite(viewPart.getViewSite());
 
 	}
 
@@ -89,7 +83,7 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 				}
 				selection = new StructuredSelection(newSelection);
 			}
-			genericDelete.selectionChanged(genericDelete, selection);
+			//genericDelete.selectionChanged(genericDelete, selection);
 		}
 
 	}
@@ -100,8 +94,8 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillActionBars(org.eclipse.ui.IActionBars)
 	 */
 	public boolean fillActionBars(IActionBars theActionBars) {
-		if (genericDelete.isEnabled())
-			theActionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), genericDelete);
+//		if (genericDelete.isEnabled())
+//			theActionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), genericDelete);
 		return true;
 	}
 

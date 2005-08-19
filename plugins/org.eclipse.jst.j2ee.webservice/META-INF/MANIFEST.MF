@@ -13,7 +13,6 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.webservice.componentcore.util,
  org.eclipse.jst.j2ee.internal.webservice.constants,
  org.eclipse.jst.j2ee.internal.webservice.helper,
- org.eclipse.jst.j2ee.internal.webservice.operation,
  org.eclipse.jst.j2ee.internal.webservice.plugin,
  org.eclipse.jst.j2ee.internal.webservice.provider,
  org.eclipse.jst.j2ee.internal.wsdd.provider

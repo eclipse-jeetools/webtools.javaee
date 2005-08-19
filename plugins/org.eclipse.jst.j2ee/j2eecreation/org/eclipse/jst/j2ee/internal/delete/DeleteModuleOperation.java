@@ -13,10 +13,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
-public class DeleteModuleOperation extends WTPOperation {
+public class DeleteModuleOperation { //extends WTPOperation {
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		// TODO Auto-generated method stub

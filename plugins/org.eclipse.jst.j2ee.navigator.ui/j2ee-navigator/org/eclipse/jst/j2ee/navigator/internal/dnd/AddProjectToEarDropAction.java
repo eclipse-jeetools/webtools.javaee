@@ -10,14 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.navigator.internal.views.NavigatorPlugin;
 import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
@@ -84,7 +84,7 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 
 	protected abstract boolean validateProjectToAdd(IProject projectToAdd, int earVersion);
 
-	protected abstract WTPOperationDataModel getDataModel(IProject earProject, IProject projectToAdd);
+	protected abstract IDataModel getDataModel(IProject earProject, IProject projectToAdd);
 
 	protected void doInit() {
 		//default nothing
@@ -110,13 +110,11 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 			IProject projectToAdd = (IProject) AdaptabilityUtility.getAdapter(sourceObject, IProject.class);
 			if (projectToAdd != null) {
 				try {
-					WTPOperationDataModel dataModel = getDataModel(earProject, projectToAdd);
-					dataModel.getDefaultOperation().run(null);
-				} catch (InvocationTargetException e) {
+					IDataModel dataModel = getDataModel(earProject, projectToAdd);
+					dataModel.getDefaultOperation().execute(new NullProgressMonitor(),null);
+				} catch (Exception e) {
 					NavigatorPlugin.log(e.toString());
-				} catch (InterruptedException e) {
-					NavigatorPlugin.log(e.toString());
-				}
+				} 
 			}
 		}
 		return true;

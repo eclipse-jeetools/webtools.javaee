@@ -26,7 +26,7 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
 import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
@@ -168,7 +168,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 		if (FileTransfer.getInstance().isSupportedType(currentTransfer)) {
 			final String[] fileNames = (String[]) source;
 			final String fileName = fileNames[0];
-			WTPWizard wizard = null;
+			DataModelWizard wizard = null;
 			IDataModel dataModel = null;
 
 			int archiveType = ImportUtil.UNKNOWN;

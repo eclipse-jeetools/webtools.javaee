@@ -24,7 +24,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -129,12 +130,16 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
         
         if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
-            UpdateManifestDataModel dm = new UpdateManifestDataModel();
-            dm.setProperty(UpdateManifestDataModel.PROJECT_NAME, getProject().getName());
-            dm.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
-            dm.setProperty(UpdateManifestDataModel.MANIFEST_FILE, file);
-            dm.setProperty(UpdateManifestDataModel.MAIN_CLASS, "Main"); //$NON-NLS-1$
-            dm.getDefaultOperation().run(monitor);
+            IDataModel dm = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+            dm.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, getProject().getName());
+            dm.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+            dm.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, file);
+            dm.setProperty(UpdateManifestDataModelProperties.MAIN_CLASS, "Main"); //$NON-NLS-1$
+            try {
+            	dm.getDefaultOperation().execute(monitor,null);
+            } catch (Exception e) {
+            	//Ignore
+            }
         }
     }
     public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {

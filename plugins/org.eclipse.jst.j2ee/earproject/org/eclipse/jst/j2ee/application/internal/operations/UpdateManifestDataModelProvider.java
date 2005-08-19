@@ -22,9 +22,7 @@ import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 
 /**
  * @author jsholl
@@ -32,64 +30,13 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class UpdateManifestDataModel extends WTPOperationDataModel {
+public class UpdateManifestDataModelProvider extends AbstractDataModelProvider implements UpdateManifestDataModelProperties {
 
-	/**
-	 * Project name with manifest to update, type String required.
-	 */
-	public static final String PROJECT_NAME = "UpdateManifestDataModel.PROJECT_NAME"; //$NON-NLS-1$
+	public String[] getPropertyNames() {
+	        return new String[] {PROJECT_NAME,JAR_LIST, JAR_LIST_TEXT_UI, MERGE, MAIN_CLASS, MANIFEST_FILE};
+	    }
 
-	/**
-	 * java.util.List of Strings
-	 */
-	public static final String JAR_LIST = "UpdateManifestDataModel.CLASSPATH_LIST"; //$NON-NLS-1$
-
-	/**
-	 * String. This is build from the JAR_LIST property. Never set this property.
-	 */
-	public static final String JAR_LIST_TEXT_UI = "UpdateManifestDataModel.CLASSPATH_LIST_TEXT_UI"; //$NON-NLS-1$
-
-	/**
-	 * Boolean, true merges, false replaces, default is true
-	 */
-	public static final String MERGE = "UpdateManifestDataModel.MERGE"; //$NON-NLS-1$
-
-	/**
-	 * String, no default.
-	 */
-	public static final String MAIN_CLASS = "UpdateManifestDataModel.MAIN_CLASS"; //$NON-NLS-1$
-	
-		
-	/**
-	 * String, no default.
-	 */
-	public static final String MANIFEST_FILE = "UpdateManifestDataModel.MANIFEST_FILE"; //$NON-NLS-1$	
-	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
-	 */
-	public WTPOperation getDefaultOperation() {
-		return new UpdateManifestOperation(this);
-	}
-
-	protected void init() {
-		super.init();
-	}
-
-	protected void initValidBaseProperties() {
-		super.initValidBaseProperties();
-		addValidBaseProperty(PROJECT_NAME);
-		addValidBaseProperty(JAR_LIST);
-		addValidBaseProperty(JAR_LIST_TEXT_UI);
-		addValidBaseProperty(MERGE);
-		addValidBaseProperty(MAIN_CLASS);
-		addValidBaseProperty(MANIFEST_FILE);
-	}
-
-	protected Object getDefaultProperty(String propertyName) {
+	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MERGE)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(JAR_LIST)) {
@@ -99,13 +46,12 @@ public class UpdateManifestDataModel extends WTPOperationDataModel {
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-
-	public void propertyChanged(WTPOperationDataModelEvent event) {
-		super.propertyChanged(event);
-		if (event.getPropertyName().equals(JAR_LIST)) {
-			String text = getClasspathAsString();
-			propertyChanged(new WTPOperationDataModelEvent(this, JAR_LIST_TEXT_UI, event.getFlag()));
-		}
+	
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean set = super.propertySet(propertyName, propertyValue);
+		if (propertyName.equals(JAR_LIST) && isPropertySet(JAR_LIST_TEXT_UI))
+			setProperty(JAR_LIST_TEXT_UI, getClasspathAsString());
+		return set;
 	}
 
 	public IProject getProject() {

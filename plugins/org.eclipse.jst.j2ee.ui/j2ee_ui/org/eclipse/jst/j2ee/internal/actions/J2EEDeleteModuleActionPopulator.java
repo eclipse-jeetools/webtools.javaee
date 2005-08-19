@@ -16,12 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.actions;
 
-import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchSite;
-import org.eclipse.wst.common.frameworks.internal.operation.extensionui.IActionWTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operation.extensionui.WTPOperationDataModelUICreator;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author mdelder
@@ -29,7 +26,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
  */
-public class J2EEDeleteModuleActionPopulator implements WTPOperationDataModelUICreator {
+public class J2EEDeleteModuleActionPopulator {//implements WTPOperationDataModelUICreator {
 
 
 
@@ -40,9 +37,11 @@ public class J2EEDeleteModuleActionPopulator implements WTPOperationDataModelUIC
 	 *      java.lang.String, org.eclipse.jface.viewers.IStructuredSelection,
 	 *      org.eclipse.ui.IWorkbenchSite)
 	 */
-	public WTPOperationDataModel createDataModel(String extendedOperationId, String operationClass, IStructuredSelection selection, IWorkbenchSite site) {
-		J2EEDeleteAction deleteAction = new J2EEDeleteAction(site, (ISelectionProvider) null);
-		WTPOperationDataModel dataModel = IActionWTPOperationDataModel.createDataModel(deleteAction, selection, site.getSelectionProvider(), site.getShell());
-		return dataModel;
+	public IDataModel createDataModel(String extendedOperationId, String operationClass, IStructuredSelection selection, IWorkbenchSite site) {
+		//TODO fix up
+//		J2EEDeleteAction deleteAction = new J2EEDeleteAction(site, (ISelectionProvider) null);
+//		WTPOperationDataModel dataModel = IActionWTPOperationDataModel.createDataModel(deleteAction, selection, site.getSelectionProvider(), site.getShell());
+//		return dataModel;
+		return null;
 	}
 }

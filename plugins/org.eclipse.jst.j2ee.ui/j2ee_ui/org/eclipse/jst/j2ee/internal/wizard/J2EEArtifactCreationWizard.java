@@ -39,7 +39,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
  * <li> {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#doAddPages()}
  * <li> {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#canFinish()}
  * <li> {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#createBaseOperation()}
- * <li>{@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#createDefaultModel()}
+ * <li>{@link com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard#createDefaultModel()}
  * </ul>
  * </p>
  * <p>
@@ -114,7 +114,7 @@ public abstract class J2EEArtifactCreationWizard extends DataModelWizard impleme
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
+	 * @see com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

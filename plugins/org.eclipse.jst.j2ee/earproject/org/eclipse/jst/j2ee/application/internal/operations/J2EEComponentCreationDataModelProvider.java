@@ -50,7 +50,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
         IDataModel dm = DataModelFactory.createDataModel(createAddComponentToEAR());
 		model.setProperty(NESTED_ADD_COMPONENT_TO_EAR_DM, dm);
 		propertySet(CLASSPATH_SELECTION, null);
-		model.setProperty(NESTED_UPDATE_MANIFEST_DM, new UpdateManifestDataModel());
+		model.setProperty(NESTED_UPDATE_MANIFEST_DM, DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class));
 		model.setProperty(USE_ANNOTATIONS, Boolean.FALSE);
 	}
 
@@ -611,8 +611,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return (IDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 	}
 
-	protected final UpdateManifestDataModel getUpdateManifestDataModel() {
-		return (UpdateManifestDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM);
+	protected final IDataModel getUpdateManifestDataModel() {
+		return (IDataModel) model.getProperty(NESTED_UPDATE_MANIFEST_DM);
 	}
 
 	public String getModuleName() {

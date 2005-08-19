@@ -32,8 +32,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
 /**
  * @author jlanuti
@@ -48,8 +46,6 @@ public class AnnotationsStandaloneGroup {
 	protected Button useAnnotations;
 	private boolean isForBean;
 	private boolean useServletString = false;
-	private boolean deprecatedWTPDataModel = false;
-
 	public static final String EJBTAGSET = "ejb"; //$NON-NLS-1$
 	public static boolean shouldBeanDefaultUseAnnotations = false;
 	public static boolean shouldProjectDefaultUseAnnotations = false;
@@ -83,12 +79,7 @@ public class AnnotationsStandaloneGroup {
 	 */
 	public AnnotationsStandaloneGroup(Composite parent, Object model, boolean forBean, boolean useServlet) {
 		super();
-		if (model instanceof WTPOperationDataModel) {
-			deprecatedWTPDataModel = true;
-			synchHelper = new WTPDataModelSynchHelper((WTPOperationDataModel)model);
-		}
-		else 
-			synchHelper = new DataModelSynchHelper((IDataModel)model);
+		synchHelper = new DataModelSynchHelper((IDataModel)model);
 		this.model = model;
 		this.isForBean = forBean;
 		this.useServletString = useServlet;
@@ -120,10 +111,7 @@ public class AnnotationsStandaloneGroup {
 		else
 			labelText = J2EEUIMessages.getResourceString(J2EEUIMessages.ADD_ANNOTATIONS_SUPPORT);
 		useAnnotations.setText(labelText);
-		if (deprecatedWTPDataModel)
-			((WTPDataModelSynchHelper)synchHelper).synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
-		else
-			((DataModelSynchHelper)synchHelper).synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
+		((DataModelSynchHelper)synchHelper).synchCheckbox(useAnnotations, IAnnotationsDataModel.USE_ANNOTATIONS, null);
 		useAnnotations.addSelectionListener(checkboxSelectionListener);
 		GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
 		gd2.horizontalSpan = 2;
@@ -134,10 +122,7 @@ public class AnnotationsStandaloneGroup {
 	}
 
 	public void dispose() {
-		if (deprecatedWTPDataModel)
-			((WTPOperationDataModel)model).removeListener((WTPDataModelSynchHelper)synchHelper);
-		else
-			((IDataModel)model).removeListener((DataModelSynchHelper)synchHelper);
+		((IDataModel)model).removeListener((DataModelSynchHelper)synchHelper);
 		synchHelper = null;
 		model = null;
 	}
@@ -184,10 +169,7 @@ public class AnnotationsStandaloneGroup {
 		}
 		boolean shouldEnable = isControllerEnabled || isProviderEnabled;
 		if (!shouldEnable) {
-			if (deprecatedWTPDataModel)
-				((WTPOperationDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
-			else
-				((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
+			((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
 		}
 		useAnnotations.setEnabled(shouldEnable);
 //		if (!isEnabled || (!isForBean && !shouldProjectDefaultUseAnnotations) || (isForBean && !shouldBeanDefaultUseAnnotations)) {
@@ -208,10 +190,7 @@ public class AnnotationsStandaloneGroup {
 	public void setUseAnnotations(boolean aBoolean) {
 		if (useAnnotations != null) {
 			useAnnotations.setSelection(aBoolean);
-			if (deprecatedWTPDataModel)
-				((WTPOperationDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
-			else
-				((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
+			((IDataModel)model).setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
 		}
 	}
 }

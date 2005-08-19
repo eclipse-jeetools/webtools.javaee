@@ -16,17 +16,17 @@
  */
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 /**
@@ -35,36 +35,45 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class UpdateManifestOperation extends WTPOperation {
+public class UpdateManifestOperation extends AbstractDataModelOperation {
 
-	public UpdateManifestOperation(UpdateManifestDataModel dataModel) {
+	public UpdateManifestOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
 
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		UpdateManifestDataModel dataModel = (UpdateManifestDataModel) operationDataModel;
-		IFile file = (IFile)dataModel.getProperty(UpdateManifestDataModel.MANIFEST_FILE);
+	public IStatus execute(IProgressMonitor monitor, IAdaptable adaptable) throws ExecutionException {
+		IFile file = (IFile)model.getProperty(UpdateManifestDataModelProperties.MANIFEST_FILE);
 		
-		String classPathValue = dataModel.getClasspathAsString();
+		String classPathValue = model.getStringProperty(UpdateManifestDataModelProperties.JAR_LIST_TEXT_UI);
 		try {
 			ArchiveManifest mf = J2EEProjectUtilities.readManifest(file);
 			
 			if (mf == null)
 				mf = new ArchiveManifestImpl();
 			mf.addVersionIfNecessary();
-			if (dataModel.getBooleanProperty(UpdateManifestDataModel.MERGE)) {
+			if (model.getBooleanProperty(UpdateManifestDataModelProperties.MERGE)) {
 				mf.mergeClassPath(ArchiveUtil.getTokens(classPathValue));
 			} else {
 				mf.setClassPath(classPathValue);
 			}
-			if (dataModel.isSet(UpdateManifestDataModel.MAIN_CLASS)) {
-				mf.setMainClass(dataModel.getStringProperty(UpdateManifestDataModel.MAIN_CLASS));
+			if (model.isPropertySet(UpdateManifestDataModelProperties.MAIN_CLASS)) {
+				mf.setMainClass(model.getStringProperty(UpdateManifestDataModelProperties.MAIN_CLASS));
 			}
 
 			J2EEProjectUtilities.writeManifest(file, mf);
 		} catch (java.io.IOException ex) {
-			throw new WFTWrappedException(ex);
+			throw new ExecutionException(ex.getMessage(),ex);
 		}
+		return OK_STATUS;
 	}
 
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

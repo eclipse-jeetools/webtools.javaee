@@ -107,7 +107,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
+	 * @see com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

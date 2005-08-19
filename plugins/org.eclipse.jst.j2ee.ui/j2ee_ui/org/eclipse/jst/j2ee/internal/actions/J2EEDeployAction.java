@@ -19,19 +19,14 @@ package org.eclipse.jst.j2ee.internal.actions;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
 import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.progress.IProgressService;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationJobAdapter;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -54,13 +49,19 @@ public class J2EEDeployAction extends BaseAction {
 			//IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(op);
 			//J2EEDeployStatusDialog dialog = new
 			// J2EEDeployStatusDialog(shell,op.getMultiStatus());
-			WTPOperationJobAdapter jobAdapter = new WTPOperationJobAdapter(op);
-			jobAdapter.setName(J2EEPluginResourceHandler.getString("J2EEDeployOperation_UI_0"));//$NON-NLS-1$
-			IWorkbench workbench = J2EEUIPlugin.getDefault().getWorkbench();
-			IProgressService progressService = workbench.getProgressService();
-			jobAdapter.setPriority(Job.INTERACTIVE);
-			progressService.showInDialog(workbench.getActiveWorkbenchWindow().getShell(), jobAdapter);
-			jobAdapter.schedule();
+			try {
+				op.execute(new NullProgressMonitor(), null);
+			} catch (Exception e) {
+				//Ignore
+			}
+			//TODO fix up job scheduler?
+//			WTPOperationJobAdapter jobAdapter = new WTPOperationJobAdapter(op);
+//			jobAdapter.setName(J2EEPluginResourceHandler.getString("J2EEDeployOperation_UI_0"));//$NON-NLS-1$
+//			IWorkbench workbench = J2EEUIPlugin.getDefault().getWorkbench();
+//			IProgressService progressService = workbench.getProgressService();
+//			jobAdapter.setPriority(Job.INTERACTIVE);
+//			progressService.showInDialog(workbench.getActiveWorkbenchWindow().getShell(), jobAdapter);
+//			jobAdapter.schedule();
 		}
 
 	}

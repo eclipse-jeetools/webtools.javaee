@@ -16,12 +16,13 @@
  */
 package org.eclipse.jst.j2ee.internal.deploy;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
@@ -31,7 +32,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.internal.emf.utilities.CommandContext;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
@@ -44,7 +45,7 @@ import org.eclipse.wst.server.core.ServerCore;
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class J2EEDeployOperation extends WTPOperation {
+public class J2EEDeployOperation extends AbstractDataModelOperation {
 
 	private Object[] selection;
 	private List multiStatus = new ArrayList();
@@ -58,13 +59,21 @@ public class J2EEDeployOperation extends WTPOperation {
 		// TODO Auto-generated constructor stub
 	}
 
+	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		DeployerRegistry reg = DeployerRegistry.instance();
 
 		List modules = DeployerRegistry.getSelectedModules(selection);
@@ -80,7 +89,7 @@ public class J2EEDeployOperation extends WTPOperation {
 			deploy(visitors, module, monitor);
 			monitor.worked(1);
 		}
-
+		return OK_STATUS;
 	}
 
 	/**
@@ -120,7 +129,8 @@ public class J2EEDeployOperation extends WTPOperation {
 	private void addOKStatus(String DeployerName, IStatus main) {
 
 		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
-		addStatus(statusLocal);
+		//TODO
+		//addStatus(statusLocal);
 
 	}
 
@@ -141,8 +151,8 @@ public class J2EEDeployOperation extends WTPOperation {
 
 		String message = J2EEPluginResourceHandler.getString("J2EEDeployOperation_3_UI_", new Object[]{DeployerName, errorNotes}); //$NON-NLS-1$
 		IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, ex); //$NON-NLS-1$
-
-		addStatus(statusLocal);
+		//TODO
+		//addStatus(statusLocal);
 
 
 

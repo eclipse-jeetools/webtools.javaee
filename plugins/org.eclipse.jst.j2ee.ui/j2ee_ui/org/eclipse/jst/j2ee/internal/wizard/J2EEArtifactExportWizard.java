@@ -24,7 +24,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
  * </p>
  * <p>
  * Subclasses must provide the methods that are required by
- * {@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard}.
+ * {@link com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard}.
  * </p>
  * <p>
  * Optionally, subclasses may also override the following methods:
@@ -136,7 +136,7 @@ public abstract class J2EEArtifactExportWizard extends DataModelWizard {
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
+	 * @see com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

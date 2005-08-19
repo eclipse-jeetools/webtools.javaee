@@ -20,7 +20,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.wizard.ServerTargetUIHelper;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author jsholl
@@ -41,9 +41,9 @@ public class AddUtilityJarDropAction extends AddProjectToEarDropAction {
 		return false;
 	}
 
-	protected WTPOperationDataModel getDataModel(IProject earProject, IProject projectToAdd) {
+	protected IDataModel getDataModel(IProject earProject, IProject projectToAdd) {
 		//TODO migrate to AddComponentToEnterpriseApplicationDataModelProvider
-		WTPOperationDataModel dataModel = null;
+		IDataModel dataModel = null;
 		boolean syncServerTarget = ServerTargetUIHelper.setModuleServerTargetIfNecessary(earProject, projectToAdd, getShell());
 //		dataModel = AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProject.getName(), projectToAdd);
 //		dataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, syncServerTarget);
