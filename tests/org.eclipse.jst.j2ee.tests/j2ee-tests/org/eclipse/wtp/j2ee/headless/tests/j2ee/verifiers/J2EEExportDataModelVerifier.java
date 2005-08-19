@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 
 /**
@@ -20,7 +20,7 @@ public class J2EEExportDataModelVerifier extends DataModelVerifier {
 	/* (non-Javadoc)
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier#verify(org.eclipse.wtp.common.operation.WTPOperationDataModel)
 	 */
-	public void verify(WTPOperationDataModel model) throws Exception {
+	public void verify(IDataModel model) throws Exception {
 		super.verify(model);
 		
 //		String archiveDestination = model.getStringProperty(J2EEModuleExportDataModel.ARCHIVE_DESTINATION);

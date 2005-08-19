@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author Administrator
@@ -19,13 +19,13 @@ public abstract class ModuleImportDataModelVerifier extends J2EEImportDataModelV
 	/* (non-Javadoc)
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier#verify(org.eclipse.wtp.common.operation.WTPOperationDataModel)
 	 */
-	public final void verify(WTPOperationDataModel model) throws Exception { 
+	public final void verify(IDataModel model) throws Exception { 
 		super.verify(model);
 		
 		doModuleSpecificVerification(model);
 	}
 	
-	public void doModuleSpecificVerification(WTPOperationDataModel model) throws Exception {
+	public void doModuleSpecificVerification(IDataModel model) throws Exception {
 		
 	}
 }

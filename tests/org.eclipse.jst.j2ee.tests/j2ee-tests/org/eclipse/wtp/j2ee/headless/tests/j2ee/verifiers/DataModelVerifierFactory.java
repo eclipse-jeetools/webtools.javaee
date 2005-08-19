@@ -48,5 +48,6 @@ public class DataModelVerifierFactory extends org.eclipse.wst.common.tests.DataM
 //			verifierMap.put(FlexibleJavaProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
 
 	}
-
+	
+	
 }

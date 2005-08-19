@@ -8,7 +8,7 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
@@ -25,7 +25,7 @@ public class J2EEImportDataModelVerifier extends DataModelVerifier {
 	 * 
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier#verify(org.eclipse.wtp.common.operation.WTPOperationDataModel)
 	 */
-	public void verify(WTPOperationDataModel model) throws Exception {
+	public void verify(IDataModel model) throws Exception {
 
 		super.verify(model);
 

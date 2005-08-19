@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author Administrator
@@ -16,7 +16,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  */
 public class EARImportDataModelVerifier extends J2EEImportDataModelVerifier {
 
-    public void verify(WTPOperationDataModel model) throws Exception {
+    public void verify(IDataModel model) throws Exception {
         super.verify(model);
 //        EnterpriseApplicationImportDataModel importModel = (EnterpriseApplicationImportDataModel)model;
 //        List list = importModel.getEARFile().getModuleFiles();

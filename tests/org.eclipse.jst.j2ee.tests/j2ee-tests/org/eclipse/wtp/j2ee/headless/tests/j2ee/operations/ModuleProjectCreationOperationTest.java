@@ -13,7 +13,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
@@ -75,7 +74,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
 
 	public abstract IDataModel getComponentCreationDataModel();
 
-	public static void verifyDataModel(WTPOperationDataModel dataModel) throws Exception{
+	public static void verifyDataModel(IDataModel dataModel) throws Exception{
 	    DataModelVerifier verifier = DataModelVerifierFactory.getInstance().createVerifier(dataModel);
 	    verifier.verify(dataModel);
 	}
