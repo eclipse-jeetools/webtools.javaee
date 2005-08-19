@@ -60,7 +60,7 @@ public class CMRFieldTest extends TestCase {
     public void test_getCollectionType() {
 
     	 CMRField objCMRField = getInstance();
-         JavaClass newCollectionType = JavaRefFactory.eINSTANCE.createJavaClass();;
+         JavaClass newCollectionType = JavaRefFactory.eINSTANCE.createJavaClass();
          objCMRField.setCollectionType(newCollectionType);
          JavaClass retVal = objCMRField.getCollectionType();
          assertEquals(newCollectionType,retVal);
@@ -70,7 +70,7 @@ public class CMRFieldTest extends TestCase {
     public void test_setCollectionType() {
 
         CMRField objCMRField = getInstance();
-        JavaClass newCollectionType = JavaRefFactory.eINSTANCE.createJavaClass();;
+        JavaClass newCollectionType = JavaRefFactory.eINSTANCE.createJavaClass();
         objCMRField.setCollectionType(newCollectionType);
         JavaClass retVal = objCMRField.getCollectionType();
         assertEquals(newCollectionType,retVal);

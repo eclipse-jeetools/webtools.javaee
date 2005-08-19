@@ -84,7 +84,7 @@ public class ArchiveComponentCreationTest extends TestCase {
 			ArrayList vlist = new ArrayList();
 			IVirtualReference[] oldrefs = component.getReferences();
 			for (int j = 0; j < oldrefs.length; j++) {
-				IVirtualReference ref = (IVirtualReference) oldrefs[j];
+				IVirtualReference ref = oldrefs[j];
 				vlist.add(ref);
 			}		
 		
