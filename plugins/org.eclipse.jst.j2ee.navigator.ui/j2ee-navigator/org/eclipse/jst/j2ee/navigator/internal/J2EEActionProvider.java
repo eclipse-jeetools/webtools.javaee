@@ -48,10 +48,10 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 *      org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService)
 	 */
 	public void init(IViewPart aViewPart, StructuredViewer aViewer, NavigatorContentService aContentService) {
-//		viewPart = aViewPart;
-//
-//		openAction = new OpenJ2EEResourceAction();
-//		renameAction = new J2EERenameAction(viewPart.getViewSite(), viewPart.getViewSite().getShell());
+		viewPart = aViewPart;
+
+		openAction = new OpenJ2EEResourceAction();
+		renameAction = new J2EERenameAction(viewPart.getViewSite(), viewPart.getViewSite().getShell());
 //
 //		genericDelete = new WTPOptionalOperationAction(WTPGenericActionIds.DELETE, WorkbenchMessages.Workbench_delete); //$NON-NLS-1$
 //		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
