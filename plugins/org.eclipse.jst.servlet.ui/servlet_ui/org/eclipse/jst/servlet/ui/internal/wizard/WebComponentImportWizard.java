@@ -26,7 +26,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  */
 public final class WebComponentImportWizard extends J2EEComponentImportWizard {
 
-	protected static final String WEB_LIBS_PG = "WEB_LIBS_PG";
+	protected static final String WEB_LIBS_PG = "WEB_LIBS_PG"; //$NON-NLS-1$
 	
 	/**
 	 * <p>

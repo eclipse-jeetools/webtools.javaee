@@ -51,20 +51,20 @@ public class WebAppContainerPage
     
     public WebAppContainerPage() 
     {
-        super( resource( "WEB_CONT_NAME" ) );
+        super( resource( "WEB_CONT_NAME" ) ); //$NON-NLS-1$
         
-        setTitle( resource( "WEB_CONT_PAGE_TITLE" ) );
-        setDescription( resource( "WEB_CONT_PAGE_DESCRIPTION" ) );
+        setTitle( resource( "WEB_CONT_PAGE_TITLE" ) ); //$NON-NLS-1$
+        setDescription( resource( "WEB_CONT_PAGE_DESCRIPTION" ) ); //$NON-NLS-1$
         
         // TODO: Replace with a custom image.
-        setImageDescriptor( JavaPluginImages.DESC_WIZBAN_ADD_LIBRARY );
+        setImageDescriptor( JavaPluginImages.DESC_WIZBAN_ADD_LIBRARY ); //$NON-NLS-1$
     }
     
-    public void initialize( final IJavaProject jproject,
+    public void initialize( final IJavaProject aJproject,
                             final IClasspathEntry[] cp )
     {
-        this.jproject = jproject;
-        this.project = jproject.getProject();
+        this.jproject = aJproject;
+        this.project = aJproject.getProject();
     }
     
     public IClasspathEntry getSelection() 
@@ -91,7 +91,7 @@ public class WebAppContainerPage
         composite.setLayout( new GridLayout( 1, false ) );
         
         this.componentLabel = new Label( composite, SWT.NONE );
-        this.componentLabel.setText( resource( "WEB_CONT_PAGE_COMP_LABEL" ) );
+        this.componentLabel.setText( resource( "WEB_CONT_PAGE_COMP_LABEL" ) ); //$NON-NLS-1$
         
         this.componentCombo = new Combo( composite, SWT.READ_ONLY );
         
@@ -100,7 +100,7 @@ public class WebAppContainerPage
         for( int i = 0, n = components.size(); i < n; i++  )
         {
             final String cmp = (String) components.get( i );
-            this.componentCombo.add( cmp + "        " );
+            this.componentCombo.add( cmp + "        " ); //$NON-NLS-1$
             
             if( this.component != null && this.component.equals( cmp ) )
             {

@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEImportPage;
@@ -175,7 +176,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
-			warFile = (WARFile) model.getProperty(IWebComponentImportDataModelProperties.FILE);
+			warFile = (WARFile) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			refresh();
 		}
 	}
@@ -193,7 +194,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	}
 
 	public boolean isEARFileChanged() {
-		return warFile != model.getProperty(IWebComponentImportDataModelProperties.FILE);
+		return warFile != model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 	}
 
 	protected void enter() {

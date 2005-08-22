@@ -22,7 +22,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 
 public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard {
-	private static final String ConvertToWebModuleTypeWizard = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
+//	private static final String ConvertToWebModuleTypeWizard = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
 
 	public ConvertToWebComponentTypeWizard(IDataModel dataModel) {
 		// TODO use flexible project
