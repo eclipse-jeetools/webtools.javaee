@@ -31,6 +31,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationOperation;
 
 public class JavaProjectCreationOperation extends ProjectCreationOperation {
@@ -51,7 +52,7 @@ public class JavaProjectCreationOperation extends ProjectCreationOperation {
 	}
 
 	private void createJavaProject(IProgressMonitor monitor) throws CoreException {
-		IProject project = (IProject) model.getProperty(IJavaProjectCreationProperties.PROJECT);
+		IProject project = (IProject) model.getProperty(IProjectCreationProperties.PROJECT);
 		WTPProjectUtilities.addNatureToProjectLast(project, JavaCore.NATURE_ID);
 		IJavaProject javaProject = JavaCore.create(project);
 		javaProject.setOutputLocation(getOutputPath(project), monitor);

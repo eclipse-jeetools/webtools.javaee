@@ -34,7 +34,7 @@ public class JavaArtifactEditModelFactory extends EditModelFactory {
 	public EditModel createEditModelForRead(String editModelID, EMFWorkbenchContext context, Map params) {
 		URI moduleURI = (URI) ((params != null) ? params.get(PARAM_MODULE_URI) : null);
 		if(moduleURI == null)
-			throw new IllegalStateException("A Module URI must be provided");
+			throw new IllegalStateException("A Module URI must be provided"); //$NON-NLS-1$
 		
 		return  new JavaArtifactEditModel(editModelID, context, true, moduleURI);
 	}
@@ -45,7 +45,7 @@ public class JavaArtifactEditModelFactory extends EditModelFactory {
 	public EditModel createEditModelForWrite(String editModelID, EMFWorkbenchContext context, Map params) {
 		URI moduleURI = (URI) ((params != null) ? params.get(PARAM_MODULE_URI) : null);
 		if(moduleURI == null)
-			throw new IllegalStateException("A Module URI must be provided");
+			throw new IllegalStateException("A Module URI must be provided"); //$NON-NLS-1$
 		return  new JavaArtifactEditModel(editModelID, context, false,false, moduleURI);
 	}
 	

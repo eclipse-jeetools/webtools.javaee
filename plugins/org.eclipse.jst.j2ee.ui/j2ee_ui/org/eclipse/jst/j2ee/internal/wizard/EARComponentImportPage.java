@@ -16,8 +16,8 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -28,6 +28,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -71,8 +72,8 @@ public class EARComponentImportPage extends J2EEImportPage {
 	protected IDataModel getNewProjectCreationDataModel() {
 		IDataModel earModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
 		earModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, model.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION));
-		earModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME));
-		earModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME));
+		earModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, model.getProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+		earModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, model.getProperty(IComponentCreationDataModelProperties.COMPONENT_NAME));
 		return earModel;
 	}
 
@@ -113,7 +114,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IEARComponentImportDataModelProperties.FILE_NAME, IEARComponentImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IAnnotationsDataModel.USE_ANNOTATIONS};
+		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME, IJ2EEComponentImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
 
 	/*

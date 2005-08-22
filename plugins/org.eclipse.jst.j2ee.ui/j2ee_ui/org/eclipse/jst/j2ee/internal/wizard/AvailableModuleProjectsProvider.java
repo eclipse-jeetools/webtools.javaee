@@ -25,7 +25,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -53,7 +53,7 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 		if (inputElement instanceof IWorkspaceRoot) {
 			IProject[] projects = ((IWorkspaceRoot) inputElement).getProjects();
 			if (projects.length > 0) {
-				int j2eeVersion = model.getIntProperty(IEarComponentCreationDataModelProperties.COMPONENT_VERSION);
+				int j2eeVersion = model.getIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION);
 				for (int i = 0; i < projects.length; i++) {
 					if (isValid(projects[i], j2eeVersion)) {
 						if (validModuleProjects == null)

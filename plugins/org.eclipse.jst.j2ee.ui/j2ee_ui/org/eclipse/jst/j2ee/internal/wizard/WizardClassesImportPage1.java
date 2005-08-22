@@ -63,9 +63,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FileSystemElement;
 import org.eclipse.ui.dialogs.WizardResourceImportPage;
-import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.internal.dialogs.DialogUtil;
 import org.eclipse.ui.internal.ide.dialogs.IElementFilter;
 import org.eclipse.ui.internal.ide.dialogs.ResourceTreeAndListGroup;
@@ -284,7 +284,7 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 	 */
 	public void createControl(Composite parent) {
 		//super.createControl(parent);
-		WorkbenchHelp.setHelp(parent, IJ2EEUIContextIds.IMPORT_CLASS_WIZARD_P2);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, IJ2EEUIContextIds.IMPORT_CLASS_WIZARD_P2);
 		initializeDialogUnits(parent);
 
 		Composite composite = new Composite(parent, SWT.NULL);

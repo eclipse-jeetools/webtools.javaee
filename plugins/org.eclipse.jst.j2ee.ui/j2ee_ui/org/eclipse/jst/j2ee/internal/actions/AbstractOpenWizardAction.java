@@ -119,7 +119,7 @@ public abstract class AbstractOpenWizardAction extends org.eclipse.jface.action.
 				sel = new StructuredSelection();
 			((IWorkbenchWizard) wizard).init(J2EEUIPlugin.getDefault().getWorkbench(), sel);
 		}
-		if (WorkbenchActivityHelper.allowUseOf(wizard)) {
+		if (WorkbenchActivityHelper.allowUseOf(null,wizard)) {
 			IWorkbenchWindow window = J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 			WizardDialog dialog = new WizardDialog(window.getShell(), wizard);
 			dialog.create();

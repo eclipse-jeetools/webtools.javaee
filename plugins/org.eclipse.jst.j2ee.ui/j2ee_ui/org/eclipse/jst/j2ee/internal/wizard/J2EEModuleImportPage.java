@@ -15,10 +15,11 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.help.WorkbenchHelp;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
@@ -39,7 +40,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
-		WorkbenchHelp.setHelp(composite, getInfopopID());
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 		createServerEarAndStandaloneGroup(composite);
 		createAnnotationsStandaloneGroup(composite);
 		return composite;
@@ -55,11 +56,11 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @param composite
 	 */
 	private void createServerEarAndStandaloneGroup(Composite composite) {
-		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(IJ2EEModuleImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
+		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IJ2EEModuleImportDataModelProperties.FILE_NAME, IJ2EEModuleImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, IJ2EEModuleImportDataModelProperties.ADD_TO_EAR};
+		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME, IJ2EEComponentImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, IJ2EEModuleImportDataModelProperties.ADD_TO_EAR};
 	}
 
 }

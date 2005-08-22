@@ -15,8 +15,8 @@ import org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
@@ -69,7 +69,7 @@ public class FilteredFileSelectionDialog extends ElementTreeSelectionDialog {
 	}
 
 	public void setHelp(String helpCode) {
-		WorkbenchHelp.setHelp(this.getParentShell(), helpCode); //$NON-NLS-1$
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(this.getParentShell(), helpCode); //$NON-NLS-1$
 	}
 
 }

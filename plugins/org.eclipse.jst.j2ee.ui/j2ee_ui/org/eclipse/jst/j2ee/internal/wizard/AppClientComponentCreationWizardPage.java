@@ -20,7 +20,7 @@ public class AppClientComponentCreationWizardPage extends J2EEComponentCreationW
 	public Text contextRootNameField = null;
 	public Label contextRootLabel = null;
 
-	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
+//	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	private AnnotationsStandaloneGroup annotationsGroup;
 	
 	/**

@@ -21,7 +21,7 @@ public final class CommonFrameworksPlugin
     extends WTPPlugin
 
 {
-    public static final String PLUGIN_ID = "org.eclipse.jst.common.frameworks";
+    public static final String PLUGIN_ID = "org.eclipse.jst.common.frameworks"; //$NON-NLS-1$
     
     private static final CommonFrameworksPlugin inst
         = new CommonFrameworksPlugin();
@@ -43,7 +43,7 @@ public final class CommonFrameworksPlugin
     public static void log( final Exception e )
     {
         final ILog log = CommonFrameworksPlugin.getDefault().getLog();
-        final String msg = "Encountered an unexpected exception.";
+        final String msg = "Encountered an unexpected exception."; //$NON-NLS-1$
         
         log.log( new Status( IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e ) );
     }

@@ -49,10 +49,10 @@ public final class ClasspathDecorationsManager
     {
         final IWorkspace ws = ResourcesPlugin.getWorkspace();
         final File wsdir = ws.getRoot().getLocation().toFile();
-        final File wsmdroot = new File( wsdir, ".metadata/.plugins" );
+        final File wsmdroot = new File( wsdir, ".metadata/.plugins" ); //$NON-NLS-1$
         final File pmdroot = new File( wsmdroot, plugin );
     
-        this.f = new File( pmdroot, "classpath.decorations.xml" );
+        this.f = new File( pmdroot, "classpath.decorations.xml" ); //$NON-NLS-1$
         this.decorations = read();
     }
     
@@ -104,7 +104,7 @@ public final class ClasspathDecorationsManager
         {
             w = new PrintWriter( new BufferedWriter( new FileWriter( this.f ) ) );
             
-            w.println( "<classpath>" );
+            w.println( "<classpath>" ); //$NON-NLS-1$
             
             for( Iterator itr1 = decorations.entrySet().iterator(); 
                  itr1.hasNext(); )
@@ -112,9 +112,9 @@ public final class ClasspathDecorationsManager
                 final Map.Entry entry1 = (Map.Entry) itr1.next();
                 final Map submap = (Map) entry1.getValue();
                 
-                w.print( "  <container id=\"" );
+                w.print( "  <container id=\"" ); //$NON-NLS-1$
                 w.print( (String) entry1.getKey() );
-                w.println( "\">" );
+                w.println( "\">" ); //$NON-NLS-1$
                 
                 for( Iterator itr2 = submap.entrySet().iterator(); 
                      itr2.hasNext(); )
@@ -124,22 +124,22 @@ public final class ClasspathDecorationsManager
                     final ClasspathDecorations dec 
                         = (ClasspathDecorations) entry2.getValue();
                     
-                    w.print( "    <entry id=\"" );
+                    w.print( "    <entry id=\"" ); //$NON-NLS-1$
                     w.print( (String) entry2.getKey() );
-                    w.println( "\">" );
+                    w.println( "\">" ); //$NON-NLS-1$
                     
                     if( dec.getSourceAttachmentPath() != null )
                     {
-                        w.print( "      <source-attachment-path>" );
+                        w.print( "      <source-attachment-path>" ); //$NON-NLS-1$
                         w.print( dec.getSourceAttachmentPath().toString() );
-                        w.println( "</source-attachment-path>" );
+                        w.println( "</source-attachment-path>" ); //$NON-NLS-1$
                     }
 
                     if( dec.getSourceAttachmentRootPath() != null )
                     {
-                        w.print( "      <source-attachment-root-path>" );
+                        w.print( "      <source-attachment-root-path>" ); //$NON-NLS-1$
                         w.print( dec.getSourceAttachmentRootPath().toString() );
-                        w.println( "</source-attachment-root-path>" );
+                        w.println( "</source-attachment-root-path>" ); //$NON-NLS-1$
                     }
                     
                     final IClasspathAttribute[] attrs 
@@ -149,20 +149,20 @@ public final class ClasspathDecorationsManager
                     {
                         final IClasspathAttribute attr = attrs[ i ];
                         
-                        w.print( "      <attribute name=\"" );
+                        w.print( "      <attribute name=\"" ); //$NON-NLS-1$
                         w.print( attr.getName() );
-                        w.print( "\">" );
+                        w.print( "\">" ); //$NON-NLS-1$
                         w.print( attr.getValue() );
-                        w.println( "</attribute>" );
+                        w.println( "</attribute>" ); //$NON-NLS-1$
                     }
                     
-                    w.println( "    </entry>" );
+                    w.println( "    </entry>" ); //$NON-NLS-1$
                 }
                 
-                w.println( "  </container>" );
+                w.println( "  </container>" ); //$NON-NLS-1$
             }
             
-            w.println( "</classpath>" );
+            w.println( "</classpath>" ); //$NON-NLS-1$
         }
         catch( IOException e )
         {
@@ -209,18 +209,18 @@ public final class ClasspathDecorationsManager
             }
         }
         
-        for( Iterator itr1 = elements( root, "container" ); itr1.hasNext(); )
+        for( Iterator itr1 = elements( root, "container" ); itr1.hasNext(); ) //$NON-NLS-1$
         {
             final Element e1 = (Element) itr1.next();
-            final String cid = e1.getAttribute( "id" );
+            final String cid = e1.getAttribute( "id" ); //$NON-NLS-1$
             
             final HashMap submap = new HashMap();
             map.put( cid, submap );
             
-            for( Iterator itr2 = elements( e1, "entry" ); itr2.hasNext(); )
+            for( Iterator itr2 = elements( e1, "entry" ); itr2.hasNext(); ) //$NON-NLS-1$
             {
                 final Element e2 = (Element) itr2.next();
-                final String eid = e2.getAttribute( "id" );
+                final String eid = e2.getAttribute( "id" ); //$NON-NLS-1$
                 final ClasspathDecorations dec = new ClasspathDecorations();
                 
                 submap.put( eid, dec );
@@ -230,17 +230,17 @@ public final class ClasspathDecorationsManager
                     final Element e3 = (Element) itr3.next();
                     final String n = e3.getNodeName();
                     
-                    if( n.equals( "source-attachment-path" ) )
+                    if( n.equals( "source-attachment-path" ) ) //$NON-NLS-1$
                     {
                         dec.setSourceAttachmentPath( new Path( text( e3 ) ) );
                     }
-                    else if( n.equals( "source-attachment-root-path" ) )
+                    else if( n.equals( "source-attachment-root-path" ) ) //$NON-NLS-1$
                     {
                         dec.setSourceAttachmentRootPath( new Path( text( e3 ) ) );
                     }
-                    else if( n.equals( "attribute" ) )
+                    else if( n.equals( "attribute" ) ) //$NON-NLS-1$
                     {
-                        final String name = e3.getAttribute( "name" );
+                        final String name = e3.getAttribute( "name" ); //$NON-NLS-1$
                         dec.addExtraAttribute( name, text( e3 ) );
                     }
                 }
@@ -288,10 +288,7 @@ public final class ClasspathDecorationsManager
         {
             return buf.toString();
         }
-        else
-        {
-            return str;
-        }
+        return str;
     }
     
     private static Iterator elements( final Element el,

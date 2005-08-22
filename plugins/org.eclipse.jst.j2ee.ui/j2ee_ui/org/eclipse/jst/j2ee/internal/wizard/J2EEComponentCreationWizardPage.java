@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
@@ -56,7 +57,7 @@ import org.eclipse.wst.server.ui.ServerUIUtil;
 public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPage implements IJ2EEComponentCreationDataModelProperties{
 
     private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
-    protected static final String MODULE_VERSION = "Module Version:";
+    protected static final String MODULE_VERSION = J2EEUIMessages.MODULE_VERSION_LABEL;
     protected NewModuleGroup projectNameGroup;
     protected Composite advancedComposite;
     protected Button advancedButton;
@@ -70,7 +71,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected Button browseButton = null;
     
     private static final int SIZING_TEXT_FIELD_WIDTH = 305;
-    private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
+//    private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
     private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL); //$NON-NLS-1$
     private String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL); //$NON-NLS-1$
     private static final String defDirDialogLabel = "Directory"; //$NON-NLS-1$
@@ -300,7 +301,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         newServerTargetButton.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 if(!J2EEComponentCreationWizardPage.launchNewRuntimeWizard(getShell(), model)){
-                	setErrorMessage(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_9"));
+                	setErrorMessage(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_9")); //$NON-NLS-1$
                 }
             }
         });
@@ -316,7 +317,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     }
 
     protected String[] getValidationPropertyNames() {
-        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR };
+        return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR };
     }
 
     protected void createVersionComposite(Composite parent) {

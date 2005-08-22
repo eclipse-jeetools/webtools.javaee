@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -261,7 +262,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
-			earFile = (EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE);
+			earFile = (EARFile) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			refresh();
 		}
 	}
@@ -279,7 +280,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 	}
 
 	public boolean isEARFileChanged() {
-		return earFile != model.getProperty(IEARComponentImportDataModelProperties.FILE);
+		return earFile != model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 	}
 
 	protected void enter() {

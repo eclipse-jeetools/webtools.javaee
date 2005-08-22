@@ -21,7 +21,6 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
@@ -34,6 +33,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -233,10 +233,10 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
     }
     private void collectComponents(IDataModel compDM, List newProjects) {
         if (compDM != null) {
-            String projectName = compDM.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+            String projectName = compDM.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
             if(projectName == null) return;
             IProject project = ProjectUtilities.getProject(projectName);
-            String compName = compDM.getStringProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME);
+            String compName = compDM.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
             if (project != null && project.exists())
                 newProjects.add(ComponentHandle.create(project, compName));
         }

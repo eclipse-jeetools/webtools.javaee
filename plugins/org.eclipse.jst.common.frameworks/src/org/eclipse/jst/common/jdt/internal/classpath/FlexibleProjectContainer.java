@@ -50,16 +50,16 @@ public abstract class FlexibleProjectContainer
 {
     protected static final class PathType
     {
-        private final String type;
+//        private final String type;
         
         private PathType( final String type )
         {
-            this.type = type;
+//           this.type = type;
         }
         
         public static final PathType 
-            LIB_DIRECTORY = new PathType( "lib" ),
-            CLASSES_DIRECTORY = new PathType( "classes" );
+            LIB_DIRECTORY = new PathType( "lib" ), //$NON-NLS-1$
+            CLASSES_DIRECTORY = new PathType( "classes" ); //$NON-NLS-1$
     }
     
     private static IWorkspace workspace;
@@ -113,7 +113,7 @@ public abstract class FlexibleProjectContainer
             return;
         }
               
-        final String cid = this.path.toString(); 
+    //    final String cid = this.path.toString(); 
             
         final IFlexibleProject fp 
             = ComponentCore.createFlexibleProject( this.project );
@@ -148,7 +148,7 @@ public abstract class FlexibleProjectContainer
                     final File f = r.getLocation().toFile();
                     final String fname = f.getName().toLowerCase();
                     
-                    if( f.isFile() && fname.endsWith( ".jar" ) )
+                    if( f.isFile() && fname.endsWith( ".jar" ) ) //$NON-NLS-1$
                     {
                         cp.add( newLibraryEntry( p ) );
                     }
@@ -177,7 +177,7 @@ public abstract class FlexibleProjectContainer
             }
         }
         
-        w.add( this.project.getFullPath().append( ".wtpmodules" ) );
+        w.add( this.project.getFullPath().append( ".wtpmodules" ) ); //$NON-NLS-1$
             
         this.cpentries = new IClasspathEntry[ cp.size() ];
         cp.toArray( this.cpentries );
@@ -243,7 +243,7 @@ public abstract class FlexibleProjectContainer
         
     }
     
-    private boolean isSourceDirectory( final IPath path )
+    private boolean isSourceDirectory( final IPath aPath )
     {
         try
         {
@@ -255,7 +255,7 @@ public abstract class FlexibleProjectContainer
                 final IClasspathEntry cpe = cp[ i ];
                 
                 if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE &&
-                    cpe.getPath().equals( path ) )
+                    cpe.getPath().equals( aPath ) )
                 {
                     return true;
                 }
@@ -287,7 +287,7 @@ public abstract class FlexibleProjectContainer
         try
         {
             final String nature 
-                = "org.eclipse.wst.common.modulecore.ModuleCoreNature";
+                = "org.eclipse.wst.common.modulecore.ModuleCoreNature"; //$NON-NLS-1$
             
             return pj.getNature( nature ) != null;
         }

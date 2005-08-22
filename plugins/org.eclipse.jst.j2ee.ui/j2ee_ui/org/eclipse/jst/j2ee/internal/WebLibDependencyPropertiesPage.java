@@ -104,7 +104,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
     
     protected boolean isValidWebModule() {
 		if (!J2EEComponentUtilities.isWebComponent(model.getComponent())) {
-			this.setErrorMessage("Web library settings are only valid for Web modules");
+			this.setErrorMessage(ManifestUIResourceHandler.getString("Web_Lib_Error")); //$NON-NLS-1$
 			return false;
 		}
 		return true;
@@ -182,12 +182,12 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 					ArrayList vlist = new ArrayList();
 					IVirtualReference[] oldrefs = model.getComponent().getReferences();
 					for (int j = 0; j < oldrefs.length; j++) {
-						IVirtualReference ref = (IVirtualReference) oldrefs[j];
+						IVirtualReference ref = oldrefs[j];
 						vlist.add(ref);
 					}		
 				
 					//To do: check if archive component already exists
-					IVirtualReference ref = ComponentCore.createReference( model.getComponent(), archive, new Path("/WEB-INF/lib") );
+					IVirtualReference ref = ComponentCore.createReference( model.getComponent(), archive, new Path("/WEB-INF/lib") ); //$NON-NLS-1$
 					vlist.add(ref);	
 					
 					IVirtualReference[] refs = new IVirtualReference[vlist.size()];
@@ -233,7 +233,6 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			IPath[] paths =  BuildPathDialogAccess.chooseVariableEntries(getShell(), existingPath);
 			
 			if (paths != null) {
-				ArrayList result= new ArrayList();
 				for (int i = 0; i < paths.length; i++) {
 					IPath resolvedPath= JavaCore.getResolvedVariablePath(paths[i]);
 	
@@ -247,12 +246,12 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 						ArrayList vlist = new ArrayList();
 						IVirtualReference[] oldrefs = model.getComponent().getReferences();
 						for (int j = 0; j < oldrefs.length; j++) {
-							IVirtualReference ref = (IVirtualReference) oldrefs[j];
+							IVirtualReference ref = oldrefs[j];
 							vlist.add(ref);
 						}		
 					
 						//To do: check if archive component already exists
-						IVirtualReference ref = ComponentCore.createReference( model.getComponent(), archive, new Path("/WEB-INF/lib") );
+						IVirtualReference ref = ComponentCore.createReference( model.getComponent(), archive, new Path("/WEB-INF/lib") ); //$NON-NLS-1$
 						vlist.add(ref);	
 						
 						IVirtualReference[] refs = new IVirtualReference[vlist.size()];
@@ -317,9 +316,9 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	    return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject, selection));
 	}    
 	
-	private void enableExternalJarControls(boolean b) {
-		tableManager.externalJarButton.setVisible(b);
-		tableManager.addVariableButton.setVisible(b);
-	}
+//	private void enableExternalJarControls(boolean b) {
+//		tableManager.externalJarButton.setVisible(b);
+//		tableManager.addVariableButton.setVisible(b);
+//	}
 	
 }

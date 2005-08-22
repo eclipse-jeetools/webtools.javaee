@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
+import java.util.Arrays;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -27,11 +27,11 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.server.core.ServerUtil;
 
 /**
  * @author vijayb
@@ -60,10 +60,10 @@ public class ServerTargetUIHelper {
 		return serverTargetCombo.getSelectionIndex();
 	}
 
-	private static void setServerTargetForProject(Shell shell, IProject project, IRuntime runtime) {
-		//ServerTargetHelper.cleanUpNonServerTargetClasspath(project);
-		setServerTarget(shell, project, runtime, null);
-	}
+//	private static void setServerTargetForProject(Shell shell, IProject project, IRuntime runtime) {
+//		//ServerTargetHelper.cleanUpNonServerTargetClasspath(project);
+//		setServerTarget(shell, project, runtime, null);
+//	}
 
 	/**
 	 * @param earProject
@@ -129,17 +129,17 @@ public class ServerTargetUIHelper {
 
 
 	public static ServerTargetComboHelper getValidServerTargetComboItems(String j2eeType, String selectedVersion) {
-		List validServerTargets = ServerTargetHelper.getServerTargets(j2eeType, selectedVersion);
+		IRuntime[] validServerTargets = ServerUtil.getRuntimes(j2eeType, selectedVersion);
 		String[] serverTargetList = null;
-		if (!validServerTargets.isEmpty()) {
-			int serverTargetListSize = validServerTargets.size();
+		if (validServerTargets.length>0) {
+			int serverTargetListSize = validServerTargets.length;
 			serverTargetList = new String[serverTargetListSize];
-			for (int i = 0; i < validServerTargets.size(); i++) {
-				IRuntime runtime = (IRuntime) validServerTargets.get(i);
+			for (int i = 0; i < validServerTargets.length; i++) {
+				IRuntime runtime = validServerTargets[i];
 				serverTargetList[i] = runtime.getName() + " (" + runtime.getRuntimeType().getName() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
-		return new ServerTargetComboHelper(validServerTargets, serverTargetList);
+		return new ServerTargetComboHelper(Arrays.asList(validServerTargets), serverTargetList);
 	}
 
 	/**

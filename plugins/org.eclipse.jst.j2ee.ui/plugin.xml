@@ -571,7 +571,7 @@
 		<renameParticipant
 				class="org.eclipse.jst.j2ee.internal.actions.J2EERenameParticipant"
 				id="org.eclipse.jst.j2ee.internal.actions.J2EERenameParticipant" 
-				name="J2EE Rename Participant"> 
+				name="%J2EE_Rename_Participant"> 
 		<enablement> 
 		   	<with variable="affectedNatures">
             	<iterate operator="or"> 

@@ -58,9 +58,9 @@ import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
  *
@@ -82,7 +82,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 
 	protected List j2eeComponentList = new ArrayList();
 	protected List javaProjectsList = new ArrayList();
-	protected static final IStatus OK_STATUS = AbstractDataModelProvider.OK_STATUS;
+	protected static final IStatus OK_STATUS = IDataModelProvider.OK_STATUS;
 
 	/**
 	 * Constructor for AddModulestoEARPropertiesPage.
@@ -166,8 +166,8 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 
 	public boolean performOk() {
 		NullProgressMonitor monitor = new NullProgressMonitor();
-		IStatus stat = addModulesToEAR(monitor);
-		IStatus stat1 = removeModulesFromEAR(monitor);
+		addModulesToEAR(monitor);
+		removeModulesFromEAR(monitor);
 		return true;
 	}
 
@@ -258,7 +258,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		if( earComponent != null && list != null ){
 			IVirtualReference[] oldrefs = earComponent.getReferences();
 			for (int j = 0; j < oldrefs.length; j++) {
-				IVirtualReference ref = (IVirtualReference) oldrefs[j];
+				IVirtualReference ref = oldrefs[j];
 				ComponentHandle handle = ref.getReferencedComponent().getComponentHandle();
 				if( !j2eeComponentList.contains(handle)){
 					list.add(handle);
@@ -305,7 +305,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 				ArrayList vlist = new ArrayList();
 				IVirtualReference[] oldrefs = earComponent.getReferences();
 				for (int j = 0; j < oldrefs.length; j++) {
-					IVirtualReference ref = (IVirtualReference) oldrefs[j];
+					IVirtualReference ref = oldrefs[j];
 					vlist.add(ref);
 				}		
 			
@@ -332,7 +332,6 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		
 		if (paths != null) {
 			refresh();
-			ArrayList result= new ArrayList();
 			for (int i = 0; i < paths.length; i++) {
 				IPath resolvedPath= JavaCore.getResolvedVariablePath(paths[i]);
 
@@ -346,7 +345,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 					ArrayList vlist = new ArrayList();
 					IVirtualReference[] oldrefs = earComponent.getReferences();
 					for (int j = 0; j < oldrefs.length; j++) {
-						IVirtualReference ref = (IVirtualReference) oldrefs[j];
+						IVirtualReference ref = oldrefs[j];
 						vlist.add(ref);
 					}		
 				
@@ -407,22 +406,22 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		return aButton;
 	}
 
-	public Button primCreatePushButton(String label, Composite buttonColumn) {
-		Button aButton = new Button(buttonColumn, SWT.PUSH);
+	public Button primCreatePushButton(String label, Composite aButtonColumn) {
+		Button aButton = new Button(aButtonColumn, SWT.PUSH);
 		aButton.setText(label);
 		return aButton;
 	}
 
 	public Composite createButtonColumnComposite(Composite parent) {
-		Composite buttonColumn = new Composite(parent, SWT.NONE);
+		Composite aButtonColumn = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
-		buttonColumn.setLayout(layout);
+		aButtonColumn.setLayout(layout);
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
-		buttonColumn.setLayoutData(data);
-		return buttonColumn;
+		aButtonColumn.setLayoutData(data);
+		return aButtonColumn;
 	}
 
 	public Group createGroup(Composite parent) {
@@ -493,7 +492,6 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			list = new ArrayList();
 			for (int i = 0; i < elements.length; i++) {
 				if (elements[i] instanceof ComponentHandle) {
-					ComponentHandle handle = (ComponentHandle) elements[i];
 					list.add(elements[i]);
 				}
 			}

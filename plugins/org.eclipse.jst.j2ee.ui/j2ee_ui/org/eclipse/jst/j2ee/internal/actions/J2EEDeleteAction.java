@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -173,8 +172,8 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 			Object o = null;
 			while (iterator.hasNext()) {
 				o = iterator.next();
-				if (o instanceof JavaProject)
-					o = ((JavaProject) o).getProject();
+				if (o instanceof IJavaProject)
+					o = ((IJavaProject) o).getProject();
 				if (o instanceof IProject) {
 					projects.add(o);
 					addEJBClientProjectIfNecessary((IProject) o, projects);

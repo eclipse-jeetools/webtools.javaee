@@ -31,7 +31,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.help.WorkbenchHelp;
+import org.eclipse.ui.PlatformUI;
 
 
 /**
@@ -72,7 +72,7 @@ public class WizardClassesImportMainPage extends WizardPage {
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createControl(Composite parent) {
-		WorkbenchHelp.setHelp(parent, IJ2EEUIContextIds.IMPORT_CLASS_WIZARD_P1);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, IJ2EEUIContextIds.IMPORT_CLASS_WIZARD_P1);
 		initializeDialogUnits(parent);
 		Composite aComposite = new Composite(parent, SWT.NULL);
 		aComposite.setLayout(new GridLayout());

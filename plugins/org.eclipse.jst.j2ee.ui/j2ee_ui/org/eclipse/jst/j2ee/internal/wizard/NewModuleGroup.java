@@ -18,8 +18,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -29,8 +27,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 import org.eclipse.wst.server.core.IRuntime;
@@ -46,10 +42,10 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 	protected Button newButton = null;
 	protected Text serverTargetText;
 	private DataModelSynchHelper synchHelper;
-	private Composite parentComposite;
+//	private Composite parentComposite;
 	
 	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
-	private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
+//	private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
 	private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_NAME); //$NON-NLS-1$
 	
 	/**
@@ -58,7 +54,7 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 	 */
 	public NewModuleGroup(Composite parent, int style, IDataModel model, DataModelSynchHelper syncHelper) {
 		this.model = model;
-		this.parentComposite = parent;
+//		this.parentComposite = parent;
 		synchHelper = syncHelper;
 		buildComposites(parent);
 	}
@@ -151,20 +147,20 @@ public class NewModuleGroup implements IJ2EEComponentCreationDataModelProperties
 	/**
 	 * @return
 	 */
-	private IProject getSelectedProject() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-		if (window == null)
-			return null;
-		ISelection selection = window.getSelectionService().getSelection();
-		if (selection == null || !(selection instanceof StructuredSelection))
-			return null;
-		StructuredSelection stucturedSelection = (StructuredSelection) selection;
-		Object obj = stucturedSelection.getFirstElement();
-		if (obj instanceof IProject)
-			return (IProject) obj;
-		return null;
-	}
-	
+//	private IProject getSelectedProject() {
+//		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+//		if (window == null)
+//			return null;
+//		ISelection selection = window.getSelectionService().getSelection();
+//		if (selection == null || !(selection instanceof StructuredSelection))
+//			return null;
+//		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+//		Object obj = stucturedSelection.getFirstElement();
+//		if (obj instanceof IProject)
+//			return (IProject) obj;
+//		return null;
+//	}
+//	
 	/**
 	 * 
 	 *

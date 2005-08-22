@@ -485,7 +485,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
             }
         };
 
-        if (!WorkbenchActivityHelper.allowUseOf(pluginContribution)) {
+        if (!WorkbenchActivityHelper.allowUseOf(null,pluginContribution)) {
             return null;
         }
 

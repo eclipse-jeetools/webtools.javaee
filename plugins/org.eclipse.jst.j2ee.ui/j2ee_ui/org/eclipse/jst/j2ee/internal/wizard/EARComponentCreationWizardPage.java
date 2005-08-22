@@ -6,16 +6,17 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 
-	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
+//	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	
 	/**
 	 * @param model
@@ -39,7 +40,7 @@ public class EARComponentCreationWizardPage extends J2EEComponentCreationWizardP
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-        return new String[] {IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID };
+        return new String[] {IComponentCreationDataModelProperties.PROJECT_NAME, COMPONENT_NAME, COMPONENT_VERSION, IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID };
     }
 
 	public void dispose() {

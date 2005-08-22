@@ -204,10 +204,10 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
 	protected boolean isValidComponent() {
 		if (model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-			this.setErrorMessage("Java Jar Dependencies is not valid for EAR modules");
+			this.setErrorMessage(ManifestUIResourceHandler.getString("EAR_Module_Dep_Error")); //$NON-NLS-1$
 			return false;
 		} else if ((ComponentUtilities.getComponentsForProject(model.getProject())).length > 1) {
-			this.setErrorMessage("Java Jar Dependencies is valid only for one module per flexible project");
+			this.setErrorMessage(ManifestUIResourceHandler.getString("Jar_Dep_One_Module_Error")); //$NON-NLS-1$
 			return false;
 		} else if (J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) ) {
 			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
@@ -471,24 +471,24 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         return true;
     }
     
-    private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
-    	try {
-			if (composed != null)
-				new ProgressMonitorDialog(getShell()).run(true, true, composed);
-		} catch (InvocationTargetException ex) {
-			String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
-			String msg = title;
-			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
-				msg = ex.getTargetException().getMessage();
-			MessageDialog.openError(this.getShell(), title, msg);
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
-			return false;
-		} catch (InterruptedException e) {
-			// cancelled
-			return false;
-		}
-		return true;
-    }
+//    private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
+//    	try {
+//			if (composed != null)
+//				new ProgressMonitorDialog(getShell()).run(true, true, composed);
+//		} catch (InvocationTargetException ex) {
+//			String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
+//			String msg = title;
+//			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
+//				msg = ex.getTargetException().getMessage();
+//			MessageDialog.openError(this.getShell(), title, msg);
+//			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+//			return false;
+//		} catch (InterruptedException e) {
+//			// cancelled
+//			return false;
+//		}
+//		return true;
+//    }
 
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
@@ -521,13 +521,12 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 				}
 			}else{
 				URI archiveURI = element.getArchiveURI();
-				if( archiveURI != null && !archiveURI.equals("") ){
+				if( archiveURI != null && !archiveURI.equals("") ){ //$NON-NLS-1$
 					//the name is toString returned from ComponentHandle [<project name>]:lib/... or 
 					//[<project name>]:var/...
-					String name = "";
-					int index = archiveURI.toString().lastIndexOf("]");
-					name = archiveURI.toString().substring(archiveURI.toString().lastIndexOf("]") +2);
-					if( !name.equals("")){
+					String name = ""; //$NON-NLS-1$
+					name = archiveURI.toString().substring(archiveURI.toString().lastIndexOf("]") +2); //$NON-NLS-1$
+					if( !name.equals("")){ //$NON-NLS-1$
 						IVirtualReference ref = model.getComponent().getReference(name);
 						IVirtualComponent referenced = ref.getReferencedComponent();
 						targetComponentsHandles.add(referenced.getComponentHandle());
@@ -573,13 +572,12 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	
 	protected ClassPathSelection getUnSelectedClassPathSelectionForWLPs() {
 		ClassPathSelection selection = new ClassPathSelection();
-		List uncheckedElements = new ArrayList();
 		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
 		List modelElements = model.getClassPathSelectionForWLPs().getClasspathElements();
 		for (int i = 0; i < modelElements.size(); i++) {
 			List checkedElementsList = Arrays.asList(checkedElements);
-			if (!checkedElementsList.contains((ClasspathElement) modelElements.get(i))) {
-				selection.getClasspathElements().add((ClasspathElement) modelElements.get(i));
+			if (!checkedElementsList.contains(modelElements.get(i))) {
+				selection.getClasspathElements().add(modelElements.get(i));
 			}
 		}
 		return selection;
@@ -590,7 +588,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     		ClassPathSelection selection = new ClassPathSelection();
     		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
     		for(int i = 0; i < checkedElements.length; i++) {
-    			selection.getClasspathElements().add((ClasspathElement)checkedElements[i]);
+    			selection.getClasspathElements().add(checkedElements[i]);
     		}
     		return selection;
 	}

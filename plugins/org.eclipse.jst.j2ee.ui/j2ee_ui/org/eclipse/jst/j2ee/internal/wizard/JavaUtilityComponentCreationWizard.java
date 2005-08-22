@@ -27,7 +27,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
  */
 public class JavaUtilityComponentCreationWizard extends DataModelWizard implements INewWizard, IExecutableExtension{
 
-	private IConfigurationElement configurationElement;
+//	private IConfigurationElement configurationElement;
 	
 	public JavaUtilityComponentCreationWizard() {
 		super();
@@ -46,7 +46,7 @@ public class JavaUtilityComponentCreationWizard extends DataModelWizard implemen
 	}
 	
 	public final void setInitializationData(IConfigurationElement aConfigurationElement, String aPropertyName, Object theData) throws CoreException {
-		configurationElement = aConfigurationElement;
+//		configurationElement = aConfigurationElement;
 //		doSetInitializeData(aConfigurationElement, aPropertyName, theData);
 
 	}

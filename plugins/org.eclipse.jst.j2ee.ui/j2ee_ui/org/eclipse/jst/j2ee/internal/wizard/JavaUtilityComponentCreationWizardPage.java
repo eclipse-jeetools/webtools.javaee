@@ -31,7 +31,7 @@ import org.eclipse.wst.web.internal.WSTWebPlugin;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class JavaUtilityComponentCreationWizardPage extends DataModelWizardPage {
-	public static final String PAGE_NAME = "JavaUtilityComponentCreationWizardPage";
+	public static final String PAGE_NAME = "JavaUtilityComponentCreationWizardPage"; //$NON-NLS-1$
 	protected NewModuleGroupEx projectNameGroup;	
 	
 	/**

@@ -214,7 +214,6 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 		earFileListViewer.setLabelProvider(provider);
 		earFileListViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
-				IDataModel aModel = (IDataModel) event.getElement();
 				IDataModel matchingModel = null;// getEARImportDataModel().getMatchingEJBJarOrClient(aModel);
 				if (null != matchingModel) {
 					earFileListViewer.setChecked(matchingModel, event.getChecked());
@@ -269,7 +268,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 				TableItem elementHolder = (TableItem) element;
 				if (property.equals(PROJECT_COLUMN)) {
 					elementHolder.setText(1, (String) value);
-					((IDataModel) elementHolder.getData()).setProperty(IEARComponentImportDataModelProperties.COMPONENT_NAME, value);
+					((IDataModel) elementHolder.getData()).setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, value);
 				}
 			}
 		});

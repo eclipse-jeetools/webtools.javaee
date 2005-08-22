@@ -39,7 +39,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	private static final String STORE_LABEL = "J2EE_IMPORT_"; //$NON-NLS-1$
 	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL); //$NON-NLS-1$
-	private static final String defNewButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
+//	private static final String defNewButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
 
 	/**
 	 * @param model

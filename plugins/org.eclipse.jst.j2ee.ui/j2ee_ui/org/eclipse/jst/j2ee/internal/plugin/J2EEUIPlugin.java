@@ -79,7 +79,7 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getBundle().getEntry("/");
+		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	public static String getArchiveDefaultProjectName(Archive anArchive) {

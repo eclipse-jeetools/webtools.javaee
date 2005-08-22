@@ -75,7 +75,6 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 								//IVirtualComponent enclosingcomp = tmpref.getEnclosingComponent();
 								//boolean isBinary = enclosingcomp.isBinary();
 								IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
-								String name = referencedcomp.getName();
 								boolean isBinary = referencedcomp.isBinary();
 								if( isBinary ){
 									validCompList.add(referencedcomp.getComponentHandle());
@@ -87,7 +86,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 				}
 			} else
 				try {
-					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){
+					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){ //$NON-NLS-1$
 						validCompList.add(project);
 					}
 				} catch (CoreException e) {
@@ -114,10 +113,9 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof ComponentHandle) {
 			ComponentHandle handle = (ComponentHandle)element;
-			if( columnIndex == 0 ){
+			if( columnIndex == 0 )
 				return handle.getName();
-			}else
-				return handle.getProject().getName();
+			return handle.getProject().getName();
 		}else if(element instanceof IProject){
 			return ((IProject)element).getName();
 		}

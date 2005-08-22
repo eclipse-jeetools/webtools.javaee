@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -447,14 +446,14 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	}
 
 	protected void primRunOperation(IWorkspaceRunnable aRunnable, IProgressMonitor monitor) {
-		Workspace workspace = (Workspace) WTPCommonPlugin.getWorkspace();
+		
 		if (aRunnable != null) {
 			//if (workspace.isTreeLocked())
 			//Logger.getLogger().logTrace(ResourceHandler.getString("Cannot_run_J2EEUIWorkingCo_ERROR_"));
 			// //$NON-NLS-1$ = "Cannot run J2EEUIWorkingCopyManager operation because the Workspace
 			// tree is locked."
 			//else {
-			if (!workspace.isTreeLocked()) {
+			if (!WTPCommonPlugin.getWorkspace().isTreeLocked()) {
 				try {
 					WTPCommonPlugin.getWorkspace().run(aRunnable, monitor);
 				} catch (CoreException e) {

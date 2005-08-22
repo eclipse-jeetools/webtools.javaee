@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.IImportWizard;
@@ -38,9 +37,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard implements IImportWizard, IExecutableExtension {
 
-	private static final String[] VALIDATOR_STRINGS = new String[]{"org.eclipse.jst.j2ee.internal.validation.UIEarValidator"}; //$NON-NLS-1$
+//	private static final String[] VALIDATOR_STRINGS = new String[]{"org.eclipse.jst.j2ee.internal.validation.UIEarValidator"}; //$NON-NLS-1$
 
-	private static final Class IPROJECT_CLASS = IProject.class;
+//	private static final Class IPROJECT_CLASS = IProject.class;
 
 	/**
 	 * <p>

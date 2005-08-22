@@ -91,7 +91,7 @@ public class J2EERenameParticipant extends RenameParticipant {
 		Object[] targetElements = getProcessor().getElements();
 		if (targetElements == null || targetElements.length != 1)
 			return null;
-		IProject project = (IProject) AdaptabilityUtility.getAdapter(targetElements[0], IPROJECT_CLASS);
+		//IProject project = (IProject) AdaptabilityUtility.getAdapter(targetElements[0], IPROJECT_CLASS);
 		// TODO switch to be module based, not project based
 		//if (project != null)
 		//	return new J2EEModuleRenameChange(project, getArguments().getNewName(), getArguments().getUpdateReferences());

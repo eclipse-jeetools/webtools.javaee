@@ -111,7 +111,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
         component.create(0, null);
 
 		IVirtualFolder compRootFolder = component.getRootFolder();
-		IVirtualFolder rootFolder = compRootFolder.getFolder(new Path("/")); //$NON-NLS-1$
+//		IVirtualFolder rootFolder = compRootFolder.getFolder(new Path("/")); //$NON-NLS-1$
         //IVirtualFolder rootFolder = component.getFolder(new Path("/")); //$NON-NLS-1$  
 	
 		IJavaProject javaProject = JavaCore.create( aProject );
@@ -121,7 +121,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 				if( entries[i].getEntryKind() ==  IClasspathEntry.CPE_SOURCE){
 					IPath path = entries[i].getPath().removeFirstSegments(1);
 					if( path.isEmpty() ){
-						path = new Path("/");
+						path = new Path("/"); //$NON-NLS-1$
 					}
 					IPath out = entries[i].getOutputLocation();
 					//IVirtualFolder javaSourceFolder = component.getFolder( out );
@@ -144,7 +144,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
     }
 	
 	protected boolean migrate(IProject project) {
-		IProject currentProject = project;
+//		IProject currentProject = project;
 		if (wtpModuleFileExist(project))
 			return false;
 		

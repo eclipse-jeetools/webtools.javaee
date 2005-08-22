@@ -23,11 +23,11 @@ import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AvailableJ2EEComponentsContentProvider implements IStructuredContentProvider, ITableLabelProvider {
-	private int j2eeVersion;
+	//private int j2eeVersion;
 
 	public AvailableJ2EEComponentsContentProvider(int j2eeVersion) {
 		super();
-		this.j2eeVersion = j2eeVersion;
+//		this.j2eeVersion = j2eeVersion;
 	}
 
 	/*
@@ -61,7 +61,7 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 				}
 			} else
 				try {
-					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){
+					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){ //$NON-NLS-1$
 						validCompList.add(project);
 					}
 				} catch (CoreException e) {

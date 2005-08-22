@@ -5,7 +5,7 @@
      <extension
          point="org.eclipse.jdt.ui.javadocCompletionProcessor">
       <javadocCompletionProcessor
-            name="AnnotationsCompletionProcessor"
+            name="%AnnotationsCompletionProcessor"
             class="org.eclipse.jst.common.internal.annotations.ui.AnnotationTagCompletionProc"
             id="AnnotationsCompletionProcessor">
       </javadocCompletionProcessor>

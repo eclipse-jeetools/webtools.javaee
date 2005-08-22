@@ -38,16 +38,16 @@ public class J2EEDependenciesPage extends PropertyPage {
 		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label label = new Label(labelsGroup, SWT.NONE);
-		label.setText("EAR Modules:");
-		fillDescription(labelsGroup, "This property page lets you setup the module dependencies in an Enterprise Application ");
+		label.setText(ManifestUIResourceHandler.getString("EAR_Modules")); //$NON-NLS-1$
+		fillDescription(labelsGroup, ManifestUIResourceHandler.getString("EAR_Modules_Desc")); //$NON-NLS-1$
 		
 		label = new Label(labelsGroup, SWT.NONE);
-		label.setText("J2EE Modules:");
-		fillDescription(labelsGroup, "This property page lets you setup the j2ee module dependencies with other j2ee modules within an Enterprise Application.  All modules involved in the dependency need to belong to the same Enterprise Application");
+		label.setText(ManifestUIResourceHandler.getString("J2EE_Modules")); //$NON-NLS-1$
+		fillDescription(labelsGroup, ManifestUIResourceHandler.getString("J2EE_Modules_Desc")); //$NON-NLS-1$
 		
 		label = new Label(labelsGroup, SWT.NONE);
-		label.setText("Web Libraries:");
-		fillDescription(labelsGroup, "This property page lets you add the Web Library dependency to other java modules in the workpspace. This dependency resolves the java modules into the web\\lib folder of the web module at deployment time.");
+		label.setText(ManifestUIResourceHandler.getString("Web_Libraries")); //$NON-NLS-1$
+		fillDescription(labelsGroup, ManifestUIResourceHandler.getString("Web_Libraries_Desc")); //$NON-NLS-1$
 	}
 	
 	private void fillDescription(Composite c, String s) {
