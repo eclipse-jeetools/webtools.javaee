@@ -11,7 +11,7 @@
          point="org.eclipse.ui.actionSets">
 <!--EJB.UI extension Contribution-->
       <actionSet
-            label="EJB"
+            label="%ejb.category_ui_"
             description="%ejb.action.set.description"
             visible="false"
             id="org.eclipse.jst.j2ee.J2eeMainActionSet3">
@@ -49,7 +49,7 @@
    <extension
          point="org.eclipse.ui.newWizards">
        <category
-            name="EJB"
+            name="%ejb.category_ui_"
             id="org.eclipse.jst.ejb.ui">
       </category>
       <wizard
