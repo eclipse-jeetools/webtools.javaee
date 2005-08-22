@@ -39,7 +39,7 @@ public class CompareProperties {
 	private TreeSet _deleted = null;
 	private TreeMap _changed = null;
 	private TreeSet _added = null;
-	private PropertyFile _oldFile = null;
+//	private PropertyFile _oldFile = null;
 	private PropertyFile _newFile = null;
 
 	/**
@@ -157,7 +157,7 @@ public class CompareProperties {
 		_changed = new TreeMap();
 		_added = new TreeSet();
 		
-		_oldFile = oldFile;
+//		_oldFile = oldFile;
 		_newFile = newFile;
 
 		compare(oldFile, newFile);

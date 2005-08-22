@@ -153,9 +153,7 @@ public class PropertyLine implements Comparable {
 		if(hasParameters() && (lengthParm > 0)) {
 			return getExpectedMessage(lengthParm).length();
 		}
-		else {
-			return getLength();
-		}
+		return getLength();
 	}
 	
 	/**
@@ -184,9 +182,7 @@ public class PropertyLine implements Comparable {
 				return getMessage();
 			}
 		}
-		else {
-			return getMessage();
-		}
+		return getMessage();
 	}
 	
 	/**

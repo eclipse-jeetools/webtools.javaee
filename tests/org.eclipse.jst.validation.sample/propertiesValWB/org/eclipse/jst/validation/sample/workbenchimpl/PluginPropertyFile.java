@@ -152,9 +152,9 @@ public class PluginPropertyFile extends APropertyFile {
 		URL[] newcp = new URL[cp.length+1];
 		for (int i=0; i<cp.length; i++) newcp[i+1] = cp[i];
 		try {
-			newcp[0] = Platform.resolve(p.getDescriptor().getInstallURL()); // always try to resolve URLs used in loaders
+			newcp[0] = Platform.resolve(p.getBundle().getEntry("/")); //$NON-NLS-1$ // always try to resolve URLs used in loaders
 		} catch(IOException e) {
-			newcp[0] = p.getDescriptor().getInstallURL();;
+			newcp[0] = p.getBundle().getEntry("/"); //$NON-NLS-1$
 		}
 		ClassLoader resourceLoader = new URLClassLoader(newcp, null);
 		return resourceLoader;
@@ -216,7 +216,7 @@ public class PluginPropertyFile extends APropertyFile {
 	
 	public String getQualifiedFileName() {
 		StringBuffer buffer = new StringBuffer(getPluginId());
-		buffer.append("::");
+		buffer.append("::"); //$NON-NLS-1$
 		buffer.append(getBundleName());
 		buffer.append(_langVariant);
 		return buffer.toString();
