@@ -12,7 +12,7 @@
          point="org.eclipse.ui.actionSets">
       <actionSet
             label="%connectors.actionSet"
-            description="%connectors.actionSet.desc"
+            description="%connectors.actionSet"
             visible="false"
             id="org.eclipse.jst.j2ee.J2eeMainActionSet4">
          <action

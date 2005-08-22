@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.jca.ui.internal.actions;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentExportWizard;
 import org.eclipse.swt.widgets.Shell;
 
@@ -30,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ExportRARAction extends BaseAction {
 
-	private String label = J2EEUIPlugin.getDefault().getDescriptor().getResourceString(IConnectorArchiveConstants.CONNECTOR_EXPORT_ACTION_LABEL);
+	private String label = JCAUIMessages.getResourceString(IConnectorArchiveConstants.CONNECTOR_EXPORT_ACTION_LABEL);
 	private static final String ICON = "export_rar_wiz"; //$NON-NLS-1$
 
 	public ExportRARAction() {
