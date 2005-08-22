@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.webservice;
 
-import org.eclipse.core.internal.resources.WorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRoot;
 
 
 /**
@@ -28,12 +28,12 @@ import org.eclipse.core.internal.resources.WorkspaceRoot;
 public class WebServiceNavigatorGroup {
 
 	private String label = WebServiceUIResourceHandler.getString("WebServiceNavigatorGroup_UI_0"); //$NON-NLS-1$
-	private WorkspaceRoot root;
+	private IWorkspaceRoot root;
 
 	/**
 	 * Default constructor
 	 */
-	public WebServiceNavigatorGroup(WorkspaceRoot wsRoot) {
+	public WebServiceNavigatorGroup(IWorkspaceRoot wsRoot) {
 		super();
 		root = wsRoot;
 	}
@@ -48,7 +48,7 @@ public class WebServiceNavigatorGroup {
 	/**
 	 * @return Returns the root.
 	 */
-	public WorkspaceRoot getRoot() {
+	public IWorkspaceRoot getRoot() {
 		return root;
 	}
 
@@ -56,7 +56,7 @@ public class WebServiceNavigatorGroup {
 	 * @param root
 	 *            The root to set.
 	 */
-	public void setRoot(WorkspaceRoot root) {
+	public void setRoot(IWorkspaceRoot root) {
 		this.root = root;
 	}
 

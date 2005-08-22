@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.core.internal.resources.WorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
@@ -87,7 +87,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 //		}
 //		activityEnabled = true;
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
-		if (parentElement instanceof WorkspaceRoot) {
+		if (parentElement instanceof IWorkspaceRoot) {
 			return new Object[]{getWebServicesNavigatorGroup(parentElement)};
 		} else if (parentElement instanceof WebServiceNavigatorGroup) {
 			return new Object[]{getServicesGroup(), getClientsGroup()};
@@ -151,7 +151,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 */
 	protected WebServiceNavigatorGroup getWebServicesNavigatorGroup(Object parentElement) {
 		if (webServiceNavigatorGroup == null)
-			webServiceNavigatorGroup = new WebServiceNavigatorGroup((WorkspaceRoot) parentElement);
+			webServiceNavigatorGroup = new WebServiceNavigatorGroup((IWorkspaceRoot) parentElement);
 		return webServiceNavigatorGroup;
 	}
 
@@ -161,7 +161,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#getParent(java.lang.Object)
 	 */
 	public Object getParent(Object element) {
-		if (element instanceof WorkspaceRoot)
+		if (element instanceof IWorkspaceRoot)
 			return null;
 		else if (element instanceof WebServiceNavigatorGroup)
 			return ((WebServiceNavigatorGroup) element).getRoot();
@@ -240,7 +240,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 */
 	public WebServiceNavigatorGroup getNavigatorGroup() {
 		if (null == webServiceNavigatorGroup) {
-			webServiceNavigatorGroup = new WebServiceNavigatorGroup((WorkspaceRoot) ResourcesPlugin.getWorkspace().getRoot());
+			webServiceNavigatorGroup = new WebServiceNavigatorGroup(ResourcesPlugin.getWorkspace().getRoot());
 		}
 		return webServiceNavigatorGroup;
 	}
