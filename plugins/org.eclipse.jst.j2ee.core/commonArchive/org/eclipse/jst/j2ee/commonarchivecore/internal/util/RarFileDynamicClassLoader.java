@@ -16,40 +16,29 @@
  */
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
-import java.io.InputStream;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 
 
 public class RarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
-
 
 	public RarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
 		super(anArchive, parentCl, extraCl);
 	}
 
-	protected byte[] getClassBytesFor(String className) {
-
-		if (className == null)
-			return null;
-		// Change the class name to a jar entry name
+	protected File getFile(String name) {
 		List children = getRarFile().getArchiveFiles();
-		String jarEntryName = ArchiveUtil.classNameToUri(className);
 		for (int i = 0; i < children.size(); i++) {
 			try {
-				InputStream in = ((Archive) children.get(i)).getInputStream(jarEntryName);
-				return ArchiveUtil.inputStreamToBytes(in);
+				return ((Archive) children.get(i)).getFile(name);
 			} catch (java.io.FileNotFoundException ex) {
 				continue;
-			} catch (java.io.IOException ex) {
-				throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{className})), ex); //$NON-NLS-1$ = "An IO exception occurred loading "
 			}
 		}
-		return null;
+		return getFileFromDependentJar(name);
 	}
 
 	private RARFile getRarFile() {

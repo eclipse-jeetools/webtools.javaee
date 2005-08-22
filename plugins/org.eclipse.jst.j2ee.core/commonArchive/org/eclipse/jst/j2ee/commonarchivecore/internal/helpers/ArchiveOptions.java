@@ -31,6 +31,12 @@ public class ArchiveOptions implements Cloneable {
 
 	private int rendererType = DEFAULT;
 
+	public static final int LOAD_MODE_COMPAT = 0;
+	public static final int LOAD_MODE_SPEC = 1;
+
+	private int classLoadingMode = LOAD_MODE_COMPAT;
+
+	
 	/**
 	 * Load strategy for opening/reading the archive; optional - if null a load strategy will be
 	 * created when the archive is opened
@@ -222,5 +228,20 @@ public class ArchiveOptions implements Cloneable {
 	 */
 	public void setRendererType(int rendererType) {
 		this.rendererType = rendererType;
+	}
+	
+	public int getClassLoadingMode() {
+		return classLoadingMode;
+	}
+
+	/**
+	 * Valid values are LOAD_MODE_COMPAT or LOAD_MODE_SPEC. The default is LOAD_MODE_COMPAT. This
+	 * flag is to set the class loading mode; the default is LOAD_MODE_COMPAT for backwards
+	 * compatibility, while LOAD_MODE_SPEC will enforce spec defined class loading.
+	 * 
+	 * @param classLoadingMode
+	 */
+	public void setClassLoadingMode(int classLoadingMode) {
+		this.classLoadingMode = classLoadingMode;
 	}
 }

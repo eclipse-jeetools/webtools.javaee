@@ -16,14 +16,13 @@
  */
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
-import java.io.InputStream;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 
 
 /**
@@ -34,36 +33,39 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
  */
 public class WarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
 
+	private boolean allowLoadingFromWAR = true;
+
 	public WarFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
 		super(anArchive, parentCl, extraCl);
+		allowLoadingFromWAR = anArchive.getOptions().getClassLoadingMode() == ArchiveOptions.LOAD_MODE_COMPAT;
 	}
 
-	protected byte[] getClassBytesFor(String className) {
-
-		String jarEntryName = ArchiveUtil.classNameToUri(className);
-		String swizzledName = ArchiveUtil.concatUri(ArchiveConstants.WEBAPP_CLASSES_URI, jarEntryName, '/');
-
+	protected File getFile(String name) {
+		//search classes directory first, then war, then nested archives.
+		//search classes directory
+		String swizzledName = ArchiveUtil.concatUri(ArchiveConstants.WEBAPP_CLASSES_URI, name, '/');
 		try {
-			InputStream in = getWarFile().getInputStream(swizzledName);
-			return ArchiveUtil.inputStreamToBytes(in);
+			return getWarFile().getFile(swizzledName);
 		} catch (java.io.FileNotFoundException ex) {
-			//Ignore
-		} catch (java.io.IOException ex) {
-			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{className})), ex); //$NON-NLS-1$ = "An IO exception occurred loading "
 		}
-
+		//search war if running with compatibility
+		if (allowLoadingFromWAR) {
+			File file = getFileFromArchive(name);
+			if (file != null) {
+				return file;
+			}
+		}
+		//search nested archives
 		List children = getWarFile().getLibs();
 		for (int i = 0; i < children.size(); i++) {
 			try {
-				InputStream in = ((Archive) children.get(i)).getInputStream(jarEntryName);
-				return ArchiveUtil.inputStreamToBytes(in);
+				return ((Archive) children.get(i)).getFile(name);
 			} catch (java.io.FileNotFoundException ex) {
 				continue;
-			} catch (java.io.IOException ex) {
-				throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{className})), ex); //$NON-NLS-1$ = "An IO exception occurred loading "
 			}
 		}
-		return super.getClassBytesFor(className);
+		//finally search jars in ear
+		return getFileFromDependentJar(name);
 	}
 
 	private WARFile getWarFile() {

@@ -11,7 +11,13 @@
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,12 +37,15 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 	protected Archive archive = null;
 	protected ClassLoader extraClassLoader;
 	protected boolean inEARFile;
+	private static final String URL_PROTOCOL = "archive";
+	private ArchiveURLStreamHandler handler;
 
 	public ArchiveFileDynamicClassLoader(Archive anArchive, ClassLoader parentCl, ClassLoader extraCl) {
 		super(parentCl);
 		setArchive(anArchive);
 		setExtraClassLoader(extraCl);
 		inEARFile = anArchive.getContainer() != null && anArchive.getContainer().isEARFile();
+		handler = new ArchiveURLStreamHandler();
 	}
 
 	/**
@@ -69,21 +78,25 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		return archive;
 	}
 
-	protected byte[] getClassBytesFor(String className) {
+	private byte[] getData(File file) {
+		if (null != file) {
+			try {
+				return ArchiveUtil.inputStreamToBytes(file.getInputStream());
+			} catch (FileNotFoundException e) {
+				return null;
+			} catch (IOException e) {
+				throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{file.getName()})), e); //$NON-NLS-1$ = "An IO exception occurred loading "			}
+			}
+		}
+		return null;
+	}
 
+	protected byte[] getClassBytesFor(String className) {
 		if (className == null)
 			return null;
 		// Change the class name to a jar entry name
 		String jarEntryName = ArchiveUtil.classNameToUri(className);
-
-		try {
-			InputStream in = getArchive().getInputStream(jarEntryName);
-			return ArchiveUtil.inputStreamToBytes(in);
-		} catch (java.io.FileNotFoundException ex) {
-			return null;
-		} catch (java.io.IOException ex) {
-			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{className})), ex); //$NON-NLS-1$ = "An IO exception occurred loading "
-		}
+		return getData(getFile(jarEntryName));
 	}
 
 	protected EARFile getEARFile() {
@@ -135,35 +148,68 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		throw new ClassNotFoundException(name);
 	}
 
-	protected Class loadClassInDependentJarInEAR(String name) throws ClassNotFoundException {
-
-		Set visitedArchives = new HashSet(5);
-		visitedArchives.add(getArchive());
-		return loadClassInDependentJarInEAR(name, visitedArchives);
+	protected Class loadClassInDependentJarInEAR(String name, Set visitedArchives) throws ClassNotFoundException {
+		Object obj = getResourceInDependentJarInEAR(name, visitedArchives, CLASS_TYPE);
+		if (obj == null) {
+			throw new ClassNotFoundException(name);
+		}
+		return (Class) obj;
 	}
 
-	protected Class loadClassInDependentJarInEAR(String name, Set visitedArchives) throws ClassNotFoundException {
+	protected Class loadClassInDependentJarInEAR(String name) throws ClassNotFoundException {
+		Object obj = getResourceInDependentJarInEAR(name, CLASS_TYPE);
+		if (obj == null) {
+			throw new ClassNotFoundException(name);
+		}
+		return (Class) obj;
+	}
 
+	protected File getFileFromDependentJar(String name) {
+		Object obj = getResourceInDependentJarInEAR(name, FILE_TYPE);
+		if (obj != null) {
+			return (File) obj;
+		}
+		return null;
+	}
+
+	protected static final int CLASS_TYPE = 0;
+	protected static final int FILE_TYPE = 1;
+
+	protected Object getResourceInDependentJarInEAR(String name, int type) {
+		Set visitedArchives = new HashSet(5);
+		visitedArchives.add(getArchive());
+		return getResourceInDependentJarInEAR(name, visitedArchives, type);
+	}
+
+	protected Object getResourceInDependentJarInEAR(String name, Set visitedArchives, int type) {
 		String[] classpath = archive.getManifest().getClassPathTokenized();
 		for (int i = 0; i < classpath.length; i++) {
 			try {
 				String uri = ArchiveUtil.deriveEARRelativeURI(classpath[i], archive);
 				if (uri == null)
 					continue;
-				File file = getEARFile().getFile(uri);
-				if (file.isArchive()) {
-					Archive dep = (Archive) file;
-					try {
-						return ((ArchiveFileDynamicClassLoader) dep.getArchiveClassLoader()).loadClass(name, visitedArchives);
-					} catch (ClassNotFoundException noDice) {
-						continue;
+				File jarFile = getEARFile().getFile(uri);
+				if (jarFile.isArchive()) {
+					Archive dep = (Archive) jarFile;
+					switch (type) {
+						case CLASS_TYPE :
+							try {
+								return ((ArchiveFileDynamicClassLoader) dep.getArchiveClassLoader()).loadClass(name, visitedArchives);
+							} catch (ClassNotFoundException noDice) {
+								continue;
+							}
+						case FILE_TYPE :
+							try {
+								return dep.getFile(name);
+							} catch (FileNotFoundException noDice) {
+								continue;
+							}
 					}
 				}
 			} catch (java.io.FileNotFoundException depJarNotInEAR) {
-				//Ignore
 			}
 		}
-		throw new ClassNotFoundException(name);
+		return null;
 	}
 
 	/**
@@ -185,4 +231,72 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 	public void setExtraClassLoader(java.lang.ClassLoader newExtraClassLoader) {
 		extraClassLoader = newExtraClassLoader;
 	}
+
+	public InputStream getResourceAsStream(String name) {
+		try {
+			File file = getFile(name);
+			if (null != file) {
+				return file.getInputStream();
+			}
+		} catch (IOException e) {
+			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{name})), e); //$NON-NLS-1$ = "An IO exception occurred loading "
+		}
+		return null;
+	}
+
+	protected File getFileFromArchive(String name) {
+		try {
+			return getArchive().getFile(name);
+		} catch (FileNotFoundException e) {
+		}
+		return null;
+	}
+
+
+
+	protected File getFile(String name) {
+		File file = getFileFromArchive(name);
+		if (file == null) {
+			file = getFileFromDependentJar(name);
+		}
+		return file;
+	}
+
+	protected URL findResource(String name) {
+		if (getFile(name) != null) {
+			try {
+				return new URL(null, URL_PROTOCOL + "://" + name, handler);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		}
+		return null;
+	}
+
+	private class ArchiveURLStreamHandler extends URLStreamHandler {
+		public ArchiveURLStreamHandler() {
+		}
+
+		protected URLConnection openConnection(URL url) throws IOException {
+			return new ArchiveURLConnection(url);
+		}
+	}
+
+	private class ArchiveURLConnection extends URLConnection {
+		private String resourceName;
+
+		protected ArchiveURLConnection(URL url) {
+			super(url);
+			resourceName = url.toString().substring(URL_PROTOCOL.length() + 3);
+		}
+
+		public void connect() throws IOException {
+		}
+
+		public InputStream getInputStream() throws IOException {
+			return getResourceAsStream(resourceName);
+		}
+	}
+
 }
