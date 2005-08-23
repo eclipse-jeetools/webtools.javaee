@@ -149,12 +149,12 @@
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.internal.webapplication.impl.ServletImpl">
+             adaptableType="org.eclipse.jst.j2ee.webapplication.Servlet">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
+             adaptableType="org.eclipse.jst.j2ee.webapplication.WebApp">
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory> 
        <factory

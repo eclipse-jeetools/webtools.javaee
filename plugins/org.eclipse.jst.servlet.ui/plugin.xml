@@ -152,10 +152,10 @@
 	               </or> 
                </and> 
                <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.application.Module">
            	   </objectClass>
            	   <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
+                 name="org.eclipse.jst.j2ee.application.Application">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
@@ -184,10 +184,10 @@
 	               </or> 
                </and> 
                <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.application.Module">
            	   </objectClass>
            	   <objectClass
-                 name="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
+                 name="org.eclipse.jst.j2ee.webapplication.WebApp">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
