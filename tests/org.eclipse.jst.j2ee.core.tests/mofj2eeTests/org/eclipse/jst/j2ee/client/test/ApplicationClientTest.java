@@ -8,10 +8,10 @@ import org.eclipse.jst.j2ee.archive.emftests.AppClientEMFTest;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ApplicationClientResource;
+import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 
 public class ApplicationClientTest extends AppClientEMFTest {
 

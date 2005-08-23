@@ -16,15 +16,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseApplication;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfigRegister;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfiguration;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseLibrary;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseModule;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseWARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfigRegister;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfiguration;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseLibrary;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseModule;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseWARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 
 

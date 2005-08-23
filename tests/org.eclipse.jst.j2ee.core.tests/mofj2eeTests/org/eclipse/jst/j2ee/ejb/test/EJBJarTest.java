@@ -8,6 +8,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
@@ -23,7 +24,6 @@ import org.eclipse.jst.j2ee.ejb.Relationships;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 public class EJBJarTest extends  EjbEMFTestBase {
 

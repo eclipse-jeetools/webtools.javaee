@@ -5,11 +5,11 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 public class MethodPermissionTest extends TestCase {
 

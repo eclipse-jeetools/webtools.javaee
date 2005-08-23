@@ -4,11 +4,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jca.test.JcaFactoryTest;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
+import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 
 public class JspFactoryTest extends TestCase {

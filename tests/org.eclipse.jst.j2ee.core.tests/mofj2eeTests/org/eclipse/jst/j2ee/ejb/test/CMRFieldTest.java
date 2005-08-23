@@ -9,7 +9,7 @@ import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 
 public class CMRFieldTest extends TestCase {
 	protected EjbFactory EJBFACTORY = EjbPackage.eINSTANCE.getEjbFactory();

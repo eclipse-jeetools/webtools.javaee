@@ -6,6 +6,7 @@ import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
@@ -17,11 +18,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 public class AppClientEMFTest extends GeneralEMFPopulationTest {

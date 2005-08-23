@@ -14,6 +14,7 @@ import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -21,7 +22,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 
 /**

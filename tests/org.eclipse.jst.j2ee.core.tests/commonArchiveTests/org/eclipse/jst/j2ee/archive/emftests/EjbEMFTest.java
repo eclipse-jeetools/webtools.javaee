@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
@@ -31,17 +32,16 @@ import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EJBRelationshipRoleImpl;
+import org.eclipse.jst.j2ee.ejb.internal.impl.MethodPermissionImpl;
+import org.eclipse.jst.j2ee.ejb.internal.impl.QueryMethodImpl;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EJBRelationshipRoleImpl;
-import org.eclipse.jst.j2ee.internal.ejb.impl.MethodPermissionImpl;
-import org.eclipse.jst.j2ee.internal.ejb.impl.QueryMethodImpl;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 public class EjbEMFTest extends GeneralEMFPopulationTest {

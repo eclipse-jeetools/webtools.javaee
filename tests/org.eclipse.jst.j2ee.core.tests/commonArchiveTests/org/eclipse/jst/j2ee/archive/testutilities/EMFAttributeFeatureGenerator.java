@@ -15,9 +15,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.jem.java.impl.JavaClassImpl;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
+import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 public class EMFAttributeFeatureGenerator {
 	public static String avClass[];

@@ -5,17 +5,17 @@ import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.archive.emftests.EarEMFTest;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 public class ApplicationTest extends EarEMFTest {
 

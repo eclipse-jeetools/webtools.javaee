@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.common.ResAuthTypeBase;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -22,15 +23,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObject
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.internal.webapplication.impl.FilterMappingImpl;
 import org.eclipse.jst.j2ee.webapplication.ErrorPage;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.jst.j2ee.webapplication.internal.impl.FilterMappingImpl;
 
 
 public class WarEMFTest extends GeneralEMFPopulationTest {

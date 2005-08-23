@@ -4,7 +4,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.ActivationSpec;
 import org.eclipse.jst.j2ee.jca.AdminObject;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
@@ -13,6 +12,7 @@ import org.eclipse.jst.j2ee.jca.ConnectionDefinition;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.InboundResourceAdapter;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
+import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.License;
 import org.eclipse.jst.j2ee.jca.MessageAdapter;
 import org.eclipse.jst.j2ee.jca.MessageListener;

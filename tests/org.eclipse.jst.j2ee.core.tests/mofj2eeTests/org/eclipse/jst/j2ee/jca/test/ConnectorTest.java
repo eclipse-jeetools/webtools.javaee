@@ -5,9 +5,9 @@ import junit.framework.TestSuite;
 import org.eclipse.jst.j2ee.archive.emftests.RarEMFTest;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
+import org.eclipse.jst.j2ee.jca.JcaPackage;
 
 public class ConnectorTest extends RarEMFTest {
 
