@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarResourceFactory;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;

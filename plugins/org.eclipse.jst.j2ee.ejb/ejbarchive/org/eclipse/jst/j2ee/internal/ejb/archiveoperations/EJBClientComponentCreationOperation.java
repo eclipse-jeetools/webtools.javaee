@@ -32,10 +32,10 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperat
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
