@@ -15,6 +15,7 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal;
 import java.util.List;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 

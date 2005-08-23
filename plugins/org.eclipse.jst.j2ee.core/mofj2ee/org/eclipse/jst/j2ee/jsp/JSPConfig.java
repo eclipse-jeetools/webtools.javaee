@@ -28,19 +28,19 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPConfig#getTagLibs <em>Tag Libs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPConfig#getPropertyGroups <em>Property Groups</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPConfig#getTagLibs <em>Tag Libs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPConfig#getPropertyGroups <em>Property Groups</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPConfig()
- * @model 
+ * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPConfig()
+ * @model
  * @generated
  */
 public interface JSPConfig extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Tag Libs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jsp.TagLibRefType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Tag Libs</em>' containment reference list isn't clear,
@@ -48,15 +48,15 @@ public interface JSPConfig extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tag Libs</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPConfig_TagLibs()
-	 * @model type="org.eclipse.jst.j2ee.internal.jsp.TagLibRefType" containment="true"
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPConfig_TagLibs()
+	 * @model type="org.eclipse.jst.j2ee.jsp.TagLibRefType" containment="true"
 	 * @generated
 	 */
 	EList getTagLibs();
 
 	/**
 	 * Returns the value of the '<em><b>Property Groups</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Property Groups</em>' containment reference list isn't clear,
@@ -64,8 +64,8 @@ public interface JSPConfig extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Property Groups</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPConfig_PropertyGroups()
-	 * @model type="org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup" containment="true"
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPConfig_PropertyGroups()
+	 * @model type="org.eclipse.jst.j2ee.jsp.JSPPropertyGroup" containment="true"
 	 * @generated
 	 */
 	EList getPropertyGroups();

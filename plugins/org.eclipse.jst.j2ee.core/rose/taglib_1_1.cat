@@ -202,7 +202,7 @@
 		    exportControl 	"Public")
 		(object ClassAttribute "fragment"
 		    quid       	"3E67B8AE0095"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    stereotype 	"0..1"
 		    type       	"boolean"
 		    exportControl 	"Public"))
@@ -212,7 +212,7 @@
 	(object Class "BodyContentType"
 	    quid       	"39ABE974027D"
 	    documentation 	
-|@since J2EE1.4, added TAGDEPENDENT,EMPTY,scriptless,SCRIPTLESS
+|@version J2EE1.4, added TAGDEPENDENT,EMPTY,scriptless,SCRIPTLESS
 |Provides a hint as to the content of the body of this tag.
 |Primarily intended for use by page composition tools.
 |
@@ -311,7 +311,7 @@
 	(object Class "Function"
 	    quid       	"3E5A875400E5"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The function element is used to provide information on each
 |function in the tag library that is to be exposed to the EL.
 |
@@ -373,7 +373,7 @@
 	(object Class "TagFile"
 	    quid       	"3E5A96DE029E"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |Defines an action in this tag library that is implemented
 |as a .tag file.
 |
@@ -665,7 +665,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E5A9881025A"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -682,7 +682,7 @@
 	    roles      	(list role_list
 		(object Role "functions"
 		    quid       	"3E67B3920329"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"functions"
 		    supplier   	"Logical View::taglib::Function"
 		    quidu      	"3E5A875400E5"
@@ -699,7 +699,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E67B9FF0392"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"

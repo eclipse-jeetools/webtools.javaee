@@ -70,11 +70,11 @@ boolean isLocal();
 	EjbRefType getType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.EjbRef#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.EjbRef#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.common.EjbRefType
+	 * @see org.eclipse.jst.j2ee.common.EjbRefType
 	 * @see #isSetType()
 	 * @see #unsetType()
 	 * @see #getType()
@@ -83,7 +83,7 @@ boolean isLocal();
 	void setType(EjbRefType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.common.EjbRef#getType <em>Type</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.common.EjbRef#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetType()
@@ -94,7 +94,7 @@ boolean isLocal();
 	void unsetType();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.common.EjbRef#getType <em>Type</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.common.EjbRef#getType <em>Type</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Type</em>' attribute is set.
@@ -171,7 +171,7 @@ boolean isLocal();
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -182,8 +182,8 @@ boolean isLocal();
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getEjbRef_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getEjbRef_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

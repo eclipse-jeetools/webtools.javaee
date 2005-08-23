@@ -19,18 +19,18 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 
 
 /**
  * @generated
  */
-public interface CommonarchiveFactory extends EFactory {
+public interface CommonarchiveFactory extends EFactory{
 
 	/**
-	 * The singleton instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	CommonarchiveFactory eINSTANCE = new org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl();

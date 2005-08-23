@@ -36,9 +36,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.RarFileDynamicClassLoader;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
+import org.eclipse.jst.j2ee.jca.JcaPackage;
 
 
 /**
@@ -47,9 +47,8 @@ import org.eclipse.jst.j2ee.jca.JcaFactory;
 public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
-	 * The cached value of the '{@link #getDeploymentDescriptor() <em>Deployment Descriptor</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getDeploymentDescriptor() <em>Deployment Descriptor</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getDeploymentDescriptor()
 	 * @generated
 	 * @ordered
@@ -62,7 +61,6 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -137,7 +135,6 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Connector basicGetDeploymentDescriptor() {
@@ -194,19 +191,18 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.RAR_FILE__CONTAINER :
+				case CommonarchivePackage.RAR_FILE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.RAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.RAR_FILE__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.RAR_FILE__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -217,17 +213,16 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.RAR_FILE__CONTAINER :
+				case CommonarchivePackage.RAR_FILE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.RAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.RAR_FILE__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.RAR_FILE__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -236,15 +231,14 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.RAR_FILE__CONTAINER :
+				case CommonarchivePackage.RAR_FILE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -253,34 +247,31 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.RAR_FILE__URI :
+			case CommonarchivePackage.RAR_FILE__URI:
 				return getURI();
-			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.RAR_FILE__SIZE :
+			case CommonarchivePackage.RAR_FILE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.RAR_FILE__CONTAINER :
+			case CommonarchivePackage.RAR_FILE__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.RAR_FILE__FILES :
+			case CommonarchivePackage.RAR_FILE__FILES:
 				return getFiles();
-			case CommonarchivePackage.RAR_FILE__TYPES :
+			case CommonarchivePackage.RAR_FILE__TYPES:
 				return getTypes();
-			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				if (resolve)
-					return getDeploymentDescriptor();
+			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				if (resolve) return getDeploymentDescriptor();
 				return basicGetDeploymentDescriptor();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -291,25 +282,25 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.RAR_FILE__URI :
+			case CommonarchivePackage.RAR_FILE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.RAR_FILE__SIZE :
+			case CommonarchivePackage.RAR_FILE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER :
+			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.RAR_FILE__CONTAINER :
+			case CommonarchivePackage.RAR_FILE__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.RAR_FILE__FILES :
+			case CommonarchivePackage.RAR_FILE__FILES:
 				return files != null && !files.isEmpty();
-			case CommonarchivePackage.RAR_FILE__TYPES :
+			case CommonarchivePackage.RAR_FILE__TYPES:
 				return types != null && !types.isEmpty();
-			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR :
+			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
 				return deploymentDescriptor != null;
 		}
 		return eDynamicIsSet(eFeature);
@@ -320,37 +311,37 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.RAR_FILE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.RAR_FILE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.RAR_FILE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.RAR_FILE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.RAR_FILE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.RAR_FILE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.RAR_FILE__FILES :
+			case CommonarchivePackage.RAR_FILE__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.RAR_FILE__TYPES :
+			case CommonarchivePackage.RAR_FILE__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection) newValue);
+				getTypes().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((Connector) newValue);
+			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((Connector)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -361,35 +352,35 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.RAR_FILE__URI :
+			case CommonarchivePackage.RAR_FILE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.RAR_FILE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.RAR_FILE__SIZE :
+			case CommonarchivePackage.RAR_FILE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.RAR_FILE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.RAR_FILE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.RAR_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.RAR_FILE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.RAR_FILE__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.RAR_FILE__FILES :
+			case CommonarchivePackage.RAR_FILE__FILES:
 				getFiles().clear();
 				return;
-			case CommonarchivePackage.RAR_FILE__TYPES :
+			case CommonarchivePackage.RAR_FILE__TYPES:
 				getTypes().clear();
 				return;
-			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((Connector) null);
+			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((Connector)null);
 				return;
 		}
 		eDynamicUnset(eFeature);

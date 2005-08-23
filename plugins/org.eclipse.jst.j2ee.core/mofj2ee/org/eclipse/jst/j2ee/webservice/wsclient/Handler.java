@@ -32,20 +32,20 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getHandlerName <em>Handler Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getSoapRoles <em>Soap Roles</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getPortNames <em>Port Names</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getHandlerClass <em>Handler Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getInitParams <em>Init Params</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getSoapHeaders <em>Soap Headers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getHandlerName <em>Handler Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getSoapRoles <em>Soap Roles</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getPortNames <em>Port Names</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getHandlerClass <em>Handler Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getInitParams <em>Init Params</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getSoapHeaders <em>Soap Headers</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler()
+ * @model
  * @generated
  */
-public interface Handler extends CompatibilityDescriptionGroup {
+public interface Handler extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Handler Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -59,14 +59,14 @@ public interface Handler extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Handler Name</em>' attribute.
 	 * @see #setHandlerName(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler_HandlerName()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler_HandlerName()
+	 * @model
 	 * @generated
 	 */
 	String getHandlerName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getHandlerName <em>Handler Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getHandlerName <em>Handler Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Handler Name</em>' attribute.
@@ -77,7 +77,7 @@ public interface Handler extends CompatibilityDescriptionGroup {
 
 	/**
 	 * Returns the value of the '<em><b>Soap Headers</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.QName}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.QName}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Soap Headers</em>' attribute list isn't clear,
@@ -85,8 +85,8 @@ public interface Handler extends CompatibilityDescriptionGroup {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Soap Headers</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler_SoapHeaders()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.QName" containment="true"
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler_SoapHeaders()
+	 * @model type="org.eclipse.jst.j2ee.common.QName" containment="true"
 	 * @generated
 	 */
 	EList getSoapHeaders();
@@ -104,7 +104,7 @@ public interface Handler extends CompatibilityDescriptionGroup {
 	 * The soap-role element contains a SOAP actor definition that the Handler will play as a role.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Soap Roles</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler_SoapRoles()
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler_SoapRoles()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
@@ -123,7 +123,7 @@ public interface Handler extends CompatibilityDescriptionGroup {
 	 * The port-name element defines the WSDL port-name that a handler should be associated with.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Port Names</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler_PortNames()
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler_PortNames()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
@@ -142,14 +142,14 @@ public interface Handler extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Handler Class</em>' reference.
 	 * @see #setHandlerClass(JavaClass)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler_HandlerClass()
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler_HandlerClass()
 	 * @model required="true"
 	 * @generated
 	 */
 	JavaClass getHandlerClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler#getHandlerClass <em>Handler Class</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler#getHandlerClass <em>Handler Class</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Handler Class</em>' reference.
@@ -160,7 +160,7 @@ public interface Handler extends CompatibilityDescriptionGroup {
 
 	/**
 	 * Returns the value of the '<em><b>Init Params</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.ParamValue}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.ParamValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Init Params</em>' containment reference list isn't clear,
@@ -168,8 +168,8 @@ public interface Handler extends CompatibilityDescriptionGroup {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Init Params</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getHandler_InitParams()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.ParamValue" containment="true"
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler_InitParams()
+	 * @model type="org.eclipse.jst.j2ee.common.ParamValue" containment="true"
 	 * @generated
 	 */
 	EList getInitParams();

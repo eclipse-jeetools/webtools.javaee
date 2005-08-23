@@ -30,18 +30,18 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.MessageAdapter#getMessageListeners <em>Message Listeners</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.MessageAdapter#getMessageListeners <em>Message Listeners</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getMessageAdapter()
- * @model 
+ * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageAdapter()
+ * @model
  * @generated
  */
 public interface MessageAdapter extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Message Listeners</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.MessageListener}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.MessageListener}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Message Listeners</em>' containment reference list isn't clear,
@@ -49,8 +49,8 @@ public interface MessageAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Message Listeners</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getMessageAdapter_MessageListeners()
-	 * @model type="org.eclipse.jst.j2ee.internal.jca.MessageListener" containment="true" required="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageAdapter_MessageListeners()
+	 * @model type="org.eclipse.jst.j2ee.jca.MessageListener" containment="true" required="true"
 	 * @generated
 	 */
 	EList getMessageListeners();

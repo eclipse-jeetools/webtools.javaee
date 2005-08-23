@@ -17,8 +17,8 @@ package org.eclipse.jst.j2ee.internal.model.translator.ejb;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.xml.EjbDeploymentDescriptorXmlMapperI;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
 

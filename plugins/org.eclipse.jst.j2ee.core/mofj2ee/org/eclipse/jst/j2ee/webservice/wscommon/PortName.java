@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName#getPortName <em>Port Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.PortName#getPortName <em>Port Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getPortName()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getPortName()
+ * @model
  * @generated
  */
 public interface PortName extends EObject{
@@ -39,14 +39,14 @@ public interface PortName extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Port Name</em>' attribute.
 	 * @see #setPortName(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getPortName_PortName()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getPortName_PortName()
+	 * @model
 	 * @generated
 	 */
   String getPortName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName#getPortName <em>Port Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wscommon.PortName#getPortName <em>Port Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Port Name</em>' attribute.

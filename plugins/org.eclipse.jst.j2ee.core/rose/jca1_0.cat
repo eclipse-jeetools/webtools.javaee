@@ -88,7 +88,7 @@
 		(object ClassAttribute "managedConnectionFactoryClass"
 		    quid       	"3C60936003DA"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.managedConnectionFactoryClass
+|@version J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.managedConnectionFactoryClass
 |Specifies the fully qualified name of the Java class that implements the javax.resource.spi.Managed-ConnectionFactory interface. This Java class is provided as part of resource adapter's implementation of connector architecture specified contracts.
 |
 		    
@@ -97,7 +97,7 @@
 		(object ClassAttribute "connectionFactoryInterface"
 		    quid       	"3C60936C00C0"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionFactoryInterface
+|@version J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionFactoryInterface
 |Specifies the fully-qualified name of the ConnectionFactory interface supported by the resource adapter.
 |
 		    
@@ -106,20 +106,20 @@
 		(object ClassAttribute "connectionFactoryImplClass"
 		    quid       	"3C609375013B"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionFactoryImplClass
+|@version J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionFactoryImplClass
 |Specifies the fully-qualified name of the ConnectionFactory class that implements resource adapter specific ConnectionFactory interface.
 		    
 		    type       	"String"
 		    exportControl 	"Public")
 		(object ClassAttribute "connectionInterface"
 		    quid       	"3C60937E021A"
-		    documentation 	"@since J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionInterface"
+		    documentation 	"@version J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionInterface"
 		    type       	"String"
 		    exportControl 	"Public")
 		(object ClassAttribute "connectionImplClass"
 		    quid       	"3C60939503D6"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionImplClass
+|@version J2EE1.4 deprecated, becomes outboundResourceAdapter.connectionDefinitions.connectionImplClass
 |Specifies the fully-qualified name of the Connection interface supported by the resource adapter.
 		    
 		    type       	"String"
@@ -132,7 +132,7 @@
 			    value      	TRUE))
 		    quid       	"3C60939F03DA"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes outboundResourceAdapter.transactionSupport
+|@version J2EE1.4 deprecated, becomes outboundResourceAdapter.transactionSupport
 |The transaction-support element specifies the level of transaction
 |support provided by the resource adapter.
 |The value of transaction-support must be one of the following:
@@ -151,7 +151,7 @@
 			    value      	TRUE))
 		    quid       	"3C6093A8031F"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes outboundResourceAdapter.reauthenticationSupport
+|@version J2EE1.4 deprecated, becomes outboundResourceAdapter.reauthenticationSupport
 |Specifies whether the resource adapter implementation supports re-authentication of existing Managed-Connection instance. Note that this information is for the resource adapter implementation and not for the underlying EIS instance.
 		    
 		    type       	"boolean"
@@ -183,7 +183,7 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "description"
 		    quid       	"3C6091760371"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    stereotype 	"0..1"
 		    type       	"String"
 		    exportControl 	"Public")
@@ -243,7 +243,7 @@
 	(object Class "AuthenticationMechanismType"
 	    quid       	"3C6091C302A9"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |BasicPassword=0
 |Kerbv5=1
 	    
@@ -274,7 +274,7 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "description"
 		    quid       	"3C60923203B7"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    stereotype 	"0..1"
 		    type       	"String"
 		    exportControl 	"Public")
@@ -333,7 +333,7 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "description"
 		    quid       	"3C6097E90162"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    stereotype 	"0..1"
 		    type       	"String"
 		    exportControl 	"Public")
@@ -383,7 +383,7 @@
 	(object Class "InboundResourceAdapter"
 	    quid       	"3E4AA1DD0257"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The inbound-resourceadapterType specifies information
 |about an inbound resource adapter. This contains information
 |specific to the implementation of the resource adapter
@@ -392,7 +392,7 @@
 	(object Class "OutboundResourceAdapter"
 	    quid       	"3E4AA1E6023C"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The outbound-resourceadapterType specifies information about
 |an outbound resource adapter. The information includes fully
 |qualified names of classes/interfaces required as part of
@@ -439,7 +439,7 @@
 	(object Class "MessageAdapter"
 	    quid       	"3E4AA2D601F1"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The messageadapterType specifies information about the
 |messaging capabilities of the resource adapter. This
 |contains information specific to the implementation of the
@@ -449,7 +449,7 @@
 	(object Class "ConnectionDefinition"
 	    quid       	"3E4AA4CF00F2"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The connection-definitionType defines a set of connection
 |interfaces and classes pertaining to a particular connection
 |type. This also includes configurable properties for
@@ -542,7 +542,7 @@
 	(object Class "AdminObject"
 	    quid       	"3E4AADD6004B"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The adminobjectType specifies information about an
 |administered object.  Administered objects are specific to a
 |messaging style or message provider.  This contains
@@ -579,7 +579,7 @@
 	(object Class "MessageListener"
 	    quid       	"3E4AAEC102FC"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The messagelistenerType specifies information about a
 |specific message listener supported by the messaging
 |resource adapter. It contains information on the Java type
@@ -604,7 +604,7 @@
 	(object Class "ActivationSpec"
 	    quid       	"3E4AAF320042"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The activationspecType specifies an activation
 |specification.  The information includes fully qualified
 |Java class name of an activation specification and a set of
@@ -630,7 +630,7 @@
 	(object Class "RequiredConfigPropertyType"
 	    quid       	"3E4AAFD601A6"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The required-config-propertyType contains a declaration
 |of a single configuration property used for specifying a
 |required configuration property name. It is used
@@ -736,7 +736,7 @@
 		(object Role "outboundResourceAdapter"
 		    quid       	"3E4AA3650369"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The connectionfactory-interface element content must be
 |        unique in the outbound-resourceadapter. Multiple connection-definitions
 |        can not use the same connectionfactory-type.
@@ -805,7 +805,7 @@
 	    roles      	(list role_list
 		(object Role "inboundResourceAdapter"
 		    quid       	"3E4AADCF0312"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"inboundResourceAdapter"
 		    supplier   	"Logical View::jca::InboundResourceAdapter"
 		    quidu      	"3E4AA1DD0257"
@@ -822,7 +822,7 @@
 	    roles      	(list role_list
 		(object Role "adminObjects"
 		    quid       	"3E4AAE040160"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"adminObjects"
 		    supplier   	"Logical View::jca::AdminObject"
 		    quidu      	"3E4AADD6004B"
@@ -924,7 +924,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4AA8A30033"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -973,7 +973,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4AAB6100BF"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -990,7 +990,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4AAA340012"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"

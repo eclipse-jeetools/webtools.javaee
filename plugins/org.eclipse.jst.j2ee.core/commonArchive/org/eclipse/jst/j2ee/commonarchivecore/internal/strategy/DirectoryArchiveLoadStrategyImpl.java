@@ -12,9 +12,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.strategy;
 
 
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfigRegister;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfigRegister;
 
 
 /**

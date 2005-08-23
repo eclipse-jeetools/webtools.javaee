@@ -17,10 +17,10 @@ package org.eclipse.jst.j2ee.internal.model.translator.ejb;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.xml.EjbDeploymentDescriptorXmlMapperI;
 import org.eclipse.wst.common.internal.emf.resource.GenericTranslator;

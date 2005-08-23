@@ -19,13 +19,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.URLPatternType#getUrlPattern <em>Url Pattern</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.URLPatternType#getResCollection <em>Res Collection</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webapplication.URLPatternType#getUrlPattern <em>Url Pattern</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webapplication.URLPatternType#getResCollection <em>Res Collection</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getURLPatternType()
- * @model 
+ * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getURLPatternType()
+ * @model
  * @generated
  */
 public interface URLPatternType extends EObject{

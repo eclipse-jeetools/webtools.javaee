@@ -53,14 +53,14 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(String)
-	 * @see org.eclipse.jst.j2ee.internal.client.ClientPackage#getApplicationClient_Version()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.client.ClientPackage#getApplicationClient_Version()
+	 * @model
 	 * @generated
 	 */
 	String getVersion();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.client.ApplicationClient#getVersion <em>Version</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.client.ApplicationClient#getVersion <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Version</em>' attribute.
@@ -143,7 +143,7 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 
 	/**
 	 * Returns the value of the '<em><b>Service Refs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Service Refs</em>' containment reference list isn't clear,
@@ -154,15 +154,15 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Refs</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.client.ClientPackage#getApplicationClient_ServiceRefs()
-	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef" containment="true"
+	 * @see org.eclipse.jst.j2ee.client.ClientPackage#getApplicationClient_ServiceRefs()
+	 * @model type="org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef" containment="true"
 	 * @generated
 	 */
 	EList getServiceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Refs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.MessageDestinationRef}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Message Destination Refs</em>' containment reference list isn't clear,
@@ -179,15 +179,15 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 *     within an application client.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destination Refs</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.client.ClientPackage#getApplicationClient_MessageDestinationRefs()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.MessageDestinationRef" containment="true"
+	 * @see org.eclipse.jst.j2ee.client.ClientPackage#getApplicationClient_MessageDestinationRefs()
+	 * @model type="org.eclipse.jst.j2ee.common.MessageDestinationRef" containment="true"
 	 * @generated
 	 */
 	EList getMessageDestinationRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destinations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.MessageDestination}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.MessageDestination}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Message Destinations</em>' containment reference list isn't clear,
@@ -198,8 +198,8 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destinations</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.client.ClientPackage#getApplicationClient_MessageDestinations()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.MessageDestination" containment="true"
+	 * @see org.eclipse.jst.j2ee.client.ClientPackage#getApplicationClient_MessageDestinations()
+	 * @model type="org.eclipse.jst.j2ee.common.MessageDestination" containment="true"
 	 * @generated
 	 */
 	EList getMessageDestinations();

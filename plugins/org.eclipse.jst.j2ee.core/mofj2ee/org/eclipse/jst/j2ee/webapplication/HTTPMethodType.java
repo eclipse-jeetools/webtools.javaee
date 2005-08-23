@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getHTTPMethodType()
+ * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getHTTPMethodType()
  * @model 
  * @generated
  */
@@ -35,14 +35,14 @@ public interface HTTPMethodType extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Http Method</em>' attribute.
 	 * @see #setHttpMethod(String)
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getHTTPMethodType_HttpMethod()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getHTTPMethodType_HttpMethod()
+	 * @model
 	 * @generated
 	 */
 	String getHttpMethod();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Http Method</em>' attribute.

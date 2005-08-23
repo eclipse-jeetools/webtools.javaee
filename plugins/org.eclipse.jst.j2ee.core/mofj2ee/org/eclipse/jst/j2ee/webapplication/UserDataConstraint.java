@@ -46,11 +46,11 @@ public interface UserDataConstraint extends EObject{
 	TransportGuaranteeType getTransportGuarantee();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.UserDataConstraint#getTransportGuarantee <em>Transport Guarantee</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.UserDataConstraint#getTransportGuarantee <em>Transport Guarantee</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transport Guarantee</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.TransportGuaranteeType
+	 * @see org.eclipse.jst.j2ee.webapplication.TransportGuaranteeType
 	 * @see #isSetTransportGuarantee()
 	 * @see #unsetTransportGuarantee()
 	 * @see #getTransportGuarantee()
@@ -59,7 +59,7 @@ public interface UserDataConstraint extends EObject{
 	void setTransportGuarantee(TransportGuaranteeType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.UserDataConstraint#getTransportGuarantee <em>Transport Guarantee</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.webapplication.UserDataConstraint#getTransportGuarantee <em>Transport Guarantee</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransportGuarantee()
@@ -70,7 +70,7 @@ public interface UserDataConstraint extends EObject{
 	void unsetTransportGuarantee();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.UserDataConstraint#getTransportGuarantee <em>Transport Guarantee</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webapplication.UserDataConstraint#getTransportGuarantee <em>Transport Guarantee</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Transport Guarantee</em>' attribute is set.
@@ -95,7 +95,7 @@ public interface UserDataConstraint extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -106,8 +106,8 @@ public interface UserDataConstraint extends EObject{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getUserDataConstraint_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getUserDataConstraint_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

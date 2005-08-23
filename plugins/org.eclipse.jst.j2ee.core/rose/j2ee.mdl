@@ -1,7 +1,7 @@
 
 (object Petal
-    version    	47
-    _written   	"Rose 8.0.0303.1400"
+    version    	50
+    _written   	"Rose 8.3.0407.2800"
     charSet    	0)
 
 (object Design "Logical View"
@@ -49,6 +49,7 @@
 	    name       	"UserDefineTagApply3"
 	    value      	""))
     quid       	"39EE0E7F014C"
+    enforceClosureAutoLoad 	FALSE
     defaults   	(object defaults
 	rightMargin 	0.250000
 	leftMargin 	0.250000
@@ -97,7 +98,7 @@
 	    (object Class_Category "ecore"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\org.eclipse.emf.ecore\\src-ecore\\model\\org.eclipse.emf.Ecore.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.emf.ecore\\model\\org.eclipse.emf.Ecore.cat"
 		quid       	"39A5ED04004E")
 	    (object Class_Category "java"
 		is_unit    	TRUE
@@ -499,7 +500,9 @@
 		max_width  	21600
 		origin_x   	0
 		origin_y   	0
-		items      	(list diagram_item_list))))
+		items      	(list diagram_item_list)))
+	category   	"Logical View"
+	quidu      	"4307861E0238")
     process_structure 	(object Processes
 	quid       	"39EE0E7F0150"
 	ProcsNDevs 	(list
@@ -1589,6 +1592,10 @@
 		    (object Attribute
 			tool       	"Ada83"
 			name       	"AdditionalWiths"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Ada83"
+			name       	"AdditionalUses"
 			value      	(value Text ""))))
 	    (object Attribute
 		tool       	"Ada83"
@@ -1617,7 +1624,11 @@
 		    (object Attribute
 			tool       	"Ada83"
 			name       	"IsSubunit"
-			value      	FALSE)))
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Ada83"
+			name       	"AdditionalUses"
+			value      	(value Text ""))))
 	    (object Attribute
 		tool       	"Ada83"
 		name       	"default__Operation"
@@ -1733,7 +1744,51 @@
 			    (object Attribute
 				tool       	"Ada83"
 				name       	"InOut"
-				value      	203)))))
+				value      	203)))
+		    (object Attribute
+			tool       	"Ada83"
+			name       	"GenericFormal"
+			value      	("GenericFormalSet" 1))
+		    (object Attribute
+			tool       	"Ada83"
+			name       	"AssociationMapping"
+			value      	("AssociationMappingSet" 1))
+		    (object Attribute
+			tool       	"Ada83"
+			name       	"GenericFormalSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Default"
+				value      	1)
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Object"
+				value      	2)
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Type"
+				value      	3)
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Procedure"
+				value      	4)
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Function"
+				value      	5)))
+		    (object Attribute
+			tool       	"Ada83"
+			name       	"AssociationMappingSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Name"
+				value      	1)
+			    (object Attribute
+				tool       	"Ada83"
+				name       	"Type"
+				value      	2)))))
 	    (object Attribute
 		tool       	"Ada83"
 		name       	"default__Has"
@@ -2467,7 +2522,11 @@
 			    (object Attribute
 				tool       	"Ada95"
 				name       	"Auto"
-				value      	230)))))
+				value      	230)))
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"IndefiniteType"
+			value      	FALSE)))
 	    (object Attribute
 		tool       	"Ada95"
 		name       	"default__Module-Spec"
@@ -2499,7 +2558,11 @@
 		    (object Attribute
 			tool       	"Ada95"
 			name       	"IsPrivate"
-			value      	FALSE)))
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"AdditionalUses"
+			value      	(value Text ""))))
 	    (object Attribute
 		tool       	"Ada95"
 		name       	"default__Module-Body"
@@ -2527,7 +2590,11 @@
 		    (object Attribute
 			tool       	"Ada95"
 			name       	"IsSubunit"
-			value      	FALSE)))
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"AdditionalUses"
+			value      	(value Text ""))))
 	    (object Attribute
 		tool       	"Ada95"
 		name       	"default__Operation"
@@ -2671,7 +2738,55 @@
 			    (object Attribute
 				tool       	"Ada95"
 				name       	"Access"
-				value      	220)))))
+				value      	220)))
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"GenericFormal"
+			value      	("GenericFormalSet" 1))
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"AssociationMapping"
+			value      	("AssociationMappingSet" 1))
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"GenericFormalSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Default"
+				value      	1)
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Object"
+				value      	2)
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Type"
+				value      	3)
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Procedure"
+				value      	4)
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Function"
+				value      	5)
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Package"
+				value      	6)))
+		    (object Attribute
+			tool       	"Ada95"
+			name       	"AssociationMappingSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Name"
+				value      	1)
+			    (object Attribute
+				tool       	"Ada95"
+				name       	"Type"
+				value      	2)))))
 	    (object Attribute
 		tool       	"Ada95"
 		name       	"default__Has"
@@ -4135,7 +4250,7 @@
 		    (object Attribute
 			tool       	"Java"
 			name       	"ClassPath"
-			value      	"")
+			value      	";D:\\j2sdk1.4.2_08\\jre\\lib\\charsets.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\jce.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\jsse.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\rt.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\sunrsasign.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\ext\\dnsns.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\ext\\ldapsec.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\ext\\localedata.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\ext\\sunjce_provider.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\security\\local_policy.jar;D:\\j2sdk1.4.2_08\\jre\\lib\\security\\US_export_policy.jar;D:\\j2sdk1.4.2_08\\lib\\dt.jar;D:\\j2sdk1.4.2_08\\lib\\htmlconverter.jar;D:\\j2sdk1.4.2_08\\lib\\tools.jar")
 		    (object Attribute
 			tool       	"Java"
 			name       	"ReferenceClasspath"
@@ -4311,7 +4426,11 @@
 		    (object Attribute
 			tool       	"Java"
 			name       	"SCCComment"
-			value      	FALSE)))
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"FundamentalType"
+			value      	"boolean; char; byte; short; int; long; float; double; Boolean; Byte; Character; Double; Float; Integer; Long; Object; Short; String; StringBuffer; Void; java.math.BigDecimal; java.math.BigInteger; java.sql.Date; java.sql.Time; java.sql.Timestamp; java.util.AbstractCollection; java.util.AbstractList;java.util.AbstractMap; java.util.AbstractSequentialList; java.util.AbstractSet; java.util.ArrayList; java.util.Arrays; java.util.BitSet; java.util.Calendar; java.util.Collections; java.util.Date; java.util.Date; java.util.Dictionary; java.util.EventObject; java.util.GregorianCalendar; java.util.HashMap; java.util.HashSet; java.util.Hashtable; java.util.LinkedList; java.util.ListResourceBundle; java.util.Locale; java.util.Observable; java.util.Properties; java.util.PropertyPermission; java.util.PropertyResourceBundle; java.util.Random; java.util.ResourceBundle; java.util.SimpleTimeZone; java.util.Stack; java.util.StringTokenizer; java.util.Timer; java.util.TimerTask; java.util.TimeZone; java.util.TreeMap; java.util.TreeSet; java.util.Vector; java.util.WeakHashMap")))
 	    (object Attribute
 		tool       	"Java"
 		name       	"default__Class"
@@ -5706,6 +5825,10 @@
 			value      	"")))
 	    (object Attribute
 		tool       	"XML_DTD"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"framework"
 		name       	"HiddenTool"
 		value      	FALSE))
 	quid       	"39EE0E7F0151"))

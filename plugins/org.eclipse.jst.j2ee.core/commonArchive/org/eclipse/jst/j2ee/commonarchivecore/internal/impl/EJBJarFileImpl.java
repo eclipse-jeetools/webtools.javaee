@@ -24,19 +24,18 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**
@@ -58,7 +57,6 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -183,25 +181,25 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI :
+			case CommonarchivePackage.EJB_JAR_FILE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE :
+			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER :
+			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
+			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.EJB_JAR_FILE__FILES :
+			case CommonarchivePackage.EJB_JAR_FILE__FILES:
 				return files != null && !files.isEmpty();
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES :
+			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
 				return types != null && !types.isEmpty();
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR :
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
 				return deploymentDescriptor != null;
 		}
 		return eDynamicIsSet(eFeature);
@@ -212,37 +210,37 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.EJB_JAR_FILE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__FILES :
+			case CommonarchivePackage.EJB_JAR_FILE__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES :
+			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection) newValue);
+				getTypes().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((EJBJar) newValue);
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((EJBJar)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -253,35 +251,35 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI :
+			case CommonarchivePackage.EJB_JAR_FILE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE :
+			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__FILES :
+			case CommonarchivePackage.EJB_JAR_FILE__FILES:
 				getFiles().clear();
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES :
+			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
 				getTypes().clear();
 				return;
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((EJBJar) null);
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((EJBJar)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -293,7 +291,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	public EJBJar getDeploymentDescriptorGen() {
 		if (deploymentDescriptor != null && deploymentDescriptor.eIsProxy()) {
 			EJBJar oldDeploymentDescriptor = deploymentDescriptor;
-			deploymentDescriptor = (EJBJar) EcoreUtil.resolve(deploymentDescriptor, this);
+			deploymentDescriptor = (EJBJar)eResolveProxy((InternalEObject)deploymentDescriptor);
 			if (deploymentDescriptor != oldDeploymentDescriptor) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
@@ -304,7 +302,6 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EJBJar basicGetDeploymentDescriptor() {
@@ -323,19 +320,18 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
+				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.EJB_JAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.EJB_JAR_FILE__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.EJB_JAR_FILE__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -346,17 +342,16 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
+				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.EJB_JAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.EJB_JAR_FILE__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.EJB_JAR_FILE__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -365,15 +360,14 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
+				case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -382,34 +376,31 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.EJB_JAR_FILE__URI :
+			case CommonarchivePackage.EJB_JAR_FILE__URI:
 				return getURI();
-			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.EJB_JAR_FILE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.EJB_JAR_FILE__SIZE :
+			case CommonarchivePackage.EJB_JAR_FILE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.EJB_JAR_FILE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.EJB_JAR_FILE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.EJB_JAR_FILE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER :
+			case CommonarchivePackage.EJB_JAR_FILE__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.EJB_JAR_FILE__FILES :
+			case CommonarchivePackage.EJB_JAR_FILE__FILES:
 				return getFiles();
-			case CommonarchivePackage.EJB_JAR_FILE__TYPES :
+			case CommonarchivePackage.EJB_JAR_FILE__TYPES:
 				return getTypes();
-			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				if (resolve)
-					return getDeploymentDescriptor();
+			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				if (resolve) return getDeploymentDescriptor();
 				return basicGetDeploymentDescriptor();
 		}
 		return eDynamicGet(eFeature, resolve);

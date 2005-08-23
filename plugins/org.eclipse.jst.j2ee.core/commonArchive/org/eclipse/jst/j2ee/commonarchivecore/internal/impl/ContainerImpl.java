@@ -169,7 +169,6 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -316,19 +315,18 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.CONTAINER__CONTAINER :
+				case CommonarchivePackage.CONTAINER__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.CONTAINER__CONTAINER, msgs);
-				case CommonarchivePackage.CONTAINER__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.CONTAINER__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -339,17 +337,16 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.CONTAINER__CONTAINER :
+				case CommonarchivePackage.CONTAINER__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.CONTAINER__CONTAINER, msgs);
-				case CommonarchivePackage.CONTAINER__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.CONTAINER__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -358,15 +355,14 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.CONTAINER__CONTAINER :
+				case CommonarchivePackage.CONTAINER__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -375,28 +371,26 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CONTAINER__URI :
+			case CommonarchivePackage.CONTAINER__URI:
 				return getURI();
-			case CommonarchivePackage.CONTAINER__LAST_MODIFIED :
+			case CommonarchivePackage.CONTAINER__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.CONTAINER__SIZE :
+			case CommonarchivePackage.CONTAINER__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY :
+			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.CONTAINER__ORIGINAL_URI :
+			case CommonarchivePackage.CONTAINER__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.CONTAINER__CONTAINER :
+			case CommonarchivePackage.CONTAINER__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.CONTAINER__FILES :
+			case CommonarchivePackage.CONTAINER__FILES:
 				return getFiles();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -404,35 +398,34 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CONTAINER__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.CONTAINER__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.CONTAINER__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.CONTAINER__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.CONTAINER__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.CONTAINER__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.CONTAINER__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.CONTAINER__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.CONTAINER__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.CONTAINER__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.CONTAINER__FILES :
+			case CommonarchivePackage.CONTAINER__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -440,33 +433,32 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CONTAINER__URI :
+			case CommonarchivePackage.CONTAINER__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.CONTAINER__LAST_MODIFIED :
+			case CommonarchivePackage.CONTAINER__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.CONTAINER__SIZE :
+			case CommonarchivePackage.CONTAINER__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY :
+			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.CONTAINER__ORIGINAL_URI :
+			case CommonarchivePackage.CONTAINER__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.CONTAINER__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.CONTAINER__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.CONTAINER__FILES :
+			case CommonarchivePackage.CONTAINER__FILES:
 				getFiles().clear();
 				return;
 		}
@@ -475,26 +467,25 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CONTAINER__URI :
+			case CommonarchivePackage.CONTAINER__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.CONTAINER__LAST_MODIFIED :
+			case CommonarchivePackage.CONTAINER__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.CONTAINER__SIZE :
+			case CommonarchivePackage.CONTAINER__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY :
+			case CommonarchivePackage.CONTAINER__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.CONTAINER__ORIGINAL_URI :
+			case CommonarchivePackage.CONTAINER__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER :
+			case CommonarchivePackage.CONTAINER__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.CONTAINER__CONTAINER :
+			case CommonarchivePackage.CONTAINER__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.CONTAINER__FILES :
+			case CommonarchivePackage.CONTAINER__FILES:
 				return files != null && !files.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);

@@ -36,21 +36,21 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getUrlPattern <em>Url Pattern</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getPageEncoding <em>Page Encoding</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getIncludePreludes <em>Include Preludes</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getIncludeCodas <em>Include Codas</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getUrlPattern <em>Url Pattern</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getPageEncoding <em>Page Encoding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getIncludePreludes <em>Include Preludes</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getIncludeCodas <em>Include Codas</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup()
- * @model 
+ * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup()
+ * @model
  * @generated
  */
-public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
+public interface JSPPropertyGroup extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Url Pattern</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
@@ -61,7 +61,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Url Pattern</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_UrlPattern()
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_UrlPattern()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
@@ -87,14 +87,14 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * @see #isSetElIgnored()
 	 * @see #unsetElIgnored()
 	 * @see #setElIgnored(boolean)
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_ElIgnored()
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_ElIgnored()
 	 * @model default="true" unsettable="true"
 	 * @generated
 	 */
 	boolean isElIgnored();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>El Ignored</em>' attribute.
@@ -106,7 +106,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	void setElIgnored(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetElIgnored()
@@ -117,7 +117,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	void unsetElIgnored();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>El Ignored</em>' attribute is set.
@@ -151,14 +151,14 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Page Encoding</em>' attribute.
 	 * @see #setPageEncoding(String)
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_PageEncoding()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_PageEncoding()
+	 * @model
 	 * @generated
 	 */
 	String getPageEncoding();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getPageEncoding <em>Page Encoding</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getPageEncoding <em>Page Encoding</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Page Encoding</em>' attribute.
@@ -185,14 +185,14 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * @see #isSetScriptingInvalid()
 	 * @see #unsetScriptingInvalid()
 	 * @see #setScriptingInvalid(boolean)
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_ScriptingInvalid()
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_ScriptingInvalid()
 	 * @model default="true" unsettable="true"
 	 * @generated
 	 */
 	boolean isScriptingInvalid();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Scripting Invalid</em>' attribute.
@@ -204,7 +204,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	void setScriptingInvalid(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetScriptingInvalid()
@@ -215,7 +215,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	void unsetScriptingInvalid();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Scripting Invalid</em>' attribute is set.
@@ -247,14 +247,14 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * @see #isSetIsXML()
 	 * @see #unsetIsXML()
 	 * @see #setIsXML(boolean)
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_IsXML()
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_IsXML()
 	 * @model default="false" unsettable="true"
 	 * @generated
 	 */
 	boolean isIsXML();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is XML</em>' attribute.
@@ -266,7 +266,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	void setIsXML(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetIsXML()
@@ -277,7 +277,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	void unsetIsXML();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Is XML</em>' attribute is set.
@@ -307,7 +307,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * 	this jsp-property-group.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Include Preludes</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_IncludePreludes()
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_IncludePreludes()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
@@ -331,7 +331,7 @@ public interface JSPPropertyGroup extends CompatibilityDescriptionGroup {
 	 * 	JSP page in this jsp-property-group.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Include Codas</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getJSPPropertyGroup_IncludeCodas()
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup_IncludeCodas()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */

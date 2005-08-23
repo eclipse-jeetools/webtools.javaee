@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.ejb;
  
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * @generated
  */
@@ -24,7 +23,7 @@ public interface EjbFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	EjbFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl();
+	EjbFactory eINSTANCE = new org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl();
 
 MethodElement createMethodElement(String aSignature) ;
 MethodElement createMethodElementFrom(Method method) ;

@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getBeanLink()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getBeanLink()
+ * @model
  * @generated
  */
 public interface BeanLink extends EObject{

@@ -29,13 +29,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.MessageListener#getMessageListenerType <em>Message Listener Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.MessageListener#getActivationSpec <em>Activation Spec</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.MessageListener#getMessageListenerType <em>Message Listener Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.MessageListener#getActivationSpec <em>Activation Spec</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getMessageListener()
- * @model 
+ * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageListener()
+ * @model
  * @generated
  */
 public interface MessageListener extends EObject{
@@ -59,14 +59,14 @@ public interface MessageListener extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Listener Type</em>' attribute.
 	 * @see #setMessageListenerType(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getMessageListener_MessageListenerType()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageListener_MessageListenerType()
+	 * @model
 	 * @generated
 	 */
 	String getMessageListenerType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.MessageListener#getMessageListenerType <em>Message Listener Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.MessageListener#getMessageListenerType <em>Message Listener Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Message Listener Type</em>' attribute.
@@ -85,14 +85,14 @@ public interface MessageListener extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Activation Spec</em>' containment reference.
 	 * @see #setActivationSpec(ActivationSpec)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getMessageListener_ActivationSpec()
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageListener_ActivationSpec()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	ActivationSpec getActivationSpec();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.MessageListener#getActivationSpec <em>Activation Spec</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.MessageListener#getActivationSpec <em>Activation Spec</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Activation Spec</em>' containment reference.

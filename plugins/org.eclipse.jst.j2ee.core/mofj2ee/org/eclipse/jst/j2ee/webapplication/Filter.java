@@ -60,7 +60,7 @@ public void setFilterClassName(String filterClassName);
 
 	/**
 	 * Returns the value of the '<em><b>Init Param Values</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.ParamValue}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.ParamValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Init Param Values</em>' containment reference list isn't clear,
@@ -73,8 +73,8 @@ public void setFilterClassName(String filterClassName);
 	 *         an initialization param of a servlet filter
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Init Param Values</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getFilter_InitParamValues()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.ParamValue" containment="true"
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getFilter_InitParamValues()
+	 * @model type="org.eclipse.jst.j2ee.common.ParamValue" containment="true"
 	 * @generated
 	 */
 	EList getInitParamValues();

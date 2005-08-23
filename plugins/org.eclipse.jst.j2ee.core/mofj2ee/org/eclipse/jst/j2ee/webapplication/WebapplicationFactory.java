@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * @generated
  */
@@ -22,7 +21,7 @@ public interface WebapplicationFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	WebapplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationFactoryImpl();
+	WebapplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

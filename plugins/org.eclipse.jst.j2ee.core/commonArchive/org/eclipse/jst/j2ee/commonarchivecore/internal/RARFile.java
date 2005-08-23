@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.jca.Connector;
 /**
  * @generated
  */
-public interface RARFile extends ModuleFile {
+public interface RARFile extends ModuleFile{
 
 	/**
 	 * Returns the value of the '<em><b>Deployment Descriptor</b></em>' reference. <!--
@@ -39,12 +39,9 @@ public interface RARFile extends ModuleFile {
 	Connector getDeploymentDescriptor();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.RARFile#getDeploymentDescriptor <em>Deployment Descriptor</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Deployment Descriptor</em>' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile#getDeploymentDescriptor <em>Deployment Descriptor</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Deployment Descriptor</em>' reference.
 	 * @see #getDeploymentDescriptor()
 	 * @generated
 	 */

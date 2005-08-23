@@ -11,14 +11,13 @@
 package org.eclipse.jst.j2ee.webservice.wsclient;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage
+ * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage
  * @generated
  */
 public interface Webservice_clientFactory extends EFactory{
@@ -28,7 +27,7 @@ public interface Webservice_clientFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	Webservice_clientFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.wsclient.impl.Webservice_clientFactoryImpl();
+	Webservice_clientFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Service Ref</em>'.

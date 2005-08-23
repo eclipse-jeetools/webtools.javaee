@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 /**
  * @generated
  */
@@ -23,7 +22,7 @@ public interface JcaFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JcaFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.jca.impl.JcaFactoryImpl();
+	JcaFactory eINSTANCE = new org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl();
 
 
 	/**

@@ -19,8 +19,8 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.EjbRef;
-import org.eclipse.jst.j2ee.internal.common.impl.ResourceRefImpl;
-import org.eclipse.jst.j2ee.internal.common.impl.SecurityRoleImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.ResourceRefImpl;
+import org.eclipse.jst.j2ee.common.internal.impl.SecurityRoleImpl;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;

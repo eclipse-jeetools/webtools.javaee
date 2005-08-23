@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveFactoryRegistry;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
@@ -36,9 +35,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 public class FileImpl extends EObjectImpl implements File {
 
 	/**
-	 * The default value of the '{@link #getURI() <em>URI</em>}' attribute. <!-- begin-user-doc
+	 * The default value of the '{@link #getURI() <em>URI</em>}' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @see #getURI()
 	 * @generated
 	 * @ordered
@@ -55,7 +54,6 @@ public class FileImpl extends EObjectImpl implements File {
 	/**
 	 * The default value of the '{@link #getLastModified() <em>Last Modified</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getLastModified()
 	 * @generated
 	 * @ordered
@@ -67,18 +65,18 @@ public class FileImpl extends EObjectImpl implements File {
 	 */
 	protected long lastModified = LAST_MODIFIED_EDEFAULT;
 	/**
-	 * This is true if the Last Modified attribute has been set. <!-- begin-user-doc --> <!--
+	 * This is true if the Last Modified attribute has been set.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
 	protected boolean lastModifiedESet = false;
 
 	/**
-	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute. <!-- begin-user-doc
+	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @see #getSize()
 	 * @generated
 	 * @ordered
@@ -101,7 +99,6 @@ public class FileImpl extends EObjectImpl implements File {
 	/**
 	 * The default value of the '{@link #isDirectoryEntry() <em>Directory Entry</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #isDirectoryEntry()
 	 * @generated
 	 * @ordered
@@ -111,7 +108,6 @@ public class FileImpl extends EObjectImpl implements File {
 	/**
 	 * The cached value of the '{@link #isDirectoryEntry() <em>Directory Entry</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #isDirectoryEntry()
 	 * @generated
 	 * @ordered
@@ -119,9 +115,9 @@ public class FileImpl extends EObjectImpl implements File {
 	protected boolean directoryEntry = DIRECTORY_ENTRY_EDEFAULT;
 
 	/**
-	 * This is true if the Directory Entry attribute has been set. <!-- begin-user-doc --> <!--
+	 * This is true if the Directory Entry attribute has been set.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -152,7 +148,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -270,7 +265,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setLastModified(long newLastModified) {
@@ -284,7 +278,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void unsetLastModified() {
@@ -298,7 +291,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isSetLastModified() {
@@ -314,7 +306,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setSize(long newSize) {
@@ -328,7 +319,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void unsetSize() {
@@ -342,7 +332,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isSetSize() {
@@ -351,7 +340,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isDirectoryEntry() {
@@ -360,7 +348,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setDirectoryEntry(boolean newDirectoryEntry) {
@@ -374,7 +361,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void unsetDirectoryEntry() {
@@ -388,7 +374,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isSetDirectoryEntry() {
@@ -418,7 +403,7 @@ public class FileImpl extends EObjectImpl implements File {
 	public Container getLoadingContainer() {
 		if (loadingContainer != null && loadingContainer.eIsProxy()) {
 			Container oldLoadingContainer = loadingContainer;
-			loadingContainer = (Container) EcoreUtil.resolve(loadingContainer, this);
+			loadingContainer = (Container)eResolveProxy((InternalEObject)loadingContainer);
 			if (loadingContainer != oldLoadingContainer) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.FILE__LOADING_CONTAINER, oldLoadingContainer, loadingContainer));
@@ -429,7 +414,6 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Container basicGetLoadingContainer() {
@@ -450,9 +434,8 @@ public class FileImpl extends EObjectImpl implements File {
 	 * @generated This field/method will be replaced during code generation
 	 */
 	public Container getContainer() {
-		if (eContainerFeatureID != CommonarchivePackage.FILE__CONTAINER)
-			return null;
-		return (Container) eContainer;
+		if (eContainerFeatureID != CommonarchivePackage.FILE__CONTAINER) return null;
+		return (Container)eContainer;
 	}
 
 	/**
@@ -461,32 +444,31 @@ public class FileImpl extends EObjectImpl implements File {
 	public void setContainer(Container newContainer) {
 		if (newContainer != eContainer || (eContainerFeatureID != CommonarchivePackage.FILE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
-				throw new IllegalArgumentException(CommonArchiveResourceHandler.getString("FileImpl._Error_0") + toString()); //$NON-NLS-1$
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eContainer != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newContainer != null)
-				msgs = ((InternalEObject) newContainer).eInverseAdd(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject) newContainer, CommonarchivePackage.FILE__CONTAINER, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
+				msgs = ((InternalEObject)newContainer).eInverseAdd(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
+			msgs = eBasicSetContainer((InternalEObject)newContainer, CommonarchivePackage.FILE__CONTAINER, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonarchivePackage.FILE__CONTAINER, newContainer, newContainer));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.FILE__CONTAINER :
+				case CommonarchivePackage.FILE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.FILE__CONTAINER, msgs);
-				default :
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -497,15 +479,14 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.FILE__CONTAINER :
+				case CommonarchivePackage.FILE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.FILE__CONTAINER, msgs);
-				default :
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -514,15 +495,14 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.FILE__CONTAINER :
+				case CommonarchivePackage.FILE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -531,26 +511,24 @@ public class FileImpl extends EObjectImpl implements File {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.FILE__URI :
+			case CommonarchivePackage.FILE__URI:
 				return getURI();
-			case CommonarchivePackage.FILE__LAST_MODIFIED :
+			case CommonarchivePackage.FILE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.FILE__SIZE :
+			case CommonarchivePackage.FILE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.FILE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.FILE__ORIGINAL_URI :
+			case CommonarchivePackage.FILE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.FILE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.FILE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.FILE__CONTAINER :
+			case CommonarchivePackage.FILE__CONTAINER:
 				return getContainer();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -561,19 +539,19 @@ public class FileImpl extends EObjectImpl implements File {
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.FILE__URI :
+			case CommonarchivePackage.FILE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.FILE__LAST_MODIFIED :
+			case CommonarchivePackage.FILE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.FILE__SIZE :
+			case CommonarchivePackage.FILE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.FILE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.FILE__ORIGINAL_URI :
+			case CommonarchivePackage.FILE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.FILE__LOADING_CONTAINER :
+			case CommonarchivePackage.FILE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.FILE__CONTAINER :
+			case CommonarchivePackage.FILE__CONTAINER:
 				return getContainer() != null;
 		}
 		return eDynamicIsSet(eFeature);
@@ -584,26 +562,26 @@ public class FileImpl extends EObjectImpl implements File {
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.FILE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.FILE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.FILE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.FILE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.FILE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.FILE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.FILE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.FILE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.FILE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.FILE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.FILE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.FILE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -614,26 +592,26 @@ public class FileImpl extends EObjectImpl implements File {
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.FILE__URI :
+			case CommonarchivePackage.FILE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.FILE__LAST_MODIFIED :
+			case CommonarchivePackage.FILE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.FILE__SIZE :
+			case CommonarchivePackage.FILE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.FILE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.FILE__ORIGINAL_URI :
+			case CommonarchivePackage.FILE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.FILE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.FILE__CONTAINER:
+				setContainer((Container)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -643,28 +621,18 @@ public class FileImpl extends EObjectImpl implements File {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (URI: "); //$NON-NLS-1$
+		result.append(" (URI: ");
 		result.append(uri);
-		result.append(", lastModified: "); //$NON-NLS-1$
-		if (lastModifiedESet)
-			result.append(lastModified);
-		else
-			result.append("<unset>"); //$NON-NLS-1$
-		result.append(", size: "); //$NON-NLS-1$
-		if (sizeESet)
-			result.append(size);
-		else
-			result.append("<unset>"); //$NON-NLS-1$
-		result.append(", directoryEntry: "); //$NON-NLS-1$
-		if (directoryEntryESet)
-			result.append(directoryEntry);
-		else
-			result.append("<unset>"); //$NON-NLS-1$
-		result.append(", originalURI: "); //$NON-NLS-1$
+		result.append(", lastModified: ");
+		if (lastModifiedESet) result.append(lastModified); else result.append("<unset>");
+		result.append(", size: ");
+		if (sizeESet) result.append(size); else result.append("<unset>");
+		result.append(", directoryEntry: ");
+		if (directoryEntryESet) result.append(directoryEntry); else result.append("<unset>");
+		result.append(", originalURI: ");
 		result.append(originalURI);
 		result.append(')');
 		return result.toString();

@@ -46,14 +46,14 @@ public interface AuthenticationMechanism extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Authentication Mechanism</em>' attribute.
 	 * @see #setAuthenticationMechanism(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getAuthenticationMechanism_AuthenticationMechanism()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAuthenticationMechanism_AuthenticationMechanism()
+	 * @model
 	 * @generated
 	 */
 	String getAuthenticationMechanism();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getAuthenticationMechanism <em>Authentication Mechanism</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getAuthenticationMechanism <em>Authentication Mechanism</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Authentication Mechanism</em>' attribute.
@@ -78,11 +78,11 @@ public interface AuthenticationMechanism extends EObject{
 	AuthenticationMechanismType getAuthenticationMechanismType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getAuthenticationMechanismType <em>Authentication Mechanism Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getAuthenticationMechanismType <em>Authentication Mechanism Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Authentication Mechanism Type</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanismType
+	 * @see org.eclipse.jst.j2ee.jca.AuthenticationMechanismType
 	 * @see #isSetAuthenticationMechanismType()
 	 * @see #unsetAuthenticationMechanismType()
 	 * @see #getAuthenticationMechanismType()
@@ -91,7 +91,7 @@ public interface AuthenticationMechanism extends EObject{
 	void setAuthenticationMechanismType(AuthenticationMechanismType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getAuthenticationMechanismType <em>Authentication Mechanism Type</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getAuthenticationMechanismType <em>Authentication Mechanism Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetAuthenticationMechanismType()
@@ -102,7 +102,7 @@ public interface AuthenticationMechanism extends EObject{
 	void unsetAuthenticationMechanismType();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getAuthenticationMechanismType <em>Authentication Mechanism Type</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getAuthenticationMechanismType <em>Authentication Mechanism Type</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Authentication Mechanism Type</em>' attribute is set.
@@ -156,7 +156,7 @@ public interface AuthenticationMechanism extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -167,8 +167,8 @@ public interface AuthenticationMechanism extends EObject{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getAuthenticationMechanism_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAuthenticationMechanism_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

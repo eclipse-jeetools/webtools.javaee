@@ -51,7 +51,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WebModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.AppClient12ImportStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.DirectoryArchiveLoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.DirectoryArchiveLoadStrategyImpl;
@@ -65,6 +64,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ReadOnlyDirector
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.TempZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.War22ImportStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 
 
 /**
@@ -140,37 +140,24 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case CommonarchivePackage.FILE :
-				return createFile();
-			case CommonarchivePackage.ARCHIVE :
-				return createArchive();
-			case CommonarchivePackage.EJB_JAR_FILE :
-				return createEJBJarFile();
-			case CommonarchivePackage.WAR_FILE :
-				return createWARFile();
-			case CommonarchivePackage.EAR_FILE :
-				return createEARFile();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE :
-				return createApplicationClientFile();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY :
-				return createReadOnlyDirectory();
-			case CommonarchivePackage.RAR_FILE :
-				return createRARFile();
-			case CommonarchivePackage.EJB_MODULE_REF :
-				return createEJBModuleRef();
-			case CommonarchivePackage.WEB_MODULE_REF :
-				return createWebModuleRef();
-			case CommonarchivePackage.CLIENT_MODULE_REF :
-				return createClientModuleRef();
-			case CommonarchivePackage.CONNECTOR_MODULE_REF :
-				return createConnectorModuleRef();
-			default :
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			case CommonarchivePackage.FILE: return createFile();
+			case CommonarchivePackage.ARCHIVE: return createArchive();
+			case CommonarchivePackage.EJB_JAR_FILE: return createEJBJarFile();
+			case CommonarchivePackage.WAR_FILE: return createWARFile();
+			case CommonarchivePackage.EAR_FILE: return createEARFile();
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE: return createApplicationClientFile();
+			case CommonarchivePackage.READ_ONLY_DIRECTORY: return createReadOnlyDirectory();
+			case CommonarchivePackage.RAR_FILE: return createRARFile();
+			case CommonarchivePackage.EJB_MODULE_REF: return createEJBModuleRef();
+			case CommonarchivePackage.WEB_MODULE_REF: return createWebModuleRef();
+			case CommonarchivePackage.CLIENT_MODULE_REF: return createClientModuleRef();
+			case CommonarchivePackage.CONNECTOR_MODULE_REF: return createConnectorModuleRef();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -938,12 +925,12 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public CommonarchivePackage getCommonarchivePackage() {
-		return (CommonarchivePackage) getEPackage();
+		return (CommonarchivePackage)getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * @deprecated
 	 * @generated
 	 */
 	public static CommonarchivePackage getPackage() {

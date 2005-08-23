@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
  */
-public interface File extends EObject {
+public interface File extends EObject{
 
 	/**
 	 * Return the path up to the filename; e.g., from com/ibm/foo/bar.class, com/ibm/foo
@@ -73,12 +73,9 @@ public interface File extends EObject {
 	long getLastModified();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getLastModified <em>Last Modified</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Last Modified</em>' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#getLastModified <em>Last Modified</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Last Modified</em>' attribute.
 	 * @see #isSetLastModified()
 	 * @see #unsetLastModified()
 	 * @see #getLastModified()
@@ -87,10 +84,8 @@ public interface File extends EObject {
 	void setLastModified(long value);
 
 	/**
-	 * Unsets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getLastModified <em>Last Modified</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#getLastModified <em>Last Modified</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #isSetLastModified()
 	 * @see #getLastModified()
 	 * @see #setLastModified(long)
@@ -99,10 +94,8 @@ public interface File extends EObject {
 	void unsetLastModified();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getLastModified <em>Last Modified</em>}'
-	 * attribute is set. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#getLastModified <em>Last Modified</em>}' attribute is set.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Last Modified</em>' attribute is set.
 	 * @see #unsetLastModified()
 	 * @see #getLastModified()
@@ -144,10 +137,8 @@ public interface File extends EObject {
 	void unsetSize();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getSize <em>Size</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#getSize <em>Size</em>}' attribute is set.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @return whether the value of the '<em>Size</em>' attribute is set.
 	 * @see #unsetSize()
 	 * @see #getSize()
@@ -176,12 +167,9 @@ public interface File extends EObject {
 	boolean isDirectoryEntry();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#isDirectoryEntry <em>Directory Entry</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Directory Entry</em>' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#isDirectoryEntry <em>Directory Entry</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Directory Entry</em>' attribute.
 	 * @see #isSetDirectoryEntry()
 	 * @see #unsetDirectoryEntry()
 	 * @see #isDirectoryEntry()
@@ -190,10 +178,8 @@ public interface File extends EObject {
 	void setDirectoryEntry(boolean value);
 
 	/**
-	 * Unsets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#isDirectoryEntry <em>Directory Entry</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#isDirectoryEntry <em>Directory Entry</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #isSetDirectoryEntry()
 	 * @see #isDirectoryEntry()
 	 * @see #setDirectoryEntry(boolean)
@@ -202,10 +188,8 @@ public interface File extends EObject {
 	void unsetDirectoryEntry();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#isDirectoryEntry <em>Directory Entry</em>}'
-	 * attribute is set. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#isDirectoryEntry <em>Directory Entry</em>}' attribute is set.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Directory Entry</em>' attribute is set.
 	 * @see #unsetDirectoryEntry()
 	 * @see #isDirectoryEntry()

@@ -61,7 +61,7 @@
 		(object ClassAttribute "version"
 		    quid       	"3E53F85800F7"
 		    documentation 	
-|@since J2EE1.4 
+|@version J2EE1.4 
 |The required value for the version is 1.4.
 		    
 		    type       	"String"
@@ -72,11 +72,7 @@
 		(object Attribute
 		    tool       	"IDL"
 		    name       	"uuid"
-		    value      	(value Text "DCE:d880c4a0-8826-11e1-0000-005d9e6adec4:1"))
-		(object Attribute
-		    tool       	"Java"
-		    name       	"cg_style"
-		    value      	"Default_EJB"))
+		    value      	(value Text "DCE:d880c4a0-8826-11e1-0000-005d9e6adec4:1")))
 	    quid       	"38C0322C0006"
 	    documentation 	
 |The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
@@ -308,23 +304,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"3904860D027B"
-		    compartment 	(object Compartment
-			Parent_View 	@1
-			location   	(142, 1566)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	2
-			max_width  	413)
 		    width      	394
 		    height     	230
 		    annotation 	8
@@ -504,23 +483,6 @@
 		    line_color 	3342489
 		    fill_color 	12632256
 		    quidu      	"38C031FE012D"
-		    compartment 	(object Compartment
-			Parent_View 	@7
-			location   	(122, 1062)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	391)
 		    width      	374
 		    height     	332
 		    annotation 	8
@@ -551,23 +513,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38C030A803B1"
-		    compartment 	(object Compartment
-			Parent_View 	@8
-			location   	(114, 294)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	2
-			max_width  	328)
 		    width      	524
 		    height     	436
 		    annotation 	8
@@ -868,10 +813,10 @@
 			    supplier   	@16
 			    vertices   	(list Points
 				(878, 661)
-				(878, 958))
+				(878, 957))
 			    line_style 	3
 			    origin_attachment 	(878, 661)
-			    terminal_attachment 	(878, 958)
+			    terminal_attachment 	(878, 957)
 			    label      	(object SegLabel @23
 				Parent_View 	@21
 				location   	(948, 916)

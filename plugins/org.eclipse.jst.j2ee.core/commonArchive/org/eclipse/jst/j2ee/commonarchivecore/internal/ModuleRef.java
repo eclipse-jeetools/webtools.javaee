@@ -21,9 +21,10 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
 
-public interface ModuleRef extends EObject {
+public interface ModuleRef extends EObject{
 
 	/**
 	 * Return the parsed local deployment descriptor from the ModuleFile
@@ -145,28 +146,26 @@ public interface ModuleRef extends EObject {
 	void setEarFile(EARFile value);
 
 	/**
-	 * Returns the value of the '<em><b>Module</b></em>' reference. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Module</b></em>' reference.
+	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Module</em>' reference isn't clear, there really should be
-	 * more of a description here...
+	 * If the meaning of the '<em>Module</em>' reference isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Module</em>' reference.
 	 * @see #setModule(Module)
-	 * @see org.eclipse.jst.j2ee.internal.commonarchivecore.CommonarchivePackage#getModuleRef_Module()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage#getModuleRef_Module()
 	 * @model required="true"
 	 * @generated
 	 */
 	Module getModule();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.ModuleRef#getModule <em>Module</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Module</em>' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef#getModule <em>Module</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Module</em>' reference.
 	 * @see #getModule()
 	 * @generated
 	 */

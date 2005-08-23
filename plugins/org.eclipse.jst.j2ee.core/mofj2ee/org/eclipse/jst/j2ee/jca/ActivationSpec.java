@@ -29,13 +29,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getActivationSpecClass <em>Activation Spec Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getRequiredConfigProperties <em>Required Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ActivationSpec#getActivationSpecClass <em>Activation Spec Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ActivationSpec#getRequiredConfigProperties <em>Required Config Properties</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getActivationSpec()
- * @model 
+ * @see org.eclipse.jst.j2ee.jca.JcaPackage#getActivationSpec()
+ * @model
  * @generated
  */
 public interface ActivationSpec extends EObject{
@@ -61,14 +61,14 @@ public interface ActivationSpec extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Spec Class</em>' attribute.
 	 * @see #setActivationSpecClass(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getActivationSpec_ActivationSpecClass()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getActivationSpec_ActivationSpecClass()
+	 * @model
 	 * @generated
 	 */
 	String getActivationSpecClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getActivationSpecClass <em>Activation Spec Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ActivationSpec#getActivationSpecClass <em>Activation Spec Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Activation Spec Class</em>' attribute.
@@ -79,7 +79,7 @@ public interface ActivationSpec extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Required Config Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Required Config Properties</em>' containment reference list isn't clear,
@@ -87,8 +87,8 @@ public interface ActivationSpec extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Required Config Properties</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getActivationSpec_RequiredConfigProperties()
-	 * @model type="org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getActivationSpec_RequiredConfigProperties()
+	 * @model type="org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType" containment="true"
 	 * @generated
 	 */
 	EList getRequiredConfigProperties();

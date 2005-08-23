@@ -17,10 +17,10 @@ package org.eclipse.jst.j2ee.internal.model.translator.webapplication;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.internal.xml.WarDeploymentDescriptorXmlMapperI;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
 
 /**

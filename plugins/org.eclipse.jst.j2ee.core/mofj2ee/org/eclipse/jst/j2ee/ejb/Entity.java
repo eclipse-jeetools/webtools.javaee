@@ -36,7 +36,7 @@ public void setPrimaryKeyName(String primaryKeyName);
 	boolean isReentrant();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Entity#isReentrant <em>Reentrant</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.Entity#isReentrant <em>Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Reentrant</em>' attribute.
@@ -48,7 +48,7 @@ public void setPrimaryKeyName(String primaryKeyName);
 	void setReentrant(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Entity#isReentrant <em>Reentrant</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.Entity#isReentrant <em>Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #isSetReentrant()
@@ -59,7 +59,7 @@ public void setPrimaryKeyName(String primaryKeyName);
   void unsetReentrant();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Entity#isReentrant <em>Reentrant</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.Entity#isReentrant <em>Reentrant</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Reentrant</em>' attribute is set.

@@ -35,7 +35,6 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -44,17 +43,16 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
+				case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE, msgs);
-				default :
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -65,15 +63,14 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
+				case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
 					return eBasicSetContainer(null, CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE, msgs);
-				default :
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -82,15 +79,14 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
+				case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.EAR_FILE__MODULE_REFS, EARFile.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -99,20 +95,17 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE :
-				if (resolve)
-					return getModuleFile();
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE:
+				if (resolve) return getModuleFile();
 				return basicGetModuleFile();
-			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
+			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
 				return getEarFile();
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE :
-				if (resolve)
-					return getModule();
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE:
+				if (resolve) return getModule();
 				return basicGetModule();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -120,19 +113,18 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE :
-				setModuleFile((ModuleFile) newValue);
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE:
+				setModuleFile((ModuleFile)newValue);
 				return;
-			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
-				setEarFile((EARFile) newValue);
+			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
+				setEarFile((EARFile)newValue);
 				return;
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE :
-				setModule((Module) newValue);
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE:
+				setModule((Module)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -140,19 +132,18 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE :
-				setModuleFile((ModuleFile) null);
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE:
+				setModuleFile((ModuleFile)null);
 				return;
-			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
-				setEarFile((EARFile) null);
+			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
+				setEarFile((EARFile)null);
 				return;
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE :
-				setModule((Module) null);
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE:
+				setModule((Module)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -160,16 +151,15 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE :
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE_FILE:
 				return moduleFile != null;
-			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE :
+			case CommonarchivePackage.CLIENT_MODULE_REF__EAR_FILE:
 				return getEarFile() != null;
-			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE :
+			case CommonarchivePackage.CLIENT_MODULE_REF__MODULE:
 				return module != null;
 		}
 		return eDynamicIsSet(eFeature);

@@ -37,7 +37,6 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -46,19 +45,18 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
+				case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER, msgs);
-				case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -69,17 +67,16 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
+				case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER, msgs);
-				case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -88,15 +85,14 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
+				case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -105,28 +101,26 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI:
 				return getURI();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES:
 				return getFiles();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -134,35 +128,34 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -170,33 +163,32 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES:
 				getFiles().clear();
 				return;
 		}
@@ -205,26 +197,25 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES :
+			case CommonarchivePackage.READ_ONLY_DIRECTORY__FILES:
 				return files != null && !files.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);

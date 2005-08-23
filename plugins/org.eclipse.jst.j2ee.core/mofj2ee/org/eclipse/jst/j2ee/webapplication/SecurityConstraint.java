@@ -29,14 +29,14 @@ public interface SecurityConstraint extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Display Name</em>' attribute.
 	 * @see #setDisplayName(String)
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getSecurityConstraint_DisplayName()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getSecurityConstraint_DisplayName()
+	 * @model
 	 * @generated
 	 */
 	String getDisplayName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.SecurityConstraint#getDisplayName <em>Display Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.SecurityConstraint#getDisplayName <em>Display Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Display Name</em>' attribute.
@@ -89,7 +89,7 @@ public interface SecurityConstraint extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.DisplayName}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.DisplayName}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Display Names</em>' containment reference list isn't clear,
@@ -97,8 +97,8 @@ public interface SecurityConstraint extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Names</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getSecurityConstraint_DisplayNames()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.DisplayName" containment="true"
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getSecurityConstraint_DisplayNames()
+	 * @model type="org.eclipse.jst.j2ee.common.DisplayName" containment="true"
 	 * @generated
 	 */
 	EList getDisplayNames();

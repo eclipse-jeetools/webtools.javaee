@@ -64,7 +64,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 	Integer getLoadOnStartup();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.Servlet#getLoadOnStartup <em>Load On Startup</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.Servlet#getLoadOnStartup <em>Load On Startup</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Load On Startup</em>' attribute.
@@ -76,7 +76,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 	void setLoadOnStartup(Integer value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.Servlet#getLoadOnStartup <em>Load On Startup</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.webapplication.Servlet#getLoadOnStartup <em>Load On Startup</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #isSetLoadOnStartup()
@@ -87,7 +87,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
   void unsetLoadOnStartup();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.Servlet#getLoadOnStartup <em>Load On Startup</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webapplication.Servlet#getLoadOnStartup <em>Load On Startup</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Load On Startup</em>' attribute is set.
@@ -151,7 +151,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 
 	/**
 	 * Returns the value of the '<em><b>Init Params</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.ParamValue}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.ParamValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Init Params</em>' containment reference list isn't clear,
@@ -159,8 +159,8 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Init Params</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getServlet_InitParams()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.ParamValue" containment="true"
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getServlet_InitParams()
+	 * @model type="org.eclipse.jst.j2ee.common.ParamValue" containment="true"
 	 * @generated
 	 */
 	EList getInitParams();

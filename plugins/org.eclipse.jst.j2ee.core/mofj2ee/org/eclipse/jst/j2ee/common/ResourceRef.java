@@ -86,11 +86,11 @@ public interface ResourceRef extends EObject{
 	ResAuthTypeBase getAuth();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getAuth <em>Auth</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.ResourceRef#getAuth <em>Auth</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Auth</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.common.ResAuthTypeBase
+	 * @see org.eclipse.jst.j2ee.common.ResAuthTypeBase
 	 * @see #isSetAuth()
 	 * @see #unsetAuth()
 	 * @see #getAuth()
@@ -99,7 +99,7 @@ public interface ResourceRef extends EObject{
 	void setAuth(ResAuthTypeBase value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getAuth <em>Auth</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.common.ResourceRef#getAuth <em>Auth</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetAuth()
@@ -110,7 +110,7 @@ public interface ResourceRef extends EObject{
 	void unsetAuth();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getAuth <em>Auth</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.common.ResourceRef#getAuth <em>Auth</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Auth</em>' attribute is set.
@@ -147,11 +147,11 @@ public interface ResourceRef extends EObject{
 	ResSharingScopeType getResSharingScope();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getResSharingScope <em>Res Sharing Scope</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.ResourceRef#getResSharingScope <em>Res Sharing Scope</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Res Sharing Scope</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.common.ResSharingScopeType
+	 * @see org.eclipse.jst.j2ee.common.ResSharingScopeType
 	 * @see #isSetResSharingScope()
 	 * @see #unsetResSharingScope()
 	 * @see #getResSharingScope()
@@ -160,7 +160,7 @@ public interface ResourceRef extends EObject{
 	void setResSharingScope(ResSharingScopeType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getResSharingScope <em>Res Sharing Scope</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.common.ResourceRef#getResSharingScope <em>Res Sharing Scope</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetResSharingScope()
@@ -171,7 +171,7 @@ public interface ResourceRef extends EObject{
 	void unsetResSharingScope();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getResSharingScope <em>Res Sharing Scope</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.common.ResourceRef#getResSharingScope <em>Res Sharing Scope</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Res Sharing Scope</em>' attribute is set.
@@ -184,7 +184,7 @@ public interface ResourceRef extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -192,8 +192,8 @@ public interface ResourceRef extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getResourceRef_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getResourceRef_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

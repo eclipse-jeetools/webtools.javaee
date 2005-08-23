@@ -35,6 +35,9 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEResouceFactorySaxRegistry;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryDomRegistry;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
@@ -48,12 +51,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIteratorImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfigRegister;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResouceFactorySaxRegistry;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryDomRegistry;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfigRegister;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 /**

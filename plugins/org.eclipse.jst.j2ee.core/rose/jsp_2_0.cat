@@ -26,7 +26,7 @@
 	(object Class "JSPConfig"
 	    quid       	"3E4D4A3A01C8"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The jsp-configType is used to provide global configuration
 |information for the JSP files in a web application. It has
 |two subelements, taglib and jsp-property-group.
@@ -34,7 +34,7 @@
 	(object Class "JSPPropertyGroup"
 	    quid       	"3E4D4A970353"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The jsp-property-groupType is used to group a number of
 |files so they can be given global property information.
 |All files so described are deemed to be JSP files. The
@@ -156,7 +156,7 @@
 	(object Class "TagLibRefType"
 	    quid       	"3E4D4C370148"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |A taglib can be used to provide information on a tag
 |library that is used by a JSP page within the Web
 |Application.

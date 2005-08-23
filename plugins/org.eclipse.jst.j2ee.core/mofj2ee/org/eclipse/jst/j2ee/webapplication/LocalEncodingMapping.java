@@ -20,13 +20,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getLocale <em>Locale</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getLocale <em>Locale</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getEncoding <em>Encoding</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getLocalEncodingMapping()
- * @model 
+ * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMapping()
+ * @model
  * @generated
  */
 public interface LocalEncodingMapping extends EObject{
@@ -40,14 +40,14 @@ public interface LocalEncodingMapping extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Locale</em>' attribute.
 	 * @see #setLocale(String)
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getLocalEncodingMapping_Locale()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMapping_Locale()
+	 * @model
 	 * @generated
 	 */
 	String getLocale();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getLocale <em>Locale</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getLocale <em>Locale</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Locale</em>' attribute.
@@ -66,14 +66,14 @@ public interface LocalEncodingMapping extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Encoding</em>' attribute.
 	 * @see #setEncoding(String)
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getLocalEncodingMapping_Encoding()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMapping_Encoding()
+	 * @model
 	 * @generated
 	 */
 	String getEncoding();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getEncoding <em>Encoding</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getEncoding <em>Encoding</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Encoding</em>' attribute.

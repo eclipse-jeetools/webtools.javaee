@@ -29,13 +29,13 @@ import org.eclipse.jem.java.JavaClass;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef#getPortComponentLink <em>Port Component Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef#getPortComponentLink <em>Port Component Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getPortComponentRef()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getPortComponentRef()
+ * @model
  * @generated
  */
 public interface PortComponentRef extends EObject{
@@ -59,14 +59,14 @@ public interface PortComponentRef extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Port Component Link</em>' attribute.
 	 * @see #setPortComponentLink(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getPortComponentRef_PortComponentLink()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getPortComponentRef_PortComponentLink()
+	 * @model
 	 * @generated
 	 */
 	String getPortComponentLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef#getPortComponentLink <em>Port Component Link</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef#getPortComponentLink <em>Port Component Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Port Component Link</em>' attribute.
@@ -90,14 +90,14 @@ public interface PortComponentRef extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Endpoint Interface</em>' reference.
 	 * @see #setServiceEndpointInterface(JavaClass)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getPortComponentRef_ServiceEndpointInterface()
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getPortComponentRef_ServiceEndpointInterface()
 	 * @model required="true"
 	 * @generated
 	 */
 	JavaClass getServiceEndpointInterface();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef#getServiceEndpointInterface <em>Service Endpoint Interface</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef#getServiceEndpointInterface <em>Service Endpoint Interface</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Endpoint Interface</em>' reference.

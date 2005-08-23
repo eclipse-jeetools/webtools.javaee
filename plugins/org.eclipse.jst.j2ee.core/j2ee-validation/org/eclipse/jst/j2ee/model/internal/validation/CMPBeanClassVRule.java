@@ -24,7 +24,7 @@ import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
-import org.eclipse.jst.j2ee.internal.ejb.impl.LocalModelledPersistentAttributeFilter;
+import org.eclipse.jst.j2ee.ejb.internal.impl.LocalModelledPersistentAttributeFilter;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 

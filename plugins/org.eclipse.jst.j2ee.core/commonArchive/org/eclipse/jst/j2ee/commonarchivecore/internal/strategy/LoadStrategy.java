@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 
 
 /**

@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
@@ -39,14 +38,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescr
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseLibrary;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseWARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.WarFileDynamicClassLoader;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseLibrary;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseWARFile;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**
@@ -69,7 +68,6 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -350,25 +348,25 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.WAR_FILE__URI :
+			case CommonarchivePackage.WAR_FILE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.WAR_FILE__SIZE :
+			case CommonarchivePackage.WAR_FILE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER :
+			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.WAR_FILE__CONTAINER :
+			case CommonarchivePackage.WAR_FILE__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.WAR_FILE__FILES :
+			case CommonarchivePackage.WAR_FILE__FILES:
 				return files != null && !files.isEmpty();
-			case CommonarchivePackage.WAR_FILE__TYPES :
+			case CommonarchivePackage.WAR_FILE__TYPES:
 				return types != null && !types.isEmpty();
-			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR :
+			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
 				return deploymentDescriptor != null;
 		}
 		return eDynamicIsSet(eFeature);
@@ -379,37 +377,37 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.WAR_FILE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.WAR_FILE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.WAR_FILE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.WAR_FILE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.WAR_FILE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.WAR_FILE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.WAR_FILE__FILES :
+			case CommonarchivePackage.WAR_FILE__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.WAR_FILE__TYPES :
+			case CommonarchivePackage.WAR_FILE__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection) newValue);
+				getTypes().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((WebApp) newValue);
+			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((WebApp)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -420,35 +418,35 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.WAR_FILE__URI :
+			case CommonarchivePackage.WAR_FILE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.WAR_FILE__SIZE :
+			case CommonarchivePackage.WAR_FILE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.WAR_FILE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.WAR_FILE__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.WAR_FILE__FILES :
+			case CommonarchivePackage.WAR_FILE__FILES:
 				getFiles().clear();
 				return;
-			case CommonarchivePackage.WAR_FILE__TYPES :
+			case CommonarchivePackage.WAR_FILE__TYPES:
 				getTypes().clear();
 				return;
-			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((WebApp) null);
+			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((WebApp)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -460,7 +458,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	public WebApp getDeploymentDescriptorGen() {
 		if (deploymentDescriptor != null && deploymentDescriptor.eIsProxy()) {
 			WebApp oldDeploymentDescriptor = deploymentDescriptor;
-			deploymentDescriptor = (WebApp) EcoreUtil.resolve(deploymentDescriptor, this);
+			deploymentDescriptor = (WebApp)eResolveProxy((InternalEObject)deploymentDescriptor);
 			if (deploymentDescriptor != oldDeploymentDescriptor) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
@@ -471,7 +469,6 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public WebApp basicGetDeploymentDescriptor() {
@@ -490,19 +487,18 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.WAR_FILE__CONTAINER :
+				case CommonarchivePackage.WAR_FILE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.WAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.WAR_FILE__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.WAR_FILE__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -513,17 +509,16 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.WAR_FILE__CONTAINER :
+				case CommonarchivePackage.WAR_FILE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.WAR_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.WAR_FILE__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.WAR_FILE__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -532,15 +527,14 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.WAR_FILE__CONTAINER :
+				case CommonarchivePackage.WAR_FILE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -549,34 +543,31 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.WAR_FILE__URI :
+			case CommonarchivePackage.WAR_FILE__URI:
 				return getURI();
-			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.WAR_FILE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.WAR_FILE__SIZE :
+			case CommonarchivePackage.WAR_FILE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.WAR_FILE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.WAR_FILE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.WAR_FILE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.WAR_FILE__CONTAINER :
+			case CommonarchivePackage.WAR_FILE__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.WAR_FILE__FILES :
+			case CommonarchivePackage.WAR_FILE__FILES:
 				return getFiles();
-			case CommonarchivePackage.WAR_FILE__TYPES :
+			case CommonarchivePackage.WAR_FILE__TYPES:
 				return getTypes();
-			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR :
-				if (resolve)
-					return getDeploymentDescriptor();
+			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
+				if (resolve) return getDeploymentDescriptor();
 				return basicGetDeploymentDescriptor();
 		}
 		return eDynamicGet(eFeature, resolve);

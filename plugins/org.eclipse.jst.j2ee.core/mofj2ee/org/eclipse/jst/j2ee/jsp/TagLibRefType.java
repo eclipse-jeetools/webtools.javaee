@@ -27,13 +27,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibURI <em>Taglib URI</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibLocation <em>Taglib Location</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibURI <em>Taglib URI</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibLocation <em>Taglib Location</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getTagLibRefType()
- * @model 
+ * @see org.eclipse.jst.j2ee.jsp.JspPackage#getTagLibRefType()
+ * @model
  * @generated
  */
 public interface TagLibRefType extends EObject{
@@ -55,14 +55,14 @@ public interface TagLibRefType extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Taglib URI</em>' attribute.
 	 * @see #setTaglibURI(String)
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getTagLibRefType_TaglibURI()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getTagLibRefType_TaglibURI()
+	 * @model
 	 * @generated
 	 */
 	String getTaglibURI();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibURI <em>Taglib URI</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibURI <em>Taglib URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Taglib URI</em>' attribute.
@@ -87,14 +87,14 @@ public interface TagLibRefType extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Taglib Location</em>' attribute.
 	 * @see #setTaglibLocation(String)
-	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#getTagLibRefType_TaglibLocation()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#getTagLibRefType_TaglibLocation()
+	 * @model
 	 * @generated
 	 */
 	String getTaglibLocation();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibLocation <em>Taglib Location</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibLocation <em>Taglib Location</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Taglib Location</em>' attribute.

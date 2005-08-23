@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.EReference;
 /**
  * @lastgen interface CommonarchivePackage extends EPackage {}
  */
-public interface CommonarchivePackage extends EPackage {
+public interface CommonarchivePackage extends EPackage{
 	/**
-	 * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The package name.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	String eNAME = "commonarchivecore"; //$NON-NLS-1$
@@ -102,9 +102,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int FILE__SIZE = 2;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -124,9 +124,9 @@ public interface CommonarchivePackage extends EPackage {
 	int FILE__CONTAINER = 6;
 
 	/**
-	 * The number of structural features of the the '<em>File</em>' class. <!-- begin-user-doc
+	 * The number of structural features of the the '<em>File</em>' class.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -145,9 +145,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int CONTAINER__SIZE = FILE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -192,9 +192,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int ARCHIVE__SIZE = CONTAINER__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -218,9 +218,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int ARCHIVE__FILES = CONTAINER__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -248,9 +248,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int MODULE_FILE__SIZE = ARCHIVE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -274,9 +274,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int MODULE_FILE__FILES = ARCHIVE__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -304,9 +304,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int EJB_JAR_FILE__SIZE = MODULE_FILE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -330,9 +330,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int EJB_JAR_FILE__FILES = MODULE_FILE__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -364,9 +364,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int WAR_FILE__SIZE = MODULE_FILE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -390,9 +390,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int WAR_FILE__FILES = MODULE_FILE__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -424,9 +424,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int EAR_FILE__SIZE = MODULE_FILE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -450,9 +450,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int EAR_FILE__FILES = MODULE_FILE__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -488,9 +488,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int APPLICATION_CLIENT_FILE__SIZE = MODULE_FILE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -514,9 +514,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int APPLICATION_CLIENT_FILE__FILES = MODULE_FILE__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -529,7 +529,6 @@ public interface CommonarchivePackage extends EPackage {
 	/**
 	 * The number of structural features of the the '<em>Application Client File</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -552,9 +551,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int READ_ONLY_DIRECTORY__SIZE = CONTAINER__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -600,9 +599,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int RAR_FILE__SIZE = MODULE_FILE__SIZE;
 	/**
-	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute. <!-- begin-user-doc
+	 * The feature id for the '<em><b>Directory Entry</b></em>' attribute.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -626,9 +625,9 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	int RAR_FILE__FILES = MODULE_FILE__FILES;
 	/**
-	 * The feature id for the '<em><b>Types</b></em>' attribute list. <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -662,9 +661,9 @@ public interface CommonarchivePackage extends EPackage {
 	int MODULE_REF__EAR_FILE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Module</b></em>' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Module</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -689,9 +688,9 @@ public interface CommonarchivePackage extends EPackage {
 	int EJB_MODULE_REF__EAR_FILE = MODULE_REF__EAR_FILE;
 
 	/**
-	 * The feature id for the '<em><b>Module</b></em>' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Module</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -716,9 +715,9 @@ public interface CommonarchivePackage extends EPackage {
 	int WEB_MODULE_REF__EAR_FILE = MODULE_REF__EAR_FILE;
 
 	/**
-	 * The feature id for the '<em><b>Module</b></em>' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Module</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -743,9 +742,9 @@ public interface CommonarchivePackage extends EPackage {
 	int CLIENT_MODULE_REF__EAR_FILE = MODULE_REF__EAR_FILE;
 
 	/**
-	 * The feature id for the '<em><b>Module</b></em>' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Module</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -770,9 +769,9 @@ public interface CommonarchivePackage extends EPackage {
 	int CONNECTOR_MODULE_REF__EAR_FILE = MODULE_REF__EAR_FILE;
 
 	/**
-	 * The feature id for the '<em><b>Module</b></em>' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Module</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -792,15 +791,15 @@ public interface CommonarchivePackage extends EPackage {
 	 */
 	String eNS_URI = "commonarchive.xmi"; //$NON-NLS-1$
 	/**
-	 * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The package namespace name.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.commonarchivecore"; //$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.commonarchivecore"; //$NON-NLS-1$
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The singleton instance of the package.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	CommonarchivePackage eINSTANCE = org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchivePackageImpl.init();
@@ -866,12 +865,11 @@ public interface CommonarchivePackage extends EPackage {
 	EReference getModuleRef_EarFile();
 
 	/**
-	 * Returns the meta object for the reference '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.ModuleRef#getModule <em>Module</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef#getModule <em>Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Module</em>'.
-	 * @see org.eclipse.jst.j2ee.internal.commonarchivecore.ModuleRef#getModule()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef#getModule()
 	 * @see #getModuleRef()
 	 * @generated
 	 */
@@ -930,12 +928,10 @@ public interface CommonarchivePackage extends EPackage {
 	EClass getRARFile();
 
 	/**
-	 * Returns the meta object for the reference '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.RARFile#getDeploymentDescriptor <em>Deployment Descriptor</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile#getDeploymentDescriptor <em>Deployment Descriptor</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @return the meta object for the reference '<em>Deployment Descriptor</em>'.
-	 * @see org.eclipse.jst.j2ee.internal.commonarchivecore.RARFile#getDeploymentDescriptor()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile#getDeploymentDescriptor()
 	 * @see #getRARFile()
 	 * @generated
 	 */
@@ -981,12 +977,10 @@ public interface CommonarchivePackage extends EPackage {
 	EAttribute getFile_Size();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#isDirectoryEntry <em>Directory Entry</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.commonarchivecore.internal.File#isDirectoryEntry <em>Directory Entry</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @return the meta object for the attribute '<em>Directory Entry</em>'.
-	 * @see org.eclipse.jst.j2ee.internal.commonarchivecore.File#isDirectoryEntry()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.File#isDirectoryEntry()
 	 * @see #getFile()
 	 * @generated
 	 */

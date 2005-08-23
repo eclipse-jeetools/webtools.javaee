@@ -38,15 +38,15 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getConnectionDefinitions <em>Connection Definitions</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getAuthenticationMechanisms <em>Authentication Mechanisms</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getConnectionDefinitions <em>Connection Definitions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getAuthenticationMechanisms <em>Authentication Mechanisms</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getOutboundResourceAdapter()
- * @model 
+ * @see org.eclipse.jst.j2ee.jca.JcaPackage#getOutboundResourceAdapter()
+ * @model
  * @generated
  */
 public interface OutboundResourceAdapter extends EObject{
@@ -71,14 +71,14 @@ public interface OutboundResourceAdapter extends EObject{
 	 * @see #isSetReauthenticationSupport()
 	 * @see #unsetReauthenticationSupport()
 	 * @see #setReauthenticationSupport(boolean)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getOutboundResourceAdapter_ReauthenticationSupport()
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getOutboundResourceAdapter_ReauthenticationSupport()
 	 * @model unsettable="true"
 	 * @generated
 	 */
 	boolean isReauthenticationSupport();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Reauthentication Support</em>' attribute.
@@ -90,7 +90,7 @@ public interface OutboundResourceAdapter extends EObject{
 	void setReauthenticationSupport(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetReauthenticationSupport()
@@ -101,7 +101,7 @@ public interface OutboundResourceAdapter extends EObject{
 	void unsetReauthenticationSupport();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Reauthentication Support</em>' attribute is set.
@@ -114,7 +114,7 @@ public interface OutboundResourceAdapter extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Transaction Support</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.internal.jca.TransactionSupportKind}.
+	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.jca.TransactionSupportKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Transaction Support</em>' attribute isn't clear,
@@ -122,22 +122,22 @@ public interface OutboundResourceAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Transaction Support</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.jca.TransactionSupportKind
+	 * @see org.eclipse.jst.j2ee.jca.TransactionSupportKind
 	 * @see #isSetTransactionSupport()
 	 * @see #unsetTransactionSupport()
 	 * @see #setTransactionSupport(TransactionSupportKind)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getOutboundResourceAdapter_TransactionSupport()
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getOutboundResourceAdapter_TransactionSupport()
 	 * @model unsettable="true"
 	 * @generated
 	 */
 	TransactionSupportKind getTransactionSupport();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transaction Support</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.jca.TransactionSupportKind
+	 * @see org.eclipse.jst.j2ee.jca.TransactionSupportKind
 	 * @see #isSetTransactionSupport()
 	 * @see #unsetTransactionSupport()
 	 * @see #getTransactionSupport()
@@ -146,7 +146,7 @@ public interface OutboundResourceAdapter extends EObject{
 	void setTransactionSupport(TransactionSupportKind value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransactionSupport()
@@ -157,7 +157,7 @@ public interface OutboundResourceAdapter extends EObject{
 	void unsetTransactionSupport();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Transaction Support</em>' attribute is set.
@@ -170,7 +170,7 @@ public interface OutboundResourceAdapter extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Connection Definitions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.ConnectionDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Connection Definitions</em>' containment reference list isn't clear,
@@ -178,15 +178,15 @@ public interface OutboundResourceAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Connection Definitions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getOutboundResourceAdapter_ConnectionDefinitions()
-	 * @model type="org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getOutboundResourceAdapter_ConnectionDefinitions()
+	 * @model type="org.eclipse.jst.j2ee.jca.ConnectionDefinition" containment="true"
 	 * @generated
 	 */
 	EList getConnectionDefinitions();
 
 	/**
 	 * Returns the value of the '<em><b>Authentication Mechanisms</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Authentication Mechanisms</em>' containment reference list isn't clear,
@@ -194,8 +194,8 @@ public interface OutboundResourceAdapter extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Authentication Mechanisms</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getOutboundResourceAdapter_AuthenticationMechanisms()
-	 * @model type="org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getOutboundResourceAdapter_AuthenticationMechanisms()
+	 * @model type="org.eclipse.jst.j2ee.jca.AuthenticationMechanism" containment="true"
 	 * @generated
 	 */
 	EList getAuthenticationMechanisms();

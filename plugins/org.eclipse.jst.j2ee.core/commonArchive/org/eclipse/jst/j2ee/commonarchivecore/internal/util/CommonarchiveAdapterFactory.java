@@ -196,9 +196,9 @@ public class CommonarchiveAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for the default case. <!-- begin-user-doc --> This default
+	 * Creates a new adapter for the default case.
+	 * <!-- begin-user-doc --> This default
 	 * implementation returns null. <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @generated
 	 */
@@ -214,88 +214,74 @@ public class CommonarchiveAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject) object).eClass().getEPackage() == modelPackage;
+			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods. <!-- begin-user-doc -->
+	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
-	protected CommonarchiveSwitch modelSwitch = new CommonarchiveSwitch() {
-		public Object caseFile(File object) {
-			return createFileAdapter();
-		}
-
-		public Object caseArchive(Archive object) {
-			return createArchiveAdapter();
-		}
-
-		public Object caseEJBJarFile(EJBJarFile object) {
-			return createEJBJarFileAdapter();
-		}
-
-		public Object caseWARFile(WARFile object) {
-			return createWARFileAdapter();
-		}
-
-		public Object caseEARFile(EARFile object) {
-			return createEARFileAdapter();
-		}
-
-		public Object caseApplicationClientFile(ApplicationClientFile object) {
-			return createApplicationClientFileAdapter();
-		}
-
-		public Object caseModuleFile(ModuleFile object) {
-			return createModuleFileAdapter();
-		}
-
-		public Object caseContainer(Container object) {
-			return createContainerAdapter();
-		}
-
-		public Object caseReadOnlyDirectory(ReadOnlyDirectory object) {
-			return createReadOnlyDirectoryAdapter();
-		}
-
-		public Object caseRARFile(RARFile object) {
-			return createRARFileAdapter();
-		}
-
-		public Object caseModuleRef(ModuleRef object) {
-			return createModuleRefAdapter();
-		}
-
-		public Object caseEJBModuleRef(EJBModuleRef object) {
-			return createEJBModuleRefAdapter();
-		}
-
-		public Object caseWebModuleRef(WebModuleRef object) {
-			return createWebModuleRefAdapter();
-		}
-
-		public Object caseClientModuleRef(ClientModuleRef object) {
-			return createClientModuleRefAdapter();
-		}
-
-		public Object caseConnectorModuleRef(ConnectorModuleRef object) {
-			return createConnectorModuleRefAdapter();
-		}
-
-		public Object defaultCase(EObject object) {
-			return createEObjectAdapter();
-		}
-	};
+	protected CommonarchiveSwitch modelSwitch =
+		new CommonarchiveSwitch() {
+			public Object caseFile(File object) {
+				return createFileAdapter();
+			}
+			public Object caseArchive(Archive object) {
+				return createArchiveAdapter();
+			}
+			public Object caseEJBJarFile(EJBJarFile object) {
+				return createEJBJarFileAdapter();
+			}
+			public Object caseWARFile(WARFile object) {
+				return createWARFileAdapter();
+			}
+			public Object caseEARFile(EARFile object) {
+				return createEARFileAdapter();
+			}
+			public Object caseApplicationClientFile(ApplicationClientFile object) {
+				return createApplicationClientFileAdapter();
+			}
+			public Object caseModuleFile(ModuleFile object) {
+				return createModuleFileAdapter();
+			}
+			public Object caseContainer(Container object) {
+				return createContainerAdapter();
+			}
+			public Object caseReadOnlyDirectory(ReadOnlyDirectory object) {
+				return createReadOnlyDirectoryAdapter();
+			}
+			public Object caseRARFile(RARFile object) {
+				return createRARFileAdapter();
+			}
+			public Object caseModuleRef(ModuleRef object) {
+				return createModuleRefAdapter();
+			}
+			public Object caseEJBModuleRef(EJBModuleRef object) {
+				return createEJBModuleRefAdapter();
+			}
+			public Object caseWebModuleRef(WebModuleRef object) {
+				return createWebModuleRefAdapter();
+			}
+			public Object caseClientModuleRef(ClientModuleRef object) {
+				return createClientModuleRefAdapter();
+			}
+			public Object caseConnectorModuleRef(ConnectorModuleRef object) {
+				return createConnectorModuleRefAdapter();
+			}
+			public Object defaultCase(EObject object) {
+				return createEObjectAdapter();
+			}
+		};
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public Adapter createAdapterGen(Notifier target) {
-		return (Adapter) modelSwitch.doSwitch((EObject) target);
+		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 
 

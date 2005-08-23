@@ -18,8 +18,8 @@ package org.eclipse.jst.j2ee.internal.model.translator.application;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.xml.EarDeploymentDescriptorXmlMapperI;
 import org.eclipse.wst.common.internal.emf.resource.IDTranslator;

@@ -32,8 +32,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 
 /**
  * @author blancett

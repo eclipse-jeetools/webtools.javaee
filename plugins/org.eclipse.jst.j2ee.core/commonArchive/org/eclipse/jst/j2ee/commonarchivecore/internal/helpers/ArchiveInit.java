@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.helpers;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 

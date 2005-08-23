@@ -12,10 +12,10 @@ package org.eclipse.jst.j2ee.webservice.internal.wsdd;
 
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
-import org.eclipse.jst.j2ee.webservice.internal.wsdd.impl.WsddResourceImpl;
+import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddResourceImpl;
 import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;

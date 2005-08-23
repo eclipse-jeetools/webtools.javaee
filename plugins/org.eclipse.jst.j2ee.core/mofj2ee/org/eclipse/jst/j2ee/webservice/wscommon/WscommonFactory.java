@@ -11,14 +11,13 @@
 package org.eclipse.jst.j2ee.webservice.wscommon;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage
+ * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage
  * @generated
  */
 public interface WscommonFactory extends EFactory{
@@ -28,7 +27,7 @@ public interface WscommonFactory extends EFactory{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WscommonFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.wscommon.impl.WscommonFactoryImpl();
+  WscommonFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Init Param</em>'.

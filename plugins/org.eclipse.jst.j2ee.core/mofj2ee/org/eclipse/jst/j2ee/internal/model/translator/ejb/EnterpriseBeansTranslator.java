@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.xml.EjbDeploymentDescriptorXmlMapperI;
 import org.eclipse.wst.common.internal.emf.resource.MultiObjectTranslator;
 import org.eclipse.wst.common.internal.emf.resource.ReadAheadHelper;

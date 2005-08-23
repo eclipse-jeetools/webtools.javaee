@@ -22,15 +22,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
+import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 
@@ -53,7 +52,6 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -121,19 +119,18 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
+				case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -144,17 +141,16 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
+				case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -163,15 +159,14 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
+				case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -180,34 +175,31 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI:
 				return getURI();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES:
 				return getFiles();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES:
 				return getTypes();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR :
-				if (resolve)
-					return getDeploymentDescriptor();
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
+				if (resolve) return getDeploymentDescriptor();
 				return basicGetDeploymentDescriptor();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -218,25 +210,25 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES:
 				return files != null && !files.isEmpty();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES:
 				return types != null && !types.isEmpty();
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
 				return deploymentDescriptor != null;
 		}
 		return eDynamicIsSet(eFeature);
@@ -247,37 +239,37 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection) newValue);
+				getTypes().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((ApplicationClient) newValue);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((ApplicationClient)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -288,35 +280,35 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__FILES:
 				getFiles().clear();
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES :
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__TYPES:
 				getTypes().clear();
 				return;
-			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR :
-				setDeploymentDescriptor((ApplicationClient) null);
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
+				setDeploymentDescriptor((ApplicationClient)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -328,7 +320,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	public ApplicationClient getDeploymentDescriptorGen() {
 		if (deploymentDescriptor != null && deploymentDescriptor.eIsProxy()) {
 			ApplicationClient oldDeploymentDescriptor = deploymentDescriptor;
-			deploymentDescriptor = (ApplicationClient) EcoreUtil.resolve(deploymentDescriptor, this);
+			deploymentDescriptor = (ApplicationClient)eResolveProxy((InternalEObject)deploymentDescriptor);
 			if (deploymentDescriptor != oldDeploymentDescriptor) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR, oldDeploymentDescriptor, deploymentDescriptor));
@@ -339,7 +331,6 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ApplicationClient basicGetDeploymentDescriptor() {

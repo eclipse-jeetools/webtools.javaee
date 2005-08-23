@@ -48,7 +48,7 @@ public interface RoleSource extends EObject{
 	ContainerManagedEntity getEntityBean();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.RoleSource#getEntityBean <em>Entity Bean</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.RoleSource#getEntityBean <em>Entity Bean</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Entity Bean</em>' reference.
@@ -59,7 +59,7 @@ public interface RoleSource extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -70,8 +70,8 @@ public interface RoleSource extends EObject{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getRoleSource_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getRoleSource_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

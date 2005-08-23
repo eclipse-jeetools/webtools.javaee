@@ -41,11 +41,11 @@ boolean isEquivalent(MethodTransaction anotherMethodTransaction) ;
 	TransactionAttributeType getTransactionAttribute();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MethodTransaction#getTransactionAttribute <em>Transaction Attribute</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MethodTransaction#getTransactionAttribute <em>Transaction Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transaction Attribute</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.TransactionAttributeType
+	 * @see org.eclipse.jst.j2ee.ejb.TransactionAttributeType
 	 * @see #isSetTransactionAttribute()
 	 * @see #unsetTransactionAttribute()
 	 * @see #getTransactionAttribute()
@@ -54,7 +54,7 @@ boolean isEquivalent(MethodTransaction anotherMethodTransaction) ;
 	void setTransactionAttribute(TransactionAttributeType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MethodTransaction#getTransactionAttribute <em>Transaction Attribute</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.MethodTransaction#getTransactionAttribute <em>Transaction Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransactionAttribute()
@@ -65,7 +65,7 @@ boolean isEquivalent(MethodTransaction anotherMethodTransaction) ;
 	void unsetTransactionAttribute();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MethodTransaction#getTransactionAttribute <em>Transaction Attribute</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.MethodTransaction#getTransactionAttribute <em>Transaction Attribute</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Transaction Attribute</em>' attribute is set.
@@ -114,7 +114,7 @@ boolean isEquivalent(MethodTransaction anotherMethodTransaction) ;
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -125,8 +125,8 @@ boolean isEquivalent(MethodTransaction anotherMethodTransaction) ;
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getMethodTransaction_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getMethodTransaction_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

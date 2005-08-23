@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.commonarchivecore.internal.util;
 
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
@@ -35,8 +37,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 
 public class CommonarchiveSwitch {
 	/**
-	 * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached model package
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected static CommonarchivePackage modelPackage;
@@ -246,154 +248,162 @@ public class CommonarchiveSwitch {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public Object doSwitchGen(EObject theEObject) {
-		EClass theEClass = theEObject.eClass();
+		return doSwitch(theEObject.eClass(), theEObject);
+	}
+
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	protected Object doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
-			switch (theEClass.getClassifierID()) {
-				case CommonarchivePackage.FILE : {
-					File file = (File) theEObject;
-					Object result = caseFile(file);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.ARCHIVE : {
-					Archive archive = (Archive) theEObject;
-					Object result = caseArchive(archive);
-					if (result == null)
-						result = caseContainer(archive);
-					if (result == null)
-						result = caseFile(archive);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.EJB_JAR_FILE : {
-					EJBJarFile ejbJarFile = (EJBJarFile) theEObject;
-					Object result = caseEJBJarFile(ejbJarFile);
-					if (result == null)
-						result = caseModuleFile(ejbJarFile);
-					if (result == null)
-						result = caseArchive(ejbJarFile);
-					if (result == null)
-						result = caseContainer(ejbJarFile);
-					if (result == null)
-						result = caseFile(ejbJarFile);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.WAR_FILE : {
-					WARFile warFile = (WARFile) theEObject;
-					Object result = caseWARFile(warFile);
-					if (result == null)
-						result = caseModuleFile(warFile);
-					if (result == null)
-						result = caseArchive(warFile);
-					if (result == null)
-						result = caseContainer(warFile);
-					if (result == null)
-						result = caseFile(warFile);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.EAR_FILE : {
-					EARFile earFile = (EARFile) theEObject;
-					Object result = caseEARFile(earFile);
-					if (result == null)
-						result = caseModuleFile(earFile);
-					if (result == null)
-						result = caseArchive(earFile);
-					if (result == null)
-						result = caseContainer(earFile);
-					if (result == null)
-						result = caseFile(earFile);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.APPLICATION_CLIENT_FILE : {
-					ApplicationClientFile applicationClientFile = (ApplicationClientFile) theEObject;
-					Object result = caseApplicationClientFile(applicationClientFile);
-					if (result == null)
-						result = caseModuleFile(applicationClientFile);
-					if (result == null)
-						result = caseArchive(applicationClientFile);
-					if (result == null)
-						result = caseContainer(applicationClientFile);
-					if (result == null)
-						result = caseFile(applicationClientFile);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.READ_ONLY_DIRECTORY : {
-					ReadOnlyDirectory readOnlyDirectory = (ReadOnlyDirectory) theEObject;
-					Object result = caseReadOnlyDirectory(readOnlyDirectory);
-					if (result == null)
-						result = caseContainer(readOnlyDirectory);
-					if (result == null)
-						result = caseFile(readOnlyDirectory);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.RAR_FILE : {
-					RARFile rarFile = (RARFile) theEObject;
-					Object result = caseRARFile(rarFile);
-					if (result == null)
-						result = caseModuleFile(rarFile);
-					if (result == null)
-						result = caseArchive(rarFile);
-					if (result == null)
-						result = caseContainer(rarFile);
-					if (result == null)
-						result = caseFile(rarFile);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.EJB_MODULE_REF : {
-					EJBModuleRef ejbModuleRef = (EJBModuleRef) theEObject;
-					Object result = caseEJBModuleRef(ejbModuleRef);
-					if (result == null)
-						result = caseModuleRef(ejbModuleRef);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.WEB_MODULE_REF : {
-					WebModuleRef webModuleRef = (WebModuleRef) theEObject;
-					Object result = caseWebModuleRef(webModuleRef);
-					if (result == null)
-						result = caseModuleRef(webModuleRef);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.CLIENT_MODULE_REF : {
-					ClientModuleRef clientModuleRef = (ClientModuleRef) theEObject;
-					Object result = caseClientModuleRef(clientModuleRef);
-					if (result == null)
-						result = caseModuleRef(clientModuleRef);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				case CommonarchivePackage.CONNECTOR_MODULE_REF : {
-					ConnectorModuleRef connectorModuleRef = (ConnectorModuleRef) theEObject;
-					Object result = caseConnectorModuleRef(connectorModuleRef);
-					if (result == null)
-						result = caseModuleRef(connectorModuleRef);
-					if (result == null)
-						result = defaultCase(theEObject);
-					return result;
-				}
-				default :
-					return defaultCase(theEObject);
-			}
+			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
-		return defaultCase(theEObject);
+		else {
+			List eSuperTypes = theEClass.getESuperTypes();
+			return
+				eSuperTypes.isEmpty() ?
+					defaultCase(theEObject) :
+					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+		}
+	}
+
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	protected Object doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
+			case CommonarchivePackage.FILE: {
+				File file = (File)theEObject;
+				Object result = caseFile(file);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.ARCHIVE: {
+				Archive archive = (Archive)theEObject;
+				Object result = caseArchive(archive);
+				if (result == null) result = caseContainer(archive);
+				if (result == null) result = caseFile(archive);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.EJB_JAR_FILE: {
+				EJBJarFile ejbJarFile = (EJBJarFile)theEObject;
+				Object result = caseEJBJarFile(ejbJarFile);
+				if (result == null) result = caseModuleFile(ejbJarFile);
+				if (result == null) result = caseArchive(ejbJarFile);
+				if (result == null) result = caseContainer(ejbJarFile);
+				if (result == null) result = caseFile(ejbJarFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.WAR_FILE: {
+				WARFile warFile = (WARFile)theEObject;
+				Object result = caseWARFile(warFile);
+				if (result == null) result = caseModuleFile(warFile);
+				if (result == null) result = caseArchive(warFile);
+				if (result == null) result = caseContainer(warFile);
+				if (result == null) result = caseFile(warFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.EAR_FILE: {
+				EARFile earFile = (EARFile)theEObject;
+				Object result = caseEARFile(earFile);
+				if (result == null) result = caseModuleFile(earFile);
+				if (result == null) result = caseArchive(earFile);
+				if (result == null) result = caseContainer(earFile);
+				if (result == null) result = caseFile(earFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.APPLICATION_CLIENT_FILE: {
+				ApplicationClientFile applicationClientFile = (ApplicationClientFile)theEObject;
+				Object result = caseApplicationClientFile(applicationClientFile);
+				if (result == null) result = caseModuleFile(applicationClientFile);
+				if (result == null) result = caseArchive(applicationClientFile);
+				if (result == null) result = caseContainer(applicationClientFile);
+				if (result == null) result = caseFile(applicationClientFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.MODULE_FILE: {
+				ModuleFile moduleFile = (ModuleFile)theEObject;
+				Object result = caseModuleFile(moduleFile);
+				if (result == null) result = caseArchive(moduleFile);
+				if (result == null) result = caseContainer(moduleFile);
+				if (result == null) result = caseFile(moduleFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.CONTAINER: {
+				Container container = (Container)theEObject;
+				Object result = caseContainer(container);
+				if (result == null) result = caseFile(container);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.READ_ONLY_DIRECTORY: {
+				ReadOnlyDirectory readOnlyDirectory = (ReadOnlyDirectory)theEObject;
+				Object result = caseReadOnlyDirectory(readOnlyDirectory);
+				if (result == null) result = caseContainer(readOnlyDirectory);
+				if (result == null) result = caseFile(readOnlyDirectory);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.RAR_FILE: {
+				RARFile rarFile = (RARFile)theEObject;
+				Object result = caseRARFile(rarFile);
+				if (result == null) result = caseModuleFile(rarFile);
+				if (result == null) result = caseArchive(rarFile);
+				if (result == null) result = caseContainer(rarFile);
+				if (result == null) result = caseFile(rarFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.MODULE_REF: {
+				ModuleRef moduleRef = (ModuleRef)theEObject;
+				Object result = caseModuleRef(moduleRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.EJB_MODULE_REF: {
+				EJBModuleRef ejbModuleRef = (EJBModuleRef)theEObject;
+				Object result = caseEJBModuleRef(ejbModuleRef);
+				if (result == null) result = caseModuleRef(ejbModuleRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.WEB_MODULE_REF: {
+				WebModuleRef webModuleRef = (WebModuleRef)theEObject;
+				Object result = caseWebModuleRef(webModuleRef);
+				if (result == null) result = caseModuleRef(webModuleRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.CLIENT_MODULE_REF: {
+				ClientModuleRef clientModuleRef = (ClientModuleRef)theEObject;
+				Object result = caseClientModuleRef(clientModuleRef);
+				if (result == null) result = caseModuleRef(clientModuleRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CommonarchivePackage.CONNECTOR_MODULE_REF: {
+				ConnectorModuleRef connectorModuleRef = (ConnectorModuleRef)theEObject;
+				Object result = caseConnectorModuleRef(connectorModuleRef);
+				if (result == null) result = caseModuleRef(connectorModuleRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			default: return defaultCase(theEObject);
+		}
 	}
 
 	/**

@@ -139,8 +139,8 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(String)
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getEJBJar_Version()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getEJBJar_Version()
+	 * @model
 	 * @generated
 	 */
 	String getVersion();
@@ -151,7 +151,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	public int getVersionID() throws IllegalStateException ;
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EJBJar#getVersion <em>Version</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.EJBJar#getVersion <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Version</em>' attribute.

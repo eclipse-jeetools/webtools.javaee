@@ -30,11 +30,11 @@ public interface Session extends EnterpriseBean{
 	TransactionType getTransactionType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getTransactionType <em>Transaction Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getTransactionType <em>Transaction Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transaction Type</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.TransactionType
+	 * @see org.eclipse.jst.j2ee.ejb.TransactionType
 	 * @see #isSetTransactionType()
 	 * @see #unsetTransactionType()
 	 * @see #getTransactionType()
@@ -43,7 +43,7 @@ public interface Session extends EnterpriseBean{
 	void setTransactionType(TransactionType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getTransactionType <em>Transaction Type</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getTransactionType <em>Transaction Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransactionType()
@@ -54,7 +54,7 @@ public interface Session extends EnterpriseBean{
 	void unsetTransactionType();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getTransactionType <em>Transaction Type</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getTransactionType <em>Transaction Type</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Transaction Type</em>' attribute is set.
@@ -72,11 +72,11 @@ public interface Session extends EnterpriseBean{
 	SessionType getSessionType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getSessionType <em>Session Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getSessionType <em>Session Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Session Type</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.SessionType
+	 * @see org.eclipse.jst.j2ee.ejb.SessionType
 	 * @see #isSetSessionType()
 	 * @see #unsetSessionType()
 	 * @see #getSessionType()
@@ -85,7 +85,7 @@ public interface Session extends EnterpriseBean{
 	void setSessionType(SessionType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getSessionType <em>Session Type</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getSessionType <em>Session Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetSessionType()
@@ -96,7 +96,7 @@ public interface Session extends EnterpriseBean{
 	void unsetSessionType();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getSessionType <em>Session Type</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getSessionType <em>Session Type</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Session Type</em>' attribute is set.
@@ -126,14 +126,14 @@ public interface Session extends EnterpriseBean{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Endpoint</em>' reference.
 	 * @see #setServiceEndpoint(JavaClass)
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getSession_ServiceEndpoint()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getSession_ServiceEndpoint()
+	 * @model
 	 * @generated
 	 */
 	JavaClass getServiceEndpoint();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getServiceEndpoint <em>Service Endpoint</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.Session#getServiceEndpoint <em>Service Endpoint</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Endpoint</em>' reference.
@@ -141,6 +141,7 @@ public interface Session extends EnterpriseBean{
 	 * @generated
 	 */
 	void setServiceEndpoint(JavaClass value);
+
 	/**
 	 * Helper method to set Java Class name via String
 	 */

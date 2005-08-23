@@ -11,14 +11,13 @@
 package org.eclipse.jst.j2ee.webservice.wsdd;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage
+ * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage
  * @generated
  */
 public interface WsddFactory extends EFactory{
@@ -28,7 +27,7 @@ public interface WsddFactory extends EFactory{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WsddFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.wsdd.impl.WsddFactoryImpl();
+  WsddFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Web Services</em>'.

@@ -31,7 +31,7 @@ public interface SessionConfig extends EObject{
 	void setSessionTimeout(int value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.SessionConfig#getSessionTimeout <em>Session Timeout</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.webapplication.SessionConfig#getSessionTimeout <em>Session Timeout</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #isSetSessionTimeout()
@@ -42,7 +42,7 @@ public interface SessionConfig extends EObject{
   void unsetSessionTimeout();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.SessionConfig#getSessionTimeout <em>Session Timeout</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webapplication.SessionConfig#getSessionTimeout <em>Session Timeout</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Session Timeout</em>' attribute is set.

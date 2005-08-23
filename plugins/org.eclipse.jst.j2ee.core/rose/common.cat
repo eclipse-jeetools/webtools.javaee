@@ -97,7 +97,7 @@
 		(object ClassAttribute "description"
 		    quid       	"38BDD87602E5"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -117,7 +117,7 @@
 		(object ClassAttribute "description"
 		    quid       	"371BD3710392"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -195,7 +195,7 @@
 		(object ClassAttribute "description"
 		    quid       	"371BD5580338"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -238,7 +238,7 @@
 		    exportControl 	"Public")
 		(object ClassAttribute "link"
 		    quid       	"39A9C7430008"
-		    documentation 	"@since J2EE1.4 deprecated"
+		    documentation 	"@version J2EE1.4 deprecated"
 		    type       	"String"
 		    exportControl 	"Public")
 		(object ClassAttribute "resSharingScope"
@@ -263,7 +263,7 @@
 	(object Class "EnvEntryType"
 	    quid       	"38BDD7A60315"
 	    documentation 	
-|@since J2EE1.3 added Character
+|@version J2EE1.3 added Character
 |String=0
 |Integer=1
 |Boolean=2
@@ -329,7 +329,7 @@
 		(object ClassAttribute "description"
 		    quid       	"38BDD89D01C8"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -443,7 +443,7 @@
 		(object ClassAttribute "description"
 		    quid       	"39BF21C20177"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the resource env ref.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -480,7 +480,7 @@
 	(object Class "EJBLocalRef"
 	    quid       	"398862E20101"
 	    documentation 	
-|@since J2EE1.3
+|@version J2EE1.3
 |The ejb-local-refType is used by ejb-local-ref elements for
 |the declaration of a reference to an enterprise bean's local
 |home. The declaration consists of:
@@ -529,7 +529,7 @@
 		(object ClassAttribute "description"
 		    quid       	"39BF2DDC00B3"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the run as identity.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -549,7 +549,7 @@
 	(object Class "IconType"
 	    quid       	"3E4A99EE003A"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The icon type contains small-icon and large-icon elements
 |that specify the file names for small and large GIF or
 |JPEG icon images used to represent the parent element in a
@@ -605,7 +605,7 @@
 	(object Class "DisplayName"
 	    quid       	"3E4A9922000E"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The display-name type contains a short name that is intended
 |to be displayed by tools. It is used by display-name
 |elements.  The display name need not be unique.
@@ -630,7 +630,7 @@
 	(object Class "MessageDestinationRef"
 	    quid       	"3E4C1F52028C"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The message-destination-ref element contains a declaration
 |of Deployment Component's reference to a message destination
 |associated with a resource in Deployment Component's
@@ -678,7 +678,7 @@
 	(object Class "MessageDestination"
 	    quid       	"3E4C211001CF"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The message-destinationType specifies a message
 |destination. The logical destination described by this
 |element is mapped to a physical destination by the Deployer.
@@ -718,7 +718,7 @@
 	(object Class "ParamValue"
 	    quid       	"3E4C221202C1"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |This type is a general type that can be used to declare
 |parameter/value lists.
 	    
@@ -735,20 +735,20 @@
 		    exportControl 	"Public")
 		(object ClassAttribute "description"
 		    quid       	"3F7868BE0236"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    type       	"String"
 		    exportControl 	"Public")))
 	(object Class "DescriptionGroup"
 	    quid       	"3E4D451F01FB"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |This group keeps the usage of the contained description related
 |elements consistent across J2EE deployment descriptors.
 	    )
 	(object Class "JNDIEnvRefsGroup"
 	    quid       	"3E4D53950349"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |This group keeps the usage of the contained JNDI environment
 |reference elements consistent across J2EE deployment descriptors.
 	    
@@ -768,7 +768,7 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "description"
 		    quid       	"398871C20279"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    type       	"String"
 		    exportControl 	"Public")))
 	(object Class "UseCallerIdentity"
@@ -785,7 +785,7 @@
 	(object Class "Description"
 	    quid       	"3E4A98D602E0"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The description type is used by a description element to
 |provide text describing the parent element.  The elements
 |that use this type should include any information that the
@@ -843,7 +843,7 @@
 	(object Class "Listener"
 	    quid       	"39BFB26001BD"
 	    documentation 	
-|@since J2EE1.4 moved from webapp
+|@version J2EE1.4 moved from webapp
 |
 |Declares a class in the application must be registered as a web application listener bean.
 	    
@@ -1026,7 +1026,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4C0B380084"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -1091,7 +1091,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4C09790230"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -1124,7 +1124,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E5679FE0344"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -1154,7 +1154,7 @@
 		    is_aggregate 	TRUE)))
 	(object Association "$UNNAMED$31"
 	    quid       	"3E95CA660065"
-	    documentation 	"@since J2EE1.4"
+	    documentation 	"@version J2EE1.4"
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E95CA66032C"
@@ -1173,7 +1173,7 @@
 	(object ClassDiagram "Refs to Resources"
 	    quid       	"39044F8402E5"
 	    title      	"Refs to Resources"
-	    documentation 	"@since J2EE1.4 deprecated"
+	    documentation 	"@version J2EE1.4 deprecated"
 	    zoom       	100
 	    max_height 	28350
 	    max_width  	21600
@@ -1215,23 +1215,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38C126FB0081"
-		    compartment 	(object Compartment
-			Parent_View 	@1
-			location   	(2382, 418)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	206)
 		    width      	344
 		    height     	292
 		    annotation 	8
@@ -1254,7 +1237,7 @@
 			nlines     	10
 			max_width  	1422
 			label      	
-|@since J2EE1.3 
+|@version J2EE1.3 
 |ADDED resSharingScope:ResSharingScopeType
 |
 |The res-sharing-scope element specifies whether connections obtained through the given resource manager connection factory reference can be shared. The value of this element, if specified, must be one of the two following:
@@ -1302,23 +1285,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF288C00A3"
-		    compartment 	(object Compartment
-			Parent_View 	@3
-			location   	(249, 2229)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	284)
 		    width      	464
 		    height     	292
 		    annotation 	8
@@ -1413,23 +1379,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"371BC7A0025C"
-		    compartment 	(object Compartment
-			Parent_View 	@7
-			location   	(2446, 1360)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	4
-			max_width  	391)
 		    width      	374
 		    height     	274
 		    annotation 	8
@@ -1598,23 +1547,6 @@
 		    line_color 	32768
 		    fill_color 	13434833
 		    quidu      	"398862E20101"
-		    compartment 	(object Compartment
-			Parent_View 	@15
-			location   	(109, 670)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	385)
 		    width      	376
 		    height     	278
 		    annotation 	8
@@ -1676,23 +1608,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF207200D3"
-		    compartment 	(object Compartment
-			Parent_View 	@17
-			location   	(151, 2542)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	572)
 		    width      	548
 		    height     	278
 		    annotation 	8
@@ -1817,23 +1732,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@23
-			location   	(1344, 2375)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	285)
 		    width      	274
 		    height     	228
 		    annotation 	8
@@ -1980,23 +1878,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"371BC79303C6"
-		    compartment 	(object Compartment
-			Parent_View 	@30
-			location   	(101, 1568)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	7
-			max_width  	810)
 		    width      	808
 		    height     	466
 		    annotation 	8
@@ -2047,23 +1928,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@33
-			location   	(1472, 471)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	285)
 		    width      	274
 		    height     	228
 		    annotation 	8
@@ -2159,10 +2023,10 @@
 			    supplier   	@30
 			    vertices   	(list Points
 				(815, 735)
-				(815, 1495))
+				(815, 1494))
 			    line_style 	3
 			    origin_attachment 	(815, 735)
-			    terminal_attachment 	(815, 1495))))
+			    terminal_attachment 	(815, 1494))))
 		(object ClassView "Class" "Logical View::ejb::EnterpriseBean" @39
 		    ShowCompartmentStereotypes 	TRUE
 		    IncludeOperation 	TRUE
@@ -2217,23 +2081,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"371BC78202B3"
-		    compartment 	(object Compartment
-			Parent_View 	@40
-			location   	(110, 137)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	7
-			max_width  	391)
 		    width      	374
 		    height     	416
 		    annotation 	8
@@ -2535,23 +2382,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"3780E71A010A"
-		    compartment 	(object Compartment
-			Parent_View 	@54
-			location   	(165, 1143)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	TRUE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	2
-			max_width  	303)
 		    width      	520
 		    height     	432
 		    annotation 	8
@@ -2582,23 +2412,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38C079140251"
-		    compartment 	(object Compartment
-			Parent_View 	@55
-			location   	(1281, 1390)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	659)
 		    width      	784
 		    height     	482
 		    annotation 	8
@@ -2629,23 +2442,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF2C040245"
-		    compartment 	(object Compartment
-			Parent_View 	@56
-			location   	(686, 1647)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	2
-			max_width  	391)
 		    width      	374
 		    height     	180
 		    annotation 	8
@@ -2707,7 +2503,7 @@
 			    supplier   	@54
 			    vertices   	(list Points
 				(705, 1510)
-				(640, 1448))
+				(641, 1448))
 			    line_style 	0)
 			(object RoleView "securityIdentity" @61
 			    Parent_View 	@58
@@ -2798,23 +2594,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"371BC7A0025C"
-		    compartment 	(object Compartment
-			Parent_View 	@64
-			location   	(158, 272)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	4
-			max_width  	391)
 		    width      	374
 		    height     	274
 		    annotation 	8
@@ -2845,23 +2624,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38C031FE012D"
-		    compartment 	(object Compartment
-			Parent_View 	@65
-			location   	(1406, 263)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	391)
 		    width      	374
 		    height     	228
 		    annotation 	8
@@ -3089,7 +2851,7 @@
 			    supplier   	@55
 			    vertices   	(list Points
 				(1313, 1905)
-				(1452, 1745))
+				(1450, 1745))
 			    line_style 	0)
 			(object RoleView "runAs" @77
 			    Parent_View 	@74
@@ -3131,7 +2893,7 @@
 			    supplier   	@73
 			    vertices   	(list Points
 				(1313, 1905)
-				(1174, 2065))
+				(1173, 2065))
 			    line_style 	0
 			    label      	(object SegLabel @79
 				Parent_View 	@77
@@ -3190,23 +2952,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@81
-			location   	(992, 839)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	285)
 		    width      	274
 		    height     	228
 		    annotation 	8
@@ -3266,7 +3011,7 @@
 			    supplier   	@81
 			    vertices   	(list Points
 				(987, 1283)
-				(1082, 994))
+				(1080, 994))
 			    line_style 	0
 			    label      	(object SegLabel @85
 				Parent_View 	@83
@@ -3299,7 +3044,7 @@
 			    supplier   	@56
 			    vertices   	(list Points
 				(987, 1283)
-				(893, 1573))
+				(892, 1573))
 			    line_style 	0)))
 		(object AssociationViewNew "$UNNAMED$18" @87
 		    location   	(482, 869)
@@ -3443,10 +3188,10 @@
 			    supplier   	@65
 			    vertices   	(list Points
 				(1634, 751)
-				(1634, 418))
+				(1634, 417))
 			    line_style 	3
 			    origin_attachment 	(1634, 751)
-			    terminal_attachment 	(1634, 418))
+			    terminal_attachment 	(1634, 417))
 			(object RoleView "descriptions" @95
 			    Parent_View 	@92
 			    location   	(1364, -89)
@@ -3539,23 +3284,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"39BF2DA40058"
-		    compartment 	(object Compartment
-			Parent_View 	@98
-			location   	(1767, 2071)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	572)
 		    width      	548
 		    height     	228
 		    annotation 	8
@@ -3607,7 +3335,7 @@
 			    supplier   	@73
 			    vertices   	(list Points
 				(1556, 2119)
-				(1355, 2123))
+				(1355, 2122))
 			    line_style 	0)
 			(object RoleView "identity" @102
 			    Parent_View 	@99
@@ -3649,7 +3377,7 @@
 			    supplier   	@98
 			    vertices   	(list Points
 				(1556, 2119)
-				(1757, 2116))
+				(1757, 2115))
 			    line_style 	0
 			    label      	(object SegLabel @104
 				Parent_View 	@102
@@ -3825,23 +3553,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38BDD7A60315"
-		    compartment 	(object Compartment
-			Parent_View 	@110
-			location   	(971, 1730)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	10
-			max_width  	234)
 		    width      	344
 		    height     	642
 		    annotation 	8
@@ -3864,7 +3575,7 @@
 			nlines     	3
 			max_width  	840
 			label      	
-|@since J2EE1.3
+|@version J2EE1.3
 |ADDED java.lang.Character to EnvEntryType
 			)
 		    line_color 	32768
@@ -3933,23 +3644,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@114
-			location   	(1312, 1175)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	285)
 		    width      	274
 		    height     	228
 		    annotation 	8
@@ -3980,23 +3674,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"371BC77800E2"
-		    compartment 	(object Compartment
-			Parent_View 	@115
-			location   	(193, 1215)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	5
-			max_width  	416)
 		    width      	400
 		    height     	372
 		    annotation 	8
@@ -4065,7 +3742,7 @@
 			    supplier   	@114
 			    vertices   	(list Points
 				(943, 1268)
-				(1302, 1230))
+				(1302, 1229))
 			    line_style 	0
 			    label      	(object SegLabel @120
 				Parent_View 	@118
@@ -4175,23 +3852,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3EAED1C200A8"
-		    compartment 	(object Compartment
-			Parent_View 	@123
-			location   	(2595, 1855)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	4
-			max_width  	425)
 		    width      	624
 		    height     	342
 		    annotation 	8
@@ -4222,23 +3882,6 @@
 		    line_color 	3342489
 		    fill_color 	16744703
 		    quidu      	"3F3BEF5D02C0"
-		    compartment 	(object Compartment
-			Parent_View 	@124
-			location   	(1622, 2321)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	5
-			max_width  	596)
 		    width      	710
 		    height     	336
 		    annotation 	8
@@ -4269,23 +3912,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3E4C1F52028C"
-		    compartment 	(object Compartment
-			Parent_View 	@125
-			location   	(1515, 1793)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	5
-			max_width  	778)
 		    width      	924
 		    height     	336
 		    annotation 	8
@@ -4346,23 +3972,6 @@
 		    line_color 	10949559
 		    fill_color 	15778042
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@127
-			location   	(3255, 963)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	293)
 		    width      	356
 		    height     	236
 		    annotation 	8
@@ -4504,7 +4113,7 @@
 			    supplier   	@126
 			    vertices   	(list Points
 				(3295, 798)
-				(3240, 708))
+				(3239, 708))
 			    line_style 	0)
 			(object RoleView "descriptions" @136
 			    Parent_View 	@133
@@ -4595,23 +4204,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3E4C221202C1"
-		    compartment 	(object Compartment
-			Parent_View 	@139
-			location   	(3256, 1466)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	4
-			max_width  	400)
 		    width      	482
 		    height     	286
 		    annotation 	8
@@ -4732,23 +4324,6 @@
 		    line_color 	3342489
 		    fill_color 	15778042
 		    quidu      	"3E4C211001CF"
-		    compartment 	(object Compartment
-			Parent_View 	@145
-			location   	(2430, 1139)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	2
-			max_width  	303)
 		    width      	368
 		    height     	236
 		    annotation 	8
@@ -4871,7 +4446,7 @@
 			    supplier   	@146
 			    vertices   	(list Points
 				(1794, 949)
-				(1947, 1033))
+				(1947, 1031))
 			    line_style 	0)
 			(object RoleView "listenerClass" @151
 			    Parent_View 	@148
@@ -4913,7 +4488,7 @@
 			    supplier   	@147
 			    vertices   	(list Points
 				(1794, 949)
-				(1641, 866))
+				(1643, 866))
 			    line_style 	0
 			    label      	(object SegLabel @153
 				Parent_View 	@151
@@ -4996,23 +4571,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"4023ADF20197"
-		    compartment 	(object Compartment
-			Parent_View 	@155
-			location   	(1950, 608)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	13434879
-			anchor     	2
-			nlines     	5
-			max_width  	437)
 		    width      	710
 		    height     	336
 		    annotation 	8
@@ -5110,23 +4668,6 @@
 		    line_color 	8421504
 		    fill_color 	12632256
 		    quidu      	"3E4A9922000E"
-		    compartment 	(object Compartment
-			Parent_View 	@161
-			location   	(2114, 634)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	466)
 		    width      	450
 		    height     	228
 		    annotation 	8
@@ -5157,23 +4698,6 @@
 		    line_color 	8421504
 		    fill_color 	12632256
 		    quidu      	"3E4A99EE003A"
-		    compartment 	(object Compartment
-			Parent_View 	@162
-			location   	(431, 620)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	4
-			max_width  	547)
 		    width      	528
 		    height     	274
 		    annotation 	8
@@ -5204,23 +4728,6 @@
 		    line_color 	8421504
 		    fill_color 	12632256
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@163
-			location   	(1441, 631)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	284)
 		    width      	274
 		    height     	228
 		    annotation 	8
@@ -5405,10 +4912,10 @@
 			    supplier   	@162
 			    vertices   	(list Points
 				(937, 1083)
-				(937, 821))
+				(937, 820))
 			    line_style 	3
 			    origin_attachment 	(937, 1083)
-			    terminal_attachment 	(937, 821)
+			    terminal_attachment 	(937, 820)
 			    label      	(object SegLabel @173
 				Parent_View 	@171
 				location   	(864, 843)
@@ -5565,23 +5072,6 @@
 		    line_color 	3342489
 		    fill_color 	16744703
 		    quidu      	"4023ADF20197"
-		    compartment 	(object Compartment
-			Parent_View 	@180
-			location   	(1080, 1513)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	13434879
-			anchor     	2
-			nlines     	5
-			max_width  	437)
 		    width      	710
 		    height     	336
 		    annotation 	8
@@ -6548,10 +6038,10 @@
 			    supplier   	@193
 			    vertices   	(list Points
 				(1796, 1508)
-				(1796, 2466))
+				(1796, 2465))
 			    line_style 	3
 			    origin_attachment 	(1796, 1508)
-			    terminal_attachment 	(1796, 2466))))
+			    terminal_attachment 	(1796, 2465))))
 		(object AssociationViewNew "" @224
 		    location   	(1740, 1411)
 		    font       	(object Font
@@ -6791,7 +6281,7 @@
 			    supplier   	@193
 			    vertices   	(list Points
 				(1677, 1248)
-				(1677, 2466))
+				(1677, 2465))
 			    line_style 	3
 			    origin_attachment 	(1677, 1248)
-			    terminal_attachment 	(1677, 2466))))))))
+			    terminal_attachment 	(1677, 2465))))))))

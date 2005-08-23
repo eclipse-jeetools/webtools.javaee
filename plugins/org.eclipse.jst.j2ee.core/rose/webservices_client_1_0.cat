@@ -130,10 +130,10 @@
 		    exportControl 	"Public")))
 	(object Class "WebServicesClient"
 	    quid       	"3F2EB3090267"
-	    documentation 	"@since J2EE1.4 deprecated")
+	    documentation 	"@version J2EE1.4 deprecated")
 	(object Class "ComponentScopedRefs"
 	    quid       	"3F2EB42A00AA"
-	    documentation 	"@since J2EE1.4 deprecated"
+	    documentation 	"@version J2EE1.4 deprecated"
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "componentName"
 		    quid       	"3F2EB454015F"

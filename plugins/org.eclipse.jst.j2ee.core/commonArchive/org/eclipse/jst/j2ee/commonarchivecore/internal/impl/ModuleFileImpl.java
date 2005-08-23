@@ -52,7 +52,6 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -61,19 +60,18 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.MODULE_FILE__CONTAINER :
+				case CommonarchivePackage.MODULE_FILE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.MODULE_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.MODULE_FILE__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.MODULE_FILE__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -84,17 +82,16 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.MODULE_FILE__CONTAINER :
+				case CommonarchivePackage.MODULE_FILE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.MODULE_FILE__CONTAINER, msgs);
-				case CommonarchivePackage.MODULE_FILE__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.MODULE_FILE__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -103,15 +100,14 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.MODULE_FILE__CONTAINER :
+				case CommonarchivePackage.MODULE_FILE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -120,30 +116,28 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_FILE__URI :
+			case CommonarchivePackage.MODULE_FILE__URI:
 				return getURI();
-			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.MODULE_FILE__SIZE :
+			case CommonarchivePackage.MODULE_FILE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.MODULE_FILE__CONTAINER :
+			case CommonarchivePackage.MODULE_FILE__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.MODULE_FILE__FILES :
+			case CommonarchivePackage.MODULE_FILE__FILES:
 				return getFiles();
-			case CommonarchivePackage.MODULE_FILE__TYPES :
+			case CommonarchivePackage.MODULE_FILE__TYPES:
 				return getTypes();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -151,39 +145,38 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_FILE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.MODULE_FILE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.MODULE_FILE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.MODULE_FILE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.MODULE_FILE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.MODULE_FILE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.MODULE_FILE__FILES :
+			case CommonarchivePackage.MODULE_FILE__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.MODULE_FILE__TYPES :
+			case CommonarchivePackage.MODULE_FILE__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection) newValue);
+				getTypes().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -191,36 +184,35 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_FILE__URI :
+			case CommonarchivePackage.MODULE_FILE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.MODULE_FILE__SIZE :
+			case CommonarchivePackage.MODULE_FILE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.MODULE_FILE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.MODULE_FILE__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.MODULE_FILE__FILES :
+			case CommonarchivePackage.MODULE_FILE__FILES:
 				getFiles().clear();
 				return;
-			case CommonarchivePackage.MODULE_FILE__TYPES :
+			case CommonarchivePackage.MODULE_FILE__TYPES:
 				getTypes().clear();
 				return;
 		}
@@ -229,28 +221,27 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.MODULE_FILE__URI :
+			case CommonarchivePackage.MODULE_FILE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED :
+			case CommonarchivePackage.MODULE_FILE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.MODULE_FILE__SIZE :
+			case CommonarchivePackage.MODULE_FILE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.MODULE_FILE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI :
+			case CommonarchivePackage.MODULE_FILE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER :
+			case CommonarchivePackage.MODULE_FILE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.MODULE_FILE__CONTAINER :
+			case CommonarchivePackage.MODULE_FILE__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.MODULE_FILE__FILES :
+			case CommonarchivePackage.MODULE_FILE__FILES:
 				return files != null && !files.isEmpty();
-			case CommonarchivePackage.MODULE_FILE__TYPES :
+			case CommonarchivePackage.MODULE_FILE__TYPES:
 				return types != null && !types.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);

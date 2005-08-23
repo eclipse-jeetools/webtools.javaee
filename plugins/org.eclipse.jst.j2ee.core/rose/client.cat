@@ -1,7 +1,7 @@
 
 (object Petal
-    version    	47
-    _written   	"Rose 8.0.0303.1400"
+    version    	50
+    _written   	"Rose 8.3.0407.2800"
     charSet    	0)
 
 (object Class_Category "client"
@@ -42,7 +42,11 @@
 		(object Attribute
 		    tool       	"IDL"
 		    name       	"uuid"
-		    value      	(value Text "DCE:d8e72790-8826-11e1-0002-005d9e6adec4:1")))
+		    value      	(value Text "DCE:d8e72790-8826-11e1-0002-005d9e6adec4:1"))
+		(object Attribute
+		    tool       	"Java"
+		    name       	"cg_style"
+		    value      	"Default_EJB"))
 	    quid       	"38C028AB009E"
 	    documentation 	
 |The application-client element is the root element of an application client deployment descriptor.  The application client deployment descriptor describes the EJB components and external resources referenced by the application client.
@@ -57,7 +61,7 @@
 		(object ClassAttribute "version"
 		    quid       	"3E559EEA0241"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The required value for the version is 1.4.
 		    
 		    type       	"String"
@@ -211,10 +215,10 @@
 	(object Association "$UNNAMED$8"
 	    quid       	"39895F3D029A"
 	    roles      	(list role_list
-		(object Role "callbackHandler"
+		(object Role "callbackHandler "
 		    quid       	"39895F3E01F1"
 		    documentation 	"A class provided by the application.  The class must have a no args constructor and must implement the javax.security.auth.callback.CallbackHandler interface.  The class will be instantiated by the application client container and used by the container to collect authentication information from the user."
-		    label      	"callbackHandler"
+		    label      	"callbackHandler "
 		    supplier   	"Logical View::java::JavaClass"
 		    quidu      	"36549FCC00FA"
 		    client_cardinality 	(value cardinality "0..1")
@@ -230,7 +234,7 @@
 	    roles      	(list role_list
 		(object Role "serviceRefs"
 		    quid       	"3E53F4AC02F4"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"serviceRefs"
 		    supplier   	"Logical View::wsclient::ServiceRef"
 		    quidu      	"3E4D2F560184"
@@ -248,7 +252,7 @@
 		(object Role "messageDestinationRefs"
 		    quid       	"3E53F50800B1"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The message-destination-ref-name element specifies the
 |    name of a message destination reference; its value is
 |    the message destination reference name used in the
@@ -272,7 +276,7 @@
 	    roles      	(list role_list
 		(object Role "messageDestinations"
 		    quid       	"3E53F5DD003F"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"messageDestinations"
 		    supplier   	"Logical View::common::MessageDestination"
 		    quidu      	"3E4C211001CF"
@@ -501,23 +505,6 @@
 		    line_color 	3342489
 		    fill_color 	16777088
 		    quidu      	"3E4D2F560184"
-		    compartment 	(object Compartment
-			Parent_View 	@7
-			location   	(336, 2108)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	4
-			max_width  	0)
 		    width      	210
 		    height     	174
 		    annotation 	8
@@ -608,23 +595,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38C028AB009E"
-		    compartment 	(object Compartment
-			Parent_View 	@10
-			location   	(131, 1119)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	2
-			max_width  	0)
 		    width      	524
 		    height     	436
 		    annotation 	8
@@ -674,6 +644,9 @@
 			    quidu      	"38C02A5D0002"
 			    client     	@11
 			    supplier   	@10
+			    vertices   	(list Points
+				(1564, 1330)
+				(646, 1330))
 			    line_style 	3
 			    origin_attachment 	(1564, 1330)
 			    terminal_attachment 	(646, 1330)
@@ -809,6 +782,9 @@
 			    quidu      	"38C02B46021C"
 			    client     	@18
 			    supplier   	@10
+			    vertices   	(list Points
+				(993, 1454)
+				(646, 1454))
 			    line_style 	3
 			    origin_attachment 	(993, 1454)
 			    terminal_attachment 	(646, 1454)
@@ -944,6 +920,9 @@
 			    quidu      	"38C02B4C0044"
 			    client     	@25
 			    supplier   	@10
+			    vertices   	(list Points
+				(1233, 1415)
+				(646, 1415))
 			    line_style 	3
 			    origin_attachment 	(1233, 1415)
 			    terminal_attachment 	(646, 1415)
@@ -1123,6 +1102,9 @@
 			    quidu      	"39895E8F034E"
 			    client     	@32
 			    supplier   	@10
+			    vertices   	(list Points
+				(1549, 1268)
+				(646, 1268))
 			    line_style 	3
 			    origin_attachment 	(1549, 1268)
 			    terminal_attachment 	(646, 1268))))
@@ -1141,7 +1123,7 @@
 		    line_color 	32768
 		    quidu      	"39895F3D029A"
 		    roleview_list 	(list RoleViews
-			(object RoleView "callbackHandler" @38
+			(object RoleView "callbackHandler " @38
 			    Parent_View 	@37
 			    location   	(397, 504)
 			    font       	(object Font
@@ -1170,7 +1152,7 @@
 				nlines     	1
 				max_width  	315
 				justify    	0
-				label      	"+callbackHandler"
+				label      	"+callbackHandler "
 				pctDist    	0.899209
 				height     	203
 				orientation 	1)
@@ -1179,6 +1161,9 @@
 			    quidu      	"39895F3E01F1"
 			    client     	@37
 			    supplier   	@6
+			    vertices   	(list Points
+				(781, 760)
+				(781, 309))
 			    line_style 	3
 			    origin_attachment 	(781, 760)
 			    terminal_attachment 	(781, 309)
@@ -1271,6 +1256,9 @@
 			    quidu      	"3E53F4AC02F4"
 			    client     	@42
 			    supplier   	@7
+			    vertices   	(list Points
+				(329, 1705)
+				(329, 1928))
 			    line_style 	3
 			    origin_attachment 	(329, 1705)
 			    terminal_attachment 	(329, 1928)
@@ -1303,6 +1291,9 @@
 			    quidu      	"3E53F4AC0308"
 			    client     	@42
 			    supplier   	@10
+			    vertices   	(list Points
+				(329, 1705)
+				(329, 1482))
 			    line_style 	3
 			    origin_attachment 	(329, 1705)
 			    terminal_attachment 	(329, 1482))))
@@ -1359,6 +1350,9 @@
 			    quidu      	"3E53F50800B1"
 			    client     	@47
 			    supplier   	@8
+			    vertices   	(list Points
+				(896, 1080)
+				(896, 827))
 			    line_style 	3
 			    origin_attachment 	(896, 1080)
 			    terminal_attachment 	(896, 827)
@@ -1487,6 +1481,9 @@
 			    quidu      	"3E53F5DD0053"
 			    client     	@52
 			    supplier   	@10
+			    vertices   	(list Points
+				(1401, 1202)
+				(646, 1202))
 			    line_style 	3
 			    origin_attachment 	(1401, 1202)
 			    terminal_attachment 	(646, 1202))))))

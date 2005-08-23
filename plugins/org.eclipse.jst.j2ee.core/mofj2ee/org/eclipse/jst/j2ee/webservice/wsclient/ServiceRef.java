@@ -34,21 +34,21 @@ import org.eclipse.jst.j2ee.common.QName;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getServiceInterface <em>Service Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getServiceRefName <em>Service Ref Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getWsdlFile <em>Wsdl File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getPortComponentRefs <em>Port Component Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getHandlers <em>Handlers</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getServiceQname <em>Service Qname</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getServiceInterface <em>Service Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getServiceRefName <em>Service Ref Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getWsdlFile <em>Wsdl File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getPortComponentRefs <em>Port Component Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getHandlers <em>Handlers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getServiceQname <em>Service Qname</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef()
+ * @model
  * @generated
  */
-public interface ServiceRef extends CompatibilityDescriptionGroup {
+public interface ServiceRef extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Service Ref Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -65,14 +65,14 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Ref Name</em>' attribute.
 	 * @see #setServiceRefName(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_ServiceRefName()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_ServiceRefName()
+	 * @model
 	 * @generated
 	 */
 	String getServiceRefName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getServiceRefName <em>Service Ref Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getServiceRefName <em>Service Ref Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Ref Name</em>' attribute.
@@ -95,14 +95,14 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Wsdl File</em>' attribute.
 	 * @see #setWsdlFile(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_WsdlFile()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_WsdlFile()
+	 * @model
 	 * @generated
 	 */
 	String getWsdlFile();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getWsdlFile <em>Wsdl File</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getWsdlFile <em>Wsdl File</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Wsdl File</em>' attribute.
@@ -127,14 +127,14 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Jaxrpc Mapping File</em>' attribute.
 	 * @see #setJaxrpcMappingFile(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_JaxrpcMappingFile()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_JaxrpcMappingFile()
+	 * @model
 	 * @generated
 	 */
 	String getJaxrpcMappingFile();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Jaxrpc Mapping File</em>' attribute.
@@ -159,14 +159,14 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Interface</em>' reference.
 	 * @see #setServiceInterface(JavaClass)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_ServiceInterface()
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_ServiceInterface()
 	 * @model required="true"
 	 * @generated
 	 */
 	JavaClass getServiceInterface();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getServiceInterface <em>Service Interface</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getServiceInterface <em>Service Interface</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Interface</em>' reference.
@@ -177,7 +177,7 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 
 	/**
 	 * Returns the value of the '<em><b>Port Component Refs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Port Component Refs</em>' containment reference list isn't clear,
@@ -192,15 +192,15 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 *         by the container for a Service.getPort(Class) method call.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Port Component Refs</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_PortComponentRefs()
-	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef" containment="true"
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_PortComponentRefs()
+	 * @model type="org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef" containment="true"
 	 * @generated
 	 */
 	EList getPortComponentRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Handlers</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsclient.Handler}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Handlers</em>' containment reference list isn't clear,
@@ -214,8 +214,8 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 *         with all ports of the service.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Handlers</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_Handlers()
-	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler" containment="true"
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_Handlers()
+	 * @model type="org.eclipse.jst.j2ee.webservice.wsclient.Handler" containment="true"
 	 * @generated
 	 */
 	EList getHandlers();
@@ -230,14 +230,14 @@ public interface ServiceRef extends CompatibilityDescriptionGroup {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Qname</em>' containment reference.
 	 * @see #setServiceQname(QName)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getServiceRef_ServiceQname()
+	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef_ServiceQname()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	QName getServiceQname();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef#getServiceQname <em>Service Qname</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef#getServiceQname <em>Service Qname</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Qname</em>' containment reference.

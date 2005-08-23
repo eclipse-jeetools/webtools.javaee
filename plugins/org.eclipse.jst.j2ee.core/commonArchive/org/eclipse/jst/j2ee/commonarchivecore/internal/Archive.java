@@ -30,14 +30,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 
 
 /**
  * @generated
  */
-public interface Archive extends Container {
+public interface Archive extends Container{
 
 	public static final int EXPAND_NONE = 0;
 	public static final int EXPAND_WAR_FILES = 1 << 1;
@@ -449,16 +450,16 @@ public interface Archive extends Container {
 	public boolean shouldUseJavaReflection();
 
 	/**
-	 * Returns the value of the '<em><b>Types</b></em>' attribute list. The list contents are
-	 * of type {@link java.lang.String}. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Types</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Types</em>' attribute list isn't clear, there really should be
 	 * more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Types</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.internal.commonarchivecore.CommonarchivePackage#getArchive_Types()
+	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage#getArchive_Types()
 	 * @model type="java.lang.String"
 	 * @generated
 	 */

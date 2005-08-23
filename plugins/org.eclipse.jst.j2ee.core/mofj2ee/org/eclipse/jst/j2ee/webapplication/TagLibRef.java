@@ -47,7 +47,7 @@ public interface TagLibRef extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Web App</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getTagLibs <em>Tag Libs</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getTagLibs <em>Tag Libs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Web App</em>' container reference isn't clear,
@@ -56,15 +56,15 @@ public interface TagLibRef extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Web App</em>' container reference.
 	 * @see #setWebApp(WebApp)
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getTagLibRef_WebApp()
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp#getTagLibs
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getTagLibRef_WebApp()
+	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getTagLibs
 	 * @model opposite="tagLibs"
 	 * @generated
 	 */
 	WebApp getWebApp();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.TagLibRef#getWebApp <em>Web App</em>}' container reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.TagLibRef#getWebApp <em>Web App</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Web App</em>' container reference.

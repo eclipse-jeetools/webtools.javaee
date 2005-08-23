@@ -27,14 +27,14 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEEJBLink <em>EEJB Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEServletLink <em>EServlet Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getBeanLink <em>Bean Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEEJBLink <em>EEJB Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEServletLink <em>EServlet Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getBeanLink <em>Bean Link</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getServiceImplBean()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServiceImplBean()
+ * @model
  * @generated
  */
 public interface ServiceImplBean extends EObject{
@@ -48,14 +48,14 @@ public interface ServiceImplBean extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>EEJB Link</em>' containment reference.
 	 * @see #setEEJBLink(EJBLink)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getServiceImplBean_EEJBLink()
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServiceImplBean_EEJBLink()
 	 * @model containment="true"
 	 * @generated
 	 */
   EJBLink getEEJBLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEEJBLink <em>EEJB Link</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEEJBLink <em>EEJB Link</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>EEJB Link</em>' containment reference.
@@ -74,14 +74,14 @@ public interface ServiceImplBean extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>EServlet Link</em>' containment reference.
 	 * @see #setEServletLink(ServletLink)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getServiceImplBean_EServletLink()
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServiceImplBean_EServletLink()
 	 * @model containment="true"
 	 * @generated
 	 */
   ServletLink getEServletLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEServletLink <em>EServlet Link</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEServletLink <em>EServlet Link</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>EServlet Link</em>' containment reference.
@@ -100,14 +100,14 @@ public interface ServiceImplBean extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bean Link</em>' containment reference.
 	 * @see #setBeanLink(BeanLink)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getServiceImplBean_BeanLink()
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServiceImplBean_BeanLink()
 	 * @model containment="true"
 	 * @generated
 	 */
   BeanLink getBeanLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getBeanLink <em>Bean Link</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getBeanLink <em>Bean Link</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Bean Link</em>' containment reference.

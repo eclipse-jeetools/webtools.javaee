@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDeploymentExtension()
+ * @see org.eclipse.jst.j2ee.common.CommonPackage#getDeploymentExtension()
  * @model 
  * @generated
  */
@@ -42,7 +42,7 @@ public interface DeploymentExtension extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Namespace</em>' attribute.
 	 * @see #setNamespace(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDeploymentExtension_Namespace()
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getDeploymentExtension_Namespace()
 	 * @model 
 	 * @generated
 	 */
@@ -68,7 +68,7 @@ public interface DeploymentExtension extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Must Understand</em>' attribute.
 	 * @see #setMustUnderstand(boolean)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDeploymentExtension_MustUnderstand()
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getDeploymentExtension_MustUnderstand()
 	 * @model 
 	 * @generated
 	 */
@@ -94,7 +94,7 @@ public interface DeploymentExtension extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Extension Elements</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDeploymentExtension_ExtensionElements()
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getDeploymentExtension_ExtensionElements()
 	 * @model type="org.eclipse.jst.j2ee.internal.common.ExtensibleType" containment="true" required="true"
 	 * @generated
 	 */

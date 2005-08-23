@@ -20,15 +20,15 @@ package org.eclipse.jst.j2ee.common;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDisplayName <em>Display Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getCompatibilityDescriptionGroup()
- * @model 
+ * @see org.eclipse.jst.j2ee.common.CommonPackage#getCompatibilityDescriptionGroup()
+ * @model
  * @generated
  */
 public interface CompatibilityDescriptionGroup extends DescriptionGroup{
@@ -42,14 +42,14 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Small Icon</em>' attribute.
 	 * @see #setSmallIcon(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getCompatibilityDescriptionGroup_SmallIcon()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getCompatibilityDescriptionGroup_SmallIcon()
+	 * @model
 	 * @generated
 	 */
 	String getSmallIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getSmallIcon <em>Small Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getSmallIcon <em>Small Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Small Icon</em>' attribute.
@@ -70,14 +70,14 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Large Icon</em>' attribute.
 	 * @see #setLargeIcon(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getCompatibilityDescriptionGroup_LargeIcon()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getCompatibilityDescriptionGroup_LargeIcon()
+	 * @model
 	 * @generated
 	 */
 	String getLargeIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getLargeIcon <em>Large Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getLargeIcon <em>Large Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Large Icon</em>' attribute.
@@ -98,14 +98,14 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getCompatibilityDescriptionGroup_Description()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getCompatibilityDescriptionGroup_Description()
+	 * @model
 	 * @generated
 	 */
 	String getDescription();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDescription <em>Description</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDescription <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Description</em>' attribute.
@@ -126,14 +126,14 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Name</em>' attribute.
 	 * @see #setDisplayName(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getCompatibilityDescriptionGroup_DisplayName()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getCompatibilityDescriptionGroup_DisplayName()
+	 * @model
 	 * @generated
 	 */
 	String getDisplayName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDisplayName <em>Display Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDisplayName <em>Display Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Display Name</em>' attribute.

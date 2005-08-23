@@ -116,7 +116,7 @@ public void setName(java.lang.String uniqueName);
 
 	/**
 	 * Returns the value of the '<em><b>Multiplicity</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.internal.ejb.MultiplicityKind}.
+	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.ejb.MultiplicityKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Multiplicity</em>' attribute isn't clear,
@@ -132,22 +132,22 @@ public void setName(java.lang.String uniqueName);
 	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multiplicity</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.MultiplicityKind
+	 * @see org.eclipse.jst.j2ee.ejb.MultiplicityKind
 	 * @see #isSetMultiplicity()
 	 * @see #unsetMultiplicity()
 	 * @see #setMultiplicity(MultiplicityKind)
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getEJBRelationshipRole_Multiplicity()
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getEJBRelationshipRole_Multiplicity()
 	 * @model unsettable="true"
 	 * @generated
 	 */
 	MultiplicityKind getMultiplicity();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#getMultiplicity <em>Multiplicity</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#getMultiplicity <em>Multiplicity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Multiplicity</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.MultiplicityKind
+	 * @see org.eclipse.jst.j2ee.ejb.MultiplicityKind
 	 * @see #isSetMultiplicity()
 	 * @see #unsetMultiplicity()
 	 * @see #getMultiplicity()
@@ -156,7 +156,7 @@ public void setName(java.lang.String uniqueName);
 	void setMultiplicity(MultiplicityKind value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#getMultiplicity <em>Multiplicity</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#getMultiplicity <em>Multiplicity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetMultiplicity()
@@ -167,7 +167,7 @@ public void setName(java.lang.String uniqueName);
 	void unsetMultiplicity();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#getMultiplicity <em>Multiplicity</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#getMultiplicity <em>Multiplicity</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Multiplicity</em>' attribute is set.
@@ -199,7 +199,7 @@ public void setName(java.lang.String uniqueName);
 	void setCascadeDelete(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#isCascadeDelete <em>Cascade Delete</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#isCascadeDelete <em>Cascade Delete</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #isSetCascadeDelete()
@@ -210,7 +210,7 @@ public void setName(java.lang.String uniqueName);
   void unsetCascadeDelete();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#isCascadeDelete <em>Cascade Delete</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#isCascadeDelete <em>Cascade Delete</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Cascade Delete</em>' attribute is set.
@@ -269,7 +269,7 @@ public void setName(java.lang.String uniqueName);
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -280,8 +280,8 @@ public void setName(java.lang.String uniqueName);
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getEJBRelationshipRole_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getEJBRelationshipRole_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

@@ -18,8 +18,8 @@ import org.eclipse.jst.j2ee.common.DisplayName;
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getDisplayNameType()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getDisplayNameType()
+ * @model
  * @generated
  */
 public interface DisplayNameType extends DisplayName{

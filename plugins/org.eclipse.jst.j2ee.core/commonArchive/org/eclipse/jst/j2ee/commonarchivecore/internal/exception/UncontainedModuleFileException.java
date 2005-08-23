@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
 
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+
 
 /**
  * @deprecated Exception no longer thrown; check for null instead. Exception which may be thrown

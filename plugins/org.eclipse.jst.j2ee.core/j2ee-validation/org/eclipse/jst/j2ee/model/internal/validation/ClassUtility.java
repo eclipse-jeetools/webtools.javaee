@@ -15,8 +15,8 @@ import java.util.Arrays;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 public final class ClassUtility {

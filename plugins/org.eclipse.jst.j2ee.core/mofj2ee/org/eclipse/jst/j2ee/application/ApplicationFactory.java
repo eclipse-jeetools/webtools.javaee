@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.application;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 /**
  * @generated
  */
@@ -22,7 +21,7 @@ public interface ApplicationFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ApplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl();
+	ApplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.application.internal.impl.ApplicationFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

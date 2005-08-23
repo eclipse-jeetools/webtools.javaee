@@ -56,7 +56,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.DirectorySaveStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -64,6 +63,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipStreamSaveStr
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveFileDynamicClassLoader;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ClasspathUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
@@ -117,7 +117,6 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
@@ -126,7 +125,6 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList getTypes() {
@@ -138,19 +136,18 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.ARCHIVE__CONTAINER :
+				case CommonarchivePackage.ARCHIVE__CONTAINER:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, CommonarchivePackage.ARCHIVE__CONTAINER, msgs);
-				case CommonarchivePackage.ARCHIVE__FILES :
-					return ((InternalEList) getFiles()).basicAdd(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.ARCHIVE__FILES:
+					return ((InternalEList)getFiles()).basicAdd(otherEnd, msgs);
+				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -161,17 +158,16 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case CommonarchivePackage.ARCHIVE__CONTAINER :
+				case CommonarchivePackage.ARCHIVE__CONTAINER:
 					return eBasicSetContainer(null, CommonarchivePackage.ARCHIVE__CONTAINER, msgs);
-				case CommonarchivePackage.ARCHIVE__FILES :
-					return ((InternalEList) getFiles()).basicRemove(otherEnd, msgs);
-				default :
+				case CommonarchivePackage.ARCHIVE__FILES:
+					return ((InternalEList)getFiles()).basicRemove(otherEnd, msgs);
+				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
@@ -180,15 +176,14 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case CommonarchivePackage.ARCHIVE__CONTAINER :
+				case CommonarchivePackage.ARCHIVE__CONTAINER:
 					return eContainer.eInverseRemove(this, CommonarchivePackage.CONTAINER__FILES, Container.class, msgs);
-				default :
+				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
@@ -197,30 +192,28 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI :
+			case CommonarchivePackage.ARCHIVE__URI:
 				return getURI();
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED :
+			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
 				return new Long(getLastModified());
-			case CommonarchivePackage.ARCHIVE__SIZE :
+			case CommonarchivePackage.ARCHIVE__SIZE:
 				return new Long(getSize());
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
 				return isDirectoryEntry() ? Boolean.TRUE : Boolean.FALSE;
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI :
+			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
 				return getOriginalURI();
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER :
-				if (resolve)
-					return getLoadingContainer();
+			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
+				if (resolve) return getLoadingContainer();
 				return basicGetLoadingContainer();
-			case CommonarchivePackage.ARCHIVE__CONTAINER :
+			case CommonarchivePackage.ARCHIVE__CONTAINER:
 				return getContainer();
-			case CommonarchivePackage.ARCHIVE__FILES :
+			case CommonarchivePackage.ARCHIVE__FILES:
 				return getFiles();
-			case CommonarchivePackage.ARCHIVE__TYPES :
+			case CommonarchivePackage.ARCHIVE__TYPES:
 				return getTypes();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -228,39 +221,38 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI :
-				setURI((String) newValue);
+			case CommonarchivePackage.ARCHIVE__URI:
+				setURI((String)newValue);
 				return;
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED :
-				setLastModified(((Long) newValue).longValue());
+			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
+				setLastModified(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.ARCHIVE__SIZE :
-				setSize(((Long) newValue).longValue());
+			case CommonarchivePackage.ARCHIVE__SIZE:
+				setSize(((Long)newValue).longValue());
 				return;
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY :
-				setDirectoryEntry(((Boolean) newValue).booleanValue());
+			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
+				setDirectoryEntry(((Boolean)newValue).booleanValue());
 				return;
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI :
-				setOriginalURI((String) newValue);
+			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
+				setOriginalURI((String)newValue);
 				return;
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER :
-				setLoadingContainer((Container) newValue);
+			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
+				setLoadingContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.ARCHIVE__CONTAINER :
-				setContainer((Container) newValue);
+			case CommonarchivePackage.ARCHIVE__CONTAINER:
+				setContainer((Container)newValue);
 				return;
-			case CommonarchivePackage.ARCHIVE__FILES :
+			case CommonarchivePackage.ARCHIVE__FILES:
 				getFiles().clear();
-				getFiles().addAll((Collection) newValue);
+				getFiles().addAll((Collection)newValue);
 				return;
-			case CommonarchivePackage.ARCHIVE__TYPES :
+			case CommonarchivePackage.ARCHIVE__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection) newValue);
+				getTypes().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -268,36 +260,35 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI :
+			case CommonarchivePackage.ARCHIVE__URI:
 				setURI(URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED :
+			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
 				unsetLastModified();
 				return;
-			case CommonarchivePackage.ARCHIVE__SIZE :
+			case CommonarchivePackage.ARCHIVE__SIZE:
 				unsetSize();
 				return;
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
 				unsetDirectoryEntry();
 				return;
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI :
+			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
 				setOriginalURI(ORIGINAL_URI_EDEFAULT);
 				return;
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER :
-				setLoadingContainer((Container) null);
+			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
+				setLoadingContainer((Container)null);
 				return;
-			case CommonarchivePackage.ARCHIVE__CONTAINER :
-				setContainer((Container) null);
+			case CommonarchivePackage.ARCHIVE__CONTAINER:
+				setContainer((Container)null);
 				return;
-			case CommonarchivePackage.ARCHIVE__FILES :
+			case CommonarchivePackage.ARCHIVE__FILES:
 				getFiles().clear();
 				return;
-			case CommonarchivePackage.ARCHIVE__TYPES :
+			case CommonarchivePackage.ARCHIVE__TYPES:
 				getTypes().clear();
 				return;
 		}
@@ -306,28 +297,27 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case CommonarchivePackage.ARCHIVE__URI :
+			case CommonarchivePackage.ARCHIVE__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED :
+			case CommonarchivePackage.ARCHIVE__LAST_MODIFIED:
 				return isSetLastModified();
-			case CommonarchivePackage.ARCHIVE__SIZE :
+			case CommonarchivePackage.ARCHIVE__SIZE:
 				return isSetSize();
-			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY :
+			case CommonarchivePackage.ARCHIVE__DIRECTORY_ENTRY:
 				return isSetDirectoryEntry();
-			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI :
+			case CommonarchivePackage.ARCHIVE__ORIGINAL_URI:
 				return ORIGINAL_URI_EDEFAULT == null ? originalURI != null : !ORIGINAL_URI_EDEFAULT.equals(originalURI);
-			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER :
+			case CommonarchivePackage.ARCHIVE__LOADING_CONTAINER:
 				return loadingContainer != null;
-			case CommonarchivePackage.ARCHIVE__CONTAINER :
+			case CommonarchivePackage.ARCHIVE__CONTAINER:
 				return getContainer() != null;
-			case CommonarchivePackage.ARCHIVE__FILES :
+			case CommonarchivePackage.ARCHIVE__FILES:
 				return files != null && !files.isEmpty();
-			case CommonarchivePackage.ARCHIVE__TYPES :
+			case CommonarchivePackage.ARCHIVE__TYPES:
 				return types != null && !types.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
@@ -335,15 +325,13 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (types: "); //$NON-NLS-1$
+		result.append(" (types: ");
 		result.append(types);
 		result.append(')');
 		return result.toString();

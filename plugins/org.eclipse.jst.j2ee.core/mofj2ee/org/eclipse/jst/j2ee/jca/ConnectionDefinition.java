@@ -30,17 +30,17 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryInterface <em>Connection Factory Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionInterface <em>Connection Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionImplClass <em>Connection Impl Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConfigProperties <em>Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryInterface <em>Connection Factory Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionInterface <em>Connection Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionImplClass <em>Connection Impl Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConfigProperties <em>Config Properties</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition()
- * @model 
+ * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition()
+ * @model
  * @generated
  */
 public interface ConnectionDefinition extends EObject{
@@ -69,14 +69,14 @@ public interface ConnectionDefinition extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Managed Connection Factory Class</em>' attribute.
 	 * @see #setManagedConnectionFactoryClass(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition_ManagedConnectionFactoryClass()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition_ManagedConnectionFactoryClass()
+	 * @model
 	 * @generated
 	 */
 	String getManagedConnectionFactoryClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Managed Connection Factory Class</em>' attribute.
@@ -109,14 +109,14 @@ public interface ConnectionDefinition extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Connection Factory Interface</em>' attribute.
 	 * @see #setConnectionFactoryInterface(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition_ConnectionFactoryInterface()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition_ConnectionFactoryInterface()
+	 * @model
 	 * @generated
 	 */
 	String getConnectionFactoryInterface();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryInterface <em>Connection Factory Interface</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryInterface <em>Connection Factory Interface</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Connection Factory Interface</em>' attribute.
@@ -146,14 +146,14 @@ public interface ConnectionDefinition extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Connection Factory Impl Class</em>' attribute.
 	 * @see #setConnectionFactoryImplClass(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition_ConnectionFactoryImplClass()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition_ConnectionFactoryImplClass()
+	 * @model
 	 * @generated
 	 */
 	String getConnectionFactoryImplClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Connection Factory Impl Class</em>' attribute.
@@ -182,14 +182,14 @@ public interface ConnectionDefinition extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Connection Interface</em>' attribute.
 	 * @see #setConnectionInterface(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition_ConnectionInterface()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition_ConnectionInterface()
+	 * @model
 	 * @generated
 	 */
 	String getConnectionInterface();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionInterface <em>Connection Interface</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionInterface <em>Connection Interface</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Connection Interface</em>' attribute.
@@ -220,14 +220,14 @@ public interface ConnectionDefinition extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Connection Impl Class</em>' attribute.
 	 * @see #setConnectionImplClass(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition_ConnectionImplClass()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition_ConnectionImplClass()
+	 * @model
 	 * @generated
 	 */
 	String getConnectionImplClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionImplClass <em>Connection Impl Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionImplClass <em>Connection Impl Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Connection Impl Class</em>' attribute.
@@ -238,7 +238,7 @@ public interface ConnectionDefinition extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Config Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.ConfigProperty}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.ConfigProperty}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Config Properties</em>' containment reference list isn't clear,
@@ -246,8 +246,8 @@ public interface ConnectionDefinition extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Config Properties</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getConnectionDefinition_ConfigProperties()
-	 * @model type="org.eclipse.jst.j2ee.internal.jca.ConfigProperty" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getConnectionDefinition_ConfigProperties()
+	 * @model type="org.eclipse.jst.j2ee.jca.ConfigProperty" containment="true"
 	 * @generated
 	 */
 	EList getConfigProperties();

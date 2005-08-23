@@ -21,18 +21,18 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMappingList#getLocalEncodingMappings <em>Local Encoding Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList#getLocalEncodingMappings <em>Local Encoding Mappings</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getLocalEncodingMappingList()
- * @model 
+ * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMappingList()
+ * @model
  * @generated
  */
 public interface LocalEncodingMappingList extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Local Encoding Mappings</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Local Encoding Mappings</em>' containment reference list isn't clear,
@@ -40,8 +40,8 @@ public interface LocalEncodingMappingList extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Local Encoding Mappings</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getLocalEncodingMappingList_LocalEncodingMappings()
-	 * @model type="org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping" containment="true" required="true"
+	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMappingList_LocalEncodingMappings()
+	 * @model type="org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping" containment="true" required="true"
 	 * @generated
 	 */
 	EList getLocalEncodingMappings();

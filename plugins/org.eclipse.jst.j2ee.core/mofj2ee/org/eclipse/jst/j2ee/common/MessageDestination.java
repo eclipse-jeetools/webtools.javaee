@@ -43,15 +43,15 @@ package org.eclipse.jst.j2ee.common;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.MessageDestination#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.MessageDestination#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestination()
- * @model 
+ * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestination()
+ * @model
  * @generated
  */
-public interface MessageDestination extends CompatibilityDescriptionGroup {
+public interface MessageDestination extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -68,14 +68,14 @@ public interface MessageDestination extends CompatibilityDescriptionGroup {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestination_Name()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestination_Name()
+	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.MessageDestination#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.MessageDestination#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.

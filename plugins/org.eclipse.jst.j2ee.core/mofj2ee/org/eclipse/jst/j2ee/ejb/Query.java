@@ -86,11 +86,11 @@ public interface Query extends EObject{
 	ReturnTypeMapping getReturnTypeMapping();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Query#getReturnTypeMapping <em>Return Type Mapping</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.Query#getReturnTypeMapping <em>Return Type Mapping</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Return Type Mapping</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.ReturnTypeMapping
+	 * @see org.eclipse.jst.j2ee.ejb.ReturnTypeMapping
 	 * @see #isSetReturnTypeMapping()
 	 * @see #unsetReturnTypeMapping()
 	 * @see #getReturnTypeMapping()
@@ -99,7 +99,7 @@ public interface Query extends EObject{
 	void setReturnTypeMapping(ReturnTypeMapping value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Query#getReturnTypeMapping <em>Return Type Mapping</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.Query#getReturnTypeMapping <em>Return Type Mapping</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetReturnTypeMapping()
@@ -110,7 +110,7 @@ public interface Query extends EObject{
 	void unsetReturnTypeMapping();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Query#getReturnTypeMapping <em>Return Type Mapping</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.Query#getReturnTypeMapping <em>Return Type Mapping</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Return Type Mapping</em>' attribute is set.
@@ -164,7 +164,7 @@ public interface Query extends EObject{
 	ContainerManagedEntity getEntity();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.Query#getEntity <em>Entity</em>}' container reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.Query#getEntity <em>Entity</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Entity</em>' container reference.
@@ -175,7 +175,7 @@ public interface Query extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -183,8 +183,8 @@ public interface Query extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getQuery_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getQuery_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

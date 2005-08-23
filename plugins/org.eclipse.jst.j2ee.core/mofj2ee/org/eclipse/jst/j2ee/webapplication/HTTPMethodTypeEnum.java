@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * A representation of the literals of the enumeration '<em><b>HTTP Method Type Enum</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getHTTPMethodTypeEnum()
+ * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getHTTPMethodTypeEnum()
  * @model
  * @generated
  */
@@ -30,8 +30,11 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * The '<em><b>GET</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The http-method contains an HTTP method (GET | POST |...)
+	 * <!-- end-model-doc -->
 	 * @see #GET_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -42,7 +45,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #POST_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -53,7 +56,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PUT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -64,7 +67,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #DELETE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -75,7 +78,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #HEAD_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -86,7 +89,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #OPTIONS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -97,7 +100,7 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #TRACE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -111,9 +114,6 @@ public final class HTTPMethodTypeEnum extends AbstractEnumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The http-method contains an HTTP method (GET | POST |...)
-	 * <!-- end-model-doc -->
 	 * @see #GET
 	 * @generated
 	 * @ordered

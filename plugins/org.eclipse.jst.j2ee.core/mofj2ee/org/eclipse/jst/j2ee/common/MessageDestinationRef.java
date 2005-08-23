@@ -50,16 +50,16 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getUsage <em>Usage</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getLink <em>Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getUsage <em>Usage</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getLink <em>Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationRef()
- * @model 
+ * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef()
+ * @model
  * @generated
  */
 public interface MessageDestinationRef extends EObject{
@@ -73,14 +73,14 @@ public interface MessageDestinationRef extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationRef_Name()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef_Name()
+	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -99,14 +99,14 @@ public interface MessageDestinationRef extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationRef_Type()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef_Type()
+	 * @model
 	 * @generated
 	 */
 	String getType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
@@ -117,7 +117,7 @@ public interface MessageDestinationRef extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Usage</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType}.
+	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.common.MessageDestinationUsageType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Usage</em>' attribute isn't clear,
@@ -125,20 +125,20 @@ public interface MessageDestinationRef extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Usage</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType
+	 * @see org.eclipse.jst.j2ee.common.MessageDestinationUsageType
 	 * @see #setUsage(MessageDestinationUsageType)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationRef_Usage()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef_Usage()
+	 * @model
 	 * @generated
 	 */
 	MessageDestinationUsageType getUsage();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getUsage <em>Usage</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getUsage <em>Usage</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Usage</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType
+	 * @see org.eclipse.jst.j2ee.common.MessageDestinationUsageType
 	 * @see #getUsage()
 	 * @generated
 	 */
@@ -154,14 +154,14 @@ public interface MessageDestinationRef extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Link</em>' attribute.
 	 * @see #setLink(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationRef_Link()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef_Link()
+	 * @model
 	 * @generated
 	 */
 	String getLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getLink <em>Link</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getLink <em>Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Link</em>' attribute.
@@ -172,7 +172,7 @@ public interface MessageDestinationRef extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -180,8 +180,8 @@ public interface MessageDestinationRef extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationRef_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

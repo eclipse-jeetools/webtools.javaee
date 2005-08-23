@@ -25,12 +25,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole#getSoapRole <em>Soap Role</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole#getSoapRole <em>Soap Role</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getSOAPRole()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getSOAPRole()
+ * @model
  * @generated
  */
 public interface SOAPRole extends EObject{
@@ -44,14 +44,14 @@ public interface SOAPRole extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Soap Role</em>' attribute.
 	 * @see #setSoapRole(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getSOAPRole_SoapRole()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getSOAPRole_SoapRole()
+	 * @model
 	 * @generated
 	 */
   String getSoapRole();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole#getSoapRole <em>Soap Role</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole#getSoapRole <em>Soap Role</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Soap Role</em>' attribute.

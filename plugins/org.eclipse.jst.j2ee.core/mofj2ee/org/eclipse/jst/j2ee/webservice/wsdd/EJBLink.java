@@ -33,12 +33,12 @@ package org.eclipse.jst.j2ee.webservice.wsdd;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink#getEjbLink <em>Ejb Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink#getEjbLink <em>Ejb Link</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getEJBLink()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getEJBLink()
+ * @model
  * @generated
  */
 public interface EJBLink extends BeanLink{
@@ -52,14 +52,14 @@ public interface EJBLink extends BeanLink{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ejb Link</em>' attribute.
 	 * @see #setEjbLink(String)
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getEJBLink_EjbLink()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getEJBLink_EjbLink()
+	 * @model
 	 * @generated
 	 */
   String getEjbLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink#getEjbLink <em>Ejb Link</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink#getEjbLink <em>Ejb Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Ejb Link</em>' attribute.

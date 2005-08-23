@@ -111,11 +111,11 @@ public interface ResourceAdapter extends EObject{
 	TransactionSupportKind getTransactionSupport();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transaction Support</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.internal.jca.TransactionSupportKind
+	 * @see org.eclipse.jst.j2ee.jca.TransactionSupportKind
 	 * @see #isSetTransactionSupport()
 	 * @see #unsetTransactionSupport()
 	 * @see #getTransactionSupport()
@@ -124,7 +124,7 @@ public interface ResourceAdapter extends EObject{
 	void setTransactionSupport(TransactionSupportKind value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransactionSupport()
@@ -135,7 +135,7 @@ public interface ResourceAdapter extends EObject{
 	void unsetTransactionSupport();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Transaction Support</em>' attribute is set.
@@ -163,7 +163,7 @@ public interface ResourceAdapter extends EObject{
 	void setReauthenticationSupport(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetReauthenticationSupport()
@@ -174,7 +174,7 @@ public interface ResourceAdapter extends EObject{
 	void unsetReauthenticationSupport();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Reauthentication Support</em>' attribute is set.
@@ -204,14 +204,14 @@ public interface ResourceAdapter extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Resource Adapter Class</em>' attribute.
 	 * @see #setResourceAdapterClass(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getResourceAdapter_ResourceAdapterClass()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getResourceAdapter_ResourceAdapterClass()
+	 * @model
 	 * @generated
 	 */
 	String getResourceAdapterClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getResourceAdapterClass <em>Resource Adapter Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getResourceAdapterClass <em>Resource Adapter Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Resource Adapter Class</em>' attribute.
@@ -254,14 +254,14 @@ public interface ResourceAdapter extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Outbound Resource Adapter</em>' containment reference.
 	 * @see #setOutboundResourceAdapter(OutboundResourceAdapter)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getResourceAdapter_OutboundResourceAdapter()
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getResourceAdapter_OutboundResourceAdapter()
 	 * @model containment="true"
 	 * @generated
 	 */
 	OutboundResourceAdapter getOutboundResourceAdapter();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getOutboundResourceAdapter <em>Outbound Resource Adapter</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getOutboundResourceAdapter <em>Outbound Resource Adapter</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Outbound Resource Adapter</em>' containment reference.
@@ -283,14 +283,14 @@ public interface ResourceAdapter extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inbound Resource Adapter</em>' containment reference.
 	 * @see #setInboundResourceAdapter(InboundResourceAdapter)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getResourceAdapter_InboundResourceAdapter()
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getResourceAdapter_InboundResourceAdapter()
 	 * @model containment="true"
 	 * @generated
 	 */
 	InboundResourceAdapter getInboundResourceAdapter();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getInboundResourceAdapter <em>Inbound Resource Adapter</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getInboundResourceAdapter <em>Inbound Resource Adapter</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Inbound Resource Adapter</em>' containment reference.
@@ -301,7 +301,7 @@ public interface ResourceAdapter extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Admin Objects</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.AdminObject}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.AdminObject}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Admin Objects</em>' containment reference list isn't clear,
@@ -312,8 +312,8 @@ public interface ResourceAdapter extends EObject{
 	 * @version J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Admin Objects</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getResourceAdapter_AdminObjects()
-	 * @model type="org.eclipse.jst.j2ee.internal.jca.AdminObject" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getResourceAdapter_AdminObjects()
+	 * @model type="org.eclipse.jst.j2ee.jca.AdminObject" containment="true"
 	 * @generated
 	 */
 	EList getAdminObjects();

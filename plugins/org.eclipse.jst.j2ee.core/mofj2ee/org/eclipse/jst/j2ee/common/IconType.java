@@ -32,14 +32,14 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.IconType#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.IconType#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.IconType#getLang <em>Lang</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.IconType#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.IconType#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.IconType#getLang <em>Lang</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getIconType()
- * @model 
+ * @see org.eclipse.jst.j2ee.common.CommonPackage#getIconType()
+ * @model
  * @generated
  */
 public interface IconType extends EObject{
@@ -66,14 +66,14 @@ public interface IconType extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Small Icon</em>' attribute.
 	 * @see #setSmallIcon(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getIconType_SmallIcon()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getIconType_SmallIcon()
+	 * @model
 	 * @generated
 	 */
 	String getSmallIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.IconType#getSmallIcon <em>Small Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.IconType#getSmallIcon <em>Small Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Small Icon</em>' attribute.
@@ -107,14 +107,14 @@ public interface IconType extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Large Icon</em>' attribute.
 	 * @see #setLargeIcon(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getIconType_LargeIcon()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getIconType_LargeIcon()
+	 * @model
 	 * @generated
 	 */
 	String getLargeIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.IconType#getLargeIcon <em>Large Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.IconType#getLargeIcon <em>Large Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Large Icon</em>' attribute.
@@ -133,14 +133,14 @@ public interface IconType extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lang</em>' attribute.
 	 * @see #setLang(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getIconType_Lang()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getIconType_Lang()
+	 * @model
 	 * @generated
 	 */
 	String getLang();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.IconType#getLang <em>Lang</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.IconType#getLang <em>Lang</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Lang</em>' attribute.

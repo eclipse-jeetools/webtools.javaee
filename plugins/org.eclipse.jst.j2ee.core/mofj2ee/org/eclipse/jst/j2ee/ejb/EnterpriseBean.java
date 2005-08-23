@@ -208,14 +208,14 @@ public void setRemoteInterfaceName(String remoteInterfaceName);
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getEnterpriseBean_Name()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getEnterpriseBean_Name()
+	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.EnterpriseBean#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.

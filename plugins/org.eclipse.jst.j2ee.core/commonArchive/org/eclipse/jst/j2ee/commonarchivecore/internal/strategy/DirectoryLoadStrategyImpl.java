@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseApplication;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseWARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseApplication;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseWARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 
 
 /**

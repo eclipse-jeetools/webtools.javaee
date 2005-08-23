@@ -11,12 +11,12 @@
 package org.eclipse.jst.j2ee.internal.model.translator.connector;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.internal.model.translator.common.BooleanTranslator;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.xml.RarDeploymentDescriptorXmlMapperI;
+import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.wst.common.internal.emf.resource.ConstantAttributeTranslator;
 import org.eclipse.wst.common.internal.emf.resource.GenericTranslator;
 import org.eclipse.wst.common.internal.emf.resource.IDTranslator;

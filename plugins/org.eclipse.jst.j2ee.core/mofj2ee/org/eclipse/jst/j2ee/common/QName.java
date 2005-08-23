@@ -20,15 +20,15 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.QName#getNamespaceURI <em>Namespace URI</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.QName#getLocalPart <em>Local Part</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.QName#getCombinedQName <em>Combined QName</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.QName#getNamespaceURI <em>Namespace URI</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.QName#getLocalPart <em>Local Part</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.QName#getCombinedQName <em>Combined QName</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getQName()
- * @model 
+ * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName()
+ * @model
  * @generated
  */
 public interface QName extends EObject{
@@ -42,14 +42,14 @@ public interface QName extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Namespace URI</em>' attribute.
 	 * @see #setNamespaceURI(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getQName_NamespaceURI()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName_NamespaceURI()
+	 * @model
 	 * @generated
 	 */
 	String getNamespaceURI();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.QName#getNamespaceURI <em>Namespace URI</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.QName#getNamespaceURI <em>Namespace URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Namespace URI</em>' attribute.
@@ -68,14 +68,14 @@ public interface QName extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Local Part</em>' attribute.
 	 * @see #setLocalPart(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getQName_LocalPart()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName_LocalPart()
+	 * @model
 	 * @generated
 	 */
 	String getLocalPart();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.QName#getLocalPart <em>Local Part</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.QName#getLocalPart <em>Local Part</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Local Part</em>' attribute.
@@ -94,14 +94,14 @@ public interface QName extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Combined QName</em>' attribute.
 	 * @see #setCombinedQName(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getQName_CombinedQName()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName_CombinedQName()
+	 * @model
 	 * @generated
 	 */
 	String getCombinedQName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.QName#getCombinedQName <em>Combined QName</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.QName#getCombinedQName <em>Combined QName</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Combined QName</em>' attribute.
@@ -120,14 +120,14 @@ public interface QName extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Internal Prefix Or Ns URI</em>' attribute.
 	 * @see #setInternalPrefixOrNsURI(String)
-	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getQName_InternalPrefixOrNsURI()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName_InternalPrefixOrNsURI()
+	 * @model
 	 * @generated
 	 */
 	String getInternalPrefixOrNsURI();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * Internal field used by implementation classes.  Clients should use 
 	 * {@link #setValues(String, String, String)}.

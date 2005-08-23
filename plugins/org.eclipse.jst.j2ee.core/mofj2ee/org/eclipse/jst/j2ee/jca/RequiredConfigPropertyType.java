@@ -33,13 +33,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getRequiredConfigPropertyType()
- * @model 
+ * @see org.eclipse.jst.j2ee.jca.JcaPackage#getRequiredConfigPropertyType()
+ * @model
  * @generated
  */
 public interface RequiredConfigPropertyType extends EObject{
@@ -53,14 +53,14 @@ public interface RequiredConfigPropertyType extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getRequiredConfigPropertyType_Name()
-	 * @model 
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getRequiredConfigPropertyType_Name()
+	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -71,7 +71,7 @@ public interface RequiredConfigPropertyType extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -79,8 +79,8 @@ public interface RequiredConfigPropertyType extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getRequiredConfigPropertyType_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getRequiredConfigPropertyType_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

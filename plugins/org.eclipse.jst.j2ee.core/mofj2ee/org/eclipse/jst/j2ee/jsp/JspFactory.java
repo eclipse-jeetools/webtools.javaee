@@ -11,14 +11,13 @@
 package org.eclipse.jst.j2ee.jsp;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage
+ * @see org.eclipse.jst.j2ee.jsp.JspPackage
  * @generated
  */
 public interface JspFactory extends EFactory{
@@ -28,7 +27,7 @@ public interface JspFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JspFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.jsp.impl.JspFactoryImpl();
+	JspFactory eINSTANCE = new org.eclipse.jst.j2ee.jsp.internal.impl.JspFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>JSP Config</em>'.

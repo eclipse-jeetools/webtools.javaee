@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * A representation of the literals of the enumeration '<em><b>Dispatcher Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getDispatcherType()
+ * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getDispatcherType()
  * @model
  * @generated
  */
@@ -32,7 +32,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #FORWARD_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -43,7 +43,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #INCLUDE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -54,7 +54,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #REQUEST_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -65,7 +65,7 @@ public final class DispatcherType extends AbstractEnumerator
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #ERROR_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */

@@ -114,7 +114,7 @@
 			    value      	(value Text "DCE:d8a25660-8826-11e1-0006-005d9e6adec4:1")))
 		    quid       	"392ED399030E"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -185,7 +185,7 @@
 			    value      	(value Text "DCE:d8a25660-8826-11e1-000a-005d9e6adec4:1")))
 		    quid       	"38055C050296"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -581,7 +581,7 @@
 		(object ClassAttribute "version"
 		    quid       	"3E55AE3B0217"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The version specifies the version of the
 |    EJB specification that the instance document must
 |    comply with. This information enables deployment tools
@@ -788,7 +788,7 @@
 			    value      	(value Text "DCE:d8b4a5e0-8826-11e1-0023-005d9e6adec4:1")))
 		    quid       	"398846C20370"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 		    
 		    type       	"String"
@@ -801,7 +801,7 @@
 		    value      	(value Text "DCE:d8b4a5e0-8826-11e1-0024-005d9e6adec4:1")))
 	    quid       	"392ED2E70240"
 	    documentation 	
-|@since J2EE1.4 added ServiceEndpoint
+|@version J2EE1.4 added ServiceEndpoint
 |Unspecified=0
 |Remote=1
 |Home=2
@@ -843,7 +843,7 @@
 		(object ClassAttribute "description"
 		    quid       	"399ABC1500F0"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the cmr field.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -858,7 +858,7 @@
 		(object ClassAttribute "description"
 		    quid       	"39BF09670239"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the collection of relationships.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -876,7 +876,7 @@
 		(object ClassAttribute "description"
 		    quid       	"39BF050D004D"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the query.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -921,7 +921,7 @@
 	(object Class "EJBRelation"
 	    quid       	"39BF0C0203BF"
 	    documentation 	
-|@since J2EE1.3
+|@version J2EE1.3
 |The ejb-relation element describes a relationship between two entity beans with container managed persistence. An ejb-relation element contains a description; an optional ejb-relation-name element; and exactly two relationship role declarations, defined by the ejb-relationship-roles. The name of the relationship, if specified, is unique within the ejb-jar file.
 |
 |@invariant The name of the relationship, if specified, is unique within the ejb-jar file.
@@ -936,7 +936,7 @@
 		(object ClassAttribute "description"
 		    quid       	"39BF0D4A02BC"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the ejb relation.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -956,7 +956,7 @@
 	(object Class "EJBRelationshipRole"
 	    quid       	"39BF0DD0023D"
 	    documentation 	
-|@since J2EE1.3
+|@version J2EE1.3
 |The ejb-relationship-role element describes a role within a relationship.
 |There are two roles in each relationship. The ejb-relationship-role element contains an optional description; an optional name for the relationship role; a specification of the multiplicity of the role; an optional specification of cascade-delete functionality for the role; the role source; and a declaration of the cmr-field, if any, by means of which the other side of the relationship is accessed from the perspective of the role source. The multiplicity and relationship-role-source element are mandatory. The relationship-role-source element designates an entity-bean by means of an ejb-name element. For bidirectional relationships, both roles of a relationship must declare a relationship-role-source element that specifies a cmr-field in terms of which the relationship is accessed. The lack of a cmr-field element in an ejb-relationship-role specifies that the relationship is unidirectional in navigability and that entity bean that participates in the relationship is "not aware" of the relationship.
 |
@@ -981,7 +981,7 @@
 		(object ClassAttribute "description"
 		    quid       	"39BF102601B0"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |The description is used by the ejb-jar file producer to provide text describing the ejb relationship role.
 |
 |The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
@@ -1040,13 +1040,13 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "description"
 		    quid       	"3988849102EB"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    type       	"String"
 		    exportControl 	"Public")))
 	(object Class "CMRField"
 	    quid       	"39BF1810004B"
 	    documentation 	
-|@since J2EE1.3
+|@version J2EE1.3
 |Describes the bean provider's view of a relationship. It consists of an optional description, and the name and the class type of a field in the source of a role of a relationship. The CMRField::name element corresponds to the name used for the get and set accessor methods for the relationship. The CMRField::type element is used only for collection-valued CMRFields. It specifies the type of the collection that is used (a java class name).
 |
 |
@@ -1249,7 +1249,7 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "description"
 		    quid       	"399721A100A0"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    type       	"String"
 		    exportControl 	"Public")))
 	(object Class "DestinationType"
@@ -1290,7 +1290,7 @@
 	(object Class "ActivationConfigProperty"
 	    quid       	"3E4D1A1A00BF"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The activation-config-propertyType contains a name/value
 |configuration property pair for a message-driven bean.
 |
@@ -1323,7 +1323,7 @@
 	(object Class "ActivationConfig"
 	    quid       	"3E4D1A7E0131"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The activation-configType defines information about the
 |expected configuration properties of the message-driven bean
 |in its operational environment. This may include information
@@ -2232,7 +2232,7 @@
 		(object Role "destination"
 		    quid       	"39BF34090052"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes activationConfig
+|@version J2EE1.4 deprecated, becomes activationConfig
 |An optional declaration of the intended destination type of the message-driven bean
 		    
 		    label      	"destination"
@@ -2399,7 +2399,7 @@
 	    roles      	(list role_list
 		(object Role "activationConfig"
 		    quid       	"3E4D1B0700A2"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"activationConfig"
 		    supplier   	"Logical View::ejb::ActivationConfig"
 		    quidu      	"3E4D1A7E0131"
@@ -2416,7 +2416,7 @@
 	    roles      	(list role_list
 		(object Role "messageDestinations"
 		    quid       	"3E4D1BF600B9"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"messageDestinations"
 		    supplier   	"Logical View::common::MessageDestination"
 		    quidu      	"3E4C211001CF"
@@ -2458,7 +2458,7 @@
 		(object Role "queries"
 		    quid       	"3E4D25D600F2"
 		    documentation 	
-|@since J2EE1.4 moved from CME
+|@version J2EE1.4 moved from CME
 |The optional query elements must be present if the persistence-type is Container and the cmp-version is 2.x and query methods other than findByPrimaryKey have been defined for the entity bean.
 |
 |@invariant see description
@@ -2475,7 +2475,7 @@
 	    roles      	(list role_list
 		(object Role "messageDestination"
 		    quid       	"3E4D29830270"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"messageDestination"
 		    supplier   	"Logical View::java::JavaClass"
 		    quidu      	"36549FCC00FA"
@@ -2529,7 +2529,7 @@
 		(object Role "messagingType"
 		    quid       	"3E562D9F0183"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The messaging-type element specifies the message
 |        listener interface of the message-driven bean. If
 |        the messaging-type element is not specified, it is
@@ -2566,7 +2566,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D1FCC00C5"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2599,7 +2599,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D210502EC"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2616,7 +2616,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D1D2001DA"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2633,7 +2633,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D1FC1001F"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2650,7 +2650,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D26BC02F0"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2667,7 +2667,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D20C400CC"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2684,7 +2684,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D1F2303D9"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2701,7 +2701,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D266A00D5"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -2735,7 +2735,7 @@
 		(object Role "serviceEndpoint"
 		    quid       	"3E567CA30225"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The service-endpoint element contains the
 |        fully-qualified name of the enterprise bean's web
 |        service endpoint interface. The service-endpoint
@@ -6115,7 +6115,7 @@
 			nlines     	5
 			max_width  	544
 			label      	
-|@since J2EE1.4 
+|@version J2EE1.4 
 |
 |Added ServiceEndpoint
 			)
@@ -12377,7 +12377,7 @@
 	    quid       	"39BF2749030C"
 	    title      	"EJB2.1 - Message Driven Bean"
 	    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The messaging-type element specifies the message
 |        listener interface of the message-driven bean. If
 |        the messaging-type element is not specified, it is

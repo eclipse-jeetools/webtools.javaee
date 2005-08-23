@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.client;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 /**
  * @generated
  */
@@ -22,7 +21,7 @@ public interface ClientFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ClientFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.client.impl.ClientFactoryImpl();
+	ClientFactory eINSTANCE = new org.eclipse.jst.j2ee.client.internal.impl.ClientFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

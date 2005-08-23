@@ -98,7 +98,7 @@
 		    value      	"Default_EJB"))
 	    quid       	"38C078B602A6"
 	    documentation 	
-|@since J2EE1.4 deprecated
+|@version J2EE1.4 deprecated
 |The context-param element contains the declaration of a web application's servlet context initialization parameters.
 	    
 	    class_attributes 	(list class_attribute_list
@@ -175,7 +175,7 @@
 		(object ClassAttribute "name"
 		    quid       	"3E67C27A00D7"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The servlet-name element contains the canonical name of the
 |servlet. Each servlet name is unique within the web
 |application.
@@ -271,7 +271,7 @@
 		    value      	"Default_EJB"))
 	    quid       	"38C07B3002E7"
 	    documentation 	
-|@since J2EE1.4 deprecated, becomes jsp::TagLibRef
+|@version J2EE1.4 deprecated, becomes jsp::TagLibRef
 |The taglib element is used to describe a JSP tag library.
 	    
 	    class_attributes 	(list class_attribute_list
@@ -305,7 +305,7 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "displayName"
 		    quid       	"3E89D7E8012D"
-		    documentation 	"@since J2EE1.4 deprecated, becomes displayNames"
+		    documentation 	"@version J2EE1.4 deprecated, becomes displayNames"
 		    type       	"String"
 		    exportControl 	"Public"))
 	    language   	"Java")
@@ -328,7 +328,7 @@
 		    exportControl 	"Public")
 		(object ClassAttribute "description"
 		    quid       	"38C07BB80152"
-		    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+		    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 		    type       	"String"
 		    exportControl 	"Public")
 		(object ClassAttribute "urlPattern"
@@ -338,13 +338,13 @@
 			    name       	"isUnique"
 			    value      	FALSE))
 		    quid       	"3E4D51EA0345"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    stereotype 	"1..*"
 		    type       	"String"
 		    exportControl 	"Public")
 		(object ClassAttribute "httpMethod"
 		    quid       	"3E4D52020123"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    stereotype 	"0..*"
 		    type       	"HTTPMethodTypeEnum"
 		    quidu      	"38C0A2E200C6"
@@ -375,7 +375,7 @@
 		(object ClassAttribute "description"
 		    quid       	"38C07C9703B6"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |A description of the auth constraint.
 		    
 		    type       	"String"
@@ -402,7 +402,7 @@
 		(object ClassAttribute "description"
 		    quid       	"38C07CC6002E"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes descriptions
+|@version J2EE1.4 deprecated, becomes descriptions
 |A description for the user data constraint.
 		    
 		    type       	"String"
@@ -442,7 +442,7 @@
 			    value      	TRUE))
 		    quid       	"38C07D170066"
 		    documentation 	
-|@since J2EE1.4  deprecated, becomes initParamValues
+|@version J2EE1.4  deprecated, becomes initParamValues
 |
 |
 |The auth-method element is used to configure the authentication mechanism for the web application. As a prerequisite to gaining access to any web resources which are protected by an authorization constraint, a user must have authenticated using the configured mechanism. Legal values for this element are "BASIC", "DIGEST", "FORM", or "CLIENT-CERT".
@@ -458,7 +458,7 @@
 		    exportControl 	"Public")
 		(object ClassAttribute "authorizationMethod"
 		    quid       	"3EE0A4300014"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    stereotype 	"0..1"
 		    type       	"String"
 		    exportControl 	"Public"))
@@ -491,7 +491,7 @@
 		    value      	"Default_EJB"))
 	    quid       	"38C08E9D0325"
 	    documentation 	
-|@since J2EE1.4 deprecated
+|@version J2EE1.4 deprecated
 |The init-param element contains a name/value pair as an initialization param of the servlet
 	    
 	    class_attributes 	(list class_attribute_list
@@ -833,7 +833,7 @@
 		    is_navigable 	TRUE)))
 	(object Association "$UNNAMED$3"
 	    quid       	"38C11CFB0281"
-	    documentation 	"@since J2EE14 deprecated, replaced by tagLibRefs"
+	    documentation 	"@version J2EE14 deprecated, replaced by tagLibRefs"
 	    roles      	(list role_list
 		(object Role "webApp"
 		    quid       	"38C11CFD00A3"
@@ -1074,7 +1074,7 @@
 		    is_aggregate 	TRUE)
 		(object Role "params"
 		    quid       	"38C122B60159"
-		    documentation 	"@since J2EE1.4 deprecated, becomes initParams"
+		    documentation 	"@version J2EE1.4 deprecated, becomes initParams"
 		    label      	"params"
 		    supplier   	"Logical View::webapplication::InitParam"
 		    quidu      	"38C08E9D0325"
@@ -1129,7 +1129,7 @@
 		    is_aggregate 	TRUE)
 		(object Role "URLs"
 		    quid       	"38C1240A0260"
-		    documentation 	"@since J2EE1.4 deprecated, becomes urlPattern"
+		    documentation 	"@version J2EE1.4 deprecated, becomes urlPattern"
 		    label      	"URLs"
 		    supplier   	"Logical View::webapplication::URLPatternType"
 		    quidu      	"38C0A2C50042"
@@ -1243,7 +1243,7 @@
 		(object Role "initParams"
 		    quid       	"39C0026F0160"
 		    documentation 	
-|@since J2EE1.4 deprecated, becomes initParamValues
+|@version J2EE1.4 deprecated, becomes initParamValues
 |The init-params contain a name/value pairs as initialization params for the filter
 |
 		    
@@ -1363,7 +1363,7 @@
 		(object Role "initParamValues"
 		    quid       	"3E4D43AA0245"
 		    documentation 	
-|@since J2EE1.4
+|@version J2EE1.4
 |The init-param element contains a name/value pair as
 |        an initialization param of a servlet filter
 		    
@@ -1479,7 +1479,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D515101BE"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -1496,7 +1496,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D514E0106"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -1513,7 +1513,7 @@
 	    roles      	(list role_list
 		(object Role "descriptions"
 		    quid       	"3E4D514B03AA"
-		    documentation 	"@since J2EE1.4"
+		    documentation 	"@version J2EE1.4"
 		    label      	"descriptions"
 		    supplier   	"Logical View::common::Description"
 		    quidu      	"3E4A98D602E0"
@@ -1530,7 +1530,7 @@
 	    roles      	(list role_list
 		(object Role "HTTPs"
 		    quid       	"3E930B1200DC"
-		    documentation 	"@since J2EE1.4 deprecated, becomes httpMethod"
+		    documentation 	"@version J2EE1.4 deprecated, becomes httpMethod"
 		    label      	"HTTPs"
 		    supplier   	"Logical View::webapplication::HTTPMethodType"
 		    quidu      	"3E930B050065"
@@ -1548,7 +1548,7 @@
 	(object ClassDiagram "Web Application"
 	    quid       	"38C08C880292"
 	    title      	"Web Application"
-	    documentation 	"@since J2EE1.4 deprecated, becomes descriptions"
+	    documentation 	"@version J2EE1.4 deprecated, becomes descriptions"
 	    zoom       	100
 	    max_height 	28350
 	    max_width  	21600
@@ -5451,7 +5451,7 @@
 			nlines     	7
 			max_width  	321
 			label      	
-|@since J2EE1.4
+|@version J2EE1.4
 |urlPattern
 |httpMethod
 			)
