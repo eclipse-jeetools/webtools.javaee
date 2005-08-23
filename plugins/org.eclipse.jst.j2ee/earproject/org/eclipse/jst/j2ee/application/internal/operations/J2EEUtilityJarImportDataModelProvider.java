@@ -25,6 +25,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJavaUtilityJarImportDataModelProperties {
+	
+	public static String J2EE_UTILITY_JAR_IMPORT_DMP_ID = "j2eeUtilityJarImportDataModelProvider";
 
 	public String[] getPropertyNames() {
 		return combineProperties(super.getPropertyNames(), new String[]{EAR_COMPONENT_NAME, EAR_PROJECT_NAME});
@@ -44,5 +46,10 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new JavaComponentCreationDataModelProvider());
+	}
+	
+	public String getID() {
+		
+		return J2EE_UTILITY_JAR_IMPORT_DMP_ID;
 	}
 }
