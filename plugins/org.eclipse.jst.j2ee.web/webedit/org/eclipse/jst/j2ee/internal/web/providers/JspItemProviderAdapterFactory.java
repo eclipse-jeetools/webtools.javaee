@@ -26,7 +26,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.internal.jsp.util.JspAdapterFactory;
+import org.eclipse.jst.j2ee.jsp.internal.util.JspAdapterFactory;
 
 
 /**

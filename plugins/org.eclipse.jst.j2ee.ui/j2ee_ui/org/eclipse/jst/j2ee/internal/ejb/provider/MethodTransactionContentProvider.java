@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 
 
 public class MethodTransactionContentProvider extends AbstractMethodsContentProvider {

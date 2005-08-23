@@ -16,8 +16,8 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
 
 public class CommandModifyServiceInterfaceText extends AbstractCommand {

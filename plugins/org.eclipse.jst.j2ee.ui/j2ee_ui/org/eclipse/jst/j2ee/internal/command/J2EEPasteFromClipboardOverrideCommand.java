@@ -17,7 +17,7 @@ import org.eclipse.emf.common.command.StrictCompoundCommand;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.PasteFromClipboardCommand;
-import org.eclipse.jst.j2ee.internal.common.util.IDUtility;
+import org.eclipse.jst.j2ee.common.internal.util.IDUtility;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUIEditingDomain;
 
 

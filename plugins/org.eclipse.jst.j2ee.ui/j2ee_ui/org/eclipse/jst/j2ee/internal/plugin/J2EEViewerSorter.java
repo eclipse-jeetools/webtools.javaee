@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.internal.plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 
 public class J2EEViewerSorter extends ViewerSorter {
 

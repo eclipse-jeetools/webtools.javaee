@@ -47,14 +47,14 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.application.internal.impl.ApplicationFactoryImpl;
+import org.eclipse.jst.j2ee.application.internal.impl.ApplicationResourceFactory;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientEditAdapterFactory;
+import org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory;
+import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
-import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceFactory;
-import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactory;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
@@ -350,7 +350,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * d:\installdir\plugin)
 	 */
 	public static IPath getPluginLocation(String pluginId) {
-		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		//IExtensionRegistry registry = Platform.getExtensionRegistry();
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {

@@ -614,7 +614,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 					IVirtualComponent referencedComponent = ref.getReferencedComponent();
 					boolean isBinary = referencedComponent.isBinary();
 					if( isBinary ){
-						String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+						//String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 						String unresolvedURI = "";
 						try {
 							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(referencedComponent.getComponentHandle().toString()));

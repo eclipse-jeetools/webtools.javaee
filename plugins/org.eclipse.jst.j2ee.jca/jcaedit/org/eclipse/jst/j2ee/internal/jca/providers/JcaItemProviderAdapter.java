@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
+import org.eclipse.jst.j2ee.jca.JcaPackage;
 
 
 /**

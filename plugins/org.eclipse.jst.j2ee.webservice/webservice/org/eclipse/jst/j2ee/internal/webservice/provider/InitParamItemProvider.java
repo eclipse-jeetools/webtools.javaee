@@ -23,9 +23,9 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.InitParam;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
+import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 
 
 /**

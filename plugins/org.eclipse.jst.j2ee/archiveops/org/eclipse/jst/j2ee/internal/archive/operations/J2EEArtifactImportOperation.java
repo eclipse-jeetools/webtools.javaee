@@ -111,7 +111,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	protected static void addToClasspath(IDataModel importModel, List extraEntries) throws JavaModelException {
 		if (extraEntries.size() > 0) {
 			IJavaProject javaProject = JavaCore.create(((IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
-			IVirtualComponent comp = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
+			//IVirtualComponent comp = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 			IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
 			List nonDuplicateList = new ArrayList();
 			for (int i = 0; i < extraEntries.size(); i++) {

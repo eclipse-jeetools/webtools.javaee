@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -128,7 +127,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	private void addOKStatus(String DeployerName, IStatus main) {
 
-		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
+		//IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
 		//TODO
 		//addStatus(statusLocal);
 
@@ -147,10 +146,10 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				addErrorStatus(stati[i], DeployerName, stati[i].getException(), main);
 			}
 		}
-		String errorNotes = (ex != null && ex.getMessage() != null) ? ex.getMessage() : main.getMessage();
+		//String errorNotes = (ex != null && ex.getMessage() != null) ? ex.getMessage() : main.getMessage();
 
-		String message = J2EEPluginResourceHandler.getString("J2EEDeployOperation_3_UI_", new Object[]{DeployerName, errorNotes}); //$NON-NLS-1$
-		IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, ex); //$NON-NLS-1$
+		//String message = J2EEPluginResourceHandler.getString("J2EEDeployOperation_3_UI_", new Object[]{DeployerName, errorNotes}); //$NON-NLS-1$
+		//IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, ex); //$NON-NLS-1$
 		//TODO
 		//addStatus(statusLocal);
 

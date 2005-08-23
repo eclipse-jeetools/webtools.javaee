@@ -31,9 +31,9 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
-import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
+import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
 /**

@@ -284,7 +284,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				continue;
 			}
 			File f = null;
-			IFile rf = null;
+			//IFile rf = null;
 			try {
 				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
 						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently

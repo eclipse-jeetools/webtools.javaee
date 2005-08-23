@@ -32,7 +32,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
+import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.dialogs.RenameModuleDialog;

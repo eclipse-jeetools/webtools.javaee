@@ -9,7 +9,7 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfigRegister;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfigRegister;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 

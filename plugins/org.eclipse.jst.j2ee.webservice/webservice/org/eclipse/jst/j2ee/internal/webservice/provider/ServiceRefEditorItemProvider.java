@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.webservice.provider;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
 
 /**

@@ -26,8 +26,8 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
-import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
 
 /**

@@ -14,10 +14,10 @@ import java.util.Collection;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
 
 public class CommandAddServiceRef extends AbstractCommand {

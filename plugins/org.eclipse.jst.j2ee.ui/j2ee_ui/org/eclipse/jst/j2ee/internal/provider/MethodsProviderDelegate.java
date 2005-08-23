@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.ejb.ExcludeList;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.internal.ejb.provider.AbstractMethodsContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.ExcludeListContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.MethodPermissionsContentProvider;

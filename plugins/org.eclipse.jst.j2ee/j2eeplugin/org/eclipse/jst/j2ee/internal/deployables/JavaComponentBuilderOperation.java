@@ -60,7 +60,7 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
             WorkbenchComponent wbComponent = sEdit.findComponentByName(vComponent.getName());
             
             IProject project = vComponent.getProject();
-            IPath projectPath = project.getFullPath();
+            //IPath projectPath = project.getFullPath();
             IJavaProject javaProj = JemProjectUtilities.getJavaProject(project);
             List javaSourceFolderList = JemProjectUtilities.getSourceContainers(project);
             

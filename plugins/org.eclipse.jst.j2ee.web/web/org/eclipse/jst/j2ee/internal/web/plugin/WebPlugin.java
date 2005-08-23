@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
-import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
+import org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
