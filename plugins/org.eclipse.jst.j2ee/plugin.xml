@@ -583,6 +583,9 @@
    <extension
          point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
         <DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider"/>         
+        <DataModelProvider
             class="org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider"
             id="org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider"/>
         <DataModelProvider
