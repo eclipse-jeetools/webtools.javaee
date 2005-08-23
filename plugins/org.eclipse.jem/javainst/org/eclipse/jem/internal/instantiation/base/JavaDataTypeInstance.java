@@ -8,16 +8,12 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaDataTypeInstance.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.7 $  $Date: 2005/08/23 21:13:01 $ 
  */
+package org.eclipse.jem.internal.instantiation.base;
 
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.jem.internal.instantiation.JavaAllocation;
-import org.eclipse.jem.java.JavaHelpers;
 
 /**
  * This is the default instance of a Java Model Datatype (i.e. primitive).
@@ -27,34 +23,11 @@ import org.eclipse.jem.java.JavaHelpers;
  * It should not be referenced directly, the IJavaDataTypeInstance interface should be
  * used instead. It is public so that it can be subclassed. 
  */
-public class JavaDataTypeInstance extends EObjectImpl implements IJavaDataTypeInstance {
+public class JavaDataTypeInstance extends JavaInstance implements IJavaDataTypeInstance {
 
 	protected JavaDataTypeInstance() {
 	}
-
-	/*
-	 * This is here only for JavaFactoryHandler to set the allocation.
-	 * It is not exposed in the interface and should not be called outside.
-	 */
-	public JavaAllocation getAllocation() {
-		return isSetAllocation() ? (JavaAllocation) eGet(JavaInstantiation.getAllocationFeature(this)) : null;
-	}
-	
-	public boolean isSetAllocation() {
-		return eIsSet(JavaInstantiation.getAllocationFeature(this));
-	}
-	
-	public void setAllocation(JavaAllocation allocation) {
-		eSet(JavaInstantiation.getAllocationFeature(this), allocation);
-	}
-			
-	public JavaHelpers getJavaType() {
-		return (JavaHelpers) eClass();
-	}
 		
-	public String toString() {
-		return isSetAllocation() ? getAllocation().toString() : ""; //$NON-NLS-1$
-	}
 	public boolean isPrimitive(){
 		return true;
 	}

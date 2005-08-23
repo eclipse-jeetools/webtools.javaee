@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: IJavaInstance.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.5 $  $Date: 2005/08/23 21:13:01 $ 
  */
 
 import org.eclipse.emf.ecore.EObject;
@@ -22,7 +22,7 @@ import org.eclipse.jem.internal.java.instantiation.IInstantiationInstance;
  * A common interface for Java instances. It will be
  * shared by Java Objects and Java DataType instances.
  */
-public interface IJavaInstance extends EObject, IInstantiationInstance {
+public interface IJavaInstance extends EObject, FeatureValueProvider, IInstantiationInstance {
 	
 	/**
 	 * Get the allocation object.

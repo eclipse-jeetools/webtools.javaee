@@ -11,13 +11,13 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: IJavaObjectInstance.java,v $
- *  $Revision: 1.5 $  $Date: 2005/05/12 22:17:05 $ 
+ *  $Revision: 1.6 $  $Date: 2005/08/23 21:13:01 $ 
  */
 
 
 /**
  * Interface for java object instances.
  */
-public interface IJavaObjectInstance extends IJavaInstance, FeatureValueProvider {
+public interface IJavaObjectInstance extends IJavaInstance {
 	
 }
