@@ -59,19 +59,13 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	protected abstract IDataModel getModelInstance();
 
 	public void testImport(String projectName, String filename) throws Exception {
-
-//			IProject proj = ProjectUtilities.getProject(projectName);
-//			if (proj != null) return;
-			IDataModel dataModel = getModelInstance();
-			dataModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filename);
-			dataModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, projectName);
-			//setServerTargetProperty(dataModel);
-	
-			if (dataModelShouldBeValid)
-				runDataModel(dataModel);
-			else
-				verifyInvalidDataModel(dataModel);
-		
+		IDataModel dataModel = getModelInstance();
+		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filename);
+		dataModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, projectName);
+		if (dataModelShouldBeValid)
+			runDataModel(dataModel);
+		else
+			verifyInvalidDataModel(dataModel);
 	}
 
 	/**
@@ -140,6 +134,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 			testImport(projectName, jarName);
 		}
 	}
+
 	public void testAllImportTestCases() throws Exception {
 
 		List projects = getImportableArchiveFileNames();
