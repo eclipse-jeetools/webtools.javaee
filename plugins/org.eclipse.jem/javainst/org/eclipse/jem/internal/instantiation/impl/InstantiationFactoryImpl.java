@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 22:36:09 $ 
+ *  $Revision: 1.9 $  $Date: 2005/08/24 20:20:24 $ 
  */
 
 import java.util.List;

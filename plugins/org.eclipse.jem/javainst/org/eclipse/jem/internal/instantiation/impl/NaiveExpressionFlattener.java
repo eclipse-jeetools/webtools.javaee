@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Copyright (c) 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.8 $  $Date: 2005/06/21 19:12:44 $ 
+ *  $Revision: 1.9 $  $Date: 2005/08/24 20:20:24 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 

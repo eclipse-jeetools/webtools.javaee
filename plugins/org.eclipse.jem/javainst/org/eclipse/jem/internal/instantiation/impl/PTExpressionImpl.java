@@ -1,7 +1,6 @@
-package org.eclipse.jem.internal.instantiation.impl;
 /*******************************************************************************
- * Copyright (c)  2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
@@ -9,9 +8,10 @@ package org.eclipse.jem.internal.instantiation.impl;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: PTExpressionImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/17 18:36:32 $ 
+ *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:24 $ 
  */
 import java.util.List;
 

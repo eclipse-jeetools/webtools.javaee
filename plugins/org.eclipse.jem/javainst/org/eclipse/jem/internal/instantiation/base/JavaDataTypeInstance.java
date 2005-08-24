@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataTypeInstance.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/23 21:13:01 $ 
+ *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:24 $ 
  */
 package org.eclipse.jem.internal.instantiation.base;
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@ package org.eclipse.jem.java.util;
 
 /*
  *  $RCSfile: JavaRefSwitch.java,v $
- *  $Revision: 1.6 $  $Date: 2005/04/14 19:05:33 $ 
+ *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:24 $ 
  */
 import java.util.List;
 
