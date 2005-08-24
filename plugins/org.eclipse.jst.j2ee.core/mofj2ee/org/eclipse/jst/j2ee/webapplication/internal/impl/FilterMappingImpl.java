@@ -239,7 +239,7 @@ public void setServletName(String servletName){
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * (Removed Generated flag to preserve override This field/method will NOT be replaced during code generation.
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
@@ -254,7 +254,10 @@ public void setServletName(String servletName){
 				setFilter((Filter)newValue);
 				return;
 			case WebapplicationPackage.FILTER_MAPPING__SERVLET:
-				setServlet((Servlet)newValue);
+				if(newValue instanceof String)
+	                setServletName((String)newValue);
+	            else
+	                setServlet((Servlet)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -288,9 +291,9 @@ public void setServletName(String servletName){
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (urlPattern: ");
+		result.append(" (urlPattern: ");//$NON-NLS-1$
 		result.append(urlPattern);
-		result.append(", dispatcherType: ");
+		result.append(", dispatcherType: ");//$NON-NLS-1$
 		result.append(dispatcherType);
 		result.append(')');
 		return result.toString();
