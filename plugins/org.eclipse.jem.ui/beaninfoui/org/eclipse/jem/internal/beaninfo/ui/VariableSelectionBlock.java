@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
 /*
  *  $RCSfile: VariableSelectionBlock.java,v $
- *  $Revision: 1.4 $  $Date: 2005/06/21 19:59:49 $ 
+ *  $Revision: 1.5 $  $Date: 2005/08/24 21:07:12 $ 
  */
 
 public class VariableSelectionBlock {
