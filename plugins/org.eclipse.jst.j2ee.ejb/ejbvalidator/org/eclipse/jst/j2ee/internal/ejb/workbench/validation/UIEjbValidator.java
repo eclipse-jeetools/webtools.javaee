@@ -43,7 +43,7 @@ public class UIEjbValidator extends EJBValidator {
 		
 		for(int i = 0; i < virComps.length; i++) {
             IVirtualComponent wbModule = virComps[i];
-            if(!wbModule.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
+            if( wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
             	continue;
 			
 			IVirtualFile ejbDD = wbModule.getRootFolder().getFile(J2EEConstants.EJBJAR_DD_URI);
