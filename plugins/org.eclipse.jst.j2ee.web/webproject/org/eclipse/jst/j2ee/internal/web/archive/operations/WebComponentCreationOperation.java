@@ -62,7 +62,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         javaSourceFolder.createLink(new Path(model.getStringProperty(JAVASOURCE_FOLDER)), 0, null);
 		// create and link META-INF and WEB-INF folder
 		IVirtualFolder webContent = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$       
-		webContent.createLink(new Path(prefix + "/WebContent"), 0, null);
+		webContent.createLink(new Path(prefix + "/" + WebArtifactEdit.WEB_CONTENT), 0, null);
 
 		IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
 		webInfFolder.create(IResource.FORCE, null);

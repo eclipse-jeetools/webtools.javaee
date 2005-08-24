@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
@@ -29,7 +30,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IModuleType;
@@ -59,7 +59,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	public String[] getPropertyNames() {
-		String[] props = new String[]{EAR_COMPONENT_NAME, EAR_COMPONENT_DEPLOY_NAME, ADD_TO_EAR, UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, NESTED_ADD_COMPONENT_TO_EAR_DM, CLASSPATH_SELECTION, NESTED_EAR_COMPONENT_CREATION_DM, NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE, USE_ANNOTATIONS};
+		String[] props = new String[]{EAR_COMPONENT_NAME, EAR_COMPONENT_DEPLOY_NAME, ADD_TO_EAR, UI_SHOW_EAR_SECTION, DD_FOLDER, COMPONENT_VERSION, VALID_COMPONENT_VERSIONS_FOR_PROJECT_RUNTIME, NESTED_ADD_COMPONENT_TO_EAR_DM, CLASSPATH_SELECTION, NESTED_EAR_COMPONENT_CREATION_DM, NESTED_UPDATE_MANIFEST_DM, EAR_COMPONENT_HANDLE, USE_ANNOTATIONS, EXISTING_PROJECT};
 		return combineProperties(super.getPropertyNames(), props);
 	}
 
@@ -88,6 +88,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public boolean isPropertyEnabled(String propertyName) {
 		if (EAR_COMPONENT_NAME.equals(propertyName)) {
 			return getBooleanProperty(ADD_TO_EAR);
+		}else if( EXISTING_PROJECT.equals(propertyName)) {
+			return getBooleanProperty(SUPPORT_MULTIPLE_MODULES);
 		}
 		return super.isPropertyEnabled(propertyName);
 	}
@@ -136,7 +138,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				earDM.setProperty(COMPONENT_VERSION, new Integer(getJ2EEVersion()));
 			}			
 			//this will force to  reload all the server types which are valid for this component version
-			if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+			if(!model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)){
 				model.notifyPropertyChange(RUNTIME_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
 	        }			
         } else if (RUNTIME_TARGET_ID.equals(propertyName)){
@@ -144,7 +146,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
         	IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
         	earDM.setProperty(RUNTIME_TARGET_ID, propertyValue);
-        }	
+        }else if (propertyName.equals(SUPPORT_MULTIPLE_MODULES)){
+        	model.notifyPropertyChange(EXISTING_PROJECT, IDataModel.ENABLE_CHG);
+        }
 		return status;
 	}
 
@@ -172,6 +176,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return getEARPropertyDescriptor(j2eeVersion);
 		}else if(propertyName.equals(RUNTIME_TARGET_ID)){
 			return validJ2EEServerPropertyDescriptors();
+		}else if(propertyName.equals(EXISTING_PROJECT)){
+			return validExistingProjectsDescriptors();
 		}
 		return super.getValidPropertyDescriptors(propertyName);
 	}
@@ -638,4 +644,66 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	protected abstract DataModelPropertyDescriptor[] getValidComponentVersionDescriptors();
 
+	
+	private DataModelPropertyDescriptor[] validExistingProjectsDescriptors(){
+	
+		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
+		List items = new ArrayList();
+		for (int i=0; i<workspaceProjects.length; i++) {
+			IProject project = workspaceProjects[i];
+			try {
+				if (project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+					items.add(project.getName());
+				}
+			} catch (CoreException ce) {
+				//Ignore
+			}
+		}
+		
+		DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[items.size()];
+		for (int i = 0; i < descriptors.length; i++) {
+			descriptors[i] = new DataModelPropertyDescriptor(items.get(i));
+		}
+		return descriptors;			
+		
+
+//			StructureEdit mc = null;
+//			ArrayList earDescriptorList = new ArrayList();
+//
+//			IProject[] projs = ProjectUtilities.getAllProjects();
+//
+//			for (int index = 0; index < projs.length; index++) {
+//				IProject flexProject = projs[index];
+//				try {
+//					if (flexProject != null) {
+//						IFlexibleProject  fProject = ComponentCore.createFlexibleProject(flexProject);
+//						if ( fProject.isFlexible()){
+//							IVirtualComponent[] comps = fProject.getComponents();
+//							int earVersion = 0;
+//							for( int i=0; i< comps.length; i++ ){
+//								if( comps[i].getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)){
+//									String sVer = comps[i].getVersion();
+//									int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
+//									if (j2eeVersion <= ver) {
+//										DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comps[i].getComponentHandle(), comps[i].getName());
+//										earDescriptorList.add(desc);
+//									}							
+//								}
+//							}
+//						}
+//					}
+//				} finally {
+//					if (mc != null)
+//						mc.dispose();
+//				}
+//			}
+//			DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[earDescriptorList.size()];
+//			for (int i = 0; i < descriptors.length; i++) {
+//				DataModelPropertyDescriptor desc = (DataModelPropertyDescriptor)earDescriptorList.get(i);
+//				descriptors[i] = new DataModelPropertyDescriptor(desc.getPropertyDescription(), desc.getPropertyDescription());
+//			}
+//			return descriptors;	
+		
+		
+	}
 }

@@ -68,6 +68,7 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		synchHelper.synchText(contextRootNameField, CONTEXT_ROOT, new Control[]{contextRootLabel});
 		
 		createAnnotationsGroup(advanced);
+		super.createMultipleModulesComposite(advanced);
 	}
 
 	private void createAnnotationsGroup(Composite parent) {

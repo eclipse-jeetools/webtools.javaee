@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -42,22 +43,22 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
         } else if (propertyName.equals(ADD_TO_EAR)) {
             return Boolean.TRUE;
         } else if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
             else 
-                return IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
         }
         if (propertyName.equals(DD_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
             else
-                return IPath.SEPARATOR + "appClientModule" + IPath.SEPARATOR + J2EEConstants.META_INF;
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
         }       
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "appClientModule";
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
             else
-                return IPath.SEPARATOR + "appClientModule"; 
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER; 
         }       
         return super.getDefaultProperty(propertyName);
     }

@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -122,8 +123,8 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
     }
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
             else
                 return IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
         } 
@@ -131,16 +132,16 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
             return Boolean.TRUE;
         } 
         if (propertyName.equals(DD_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
             else
-                return IPath.SEPARATOR + "connectorModule" + IPath.SEPARATOR + J2EEConstants.META_INF;
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
         }       
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "connectorModule";
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
             else
-                return IPath.SEPARATOR + "connectorModule";
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
         }       
 
         return super.getDefaultProperty(propertyName);

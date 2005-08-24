@@ -39,7 +39,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
+
 
 public class JavaUtilityComponentCreationOperation extends ComponentCreationOperation implements IJavaComponentCreationDataModelProperties{
 	/**
@@ -118,7 +118,7 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	}	
 	    
 	private void addSrcFolderToProject() {
-		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getComponentName(), getProject());
+		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getComponentName(), getProject(), false);
 	}
     
     String getJavaSourceFolder(){
@@ -156,7 +156,7 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
         if(javaSourceFolder != null && !javaSourceFolder.equals("")) {
             Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
             IPath newOutputPath = null;
-            if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
                 newOutputPath = Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
             else
                 newOutputPath = Path.fromOSString("/bin/");

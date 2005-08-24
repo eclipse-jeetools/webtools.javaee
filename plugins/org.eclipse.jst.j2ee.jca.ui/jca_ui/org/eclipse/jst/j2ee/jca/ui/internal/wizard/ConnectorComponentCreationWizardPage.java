@@ -15,6 +15,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
@@ -44,4 +50,14 @@ public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationW
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.NEW_CONNECTOR_WIZARD_P1;
 	}
+	
+	protected void addToAdvancedComposite(Composite advanced) {
+		super.addToAdvancedComposite(advanced);
+		super.createMultipleModulesComposite(advanced);
+	}	
+//	protected void addToAdvancedComposite(Composite advanced) {
+////		super.addToAdvancedComposite(advanced);
+////		createAnnotationsGroup(advanced);
+//		super.createMultipleModulesComposite(advanced);
+//	}	
 }

@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
+
 
 /**
  *
@@ -33,18 +33,19 @@ import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceU
 public class UpdateProjectClasspath {
 	
  
-	public UpdateProjectClasspath(String sourceFolder, String componentName, IProject jProject){
-		addSrcFolderToProject(sourceFolder, componentName, jProject);
+	public UpdateProjectClasspath(String sourceFolder, String componentName, IProject jProject, boolean isProjectMultiComponents){
+		addSrcFolderToProject(sourceFolder, componentName, jProject, isProjectMultiComponents);
 	}
 	
-	private IClasspathEntry[] getClasspathEntries(String sourceFolder, String componentName, IProject jProject) {
+	private IClasspathEntry[] getClasspathEntries(String sourceFolder, String componentName,
+			IProject jProject, boolean isProjectMultiComponents) {
 	
 		ArrayList list = new ArrayList();
 		list.add(JavaCore.newSourceEntry(jProject.getFullPath().append(sourceFolder)));
 		
 		IClasspathEntry[] classpath = new IClasspathEntry[list.size()];
         //adjust the output path to be bin/ComponentName
-		boolean isProjectMultiComponents = FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp();
+		//boolean isProjectMultiComponents = FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp();
         IPath newOutputPath = null;
         for (int i = 0; i < classpath.length; i++) {
 			classpath[i] = (IClasspathEntry) list.get(i);
@@ -57,14 +58,16 @@ public class UpdateProjectClasspath {
 		return classpath;		
 	}	
 	
-	private void addSrcFolderToProject(String sourceFolder,String componentName, IProject jProject) {
+	private void addSrcFolderToProject(String sourceFolder,String componentName,
+			IProject jProject, boolean isProjectMultiComponents) {
 			
 		IJavaProject javaProject = JavaCore.create( jProject );
 		try {
 	
 			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
             List oldEntriesList = new ArrayList();
-			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, jProject);
+			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, 
+					jProject, isProjectMultiComponents);
 			
 			int oldSize = oldEntries.length;
 			int newSize = newEntries.length;

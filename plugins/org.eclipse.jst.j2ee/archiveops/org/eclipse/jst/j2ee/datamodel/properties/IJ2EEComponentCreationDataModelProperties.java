@@ -78,4 +78,6 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
      * type ClassPathSelection
      */
     public static final String CLASSPATH_SELECTION = "IComponentCreationDataModelProperties.CLASSPATH_SELECTION"; //$NON-NLS-1$
+    
+    public static final String EXISTING_PROJECT = "IJ2EEComponentCreationDataModelProperties.EXISTING_PROJECT"; //$NON-NLS-1$
 }

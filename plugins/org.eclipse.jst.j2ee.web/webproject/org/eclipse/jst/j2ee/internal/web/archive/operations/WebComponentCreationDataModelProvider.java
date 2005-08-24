@@ -20,7 +20,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -159,22 +161,22 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 //            return new Integer(jspVersion);
 //        }
         if (propertyName.equals(DD_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT +IPath.SEPARATOR + J2EEConstants.WEB_INF;
             else
-                return IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
+                return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT+IPath.SEPARATOR + J2EEConstants.WEB_INF;
         }       
         if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "JavaSource";
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
             else
-                return IPath.SEPARATOR + "JavaSource";
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
         }       
         if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT+IPath.SEPARATOR + J2EEConstants.META_INF;
             else
-                return IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.META_INF;
+                return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT+IPath.SEPARATOR + J2EEConstants.META_INF;
         }           
         return super.getDefaultProperty(propertyName);
     }

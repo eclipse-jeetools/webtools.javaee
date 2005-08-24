@@ -25,7 +25,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -41,7 +40,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			return  getComponentName();
 		}else if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(isProjMultiComponents)
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
                 return  getComponentName() +  "/" + J2EEConstants.META_INF; //$NON-NLS-1$
             else
                 return "/" + J2EEConstants.META_INF; //$NON-NLS-1$
@@ -89,7 +88,8 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 			return status;
 		} else if (propertyName.equals(RUNTIME_TARGET_ID)) {
 			//if multiple modules are  supported, the  project is already been created, no need for validation here
-            if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+            //if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+			if(!model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)){
 	            IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
 	            IStatus nestedValiation = dm.validate();
 	            if(!nestedValiation.isOK())

@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 public abstract class J2EEImportPage extends DataModelWizardPage {
@@ -77,9 +76,9 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	 * @param composite
 	 */
 	protected void createProjectNameComposite(Composite parent) {
-		if (FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()) {
-			new NewModuleDataModelGroup(parent, getDataModel(), synchHelper);
-		} else {
+//		if (FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()) {
+//			new NewModuleDataModelGroup(parent, getDataModel(), synchHelper);
+//		} else {
 			Label componentLabel = new Label(parent, SWT.NONE);
 
 			componentLabel.setText(getProjectImportLabel());
@@ -104,7 +103,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 			synchHelper.synchCombo(componentCombo, IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, new Control[]{componentLabel});
 			new Label(parent, SWT.NULL);
 			createServerTargetComposite(parent);
-		}
+		//}
 	}
 
 	protected void createServerTargetComposite(Composite parent) {

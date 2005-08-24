@@ -177,6 +177,8 @@ public class J2EEUIMessages extends Messages {
 	public static final String AVAILABLE_J2EE_COMPONENTS="AVAILABLE_J2EE_COMPONENTS"; //$NON-NLS-1$
 	public static final String EXTERNAL_JAR="EXTERNAL_JAR";//$NON-NLS-1$
 	public static final String ADDVARIABLE="ADDVARIABLE";//$NON-NLS-1$
+	public static final String SUPPORTMULTIPLEMODULES="SUPPORTMULTIPLEMODULES";//$NON-NLS-1$
+	
 
 	/**
 	 * Returns the string from the resource bundle, or 'key' if not found.

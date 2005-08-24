@@ -17,10 +17,18 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.swt.SWT;
@@ -45,12 +53,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 
@@ -69,6 +81,8 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected Text moduleNameText = null;
     protected Text locationPathField = null;
     protected Button browseButton = null;
+	protected Button supportMultipleModules = null;
+    protected Combo projectNameCombo = null;
     
     private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 //    private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
@@ -211,12 +225,15 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     
     protected void createModuleGroup(Composite parent) {
         // Add the module name label
-        if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
-            new NewModuleDataModelGroup(parent, getDataModel(),synchHelper);
-        } else {
-            createProjectNameGroup(parent);
-            createProjectLocationGroup(parent);
-        }
+//        if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+//            new NewModuleDataModelGroup(parent, getDataModel(),synchHelper);
+//        } else {
+//            createProjectNameGroup(parent);
+//            createProjectLocationGroup(parent);
+//        }
+        
+        createProjectNameGroup(parent);
+        createProjectLocationGroup(parent);
     }
     
     /**
@@ -284,7 +301,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     }
 
     protected void addToAdvancedComposite(Composite advanced) {
-        if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
+        //if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
             createServerTargetComposite(advanced);
         createVersionComposite(advanced);
         createServerEarAndStandaloneGroup(advanced);
@@ -316,8 +333,132 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
     }
 
+    protected void createMultipleModulesComposite(Composite parent) {
+       
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 3;
+		separator.setLayoutData(gd);
+
+        // Add spacer
+        Label spacer = new Label(parent, SWT.NONE);
+        GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
+        gd1.horizontalSpan = 3;
+        spacer.setLayoutData(gd1);
+        
+		//new Label(parent, SWT.NONE); //pad
+
+		// Create multiple modules checkbox
+		supportMultipleModules = new Button(parent, SWT.CHECK);
+		supportMultipleModules.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SUPPORTMULTIPLEMODULES));
+		supportMultipleModules.setSelection(false);
+		
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 3;
+		supportMultipleModules.setLayoutData(gd);
+		synchHelper.synchCheckbox(supportMultipleModules, SUPPORT_MULTIPLE_MODULES, null);	
+		
+		createProjectsComboGroup(parent);
+    }    
+    
+	private void createProjectsComboGroup(Composite parent) {
+		// set up project name label
+		
+		Label projectNameLabel = new Label(parent, SWT.NONE);
+		projectNameLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT));
+		
+		// set up project name entry field
+		projectNameCombo = new Combo(parent, SWT.NONE);
+		projectNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		
+		projectNameCombo.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				String projectName = projectNameCombo.getText();
+
+				//update the project location with this information, make it readable
+				//update Server info RUNTIME_TARGET_ID, make it readable
+				if (projectName!=null && projectName.length()!=0) {
+					IProject project = ProjectUtilities.getProject(projectName);
+					if (project !=null) {
+						IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+						if (runtime != null){
+							//serverTargetText.setText(runtime.getName());
+							synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, runtime.getName());
+						}
+						synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.PROJECT_NAME, projectName);
+						synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.LOCATION, project.getLocation().toOSString());
+					}
+				}				
+
+			}
+		});
+		
+		synchHelper.synchCombo(projectNameCombo, EXISTING_PROJECT, null);
+
+//		synchHelper.synchCombo(projectNameCombo, 
+//				IComponentCreationDataModelProperties.PROJECT_NAME, 
+//				new Control[]{projectNameLabel});
+		
+		//initializeProjectList();
+	}
+	
+	public void initializeProjectList() {
+		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
+		List items = new ArrayList();
+		for (int i=0; i<workspaceProjects.length; i++) {
+			IProject project = workspaceProjects[i];
+			try {
+				if (project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+					items.add(project.getName());
+				}
+			} catch (CoreException ce) {
+				//Ignore
+			}
+		}
+		String[] names = new String[items.size()];
+		for (int i=0; i<items.size(); i++) {
+			names[i]= (String) items.get(i);
+		}
+
+		projectNameCombo.setItems(names);
+		
+		if (!model.isPropertySet(IComponentCreationDataModelProperties.PROJECT_NAME) 
+				|| model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME).length()==0) {
+			IProject selectedProject = getSelectedProject();
+			if (selectedProject!=null) {
+				projectNameCombo.setText(selectedProject.getName());
+				model.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME,
+						selectedProject.getName());
+			}
+			else if (names.length>0) {
+				projectNameCombo.setText(names[0]);
+				model.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, names[0]);
+			}
+		} else {
+			projectNameCombo.add(model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+			projectNameCombo.setText(model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+		}
+	}	
+	
+	/**
+	 * @return
+	 */
+	private IProject getSelectedProject() {
+		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null || !(selection instanceof StructuredSelection))
+			return null;
+		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		Object obj = stucturedSelection.getFirstElement();
+		if (obj instanceof IProject)
+			return (IProject) obj;
+		return null;
+	}
+	
     protected String[] getValidationPropertyNames() {
-        return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR };
+        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR };
     }
 
     protected void createVersionComposite(Composite parent) {
