@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.modelListeners;
 /*
  *  $RCSfile: ListenersSuite.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/15 23:00:16 $ 
+ *  $Revision: 1.5 $  $Date: 2005/08/24 20:58:55 $ 
  */
 import java.net.URL;
 
