@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/18 21:52:25 $ 
+ *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:29 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;

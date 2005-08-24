@@ -1,8 +1,6 @@
-package org.eclipse.jem.beaninfo.vm;
-
 /*******************************************************************************
- * Copyright (c) 2001, 2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
@@ -10,9 +8,11 @@ package org.eclipse.jem.beaninfo.vm;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package org.eclipse.jem.beaninfo.vm;
+
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.7 $  $Date: 2005/06/24 14:31:44 $ 
+ *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:28 $ 
  */
 
 import java.awt.Image;
