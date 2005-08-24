@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreation
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -152,20 +153,20 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
         } else if (propertyName.equals(CREATE_DEFAULT_SESSION_BEAN)) {
             return Boolean.FALSE;
         } else if (propertyName.equals(DD_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
             else
-                return IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER +IPath.SEPARATOR + J2EEConstants.META_INF;
         }else if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
             else
-                return IPath.SEPARATOR + "ejbModule";
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
         } else if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(isProjMultiComponents)
-                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
             else
-                return IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+                return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
         } else {
             return super.getDefaultProperty(propertyName);
         }   

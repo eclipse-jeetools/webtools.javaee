@@ -48,7 +48,7 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
         } else if(propertyName.equals(COMPONENT_DEPLOY_NAME)){
             return getStringProperty(COMPONENT_NAME); //$NON-NLS-1$
         } else if( propertyName.equals(JAVASOURCE_FOLDER)){
-            if(isProjMultiComponents)
+            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
                 return getStringProperty(COMPONENT_NAME)+"/"+"ejbModule"; //$NON-NLS-1$ //$NON-NLS-2$
             else
                 return "/"+"ejbModule";//$NON-NLS-2$

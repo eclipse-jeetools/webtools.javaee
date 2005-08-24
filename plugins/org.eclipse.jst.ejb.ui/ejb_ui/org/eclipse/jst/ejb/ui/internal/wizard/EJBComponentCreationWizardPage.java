@@ -53,6 +53,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 
 		createAnnotationsGroup(advanced);
 		//		createDefaultBean(advanced);
+		super.createMultipleModulesComposite(advanced);
 	}
 
 	/**

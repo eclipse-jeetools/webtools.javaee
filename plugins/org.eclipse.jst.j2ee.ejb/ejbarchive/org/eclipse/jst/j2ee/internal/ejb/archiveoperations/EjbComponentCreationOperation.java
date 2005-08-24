@@ -43,7 +43,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         component.create(0, null);
         //create and link ejbModule Source Folder
         IVirtualFolder ejbModule = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
-        ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
+        ejbModule.createLink(new Path(model.getStringProperty(JAVASOURCE_FOLDER)), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
         IVirtualFolder metaInfFolder = ejbModule.getFolder(J2EEConstants.META_INF);
@@ -55,7 +55,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         component.create(0, null);
         //create and link ejbModule Source Folder
         IVirtualFolder ejbModule = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
-        ejbModule.createLink(new Path("/ejbModule"), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
+        ejbModule.createLink(new Path(model.getStringProperty(JAVASOURCE_FOLDER)), 0, null); //$NON-NLS-1$ //$NON-NLS-2$
         
         //create and link META-INF folder
         IVirtualFolder metaInfFolder = ejbModule.getFolder(J2EEConstants.META_INF);
