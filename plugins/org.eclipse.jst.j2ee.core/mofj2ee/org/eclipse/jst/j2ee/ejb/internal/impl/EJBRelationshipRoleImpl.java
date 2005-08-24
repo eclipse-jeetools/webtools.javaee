@@ -84,7 +84,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	protected EList fAttributes = null;
 	protected String fName = null;
 	protected IRoleShapeStrategy roleShapeStrategy;
-	private static final String ROLE_STRATEGY_CLASS_NAME = "org.eclipse.jst.j2ee.internal.ejb.impl.EJB20FlattenedRoleShapeStrategy"; //$NON-NLS-1$
+	private static final String ROLE_STRATEGY_CLASS_NAME = "org.eclipse.jst.j2ee.ejb.internal.impl.EJB20FlattenedRoleShapeStrategy"; //$NON-NLS-1$
 	private static final String COMMON_ROLE_CLASS_NAME = "org.eclipse.jst.j2ee.ejb.CommonRelationshipRole"; //$NON-NLS-1$
 	private static Class COMMON_ROLE_CLASS;
 	private static Class ROLE_STRATEGY_CLASS;
