@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.10 $  $Date: 2005/06/15 20:19:11 $ 
+ *  $Revision: 1.11 $  $Date: 2005/08/24 20:39:06 $ 
  */
 
 import java.net.URL;

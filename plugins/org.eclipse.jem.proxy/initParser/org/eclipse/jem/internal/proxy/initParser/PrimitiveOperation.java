@@ -1,13 +1,6 @@
-/*
- * This is for primitive expressions that are optimized out the compiler such as bit or, bit and, etc..
-   */
-package org.eclipse.jem.internal.proxy.initParser;
-
-import java.text.MessageFormat;
-
 /*******************************************************************************
- * Copyright (c)  2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
@@ -16,8 +9,15 @@ import java.text.MessageFormat;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
+ * This is for primitive expressions that are optimized out the compiler such as bit or, bit and, etc..
+   */
+package org.eclipse.jem.internal.proxy.initParser;
+
+import java.text.MessageFormat;
+
+/*
  *  $RCSfile: PrimitiveOperation.java,v $
- *  $Revision: 1.5 $  $Date: 2005/06/21 20:22:51 $ 
+ *  $Revision: 1.6 $  $Date: 2005/08/24 20:39:07 $ 
  */
 
 public class PrimitiveOperation extends Expression {

@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Copyright (c) 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.11 $ $Date: 2005/07/20 19:27:25 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.12 $ $Date: 2005/08/24 20:39:06 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 

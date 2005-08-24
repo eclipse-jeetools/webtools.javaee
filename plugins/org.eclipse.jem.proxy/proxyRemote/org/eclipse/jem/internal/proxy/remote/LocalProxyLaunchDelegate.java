@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.29 $ $Date: 2005/07/01 14:09:13 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.30 $ $Date: 2005/08/24 20:39:06 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
