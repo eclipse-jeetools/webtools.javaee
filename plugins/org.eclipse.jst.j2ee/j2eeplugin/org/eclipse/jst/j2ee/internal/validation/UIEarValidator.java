@@ -202,7 +202,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		
 		for(int i = 0; i < virComps.length; i++) {
             IVirtualComponent wbModule = virComps[i];
-            if(!wbModule.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
+            if(wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
             	continue;
 			
 			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());

@@ -57,7 +57,7 @@ public class UIConnectorValidator extends ConnectorValidator {
 		
 		for(int i = 0; i < virComps.length; i++) {
             IVirtualComponent wbModule = virComps[i];
-            if(!wbModule.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
+            if(wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
             	continue;
 			
 			ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
