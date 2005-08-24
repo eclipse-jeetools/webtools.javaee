@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.FlexibleJavaProjectPreferenceUtil;
+
 
 public class PortedComponentCreationTest extends TestCase {
 
@@ -70,12 +70,6 @@ public class PortedComponentCreationTest extends TestCase {
     public void testCreateConnectorComponent() throws Exception {
        // createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_ConnectorProject");
         createConnectorComponent(15, "TestConnector", DEFAULT_PROJECT_NAME + "_ConnectorProject");
-        
-        //trying to add same compoennt in ear, right now datamodelverifyer in not enabled
-        //needs to be enabled to see the error.
-        FlexibleJavaProjectPreferenceUtil.setMultipleModulesPerProjectProp(true);
-        createConnectorComponent(15, "TestConnector", DEFAULT_PROJECT_NAME + "_ConnectorProject2");
-        FlexibleJavaProjectPreferenceUtil.setMultipleModulesPerProjectProp(false);
     }
 
     
