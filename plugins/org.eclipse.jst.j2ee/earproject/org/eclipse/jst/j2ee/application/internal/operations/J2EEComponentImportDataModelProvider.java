@@ -45,35 +45,6 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 				moduleDM.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, getModuleSpecVersion());
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}
-			// } else if (propertyName.equals(PROJECT_NAME)) {
-			// IProject project = getProject();
-			// if (null != project && project.exists()) {
-			// String[] requiredNatures = (String[])
-			// getJ2EEModuleCreationDataModel().getProjectDataModel().getProperty(ProjectCreationDataModel.PROJECT_NATURES);
-			// if (null != requiredNatures) {
-			// try {
-			// for (int i = 0; i < requiredNatures.length; i++) {
-			// if (!project.hasNature(requiredNatures[i])) {
-			// return doSet;
-			// }
-			// }
-			// } catch (CoreException e) {
-			// return doSet;
-			// }
-			// IRuntime target = ServerCore.getProjectProperties(project).getRuntimeTarget();
-			// if (null != target) {
-			// setProperty(SERVER_TARGET_ID, target.getId());
-			// }
-			// setBooleanProperty(ADD_TO_EAR, false);
-			// }
-			// }
-			// getJ2EEModuleCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModelOld.IS_ENABLED,
-			// null == project || !project.exists());
-			// } else if (propertyName.equals(PRESERVE_PROJECT_METADATA)) {
-			// JavaProjectCreationDataModel jdm =
-			// getJ2EEModuleCreationDataModel().getJavaProjectCreationDataModel();
-			// jdm.setBooleanProperty(JavaProjectCreationDataModel.CREATE_SOURCE_FOLDERS,
-			// !getBooleanProperty(BINARY));
 		}
 		return set;
 	}

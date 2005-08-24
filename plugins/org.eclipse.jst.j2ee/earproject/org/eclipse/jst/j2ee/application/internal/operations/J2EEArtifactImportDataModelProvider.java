@@ -8,10 +8,8 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
@@ -52,12 +50,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		model.addNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION, componentCreationDM);
 	}
 
-	private IProject getProject() {
-		String projName = model.getStringProperty(COMPONENT_NAME);
-		return ProjectUtilities.getProject(projName);
-	}
-
-
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
@@ -89,41 +81,50 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		return true;
 	}
 
+	private boolean doingComponentUpdate;
+
 	private void updateDefaultComponentName() {
 		Archive archive = getArchiveFile();
 		if (null != archive && getBooleanProperty(USE_DEFAULT_COMPONENT_NAME)) {
-			Path path = new Path(archive.getURI());
-			String defaultProjectName = path.segment(path.segmentCount() - 1);
-			if (defaultProjectName.indexOf('.') > 0) {
-				defaultProjectName = defaultProjectName.substring(0, defaultProjectName.lastIndexOf('.'));
+			try {
+				doingComponentUpdate = true;
+				Path path = new Path(archive.getURI());
+				String defaultProjectName = path.segment(path.segmentCount() - 1);
 				if (defaultProjectName.indexOf('.') > 0) {
-					defaultProjectName = defaultProjectName.replace('.', '_');
+					defaultProjectName = defaultProjectName.substring(0, defaultProjectName.lastIndexOf('.'));
+					if (defaultProjectName.indexOf('.') > 0) {
+						defaultProjectName = defaultProjectName.replace('.', '_');
+					}
 				}
+				setProperty(COMPONENT_NAME, defaultProjectName);
+			} finally {
+				doingComponentUpdate = false;
 			}
-			setProperty(COMPONENT_NAME, defaultProjectName);
+
 		}
 	}
 
 	private boolean handleArchiveSetup(String fileName) throws OpenFailureException {
-		Archive archive = getArchiveFile();
-		if (archive != null) {
-			archive.close();
-			setProperty(FILE, null);
-		}
-		String uri = getStringProperty(FILE_NAME);
-		if (!archiveExistsOnFile())
-			return false;
-		archive = openArchive(uri);
-		if (null != archive) {
-			archive.setSaveFilter(getSaveFilter());
-		}
 		try {
 			settingFileName = true;
+			Archive archive = getArchiveFile();
+			if (archive != null) {
+				archive.close();
+				setProperty(FILE, null);
+			}
+			String uri = getStringProperty(FILE_NAME);
+			if (!archiveExistsOnFile())
+				return false;
+			archive = openArchive(uri);
+			if (null != archive) {
+				archive.setSaveFilter(getSaveFilter());
+			}
 			setProperty(FILE, archive);
+			return archive != null;
 		} finally {
 			settingFileName = false;
 		}
-		return archive != null;
+
 	}
 
 	protected abstract Archive openArchive(String uri) throws OpenFailureException;
@@ -202,5 +203,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	}
 
 	public void propertyChanged(DataModelEvent event) {
+		if (!doingComponentUpdate && event.getDataModel() == componentCreationDM && event.getPropertyName().equals(COMPONENT_NAME) && getBooleanProperty(USE_DEFAULT_COMPONENT_NAME)) {
+			setBooleanProperty(USE_DEFAULT_COMPONENT_NAME, false);
+		}
 	}
 }
