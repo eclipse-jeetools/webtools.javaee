@@ -9,7 +9,10 @@ package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
@@ -34,8 +37,24 @@ public class MultipleModulesCreationTest extends  TestCase  {
 		createWebModule(24, "FirstWeb", "FirstWeb");
 	}
 	
-	private void createWebModule(int j2eeVersion, String aModuleName, String projectName){		
+	private void createWebModule(int j2eeVersion, String aModuleName, String projectName){	
+		
+		
 		IDataModel model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
+		model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, "SingleComp");
+		try {
+			runWebModuleCreationOperation(model);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		IProject project = ProjectUtilities.getProject("SingleComp");
+		boolean supportsMultiple = ComponentUtilities.supportsMultipleModules(project);
+		
+		
+		model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
 		model.setProperty( IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
 		model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
 		model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, aModuleName);
@@ -47,21 +66,25 @@ public class MultipleModulesCreationTest extends  TestCase  {
 			e.printStackTrace();
 		}		
 		
+		project = ProjectUtilities.getProject(projectName);
+		supportsMultiple = ComponentUtilities.supportsMultipleModules(project);
 		
-		model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-
-		model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
-		model.setProperty( IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
-		model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-		model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, "SecondWeb");
-
-		
-		try {
-			runWebModuleCreationOperation(model);
+		if(supportsMultiple){
+			model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
+	
+			model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
+			model.setProperty( IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
+			model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
+			model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, "SecondWeb");
+	
+			
+			try {
+				runWebModuleCreationOperation(model);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}			
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}			
 		
 	}
 	
