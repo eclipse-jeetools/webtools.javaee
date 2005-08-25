@@ -368,7 +368,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		projectNameLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT));
 		
 		// set up project name entry field
-		projectNameCombo = new Combo(parent, SWT.NONE);
+		projectNameCombo = new Combo(parent, SWT.NONE | SWT.READ_ONLY);
 		projectNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
@@ -394,51 +394,9 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		});
 		
 		synchHelper.synchCombo(projectNameCombo, EXISTING_PROJECT, null);
-
-//		synchHelper.synchCombo(projectNameCombo, 
-//				IComponentCreationDataModelProperties.PROJECT_NAME, 
-//				new Control[]{projectNameLabel});
-		
-		//initializeProjectList();
 	}
-	
-	public void initializeProjectList() {
-		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
-		List items = new ArrayList();
-		for (int i=0; i<workspaceProjects.length; i++) {
-			IProject project = workspaceProjects[i];
-			try {
-				if (project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					items.add(project.getName());
-				}
-			} catch (CoreException ce) {
-				//Ignore
-			}
-		}
-		String[] names = new String[items.size()];
-		for (int i=0; i<items.size(); i++) {
-			names[i]= (String) items.get(i);
-		}
 
-		projectNameCombo.setItems(names);
-		
-		if (!model.isPropertySet(IComponentCreationDataModelProperties.PROJECT_NAME) 
-				|| model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME).length()==0) {
-			IProject selectedProject = getSelectedProject();
-			if (selectedProject!=null) {
-				projectNameCombo.setText(selectedProject.getName());
-				model.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME,
-						selectedProject.getName());
-			}
-			else if (names.length>0) {
-				projectNameCombo.setText(names[0]);
-				model.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, names[0]);
-			}
-		} else {
-			projectNameCombo.add(model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-			projectNameCombo.setText(model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		}
-	}	
+
 	
 	/**
 	 * @return
