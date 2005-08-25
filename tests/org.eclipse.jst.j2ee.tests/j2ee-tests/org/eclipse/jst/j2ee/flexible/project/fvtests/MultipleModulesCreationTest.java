@@ -12,7 +12,6 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
@@ -51,8 +50,6 @@ public class MultipleModulesCreationTest extends  TestCase  {
 		}
 		
 		IProject project = ProjectUtilities.getProject("SingleComp");
-		boolean supportsMultiple = ComponentUtilities.supportsMultipleModules(project);
-		
 		
 		model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
 		model.setProperty( IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
@@ -67,9 +64,7 @@ public class MultipleModulesCreationTest extends  TestCase  {
 		}		
 		
 		project = ProjectUtilities.getProject(projectName);
-		supportsMultiple = ComponentUtilities.supportsMultipleModules(project);
 		
-		if(supportsMultiple){
 			model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
 	
 			model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
@@ -84,7 +79,7 @@ public class MultipleModulesCreationTest extends  TestCase  {
 			catch (Exception e) {
 				e.printStackTrace();
 			}			
-		}
+		
 		
 	}
 	
