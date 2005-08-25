@@ -101,9 +101,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         project = (IProject) getElement().getAdapter(IResource.class);
         model = new ClasspathModel(null);
         model.setProject(project);
-        model.addListener(this);
-        updateModelManifest();
-        initializeValidateEditListener();
+        if( model.getComponent() != null ){
+	        model.addListener(this);
+	        updateModelManifest();
+	        initializeValidateEditListener();
+        }
     }
     
     public void dispose() {
@@ -173,18 +175,21 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	 */
     protected Control createContents(Composite parent) {
         initialize();
+
         Composite composite = createBasicComposite(parent);
         GridLayout layout = new GridLayout();
         layout.marginWidth = 0;
         layout.marginWidth = 0;
         composite.setLayout(layout);
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-        if(!isValidComponent())
-        	return composite;
-        createProjectLabelsGroup(composite);
-        createListGroup(composite);
-        createTextGroup(composite);
-        refresh();
+        if( model.getComponent() != null ){        
+	        if(!isValidComponent())
+	        	return composite;
+	        createProjectLabelsGroup(composite);
+	        createListGroup(composite);
+	        createTextGroup(composite);
+	        refresh();
+    	}
         return composite;
     }
 	

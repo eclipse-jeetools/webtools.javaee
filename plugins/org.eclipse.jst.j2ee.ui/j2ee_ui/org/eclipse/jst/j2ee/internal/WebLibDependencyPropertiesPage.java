@@ -47,13 +47,15 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
     protected Control createContents(Composite parent) {
 		initialize();
 		Composite composite = createBasicComposite(parent);
-		if (!isValidWebModule())
-			return composite;
-		createProjectLabelsGroup(composite);
-		createListGroup(composite);
-		handleWLPSupport();
-		model.setWLPModel(true);
-		setEnablement();
+		if( model.getComponent() != null ){
+			if (!isValidWebModule())
+				return composite;
+			createProjectLabelsGroup(composite);
+			createListGroup(composite);
+			handleWLPSupport();
+			model.setWLPModel(true);
+			setEnablement();
+		}
 		return composite;
 	}
     

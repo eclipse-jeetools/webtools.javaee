@@ -103,18 +103,21 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	private void initializeComponent() {
 		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(getProject());
-		setComponent(flexProject.getComponents()[0]);
+		if( flexProject.getComponents().length > 0 )
+			setComponent(flexProject.getComponents()[0]);
 	}
 
 	protected IVirtualComponent[] refreshAvailableEARs() {
-		availableEARComponents = J2EEComponentUtilities.getReferencingEARComponents(getComponent());
-		if (availableEARComponents != null && availableEARComponents.length > 0) {
-			Arrays.sort(availableEARComponents, comparator);
-			if (selectedEARComponent == null || !Arrays.asList(availableEARComponents).contains(selectedEARComponent)) {
-				if (availableEARComponents.length > 0)
-					selectedEARComponent = availableEARComponents[0];
-				else
-					selectedEARComponent = null;
+		if( component != null ){
+			availableEARComponents = J2EEComponentUtilities.getReferencingEARComponents(getComponent());
+			if (availableEARComponents != null && availableEARComponents.length > 0) {
+				Arrays.sort(availableEARComponents, comparator);
+				if (selectedEARComponent == null || !Arrays.asList(availableEARComponents).contains(selectedEARComponent)) {
+					if (availableEARComponents.length > 0)
+						selectedEARComponent = availableEARComponents[0];
+					else
+						selectedEARComponent = null;
+				}
 			}
 		}
 		return availableEARComponents;
