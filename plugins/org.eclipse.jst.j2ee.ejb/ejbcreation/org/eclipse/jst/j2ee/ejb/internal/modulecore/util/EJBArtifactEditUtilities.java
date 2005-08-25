@@ -36,16 +36,16 @@ public class EJBArtifactEditUtilities {
 	
 	public static EJBJar getEJBJar(IVirtualComponent comp) {
 		EJBArtifactEdit edit = null;
+		EJBJar ejbJar = null;
 		try {
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
 			if (edit != null)
-				edit.getEJBJar();
+				ejbJar = edit.getEJBJar();
 		} finally {
 			if (edit != null)
 				edit.dispose();
 		}
-		return null;	
-			
+		return ejbJar;	
 	}
 }
 

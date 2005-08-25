@@ -156,7 +156,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         }
         
         if( !clientProjectName.equals( ejbprojectName )){
-            IDataModel dataModel = DataModelFactory.createDataModel(JARDependencyDataModelProvider.class);
+            IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
             dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, ejbprojectName);
             dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, clientProjectName);
             dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
