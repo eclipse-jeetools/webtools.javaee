@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.internal.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -65,27 +66,23 @@ public class UpdateProjectClasspath {
 		try {
 	
 			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-            List oldEntriesList = new ArrayList();
+            List oldEntriesList,classpathList;
 			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, 
 					jProject, isProjectMultiComponents);
 			
 			int oldSize = oldEntries.length;
 			int newSize = newEntries.length;
 			
-			IClasspathEntry[] classpathEnties = new IClasspathEntry[oldSize + newSize];
-			int k = 0;
-			for (int i = 0; i < oldEntries.length; i++) {
-				classpathEnties[k] = oldEntries[i];
-                oldEntriesList.add(oldEntries[i]);
-				k++;
-			}
+			classpathList = new ArrayList();
+			oldEntriesList = Arrays.asList(oldEntries);
+			classpathList.addAll(oldEntriesList);
 			for( int j=0; j< newEntries.length; j++){
                 if(!oldEntriesList.contains(newEntries[j])) {
-                    classpathEnties[k] = newEntries[j];
-                    k++;
+                	classpathList.add(newEntries[j]);
                 }
 			}
-			javaProject.setRawClasspath(classpathEnties, null);
+			IClasspathEntry[] classpathEntries = (IClasspathEntry[]) classpathList.toArray(new IClasspathEntry[classpathList.size()]);
+			javaProject.setRawClasspath(classpathEntries, null);
 		}
 		catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
