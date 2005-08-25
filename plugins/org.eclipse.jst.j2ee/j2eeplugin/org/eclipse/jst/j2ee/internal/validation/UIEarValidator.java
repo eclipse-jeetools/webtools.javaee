@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -40,12 +39,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
@@ -59,7 +59,6 @@ import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
@@ -67,6 +66,7 @@ import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 
 /**
@@ -210,12 +210,13 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			if( ddFile.exists()) {				
 				earHelper.setComponentHandle(handle);
 				super.validate(inHelper, inReporter);
+//				validateModuleMaps(earEdit,earModule);
+				validateManifests();
+//				validateUtilJarMaps(earEdit,earModule);
+//				validateUriAlreadyExistsInEar(earEdit,earModule);
+//				validateDocType(earEdit,earModule);					
 			}
-//			validateModuleMaps(earEdit,earModule);
-//			validateManifests(earModule,earFile);
-//			validateUtilJarMaps(earEdit,earModule);
-//			validateUriAlreadyExistsInEar(earEdit,earModule);
-//			validateDocType(earEdit,earModule);			
+		
 		}
 	}	
 
@@ -229,26 +230,28 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 //		return ((J2EELoadStrategyImpl) loader).getProject();
 //	}
 
-//	public void validateManifests(IVirtualComponent component,EARFile earFile) throws ValidationException {
-//		if (earFile == null)
-//			return;
-//		List archives = earFile.getArchiveFiles();
-//		for (int i = 0; i < archives.size(); i++) {
-//			try {
-//				Archive anArchive = (Archive) archives.get(i);
-//				IProject project = getProject(anArchive, earFile);
-//				if (project != null && project.isAccessible()) {
-//					IFile target = getManifestFile(anArchive);
-//					if (target != null)
-//						_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
-//					validateManifestCase(anArchive);
-//					validateManifestLines(anArchive);
-//					validateManifestClasspath(component,anArchive);
-//				}
-//			} catch (MessageLimitException me) {
-//			}
-//		}
-//	}
+	public void validateManifests() throws ValidationException {
+		
+		if (earFile == null)
+			return;
+		List archives = earFile.getArchiveFiles();
+		for (int i = 0; i < archives.size(); i++) {
+			try {
+				Archive anArchive = (Archive) archives.get(i);
+				//IProject project = getProject(anArchive, earFile);
+				//if (project != null && project.isAccessible()) {
+
+					IFile target = getManifestFile(anArchive);
+					if (target != null)
+						_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
+					validateManifestCase(anArchive);
+					validateManifestLines(anArchive);
+					validateManifestClasspath(anArchive);
+				//}
+			} catch (MessageLimitException me) {
+			}
+		}
+	}
 
 	public void validateManifestCase(Archive anArchive) {
 		String mfuri = ArchiveConstants.MANIFEST_URI;
@@ -275,8 +278,23 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	}
 
-	public void validateManifestClasspath(IVirtualComponent component, Archive anArchive) throws ValidationException {
-		String[] cp = anArchive.getManifest().getClassPathTokenized();
+	//public void validateManifestClasspath(IVirtualComponent component, Archive anArchive) throws ValidationException {
+	public void validateManifestClasspath(Archive anArchive) throws ValidationException {
+		ArchiveManifest manifest = null;
+		try{
+			manifest = anArchive.getManifest();
+		}catch( ManifestException mf){
+			//mf.printStackTrace();
+			mf.getMessage();
+			String[] args = new String[]{anArchive.getURI()};
+			addError(ERROR_READING_MANIFEST_ERROR_, args);
+		}
+		
+		if(manifest == null)
+			return;
+		//String[] cp = anArchive.getManifest().getClassPathTokenized();
+		String[] cp = manifest.getClassPathTokenized();
+		
 		for (int i = 0; i < cp.length; i++) {
 			String uri = ArchiveUtil.deriveEARRelativeURI(cp[i], anArchive);
 			if (uri == null) {
@@ -286,14 +304,14 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			File f = null;
 			//IFile rf = null;
 			try {
-				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
+//					if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
 						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently
-					IVirtualResource resource = component.getRootFolder().findMember(new Path(uri));
-						if (resource == null || !resource.exists()) {
-							invalidClassPathEntryWarning(cp[i], uri, anArchive);
-						}
-					}
-				 else
+//					IVirtualResource resource = component.getRootFolder().findMember(new Path(uri));
+//						if (resource == null || !resource.exists()) {
+//							invalidClassPathEntryWarning(cp[i], uri, anArchive);
+//						}
+//					}
+//				 else
 					f = earFile.getFile(uri);
 			} catch (java.io.FileNotFoundException ex) {
 				invalidClassPathEntryWarning(cp[i], earFile.getURI(), anArchive);
