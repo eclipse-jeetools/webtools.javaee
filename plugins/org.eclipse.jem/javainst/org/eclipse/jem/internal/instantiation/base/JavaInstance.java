@@ -85,11 +85,14 @@ public abstract class JavaInstance extends EObjectImpl implements IJavaInstance 
 	}
 		
 	public boolean isSetAllocation() {
-		return eIsSet(JavaInstantiation.getAllocationFeature(this));
+		EReference allocationFeature = JavaInstantiation.getAllocationFeature(this);
+		return allocationFeature != null && eIsSet(allocationFeature);
 	}
 	
 	public void setAllocation(JavaAllocation allocation) {
-		eSet(JavaInstantiation.getAllocationFeature(this), allocation);
+		EReference allocationFeature = JavaInstantiation.getAllocationFeature(this);
+		if (allocationFeature != null)
+			eSet(allocationFeature, allocation);
 	}
 	
 	
