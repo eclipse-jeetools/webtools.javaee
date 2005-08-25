@@ -336,18 +336,4 @@ public class ComponentUtilities {
 		}
 		return (IVirtualComponent[]) result.toArray(new IVirtualComponent[result.size()]);
 	}
-
-	public static boolean supportsMultipleModules(IProject project){
-		boolean supportsMultiple = true;
-		IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
-		IVirtualComponent[] comps = flexProj.getComponents();
-		for( int i=0; i< comps.length; i++ ){
-			String name = comps[i].getName();
-			if( !comps[i].isBinary() )
-			 if( !project.getFolder(name).exists()){
-				 supportsMultiple = false;
-			 }
-		}
-		return supportsMultiple;
-	}
 }
