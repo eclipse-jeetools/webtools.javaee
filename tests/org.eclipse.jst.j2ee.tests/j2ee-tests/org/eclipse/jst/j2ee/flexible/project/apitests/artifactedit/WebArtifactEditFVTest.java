@@ -77,13 +77,15 @@ public class WebArtifactEditFVTest extends TestCase {
 			
 			
 			Filter filter = WebapplicationFactory.eINSTANCE.createFilter();
-	        filter.setName("WoopeeFilter");
-	        filter.setFilterClassName("wtp.test.WhooPee");
+	        filter.setName("WoohooFilter");
+	        filter.setFilterClassName("wtp.test.WhooHoo");
+	        
 	        ParamValue value = CommonFactory.eINSTANCE.createParamValue();
 	        value.setName("Param1");
 	        value.setValue("Value1");
 	        List initParams = new ArrayList();
 	        initParams.add(value);
+	        
 	        if (initParams != null) {
 	            filter.getInitParamValues().addAll(initParams);
 	        } 
@@ -91,7 +93,7 @@ public class WebArtifactEditFVTest extends TestCase {
 	        EList filters = web.getFilters();                                   
 	        
 	        filters.add(filter);
-			
+			edit.saveIfNecessary(null);
 			
 			pass(web);
 		} finally {
