@@ -17,13 +17,17 @@ import org.eclipse.jst.j2ee.common.QName;
  * A representation of the model object '<em><b>Root Type Qname</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
+ * <!-- begin-model-doc -->
+ * The root-type-qname identifies the WSDL QName of an XML type.
+ * 
+ * Used in: java-xml-type-mapping
+ * <!-- end-model-doc -->
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getRootTypeQname()
- * @model 
+ *
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getRootTypeQname()
+ * @model
  * @generated
  */
-public interface RootTypeQname extends QName {
+public interface RootTypeQname extends QName{
 // RootTypeQname
 }

@@ -537,9 +537,11 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         versionCombo.setLayoutData(gridData);
         Control[] deps = new Control[]{label};
         synchHelper.synchCombo(versionCombo, versionProp, deps);
-        String[] items = versionCombo.getItems();
-        if (items != null && items.length > 0)
-            versionCombo.select(items.length - 1);
+        if (versionCombo.getSelectionIndex() == -1) {
+	        String[] items = versionCombo.getItems();
+	        if (items != null && items.length > 0)
+	            versionCombo.select(items.length - 1);
+        }
         new Label(parent, SWT.NONE); //pad
     }   
     

@@ -17,13 +17,18 @@ import org.eclipse.jst.j2ee.common.QName;
  * A representation of the model object '<em><b>WSDL Binding</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
+ * <!-- begin-model-doc -->
+ * The wsdl-binding element defines the wsdl binding
+ * by a QNAME which uniquely identifies  the binding.
+ * 
+ * Used in: service-endpoint-interface-mapping
+ * <!-- end-model-doc -->
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLBinding()
- * @model 
+ *
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLBinding()
+ * @model
  * @generated
  */
-public interface WSDLBinding extends QName {
+public interface WSDLBinding extends QName{
 // WSDLBinding
 }

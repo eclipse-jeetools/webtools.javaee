@@ -26,7 +26,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.util.JaxrpcmapAdapterFactory;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.util.JaxrpcmapAdapterFactory;
 
 
 /**
@@ -218,52 +218,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageType}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected PackageTypeItemProvider packageTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageType}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createPackageTypeAdapter() {
-		if (packageTypeItemProvider == null) {
-			packageTypeItemProvider = new PackageTypeItemProvider(this);
-		}
-
-		return packageTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ClassType}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ClassTypeItemProvider classTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ClassType}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createClassTypeAdapter() {
-		if (classTypeItemProvider == null) {
-			classTypeItemProvider = new ClassTypeItemProvider(this);
-		}
-
-		return classTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.RootTypeQname}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -287,29 +241,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.QnameScope}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected QnameScopeItemProvider qnameScopeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.QnameScope}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createQnameScopeAdapter() {
-		if (qnameScopeItemProvider == null) {
-			qnameScopeItemProvider = new QnameScopeItemProvider(this);
-		}
-
-		return qnameScopeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.VariableMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
@@ -329,29 +260,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 		}
 
 		return variableMappingItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ExceptionType}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ExceptionTypeItemProvider exceptionTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ExceptionType}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createExceptionTypeAdapter() {
-		if (exceptionTypeItemProvider == null) {
-			exceptionTypeItemProvider = new ExceptionTypeItemProvider(this);
-		}
-
-		return exceptionTypeItemProvider;
 	}
 
 	/**
@@ -399,52 +307,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 		}
 
 		return constructorParameterOrderItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaVariableName}instances. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected JavaVariableNameItemProvider javaVariableNameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaVariableName}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createJavaVariableNameAdapter() {
-		if (javaVariableNameItemProvider == null) {
-			javaVariableNameItemProvider = new JavaVariableNameItemProvider(this);
-		}
-
-		return javaVariableNameItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.XMLElementName}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected XMLElementNameItemProvider xmlElementNameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.XMLElementName}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createXMLElementNameAdapter() {
-		if (xmlElementNameItemProvider == null) {
-			xmlElementNameItemProvider = new XMLElementNameItemProvider(this);
-		}
-
-		return xmlElementNameItemProvider;
 	}
 
 	/**
@@ -518,29 +380,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaPortName}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected JavaPortNameItemProvider javaPortNameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaPortName}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createJavaPortNameAdapter() {
-		if (javaPortNameItemProvider == null) {
-			javaPortNameItemProvider = new JavaPortNameItemProvider(this);
-		}
-
-		return javaPortNameItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLPortType}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -607,29 +446,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 		}
 
 		return serviceEndpointMethodMappingItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaMethodName}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected JavaMethodNameItemProvider javaMethodNameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaMethodName}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createJavaMethodNameAdapter() {
-		if (javaMethodNameItemProvider == null) {
-			javaMethodNameItemProvider = new JavaMethodNameItemProvider(this);
-		}
-
-		return javaMethodNameItemProvider;
 	}
 
 	/**
@@ -705,52 +521,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamPosition}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ParamPositionItemProvider paramPositionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamPosition}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createParamPositionAdapter() {
-		if (paramPositionItemProvider == null) {
-			paramPositionItemProvider = new ParamPositionItemProvider(this);
-		}
-
-		return paramPositionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamType}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ParamTypeItemProvider paramTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamType}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createParamTypeAdapter() {
-		if (paramTypeItemProvider == null) {
-			paramTypeItemProvider = new ParamTypeItemProvider(this);
-		}
-
-		return paramTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessageMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
@@ -793,52 +563,6 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 		}
 
 		return wsdlMessagePartNameItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParameterMode}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ParameterModeItemProvider parameterModeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParameterMode}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createParameterModeAdapter() {
-		if (parameterModeItemProvider == null) {
-			parameterModeItemProvider = new ParameterModeItemProvider(this);
-		}
-
-		return parameterModeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodReturnValue}instances. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected MethodReturnValueItemProvider methodReturnValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodReturnValue}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Adapter createMethodReturnValueAdapter() {
-		if (methodReturnValueItemProvider == null) {
-			methodReturnValueItemProvider = new MethodReturnValueItemProvider(this);
-		}
-
-		return methodReturnValueItemProvider;
 	}
 
 	/**

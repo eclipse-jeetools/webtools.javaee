@@ -17,13 +17,17 @@ import org.eclipse.jst.j2ee.common.QName;
  * A representation of the model object '<em><b>WSDL Service Name</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
+ * <!-- begin-model-doc -->
+ * The wsdl-service-name element defines the wsdl service name by a QNAME which uniquely identifies  the service.
+ * 
+ * Used in: service-interface-mapping
+ * <!-- end-model-doc -->
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLServiceName()
- * @model 
+ *
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLServiceName()
+ * @model
  * @generated
  */
-public interface WSDLServiceName extends QName {
+public interface WSDLServiceName extends QName{
 	//Default
 } // WSDLServiceName

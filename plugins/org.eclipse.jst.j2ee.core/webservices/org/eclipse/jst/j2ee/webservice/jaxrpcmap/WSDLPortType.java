@@ -17,13 +17,18 @@ import org.eclipse.jst.j2ee.common.QName;
  * A representation of the model object '<em><b>WSDL Port Type</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
+ * <!-- begin-model-doc -->
+ * The wsdl-port-type element defines the wsdl port type
+ * by a QNAME which uniquely identifies  the port type.
+ * 
+ * Used in: service-endpoint-interface-mapping
+ * <!-- end-model-doc -->
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLPortType()
- * @model 
+ *
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLPortType()
+ * @model
  * @generated
  */
-public interface WSDLPortType extends QName {
+public interface WSDLPortType extends QName{
 //	 WSDLPortType
 } 

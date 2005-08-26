@@ -17,13 +17,17 @@ import org.eclipse.jst.j2ee.common.QName;
  * A representation of the model object '<em><b>WSDL Message</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
+ * <!-- begin-model-doc -->
+ * The wsdl-message  element defines a WSDL message by a QNAME.
+ * 
+ * Used in: wsdl-message-mapping, wsdl-return-value-mapping
+ * <!-- end-model-doc -->
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessage()
- * @model 
+ *
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessage()
+ * @model
  * @generated
  */
-public interface WSDLMessage extends QName {
+public interface WSDLMessage extends QName{
 // WSDLMessage
 }

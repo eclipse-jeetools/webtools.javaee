@@ -17,13 +17,11 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Interface Mapping</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getInterfaceMapping()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getInterfaceMapping()
+ * @model
  * @generated
  */
-public interface InterfaceMapping extends EObject {
+public interface InterfaceMapping extends EObject{
  // InterfaceMapping
 }

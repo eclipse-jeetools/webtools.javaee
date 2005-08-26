@@ -17,69 +17,75 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Element Name</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * The element-name element defines the name of a complexType element name attribute value.
+ * 
+ * Used in: constructor-parameter-order
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName#getText <em>Text</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName#getText <em>Text</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getElementName()
- * @model 
+ * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getElementName()
+ * @model
  * @generated
  */
-public interface ElementName extends EObject {
-  /**
-   * Returns the value of the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
+public interface ElementName extends EObject{
+	/**
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Id</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Id</em>' attribute.
-   * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getElementName_Id()
-   * @model 
-   * @generated
-   */
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(String)
+	 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getElementName_Id()
+	 * @model
+	 * @generated
+	 */
   String getId();
 
-  /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName#getId <em>Id</em>}' attribute.
-   * <!-- begin-user-doc -->
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Id</em>' attribute.
-   * @see #getId()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
   void setId(String value);
 
-  /**
-   * Returns the value of the '<em><b>Text</b></em>' attribute.
-   * <!-- begin-user-doc -->
+	/**
+	 * Returns the value of the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Text</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Text</em>' attribute.
-   * @see #setText(String)
-   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getElementName_Text()
-   * @model 
-   * @generated
-   */
+	 * @return the value of the '<em>Text</em>' attribute.
+	 * @see #setText(String)
+	 * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getElementName_Text()
+	 * @model
+	 * @generated
+	 */
   String getText();
 
-  /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName#getText <em>Text</em>}' attribute.
-   * <!-- begin-user-doc -->
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName#getText <em>Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Text</em>' attribute.
-   * @see #getText()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Text</em>' attribute.
+	 * @see #getText()
+	 * @generated
+	 */
   void setText(String value);
 
 } // ElementName

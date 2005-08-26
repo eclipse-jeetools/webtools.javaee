@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
-import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.impl.JaxrpcmapResourceImpl;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl.JaxrpcmapResourceImpl;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
