@@ -1,13 +1,20 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
@@ -67,6 +74,25 @@ public class WebArtifactEditFVTest extends TestCase {
 			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
 			WebApp web = edit.getWebApp();
+			
+			
+			Filter filter = WebapplicationFactory.eINSTANCE.createFilter();
+	        filter.setName("WoopeeFilter");
+	        filter.setFilterClassName("wtp.test.WhooPee");
+	        ParamValue value = CommonFactory.eINSTANCE.createParamValue();
+	        value.setName("Param1");
+	        value.setValue("Value1");
+	        List initParams = new ArrayList();
+	        initParams.add(value);
+	        if (initParams != null) {
+	            filter.getInitParamValues().addAll(initParams);
+	        } 
+
+	        EList filters = web.getFilters();                                   
+	        
+	        filters.add(filter);
+			
+			
 			pass(web);
 		} finally {
 			if (edit != null) {
