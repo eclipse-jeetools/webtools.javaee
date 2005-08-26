@@ -50,10 +50,7 @@ public class UpdateProjectClasspath {
         IPath newOutputPath = null;
         for (int i = 0; i < classpath.length; i++) {
 			classpath[i] = (IClasspathEntry) list.get(i);
-            if(isProjectMultiComponents)
-                newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/" + componentName + Path.SEPARATOR);
-            else
-                newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/");
+            newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/" + componentName + Path.SEPARATOR);
             ((ClasspathEntry)classpath[i]).specificOutputLocation = newOutputPath;
 		}
 		return classpath;		
