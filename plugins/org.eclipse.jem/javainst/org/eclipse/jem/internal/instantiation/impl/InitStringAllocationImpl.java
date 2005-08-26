@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InitStringAllocationImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.7 $  $Date: 2005/08/26 17:37:29 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -159,10 +159,9 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (initString: ");
+		StringBuffer result = new StringBuffer();
+		result.append("InitString: ");
 		result.append(initString);
-		result.append(')');
 		return result.toString();
 	}
 
