@@ -11,6 +11,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.flexible.project.fvtests.FindComponentTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
@@ -32,6 +33,7 @@ public class AllTests extends TestSuite {
     public AllTests(){
         super("ModuleCore Tests");
         addTest(J2EEFlexibleProjectCreationOperationTest.suite());
+        addTest(FindComponentTest.suite());
     }
 	public static IRuntime createJONASRuntime() { 
 	       String s = "D:/JOnAS-4.3.2/lib";
