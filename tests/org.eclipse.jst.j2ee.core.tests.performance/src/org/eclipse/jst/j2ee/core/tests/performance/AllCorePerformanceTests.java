@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.archive.emftests.WarEMFTest;
 import org.eclipse.jst.j2ee.archive.emftests.WebServicesEMFTest;
 import org.eclipse.jst.j2ee.tests.performance.BasePerformanceTestCase;
 import org.eclipse.jst.j2ee.tests.performance.PerformanceTestCaseWrapper;
+import org.eclipse.wtp.headless.tests.savestrategy.EJBImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.ConnectorProjectCreationOperationTest;
@@ -69,6 +70,7 @@ public class AllCorePerformanceTests extends BasePerformanceTestCase{
 		addPerformanceTest(suite, new ConnectorProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Connector Component creation test" );
 		addPerformanceTest(suite, new WebProjectCreationOperationTest("testDefaults"), PerformanceTestCaseWrapper.GLOBAL, "Web Component creation test" );
 		
+		addPerformanceTest(suite, new EJBImportOperationTest("testEJB21Import"), PerformanceTestCaseWrapper.NONE, "EJB Component import test" );
 		return suite;
 	}
 
