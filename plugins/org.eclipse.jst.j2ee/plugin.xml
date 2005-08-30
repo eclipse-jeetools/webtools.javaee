@@ -510,24 +510,6 @@
          </enablement>
       </moduleArtifactAdapter>
      </extension>
-     
-     <extension point="org.eclipse.core.runtime.adapters">
-        <factory
-             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IProject">
-            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-        </factory>
-        <factory
-             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.application.Application">
-             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-        </factory>
-        <factory
-             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
-       </factory> 
-   </extension> 
    
    
    
