@@ -39,6 +39,5 @@ Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.emf.ecore,
  org.eclipse.jst.common.frameworks,
  org.eclipse.wst.common.modulecore,
- org.eclipse.debug.ui,
  org.eclipse.jem.util
 Eclipse-AutoStart: true

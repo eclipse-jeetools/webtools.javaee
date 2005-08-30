@@ -127,6 +127,87 @@
       </decorator>
     </extension> 
     
+    <extension point="org.eclipse.core.runtime.adapters">
+         <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IProject">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+        </factory>
+        <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+        </factory>
+        <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IFile">
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>
+       <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.j2ee.ejb.EnterpriseBean">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>
+       <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.j2ee.ejb.EJBJar">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>    
+   </extension>
+   
+   <!-- ==================================================================== -->
+<!-- Purpose: Define adapters for EJB resources                           -->
+<!-- Extension point: org.eclipse.wst.server.core.moduleArtifactAdapters  -->
+<!-- ==================================================================== -->
+   <extension
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb"
+            class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.j2ee.ejb.EJBJar"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb2"
+            class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.j2ee.ejb.EnterpriseBean"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb3"
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jdt.core.ICompilationUnit"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb4"
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IFile"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb5"
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IProject"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      </extension>
+    
 <!--================================-->
 <!-- Import Wizard Contributions    -->
 <!--================================-->
