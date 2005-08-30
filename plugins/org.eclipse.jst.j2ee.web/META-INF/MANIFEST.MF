@@ -40,7 +40,6 @@ Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.jface,
  org.eclipse.jst.common.annotations.controller,
  org.eclipse.jst.common.frameworks,
- org.eclipse.debug.ui,
  org.eclipse.wst.common.modulecore,
  org.eclipse.jem.util
 Eclipse-AutoStart: true
