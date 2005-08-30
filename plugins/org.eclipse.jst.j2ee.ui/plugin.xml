@@ -935,5 +935,39 @@
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory> 
    </extension> 
+   
+   <extension
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
+    <moduleArtifactAdapter
+           id="org.eclipse.jst.j2ee.server.ear1"
+           class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.j2ee.application.Application"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+   
+     <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ear2"
+            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IProject"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ear3"
+            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IFile"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+     </extension>
+   
 
 </plugin>
