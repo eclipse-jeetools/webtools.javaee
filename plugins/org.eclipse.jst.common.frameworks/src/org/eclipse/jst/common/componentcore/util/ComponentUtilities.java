@@ -41,7 +41,6 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -156,16 +155,12 @@ public class ComponentUtilities {
 
 
 	public static IFile findFile(IVirtualComponent comp, IPath aPath) throws CoreException {
-		// IVirtualResource[] members = comp.members();
-		IVirtualResource[] members = comp.getRootFolder().members();
-		for (int i = 0; i < members.length; i++) {
-			IVirtualResource resource = members[i];
-			if (resource.getType() == IVirtualResource.FOLDER) {
-				IVirtualResource file = ((IVirtualContainer) resource).findMember(aPath);
-				if (file != null)
-					return (IFile) file.getUnderlyingResource();
-			}
-		}
+		if (comp == null || aPath == null)
+			return null;
+		IVirtualFolder root = comp.getRootFolder();
+		IVirtualResource file = root.findMember(aPath);
+		if (file != null)
+			return (IFile) file.getUnderlyingResource();
 		return null;
 	}
 
