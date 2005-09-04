@@ -54,6 +54,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+         
+   <plugin
+         id="org.eclipse.jst.j2ee.doc.user"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.jsp.ui.infopop"
@@ -72,15 +78,33 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+         
+   <plugin
+         id="org.eclipse.jst.ws.axis.ui.doc.user"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.ws.consumption.infopop"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+         
+   <plugin
+         id="org.eclipse.jst.ws.consumption.ui.doc.user"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.ws.infopop"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+         
+   <plugin
+         id="org.eclipse.jst.ws.doc.user"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
