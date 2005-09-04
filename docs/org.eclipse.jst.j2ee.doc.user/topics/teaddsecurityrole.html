@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="copyright" content="(C) Copyright IBM Corporation 2004" />
+<meta name="DC.rights.owner" content="(C) Copyright IBM Corporation 2004" />
+<meta name="security" content="public" />
+<meta name="Robots" content="index,follow" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="DC.Type" content="task" />
+<meta name="DC.Title" content="Defining security roles for EJB modules" />
+<meta name="abstract" content="You need to add security roles in order to build method permissions." />
+<meta name="description" content="You need to add security roles in order to build method permissions." />
+<meta name="DC.Relation" scheme="URI" content="../topics/ceejbed.dita" />
+<meta name="DC.Relation" scheme="URI" content="../topics/teaddmethperm.dita" />
+<meta name="DC.Relation" scheme="URI" content="../topics/teaddsecurityidbean.dita" />
+<meta name="DC.Relation" scheme="URI" content="../topics/teaddroletokey.dita" />
+<meta name="DC.Relation" scheme="URI" content="../../com.ibm.etools.j2eeapp.doc/topics/tjaddrefsecurityrole.dita" />
+<meta name="DC.Format" content="XHTML" />
+<meta name="DC.Identifier" content="teaddsecurityrole" />
+<meta name="DC.Language" content="en-us" />
+<!-- All rights reserved. Licensed Materials Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/ibmdita.css" />
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/swg_info_common.css" />
+<title>Defining security roles for EJB modules</title>
+<script language="JavaScript">
+    function popup_window( url, id, width, height )
+    {
+      popup = window.open( url, id, 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=no,width=' + width + ',height=' + height + ',left=,top=' );
+      popup.focus();
+    }
+</script><script language="JavaScript" src="help/liveHelp.js"></script></head>
+<body id="teaddsecurityrole"><a name="teaddsecurityrole"><!-- --></a>
+
+<h1 class="topictitle1">Defining security roles for EJB modules</h1>
+<div><p>You need to add security roles in order to build method permissions.</p><div class="skipspace"><p>The security roles that you add are defined in the EJB deployment
+descriptor. Names of security roles do not need to match exactly the names
+of user groups or principals defined on the server. At deployment time, the
+administrator assigns the roles that you define to existing user groups and
+principals with existing security policies and services.</p>
+<p>For further
+granularity of security within a bean, you can define security role references.
+Then you can add programmatic security checks that cannot be defined using
+method permissions, using for example: <samp class="codeph">isCallerInRole(String roleRefName)</samp>.</p>
+<p>To
+add a security role to an EJB module:</p>
+</div>
+<ol><li><span>In the Project Explorer view of the J2EE perspective, right-click
+the Deployment Descriptor for your EJB project and select <span class="menucascade"><span class="uicontrol">Open
+With</span> &gt; <span class="uicontrol">Deployment Descriptor Editor</span></span> to
+open the deployment descriptor editor.</span></li>
+<li><span>On the <span class="uicontrol">Assembly</span> page of the editor, scroll
+to the Security Roles section.</span></li>
+<li><span>Click <span class="uicontrol">Add</span>. The Add Security Role wizard
+appears.</span></li>
+<li><span>Type a name for the security role in the <span class="uicontrol">Name</span> field.</span></li>
+<li><span>Type a description for the security role in the <span class="uicontrol">Description</span> field.</span></li>
+<li><span>Click <span class="uicontrol">Finish</span>.</span></li>
+</ol>
+<div class="skipspace">The security role is added to the deployment descriptor and you can
+now use that role when assigning method permissions. You can also create a
+security role reference using this security role.</div>
+<div class="skipspace">To delete a security role, select the role and click <span class="uicontrol">Remove</span>.</div>
+</div>
+
+<div><p><b class="relconceptshd">Related concepts</b><br />
+<a href="../topics/ceejbed.html" title="The EJB deployment descriptor editor is used to modify EJB JAR files and associated Java files.">EJB Deployment Descriptor editor</a><br />
+</p>
+<p><b class="reltaskshd">Related tasks</b><br />
+<a href="../topics/teaddmethperm.html" title="You can use the Method Permission wizard to add permissions to enterprise beans on the method level.">Defining method permissions for EJB modules</a><br />
+<a href="../topics/teaddsecurityidbean.html" title="Assigning a security identity to a bean is useful when another bean calls that bean. The security identity can be set to use the identity of the caller or the identity of a specific security role.">Adding a security identity (bean level)</a><br />
+<a href="../topics/teaddroletokey.html" title="You can add a relationship role to a key class.">Adding relationship roles to keys</a><br />
+<a href="../../com.ibm.etools.j2eeapp.doc/topics/tjaddrefsecurityrole.html">Adding security role references</a><br />
+</p>
+</div><div class="runningfooter">
+		<a href="http://www.ibm.com/legal/" target="_blank">Terms of use</a> | 
+		<a href="https://www6.software.ibm.com/reg/rational/rdf-i" target="_blank">Feedback</a>	
+		<br />
+		(C) Copyright IBM Corporation 2000, 2004. All Rights Reserved.
+		<br /> 
+</div>
+</body>
+</html>

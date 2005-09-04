@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ========================================================== -->
+<!-- Licensed Materials - Property of IBM                       -->
+<!-- (c) Copyright IBM Corp. 2000, 2004. All Rights Reserved.         -->
+<!-- ========================================================== -->
+<toc label="J2EE tasks" link_to="../com.ibm.etools.j2eeapp.doc/j2eeapp_toc.xml#j2ee_connector_tasks" topic="topics/tjrar.html">
+   <topic label="Connector projects">
+      <topic label="Creating a connector project" href="topics/tjrar.html"/>
+      <topic label="Importing a connector project RAR file" href="topics/tjimprar.html"/>
+      <topic label="Exporting connector projects to RAR files" href="topics/tjexprar.html"/>
+   </topic>
+</toc>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<?NLS TYPE="org.eclipse.help.contexts"?>
+
+<!-- ================================================= -->
+<!-- This is the plugin for declaring the help         -->
+<!-- contributions for the j2ee.doc component       -->
+<!-- ================================================= -->
+
+<plugin
+   id="org.eclipse.jst.j2ee.doc.user"
+   name="%Plugin.name"
+   version="0.7.0"
+   provider-name="Eclipse.org">
+	
+<!-- ============================================================================= -->
+<!-- Define TOCs                                                                   -->
+<!-- ============================================================================= -->
+
+   <extension point="org.eclipse.help.toc">
+       <toc file="j2ee_tasks_toc.xml" />
+   </extension>
+   
+</plugin>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="copyright" content="(C) Copyright IBM Corporation 2004" />
+<meta name="DC.rights.owner" content="(C) Copyright IBM Corporation 2004" />
+<meta name="security" content="public" />
+<meta name="Robots" content="index,follow" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="DC.Type" content="task" />
+<meta name="DC.Title" content="Adding client views or interfaces to beans" />
+<meta name="abstract" content="You can use the EJB deployment descriptor editor to add and remove client views, or interfaces, from existing entity or session beans." />
+<meta name="description" content="You can use the EJB deployment descriptor editor to add and remove client views, or interfaces, from existing entity or session beans." />
+<meta name="DC.Relation" scheme="URI" content="../topics/ceejbed.dita" />
+<meta name="DC.Relation" scheme="URI" content="../topics/teaddcmpfields.dita" />
+<meta name="DC.Relation" scheme="URI" content="../topics/cekeycl.dita" />
+<meta name="DC.Format" content="XHTML" />
+<meta name="DC.Identifier" content="teaddclientviews" />
+<meta name="DC.Language" content="en-us" />
+<!-- All rights reserved. Licensed Materials Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/ibmdita.css" />
+<link rel="stylesheet" type="text/css" href="../../com.ibm.help.doc/swg_info_common.css" />
+<title>Adding client views or interfaces to beans</title>
+<script language="JavaScript">
+    function popup_window( url, id, width, height )
+    {
+      popup = window.open( url, id, 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=no,width=' + width + ',height=' + height + ',left=,top=' );
+      popup.focus();
+    }
+</script><script language="JavaScript" src="help/liveHelp.js"></script></head>
+<body id="teaddclientviews"><a name="teaddclientviews"><!-- --></a>
+
+<h1 class="topictitle1">Adding client views or interfaces to beans</h1>
+<div><p>You can use the EJB deployment descriptor editor to add and remove
+client views, or interfaces, from existing entity or session beans.</p><div class="skipspace"> <p>Client views are either local or remote, and entity and session
+beans must contain at least one client view. EJB 2.x beans can include both
+local and remote client views, while EJB 1.1 beans only include the default
+remote client view. Message-driven beans do not contain client interfaces.
+EJB 2.1 stateless session beans can also include a Web service client view.</p>
+<p>For
+example, if an existing EJB 2.0 BMP entity bean includes local and local home
+interface (a local client view), you can use the deployment descriptor editor
+to add remote and remote home interfaces. When you add the interfaces, you
+have the option of copying the methods from the existing local interfaces
+to the new remote interfaces. You also can choose to delete the existing local
+interfaces at the same time as the addition of the remote interfaces.</p>
+<p>Because
+EJB 1.1 beans only contain a remote interface, you cannot add an additional
+client view or remove the existing client view from an EJB 1.1 bean.</p>
+<p>To
+add a client view to an EJB 2.x enterprise bean:</p>
+</div>
+<ol><li><span>In the Project Explorer view of the J2EE perspective, right-click
+the Deployment Descriptor for your EJB project and select <span class="menucascade"><span class="uicontrol">Open
+With</span> &gt; <span class="uicontrol">Deployment Descriptor Editor</span></span> to
+open the deployment descriptor editor.</span></li>
+<li><span>On the <span class="uicontrol">Beans</span> page of the editor, select
+the entity or session bean that you want to work with.</span></li>
+<li><span>In the Class and Interface files section, click <span class="uicontrol">Add</span>.</span></li>
+<li><span>In the Add Client View wizard, select a check box in the <span class="uicontrol">Add
+new interfaces</span> section to specify the type of client view that
+you want to add. Depending on the interfaces that exist, only the appropriate
+check boxes will be available.</span></li>
+<li><span>In the <span class="uicontrol">Add methods from an existing interface to the
+new client view</span> section, select whether you want to copy the methods
+from the existing interfaces. This option is not available if there are no
+existing interfaces.</span></li>
+<li><span>In the <span class="uicontrol">Remove and/or delete the existing client view</span> section,
+select whether you also want to simultaneously delete the existing client
+view from the bean, from the project, or from both.</span></li>
+<li><span>Click <span class="uicontrol">Next</span>.</span></li>
+<li><span>Select the desired <span class="uicontrol">Package</span> and <span class="uicontrol">Class</span> for
+each interface.</span></li>
+<li><span>Click <span class="uicontrol">Finish</span>.</span></li>
+</ol>
+<div class="skipspace">If you decide that your bean does not need a particular client view,
+you can remove it from the bean, if the client view is not required. To remove
+a client view after you add it, select the client view in the Class and Interface
+files section and click <span class="uicontrol">Remove</span>. The Remove Client View
+wizard helps you complete the removal.</div>
+</div>
+
+<div><p><b class="relconceptshd">Related concepts</b><br />
+<a href="../topics/ceejbed.html" title="The EJB deployment descriptor editor is used to modify EJB JAR files and associated Java files.">EJB Deployment Descriptor editor</a><br />
+<a href="../topics/cekeycl.html" title="A key class is used when creating or finding an entity bean. It represents the identity of the entity bean, corresponding to the primary-key columns of a row in a relational database. Each designated container-managed field in the entity bean that corresponds to one of these columns is called a key field.">Key classes and key fields</a><br />
+</p>
+<p><b class="reltaskshd">Related tasks</b><br />
+<a href="../topics/teaddcmpfields.html" title="Container-managed persistence (CMP) fields, or attributes, define the variables in the bean class for which the container must handle persistence management.">Adding and removing CMP fields</a><br />
+</p>
+</div><div class="runningfooter">
+		<a href="http://www.ibm.com/legal/" target="_blank">Terms of use</a> | 
+		<a href="https://www6.software.ibm.com/reg/rational/rdf-i" target="_blank">Feedback</a>	
+		<br />
+		(C) Copyright IBM Corporation 2000, 2004. All Rights Reserved.
+		<br /> 
+</div>
+</body>
+</html>
