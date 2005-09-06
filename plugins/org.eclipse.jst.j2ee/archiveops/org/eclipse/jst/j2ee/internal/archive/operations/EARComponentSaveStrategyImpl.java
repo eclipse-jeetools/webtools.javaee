@@ -37,7 +37,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelPr
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl implements IJ2EEImportExportConstants {
+public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
 	protected Map createdComponentsMap;
 
