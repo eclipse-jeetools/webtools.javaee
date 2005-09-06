@@ -88,13 +88,26 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(anEJBProject);
 		if (comps.length == 0)
 			return null;
-		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
-		return edit.getEJBClientJarModule().getProject();
+		EJBArtifactEdit edit = null;
+		IVirtualComponent clientComp = null;
+		try {
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+			clientComp = edit.getEJBClientJarModule();
+		} finally {
+			if (edit != null)
+				edit.dispose();
+		}
+		if (clientComp == null)
+			return null;
+		return clientComp.getProject();
 	}
 
 	public JavaUtilityComponentCreationOperation createEJBClientJARProject(IProject anEJBProject) {
 		IDataModel dataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
-		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, anEJBProject.getName());
+		String clientProjName = anEJBProject.getName() + "Client"; //$NON-NLS-1$
+		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, clientProjName);
+		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_NAME, clientProjName);
+		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME, clientProjName);
         EJBClientComponentCreationOperation op = new EJBClientComponentCreationOperation(dataModel);
 		return op;
 	}
