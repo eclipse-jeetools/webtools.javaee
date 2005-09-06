@@ -93,10 +93,10 @@
          <action
                label="%jca.module_ui_"
                icon="icons/full/ctool16/newconnectionprj_wiz.gif"
-               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction"
+               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorComponentAction"
                menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
                enablesFor="1"
-               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction">
+               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorComponentAction">
          </action>
          <visibility>
             <objectState
@@ -202,19 +202,19 @@
 	               </or> 
                 </and> 
                   <objectClass
-	                     name="org.eclipse.jst.j2ee.internal.jca.impl.ConnectorImpl">
+	                     name="org.eclipse.jst.j2ee.jca.internal.impl.ConnectorImpl">
 	               </objectClass>
 	                <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
+                 name="org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
            	   </objectClass>
            	    <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl">
            	   </objectClass>
            	     <objectClass
-                 name="org.eclipse.jst.j2ee.internal.jca.impl.ResourceAdapterImpl">
+                 name="org.eclipse.jst.j2ee.jca.internal.impl.ResourceAdapterImpl">
            	   </objectClass>
            	   
            	                       
@@ -244,10 +244,10 @@
                </or>
             </and>     
              <objectClass
-	                     name="org.eclipse.jst.j2ee.internal.jca.impl.ConnectorImpl">
+	                     name="org.eclipse.jst.j2ee.jca.internal.impl.ConnectorImpl">
 	         </objectClass>     
 	         <objectClass
-                 name="org.eclipse.jst.j2ee.internal.jca.impl.ResourceAdapterImpl">
+                 name="org.eclipse.jst.j2ee.jca.internal.impl.ResourceAdapterImpl">
            	   </objectClass>  
             </or>
          </enablement>
@@ -259,10 +259,10 @@
          <enablement>
           <or>
              <objectClass
-	                     name="org.eclipse.jst.j2ee.internal.jca.impl.ConnectorImpl">
+	                     name="org.eclipse.jst.j2ee.jca.internal.impl.ConnectorImpl">
 	         </objectClass>    
 	              <objectClass
-                 name="org.eclipse.jst.j2ee.internal.jca.impl.ResourceAdapterImpl">
+                 name="org.eclipse.jst.j2ee.jca.internal.impl.ResourceAdapterImpl">
            	   </objectClass>
            </or> 
          </enablement>
