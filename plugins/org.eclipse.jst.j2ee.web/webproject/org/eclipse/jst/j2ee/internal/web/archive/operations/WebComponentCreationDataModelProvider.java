@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -42,8 +42,8 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 		return new WebComponentCreationOperation(model);
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(CONTEXT_ROOT);
 		return propertyNames;

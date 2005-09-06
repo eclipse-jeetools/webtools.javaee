@@ -1,6 +1,6 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -30,8 +30,8 @@ public class FlexibleProjectCreationDataModelProvider extends AbstractDataModelP
 		model.addNestedModel(NESTED_MODEL_PROJECT_CREATION, projModel);
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(PROJECT_LOCATION);
 		propertyNames.add(NESTED_MODEL_PROJECT_CREATION);

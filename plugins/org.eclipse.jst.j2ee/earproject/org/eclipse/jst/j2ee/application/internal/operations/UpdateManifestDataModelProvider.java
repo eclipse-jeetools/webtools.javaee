@@ -17,8 +17,8 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IProject;
@@ -33,8 +33,8 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
  */
 public class UpdateManifestDataModelProvider extends AbstractDataModelProvider implements UpdateManifestDataModelProperties {
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(JAR_LIST);
 		propertyNames.add(JAR_LIST_TEXT_UI);

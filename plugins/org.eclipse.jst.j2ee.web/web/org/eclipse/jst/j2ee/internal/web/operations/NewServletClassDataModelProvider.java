@@ -13,8 +13,8 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -126,9 +126,9 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public Collection getPropertyNames() {
+	public Set getPropertyNames() {
 		// Add servlet specific properties defined in this data model
-		Collection propertyNames = super.getPropertyNames();
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(INIT);
 		propertyNames.add(DO_POST);
 		propertyNames.add(DESTROY);

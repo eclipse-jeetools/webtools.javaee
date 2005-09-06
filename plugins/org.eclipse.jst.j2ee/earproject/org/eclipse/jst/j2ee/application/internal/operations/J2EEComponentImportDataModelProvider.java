@@ -8,7 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -27,8 +27,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties {
 
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EXTENDED_IMPORT_FACTORY);
 		return propertyNames;
 	}

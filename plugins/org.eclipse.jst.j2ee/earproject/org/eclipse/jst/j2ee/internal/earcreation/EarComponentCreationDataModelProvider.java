@@ -1,9 +1,9 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -53,8 +53,8 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
         }
     }
 
-    public Collection getPropertyNames(){
-		Collection propertyNames = super.getPropertyNames();
+    public Set getPropertyNames(){
+    	Set propertyNames = super.getPropertyNames();
 		propertyNames.add(J2EE_COMPONENT_LIST);
 		propertyNames.add(JAVA_PROJECT_LIST);
 		return propertyNames;

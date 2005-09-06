@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.common.operations;
 
 import java.lang.reflect.Modifier;
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -154,8 +154,8 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(SOURCE_FOLDER);
 		propertyNames.add(JAVA_PACKAGE);
 		propertyNames.add(CLASS_NAME);

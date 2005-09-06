@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -34,8 +34,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public class JARDependencyDataModelProvider extends AbstractDataModelProvider implements JARDependencyDataModelProperties {
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_PROJECT_NAME);
 		propertyNames.add(REFERENCED_PROJECT_NAME);
 		propertyNames.add(JAR_MANIPULATION_TYPE);

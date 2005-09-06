@@ -1,9 +1,9 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -59,8 +59,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return new AddComponentToEnterpriseApplicationDataModelProvider();
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_COMPONENT_NAME);
 		propertyNames.add(EAR_COMPONENT_DEPLOY_NAME);
 		propertyNames.add(ADD_TO_EAR);

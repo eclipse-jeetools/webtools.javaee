@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
@@ -31,8 +31,8 @@ public class JavaProjectMigrationDataModelProvider extends AbstractDataModelProv
 		super.init();
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
 		return propertyNames;
 	}

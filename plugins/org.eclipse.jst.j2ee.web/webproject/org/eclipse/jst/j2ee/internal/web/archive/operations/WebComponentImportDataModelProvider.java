@@ -9,9 +9,9 @@
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
@@ -37,8 +37,8 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  */
 public final class WebComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider implements IWebComponentImportDataModelProperties {
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(WEB_LIB_MODELS);
 		propertyNames.add(WEB_LIB_ARCHIVES_SELECTED);
 		return propertyNames;

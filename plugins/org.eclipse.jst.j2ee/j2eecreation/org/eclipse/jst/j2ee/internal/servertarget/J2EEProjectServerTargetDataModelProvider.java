@@ -1,9 +1,9 @@
 package org.eclipse.jst.j2ee.internal.servertarget;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -34,8 +34,8 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 		return new J2EEProjectServerTargetOp(model);
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
 		propertyNames.add(RUNTIME_TARGET_ID);
 		propertyNames.add(J2EE_VERSION_ID);

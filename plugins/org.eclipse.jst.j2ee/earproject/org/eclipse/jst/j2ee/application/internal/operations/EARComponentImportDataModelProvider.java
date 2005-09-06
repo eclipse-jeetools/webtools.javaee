@@ -9,11 +9,11 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.resources.IProject;
@@ -87,8 +87,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(NESTED_MODULE_ROOT);
 		propertyNames.add(UTILITY_LIST);
 		propertyNames.add(MODULE_MODELS_LIST);

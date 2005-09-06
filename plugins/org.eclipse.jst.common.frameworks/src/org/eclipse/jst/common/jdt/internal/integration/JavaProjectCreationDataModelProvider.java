@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProvider;
@@ -18,8 +18,8 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 public class JavaProjectCreationDataModelProvider extends ProjectCreationDataModelProvider implements IJavaProjectCreationProperties {
 
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(OUTPUT_LOCATION);
 		propertyNames.add(SOURCE_FOLDERS);
 		propertyNames.add(CLASSPATH_ENTRIES);

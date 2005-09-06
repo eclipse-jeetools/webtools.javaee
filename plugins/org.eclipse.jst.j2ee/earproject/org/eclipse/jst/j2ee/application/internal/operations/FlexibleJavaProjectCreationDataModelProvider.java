@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
@@ -39,8 +39,8 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
 		model.addNestedModel(NESTED_MODEL_PROJECT_CREATION, javaProjModel);
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(NESTED_MODEL_SERVER_TARGET);
 		propertyNames.add(ADD_SERVER_TARGET);
 		propertyNames.add(RUNTIME_TARGET_ID);

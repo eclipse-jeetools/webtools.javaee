@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -30,8 +30,8 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 
 	public static String J2EE_UTILITY_JAR_IMPORT_DMP_ID = "j2eeUtilityJarImportDataModelProvider";
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_COMPONENT_NAME);
 		propertyNames.add(EAR_PROJECT_NAME);
 		return propertyNames;

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
@@ -28,8 +28,8 @@ public class WebComponentExportDataModelProvider extends J2EEComponentExportData
 		return new WebComponentExportOperation(model);
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EXCLUDE_COMPILE_JSP);
 		return propertyNames;
 	}

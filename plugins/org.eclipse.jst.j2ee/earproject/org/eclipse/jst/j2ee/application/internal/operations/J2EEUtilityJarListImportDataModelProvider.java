@@ -19,8 +19,8 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IPathVariableManager;
 import org.eclipse.core.resources.IProject;
@@ -52,8 +52,8 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		super();
 	}
 
-	public Collection getPropertyNames(){
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames(){
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_PROJECT);
 		propertyNames.add(CREATE_PROJECT);
 		propertyNames.add(LINK_IMPORT);

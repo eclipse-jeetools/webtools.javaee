@@ -11,7 +11,7 @@
 
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Collection;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
@@ -26,8 +26,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpriseApplicationDataModelProvider implements IAddWebComponentToEnterpriseApplicationDataModelProperties {
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(CONTEXT_ROOT);
 		return propertyNames;
 	}

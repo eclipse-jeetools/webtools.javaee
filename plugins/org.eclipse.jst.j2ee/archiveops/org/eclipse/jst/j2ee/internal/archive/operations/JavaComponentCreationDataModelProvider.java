@@ -8,8 +8,8 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
@@ -31,8 +31,8 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class JavaComponentCreationDataModelProvider extends ComponentCreationDataModelProvider implements IJavaComponentCreationDataModelProperties {
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(JAVASOURCE_FOLDER);
 		propertyNames.add(MANIFEST_FOLDER);
 		propertyNames.add(RUNTIME_TARGET_ID);

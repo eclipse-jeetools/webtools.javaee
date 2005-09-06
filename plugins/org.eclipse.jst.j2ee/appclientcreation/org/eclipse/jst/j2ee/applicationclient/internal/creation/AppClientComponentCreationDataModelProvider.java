@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
@@ -31,8 +31,8 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 		super();
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(CREATE_DEFAULT_MAIN_CLASS);
 		return propertyNames;
 	}

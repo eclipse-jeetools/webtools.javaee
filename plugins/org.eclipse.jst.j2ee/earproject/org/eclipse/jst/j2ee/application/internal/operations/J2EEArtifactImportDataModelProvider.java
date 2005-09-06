@@ -8,7 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -40,8 +40,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private IDataModel componentCreationDM;
 	private OpenFailureException cachedOpenFailureException = null;
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(FILE_NAME);
 		propertyNames.add(FILE);
 		propertyNames.add(SAVE_FILTER);
