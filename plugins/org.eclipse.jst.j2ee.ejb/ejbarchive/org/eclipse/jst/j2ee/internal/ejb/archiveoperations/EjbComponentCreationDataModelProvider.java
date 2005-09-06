@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IPath;
@@ -49,8 +49,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 		return new EjbComponentCreationOperation(model);
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(CREATE_CLIENT);
 		propertyNames.add(CREATE_DEFAULT_SESSION_BEAN);
 		propertyNames.add(NESTED_MODEL_EJB_CLIENT_CREATION);

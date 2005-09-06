@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IStatus;
@@ -29,8 +29,8 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 		super();
 	}
 
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EJB_COMPONENT_NAME);
 		propertyNames.add(EJB_PROJECT_NAME);
 		propertyNames.add(EJB_COMPONENT_DEPLOY_NAME);

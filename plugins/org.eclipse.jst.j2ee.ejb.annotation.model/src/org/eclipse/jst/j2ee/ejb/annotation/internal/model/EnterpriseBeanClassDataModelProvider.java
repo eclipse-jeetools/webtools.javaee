@@ -9,9 +9,9 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.JavaConventions;
@@ -45,8 +45,8 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(EJB_TYPE);
 		propertyNames.add(EJB_NAME);

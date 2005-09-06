@@ -10,8 +10,8 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.ejb.SessionType;
@@ -42,8 +42,8 @@ public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelPr
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public Collection getPropertyNames() {
-		Collection propertyNames = super.getPropertyNames();
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(STATELESS);
 		propertyNames.add(EJB_INTERFACES);
 		return propertyNames;
