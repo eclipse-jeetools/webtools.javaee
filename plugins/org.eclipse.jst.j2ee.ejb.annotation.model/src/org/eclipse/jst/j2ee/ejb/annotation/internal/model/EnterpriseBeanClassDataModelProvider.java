@@ -9,6 +9,7 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,26 +34,39 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 
 	public EnterpriseBeanClassDataModelProvider() {
 		super();
-		//initializeDelegate();
+		// initializeDelegate();
 	}
 
 	protected abstract void initializeDelegate();
-	
+
 	/**
-	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * Subclasses may extend this method to add their own data model's properties as valid base
+	 * properties.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public String[] getPropertyNames() {
-		String[] props = new String[]{USE_ANNOTATIONS, EJB_TYPE, EJB_NAME, DISPLAY_NAME, JNDI_NAME,
-				DESCRIPTION, CLASS_NAME, TRANSACTIONTYPE, ANNOTATIONPROVIDER, MODELDELEGATE, INTERFACES_AS_STRING};
-        return combineProperties(super.getPropertyNames(), props);
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(USE_ANNOTATIONS);
+		propertyNames.add(EJB_TYPE);
+		propertyNames.add(EJB_NAME);
+		propertyNames.add(DISPLAY_NAME);
+		propertyNames.add(JNDI_NAME);
+		propertyNames.add(DESCRIPTION);
+		propertyNames.add(CLASS_NAME);
+		propertyNames.add(TRANSACTIONTYPE);
+		propertyNames.add(ANNOTATIONPROVIDER);
+		propertyNames.add(MODELDELEGATE);
+		propertyNames.add(INTERFACES_AS_STRING);
+		return propertyNames;
 	}
-	
+
 	/**
 	 * Subclasses may extend this method to provide their own determination of whether or not
-	 * certain properties should be disabled or enabled.  This method does not accept null parameter.
-	 * It will not return null.  This implementation makes sure annotation support is only allowed
-	 * on web projects of J2EE version 1.3 or higher.
+	 * certain properties should be disabled or enabled. This method does not accept null parameter.
+	 * It will not return null. This implementation makes sure annotation support is only allowed on
+	 * web projects of J2EE version 1.3 or higher.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel#basicIsEnabled(String)
 	 * @see IAnnotationsDataModel#USE_ANNOTATIONS
 	 * 
@@ -63,20 +77,21 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
 		if (USE_ANNOTATIONS.equals(propertyName)) {
 			return true;
-//			if (!isAnnotationsSupported())
-//				return Boolean.FALSE;
-//			return Boolean.TRUE;
+			// if (!isAnnotationsSupported())
+			// return Boolean.FALSE;
+			// return Boolean.TRUE;
 		}
 		// Otherwise return super implementation
 		return super.isPropertyEnabled(propertyName);
 	}
-	
-	
+
+
 	protected boolean isAnnotationsSupported() {
-		if (getTargetProject()==null || getTargetComponent()==null) return true;
+		if (getTargetProject() == null || getTargetComponent() == null)
+			return true;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getTargetProject(),getTargetComponent().getName());
+			ComponentHandle handle = ComponentHandle.create(getTargetProject(), getTargetComponent().getName());
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
 			if (ejbEdit == null)
 				return false;
@@ -93,7 +108,8 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 	public boolean propertySet(String propertyName, Object propertyValue) {
 
 		boolean result = super.propertySet(propertyName, propertyValue);
-		// After the property is set, if project changed, update the nature and the annotations enablement
+		// After the property is set, if project changed, update the nature and the annotations
+		// enablement
 		if (propertyName.equals(COMPONENT_NAME)) {
 			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		} else if (propertyName.equals(CLASS_NAME)) {
@@ -107,8 +123,8 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			if (!isPropertySet(DESCRIPTION))
 				getDataModel().notifyPropertyChange(DESCRIPTION, IDataModel.DEFAULT_CHG);
 		}
-		
-		
+
+
 		return result;
 	}
 
@@ -117,10 +133,10 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			return Boolean.TRUE;
 		else if (propertyName.equals(CLASS_NAME))
 			return "MyBean";
-		else if (propertyName.equals(EJB_NAME) ) {
+		else if (propertyName.equals(EJB_NAME)) {
 			String className = getStringProperty(CLASS_NAME);
 			if (className.endsWith("Bean"))
-				className = className.substring(0,className.length()-4);
+				className = className.substring(0, className.length() - 4);
 			return className;
 		} else if (propertyName.equals(JNDI_NAME)) {
 			return getProperty(EJB_NAME);
@@ -131,19 +147,18 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 		} else if (propertyName.equals(DISPLAY_NAME)) {
 			return getProperty(EJB_NAME);
 		} else if (propertyName.equals(DESCRIPTION)) {
-			return "A session bean named "+getStringProperty(EJB_NAME);
-		} else if(propertyName.equals(INTERFACES))
+			return "A session bean named " + getStringProperty(EJB_NAME);
+		} else if (propertyName.equals(INTERFACES))
 			return getEJBInterfaces();
-		else if (propertyName.equals(ANNOTATIONPROVIDER))
-		{
+		else if (propertyName.equals(ANNOTATIONPROVIDER)) {
 			String[] providers = AnnotationUtilities.getProviderNames();
-			if(providers!= null && providers.length > 0)
+			if (providers != null && providers.length > 0)
 				return providers[0];
-		}else if( propertyName.equals(SOURCE_FOLDER)){
+		} else if (propertyName.equals(SOURCE_FOLDER)) {
 			try {
 				Object srcFolder = super.getDefaultProperty(propertyName);
 				return srcFolder;
-			} catch (Exception e) {//Ignore
+			} catch (Exception e) {// Ignore
 			}
 			return ""; //$NON-NLS-1$
 		} else if (propertyName.equals(INTERFACES_AS_STRING))
@@ -154,7 +169,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
+
 	public IStatus validate(String propertyName) {
 		if (propertyName.equals(JAVA_PACKAGE))
 			return validateEjbJavaPackage(getStringProperty(propertyName));
@@ -172,21 +187,23 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			return validateTransaction(getStringProperty(propertyName));
 		return super.validate(propertyName);
 	}
+
 	protected IStatus validateClassName(String className) {
-		IStatus status =  super.validateJavaClassName(className);
+		IStatus status = super.validateJavaClassName(className);
 		if (status.isOK())
 			status = canCreateTypeInClasspath(className);
-		if( status != WTPCommonPlugin.OK_STATUS)
+		if (status != WTPCommonPlugin.OK_STATUS)
 			return status;
-		
-		if( className.equals("Bean") || className.equals("EJB") ){
-			
-		}else if( (className.endsWith("Bean") || className.endsWith("EJB"))  )
+
+		if (className.equals("Bean") || className.equals("EJB")) {
+
+		} else if ((className.endsWith("Bean") || className.endsWith("EJB")))
 			return status;
-		String msg = IEJBAnnotationConstants.ERR_CLASS_NAME_MUSTEND_WITH_BEAN ;
+		String msg = IEJBAnnotationConstants.ERR_CLASS_NAME_MUSTEND_WITH_BEAN;
 		return WTPCommonPlugin.createErrorStatus(msg);
-		
+
 	}
+
 	protected IStatus validateEjbJavaPackage(String packageName) {
 		if (packageName != null && packageName.trim().length() > 0) {
 			// Use standard java conventions to validate the package name
@@ -199,12 +216,12 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		}
-		if( packageName == null || packageName.trim().length() == 0  ){
-			String msg = IEJBAnnotationConstants.ERR_MUST_ENTER_A_PACKAGE_NAME ;
+		if (packageName == null || packageName.trim().length() == 0) {
+			String msg = IEJBAnnotationConstants.ERR_MUST_ENTER_A_PACKAGE_NAME;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		return WTPCommonPlugin.OK_STATUS;
-		
+
 	}
 
 	private IStatus validateEJBType(String prop) {
@@ -213,7 +230,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			String msg = IEJBAnnotationConstants.ERR_EJB_TYPE_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		if (prop.indexOf("SessionBean") >= 0 || prop.indexOf("MessageDrivenBean") >= 0|| prop.indexOf("EntityBean") >= 0) {
+		if (prop.indexOf("SessionBean") >= 0 || prop.indexOf("MessageDrivenBean") >= 0 || prop.indexOf("EntityBean") >= 0) {
 			return WTPCommonPlugin.OK_STATUS;
 		}
 		String msg = IEJBAnnotationConstants.ERR_EJB_TYPE_VALUE;
@@ -267,7 +284,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			String msg = IEJBAnnotationConstants.ERR_DISPLAY_NAME_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		if (getTargetProject()==null )//|| getComponent()==null)
+		if (getTargetProject() == null)// || getComponent()==null)
 			return WTPCommonPlugin.OK_STATUS;
 		ArtifactEdit edit = null;
 		try {
@@ -277,16 +294,16 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 				return WTPCommonPlugin.OK_STATUS;
 			List ejbs = ejbJar.getEnterpriseBeans();
 			if (ejbs != null && ejbs.size() > 0) {
-					for (int i = 0; i < ejbs.size(); i++) {
-						EnterpriseBean ejb = (EnterpriseBean) ejbs.get(i);
-						if (prop.equals(ejb.getDisplayName())) {
-							String msg = IEJBAnnotationConstants.ERR_EJB_DISPLAY_NAME_USED;
-							return WTPCommonPlugin.createErrorStatus(msg);
-						}
+				for (int i = 0; i < ejbs.size(); i++) {
+					EnterpriseBean ejb = (EnterpriseBean) ejbs.get(i);
+					if (prop.equals(ejb.getDisplayName())) {
+						String msg = IEJBAnnotationConstants.ERR_EJB_DISPLAY_NAME_USED;
+						return WTPCommonPlugin.createErrorStatus(msg);
 					}
+				}
 			}
 		} finally {
-			if (edit!=null)
+			if (edit != null)
 				edit.dispose();
 		}
 
@@ -296,12 +313,10 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 	protected IStatus validateJavaClassName(String prop) {
 		// check for empty
 		if (prop == null || prop.trim().length() == 0) {
-			String msg = J2EECommonMessages.getResourceString(
-					J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY,
-					new String[] { prop });
+			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY, new String[]{prop});
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		if (getTargetProject()==null )//|| getComponent()==null)
+		if (getTargetProject() == null)// || getComponent()==null)
 			return WTPCommonPlugin.OK_STATUS;
 		ArtifactEdit edit = null;
 		try {
@@ -311,16 +326,16 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 				return WTPCommonPlugin.OK_STATUS;
 			List ejbs = ejbJar.getEnterpriseBeans();
 			if (ejbs != null && ejbs.size() > 0) {
-					for (int i = 0; i < ejbs.size(); i++) {
-						EnterpriseBean ejb = (EnterpriseBean) ejbs.get(i);
-						if (prop.equals(ejb.getEjbClass().getQualifiedName())) {
-							String msg = IEJBAnnotationConstants.ERR_EJB_CLASS_NAME_USED;
-							return WTPCommonPlugin.createErrorStatus(msg);
-						}
+				for (int i = 0; i < ejbs.size(); i++) {
+					EnterpriseBean ejb = (EnterpriseBean) ejbs.get(i);
+					if (prop.equals(ejb.getEjbClass().getQualifiedName())) {
+						String msg = IEJBAnnotationConstants.ERR_EJB_CLASS_NAME_USED;
+						return WTPCommonPlugin.createErrorStatus(msg);
 					}
+				}
 			}
 		} finally {
-			if (edit!=null)
+			if (edit != null)
 				edit.dispose();
 		}
 
@@ -328,27 +343,27 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 	}
 
 	protected String getInterfacesString() {
-		List ints = (List)this.getProperty(INTERFACES);
-		Iterator iterator =  ints.iterator();
-		String intStr = (iterator.hasNext()? (String)iterator.next() : getDefaultInterfaces());
+		List ints = (List) this.getProperty(INTERFACES);
+		Iterator iterator = ints.iterator();
+		String intStr = (iterator.hasNext() ? (String) iterator.next() : getDefaultInterfaces());
 		while (iterator.hasNext()) {
 			String intrfc = (String) iterator.next();
-			intStr += ", " + intrfc ;
+			intStr += ", " + intrfc;
 		}
-		
+
 		return intStr;
 	}
 
 	private String getDefaultInterfaces() {
 		Iterator interfaces = getEJBInterfaces().iterator();
-		String interfacesStr = (interfaces.hasNext() ? (String)interfaces.next(): "");
+		String interfacesStr = (interfaces.hasNext() ? (String) interfaces.next() : "");
 		while (interfaces.hasNext()) {
-			interfacesStr = interfacesStr +", " +(String) interfaces.next();
-			
+			interfacesStr = interfacesStr + ", " + (String) interfaces.next();
+
 		}
 		return interfacesStr;
 	}
 
-	protected abstract List getEJBInterfaces() ;
+	protected abstract List getEJBInterfaces();
 
 }

@@ -10,6 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -36,14 +37,18 @@ public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelPr
 	}
 
 	/**
-	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * Subclasses may extend this method to add their own data model's properties as valid base
+	 * properties.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public String[] getPropertyNames() {
-		String[] props = new String[]{STATELESS, EJB_INTERFACES};
-        return combineProperties(super.getPropertyNames(), props);
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(STATELESS);
+		propertyNames.add(EJB_INTERFACES);
+		return propertyNames;
 	}
-	
+
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.FALSE;
@@ -74,8 +79,8 @@ public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelPr
 	protected List getEJBInterfaces() {
 		if (this.interfaceList == null) {
 			this.interfaceList = new ArrayList();
-			for (int i = 0; i < ((String[])getProperty(EJB_INTERFACES)).length; i++) {
-				this.interfaceList.add(((String[])getProperty(EJB_INTERFACES))[i]);
+			for (int i = 0; i < ((String[]) getProperty(EJB_INTERFACES)).length; i++) {
+				this.interfaceList.add(((String[]) getProperty(EJB_INTERFACES))[i]);
 			}
 		}
 		return this.interfaceList;
@@ -92,15 +97,15 @@ public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelPr
 		}
 		String msg = IEJBAnnotationConstants.ERR_STATELESS_VALUE;
 		return WTPCommonPlugin.createErrorStatus(msg);
-	}	
-	
+	}
+
 	protected void initializeDelegate() {
 		SessionBeanDelegate delegate = new SessionBeanDelegate();
 		delegate.setDataModel(getDataModel());
-		this.setProperty(MODELDELEGATE,delegate);
-		//Set the defaults so that they are propagated via events
+		this.setProperty(MODELDELEGATE, delegate);
+		// Set the defaults so that they are propagated via events
 		this.setProperty(STATELESS, this.getProperty(STATELESS));
 		this.setProperty(TRANSACTIONTYPE, this.getProperty(TRANSACTIONTYPE));
 	}
-	
+
 }

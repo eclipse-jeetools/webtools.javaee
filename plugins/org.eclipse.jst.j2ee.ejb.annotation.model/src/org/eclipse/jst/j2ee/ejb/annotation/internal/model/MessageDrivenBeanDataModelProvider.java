@@ -10,6 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -21,10 +22,10 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
 public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements IMessageDrivenBeanDataModelProperties {
-	
+
 	public final static String DEFAULT_EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
 	public final static String[] DEFAULT_EJB_INTERFACES = {"javax.ejb.MessageDrivenBean", "javax.jms.MessageListener"}; //$NON-NLS-1$ //$NON-NLS-2$
-	
+
 	private List interfaceList;
 
 	/*
@@ -37,12 +38,17 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 	}
 
 	/**
-	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * Subclasses may extend this method to add their own data model's properties as valid base
+	 * properties.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public String[] getPropertyNames() {
-		String[] props = new String[]{DESTINATIONTYPE, DESTINATIONNAME, EJB_INTERFACES};
-        return combineProperties(super.getPropertyNames(), props);
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(DESTINATIONTYPE);
+		propertyNames.add(DESTINATIONNAME);
+		propertyNames.add(EJB_INTERFACES);
+		return propertyNames;
 	}
 
 	public Object getDefaultProperty(String propertyName) {
@@ -88,12 +94,12 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 		String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_VALUE;
 		return WTPCommonPlugin.createErrorStatus(msg);
 	}
-	
+
 	protected List getEJBInterfaces() {
 		if (this.interfaceList == null) {
 			this.interfaceList = new ArrayList();
-			for (int i = 0; i < ((String[])getProperty(EJB_INTERFACES)).length; i++) {
-				this.interfaceList.add(((String[])getProperty(EJB_INTERFACES))[i]);
+			for (int i = 0; i < ((String[]) getProperty(EJB_INTERFACES)).length; i++) {
+				this.interfaceList.add(((String[]) getProperty(EJB_INTERFACES))[i]);
 			}
 		}
 		return this.interfaceList;
@@ -102,8 +108,8 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 	protected void initializeDelegate() {
 		MessageDrivenBeanDelegate delegate = new MessageDrivenBeanDelegate();
 		delegate.setDataModel(getDataModel());
-		this.setProperty(MODELDELEGATE,delegate);
-		//Set the defaults so that they are propagated via events
+		this.setProperty(MODELDELEGATE, delegate);
+		// Set the defaults so that they are propagated via events
 		this.setProperty(DESTINATIONTYPE, this.getProperty(DESTINATIONTYPE));
 		this.setProperty(TRANSACTIONTYPE, this.getProperty(TRANSACTIONTYPE));
 		this.setProperty(DESTINATIONNAME, this.getProperty(DESTINATIONNAME));
