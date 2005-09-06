@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.common.operations;
 
 import java.lang.reflect.Modifier;
+import java.util.Collection;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -35,30 +36,35 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
- * This data model provider is a subclass of AbstractDataModelProvider and follows the IDataModelOperation and Data Model Wizard frameworks.
+ * This data model provider is a subclass of AbstractDataModelProvider and follows the
+ * IDataModelOperation and Data Model Wizard frameworks.
+ * 
  * @see org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider
  * 
- * This data model provider extends the ArtifactEditOperationDataModelProvider to get project name and artifact edit information
- * that during the operation, the artifact edit model can be used to save changes.
+ * This data model provider extends the ArtifactEditOperationDataModelProvider to get project name
+ * and artifact edit information that during the operation, the artifact edit model can be used to
+ * save changes.
  * @see org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModelProvider
  * 
- * The NewJavaClassDataModelProvider is used to store all the base properties which would be needed to generate
- * a new instance of a java class.  Validations for these properties such as class name, package name,
- * superclass, and modifiers are also provided.
+ * The NewJavaClassDataModelProvider is used to store all the base properties which would be needed
+ * to generate a new instance of a java class. Validations for these properties such as class name,
+ * package name, superclass, and modifiers are also provided.
  * 
  * The INewJavaClassDataModelProperties is implemented to store all of the property names.
  * @see org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties
  * 
- * Clients must subclass this data model provider and the properties interface to use it and to cache and provide their own specific attributes.
- * They should also provide their own validation methods and default values for the properties they add.
+ * Clients must subclass this data model provider and the properties interface to use it and to
+ * cache and provide their own specific attributes. They should also provide their own validation
+ * methods and default values for the properties they add.
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataModelProvider implements INewJavaClassDataModelProperties {
 
 	/**
-	 * Subclasses may extend this method to perform their own validation.  This method should
-	 * not return null.  It does not accept null as a parameter.
+	 * Subclasses may extend this method to perform their own validation. This method should not
+	 * return null. It does not accept null as a parameter.
+	 * 
 	 * @see NewJavaClassDataModelProvider#validate(String)
 	 * 
 	 * @param folderFullPath
@@ -106,8 +112,8 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * Subclasses may extend this method to perform their own retrieval of a default java source folder.
-	 * This implementation returns the first source folder in the project for the component.
+	 * Subclasses may extend this method to perform their own retrieval of a default java source
+	 * folder. This implementation returns the first source folder in the project for the component.
 	 * This method may return null.
 	 * 
 	 * @return IFolder instance of default java source folder
@@ -118,7 +124,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			return null;
 		IPackageFragmentRoot[] sources = ComponentUtilities.getSourceContainers(getTargetComponent());
 		// Try and return the first source folder
-		if (sources.length>0) {
+		if (sources.length > 0) {
 			try {
 				return (IFolder) sources[0].getCorrespondingResource();
 			} catch (Exception e) {
@@ -127,11 +133,12 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Subclasses may extend this method to create their own specialized default WTP operation.
-	 * This implementation creates an instance of the NewJavaClassOperation to create a new
-	 * java class.  This method will not return null.
+	 * Subclasses may extend this method to create their own specialized default WTP operation. This
+	 * implementation creates an instance of the NewJavaClassOperation to create a new java class.
+	 * This method will not return null.
+	 * 
 	 * @see WTPOperationDataModel#getDefaultOperation()
 	 * @see NewJavaClassOperation
 	 * 
@@ -142,20 +149,36 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * Subclasses may extend this method to add their own data model's properties as valid base
+	 * properties.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public String[] getPropertyNames() {
-		String[] props = new String[]{SOURCE_FOLDER, JAVA_PACKAGE, CLASS_NAME, SUPERCLASS, MODIFIER_PUBLIC,
-				MODIFIER_ABSTRACT, MODIFIER_FINAL, INTERFACES, MAIN_METHOD, CONSTRUCTOR, ABSTRACT_METHODS, 
-				JAVA_PACKAGE_FRAGMENT_ROOT, JAVA_SOURCE_FOLDER, PROJECT, QUALIFIED_CLASS_NAME};
-        return combineProperties(super.getPropertyNames(), props);
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(SOURCE_FOLDER);
+		propertyNames.add(JAVA_PACKAGE);
+		propertyNames.add(CLASS_NAME);
+		propertyNames.add(SUPERCLASS);
+		propertyNames.add(MODIFIER_PUBLIC);
+		propertyNames.add(MODIFIER_ABSTRACT);
+		propertyNames.add(MODIFIER_FINAL);
+		propertyNames.add(INTERFACES);
+		propertyNames.add(MAIN_METHOD);
+		propertyNames.add(CONSTRUCTOR);
+		propertyNames.add(ABSTRACT_METHODS);
+		propertyNames.add(JAVA_PACKAGE_FRAGMENT_ROOT);
+		propertyNames.add(JAVA_SOURCE_FOLDER);
+		propertyNames.add(PROJECT);
+		propertyNames.add(QUALIFIED_CLASS_NAME);
+		return propertyNames;
 	}
 
 	/**
-	 * Subclasses may extend this method to add the default values for their own specific data
-	 * model properties.  This declares the default values for the new java class.
-	 * This method does not accept null.  It may return null.
+	 * Subclasses may extend this method to add the default values for their own specific data model
+	 * properties. This declares the default values for the new java class. This method does not
+	 * accept null. It may return null.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getDefaultProperty(String)
 	 * 
 	 * @param propertyName
@@ -190,31 +213,34 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			return getQualifiedClassName();
 		return super.getDefaultProperty(propertyName);
 	}
-	
+
 	/**
-	 * This method will return the qualified java class name as specified by the class name
-	 * and package name properties in the data model.
-	 * This method should not return null.
+	 * This method will return the qualified java class name as specified by the class name and
+	 * package name properties in the data model. This method should not return null.
+	 * 
 	 * @see INewJavaClassDataModelProperties#CLASS_NAME
 	 * @see INewJavaClassDataModelProperties#JAVA_PACKAGE
 	 * 
 	 * @return String qualified java classname
 	 */
 	private String getQualifiedClassName() {
-		// Use the java package name and unqualified class name to create a qualified java class name
+		// Use the java package name and unqualified class name to create a qualified java class
+		// name
 		String packageName = getStringProperty(JAVA_PACKAGE);
 		String className = getStringProperty(CLASS_NAME);
-		//Ensure the class is not in the default package before adding package name to qualified name
+		// Ensure the class is not in the default package before adding package name to qualified
+		// name
 		if (packageName != null && packageName.trim().length() > 0)
 			return packageName + "." + className; //$NON-NLS-1$
 		return className;
 	}
 
 	/**
-	 * Subclasses may override this method to provide their own validation of any of the data model's
-	 * properties.  This implementation ensures that a java class can be properly generated from
-	 * the values as specified.
-	 * This method will not return null.  This method will not accept null as a parameter.
+	 * Subclasses may override this method to provide their own validation of any of the data
+	 * model's properties. This implementation ensures that a java class can be properly generated
+	 * from the values as specified. This method will not return null. This method will not accept
+	 * null as a parameter.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#validate(java.lang.String)
 	 * 
 	 * @param propertyName
@@ -222,7 +248,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 */
 	public IStatus validate(String propertyName) {
 		IStatus result = super.validate(propertyName);
-		if (result !=null && !result.isOK())
+		if (result != null && !result.isOK())
 			return result;
 		if (propertyName.equals(SOURCE_FOLDER))
 			return validateJavaSourceFolder(getStringProperty(propertyName));
@@ -236,17 +262,19 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		if (propertyName.equals(SUPERCLASS))
 			return validateSuperclass(getStringProperty(propertyName));
 		if (propertyName.equals(MODIFIER_ABSTRACT) || propertyName.equals(MODIFIER_FINAL))
-			return validateModifier(propertyName,getBooleanProperty(propertyName));
+			return validateModifier(propertyName, getBooleanProperty(propertyName));
 		return result;
 	}
 
 	/**
-	 * This method will validate whether the specified package name is a valid java package name.  It will
-	 * be called during the doValidateProperty(String).
-	 * This method will accept null.  It will not return null.
+	 * This method will validate whether the specified package name is a valid java package name. It
+	 * will be called during the doValidateProperty(String). This method will accept null. It will
+	 * not return null.
+	 * 
 	 * @see NewJavaClassDataModelProvider#validate(String)
 	 * 
-	 * @param packName -- the package name
+	 * @param packName --
+	 *            the package name
 	 * @return IStatus of if the package name is valid
 	 */
 	private IStatus validateJavaPackage(String packName) {
@@ -266,9 +294,10 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * Subclasses may override this method to provide their own validation of the class name.
-	 * This implementation will verify if the specified class name is a valid UNQUALIFIED java class name.
-	 * This method will not accept null.  It will not return null.
+	 * Subclasses may override this method to provide their own validation of the class name. This
+	 * implementation will verify if the specified class name is a valid UNQUALIFIED java class
+	 * name. This method will not accept null. It will not return null.
+	 * 
 	 * @see NewJavaClassDataModelProvider#validate(String)
 	 * 
 	 * @param className
@@ -293,9 +322,10 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * This method will verify the specified superclass can be subclassed.  It ensures the
-	 * superclass is a valid java class, that it exists, and that it is not final.
-	 * This method will accept null.  It will not return null.
+	 * This method will verify the specified superclass can be subclassed. It ensures the superclass
+	 * is a valid java class, that it exists, and that it is not final. This method will accept
+	 * null. It will not return null.
+	 * 
 	 * @see NewJavaClassDataModelProvider#validate(String)
 	 * 
 	 * @param superclassName
@@ -325,7 +355,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			try {
 				supertype = javaProject.findType(superclassName);
 			} catch (Exception e) {
-				//Just throw error below
+				// Just throw error below
 			}
 			if (supertype == null) {
 				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST);
@@ -348,9 +378,10 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * This method will ensure that if the abstract modifier is set, that final is not set,
-	 * and vice-versa, as this is not supported either way.
-	 * This method will not accept null.  It will not return null.
+	 * This method will ensure that if the abstract modifier is set, that final is not set, and
+	 * vice-versa, as this is not supported either way. This method will not accept null. It will
+	 * not return null.
+	 * 
 	 * @see NewJavaClassDataModelProvider#validate(String)
 	 * 
 	 * @param prop
@@ -375,9 +406,10 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * This method is intended for internal use only.  This will check the java model for the specified
-	 * javaproject in the data model for the existence of the passed in qualified classname.
-	 * This method does not accept null.  It may return null.
+	 * This method is intended for internal use only. This will check the java model for the
+	 * specified javaproject in the data model for the existence of the passed in qualified
+	 * classname. This method does not accept null. It may return null.
+	 * 
 	 * @see NewJavaClassDataModelProvider#getTargetProject()
 	 * @see JavaModelUtil#findType(IJavaProject, String)
 	 * 
@@ -388,14 +420,14 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		// Retrieve the java project for the cached project
 		IJavaProject javaProject = JemProjectUtilities.getJavaProject(getTargetProject());
 		try {
-			IPath path = new Path(getStringProperty(SOURCE_FOLDER)+"//"+getStringProperty(JAVA_PACKAGE)); //$NON-NLS-1$
-			IPackageFragment pack= javaProject.findPackageFragment(path);
+			IPath path = new Path(getStringProperty(SOURCE_FOLDER) + "//" + getStringProperty(JAVA_PACKAGE)); //$NON-NLS-1$
+			IPackageFragment pack = javaProject.findPackageFragment(path);
 			if (pack != null) {
-				ICompilationUnit cu= pack.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-				IResource resource= cu.getResource();
+				ICompilationUnit cu = pack.getCompilationUnit(className + ".java"); //$NON-NLS-1$
+				IResource resource = cu.getResource();
 				if (resource.exists()) {
 					String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST);
-				 	return WTPCommonPlugin.createErrorStatus(msg);
+					return WTPCommonPlugin.createErrorStatus(msg);
 				}
 			}
 			return WTPCommonPlugin.OK_STATUS;
@@ -406,8 +438,9 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 
 	/**
-	 * This will return the IFolder instance for the specified folder name in the data model.
-	 * This method may return null.
+	 * This will return the IFolder instance for the specified folder name in the data model. This
+	 * method may return null.
+	 * 
 	 * @see INewJavaClassDataModelProperties#SOURCE_FOLDER
 	 * @see NewJavaClassDataModelProvider#getAllSourceFolders()
 	 * 
@@ -415,8 +448,8 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 */
 	protected final IFolder getJavaSourceFolder() {
 		IPackageFragmentRoot[] sources = ComponentUtilities.getSourceContainers(getTargetComponent());
-		//Ensure there is valid source folder(s)
-		if (sources == null || sources.length==0)
+		// Ensure there is valid source folder(s)
+		if (sources == null || sources.length == 0)
 			return null;
 		String folderFullPath = getStringProperty(SOURCE_FOLDER);
 		// Get the source folder whose path matches the source folder name value in the data model
@@ -431,11 +464,12 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Subclasses may extend this method to perform their own retrieval mechanism.
-	 * This implementation simply returns the JDT package fragment root for the selected source
-	 * folder.  This method may return null.
+	 * Subclasses may extend this method to perform their own retrieval mechanism. This
+	 * implementation simply returns the JDT package fragment root for the selected source folder.
+	 * This method may return null.
+	 * 
 	 * @see IJavaProject#getPackageFragmentRoot(org.eclipse.core.resources.IResource)
 	 * 
 	 * @return IPackageFragmentRoot
@@ -454,11 +488,13 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 
 	/**
 	 * This method ensures the source folder is updated if the component is changed.
-	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#propertySet(String, Object)
+	 * 
+	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#propertySet(String,
+	 *      Object)
 	 * 
 	 * @return boolean if property set successfully
 	 */
-	public boolean propertySet(String propertyName, Object propertyValue) {			
+	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean result = super.propertySet(propertyName, propertyValue);
 		if (result) {
 			if (COMPONENT_NAME.equals(propertyName))

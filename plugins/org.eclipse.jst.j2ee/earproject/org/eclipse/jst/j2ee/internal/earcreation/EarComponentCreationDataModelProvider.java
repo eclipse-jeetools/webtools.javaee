@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -52,9 +53,11 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
         }
     }
 
-    public String[] getPropertyNames() {
-        String[] props = new String[] { J2EE_COMPONENT_LIST, JAVA_PROJECT_LIST };
-        return combineProperties(super.getPropertyNames(), props);
+    public Collection getPropertyNames(){
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(J2EE_COMPONENT_LIST);
+		propertyNames.add(JAVA_PROJECT_LIST);
+		return propertyNames;
     }
     
     public Object getDefaultProperty(String propertyName) {

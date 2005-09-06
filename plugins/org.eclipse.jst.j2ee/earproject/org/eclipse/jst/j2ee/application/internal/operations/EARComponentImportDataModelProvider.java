@@ -9,6 +9,7 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -86,8 +87,20 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
 
-	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{NESTED_MODULE_ROOT, UTILITY_LIST, MODULE_MODELS_LIST, EJB_CLIENT_LIST, UTILITY_MODELS_LIST, NESTED_PROJECTS_VALIDATION, SELECTED_MODELS_LIST, USE_ANNOTATIONS, ALL_PROJECT_MODELS_LIST, UNHANDLED_PROJECT_MODELS_LIST, HANDLED_PROJECT_MODELS_LIST});
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(NESTED_MODULE_ROOT);
+		propertyNames.add(UTILITY_LIST);
+		propertyNames.add(MODULE_MODELS_LIST);
+		propertyNames.add(EJB_CLIENT_LIST);
+		propertyNames.add(UTILITY_MODELS_LIST);
+		propertyNames.add(NESTED_PROJECTS_VALIDATION);
+		propertyNames.add(SELECTED_MODELS_LIST);
+		propertyNames.add(USE_ANNOTATIONS);
+		propertyNames.add(ALL_PROJECT_MODELS_LIST);
+		propertyNames.add(UNHANDLED_PROJECT_MODELS_LIST);
+		propertyNames.add(HANDLED_PROJECT_MODELS_LIST);
+		return propertyNames;
 	}
 
 	public Object getDefaultProperty(String propertyName) {

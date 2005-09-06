@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.Collection;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModelProvider;
@@ -20,62 +22,68 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjectCreationDataModelProvider implements IFlexibleJavaProjectCreationDataModelProperties{
+public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjectCreationDataModelProvider implements IFlexibleJavaProjectCreationDataModelProperties {
 
-    public FlexibleJavaProjectCreationDataModelProvider() {
-        super();
-    }
-    public void init() {    
-        super.init();
-        IDataModel serverTargetModel = DataModelFactory.createDataModel(new J2EEProjectServerTargetDataModelProvider());
-        model.addNestedModel(NESTED_MODEL_SERVER_TARGET, serverTargetModel);
-    }
-    
-    protected void initNestedProjectModel() {
-        IDataModel javaProjModel = DataModelFactory.createDataModel(new JavaProjectCreationDataModelProvider());
-        model.addNestedModel(NESTED_MODEL_PROJECT_CREATION, javaProjModel);
-    }
-    
-    public String[] getPropertyNames() {
-        String[] props = new String[]{NESTED_MODEL_SERVER_TARGET, ADD_SERVER_TARGET, RUNTIME_TARGET_ID};
-        return combineProperties(super.getPropertyNames(), props);
-    }
-    public Object getDefaultProperty(String propertyName) {
-        if (propertyName.equals(ADD_SERVER_TARGET)) {
-            return Boolean.TRUE;
-        }
-        return super.getDefaultProperty(propertyName);
-    }
-    
-    public boolean propertySet(String propertyName, Object propertyValue) {
-        boolean status = super.propertySet(propertyName, propertyValue);
-        if (PROJECT_NAME.equals(propertyName)) {
-            IDataModel projModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
-            projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.PROJECT_NAME, propertyValue);
-        } else if (RUNTIME_TARGET_ID.equals(propertyName)) {
-            IDataModel projModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+	public FlexibleJavaProjectCreationDataModelProvider() {
+		super();
+	}
+
+	public void init() {
+		super.init();
+		IDataModel serverTargetModel = DataModelFactory.createDataModel(new J2EEProjectServerTargetDataModelProvider());
+		model.addNestedModel(NESTED_MODEL_SERVER_TARGET, serverTargetModel);
+	}
+
+	protected void initNestedProjectModel() {
+		IDataModel javaProjModel = DataModelFactory.createDataModel(new JavaProjectCreationDataModelProvider());
+		model.addNestedModel(NESTED_MODEL_PROJECT_CREATION, javaProjModel);
+	}
+
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(NESTED_MODEL_SERVER_TARGET);
+		propertyNames.add(ADD_SERVER_TARGET);
+		propertyNames.add(RUNTIME_TARGET_ID);
+		return propertyNames;
+	}
+
+	public Object getDefaultProperty(String propertyName) {
+		if (propertyName.equals(ADD_SERVER_TARGET)) {
+			return Boolean.TRUE;
+		}
+		return super.getDefaultProperty(propertyName);
+	}
+
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean status = super.propertySet(propertyName, propertyValue);
+		if (PROJECT_NAME.equals(propertyName)) {
+			IDataModel projModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
+			projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.PROJECT_NAME, propertyValue);
+		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
+			IDataModel projModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
 			projModel.setProperty(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
-        }
-        return status;
-    }
-    public IDataModelOperation getDefaultOperation() {
-        return new FlexibleJavaProjectCreationOperation(model);
-    }
-	
-	
-	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+		}
+		return status;
+	}
+
+	public IDataModelOperation getDefaultOperation() {
+		return new FlexibleJavaProjectCreationOperation(model);
+	}
+
+
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(RUNTIME_TARGET_ID)) {
 			IDataModel serverTargetModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
 			return serverTargetModel.getValidPropertyDescriptors(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
 		}
 		return null;
 	}
-	
+
 	public IStatus validate(String propertyName) {
 		IStatus status = super.validate(propertyName);
-		if(!status.isOK()){
+		if (!status.isOK()) {
 			return status;
-		}else if(propertyName.equals(NESTED_MODEL_SERVER_TARGET)){
+		} else if (propertyName.equals(NESTED_MODEL_SERVER_TARGET)) {
 			IDataModel stModel = model.getNestedModel(NESTED_MODEL_SERVER_TARGET);
 			return stModel.validate();
 		}

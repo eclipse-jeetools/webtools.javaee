@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
+import java.util.Collection;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
@@ -23,98 +25,99 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class AppClientComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IAppClientComponentCreationDataModelProperties{
+public class AppClientComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IAppClientComponentCreationDataModelProperties {
 
-    public AppClientComponentCreationDataModelProvider() {
-        super();
-    }
+	public AppClientComponentCreationDataModelProvider() {
+		super();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
-     */
-    public String[] getPropertyNames() {
-        String[] props =  new String[]{CREATE_DEFAULT_MAIN_CLASS};
-        return combineProperties(super.getPropertyNames(), props);
-    }
-    
-    public Object getDefaultProperty(String propertyName) {
-        if (propertyName.equals(CREATE_DEFAULT_MAIN_CLASS)) {
-            return getProperty(CREATE_DEFAULT_FILES);
-        } else if (propertyName.equals(ADD_TO_EAR)) {
-            return Boolean.TRUE;
-        } else if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
-            else 
-                return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
-        }
-        if (propertyName.equals(DD_FOLDER)) {
-            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER+IPath.SEPARATOR + J2EEConstants.META_INF;
-            else
-                return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
-        }       
-        if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
-            else
-                return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER; 
-        }       
-        return super.getDefaultProperty(propertyName);
-    }
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(CREATE_DEFAULT_MAIN_CLASS);
+		return propertyNames;
+	}
 
-    protected Integer getDefaultComponentVersion() {
-        int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
-        return new Integer(highestJ2EEPref);
-    }
+	public Object getDefaultProperty(String propertyName) {
+		if (propertyName.equals(CREATE_DEFAULT_MAIN_CLASS)) {
+			return getProperty(CREATE_DEFAULT_FILES);
+		} else if (propertyName.equals(ADD_TO_EAR)) {
+			return Boolean.TRUE;
+		} else if (propertyName.equals(MANIFEST_FOLDER)) {
+			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+			else
+				return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+		}
+		if (propertyName.equals(DD_FOLDER)) {
+			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+			else
+				return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+		}
+		if (propertyName.equals(JAVASOURCE_FOLDER)) {
+			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
+			else
+				return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
+		}
+		return super.getDefaultProperty(propertyName);
+	}
 
-    protected DataModelPropertyDescriptor[] getValidComponentVersionDescriptors() {
-        int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
-        DataModelPropertyDescriptor[] descriptors = null;
-        switch (highestJ2EEPref) {
-            case J2EEVersionConstants.J2EE_1_2_ID :
-                descriptors = new DataModelPropertyDescriptor[1];
-                descriptors[0] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
-                break;
-            case J2EEVersionConstants.J2EE_1_3_ID :
-                descriptors = new DataModelPropertyDescriptor[2];
-                descriptors[0] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
-                descriptors[1] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_3_ID), J2EEVersionConstants.VERSION_1_3_TEXT);
-                break;
-            case J2EEVersionConstants.J2EE_1_4_ID :
-            default :
-                descriptors = new DataModelPropertyDescriptor[3];
-                descriptors[0] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
-                descriptors[1] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_3_ID), J2EEVersionConstants.VERSION_1_3_TEXT);
-                descriptors[2] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_4_ID), J2EEVersionConstants.VERSION_1_4_TEXT);
-                break;
-        }
-        return descriptors;
-    }
+	protected Integer getDefaultComponentVersion() {
+		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
+		return new Integer(highestJ2EEPref);
+	}
 
-    protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
-        return moduleVersion;
-    }
+	protected DataModelPropertyDescriptor[] getValidComponentVersionDescriptors() {
+		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
+		DataModelPropertyDescriptor[] descriptors = null;
+		switch (highestJ2EEPref) {
+			case J2EEVersionConstants.J2EE_1_2_ID :
+				descriptors = new DataModelPropertyDescriptor[1];
+				descriptors[0] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_3_ID :
+				descriptors = new DataModelPropertyDescriptor[2];
+				descriptors[0] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
+				descriptors[1] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_3_ID), J2EEVersionConstants.VERSION_1_3_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_4_ID :
+			default :
+				descriptors = new DataModelPropertyDescriptor[3];
+				descriptors[0] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
+				descriptors[1] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_3_ID), J2EEVersionConstants.VERSION_1_3_TEXT);
+				descriptors[2] = new DataModelPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_4_ID), J2EEVersionConstants.VERSION_1_4_TEXT);
+				break;
+		}
+		return descriptors;
+	}
 
-    protected EClass getComponentType() {
-        return CommonarchiveFactoryImpl.getPackage().getApplicationClientFile();
-    }
+	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
+		return moduleVersion;
+	}
 
-    protected String getComponentExtension() {
-        return ".jar"; //$NON-NLS-1$
-    }
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-     */
-    protected String getComponentID() {
-        return IModuleConstants.JST_APPCLIENT_MODULE;
-    }
+	protected EClass getComponentType() {
+		return CommonarchiveFactoryImpl.getPackage().getApplicationClientFile();
+	}
 
-    public IDataModelOperation getDefaultOperation() {
-        return new AppClientComponentCreationOperation(model);
-    }
-	
-	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
+	protected String getComponentExtension() {
+		return ".jar"; //$NON-NLS-1$
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
+	 */
+	protected String getComponentID() {
+		return IModuleConstants.JST_APPCLIENT_MODULE;
+	}
+
+	public IDataModelOperation getDefaultOperation() {
+		return new AppClientComponentCreationOperation(model);
+	}
+
+	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);
-	}	
+	}
 }

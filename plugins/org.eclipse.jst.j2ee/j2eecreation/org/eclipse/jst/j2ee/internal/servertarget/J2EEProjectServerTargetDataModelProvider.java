@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.internal.servertarget;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,23 +21,27 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.ResourceManager;
 
-public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelProvider 
-		implements IJ2EEProjectServerTargetDataModelProperties {
+public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelProvider implements IJ2EEProjectServerTargetDataModelProperties {
 
 	private static final String DEFAULT_TARGET_ID = "org.eclipse.jst.server.core.runtimeType"; //$NON-NLS-1$
 
-    public void init() {
-        model.setProperty(RUNTIME_TARGET_ID, getDefaultServerTargetID());
-        super.init();
-    }
-    
+	public void init() {
+		model.setProperty(RUNTIME_TARGET_ID, getDefaultServerTargetID());
+		super.init();
+	}
+
 	public IDataModelOperation getDefaultOperation() {
 		return new J2EEProjectServerTargetOp(model);
 	}
-    
-	public String[] getPropertyNames() {
-		return new String[]{PROJECT_NAME, RUNTIME_TARGET_ID, J2EE_VERSION_ID, 
-				DEPLOYMENT_TYPE_ID, UPDATE_MODULES};
+
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(PROJECT_NAME);
+		propertyNames.add(RUNTIME_TARGET_ID);
+		propertyNames.add(J2EE_VERSION_ID);
+		propertyNames.add(DEPLOYMENT_TYPE_ID);
+		propertyNames.add(UPDATE_MODULES);
+		return propertyNames;
 	}
 
 	public IProject getProject() {
@@ -99,13 +104,13 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 		int type = -1;
 		if (getDataModel().isPropertySet(DEPLOYMENT_TYPE_ID))
 			type = getIntProperty(DEPLOYMENT_TYPE_ID);
-//		else {
-//			J2EENature nature = J2EENature.getRegisteredRuntime(getProject());
-//			if (nature != null)
-//				type = nature.getDeploymentDescriptorType();
-//			else
-//				type = getIntProperty(DEPLOYMENT_TYPE_ID);
-//		}
+		// else {
+		// J2EENature nature = J2EENature.getRegisteredRuntime(getProject());
+		// if (nature != null)
+		// type = nature.getDeploymentDescriptorType();
+		// else
+		// type = getIntProperty(DEPLOYMENT_TYPE_ID);
+		// }
 		return computeTypeId(type);
 	}
 
@@ -137,13 +142,13 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 		int version = -1;
 		if (getDataModel().isPropertySet(J2EE_VERSION_ID))
 			version = getIntProperty(J2EE_VERSION_ID);
-//		else {
-//			J2EENature nature = J2EENature.getRegisteredRuntime(getProject());
-//			if (nature != null)
-//				version = nature.getJ2EEVersion();
-//			else
-//				version = getIntProperty(J2EE_VERSION_ID);
-//		}
+		// else {
+		// J2EENature nature = J2EENature.getRegisteredRuntime(getProject());
+		// if (nature != null)
+		// version = nature.getJ2EEVersion();
+		// else
+		// version = getIntProperty(J2EE_VERSION_ID);
+		// }
 		return computeVersionId(version);
 	}
 
@@ -196,9 +201,9 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 			if (target == null)
 				setProperty(RUNTIME_TARGET_ID, null);
 			model.notifyPropertyChange(RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
-		}else if (RUNTIME_TARGET_ID.equals(propertyName)) {
-            setProperty(RUNTIME_TARGET_ID, propertyValue);
-        }
+		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
+			setProperty(RUNTIME_TARGET_ID, propertyValue);
+		}
 		return true;
 	}
 
@@ -213,44 +218,46 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 		}
 		return null;
 	}
-    /**
-     * @return
-     */
-    private List getValidServerTargets() {
-        List validServerTargets = null;
-        //TODO: api is needed from the server target helper to get all server targets
-        //validServerTargets = ServerTargetHelper.getServerTargets(IServerTargetConstants.EAR_TYPE, IServerTargetConstants.J2EE_14);
-        validServerTargets = getServerTargets("", "");  //$NON-NLS-1$  //$NON-NLS-2$
-        if (validServerTargets != null && validServerTargets.isEmpty())
-            validServerTargets = null;
-        if (validServerTargets == null)
-            return Collections.EMPTY_LIST;
-        return validServerTargets;
-    }
-    
-    public static List getServerTargets(String type, String version) {
-		List targets = Arrays.asList(ServerUtil.getRuntimes(type, version));
-		return targets;
-	}
+
 	/**
 	 * @return
 	 */
-//	private List getValidServerTargets() {
-//		List validServerTargets = null;
-//		String type = computeTypeId();
-//		if (type != null) {
-//			String version = computeVersionId();
-//			if (version != null) {
-//				validServerTargets = ServerTargetHelper.getServerTargets(type, version);
-//				if (validServerTargets != null && validServerTargets.isEmpty())
-//					validServerTargets = null;
-//			}
-//		}
-//		if (validServerTargets == null)
-//			return Collections.EMPTY_LIST;
-//		return validServerTargets;
-//	}
+	private List getValidServerTargets() {
+		List validServerTargets = null;
+		// TODO: api is needed from the server target helper to get all server targets
+		// validServerTargets = ServerTargetHelper.getServerTargets(IServerTargetConstants.EAR_TYPE,
+		// IServerTargetConstants.J2EE_14);
+		validServerTargets = getServerTargets("", ""); //$NON-NLS-1$  //$NON-NLS-2$
+		if (validServerTargets != null && validServerTargets.isEmpty())
+			validServerTargets = null;
+		if (validServerTargets == null)
+			return Collections.EMPTY_LIST;
+		return validServerTargets;
+	}
 
+	public static List getServerTargets(String type, String version) {
+		List targets = Arrays.asList(ServerUtil.getRuntimes(type, version));
+		return targets;
+	}
+
+	/**
+	 * @return
+	 */
+	// private List getValidServerTargets() {
+	// List validServerTargets = null;
+	// String type = computeTypeId();
+	// if (type != null) {
+	// String version = computeVersionId();
+	// if (version != null) {
+	// validServerTargets = ServerTargetHelper.getServerTargets(type, version);
+	// if (validServerTargets != null && validServerTargets.isEmpty())
+	// validServerTargets = null;
+	// }
+	// }
+	// if (validServerTargets == null)
+	// return Collections.EMPTY_LIST;
+	// return validServerTargets;
+	// }
 	/*
 	 * (non-Javadoc)
 	 * 

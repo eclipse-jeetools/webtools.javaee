@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -29,29 +30,35 @@ import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOper
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
- * The NewServletClassDataModelProvider is a subclass of ArtifactEditOperationDataModelProvider and follows the IDataModel Operation and Wizard frameworks.
+ * The NewServletClassDataModelProvider is a subclass of ArtifactEditOperationDataModelProvider and
+ * follows the IDataModel Operation and Wizard frameworks.
+ * 
  * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
  * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation
  * 
- * This data model provider is a subclass of the NewJavaClassDataModelProvider, which stores base properties necessary in
- * the creation of a default java class. 
+ * This data model provider is a subclass of the NewJavaClassDataModelProvider, which stores base
+ * properties necessary in the creation of a default java class.
  * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider
  * 
- * The NewServletClassDataModelProvider provides more specific properties for java class creation that are required
- * in creating a servlet java class.  The data model provider is used to store these values for the NewServletClassOperation.
- * @see org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties
- * That operation will create the servlet java class based on the settings defined here in the data model.
+ * The NewServletClassDataModelProvider provides more specific properties for java class creation
+ * that are required in creating a servlet java class. The data model provider is used to store
+ * these values for the NewServletClassOperation.
+ * @see org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties That
+ *      operation will create the servlet java class based on the settings defined here in the data
+ *      model.
  * @see org.eclipse.jst.j2ee.internal.web.operations.NewServletClassOperation
  * 
- * This data model properties implements the IAnnotationsDataModel to get the USE_ANNOTATIONS property for determining
- * whether or not to generate an annotated java class.
+ * This data model properties implements the IAnnotationsDataModel to get the USE_ANNOTATIONS
+ * property for determining whether or not to generate an annotated java class.
  * @see org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel
  * 
- * Clients can subclass this data model provider to cache and provide their own specific attributes.  They should also provide their
- * own validation methods, properties interface, and default values for the properties they add.
+ * Clients can subclass this data model provider to cache and provide their own specific attributes.
+ * They should also provide their own validation methods, properties interface, and default values
+ * for the properties they add.
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
@@ -65,22 +72,23 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 * String array of the default, minimum required fully qualified Servlet interfaces
 	 */
 	private final static String[] SERVLET_INTERFACES = {"javax.servlet.Servlet"}; //$NON-NLS-1$
-	
+
 	private final static String ANNOTATED_TEMPLATE_DEFAULT = "servletXDoclet.javajet"; //$NON-NLS-1$
-	
+
 	private final static String NON_ANNOTATED_TEMPLATE_DEFAULT = "servletXDocletNonAnnotated.javajet"; //$NON-NLS-1$
-	
+
 	/**
 	 * The cache of all the interfaces the servlet java class will implement.
 	 */
 	private List interfaceList;
-	
+
 	private static boolean useAnnotations = true;
-	
+
 	/**
-	 * Subclasses may extend this method to provide their own default operation for this
-	 * data model provider.  This implementation uses the AddServletOperation to drive the servlet
-	 * creation.  It will not return null.
+	 * Subclasses may extend this method to provide their own default operation for this data model
+	 * provider. This implementation uses the AddServletOperation to drive the servlet creation. It
+	 * will not return null.
+	 * 
 	 * @see IDataModel#getDefaultOperation()
 	 * 
 	 * @return IDataModelOperation AddServletOperation
@@ -91,9 +99,10 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 
 	/**
 	 * Subclasses may extend this method to provide their own determination of whether or not
-	 * certain properties should be disabled or enabled.  This method does not accept null parameter.
-	 * It will not return null.  This implementation makes sure annotation support is only allowed
-	 * on web projects of J2EE version 1.3 or higher.
+	 * certain properties should be disabled or enabled. This method does not accept null parameter.
+	 * It will not return null. This implementation makes sure annotation support is only allowed on
+	 * web projects of J2EE version 1.3 or higher.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#isPropertyEnabled(String)
 	 * @see IAnnotationsDataModel#USE_ANNOTATIONS
 	 * 
@@ -110,24 +119,41 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Otherwise return super implementation
 		return super.isPropertyEnabled(propertyName);
 	}
-	
+
 	/**
-	 * Subclasses may extend this method to add their own data model's properties as valid base properties.
+	 * Subclasses may extend this method to add their own data model's properties as valid base
+	 * properties.
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
-	public String[] getPropertyNames() {
+	public Collection getPropertyNames() {
 		// Add servlet specific properties defined in this data model
-		String[] props = new String[]{INIT, DO_POST, DESTROY, TO_STRING, DO_PUT, DO_GET, GET_SERVLET_INFO, 
-				DO_DELETE, IS_SERVLET_TYPE, INIT_PARAM, URL_MAPPINGS, USE_ANNOTATIONS, DISPLAY_NAME, DESCRIPTION,
-				NON_ANNOTATED_TEMPLATE_FILE, TEMPLATE_FILE};
-        return combineProperties(super.getPropertyNames(), props);
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(INIT);
+		propertyNames.add(DO_POST);
+		propertyNames.add(DESTROY);
+		propertyNames.add(TO_STRING);
+		propertyNames.add(DO_PUT);
+		propertyNames.add(DO_GET);
+		propertyNames.add(GET_SERVLET_INFO);
+		propertyNames.add(DO_DELETE);
+		propertyNames.add(IS_SERVLET_TYPE);
+		propertyNames.add(INIT_PARAM);
+		propertyNames.add(URL_MAPPINGS);
+		propertyNames.add(USE_ANNOTATIONS);
+		propertyNames.add(DISPLAY_NAME);
+		propertyNames.add(DESCRIPTION);
+		propertyNames.add(NON_ANNOTATED_TEMPLATE_FILE);
+		propertyNames.add(TEMPLATE_FILE);
+		return propertyNames;
 	}
 
 	/**
-	 * Subclasses may extend this method to provide their own default values for
-	 * any of the properties in the data model hierarchy.  This method does not
-	 * accept a null parameter.  It may return null.  This implementation sets
-	 * annotation use to be true, and to generate a servlet with doGet and doPost.
+	 * Subclasses may extend this method to provide their own default values for any of the
+	 * properties in the data model hierarchy. This method does not accept a null parameter. It may
+	 * return null. This implementation sets annotation use to be true, and to generate a servlet
+	 * with doGet and doPost.
+	 * 
 	 * @see NewJavaClassDataModelProvider#getDefaultProperty(String)
 	 * @see IDataModelProvider#getDefaultProperty(String)
 	 * 
@@ -164,13 +190,13 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	}
 
 	/**
-	 * Returns the default Url Mapping depending upon the display name of 
-	 * the Servlet
-	 * @return List containting the default Url Mapping 
+	 * Returns the default Url Mapping depending upon the display name of the Servlet
+	 * 
+	 * @return List containting the default Url Mapping
 	 */
 	private Object getDefaultUrlMapping() {
 		List urlMappings = null;
-		String text = (String)getProperty(DISPLAY_NAME);
+		String text = (String) getProperty(DISPLAY_NAME);
 		if (text != null) {
 			urlMappings = new ArrayList();
 			urlMappings.add(new String[]{"/" + text}); //$NON-NLS-1$
@@ -179,20 +205,22 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	}
 
 	/**
-	 * Subclasses may extend this method to add their own specific behaviour when a certain
-	 * property in the data model heirarchy is set.  This method does not accept null for
-	 * the property name, but it will for propertyValue.  It will not return null.  It will return
-	 * false if the set fails.  This implementation verifies the display name is set to the
-	 * classname, that the annotations is disabled/enabled properly, and that the target project
-	 * name is determined from the source folder setting.
-	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#propertySet(String, Object)
+	 * Subclasses may extend this method to add their own specific behaviour when a certain property
+	 * in the data model heirarchy is set. This method does not accept null for the property name,
+	 * but it will for propertyValue. It will not return null. It will return false if the set
+	 * fails. This implementation verifies the display name is set to the classname, that the
+	 * annotations is disabled/enabled properly, and that the target project name is determined from
+	 * the source folder setting.
+	 * 
+	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#propertySet(String,
+	 *      Object)
 	 * 
 	 * @param propertyName
 	 * @param propertyValue
 	 * @return boolean was property set?
 	 */
 	public boolean propertySet(String propertyName, Object propertyValue) {
-		
+
 		// If annotations is changed, notify an enablement change
 		if (propertyName.equals(USE_ANNOTATIONS)) {
 			useAnnotations = ((Boolean) propertyValue).booleanValue();
@@ -216,15 +244,17 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		}
 		// Call super to set the property on the data model
 		boolean result = super.propertySet(propertyName, propertyValue);
-		//	If class name is changed, update the display name to be the same
+		// If class name is changed, update the display name to be the same
 		if (propertyName.equals(CLASS_NAME) && !getDataModel().isPropertySet(DISPLAY_NAME)) {
 			getDataModel().notifyPropertyChange(DISPLAY_NAME, IDataModel.DEFAULT_CHG);
 		}
-		// After the property is set, if project changed, update the nature and the annotations enablement
+		// After the property is set, if project changed, update the nature and the annotations
+		// enablement
 		if (propertyName.equals(COMPONENT_NAME)) {
 			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
 		}
-		// After property is set, if annotations is set to true, update its value based on the new level of the project
+		// After property is set, if annotations is set to true, update its value based on the new
+		// level of the project
 		if (getBooleanProperty(USE_ANNOTATIONS)) {
 			if (!isAnnotationsSupported())
 				setBooleanProperty(USE_ANNOTATIONS, false);
@@ -232,17 +262,17 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Return whether property was set
 		return result;
 	}
-	
+
 	protected boolean isAnnotationsSupported() {
-		
+
 		if (!getDataModel().isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
 			return true;
 		if (getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME).equals("")) //$NON-NLS-1$
 			return true;
 		IProject project = ProjectUtilities.getProject(getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 		String moduleName = getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME);
-		if (project == null || moduleName == null || moduleName.equals("")) return true; //$NON-NLS-1$
-		ComponentHandle handle = ComponentHandle.create(project,moduleName);
+		if (project == null || moduleName == null || moduleName.equals(""))return true; //$NON-NLS-1$
+		ComponentHandle handle = ComponentHandle.create(project, moduleName);
 		WebArtifactEdit webEdit = null;
 		try {
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
@@ -257,13 +287,13 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 				webEdit.dispose();
 		}
 	}
-	
+
 	/**
-	 * Subclasses may extend this method to provide their own validation on any of the valid
-	 * data model properties in the hierarchy.  This implementation adds validation for
-	 * the init params, servlet mappings, display name, and existing class
-	 * fields specific to the servlet java class creation.  It does not accept a null 
-	 * parameter.  This method will not return null.
+	 * Subclasses may extend this method to provide their own validation on any of the valid data
+	 * model properties in the hierarchy. This implementation adds validation for the init params,
+	 * servlet mappings, display name, and existing class fields specific to the servlet java class
+	 * creation. It does not accept a null parameter. This method will not return null.
+	 * 
 	 * @see NewJavaClassDataModelProvider#validate(String)
 	 * 
 	 * @param propertyName
@@ -274,7 +304,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
 			return WTPCommonPlugin.OK_STATUS;
 		IStatus result = super.validate(propertyName);
-		if (result !=null && !result.isOK())
+		if (result != null && !result.isOK())
 			return result;
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
@@ -285,16 +315,17 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Validate the servlet name in DD
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
-		
+
 		// Otherwise defer to super to validate the property
 		return result;
 	}
 
 	/**
-	 * Subclasses may extend this method to provide their own validation of the specified
-	 * java classname.  This implementation will ensure the class name is not set to Servlet
-	 * and then will forward on to the NewJavaClassDataModel to validate the class name as
-	 * valid java.  This method does not accept null as a parameter.  It will not return null.
+	 * Subclasses may extend this method to provide their own validation of the specified java
+	 * classname. This implementation will ensure the class name is not set to Servlet and then will
+	 * forward on to the NewJavaClassDataModel to validate the class name as valid java. This method
+	 * does not accept null as a parameter. It will not return null.
+	 * 
 	 * @see NewServletClassDataModelProvider#validateExistingClass(boolean)
 	 * @see NewJavaClassDataModelProvider#validateJavaClassName(String)
 	 * 
@@ -315,11 +346,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Return the status
 		return status;
 	}
-	
+
 	/**
-	 * This method is intended for internal use only.  It will be used to validate the init params list
-	 * to ensure there are not any duplicates.  This method will accept a null paramter.  It will
+	 * This method is intended for internal use only. It will be used to validate the init params
+	 * list to ensure there are not any duplicates. This method will accept a null paramter. It will
 	 * not return null.
+	 * 
 	 * @see NewServletClassDataModelProvider#validate(String)
 	 * 
 	 * @param prop
@@ -339,9 +371,10 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	}
 
 	/**
-	 * This method is intended for internal use only.  This will validate the servlet mappings
-	 * list and ensure there are not duplicate entries.  It will accept a null parameter.
-	 * It will not return null.
+	 * This method is intended for internal use only. This will validate the servlet mappings list
+	 * and ensure there are not duplicate entries. It will accept a null parameter. It will not
+	 * return null.
+	 * 
 	 * @see NewServletClassDataModelProvider#validate(String)
 	 * 
 	 * @param prop
@@ -362,11 +395,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Return OK
 		return WTPCommonPlugin.OK_STATUS;
 	}
-	
+
 	/**
-	 * This method is intended for internal use only. It provides a simple
-	 * algorithm for detecting if there are duplicate entries in a list.  It will
-	 * accept a null paramter.  It will not return null.
+	 * This method is intended for internal use only. It provides a simple algorithm for detecting
+	 * if there are duplicate entries in a list. It will accept a null paramter. It will not return
+	 * null.
+	 * 
 	 * @see NewServletClassDataModelProvider#validateInitParamList(List)
 	 * @see NewServletClassDataModelProvider#validateURLMappingList(List)
 	 * 
@@ -395,10 +429,11 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Return boolean status for duplicates
 		return dup;
 	}
-	
+
 	/**
-	 * This method is intended for internal use only.  This checks to see if the two string
-	 * arrays are equal.  If either of the arrays are null or empty, it returns false.
+	 * This method is intended for internal use only. This checks to see if the two string arrays
+	 * are equal. If either of the arrays are null or empty, it returns false.
+	 * 
 	 * @see NewServletClassDataModelProvider#hasDuplicatesInStringArrayList(List)
 	 * 
 	 * @param sArray1
@@ -423,12 +458,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Otherwise return true
 		return true;
 	}
-	
+
 	/**
-	 * This method will return the list of servlet interfaces to be implemented for the
-	 * new servlet java class.  It will intialize the list using lazy initialization to 
-	 * the minimum interfaces required by the data model SERVLET_INTERFACES.  This method
-	 * will not return null.
+	 * This method will return the list of servlet interfaces to be implemented for the new servlet
+	 * java class. It will intialize the list using lazy initialization to the minimum interfaces
+	 * required by the data model SERVLET_INTERFACES. This method will not return null.
+	 * 
 	 * @see INewServletClassDataModelProperties#SERVLET_INTERFACES
 	 * 
 	 * @return List of servlet interfaces to be implemented
@@ -444,12 +479,13 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Return interface list
 		return interfaceList;
 	}
-	
+
 	/**
-	 * This method is intended for internal use only.  This will validate whether the display name
-	 * selected is a valid display name for the servlet in the specified web application.  It will
-	 * make sure the name is not empty and that it doesn't already exist in the web app.  This
-	 * method will accept null as a parameter.  It will not return null.
+	 * This method is intended for internal use only. This will validate whether the display name
+	 * selected is a valid display name for the servlet in the specified web application. It will
+	 * make sure the name is not empty and that it doesn't already exist in the web app. This method
+	 * will accept null as a parameter. It will not return null.
+	 * 
 	 * @see NewServletClassDataModelProvider#validate(String)
 	 * 
 	 * @param prop
@@ -461,7 +497,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			String msg = WebMessages.getResourceString(WebMessages.ERR_DISPLAY_NAME_EMPTY);
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		if (getTargetProject()==null || getTargetComponent()==null)
+		if (getTargetProject() == null || getTargetComponent() == null)
 			return WTPCommonPlugin.OK_STATUS;
 		ArtifactEdit edit = null;
 		try {
@@ -485,14 +521,14 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		} finally {
-			if (edit!=null)
+			if (edit != null)
 				edit.dispose();
 		}
-		
-		//Otherwise, return OK
+
+		// Otherwise, return OK
 		return WTPCommonPlugin.OK_STATUS;
 	}
-	
+
 	/**
 	 * @return boolean should the default annotations be true?
 	 */

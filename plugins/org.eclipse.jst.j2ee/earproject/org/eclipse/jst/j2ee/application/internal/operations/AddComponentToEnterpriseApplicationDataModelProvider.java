@@ -8,20 +8,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class AddComponentToEnterpriseApplicationDataModelProvider extends CreateReferenceComponentsDataModelProvider {
-	
 
 	public AddComponentToEnterpriseApplicationDataModelProvider() {
 		super();
-		
+
 	}
 
-	public String[] getPropertyNames() {
-		return super.getPropertyNames();
-	}
-	
-	/**
-	 * 
-	 */
 	public IStatus validate(String propertyName) {
 		return super.validate(propertyName);
 	}
@@ -35,9 +27,9 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 	public IDataModelOperation getDefaultOperation() {
 		return new AddComponentToEnterpriseApplicationOp(model);
 	}
-	
+
 	public Object getDefaultProperty(String propertyName) {
-	 return super.getDefaultProperty(propertyName);
+		return super.getDefaultProperty(propertyName);
 	}
-	
+
 }

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
+import java.util.Collection;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -18,20 +20,21 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 /**
  * This dataModel is a common super class used for creation of WTP Components.
  * 
- * This class (and all its fields and methods) is likely to change during the
- * WTP 1.0 milestones as the new project structures are adopted. Use at your own
- * risk.
+ * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
+ * the new project structures are adopted. Use at your own risk.
  * 
  * @plannedfor WTP 1.0
  */
-public  class JavaProjectMigrationDataModelProvider extends AbstractDataModelProvider implements IJavaProjectMigrationDataModelProperties{
+public class JavaProjectMigrationDataModelProvider extends AbstractDataModelProvider implements IJavaProjectMigrationDataModelProperties {
 
 	public void init() {
 		super.init();
 	}
 
-	public String[] getPropertyNames() {
-		return new String[]{PROJECT_NAME};
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(PROJECT_NAME);
+		return propertyNames;
 	}
 
 	public void propertyChanged(DataModelEvent event) {
@@ -52,8 +55,8 @@ public  class JavaProjectMigrationDataModelProvider extends AbstractDataModelPro
 
 		return OK_STATUS;
 	}
-	
-	public IDataModelOperation getDefaultOperation(){
+
+	public IDataModelOperation getDefaultOperation() {
 		return new JavaProjectMigrationOperation(model);
 	}
 

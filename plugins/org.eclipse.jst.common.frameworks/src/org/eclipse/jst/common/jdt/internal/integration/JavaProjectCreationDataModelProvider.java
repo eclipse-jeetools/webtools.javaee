@@ -10,14 +10,21 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
+import java.util.Collection;
+
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProvider;
 
 public class JavaProjectCreationDataModelProvider extends ProjectCreationDataModelProvider implements IJavaProjectCreationProperties {
 
 
-	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{OUTPUT_LOCATION, SOURCE_FOLDERS, CLASSPATH_ENTRIES, CREATE_SOURCE_FOLDERS});
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(OUTPUT_LOCATION);
+		propertyNames.add(SOURCE_FOLDERS);
+		propertyNames.add(CLASSPATH_ENTRIES);
+		propertyNames.add(CREATE_SOURCE_FOLDERS);
+		return propertyNames;
 	}
 
 	public IDataModelOperation getDefaultOperation() {

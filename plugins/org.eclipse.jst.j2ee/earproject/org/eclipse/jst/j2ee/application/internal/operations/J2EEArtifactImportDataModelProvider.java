@@ -8,6 +8,8 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.Collection;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -38,8 +40,15 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private IDataModel componentCreationDM;
 	private OpenFailureException cachedOpenFailureException = null;
 
-	public String[] getPropertyNames() {
-		return new String[]{FILE_NAME, FILE, SAVE_FILTER, OVERWRITE_HANDLER, CLOSE_ARCHIVE_ON_DISPOSE, USE_DEFAULT_COMPONENT_NAME};
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(FILE_NAME);
+		propertyNames.add(FILE);
+		propertyNames.add(SAVE_FILTER);
+		propertyNames.add(OVERWRITE_HANDLER);
+		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
+		propertyNames.add(USE_DEFAULT_COMPONENT_NAME);
+		return propertyNames;
 	}
 
 	public void init() {

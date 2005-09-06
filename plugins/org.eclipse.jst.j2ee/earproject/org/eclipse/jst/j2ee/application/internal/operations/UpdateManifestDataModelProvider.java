@@ -17,6 +17,7 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -32,9 +33,16 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
  */
 public class UpdateManifestDataModelProvider extends AbstractDataModelProvider implements UpdateManifestDataModelProperties {
 
-	public String[] getPropertyNames() {
-	        return new String[] {PROJECT_NAME,JAR_LIST, JAR_LIST_TEXT_UI, MERGE, MAIN_CLASS, MANIFEST_FILE};
-	    }
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(PROJECT_NAME);
+		propertyNames.add(JAR_LIST);
+		propertyNames.add(JAR_LIST_TEXT_UI);
+		propertyNames.add(MERGE);
+		propertyNames.add(MAIN_CLASS);
+		propertyNames.add(MANIFEST_FILE);
+		return propertyNames;
+	}
 
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MERGE)) {
@@ -46,7 +54,7 @@ public class UpdateManifestDataModelProvider extends AbstractDataModelProvider i
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
+
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(JAR_LIST) && isPropertySet(JAR_LIST_TEXT_UI))

@@ -16,6 +16,8 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
+import java.util.Collection;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
@@ -32,8 +34,13 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public class JARDependencyDataModelProvider extends AbstractDataModelProvider implements JARDependencyDataModelProperties {
 
-	public String[] getPropertyNames() {
-        return new String[] {EAR_PROJECT_NAME,REFERENCED_PROJECT_NAME, JAR_MANIPULATION_TYPE, OPPOSITE_PROJECT_NAME };
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(EAR_PROJECT_NAME);
+		propertyNames.add(REFERENCED_PROJECT_NAME);
+		propertyNames.add(JAR_MANIPULATION_TYPE);
+		propertyNames.add(OPPOSITE_PROJECT_NAME);
+		return propertyNames;
 	}
 
 	public void init() {
@@ -67,5 +74,5 @@ public class JARDependencyDataModelProvider extends AbstractDataModelProvider im
 	public IProject getOppositeProject() {
 		return ProjectUtilities.getProject(getStringProperty(OPPOSITE_PROJECT_NAME));
 	}
-	
+
 }

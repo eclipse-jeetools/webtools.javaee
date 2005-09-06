@@ -8,6 +8,8 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.Collection;
+
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
@@ -22,11 +24,13 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * @plannedfor WTP 1.0
  */
-public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties{
+public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties {
 
 
-	public String[] getPropertyNames() {
-		return combineProperties(super.getPropertyNames(), new String[]{EXTENDED_IMPORT_FACTORY});
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(EXTENDED_IMPORT_FACTORY);
+		return propertyNames;
 	}
 
 	private int getModuleSpecVersion() {

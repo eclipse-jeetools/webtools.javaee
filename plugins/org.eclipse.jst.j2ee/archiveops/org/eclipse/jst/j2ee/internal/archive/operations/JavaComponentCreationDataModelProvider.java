@@ -8,6 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -29,125 +30,131 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class JavaComponentCreationDataModelProvider extends ComponentCreationDataModelProvider implements IJavaComponentCreationDataModelProperties {
-	
-	
-	public String[] getPropertyNames() {
-		String[] props = new String[]{JAVASOURCE_FOLDER, MANIFEST_FOLDER, RUNTIME_TARGET_ID};
-		return combineProperties(super.getPropertyNames(), props);
+
+	public Collection getPropertyNames() {
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(JAVASOURCE_FOLDER);
+		propertyNames.add(MANIFEST_FOLDER);
+		propertyNames.add(RUNTIME_TARGET_ID);
+		return propertyNames;
 	}
-	
+
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
-			return  getComponentName();
-		}else if (propertyName.equals(MANIFEST_FOLDER)) {
-            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                return  getComponentName() +  "/" + J2EEConstants.META_INF; //$NON-NLS-1$
-            else
-                return "/" + J2EEConstants.META_INF; //$NON-NLS-1$
-		}	
+			return getComponentName();
+		} else if (propertyName.equals(MANIFEST_FOLDER)) {
+			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+				return getComponentName() + "/" + J2EEConstants.META_INF; //$NON-NLS-1$
+			else
+				return "/" + J2EEConstants.META_INF; //$NON-NLS-1$
+		}
 		return super.getDefaultProperty(propertyName);
 	}
-    
-    public void init() {    
-        super.init();
-    }
-	
-    public boolean propertySet(String propertyName, Object propertyValue) {
-        boolean status = super.propertySet(propertyName, propertyValue);
-        if (PROJECT_NAME.equals(propertyName)) {
-//			model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALUE_CHG);
-//			IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-//            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, propertyValue);
-        } else if(LOCATION.equals(propertyName)) {
+
+	public void init() {
+		super.init();
+	}
+
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean status = super.propertySet(propertyName, propertyValue);
+		if (PROJECT_NAME.equals(propertyName)) {
+			// model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALUE_CHG);
+			// IDataModel dm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+			// dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME,
+			// propertyValue);
+		} else if (LOCATION.equals(propertyName)) {
 			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-            dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyValue);
-        } else if(RUNTIME_TARGET_ID.equals(propertyName)) {
+			dm.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION, propertyValue);
+		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
 			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-            dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
-        }
-        return status;
-    }
-    
+			dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
+		}
+		return status;
+	}
+
 	public IStatus validate(String propertyName) {
-        if (propertyName.equals(JAVASOURCE_FOLDER)) {
-            IStatus status = OK_STATUS;
-            String srcFolderName = model.getStringProperty(JAVASOURCE_FOLDER);
-			if (srcFolderName == null || srcFolderName.length()==0) {
+		if (propertyName.equals(JAVASOURCE_FOLDER)) {
+			IStatus status = OK_STATUS;
+			String srcFolderName = model.getStringProperty(JAVASOURCE_FOLDER);
+			if (srcFolderName == null || srcFolderName.length() == 0) {
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NAME_EMPTY);
-				status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
+				status = WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
 			return status;
 
-        } else if (propertyName.equals(MANIFEST_FOLDER)) {
-            IStatus status = OK_STATUS;
-            String srcFolderName = model.getStringProperty(MANIFEST_FOLDER);
-			if (srcFolderName == null || srcFolderName.length()==0) {
+		} else if (propertyName.equals(MANIFEST_FOLDER)) {
+			IStatus status = OK_STATUS;
+			String srcFolderName = model.getStringProperty(MANIFEST_FOLDER);
+			if (srcFolderName == null || srcFolderName.length() == 0) {
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NAME_EMPTY);
-				status =  WTPCommonPlugin.createErrorStatus(errorMessage); 
+				status = WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
 			return status;
 		} else if (propertyName.equals(RUNTIME_TARGET_ID)) {
-			//if multiple modules are  supported, the  project is already been created, no need for validation here
-            //if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
-			if(!model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)){
-	            IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-	            IStatus nestedValiation = dm.validate();
-	            if(!nestedValiation.isOK())
-	                return nestedValiation;
-            }else
+			// if multiple modules are supported, the project is already been created, no need for
+			// validation here
+			// if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
+			if (!model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
+				IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+				IStatus nestedValiation = dm.validate();
+				if (!nestedValiation.isOK())
+					return nestedValiation;
+			} else
 				return OK_STATUS;
-        }
-//		else if(propertyName.equals(PROJECT_NAME)){
-//			IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-//			return projectdm.validateProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME);		
-//        }
-            
-        return super.validate(propertyName);
-	}	
+		}
+		// else if(propertyName.equals(PROJECT_NAME)){
+		// IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+		// return
+		// projectdm.validateProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME);
+		// }
 
-    public JavaComponentCreationDataModelProvider() {
-        super();
-    }
+		return super.validate(propertyName);
+	}
 
-    protected EClass getComponentType() {
-        return CommonarchivePackage.eINSTANCE.getModuleFile();
-    }
+	public JavaComponentCreationDataModelProvider() {
+		super();
+	}
 
-    protected Integer getDefaultComponentVersion() {
-        Integer version = new Integer("10");
-        return version;
-    }
+	protected EClass getComponentType() {
+		return CommonarchivePackage.eINSTANCE.getModuleFile();
+	}
 
-    protected String getComponentID() {
-        return IModuleConstants.JST_UTILITY_MODULE;
-    }
+	protected Integer getDefaultComponentVersion() {
+		Integer version = new Integer("10");
+		return version;
+	}
 
-    protected String getComponentExtension() {
-        return ".jar"; //$NON-NLS-1$
-    }
+	protected String getComponentID() {
+		return IModuleConstants.JST_UTILITY_MODULE;
+	}
 
-    protected List getProperties() {
-        return null;
-    }
-    
-    public IDataModelOperation getDefaultOperation() {
-        return new JavaUtilityComponentCreationOperation(model);
-    }
+	protected String getComponentExtension() {
+		return ".jar"; //$NON-NLS-1$
+	}
 
-    protected void initProjectCreationModel() {
-        IDataModel dm = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
+	protected List getProperties() {
+		return null;
+	}
+
+	public IDataModelOperation getDefaultOperation() {
+		return new JavaUtilityComponentCreationOperation(model);
+	}
+
+	protected void initProjectCreationModel() {
+		IDataModel dm = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
 		model.addNestedModel(NESTED_PROJECT_CREATION_DM, dm);
-        model.setProperty(LOCATION, dm.getProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION));
+		model.setProperty(LOCATION, dm.getProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_LOCATION));
 
-    }
-	
+	}
+
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(RUNTIME_TARGET_ID)) {
-			//IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-			//return projectdm.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID);
+			// IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+			// return
+			// projectdm.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.SERVER_TARGET_ID);
 		}
 		return null;
-	}	
+	}
 
 
 }

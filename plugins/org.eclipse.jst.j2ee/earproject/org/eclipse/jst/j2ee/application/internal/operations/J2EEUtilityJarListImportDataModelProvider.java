@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IPathVariableManager;
@@ -51,8 +52,22 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		super();
 	}
 
-	public String[] getPropertyNames() {
-		return new String[]{EAR_PROJECT, CREATE_PROJECT, LINK_IMPORT, CREATE_LINKED_PROJECT, COPY, BINARY_IMPORT, UTILITY_JAR_LIST, AVAILABLE_JARS_DIRECTORY, PROJECT_ROOT, OVERRIDE_PROJECT_ROOT, OVERWRITE_IF_NECESSARY, CREATE_LINKED_PATH_VARIABLE, LINKED_PATH_VARIABLE};
+	public Collection getPropertyNames(){
+		Collection propertyNames = super.getPropertyNames();
+		propertyNames.add(EAR_PROJECT);
+		propertyNames.add(CREATE_PROJECT);
+		propertyNames.add(LINK_IMPORT);
+		propertyNames.add(CREATE_LINKED_PROJECT);
+		propertyNames.add(COPY);
+		propertyNames.add(BINARY_IMPORT);
+		propertyNames.add(UTILITY_JAR_LIST);
+		propertyNames.add(AVAILABLE_JARS_DIRECTORY);
+		propertyNames.add(PROJECT_ROOT);
+		propertyNames.add(OVERRIDE_PROJECT_ROOT);
+		propertyNames.add(OVERWRITE_IF_NECESSARY);
+		propertyNames.add(CREATE_LINKED_PATH_VARIABLE);
+		propertyNames.add(LINKED_PATH_VARIABLE);
+		return propertyNames;
 	}
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
