@@ -17,8 +17,8 @@ You must install and enable XDoclet before creating a session or message-driven 
 	
 After installing and configuring XDoclet, select the bean type you want to create and click <b>Next</b>.
 </description>
-<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc/topics/tecrte.html"/>
-<topic label="EJB architecture" href="../org.eclipse.jst.ejb.doc/topics/cearch.html"/>
+<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc.user/topics/tecrte.html"/>
+<topic label="EJB architecture" href="../org.eclipse.jst.ejb.doc.user/topics/cearch.html"/>
 <!-- link to org.eclipse.jst.annotation.user.doc  annotation tagging -->
 </context>
 
@@ -31,8 +31,8 @@ Change the <b>Superclass</b> if your class will override a class other than java
 
 Select the <b>Generate an annotated bean class</b> check box to add J2EE annotations to the source file.
 </description>
-<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc/topics/tecrte.html"/>
-<topic label="Creating an EJB project" href="../org.eclipse.jst.ejb.doc/topics/tecrtpro.html"/>
+<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc.user/topics/tecrte.html"/>
+<topic label="Creating an EJB project" href="../org.eclipse.jst.ejb.doc.user/topics/tecrtpro.html"/>
 <!-- link to org.eclipse.jst.annotation.user.doc  annotation tagging -->
 </context>
 
@@ -51,8 +51,8 @@ A stateless session bean does not maintain conversational state.
 
 Select the <b>Transaction Type</b> (container or bean) for the enterprise bean. This specifies whether the container or the bean will handle transaction demarcation.
 </description>
-<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc/topics/tecrte.html"/>
-<topic label="Creating an EJB project" href="../org.eclipse.jst.ejb.doc/topics/tecrtpro.html"/>
+<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc.user/topics/tecrte.html"/>
+<topic label="Creating an EJB project" href="../org.eclipse.jst.ejb.doc.user/topics/tecrtpro.html"/>
 </context>
 
 <!-- Page 4, Enterprise Bean modifiers, interfaces and method stubs -->
@@ -63,8 +63,8 @@ Select the <b>Interfaces</b> that your bean class will implement. Use the <b>Add
 
 Select which method stubs that you want created in the bean class.<b></b>
 </description>
-<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc/topics/tecrte.html"/>
-<topic label="Creating an EJB project" href="../org.eclipse.jst.ejb.doc/topics/tecrtpro.html"/>
+<topic label="Creating enterprise beans" href="../org.eclipse.jst.ejb.doc.user/topics/tecrte.html"/>
+<topic label="Creating an EJB project" href="../org.eclipse.jst.ejb.doc.user/topics/tecrtpro.html"/>
 </context>
 
 
