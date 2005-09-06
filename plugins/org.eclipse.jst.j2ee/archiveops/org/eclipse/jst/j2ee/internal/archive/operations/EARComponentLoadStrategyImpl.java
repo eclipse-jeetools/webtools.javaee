@@ -36,9 +36,8 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 	}
 
 	public List getFiles() {
-		super.getFiles();
 		addModulesAndUtilities();
-		return filesList;
+		return filesHolder.getFiles();
 	}
 
 	public void addModulesAndUtilities() {
@@ -56,7 +55,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						componentArtifactEdit = ComponentUtilities.getArtifactEditForRead(referencedComponent);
 						Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource);
 						archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
-						filesList.add(archive);
+						filesHolder.addFile(archive);
 					} catch (OpenFailureException oe) {
 						Logger.getLogger().logError(oe);
 					} finally {
@@ -69,7 +68,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						if (!referencedComponent.isBinary()) {
 							String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
 							Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
-							filesList.add(archive);
+							filesHolder.addFile(archive);
 						} else {
 							java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 							String uri = diskFile.getName();

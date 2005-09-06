@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
@@ -31,9 +30,9 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 	}
 
 	public List getFiles() {
-		filesList = (ArrayList) super.getFiles();
+		super.getFiles();
 		addLooseLibJARsToFiles();
-		return filesList;
+		return filesHolder.getFiles();
 	}
 
 	public IVirtualReference[] getLibModules() {
@@ -66,7 +65,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					Archive utilJAR = J2EEComponentUtilities.asArchive(uri, vComponent, isExportSource());
 					if (utilJAR == null)
 						continue;
-					filesList.add(utilJAR);
+					filesHolder.addFile(utilJAR);
 				} catch (OpenFailureException oe) {
 					String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
 					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);

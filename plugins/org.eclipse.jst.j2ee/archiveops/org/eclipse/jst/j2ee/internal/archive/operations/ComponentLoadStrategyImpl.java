@@ -15,13 +15,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -33,14 +34,18 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -52,14 +57,77 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
-	protected ArrayList filesList;
-	protected Set visitedURIs;
-	private int javaOutputFolderSegmentCount;
-	private IFolder[] outputFolders;
+
+	protected class FilesHolder {
+
+		private Map urisToFiles = new HashMap();
+		private Map urisToResources = new HashMap();
+		private Map resourcesToURI = new HashMap();
+		private Map urisToDiskFiles;
+
+		public void removeIFile(IFile file) {
+			String uri = (String) resourcesToURI.get(file);
+			remove(uri);
+		}
+
+		public void remove(String uri) {
+			urisToFiles.remove(uri);
+			Object resource = urisToResources.remove(uri);
+			if (resource != null) {
+				resourcesToURI.remove(resource);
+			}
+			if (urisToDiskFiles != null) {
+				urisToDiskFiles.remove(uri);
+			}
+		}
+
+
+		public void addFile(File file) {
+			String uri = file.getURI();
+			urisToFiles.put(uri, file);
+		}
+
+		public void addFile(File file, java.io.File externalDiskFile) {
+			String uri = file.getURI();
+			urisToFiles.put(uri, file);
+			if (null == urisToDiskFiles) {
+				urisToDiskFiles = new HashMap();
+			}
+			urisToDiskFiles.put(uri, externalDiskFile);
+		}
+
+		public void addFile(File file, IResource resource) {
+			String uri = file.getURI();
+			urisToFiles.put(uri, file);
+			urisToResources.put(uri, resource);
+		}
+
+		public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
+			java.io.File diskFile = null;
+
+			if (urisToDiskFiles != null && urisToDiskFiles.containsKey(uri)) {
+				diskFile = (java.io.File) urisToDiskFiles.get(uri);
+			} else {
+				IResource resource = (IResource) urisToResources.get(uri);
+				diskFile = new java.io.File(resource.getLocation().toOSString());
+			}
+			return new FileInputStream(diskFile);
+		}
+
+		public List getFiles() {
+			return new ArrayList(urisToFiles.values());
+		}
+
+		public boolean contains(String uri) {
+			return urisToFiles.containsKey(uri);
+		}
+	}
+
+	protected FilesHolder filesHolder;
 
 	public ComponentLoadStrategyImpl(IVirtualComponent vComponent) {
 		this.vComponent = vComponent;
-		filesList = new ArrayList();
+		filesHolder = new FilesHolder();
 	}
 
 	public boolean contains(String uri) {
@@ -76,72 +144,83 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public List getFiles() {
-		filesList.clear();
+		getSourceFiles();
+		getClassFiles();
+		return filesHolder.getFiles();
+	}
+
+	protected void getSourceFiles() {
 		try {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
 			IVirtualResource[] members = rootFolder.members();
-			filesList = getFiles(members);
-			IPackageFragmentRoot[] roots = ComponentUtilities.getSourceContainers(vComponent);
-			outputFolders = new IFolder[roots.length];
-			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-			for (int i = 0; i < roots.length; i++) {
-				IResource source;
-				IPath outputPath = roots[i].getRawClasspathEntry().getOutputLocation();
-
-				if (outputPath != null) {
-					outputFolders[i] = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-
-					IPath sourcePath = roots[i].getPath();
-					boolean sourceIsProject = sourcePath.segmentCount() <= 1;
-					source = sourceIsProject ? (IResource) getComponent().getProject() : workspaceRoot.getFolder(sourcePath);
-					IVirtualResource[] virtualSources = ComponentCore.createResources(source);
-					IResource actualResource = sourceIsProject ? source : virtualSources[0].getUnderlyingResource();
-					int sourceOffset = actualResource.getProjectRelativePath().segmentCount() - sourcePath.segmentCount();
-					int runtimeOffset = outputPath.segmentCount() - virtualSources[0].getRuntimePath().segmentCount();
-
-					javaOutputFolderSegmentCount = sourceOffset + runtimeOffset;
-
-					getFiles(new IResource[]{outputFolders[i]});
-				}
-			}
-
-
+			getFiles(members);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger().logError(e);
 		}
-
-		return filesList;
 	}
 
-	protected ArrayList getFiles(IResource[] resources) throws CoreException {
+	protected void getClassFiles() {
+		StructureEdit se = null;
+		try {
+			IPackageFragmentRoot[] sourceRoots = ComponentUtilities.getSourceContainers(vComponent);
+			se = StructureEdit.getStructureEditForRead(vComponent.getProject());
+			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+			for (int i = 0; i < sourceRoots.length; i++) {
+				IPath outputPath = sourceRoots[i].getRawClasspathEntry().getOutputLocation();
+				if (outputPath != null) {
+					IFolder javaOutputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
+					int javaOutputSegmentCount = javaOutputFolder.getProjectRelativePath().segmentCount();
+					IPath runtimePath = null;
+					try {
+						ComponentResource[] componentResources = se.findResourcesBySourcePath(sourceRoots[i].getResource().getProjectRelativePath());
+						if (componentResources.length > 0) {
+							runtimePath = componentResources[0].getRuntimePath();
+						}
+					} catch (UnresolveableURIException e) {
+						Logger.getLogger().logError(e);
+					}
+					if (null == runtimePath) {
+						runtimePath = new Path("/");
+					}
+
+					getOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
+				}
+			}
+		} catch (CoreException e) {
+			Logger.getLogger().logError(e);
+		} finally {
+			if (se != null) {
+				se.dispose();
+			}
+		}
+	}
+
+
+	protected void getOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
 		for (int i = 0; i < resources.length; i++) {
 			File cFile = null;
 			if (resources[i].getType() == IResource.FILE) {
 				// We have to avoid duplicates between the source and output folders (non-java
 				// resources)
-				IPath runtimePath = resources[i].getProjectRelativePath().removeFirstSegments(javaOutputFolderSegmentCount);
+				IPath runtimePath = runtimePathPrefix.append(resources[i].getProjectRelativePath().removeFirstSegments(outputFolderSegmentCount));
 				String uri = runtimePath == null ? null : runtimePath.toString();
 				if (uri == null)
 					continue;
 				if (!shouldInclude(uri)) //$NON-NLS-1$
 					continue;
-				if (getVisitedURIs().contains(uri))
+				if (filesHolder.contains(uri))
 					continue;
 				cFile = createFile(uri);
 				cFile.setLastModified(getLastModified(resources[i]));
-				getVisitedURIs().add(uri);
-				getURIResourceMap().put(uri, resources[i]);
-				filesList.add(cFile);
+				filesHolder.addFile(cFile, resources[i]);
 			} else if (shouldInclude((IContainer) resources[i])) {
 				IResource[] nestedResources = ((IContainer) resources[i]).members();
-				getFiles(nestedResources);
+				getOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount);
 			}
 		}
-		return filesList;
 	}
 
-	protected java.util.ArrayList getFiles(IVirtualResource[] virtualResources) throws CoreException {
+	protected void getFiles(IVirtualResource[] virtualResources) throws CoreException {
 		for (int i = 0; i < virtualResources.length; i++) {
 			File cFile = null;
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
@@ -153,40 +232,24 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					continue;
 				if (!shouldInclude(uri)) //$NON-NLS-1$
 					continue;
-				if (getVisitedURIs().contains(uri))
+				if (filesHolder.contains(uri))
 					continue;
 				if (uri.charAt(0) == Path.SEPARATOR) {
 					uri = uri.substring(1);
 				}
 				cFile = createFile(uri);
-				cFile.setLastModified(getLastModified(virtualResources[i].getUnderlyingResource()));
-				getVisitedURIs().add(uri);
-				filesList.add(cFile);
+				IResource resource = virtualResources[i].getUnderlyingResource();
+				cFile.setLastModified(getLastModified(resource));
+				filesHolder.addFile(cFile, resource);
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
 				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
 				getFiles(nestedVirtualResources);
 			}
 		}
-		return filesList;
 	}
 
 	protected long getLastModified(IResource aResource) {
 		return aResource.getLocation().toFile().lastModified();
-	}
-
-	private Map uriResourceMap;
-
-	private Map getURIResourceMap() {
-		if (uriResourceMap == null) {
-			uriResourceMap = new HashMap();
-		}
-		return uriResourceMap;
-	}
-
-	public Set getVisitedURIs() {
-		if (visitedURIs == null)
-			visitedURIs = new HashSet();
-		return visitedURIs;
 	}
 
 	public void setExportSource(boolean newExportSource) {
@@ -215,44 +278,48 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return uri.endsWith(ArchiveUtil.DOT_JAVA) || uri.endsWith(ArchiveUtil.DOT_SQLJ);
 	}
 
-	protected Map externalFiles;
-
 	protected void addExternalFile(String uri, java.io.File externalDiskFile) {
-		if(null == externalFiles){
-			externalFiles = new HashMap();
-		}
 		File aFile = getArchiveFactory().createFile();
 		aFile.setURI(uri);
 		aFile.setOriginalURI(uri);
 		aFile.setLoadingContainer(getContainer());
-		externalFiles.put(uri, externalDiskFile);
-		filesList.add(aFile);
+		filesHolder.addFile(aFile, externalDiskFile);
 	}
 
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
-		if (null != externalFiles && externalFiles.containsKey(uri)) {
-			return new FileInputStream((java.io.File) externalFiles.get(uri));
+		if (filesHolder.contains(uri)) {
+			return filesHolder.getInputStream(uri);
 		}
-
 		IVirtualFolder rootFolder = vComponent.getRootFolder();
 		IVirtualResource vResource = rootFolder.findMember(uri);
 		String filePath = null;
 		if (null != vResource && vResource.exists()) {
 			filePath = vResource.getUnderlyingResource().getLocation().toOSString();
-		} else {
-			IResource resource = (IResource) getURIResourceMap().get(uri);
-			if (null == resource) {
-				String eString = EARArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_FileNotFound");//$NON-NLS-1$
-				throw new FileNotFoundException(eString);
-			}
-			filePath = resource.getLocation().toOSString();
+			java.io.File file = new java.io.File(filePath);
+			return new FileInputStream(file);
 		}
-		java.io.File file = new java.io.File(filePath);
-		InputStream inputStream = new FileInputStream(file);
-		return inputStream;
-
+		String eString = EARArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_FileNotFound");//$NON-NLS-1$
+		throw new FileNotFoundException(eString);
 	}
 
+	public Collection getLoadedMofResources() {
+		Collection resources = super.getLoadedMofResources();
+		Collection resourcesToRemove = null;
+		Iterator iterator = resources.iterator();
+		while(iterator.hasNext()){
+			Resource res = (Resource)  iterator.next();
+			if(res.getURI().toString().endsWith(IModuleConstants.WTPMODULE_FILE_NAME)){
+				if(resourcesToRemove == null){
+					resourcesToRemove = new ArrayList();
+				}
+				resourcesToRemove.add(res);
+			}
+		}
+		resources.removeAll(resourcesToRemove);
+		
+		return resources;
+	}
+	
 	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		try {
 			URI compUri = ModuleURIUtil.fullyQualifyURI(vComponent.getComponentHandle());
