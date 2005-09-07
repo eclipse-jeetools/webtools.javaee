@@ -62,37 +62,36 @@ public class PortedComponentCreationTest extends TestCase {
         createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_Java");
     }
 
-    public void testCreateJavaUtiltyComponent() throws Exception {
-        //createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_JavaUtil");
-        createJavaUtilComponent(DEFAULT_PROJECT_NAME + "_JavaUtil", DEFAULT_PROJECT_NAME + "_JavaUtil");
-    }
-
-    public void testCreateConnectorComponent() throws Exception {
-       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_ConnectorProject");
-        createConnectorComponent(15, "TestConnector", DEFAULT_PROJECT_NAME + "_ConnectorProject");
-    }
-
-    
-    public void testCreateWebComponent() throws Exception {
-      //  createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_WebProject");
-        createWebComponent(24, "TestWeb", DEFAULT_PROJECT_NAME+"_WebProject");
-    }
-    
-    public void testCreateAppClientComponent() throws Exception {
-      //  createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_AppClientProject");
-        createAppClientComponent(14, "TestAppClient", DEFAULT_PROJECT_NAME+"_AppClientProject");
-    }
-    
-    public void testCreateEjbComponent() throws Exception {
-       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_EJBProject");
-        createEjbComponent(21, "TestEJB", DEFAULT_PROJECT_NAME+"_EJBProject");
-    }
-    
-    public void testCreateEARComponent() throws Exception {
-       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_EARProject");
-        createEARComponent(14, "TestEAR", DEFAULT_PROJECT_NAME+"_EARProject");
-    }
-    
+//    public void testCreateJavaUtiltyComponent() throws Exception {
+//        //createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_JavaUtil");
+//        createJavaUtilComponent(DEFAULT_PROJECT_NAME + "_JavaUtil", DEFAULT_PROJECT_NAME + "_JavaUtil");
+//    }
+//
+//    public void testCreateConnectorComponent() throws Exception {
+//       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME + "_ConnectorProject");
+//        createConnectorComponent(15, "TestConnector", DEFAULT_PROJECT_NAME + "_ConnectorProject");
+//    }
+//
+//    
+//    public void testCreateWebComponent() throws Exception {
+//      //  createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_WebProject");
+//        createWebComponent(24, "TestWeb", DEFAULT_PROJECT_NAME+"_WebProject");
+//    }
+//    
+//    public void testCreateAppClientComponent() throws Exception {
+//      //  createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_AppClientProject");
+//        createAppClientComponent(14, "TestAppClient", DEFAULT_PROJECT_NAME+"_AppClientProject");
+//    }
+//    
+//    public void testCreateEjbComponent() throws Exception {
+//       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_EJBProject");
+//        createEjbComponent(21, "TestEJB", DEFAULT_PROJECT_NAME+"_EJBProject");
+//    }
+//    
+//    public void testCreateEARComponent() throws Exception {
+//       // createFlexibleJavaProject(DEFAULT_PROJECT_NAME+"_EARProject");
+//        createEARComponent(14, "TestEAR", DEFAULT_PROJECT_NAME+"_EARProject");
+//    }
     
     private void createFlexibleJavaProject(String projectName) throws Exception {
         IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
@@ -151,4 +150,24 @@ public class PortedComponentCreationTest extends TestCase {
         model.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, aModuleName);
         model.getDefaultOperation().execute(new NullProgressMonitor(), null);
     }
+    
+    public void testCreateWebComponentWithUserDefinedFolders() throws Exception {
+          IDataModel model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
+          model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, "TestWeb24");          
+          model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, 24);
+          model.setProperty(IWebComponentCreationDataModelProperties.JAVASOURCE_FOLDER, "src");
+          model.setProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER, "web");          
+          model.setBooleanProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, false);
+          model.getDefaultOperation().execute(new NullProgressMonitor(), null);
+      }    
+    
+    public void testCreateAppClientComponentWithUserDefinedFolders() throws Exception{
+        IDataModel model = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
+
+        model.setProperty(IAppClientComponentCreationDataModelProperties.COMPONENT_NAME, "TestApp15");
+        model.setProperty(IAppClientComponentCreationDataModelProperties.JAVASOURCE_FOLDER, "src");
+        model.setIntProperty(IAppClientComponentCreationDataModelProperties.COMPONENT_VERSION, 14);        
+        model.setBooleanProperty(IAppClientComponentCreationDataModelProperties.ADD_TO_EAR, false);
+        model.getDefaultOperation().execute(new NullProgressMonitor(), null);
+    }    
 }
