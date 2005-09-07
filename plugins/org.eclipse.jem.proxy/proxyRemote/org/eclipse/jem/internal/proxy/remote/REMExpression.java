@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.18 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.19 $  $Date: 2005/09/07 14:06:08 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -1844,7 +1844,7 @@ public class REMExpression extends Expression {
 		PendingTransaction topEntry = getPendingEntryFromTop(1);
 		if (topEntry instanceof SubexpressionBegin && ((SubexpressionBegin) topEntry).subexpressionNumber == subexpressionNumber) {
 			popPendingEntry(1);
-			topEntry = getPendingEntryFromTop(1);
+			return;
 		}
 		processPendingTransactions();
 		IREMExpressionConnection connection = getConnection();
