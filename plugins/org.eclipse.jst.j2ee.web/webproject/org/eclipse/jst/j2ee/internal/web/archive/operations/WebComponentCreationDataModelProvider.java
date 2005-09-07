@@ -31,6 +31,8 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class WebComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IWebComponentCreationDataModelProperties {
 
@@ -46,6 +48,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(USE_ANNOTATIONS);
 		propertyNames.add(CONTEXT_ROOT);
+		propertyNames.add(WEBCONTENT_FOLDER);
 		return propertyNames;
 	}
 
@@ -84,29 +87,24 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean retVal = super.propertySet(propertyName, propertyValue);
-		// if( propertyName.equals(COMPONENT_NAME)){
-		// IDataModel addtoEAR = (IDataModel) model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-		// addtoEAR.setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT,
-		// propertyValue);
-		//			
-		// }else
 		if (propertyName.equals(USE_ANNOTATIONS)) {
 			model.notifyPropertyChange(COMPONENT_VERSION, DataModelEvent.ENABLE_CHG);
 		}
-		// else if (propertyName.equals(COMPONENT_VERSION)) {
-		// if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
-		// setProperty(USE_ANNOTATIONS, Boolean.FALSE);
-		// model.notifyPropertyChange(USE_ANNOTATIONS, DataModelEvent.ENABLE_CHG);
-		// }
 		else if (propertyName.equals(CONTEXT_ROOT)) {
 			getAddComponentToEARDataModel().setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, propertyValue);
 		} else if (propertyName.equals(COMPONENT_NAME)) {
 			if (!isPropertySet(CONTEXT_ROOT)) {
 				model.notifyPropertyChange(CONTEXT_ROOT, DataModelEvent.VALUE_CHG);
-				// ((AddWebModuleToEARDataModel)
-				// getAddComponentToEARDataModel()).defaultContextRoot=(String)propertyValue;
 				getAddComponentToEARDataModel().setProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, propertyValue);
 				getAddComponentToEARDataModel().notifyPropertyChange(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, IDataModel.DEFAULT_CHG);
+			}
+		}else if (propertyName.equals(WEBCONTENT_FOLDER)){
+			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)){
+				model.setProperty( DD_FOLDER, IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF);
+				model.setProperty( MANIFEST_FOLDER, IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF);
+			}else{
+				model.setProperty( DD_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF);
+				model.setProperty( MANIFEST_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF);
 			}
 		}
 		return retVal;
@@ -180,15 +178,20 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 		}
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
+				return  this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
 			else
-				return IPath.SEPARATOR + CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
+				return  CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
 		}
 		if (propertyName.equals(MANIFEST_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
 				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.META_INF;
 			else
 				return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.META_INF;
+		}else if (propertyName.equals(WEBCONTENT_FOLDER)) {
+			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
+				return this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT;
+			else
+				return  WebArtifactEdit.WEB_CONTENT;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -290,6 +293,14 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 				return getAddComponentToEARDataModel().validateProperty(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT);
 			}
 			return OK_STATUS;
+		}else if (propertyName.equals(WEBCONTENT_FOLDER)) {
+			IStatus status = OK_STATUS;
+			String webFolderName = model.getStringProperty(WEBCONTENT_FOLDER);
+			if (webFolderName == null || webFolderName.length() == 0) {
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.WEBCONTENTFOLDER_EMPTY);
+				status = WTPCommonPlugin.createErrorStatus(errorMessage);
+				return status;
+			}
 		}
 		return super.validate(propertyName);
 	}

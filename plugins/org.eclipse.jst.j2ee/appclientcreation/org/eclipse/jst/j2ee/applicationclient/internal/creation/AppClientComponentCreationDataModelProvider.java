@@ -50,15 +50,15 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 		}
 		if (propertyName.equals(DD_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+				return  IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
 			else
-				return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+				return  IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
 		}
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
+				return  this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
 			else
-				return IPath.SEPARATOR + CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
+				return  CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -120,4 +120,12 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);
 	}
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean doSet = super.propertySet(propertyName, propertyValue);
+		if (propertyName.equals(JAVASOURCE_FOLDER)){
+			//unless MANIFEST folder is opened up, it is set as same as Java source folder
+			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+		}		
+		return doSet;
+	}	
 }

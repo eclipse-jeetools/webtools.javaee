@@ -34,7 +34,7 @@ public class WEBUIMessages extends Messages {
 	public static final String WEB_IMPORT_WEB_LIB_PG_DESC = "15"; //$NON-NLS-1$
 	public static final String WAR_IMPORT_SELECT_ALL_LIBS_BUTTON = "16"; //$NON-NLS-1$
 	public static final String WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON = "17"; //$NON-NLS-1$
-	
+	public static final String WEBCONTENT="WEBCONTENT";//$NON-NLS-1$
 
 	private static final WEBUIMessages INSTANCE = new WEBUIMessages();
 

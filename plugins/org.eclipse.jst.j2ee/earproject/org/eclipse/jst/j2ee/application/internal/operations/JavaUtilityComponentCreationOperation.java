@@ -87,8 +87,8 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
         javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
         
         //create and link META-INF folder
-        IVirtualFolder metaInfFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
-        metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
+//        IVirtualFolder metaInfFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
+//        metaInfFolder.createLink(new Path("/" + getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
     
     }
     
@@ -101,8 +101,8 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
         javaSourceFolder.createLink(new Path("/" + getJavaSourceFolder()), 0, null);
         
         //create and link META-INF folder
-        IVirtualFolder metaInfFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
-        metaInfFolder.createLink(new Path("/" + J2EEConstants.META_INF), 0, null);
+//        IVirtualFolder metaInfFolder = component.getRootFolder().getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$       
+//        metaInfFolder.createLink(new Path("/" + J2EEConstants.META_INF), 0, null);
     }
 	
 	protected void createManifest(IProgressMonitor monitor) {

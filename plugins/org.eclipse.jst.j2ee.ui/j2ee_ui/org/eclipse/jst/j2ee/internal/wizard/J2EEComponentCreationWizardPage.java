@@ -77,6 +77,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected Button browseButton = null;
 	protected Button supportMultipleModules = null;
     protected Combo projectNameCombo = null;
+    protected Text sourceFolderNameText = null;
     
     private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 //    private static final String NEW_LABEL_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
@@ -390,8 +391,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 		synchHelper.synchCombo(projectNameCombo, EXISTING_PROJECT, null);
 	}
 
-
-	
 	/**
 	 * @return
 	 */
@@ -410,9 +409,29 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	}
 	
     protected String[] getValidationPropertyNames() {
-        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR };
-    }
+        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR, JAVASOURCE_FOLDER };    }
 
+    protected void createSourceFolderComposite(Composite parent) {
+        
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 3;
+		separator.setLayoutData(gd);
+		
+        Label label = new Label(parent, SWT.NONE);
+        label.setText(getSourceFolderLabel());
+        GridData data = new GridData();      
+        label.setLayoutData(data);
+        // set up project name entry field
+        sourceFolderNameText = new Text(parent, SWT.BORDER);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        sourceFolderNameText.setLayoutData(data);
+        new Label(parent, SWT.NONE); // pad
+        synchHelper.synchText(sourceFolderNameText, JAVASOURCE_FOLDER, null);
+    }	
+
+    
     protected void createVersionComposite(Composite parent) {
         createVersionComposite(parent, getVersionLabel(), COMPONENT_VERSION);
     }
@@ -421,6 +440,10 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
         return J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_VERSION_LABEL);
     }
 
+    protected String getSourceFolderLabel() {
+        return J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER);
+    }
+    
     public void dispose() {
         super.dispose();
         if (earGroup != null)

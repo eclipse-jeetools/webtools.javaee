@@ -144,9 +144,9 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 		}
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
+				return  this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
 			}
-			return IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
+			return CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
 		}
 
 		return super.getDefaultProperty(propertyName);
@@ -159,4 +159,12 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 	public IStatus validate(String propertyName) {
 		return super.validate(propertyName);
 	}
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean doSet = super.propertySet(propertyName, propertyValue);
+		if (propertyName.equals(JAVASOURCE_FOLDER)){
+			//unless MANIFEST folder is opened up, it is set as same as Java source folder
+			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+		}		
+		return doSet;
+	}	
 }

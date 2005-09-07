@@ -48,6 +48,7 @@ public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationW
 	
 	protected void addToAdvancedComposite(Composite advanced) {
 		super.addToAdvancedComposite(advanced);
+		super.createSourceFolderComposite(advanced);
 		super.createMultipleModulesComposite(advanced);
 	}	
 //	protected void addToAdvancedComposite(Composite advanced) {

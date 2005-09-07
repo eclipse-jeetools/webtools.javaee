@@ -33,6 +33,7 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 
 	public Text contextRootNameField = null;
 	public Label contextRootLabel = null;
+    protected Text webFolderNameText = null;
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	private DataModelAnnotationsStandaloneGroup annotationsGroup;
@@ -67,19 +68,37 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		contextRootNameField.setLayoutData(data);
 		synchHelper.synchText(contextRootNameField, CONTEXT_ROOT, new Control[]{contextRootLabel});
 		
+		super.createSourceFolderComposite(advanced);
+		createWebContentFolderComposite(advanced);
 		createAnnotationsGroup(advanced);
 		super.createMultipleModulesComposite(advanced);
 	}
 
+    protected void createWebContentFolderComposite(Composite parent) {
+		
+        Label label = new Label(parent, SWT.NONE);
+        label.setText(WEBUIMessages.getResourceString(WEBUIMessages.WEBCONTENT));
+        GridData data = new GridData();      
+        label.setLayoutData(data);
+        // set up project name entry field
+        webFolderNameText = new Text(parent, SWT.BORDER);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        webFolderNameText.setLayoutData(data);
+        new Label(parent, SWT.NONE); // pad
+        synchHelper.synchText(webFolderNameText, WEBCONTENT_FOLDER, null);
+    }	
+    
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new DataModelAnnotationsStandaloneGroup(parent, getDataModel(), false, synchHelper);
 	}
     protected String[] getValidationPropertyNames() {
         String[] names = super.getValidationPropertyNames();
-        String[] allNames = new String[names.length + 2];
+        String[] allNames = new String[names.length + 3];
         System.arraycopy(names, 0, allNames, 0, names.length);
         allNames[names.length] = CONTEXT_ROOT;
         allNames[names.length + 1] = IAnnotationsDataModel.USE_ANNOTATIONS;
+        allNames[names.length + 2] = WEBCONTENT_FOLDER;
         return allNames;
     }
 

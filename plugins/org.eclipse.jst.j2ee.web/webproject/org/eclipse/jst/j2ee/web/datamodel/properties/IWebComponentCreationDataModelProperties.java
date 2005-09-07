@@ -37,5 +37,9 @@ public interface IWebComponentCreationDataModelProperties extends IJ2EEComponent
      */
     public static final String CONTEXT_ROOT = IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT;
 
+    /**
+     * Optional, type String, the user defined name of web contents folder
+     */
+    public static final String WEBCONTENT_FOLDER = "IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER";    
 
 }

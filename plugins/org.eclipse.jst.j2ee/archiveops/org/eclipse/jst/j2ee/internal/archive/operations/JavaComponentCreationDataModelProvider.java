@@ -69,6 +69,10 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
 			dm.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, propertyValue);
 		}
+//		else if (propertyName.equals(JAVASOURCE_FOLDER)){
+//			//unless MANIFEST folder is opened up, it is set as same as Java source folder
+//			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+//		}
 		return status;
 	}
 
@@ -77,7 +81,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 			IStatus status = OK_STATUS;
 			String srcFolderName = model.getStringProperty(JAVASOURCE_FOLDER);
 			if (srcFolderName == null || srcFolderName.length() == 0) {
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NAME_EMPTY);
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				status = WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
 			return status;
