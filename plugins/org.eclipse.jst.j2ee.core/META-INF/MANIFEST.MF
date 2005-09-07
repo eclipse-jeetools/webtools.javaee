@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: J2EE Core Component
 Bundle-SymbolicName: org.eclipse.jst.j2ee.core; singleton:=true
-Bundle-Version: 0.7.0
+Bundle-Version: 0.7.1
 Bundle-ClassPath: runtime/mofj2ee.jar,
  runtime/commonArchive.jar,
  runtime/j2ee-validation.jar,
