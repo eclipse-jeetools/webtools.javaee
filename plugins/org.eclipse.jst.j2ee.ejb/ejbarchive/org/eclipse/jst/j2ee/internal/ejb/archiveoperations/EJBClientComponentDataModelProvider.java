@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -47,7 +48,10 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 		if (propertyName.equals(COMPONENT_NAME)) {
 			if (!model.isPropertySet(CLIENT_COMPONENT_URI))
 				model.notifyPropertyChange(CLIENT_COMPONENT_URI, DataModelEvent.ENABLE_CHG);
-		}
+		}else if (propertyName.equals(JAVASOURCE_FOLDER)){
+			//unless MANIFEST folder is opened up, it is set as same as Java source folder
+			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+		}		
 		return status;
 	}
 

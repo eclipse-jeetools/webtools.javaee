@@ -50,7 +50,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	protected void addToAdvancedComposite(Composite advanced) {
 		super.addToAdvancedComposite(advanced);
 		createEJBClientGroup(advanced);
-
+		super.createSourceFolderComposite(advanced);
 		createAnnotationsGroup(advanced);
 		//		createDefaultBean(advanced);
 		super.createMultipleModulesComposite(advanced);

@@ -124,14 +124,19 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 		} else if (propertyName.equals(EAR_COMPONENT_HANDLE)) {
 			IDataModel ejbClientComponentDataModel = (IDataModel) model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
 			ejbClientComponentDataModel.setProperty(EAR_COMPONENT_HANDLE, model.getProperty(EAR_COMPONENT_HANDLE));
-		}
+		}else if (propertyName.equals(JAVASOURCE_FOLDER)){
+			//unless MANIFEST folder is opened up, it is set as same as Java source folder
+			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+		}	
 		if (getBooleanProperty(CREATE_CLIENT)) {
 			IDataModel ejbClientComponentDataModel = (IDataModel) model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
-			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
+			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR) || propertyName.equals(COMPONENT_DEPLOY_NAME)
+					|| propertyName.equals(JAVASOURCE_FOLDER) ) {
 				ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.CREATE_PROJECT, getProperty(CREATE_CLIENT));
 				ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, ejbClientComponentDataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_NAME));
 				ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
 				ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
+				ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.JAVASOURCE_FOLDER, getProperty(JAVASOURCE_FOLDER));
 			}
 		}
 
@@ -166,9 +171,9 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 				return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
 		} else if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
+				return  getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
 			else
-				return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
+				return  CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
 		} else if (propertyName.equals(MANIFEST_FOLDER)) {
 			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
 				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
