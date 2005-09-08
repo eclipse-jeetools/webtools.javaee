@@ -96,8 +96,8 @@ public class ComponentUtilities {
 		for (int i=0; i<sourceContainers.length; i++) {
 			try {
 				IPath outputPath = sourceContainers[i].getRawClasspathEntry().getOutputLocation();
-				IFolder outputFolder = vc.getProject().getFolder(outputPath);
-				if (outputFolder != null)
+				IFolder outputFolder = vc.getProject().getFolder(outputPath.removeFirstSegments(1));
+				if (outputFolder != null && outputFolder.exists())
 					result.add(outputFolder);
 			} catch (Exception e) {
 				continue;
