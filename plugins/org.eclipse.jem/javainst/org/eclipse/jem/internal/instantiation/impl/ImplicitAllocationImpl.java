@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: ImplicitAllocationImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/08 23:21:35 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -222,4 +222,8 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 		return eDynamicIsSet(eFeature);
 	}
 
+	public String toString() {
+		return "ImplicitAllocation(" + getParent() + "-" + getFeature();
+	}
+	
 } //ImplicitAllocationImpl
