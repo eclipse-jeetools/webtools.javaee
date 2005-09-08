@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Web Plug-in
 Bundle-SymbolicName: org.eclipse.jst.j2ee.web; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: runtime/web.jar
 Bundle-Activator: org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
