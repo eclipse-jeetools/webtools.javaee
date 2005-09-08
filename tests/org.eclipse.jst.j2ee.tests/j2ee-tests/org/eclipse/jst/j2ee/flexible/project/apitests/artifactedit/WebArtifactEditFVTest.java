@@ -1,6 +1,5 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,21 +10,25 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.ParamValue;
+import org.eclipse.jst.j2ee.internal.web.deployables.J2EEFlexProjWebDeployable;
+import org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableFactory;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
+import org.eclipse.wst.server.core.model.IModuleFolder;
+import org.eclipse.wst.server.core.model.IModuleResource;
 
 public class WebArtifactEditFVTest extends TestCase {
 
 	private IProject webProject;
 	private String webModuleName;
-	private String serverContextData = TestWorkspace.WEB_SERVER_CONTEXT_ROOT + "Test";
+//	private String serverContextData = TestWorkspace.WEB_SERVER_CONTEXT_ROOT + "Test"; //$NON-NLS-1$
 
 	public WebArtifactEditFVTest() {
 		super();
@@ -57,6 +60,23 @@ public class WebArtifactEditFVTest extends TestCase {
 			}
 		}
 	}
+	
+	public void testDeployableResourceGather() {
+		IVirtualComponent webComp = ComponentCore.createComponent(webProject,webModuleName);
+		J2EEFlexProjWebDeployable deployable = new J2EEFlexProjWebDeployable(webProject, WebDeployableFactory.ID, webComp);
+		try {
+			IModuleResource[] resources = deployable.members();
+			assertTrue(resources.length>1);
+			int numOfModuleResourceFolders = 0;
+			for (int i=0; i<resources.length; i++) {
+				if (resources[i] instanceof IModuleFolder)
+					numOfModuleResourceFolders++;
+			}
+			assertTrue(numOfModuleResourceFolders==2);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
 
 	private void updateClient(WebApp client) {
 		client.setDescription(TestWorkspace.FVT_DESCRIPTION);
@@ -77,12 +97,12 @@ public class WebArtifactEditFVTest extends TestCase {
 			
 			
 			Filter filter = WebapplicationFactory.eINSTANCE.createFilter();
-	        filter.setName("WoohooFilter");
-	        filter.setFilterClassName("wtp.test.WhooHoo");
+	        filter.setName("WoohooFilter"); //$NON-NLS-1$
+	        filter.setFilterClassName("wtp.test.WhooHoo"); //$NON-NLS-1$
 	        
 	        ParamValue value = CommonFactory.eINSTANCE.createParamValue();
-	        value.setName("Param1");
-	        value.setValue("Value1");
+	        value.setName("Param1"); //$NON-NLS-1$
+	        value.setValue("Value1"); //$NON-NLS-1$
 	        List initParams = new ArrayList();
 	        initParams.add(value);
 	        
@@ -108,31 +128,31 @@ public class WebArtifactEditFVTest extends TestCase {
 		assertTrue(pass);
 	}
 
-	private void validateResource() {
-		WebArtifactEdit edit = null;
-		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
-//			EList resourceList = wbComponent.getResources();
-//			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
+//	private void validateResource() {
+//		WebArtifactEdit edit = null;
+//		try {
+//			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
+//			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+////			EList resourceList = wbComponent.getResources();
+////			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
+////			}
+//		} finally {
+//			if (edit != null) {
+//				edit.dispose();
 //			}
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
-	}
+//		}
+//	}
 
-	private ComponentResource createResourceComponent() {
-		ComponentResource resourceComponent = ComponentcoreFactory.eINSTANCE.createComponentResource();
-		File testFile = TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH.toFile();
-		if (testFile.exists()) {
-			resourceComponent.setRuntimePath(TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH);
-			resourceComponent.setSourcePath(TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH);
-		} else {
-			fail("Missing: TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH");
-		}
-		return resourceComponent;
-	}
+//	private ComponentResource createResourceComponent() {
+//		ComponentResource resourceComponent = ComponentcoreFactory.eINSTANCE.createComponentResource();
+//		File testFile = TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH.toFile();
+//		if (testFile.exists()) {
+//			resourceComponent.setRuntimePath(TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH);
+//			resourceComponent.setSourcePath(TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH);
+//		} else {
+//			fail("Missing: TestWorkspace.ARTIFACT_EDIT_FVT_RESOURCE_PATH"); //$NON-NLS-1$
+//		}
+//		return resourceComponent;
+//	}
 
 }
