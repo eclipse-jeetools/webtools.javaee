@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: JCA Plug-in
 Bundle-SymbolicName: org.eclipse.jst.j2ee.jca; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: runtime/jca.jar
 Bundle-Activator: org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin

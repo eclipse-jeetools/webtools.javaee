@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: WTP Servlet UI Plug-in
 Bundle-SymbolicName: org.eclipse.jst.servlet.ui; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: servletui.jar
 Bundle-Activator: org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin

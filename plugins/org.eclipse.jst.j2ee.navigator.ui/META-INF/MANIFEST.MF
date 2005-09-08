@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin.name
 Bundle-SymbolicName: org.eclipse.jst.j2ee.navigator.ui; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: j2ee-navigator.jar
 Bundle-Activator: org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin
 Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin

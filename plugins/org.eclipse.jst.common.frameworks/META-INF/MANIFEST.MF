@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Integration Plug-in
 Bundle-SymbolicName: org.eclipse.jst.common.frameworks; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: jdt_integration.jar
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.common.jdt.internal.classpath,
