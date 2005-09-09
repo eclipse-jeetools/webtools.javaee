@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.ejb.internal.extensions;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.migration.J2EEMigrationStatus;
+import org.eclipse.jst.j2ee.internal.J2EEStatus;
 
 
 /**
@@ -27,5 +27,5 @@ import org.eclipse.jst.j2ee.internal.migration.J2EEMigrationStatus;
  * Code Style - Code Templates
  */
 public interface BackendMigration {
-	public J2EEMigrationStatus migrate(IProject project, boolean flag);
+	public J2EEStatus migrate(IProject project, boolean flag);
 }
