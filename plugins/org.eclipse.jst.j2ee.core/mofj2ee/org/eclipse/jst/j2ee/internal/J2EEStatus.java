@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.migration;
+package org.eclipse.jst.j2ee.internal;
 
 import java.text.MessageFormat;
 
@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
  * @author DABERG
  *
  */
-public class J2EEMigrationStatus implements J2EESpecificationMigrationConstants { 
+public class J2EEStatus implements J2EESpecificationConstants { 
     
 	public static final int COMPLETED_OK = 0;
 	public static final int NOT_NEEDED = 1;
@@ -29,43 +29,43 @@ public class J2EEMigrationStatus implements J2EESpecificationMigrationConstants 
 	public static final int WARNING = 3;
 	public static final int ERROR = 4; 
 
-    public static final J2EEMigrationStatus OK_STATUS = new J2EEMigrationStatus(COMPLETED_OK, ""); //$NON-NLS-1$
+    public static final J2EEStatus OK_STATUS = new J2EEStatus(COMPLETED_OK, ""); //$NON-NLS-1$
 
-	private static final J2EEMigrationStatus[] EmptyStatusArray = new J2EEMigrationStatus[0];
+	private static final J2EEStatus[] EmptyStatusArray = new J2EEStatus[0];
 
 	private int severity;
 	private String message;
 	private XMLResource resource;
 	private EObject targetObject;
 	
-	J2EEMigrationStatus() {
+	public J2EEStatus() {
 		//Default
 	}
 
-	public J2EEMigrationStatus(int aSeverity, String aMessage) {
+	public J2EEStatus(int aSeverity, String aMessage) {
 		this(aSeverity, (EObject)null, aMessage);
 	}
-	public J2EEMigrationStatus(int aSeverity, XMLResource xmlResource) {
+	public J2EEStatus(int aSeverity, XMLResource xmlResource) {
 		this(aSeverity, xmlResource, null);
 	}
 	
-	public J2EEMigrationStatus(int aSeverity, EObject anObject) {
+	public J2EEStatus(int aSeverity, EObject anObject) {
 		this(aSeverity, anObject, null);
 	}
 
-	public J2EEMigrationStatus(int aSeverity, XMLResource xmlResource, String aMessage) {
+	public J2EEStatus(int aSeverity, XMLResource xmlResource, String aMessage) {
 		severity = aSeverity;
 		resource = xmlResource;
 		message = aMessage;
 	}
 	
-	public J2EEMigrationStatus(int aSeverity, EObject anObject, String aMessage) {
+	public J2EEStatus(int aSeverity, EObject anObject, String aMessage) {
 		severity = aSeverity;
 		targetObject = anObject;
 		message = aMessage;
 	}
 	
-	protected String format(String aPattern, String arg1) {
+	public String format(String aPattern, String arg1) {
 		return MessageFormat.format(aPattern, new String[]{arg1});
 	}
 	
@@ -180,7 +180,7 @@ public class J2EEMigrationStatus implements J2EESpecificationMigrationConstants 
 		this.severity = severity;
 	}
 
-	public J2EEMigrationStatus[] getChildren() {
+	public J2EEStatus[] getChildren() {
 		return EmptyStatusArray;
 	}
 
@@ -221,10 +221,10 @@ public class J2EEMigrationStatus implements J2EESpecificationMigrationConstants 
 	 * clients must be careful to set their cached status to the return value, 
 	 * as it may be a new instance.
 	 */
-	public J2EEMigrationStatus append(J2EEMigrationStatus aStatus) {
+	public J2EEStatus append(J2EEStatus aStatus) {
 		if (aStatus == null)
 			return this;
-		J2EEMigrationMultiStatus multi = new J2EEMigrationMultiStatus();
+		J2EEMultiStatus multi = new J2EEMultiStatus();
 		multi.merge(this);
 		multi.merge(aStatus);
 		return multi;

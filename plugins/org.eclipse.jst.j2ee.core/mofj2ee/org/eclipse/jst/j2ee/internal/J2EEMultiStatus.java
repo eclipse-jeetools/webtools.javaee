@@ -8,17 +8,17 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.migration;
+package org.eclipse.jst.j2ee.internal;
 
 /**
  * @author DABERG
  */
-public class J2EEMigrationMultiStatus extends J2EEMigrationStatus {
-	private J2EEMigrationStatus[] children = new J2EEMigrationStatus[0];
+public class J2EEMultiStatus extends J2EEStatus {
+	private J2EEStatus[] children = new J2EEStatus[0];
 
-	public void add(J2EEMigrationStatus status) {
-		J2EEMigrationStatus[] result =
-			new J2EEMigrationStatus[children.length + 1];
+	public void add(J2EEStatus status) {
+		J2EEStatus[] result =
+			new J2EEStatus[children.length + 1];
 		System.arraycopy(children, 0, result, 0, children.length);
 		result[result.length - 1] = status;
 		children = result;
@@ -43,16 +43,16 @@ public class J2EEMigrationMultiStatus extends J2EEMigrationStatus {
 	 *
 	 * @param status the status whose children are to be added to this one
 	 */
-	public void addAll(J2EEMigrationStatus status) {
+	public void addAll(J2EEStatus status) {
 		if (status == null)
 			return;
-		J2EEMigrationStatus[] statuses = status.getChildren();
+		J2EEStatus[] statuses = status.getChildren();
 		for (int i = 0; i < statuses.length; i++) {
 			add(statuses[i]);
 		}
 	}
 
-	public J2EEMigrationStatus[] getChildren() {
+	public J2EEStatus[] getChildren() {
 		return children;
 	}
 
@@ -70,7 +70,7 @@ public class J2EEMigrationMultiStatus extends J2EEMigrationStatus {
 	 * @see #add
 	 * @see #addAll
 	 */
-	public void merge(J2EEMigrationStatus status) {
+	public void merge(J2EEStatus status) {
 		if (status == null)
 			return;
 		if (!status.isMultiStatus()) {
@@ -97,9 +97,9 @@ public class J2EEMigrationMultiStatus extends J2EEMigrationStatus {
 	}
 
 	/**
-	 * @see com.ibm.ejs.models.base.extensions.helper.J2EEMigrationStatus#append(J2EEMigrationStatus)
+	 * @see com.ibm.ejs.models.base.extensions.helper.J2EEStatus#append(J2EEStatus)
 	 */
-	public J2EEMigrationStatus append(J2EEMigrationStatus aStatus) {
+	public J2EEStatus append(J2EEStatus aStatus) {
 		if (aStatus != null)
 			merge(aStatus);
 		return this;

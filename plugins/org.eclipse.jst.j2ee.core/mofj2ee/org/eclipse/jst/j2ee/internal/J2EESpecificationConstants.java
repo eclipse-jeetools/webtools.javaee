@@ -8,12 +8,11 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.migration;
-
-import org.eclipse.jst.j2ee.internal.MOFJ2EEResourceHandler;
+package org.eclipse.jst.j2ee.internal;
 
 
-public interface J2EESpecificationMigrationConstants {
+
+public interface J2EESpecificationConstants {
 	String J2EE_VERSION_1_2 = "J2EE_1.2";  //$NON-NLS-1$
 	String J2EE_VERSION_1_3 = "J2EE_1.3";  //$NON-NLS-1$
 	String J2EE_VERSION_1_4 = "J2EE_1.4";  //$NON-NLS-1$
