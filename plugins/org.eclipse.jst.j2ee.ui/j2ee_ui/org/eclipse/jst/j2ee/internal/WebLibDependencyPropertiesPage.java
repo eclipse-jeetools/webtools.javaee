@@ -130,6 +130,9 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	}
     
     public boolean performOk() {
+		if( model.getComponent() == null || !isValidWebModule()){
+			return true;
+		}	
 		try {
 			boolean createdFlexProjects = runWLPOp(createFlexProjectOperations());
 			boolean createdComponentDependency = false;
