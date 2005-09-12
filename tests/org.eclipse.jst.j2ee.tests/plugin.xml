@@ -28,6 +28,7 @@
       <import plugin="org.eclipse.jst.j2ee.ejb"/>
       <import plugin="org.eclipse.jst.j2ee.jca"/>
       <import plugin="org.eclipse.wst.common.tests"/>
+      <import plugin="org.eclipse.jst.j2ee.core.tests"/>
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.wst.common.emf"/>

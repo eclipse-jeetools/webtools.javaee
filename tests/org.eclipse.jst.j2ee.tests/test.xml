@@ -29,7 +29,7 @@
     <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
       <property name="data-dir" value="${workspace}"/>
       <property name="plugin-name" value="${plugin-name}"/>
-      <property name="classname" value="org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT"/>
+      <property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.AutomatedBVT"/>
       <property name="extraVMargs" value="${extraVMargs}"/>
     </ant>
   </target>
