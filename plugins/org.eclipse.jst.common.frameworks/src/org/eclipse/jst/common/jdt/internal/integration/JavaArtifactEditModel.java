@@ -2,12 +2,16 @@ package org.eclipse.jst.common.jdt.internal.integration;
 
 import java.util.Set;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
@@ -116,6 +120,13 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 		saveCompilationUnits(monitor);
 		if (monitor == null || !monitor.isCanceled())
 			super.primSave(monitor);
+	}
+	protected void runSaveOperation(IWorkspaceRunnable runnable, IProgressMonitor monitor) throws SaveFailedException {
+		try {
+			ResourcesPlugin.getWorkspace().run(runnable, null,IWorkspace.AVOID_UPDATE,monitor);
+		} catch (CoreException e) {
+			throw new SaveFailedException(e);
+		}
 	}
 
 	/**

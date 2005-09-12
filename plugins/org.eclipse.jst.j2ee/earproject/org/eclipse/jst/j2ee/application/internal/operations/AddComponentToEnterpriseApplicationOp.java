@@ -17,6 +17,9 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
@@ -40,26 +43,42 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 	protected void updateEARDD(IProgressMonitor monitor) {
 
 		EARArtifactEdit earEdit = null;
+		StructureEdit se = null;
 		try {
 			ComponentHandle handle = (ComponentHandle) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE);
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			se = StructureEdit.getStructureEditForWrite(handle.getProject());
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
+						StructureEdit compse = null;
 						ComponentHandle comphandle = (ComponentHandle) list.get(i);
 						IVirtualComponent wc = ComponentCore.createComponent(comphandle.getProject(), comphandle.getName());
-						addModule(application, wc);
+						WorkbenchComponent earwc = se.findComponentByName(handle.getName());
+						try {
+							compse = StructureEdit.getStructureEditForRead(comphandle.getProject());
+							WorkbenchComponent refwc = compse.findComponentByName(comphandle.getName());
+							ReferencedComponent ref = se.findReferencedComponent(earwc,refwc);
+							Module mod = addModule(application, wc);
+							ref.setDependentObject(mod);
+						} finally {
+							if (compse != null)
+								compse.dispose();
+						}
 					}
 				}
 			}
+			se.saveIfNecessary(monitor);
 			earEdit.saveIfNecessary(monitor);
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		} finally {
 			if (earEdit != null)
 				earEdit.dispose();
+			if (se != null)
+				se.dispose();
 		}
 	}
 
@@ -78,7 +97,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return null;
 	}
 
-	protected void addModule(Application application, IVirtualComponent wc) {
+	protected Module addModule(Application application, IVirtualComponent wc) {
 		Application dd = application;
 
 		String name = wc.getName();
@@ -96,22 +115,23 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		Module existingModule = dd.getFirstModule(name);
 
 		if (existingModule == null) {
-			Module m = createNewModule(wc);
-			if (m != null) {
+			existingModule = createNewModule(wc);
+			if (existingModule != null) {
 
-				m.setUri(name);
-				if (m instanceof WebModule) {
+				existingModule.setUri(name);
+				if (existingModule instanceof WebModule) {
 
 
 					Properties props = wc.getMetaProperties();
 					String contextroot = ""; //$NON-NLS-1$
 					if ((props != null) && (props.containsKey(J2EEConstants.CONTEXTROOT)))
 						contextroot = props.getProperty(J2EEConstants.CONTEXTROOT);
-					((WebModule) m).setContextRoot(contextroot);
+					((WebModule) existingModule).setContextRoot(contextroot);
 				}
-				dd.getModules().add(m);
+				dd.getModules().add(existingModule);
 			}
 		}
+		return existingModule;
 	}
 
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {

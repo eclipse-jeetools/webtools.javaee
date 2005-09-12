@@ -468,6 +468,21 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public IVirtualReference[] getComponentReferences() {
 		return getComponentReferences(Collections.EMPTY_LIST);
 	}
+	/**
+	 * This method will return the IVirtualReference to the component of the given name
+	 * 
+	 * @return - IVirtualReference or null if not found
+	 */
+	public IVirtualReference getComponentReference(String componentName) {
+		IVirtualReference[] refs = getComponentReferences(Collections.EMPTY_LIST);
+		for (int i = 0; i < refs.length; i++) {
+			IVirtualReference reference = refs[i];
+			if (reference.getReferencedComponent().getName().equals(componentName))
+				return reference;
+			
+		}
+		return null;
+	}
 	
 	private IVirtualReference[] getComponentReferences(List componentTypes) {
 		List components = new ArrayList();
