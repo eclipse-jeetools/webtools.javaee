@@ -54,7 +54,7 @@ public class FindComponentTest extends AbstractModuleCreationTest {
 			if (edit != null)
 				edit.dispose();
 		}
-		}
+		
 	}
 
 }
