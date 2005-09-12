@@ -21,9 +21,9 @@ import org.eclipse.wst.common.tests.SimpleTestSuite;
 
 /**
  * @author blancett
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * 
+ * To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Generation - Code and Comments
  */
 public class FindComponentTest extends AbstractModuleCreationTest {
 	
@@ -34,6 +34,7 @@ public class FindComponentTest extends AbstractModuleCreationTest {
 	
 	public void testWebModuleCreation() throws Exception {
 		setupWebModule();
+		StructureEdit edit = null;
 		IVirtualComponent comp = ComponentUtilities.getComponent("FirstWebModule");
 		ComponentResource[] comp1,comp2;
 		IProject project = comp.getProject();
@@ -42,13 +43,18 @@ public class FindComponentTest extends AbstractModuleCreationTest {
 		IPath anotherGoodFile2 = new Path("FirstWebModule/WebContent/wow/test1");
 		IPath badFile = new Path("SecondWebModule/test1");
 		IPath anotherBadFile = new Path("FirstWebModule/MyWebContent/wow");
-		StructureEdit edit = StructureEdit.getStructureEditForRead(project);
+		try{ 
+		edit = StructureEdit.getStructureEditForRead(project);
 		Assert.assertTrue(edit.findComponent(goodFile,ResourceTreeNode.CREATE_NONE) != null);
 		Assert.assertTrue(edit.findComponent(anotherGoodFile,ResourceTreeNode.CREATE_NONE) != null);
 		Assert.assertTrue(edit.findComponent(anotherGoodFile2,ResourceTreeNode.CREATE_NONE) != null);
 		Assert.assertFalse(edit.findComponent(badFile,ResourceTreeNode.CREATE_NONE) != null);
 		Assert.assertFalse(edit.findComponent(anotherBadFile,ResourceTreeNode.CREATE_NONE) != null);
-
+		} finally {
+			if (edit != null)
+				edit.dispose();
+		}
+		}
 	}
 
 }
