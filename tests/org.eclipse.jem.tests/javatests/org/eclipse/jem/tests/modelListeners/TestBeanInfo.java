@@ -10,16 +10,18 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestBeanInfo.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:58:55 $ 
+ *  $Revision: 1.5 $  $Date: 2005/09/13 20:31:07 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.JavaModelException;
 
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoModelSynchronizer;
 import org.eclipse.jem.internal.beaninfo.core.IBeaninfoSupplier;
 import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
  
 
 /**
@@ -70,6 +72,14 @@ public class TestBeanInfo extends TestListeners {
 			 */
 			public IProject getProject() {
 				return jp.getProject();
+			}
+
+			public ProjectResourceSet getNewResourceSet() {
+				return null;
+			}
+
+			public ResourceSet getProjectResourceSet() {
+				return null;
 			}
 		});	// Needs to be set first so that super.setUP() calls to special setups will have a factory.
 		super.setUp();	// Called first so that any setup won't fire our synchronizer.
