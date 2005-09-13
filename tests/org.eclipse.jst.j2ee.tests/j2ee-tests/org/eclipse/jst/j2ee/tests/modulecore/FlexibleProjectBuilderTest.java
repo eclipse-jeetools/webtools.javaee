@@ -28,8 +28,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
@@ -180,7 +180,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
 			// will setup and handle creating the modules model
 			getProjectForRemoteWebLib();
 
-			WorkbenchComponent webModule = localModuleCore.findComponentByName(getWebModuleDeployedName());
+			WorkbenchComponent webModule = localModuleCore.findComponentByName(getWebModuleAndLocalWebLibModuleProjectName());
 
 			addDependentModule(webModule, new Path("WEB-INF/lib"), getLocalWebLibraryModuleURI());
 			addDependentModule(webModule, new Path("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
@@ -226,7 +226,8 @@ public class FlexibleProjectBuilderTest extends TestCase {
 		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 		if (!project.exists()) {
 			IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-			dataModel.setProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME, aProjectName);
+			dataModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, aProjectName);
+			dataModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, aProjectName);
 			// dataModel.setProperty(WebComponentCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
 			dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		}
