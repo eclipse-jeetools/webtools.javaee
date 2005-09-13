@@ -11,13 +11,15 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: IBeaninfoSupplier.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.5 $  $Date: 2005/09/13 20:30:46 $ 
  */
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 /**
  * Interface to supply information for beaninfo to decouple
  * the introspection from the desktop.
@@ -51,5 +53,23 @@ public interface IBeaninfoSupplier {
 	 * @since 1.0.0
 	 */
 	public IProject getProject();
+	
+	/**
+	 * Create a new resource set based upon the current project. This resource set is hooked into the
+	 * project's resource set so that any searches for java classes.
+	 * 
+	 * @return a new resource set that is hooked into the project's java resource set.
+	 * 
+	 * @since 1.2.0
+	 */
+	public ProjectResourceSet getNewResourceSet();
+	
+	/**
+	 * The project resource set for this supplier.
+	 * @return
+	 * 
+	 * @since 1.2.0
+	 */
+	public ResourceSet getProjectResourceSet();
 
 }

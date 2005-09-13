@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/13 20:30:47 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -21,11 +21,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 import org.eclipse.jem.java.ArrayType;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 /**
  * BeaninfoAdapterFactory - the factory for 
  * beaninfo introspection to populate the Java Model.
@@ -89,6 +91,14 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 	
 	public IProject getProject() {
 		return fInfoSupplier.getProject();
+	}
+	
+	public ProjectResourceSet getNewResourceSet() {
+		return fInfoSupplier.getNewResourceSet();
+	}
+	
+	public ResourceSet getProjectResourceSet() {
+		return fInfoSupplier.getProjectResourceSet();
 	}
 
 	/**

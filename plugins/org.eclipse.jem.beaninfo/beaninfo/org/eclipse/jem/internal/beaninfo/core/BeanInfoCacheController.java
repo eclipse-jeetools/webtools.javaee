@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.15 $  $Date: 2005/08/18 21:52:25 $ 
+ *  $Revision: 1.16 $  $Date: 2005/09/13 20:30:46 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -195,7 +195,7 @@ public class BeanInfoCacheController {
 	 */
 	protected static class Index implements Serializable {
 
-		private static final long serialVersionUID = 1106864425465L;
+		private static final long serialVersionUID = 1106864425423L;
 
 		/*
 		 * Is this a dirty index, i.e. it has been changed and needs to be saved.
@@ -294,7 +294,7 @@ public class BeanInfoCacheController {
 	 */
 	public static abstract class RootIndex implements Serializable {
 
-		private static final long serialVersionUID = 1106868674823L;
+		private static final long serialVersionUID = 1106868674867L;
 
 		transient private IPath cachePath; // Absolute local filesystem IPath to the root cache directory. Computed at runtime because it may change
 										   // if workspace relocated.
@@ -447,7 +447,7 @@ public class BeanInfoCacheController {
 	 */
 	public static class FolderRootIndex extends RootIndex {
 
-		private static final long serialVersionUID = 1106868674842L;
+		private static final long serialVersionUID = 1106868674834L;
 
 		/*
 		 * For serialization.
@@ -1159,6 +1159,8 @@ public class BeanInfoCacheController {
 					try {
 						ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(indexDirFile)));
 						index = (Index) ois.readObject();
+					} catch (InvalidClassException e) {
+						// This is ok. It simply means the cache index is at a downlevel format and needs to be reconstructed.
 					} catch (IOException e) {
 						BeaninfoPlugin.getPlugin().getLogger().log(e);
 					} catch (ClassNotFoundException e) {
@@ -1202,6 +1204,8 @@ public class BeanInfoCacheController {
 				try {
 					ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(indexDirFile)));
 					MAIN_INDEX = (Index) ois.readObject();
+				} catch (InvalidClassException e) {
+					// This is ok. It just means that the cache index is at a downlevel format and needs to be reconstructed.
 				} catch (IOException e) {
 					BeaninfoPlugin.getPlugin().getLogger().log(e);
 				} catch (ClassNotFoundException e) {

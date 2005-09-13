@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.13 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.14 $  $Date: 2005/09/13 20:30:47 $ 
  */
 
 
@@ -285,6 +285,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 		super();
 	}
 
+	protected String getSourceDefault() {
+		return PropertyDecorator.class.getName();
+	}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

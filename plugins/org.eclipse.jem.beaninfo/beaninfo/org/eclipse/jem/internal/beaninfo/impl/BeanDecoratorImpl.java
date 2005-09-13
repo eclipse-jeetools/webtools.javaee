@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.16 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.17 $  $Date: 2005/09/13 20:30:47 $ 
  */
 
 
@@ -283,6 +283,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 */	
 	protected BeanDecoratorImpl() {
 		super();
+	}
+	
+	protected String getSourceDefault() {
+		return BeanDecorator.class.getName();
 	}
 
 	/**

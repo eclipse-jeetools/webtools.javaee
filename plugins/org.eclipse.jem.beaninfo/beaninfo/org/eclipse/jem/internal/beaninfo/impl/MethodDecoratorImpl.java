@@ -11,13 +11,11 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: MethodDecoratorImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/13 20:30:47 $ 
  */
 
 
 import java.util.*;
-import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -101,6 +99,10 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 */	
 	protected MethodDecoratorImpl() {
 		super();
+	}
+	
+	protected String getSourceDefault() {
+		return MethodDecorator.class.getName();
 	}
 
 	/**

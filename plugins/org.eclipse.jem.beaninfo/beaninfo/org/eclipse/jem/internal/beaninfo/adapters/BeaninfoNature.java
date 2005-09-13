@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.35 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.36 $  $Date: 2005/09/13 20:30:47 $ 
  */
 
 import java.io.*;
@@ -45,6 +45,7 @@ import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ResourceHandler;
 
 
@@ -209,7 +210,7 @@ public class BeaninfoNature implements IProjectNature {
 	 * 
 	 * @since 1.0.0
 	 */
-	public ResourceSet newResourceSet() {
+	public ProjectResourceSet newResourceSet() {
 		SpecialResourceSet rset = new SpecialResourceSet();
 		rset.add(new ResourceHandler() {
 			public EObject getEObjectFailed(ResourceSet originatingResourceSet, URI uri, boolean loadOnDemand) {
@@ -329,13 +330,20 @@ public class BeaninfoNature implements IProjectNature {
 				public IProject getProject() {
 					return BeaninfoNature.this.getProject();
 				}
+
+				public ProjectResourceSet getNewResourceSet() {
+					return BeaninfoNature.this.newResourceSet();
+				}
+
+				public ResourceSet getProjectResourceSet() {
+					return getResourceSet();
+				}
 			});
 			fSynchronizer =
 				new BeaninfoModelSynchronizer(
 					(BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(javaRSet.getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY),
 					JavaCore.create(javaNature.getProject()));
 		} catch (CoreException e) {
-e.printStackTrace();			
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
 	}

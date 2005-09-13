@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.43 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.44 $  $Date: 2005/09/13 20:30:47 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -19,6 +19,7 @@ import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
@@ -27,14 +28,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.*;
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.change.ChangeDescription;
-import org.eclipse.emf.ecore.change.ChangeFactory;
+import org.eclipse.emf.ecore.change.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.ESuperAdapter;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.*;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.internal.beaninfo.*;
@@ -88,50 +87,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	public static final String INTROSPECT = "Introspect";	// Straight introspection, whether load from cache or introspect. //$NON-NLS-1$
 	public static final String LOAD_FROM_CACHE = "Load from Cache"; //$NON-NLS-1$
 	
-	// TODO Put this back (if necessary, not sure since haven't done it yet) when we do override change recording too to handle overrides. 
-	// This will make it even faster because such
-	// overrides rarely change and so can be glombed together into one large change. So then we would have two change caches per
-	// class, one is the override record, which will be created once, the first time the class is referenced after a stale
-	// configuration, and then the other is the introspection/reflection results, which will be created each time there is
-	// a cache change. Both will be applied only once, the first time the class is referenced after a project has been opened.
-	// No need to load at any other time because any changes will simply be a merge of the changes (thru reflection/introspection) into
-	// the existing set and then a new change cache will be created containing the entire set of implicit changes, both the previous
-	// ones that are still valid, and any new ones.
-//	/**
-//	 * Pausable Change Recorder.
-//	 * 
-//	 * @since 1.1.0
-//	 */
-//	private static class PausableChangeRecorder extends ChangeRecorder {
-//		
-//		/**
-//		 * @param rootObject
-//		 * 
-//		 * @since 1.1.0
-//		 */
-//		public PausableChangeRecorder(EObject rootObject) {
-//			super(rootObject);
-//		}
-//		/**
-//		 * Pause recording
-//		 * 
-//		 * 
-//		 * @since 1.1.0
-//		 */
-//		public void pause() {
-//			recording = false;
-//		}
-//		
-//		/**
-//		 * Resume recording
-//		 * 
-//		 * 
-//		 * @since 1.1.0
-//		 */
-//		public void resume() {
-//			recording = true;
-//		}
-//	}
 	
 	public static BeaninfoClassAdapter getBeaninfoClassAdapter(EObject jc) {
 		return (BeaninfoClassAdapter) EcoreUtil.getExistingAdapter(jc, IIntrospectionAdapter.ADAPTER_KEY);
@@ -923,7 +878,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 	}
 
-	private static final String ROOT_OVERRIDE = BeaninfoPlugin.ROOT+BeaninfoPlugin.OVERRIDE_EXTENSION;	 //$NON-NLS-1$
+	private static final String ROOT_OVERRIDE = BeaninfoPlugin.ROOT+'.'+BeaninfoPlugin.OVERRIDE_EXTENSION;	 //$NON-NLS-1$
 	
 	protected void applyExtensionDocument(boolean rootOnly) {
 		try {
@@ -942,8 +897,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					Resource cacheRes = BeanInfoCacheController.INSTANCE.getCache(jc, getClassEntry(), false);
 					if (cacheRes != null) {
 						try {
-							EventUtil util = EventFactory.eINSTANCE.createEventUtil(jc, rset);
-							util.doForwardEvents(cacheRes.getContents());
+							new ExtensionDocApplies(null, rset, jc, null).run(cacheRes);
 						} catch (WrappedException e) {
 							BeaninfoPlugin.getPlugin().getLogger().log(
 									new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0,
@@ -966,7 +920,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					return;
 			}
 
-			String baseOverridefile = className + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
+			String baseOverridefile = className + '.' + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
 			String packageName = jc.getJavaPackage().getPackageName();
 			if (!canUseCache) {
 				overrideCache = createOverrideCache(overrideCache, getAdapterFactory().getProject(), packageName, baseOverridefile, rset, jc);
@@ -1002,6 +956,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 		return !cache.isEmpty() ? cache : null;
 	}
+	
+	private static final URI ROOT_URI = URI.createGenericURI(BeaninfoPlugin.ROOT_SCHEMA, BeaninfoPlugin.ROOT_OPAQUE, null);
+	private static final String ROOT_FRAGMENT = "//@root";
+	private static final Pattern FRAGMENT_SPLITTER = Pattern.compile("/");
 	
 	private class ExtensionDocApplies implements BeaninfoPlugin.IOverrideRunnable {
 		
@@ -1053,13 +1011,151 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		 */
 		public void run(Resource overrideRes) {
 			try {
-				if (overridesCache != null)
-					overridesCache.addAll(EcoreUtil.copyAll(overrideRes.getContents()));	// Make a copy for the override cache to be used next time needed.
-				EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoJavaClass, rset);
-				util.doForwardEvents(overrideRes.getContents());
+				EList contents = overrideRes.getContents();
+				if (overridesCache != null) {
+					// TODO Until https://bugs.eclipse.org/bugs/show_bug.cgi?id=109169 is fixed, we need our own Copier.
+					EcoreUtil.Copier copier = new EcoreUtil.Copier() {
+
+						private static final long serialVersionUID = 1L;
+
+						protected void copyReference(EReference eReference, EObject eObject, EObject copyEObject) {
+							if (eObject.eIsSet(eReference)) {
+								if (eReference.isMany()) {
+									List source = (List) eObject.eGet(eReference);
+									InternalEList target = (InternalEList) copyEObject.eGet(getTarget(eReference));
+									if (source.isEmpty()) {
+										target.clear();
+									} else {
+										boolean isBidirectional = eReference.getEOpposite() != null;
+										int index = 0;
+										for (Iterator k = ((EcoreEList) source).basicIterator(); k.hasNext();) {
+											Object referencedEObject = k.next();
+											Object copyReferencedEObject = get(referencedEObject);
+											if (copyReferencedEObject == null) {
+												if (!isBidirectional) {
+													target.addUnique(index, referencedEObject);
+													++index;
+												}
+											} else {
+												if (isBidirectional) {
+													int position = target.indexOf(copyReferencedEObject);
+													if (position == -1) {
+														target.addUnique(index, copyReferencedEObject);
+													} else if (index != position) {
+														target.move(index, copyReferencedEObject);
+													}
+												} else {
+													target.addUnique(index, copyReferencedEObject);
+												}
+												++index;
+											}
+										}
+									}
+								} else {
+									Object referencedEObject = eObject.eGet(eReference, false);
+									if (referencedEObject == null) {
+										copyEObject.eSet(getTarget(eReference), null);
+									} else {
+										Object copyReferencedEObject = get(referencedEObject);
+										if (copyReferencedEObject == null) {
+											if (eReference.getEOpposite() == null) {
+												copyEObject.eSet(getTarget(eReference), referencedEObject);
+											}
+										} else {
+											copyEObject.eSet(getTarget(eReference), copyReferencedEObject);
+										}
+									}
+								}
+							}
+						}
+					};
+					
+					// We fixup the CD first so that when serialized it will be to the correct object already. Simplifies apply later.
+					Iterator itr = contents.iterator();
+					while (itr.hasNext()) {
+						Object o = itr.next();
+						if (o instanceof ChangeDescription) {
+							fixupCD((ChangeDescription) o);
+						}
+					}
+
+				    Collection result = copier.copyAll(contents);
+				    copier.copyReferences();
+					overridesCache.addAll(result);	// Make a copy for the override cache to be used next time needed.
+				}
+				
+				if (!contents.isEmpty()) {
+					// TODO It could be either the old event model or the new ChangeDescription. When we remove Event Model we need to remove
+					// the test. This could be the override cache too, so we must apply the contents in the order they are in the resource.
+					try {
+						List events = new ArrayList(1);
+						events.add(null);	// EventUtil needs a list, but we will be calling one by one. So just reuse this list.
+						Iterator itr = contents.iterator();
+						while (itr.hasNext()) {
+							Object o = itr.next();
+							if (o instanceof ChangeDescription) {
+								ChangeDescription cd = (ChangeDescription) o;
+								fixupCD(cd);
+								cd.apply();
+							} else {
+								// It is the old format.
+								events.set(0, o);
+								EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoJavaClass, rset);
+								util.doForwardEvents(events);
+							}
+						}
+					} finally {
+						uninstallRootResource();
+					}						
+				}
 			} catch (WrappedException e) {
 				BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error processing file\"" + overrideRes.getURI() + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
 			}
+		}
+		
+		/*
+		 * fix it up so that references to "X:ROOT#//@root" are replaced with reference to the javaclass.
+		 */
+		private void fixupCD(ChangeDescription cd) {
+			EStructuralFeature keyFeature = ChangePackage.eINSTANCE.getEObjectToChangesMapEntry_Key();
+			Iterator changes = cd.getObjectChanges().iterator();
+			while (changes.hasNext()) {
+				EObject entry = (EObject) changes.next();
+				EObject key = (EObject) entry.eGet(keyFeature, false);
+				if (key != null && key.eIsProxy()) {
+					// See if it is our special.
+					URI uri = ((InternalEObject) key).eProxyURI();
+					String rootFrag = uri.fragment();
+					if (BeaninfoPlugin.ROOT_SCHEMA.equals(uri.scheme()) && BeaninfoPlugin.ROOT_OPAQUE.equals(uri.opaquePart()) && (rootFrag != null && rootFrag.startsWith(ROOT_FRAGMENT))) {
+						// It is one of ours. Get the fragment, remove the leading //root and append to the end of the
+						// uri from the java class itself.
+						if (rootFrag.length() <= ROOT_FRAGMENT.length())
+							entry.eSet(keyFeature, mergeIntoJavaClass);	// No sub-path, so just the java class.
+						else {
+							// There is a sub-path below the java class that is needed. Need to walk down the path.
+							String[] path = FRAGMENT_SPLITTER.split(rootFrag.substring(ROOT_FRAGMENT.length()+1));
+							InternalEObject newKey = (InternalEObject) mergeIntoJavaClass;
+							for (int i = 0; newKey != null && i < path.length; i++) {
+								newKey = (InternalEObject) newKey.eObjectForURIFragmentSegment(path[i]);
+							}
+							if (newKey != null)
+								entry.eSet(keyFeature, newKey);
+						}
+					}
+				}
+			}
+		}
+		
+		/*
+		 * Uninstall the fake root resource. This must be called after installRootResource has been called. So must use try/finally. 
+		 * 
+		 * 
+		 * @since 1.2.0
+		 */
+		private void uninstallRootResource() {
+			Resource root = rset.getResource(ROOT_URI, false);
+			if (root != null)
+				rset.getResources().remove(root);
 		}
 	}
 	protected void applyExtensionDocTo(ResourceSet rset, JavaClass mergeIntoJavaClass, String overrideFile, String packageName, String className) {
@@ -2430,8 +2526,11 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				a.notifyChanged(note);
 			synchronized (this) {
 				needsIntrospection = true;
-				if (clearOverriddes)
+				if (clearOverriddes) {
 					retrievedExtensionDocument = CLEAR_EXTENSIONS;
+					classEntry.markDeleted();
+					classEntry = null;	// Get a new one next time.
+				}
 			}
 		}
 	}

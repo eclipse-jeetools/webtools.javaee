@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.17 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.18 $  $Date: 2005/09/13 20:30:46 $ 
  */
 
 
@@ -65,10 +65,23 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	public static final String ROOT = "..ROOT.."; //$NON-NLS-1$
 	
+
+	/**
+	 * Special override scheme to refer to the current java class. (As in "X:ROOT#//@root").
+	 * @since 1.2.0
+	 */
+	public static final String ROOT_SCHEMA = "X";
+	
+	/**
+	 * Special override opaque part to refer to the current java class. (As in "X:ROOT#//@root").
+	 * @since 1.2.0
+	 */
+	public static final String ROOT_OPAQUE = "ROOT";
+	
 	/**
 	 * The extension used on any override file when you pass in a path through the method that takes a string.
 	 */
-	public static final String OVERRIDE_EXTENSION = ".override";	//$NON-NLS-1$
+	public static final String OVERRIDE_EXTENSION = "override";	//$NON-NLS-1$
 		
 	
 	/*
@@ -688,6 +701,7 @@ public class BeaninfoPlugin extends Plugin {
 	BeaninfoNature getNature(IProject project) {
 		return (BeaninfoNature) openNatures.get(project);
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
