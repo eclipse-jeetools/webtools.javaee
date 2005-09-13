@@ -8,7 +8,7 @@
       <details key="documentation" value="The service-ref element declares a reference to a Web&#xD;&#xA;    service. It contains optional description, display name and&#xD;&#xA;    icons, a declaration of the required Service interface,&#xD;&#xA;    an optional WSDL document location, an optional set&#xD;&#xA;    of JAX-RPC mappings, an optional QName for the service element,&#xD;&#xA;    an optional set of Service Endpoint Interfaces to be resolved&#xD;&#xA;    by the container to a WSDL port, and an optional set of handlers."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceInterface" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass">
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The service-interface element declares the fully qualified class&#xD;&#xA;        name of the JAX-RPC Service interface the client depends on.&#xD;&#xA;        In most cases the value will be javax.xml.rpc.Service.  A JAX-RPC&#xD;&#xA;        generated Service Interface class may also be specified."/>
       </eAnnotations>
@@ -53,7 +53,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceEndpointInterface"
-        lowerBound="1" eType="ecore:EClass java.ecore#//JavaClass">
+        lowerBound="1" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The service-endpoint-interface element defines a fully qualified&#xD;&#xA;        Java class that represents the Service Endpoint Interface of a&#xD;&#xA;        WSDL port."/>
       </eAnnotations>
@@ -81,7 +81,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="handlerClass" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass">
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Defines a fully qualified class name for the handler implementation."/>
       </eAnnotations>

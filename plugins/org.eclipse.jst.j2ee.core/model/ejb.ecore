@@ -116,7 +116,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sessionType" eType="#//SessionType"
         unsettable="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceEndpoint" eType="ecore:EClass java.ecore#//JavaClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceEndpoint" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The service-endpoint element contains the&#xD;&#xA;        fully-qualified name of the enterprise bean's web&#xD;&#xA;        service endpoint interface. The service-endpoint&#xD;&#xA;        element may only be specified for a stateless&#xD;&#xA;        session bean. The specified interface must be a&#xD;&#xA;        valid JAX-RPC service endpoint interface."/>
       </eAnnotations>
@@ -133,7 +133,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass">
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The primkey-field element is used to specify the name of the primary key field for an entity with container-managed persistence.  The primkey-field must be one of the fields declared in the cmp-field&#xD;&#xA;element, and the type of the field must be the same as the primary key type.  The primkey-field element is not used if the primary key maps to multiple container-managed fields (i.e. the key is a compound key). In this case, the fields of the primary key class must be public, and their names must correspond to the field names of the entity bean class that comprise the key.&#xD;&#xA;Examples:&lt;prim-key-class>java.lang.String&lt;/prim-key-class>&#xD;&#xA;&#x9;&lt;prim-key-class>com.wombat.empl.EmployeeID&lt;/prim-key-class>&#xD;&#xA;&#x9;&lt;prim-key-class>java.lang.Object&lt;/prim-key-class>&#xD;&#xA;"/>
       </eAnnotations>
@@ -147,11 +147,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="securityRoleRefs" upperBound="-1"
         eType="ecore:EClass common.ecore#//SecurityRoleRef" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ejbClass" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass"/>
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="homeInterface" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass"/>
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="remoteInterface" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass"/>
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ejbJar" lowerBound="1"
         eType="#//EJBJar" transient="true" eOpposite="#//EJBJar/enterpriseBeans"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="securityIdentity" eType="ecore:EClass common.ecore#//SecurityIdentity"
@@ -160,8 +160,8 @@
         <details key="documentation" value="The security-identity element specifies whether the caller's security identity is to be used for the execution of the methods of the enterprise bean or whether a specific run-as identity is to be used. It&#xD;&#xA;contains an optional description and a specification of the security identity to be used."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="localHomeInterface" eType="ecore:EClass java.ecore#//JavaClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="localInterface" eType="ecore:EClass java.ecore#//JavaClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="localHomeInterface" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="localInterface" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TransactionAttributeType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -432,7 +432,7 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//EJBRelationshipRole"
         transient="true" eOpposite="#//EJBRelationshipRole/cmrField"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="collectionType" eType="ecore:EClass java.ecore#//JavaClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="collectionType" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MessageDriven" eSuperTypes="#//EnterpriseBean">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -472,12 +472,12 @@
         <details key="documentation" value="@version J2EE1.4"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="messageDestination" eType="ecore:EClass java.ecore#//JavaClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="messageDestination" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="@version J2EE1.4"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="messagingType" eType="ecore:EClass java.ecore#//JavaClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="messagingType" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="@version J2EE1.4&#xD;&#xA;The messaging-type element specifies the message&#xD;&#xA;        listener interface of the message-driven bean. If&#xD;&#xA;        the messaging-type element is not specified, it is&#xD;&#xA;        assumed to be javax.jms.MessageListener."/>
       </eAnnotations>

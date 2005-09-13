@@ -36,7 +36,7 @@
         <details key="documentation" value="The resource-env-ref element contains a declaration of an application client's reference to an administered object associated with a resource in the application client's environment.  It consists of an optional&#xD;&#xA;description, the resource environment reference name, and an indication of the resource environment reference type expected by the application client code.&#xD;&#xA;&#xD;&#xA;Used in: application-client&#xD;&#xA;&#xD;&#xA;Example:&#xD;&#xA;&#xD;&#xA;&lt;resource-env-ref>&#xD;&#xA;    &lt;resource-env-ref-name>jms/StockQueue&lt;/resource-env-ref-name>&#xD;&#xA;    &lt;resource-env-ref-type>javax.jms.Queue&lt;/resource-env-ref-type>&#xD;&#xA;&lt;/resource-env-ref>&#xD;&#xA;"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="callbackHandler" eType="ecore:EClass java.ecore#//JavaClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="callbackHandler" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A class provided by the application.  The class must have a no args constructor and must implement the javax.security.auth.callback.CallbackHandler interface.  The class will be instantiated by the application client container and used by the container to collect authentication information from the user."/>
       </eAnnotations>

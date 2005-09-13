@@ -447,7 +447,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExceptionTypeErrorPage" eSuperTypes="#//ErrorPage">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exceptionType" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass">
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The exception type contains a fully qualified class name of a Java exception type."/>
       </eAnnotations>
@@ -499,7 +499,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="filterClass" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass">
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The fully qualified classname of the filter."/>
       </eAnnotations>

@@ -1,964 +1,153 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ASCII"?>
 <genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jst.j2ee.core/commonArchive"
-    modelPluginID="org.eclipse.jst.j2ee.core" modelName="CommonArchive" importerID="org.eclipse.emf.importer.rose"
-    usedGenPackages="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+  xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jst.j2ee.core/commonArchive"
+    editDirectory="/org.eclipse.jst.j2ee.core.edit/src" editorDirectory="/org.eclipse.jst.j2ee.core.editor/src"
+    modelPluginID="org.eclipse.jst.j2ee.core" modelName="CommonArchive" editPluginClass="org.eclipse.j2ee.commonarchivecore.provider.CommonArchiveEditPlugin"
+    editorPluginClass="org.eclipse.j2ee.commonarchivecore.presentation.CommonArchiveEditorPlugin"
+    usedGenPackages="../../org.eclipse.emf.ecore/src-ecore/model/Ecore.genmodel#//ecore j2ee.genmodel#//wsclient j2ee.genmodel#//common j2ee.genmodel#//webapplication j2ee.genmodel#//ejb j2ee.genmodel#//jsp j2ee.genmodel#//application j2ee.genmodel#//client j2ee.genmodel#//jca ../../org.eclipse.jem/model/javaModel.genmodel#//java">
   <foreignModel>..\rose\commonArchive.mdl</foreignModel>
   <foreignModel>WORKSPACE_ROOT</foreignModel>
   <foreignModel>D:\work\M5</foreignModel>
-  <genPackages prefix="Application" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="application.ecore#/">
-    <genClasses ecoreClass="application.ecore#//Application">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute application.ecore#//Application/version"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference application.ecore#//Application/securityRoles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference application.ecore#//Application/modules"/>
-    </genClasses>
-    <genClasses ecoreClass="application.ecore#//Module">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute application.ecore#//Module/uri"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute application.ecore#//Module/altDD"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference application.ecore#//Module/application"/>
-    </genClasses>
-    <genClasses ecoreClass="application.ecore#//WebModule">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute application.ecore#//WebModule/contextRoot"/>
-    </genClasses>
-    <genClasses ecoreClass="application.ecore#//JavaClientModule"/>
-    <genClasses ecoreClass="application.ecore#//EjbModule"/>
-    <genClasses ecoreClass="application.ecore#//ConnectorModule"/>
-  </genPackages>
-  <genPackages prefix="Client" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="client.ecore#/">
-    <genEnums ecoreEnum="client.ecore#//ResAuthApplicationType">
-      <genEnumLiterals ecoreEnumLiteral="client.ecore#//ResAuthApplicationType/Application"/>
-      <genEnumLiterals ecoreEnumLiteral="client.ecore#//ResAuthApplicationType/Container"/>
-    </genEnums>
-    <genClasses ecoreClass="client.ecore#//ApplicationClient">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute client.ecore#//ApplicationClient/version"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/resourceRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/environmentProps"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/ejbReferences"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/resourceEnvRefs"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/callbackHandler"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/serviceRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/messageDestinationRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/messageDestinations"/>
-    </genClasses>
-  </genPackages>
-  <genPackages prefix="Ejb" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="ejb.ecore#/">
-    <genEnums ecoreEnum="ejb.ecore#//TransactionAttributeType">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/NotSupported"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/Supports"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/Required"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/RequiresNew"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/Mandatory"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/Never"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//TransactionType">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionType/Bean"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionType/Container"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//SessionType">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//SessionType/Stateful"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//SessionType/Stateless"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//MethodElementKind">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MethodElementKind/Unspecified"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MethodElementKind/Remote"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MethodElementKind/Home"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MethodElementKind/Local"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MethodElementKind/LocalHome"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MethodElementKind/ServiceEndpoint"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//AcknowledgeMode">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//AcknowledgeMode/AutoAcknowledge"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//AcknowledgeMode/DupsOkAcknowledge"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//SubscriptionDurabilityKind">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//SubscriptionDurabilityKind/Durable"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//SubscriptionDurabilityKind/NonDurable"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//ReturnTypeMapping">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//ReturnTypeMapping/Local"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//ReturnTypeMapping/Remote"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//DestinationType">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//DestinationType/Queue"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//DestinationType/Topic"/>
-    </genEnums>
-    <genEnums ecoreEnum="ejb.ecore#//MultiplicityKind">
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MultiplicityKind/One"/>
-      <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//MultiplicityKind/Many"/>
-    </genEnums>
-    <genClasses ecoreClass="ejb.ecore#//ContainerManagedEntity">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//ContainerManagedEntity/version"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//ContainerManagedEntity/abstractSchemaName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//ContainerManagedEntity/persistentAttributes"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//ContainerManagedEntity/keyAttributes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//ContainerManagedEntity/queries"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//ContainerManagedEntity/CMPAttribute"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//ContainerManagedEntity/primKeyField"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//MethodPermission">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodPermission/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodPermission/unchecked"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MethodPermission/assemblyDescriptor"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MethodPermission/roles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MethodPermission/methodElements"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MethodPermission/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//AssemblyDescriptor">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//AssemblyDescriptor/methodPermissions"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//AssemblyDescriptor/methodTransactions"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//AssemblyDescriptor/ejbJar"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//AssemblyDescriptor/securityRoles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//AssemblyDescriptor/excludeList"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//AssemblyDescriptor/messageDestinations"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//MethodTransaction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodTransaction/transactionAttribute"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodTransaction/description"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MethodTransaction/assemblyDescriptor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MethodTransaction/methodElements"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MethodTransaction/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//Session">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Session/transactionType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Session/sessionType"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//Session/serviceEndpoint"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//Entity">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Entity/reentrant"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//Entity/primaryKey"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="ejb.ecore#//EnterpriseBean">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EnterpriseBean/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/securityRoleRefs"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/ejbClass"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/homeInterface"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/remoteInterface"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/ejbJar"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/securityIdentity"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/localHomeInterface"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EnterpriseBean/localInterface"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//EJBMethodCategory"/>
-    <genClasses ecoreClass="ejb.ecore#//EJBJar">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBJar/ejbClientJar"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBJar/version"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBJar/assemblyDescriptor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBJar/enterpriseBeans"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBJar/relationshipList"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//MethodElement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodElement/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodElement/parms"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodElement/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MethodElement/description"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MethodElement/enterpriseBean"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MethodElement/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//CMPAttribute">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//CMPAttribute/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//CMPAttribute/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//Relationships">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Relationships/description"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//Relationships/ejbJar"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//Relationships/ejbRelations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//Relationships/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//Query">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Query/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Query/ejbQL"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//Query/returnTypeMapping"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//Query/queryMethod"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//Query/entity"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//Query/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//EJBRelation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBRelation/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBRelation/name"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelation/relationshipList"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelation/relationshipRoles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelation/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//EJBRelationshipRole">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBRelationshipRole/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBRelationshipRole/roleName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBRelationshipRole/multiplicity"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//EJBRelationshipRole/cascadeDelete"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelationshipRole/relationship"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelationshipRole/source"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelationshipRole/cmrField"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//EJBRelationshipRole/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//RoleSource">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//RoleSource/description"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//RoleSource/role"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//RoleSource/entityBean"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//RoleSource/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//CMRField">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//CMRField/role"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//CMRField/collectionType"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//MessageDriven">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MessageDriven/transactionType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MessageDriven/messageSelector"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MessageDriven/acknowledgeMode"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MessageDriven/link"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MessageDriven/destination"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//MessageDriven/activationConfig"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MessageDriven/messageDestination"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MessageDriven/messagingType"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//MessageDrivenDestination">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MessageDrivenDestination/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//MessageDrivenDestination/subscriptionDurability"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//MessageDrivenDestination/bean"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//ExcludeList">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//ExcludeList/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//ExcludeList/methodElements"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//ExcludeList/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//QueryMethod">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ejb.ecore#//QueryMethod/query"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//ActivationConfigProperty">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//ActivationConfigProperty/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ejb.ecore#//ActivationConfigProperty/name"/>
-    </genClasses>
-    <genClasses ecoreClass="ejb.ecore#//ActivationConfig">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//ActivationConfig/configProperties"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ejb.ecore#//ActivationConfig/descriptions"/>
-    </genClasses>
-  </genPackages>
-  <genPackages prefix="Webapplication" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="webapplication.ecore#/">
-    <genEnums ecoreEnum="webapplication.ecore#//ResAuthServletType">
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//ResAuthServletType/CONTAINER"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//ResAuthServletType/SERVLET"/>
-    </genEnums>
-    <genEnums ecoreEnum="webapplication.ecore#//HTTPMethodTypeEnum">
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/GET"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/POST"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/PUT"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/DELETE"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/HEAD"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/OPTIONS"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//HTTPMethodTypeEnum/TRACE"/>
-    </genEnums>
-    <genEnums ecoreEnum="webapplication.ecore#//TransportGuaranteeType">
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//TransportGuaranteeType/NONE"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//TransportGuaranteeType/INTEGRAL"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//TransportGuaranteeType/CONFIDENTIAL"/>
-    </genEnums>
-    <genEnums ecoreEnum="webapplication.ecore#//DispatcherType">
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//DispatcherType/FORWARD"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//DispatcherType/INCLUDE"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//DispatcherType/REQUEST"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//DispatcherType/ERROR"/>
-    </genEnums>
-    <genEnums ecoreEnum="webapplication.ecore#//AuthMethodKind">
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//AuthMethodKind/UNSPECIFIED"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//AuthMethodKind/BASIC"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//AuthMethodKind/DIGEST"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//AuthMethodKind/FORM"/>
-      <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//AuthMethodKind/CLIENT_CERT"/>
-    </genEnums>
-    <genClasses ecoreClass="webapplication.ecore#//WebApp">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WebApp/distributable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WebApp/version"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/contexts"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/errorPages"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/fileList"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/tagLibs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/constraints"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/loginConfig"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/mimeMappings"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/sessionConfig"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/servletMappings"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/servlets"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/securityRoles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/filters"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/filterMappings"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/listeners"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/contextParams"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/jspConfig"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/messageDestinations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebApp/localEncodingMappingList"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//ContextParam">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ContextParam/paramName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ContextParam/paramValue"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ContextParam/description"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//ContextParam/webApp"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//Servlet">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//Servlet/servletName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//Servlet/loadOnStartup"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//Servlet/webApp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Servlet/webType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Servlet/params"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Servlet/securityRoleRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Servlet/runAs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Servlet/initParams"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//ServletMapping">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ServletMapping/urlPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ServletMapping/name"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//ServletMapping/webApp"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//ServletMapping/servlet"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//SessionConfig">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//SessionConfig/sessionTimeout"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//SessionConfig/webApp"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//MimeMapping">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//MimeMapping/extension"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//MimeMapping/mimeType"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//MimeMapping/webApp"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//WelcomeFileList">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//WelcomeFileList/webApp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WelcomeFileList/file"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//ErrorPage">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ErrorPage/location"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//ErrorPage/webApp"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//TagLibRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//TagLibRef/taglibURI"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//TagLibRef/taglibLocation"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//TagLibRef/webApp"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//SecurityConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//SecurityConstraint/displayName"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//SecurityConstraint/webApp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//SecurityConstraint/webResourceCollections"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//SecurityConstraint/authConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//SecurityConstraint/userDataConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//SecurityConstraint/displayNames"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//WebResourceCollection">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WebResourceCollection/webResourceName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WebResourceCollection/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WebResourceCollection/urlPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WebResourceCollection/httpMethod"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//WebResourceCollection/secConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebResourceCollection/URLs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebResourceCollection/descriptions"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//WebResourceCollection/HTTPs"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//AuthConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//AuthConstraint/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//AuthConstraint/roles"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//AuthConstraint/secConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//AuthConstraint/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//UserDataConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//UserDataConstraint/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//UserDataConstraint/transportGuarantee"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//UserDataConstraint/secConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//UserDataConstraint/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//LoginConfig">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//LoginConfig/authMethod"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//LoginConfig/realmName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//LoginConfig/authorizationMethod"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//LoginConfig/webApp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//LoginConfig/formLoginConfig"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//FormLoginConfig">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//FormLoginConfig/formLoginPage"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//FormLoginConfig/formErrorPage"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//FormLoginConfig/loginConfig"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//InitParam">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//InitParam/paramName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//InitParam/paramValue"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//InitParam/description"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="webapplication.ecore#//WebType"/>
-    <genClasses ecoreClass="webapplication.ecore#//ServletType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ServletType/className"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//JSPType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//JSPType/jspFile"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//URLPatternType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//URLPatternType/urlPattern"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//URLPatternType/resCollection"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//RoleNameType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//RoleNameType/roleName"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//WelcomeFile">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//WelcomeFile/welcomeFile"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//WelcomeFile/fileList"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//ExceptionTypeErrorPage">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//ExceptionTypeErrorPage/exceptionType"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//ErrorCodeErrorPage">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//ErrorCodeErrorPage/errorCode"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//FilterMapping">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//FilterMapping/urlPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//FilterMapping/dispatcherType"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//FilterMapping/filter"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//FilterMapping/servlet"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//Filter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//Filter/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Filter/initParams"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference webapplication.ecore#//Filter/filterClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//Filter/initParamValues"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//LocalEncodingMappingList">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference webapplication.ecore#//LocalEncodingMappingList/localEncodingMappings"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//LocalEncodingMapping">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//LocalEncodingMapping/locale"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//LocalEncodingMapping/encoding"/>
-    </genClasses>
-    <genClasses ecoreClass="webapplication.ecore#//HTTPMethodType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webapplication.ecore#//HTTPMethodType/httpMethod"/>
-    </genClasses>
-  </genPackages>
-  <genPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      interfacePackageSuffix="internal" classPackageSuffix="internal.impl" utilityPackageSuffix="internal.util"
-      ecorePackage="commonarchivecore.ecore#/">
+  <genPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" ecorePackage="commonarchivecore.ecore#/">
     <genClasses ecoreClass="commonarchivecore.ecore#//File">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/URI"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/lastModified"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/size"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/directoryEntry"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/originalURI"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//File/loadingContainer"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//File/container"/>
+      <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/URI"/>
+      <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/lastModified"/>
+      <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/size"/>
+      <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/directoryEntry"/>
+      <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/originalURI"/>
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//File/loadingContainer"/>
+      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//File/container"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//Archive">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//Archive/types"/>
+      <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//Archive/types"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//EJBJarFile">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EJBJarFile/deploymentDescriptor"/>
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EJBJarFile/deploymentDescriptor"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//WARFile">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//WARFile/deploymentDescriptor"/>
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//WARFile/deploymentDescriptor"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//EARFile">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EARFile/moduleRefs"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EARFile/deploymentDescriptor"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EARFile/moduleRefs"/>
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EARFile/deploymentDescriptor"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//ApplicationClientFile">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ApplicationClientFile/deploymentDescriptor"/>
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ApplicationClientFile/deploymentDescriptor"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="commonarchivecore.ecore#//ModuleFile"/>
-    <genClasses image="false" ecoreClass="commonarchivecore.ecore#//Container">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//Container/files"/>
+    <genClasses ecoreClass="commonarchivecore.ecore#//ModuleFile"/>
+    <genClasses ecoreClass="commonarchivecore.ecore#//Container">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//Container/files"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//ReadOnlyDirectory"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//RARFile">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//RARFile/deploymentDescriptor"/>
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//RARFile/deploymentDescriptor"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="commonarchivecore.ecore#//ModuleRef">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/moduleFile"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/earFile"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/module"/>
+    <genClasses ecoreClass="commonarchivecore.ecore#//ModuleRef">
+      <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/moduleFile"/>
+      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/earFile"/>
     </genClasses>
     <genClasses ecoreClass="commonarchivecore.ecore#//EJBModuleRef"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//WebModuleRef"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//ClientModuleRef"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//ConnectorModuleRef"/>
     <nestedGenPackages prefix="Looseconfig" basePackage="org.eclipse.jst.j2ee.commonarchivecore"
-        disposableProviderFactory="true" interfacePackageSuffix="internal" classPackageSuffix="internal.impl"
-        utilityPackageSuffix="internal.util" ecorePackage="commonarchivecore.ecore#//looseconfig">
+        ecorePackage="commonarchivecore.ecore#//looseconfig">
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseApplication">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseApplication/looseArchives"/>
+        <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseApplication/looseArchives"/>
       </genClasses>
-      <genClasses image="false" ecoreClass="commonarchivecore.ecore#//looseconfig/LooseArchive">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/uri"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/binariesPath"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/resourcesPath"/>
-        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseArchive/looseApp"/>
+      <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseArchive">
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/uri"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/binariesPath"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/resourcesPath"/>
+        <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseArchive/looseApp"/>
         <genOperations ecoreOperation="commonarchivecore.ecore#//looseconfig/LooseArchive/isModule"/>
       </genClasses>
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseLibrary">
-        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseLibrary/looseWAR"/>
+        <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseLibrary/looseWAR"/>
       </genClasses>
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseModule">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseModule/altDD"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseModule/altDD"/>
       </genClasses>
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseConfiguration">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseConfiguration/applications"/>
+        <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseConfiguration/applications"/>
       </genClasses>
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseWARFile">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseWARFile/looseLibs"/>
+        <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseWARFile/looseLibs"/>
       </genClasses>
     </nestedGenPackages>
-  </genPackages>
-  <genPackages prefix="JavaRef" basePackage="org.eclipse.jem" disposableProviderFactory="true"
-      ecorePackage="java.ecore#/">
-    <genEnums ecoreEnum="java.ecore#//TypeKind">
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//TypeKind/UNDEFINED"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//TypeKind/CLASS"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//TypeKind/INTERFACE"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//TypeKind/EXCEPTION"/>
-    </genEnums>
-    <genEnums ecoreEnum="java.ecore#//JavaVisibilityKind">
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaVisibilityKind/PUBLIC"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaVisibilityKind/PRIVATE"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaVisibilityKind/PROTECTED"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaVisibilityKind/PACKAGE"/>
-    </genEnums>
-    <genEnums ecoreEnum="java.ecore#//JavaParameterKind">
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaParameterKind/IN"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaParameterKind/OUT"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaParameterKind/INOUT"/>
-      <genEnumLiterals ecoreEnumLiteral="java.ecore#//JavaParameterKind/RETURN"/>
-    </genEnums>
-    <genDataTypes ecoreDataType="java.ecore#//JTypeJavaHelpers"/>
-    <genDataTypes ecoreDataType="java.ecore#//JTypeList"/>
-    <genClasses ecoreClass="java.ecore#//JavaClass">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/kind"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/public"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/final"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/implementsInterfaces"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/classImport"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/packageImports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/fields"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/methods"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/initializers"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/declaredClasses"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/declaringClass"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/javaPackage"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/events"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/allEvents"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/isNested"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getField">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getField/fieldName"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getFieldExtended">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getFieldExtended/fieldName"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getFieldNamed">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getFieldNamed/fieldName"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getFieldsExtended"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getMethod">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getMethod/methodName"/>
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getMethod/parameterTypes"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getMethodElementSignatures"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getMethodExtended">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getMethodExtended/methodName"/>
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getMethodExtended/parameterTypes"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getMethodsExtended"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getOnlySpecificMethods">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getOnlySpecificMethods/aMethodNamePrefix"/>
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getOnlySpecificMethods/excludedNames"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getPublicMethod">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getPublicMethod/methodName"/>
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getPublicMethod/parameterTypes"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getPublicMethods"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getPublicMethodsExtended"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getPublicMethodsNamed">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/getPublicMethodsNamed/name"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/getSupertype"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/implementsInterface">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/implementsInterface/interfaceType"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/infoString"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/inheritsFrom">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/inheritsFrom/javaClass"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/isExistingType"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/isInterface"/>
-      <genOperations ecoreOperation="java.ecore#//JavaClass/setSupertype">
-        <genParameters ecoreParameter="java.ecore#//JavaClass/setSupertype/javaclass"/>
-      </genOperations>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//Initializer">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Initializer/isStatic"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Initializer/javaClass"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Initializer/source"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//JavaParameter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaParameter/final"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaParameter/parameterKind"/>
-      <genOperations ecoreOperation="java.ecore#//JavaParameter/isArray"/>
-      <genOperations ecoreOperation="java.ecore#//JavaParameter/isReturn"/>
-      <genOperations ecoreOperation="java.ecore#//JavaParameter/getJavaType"/>
-      <genOperations ecoreOperation="java.ecore#//JavaParameter/getQualifiedName"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//Method">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/abstract"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/native"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/synchronized"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/final"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/constructor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/static"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/javaVisibility"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//Method/parameters"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Method/javaExceptions"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Method/javaClass"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Method/source"/>
-      <genOperations ecoreOperation="java.ecore#//Method/getContainingJavaClass"/>
-      <genOperations ecoreOperation="java.ecore#//Method/getMethodElementSignature"/>
-      <genOperations ecoreOperation="java.ecore#//Method/getParameter">
-        <genParameters ecoreParameter="java.ecore#//Method/getParameter/parameterName"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//Method/getReturnType"/>
-      <genOperations ecoreOperation="java.ecore#//Method/setReturnType">
-        <genParameters ecoreParameter="java.ecore#//Method/setReturnType/type"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//Method/getSignature"/>
-      <genOperations ecoreOperation="java.ecore#//Method/isGenerated"/>
-      <genOperations ecoreOperation="java.ecore#//Method/setIsGenerated">
-        <genParameters ecoreParameter="java.ecore#//Method/setIsGenerated/generated"/>
-      </genOperations>
-      <genOperations ecoreOperation="java.ecore#//Method/isVoid"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//Field">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/final"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/static"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/javaVisibility"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/transient"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/volatile"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Field/javaClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//Field/initializer"/>
-      <genOperations ecoreOperation="java.ecore#//Field/getContainingJavaClass"/>
-      <genOperations ecoreOperation="java.ecore#//Field/isArray"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//Block">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Block/source"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Block/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//Block/contents"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//Comment"/>
-    <genClasses ecoreClass="java.ecore#//Statement"/>
-    <genClasses ecoreClass="java.ecore#//JavaPackage">
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaPackage/javaClasses"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//JavaDataType">
-      <genOperations ecoreOperation="java.ecore#//JavaDataType/getDefaultValueString"/>
-    </genClasses>
-    <genClasses ecoreClass="java.ecore#//ArrayType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//ArrayType/arrayDimensions"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//ArrayType/componentType"/>
-      <genOperations ecoreOperation="java.ecore#//ArrayType/getFinalComponentType"/>
-      <genOperations ecoreOperation="java.ecore#//ArrayType/getComponentTypeAsHelper"/>
-      <genOperations ecoreOperation="java.ecore#//ArrayType/isPrimitiveArray"/>
-      <genOperations ecoreOperation="java.ecore#//ArrayType/setComponentType">
-        <genParameters ecoreParameter="java.ecore#//ArrayType/setComponentType/helperComponentType"/>
-      </genOperations>
-    </genClasses>
-    <genClasses image="false" ecoreClass="java.ecore#//JavaEvent"/>
-  </genPackages>
-  <genPackages prefix="Common" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="common.ecore#/">
-    <genEnums ecoreEnum="common.ecore#//EnvEntryType">
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/String"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Integer"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Boolean"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Double"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Byte"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Short"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Long"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Float"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Character"/>
-    </genEnums>
-    <genEnums ecoreEnum="common.ecore#//ResAuthTypeBase">
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//ResAuthTypeBase/Container"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//ResAuthTypeBase/Application"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//ResAuthTypeBase/SERVLET"/>
-    </genEnums>
-    <genEnums ecoreEnum="common.ecore#//EjbRefType">
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EjbRefType/Session"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EjbRefType/Entity"/>
-    </genEnums>
-    <genEnums ecoreEnum="common.ecore#//ResSharingScopeType">
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//ResSharingScopeType/Shareable"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//ResSharingScopeType/Unshareable"/>
-    </genEnums>
-    <genEnums ecoreEnum="common.ecore#//MessageDestinationUsageType">
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//MessageDestinationUsageType/Consumes"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//MessageDestinationUsageType/Produces"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//MessageDestinationUsageType/ConsumesProduces"/>
-    </genEnums>
-    <genClasses ecoreClass="common.ecore#//EjbRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EjbRef/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EjbRef/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EjbRef/home"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EjbRef/remote"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EjbRef/link"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EjbRef/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//EjbRef/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//EnvEntry">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EnvEntry/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EnvEntry/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EnvEntry/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EnvEntry/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//EnvEntry/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//ResourceRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceRef/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceRef/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceRef/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceRef/auth"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceRef/link"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceRef/resSharingScope"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//ResourceRef/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//SecurityRoleRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//SecurityRoleRef/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//SecurityRoleRef/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//SecurityRoleRef/link"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//SecurityRoleRef/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//SecurityRole">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//SecurityRole/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//SecurityRole/roleName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//SecurityRole/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//ResourceEnvRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceEnvRef/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ResourceEnvRef/name"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference common.ecore#//ResourceEnvRef/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//ResourceEnvRef/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//EJBLocalRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EJBLocalRef/localHome"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//EJBLocalRef/local"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//RunAsSpecifiedIdentity">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//RunAsSpecifiedIdentity/identity"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//Identity">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//Identity/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//Identity/roleName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//Identity/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//IconType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//IconType/smallIcon"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//IconType/largeIcon"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//IconType/lang"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//DisplayName">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//DisplayName/lang"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//DisplayName/value"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//MessageDestinationRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//MessageDestinationRef/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//MessageDestinationRef/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//MessageDestinationRef/usage"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//MessageDestinationRef/link"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//MessageDestinationRef/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//MessageDestination">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//MessageDestination/name"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//ParamValue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ParamValue/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ParamValue/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//ParamValue/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//ParamValue/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//DescriptionGroup">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//DescriptionGroup/icons"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//DescriptionGroup/displayNames"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//DescriptionGroup/descriptions"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="common.ecore#//JNDIEnvRefsGroup">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/environmentProperties"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/resourceRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/ejbRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/resourceEnvRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/ejbLocalRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/messageDestinationRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//JNDIEnvRefsGroup/serviceRefs"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//SecurityIdentity">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//SecurityIdentity/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//SecurityIdentity/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//UseCallerIdentity"/>
-    <genClasses ecoreClass="common.ecore#//Description">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//Description/lang"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//Description/value"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//QName">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//QName/namespaceURI"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//QName/localPart"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//QName/combinedQName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//QName/internalPrefixOrNsURI"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//Listener">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference common.ecore#//Listener/listenerClass"/>
-    </genClasses>
-    <genClasses ecoreClass="common.ecore#//CompatibilityDescriptionGroup">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//CompatibilityDescriptionGroup/smallIcon"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//CompatibilityDescriptionGroup/largeIcon"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//CompatibilityDescriptionGroup/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//CompatibilityDescriptionGroup/displayName"/>
-    </genClasses>
-  </genPackages>
-  <genPackages prefix="Jca" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="jca.ecore#/">
-    <genEnums ecoreEnum="jca.ecore#//AuthenticationMechanismType">
-      <genEnumLiterals ecoreEnumLiteral="jca.ecore#//AuthenticationMechanismType/BasicPassword"/>
-      <genEnumLiterals ecoreEnumLiteral="jca.ecore#//AuthenticationMechanismType/Kerbv5"/>
-    </genEnums>
-    <genEnums ecoreEnum="jca.ecore#//TransactionSupportKind">
-      <genEnumLiterals ecoreEnumLiteral="jca.ecore#//TransactionSupportKind/NoTransaction"/>
-      <genEnumLiterals ecoreEnumLiteral="jca.ecore#//TransactionSupportKind/LocalTransaction"/>
-      <genEnumLiterals ecoreEnumLiteral="jca.ecore#//TransactionSupportKind/XATransaction"/>
-    </genEnums>
-    <genClasses ecoreClass="jca.ecore#//Connector">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//Connector/vendorName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//Connector/specVersion"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//Connector/eisType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//Connector/version"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//Connector/license"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//Connector/resourceAdapter"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//ResourceAdapter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/managedConnectionFactoryClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/connectionFactoryInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/connectionFactoryImplClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/connectionInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/connectionImplClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/transactionSupport"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/reauthenticationSupport"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ResourceAdapter/resourceAdapterClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ResourceAdapter/securityPermissions"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ResourceAdapter/authenticationMechanisms"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ResourceAdapter/configProperties"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ResourceAdapter/outboundResourceAdapter"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ResourceAdapter/inboundResourceAdapter"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ResourceAdapter/adminObjects"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//AuthenticationMechanism">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AuthenticationMechanism/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AuthenticationMechanism/authenticationMechanism"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AuthenticationMechanism/authenticationMechanismType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AuthenticationMechanism/credentialInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AuthenticationMechanism/customAuthMechType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//AuthenticationMechanism/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//ConfigProperty">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConfigProperty/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConfigProperty/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConfigProperty/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConfigProperty/value"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ConfigProperty/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//SecurityPermission">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//SecurityPermission/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//SecurityPermission/specification"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//SecurityPermission/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//License">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//License/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//License/required"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//License/descriptions"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//InboundResourceAdapter">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//InboundResourceAdapter/messageAdapter"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//OutboundResourceAdapter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//OutboundResourceAdapter/reauthenticationSupport"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//OutboundResourceAdapter/transactionSupport"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//OutboundResourceAdapter/connectionDefinitions"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//OutboundResourceAdapter/authenticationMechanisms"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//MessageAdapter">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//MessageAdapter/messageListeners"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//ConnectionDefinition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConnectionDefinition/managedConnectionFactoryClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConnectionDefinition/connectionFactoryInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConnectionDefinition/connectionFactoryImplClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConnectionDefinition/connectionInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ConnectionDefinition/connectionImplClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ConnectionDefinition/configProperties"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//AdminObject">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AdminObject/adminObjectInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//AdminObject/adminObjectClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//AdminObject/configProperties"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//MessageListener">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//MessageListener/messageListenerType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//MessageListener/activationSpec"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//ActivationSpec">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//ActivationSpec/activationSpecClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//ActivationSpec/requiredConfigProperties"/>
-    </genClasses>
-    <genClasses ecoreClass="jca.ecore#//RequiredConfigPropertyType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jca.ecore#//RequiredConfigPropertyType/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jca.ecore#//RequiredConfigPropertyType/descriptions"/>
-    </genClasses>
-  </genPackages>
-  <genPackages prefix="Webservice_client" basePackage="org.eclipse.jst.j2ee.webservice"
-      disposableProviderFactory="true" ecorePackage="wsclient.ecore#/">
-    <genClasses ecoreClass="wsclient.ecore#//ServiceRef">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference wsclient.ecore#//ServiceRef/serviceInterface"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//ServiceRef/serviceRefName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//ServiceRef/wsdlFile"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//ServiceRef/jaxrpcMappingFile"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//ServiceRef/portComponentRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//ServiceRef/handlers"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//ServiceRef/serviceQname"/>
-    </genClasses>
-    <genClasses ecoreClass="wsclient.ecore#//PortComponentRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//PortComponentRef/portComponentLink"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference wsclient.ecore#//PortComponentRef/serviceEndpointInterface"/>
-    </genClasses>
-    <genClasses ecoreClass="wsclient.ecore#//Handler">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//Handler/handlerName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//Handler/soapRoles"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//Handler/portNames"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference wsclient.ecore#//Handler/handlerClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//Handler/initParams"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//Handler/soapHeaders"/>
-    </genClasses>
-    <genClasses ecoreClass="wsclient.ecore#//WebServicesClient">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//WebServicesClient/componentScopedRefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//WebServicesClient/serviceRefs"/>
-    </genClasses>
-    <genClasses ecoreClass="wsclient.ecore#//ComponentScopedRefs">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wsclient.ecore#//ComponentScopedRefs/componentName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wsclient.ecore#//ComponentScopedRefs/serviceRefs"/>
-    </genClasses>
-  </genPackages>
-  <genPackages prefix="Jsp" basePackage="org.eclipse.jst.j2ee" disposableProviderFactory="true"
-      ecorePackage="jsp.ecore#/">
-    <genClasses ecoreClass="jsp.ecore#//JSPConfig">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jsp.ecore#//JSPConfig/tagLibs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jsp.ecore#//JSPConfig/propertyGroups"/>
-    </genClasses>
-    <genClasses ecoreClass="jsp.ecore#//JSPPropertyGroup">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/urlPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/elIgnored"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/pageEncoding"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/scriptingInvalid"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/isXML"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/includePreludes"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//JSPPropertyGroup/includeCodas"/>
-    </genClasses>
-    <genClasses ecoreClass="jsp.ecore#//TagLibRefType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//TagLibRefType/taglibURI"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jsp.ecore#//TagLibRefType/taglibLocation"/>
-    </genClasses>
+    <nestedGenPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" ecorePackage="commonarchivecore.ecore#/">
+      <genClasses ecoreClass="commonarchivecore.ecore#//File" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/URI"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/lastModified"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/size"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/directoryEntry"/>
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/originalURI"/>
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//File/loadingContainer"/>
+        <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//File/container"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//Archive" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//Archive/types"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//EJBJarFile" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EJBJarFile/deploymentDescriptor"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//WARFile" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//WARFile/deploymentDescriptor"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//EARFile" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EARFile/moduleRefs"/>
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//EARFile/deploymentDescriptor"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//ApplicationClientFile" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ApplicationClientFile/deploymentDescriptor"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//ModuleFile" labelFeature="#//commonarchivecore/commonarchivecore/File/URI"/>
+      <genClasses ecoreClass="commonarchivecore.ecore#//Container" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//Container/files"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//ReadOnlyDirectory" labelFeature="#//commonarchivecore/commonarchivecore/File/URI"/>
+      <genClasses ecoreClass="commonarchivecore.ecore#//RARFile" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//RARFile/deploymentDescriptor"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//ModuleRef">
+        <genFeatures notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/moduleFile"/>
+        <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//ModuleRef/earFile"/>
+      </genClasses>
+      <genClasses ecoreClass="commonarchivecore.ecore#//EJBModuleRef"/>
+      <genClasses ecoreClass="commonarchivecore.ecore#//WebModuleRef"/>
+      <genClasses ecoreClass="commonarchivecore.ecore#//ClientModuleRef"/>
+      <genClasses ecoreClass="commonarchivecore.ecore#//ConnectorModuleRef"/>
+      <nestedGenPackages prefix="Looseconfig" basePackage="org.eclipse.jst.j2ee.commonarchivecore"
+          ecorePackage="commonarchivecore.ecore#//looseconfig">
+        <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseApplication"
+            labelFeature="#//commonarchivecore/commonarchivecore/looseconfig/LooseArchive/uri">
+          <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseApplication/looseArchives"/>
+        </genClasses>
+        <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseArchive"
+            labelFeature="#//commonarchivecore/commonarchivecore/looseconfig/LooseArchive/uri">
+          <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/uri"/>
+          <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/binariesPath"/>
+          <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseArchive/resourcesPath"/>
+          <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseArchive/looseApp"/>
+          <genOperations ecoreOperation="commonarchivecore.ecore#//looseconfig/LooseArchive/isModule"/>
+        </genClasses>
+        <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseLibrary"
+            labelFeature="#//commonarchivecore/commonarchivecore/looseconfig/LooseArchive/uri">
+          <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseLibrary/looseWAR"/>
+        </genClasses>
+        <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseModule"
+            labelFeature="#//commonarchivecore/commonarchivecore/looseconfig/LooseArchive/uri">
+          <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//looseconfig/LooseModule/altDD"/>
+        </genClasses>
+        <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseConfiguration">
+          <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseConfiguration/applications"/>
+        </genClasses>
+        <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseWARFile"
+            labelFeature="#//commonarchivecore/commonarchivecore/looseconfig/LooseArchive/uri">
+          <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseWARFile/looseLibs"/>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
