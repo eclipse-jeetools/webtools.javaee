@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../org.eclipse.wst.doc.user/common.css" />
+<title>Importing an enterprise application EAR file</title>
+</head>
+<body id="tjimpear"><a name="tjimpear"><!-- --></a>
+
+<h1 class="topictitle1">Importing an enterprise application EAR file</h1>
+<div><div class="section"> <p>Enterprise application projects are deployed into EAR files.
+You can import an enterprise application project by importing it from a deployed
+EAR file.</p>
+<p>You can also choose to import utility JAR files as utility Java™ projects.
+You can also use the wizard to change the new project names for the EAR file
+and modules that will be imported.</p>
+<p>To import an EAR file using the wizard:</p>
+</div>
+<ol><li class="stepexpand"><span>In the J2EE perspective, click <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">Import</span></span>. The Import wizard opens.</span></li>
+<li class="stepexpand"><span>Under <span class="uicontrol">Select an import source</span>, click <span class="uicontrol">EAR
+file</span>.</span></li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
+<li class="stepexpand"><span>Specify the following general options for the EAR import:</span> <ol type="a"><li><span><span class="uicontrol">EAR file</span>: Enter the full path for the
+EAR file that you want to import. You can click <span class="uicontrol">Browse</span> to
+select the EAR file from the file system.</span></li>
+<li><span><span class="uicontrol">EAR project</span>: type a name for the enterprise
+application project that will be created when you import the EAR file.</span></li>
+<li><span><span class="uicontrol">Target server</span>: Select the application
+server that you want to target for your development. This selection affects
+the runtime settings by modifying the class path entries for the project.</span></li>
+</ol>
+</li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
+<li class="stepexpand"><span>On the Enterprise Application Import page, select any utility JAR
+files from the project that you want to import as utility projects.</span></li>
+<li class="stepexpand"><span>In the <span class="uicontrol">Module Root Location</span> field, specify
+the root directory for all of the projects that will be imported or created
+during import.</span></li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
+<li class="stepexpand"><span>On the EAR Module and Utility JAR Projects page of the wizard,
+select the projects that you want to import with the EAR file. Also, you can
+edit the new project name for each module and utility project to be imported.</span> <div class="tip"><span class="tiptitle">Tip: </span>The selection buttons on this page can help you select
+the projects to import when you are importing for partial EAR development.
+For example, if you are importing to a workspace where some projects are attached
+to a repository and other projects are in binary form, these buttons help
+you make the proper selections for which projects to import:<ul><li><span class="uicontrol">Select New</span>: Selects the projects that are currently
+not in your workspace.</li>
+<li><span class="uicontrol">Select Binary</span>: Selects the modules and projects
+that currently exist in the workspace in binary form. This can help you avoid
+overwriting your non-binary projects that are attached to a repository.</li>
+<li><span class="uicontrol">Select All</span>: Selects all projects for import.</li>
+<li><span class="uicontrol">Deselect All</span>: Clears all module and utility projects
+for import.</li>
+</ul>
+</div>
+</li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span> to import the contents of the
+EAR file.</span></li>
+</ol>
+</div>
+<div></div>
+</body>
+</html>

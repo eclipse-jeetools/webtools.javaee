@@ -1,14 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-us" xml:lang="en-us">
 <head>
-<link rel="stylesheet" type="text/css" href="../../org.eclipse.wst.doc.user/common.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../org.eclipse.wst.doc.user/common.css" />
 <title>Creating a connector project</title>
 </head>
 <body id="tjrar"><a name="tjrar"><!-- --></a>
 
 <h1 class="topictitle1">Creating a connector project</h1>
-<div><div class="skipspace"> <p>A connector is a J2EE standard extension mechanism for containers
+<div><div class="section"> <p>A connector is a J2EE standard extension mechanism for containers
 to provide connectivity to enterprise information systems (EISs). A connector
 is specific to an EIS and consists of a resource adapter and application development
 tools. A resource adapter is a system-level software driver that is used by
@@ -19,42 +32,33 @@ comply with the J2EE Connector architecture (JCA).</p>
 <p>To
 create a new connector project:</p>
 </div>
-<ol><li class="skipspace"><span>In the J2EE perspective, select <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Connector Project</span></span>.</span></li>
-<li class="skipspace"><span>In the <span class="uicontrol">Name</span> field, type a name for the connector
+<ol><li class="stepexpand"><span>In the J2EE perspective, select <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Connector Project</span></span>.</span></li>
+<li class="stepexpand"><span>In the <span class="uicontrol">Name</span> field, type a name for the connector
 project. To change the default <span class="uicontrol">Project location</span>, click
 the <span class="uicontrol">Browse</span> button to select a new location.</span> If
 you specify a non-default project location that is already being used by another
 project, the project creation will fail.</li>
-<li class="skipspace"><span>Click <span class="uicontrol">Show Advanced</span>.</span></li>
-<li class="skipspace"><span>In the <span class="uicontrol">JCA version</span> drop-down list, select
-the specification version to which you want your connector project to adhere.</span> </li>
-<li class="skipspace"><span>In the <span class="uicontrol">Target server</span> drop-down list, select
-the application server that you want to target for your development. This
-selection affects the run time settings by modifying the class path entries
-for the project.</span></li>
-<li class="skipspace"><span>Specify whether you want to add the new module to an enterprise
-application (EAR) project.</span></li>
-<li class="skipspace"><span>In the <span class="uicontrol">EAR project</span> combination box, type
-a new project name or select an existing enterprise application project from
-the drop-down list. Or, click the <span class="uicontrol">New</span> button to launch
-the New Enterprise Application Project wizard.</span> <div class="note"><span class="notetitle">Note: </span>If you type
-a new EAR project name, the EAR project will be created in the default location
-with the lowest compatible J2EE version based on the version of the project
-being created. If you want to specify a different version or a different location
-for the enterprise application, you must use the New Enterprise Application
-Project wizard.</div>
+<li class="stepexpand"><span>Click <span class="uicontrol">Show Advanced</span>.</span></li>
+<li class="stepexpand"><span>In the <span class="uicontrol">Target server</span> list, select the application
+server that you want to target for your development. This selection affects
+the run time settings by modifying the class path entries for the project.</span></li>
+<li class="stepexpand"><span>In the <span class="uicontrol">JCA version</span> list, select the specification
+version to which you want your connector project to adhere.</span> </li>
+<li class="stepexpand"><span>If you want to add the new module to an enterprise
+application (EAR) project, select the <span class="uicontrol">Add module to an EAR application</span> check
+box.</span></li>
+<li class="stepexpand"><span>In the <span class="uicontrol">EAR application</span> list, type a new
+project name or select an existing enterprise application project. Or, click
+the <span class="uicontrol">New</span> button to launch the New Enterprise Application
+Project wizard.</span> <div class="note"><span class="notetitle">Note: </span>If you type a new EAR project name, the EAR
+project will be created in the default location with the lowest compatible
+J2EE version based on the version of the project being created. If you want
+to specify a different version or a different location for the enterprise
+application, you must use the New Enterprise Application Project wizard.</div>
 </li>
-<li class="skipspace"><span>Click <span class="uicontrol">Finish</span>.</span></li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span></li>
 </ol>
 </div>
-
-<div><p><b class="reltaskshd">Related tasks</b><br />
-<a href="../topics/tjimprar.html" title="Connector projects are deployed into RAR files. You can import a connector project by importing a deployed RAR file.">Importing a connector project RAR file</a><br />
-<a href="../topics/tjexprar.html" title="You can export a connector project to a RAR file in preparation for deploying it to a server.">Exporting connector projects to RAR files</a><br />
-</p>
-</div>
-		<br />
-		(C) Copyright IBM Corporation 2000, 2005. All Rights Reserved.
-
+<div></div>
 </body>
 </html>

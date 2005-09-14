@@ -4,17 +4,16 @@
 
 <!-- ================================================= -->
 <!-- This is the plugin for declaring the help         -->
-<!-- contributions for the j2ee.doc component       -->
+<!-- contributions for the j2eeapp.doc component       -->
 <!-- ================================================= -->
 
-<plugin
-  
+<plugin>
+	
 <!-- ============================================================================= -->
 <!-- Define TOCs                                                                   -->
 <!-- ============================================================================= -->
 
    <extension point="org.eclipse.help.toc">
-       <toc file="j2ee_tasks_toc.xml" />
-   </extension>
-   
+       <toc file="jst_j2ee_toc.xml"  primary="true" />
+       </extension>
 </plugin>
