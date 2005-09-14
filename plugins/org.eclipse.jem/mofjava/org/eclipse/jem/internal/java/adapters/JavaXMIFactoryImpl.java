@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaXMIFactoryImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:35 $ 
  */
 import java.io.IOException;
 import java.util.*;
@@ -24,7 +24,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.jem.java.JavaPackage;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jem.java.impl.JavaFactoryImpl;
+import org.eclipse.jem.java.adapters.*;
+import org.eclipse.jem.java.internal.impl.JavaFactoryImpl;
 
 /**
  * Factory to create the Resource for the Java protocol.
@@ -34,13 +35,9 @@ import org.eclipse.jem.java.impl.JavaFactoryImpl;
  * Creation date: (10/4/2000 8:22:23 AM)
  * @author: Administrator
  */
-public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl {
+public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl implements JavaXMIFactory {
 	private static final String SCHEMA_SEPERATOR = ":/"; //$NON-NLS-1$
-	public static final String SCHEME = "java"; //$NON-NLS-1$
-
 	protected List extensions = new ArrayList();
-
-	public static final JavaXMIFactoryImpl INSTANCE = new JavaXMIFactoryImpl();
 
 	/**
 	 * JavaXMIFactoryImpl constructor comment.
@@ -49,16 +46,12 @@ public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl {
 		super();
 	}
 
-	/**
-	 * Register an extension for java reflection key processing.
-	 */
+	
 	public void registerReflectionKeyExtension(IJavaReflectionKeyExtension extension) {
 		extensions.add(extension);
 	}
 
-	/**
-	 * Deregister an extension for java reflection key processing.
-	 */
+	
 	public void deregisterReflectionKeyExtension(IJavaReflectionKeyExtension extension) {
 		extensions.remove(extension);
 	}
@@ -86,13 +79,13 @@ public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl {
 		((XMIResource) pack.eResource()).setID(pack, JavaPackage.PACKAGE_ID);
 	}
 	public static class JavaXMIResource extends XMIResourceImpl {
-		protected JavaReflectionKey reflectionKey;
+		protected IJavaReflectionKey reflectionKey;
 
 		public JavaXMIResource(URI uri) {
 			super(uri);
 		}
 
-		public void setReflectionKey(JavaReflectionKey key) {
+		public void setReflectionKey(IJavaReflectionKey key) {
 			reflectionKey = key;
 		}
 
@@ -144,7 +137,7 @@ public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl {
 	}
 
 	public static void register() {
-		Resource.Factory.Registry.INSTANCE.getProtocolToFactoryMap().put(SCHEME, INSTANCE);
+		Resource.Factory.Registry.INSTANCE.getProtocolToFactoryMap().put(JavaXMIFactory.SCHEME, JavaXMIFactory.INSTANCE);
 	}
 
 	/**

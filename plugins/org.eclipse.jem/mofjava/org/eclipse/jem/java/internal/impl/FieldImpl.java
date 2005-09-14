@@ -10,9 +10,9 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
  */
-package org.eclipse.jem.java.impl;
+package org.eclipse.jem.java.internal.impl;
 
 import java.util.Collection;
 

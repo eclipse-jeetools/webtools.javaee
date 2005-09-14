@@ -11,11 +11,11 @@
 package org.eclipse.jem.internal.java.instantiation;
 /*
  *  $RCSfile: IInstantiationHandlerFactoryAdapter.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
  */
 import org.eclipse.emf.common.notify.Adapter;
 
-import org.eclipse.jem.java.impl.JavaFactoryImpl;
+import org.eclipse.jem.java.internal.impl.JavaFactoryImpl;
 
 /**
  * This adapter is a factory for IInstantiationHandler's. It is attached as

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.14 $ $Date: 2005/08/24 21:13:53 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.15 $ $Date: 2005/09/14 23:30:27 $
  */
 
 import java.util.List;
@@ -23,15 +23,15 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.JavaCore;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
-import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
-import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.internal.java.adapters.*;
+import org.eclipse.jem.java.adapters.JavaXMIFactory;
 import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
+import org.eclipse.jem.workbench.utility.IJavaEMFNature;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 
-public class JavaEMFNature extends EMFNature {
-	public static final String NATURE_ID = "org.eclipse.jem.workbench.JavaEMFNature"; //$NON-NLS-1$
+public class JavaEMFNature extends EMFNature implements IJavaEMFNature {
 /**
  * JavaMOFNatureRuntime constructor comment.
  */
@@ -46,7 +46,7 @@ public JavaEMFNature() {
 public static JavaEMFNature createRuntime(IProject project) throws CoreException {
 	if(!hasRuntime(project))
 		if (JavaCore.create(project).exists())
-			addNatureToProject(project, NATURE_ID);
+			addNatureToProject(project, IJavaEMFNature.NATURE_ID);
 		else
 			return null;
 
@@ -57,7 +57,7 @@ public static JavaEMFNature createRuntime(IProject project) throws CoreException
  * Return the nature's ID.
  */
 public java.lang.String getNatureID() {
-	return NATURE_ID;
+	return IJavaEMFNature.NATURE_ID;
 }
 /**
  * Return the ID of the plugin that this nature is contained within.
@@ -109,7 +109,7 @@ public static boolean hasRuntime(IProject project) {
  */
 public static JavaEMFNature primGetRuntime(IProject project) {
 	try {
-		return (JavaEMFNature) project.getNature(NATURE_ID);
+		return (JavaEMFNature) project.getNature(IJavaEMFNature.NATURE_ID);
 	} catch (CoreException e) {
 		return null;
 	}
@@ -122,7 +122,7 @@ public static JavaEMFNature primGetRuntime(IProject project) {
  */
 public static boolean primHasRuntime(IProject project) {
 	try {
-		return project.hasNature(NATURE_ID);
+		return project.hasNature(IJavaEMFNature.NATURE_ID);
 	} catch (CoreException e) {
 		return false;
 	}
@@ -135,7 +135,7 @@ public void primaryContributeToContext(EMFWorkbenchContextBase aNature) {
 	if (emfContext == aNature) return;
 	emfContext = aNature;
 	ResourceSet set = aNature.getResourceSet();
-	set.getResourceFactoryRegistry().getProtocolToFactoryMap().put(JavaXMIFactoryImpl.SCHEME, JavaXMIFactoryImpl.INSTANCE);	
+	set.getResourceFactoryRegistry().getProtocolToFactoryMap().put(JavaXMIFactory.SCHEME, JavaXMIFactory.INSTANCE);	
 	WorkbenchURIConverter conv = (WorkbenchURIConverter) set.getURIConverter();
 	configureURIConverter(conv);
 	addAdapterFactories(set);	

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.13 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.14 $  $Date: 2005/09/14 23:30:35 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**

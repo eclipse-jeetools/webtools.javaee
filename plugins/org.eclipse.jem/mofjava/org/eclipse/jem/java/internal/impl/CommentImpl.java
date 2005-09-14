@@ -8,11 +8,13 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jem.java.impl;
+package org.eclipse.jem.java.internal.impl;
+
 /*
- *  $RCSfile: StatementImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $RCSfile: CommentImpl.java,v $
+ *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
  */
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -21,14 +23,15 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jem.java.Comment;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.Statement;
 /**
  * @generated
  */
-public class StatementImpl extends BlockImpl implements Statement{
+public class CommentImpl extends BlockImpl implements Comment{
 
-	protected StatementImpl() {
+	
+	protected CommentImpl() {
 		super();
 	}
 	/**
@@ -37,7 +40,7 @@ public class StatementImpl extends BlockImpl implements Statement{
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return JavaRefPackage.eINSTANCE.getStatement();
+		return JavaRefPackage.eINSTANCE.getComment();
 	}
 
 	/**
@@ -48,7 +51,7 @@ public class StatementImpl extends BlockImpl implements Statement{
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case JavaRefPackage.STATEMENT__CONTENTS:
+				case JavaRefPackage.COMMENT__CONTENTS:
 					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
@@ -64,11 +67,11 @@ public class StatementImpl extends BlockImpl implements Statement{
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.STATEMENT__SOURCE:
+			case JavaRefPackage.COMMENT__SOURCE:
 				return getSource();
-			case JavaRefPackage.STATEMENT__NAME:
+			case JavaRefPackage.COMMENT__NAME:
 				return getName();
-			case JavaRefPackage.STATEMENT__CONTENTS:
+			case JavaRefPackage.COMMENT__CONTENTS:
 				return getContents();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -81,13 +84,13 @@ public class StatementImpl extends BlockImpl implements Statement{
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.STATEMENT__SOURCE:
+			case JavaRefPackage.COMMENT__SOURCE:
 				setSource((String)newValue);
 				return;
-			case JavaRefPackage.STATEMENT__NAME:
+			case JavaRefPackage.COMMENT__NAME:
 				setName((String)newValue);
 				return;
-			case JavaRefPackage.STATEMENT__CONTENTS:
+			case JavaRefPackage.COMMENT__CONTENTS:
 				getContents().clear();
 				getContents().addAll((Collection)newValue);
 				return;
@@ -102,13 +105,13 @@ public class StatementImpl extends BlockImpl implements Statement{
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.STATEMENT__SOURCE:
+			case JavaRefPackage.COMMENT__SOURCE:
 				setSource(SOURCE_EDEFAULT);
 				return;
-			case JavaRefPackage.STATEMENT__NAME:
+			case JavaRefPackage.COMMENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case JavaRefPackage.STATEMENT__CONTENTS:
+			case JavaRefPackage.COMMENT__CONTENTS:
 				getContents().clear();
 				return;
 		}
@@ -122,11 +125,11 @@ public class StatementImpl extends BlockImpl implements Statement{
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case JavaRefPackage.STATEMENT__SOURCE:
+			case JavaRefPackage.COMMENT__SOURCE:
 				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
-			case JavaRefPackage.STATEMENT__NAME:
+			case JavaRefPackage.COMMENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.STATEMENT__CONTENTS:
+			case JavaRefPackage.COMMENT__CONTENTS:
 				return contents != null && !contents.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);

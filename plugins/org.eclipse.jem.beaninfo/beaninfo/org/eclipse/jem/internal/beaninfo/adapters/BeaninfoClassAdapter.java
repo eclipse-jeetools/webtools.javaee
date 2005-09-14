@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.45 $  $Date: 2005/09/14 21:19:25 $ 
+ *  $Revision: 1.46 $  $Date: 2005/09/14 23:30:38 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -43,7 +43,7 @@ import org.eclipse.jem.internal.beaninfo.core.BeanInfoCacheController.ClassEntry
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.logger.proxy.Logger;
 

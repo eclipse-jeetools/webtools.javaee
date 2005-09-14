@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionKey.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:35 $ 
  */
 import java.util.*;
 
@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.jem.java.*;
+import org.eclipse.jem.java.adapters.IJavaReflectionKey;
+import org.eclipse.jem.java.adapters.IJavaReflectionKeyExtension;
 
 /**
  * This key handles Java Reflection. It creates the appropriate type of entries if
@@ -30,22 +32,7 @@ import org.eclipse.jem.java.*;
  * Creation date: (10/4/2000 8:24:36 AM)
  * @author: Administrator
  */
-public class JavaReflectionKey {
-	/* Constants for the primitive type names
-	 * These are the values which are used to refer to a primitive type,
-	 * i.e. new JavaURL("int")  or new URL("java://#int")
-	 * These types are cached by pre-loading documents for the primitives,
-	 * in "java://", and for the java.lang (Object and String) classes
-	 */
-	static final public String N_VOID = "void";	 //$NON-NLS-1$
-	static final public String N_INT = "int";//$NON-NLS-1$
-	static final public String N_BOOLEAN = "boolean";//$NON-NLS-1$
-	static final public String N_CHAR = "char";//$NON-NLS-1$
-	static final public String N_BYTE = "byte";//$NON-NLS-1$
-	static final public String N_LONG = "long";//$NON-NLS-1$
-	static final public String N_FLOAT = "float";//$NON-NLS-1$
-	static final public String N_DOUBLE = "double";//$NON-NLS-1$
-	static final public String N_SHORT = "short";//$NON-NLS-1$
+public class JavaReflectionKey implements IJavaReflectionKey {
 	private static final Collection PRIMITIVES = new ArrayList(8);
 
 	static { initializePrimitivesCollection(); }
@@ -63,12 +50,18 @@ public JavaReflectionKey(List extensions, JavaXMIFactoryImpl.JavaXMIResource res
  * Create an ArrayType instance in the current document
  * Handles the push and pop of the current document.
  */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#createArrayType()
+ */
 public ArrayType createArrayType() {
 	return getJavaFactory().createArrayType();
 }
 /* 
  * Create a JavaClass instance in the current document
  * Handles the push and pop of the current document.
+ */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#createJavaClass()
  */
 public JavaClass createJavaClass() {
 	return getJavaFactory().createJavaClass();
@@ -90,6 +83,9 @@ protected EClassifier getJavaDataType(String typeName) {
  * Create a Field instance in the current document
  * Handles the push and pop of the current document.
  */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#createJavaField()
+ */
 public Field createJavaField() {
 	return getJavaFactory().createField();
 }
@@ -97,11 +93,17 @@ public Field createJavaField() {
  * Create a Method instance in the current document
  * Handles the push and pop of the current document.
  */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#createJavaMethod()
+ */
 public Method createJavaMethod() {
 	return getJavaFactory().createMethod();
 }
 /* 
  * Create a JavaParameter instance in the current document
+ */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#createJavaParameter()
  */
 public JavaParameter createJavaParameter() {
 	return getJavaFactory().createJavaParameter();
@@ -121,6 +123,9 @@ public JavaParameter createJavaParameter() {
 //FB}
 
 //FB ADDED
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#get(java.lang.String)
+ */
 public Object get(String key) {
 	Object javaObject = getObjectFromExtensions(key);
 	if (javaObject == null)
@@ -132,6 +137,9 @@ public Object get(String key) {
 /*
  * Instantiate the named class.
  * If we make it to this point, the class has not yet been instantiated or reflected.
+ */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#getArrayType(java.lang.String)
  */
 public EClassifier getArrayType(String typeName) {
 	ArrayType arrayType = this.createArrayType();
@@ -153,6 +161,9 @@ public EClassifier getArrayType(String typeName) {
 /*
  * Instantiate the named class.
  * If we make it to this point, teh class has not yet been instantiated or reflected.
+ */
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#getJavaClass(java.lang.String)
  */
 public EClassifier getJavaClass(String typeName) {
 	JavaClass javaClass = this.createJavaClass();
@@ -236,12 +247,8 @@ protected Method getJavaMethod(String keyValue) {
 	}
 	return result;
 }
-/**
- * This allows for the retrieval of attributes/methods with the following notation:
- * field: java:/com.ibm.foo#Test.foo
- * method: java:/com.ibm.foo#Test.foofoo(
- * parameter: java:/com.ibm.foo#Test.foofoo(-arg0
- * 
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#getJavaObject(java.lang.String)
  */
 public EObject getJavaObject(String keyValue) {
 	EObject result = null;
@@ -311,11 +318,8 @@ protected JavaParameter getJavaParameter(String keyValue) {
 	}
 	return result;
 }
-/**
- * Insert the method's description here.
- * Creation date: (10/4/2000 9:52:28 AM)
- * @return org.eclipse.emf.ecore.EClassifier
- * @param typeName java.lang.String
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#getJavaType(java.lang.String)
  */
 public EClassifier getJavaType(String typeName) {
 	if (isPrimitive(typeName))
@@ -342,10 +346,8 @@ protected boolean isValidJavaIdentifier(String typeName) {
 	return false;
 }
 
-/**
- * Get the object from the key but don't do any 
- * tries at creation of the key if not found.
- * The Key must be an ID for it to be found.
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#primGet(java.lang.String)
  */
 public Object primGet(String key) {
 	return resource.primGetEObject(key);
@@ -371,8 +373,8 @@ private static void initializePrimitivesCollection() {
 	PRIMITIVES.add(N_LONG);
 	PRIMITIVES.add(N_SHORT);
 }
-/**
- * Return true if the passed type represents a Java Array type
+/* (non-Javadoc)
+ * @see org.eclipse.jem.internal.java.adapters.IJavaReflectionKey#isArray(java.lang.String)
  */
 public boolean isArray(String typeName) {
 	return typeName.endsWith("[]");//$NON-NLS-1$

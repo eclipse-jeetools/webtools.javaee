@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
  *  $RCSfile: JavaMethodJDKAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/14 23:30:35 $ 
  */
 
 import java.util.List;
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
-import org.eclipse.jem.java.impl.MethodImpl;
+import org.eclipse.jem.java.internal.impl.MethodImpl;
 /**
  * Insert the type's description here.
  * Creation date: (6/6/2000 4:42:50 PM)

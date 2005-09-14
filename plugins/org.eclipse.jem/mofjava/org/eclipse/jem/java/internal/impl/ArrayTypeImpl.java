@@ -8,10 +8,10 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jem.java.impl;
+package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
  */
 
 import java.util.Collection;

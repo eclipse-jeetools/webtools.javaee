@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.9 $ $Date: 2005/08/24 21:13:53 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.10 $ $Date: 2005/09/14 23:30:27 $
  */
 
 import java.net.URL;
@@ -43,7 +43,7 @@ public class JemProjectUtilities extends ProjectUtilities {
 	 * 
 	 * @since 1.1.0
 	 */
-	public static final String JEM_EMF_NatureID = JavaEMFNature.NATURE_ID;
+	public static final String JEM_EMF_NatureID = IJavaEMFNature.NATURE_ID;
 	
 	/**
 	 * Get the EMF nature for JEM for the project. 

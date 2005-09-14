@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.12 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.13 $  $Date: 2005/09/14 23:30:27 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -27,7 +27,7 @@ import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.impl.MethodImpl;
+import org.eclipse.jem.java.internal.impl.MethodImpl;
 import org.eclipse.jem.util.TimerTests;
 
 /**

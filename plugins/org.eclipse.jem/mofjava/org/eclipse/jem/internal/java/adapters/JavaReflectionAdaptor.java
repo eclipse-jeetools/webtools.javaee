@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.12 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.13 $  $Date: 2005/09/14 23:30:35 $ 
  */
 import java.util.List;
 
@@ -81,7 +81,7 @@ public Block createBlock(String name, String sourceString) {
  * setSuper - set our supertype here, implemented interface are handled separately
  */
 public JavaClass createJavaClassRef(String targetName) {
-	JavaClass ref = org.eclipse.jem.java.impl.JavaRefFactoryImpl.getActiveFactory().createJavaClass();
+	JavaClass ref = org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl.getActiveFactory().createJavaClass();
    JavaURL javaurl = new JavaURL(targetName);
   ((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
    return ref;

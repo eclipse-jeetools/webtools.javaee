@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/14 23:30:38 $ 
  */
 
 import java.util.Map;
@@ -40,7 +40,7 @@ import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.impl.JavaRefPackageImpl;
+import org.eclipse.jem.java.internal.impl.JavaRefPackageImpl;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.

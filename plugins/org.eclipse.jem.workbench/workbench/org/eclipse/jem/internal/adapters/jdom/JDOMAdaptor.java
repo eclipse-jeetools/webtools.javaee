@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMAdaptor.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.7 $  $Date: 2005/09/14 23:30:27 $ 
  */
 
 import java.io.File;
@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
-import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
+import org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl;
 /**
  * Insert the type's description here.
  * Creation date: (6/6/2000 4:42:50 PM)

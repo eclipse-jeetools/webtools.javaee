@@ -11,11 +11,11 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaURL.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
  */
 
 
-public class JavaURL extends org.eclipse.jem.java.impl.URL {
+public class JavaURL extends org.eclipse.jem.java.internal.impl.URL {
 	public static final String JAVA_PROTOCOL_URI_PREFIX = "java:/"; //$NON-NLS-1$
 	/**
 	 * JavaURL constructor comment.

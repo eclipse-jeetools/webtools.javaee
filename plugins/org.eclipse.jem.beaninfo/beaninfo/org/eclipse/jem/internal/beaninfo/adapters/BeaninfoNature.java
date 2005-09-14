@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.36 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.37 $  $Date: 2005/09/14 23:30:38 $ 
  */
 
 import java.io.*;
@@ -40,11 +40,11 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 import org.eclipse.jem.internal.beaninfo.core.*;
-import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.java.adapters.JavaXMIFactory;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ResourceHandler;
 
@@ -228,14 +228,14 @@ public class BeaninfoNature implements IProjectNature {
 				// to use uri inputstream to load the package when not found. This bypasses our special create resource and so
 				// packages are not automatically created. So we need to do load on demand here instead if it is a java protocol.
 				// EMF will not be fixing this. It is working as designed.
-				return getResourceSet().getResource(uri, JavaXMIFactoryImpl.SCHEME.equals(uri.scheme()));
+				return getResourceSet().getResource(uri, JavaXMIFactory.SCHEME.equals(uri.scheme()));
 			}
 
 			public Resource createResource(ResourceSet originatingResourceSet, URI uri) {
 				// This is the one. It has got here because it couldn't find a resource already loaded.
 				// If it is a "java:/..." protocol resource, then we want to make sure it is loaded at the BeaninfoNature context
 				// instead of the lower one.
-				if (JavaXMIFactoryImpl.SCHEME.equals(uri.scheme()))
+				if (JavaXMIFactory.SCHEME.equals(uri.scheme()))
 					return getResourceSet().getResource(uri, true);
 				else
 					return null;
@@ -310,7 +310,7 @@ public class BeaninfoNature implements IProjectNature {
 			if (fReflectionKeyExtension == null) {
 				// Register the reflection key extension.
 				fReflectionKeyExtension = new BeaninfoJavaReflectionKeyExtension();
-				JavaXMIFactoryImpl.INSTANCE.registerReflectionKeyExtension(fReflectionKeyExtension);
+				JavaXMIFactory.INSTANCE.registerReflectionKeyExtension(fReflectionKeyExtension);
 			}
 
 			javaRSet = javaNature.getResourceSet();

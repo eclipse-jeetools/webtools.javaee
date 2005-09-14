@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoSuperAdapter.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.7 $  $Date: 2005/09/14 23:30:38 $ 
  */
 
 import java.util.Collection;
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 
 /**
  * Used to know when events or any of the super classes change so

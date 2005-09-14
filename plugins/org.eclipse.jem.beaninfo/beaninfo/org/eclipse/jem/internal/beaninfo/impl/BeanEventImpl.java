@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanEventImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:38 $ 
  */
 
 import java.util.Collection;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeanEvent;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.java.impl.JavaEventImpl;
+import org.eclipse.jem.java.internal.impl.JavaEventImpl;
 
 
 /**

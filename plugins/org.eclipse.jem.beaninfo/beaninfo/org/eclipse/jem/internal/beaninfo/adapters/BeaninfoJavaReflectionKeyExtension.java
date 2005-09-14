@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoJavaReflectionKeyExtension.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.7 $  $Date: 2005/09/14 23:30:38 $ 
  */
 
 import java.util.Iterator;
@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.internal.java.adapters.IJavaReflectionKeyExtension;
-import org.eclipse.jem.internal.java.adapters.JavaReflectionKey;
+import org.eclipse.jem.java.adapters.IJavaReflectionKey;
+import org.eclipse.jem.java.adapters.IJavaReflectionKeyExtension;
 
 /**
  * Java Reflection Key extension to retrieve keys for beaninfo creations.
@@ -46,7 +46,7 @@ public class BeaninfoJavaReflectionKeyExtension implements IJavaReflectionKeyExt
 	/**
 	 * Get the object for this key.
 	 */
-	public Object getObject(String key, JavaReflectionKey reflectionKey) {
+	public Object getObject(String key, IJavaReflectionKey reflectionKey) {
 		if (key != null) {
 			int ibehave = key.indexOf(BEHAVIOR);
 			if (ibehave > -1) {
@@ -120,7 +120,7 @@ public class BeaninfoJavaReflectionKeyExtension implements IJavaReflectionKeyExt
 		return null;
 	}
 
-	protected JavaClass getJavaClass(JavaReflectionKey reflectionKey, String classname) {
+	protected JavaClass getJavaClass(IJavaReflectionKey reflectionKey, String classname) {
 		Object eclass = reflectionKey.primGet(classname);
 		if (eclass == null) 
 			eclass = reflectionKey.getJavaType(classname);	// Let it create it.

@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -1523,7 +1523,7 @@ public interface JavaRefPackage extends EPackage{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.jem.java.JavaHelpers
-	 * @see org.eclipse.jem.java.impl.JavaRefPackageImpl#getJTypeJavaHelpers()
+	 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJTypeJavaHelpers()
 	 * @generated
 	 */
 	int JTYPE_JAVA_HELPERS = 15;
@@ -1533,7 +1533,7 @@ public interface JavaRefPackage extends EPackage{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see java.util.List
-	 * @see org.eclipse.jem.java.impl.JavaRefPackageImpl#getJTypeList()
+	 * @see org.eclipse.jem.java.internal.impl.JavaRefPackageImpl#getJTypeList()
 	 * @generated
 	 */
 	int JTYPE_LIST = 16;
@@ -1553,7 +1553,7 @@ public interface JavaRefPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jem.internal.java";
+	String eNS_PREFIX = "org.eclipse.jem.java";
 
 	/**
 	 * The singleton instance of the package.
@@ -1561,7 +1561,7 @@ public interface JavaRefPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JavaRefPackage eINSTANCE = org.eclipse.jem.java.impl.JavaRefPackageImpl.init();
+	JavaRefPackage eINSTANCE = org.eclipse.jem.java.internal.impl.JavaRefPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

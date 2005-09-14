@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaArrayTypeReflectionAdapter.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:35 $ 
  */
 package org.eclipse.jem.internal.java.adapters;
 
@@ -24,7 +24,7 @@ import org.eclipse.jem.java.InheritanceCycleException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jem.java.impl.ArrayTypeImpl;
+import org.eclipse.jem.java.internal.impl.ArrayTypeImpl;
 
 /**
  * Array type reflection adapter. Since arrays are very constant we don't need any fancy reflection to the source type (class object). It really

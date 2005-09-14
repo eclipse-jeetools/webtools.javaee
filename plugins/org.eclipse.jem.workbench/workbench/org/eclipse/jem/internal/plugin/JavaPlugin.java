@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.9 $ $Date: 2005/08/24 21:13:53 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.10 $ $Date: 2005/09/14 23:30:27 $
  */
 
 import org.eclipse.core.runtime.*;
@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
-import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
+import org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
 import org.eclipse.jem.util.plugin.JEMUtilPlugin;

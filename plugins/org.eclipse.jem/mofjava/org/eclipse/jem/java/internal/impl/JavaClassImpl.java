@@ -10,9 +10,9 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.19 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
  */
-package org.eclipse.jem.java.impl;
+package org.eclipse.jem.java.internal.impl;
 
 import java.util.Collection;
 import java.util.List;
@@ -64,20 +64,20 @@ import org.eclipse.jem.java.*;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getKind <em>Kind</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#isPublic <em>Public</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#isFinal <em>Final</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getImplementsInterfaces <em>Implements Interfaces</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getClassImport <em>Class Import</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getPackageImports <em>Package Imports</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getFields <em>Fields</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getMethods <em>Methods</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getInitializers <em>Initializers</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getDeclaredClasses <em>Declared Classes</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getDeclaringClass <em>Declaring Class</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getJavaPackage <em>Java Package</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getEvents <em>Events</em>}</li>
- *   <li>{@link org.eclipse.jem.java.impl.JavaClassImpl#getAllEvents <em>All Events</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getKind <em>Kind</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#isPublic <em>Public</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#isFinal <em>Final</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getImplementsInterfaces <em>Implements Interfaces</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getClassImport <em>Class Import</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getPackageImports <em>Package Imports</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getFields <em>Fields</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getMethods <em>Methods</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getInitializers <em>Initializers</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getDeclaredClasses <em>Declared Classes</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getDeclaringClass <em>Declaring Class</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getJavaPackage <em>Java Package</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.eclipse.jem.java.internal.impl.JavaClassImpl#getAllEvents <em>All Events</em>}</li>
  * </ul>
  * </p>
  *

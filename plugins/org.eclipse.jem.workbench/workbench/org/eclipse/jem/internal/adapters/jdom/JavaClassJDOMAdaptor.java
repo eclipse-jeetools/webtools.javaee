@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.20 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.21 $  $Date: 2005/09/14 23:30:27 $ 
  */
 
 import java.util.*;
@@ -34,7 +34,7 @@ import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.internal.plugin.JavaPlugin;
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;

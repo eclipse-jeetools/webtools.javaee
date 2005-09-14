@@ -8,25 +8,29 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: IJavaReflectionKeyExtension.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
  */
+package org.eclipse.jem.java.adapters;
+
 /**
- * Interface for JavaReflectionKeyExtensions.
- * They are registered with the JavaXMIFactoryImpl.
+ * Extension interface to add an additional reflection key in to handle
+ * other types of key's not specifically handled.
  * 
- * @version 	1.0
- * @author R. L. Kulp
+ * @since 1.0.0
  */
 public interface IJavaReflectionKeyExtension {
 
 	/**
-	 * Return object for the given id. Return null if this extension doesn't
-	 * process this type of id.
+	 * Get the object from the given id.
+	 * @param id
+	 * @param reflectionKey
+	 * @return the object (it should add the id with object to the resource's id table before returning it) or <code>null</code> if not one it handles.
+	 * 
+	 * @since 1.0.0
 	 */
-	public Object getObject(String id, JavaReflectionKey reflectionKey);
+	public Object getObject(String id, IJavaReflectionKey reflectionKey);
 	
 }
 

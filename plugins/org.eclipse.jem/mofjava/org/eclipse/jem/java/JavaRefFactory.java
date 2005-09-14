@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: JavaRefFactory.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
  */
 
 import org.eclipse.emf.ecore.EFactory;
@@ -29,7 +29,7 @@ public interface JavaRefFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JavaRefFactory eINSTANCE = new org.eclipse.jem.java.impl.JavaRefFactoryImpl();
+	JavaRefFactory eINSTANCE = new org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl();
 
 
 	/**

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.11 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.12 $  $Date: 2005/09/14 23:30:27 $ 
  */
 import java.util.Map;
 
@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.impl.FieldImpl;
+import org.eclipse.jem.java.internal.impl.FieldImpl;
 /**
  * Insert the type's description here.
  * Creation date: (6/6/2000 4:42:50 PM)
