@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.44 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.45 $  $Date: 2005/09/14 21:19:25 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -2528,8 +2528,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				needsIntrospection = true;
 				if (clearOverriddes) {
 					retrievedExtensionDocument = CLEAR_EXTENSIONS;
-					classEntry.markDeleted();
-					classEntry = null;	// Get a new one next time.
+					if (classEntry != null) {
+						classEntry.markDeleted();
+						classEntry = null; // Get a new one next time.
+					}
 				}
 			}
 		}
