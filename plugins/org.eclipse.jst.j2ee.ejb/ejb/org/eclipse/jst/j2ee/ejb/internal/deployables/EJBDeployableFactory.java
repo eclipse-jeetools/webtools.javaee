@@ -29,7 +29,7 @@ import org.eclipse.wst.server.core.IModule;
  * @author
  */
 public class EJBDeployableFactory extends J2EEDeployableFactory {
-	private static final String ID = "org.eclipse.jst.j2ee.server.ejb"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.jst.j2ee.server.ejb"; //$NON-NLS-1$
 
 	/**
 	 * Constructor for EJBDeployableFactory.
