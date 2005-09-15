@@ -12,7 +12,7 @@ package org.eclipse.jem.java.internal.impl;
 
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
  */
 
 import java.util.Collection;
@@ -65,14 +65,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 	protected static final boolean ABSTRACT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * The flag representing the value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAbstract()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean abstract_ = ABSTRACT_EDEFAULT;
+	protected static final int ABSTRACT_EFLAG = 1 << 10;
 
 	/**
 	 * The default value of the '{@link #isNative() <em>Native</em>}' attribute.
@@ -85,14 +85,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 	protected static final boolean NATIVE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isNative() <em>Native</em>}' attribute.
+	 * The flag representing the value of the '{@link #isNative() <em>Native</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isNative()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean native_ = NATIVE_EDEFAULT;
+	protected static final int NATIVE_EFLAG = 1 << 11;
 
 	/**
 	 * The default value of the '{@link #isSynchronized() <em>Synchronized</em>}' attribute.
@@ -105,14 +105,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 	protected static final boolean SYNCHRONIZED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isSynchronized() <em>Synchronized</em>}' attribute.
+	 * The flag representing the value of the '{@link #isSynchronized() <em>Synchronized</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSynchronized()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean synchronized_ = SYNCHRONIZED_EDEFAULT;
+	protected static final int SYNCHRONIZED_EFLAG = 1 << 12;
 
 	/**
 	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
@@ -125,14 +125,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 	protected static final boolean FINAL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
+	 * The flag representing the value of the '{@link #isFinal() <em>Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFinal()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean final_ = FINAL_EDEFAULT;
+	protected static final int FINAL_EFLAG = 1 << 13;
 
 	/**
 	 * The default value of the '{@link #isConstructor() <em>Constructor</em>}' attribute.
@@ -145,14 +145,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 	protected static final boolean CONSTRUCTOR_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isConstructor() <em>Constructor</em>}' attribute.
+	 * The flag representing the value of the '{@link #isConstructor() <em>Constructor</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isConstructor()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean constructor = CONSTRUCTOR_EDEFAULT;
+	protected static final int CONSTRUCTOR_EFLAG = 1 << 14;
 
 	/**
 	 * The default value of the '{@link #isStatic() <em>Static</em>}' attribute.
@@ -165,14 +165,14 @@ public class MethodImpl extends EOperationImpl implements Method {
 	protected static final boolean STATIC_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isStatic() <em>Static</em>}' attribute.
+	 * The flag representing the value of the '{@link #isStatic() <em>Static</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isStatic()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean static_ = STATIC_EDEFAULT;
+	protected static final int STATIC_EFLAG = 1 << 15;
 
 	/**
 	 * The default value of the '{@link #getJavaVisibility() <em>Java Visibility</em>}' attribute.
@@ -240,7 +240,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public boolean isAbstractGen() {
-		return abstract_;
+		return (eFlags & ABSTRACT_EFLAG) != 0;
 	}
 
 	/**
@@ -249,10 +249,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setAbstract(boolean newAbstract) {
-		boolean oldAbstract = abstract_;
-		abstract_ = newAbstract;
+		boolean oldAbstract = (eFlags & ABSTRACT_EFLAG) != 0;
+		if (newAbstract) eFlags |= ABSTRACT_EFLAG; else eFlags &= ~ABSTRACT_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__ABSTRACT, oldAbstract, abstract_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__ABSTRACT, oldAbstract, newAbstract));
 	}
 
 	/**
@@ -261,7 +261,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public boolean isNativeGen() {
-		return native_;
+		return (eFlags & NATIVE_EFLAG) != 0;
 	}
 
 	/**
@@ -270,10 +270,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setNative(boolean newNative) {
-		boolean oldNative = native_;
-		native_ = newNative;
+		boolean oldNative = (eFlags & NATIVE_EFLAG) != 0;
+		if (newNative) eFlags |= NATIVE_EFLAG; else eFlags &= ~NATIVE_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__NATIVE, oldNative, native_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__NATIVE, oldNative, newNative));
 	}
 
 	/**
@@ -282,7 +282,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public boolean isSynchronizedGen() {
-		return synchronized_;
+		return (eFlags & SYNCHRONIZED_EFLAG) != 0;
 	}
 
 	/**
@@ -291,10 +291,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setSynchronized(boolean newSynchronized) {
-		boolean oldSynchronized = synchronized_;
-		synchronized_ = newSynchronized;
+		boolean oldSynchronized = (eFlags & SYNCHRONIZED_EFLAG) != 0;
+		if (newSynchronized) eFlags |= SYNCHRONIZED_EFLAG; else eFlags &= ~SYNCHRONIZED_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__SYNCHRONIZED, oldSynchronized, synchronized_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__SYNCHRONIZED, oldSynchronized, newSynchronized));
 	}
 
 	/**
@@ -303,7 +303,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public boolean isFinalGen() {
-		return final_;
+		return (eFlags & FINAL_EFLAG) != 0;
 	}
 
 	/**
@@ -312,10 +312,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setFinal(boolean newFinal) {
-		boolean oldFinal = final_;
-		final_ = newFinal;
+		boolean oldFinal = (eFlags & FINAL_EFLAG) != 0;
+		if (newFinal) eFlags |= FINAL_EFLAG; else eFlags &= ~FINAL_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__FINAL, oldFinal, final_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__FINAL, oldFinal, newFinal));
 	}
 
 	/**
@@ -324,7 +324,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public boolean isConstructorGen() {
-		return constructor;
+		return (eFlags & CONSTRUCTOR_EFLAG) != 0;
 	}
 
 	/**
@@ -333,10 +333,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setConstructor(boolean newConstructor) {
-		boolean oldConstructor = constructor;
-		constructor = newConstructor;
+		boolean oldConstructor = (eFlags & CONSTRUCTOR_EFLAG) != 0;
+		if (newConstructor) eFlags |= CONSTRUCTOR_EFLAG; else eFlags &= ~CONSTRUCTOR_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__CONSTRUCTOR, oldConstructor, constructor));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__CONSTRUCTOR, oldConstructor, newConstructor));
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public boolean isStaticGen() {
-		return static_;
+		return (eFlags & STATIC_EFLAG) != 0;
 	}
 
 	/**
@@ -354,10 +354,10 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * @generated
 	 */
 	public void setStatic(boolean newStatic) {
-		boolean oldStatic = static_;
-		static_ = newStatic;
+		boolean oldStatic = (eFlags & STATIC_EFLAG) != 0;
+		if (newStatic) eFlags |= STATIC_EFLAG; else eFlags &= ~STATIC_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__STATIC, oldStatic, static_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__STATIC, oldStatic, newStatic));
 	}
 
 	/**
@@ -784,17 +784,17 @@ public class MethodImpl extends EOperationImpl implements Method {
 			case JavaRefPackage.METHOD__EEXCEPTIONS:
 				return eExceptions != null && !eExceptions.isEmpty();
 			case JavaRefPackage.METHOD__ABSTRACT:
-				return abstract_ != ABSTRACT_EDEFAULT;
+				return ((eFlags & ABSTRACT_EFLAG) != 0) != ABSTRACT_EDEFAULT;
 			case JavaRefPackage.METHOD__NATIVE:
-				return native_ != NATIVE_EDEFAULT;
+				return ((eFlags & NATIVE_EFLAG) != 0) != NATIVE_EDEFAULT;
 			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				return synchronized_ != SYNCHRONIZED_EDEFAULT;
+				return ((eFlags & SYNCHRONIZED_EFLAG) != 0) != SYNCHRONIZED_EDEFAULT;
 			case JavaRefPackage.METHOD__FINAL:
-				return final_ != FINAL_EDEFAULT;
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
 			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				return constructor != CONSTRUCTOR_EDEFAULT;
+				return ((eFlags & CONSTRUCTOR_EFLAG) != 0) != CONSTRUCTOR_EDEFAULT;
 			case JavaRefPackage.METHOD__STATIC:
-				return static_ != STATIC_EDEFAULT;
+				return ((eFlags & STATIC_EFLAG) != 0) != STATIC_EDEFAULT;
 			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
 				return javaVisibility != JAVA_VISIBILITY_EDEFAULT;
 			case JavaRefPackage.METHOD__PARAMETERS:
@@ -960,17 +960,17 @@ public class MethodImpl extends EOperationImpl implements Method {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (abstract: ");
-		result.append(abstract_);
+		result.append((eFlags & ABSTRACT_EFLAG) != 0);
 		result.append(", native: ");
-		result.append(native_);
+		result.append((eFlags & NATIVE_EFLAG) != 0);
 		result.append(", synchronized: ");
-		result.append(synchronized_);
+		result.append((eFlags & SYNCHRONIZED_EFLAG) != 0);
 		result.append(", final: ");
-		result.append(final_);
+		result.append((eFlags & FINAL_EFLAG) != 0);
 		result.append(", constructor: ");
-		result.append(constructor);
+		result.append((eFlags & CONSTRUCTOR_EFLAG) != 0);
 		result.append(", static: ");
-		result.append(static_);
+		result.append((eFlags & STATIC_EFLAG) != 0);
 		result.append(", javaVisibility: ");
 		result.append(javaVisibility);
 		result.append(')');

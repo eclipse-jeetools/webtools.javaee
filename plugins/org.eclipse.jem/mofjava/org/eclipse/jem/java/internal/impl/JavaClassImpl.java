@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
  */
 package org.eclipse.jem.java.internal.impl;
 
@@ -114,14 +114,14 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	protected static final boolean PUBLIC_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isPublic() <em>Public</em>}' attribute.
+	 * The flag representing the value of the '{@link #isPublic() <em>Public</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isPublic()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean public_ = PUBLIC_EDEFAULT;
+	protected static final int PUBLIC_EFLAG = 1 << 10;
 
 	/**
 	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
@@ -134,14 +134,14 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	protected static final boolean FINAL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
+	 * The flag representing the value of the '{@link #isFinal() <em>Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFinal()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean final_ = FINAL_EDEFAULT;
+	protected static final int FINAL_EFLAG = 1 << 11;
 
 	/**
 	 * The cached value of the '{@link #getImplementsInterfaces() <em>Implements Interfaces</em>}' reference list.
@@ -1169,10 +1169,10 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 * @generated
 	 */
 	public void setPublic(boolean newPublic) {
-		boolean oldPublic = public_;
-		public_ = newPublic;
+		boolean oldPublic = (eFlags & PUBLIC_EFLAG) != 0;
+		if (newPublic) eFlags |= PUBLIC_EFLAG; else eFlags &= ~PUBLIC_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_CLASS__PUBLIC, oldPublic, public_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_CLASS__PUBLIC, oldPublic, newPublic));
 	}
 
 	public boolean isFinal() {
@@ -1186,10 +1186,10 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 * @generated
 	 */
 	public void setFinal(boolean newFinal) {
-		boolean oldFinal = final_;
-		final_ = newFinal;
+		boolean oldFinal = (eFlags & FINAL_EFLAG) != 0;
+		if (newFinal) eFlags |= FINAL_EFLAG; else eFlags &= ~FINAL_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_CLASS__FINAL, oldFinal, final_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_CLASS__FINAL, oldFinal, newFinal));
 	}
 
 	/**
@@ -1207,7 +1207,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 * @generated
 	 */
 	public boolean isPublicGen() {
-		return public_;
+		return (eFlags & PUBLIC_EFLAG) != 0;
 	}
 
 	/**
@@ -1216,7 +1216,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 * @generated
 	 */
 	public boolean isFinalGen() {
-		return final_;
+		return (eFlags & FINAL_EFLAG) != 0;
 	}
 
 	public EList getInitializers() {
@@ -1401,9 +1401,9 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 			case JavaRefPackage.JAVA_CLASS__KIND:
 				return kind != KIND_EDEFAULT;
 			case JavaRefPackage.JAVA_CLASS__PUBLIC:
-				return public_ != PUBLIC_EDEFAULT;
+				return ((eFlags & PUBLIC_EFLAG) != 0) != PUBLIC_EDEFAULT;
 			case JavaRefPackage.JAVA_CLASS__FINAL:
-				return final_ != FINAL_EDEFAULT;
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
 			case JavaRefPackage.JAVA_CLASS__IMPLEMENTS_INTERFACES:
 				return implementsInterfaces != null && !implementsInterfaces.isEmpty();
 			case JavaRefPackage.JAVA_CLASS__CLASS_IMPORT:
@@ -1931,9 +1931,9 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 		result.append(" (kind: ");
 		result.append(kind);
 		result.append(", public: ");
-		result.append(public_);
+		result.append((eFlags & PUBLIC_EFLAG) != 0);
 		result.append(", final: ");
-		result.append(final_);
+		result.append((eFlags & FINAL_EFLAG) != 0);
 		result.append(')');
 		return result.toString();
 	}

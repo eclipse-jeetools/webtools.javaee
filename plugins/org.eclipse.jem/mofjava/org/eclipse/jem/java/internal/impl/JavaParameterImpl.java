@@ -12,7 +12,7 @@ package org.eclipse.jem.java.internal.impl;
 
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:04 $ 
  */
 import java.util.Collection;
 
@@ -54,14 +54,14 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	protected static final boolean FINAL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
+	 * The flag representing the value of the '{@link #isFinal() <em>Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFinal()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean final_ = FINAL_EDEFAULT;
+	protected static final int FINAL_EFLAG = 1 << 10;
 
 	/**
 	 * The default value of the '{@link #getParameterKind() <em>Parameter Kind</em>}' attribute.
@@ -111,7 +111,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public boolean isFinal() {
-		return final_;
+		return (eFlags & FINAL_EFLAG) != 0;
 	}
 
 	/**
@@ -120,10 +120,10 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * @generated
 	 */
 	public void setFinal(boolean newFinal) {
-		boolean oldFinal = final_;
-		final_ = newFinal;
+		boolean oldFinal = (eFlags & FINAL_EFLAG) != 0;
+		if (newFinal) eFlags |= FINAL_EFLAG; else eFlags &= ~FINAL_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_PARAMETER__FINAL, oldFinal, final_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_PARAMETER__FINAL, oldFinal, newFinal));
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 			case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
 				return getEOperation() != null;
 			case JavaRefPackage.JAVA_PARAMETER__FINAL:
-				return final_ != FINAL_EDEFAULT;
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
 			case JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND:
 				return parameterKind != PARAMETER_KIND_EDEFAULT;
 		}
@@ -308,7 +308,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (final: ");
-		result.append(final_);
+		result.append((eFlags & FINAL_EFLAG) != 0);
 		result.append(", parameterKind: ");
 		result.append(parameterKind);
 		result.append(')');

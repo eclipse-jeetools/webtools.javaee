@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:04 $ 
  */
 
 import java.util.Collection;
@@ -222,9 +222,9 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 			case JavaRefPackage.ARRAY_TYPE__KIND:
 				return kind != KIND_EDEFAULT;
 			case JavaRefPackage.ARRAY_TYPE__PUBLIC:
-				return public_ != PUBLIC_EDEFAULT;
+				return ((eFlags & PUBLIC_EFLAG) != 0) != PUBLIC_EDEFAULT;
 			case JavaRefPackage.ARRAY_TYPE__FINAL:
-				return final_ != FINAL_EDEFAULT;
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
 			case JavaRefPackage.ARRAY_TYPE__IMPLEMENTS_INTERFACES:
 				return implementsInterfaces != null && !implementsInterfaces.isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__CLASS_IMPORT:

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
  */
 package org.eclipse.jem.java.internal.impl;
 
@@ -56,14 +56,14 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	protected static final boolean FINAL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
+	 * The flag representing the value of the '{@link #isFinal() <em>Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFinal()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean final_ = FINAL_EDEFAULT;
+	protected static final int FINAL_EFLAG = 1 << 10;
 
 	/**
 	 * The default value of the '{@link #isStatic() <em>Static</em>}' attribute.
@@ -76,14 +76,14 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	protected static final boolean STATIC_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isStatic() <em>Static</em>}' attribute.
+	 * The flag representing the value of the '{@link #isStatic() <em>Static</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isStatic()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean static_ = STATIC_EDEFAULT;
+	protected static final int STATIC_EFLAG = 1 << 11;
 
 	/**
 	 * The default value of the '{@link #getJavaVisibility() <em>Java Visibility</em>}' attribute.
@@ -111,14 +111,14 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	protected static final boolean TRANSIENT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isTransient() <em>Transient</em>}' attribute.
+	 * The flag representing the value of the '{@link #isTransient() <em>Transient</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isTransient()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean transient_ = TRANSIENT_EDEFAULT;
+	protected static final int TRANSIENT_EFLAG = 1 << 12;
 
 	/**
 	 * The default value of the '{@link #isVolatile() <em>Volatile</em>}' attribute.
@@ -131,14 +131,14 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	protected static final boolean VOLATILE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isVolatile() <em>Volatile</em>}' attribute.
+	 * The flag representing the value of the '{@link #isVolatile() <em>Volatile</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isVolatile()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean volatile_ = VOLATILE_EDEFAULT;
+	protected static final int VOLATILE_EFLAG = 1 << 13;
 
 	/**
 	 * The cached value of the '{@link #getInitializer() <em>Initializer</em>}' containment reference.
@@ -307,7 +307,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public boolean isFinalGen() {
-		return final_;
+		return (eFlags & FINAL_EFLAG) != 0;
 	}
 
 	/**
@@ -316,17 +316,17 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public void setFinal(boolean newFinal) {
-		boolean oldFinal = final_;
-		final_ = newFinal;
+		boolean oldFinal = (eFlags & FINAL_EFLAG) != 0;
+		if (newFinal) eFlags |= FINAL_EFLAG; else eFlags &= ~FINAL_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__FINAL, oldFinal, final_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__FINAL, oldFinal, newFinal));
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public boolean isStaticGen() {
-		return static_;
+		return (eFlags & STATIC_EFLAG) != 0;
 	}
 
 	/**
@@ -335,10 +335,10 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public void setStatic(boolean newStatic) {
-		boolean oldStatic = static_;
-		static_ = newStatic;
+		boolean oldStatic = (eFlags & STATIC_EFLAG) != 0;
+		if (newStatic) eFlags |= STATIC_EFLAG; else eFlags &= ~STATIC_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__STATIC, oldStatic, static_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__STATIC, oldStatic, newStatic));
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public boolean isTransientGen() {
-		return transient_;
+		return (eFlags & TRANSIENT_EFLAG) != 0;
 	}
 
 	/**
@@ -368,10 +368,10 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public void setTransient(boolean newTransient) {
-		boolean oldTransient = transient_;
-		transient_ = newTransient;
+		boolean oldTransient = (eFlags & TRANSIENT_EFLAG) != 0;
+		if (newTransient) eFlags |= TRANSIENT_EFLAG; else eFlags &= ~TRANSIENT_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__TRANSIENT, oldTransient, transient_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__TRANSIENT, oldTransient, newTransient));
 	}
 
 	/**
@@ -380,7 +380,7 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public boolean isVolatileGen() {
-		return volatile_;
+		return (eFlags & VOLATILE_EFLAG) != 0;
 	}
 
 	/**
@@ -389,10 +389,10 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 	 * @generated
 	 */
 	public void setVolatile(boolean newVolatile) {
-		boolean oldVolatile = volatile_;
-		volatile_ = newVolatile;
+		boolean oldVolatile = (eFlags & VOLATILE_EFLAG) != 0;
+		if (newVolatile) eFlags |= VOLATILE_EFLAG; else eFlags &= ~VOLATILE_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__VOLATILE, oldVolatile, volatile_));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__VOLATILE, oldVolatile, newVolatile));
 	}
 
 	/**
@@ -448,15 +448,15 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 			case JavaRefPackage.FIELD__ETYPE:
 				return eType != null;
 			case JavaRefPackage.FIELD__FINAL:
-				return final_ != FINAL_EDEFAULT;
+				return ((eFlags & FINAL_EFLAG) != 0) != FINAL_EDEFAULT;
 			case JavaRefPackage.FIELD__STATIC:
-				return static_ != STATIC_EDEFAULT;
+				return ((eFlags & STATIC_EFLAG) != 0) != STATIC_EDEFAULT;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
 				return javaVisibility != JAVA_VISIBILITY_EDEFAULT;
 			case JavaRefPackage.FIELD__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
+				return ((eFlags & TRANSIENT_EFLAG) != 0) != TRANSIENT_EDEFAULT;
 			case JavaRefPackage.FIELD__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
+				return ((eFlags & VOLATILE_EFLAG) != 0) != VOLATILE_EDEFAULT;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
 				return getJavaClass() != null;
 			case JavaRefPackage.FIELD__INITIALIZER:
@@ -722,15 +722,15 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (final: ");
-		result.append(final_);
+		result.append((eFlags & FINAL_EFLAG) != 0);
 		result.append(", static: ");
-		result.append(static_);
+		result.append((eFlags & STATIC_EFLAG) != 0);
 		result.append(", javaVisibility: ");
 		result.append(javaVisibility);
 		result.append(", transient: ");
-		result.append(transient_);
+		result.append((eFlags & TRANSIENT_EFLAG) != 0);
 		result.append(", volatile: ");
-		result.append(volatile_);
+		result.append((eFlags & VOLATILE_EFLAG) != 0);
 		result.append(')');
 		return result.toString();
 	}
