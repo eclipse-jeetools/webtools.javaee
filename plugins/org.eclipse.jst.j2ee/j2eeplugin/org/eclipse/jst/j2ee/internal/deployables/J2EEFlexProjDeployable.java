@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -141,12 +142,21 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
         if (component == null)
         	return new IModuleResource[] {};
         try {
+        	// Retrieve the java output folder files
+	    	IContainer[] outputFolders = ComponentUtilities.getOutputContainers(component);
+	    	for (int i=0; i<outputFolders.length; i++) {
+	    		if (outputFolders[i]!=null && outputFolders[i].exists()) {
+	    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
+	    			members.addAll(Arrays.asList(javaResources));
+	    		}
+	    	}
         	// Retrieve the module resources from the virtual component's root folder
 	    	IVirtualFolder componentRoot = component.getRootFolder();
 	    	if (componentRoot!=null && componentRoot.exists()) {
 	    		IModuleResource[] rootResources = getModuleResources(Path.EMPTY, componentRoot);
 	    		members.addAll(Arrays.asList(rootResources));
 	    	}
+	    	
         } catch (CoreException ce) {
         	throw ce;
         }
@@ -254,11 +264,40 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
      * @param result
      */
     private void addFileModuleResource(IPath path, IVirtualContainer container, IVirtualResource resource, List result) {
-        IFile file = (IFile) resource.getUnderlyingResource();
+    	IFile file = null;
+    	String runtimePath = resource.getRuntimePath().toString();
+    	// temporary hack because virtual component API returns .java rather than .class files
+    	if (runtimePath.endsWith(".java")) { //$NON-NLS-1$
+    		IContainer output = ComponentUtilities.getOutputContainers(container.getComponent())[0];
+    		runtimePath = resource.getRuntimePath().lastSegment().toString();
+    		String className = runtimePath.substring(0,runtimePath.length()-4)+"class"; //$NON-NLS-1$
+    		file = findClassFileInOutput(output,className);
+    	} else
+    		file = (IFile) resource.getUnderlyingResource();
+    	if (file == null)
+    		return;
         ModuleFile moduleFile = new ModuleFile(file, file.getName(), path, file.getModificationStamp());
         // we have to be sure its not in cache and current result group waiting to be added to cache
         if (file != null && file.exists() && getExistingModuleResource(result,moduleFile)==null && getExistingModuleResource(members,moduleFile)==null)
             result.add(moduleFile);
+    }
+    
+    private IFile findClassFileInOutput(IContainer container, String className) {
+    	IFile result = null;
+    	result = (IFile) container.findMember(className);
+    	if (result == null) {
+	    	try {
+	    		IResource[] members = container.members();
+	    		for (int i=0; i<members.length; i++) {
+	    			if (members[i].getType()==IResource.FOLDER) {
+	    				result = findClassFileInOutput((IContainer)members[i],className);
+	    				if (result != null)
+	    					break;
+	    			}
+	    		}
+	    	} catch (Exception e) {}
+    	}
+    	return result;
     }
     
 	public IPath getRootFolder() {		   
