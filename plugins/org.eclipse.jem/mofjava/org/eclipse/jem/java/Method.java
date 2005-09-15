@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
 
 /*
  *  $RCSfile: Method.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.7 $  $Date: 2005/09/15 13:42:04 $ 
  */
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EOperation;
@@ -217,7 +217,7 @@ public interface Method extends EOperation{
 	 * <!-- begin-model-doc -->
 	 * Set the return type
 	 * <!-- end-model-doc -->
-	 * @model parameters="org.eclipse.jem.java.JTypeJavaHelpers"
+	 * @model typeDataType="org.eclipse.jem.java.JTypeJavaHelpers"
 	 * @generated
 	 */
 	void setReturnType(JavaHelpers type);

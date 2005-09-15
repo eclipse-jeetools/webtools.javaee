@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <genmodel:GenModel xmi:version="2.0"
-  xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jem/mofjava"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jem/mofjava"
     editDirectory="/org.eclipse.jem.edit/src" editorDirectory="/org.eclipse.jem.editor/src"
     modelPluginID="" modelName="Java" modelPluginClass="" editPluginClass="java.provider.JavaEditPlugin"
     editorPluginClass="java.presentation.JavaEditorPlugin" updateClasspath="false"
@@ -9,7 +9,8 @@
   <foreignModel>..\rose\javaModel.mdl</foreignModel>
   <foreignModel>WorkspaceRoot</foreignModel>
   <foreignModel>../..</foreignModel>
-  <genPackages prefix="JavaRef" basePackage="org.eclipse.jem" ecorePackage="java.ecore#/">
+  <genPackages prefix="JavaRef" basePackage="org.eclipse.jem" classPackageSuffix="internal.impl"
+      ecorePackage="java.ecore#/">
     <genEnums ecoreEnum="java.ecore#//TypeKind">
       <genEnumLiterals ecoreEnumLiteral="java.ecore#//TypeKind/UNDEFINED"/>
       <genEnumLiterals ecoreEnumLiteral="java.ecore#//TypeKind/CLASS"/>
@@ -31,20 +32,20 @@
     <genDataTypes ecoreDataType="java.ecore#//JTypeJavaHelpers"/>
     <genDataTypes ecoreDataType="java.ecore#//JTypeList"/>
     <genClasses ecoreClass="java.ecore#//JavaClass">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/kind"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/public"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/final"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/implementsInterfaces"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/classImport"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/packageImports"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/fields"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/methods"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/initializers"/>
-      <genFeatures property="None" ecoreFeature="ecore:EReference java.ecore#//JavaClass/declaredClasses"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/declaringClass"/>
-      <genFeatures property="Readonly" ecoreFeature="ecore:EReference java.ecore#//JavaClass/javaPackage"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/events"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/allEvents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/public"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaClass/final"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/implementsInterfaces"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/classImport"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/packageImports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/fields"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/methods"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/initializers"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/declaredClasses"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/declaringClass"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/javaPackage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//JavaClass/events"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaClass/allEvents"/>
       <genOperations ecoreOperation="java.ecore#//JavaClass/isNested"/>
       <genOperations ecoreOperation="java.ecore#//JavaClass/getField">
         <genParameters ecoreParameter="java.ecore#//JavaClass/getField/fieldName"/>
@@ -94,30 +95,30 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//Initializer">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Initializer/isStatic"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//Initializer/javaClass"/>
-      <genFeatures property="Readonly" ecoreFeature="ecore:EReference java.ecore#//Initializer/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Initializer/isStatic"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Initializer/javaClass"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Initializer/source"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//JavaParameter">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//JavaParameter/final"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//JavaParameter/parameterKind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaParameter/final"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//JavaParameter/parameterKind"/>
       <genOperations ecoreOperation="java.ecore#//JavaParameter/isArray"/>
       <genOperations ecoreOperation="java.ecore#//JavaParameter/isReturn"/>
       <genOperations ecoreOperation="java.ecore#//JavaParameter/getJavaType"/>
       <genOperations ecoreOperation="java.ecore#//JavaParameter/getQualifiedName"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//Method">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/abstract"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/native"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/synchronized"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/final"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/constructor"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/static"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Method/javaVisibility"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//Method/parameters"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//Method/javaExceptions"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//Method/javaClass"/>
-      <genFeatures property="Readonly" ecoreFeature="ecore:EReference java.ecore#//Method/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/abstract"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/native"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/synchronized"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/final"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/constructor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/static"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Method/javaVisibility"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//Method/parameters"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Method/javaExceptions"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Method/javaClass"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Method/source"/>
       <genOperations ecoreOperation="java.ecore#//Method/getContainingJavaClass"/>
       <genOperations ecoreOperation="java.ecore#//Method/getMethodElementSignature"/>
       <genOperations ecoreOperation="java.ecore#//Method/getParameter">
@@ -135,32 +136,32 @@
       <genOperations ecoreOperation="java.ecore#//Method/isVoid"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//Field">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/final"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/static"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/javaVisibility"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/transient"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/volatile"/>
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//Field/javaClass"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//Field/initializer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/final"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/static"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/javaVisibility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/transient"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Field/volatile"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//Field/javaClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//Field/initializer"/>
       <genOperations ecoreOperation="java.ecore#//Field/getContainingJavaClass"/>
       <genOperations ecoreOperation="java.ecore#//Field/isArray"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//Block">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Block/source"/>
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Block/name"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//Block/contents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Block/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//Block/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference java.ecore#//Block/contents"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//Comment"/>
     <genClasses ecoreClass="java.ecore#//Statement"/>
     <genClasses ecoreClass="java.ecore#//JavaPackage">
-      <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//JavaPackage/javaClasses"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference java.ecore#//JavaPackage/javaClasses"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//JavaDataType">
       <genOperations ecoreOperation="java.ecore#//JavaDataType/getDefaultValueString"/>
     </genClasses>
     <genClasses ecoreClass="java.ecore#//ArrayType">
-      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//ArrayType/arrayDimensions"/>
-      <genFeatures property="Readonly" ecoreFeature="ecore:EReference java.ecore#//ArrayType/componentType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute java.ecore#//ArrayType/arrayDimensions"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference java.ecore#//ArrayType/componentType"/>
       <genOperations ecoreOperation="java.ecore#//ArrayType/getFinalComponentType"/>
       <genOperations ecoreOperation="java.ecore#//ArrayType/getComponentTypeAsHelper"/>
       <genOperations ecoreOperation="java.ecore#//ArrayType/isPrimitiveArray"/>
