@@ -244,7 +244,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		IFlexibleProject core = ComponentCore.createFlexibleProject(p);
 		IVirtualComponent component = core.getComponents()[0];
 		try {
-			return ComponentUtilities.findFile(component, new Path(ArchiveConstants.MANIFEST_SHORT_NAME));
+			return ComponentUtilities.findFile(component, new Path(ArchiveConstants.MANIFEST_URI));
 		} catch (CoreException ce) {
 			Logger.getLogger().log(ce);
 		}
