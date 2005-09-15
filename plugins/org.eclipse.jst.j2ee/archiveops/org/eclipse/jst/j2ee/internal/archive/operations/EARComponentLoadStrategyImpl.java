@@ -36,6 +36,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 	}
 
 	public List getFiles() {
+		super.getFiles();
 		addModulesAndUtilities();
 		return filesHolder.getFiles();
 	}
