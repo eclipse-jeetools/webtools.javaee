@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.13 $  $Date: 2005/09/15 20:09:51 $ 
+ *  $Revision: 1.14 $  $Date: 2005/09/15 21:11:20 $ 
  */
 
 
@@ -90,23 +90,23 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	protected static final boolean IN_DEFAULT_EVENT_SET_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isInDefaultEventSet() <em>In Default Event Set</em>}' attribute.
+	 * The flag representing the value of the '{@link #isInDefaultEventSet() <em>In Default Event Set</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isInDefaultEventSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean inDefaultEventSet = IN_DEFAULT_EVENT_SET_EDEFAULT;
+	protected static final int IN_DEFAULT_EVENT_SET_EFLAG = 1 << 18;
 
 	/**
-	 * This is true if the In Default Event Set attribute has been set.
+	 * The flag representing whether the In Default Event Set attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean inDefaultEventSetESet = false;
+	protected static final int IN_DEFAULT_EVENT_SET_ESETFLAG = 1 << 19;
 
 	/**
 	 * The default value of the '{@link #isUnicast() <em>Unicast</em>}' attribute.
@@ -119,23 +119,23 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	protected static final boolean UNICAST_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isUnicast() <em>Unicast</em>}' attribute.
+	 * The flag representing the value of the '{@link #isUnicast() <em>Unicast</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnicast()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean unicast = UNICAST_EDEFAULT;
+	protected static final int UNICAST_EFLAG = 1 << 20;
 
 	/**
-	 * This is true if the Unicast attribute has been set.
+	 * The flag representing whether the Unicast attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean unicastESet = false;
+	protected static final int UNICAST_ESETFLAG = 1 << 21;
 
 	/**
 	 * The default value of the '{@link #isListenerMethodsExplicitEmpty() <em>Listener Methods Explicit Empty</em>}' attribute.
@@ -148,14 +148,14 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	protected static final boolean LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isListenerMethodsExplicitEmpty() <em>Listener Methods Explicit Empty</em>}' attribute.
+	 * The flag representing the value of the '{@link #isListenerMethodsExplicitEmpty() <em>Listener Methods Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isListenerMethodsExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean listenerMethodsExplicitEmpty = LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT;
+	protected static final int LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG = 1 << 22;
 
 	/**
 	 * The cached value of the '{@link #getAddListenerMethod() <em>Add Listener Method</em>}' reference.
@@ -234,7 +234,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public boolean isInDefaultEventSet() {
-		return inDefaultEventSet;
+		return (eFlags & IN_DEFAULT_EVENT_SET_EFLAG) != 0;
 	}
 
 	/**
@@ -243,12 +243,12 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public void setInDefaultEventSet(boolean newInDefaultEventSet) {
-		boolean oldInDefaultEventSet = inDefaultEventSet;
-		inDefaultEventSet = newInDefaultEventSet;
-		boolean oldInDefaultEventSetESet = inDefaultEventSetESet;
-		inDefaultEventSetESet = true;
+		boolean oldInDefaultEventSet = (eFlags & IN_DEFAULT_EVENT_SET_EFLAG) != 0;
+		if (newInDefaultEventSet) eFlags |= IN_DEFAULT_EVENT_SET_EFLAG; else eFlags &= ~IN_DEFAULT_EVENT_SET_EFLAG;
+		boolean oldInDefaultEventSetESet = (eFlags & IN_DEFAULT_EVENT_SET_ESETFLAG) != 0;
+		eFlags |= IN_DEFAULT_EVENT_SET_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET, oldInDefaultEventSet, inDefaultEventSet, !oldInDefaultEventSetESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET, oldInDefaultEventSet, newInDefaultEventSet, !oldInDefaultEventSetESet));
 	}
 
 	/**
@@ -257,10 +257,10 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public void unsetInDefaultEventSet() {
-		boolean oldInDefaultEventSet = inDefaultEventSet;
-		boolean oldInDefaultEventSetESet = inDefaultEventSetESet;
-		inDefaultEventSet = IN_DEFAULT_EVENT_SET_EDEFAULT;
-		inDefaultEventSetESet = false;
+		boolean oldInDefaultEventSet = (eFlags & IN_DEFAULT_EVENT_SET_EFLAG) != 0;
+		boolean oldInDefaultEventSetESet = (eFlags & IN_DEFAULT_EVENT_SET_ESETFLAG) != 0;
+		if (IN_DEFAULT_EVENT_SET_EDEFAULT) eFlags |= IN_DEFAULT_EVENT_SET_EFLAG; else eFlags &= ~IN_DEFAULT_EVENT_SET_EFLAG;
+		eFlags &= ~IN_DEFAULT_EVENT_SET_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET, oldInDefaultEventSet, IN_DEFAULT_EVENT_SET_EDEFAULT, oldInDefaultEventSetESet));
 	}
@@ -271,7 +271,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public boolean isSetInDefaultEventSet() {
-		return inDefaultEventSetESet;
+		return (eFlags & IN_DEFAULT_EVENT_SET_ESETFLAG) != 0;
 	}
 
 	/**
@@ -280,7 +280,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public boolean isUnicast() {
-		return unicast;
+		return (eFlags & UNICAST_EFLAG) != 0;
 	}
 
 	/**
@@ -289,12 +289,12 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public void setUnicast(boolean newUnicast) {
-		boolean oldUnicast = unicast;
-		unicast = newUnicast;
-		boolean oldUnicastESet = unicastESet;
-		unicastESet = true;
+		boolean oldUnicast = (eFlags & UNICAST_EFLAG) != 0;
+		if (newUnicast) eFlags |= UNICAST_EFLAG; else eFlags &= ~UNICAST_EFLAG;
+		boolean oldUnicastESet = (eFlags & UNICAST_ESETFLAG) != 0;
+		eFlags |= UNICAST_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST, oldUnicast, unicast, !oldUnicastESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST, oldUnicast, newUnicast, !oldUnicastESet));
 	}
 
 	/**
@@ -303,10 +303,10 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public void unsetUnicast() {
-		boolean oldUnicast = unicast;
-		boolean oldUnicastESet = unicastESet;
-		unicast = UNICAST_EDEFAULT;
-		unicastESet = false;
+		boolean oldUnicast = (eFlags & UNICAST_EFLAG) != 0;
+		boolean oldUnicastESet = (eFlags & UNICAST_ESETFLAG) != 0;
+		if (UNICAST_EDEFAULT) eFlags |= UNICAST_EFLAG; else eFlags &= ~UNICAST_EFLAG;
+		eFlags &= ~UNICAST_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST, oldUnicast, UNICAST_EDEFAULT, oldUnicastESet));
 	}
@@ -317,7 +317,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public boolean isSetUnicast() {
-		return unicastESet;
+		return (eFlags & UNICAST_ESETFLAG) != 0;
 	}
 
 	/**
@@ -326,7 +326,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public boolean isListenerMethodsExplicitEmpty() {
-		return listenerMethodsExplicitEmpty;
+		return (eFlags & LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG) != 0;
 	}
 
 	/**
@@ -335,10 +335,10 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @generated
 	 */
 	public void setListenerMethodsExplicitEmpty(boolean newListenerMethodsExplicitEmpty) {
-		boolean oldListenerMethodsExplicitEmpty = listenerMethodsExplicitEmpty;
-		listenerMethodsExplicitEmpty = newListenerMethodsExplicitEmpty;
+		boolean oldListenerMethodsExplicitEmpty = (eFlags & LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG) != 0;
+		if (newListenerMethodsExplicitEmpty) eFlags |= LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG; else eFlags &= ~LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY, oldListenerMethodsExplicitEmpty, listenerMethodsExplicitEmpty));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY, oldListenerMethodsExplicitEmpty, newListenerMethodsExplicitEmpty));
 	}
 
 	/**
@@ -942,9 +942,9 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
@@ -956,7 +956,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
 				return isSetUnicast();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY:
-				return listenerMethodsExplicitEmpty != LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG) != 0) != LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD:
 				return addListenerMethod != null;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS:
@@ -983,11 +983,11 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (inDefaultEventSet: ");
-		if (inDefaultEventSetESet) result.append(inDefaultEventSet); else result.append("<unset>");
+		if ((eFlags & IN_DEFAULT_EVENT_SET_ESETFLAG) != 0) result.append((eFlags & IN_DEFAULT_EVENT_SET_EFLAG) != 0); else result.append("<unset>");
 		result.append(", unicast: ");
-		if (unicastESet) result.append(unicast); else result.append("<unset>");
+		if ((eFlags & UNICAST_ESETFLAG) != 0) result.append((eFlags & UNICAST_EFLAG) != 0); else result.append("<unset>");
 		result.append(", listenerMethodsExplicitEmpty: ");
-		result.append(listenerMethodsExplicitEmpty);
+		result.append((eFlags & LISTENER_METHODS_EXPLICIT_EMPTY_EFLAG) != 0);
 		result.append(')');
 		return result.toString();
 	}

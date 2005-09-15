@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/15 21:11:20 $ 
  */
 
 
@@ -97,13 +97,13 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	protected String displayName = DISPLAY_NAME_EDEFAULT;
 	/**
-	 * This is true if the Display Name attribute has been set.
+	 * The flag representing whether the Display Name attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean displayNameESet = false;
+	protected static final int DISPLAY_NAME_ESETFLAG = 1 << 8;
 
 	/**
 	 * The default value of the '{@link #getShortDescription() <em>Short Description</em>}' attribute.
@@ -125,13 +125,13 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	protected String shortDescription = SHORT_DESCRIPTION_EDEFAULT;
 	/**
-	 * This is true if the Short Description attribute has been set.
+	 * The flag representing whether the Short Description attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean shortDescriptionESet = false;
+	protected static final int SHORT_DESCRIPTION_ESETFLAG = 1 << 9;
 
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
@@ -163,23 +163,23 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	protected static final boolean EXPERT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isExpert() <em>Expert</em>}' attribute.
+	 * The flag representing the value of the '{@link #isExpert() <em>Expert</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isExpert()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean expert = EXPERT_EDEFAULT;
+	protected static final int EXPERT_EFLAG = 1 << 10;
 
 	/**
-	 * This is true if the Expert attribute has been set.
+	 * The flag representing whether the Expert attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean expertESet = false;
+	protected static final int EXPERT_ESETFLAG = 1 << 11;
 
 	/**
 	 * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
@@ -192,23 +192,23 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	protected static final boolean HIDDEN_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
+	 * The flag representing the value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isHidden()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean hidden = HIDDEN_EDEFAULT;
+	protected static final int HIDDEN_EFLAG = 1 << 12;
 
 	/**
-	 * This is true if the Hidden attribute has been set.
+	 * The flag representing whether the Hidden attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean hiddenESet = false;
+	protected static final int HIDDEN_ESETFLAG = 1 << 13;
 
 	/**
 	 * The default value of the '{@link #isPreferred() <em>Preferred</em>}' attribute.
@@ -221,23 +221,23 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	protected static final boolean PREFERRED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isPreferred() <em>Preferred</em>}' attribute.
+	 * The flag representing the value of the '{@link #isPreferred() <em>Preferred</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isPreferred()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean preferred = PREFERRED_EDEFAULT;
+	protected static final int PREFERRED_EFLAG = 1 << 14;
 
 	/**
-	 * This is true if the Preferred attribute has been set.
+	 * The flag representing whether the Preferred attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean preferredESet = false;
+	protected static final int PREFERRED_ESETFLAG = 1 << 15;
 
 	/**
 	 * The default value of the '{@link #isMergeIntrospection() <em>Merge Introspection</em>}' attribute.
@@ -250,14 +250,15 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	protected static final boolean MERGE_INTROSPECTION_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isMergeIntrospection() <em>Merge Introspection</em>}' attribute.
+	 * The flag representing the value of the '{@link #isMergeIntrospection() <em>Merge Introspection</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isMergeIntrospection()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeIntrospection = MERGE_INTROSPECTION_EDEFAULT;
+	protected static final int MERGE_INTROSPECTION_EFLAG = 1 << 16;
+
 	/**
 	 * The default value of the '{@link #isAttributesExplicitEmpty() <em>Attributes Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -269,14 +270,14 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	protected static final boolean ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isAttributesExplicitEmpty() <em>Attributes Explicit Empty</em>}' attribute.
+	 * The flag representing the value of the '{@link #isAttributesExplicitEmpty() <em>Attributes Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAttributesExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean attributesExplicitEmpty = ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+	protected static final int ATTRIBUTES_EXPLICIT_EMPTY_EFLAG = 1 << 17;
 
 	/**
 	 * The default value of the '{@link #getImplicitlySetBits() <em>Implicitly Set Bits</em>}' attribute.
@@ -388,8 +389,8 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	public void setDisplayName(String newDisplayName) {
 		String oldDisplayName = displayName;
 		displayName = newDisplayName;
-		boolean oldDisplayNameESet = displayNameESet;
-		displayNameESet = true;
+		boolean oldDisplayNameESet = (eFlags & DISPLAY_NAME_ESETFLAG) != 0;
+		eFlags |= DISPLAY_NAME_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME, oldDisplayName, displayName, !oldDisplayNameESet));
 	}
@@ -401,9 +402,9 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	public void unsetDisplayName() {
 		String oldDisplayName = displayName;
-		boolean oldDisplayNameESet = displayNameESet;
+		boolean oldDisplayNameESet = (eFlags & DISPLAY_NAME_ESETFLAG) != 0;
 		displayName = DISPLAY_NAME_EDEFAULT;
-		displayNameESet = false;
+		eFlags &= ~DISPLAY_NAME_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_DECORATOR__DISPLAY_NAME, oldDisplayName, DISPLAY_NAME_EDEFAULT, oldDisplayNameESet));
 	}
@@ -414,7 +415,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isSetDisplayName() {
-		return displayNameESet;
+		return (eFlags & DISPLAY_NAME_ESETFLAG) != 0;
 	}
 
 	/**
@@ -434,8 +435,8 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	public void setShortDescription(String newShortDescription) {
 		String oldShortDescription = shortDescription;
 		shortDescription = newShortDescription;
-		boolean oldShortDescriptionESet = shortDescriptionESet;
-		shortDescriptionESet = true;
+		boolean oldShortDescriptionESet = (eFlags & SHORT_DESCRIPTION_ESETFLAG) != 0;
+		eFlags |= SHORT_DESCRIPTION_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION, oldShortDescription, shortDescription, !oldShortDescriptionESet));
 	}
@@ -447,9 +448,9 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	public void unsetShortDescription() {
 		String oldShortDescription = shortDescription;
-		boolean oldShortDescriptionESet = shortDescriptionESet;
+		boolean oldShortDescriptionESet = (eFlags & SHORT_DESCRIPTION_ESETFLAG) != 0;
 		shortDescription = SHORT_DESCRIPTION_EDEFAULT;
-		shortDescriptionESet = false;
+		eFlags &= ~SHORT_DESCRIPTION_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_DECORATOR__SHORT_DESCRIPTION, oldShortDescription, SHORT_DESCRIPTION_EDEFAULT, oldShortDescriptionESet));
 	}
@@ -460,7 +461,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isSetShortDescription() {
-		return shortDescriptionESet;
+		return (eFlags & SHORT_DESCRIPTION_ESETFLAG) != 0;
 	}
 
 	/**
@@ -490,7 +491,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isExpert() {
-		return expert;
+		return (eFlags & EXPERT_EFLAG) != 0;
 	}
 
 	/**
@@ -499,12 +500,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void setExpert(boolean newExpert) {
-		boolean oldExpert = expert;
-		expert = newExpert;
-		boolean oldExpertESet = expertESet;
-		expertESet = true;
+		boolean oldExpert = (eFlags & EXPERT_EFLAG) != 0;
+		if (newExpert) eFlags |= EXPERT_EFLAG; else eFlags &= ~EXPERT_EFLAG;
+		boolean oldExpertESet = (eFlags & EXPERT_ESETFLAG) != 0;
+		eFlags |= EXPERT_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__EXPERT, oldExpert, expert, !oldExpertESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__EXPERT, oldExpert, newExpert, !oldExpertESet));
 	}
 
 	/**
@@ -513,10 +514,10 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void unsetExpert() {
-		boolean oldExpert = expert;
-		boolean oldExpertESet = expertESet;
-		expert = EXPERT_EDEFAULT;
-		expertESet = false;
+		boolean oldExpert = (eFlags & EXPERT_EFLAG) != 0;
+		boolean oldExpertESet = (eFlags & EXPERT_ESETFLAG) != 0;
+		if (EXPERT_EDEFAULT) eFlags |= EXPERT_EFLAG; else eFlags &= ~EXPERT_EFLAG;
+		eFlags &= ~EXPERT_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_DECORATOR__EXPERT, oldExpert, EXPERT_EDEFAULT, oldExpertESet));
 	}
@@ -527,7 +528,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isSetExpert() {
-		return expertESet;
+		return (eFlags & EXPERT_ESETFLAG) != 0;
 	}
 
 	/**
@@ -536,7 +537,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isHidden() {
-		return hidden;
+		return (eFlags & HIDDEN_EFLAG) != 0;
 	}
 
 	/**
@@ -545,12 +546,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void setHidden(boolean newHidden) {
-		boolean oldHidden = hidden;
-		hidden = newHidden;
-		boolean oldHiddenESet = hiddenESet;
-		hiddenESet = true;
+		boolean oldHidden = (eFlags & HIDDEN_EFLAG) != 0;
+		if (newHidden) eFlags |= HIDDEN_EFLAG; else eFlags &= ~HIDDEN_EFLAG;
+		boolean oldHiddenESet = (eFlags & HIDDEN_ESETFLAG) != 0;
+		eFlags |= HIDDEN_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__HIDDEN, oldHidden, hidden, !oldHiddenESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__HIDDEN, oldHidden, newHidden, !oldHiddenESet));
 	}
 
 	/**
@@ -559,10 +560,10 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void unsetHidden() {
-		boolean oldHidden = hidden;
-		boolean oldHiddenESet = hiddenESet;
-		hidden = HIDDEN_EDEFAULT;
-		hiddenESet = false;
+		boolean oldHidden = (eFlags & HIDDEN_EFLAG) != 0;
+		boolean oldHiddenESet = (eFlags & HIDDEN_ESETFLAG) != 0;
+		if (HIDDEN_EDEFAULT) eFlags |= HIDDEN_EFLAG; else eFlags &= ~HIDDEN_EFLAG;
+		eFlags &= ~HIDDEN_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_DECORATOR__HIDDEN, oldHidden, HIDDEN_EDEFAULT, oldHiddenESet));
 	}
@@ -573,7 +574,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isSetHidden() {
-		return hiddenESet;
+		return (eFlags & HIDDEN_ESETFLAG) != 0;
 	}
 
 	/**
@@ -582,7 +583,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isPreferred() {
-		return preferred;
+		return (eFlags & PREFERRED_EFLAG) != 0;
 	}
 
 	/**
@@ -591,12 +592,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void setPreferred(boolean newPreferred) {
-		boolean oldPreferred = preferred;
-		preferred = newPreferred;
-		boolean oldPreferredESet = preferredESet;
-		preferredESet = true;
+		boolean oldPreferred = (eFlags & PREFERRED_EFLAG) != 0;
+		if (newPreferred) eFlags |= PREFERRED_EFLAG; else eFlags &= ~PREFERRED_EFLAG;
+		boolean oldPreferredESet = (eFlags & PREFERRED_ESETFLAG) != 0;
+		eFlags |= PREFERRED_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__PREFERRED, oldPreferred, preferred, !oldPreferredESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__PREFERRED, oldPreferred, newPreferred, !oldPreferredESet));
 	}
 
 	/**
@@ -605,10 +606,10 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void unsetPreferred() {
-		boolean oldPreferred = preferred;
-		boolean oldPreferredESet = preferredESet;
-		preferred = PREFERRED_EDEFAULT;
-		preferredESet = false;
+		boolean oldPreferred = (eFlags & PREFERRED_EFLAG) != 0;
+		boolean oldPreferredESet = (eFlags & PREFERRED_ESETFLAG) != 0;
+		if (PREFERRED_EDEFAULT) eFlags |= PREFERRED_EFLAG; else eFlags &= ~PREFERRED_EFLAG;
+		eFlags &= ~PREFERRED_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_DECORATOR__PREFERRED, oldPreferred, PREFERRED_EDEFAULT, oldPreferredESet));
 	}
@@ -619,7 +620,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isSetPreferred() {
-		return preferredESet;
+		return (eFlags & PREFERRED_ESETFLAG) != 0;
 	}
 
 	/**
@@ -628,7 +629,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isMergeIntrospection() {
-		return mergeIntrospection;
+		return (eFlags & MERGE_INTROSPECTION_EFLAG) != 0;
 	}
 
 	/**
@@ -637,10 +638,10 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void setMergeIntrospection(boolean newMergeIntrospection) {
-		boolean oldMergeIntrospection = mergeIntrospection;
-		mergeIntrospection = newMergeIntrospection;
+		boolean oldMergeIntrospection = (eFlags & MERGE_INTROSPECTION_EFLAG) != 0;
+		if (newMergeIntrospection) eFlags |= MERGE_INTROSPECTION_EFLAG; else eFlags &= ~MERGE_INTROSPECTION_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION, oldMergeIntrospection, mergeIntrospection));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION, oldMergeIntrospection, newMergeIntrospection));
 	}
 
 	/**
@@ -649,7 +650,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public boolean isAttributesExplicitEmpty() {
-		return attributesExplicitEmpty;
+		return (eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0;
 	}
 
 	/**
@@ -658,10 +659,10 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * @generated
 	 */
 	public void setAttributesExplicitEmpty(boolean newAttributesExplicitEmpty) {
-		boolean oldAttributesExplicitEmpty = attributesExplicitEmpty;
-		attributesExplicitEmpty = newAttributesExplicitEmpty;
+		boolean oldAttributesExplicitEmpty = (eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0;
+		if (newAttributesExplicitEmpty) eFlags |= ATTRIBUTES_EXPLICIT_EMPTY_EFLAG; else eFlags &= ~ATTRIBUTES_EXPLICIT_EMPTY_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY, oldAttributesExplicitEmpty, attributesExplicitEmpty));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY, oldAttributesExplicitEmpty, newAttributesExplicitEmpty));
 	}
 
 	/**
@@ -728,21 +729,21 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (displayName: ");
-		if (displayNameESet) result.append(displayName); else result.append("<unset>");
+		if ((eFlags & DISPLAY_NAME_ESETFLAG) != 0) result.append(displayName); else result.append("<unset>");
 		result.append(", shortDescription: ");
-		if (shortDescriptionESet) result.append(shortDescription); else result.append("<unset>");
+		if ((eFlags & SHORT_DESCRIPTION_ESETFLAG) != 0) result.append(shortDescription); else result.append("<unset>");
 		result.append(", category: ");
 		result.append(category);
 		result.append(", expert: ");
-		if (expertESet) result.append(expert); else result.append("<unset>");
+		if ((eFlags & EXPERT_ESETFLAG) != 0) result.append((eFlags & EXPERT_EFLAG) != 0); else result.append("<unset>");
 		result.append(", hidden: ");
-		if (hiddenESet) result.append(hidden); else result.append("<unset>");
+		if ((eFlags & HIDDEN_ESETFLAG) != 0) result.append((eFlags & HIDDEN_EFLAG) != 0); else result.append("<unset>");
 		result.append(", preferred: ");
-		if (preferredESet) result.append(preferred); else result.append("<unset>");
+		if ((eFlags & PREFERRED_ESETFLAG) != 0) result.append((eFlags & PREFERRED_EFLAG) != 0); else result.append("<unset>");
 		result.append(", mergeIntrospection: ");
-		result.append(mergeIntrospection);
+		result.append((eFlags & MERGE_INTROSPECTION_EFLAG) != 0);
 		result.append(", attributesExplicitEmpty: ");
-		result.append(attributesExplicitEmpty);
+		result.append((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0);
 		result.append(", implicitlySetBits: ");
 		result.append(implicitlySetBits);
 		result.append(", implicitDecoratorFlag: ");
@@ -1051,9 +1052,9 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 			case BeaninfoPackage.FEATURE_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:

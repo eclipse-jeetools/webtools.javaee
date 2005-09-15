@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: IndexedPropertyDecoratorImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/13 20:30:46 $ 
+ *  $Revision: 1.11 $  $Date: 2005/09/15 21:11:20 $ 
  */
 
 
@@ -67,13 +67,13 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 */
 	protected Method indexedReadMethod = null;
 	/**
-	 * This is true if the Indexed Read Method reference has been set.
+	 * The flag representing whether the Indexed Read Method reference has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean indexedReadMethodESet = false;
+	protected static final int INDEXED_READ_METHOD_ESETFLAG = 1 << 29;
 
 	/**
 	 * The cached value of the '{@link #getIndexedWriteMethod() <em>Indexed Write Method</em>}' reference.
@@ -86,13 +86,13 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	protected Method indexedWriteMethod = null;
 	
 	/**
-	 * This is true if the Indexed Write Method reference has been set.
+	 * The flag representing whether the Indexed Write Method reference has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean indexedWriteMethodESet = false;
+	protected static final int INDEXED_WRITE_METHOD_ESETFLAG = 1 << 30;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -140,8 +140,8 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	public void setIndexedReadMethod(Method newIndexedReadMethod) {
 		Method oldIndexedReadMethod = indexedReadMethod;
 		indexedReadMethod = newIndexedReadMethod;
-		boolean oldIndexedReadMethodESet = indexedReadMethodESet;
-		indexedReadMethodESet = true;
+		boolean oldIndexedReadMethodESet = (eFlags & INDEXED_READ_METHOD_ESETFLAG) != 0;
+		eFlags |= INDEXED_READ_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, indexedReadMethod, !oldIndexedReadMethodESet));
 	}
@@ -153,9 +153,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 */
 	public void unsetIndexedReadMethod() {
 		Method oldIndexedReadMethod = indexedReadMethod;
-		boolean oldIndexedReadMethodESet = indexedReadMethodESet;
+		boolean oldIndexedReadMethodESet = (eFlags & INDEXED_READ_METHOD_ESETFLAG) != 0;
 		indexedReadMethod = null;
-		indexedReadMethodESet = false;
+		eFlags &= ~INDEXED_READ_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, null, oldIndexedReadMethodESet));
 	}
@@ -166,7 +166,7 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 * @generated
 	 */
 	public boolean isSetIndexedReadMethod() {
-		return indexedReadMethodESet;
+		return (eFlags & INDEXED_READ_METHOD_ESETFLAG) != 0;
 	}
 
 	/**
@@ -194,8 +194,8 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	public void setIndexedWriteMethod(Method newIndexedWriteMethod) {
 		Method oldIndexedWriteMethod = indexedWriteMethod;
 		indexedWriteMethod = newIndexedWriteMethod;
-		boolean oldIndexedWriteMethodESet = indexedWriteMethodESet;
-		indexedWriteMethodESet = true;
+		boolean oldIndexedWriteMethodESet = (eFlags & INDEXED_WRITE_METHOD_ESETFLAG) != 0;
+		eFlags |= INDEXED_WRITE_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, indexedWriteMethod, !oldIndexedWriteMethodESet));
 	}
@@ -207,9 +207,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 */
 	public void unsetIndexedWriteMethod() {
 		Method oldIndexedWriteMethod = indexedWriteMethod;
-		boolean oldIndexedWriteMethodESet = indexedWriteMethodESet;
+		boolean oldIndexedWriteMethodESet = (eFlags & INDEXED_WRITE_METHOD_ESETFLAG) != 0;
 		indexedWriteMethod = null;
-		indexedWriteMethodESet = false;
+		eFlags &= ~INDEXED_WRITE_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, null, oldIndexedWriteMethodESet));
 	}
@@ -220,7 +220,7 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 * @generated
 	 */
 	public boolean isSetIndexedWriteMethod() {
-		return indexedWriteMethodESet;
+		return (eFlags & INDEXED_WRITE_METHOD_ESETFLAG) != 0;
 	}
 
 	/**
@@ -609,9 +609,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
@@ -625,11 +625,11 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__DESIGN_TIME:
 				return isSetDesignTime();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ALWAYS_INCOMPATIBLE:
-				return alwaysIncompatible != ALWAYS_INCOMPATIBLE_EDEFAULT;
+				return ((eFlags & ALWAYS_INCOMPATIBLE_EFLAG) != 0) != ALWAYS_INCOMPATIBLE_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FILTER_FLAGS:
 				return filterFlags != null && !filterFlags.isEmpty();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD_READ_ONLY:
-				return fieldReadOnly != FIELD_READ_ONLY_EDEFAULT;
+				return ((eFlags & FIELD_READ_ONLY_EFLAG) != 0) != FIELD_READ_ONLY_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				return propertyEditorClass != null;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__READ_METHOD:

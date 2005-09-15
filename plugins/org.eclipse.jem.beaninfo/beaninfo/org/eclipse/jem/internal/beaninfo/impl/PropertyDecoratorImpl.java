@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.15 $  $Date: 2005/09/15 20:09:51 $ 
+ *  $Revision: 1.16 $  $Date: 2005/09/15 21:11:20 $ 
  */
 
 
@@ -86,23 +86,23 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected static final boolean BOUND_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isBound() <em>Bound</em>}' attribute.
+	 * The flag representing the value of the '{@link #isBound() <em>Bound</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isBound()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean bound = BOUND_EDEFAULT;
+	protected static final int BOUND_EFLAG = 1 << 18;
 
 	/**
-	 * This is true if the Bound attribute has been set.
+	 * The flag representing whether the Bound attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean boundESet = false;
+	protected static final int BOUND_ESETFLAG = 1 << 19;
 
 	/**
 	 * The default value of the '{@link #isConstrained() <em>Constrained</em>}' attribute.
@@ -115,23 +115,23 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected static final boolean CONSTRAINED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isConstrained() <em>Constrained</em>}' attribute.
+	 * The flag representing the value of the '{@link #isConstrained() <em>Constrained</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isConstrained()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean constrained = CONSTRAINED_EDEFAULT;
+	protected static final int CONSTRAINED_EFLAG = 1 << 20;
 
 	/**
-	 * This is true if the Constrained attribute has been set.
+	 * The flag representing whether the Constrained attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean constrainedESet = false;
+	protected static final int CONSTRAINED_ESETFLAG = 1 << 21;
 
 	/**
 	 * The default value of the '{@link #isDesignTime() <em>Design Time</em>}' attribute.
@@ -144,23 +144,23 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected static final boolean DESIGN_TIME_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isDesignTime() <em>Design Time</em>}' attribute.
+	 * The flag representing the value of the '{@link #isDesignTime() <em>Design Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isDesignTime()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean designTime = DESIGN_TIME_EDEFAULT;
+	protected static final int DESIGN_TIME_EFLAG = 1 << 22;
 
 	/**
-	 * This is true if the Design Time attribute has been set.
+	 * The flag representing whether the Design Time attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean designTimeESet = false;
+	protected static final int DESIGN_TIME_ESETFLAG = 1 << 23;
 
 	/**
 	 * The default value of the '{@link #isAlwaysIncompatible() <em>Always Incompatible</em>}' attribute.
@@ -173,15 +173,15 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected static final boolean ALWAYS_INCOMPATIBLE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isAlwaysIncompatible() <em>Always Incompatible</em>}' attribute.
+	 * The flag representing the value of the '{@link #isAlwaysIncompatible() <em>Always Incompatible</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAlwaysIncompatible()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean alwaysIncompatible = ALWAYS_INCOMPATIBLE_EDEFAULT;
-		
+	protected static final int ALWAYS_INCOMPATIBLE_EFLAG = 1 << 24;
+
 	/**
 	 * The cached value of the '{@link #getFilterFlags() <em>Filter Flags</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -202,14 +202,14 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected static final boolean FIELD_READ_ONLY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isFieldReadOnly() <em>Field Read Only</em>}' attribute.
+	 * The flag representing the value of the '{@link #isFieldReadOnly() <em>Field Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFieldReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean fieldReadOnly = FIELD_READ_ONLY_EDEFAULT;
+	protected static final int FIELD_READ_ONLY_EFLAG = 1 << 25;
 
 	/**
 	 * The cached value of the '{@link #getPropertyEditorClass() <em>Property Editor Class</em>}' reference.
@@ -230,13 +230,13 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	protected Method readMethod = null;
 	/**
-	 * This is true if the Read Method reference has been set.
+	 * The flag representing whether the Read Method reference has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean readMethodESet = false;
+	protected static final int READ_METHOD_ESETFLAG = 1 << 26;
 
 	/**
 	 * The cached value of the '{@link #getWriteMethod() <em>Write Method</em>}' reference.
@@ -249,13 +249,13 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected Method writeMethod = null;
 	
 	/**
-	 * This is true if the Write Method reference has been set.
+	 * The flag representing whether the Write Method reference has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean writeMethodESet = false;
+	protected static final int WRITE_METHOD_ESETFLAG = 1 << 27;
 
 	/**
 	 * The cached value of the '{@link #getField() <em>Field</em>}' reference.
@@ -268,14 +268,14 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	protected Field field = null;
 
 	/**
-	 * This is true if the Field reference has been set.
+	 * The flag representing whether the Field reference has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean fieldESet = false;
-	
+	protected static final int FIELD_ESETFLAG = 1 << 28;
+
 	/**
 	 * This it the property type. If null, then it will
 	 * query against model element owner.
@@ -311,7 +311,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isBound() {
-		return bound;
+		return (eFlags & BOUND_EFLAG) != 0;
 	}
 
 	public EClassifier getPropertyType() {
@@ -328,7 +328,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void setPropertyType(EClassifier propertyType) {
-		this.propertyType = propertyType;
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -337,12 +339,12 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void setBound(boolean newBound) {
-		boolean oldBound = bound;
-		bound = newBound;
-		boolean oldBoundESet = boundESet;
-		boundESet = true;
+		boolean oldBound = (eFlags & BOUND_EFLAG) != 0;
+		if (newBound) eFlags |= BOUND_EFLAG; else eFlags &= ~BOUND_EFLAG;
+		boolean oldBoundESet = (eFlags & BOUND_ESETFLAG) != 0;
+		eFlags |= BOUND_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__BOUND, oldBound, bound, !oldBoundESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__BOUND, oldBound, newBound, !oldBoundESet));
 	}
 
 	/**
@@ -351,10 +353,10 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void unsetBound() {
-		boolean oldBound = bound;
-		boolean oldBoundESet = boundESet;
-		bound = BOUND_EDEFAULT;
-		boundESet = false;
+		boolean oldBound = (eFlags & BOUND_EFLAG) != 0;
+		boolean oldBoundESet = (eFlags & BOUND_ESETFLAG) != 0;
+		if (BOUND_EDEFAULT) eFlags |= BOUND_EFLAG; else eFlags &= ~BOUND_EFLAG;
+		eFlags &= ~BOUND_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__BOUND, oldBound, BOUND_EDEFAULT, oldBoundESet));
 	}
@@ -365,7 +367,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isSetBound() {
-		return boundESet;
+		return (eFlags & BOUND_ESETFLAG) != 0;
 	}
 
 	/**
@@ -374,7 +376,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isConstrained() {
-		return constrained;
+		return (eFlags & CONSTRAINED_EFLAG) != 0;
 	}
 
 	/**
@@ -383,12 +385,12 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void setConstrained(boolean newConstrained) {
-		boolean oldConstrained = constrained;
-		constrained = newConstrained;
-		boolean oldConstrainedESet = constrainedESet;
-		constrainedESet = true;
+		boolean oldConstrained = (eFlags & CONSTRAINED_EFLAG) != 0;
+		if (newConstrained) eFlags |= CONSTRAINED_EFLAG; else eFlags &= ~CONSTRAINED_EFLAG;
+		boolean oldConstrainedESet = (eFlags & CONSTRAINED_ESETFLAG) != 0;
+		eFlags |= CONSTRAINED_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__CONSTRAINED, oldConstrained, constrained, !oldConstrainedESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__CONSTRAINED, oldConstrained, newConstrained, !oldConstrainedESet));
 	}
 
 	/**
@@ -397,10 +399,10 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void unsetConstrained() {
-		boolean oldConstrained = constrained;
-		boolean oldConstrainedESet = constrainedESet;
-		constrained = CONSTRAINED_EDEFAULT;
-		constrainedESet = false;
+		boolean oldConstrained = (eFlags & CONSTRAINED_EFLAG) != 0;
+		boolean oldConstrainedESet = (eFlags & CONSTRAINED_ESETFLAG) != 0;
+		if (CONSTRAINED_EDEFAULT) eFlags |= CONSTRAINED_EFLAG; else eFlags &= ~CONSTRAINED_EFLAG;
+		eFlags &= ~CONSTRAINED_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__CONSTRAINED, oldConstrained, CONSTRAINED_EDEFAULT, oldConstrainedESet));
 	}
@@ -411,7 +413,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isSetConstrained() {
-		return constrainedESet;
+		return (eFlags & CONSTRAINED_ESETFLAG) != 0;
 	}
 
 	/**
@@ -420,7 +422,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isDesignTime() {
-		return designTime;
+		return (eFlags & DESIGN_TIME_EFLAG) != 0;
 	}
 
 	/**
@@ -429,12 +431,12 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void setDesignTime(boolean newDesignTime) {
-		boolean oldDesignTime = designTime;
-		designTime = newDesignTime;
-		boolean oldDesignTimeESet = designTimeESet;
-		designTimeESet = true;
+		boolean oldDesignTime = (eFlags & DESIGN_TIME_EFLAG) != 0;
+		if (newDesignTime) eFlags |= DESIGN_TIME_EFLAG; else eFlags &= ~DESIGN_TIME_EFLAG;
+		boolean oldDesignTimeESet = (eFlags & DESIGN_TIME_ESETFLAG) != 0;
+		eFlags |= DESIGN_TIME_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__DESIGN_TIME, oldDesignTime, designTime, !oldDesignTimeESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__DESIGN_TIME, oldDesignTime, newDesignTime, !oldDesignTimeESet));
 	}
 
 	/**
@@ -443,10 +445,10 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void unsetDesignTime() {
-		boolean oldDesignTime = designTime;
-		boolean oldDesignTimeESet = designTimeESet;
-		designTime = DESIGN_TIME_EDEFAULT;
-		designTimeESet = false;
+		boolean oldDesignTime = (eFlags & DESIGN_TIME_EFLAG) != 0;
+		boolean oldDesignTimeESet = (eFlags & DESIGN_TIME_ESETFLAG) != 0;
+		if (DESIGN_TIME_EDEFAULT) eFlags |= DESIGN_TIME_EFLAG; else eFlags &= ~DESIGN_TIME_EFLAG;
+		eFlags &= ~DESIGN_TIME_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__DESIGN_TIME, oldDesignTime, DESIGN_TIME_EDEFAULT, oldDesignTimeESet));
 	}
@@ -457,7 +459,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isSetDesignTime() {
-		return designTimeESet;
+		return (eFlags & DESIGN_TIME_ESETFLAG) != 0;
 	}
 
 	/**
@@ -466,7 +468,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isAlwaysIncompatible() {
-		return alwaysIncompatible;
+		return (eFlags & ALWAYS_INCOMPATIBLE_EFLAG) != 0;
 	}
 
 	/**
@@ -475,10 +477,10 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void setAlwaysIncompatible(boolean newAlwaysIncompatible) {
-		boolean oldAlwaysIncompatible = alwaysIncompatible;
-		alwaysIncompatible = newAlwaysIncompatible;
+		boolean oldAlwaysIncompatible = (eFlags & ALWAYS_INCOMPATIBLE_EFLAG) != 0;
+		if (newAlwaysIncompatible) eFlags |= ALWAYS_INCOMPATIBLE_EFLAG; else eFlags &= ~ALWAYS_INCOMPATIBLE_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__ALWAYS_INCOMPATIBLE, oldAlwaysIncompatible, alwaysIncompatible));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__ALWAYS_INCOMPATIBLE, oldAlwaysIncompatible, newAlwaysIncompatible));
 	}
 
 	/**
@@ -499,7 +501,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isFieldReadOnly() {
-		return fieldReadOnly;
+		return (eFlags & FIELD_READ_ONLY_EFLAG) != 0;
 	}
 
 	/**
@@ -508,10 +510,10 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public void setFieldReadOnly(boolean newFieldReadOnly) {
-		boolean oldFieldReadOnly = fieldReadOnly;
-		fieldReadOnly = newFieldReadOnly;
+		boolean oldFieldReadOnly = (eFlags & FIELD_READ_ONLY_EFLAG) != 0;
+		if (newFieldReadOnly) eFlags |= FIELD_READ_ONLY_EFLAG; else eFlags &= ~FIELD_READ_ONLY_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY, oldFieldReadOnly, fieldReadOnly));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY, oldFieldReadOnly, newFieldReadOnly));
 	}
 
 	/**
@@ -568,8 +570,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public void setReadMethod(Method newReadMethod) {
 		Method oldReadMethod = readMethod;
 		readMethod = newReadMethod;
-		boolean oldReadMethodESet = readMethodESet;
-		readMethodESet = true;
+		boolean oldReadMethodESet = (eFlags & READ_METHOD_ESETFLAG) != 0;
+		eFlags |= READ_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, readMethod, !oldReadMethodESet));
 	}
@@ -581,9 +583,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	public void unsetReadMethod() {
 		Method oldReadMethod = readMethod;
-		boolean oldReadMethodESet = readMethodESet;
+		boolean oldReadMethodESet = (eFlags & READ_METHOD_ESETFLAG) != 0;
 		readMethod = null;
-		readMethodESet = false;
+		eFlags &= ~READ_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, null, oldReadMethodESet));
 	}
@@ -594,7 +596,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isSetReadMethod() {
-		return readMethodESet;
+		return (eFlags & READ_METHOD_ESETFLAG) != 0;
 	}
 
 	/**
@@ -622,8 +624,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public void setWriteMethod(Method newWriteMethod) {
 		Method oldWriteMethod = writeMethod;
 		writeMethod = newWriteMethod;
-		boolean oldWriteMethodESet = writeMethodESet;
-		writeMethodESet = true;
+		boolean oldWriteMethodESet = (eFlags & WRITE_METHOD_ESETFLAG) != 0;
+		eFlags |= WRITE_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, writeMethod, !oldWriteMethodESet));
 	}
@@ -635,9 +637,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	public void unsetWriteMethod() {
 		Method oldWriteMethod = writeMethod;
-		boolean oldWriteMethodESet = writeMethodESet;
+		boolean oldWriteMethodESet = (eFlags & WRITE_METHOD_ESETFLAG) != 0;
 		writeMethod = null;
-		writeMethodESet = false;
+		eFlags &= ~WRITE_METHOD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, null, oldWriteMethodESet));
 	}
@@ -648,7 +650,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isSetWriteMethod() {
-		return writeMethodESet;
+		return (eFlags & WRITE_METHOD_ESETFLAG) != 0;
 	}
 
 	/**
@@ -685,8 +687,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public void setField(Field newField) {
 		Field oldField = field;
 		field = newField;
-		boolean oldFieldESet = fieldESet;
-		fieldESet = true;
+		boolean oldFieldESet = (eFlags & FIELD_ESETFLAG) != 0;
+		eFlags |= FIELD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD, oldField, field, !oldFieldESet));
 	}
@@ -698,9 +700,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	public void unsetField() {
 		Field oldField = field;
-		boolean oldFieldESet = fieldESet;
+		boolean oldFieldESet = (eFlags & FIELD_ESETFLAG) != 0;
 		field = null;
-		fieldESet = false;
+		eFlags &= ~FIELD_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD, oldField, null, oldFieldESet));
 	}
@@ -711,7 +713,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @generated
 	 */
 	public boolean isSetField() {
-		return fieldESet;
+		return (eFlags & FIELD_ESETFLAG) != 0;
 	}
 
 	/**
@@ -724,17 +726,17 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (bound: ");
-		if (boundESet) result.append(bound); else result.append("<unset>");
+		if ((eFlags & BOUND_ESETFLAG) != 0) result.append((eFlags & BOUND_EFLAG) != 0); else result.append("<unset>");
 		result.append(", constrained: ");
-		if (constrainedESet) result.append(constrained); else result.append("<unset>");
+		if ((eFlags & CONSTRAINED_ESETFLAG) != 0) result.append((eFlags & CONSTRAINED_EFLAG) != 0); else result.append("<unset>");
 		result.append(", designTime: ");
-		if (designTimeESet) result.append(designTime); else result.append("<unset>");
+		if ((eFlags & DESIGN_TIME_ESETFLAG) != 0) result.append((eFlags & DESIGN_TIME_EFLAG) != 0); else result.append("<unset>");
 		result.append(", alwaysIncompatible: ");
-		result.append(alwaysIncompatible);
+		result.append((eFlags & ALWAYS_INCOMPATIBLE_EFLAG) != 0);
 		result.append(", filterFlags: ");
 		result.append(filterFlags);
 		result.append(", fieldReadOnly: ");
-		result.append(fieldReadOnly);
+		result.append((eFlags & FIELD_READ_ONLY_EFLAG) != 0);
 		result.append(')');
 		return result.toString();
 	}
@@ -1134,9 +1136,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.PROPERTY_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
@@ -1150,11 +1152,11 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__DESIGN_TIME:
 				return isSetDesignTime();
 			case BeaninfoPackage.PROPERTY_DECORATOR__ALWAYS_INCOMPATIBLE:
-				return alwaysIncompatible != ALWAYS_INCOMPATIBLE_EDEFAULT;
+				return ((eFlags & ALWAYS_INCOMPATIBLE_EFLAG) != 0) != ALWAYS_INCOMPATIBLE_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__FILTER_FLAGS:
 				return filterFlags != null && !filterFlags.isEmpty();
 			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY:
-				return fieldReadOnly != FIELD_READ_ONLY_EDEFAULT;
+				return ((eFlags & FIELD_READ_ONLY_EFLAG) != 0) != FIELD_READ_ONLY_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				return propertyEditorClass != null;
 			case BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD:

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.18 $  $Date: 2005/09/15 20:09:51 $ 
+ *  $Revision: 1.19 $  $Date: 2005/09/15 21:11:20 $ 
  */
 
 
@@ -87,22 +87,23 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean MERGE_SUPER_PROPERTIES_EDEFAULT = true;
 	
 	/**
-	 * The cached value of the '{@link #isMergeSuperProperties() <em>Merge Super Properties</em>}' attribute.
+	 * The flag representing the value of the '{@link #isMergeSuperProperties() <em>Merge Super Properties</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isMergeSuperProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeSuperProperties = MERGE_SUPER_PROPERTIES_EDEFAULT;
+	protected static final int MERGE_SUPER_PROPERTIES_EFLAG = 1 << 18;
+
 	/**
-	 * This is true if the Merge Super Properties attribute has been set.
+	 * The flag representing whether the Merge Super Properties attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeSuperPropertiesESet = false;
+	protected static final int MERGE_SUPER_PROPERTIES_ESETFLAG = 1 << 19;
 
 	/**
 	 * The default value of the '{@link #isMergeSuperMethods() <em>Merge Super Methods</em>}' attribute.
@@ -115,22 +116,23 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean MERGE_SUPER_METHODS_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isMergeSuperMethods() <em>Merge Super Methods</em>}' attribute.
+	 * The flag representing the value of the '{@link #isMergeSuperMethods() <em>Merge Super Methods</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isMergeSuperMethods()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeSuperMethods = MERGE_SUPER_METHODS_EDEFAULT;
+	protected static final int MERGE_SUPER_METHODS_EFLAG = 1 << 20;
+
 	/**
-	 * This is true if the Merge Super Methods attribute has been set.
+	 * The flag representing whether the Merge Super Methods attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeSuperMethodsESet = false;
+	protected static final int MERGE_SUPER_METHODS_ESETFLAG = 1 << 21;
 
 	/**
 	 * The default value of the '{@link #isMergeSuperEvents() <em>Merge Super Events</em>}' attribute.
@@ -143,22 +145,23 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean MERGE_SUPER_EVENTS_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isMergeSuperEvents() <em>Merge Super Events</em>}' attribute.
+	 * The flag representing the value of the '{@link #isMergeSuperEvents() <em>Merge Super Events</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isMergeSuperEvents()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeSuperEvents = MERGE_SUPER_EVENTS_EDEFAULT;
+	protected static final int MERGE_SUPER_EVENTS_EFLAG = 1 << 22;
+
 	/**
-	 * This is true if the Merge Super Events attribute has been set.
+	 * The flag representing whether the Merge Super Events attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean mergeSuperEventsESet = false;
+	protected static final int MERGE_SUPER_EVENTS_ESETFLAG = 1 << 23;
 
 	/**
 	 * The default value of the '{@link #isIntrospectProperties() <em>Introspect Properties</em>}' attribute.
@@ -171,14 +174,15 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean INTROSPECT_PROPERTIES_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isIntrospectProperties() <em>Introspect Properties</em>}' attribute.
+	 * The flag representing the value of the '{@link #isIntrospectProperties() <em>Introspect Properties</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isIntrospectProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean introspectProperties = INTROSPECT_PROPERTIES_EDEFAULT;
+	protected static final int INTROSPECT_PROPERTIES_EFLAG = 1 << 24;
+
 	/**
 	 * The default value of the '{@link #isIntrospectMethods() <em>Introspect Methods</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -190,14 +194,15 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean INTROSPECT_METHODS_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isIntrospectMethods() <em>Introspect Methods</em>}' attribute.
+	 * The flag representing the value of the '{@link #isIntrospectMethods() <em>Introspect Methods</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isIntrospectMethods()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean introspectMethods = INTROSPECT_METHODS_EDEFAULT;
+	protected static final int INTROSPECT_METHODS_EFLAG = 1 << 25;
+
 	/**
 	 * The default value of the '{@link #isIntrospectEvents() <em>Introspect Events</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -209,14 +214,15 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean INTROSPECT_EVENTS_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isIntrospectEvents() <em>Introspect Events</em>}' attribute.
+	 * The flag representing the value of the '{@link #isIntrospectEvents() <em>Introspect Events</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isIntrospectEvents()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean introspectEvents = INTROSPECT_EVENTS_EDEFAULT;
+	protected static final int INTROSPECT_EVENTS_EFLAG = 1 << 26;
+
 	/**
 	 * The default value of the '{@link #isDoBeaninfo() <em>Do Beaninfo</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -228,14 +234,15 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	protected static final boolean DO_BEANINFO_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isDoBeaninfo() <em>Do Beaninfo</em>}' attribute.
+	 * The flag representing the value of the '{@link #isDoBeaninfo() <em>Do Beaninfo</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isDoBeaninfo()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean doBeaninfo = DO_BEANINFO_EDEFAULT;
+	protected static final int DO_BEANINFO_EFLAG = 1 << 27;
+
 	/**
 	 * The cached value of the '{@link #getNotInheritedPropertyNames() <em>Not Inherited Property Names</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -283,6 +290,13 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 */	
 	protected BeanDecoratorImpl() {
 		super();
+		eFlags |= MERGE_SUPER_PROPERTIES_EFLAG;
+		eFlags |= MERGE_SUPER_METHODS_EFLAG;
+		eFlags |= MERGE_SUPER_EVENTS_EFLAG;
+		eFlags |= INTROSPECT_PROPERTIES_EFLAG;
+		eFlags |= INTROSPECT_METHODS_EFLAG;
+		eFlags |= INTROSPECT_EVENTS_EFLAG;
+		eFlags |= DO_BEANINFO_EFLAG;
 	}
 
 	protected String getSourceDefault() {
@@ -304,7 +318,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isMergeSuperProperties() {
-		return mergeSuperProperties;
+		return (eFlags & MERGE_SUPER_PROPERTIES_EFLAG) != 0;
 	}
 
 	/**
@@ -313,12 +327,12 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setMergeSuperProperties(boolean newMergeSuperProperties) {
-		boolean oldMergeSuperProperties = mergeSuperProperties;
-		mergeSuperProperties = newMergeSuperProperties;
-		boolean oldMergeSuperPropertiesESet = mergeSuperPropertiesESet;
-		mergeSuperPropertiesESet = true;
+		boolean oldMergeSuperProperties = (eFlags & MERGE_SUPER_PROPERTIES_EFLAG) != 0;
+		if (newMergeSuperProperties) eFlags |= MERGE_SUPER_PROPERTIES_EFLAG; else eFlags &= ~MERGE_SUPER_PROPERTIES_EFLAG;
+		boolean oldMergeSuperPropertiesESet = (eFlags & MERGE_SUPER_PROPERTIES_ESETFLAG) != 0;
+		eFlags |= MERGE_SUPER_PROPERTIES_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_PROPERTIES, oldMergeSuperProperties, mergeSuperProperties, !oldMergeSuperPropertiesESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_PROPERTIES, oldMergeSuperProperties, newMergeSuperProperties, !oldMergeSuperPropertiesESet));
 	}
 
 	/**
@@ -327,10 +341,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void unsetMergeSuperProperties() {
-		boolean oldMergeSuperProperties = mergeSuperProperties;
-		boolean oldMergeSuperPropertiesESet = mergeSuperPropertiesESet;
-		mergeSuperProperties = MERGE_SUPER_PROPERTIES_EDEFAULT;
-		mergeSuperPropertiesESet = false;
+		boolean oldMergeSuperProperties = (eFlags & MERGE_SUPER_PROPERTIES_EFLAG) != 0;
+		boolean oldMergeSuperPropertiesESet = (eFlags & MERGE_SUPER_PROPERTIES_ESETFLAG) != 0;
+		if (MERGE_SUPER_PROPERTIES_EDEFAULT) eFlags |= MERGE_SUPER_PROPERTIES_EFLAG; else eFlags &= ~MERGE_SUPER_PROPERTIES_EFLAG;
+		eFlags &= ~MERGE_SUPER_PROPERTIES_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_PROPERTIES, oldMergeSuperProperties, MERGE_SUPER_PROPERTIES_EDEFAULT, oldMergeSuperPropertiesESet));
 	}
@@ -341,7 +355,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isSetMergeSuperProperties() {
-		return mergeSuperPropertiesESet;
+		return (eFlags & MERGE_SUPER_PROPERTIES_ESETFLAG) != 0;
 	}
 
 	/**
@@ -350,7 +364,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isMergeSuperMethods() {
-		return mergeSuperMethods;
+		return (eFlags & MERGE_SUPER_METHODS_EFLAG) != 0;
 	}
 
 	/**
@@ -359,12 +373,12 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setMergeSuperMethods(boolean newMergeSuperMethods) {
-		boolean oldMergeSuperMethods = mergeSuperMethods;
-		mergeSuperMethods = newMergeSuperMethods;
-		boolean oldMergeSuperMethodsESet = mergeSuperMethodsESet;
-		mergeSuperMethodsESet = true;
+		boolean oldMergeSuperMethods = (eFlags & MERGE_SUPER_METHODS_EFLAG) != 0;
+		if (newMergeSuperMethods) eFlags |= MERGE_SUPER_METHODS_EFLAG; else eFlags &= ~MERGE_SUPER_METHODS_EFLAG;
+		boolean oldMergeSuperMethodsESet = (eFlags & MERGE_SUPER_METHODS_ESETFLAG) != 0;
+		eFlags |= MERGE_SUPER_METHODS_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_METHODS, oldMergeSuperMethods, mergeSuperMethods, !oldMergeSuperMethodsESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_METHODS, oldMergeSuperMethods, newMergeSuperMethods, !oldMergeSuperMethodsESet));
 	}
 
 	/**
@@ -373,10 +387,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void unsetMergeSuperMethods() {
-		boolean oldMergeSuperMethods = mergeSuperMethods;
-		boolean oldMergeSuperMethodsESet = mergeSuperMethodsESet;
-		mergeSuperMethods = MERGE_SUPER_METHODS_EDEFAULT;
-		mergeSuperMethodsESet = false;
+		boolean oldMergeSuperMethods = (eFlags & MERGE_SUPER_METHODS_EFLAG) != 0;
+		boolean oldMergeSuperMethodsESet = (eFlags & MERGE_SUPER_METHODS_ESETFLAG) != 0;
+		if (MERGE_SUPER_METHODS_EDEFAULT) eFlags |= MERGE_SUPER_METHODS_EFLAG; else eFlags &= ~MERGE_SUPER_METHODS_EFLAG;
+		eFlags &= ~MERGE_SUPER_METHODS_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_METHODS, oldMergeSuperMethods, MERGE_SUPER_METHODS_EDEFAULT, oldMergeSuperMethodsESet));
 	}
@@ -387,7 +401,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isSetMergeSuperMethods() {
-		return mergeSuperMethodsESet;
+		return (eFlags & MERGE_SUPER_METHODS_ESETFLAG) != 0;
 	}
 
 	/**
@@ -396,7 +410,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isMergeSuperEvents() {
-		return mergeSuperEvents;
+		return (eFlags & MERGE_SUPER_EVENTS_EFLAG) != 0;
 	}
 
 	/**
@@ -405,12 +419,12 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setMergeSuperEvents(boolean newMergeSuperEvents) {
-		boolean oldMergeSuperEvents = mergeSuperEvents;
-		mergeSuperEvents = newMergeSuperEvents;
-		boolean oldMergeSuperEventsESet = mergeSuperEventsESet;
-		mergeSuperEventsESet = true;
+		boolean oldMergeSuperEvents = (eFlags & MERGE_SUPER_EVENTS_EFLAG) != 0;
+		if (newMergeSuperEvents) eFlags |= MERGE_SUPER_EVENTS_EFLAG; else eFlags &= ~MERGE_SUPER_EVENTS_EFLAG;
+		boolean oldMergeSuperEventsESet = (eFlags & MERGE_SUPER_EVENTS_ESETFLAG) != 0;
+		eFlags |= MERGE_SUPER_EVENTS_ESETFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_EVENTS, oldMergeSuperEvents, mergeSuperEvents, !oldMergeSuperEventsESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_EVENTS, oldMergeSuperEvents, newMergeSuperEvents, !oldMergeSuperEventsESet));
 	}
 
 	/**
@@ -419,10 +433,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void unsetMergeSuperEvents() {
-		boolean oldMergeSuperEvents = mergeSuperEvents;
-		boolean oldMergeSuperEventsESet = mergeSuperEventsESet;
-		mergeSuperEvents = MERGE_SUPER_EVENTS_EDEFAULT;
-		mergeSuperEventsESet = false;
+		boolean oldMergeSuperEvents = (eFlags & MERGE_SUPER_EVENTS_EFLAG) != 0;
+		boolean oldMergeSuperEventsESet = (eFlags & MERGE_SUPER_EVENTS_ESETFLAG) != 0;
+		if (MERGE_SUPER_EVENTS_EDEFAULT) eFlags |= MERGE_SUPER_EVENTS_EFLAG; else eFlags &= ~MERGE_SUPER_EVENTS_EFLAG;
+		eFlags &= ~MERGE_SUPER_EVENTS_ESETFLAG;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_EVENTS, oldMergeSuperEvents, MERGE_SUPER_EVENTS_EDEFAULT, oldMergeSuperEventsESet));
 	}
@@ -433,7 +447,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isSetMergeSuperEvents() {
-		return mergeSuperEventsESet;
+		return (eFlags & MERGE_SUPER_EVENTS_ESETFLAG) != 0;
 	}
 
 	/**
@@ -442,7 +456,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isIntrospectProperties() {
-		return introspectProperties;
+		return (eFlags & INTROSPECT_PROPERTIES_EFLAG) != 0;
 	}
 
 	/**
@@ -451,10 +465,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setIntrospectProperties(boolean newIntrospectProperties) {
-		boolean oldIntrospectProperties = introspectProperties;
-		introspectProperties = newIntrospectProperties;
+		boolean oldIntrospectProperties = (eFlags & INTROSPECT_PROPERTIES_EFLAG) != 0;
+		if (newIntrospectProperties) eFlags |= INTROSPECT_PROPERTIES_EFLAG; else eFlags &= ~INTROSPECT_PROPERTIES_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_PROPERTIES, oldIntrospectProperties, introspectProperties));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_PROPERTIES, oldIntrospectProperties, newIntrospectProperties));
 	}
 
 	/**
@@ -463,7 +477,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isIntrospectMethods() {
-		return introspectMethods;
+		return (eFlags & INTROSPECT_METHODS_EFLAG) != 0;
 	}
 
 	/**
@@ -472,10 +486,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setIntrospectMethods(boolean newIntrospectMethods) {
-		boolean oldIntrospectMethods = introspectMethods;
-		introspectMethods = newIntrospectMethods;
+		boolean oldIntrospectMethods = (eFlags & INTROSPECT_METHODS_EFLAG) != 0;
+		if (newIntrospectMethods) eFlags |= INTROSPECT_METHODS_EFLAG; else eFlags &= ~INTROSPECT_METHODS_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_METHODS, oldIntrospectMethods, introspectMethods));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_METHODS, oldIntrospectMethods, newIntrospectMethods));
 	}
 
 	/**
@@ -484,7 +498,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isIntrospectEvents() {
-		return introspectEvents;
+		return (eFlags & INTROSPECT_EVENTS_EFLAG) != 0;
 	}
 
 	/**
@@ -493,10 +507,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setIntrospectEvents(boolean newIntrospectEvents) {
-		boolean oldIntrospectEvents = introspectEvents;
-		introspectEvents = newIntrospectEvents;
+		boolean oldIntrospectEvents = (eFlags & INTROSPECT_EVENTS_EFLAG) != 0;
+		if (newIntrospectEvents) eFlags |= INTROSPECT_EVENTS_EFLAG; else eFlags &= ~INTROSPECT_EVENTS_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_EVENTS, oldIntrospectEvents, introspectEvents));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_EVENTS, oldIntrospectEvents, newIntrospectEvents));
 	}
 
 	/**
@@ -886,9 +900,9 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 			case BeaninfoPackage.BEAN_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.BEAN_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__IMPLICIT_DECORATOR_FLAG:
@@ -902,13 +916,13 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 			case BeaninfoPackage.BEAN_DECORATOR__MERGE_SUPER_EVENTS:
 				return isSetMergeSuperEvents();
 			case BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_PROPERTIES:
-				return introspectProperties != INTROSPECT_PROPERTIES_EDEFAULT;
+				return ((eFlags & INTROSPECT_PROPERTIES_EFLAG) != 0) != INTROSPECT_PROPERTIES_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_METHODS:
-				return introspectMethods != INTROSPECT_METHODS_EDEFAULT;
+				return ((eFlags & INTROSPECT_METHODS_EFLAG) != 0) != INTROSPECT_METHODS_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__INTROSPECT_EVENTS:
-				return introspectEvents != INTROSPECT_EVENTS_EDEFAULT;
+				return ((eFlags & INTROSPECT_EVENTS_EFLAG) != 0) != INTROSPECT_EVENTS_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__DO_BEANINFO:
-				return doBeaninfo != DO_BEANINFO_EDEFAULT;
+				return ((eFlags & DO_BEANINFO_EFLAG) != 0) != DO_BEANINFO_EDEFAULT;
 			case BeaninfoPackage.BEAN_DECORATOR__NOT_INHERITED_PROPERTY_NAMES:
 				return notInheritedPropertyNames != null && !notInheritedPropertyNames.isEmpty();
 			case BeaninfoPackage.BEAN_DECORATOR__NOT_INHERITED_METHOD_NAMES:
@@ -931,19 +945,19 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (mergeSuperProperties: ");
-		if (mergeSuperPropertiesESet) result.append(mergeSuperProperties); else result.append("<unset>");
+		if ((eFlags & MERGE_SUPER_PROPERTIES_ESETFLAG) != 0) result.append((eFlags & MERGE_SUPER_PROPERTIES_EFLAG) != 0); else result.append("<unset>");
 		result.append(", mergeSuperMethods: ");
-		if (mergeSuperMethodsESet) result.append(mergeSuperMethods); else result.append("<unset>");
+		if ((eFlags & MERGE_SUPER_METHODS_ESETFLAG) != 0) result.append((eFlags & MERGE_SUPER_METHODS_EFLAG) != 0); else result.append("<unset>");
 		result.append(", mergeSuperEvents: ");
-		if (mergeSuperEventsESet) result.append(mergeSuperEvents); else result.append("<unset>");
+		if ((eFlags & MERGE_SUPER_EVENTS_ESETFLAG) != 0) result.append((eFlags & MERGE_SUPER_EVENTS_EFLAG) != 0); else result.append("<unset>");
 		result.append(", introspectProperties: ");
-		result.append(introspectProperties);
+		result.append((eFlags & INTROSPECT_PROPERTIES_EFLAG) != 0);
 		result.append(", introspectMethods: ");
-		result.append(introspectMethods);
+		result.append((eFlags & INTROSPECT_METHODS_EFLAG) != 0);
 		result.append(", introspectEvents: ");
-		result.append(introspectEvents);
+		result.append((eFlags & INTROSPECT_EVENTS_EFLAG) != 0);
 		result.append(", doBeaninfo: ");
-		result.append(doBeaninfo);
+		result.append((eFlags & DO_BEANINFO_EFLAG) != 0);
 		result.append(", notInheritedPropertyNames: ");
 		result.append(notInheritedPropertyNames);
 		result.append(", notInheritedMethodNames: ");
@@ -969,7 +983,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public boolean isDoBeaninfo() {
-		return doBeaninfo;
+		return (eFlags & DO_BEANINFO_EFLAG) != 0;
 	}
 
 	/**
@@ -978,10 +992,10 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	 * @generated
 	 */
 	public void setDoBeaninfo(boolean newDoBeaninfo) {
-		boolean oldDoBeaninfo = doBeaninfo;
-		doBeaninfo = newDoBeaninfo;
+		boolean oldDoBeaninfo = (eFlags & DO_BEANINFO_EFLAG) != 0;
+		if (newDoBeaninfo) eFlags |= DO_BEANINFO_EFLAG; else eFlags &= ~DO_BEANINFO_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__DO_BEANINFO, oldDoBeaninfo, doBeaninfo));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.BEAN_DECORATOR__DO_BEANINFO, oldDoBeaninfo, newDoBeaninfo));
 	}
 
 	/**

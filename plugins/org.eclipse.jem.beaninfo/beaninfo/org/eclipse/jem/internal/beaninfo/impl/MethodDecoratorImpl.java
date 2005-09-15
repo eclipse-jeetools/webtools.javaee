@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: MethodDecoratorImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/15 20:09:51 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 21:11:21 $ 
  */
 
 
@@ -75,14 +75,14 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	protected static final boolean PARMS_EXPLICIT_EMPTY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isParmsExplicitEmpty() <em>Parms Explicit Empty</em>}' attribute.
+	 * The flag representing the value of the '{@link #isParmsExplicitEmpty() <em>Parms Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isParmsExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean parmsExplicitEmpty = PARMS_EXPLICIT_EMPTY_EDEFAULT;
+	protected static final int PARMS_EXPLICIT_EMPTY_EFLAG = 1 << 18;
 
 	/**
 	 * The cached value of the '{@link #getSerParmDesc() <em>Ser Parm Desc</em>}' containment reference list.
@@ -122,7 +122,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * @generated
 	 */
 	public boolean isParmsExplicitEmpty() {
-		return parmsExplicitEmpty;
+		return (eFlags & PARMS_EXPLICIT_EMPTY_EFLAG) != 0;
 	}
 
 	/**
@@ -131,10 +131,10 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * @generated
 	 */
 	public void setParmsExplicitEmpty(boolean newParmsExplicitEmpty) {
-		boolean oldParmsExplicitEmpty = parmsExplicitEmpty;
-		parmsExplicitEmpty = newParmsExplicitEmpty;
+		boolean oldParmsExplicitEmpty = (eFlags & PARMS_EXPLICIT_EMPTY_EFLAG) != 0;
+		if (newParmsExplicitEmpty) eFlags |= PARMS_EXPLICIT_EMPTY_EFLAG; else eFlags &= ~PARMS_EXPLICIT_EMPTY_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY, oldParmsExplicitEmpty, parmsExplicitEmpty));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY, oldParmsExplicitEmpty, newParmsExplicitEmpty));
 	}
 
 	/*
@@ -213,7 +213,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (parmsExplicitEmpty: ");
-		result.append(parmsExplicitEmpty);
+		result.append((eFlags & PARMS_EXPLICIT_EMPTY_EFLAG) != 0);
 		result.append(')');
 		return result.toString();
 	}
@@ -574,9 +574,9 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			case BeaninfoPackage.METHOD_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
@@ -584,7 +584,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
-				return parmsExplicitEmpty != PARMS_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & PARMS_EXPLICIT_EMPTY_EFLAG) != 0) != PARMS_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
 				return !getParameterDescriptors().isEmpty();
 			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:

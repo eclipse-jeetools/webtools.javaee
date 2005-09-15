@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParameterDecoratorImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/15 20:09:51 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 21:11:21 $ 
  */
 package org.eclipse.jem.internal.beaninfo.impl;
 
@@ -506,9 +506,9 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 			case BeaninfoPackage.PARAMETER_DECORATOR__PREFERRED:
 				return isSetPreferred();
 			case BeaninfoPackage.PARAMETER_DECORATOR__MERGE_INTROSPECTION:
-				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
+				return ((eFlags & MERGE_INTROSPECTION_EFLAG) != 0) != MERGE_INTROSPECTION_EDEFAULT;
 			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
-				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+				return ((eFlags & ATTRIBUTES_EXPLICIT_EMPTY_EFLAG) != 0) != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICITLY_SET_BITS:
 				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
 			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICIT_DECORATOR_FLAG:
