@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/14 23:30:38 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 20:09:51 $ 
  */
 
 import java.util.Map;
@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -888,6 +889,9 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		initEReference(getPropertyDecorator_Field(), theJavaRefPackage.getField(), null, "field", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(propertyDecoratorEClass, theEcorePackage.getEClassifier(), "getPropertyType");
+
+		EOperation op = addEOperation(propertyDecoratorEClass, null, "setPropertyType");
+		addEParameter(op, theEcorePackage.getEClassifier(), "propertyType");
 
 		initEClass(indexedPropertyDecoratorEClass, IndexedPropertyDecorator.class, "IndexedPropertyDecorator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIndexedPropertyDecorator_IndexedReadMethod(), theJavaRefPackage.getMethod(), null, "indexedReadMethod", null, 0, 1, IndexedPropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

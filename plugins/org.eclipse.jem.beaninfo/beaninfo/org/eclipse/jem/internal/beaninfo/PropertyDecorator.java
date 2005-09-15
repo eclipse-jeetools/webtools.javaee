@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 20:09:51 $ 
  */
 
 
@@ -476,10 +476,27 @@ public interface PropertyDecorator extends FeatureDecorator{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model parameters=""
+	 * <!-- begin-model-doc -->
+	 * Get the property type.
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
 	 * @generated
 	 */
 	EClassifier getPropertyType();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * This property type is not persisted if this class is serialized into an XMI file. Nor is 
+	 * it a property that can be set from an XMI file. It is an operation. It is used by
+	 * clients which want a PropertyDecorator that is not part of a BeanInfo model.
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Set the property type.
+	 * <!-- end-model-doc -->
+	 * @model
+	 * @generated
+	 */
+	void setPropertyType(EClassifier propertyType);
 
 	/**
 	 * @return boolean for whether this property is writeable or not

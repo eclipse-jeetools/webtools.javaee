@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: FeatureDecorator.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/15 20:09:51 $ 
  */
 
 
@@ -483,7 +483,7 @@ public interface FeatureDecorator extends EAnnotation{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model parameters=""
+	 * @model kind="operation"
 	 * @generated
 	 */
 	String getName();

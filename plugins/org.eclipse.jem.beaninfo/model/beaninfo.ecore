@@ -192,7 +192,17 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Equivalent to PropertyDecorator in java."/>
     </eAnnotations>
-    <eOperations name="getPropertyType" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier"/>
+    <eOperations name="getPropertyType" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Get the property type."/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="setPropertyType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Set the property type."/>
+      </eAnnotations>
+      <eParameters name="propertyType" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constrained" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

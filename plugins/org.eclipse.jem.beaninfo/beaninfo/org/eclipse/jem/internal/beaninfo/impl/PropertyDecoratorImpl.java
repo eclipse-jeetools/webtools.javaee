@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.14 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.15 $  $Date: 2005/09/15 20:09:51 $ 
  */
 
 
@@ -275,6 +275,14 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @ordered
 	 */
 	protected boolean fieldESet = false;
+	
+	/**
+	 * This it the property type. If null, then it will
+	 * query against model element owner.
+	 * 
+	 * @since 1.2.0
+	 */
+	protected EClassifier propertyType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -307,8 +315,20 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	}
 
 	public EClassifier getPropertyType() {
-		EStructuralFeature feature = (EStructuralFeature) getEModelElement();
-		return (feature != null) ? feature.getEType() : null;
+		if (propertyType != null) {
+			EStructuralFeature feature = (EStructuralFeature) getEModelElement();
+			return (feature != null) ? feature.getEType() : null;
+		} else
+			return propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPropertyType(EClassifier propertyType) {
+		this.propertyType = propertyType;
 	}
 
 	/**

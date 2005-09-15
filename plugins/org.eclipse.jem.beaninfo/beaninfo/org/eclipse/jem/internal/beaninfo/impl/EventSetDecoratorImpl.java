@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.12 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.13 $  $Date: 2005/09/15 20:09:51 $ 
  */
 
 
@@ -214,7 +214,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	protected EventSetDecoratorImpl() {
 		super();
 	}
-	
+
 	protected String getSourceDefault() {
 		return EventSetDecorator.class.getName();
 	}

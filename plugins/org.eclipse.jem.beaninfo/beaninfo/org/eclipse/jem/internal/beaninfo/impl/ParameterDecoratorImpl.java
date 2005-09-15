@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParameterDecoratorImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/09/13 20:30:47 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/15 20:09:51 $ 
  */
 package org.eclipse.jem.internal.beaninfo.impl;
 
@@ -73,7 +73,7 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 	protected ParameterDecoratorImpl() {
 		super();
 	}
-	
+
 	protected String getSourceDefault() {
 		return ParameterDecorator.class.getName();
 	}

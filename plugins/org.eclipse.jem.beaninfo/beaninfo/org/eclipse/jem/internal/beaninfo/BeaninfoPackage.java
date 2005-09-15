@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeaninfoPackage.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 20:09:52 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -35,6 +35,7 @@ import org.eclipse.jem.java.JavaRefPackage;
  * </ul>
  * <!-- end-user-doc -->
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoFactory
+ * @model kind="package"
  * @generated
  */
 
