@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: PTPrefixOperator.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.4 $  $Date: 2005/09/15 21:02:19 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,8 +36,11 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>PLUS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * + operator
+	 * <!-- end-model-doc -->
 	 * @see #PLUS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -47,8 +50,11 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>MINUS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * - operator
+	 * <!-- end-model-doc -->
 	 * @see #MINUS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -58,8 +64,11 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>COMPLEMENT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * ~ operator
+	 * <!-- end-model-doc -->
 	 * @see #COMPLEMENT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -69,8 +78,11 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>NOT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * ! operator
+	 * <!-- end-model-doc -->
 	 * @see #NOT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -80,9 +92,6 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>PLUS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * + operator
-	 * <!-- end-model-doc -->
 	 * @see #PLUS
 	 * @generated
 	 * @ordered
@@ -93,9 +102,6 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>MINUS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * - operator
-	 * <!-- end-model-doc -->
 	 * @see #MINUS
 	 * @generated
 	 * @ordered
@@ -106,9 +112,6 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>COMPLEMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * ~ operator
-	 * <!-- end-model-doc -->
 	 * @see #COMPLEMENT
 	 * @generated
 	 * @ordered
@@ -119,9 +122,6 @@ public final class PTPrefixOperator extends AbstractEnumerator {
 	 * The '<em><b>NOT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * ! operator
-	 * <!-- end-model-doc -->
 	 * @see #NOT
 	 * @generated
 	 * @ordered

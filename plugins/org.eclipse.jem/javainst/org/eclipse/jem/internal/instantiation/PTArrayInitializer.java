@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: PTArrayInitializer.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:23 $ 
+ *  $Revision: 1.4 $  $Date: 2005/09/15 21:02:19 $ 
  */
 import org.eclipse.emf.common.util.EList;
 
@@ -32,7 +32,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTArrayInitializer()
- * @model 
+ * @model
  * @generated
  */
 public interface PTArrayInitializer extends PTExpression{

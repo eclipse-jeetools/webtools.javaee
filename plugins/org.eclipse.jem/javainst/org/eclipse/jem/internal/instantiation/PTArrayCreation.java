@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: PTArrayCreation.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.4 $  $Date: 2005/09/15 21:02:19 $ 
  */
 import org.eclipse.emf.common.util.EList;
 
@@ -34,7 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTArrayCreation()
- * @model 
+ * @model
  * @generated
  */
 public interface PTArrayCreation extends PTExpression{
@@ -48,7 +48,7 @@ public interface PTArrayCreation extends PTExpression{
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTArrayCreation_Type()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	String getType();

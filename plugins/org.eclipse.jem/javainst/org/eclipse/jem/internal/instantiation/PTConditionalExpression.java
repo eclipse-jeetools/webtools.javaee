@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTConditionalExpression.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:23 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/15 21:02:19 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -33,7 +33,7 @@ package org.eclipse.jem.internal.instantiation;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTConditionalExpression()
- * @model 
+ * @model
  * @generated
  */
 public interface PTConditionalExpression extends PTExpression{

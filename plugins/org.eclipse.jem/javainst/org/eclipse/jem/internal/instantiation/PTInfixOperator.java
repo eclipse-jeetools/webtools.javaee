@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: PTInfixOperator.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.5 $  $Date: 2005/09/15 21:02:19 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,8 +36,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>TIMES</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * * operator
+	 * <!-- end-model-doc -->
 	 * @see #TIMES_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -47,8 +50,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>DIVIDE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * / operator
+	 * <!-- end-model-doc -->
 	 * @see #DIVIDE_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -58,8 +64,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>REMAINDER</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * % operator
+	 * <!-- end-model-doc -->
 	 * @see #REMAINDER_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -69,8 +78,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>PLUS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * + operator
+	 * <!-- end-model-doc -->
 	 * @see #PLUS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -80,8 +92,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>MINUS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * - operator
+	 * <!-- end-model-doc -->
 	 * @see #MINUS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -91,8 +106,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>LEFT SHIFT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * << operator
+	 * <!-- end-model-doc -->
 	 * @see #LEFT_SHIFT_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -102,8 +120,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>RIGHT SHIFT SIGNED</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * >> operator
+	 * <!-- end-model-doc -->
 	 * @see #RIGHT_SHIFT_SIGNED_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -113,8 +134,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>RIGHT SHIFT UNSIGNED</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * >>> operator
+	 * <!-- end-model-doc -->
 	 * @see #RIGHT_SHIFT_UNSIGNED_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -124,8 +148,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>LESS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <  operator
+	 * <!-- end-model-doc -->
 	 * @see #LESS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -135,8 +162,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>GREATER</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * > operator
+	 * <!-- end-model-doc -->
 	 * @see #GREATER_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -146,8 +176,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>LESS EQUALS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <= operator
+	 * <!-- end-model-doc -->
 	 * @see #LESS_EQUALS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -157,8 +190,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>GREATER EQUALS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * >= operator
+	 * <!-- end-model-doc -->
 	 * @see #GREATER_EQUALS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -168,8 +204,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>EQUALS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * == operator
+	 * <!-- end-model-doc -->
 	 * @see #EQUALS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -179,8 +218,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>NOT EQUALS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * != operator
+	 * <!-- end-model-doc -->
 	 * @see #NOT_EQUALS_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -190,8 +232,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>XOR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * ^ operator
+	 * <!-- end-model-doc -->
 	 * @see #XOR_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -201,8 +246,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>AND</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * & operator
+	 * <!-- end-model-doc -->
 	 * @see #AND_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -212,8 +260,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>OR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * |  operator
+	 * <!-- end-model-doc -->
 	 * @see #OR_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -223,8 +274,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>CONDITIONAL AND</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * && operator
+	 * <!-- end-model-doc -->
 	 * @see #CONDITIONAL_AND_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -234,8 +288,11 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>CONDITIONAL OR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * || operator
+	 * <!-- end-model-doc -->
 	 * @see #CONDITIONAL_OR_LITERAL
-	 * @model 
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -245,9 +302,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>TIMES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * * operator
-	 * <!-- end-model-doc -->
 	 * @see #TIMES
 	 * @generated
 	 * @ordered
@@ -258,9 +312,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>DIVIDE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * / operator
-	 * <!-- end-model-doc -->
 	 * @see #DIVIDE
 	 * @generated
 	 * @ordered
@@ -271,9 +322,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>REMAINDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * % operator
-	 * <!-- end-model-doc -->
 	 * @see #REMAINDER
 	 * @generated
 	 * @ordered
@@ -284,9 +332,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>PLUS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * + operator
-	 * <!-- end-model-doc -->
 	 * @see #PLUS
 	 * @generated
 	 * @ordered
@@ -297,9 +342,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>MINUS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * - operator
-	 * <!-- end-model-doc -->
 	 * @see #MINUS
 	 * @generated
 	 * @ordered
@@ -310,9 +352,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>LEFT SHIFT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * << operator
-	 * <!-- end-model-doc -->
 	 * @see #LEFT_SHIFT
 	 * @generated
 	 * @ordered
@@ -323,9 +362,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>RIGHT SHIFT SIGNED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * >> operator
-	 * <!-- end-model-doc -->
 	 * @see #RIGHT_SHIFT_SIGNED
 	 * @generated
 	 * @ordered
@@ -336,9 +372,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>RIGHT SHIFT UNSIGNED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * >>> operator
-	 * <!-- end-model-doc -->
 	 * @see #RIGHT_SHIFT_UNSIGNED
 	 * @generated
 	 * @ordered
@@ -349,9 +382,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>LESS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * <  operator
-	 * <!-- end-model-doc -->
 	 * @see #LESS
 	 * @generated
 	 * @ordered
@@ -362,9 +392,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>GREATER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * > operator
-	 * <!-- end-model-doc -->
 	 * @see #GREATER
 	 * @generated
 	 * @ordered
@@ -375,9 +402,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>LESS EQUALS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * <= operator
-	 * <!-- end-model-doc -->
 	 * @see #LESS_EQUALS
 	 * @generated
 	 * @ordered
@@ -388,9 +412,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>GREATER EQUALS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * >= operator
-	 * <!-- end-model-doc -->
 	 * @see #GREATER_EQUALS
 	 * @generated
 	 * @ordered
@@ -401,9 +422,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>EQUALS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * == operator
-	 * <!-- end-model-doc -->
 	 * @see #EQUALS
 	 * @generated
 	 * @ordered
@@ -414,9 +432,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>NOT EQUALS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * != operator
-	 * <!-- end-model-doc -->
 	 * @see #NOT_EQUALS
 	 * @generated
 	 * @ordered
@@ -427,9 +442,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>XOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * ^ operator
-	 * <!-- end-model-doc -->
 	 * @see #XOR
 	 * @generated
 	 * @ordered
@@ -440,9 +452,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>AND</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * & operator
-	 * <!-- end-model-doc -->
 	 * @see #AND
 	 * @generated
 	 * @ordered
@@ -453,9 +462,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>OR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * |  operator
-	 * <!-- end-model-doc -->
 	 * @see #OR
 	 * @generated
 	 * @ordered
@@ -466,9 +472,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>CONDITIONAL AND</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * && operator
-	 * <!-- end-model-doc -->
 	 * @see #CONDITIONAL_AND
 	 * @generated
 	 * @ordered
@@ -479,9 +482,6 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	 * The '<em><b>CONDITIONAL OR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * || operator
-	 * <!-- end-model-doc -->
 	 * @see #CONDITIONAL_OR
 	 * @generated
 	 * @ordered

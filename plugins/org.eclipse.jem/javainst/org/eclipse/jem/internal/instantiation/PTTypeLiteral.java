@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTTypeLiteral.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/15 21:02:19 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -31,7 +31,7 @@ package org.eclipse.jem.internal.instantiation;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTTypeLiteral()
- * @model 
+ * @model
  * @generated
  */
 public interface PTTypeLiteral extends PTExpression{
@@ -45,7 +45,7 @@ public interface PTTypeLiteral extends PTExpression{
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTTypeLiteral_Type()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	String getType();

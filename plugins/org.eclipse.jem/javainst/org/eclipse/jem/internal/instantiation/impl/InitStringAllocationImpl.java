@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InitStringAllocationImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/26 17:37:29 $ 
+ *  $Revision: 1.8 $  $Date: 2005/09/15 21:02:19 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -151,11 +151,6 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 		return eDynamicIsSet(eFeature);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

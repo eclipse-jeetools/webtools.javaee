@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTStringLiteral.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/15 21:02:19 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -32,7 +32,7 @@ package org.eclipse.jem.internal.instantiation;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTStringLiteral()
- * @model 
+ * @model
  * @generated
  */
 public interface PTStringLiteral extends PTExpression{
@@ -46,7 +46,7 @@ public interface PTStringLiteral extends PTExpression{
 	 * @return the value of the '<em>Escaped Value</em>' attribute.
 	 * @see #setEscapedValue(String)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTStringLiteral_EscapedValue()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	String getEscapedValue();

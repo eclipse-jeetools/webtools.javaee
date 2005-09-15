@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTInstanceReference.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.5 $  $Date: 2005/09/15 21:02:19 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -29,10 +29,10 @@ import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTInstanceReference()
- * @model 
+ * @model
  * @generated
  */
-public interface PTInstanceReference extends PTExpression {
+public interface PTInstanceReference extends PTExpression{
 	/**
 	 * Returns the value of the '<em><b>Object</b></em>' reference.
 	 * <!-- begin-user-doc -->

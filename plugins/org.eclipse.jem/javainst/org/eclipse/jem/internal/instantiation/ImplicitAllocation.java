@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: ImplicitAllocation.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:23 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/15 21:02:19 $ 
  */
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getImplicitAllocation()
- * @model 
+ * @model
  * @generated
  */
 public interface ImplicitAllocation extends JavaAllocation{

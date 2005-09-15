@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.11 $  $Date: 2005/09/15 21:02:19 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -343,23 +343,24 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * @generated
 	 */
 	public static InstantiationPackage init() {
-		if (isInited) return (InstantiationPackage)EPackage.Registry.INSTANCE.get(InstantiationPackage.eNS_URI);
+		if (isInited) return (InstantiationPackage)EPackage.Registry.INSTANCE.getEPackage(InstantiationPackage.eNS_URI);
 
-		// Obtain or create and register package.
-		InstantiationPackageImpl theInstantiationPackage = (InstantiationPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new InstantiationPackageImpl());
+		// Obtain or create and register package
+		InstantiationPackageImpl theInstantiationPackage = (InstantiationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof InstantiationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new InstantiationPackageImpl());
 
 		isInited = true;
 
 		// Initialize simple dependencies
 		EcorePackageImpl.init();
 
-		// Obtain or create and register interdependencies
-
-		// Step 1: create meta-model objects
+		// Create package meta-data objects
 		theInstantiationPackage.createPackageContents();
 
-		// Step 2: complete initialization
+		// Initialize created meta-data
 		theInstantiationPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		theInstantiationPackage.freeze();
 
 		return theInstantiationPackage;
 	}
@@ -1211,106 +1212,106 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		ptInstanceReferenceEClass.getESuperTypes().add(this.getPTExpression());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(iJavaDataTypeInstanceEClass, IJavaDataTypeInstance.class, "IJavaDataTypeInstance", IS_ABSTRACT, IS_INTERFACE);
+		initEClass(iJavaDataTypeInstanceEClass, IJavaDataTypeInstance.class, "IJavaDataTypeInstance", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(iJavaInstanceEClass, IJavaInstance.class, "IJavaInstance", IS_ABSTRACT, IS_INTERFACE);
+		initEClass(iJavaInstanceEClass, IJavaInstance.class, "IJavaInstance", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(iJavaObjectInstanceEClass, IJavaObjectInstance.class, "IJavaObjectInstance", IS_ABSTRACT, IS_INTERFACE);
+		initEClass(iJavaObjectInstanceEClass, IJavaObjectInstance.class, "IJavaObjectInstance", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(javaAllocationEClass, JavaAllocation.class, "JavaAllocation", IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(javaAllocationEClass, JavaAllocation.class, "JavaAllocation", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(initStringAllocationEClass, InitStringAllocation.class, "InitStringAllocation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getInitStringAllocation_InitString(), ecorePackage.getEString(), "initString", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(initStringAllocationEClass, InitStringAllocation.class, "InitStringAllocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInitStringAllocation_InitString(), ecorePackage.getEString(), "initString", null, 0, 1, InitStringAllocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(implicitAllocationEClass, ImplicitAllocation.class, "ImplicitAllocation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getImplicitAllocation_Parent(), theEcorePackage.getEObject(), null, "parent", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getImplicitAllocation_Feature(), theEcorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(implicitAllocationEClass, ImplicitAllocation.class, "ImplicitAllocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getImplicitAllocation_Parent(), theEcorePackage.getEObject(), null, "parent", null, 1, 1, ImplicitAllocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getImplicitAllocation_Feature(), theEcorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, ImplicitAllocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(parseTreeAllocationEClass, ParseTreeAllocation.class, "ParseTreeAllocation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getParseTreeAllocation_Expression(), this.getPTExpression(), null, "expression", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(parseTreeAllocationEClass, ParseTreeAllocation.class, "ParseTreeAllocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getParseTreeAllocation_Expression(), this.getPTExpression(), null, "expression", null, 1, 1, ParseTreeAllocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptExpressionEClass, PTExpression.class, "PTExpression", IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(ptExpressionEClass, PTExpression.class, "PTExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(ptArrayAccessEClass, PTArrayAccess.class, "PTArrayAccess", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTArrayAccess_Array(), this.getPTExpression(), null, "array", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTArrayAccess_Indexes(), this.getPTExpression(), null, "indexes", null, 1, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptArrayAccessEClass, PTArrayAccess.class, "PTArrayAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTArrayAccess_Array(), this.getPTExpression(), null, "array", null, 0, 1, PTArrayAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTArrayAccess_Indexes(), this.getPTExpression(), null, "indexes", null, 1, -1, PTArrayAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptArrayCreationEClass, PTArrayCreation.class, "PTArrayCreation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTArrayCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTArrayCreation_Dimensions(), this.getPTExpression(), null, "dimensions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTArrayCreation_Initializer(), this.getPTArrayInitializer(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptArrayCreationEClass, PTArrayCreation.class, "PTArrayCreation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTArrayCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, PTArrayCreation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTArrayCreation_Dimensions(), this.getPTExpression(), null, "dimensions", null, 0, -1, PTArrayCreation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTArrayCreation_Initializer(), this.getPTArrayInitializer(), null, "initializer", null, 0, 1, PTArrayCreation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptArrayInitializerEClass, PTArrayInitializer.class, "PTArrayInitializer", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTArrayInitializer_Expressions(), this.getPTExpression(), null, "expressions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptArrayInitializerEClass, PTArrayInitializer.class, "PTArrayInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTArrayInitializer_Expressions(), this.getPTExpression(), null, "expressions", null, 0, -1, PTArrayInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptBooleanLiteralEClass, PTBooleanLiteral.class, "PTBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTBooleanLiteral_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptBooleanLiteralEClass, PTBooleanLiteral.class, "PTBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTBooleanLiteral_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", null, 0, 1, PTBooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptCastExpressionEClass, PTCastExpression.class, "PTCastExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTCastExpression_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTCastExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptCastExpressionEClass, PTCastExpression.class, "PTCastExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTCastExpression_Type(), ecorePackage.getEString(), "type", null, 0, 1, PTCastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTCastExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, PTCastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptCharacterLiteralEClass, PTCharacterLiteral.class, "PTCharacterLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTCharacterLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getPTCharacterLiteral_CharValue(), ecorePackage.getEChar(), "charValue", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptCharacterLiteralEClass, PTCharacterLiteral.class, "PTCharacterLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTCharacterLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, PTCharacterLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTCharacterLiteral_CharValue(), ecorePackage.getEChar(), "charValue", null, 0, 1, PTCharacterLiteral.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptClassInstanceCreationEClass, PTClassInstanceCreation.class, "PTClassInstanceCreation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTClassInstanceCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTClassInstanceCreation_Arguments(), this.getPTExpression(), null, "arguments", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptClassInstanceCreationEClass, PTClassInstanceCreation.class, "PTClassInstanceCreation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTClassInstanceCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, PTClassInstanceCreation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTClassInstanceCreation_Arguments(), this.getPTExpression(), null, "arguments", null, 0, -1, PTClassInstanceCreation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptConditionalExpressionEClass, PTConditionalExpression.class, "PTConditionalExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTConditionalExpression_Condition(), this.getPTExpression(), null, "condition", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTConditionalExpression_True(), this.getPTExpression(), null, "true", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTConditionalExpression_False(), this.getPTExpression(), null, "false", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptConditionalExpressionEClass, PTConditionalExpression.class, "PTConditionalExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTConditionalExpression_Condition(), this.getPTExpression(), null, "condition", null, 0, 1, PTConditionalExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTConditionalExpression_True(), this.getPTExpression(), null, "true", null, 0, 1, PTConditionalExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTConditionalExpression_False(), this.getPTExpression(), null, "false", null, 0, 1, PTConditionalExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptFieldAccessEClass, PTFieldAccess.class, "PTFieldAccess", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTFieldAccess_Receiver(), this.getPTExpression(), null, "receiver", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getPTFieldAccess_Field(), ecorePackage.getEString(), "field", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptFieldAccessEClass, PTFieldAccess.class, "PTFieldAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTFieldAccess_Receiver(), this.getPTExpression(), null, "receiver", null, 0, 1, PTFieldAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTFieldAccess_Field(), ecorePackage.getEString(), "field", null, 0, 1, PTFieldAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptInfixExpressionEClass, PTInfixExpression.class, "PTInfixExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTInfixExpression_LeftOperand(), this.getPTExpression(), null, "leftOperand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getPTInfixExpression_Operator(), this.getPTInfixOperator(), "operator", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTInfixExpression_RightOperand(), this.getPTExpression(), null, "rightOperand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTInfixExpression_ExtendedOperands(), this.getPTExpression(), null, "extendedOperands", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInfixExpressionEClass, PTInfixExpression.class, "PTInfixExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTInfixExpression_LeftOperand(), this.getPTExpression(), null, "leftOperand", null, 0, 1, PTInfixExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTInfixExpression_Operator(), this.getPTInfixOperator(), "operator", null, 0, 1, PTInfixExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTInfixExpression_RightOperand(), this.getPTExpression(), null, "rightOperand", null, 0, 1, PTInfixExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTInfixExpression_ExtendedOperands(), this.getPTExpression(), null, "extendedOperands", null, 0, -1, PTInfixExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptInstanceofEClass, PTInstanceof.class, "PTInstanceof", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTInstanceof_Operand(), this.getPTExpression(), null, "operand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getPTInstanceof_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInstanceofEClass, PTInstanceof.class, "PTInstanceof", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTInstanceof_Operand(), this.getPTExpression(), null, "operand", null, 0, 1, PTInstanceof.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTInstanceof_Type(), ecorePackage.getEString(), "type", null, 0, 1, PTInstanceof.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptMethodInvocationEClass, PTMethodInvocation.class, "PTMethodInvocation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTMethodInvocation_Receiver(), this.getPTExpression(), null, "receiver", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getPTMethodInvocation_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTMethodInvocation_Arguments(), this.getPTExpression(), null, "arguments", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptMethodInvocationEClass, PTMethodInvocation.class, "PTMethodInvocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTMethodInvocation_Receiver(), this.getPTExpression(), null, "receiver", null, 0, 1, PTMethodInvocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTMethodInvocation_Name(), ecorePackage.getEString(), "name", null, 0, 1, PTMethodInvocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTMethodInvocation_Arguments(), this.getPTExpression(), null, "arguments", null, 0, -1, PTMethodInvocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptNameEClass, PTName.class, "PTName", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTName_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptNameEClass, PTName.class, "PTName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTName_Name(), ecorePackage.getEString(), "name", null, 0, 1, PTName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptNullLiteralEClass, PTNullLiteral.class, "PTNullLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(ptNullLiteralEClass, PTNullLiteral.class, "PTNullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(ptNumberLiteralEClass, PTNumberLiteral.class, "PTNumberLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTNumberLiteral_Token(), ecorePackage.getEString(), "token", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptNumberLiteralEClass, PTNumberLiteral.class, "PTNumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTNumberLiteral_Token(), ecorePackage.getEString(), "token", null, 0, 1, PTNumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptParenthesizedExpressionEClass, PTParenthesizedExpression.class, "PTParenthesizedExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTParenthesizedExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptParenthesizedExpressionEClass, PTParenthesizedExpression.class, "PTParenthesizedExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTParenthesizedExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, PTParenthesizedExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptPrefixExpressionEClass, PTPrefixExpression.class, "PTPrefixExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTPrefixExpression_Operator(), this.getPTPrefixOperator(), "operator", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPTPrefixExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptPrefixExpressionEClass, PTPrefixExpression.class, "PTPrefixExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTPrefixExpression_Operator(), this.getPTPrefixOperator(), "operator", null, 0, 1, PTPrefixExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTPrefixExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, PTPrefixExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptStringLiteralEClass, PTStringLiteral.class, "PTStringLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTStringLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getPTStringLiteral_LiteralValue(), ecorePackage.getEString(), "literalValue", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptStringLiteralEClass, PTStringLiteral.class, "PTStringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTStringLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, PTStringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTStringLiteral_LiteralValue(), ecorePackage.getEString(), "literalValue", null, 0, 1, PTStringLiteral.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptThisLiteralEClass, PTThisLiteral.class, "PTThisLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(ptThisLiteralEClass, PTThisLiteral.class, "PTThisLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(ptTypeLiteralEClass, PTTypeLiteral.class, "PTTypeLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTTypeLiteral_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptTypeLiteralEClass, PTTypeLiteral.class, "PTTypeLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTTypeLiteral_Type(), ecorePackage.getEString(), "type", null, 0, 1, PTTypeLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptInvalidExpressionEClass, PTInvalidExpression.class, "PTInvalidExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPTInvalidExpression_Message(), ecorePackage.getEString(), "message", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInvalidExpressionEClass, PTInvalidExpression.class, "PTInvalidExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTInvalidExpression_Message(), ecorePackage.getEString(), "message", null, 0, 1, PTInvalidExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ptInstanceReferenceEClass, PTInstanceReference.class, "PTInstanceReference", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getPTInstanceReference_Object(), this.getIJavaObjectInstance(), null, "object", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInstanceReferenceEClass, PTInstanceReference.class, "PTInstanceReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPTInstanceReference_Object(), this.getIJavaObjectInstance(), null, "object", null, 1, 1, PTInstanceReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(ptInfixOperatorEEnum, PTInfixOperator.class, "PTInfixOperator");
@@ -1343,4 +1344,5 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		// Create resource
 		createResource(eNS_URI);
 	}
+
 } //InstantiationPackageImpl

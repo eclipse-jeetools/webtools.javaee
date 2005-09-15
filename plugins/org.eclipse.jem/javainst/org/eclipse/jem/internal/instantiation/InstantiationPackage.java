@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: InstantiationPackage.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:20:23 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 21:02:19 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EReference;
  * Java Instantiation Package
  * <!-- end-model-doc -->
  * @see org.eclipse.jem.internal.instantiation.InstantiationFactory
+ * @model kind="package"
  * @generated
  */
 public interface InstantiationPackage extends EPackage{
@@ -1039,7 +1040,7 @@ public interface InstantiationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>IJava Object Instance</em>'.
 	 * @see org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance
-	 * @model instanceClass="org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance" 
+	 * @model instanceClass="org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance"
 	 * @generated
 	 */
 	EClass getIJavaObjectInstance();
@@ -1791,7 +1792,7 @@ public interface InstantiationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>IJava Data Type Instance</em>'.
 	 * @see org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance
-	 * @model instanceClass="org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance" 
+	 * @model instanceClass="org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance"
 	 * @generated
 	 */
 	EClass getIJavaDataTypeInstance();
@@ -1802,7 +1803,7 @@ public interface InstantiationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>IJava Instance</em>'.
 	 * @see org.eclipse.jem.internal.instantiation.base.IJavaInstance
-	 * @model instanceClass="org.eclipse.jem.internal.instantiation.base.IJavaInstance" 
+	 * @model instanceClass="org.eclipse.jem.internal.instantiation.base.IJavaInstance"
 	 * @generated
 	 */
 	EClass getIJavaInstance();

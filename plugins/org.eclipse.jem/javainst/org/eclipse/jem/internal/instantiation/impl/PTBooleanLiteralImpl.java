@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: PTBooleanLiteralImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.4 $  $Date: 2005/09/15 21:02:19 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 
@@ -49,14 +49,14 @@ public class PTBooleanLiteralImpl extends PTExpressionImpl implements PTBooleanL
 	protected static final boolean BOOLEAN_VALUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isBooleanValue() <em>Boolean Value</em>}' attribute.
+	 * The flag representing the value of the '{@link #isBooleanValue() <em>Boolean Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isBooleanValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean booleanValue = BOOLEAN_VALUE_EDEFAULT;
+	protected static final int BOOLEAN_VALUE_EFLAG = 1 << 8;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,7 +82,7 @@ public class PTBooleanLiteralImpl extends PTExpressionImpl implements PTBooleanL
 	 * @generated
 	 */
 	public boolean isBooleanValue() {
-		return booleanValue;
+		return (eFlags & BOOLEAN_VALUE_EFLAG) != 0;
 	}
 
 	/**
@@ -91,10 +91,10 @@ public class PTBooleanLiteralImpl extends PTExpressionImpl implements PTBooleanL
 	 * @generated
 	 */
 	public void setBooleanValue(boolean newBooleanValue) {
-		boolean oldBooleanValue = booleanValue;
-		booleanValue = newBooleanValue;
+		boolean oldBooleanValue = (eFlags & BOOLEAN_VALUE_EFLAG) != 0;
+		if (newBooleanValue) eFlags |= BOOLEAN_VALUE_EFLAG; else eFlags &= ~BOOLEAN_VALUE_EFLAG;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_BOOLEAN_LITERAL__BOOLEAN_VALUE, oldBooleanValue, booleanValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_BOOLEAN_LITERAL__BOOLEAN_VALUE, oldBooleanValue, newBooleanValue));
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class PTBooleanLiteralImpl extends PTExpressionImpl implements PTBooleanL
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.PT_BOOLEAN_LITERAL__BOOLEAN_VALUE:
-				return booleanValue != BOOLEAN_VALUE_EDEFAULT;
+				return ((eFlags & BOOLEAN_VALUE_EFLAG) != 0) != BOOLEAN_VALUE_EDEFAULT;
 		}
 		return eDynamicIsSet(eFeature);
 	}

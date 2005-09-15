@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/15 21:02:19 $ 
  */
 
 import java.util.List;
@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
  */
 public class InstantiationFactoryImpl extends EFactoryImpl implements InstantiationFactory {
 	/**
-	 * Creates and instance of the factory.
+	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -85,10 +85,16 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case InstantiationPackage.PT_INFIX_OPERATOR:
-				return PTInfixOperator.get(initialValue);
-			case InstantiationPackage.PT_PREFIX_OPERATOR:
-				return PTPrefixOperator.get(initialValue);
+			case InstantiationPackage.PT_INFIX_OPERATOR: {
+				PTInfixOperator result = PTInfixOperator.get(initialValue);
+				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+				return result;
+			}
+			case InstantiationPackage.PT_PREFIX_OPERATOR: {
+				PTPrefixOperator result = PTPrefixOperator.get(initialValue);
+				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+				return result;
+			}
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -378,6 +384,7 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	public static InstantiationPackage getPackage() {
 		return InstantiationPackage.eINSTANCE;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createImplicitAllocation(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature)
 	 */

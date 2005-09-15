@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTInstanceof.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/15 21:02:19 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -32,7 +32,7 @@ package org.eclipse.jem.internal.instantiation;
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTInstanceof()
- * @model 
+ * @model
  * @generated
  */
 public interface PTInstanceof extends PTExpression{
@@ -71,7 +71,7 @@ public interface PTInstanceof extends PTExpression{
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTInstanceof_Type()
-	 * @model 
+	 * @model
 	 * @generated
 	 */
 	String getType();
