@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/15 21:11:20 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/16 21:21:30 $ 
  */
 
 
@@ -335,6 +335,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	protected FeatureDecoratorImpl() {
 		super();
+		eFlags |= MERGE_INTROSPECTION_EFLAG;
 		setSource(getSourceDefault());		
 	}
 	
