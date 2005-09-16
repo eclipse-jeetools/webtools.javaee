@@ -416,15 +416,19 @@ public class WTPJETEmitter extends JETEmitter {
 			Logger.getLogger().logError(e);
 			elements = new ManifestElement[0];
 		}
-		IClasspathEntry entry = null;
 		IPath runtimeLibFullPath = null;
 		URL fullurl = null;
+		if (elements == null) {
+			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
+				runtimeLibFullPath = getJarredPluginPath(bundle);
+			appendToClassPath(runtimeLibFullPath,project);
+			return;
+		}
 		for (int i = 0; i < elements.length; i++) {
 			String value = elements[i].getValue();
 			if (".".equals(value)) //$NON-NLS-1$
 	            value = "/"; //$NON-NLS-1$
 			fullurl = Platform.getBundle(pluginId).getEntry(value);
-			
 			// fix the problem with leading slash that caused dup classpath entries
 			if (fullurl==null) continue;
 			try {
@@ -433,32 +437,39 @@ public class WTPJETEmitter extends JETEmitter {
 				Logger.getLogger().logError(e);
 			}
 			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
-			if (bundle.getLocation().endsWith(".jar")) { //$NON-NLS-1$
-				String jarPluginLocation = bundle.getLocation().substring(7);
-				Path jarPluginPath = new Path(jarPluginLocation);
-				// handle case where jars are installed outside of eclipse installation
-				if (jarPluginPath.isAbsolute())
-					runtimeLibFullPath = jarPluginPath;
-				// handle normal case where all plugins under eclipse install
-				else {
-					String installPath = Platform.getInstallLocation().getURL().getPath();
-					runtimeLibFullPath = new Path(installPath+"/"+jarPluginLocation); //$NON-NLS-1$
-				}
-			}
+			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
+				runtimeLibFullPath = getJarredPluginPath(bundle);
 			if (!"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension())) //$NON-NLS-1$ //$NON-NLS-2$
 				continue;
-			entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
-			null, /* Source attachment root */
-			null, /* specific output folder */
-			false,
-			null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES); /* is exported ? *///JavaCore.newLibraryEntry(runtimeLibFullPath, null, null);
-			try {
-				J2EEProjectUtilities.appendJavaClassPath(project, entry);
-			} catch (JavaModelException e) {
-				Logger.getLogger().logError("Problem appending \"" + entry.getPath() + "\" to classpath of Project \"" + project.getName() + "\"."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				Logger.getLogger().logError(e);
-			}
+			appendToClassPath(runtimeLibFullPath,project);
 		}
+	}
+	
+	private void appendToClassPath(IPath runtimeLibFullPath, IProject project) {
+		IClasspathEntry entry = null;
+		entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
+				null, null, false, null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES); 
+		try {
+			J2EEProjectUtilities.appendJavaClassPath(project, entry);
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError("Problem appending \"" + entry.getPath() + "\" to classpath of Project \"" + project.getName() + "\"."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			Logger.getLogger().logError(e);
+		}
+	}
+	
+	private IPath getJarredPluginPath(Bundle bundle) {
+		Path runtimeLibFullPath = null;
+		String jarPluginLocation = bundle.getLocation().substring(7);
+		Path jarPluginPath = new Path(jarPluginLocation);
+		// handle case where jars are installed outside of eclipse installation
+		if (jarPluginPath.isAbsolute())
+			runtimeLibFullPath = jarPluginPath;
+		// handle normal case where all plugins under eclipse install
+		else {
+			String installPath = Platform.getInstallLocation().getURL().getPath();
+			runtimeLibFullPath = new Path(installPath+"/"+jarPluginLocation); //$NON-NLS-1$
+		}
+		return runtimeLibFullPath;
 	}
 
 	/**

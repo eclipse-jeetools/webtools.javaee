@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.ICommand;
@@ -84,7 +85,7 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	/**
 	 * platform plugin beginning for URI string
 	 */
-	private static final String PLATFORM_PLUGIN = "platform:/plugin/"; //$NON-NLS-1$
+//	private static final String PLATFORM_PLUGIN = "platform:/plugin/"; //$NON-NLS-1$
 	
 	/**
 	 * variable for the web plugin
@@ -282,14 +283,14 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	 * @throws JETException
 	 */
 	private String generateTemplateSource(CreateServletTemplateModel tempModel, IProgressMonitor monitor) throws JETException {
-		String templateURI;
+		URL templateURL = null;
 		// If annotated, use annotated template
 		if (model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
-			templateURI = PLATFORM_PLUGIN + WebPlugin.PLUGIN_ID + TEMPLATE_DIR + getDataModel().getStringProperty(INewServletClassDataModelProperties.TEMPLATE_FILE);
+			templateURL = WebPlugin.getDefault().find(new Path(TEMPLATE_DIR+getDataModel().getStringProperty(INewServletClassDataModelProperties.TEMPLATE_FILE)));
 		// Otherwise use non annotated template
 		else
-			templateURI = PLATFORM_PLUGIN + WebPlugin.PLUGIN_ID + TEMPLATE_DIR + getDataModel().getStringProperty(INewServletClassDataModelProperties.NON_ANNOTATED_TEMPLATE_FILE);
-		WTPJETEmitter emitter = new WTPJETEmitter(templateURI, this.getClass().getClassLoader());
+			templateURL = WebPlugin.getDefault().find(new Path(TEMPLATE_DIR+getDataModel().getStringProperty(INewServletClassDataModelProperties.NON_ANNOTATED_TEMPLATE_FILE)));
+		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
 		emitter.setIntelligentLinkingEnabled(true);
 		emitter.addVariable(WEB_PLUGIN, WebPlugin.PLUGIN_ID);
 		return emitter.generate(monitor, new Object[]{tempModel});
