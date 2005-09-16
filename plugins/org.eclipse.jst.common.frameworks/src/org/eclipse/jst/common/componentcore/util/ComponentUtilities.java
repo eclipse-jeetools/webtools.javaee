@@ -146,8 +146,11 @@ public class ComponentUtilities {
 	public static ArtifactEdit getArtifactEditForRead(IVirtualComponent comp) {
 		ArtifactEditRegistryReader reader = ArtifactEditRegistryReader.instance();
 		if (comp != null) {
-			IArtifactEditFactory factory = reader.getArtifactEdit(comp.getComponentTypeId());
-			return factory.createArtifactEditForRead(comp);
+			String id = comp.getComponentTypeId();
+			if (id != null) {
+				IArtifactEditFactory factory = reader.getArtifactEdit(id);
+				return factory.createArtifactEditForRead(comp);
+			}
 		}
 		return null;
 	}
