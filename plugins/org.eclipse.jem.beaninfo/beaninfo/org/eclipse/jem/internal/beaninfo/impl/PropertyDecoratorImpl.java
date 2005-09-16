@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.16 $  $Date: 2005/09/15 21:11:20 $ 
+ *  $Revision: 1.17 $  $Date: 2005/09/16 20:48:46 $ 
  */
 
 
@@ -315,7 +315,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	}
 
 	public EClassifier getPropertyType() {
-		if (propertyType != null) {
+		if (propertyType == null) {
 			EStructuralFeature feature = (EStructuralFeature) getEModelElement();
 			return (feature != null) ? feature.getEType() : null;
 		} else
