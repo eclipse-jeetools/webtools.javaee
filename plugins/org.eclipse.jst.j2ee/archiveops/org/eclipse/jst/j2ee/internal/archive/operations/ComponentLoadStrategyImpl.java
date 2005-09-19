@@ -181,16 +181,18 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 									tmpRuntimePath = tmpRuntimePath.removeLastSegments(1);
 									tmpSourcePath = tmpSourcePath.removeLastSegments(1);
 								}
-								runtimePath = tmpRuntimePath;
+								if(tmpRuntimePath.segmentCount() != 0){
+									runtimePath = tmpRuntimePath;
+								}
 							}
 						}
 					} catch (UnresolveableURIException e) {
 						Logger.getLogger().logError(e);
 					}
 					if (null == runtimePath) {
-						runtimePath = new Path("/");
+						runtimePath = new Path("");
 					}
-
+					
 					getOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
 				}
 			}
