@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/16 21:21:30 $ 
+ *  $Revision: 1.11 $  $Date: 2005/09/19 15:43:02 $ 
  */
 
 
@@ -332,23 +332,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	protected FeatureDecoratorImpl() {
 		super();
 		eFlags |= MERGE_INTROSPECTION_EFLAG;
-		setSource(getSourceDefault());		
 	}
-	
-	/**
-	 * Get the source default. Subclasses should override to return what the source is.
-	 * @return
-	 * 
-	 * @since 1.2.0
-	 */
-	protected String getSourceDefault() {
-		return null;
-	}
-	
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: IndexedPropertyDecoratorImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2005/09/15 21:11:20 $ 
+ *  $Revision: 1.12 $  $Date: 2005/09/19 15:43:02 $ 
  */
 
 
@@ -103,9 +103,6 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 		super();
 	}
 
-	protected String getSourceDefault() {
-		return IndexedPropertyDecorator.class.getName();
-	}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

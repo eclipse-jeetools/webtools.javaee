@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoFactoryImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.9 $  $Date: 2005/09/19 15:43:02 $ 
  */
 
 import java.util.Map;
@@ -104,20 +104,20 @@ public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public FeatureDecorator createFeatureDecorator() {
 		FeatureDecoratorImpl featureDecorator = new FeatureDecoratorImpl();
+		featureDecorator.setSource(FeatureDecorator.class.getName());
 		return featureDecorator;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public EventSetDecorator createEventSetDecorator() {
 		EventSetDecoratorImpl eventSetDecorator = new EventSetDecoratorImpl();
+		eventSetDecorator.setSource(EventSetDecorator.class.getName());
 		return eventSetDecorator;
 	}
 
@@ -134,50 +134,50 @@ public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public PropertyDecorator createPropertyDecorator() {
 		PropertyDecoratorImpl propertyDecorator = new PropertyDecoratorImpl();
+		propertyDecorator.setSource(ParameterDecorator.class.getName());
 		return propertyDecorator;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public IndexedPropertyDecorator createIndexedPropertyDecorator() {
 		IndexedPropertyDecoratorImpl indexedPropertyDecorator = new IndexedPropertyDecoratorImpl();
+		indexedPropertyDecorator.setSource(IndexedPropertyDecorator.class.getName());
 		return indexedPropertyDecorator;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public BeanDecorator createBeanDecorator() {
 		BeanDecoratorImpl beanDecorator = new BeanDecoratorImpl();
+		beanDecorator.setSource(BeanDecorator.class.getName());
 		return beanDecorator;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public MethodDecorator createMethodDecorator() {
 		MethodDecoratorImpl methodDecorator = new MethodDecoratorImpl();
+		methodDecorator.setSource(MethodDecorator.class.getName());
 		return methodDecorator;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	public ParameterDecorator createParameterDecorator() {
 		ParameterDecoratorImpl parameterDecorator = new ParameterDecoratorImpl();
+		parameterDecorator.setSource(ParameterDecorator.class.getName());
 		return parameterDecorator;
 	}
 

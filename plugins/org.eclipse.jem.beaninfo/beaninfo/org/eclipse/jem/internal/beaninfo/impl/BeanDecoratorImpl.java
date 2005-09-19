@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.19 $  $Date: 2005/09/15 21:11:20 $ 
+ *  $Revision: 1.20 $  $Date: 2005/09/19 15:43:02 $ 
  */
 
 
@@ -297,10 +297,6 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 		eFlags |= INTROSPECT_METHODS_EFLAG;
 		eFlags |= INTROSPECT_EVENTS_EFLAG;
 		eFlags |= DO_BEANINFO_EFLAG;
-	}
-
-	protected String getSourceDefault() {
-		return BeanDecorator.class.getName();
 	}
 
 	/**
