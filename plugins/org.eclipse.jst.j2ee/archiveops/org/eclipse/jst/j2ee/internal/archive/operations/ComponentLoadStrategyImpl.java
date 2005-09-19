@@ -174,7 +174,15 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					try {
 						ComponentResource[] componentResources = se.findResourcesBySourcePath(sourceRoots[i].getResource().getProjectRelativePath());
 						if (componentResources.length > 0) {
-							runtimePath = componentResources[0].getRuntimePath();
+							IPath tmpRuntimePath = componentResources[0].getRuntimePath();
+							IPath tmpSourcePath = componentResources[0].getSourcePath();
+							if (!tmpRuntimePath.equals(tmpSourcePath)) {
+								while (tmpSourcePath.segmentCount() > 0 && tmpRuntimePath.segmentCount() > 0 && tmpRuntimePath.lastSegment().equals(tmpSourcePath.lastSegment())) {
+									tmpRuntimePath = tmpRuntimePath.removeLastSegments(1);
+									tmpSourcePath = tmpSourcePath.removeLastSegments(1);
+								}
+								runtimePath = tmpRuntimePath;
+							}
 						}
 					} catch (UnresolveableURIException e) {
 						Logger.getLogger().logError(e);
@@ -306,20 +314,20 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		Collection resources = super.getLoadedMofResources();
 		Collection resourcesToRemove = null;
 		Iterator iterator = resources.iterator();
-		while(iterator.hasNext()){
-			Resource res = (Resource)  iterator.next();
-			if(res.getURI().toString().endsWith(IModuleConstants.WTPMODULE_FILE_NAME)){
-				if(resourcesToRemove == null){
+		while (iterator.hasNext()) {
+			Resource res = (Resource) iterator.next();
+			if (res.getURI().toString().endsWith(IModuleConstants.WTPMODULE_FILE_NAME)) {
+				if (resourcesToRemove == null) {
 					resourcesToRemove = new ArrayList();
 				}
 				resourcesToRemove.add(res);
 			}
 		}
 		resources.removeAll(resourcesToRemove);
-		
+
 		return resources;
 	}
-	
+
 	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		try {
 			URI compUri = ModuleURIUtil.fullyQualifyURI(vComponent.getComponentHandle());
