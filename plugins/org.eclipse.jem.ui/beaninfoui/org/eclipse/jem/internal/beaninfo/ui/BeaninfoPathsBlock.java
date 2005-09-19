@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.12 $  $Date: 2005/08/24 21:07:12 $ 
+ *  $Revision: 1.13 $  $Date: 2005/09/19 21:36:28 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -24,15 +24,15 @@ import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
 import org.eclipse.jdt.internal.ui.viewsupport.ImageDisposer;
 import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
+import org.eclipse.jdt.ui.ISharedImages;
+import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -142,8 +142,6 @@ public class BeaninfoPathsBlock {
 			}
 		});
 
-		ImageRegistry imageRegistry = JavaPlugin.getDefault().getImageRegistry();
-
 		TabItem item;
 
 		ArrayList interestedDialogFields = new ArrayList(3);
@@ -151,7 +149,7 @@ public class BeaninfoPathsBlock {
 		fPackagesPage = new PackagesWorkbookPage(fWorkspaceRoot, this, interestedDialogFields);
 		item = new TabItem(folder, SWT.NONE);
 		item.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Packages); 
-		item.setImage(imageRegistry.get(JavaPluginImages.IMG_OBJS_PACKAGE));
+		item.setImage(JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE));
 		item.setData(fPackagesPage);
 		item.setControl(fPackagesPage.getControl(folder));
 

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.11 $  $Date: 2005/08/24 21:07:12 $ 
+ *  $Revision: 1.12 $  $Date: 2005/09/19 21:36:28 $ 
  */
 
 import java.net.URL;
@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
-import org.eclipse.jdt.ui.JavaElementImageDescriptor;
+import org.eclipse.jdt.ui.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -71,14 +71,15 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		
 		fRoot = ResourcesPlugin.getWorkspace().getRoot();
 		ImageRegistry reg = JavaPlugin.getDefault().getImageRegistry();
+		ISharedImages jdtSharedImages = JavaUI.getSharedImages();
 
-		fJarIcon = reg.get(JavaPluginImages.IMG_OBJS_JAR);
-		fExtJarIcon = reg.get(JavaPluginImages.IMG_OBJS_EXTJAR);
-		fFolderImage = reg.get(JavaPluginImages.IMG_OBJS_PACKFRAG_ROOT);
+		fJarIcon = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_JAR);
+		fExtJarIcon = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_EXTERNAL_ARCHIVE);
+		fFolderImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_PACKFRAG_ROOT);
 
 		fVariableImage = reg.get(JavaPluginImages.IMG_OBJS_ENV_VAR);
 		
-		fLibraryImage = reg.get(JavaPluginImages.IMG_OBJS_LIBRARY);
+		fLibraryImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_LIBRARY);
 
 		IWorkbench workbench = JavaPlugin.getDefault().getWorkbench();
 		fProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
@@ -88,11 +89,11 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		fMissingFolderImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_PACKFRAG_ROOT);
 		fMissingProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT_CLOSED);
 
-		fPackageImage = reg.get(JavaPluginImages.IMG_OBJS_PACKAGE);
+		fPackageImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_PACKAGE);
 
 		Rectangle r = fLibraryImage.getBounds();
 		Point s = new Point(r.width, r.height);
-		JavaElementImageDescriptor jed = new JavaElementImageDescriptor(reg.getDescriptor(JavaPluginImages.IMG_OBJS_LIBRARY),  JavaElementImageDescriptor.WARNING, s);
+		JavaElementImageDescriptor jed = new JavaElementImageDescriptor(jdtSharedImages.getImageDescriptor(ISharedImages.IMG_OBJS_LIBRARY),  JavaElementImageDescriptor.WARNING, s);
 		fMissingLibraryImage = jed.createImage();
 		Bundle bundle = JEMUIPlugin.getPlugin().getBundle();
 		URL url = Platform.find(bundle, new Path("icons/plugin_obj.gif")); //$NON-NLS-1$
