@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 /**
  * @author jsholl
@@ -87,5 +88,9 @@ public class UpdateManifestDataModelProvider extends AbstractDataModelProvider i
 			list.add(tokenizer.nextToken());
 		}
 		return list;
+	}
+	
+	public IDataModelOperation getDefaultOperation() {
+		return new UpdateManifestOperation(model);
 	}
 }
