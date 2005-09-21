@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.13 $  $Date: 2005/09/19 21:36:28 $ 
+ *  $Revision: 1.14 $  $Date: 2005/09/21 16:17:34 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -24,7 +24,6 @@ import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
 import org.eclipse.jdt.internal.ui.viewsupport.ImageDisposer;
 import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
@@ -170,7 +169,7 @@ public class BeaninfoPathsBlock {
 		item.setControl(fBeaninfosPage.getControl(folder));
 
 		// a non shared image
-		Image cpoImage = JavaPluginImages.DESC_TOOL_CLASSPATH_ORDER.createImage();
+		Image cpoImage = JEMUIPlugin.imageDescriptorFromPlugin(JEMUIPlugin.getPlugin().getBundle().getSymbolicName(), "icons/cp_order_obj.gif").createImage();
 		composite.addDisposeListener(new ImageDisposer(cpoImage));
 		
 		SearchpathOrderingWorkbookPage ordpage = new SearchpathOrderingWorkbookPage(fSearchOrder, interestedDialogFields);
