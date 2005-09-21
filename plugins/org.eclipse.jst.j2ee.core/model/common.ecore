@@ -198,7 +198,7 @@
         <details key="documentation" value="The resource-env-ref-name element specifies the name&#xD;&#xA;        of a resource environment reference; its value is&#xD;&#xA;        the environment entry name used in&#xD;&#xA;        the Deployment Component code.  The name is a JNDI&#xD;&#xA;        name relative to the java:comp/env context and must&#xD;&#xA;        be unique within a Deployment Component."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass java.ecore#//JavaClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The resource-env-ref-type element specifies the type&#xD;&#xA;        of a resource environment reference.  It is the&#xD;&#xA;        fully qualified name of a Java language class or&#xD;&#xA;        interface."/>
       </eAnnotations>
@@ -393,7 +393,7 @@
       <details key="documentation" value="@version J2EE1.4 moved from webapp&#xD;&#xA;&#xD;&#xA;Declares a class in the application must be registered as a web application listener bean."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="listenerClass" lowerBound="1"
-        eType="ecore:EClass java.ecore#//JavaClass">
+        eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The listener-class element declares a class in the application must be registered as a web application listener bean."/>
       </eAnnotations>
