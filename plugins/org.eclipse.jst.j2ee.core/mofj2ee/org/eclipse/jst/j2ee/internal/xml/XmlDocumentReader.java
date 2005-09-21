@@ -48,7 +48,7 @@ public XmlDocumentReader(InputSource source, EntityResolver resolver, ErrorHandl
  * @return org.xml.sax.EntityResolver
  */
 public org.xml.sax.EntityResolver createDefaultEntityResolver() {
-	return new J2EEXmlDtDEntityResolver();
+	return J2EEXmlDtDEntityResolver.INSTANCE;
 }
 
 protected void handleException(String aMessage, Throwable anException) {
