@@ -58,7 +58,6 @@ import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactor
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
-import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
@@ -67,7 +66,6 @@ import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.uriresolver.internal.provisional.URIResolverPlugin;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
@@ -493,8 +491,6 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		super.start(context);
 		//Have to do the next line immediately to fix timing problems with factory registration
 		ArchiveInit.init(false);
-		J2EEXmlDtDEntityResolver.INSTANCE = new CatalogJ2EEXmlDtDEntityResolver(URIResolverPlugin.createResolver());
-			
 		//ModuleMaps are the maps from modules in an ear project to the j2ee projects for the
 		// modules
 		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapInit.init(false);
