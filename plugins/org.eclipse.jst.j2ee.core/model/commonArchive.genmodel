@@ -9,7 +9,7 @@
   <foreignModel>..\rose\commonArchive.mdl</foreignModel>
   <foreignModel>WORKSPACE_ROOT</foreignModel>
   <foreignModel>../..</foreignModel>
-  <genPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" 
+  <genPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" interfacePackageSuffix="internal"
       classPackageSuffix="internal.impl" utilityPackageSuffix="internal.util" ecorePackage="commonarchivecore.ecore#/">
     <genClasses ecoreClass="commonarchivecore.ecore#//File">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/URI"/>
@@ -54,7 +54,8 @@
     <genClasses ecoreClass="commonarchivecore.ecore#//ClientModuleRef"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//ConnectorModuleRef"/>
     <nestedGenPackages prefix="Looseconfig" basePackage="org.eclipse.jst.j2ee.commonarchivecore"
-        classPackageSuffix="internal.impl" utilityPackageSuffix="internal.util" ecorePackage="commonarchivecore.ecore#//looseconfig">
+        interfacePackageSuffix="internal" classPackageSuffix="internal.impl" utilityPackageSuffix="internal.util"
+        ecorePackage="commonarchivecore.ecore#//looseconfig">
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseApplication">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseApplication/looseArchives"/>
       </genClasses>
