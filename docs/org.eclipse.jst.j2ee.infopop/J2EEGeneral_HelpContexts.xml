@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS type="org.eclipse.help.contexts"?>
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
 <contexts>
 <context id="com.ibm.wtp.ui.ProjectNavigator">
 <description>The J2EE Project Explorer view provides a hierarchical view of the content models for resources in the workbench. From this view, you can open the various project files in the appropriate editor. 
