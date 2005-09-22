@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.12 $  $Date: 2005/09/19 21:36:28 $ 
+ *  $Revision: 1.13 $  $Date: 2005/09/22 16:29:57 $ 
  */
 
 import java.net.URL;
@@ -32,6 +32,7 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.osgi.framework.Bundle;
 
@@ -81,7 +82,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		
 		fLibraryImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_LIBRARY);
 
-		IWorkbench workbench = JavaPlugin.getDefault().getWorkbench();
+		IWorkbench workbench = PlatformUI.getWorkbench();
 		fProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
 
 		fMissingJarImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_JAR);
