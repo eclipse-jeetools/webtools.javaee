@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.14 $  $Date: 2005/09/21 16:17:34 $ 
+ *  $Revision: 1.15 $  $Date: 2005/09/26 20:26:59 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -24,9 +24,6 @@ import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
-import org.eclipse.jdt.internal.ui.viewsupport.ImageDisposer;
-import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
 import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
@@ -53,7 +50,7 @@ public class BeaninfoPathsBlock {
 	private SelectionButtonDialogField fEnableBeaninfoDialogField;
 	// Checkbox to add/remove beaninfo nature entirely.
 
-	private StatusInfo fSearchStatus;
+	private IStatus fSearchStatus;
 
 	private IJavaProject fCurrJProject;
 
@@ -93,7 +90,7 @@ public class BeaninfoPathsBlock {
 		fEnableBeaninfoDialogField.setLabelText(
 			BeanInfoUIMessages.BeaninfoPathsBlock_UI__enablebeaninfo); 
 
-		fSearchStatus = new StatusInfo();
+		fSearchStatus = Status.OK_STATUS;
 
 		fCurrJProject = null;
 	}
@@ -408,7 +405,7 @@ public class BeaninfoPathsBlock {
 		try {
 			inUpdate = true;
 
-			fSearchStatus.setOK();
+			fSearchStatus = Status.OK_STATUS;
 
 			List elements = fSearchOrder.getElements();
 
@@ -439,8 +436,11 @@ public class BeaninfoPathsBlock {
 			fSearchOrder.setCheckedElements(exported);
 
 			if (entryMissing) {
-				fSearchStatus.setWarning(
-					BeanInfoUIMessages.BeaninfoPathsBlock_UI__warning_EntryMissing); 
+				fSearchStatus = new Status(IStatus.WARNING, 
+						JEMUIPlugin.getPlugin().getBundle().getSymbolicName(),
+						IStatus.WARNING,
+						BeanInfoUIMessages.BeaninfoPathsBlock_UI__warning_EntryMissing,
+						null); 
 			}
 		} finally {
 			inUpdate = false;

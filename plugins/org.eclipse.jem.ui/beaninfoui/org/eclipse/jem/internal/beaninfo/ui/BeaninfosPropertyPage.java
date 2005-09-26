@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 21:07:12 $ 
+ *  $Revision: 1.10 $  $Date: 2005/09/26 20:26:59 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,9 +19,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.dialogs.StatusUtil;
-import org.eclipse.jdt.internal.ui.util.ExceptionHandler;
-import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
+import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
@@ -36,6 +35,37 @@ import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
  */
 public class BeaninfosPropertyPage extends PropertyPage implements IStatusChangeListener {
 		
+	/**
+	 * Applies the status to the status line of a dialog page.
+	 *
+	 * @param page the dialog page
+	 * @param status the status
+	 */
+	public static void applyToStatusLine(DialogPage page, IStatus status) {
+		String message= status.getMessage();
+		switch (status.getSeverity()) {
+			case IStatus.OK:
+				page.setMessage(message, IMessageProvider.NONE);
+				page.setErrorMessage(null);
+				break;
+			case IStatus.WARNING:
+				page.setMessage(message, IMessageProvider.WARNING);
+				page.setErrorMessage(null);
+				break;
+			case IStatus.INFO:
+				page.setMessage(message, IMessageProvider.INFORMATION);
+				page.setErrorMessage(null);
+				break;
+			default:
+				if (message.length() == 0) {
+					message= null;
+				}
+				page.setMessage(null);
+				page.setErrorMessage(message);
+				break;
+		}
+	}
+
 	private BeaninfoPathsBlock fBuildPathsBlock;
 	private IResourceChangeListener listener;
 	private IProject project;
@@ -163,7 +193,7 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 	 */
 	public void statusChanged(IStatus status) {
 		setValid(!status.matches(IStatus.ERROR));
-		StatusUtil.applyToStatusLine(this, status);
+		applyToStatusLine(this, status);
 	}
 
 

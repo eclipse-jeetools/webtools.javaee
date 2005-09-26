@@ -17,7 +17,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
 import org.eclipse.jdt.internal.ui.dialogs.StatusUtil;
 import org.eclipse.jdt.internal.ui.util.PixelConverter;
-import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.VariablePathDialogField.ChooseVariableDialog;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
@@ -30,7 +29,7 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
 /*
  *  $RCSfile: VariableSelectionBlock.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 21:07:12 $ 
+ *  $Revision: 1.6 $  $Date: 2005/09/26 20:26:59 $ 
  */
 
 public class VariableSelectionBlock {
