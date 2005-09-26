@@ -58,6 +58,7 @@ import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactor
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
+import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
@@ -65,6 +66,7 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveCom
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
+import org.eclipse.wst.common.internal.emf.utilities.DOMUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
@@ -131,6 +133,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
+			
 		}
 	}
 
@@ -489,8 +492,12 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+				
+		J2EEXmlDtDEntityResolver.INSTANCE = new CatalogJ2EEXmlDtDEntityResolver();
+		DOMUtilities.setDefaultEntityResolver(J2EEXmlDtDEntityResolver.INSTANCE); 
 		//Have to do the next line immediately to fix timing problems with factory registration
 		ArchiveInit.init(false);
+			
 		//ModuleMaps are the maps from modules in an ear project to the j2ee projects for the
 		// modules
 		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapInit.init(false);
