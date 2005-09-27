@@ -30,7 +30,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 	private IValidationContext _helper = null;
 	private IReporter _reporter = null;
 	private LogEntry logEntry = null;
-//	private IMessage _message = null;
+	protected int buildKind = 0;
 	
 	public EJBValidationContext(IValidator v, IValidationContext h, IReporter r) {
 		setValidator(v);
@@ -190,5 +190,13 @@ public class EJBValidationContext implements IEJBValidationContext {
 
 	public String[] getURIs() {
 		return null;
+	}
+
+	public int getBuildKind() {
+		return 0;
+	}
+
+	public void setBuildKind(int buildKind) {
+		this.buildKind = buildKind;
 	}
 }
