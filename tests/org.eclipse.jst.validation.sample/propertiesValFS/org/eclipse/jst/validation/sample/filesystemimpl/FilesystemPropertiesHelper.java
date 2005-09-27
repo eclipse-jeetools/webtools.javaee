@@ -197,7 +197,10 @@ public class FilesystemPropertiesHelper implements IFilesystemHelper {
 	}
 
 	public String[] getURIs() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getBuildKind() {
+		return 0;
 	}
 }
