@@ -21,8 +21,6 @@ import java.io.File;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -49,9 +47,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.Workbench;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -318,9 +315,8 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
             }
         });
         Control[] deps = new Control[]{label, newServerTargetButton};
-        //synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
         synchHelper.synchCombo(serverTargetCombo, RUNTIME_TARGET_ID, deps);
-        if(serverTargetCombo.getVisibleItemCount() != 0)
+        if(serverTargetCombo.getSelectionIndex() == -1 && serverTargetCombo.getVisibleItemCount() != 0)
             serverTargetCombo.select(0);
     }
 
@@ -380,8 +376,8 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 							//serverTargetText.setText(runtime.getName());
 							synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, runtime.getName());
 						}
-						synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.PROJECT_NAME, projectName);
-						synchHelper.getDataModel().setProperty(IJavaComponentCreationDataModelProperties.LOCATION, project.getLocation().toOSString());
+						synchHelper.getDataModel().setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, projectName);
+						synchHelper.getDataModel().setProperty(IComponentCreationDataModelProperties.LOCATION, project.getLocation().toOSString());
 					}
 				}				
 
@@ -394,22 +390,22 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 	/**
 	 * @return
 	 */
-	private IProject getSelectedProject() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-		if (window == null)
-			return null;
-		ISelection selection = window.getSelectionService().getSelection();
-		if (selection == null || !(selection instanceof StructuredSelection))
-			return null;
-		StructuredSelection stucturedSelection = (StructuredSelection) selection;
-		Object obj = stucturedSelection.getFirstElement();
-		if (obj instanceof IProject)
-			return (IProject) obj;
-		return null;
-	}
+//	private IProject getSelectedProject() {
+//		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+//		if (window == null)
+//			return null;
+//		ISelection selection = window.getSelectionService().getSelection();
+//		if (selection == null || !(selection instanceof StructuredSelection))
+//			return null;
+//		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+//		Object obj = stucturedSelection.getFirstElement();
+//		if (obj instanceof IProject)
+//			return (IProject) obj;
+//		return null;
+//	}
 	
     protected String[] getValidationPropertyNames() {
-        return new String[]{IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR, JAVASOURCE_FOLDER };    }
+        return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, RUNTIME_TARGET_ID, COMPONENT_VERSION, COMPONENT_NAME, LOCATION, EAR_COMPONENT_NAME, ADD_TO_EAR, JAVASOURCE_FOLDER };    }
 
     protected void createSourceFolderComposite(Composite parent) {
         
