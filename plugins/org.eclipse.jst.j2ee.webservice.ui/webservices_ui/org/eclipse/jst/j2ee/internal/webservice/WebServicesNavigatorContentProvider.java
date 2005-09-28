@@ -106,7 +106,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			Collection result = new ArrayList();
 			result.add(getHandlersGroup(parentElement));
 			return result.toArray();
-		} else if (parentElement instanceof Handler) {
+		} else if (parentElement instanceof Handler || parentElement instanceof org.eclipse.jst.j2ee.webservice.wsclient.Handler) {
 			return new ArrayList().toArray();
 		} else if (serviceHelper.isWSDLResource(parentElement))
 			return new ArrayList().toArray();
