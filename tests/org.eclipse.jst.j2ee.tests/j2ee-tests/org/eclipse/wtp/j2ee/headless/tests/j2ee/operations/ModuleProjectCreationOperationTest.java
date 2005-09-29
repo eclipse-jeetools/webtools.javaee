@@ -10,6 +10,7 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -54,8 +55,10 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     	createSimpleModule(DEFAULT_COMPONENT_NAME + componentSeed);
     	IProject project = ProjectUtilities.getProject(DEFAULT_COMPONENT_NAME + componentSeed);
     	IVirtualComponent component = ComponentCore.createComponent(project,DEFAULT_COMPONENT_NAME + componentSeed);
-    	IContainer[] ouputContainers = ComponentUtilities.getOutputContainers(component);
-    	assertNotNull(ouputContainers[0]);
+    	if (!component.getComponentTypeId().equals(IModuleConstants.WST_WEB_MODULE)) {
+    		IContainer[] ouputContainers = ComponentUtilities.getOutputContainers(component);
+    		assertNotNull(ouputContainers[0]);
+    	}
     }
 
 

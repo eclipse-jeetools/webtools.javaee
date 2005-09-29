@@ -37,6 +37,7 @@ public class AllTests extends TestSuite {
        addTest(WebImportOperationTest.suite());
        addTest(WebExportOperationTest.suite());
        addTest(WebProjectCreationOperationTest.suite());
+       addTest(StaticWebProjectCreationOperationTest.suite());
        addTest(AddServletOperationTest.suite());
        // addTest(WebComponentCreationTest.suite());
 		//addTest(new SimpleTestSuite(WebSaveStrategyTests.class));

@@ -13,11 +13,11 @@ package org.eclipse.jst.j2ee.project.creation.operations;
 import junit.framework.Test;
 
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.FlexibleProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 

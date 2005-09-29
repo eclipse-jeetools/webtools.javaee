@@ -35,6 +35,7 @@
       <import plugin="org.eclipse.jst.j2ee.webservice"/>
       <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.wst.web"/>
    </requires>
    <extension
          point="org.eclipse.wst.common.tests.collector.suites">

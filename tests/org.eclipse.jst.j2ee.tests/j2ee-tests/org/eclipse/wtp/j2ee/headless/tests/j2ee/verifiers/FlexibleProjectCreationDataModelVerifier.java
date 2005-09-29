@@ -1,7 +1,7 @@
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
