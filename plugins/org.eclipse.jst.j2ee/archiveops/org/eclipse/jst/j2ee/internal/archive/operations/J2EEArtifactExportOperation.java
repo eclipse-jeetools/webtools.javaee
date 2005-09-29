@@ -58,7 +58,7 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		setComponent((IVirtualComponent)model.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT));
+		setComponent((IVirtualComponent) model.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT));
 		setDestinationPath(new Path(model.getStringProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION)));
 		setExportSource(model.getBooleanProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES));
 		try {
@@ -177,33 +177,29 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	}
 
 	public ISchedulingRule getSchedulingRule() {
-		
-		Set projs = gatherDependentProjects(getComponent());
-		if (!projs.contains(getComponent().getProject()))
-			projs.add(getComponent().getProject());
-	        ISchedulingRule combinedRule = null;
-	        IResourceRuleFactory ruleFactory = 
-	              ResourcesPlugin.getWorkspace().getRuleFactory();
-	        for (Iterator iter = projs.iterator(); iter.hasNext();) {
-				IProject proj = (IProject) iter.next();
-				ISchedulingRule rule = ruleFactory.createRule(proj);
-				combinedRule = MultiRule.combine(rule, combinedRule);
-	        }
-	        combinedRule = MultiRule.combine(ruleFactory.buildRule(),combinedRule);
-		       
+		Set projs = gatherDependentProjects(getComponent(), new HashSet());
+		ISchedulingRule combinedRule = null;
+		IResourceRuleFactory ruleFactory = ResourcesPlugin.getWorkspace().getRuleFactory();
+		for (Iterator iter = projs.iterator(); iter.hasNext();) {
+			IProject proj = (IProject) iter.next();
+			ISchedulingRule rule = ruleFactory.createRule(proj);
+			combinedRule = MultiRule.combine(rule, combinedRule);
+		}
+		combinedRule = MultiRule.combine(ruleFactory.buildRule(), combinedRule);
+
 		return combinedRule;
 	}
 
-	private Set gatherDependentProjects(IVirtualComponent comp) {
-		Set projs = new HashSet();
-		IVirtualReference[] refs = comp.getReferences();
-		for (int i = 0; i < refs.length; i++) {
-			IVirtualReference refComp = refs[i];
-			projs.addAll(gatherDependentProjects(refComp.getReferencedComponent()));
-			projs.add(refComp.getReferencedComponent().getProject());
-		}			
-		return projs;	
-		
+	private Set gatherDependentProjects(IVirtualComponent comp, Set projs) {
+		if (!projs.contains(comp.getProject())) {
+			projs.add(comp.getProject());
+			IVirtualReference[] refs = comp.getReferences();
+			for (int i = 0; i < refs.length; i++) {
+				IVirtualReference refComp = refs[i];
+				projs.addAll(gatherDependentProjects(refComp.getReferencedComponent(), projs));
+			}
+		}
+		return projs;
 	}
 
 }
