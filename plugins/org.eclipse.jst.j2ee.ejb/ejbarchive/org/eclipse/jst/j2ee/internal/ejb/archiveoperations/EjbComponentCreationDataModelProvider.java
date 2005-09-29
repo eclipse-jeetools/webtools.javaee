@@ -165,20 +165,11 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 		} else if (propertyName.equals(CREATE_DEFAULT_SESSION_BEAN)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(DD_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
-			else
-				return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+			return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
 		} else if (propertyName.equals(JAVASOURCE_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return  getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
-			else
-				return  CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
+			return  CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
 		} else if (propertyName.equals(MANIFEST_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
-			else
-				return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+			return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}
