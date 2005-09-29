@@ -16,11 +16,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -70,18 +68,6 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 		}
 		return moduleList;
 
-	}
-
-	private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
-
-		ModuleAdapter moduleAdapter = new ModuleAdapter() {
-			public void notifyChanged(Notification msg) {
-				super.notifyChanged(msg);
-			}
-		};
-		moduleAdapter.setTarget(wbModule);
-		moduleAdapter.setModuleDelegate(moduleDelegate);
-		wbModule.eAdapters().add(moduleAdapter);
 	}
 
 	/*

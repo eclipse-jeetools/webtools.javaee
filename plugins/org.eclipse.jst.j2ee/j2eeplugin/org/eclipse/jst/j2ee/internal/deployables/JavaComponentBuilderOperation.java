@@ -13,12 +13,10 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
@@ -37,11 +35,11 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.builder.ComponentStructuralBuilder;
+import org.eclipse.wst.common.componentcore.internal.builder.WorkbenchComponentBuilderOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class JavaComponentBuilderOperation extends AbstractDataModelOperation implements IWorkbenchComponentBuilderDataModelProperties{
+public class JavaComponentBuilderOperation extends WorkbenchComponentBuilderOperation implements IWorkbenchComponentBuilderDataModelProperties{
     /**
      * @param model
      */
@@ -152,67 +150,4 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
         }
 		return OK_STATUS;
     }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.operations.IUndoableOperation#redo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-     */
-    public IStatus redo(IProgressMonitor monitor, IAdaptable info) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.operations.IUndoableOperation#undo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
-     */
-    public IStatus undo(IProgressMonitor monitor, IAdaptable info) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    /**
-	 * @param outputContainer
-	 */
-	private void createFolder(IFolder outputContainer) {
-		IContainer parentContainer = outputContainer.getParent();
-		if(parentContainer != null && !parentContainer.exists() && parentContainer.getType() == IResource.FOLDER) {			
-			createFolder((IFolder)outputContainer.getParent());
-		}
-		try {
-			if(!outputContainer.exists())
-				outputContainer.create(true, true, null);
-		} catch (CoreException e) { 
-			e.printStackTrace();
-		}
-		
-	}
-
-	/**
-	 * Get resource for given absolute path
-	 * 
-	 * @exception com.ibm.itp.core.api.resources.CoreException
-	 */
-	private IResource getResource(IPath absolutePath) throws CoreException {
-		IResource resource = null;
-		if (absolutePath != null && !absolutePath.isEmpty()) 
-			resource = ResourcesPlugin.getWorkspace().getRoot().findMember(absolutePath);
-		return resource;
-	}
-
-	 
-	/**
-	 * Create a folder for given absolute path
-	 * 
-	 * @exception com.ibm.itp.core.api.resources.CoreException
-	 */
-	private IFolder createFolder(IPath absolutePath) throws CoreException {
-		if (absolutePath == null || absolutePath.isEmpty())
-			return null;
-		IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(absolutePath);
-		// check if the parent is there
-		IContainer parent = folder.getParent();
-		if (parent != null && !parent.exists() && (parent instanceof IFolder))
-			createFolder(parent.getFullPath());
-		if (!folder.exists())
-			folder.create(true, true, new NullProgressMonitor());
-		return folder;
-	}
 }
