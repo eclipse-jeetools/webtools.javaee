@@ -243,8 +243,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
     private void addSrcFolderToProject() {
         UpdateProjectClasspath update = new UpdateProjectClasspath(model.getStringProperty(JAVASOURCE_FOLDER),
         		model.getStringProperty(COMPONENT_NAME),
-        		ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)),
-        		model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES));
+        		ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME)));
     }
     
     protected Property getOutputProperty() {
@@ -253,7 +252,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
             Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
             IPath newOutputPath = null;
 
-            newOutputPath= Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
+            newOutputPath= Path.fromOSString("/bin/");
 
             // need a java property constant
             prop.setName(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);

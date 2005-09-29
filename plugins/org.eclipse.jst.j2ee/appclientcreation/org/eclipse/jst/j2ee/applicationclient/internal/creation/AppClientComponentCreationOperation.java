@@ -106,8 +106,6 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
                 mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
                 mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
                 String projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + IPath.SEPARATOR + model.getStringProperty(JAVASOURCE_FOLDER);
-                if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                    projRelativeSourcePath = IPath.SEPARATOR + getProject().getName() + IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + "/"+model.getStringProperty(JAVASOURCE_FOLDER);             
                 mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
                 // mainClassDataModel.setProperty(NewJavaClassDataModel.JAVA_PACKAGE, "appclient");//$NON-NLS-1$
                 mainClassDataModel.getDefaultOperation().execute(monitor,null);

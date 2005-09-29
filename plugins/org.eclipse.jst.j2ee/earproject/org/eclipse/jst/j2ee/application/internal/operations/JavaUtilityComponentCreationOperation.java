@@ -118,7 +118,7 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	}	
 	    
 	private void addSrcFolderToProject() {
-		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getComponentName(), getProject(), false);
+		UpdateProjectClasspath update = new UpdateProjectClasspath(getJavaSourceFolder(), getComponentName(), getProject());
 	}
     
     String getJavaSourceFolder(){
@@ -156,10 +156,7 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
         if(javaSourceFolder != null && !javaSourceFolder.equals("")) {
             Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
             IPath newOutputPath = null;
-            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                newOutputPath = Path.fromOSString("/bin/" + getComponentName() + Path.SEPARATOR);
-            else
-                newOutputPath = Path.fromOSString("/bin/");
+            newOutputPath = Path.fromOSString("/bin/");
             // need a java property constant
             prop.setName(IModuleConstants.PROJ_REL_JAVA_OUTPUT_PATH);
             prop.setValue(newOutputPath.toString());

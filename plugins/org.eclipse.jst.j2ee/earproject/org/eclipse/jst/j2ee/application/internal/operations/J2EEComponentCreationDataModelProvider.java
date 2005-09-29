@@ -74,7 +74,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		propertyNames.add(NESTED_UPDATE_MANIFEST_DM);
 		propertyNames.add(EAR_COMPONENT_HANDLE);
 		propertyNames.add(USE_ANNOTATIONS);
-		propertyNames.add(EXISTING_PROJECT);
 		return propertyNames;
 	}
 
@@ -103,8 +102,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	public boolean isPropertyEnabled(String propertyName) {
 		if (EAR_COMPONENT_NAME.equals(propertyName)) {
 			return getBooleanProperty(ADD_TO_EAR);
-		} else if (EXISTING_PROJECT.equals(propertyName)) {
-			return getBooleanProperty(SUPPORT_MULTIPLE_MODULES);
 		}
 		return super.isPropertyEnabled(propertyName);
 	}
@@ -154,17 +151,13 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			}
 			// this will force to reload all the server types which are valid for this component
 			// version
-			if (!model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
-				model.notifyPropertyChange(RUNTIME_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);
-			}
+			model.notifyPropertyChange(RUNTIME_TARGET_ID, DataModelEvent.VALID_VALUES_CHG);			
 		} else if (RUNTIME_TARGET_ID.equals(propertyName)) {
 			setProperty(ADD_TO_EAR, new Boolean(isEARSupported()));
 
 			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
 			earDM.setProperty(RUNTIME_TARGET_ID, propertyValue);
-		} else if (propertyName.equals(SUPPORT_MULTIPLE_MODULES)) {
-			model.notifyPropertyChange(EXISTING_PROJECT, IDataModel.ENABLE_CHG);
-		}
+		} 
 		return status;
 	}
 
@@ -192,8 +185,6 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return getEARPropertyDescriptor(j2eeVersion);
 		} else if (propertyName.equals(RUNTIME_TARGET_ID)) {
 			return validJ2EEServerPropertyDescriptors();
-		} else if (propertyName.equals(EXISTING_PROJECT)) {
-			return validExistingProjectsDescriptors();
 		}
 		return super.getValidPropertyDescriptors(propertyName);
 	}

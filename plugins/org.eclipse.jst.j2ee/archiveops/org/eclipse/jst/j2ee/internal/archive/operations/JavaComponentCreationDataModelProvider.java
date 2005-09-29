@@ -43,10 +43,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			return getComponentName();
 		} else if (propertyName.equals(MANIFEST_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return getComponentName() + "/" + J2EEConstants.META_INF; //$NON-NLS-1$
-			else
-				return "/" + J2EEConstants.META_INF; //$NON-NLS-1$
+			return "/" + J2EEConstants.META_INF; //$NON-NLS-1$
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -95,16 +92,11 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 			}
 			return status;
 		} else if (propertyName.equals(RUNTIME_TARGET_ID)) {
-			// if multiple modules are supported, the project is already been created, no need for
-			// validation here
-			// if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
-			if (!model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
-				IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
-				IStatus nestedValiation = dm.validate();
-				if (!nestedValiation.isOK())
-					return nestedValiation;
-			} else
-				return OK_STATUS;
+			
+			IDataModel dm = model.getNestedModel(NESTED_PROJECT_CREATION_DM);
+			IStatus nestedValiation = dm.validate();
+			if (!nestedValiation.isOK())
+				return nestedValiation;			
 		}
 		// else if(propertyName.equals(PROJECT_NAME)){
 		// IDataModel projectdm = (IDataModel)model.getNestedModel(NESTED_PROJECT_CREATION_DM);

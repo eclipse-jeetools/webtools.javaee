@@ -71,7 +71,6 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		super.createSourceFolderComposite(advanced);
 		createWebContentFolderComposite(advanced);
 		createAnnotationsGroup(advanced);
-		super.createMultipleModulesComposite(advanced);
 	}
 
     protected void createWebContentFolderComposite(Composite parent) {

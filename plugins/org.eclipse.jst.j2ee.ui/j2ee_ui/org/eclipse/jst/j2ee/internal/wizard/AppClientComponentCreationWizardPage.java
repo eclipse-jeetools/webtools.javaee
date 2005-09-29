@@ -44,7 +44,6 @@ public class AppClientComponentCreationWizardPage extends J2EEComponentCreationW
 		super.addToAdvancedComposite(advanced);
 		super.createSourceFolderComposite(advanced);
 		createAnnotationsGroup(advanced);
-		super.createMultipleModulesComposite(advanced);
 	}
 
 	private void createAnnotationsGroup(Composite parent) {

@@ -62,10 +62,7 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
     
     public Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(DD_FOLDER)) {
-            if(model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-                return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
-            else
-                return IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
+        	return IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
         } else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
             return Boolean.FALSE;
         } else if (propertyName.equals(J2EE_COMPONENT_LIST)) {

@@ -216,14 +216,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     }
     
     protected void createModuleGroup(Composite parent) {
-        // Add the module name label
-//        if(FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp()){
-//            new NewModuleDataModelGroup(parent, getDataModel(),synchHelper);
-//        } else {
-//            createProjectNameGroup(parent);
-//            createProjectLocationGroup(parent);
-//        }
-        
         createProjectNameGroup(parent);
         createProjectLocationGroup(parent);
     }
@@ -293,8 +285,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     }
 
     protected void addToAdvancedComposite(Composite advanced) {
-        //if(!FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp())
-            createServerTargetComposite(advanced);
+        createServerTargetComposite(advanced);
         createVersionComposite(advanced);
         createServerEarAndStandaloneGroup(advanced);
     }
@@ -323,34 +314,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected void createServerEarAndStandaloneGroup(Composite parent) {
         earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
     }
-
-    protected void createMultipleModulesComposite(Composite parent) {
-       
-		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = 3;
-		separator.setLayoutData(gd);
-
-        // Add spacer
-        Label spacer = new Label(parent, SWT.NONE);
-        GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
-        gd1.horizontalSpan = 3;
-        spacer.setLayoutData(gd1);
-        
-		//new Label(parent, SWT.NONE); //pad
-
-		// Create multiple modules checkbox
-		supportMultipleModules = new Button(parent, SWT.CHECK);
-		supportMultipleModules.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SUPPORTMULTIPLEMODULES));
-		supportMultipleModules.setSelection(false);
-		
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = 3;
-		supportMultipleModules.setLayoutData(gd);
-		synchHelper.synchCheckbox(supportMultipleModules, SUPPORT_MULTIPLE_MODULES, null);	
-		
-		createProjectsComboGroup(parent);
-    }    
     
 	private void createProjectsComboGroup(Composite parent) {
 		// set up project name label
@@ -383,8 +346,6 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
 
 			}
 		});
-		
-		synchHelper.synchCombo(projectNameCombo, EXISTING_PROJECT, null);
 	}
 
 	/**

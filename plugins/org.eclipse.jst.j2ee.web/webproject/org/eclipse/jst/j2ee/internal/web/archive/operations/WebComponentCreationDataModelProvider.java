@@ -99,13 +99,9 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 				getAddComponentToEARDataModel().notifyPropertyChange(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, IDataModel.DEFAULT_CHG);
 			}
 		}else if (propertyName.equals(WEBCONTENT_FOLDER)){
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)){
-				model.setProperty( DD_FOLDER, IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF);
-				model.setProperty( MANIFEST_FOLDER, IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF);
-			}else{
-				model.setProperty( DD_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF);
-				model.setProperty( MANIFEST_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF);
-			}
+			model.setProperty( DD_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF);
+			model.setProperty( MANIFEST_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF);
+
 		}
 		return retVal;
 	}
@@ -171,27 +167,16 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 		// return new Integer(jspVersion);
 		// }
 		if (propertyName.equals(DD_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.WEB_INF;
-			else
-				return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.WEB_INF;
+			return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.WEB_INF;
 		}
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return  this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
-			else
-				return  CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
+			return  CreationConstants.DEFAULT_WEB_SOURCE_FOLDER;
 		}
 		if (propertyName.equals(MANIFEST_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.META_INF;
-			else
-				return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.META_INF;
+			return IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT + IPath.SEPARATOR + J2EEConstants.META_INF;
 		}else if (propertyName.equals(WEBCONTENT_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES))
-				return this.getModuleName() + IPath.SEPARATOR + WebArtifactEdit.WEB_CONTENT;
-			else
-				return  WebArtifactEdit.WEB_CONTENT;
+			return  WebArtifactEdit.WEB_CONTENT;
+
 		}
 		return super.getDefaultProperty(propertyName);
 	}

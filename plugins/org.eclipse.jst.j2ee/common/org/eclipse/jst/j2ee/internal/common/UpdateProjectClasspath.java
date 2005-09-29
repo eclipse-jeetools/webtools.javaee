@@ -34,30 +34,30 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 public class UpdateProjectClasspath {
 	
  
-	public UpdateProjectClasspath(String sourceFolder, String componentName, IProject jProject, boolean isProjectMultiComponents){
-		addSrcFolderToProject(sourceFolder, componentName, jProject, isProjectMultiComponents);
+	public UpdateProjectClasspath(String sourceFolder, String componentName, IProject jProject){
+		addSrcFolderToProject(sourceFolder, componentName, jProject);
 	}
 	
 	private IClasspathEntry[] getClasspathEntries(String sourceFolder, String componentName,
-			IProject jProject, boolean isProjectMultiComponents) {
+			IProject jProject) {
 	
 		ArrayList list = new ArrayList();
 		list.add(JavaCore.newSourceEntry(jProject.getFullPath().append(sourceFolder)));
 		
 		IClasspathEntry[] classpath = new IClasspathEntry[list.size()];
-        //adjust the output path to be bin/ComponentName
-		//boolean isProjectMultiComponents = FlexibleJavaProjectPreferenceUtil.getMultipleModulesPerProjectProp();
+
+
         IPath newOutputPath = null;
         for (int i = 0; i < classpath.length; i++) {
 			classpath[i] = (IClasspathEntry) list.get(i);
-            newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/" + componentName + Path.SEPARATOR);
+            newOutputPath = Path.fromOSString(Path.SEPARATOR +jProject.getName() + "/bin/");
             ((ClasspathEntry)classpath[i]).specificOutputLocation = newOutputPath;
 		}
 		return classpath;		
 	}	
 	
 	private void addSrcFolderToProject(String sourceFolder,String componentName,
-			IProject jProject, boolean isProjectMultiComponents) {
+			IProject jProject) {
 			
 		IJavaProject javaProject = JavaCore.create( jProject );
 		try {
@@ -65,7 +65,7 @@ public class UpdateProjectClasspath {
 			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
             List oldEntriesList,classpathList;
 			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, 
-					jProject, isProjectMultiComponents);
+					jProject);
 			
 			int oldSize = oldEntries.length;
 			int newSize = newEntries.length;

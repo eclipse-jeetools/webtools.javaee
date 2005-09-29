@@ -128,24 +128,15 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MANIFEST_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
-			}
-			return IPath.SEPARATOR + "connectorModule" + IPath.SEPARATOR + J2EEConstants.META_INF;
+			return IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER  + IPath.SEPARATOR + J2EEConstants.META_INF;
 		}
 		if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.TRUE;
 		}
 		if (propertyName.equals(DD_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
-				return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
-			}
 			return IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
 		}
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
-			if (model.getBooleanProperty(SUPPORT_MULTIPLE_MODULES)) {
-				return  this.getModuleName() + IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
-			}
 			return CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
 		}
 
