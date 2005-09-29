@@ -25,7 +25,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -34,6 +33,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -51,7 +51,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
-import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
@@ -136,7 +135,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected void initializeResourceSet() {
-		resourceSet = WorkbenchResourceHelper.getResourceSet(vComponent.getProject());
+		resourceSet = WorkbenchResourceHelperBase.getResourceSet(vComponent.getProject());
 	}
 
 	protected boolean primContains(String uri) {
@@ -164,12 +163,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		try {
 			IPackageFragmentRoot[] sourceRoots = ComponentUtilities.getSourceContainers(vComponent);
 			se = StructureEdit.getStructureEditForRead(vComponent.getProject());
-			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 			for (int i = 0; i < sourceRoots.length; i++) {
 				IPath outputPath = sourceRoots[i].getRawClasspathEntry().getOutputLocation();
 				if (outputPath != null) {
 					IFolder javaOutputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-					int javaOutputSegmentCount = javaOutputFolder.getProjectRelativePath().segmentCount();
 					IPath runtimePath = null;
 					try {
 						ComponentResource[] componentResources = se.findResourcesBySourcePath(sourceRoots[i].getResource().getProjectRelativePath());
@@ -190,7 +187,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 						Logger.getLogger().logError(e);
 					}
 					if (null == runtimePath) {
-						runtimePath = new Path("");
+						runtimePath = new Path(""); //$NON-NLS-1$
 					}
 					
 					getOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
@@ -244,7 +241,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					continue;
 				if (filesHolder.contains(uri))
 					continue;
-				if (uri.charAt(0) == Path.SEPARATOR) {
+				if (uri.charAt(0) == IPath.SEPARATOR) {
 					uri = uri.substring(1);
 				}
 				cFile = createFile(uri);
@@ -270,7 +267,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return exportSource;
 	}
 
-	protected boolean shouldInclude(IContainer container) {
+	protected boolean shouldInclude(IContainer aContainer) {
 		return true;
 	}
 
@@ -314,16 +311,12 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	public Collection getLoadedMofResources() {
 		Collection resources = super.getLoadedMofResources();
-		Collection resourcesToRemove = null;
+		Collection resourcesToRemove = new ArrayList();
 		Iterator iterator = resources.iterator();
 		while (iterator.hasNext()) {
 			Resource res = (Resource) iterator.next();
-			if (res.getURI().toString().endsWith(IModuleConstants.WTPMODULE_FILE_NAME)) {
-				if (resourcesToRemove == null) {
-					resourcesToRemove = new ArrayList();
-				}
+			if (res.getURI().toString().endsWith(IModuleConstants.WTPMODULE_FILE_NAME))
 				resourcesToRemove.add(res);
-			}
 		}
 		resources.removeAll(resourcesToRemove);
 
