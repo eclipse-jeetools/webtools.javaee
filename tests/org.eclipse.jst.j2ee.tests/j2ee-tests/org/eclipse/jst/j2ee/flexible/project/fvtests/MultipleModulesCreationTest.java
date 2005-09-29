@@ -55,7 +55,7 @@ public class MultipleModulesCreationTest extends  TestCase  {
 		model.setProperty( IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
 		model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
 		model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, aModuleName);
-		model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
+		//model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
 		try {
 			runWebModuleCreationOperation(model);
 		}
@@ -67,7 +67,7 @@ public class MultipleModulesCreationTest extends  TestCase  {
 		
 			model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
 	
-			model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
+			//model.setBooleanProperty(IWebComponentCreationDataModelProperties.SUPPORT_MULTIPLE_MODULES, true);
 			model.setProperty( IWebComponentCreationDataModelProperties.PROJECT_NAME, projectName);
 			model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
 			model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, "SecondWeb");
