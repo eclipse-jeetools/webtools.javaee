@@ -9,7 +9,7 @@
   	<version></version>
   	<license>
   		<description></description>   
-    	<license-required></license-required>   
+    	<license-required>false</license-required>   
     </license>                                      
   	<resourceadapter>
   		<managedconnectionfactory-class></managedconnectionfactory-class>
@@ -29,7 +29,7 @@
       	 	<authentication-mechanism-type></authentication-mechanism-type>
      	 	<credential-interface></credential-interface>
     	</authentication-mechanism>
-    	<reauthentication-support></reauthentication-support>
+    	<reauthentication-support>false</reauthentication-support>
     	<security-permission>
     		<description></description>
     		<security-permission-spec>
