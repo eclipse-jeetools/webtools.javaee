@@ -10,7 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.defect.tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -24,8 +30,12 @@ public class DefectVerificationTests extends OperationTestCase {
 
 	public static String getFullTestDataPath(String dataPath) {
 		try {
-			String defectTestDataPath = "DefectTestData" + fileSep + dataPath; 
-			return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(), defectTestDataPath);
+			String defectTestDataPath = "DefectTestData" + fileSep + dataPath;
+			HeadlessTestsPlugin plugin = HeadlessTestsPlugin.getDefault();
+			if (plugin != null) {
+				return ProjectUtility.getFullFileName(plugin, defectTestDataPath);
+			}
+			return System.getProperty("user.dir") + java.io.File.separatorChar + defectTestDataPath;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,4 +55,32 @@ public class DefectVerificationTests extends OperationTestCase {
 		assertEquals(3, refs.length);
 	}
 
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=109430
+	 */
+	public void test109430() throws Exception {
+		String earFileName = getFullTestDataPath("EJBLocalAndRemoteRefEARWithClientJars.ear");
+		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+		IVirtualComponent component = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
+		List moduleList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
+
+		List modulesNeeded = new ArrayList();
+		for (int i = 0; i < moduleList.size(); i++) {
+			IDataModel aModel = (IDataModel) moduleList.get(i);
+			Object file = aModel.getProperty(IEARComponentImportDataModelProperties.FILE);
+
+			if (file instanceof ModuleFile) {
+				ModuleFile moduleFile = (ModuleFile) file;
+				if (moduleFile.isEJBJarFile())
+					modulesNeeded.add(aModel);
+			}
+		}
+		runAndVerify(model);
+		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+		EARFile earFile = (EARFile) artifactEdit.asArchive(true);
+		earFile.getEJBReferences(true, false);
+		artifactEdit.dispose();
+	}
+	
 }
