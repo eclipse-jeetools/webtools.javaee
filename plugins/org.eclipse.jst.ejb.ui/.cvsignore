@@ -2,3 +2,4 @@ bin
 temp.folder
 build.xml
 ejb_ui.jar
+@dot
