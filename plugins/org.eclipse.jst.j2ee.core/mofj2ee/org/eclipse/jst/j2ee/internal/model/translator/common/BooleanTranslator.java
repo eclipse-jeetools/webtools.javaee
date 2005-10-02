@@ -42,18 +42,15 @@ public class BooleanTranslator extends Translator {
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
 	public Object convertStringToValue(String strValue, EObject owner) {
-		String correct = strValue;
 		if (strValue == null)
-			return null;
-		if (strValue.toUpperCase().equals("YES"))//$NON-NLS-1$
-			correct = "true";//$NON-NLS-1$
-		else if (strValue.toUpperCase().equals("NO"))//$NON-NLS-1$
-			correct = "false";//$NON-NLS-1$
-		else if (strValue.toUpperCase().equals("1"))//$NON-NLS-1$
-			correct = "true";//$NON-NLS-1$
-		else if (strValue.toUpperCase().equals("0"))//$NON-NLS-1$
-			correct = "false";//$NON-NLS-1$
-		return super.convertStringToValue(correct, owner);
+			return Boolean.FALSE;
+		if (!Boolean.valueOf(strValue).booleanValue()) {
+			if (strValue.toUpperCase().equals("1") || strValue.toUpperCase().equals("YES")) {
+				return Boolean.TRUE;
+			}
+			return Boolean.FALSE;
+		}
+		return Boolean.FALSE;
 	}
 
 
