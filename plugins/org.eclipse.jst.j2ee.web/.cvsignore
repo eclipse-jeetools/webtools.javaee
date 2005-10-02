@@ -2,3 +2,4 @@ bin
 build.xml
 runtime
 temp.folder
+@dot
