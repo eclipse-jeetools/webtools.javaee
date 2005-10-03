@@ -60,7 +60,7 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	protected boolean isValidModule(IProject project) {
 		if (isFlexibleProject(project)) {
 	       IVirtualComponent comp = ComponentCore.createComponent(project);
-            if(comp.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
+            if(IModuleConstants.JST_CONNECTOR_MODULE.equals(comp.getComponentTypeId()))
                 return true;
         }
         return false;

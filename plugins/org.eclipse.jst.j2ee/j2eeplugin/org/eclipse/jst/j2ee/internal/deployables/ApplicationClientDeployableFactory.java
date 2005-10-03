@@ -63,7 +63,7 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	protected boolean isValidModule(IProject project) {
 		if (isFlexibleProject(project)) {
 	        IVirtualComponent comp = ComponentCore.createComponent(project);
-            if(comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
+            if(IModuleConstants.JST_APPCLIENT_MODULE.equals(comp.getComponentTypeId()))
                return true;
         }
         return false;
