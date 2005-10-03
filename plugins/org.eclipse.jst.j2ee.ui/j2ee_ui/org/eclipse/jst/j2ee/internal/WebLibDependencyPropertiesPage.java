@@ -301,7 +301,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	    private ClasspathElement createClassPathElement(IVirtualComponent archiveComp,
 				String unresolvedName ) {
 		
-		URI uri = URI.createURI(ModuleURIUtil.getHandleString(archiveComp.getProject()));
+		URI uri = URI.createURI(ModuleURIUtil.getHandleString(archiveComp));
 		ClasspathElement element = new ClasspathElement(uri);
 		element.setValid(false);
 		element.setSelected(true);

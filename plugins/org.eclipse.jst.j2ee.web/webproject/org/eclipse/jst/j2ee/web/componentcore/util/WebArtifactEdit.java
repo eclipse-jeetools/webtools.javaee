@@ -597,7 +597,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getProject());
+		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
 	}
 }

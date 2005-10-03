@@ -379,7 +379,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getProject());
+		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
 	}
 }

@@ -617,7 +617,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						//String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 						String unresolvedURI = "";
 						try {
-							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())));
+							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
 						} catch (UnresolveableURIException e) {
 							e.printStackTrace();
 						}
@@ -635,12 +635,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						ClasspathElement element = null;
 						if( !alreadyInList ){
 							if( inClassPath(javaProject, archiveURI.lastSegment())){
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())), archiveURI.lastSegment(), archiveURI.lastSegment());
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), archiveURI.lastSegment());
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 							}
 							else
 							{
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())), archiveURI.lastSegment(), null);
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), null);
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);							
 							}
 						}

@@ -357,7 +357,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getProject());
+		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);
 	}
 	
