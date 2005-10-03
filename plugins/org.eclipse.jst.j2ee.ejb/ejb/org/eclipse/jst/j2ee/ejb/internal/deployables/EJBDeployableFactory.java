@@ -83,7 +83,7 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	protected boolean isValidModule(IProject project) {
 		if (isFlexibleProject(project)) {
 		IVirtualComponent comp = ComponentCore.createComponent(project);
-            if(comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
+            if(IModuleConstants.JST_EJB_MODULE.equals(comp.getComponentTypeId()))
                 return true;
         }
         return false;
