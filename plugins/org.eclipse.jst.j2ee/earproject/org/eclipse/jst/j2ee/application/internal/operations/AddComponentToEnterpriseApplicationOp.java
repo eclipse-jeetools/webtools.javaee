@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -16,7 +15,6 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -45,20 +43,19 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		EARArtifactEdit earEdit = null;
 		StructureEdit se = null;
 		try {
-			IProject sourceProject = (IProject) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT);
-			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(sourceProject);
-			se = StructureEdit.getStructureEditForWrite(sourceProject);
+			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(sourceComp.getProject());
+			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();
-				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						StructureEdit compse = null;
-						IProject compproject = (IProject) list.get(i);
-						IVirtualComponent wc = ComponentCore.createComponent(compproject);
+						IVirtualComponent wc = (IVirtualComponent)list.get(i);
 						WorkbenchComponent earwc = se.getComponent();
 						try {
-							compse = StructureEdit.getStructureEditForRead(compproject);
+							compse = StructureEdit.getStructureEditForRead(wc.getProject());
 							WorkbenchComponent refwc = compse.getComponent();
 							ReferencedComponent ref = se.findReferencedComponent(earwc,refwc);
 							Module mod = addModule(application, wc);

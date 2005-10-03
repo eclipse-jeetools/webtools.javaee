@@ -56,7 +56,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 		try {
 			IDataModel importModel = null;
 			List allModels = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
-			List componentProjectsToAdd = new ArrayList();
+			List componentToAdd = new ArrayList();
 			for (int i = 0; i < allModels.size(); i++) {
 				importModel = (IDataModel) allModels.get(i);
 				if (modelsToImport.contains(importModel)) {
@@ -66,13 +66,13 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					} catch (ExecutionException e) {
 						Logger.getLogger().logError(e);
 					}
-					componentProjectsToAdd.add(((IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)).getProject());
+					componentToAdd.add(((IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT)));
 				}
 			}
-			if (componentProjectsToAdd.size() > 0) {
+			if (componentToAdd.size() > 0) {
 				IDataModel addComponentsDM = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, virtualComponent.getProject());
-				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, componentProjectsToAdd);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAdd);
 				addComponentsDM.getDefaultOperation().execute(monitor, info);
 			}
 			try {

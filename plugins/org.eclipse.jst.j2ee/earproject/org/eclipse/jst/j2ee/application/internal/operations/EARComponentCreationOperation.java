@@ -100,12 +100,12 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		try{
 			IDataModel dm = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
-			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, component.getProject());
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
 
 			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
 			if (modulesList != null && !modulesList.isEmpty()) {
-				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modulesList);
-				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modulesList);
+				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 				if( stat != OK_STATUS )
 					return stat;
 				dm.getDefaultOperation().execute(monitor, null);				
@@ -121,13 +121,13 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 					
 					
 					IDataModel refdm = DataModelFactory.createDataModel( new CreateReferenceComponentsDataModelProvider());
-		            List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		            List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 					
 					IVirtualComponent targetcomponent = ComponentCore.createComponent(proj, proj.getName());
-					targetCompList.add(targetcomponent.getProject());
+					targetCompList.add(targetcomponent);
 					
-					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, component.getProject());
-					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, targetCompList);
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
 					refdm.getDefaultOperation().execute(monitor, null);
 				}
 			}

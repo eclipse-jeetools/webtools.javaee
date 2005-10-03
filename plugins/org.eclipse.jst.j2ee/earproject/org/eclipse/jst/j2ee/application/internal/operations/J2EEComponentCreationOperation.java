@@ -100,12 +100,16 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
 		IDataModel dm =  (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-		IProject earproj = (IProject) model.getProperty(EAR_COMPONENT_PROJECT);
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earproj);
 		
-        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
-        modList.add(component.getProject());
-        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modList);
+		IProject earproj = (IProject) model.getProperty(EAR_COMPONENT_PROJECT);
+        IVirtualComponent earComponent = ComponentCore.createComponent(earproj, earproj.getName());
+        
+
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
+		
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+        modList.add(component);
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {

@@ -245,32 +245,32 @@ public class ComponentUtilities {
 		return new JavaProjectMigrationOperation(model);
 	}
 
-	public static CreateReferenceComponentsOp createReferenceComponentOperation(IProject sourceComponentProject, List targetComponentProjects) {
+	public static CreateReferenceComponentsOp createReferenceComponentOperation(IVirtualComponent sourceComponent, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentProjects);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
 		
 		return new CreateReferenceComponentsOp(model);
 	}
 	
-	public static CreateReferenceComponentsOp createWLPReferenceComponentOperation(IProject sourceComponentProject, List targetComponentProjects) {
+	public static CreateReferenceComponentsOp createWLPReferenceComponentOperation(IVirtualComponent sourceComponent, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentProjects);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
 		return new CreateReferenceComponentsOp(model);
 	}
 
-	public static RemoveReferenceComponentOperation removeReferenceComponentOperation(IProject sourceComponentProject, List targetComponentProjects) {
+	public static RemoveReferenceComponentOperation removeReferenceComponentOperation(IVirtualComponent sourceComponent, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentProjects);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
 		return new RemoveReferenceComponentOperation(model);
 
 	}

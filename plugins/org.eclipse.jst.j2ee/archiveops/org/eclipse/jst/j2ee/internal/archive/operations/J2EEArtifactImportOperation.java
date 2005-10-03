@@ -152,8 +152,8 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 					IVirtualComponent refcomp = ComponentCore.createComponent(project);
 					if( refcomp.exists()){
 						ArrayList list = new ArrayList();
-						list.add(refcomp.getProject());						
-						CreateReferenceComponentsOp op = ComponentUtilities.createReferenceComponentOperation(comp.getProject(), list);
+						list.add(refcomp);						
+						CreateReferenceComponentsOp op = ComponentUtilities.createReferenceComponentOperation(comp, list);
 						try {
 							op.execute(null, null);
 						} catch (ExecutionException e) {
