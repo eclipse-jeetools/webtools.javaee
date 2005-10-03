@@ -186,9 +186,9 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 				if (list != null && !list.isEmpty()) {
 					IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
 					
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earComponent.getProject());					
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, list);
-					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, list);
+					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 					if (stat != OK_STATUS)
 						return stat;
 					dm.getDefaultOperation().execute(monitor, null);
@@ -204,13 +204,13 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	
 	
 						IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-						List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+						List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 	
 						IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
-						targetCompList.add(targetcomponent.getProject());
+						targetCompList.add(targetcomponent);
 	
-						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earComponent.getProject());
-						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, targetCompList);
+						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
+						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
 						refdm.getDefaultOperation().execute(monitor, null);
 					}
 				}
@@ -240,10 +240,10 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	
 	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(IProject sourceComponentProject, List targetComponentsHandles) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, ComponentCore.createComponent(sourceComponentProject));
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
 		return new RemoveComponentFromEnterpriseApplicationOperation(model);
 	}
 	
@@ -457,7 +457,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			list.add(ref.getReferencedComponent().getProject());
+			list.add(ref.getReferencedComponent());
 		}
 		return list.toArray();
 	}
@@ -486,7 +486,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		else {
 			list = new ArrayList();
 			for (int i = 0; i < elements.length; i++) {
-				if (elements[i] instanceof IProject) {
+				if (elements[i] instanceof IVirtualComponent) {
 					list.add(elements[i]);
 				}
 			}
