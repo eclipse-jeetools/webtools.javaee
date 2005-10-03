@@ -243,8 +243,10 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
         		if (matchingMf==null)
         			matchingMf = (ModuleFolder) getExistingModuleResource(result,mf);
         		// update the members on the existing module resource to have the new children 
-        		List currentMembers = Arrays.asList(matchingMf.members());
+        		List currentMembers = new ArrayList();
+        		List membersList = Arrays.asList(matchingMf.members());
             	List newMembers = Arrays.asList(getModuleResources(path.append(container2.getName()), container2));
+            	currentMembers.addAll(membersList);
             	currentMembers.addAll(newMembers);
             	matchingMf.setMembers((IModuleResource[])currentMembers.toArray(new IModuleResource[currentMembers.size()]));
         	}
@@ -283,10 +285,10 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
     	result = (IFile) container.findMember(className);
     	if (result == null) {
 	    	try {
-	    		IResource[] members = container.members();
-	    		for (int i=0; i<members.length; i++) {
-	    			if (members[i].getType()==IResource.FOLDER) {
-	    				result = findClassFileInOutput((IContainer)members[i],className);
+	    		IResource[] currentMembers = container.members();
+	    		for (int i=0; i<currentMembers.length; i++) {
+	    			if (currentMembers[i].getType()==IResource.FOLDER) {
+	    				result = findClassFileInOutput((IContainer)currentMembers[i],className);
 	    				if (result != null)
 	    					break;
 	    			}
