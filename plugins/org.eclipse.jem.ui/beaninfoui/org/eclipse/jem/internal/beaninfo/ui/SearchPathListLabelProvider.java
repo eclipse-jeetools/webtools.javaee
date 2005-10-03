@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.13 $  $Date: 2005/09/22 16:29:57 $ 
+ *  $Revision: 1.14 $  $Date: 2005/10/03 23:06:42 $ 
  */
 
 import java.net.URL;
@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
-import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
 import org.eclipse.jdt.ui.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -139,14 +138,14 @@ public class SearchPathListLabelProvider extends LabelProvider {
 						pathString =
 							MessageFormat.format(BeanInfoUIMessages.LabelProvider_Library_Folder, new Object[] { path.makeRelative().toString()}); 
 					} else if (resource instanceof IFile) {
-						if (ArchiveFileFilter.isArchivePath(path)) {
+						if (VariableSelectionBlock.isArchivePath(path)) {
 							// Internal library
 							String[] args =
 								new String[] { path.lastSegment(), path.removeLastSegments(1).makeRelative().toString()};
 							pathString = MessageFormat.format(BeanInfoUIMessages.LabelProvider_Library__PathLastSegment_PathRelative_, args); 
 						}
 					} else {
-						if (ArchiveFileFilter.isArchivePath(path)) {
+						if (VariableSelectionBlock.isArchivePath(path)) {
 							// External library
 							String[] args =
 								new String[] { path.lastSegment(), path.removeLastSegments(1).toString()};

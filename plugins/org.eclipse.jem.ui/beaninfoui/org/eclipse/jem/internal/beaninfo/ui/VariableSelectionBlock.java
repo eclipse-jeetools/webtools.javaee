@@ -14,22 +14,17 @@ import java.util.List;
 
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
-import org.eclipse.jdt.internal.ui.dialogs.StatusUtil;
-import org.eclipse.jdt.internal.ui.util.PixelConverter;
-import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
-import org.eclipse.jdt.internal.ui.wizards.buildpaths.VariablePathDialogField.ChooseVariableDialog;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
-import org.eclipse.jface.window.Window;
+import org.eclipse.jdt.ui.wizards.BuildPathDialogAccess;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
 /*
  *  $RCSfile: VariableSelectionBlock.java,v $
- *  $Revision: 1.6 $  $Date: 2005/09/26 20:26:59 $ 
+ *  $Revision: 1.7 $  $Date: 2005/10/03 23:06:42 $ 
  */
 
 public class VariableSelectionBlock {
@@ -37,8 +32,15 @@ public class VariableSelectionBlock {
 	
 	private List fExistingPaths;
 	
-	private StringButtonDialogField fVariableField;
-	private StringButtonDialogField fExtensionField;
+	private Label variableFieldLabel;
+	private Text variableFieldText;
+	private Button variableFieldButton;
+	private String variableFieldTextContent;
+	
+	private Label extensionFieldLabel;
+	private Text extensionFieldText;
+	private Button extensionFieldButton;
+	private String extensionFieldTextContent;
 	
 	private CLabel fFullPath;
 	
@@ -58,33 +60,25 @@ public class VariableSelectionBlock {
 		fContext= context;
 		fExistingPaths= existingPaths;
 		fIsEmptyAllowed= emptyAllowed;
-		fVariableStatus= new StatusInfo();
-		fExistsStatus= new StatusInfo();
+		fExistsStatus= StatusHelper.OK_STATUS;
 		
-		VariableSelectionAdapter adapter= new VariableSelectionAdapter();
-		fVariableField= new StringButtonDialogField(adapter);
-		fVariableField.setDialogFieldListener(adapter);
-		fVariableField.setLabelText(BeanInfoUIMessages.VariableSelectionBlock_variable_label); 
-		fVariableField.setButtonLabel(BeanInfoUIMessages.VariableSelectionBlock_variable_button); 
-
-		fExtensionField= new StringButtonDialogField(adapter);
-		fExtensionField.setDialogFieldListener(adapter);
-		fExtensionField.setLabelText(BeanInfoUIMessages.VariableSelectionBlock_extension_label); 
-		fExtensionField.setButtonLabel(BeanInfoUIMessages.VariableSelectionBlock_extension_button); 
+		//VariableSelectionAdapter adapter= new VariableSelectionAdapter();
 
 		if (varPath != null) {
-			fVariableField.setText(varPath.segment(0));
-			fExtensionField.setText(varPath.removeFirstSegments(1).toString());
+			variableFieldTextContent = varPath.segment(0);
+			extensionFieldTextContent = varPath.removeFirstSegments(1).toString();
 		} else {
-			fVariableField.setText(""); //$NON-NLS-1$
-			fExtensionField.setText(""); //$NON-NLS-1$
+			variableFieldTextContent = ""; //$NON-NLS-1$
+			extensionFieldTextContent = ""; //$NON-NLS-1$
 		}
 		updateFullTextField();
+		fVariableStatus= variableUpdated();
+		fExtensionStatus=extensionUpdated();
 	}
 	
 	public IPath getVariablePath() {
 		if (fVariable != null) {
-			return new Path(fVariable).append(fExtensionField.getText());
+			return new Path(fVariable).append(extensionFieldTextContent);
 		}
 		return null;
 	}
@@ -93,135 +87,142 @@ public class VariableSelectionBlock {
 		if (fVariable != null) {
 			IPath entryPath= JavaCore.getClasspathVariable(fVariable);
 			if (entryPath != null) {
-				return entryPath.append(fExtensionField.getText());
+				return entryPath.append(extensionFieldTextContent);
 			}
 		}
 		return null;
 	}	
 			
 	public void setFocus(Display display) {
-		fVariableField.postSetFocusOnDialogField(display);
+		display.asyncExec(new Runnable(){
+			public void run() {
+				variableFieldText.setFocus();
+			}
+		});
 	}
 
 	
 	public Control createControl(Composite parent) {
-		PixelConverter converter= new PixelConverter(parent);
-		
-		int nColumns= 3;
-		
 		Composite inner= new Composite(parent, SWT.NONE);
-		GridLayout layout= new GridLayout();
-		layout.marginHeight= 0;
-		layout.marginWidth= 0;
-		layout.numColumns= nColumns;
-		inner.setLayout(layout);
+		inner.setLayout(new GridLayout(3, false));
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		inner.setLayoutData(gd);
 		
-		int fieldWidthHint= converter.convertWidthInCharsToPixels(50);
+		variableFieldLabel = new Label(inner, SWT.NONE);
+		variableFieldLabel.setText(BeanInfoUIMessages.VariableSelectionBlock_variable_label);
+		variableFieldLabel.setLayoutData(new GridData());
+		variableFieldText = new Text(inner, SWT.BORDER|SWT.SINGLE);
+		variableFieldText.setText(variableFieldTextContent);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.widthHint = 200;
+		variableFieldText.setLayoutData(gd);
+		variableFieldText.addModifyListener(new ModifyListener(){
+			public void modifyText(ModifyEvent e) {
+				variableFieldTextContent = variableFieldText.getText();
+				fVariableStatus = variableUpdated();
+				fExistsStatus= getExistsStatus();
+				updateFullTextField();
+				fContext.statusChanged(StatusHelper.getMostSevere(new IStatus[] { fVariableStatus, fExtensionStatus, fExistsStatus }));
+			}
+		});
+		variableFieldButton = new Button(inner, SWT.PUSH);
+		variableFieldButton.setText(BeanInfoUIMessages.VariableSelectionBlock_variable_button);
+		variableFieldButton.setLayoutData(new GridData());
+		variableFieldButton.addSelectionListener(new SelectionAdapter(){
+			public void widgetSelected(SelectionEvent e) {
+				String variable= chooseVariable();
+				if (variable != null) {
+					variableFieldText.setText(variable);
+				}
+			}
+		});
 		
-		fVariableField.doFillIntoGrid(inner, nColumns);
-		LayoutUtil.setWidthHint(fVariableField.getTextControl(null), fieldWidthHint);
-		LayoutUtil.setHorizontalGrabbing(fVariableField.getTextControl(null));
-		
-		fExtensionField.doFillIntoGrid(inner, nColumns);
-		LayoutUtil.setWidthHint(fExtensionField.getTextControl(null), fieldWidthHint);
+		extensionFieldLabel = new Label(inner, SWT.NONE);
+		extensionFieldLabel.setText(BeanInfoUIMessages.VariableSelectionBlock_extension_label);
+		extensionFieldLabel.setLayoutData(new GridData());
+		extensionFieldText = new Text(inner, SWT.BORDER|SWT.SINGLE);
+		extensionFieldText.setText(variableFieldTextContent);
+		extensionFieldText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		extensionFieldText.addModifyListener(new ModifyListener(){
+			public void modifyText(ModifyEvent e) {
+				extensionFieldTextContent = extensionFieldText.getText();
+				fExtensionStatus= extensionUpdated();
+				fExistsStatus= getExistsStatus();
+				updateFullTextField();
+				fContext.statusChanged(StatusHelper.getMostSevere(new IStatus[] { fVariableStatus, fExtensionStatus, fExistsStatus }));
+			}
+		});
+		extensionFieldButton = new Button(inner, SWT.PUSH);
+		extensionFieldButton.setText(BeanInfoUIMessages.VariableSelectionBlock_extension_button);
+		extensionFieldButton.setLayoutData(new GridData());
+		extensionFieldButton.setEnabled(fVariable!=null);
+		extensionFieldButton.addSelectionListener(new SelectionAdapter(){
+			public void widgetSelected(SelectionEvent e) {
+				IPath filePath= chooseExtJar();
+				if (filePath != null) {
+					extensionFieldText.setText(filePath.toString());
+				}
+			}
+		});
 		
 		Label label= new Label(inner, SWT.LEFT);
 		label.setLayoutData(new GridData());
 		label.setText(BeanInfoUIMessages.VariableSelectionBlock_fullpath_label); 
 		
 		fFullPath= new CLabel(inner, SWT.NONE);
-		fFullPath.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-		DialogField.createEmptySpace(inner, nColumns - 2);
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd.horizontalSpan=2;
+		fFullPath.setLayoutData(gd);
+		
 		updateFullTextField();
 		
 		setFocus(parent.getDisplay());
 		
 		return inner;
 	}
-	
-	// -------- VariableSelectionAdapter --------
 
-	private class VariableSelectionAdapter implements IDialogFieldListener, IStringButtonAdapter {
-		
-	
-		// -------- IDialogFieldListener
-		public void dialogFieldChanged(DialogField field) {
-			doFieldUpdated(field);
-		}
-		
-		// -------- IStringButtonAdapter
-		public void changeControlPressed(DialogField field) {
-			doChangeControlPressed(field);
-		}
-		
-	}
-	
-	private void doChangeControlPressed(DialogField field) {
-		if (field == fVariableField) {
-			String variable= chooseVariable();
-			if (variable != null) {
-				fVariableField.setText(variable);
-			}
-		} else if (field == fExtensionField) {
-			IPath filePath= chooseExtJar();
-			if (filePath != null) {
-				fExtensionField.setText(filePath.toString());
-			}
-		}
-	}
-	
-	private void doFieldUpdated(DialogField field) {
-		if (field == fVariableField) {
-			fVariableStatus= variableUpdated();
-		} else if (field == fExtensionField) {
-			fExtensionStatus= extensionUpdated();
-		}
-		fExistsStatus= getExistsStatus();
-		updateFullTextField();
-		
-		fContext.statusChanged(StatusUtil.getMostSevere(new IStatus[] { fVariableStatus, fExtensionStatus, fExistsStatus }));
-	}		
-	
 	private IStatus variableUpdated() {
 		fVariable= null;
 		
-		StatusInfo status= new StatusInfo();
-		String name= fVariableField.getText();
+		IStatus status= StatusHelper.OK_STATUS;
+		
+		String name = variableFieldTextContent;
 		if (name.length() == 0) {
 			if (!fIsEmptyAllowed) {
-				status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_entername_ERROR_); 
+				status = StatusHelper.createStatus(IStatus.ERROR, BeanInfoUIMessages.VariableSelectionBlock_error_entername_ERROR_); 
 			} else {
 				fVariable= ""; //$NON-NLS-1$
 			}
 		} else if (JavaCore.getClasspathVariable(name) == null) {
-			status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_namenotexists_ERROR_); 
+			status = StatusHelper.createStatus(IStatus.ERROR, BeanInfoUIMessages.VariableSelectionBlock_error_namenotexists_ERROR_); 
 		} else {
 			fVariable= name;
 		}
-		fExtensionField.enableButton(fVariable != null);
+		if(extensionFieldButton!=null)
+			extensionFieldButton.setEnabled(fVariable != null);
 		return status;
 	}
 	
 	private IStatus extensionUpdated() {
-		StatusInfo status= new StatusInfo();
-		String extension= fExtensionField.getText();
+		IStatus status= StatusHelper.OK_STATUS;
+		String extension = extensionFieldTextContent;
 		if (extension.length() > 0 && !Path.ROOT.isValidPath(extension)) {
-			status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_invalidextension_ERROR_); 
+			status = StatusHelper.createStatus(IStatus.ERROR, BeanInfoUIMessages.VariableSelectionBlock_error_invalidextension_ERROR_); 
 		}
 		return status;
 	}
 		
 	private IStatus getExistsStatus() {
-		StatusInfo status= new StatusInfo();
+		IStatus status = StatusHelper.OK_STATUS;
 		IPath path= getResolvedPath();
 		if (path != null) {
 			if (findPath(path)) {
-				status.setError(BeanInfoUIMessages.VariableSelectionBlock_error_pathexists_ERROR_); 
+				status = StatusHelper.createStatus(IStatus.ERROR,  BeanInfoUIMessages.VariableSelectionBlock_error_pathexists_ERROR_); 
 			} else if (!path.toFile().isFile()) {
-				status.setWarning(BeanInfoUIMessages.VariableSelectionBlock_warning_pathnotexists_WARN_); 
+				status = StatusHelper.createStatus(IStatus.WARNING,  BeanInfoUIMessages.VariableSelectionBlock_warning_pathnotexists_WARN_); 
 			}
 		} else {
-			status.setWarning(BeanInfoUIMessages.VariableSelectionBlock_warning_pathnotexists_WARN_); 
+			status = StatusHelper.createStatus(IStatus.WARNING,  BeanInfoUIMessages.VariableSelectionBlock_warning_pathnotexists_WARN_); 
 		}
 		return status;
 	}
@@ -254,11 +255,24 @@ public class VariableSelectionBlock {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 	}	
 	
+	public static boolean isArchivePath(IPath path){
+		final String[] archiveExtensions = {"jar", "zip"};
+		String ext= path.getFileExtension();
+		if (ext != null && ext.length() != 0) {
+			for (int i= 0; i < archiveExtensions.length; i++) {
+				if (ext.equalsIgnoreCase(archiveExtensions[i])) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	private IPath chooseExtJar() {
 		String lastUsedPath= ""; //$NON-NLS-1$
 		IPath entryPath= getResolvedPath();
 		if (entryPath != null) {
-			if (ArchiveFileFilter.isArchivePath(entryPath)) {
+			if (isArchivePath(entryPath)) {
 				lastUsedPath= entryPath.removeLastSegments(1).toOSString();
 			} else {
 				lastUsedPath= entryPath.toOSString();
@@ -284,12 +298,12 @@ public class VariableSelectionBlock {
 	}
 
 	private String chooseVariable() {
-		ChooseVariableDialog dialog= new ChooseVariableDialog(getShell(), fVariable);
-		if (dialog.open() == Window.OK) {
-			return dialog.getSelectedVariable();
+		IPath[] varPaths = BuildPathDialogAccess.chooseVariableEntries(variableFieldButton.getShell(), new IPath[0]);
+		String variable = null;
+		if(varPaths!=null && varPaths.length>0){
+			variable = varPaths[0].toString();
 		}
-		
-		return null;
+		return variable;
 	}
 		
 

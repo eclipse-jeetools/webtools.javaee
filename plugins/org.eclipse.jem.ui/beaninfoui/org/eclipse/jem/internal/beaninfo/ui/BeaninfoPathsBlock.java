@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,9 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.15 $  $Date: 2005/09/26 20:26:59 $ 
+ *  $Revision: 1.16 $  $Date: 2005/10/03 23:06:42 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
-
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -24,14 +23,13 @@ import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
 import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -43,155 +41,267 @@ import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 
 public class BeaninfoPathsBlock {
 
-	private IWorkspaceRoot fWorkspaceRoot;
-
-	private CheckedListDialogField fSearchOrder;
-	// Search path list. filtered for each tab page to appropriate entries
-	private SelectionButtonDialogField fEnableBeaninfoDialogField;
-	// Checkbox to add/remove beaninfo nature entirely.
-
-	private IStatus fSearchStatus;
-
-	private IJavaProject fCurrJProject;
-
-	private IStatusChangeListener fContext;
-	private PackagesWorkbookPage fPackagesPage;
-	private BeaninfosWorkbookPage fBeaninfosPage;
-
-	private BuildSearchBasePage fCurrPage;
-	private SearchPathListLabelProvider labelProvider;
+	//private Shell sShell1 = null;  //  @jve:decl-index=0:visual-constraint="40,19"
+	private Composite top = null;
+	private TabFolder tabFolder = null;
+	private Button enableBeaninfoCheckbox = null;
+	private PackagesWorkbookPage packagesWorkbookPage2 = null;
+	private SearchpathOrderingWorkbookPage searchpathOrderingWorkbookPage2 = null;
+	private BeaninfosWorkbookPage beaninfosPropertyPage2 = null;
+	private Control packagesPageControl = null;
+	private Control searchpathPageControl = null;
+	private Control beaninfosPageControl = null;
+	private Image packagesTabImage;
+	private Image beaninfosTabImage;
+	private Image searchPathTabImage;
+	// ...ui
 	
-	public BeaninfoPathsBlock(IWorkspaceRoot root, IStatusChangeListener context) {
-		fWorkspaceRoot = root;
-		fContext = context;
-		fCurrPage = null;
-
-		BuildPathAdapter adapter = new BuildPathAdapter();
-
-		String[] buttonLabels = new String[] {
-			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_up_button, 
-			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_down_button, 
-			/* 2 */ null,
-			BeanInfoUIMessages.BeanInfoPathsBlock_ExportAll , 
-			BeanInfoUIMessages.BeanInfoPathsBlock_UnexportAll
-			};
-		
-		labelProvider = new SearchPathListLabelProvider();	// We keep around to update with latest project.
-		fSearchOrder = new CheckedListDialogField(null, buttonLabels, labelProvider);
-		fSearchOrder.setDialogFieldListener(adapter);
-		fSearchOrder.setLabelText(
-			BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_label); 
-		fSearchOrder.setUpButtonIndex(0);
-		fSearchOrder.setDownButtonIndex(1);
-		fSearchOrder.setCheckAllButtonIndex(3);
-		fSearchOrder.setUncheckAllButtonIndex(4);
-
-		fEnableBeaninfoDialogField = new SelectionButtonDialogField(SWT.CHECK);
-		fEnableBeaninfoDialogField.setLabelText(
-			BeanInfoUIMessages.BeaninfoPathsBlock_UI__enablebeaninfo); 
-
-		fSearchStatus = Status.OK_STATUS;
-
-		fCurrJProject = null;
+	private IWorkspaceRoot workspaceRoot;
+	private IStatusChangeListener statusChangeListener;
+	private IBuildSearchPage currentPage;
+	private IJavaProject javaProject;
+	private boolean enableBeaninfo = true;
+	
+	public BeaninfoPathsBlock(IWorkspaceRoot workspaceRoot, IStatusChangeListener statusChangeListener){
+		this.workspaceRoot = workspaceRoot;
+		this.statusChangeListener = statusChangeListener;
 	}
 	
-	public CheckedListDialogField getSearchOrder() {
-		return fSearchOrder;
+	private void setEnableBeaninfo(boolean enable){
+		enableBeaninfo = enable;
+		if(enableBeaninfoCheckbox!=null && !enableBeaninfoCheckbox.isDisposed())
+			enableBeaninfoCheckbox.setSelection(enable);
 	}
 	
-	/*
-	 * searchOrder dialog must never have all of elements set
-	 * directly. Must come through here first so that we can
-	 * make sure updates occur in correct sequence, else
-	 * we will wind up with entries being marked as unexported
-	 * when they really are exported. 
+//	/**
+//	 * This method initializes sShell1	
+//	 *
+//	 */
+//	private void createSShell1() {
+//		sShell1 = new Shell();
+//		sShell1.setLayout(new FillLayout());
+//		createTop();
+//		sShell1.setSize(new org.eclipse.swt.graphics.Point(403,289));
+//	}
+
+	/**
+	 * This method initializes top	
+	 *
 	 */
-	public void setSearchOrderElements(List newElements) {
-		ArrayList exportedEntries = new ArrayList(newElements.size());
-		for (Iterator iter = newElements.iterator(); iter.hasNext();) {
-			BPListElement element = (BPListElement) iter.next();
-			if (element.isExported())
-				exportedEntries.add(element);
+	public Control createControl(Composite parent) {
+		top = new Composite(parent, SWT.NONE);
+		top.setLayout(new GridLayout());
+		createTabFolder();
+		enableBeaninfoCheckbox = new Button(top, SWT.CHECK);
+		enableBeaninfoCheckbox.setText(BeanInfoUIMessages.BeaninfoPathsBlock_UI__enablebeaninfo);
+		enableBeaninfoCheckbox.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+				enableBeaninfo = enableBeaninfoCheckbox.getSelection();
+				packagesWorkbookPage2.setBeaninfoEnabled(enableBeaninfo);
+				beaninfosPropertyPage2.setBeaninfoEnabled(enableBeaninfo);
+				searchpathOrderingWorkbookPage2.setBeaninfoEnabled(enableBeaninfo);
+			}
+			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
+		enableBeaninfoCheckbox.setSelection(enableBeaninfo);
+		if(javaProject!=null){
+			getPackagesPage().init(javaProject);
+			getBeaninfosPage().init(javaProject);
+			getSearchpathOrderingPage().init(javaProject);
 		}
-		
-		inUpdate = true;	// So that on first set we don't waste time updating the list and reseting all of our entries.
-		fSearchOrder.setElements(newElements);
-		inUpdate = false;
-		fSearchOrder.setCheckedElements(exportedEntries);
+		return top;
 	}
 
-	// -------- UI creation ---------
-
-	public Control createControl(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-
-		GridLayout layout = new GridLayout();
-		layout.marginWidth = 0;
-		layout.numColumns = 1;
-		composite.setLayout(layout);
-
-		TabFolder folder = new TabFolder(composite, SWT.NONE);
-		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
-		folder.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
+	/**
+	 * This method initializes tabFolder	
+	 *
+	 */
+	private void createTabFolder() {
+		GridData gridData = new org.eclipse.swt.layout.GridData();
+		gridData.horizontalAlignment = org.eclipse.swt.layout.GridData.FILL;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.grabExcessVerticalSpace = true;
+		gridData.verticalAlignment = org.eclipse.swt.layout.GridData.FILL;
+		tabFolder = new TabFolder(top, SWT.NONE);
+		tabFolder.setLayoutData(gridData);
+		createPackagesWorkbookPage2();
+		createBeaninfosPropertyPage2();
+		createSearchpathOrderingWorkbookPage2();
+		tabFolder.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
 				tabChanged(e.item);
 			}
 		});
-
-		TabItem item;
-
-		ArrayList interestedDialogFields = new ArrayList(3);
-
-		fPackagesPage = new PackagesWorkbookPage(fWorkspaceRoot, this, interestedDialogFields);
-		item = new TabItem(folder, SWT.NONE);
-		item.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Packages); 
-		item.setImage(JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE));
-		item.setData(fPackagesPage);
-		item.setControl(fPackagesPage.getControl(folder));
-
-		// a non shared image
-		Image fBeanImage = null;
-		URL imageURL = Platform.find(JEMUIPlugin.getPlugin().getBundle(), new Path("icons/javabean.gif")); //$NON-NLS-1$
-		if (imageURL != null) 
-			fBeanImage = ImageDescriptor.createFromURL(imageURL).createImage();
-		else
-			fBeanImage = ImageDescriptor.getMissingImageDescriptor().createImage();
-		composite.addDisposeListener(new ImageDisposer(fBeanImage));
 				
-		fBeaninfosPage= new BeaninfosWorkbookPage(fWorkspaceRoot, this, interestedDialogFields);		
-		item= new TabItem(folder, SWT.NONE);
-		item.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Classes); 
-		item.setImage(fBeanImage);
-		item.setData(fBeaninfosPage);
-		item.setControl(fBeaninfosPage.getControl(folder));
-
-		// a non shared image
-		Image cpoImage = JEMUIPlugin.imageDescriptorFromPlugin(JEMUIPlugin.getPlugin().getBundle().getSymbolicName(), "icons/cp_order_obj.gif").createImage();
-		composite.addDisposeListener(new ImageDisposer(cpoImage));
-		
-		SearchpathOrderingWorkbookPage ordpage = new SearchpathOrderingWorkbookPage(fSearchOrder, interestedDialogFields);
-		item = new TabItem(folder, SWT.NONE);
-		item.setText(BeanInfoUIMessages.BeaninfoPathsBlock_UI__serachpath_tab_order); 
-		item.setImage(cpoImage);
-		item.setData(ordpage);
-		item.setControl(ordpage.getControl(folder));
-
-		if (fCurrJProject != null) {
-			fPackagesPage.init(fCurrJProject);
-			fBeaninfosPage.init(fCurrJProject);
-		}
-
-		fEnableBeaninfoDialogField.doFillIntoGrid(composite, 1);
-		fEnableBeaninfoDialogField.attachDialogFields((DialogField[]) interestedDialogFields.toArray(new DialogField[interestedDialogFields.size()]));
-
-		folder.setSelection(2);
-		fCurrPage = ordpage;
-		fSearchOrder.selectFirstElement();
-
-		//		WorkbenchHelp.setHelp(composite, new Object[] { IJavaHelpContextIds.BUILD_PATH_BLOCK });				
-		return composite;
+		TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+		tabItem.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Packages);
+		tabItem.setImage(getPackagesTabImage());
+		tabItem.setControl(packagesPageControl);
+		TabItem tabItem1 = new TabItem(tabFolder, SWT.NONE);
+		tabItem1.setText(BeanInfoUIMessages.BeanInfoPathsBlock_Page_Tab_Classes);
+		tabItem1.setImage(getBeaninfosTabImage());
+		tabItem1.setControl(beaninfosPageControl);
+		TabItem tabItem2 = new TabItem(tabFolder, SWT.NONE);
+		tabItem2.setImage(getSearchPathTabImage());
+		tabItem2.setText(BeanInfoUIMessages.BeaninfoPathsBlock_UI__serachpath_tab_order);
+		tabItem2.setControl(searchpathPageControl);
+		tabFolder.setSelection(2);
 	}
 
+	private Image getSearchPathTabImage() {
+		if(searchPathTabImage==null)
+			searchPathTabImage = JEMUIPlugin.imageDescriptorFromPlugin(JEMUIPlugin.getPlugin().getBundle().getSymbolicName(), "icons/cp_order_obj.gif").createImage();
+		return searchPathTabImage;
+	}
+
+	private Image getPackagesTabImage() {
+		if(packagesTabImage==null)
+			packagesTabImage = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE);
+		return packagesTabImage;
+	}
+	
+	private Image getBeaninfosTabImage(){
+		if(beaninfosTabImage==null){
+			URL imageURL = Platform.find(JEMUIPlugin.getPlugin().getBundle(), new Path("icons/javabean.gif")); //$NON-NLS-1$
+			if (imageURL != null) 
+				beaninfosTabImage = ImageDescriptor.createFromURL(imageURL).createImage();
+			else
+				beaninfosTabImage = ImageDescriptor.getMissingImageDescriptor().createImage();
+		}
+		return beaninfosTabImage;
+	}
+
+	/**
+	 * This method initializes packagesWorkbookPage2	
+	 *
+	 */
+	private void createPackagesWorkbookPage2() {
+		packagesPageControl = getPackagesPage().createControl(tabFolder);
+	}
+
+	/**
+	 * This method initializes searchpathOrderingWorkbookPage2	
+	 *
+	 */
+	private void createSearchpathOrderingWorkbookPage2() {
+		searchpathPageControl = getSearchpathOrderingPage().createControl(tabFolder);
+		searchpathPageControl.addDisposeListener(new org.eclipse.swt.events.DisposeListener() {
+			public void widgetDisposed(org.eclipse.swt.events.DisposeEvent e) {
+				if(searchPathTabImage!=null){
+					if(!searchPathTabImage.isDisposed())
+						searchPathTabImage.dispose();
+					searchPathTabImage=null;
+				}
+			}
+		});
+	}
+
+	/**
+	 * This method initializes beaninfosPropertyPage2	
+	 *
+	 */
+	private void createBeaninfosPropertyPage2() {
+		beaninfosPageControl = getBeaninfosPage().createControl(tabFolder);
+		beaninfosPageControl.addDisposeListener(new org.eclipse.swt.events.DisposeListener() {
+			public void widgetDisposed(org.eclipse.swt.events.DisposeEvent e) {
+				if(beaninfosTabImage!=null){
+					if(!beaninfosTabImage.isDisposed())
+						beaninfosTabImage.dispose();
+					beaninfosTabImage=null;
+				}
+			}
+		});
+	}
+
+	PackagesWorkbookPage getPackagesPage(){
+		if(packagesWorkbookPage2==null)
+			packagesWorkbookPage2 = new PackagesWorkbookPage(workspaceRoot, this);
+		return packagesWorkbookPage2;
+	}
+	
+	BeaninfosWorkbookPage getBeaninfosPage(){
+		if(beaninfosPropertyPage2==null)
+			beaninfosPropertyPage2 = new BeaninfosWorkbookPage(workspaceRoot, this);
+		return beaninfosPropertyPage2;
+	}
+	
+	SearchpathOrderingWorkbookPage getSearchpathOrderingPage(){
+		if(searchpathOrderingWorkbookPage2==null)
+			searchpathOrderingWorkbookPage2 = new SearchpathOrderingWorkbookPage(this);
+		return searchpathOrderingWorkbookPage2;
+	}
+	
+	private void tabChanged(Widget widget) {
+		if (widget instanceof TabItem) {
+			IBuildSearchPage newPage = (IBuildSearchPage) ((TabItem) widget).getData();
+			if (currentPage != null) {
+				List selection = currentPage.getSelection();
+				if (!selection.isEmpty()) {
+					newPage.setSelection(selection);
+				}
+			}
+			currentPage = newPage;
+		}
+	}	
+	
+	/**
+	 * Creates a runnable that sets the configured build paths.
+	 */
+	public IRunnableWithProgress getRunnable() {
+		final boolean wantNature = enableBeaninfo;
+		final List searchPathEntries = wantNature ? getSearchpathOrderingPage().getElements() : null;
+
+		return new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) throws InvocationTargetException {
+				if (monitor == null) {
+					monitor = new NullProgressMonitor();
+				}
+				monitor.beginTask(
+					BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_operationdescription, 
+					10);
+				try {
+					setBeaninfoSearchpath(wantNature, searchPathEntries, monitor);
+				} catch (CoreException e) {
+					throw new InvocationTargetException(e);
+				} finally {
+					monitor.done();
+				}
+			}
+		};
+	}
+
+	private void setBeaninfoSearchpath(
+			boolean wantNature,
+			List searchPathEntries,
+			IProgressMonitor monitor)
+			throws CoreException {
+
+		if (wantNature) {
+			// create beaninfo nature
+			if (!javaProject.getProject().hasNature(BeaninfoNature.NATURE_ID)) {
+				addNatureIDToProject(javaProject.getProject(), BeaninfoNature.NATURE_ID, monitor);
+			}
+
+			BeaninfoNature nature = BeaninfoNature.getRuntime(javaProject.getProject());
+			// Now build/set the search path.
+			if (searchPathEntries.size() > 0) {
+				IBeaninfosDocEntry[] sparray = new IBeaninfosDocEntry[searchPathEntries.size()];
+				Iterator itr = searchPathEntries.iterator();
+				int i = 0;
+				while (itr.hasNext()) {
+					BPListElement elem = (BPListElement) itr.next();
+					sparray[i++] = elem.getEntry();
+				}
+				nature.setSearchPath(new BeaninfosDoc(sparray), monitor);
+			} else
+				nature.setSearchPath(null, monitor);
+		} else {
+			// Remove the nature, no longer wanted.
+			removeNatureIDFromProject(javaProject.getProject(), BeaninfoNature.NATURE_ID, monitor);
+		}
+	}
 
 	/**
 	 * Initializes the classpath for the given project. Multiple calls to init are allowed,
@@ -199,8 +309,8 @@ public class BeaninfoPathsBlock {
 	 * @param project The java project to configure.
 	 */
 	public void init(IJavaProject jproject) {
-		fCurrJProject = jproject;
-		labelProvider.setJavaProject(jproject);
+		this.javaProject = jproject;
+		//TODO: labelProvider.setJavaProject(jproject);
 
 		try {
 			// If we have a config file, we will assume we have a nature. It will add it automatically
@@ -208,11 +318,11 @@ public class BeaninfoPathsBlock {
 			// asks for it, we would create it anyhow, and it would use the existing config file.
 			// If we don't have a config file, we could have the nature, so we will check for that too.
 			boolean haveConfigFile = jproject.getProject().getFile(BeaninfoNature.P_BEANINFO_SEARCH_PATH).exists();
-			boolean haveNature = fCurrJProject.getProject().hasNature(BeaninfoNature.NATURE_ID);
-			fEnableBeaninfoDialogField.setSelection(haveConfigFile || haveNature);
+			boolean haveNature = javaProject.getProject().hasNature(BeaninfoNature.NATURE_ID);
+			enableBeaninfo = haveConfigFile || haveNature;
 			if (haveNature || haveConfigFile) {
-				BeaninfosDoc doc = BeaninfoNature.getRuntime(fCurrJProject.getProject()).getSearchPath();
-				IClasspathEntry[] raw = fCurrJProject.getRawClasspath();
+				BeaninfosDoc doc = BeaninfoNature.getRuntime(javaProject.getProject()).getSearchPath();
+				IClasspathEntry[] raw = javaProject.getRawClasspath();
 
 				List newSearchpath = new ArrayList();
 				if (doc != null) {
@@ -225,7 +335,7 @@ public class BeaninfoPathsBlock {
 							BeaninfoEntry be = (BeaninfoEntry) curr;
 
 							// get the resource, this tells if the beaninfos exist or not.
-							Object[] paths = be.getClasspath(fCurrJProject);
+							Object[] paths = be.getClasspath(javaProject);
 							if (paths != null && paths.length > 0) {
 								for (int j = 0; !isMissing && j < paths.length; j++) {
 									Object path = paths[j];
@@ -257,7 +367,7 @@ public class BeaninfoPathsBlock {
 									isExported = raw[j].isExported() || raw[j].getEntryKind() == IClasspathEntry.CPE_SOURCE;
 									String packageName = ce.getPackage();
 									if (packageName != null) {
-										IPackageFragmentRoot[] roots = fCurrJProject.findPackageFragmentRoots(raw[j]);
+										IPackageFragmentRoot[] roots = javaProject.findPackageFragmentRoots(raw[j]);
 										for (int k = 0; k < roots.length; k++) {
 											IPackageFragmentRoot iroot = roots[k];
 											if (iroot.getPackageFragment(packageName).exists()) {
@@ -280,22 +390,84 @@ public class BeaninfoPathsBlock {
 				// inits the dialog field
 				setSearchOrderElements(newSearchpath);
 
-				if (fPackagesPage != null) {
-					fPackagesPage.init(fCurrJProject);
-					fBeaninfosPage.init(fCurrJProject);
+				if (getPackagesPage() != null) {
+					getPackagesPage().init(javaProject);
+					getBeaninfosPage().init(javaProject);
+					getSearchpathOrderingPage().init(javaProject);
 				}
 			} else {
 				// No nature, disable,
-				fEnableBeaninfoDialogField.setSelection(false);
+				setEnableBeaninfo(false);
 			}
 		} catch (JavaModelException e) {
-			fEnableBeaninfoDialogField.setSelection(false);
+			setEnableBeaninfo(false);
 		} catch (CoreException e) {
-			fEnableBeaninfoDialogField.setSelection(false);
+			setEnableBeaninfo(false);
 		}
 
 //		listenForClasspathChange();
 		doStatusLineUpdate();
+	}
+
+	/**
+	 * Adds a nature to a project
+	 */
+	private void addNatureIDToProject(IProject proj, String natureId, IProgressMonitor monitor)
+		throws CoreException {
+		IProjectDescription description = proj.getDescription();
+		String[] prevNatures = description.getNatureIds();
+		String[] newNatures = new String[prevNatures.length + 1];
+		System.arraycopy(prevNatures, 0, newNatures, 0, prevNatures.length);
+		newNatures[prevNatures.length] = natureId;
+		description.setNatureIds(newNatures);
+		proj.setDescription(description, monitor);
+	}
+
+	private void removeNatureIDFromProject(IProject proj, String natureId, IProgressMonitor monitor)
+		throws CoreException {
+		IProjectDescription description = proj.getDescription();
+		String[] prevNatures = description.getNatureIds();
+		int indx = -1;
+		for (int i = 0; i < prevNatures.length; i++) {
+			if (prevNatures[i].equals(natureId)) {
+				indx = i;
+				break;
+			}
+		}
+		if (indx == -1)
+			return;
+
+		String[] newNatures = new String[prevNatures.length - 1];
+		if (newNatures.length != 0) {
+			System.arraycopy(prevNatures, 0, newNatures, 0, indx);
+			if (indx < newNatures.length)
+				System.arraycopy(prevNatures, indx + 1, newNatures, indx, newNatures.length - indx);
+		}
+		description.setNatureIds(newNatures);
+		proj.setDescription(description, monitor);
+	}
+	
+	void doStatusLineUpdate() {
+		statusChangeListener.statusChanged(getSearchpathOrderingPage().getStatus());
+	}
+	
+	/*
+	 * searchOrder dialog must never have all of elements set
+	 * directly. Must come through here first so that we can
+	 * make sure updates occur in correct sequence, else
+	 * we will wind up with entries being marked as unexported
+	 * when they really are exported. 
+	 */
+	public void setSearchOrderElements(List newElements) {
+		ArrayList exportedEntries = new ArrayList(newElements.size());
+		for (Iterator iter = newElements.iterator(); iter.hasNext();) {
+			BPListElement element = (BPListElement) iter.next();
+			if (element.isExported())
+				exportedEntries.add(element);
+		}
+		
+		getSearchpathOrderingPage().setElements(newElements);
+		getSearchpathOrderingPage().setCheckedElements(exportedEntries);
 	}
 	
 	/*
@@ -311,7 +483,7 @@ public class BeaninfoPathsBlock {
 
 		if (infoEntry.getKind() != BeaninfoEntry.BIE_PLUGIN) {
 			IClasspathEntry resolved = JavaCore.getResolvedClasspathEntry(infoEntry.getClasspathEntry());
-			IResource res = fWorkspaceRoot.findMember(resolved.getPath());
+			IResource res = workspaceRoot.findMember(resolved.getPath());
 			if (res != null && res.exists()) {
 				if (res instanceof IProject) {
 					// It is a project itself.
@@ -361,201 +533,18 @@ public class BeaninfoPathsBlock {
 
 		return packageElements;
 	}
-
-	// -------- public api --------
-
-	/**
-	 * Returns the Java project. Can return <code>null<code> if the page has not
-	 * been initialized.
-	 */
-	public IJavaProject getJavaProject() {
-		return fCurrJProject;
-	}
-
-	private class BuildPathAdapter implements IDialogFieldListener {
-
-		// ---------- IDialogFieldListener --------
-		public void dialogFieldChanged(DialogField field) {
-			buildPathDialogFieldChanged(field);
+	
+	
+	public static List getSelectedList(ISelection selection){
+		List selectedList = null;
+		if(selection!=null && !selection.isEmpty() && selection instanceof IStructuredSelection){
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			selectedList = new ArrayList(Arrays.asList(structuredSelection.toArray()));
 		}
+		return selectedList;
 	}
-
-	private void buildPathDialogFieldChanged(DialogField field) {
-		if (field == fSearchOrder) {
-			updateSearchPathStatus();
-		}
-		doStatusLineUpdate();
+	
+	public boolean isBeaninfoEnabled(){
+		return enableBeaninfo;
 	}
-
-	// -------- verification -------------------------------
-
-	private void doStatusLineUpdate() {
-		fContext.statusChanged(fSearchStatus);
-	}
-
-	private boolean inUpdate;
-	// Flag to indicate we are in updateSearchPathStatus and to not do it again. This can
-	// happen due to using setCheckedElements instead of setCheckedWithoutUpdate.
-	/**
-	 * Validates the search path.
-	 */
-	private void updateSearchPathStatus() {
-		if (inUpdate)
-			return;
-		try {
-			inUpdate = true;
-
-			fSearchStatus = Status.OK_STATUS;
-
-			List elements = fSearchOrder.getElements();
-
-			boolean entryMissing = false;
-
-			// Because of bug in setcheckedWithoutUpdate, which sets to true no matter what the state is, we need
-			// to accumulate the checked elements and re-set them again after this so that they will be correct.	
-			ArrayList exported = new ArrayList();
-
-			for (Iterator entries = elements.iterator(); entries.hasNext();) {
-				BPListElement currElement = (BPListElement) entries.next();
-
-				boolean isChecked = fSearchOrder.isChecked(currElement);
-				if (currElement.canExportBeChanged()) {
-					if (isChecked)
-						exported.add(currElement);
-					currElement.setExported(isChecked);
-				} else {
-					//				fSearchOrder.setCheckedWithoutUpdate(currElement, currElement.isExported());
-					if (currElement.isExported())
-						exported.add(currElement);
-				}
-
-				entryMissing = entryMissing || currElement.isMissing();
-			}
-
-			// Now reset the checked states, due to bug
-			fSearchOrder.setCheckedElements(exported);
-
-			if (entryMissing) {
-				fSearchStatus = new Status(IStatus.WARNING, 
-						JEMUIPlugin.getPlugin().getBundle().getSymbolicName(),
-						IStatus.WARNING,
-						BeanInfoUIMessages.BeaninfoPathsBlock_UI__warning_EntryMissing,
-						null); 
-			}
-		} finally {
-			inUpdate = false;
-		}
-	}
-
-	// -------- creation -------------------------------
-
-	/**
-	 * Creates a runnable that sets the configured build paths.
-	 */
-	public IRunnableWithProgress getRunnable() {
-		final boolean wantNature = fEnableBeaninfoDialogField.isSelected();
-		final List searchPathEntries = wantNature ? fSearchOrder.getElements() : null;
-
-		return new IRunnableWithProgress() {
-			public void run(IProgressMonitor monitor) throws InvocationTargetException {
-				if (monitor == null) {
-					monitor = new NullProgressMonitor();
-				}
-				monitor.beginTask(
-					BeanInfoUIMessages.BeaninfoPathsBlock_UI__searchpath_operationdescription, 
-					10);
-				try {
-					setBeaninfoSearchpath(wantNature, searchPathEntries, monitor);
-				} catch (CoreException e) {
-					throw new InvocationTargetException(e);
-				} finally {
-					monitor.done();
-				}
-			}
-		};
-	}
-
-	private void setBeaninfoSearchpath(
-		boolean wantNature,
-		List searchPathEntries,
-		IProgressMonitor monitor)
-		throws CoreException {
-
-		if (wantNature) {
-			// create beaninfo nature
-			if (!fCurrJProject.getProject().hasNature(BeaninfoNature.NATURE_ID)) {
-				addNatureIDToProject(fCurrJProject.getProject(), BeaninfoNature.NATURE_ID, monitor);
-			}
-
-			BeaninfoNature nature = BeaninfoNature.getRuntime(fCurrJProject.getProject());
-			// Now build/set the search path.
-			if (searchPathEntries.size() > 0) {
-				IBeaninfosDocEntry[] sparray = new IBeaninfosDocEntry[searchPathEntries.size()];
-				Iterator itr = searchPathEntries.iterator();
-				int i = 0;
-				while (itr.hasNext()) {
-					BPListElement elem = (BPListElement) itr.next();
-					sparray[i++] = elem.getEntry();
-				}
-				nature.setSearchPath(new BeaninfosDoc(sparray), monitor);
-			} else
-				nature.setSearchPath(null, monitor);
-		} else {
-			// Remove the nature, no longer wanted.
-			removeNatureIDFromProject(fCurrJProject.getProject(), BeaninfoNature.NATURE_ID, monitor);
-		}
-	}
-
-	/**
-	 * Adds a nature to a project
-	 */
-	private void addNatureIDToProject(IProject proj, String natureId, IProgressMonitor monitor)
-		throws CoreException {
-		IProjectDescription description = proj.getDescription();
-		String[] prevNatures = description.getNatureIds();
-		String[] newNatures = new String[prevNatures.length + 1];
-		System.arraycopy(prevNatures, 0, newNatures, 0, prevNatures.length);
-		newNatures[prevNatures.length] = natureId;
-		description.setNatureIds(newNatures);
-		proj.setDescription(description, monitor);
-	}
-
-	private void removeNatureIDFromProject(IProject proj, String natureId, IProgressMonitor monitor)
-		throws CoreException {
-		IProjectDescription description = proj.getDescription();
-		String[] prevNatures = description.getNatureIds();
-		int indx = -1;
-		for (int i = 0; i < prevNatures.length; i++) {
-			if (prevNatures[i].equals(natureId)) {
-				indx = i;
-				break;
-			}
-		}
-		if (indx == -1)
-			return;
-
-		String[] newNatures = new String[prevNatures.length - 1];
-		if (newNatures.length != 0) {
-			System.arraycopy(prevNatures, 0, newNatures, 0, indx);
-			if (indx < newNatures.length)
-				System.arraycopy(prevNatures, indx + 1, newNatures, indx, newNatures.length - indx);
-		}
-		description.setNatureIds(newNatures);
-		proj.setDescription(description, monitor);
-	}
-
-	// -------- tab switching ----------
-
-	private void tabChanged(Widget widget) {
-		if (widget instanceof TabItem) {
-			BuildSearchBasePage newPage = (BuildSearchBasePage) ((TabItem) widget).getData();
-			if (fCurrPage != null) {
-				List selection = fCurrPage.getSelection();
-				if (!selection.isEmpty()) {
-					newPage.setSelection(selection);
-				}
-			}
-			fCurrPage = newPage;
-		}
-	}	
 }

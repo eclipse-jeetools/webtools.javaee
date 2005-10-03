@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,11 +8,11 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: PackagesWorkbookPage.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 21:07:12 $ 
+ *  $Revision: 1.9 $  $Date: 2005/10/03 23:06:42 $ 
  */
+package org.eclipse.jem.internal.beaninfo.ui;
 
 import java.util.*;
 import java.util.List;
@@ -20,30 +20,19 @@ import java.util.List;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
-import org.eclipse.jdt.internal.ui.util.PixelConverter;
-import org.eclipse.jdt.internal.ui.wizards.TypedViewerFilter;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.dialogs.*;
 
 import org.eclipse.jem.internal.beaninfo.core.SearchpathEntry;
-import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
-/**
- * Workbook page for selecting the packages from the current
- * project that are in the search path.
- * @version 	1.0
- * @author
- */
-public class PackagesWorkbookPage extends BuildSearchBasePage {
 
-	// Note: Not happy with how this works. It does a lot of manipulating of classpath to
-	// fragments and back and forth. But it works for now.
-
+public class PackagesWorkbookPage implements IBuildSearchPage {
+	
 	/**
 	 * Validator for this workbook page to verify the selections on Choose page.
 	 * @version 	1.0
@@ -51,8 +40,8 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 	 */
 	public static class ChoosePackagesSelectionValidator implements ISelectionStatusValidator {
 
-		private IStatus fgErrorStatus = new StatusInfo(IStatus.ERROR, ""); //$NON-NLS-1$
-		private IStatus fgOKStatus = new StatusInfo();
+		private IStatus fgErrorStatus = StatusHelper.ERROR_STATUS; //$NON-NLS-1$
+		private IStatus fgOKStatus = StatusHelper.OK_STATUS;
 
 		public ChoosePackagesSelectionValidator() {
 		}
@@ -82,53 +71,143 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 
 	}
 
-	private BeaninfoPathsBlock biPathsBlock;
-	private IJavaProject fCurrJProject;
-
-	private Control fSWTControl;
-
-	private ListDialogField fSearchPackagesList;
-
+	
+	private Label label = null;
+	private Table table = null;
+	private Composite buttonBar = null;
+	private Button choosePackagesButton = null;
+	private Button chooseDefPathsButton = null;
+	private Label spacer1 = null;
+	private Button removeButton = null;
+	// ... ui
+	
+	private IJavaProject javaProject = null;
+	private SearchPathListLabelProvider labelProvider = null;
+	private BeaninfoPathsBlock beaninfosPathsBlock = null;
 	private IPackageFragmentRoot[][] rootsPerRawEntry;
 	private IClasspathEntry[] rawList;
+	private TableViewer tableViewer;
+	private List packagesList = null;
+	private Composite top;
+
+	public PackagesWorkbookPage(IWorkspaceRoot workspaceRoot, BeaninfoPathsBlock beaninfosPathsBlock) {
+		this.beaninfosPathsBlock = beaninfosPathsBlock;
+		this.packagesList = new ArrayList();
+		this.labelProvider = new SearchPathListLabelProvider();
+	}
+
+	public Control createControl(Composite parent){
+		top = new Composite(parent, SWT.NONE);
+		GridData gridData = new org.eclipse.swt.layout.GridData();
+		gridData.horizontalSpan = 2;
+		GridLayout gridLayout = new GridLayout();
+		gridLayout.numColumns = 2;
+		top.setLayout(gridLayout);
+		label = new Label(top, SWT.NONE);
+		label.setText(BeanInfoUIMessages.PackagesWorkbook_LabelText);
+		label.setLayoutData(gridData);
+		createTable();
+		createButtonBar();
+		top.setSize(new Point(300, 200));
+		updateEnabledStates();
+		if(spacer1==null){
+			//TODO: 
+		}
+		return top;
+	}
+
+	/**
+	 * This method initializes table	
+	 *
+	 */
+	private void createTable() {
+		GridData gridData1 = new org.eclipse.swt.layout.GridData();
+		gridData1.grabExcessVerticalSpace = true;
+		gridData1.verticalAlignment = org.eclipse.swt.layout.GridData.FILL;
+		gridData1.grabExcessHorizontalSpace = true;
+		gridData1.horizontalAlignment = org.eclipse.swt.layout.GridData.FILL;
+		table = new Table(top, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		table.setLayoutData(gridData1);
+		table.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+				updateButtons();
+			}
+			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
+		tableViewer = new TableViewer(table);
+		tableViewer.setLabelProvider(labelProvider);
+		tableViewer.setSorter(new SPListElementSorter());
+		tableViewer.setContentProvider(new ArrayContentProvider());
+		tableViewer.setInput(packagesList);
+	}
+
+	/**
+	 * This method initializes buttonBar	
+	 *
+	 */
+	private void createButtonBar() {
+		RowLayout rowLayout = new RowLayout();
+		rowLayout.type = org.eclipse.swt.SWT.VERTICAL;
+		rowLayout.fill = true;
+		GridData gridData2 = new org.eclipse.swt.layout.GridData();
+		gridData2.grabExcessVerticalSpace = true;
+		gridData2.verticalAlignment = org.eclipse.swt.layout.GridData.FILL;
+		gridData2.horizontalAlignment = org.eclipse.swt.layout.GridData.BEGINNING;
+		buttonBar = new Composite(top, SWT.NONE);
+		buttonBar.setLayoutData(gridData2);
+		buttonBar.setLayout(rowLayout);
+		choosePackagesButton = new Button(buttonBar, SWT.NONE);
+		choosePackagesButton.setText(BeanInfoUIMessages.PackagesWorkbook_ChoosePackages);
+		choosePackagesButton.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+				final List elementsToAdd = choosePackages();
+				addToPackagesList(elementsToAdd);
+			}
+		});
+		chooseDefPathsButton = new Button(buttonBar, SWT.NONE);
+		chooseDefPathsButton.setText(BeanInfoUIMessages.PackagesWorkbook_ChooseDefinedPaths);
+		chooseDefPathsButton.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+				List elementsToAdd = chooseDefined();
+				addToPackagesList(elementsToAdd);
+			}
+		});
+		spacer1 = new Label(buttonBar, SWT.NONE);
+		removeButton = new Button(buttonBar, SWT.NONE);
+		removeButton.setText(BeanInfoUIMessages.PackagesWorkbook_Remove);
+		removeButton.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+				List selected = BeaninfoPathsBlock.getSelectedList(tableViewer.getSelection());
+				packagesList.removeAll(selected);
+				tableViewer.refresh();
+				pageChanged();
+			}
+		});
+	}
 	
-	SearchPathListLabelProvider labelProvider;
-
-	public PackagesWorkbookPage(IWorkspaceRoot root, BeaninfoPathsBlock biPathsBlock, List interestedFieldsForEnableControl) {
-		this.biPathsBlock = biPathsBlock;
-
-		fSWTControl = null;
-
-		PackagesAdapter adapter = new PackagesAdapter();
-
-		String[] buttonLabels;
-
-		buttonLabels = new String[] {
-			BeanInfoUIMessages.PackagesWorkbook_ChoosePackages, 
-			BeanInfoUIMessages.PackagesWorkbook_ChooseDefinedPaths, 
-			/* 2 */
-			null,
-			BeanInfoUIMessages.PackagesWorkbook_Remove }; 
-
-		labelProvider = new SearchPathListLabelProvider();
-		fSearchPackagesList = new ListDialogField(adapter, buttonLabels, labelProvider);
-		fSearchPackagesList.setDialogFieldListener(adapter);
-		fSearchPackagesList.setLabelText(BeanInfoUIMessages.PackagesWorkbook_LabelText); 
-		fSearchPackagesList.setRemoveButtonIndex(3);
-
-		fSearchPackagesList.setViewerSorter(new SPListElementSorter());
-		
-		interestedFieldsForEnableControl.add(fSearchPackagesList);
+	private void addToPackagesList(final List toAdd){
+		if (toAdd != null && !toAdd.isEmpty()) {
+			packagesList.addAll(toAdd);
+			tableViewer.refresh();
+			table.getDisplay().asyncExec(new Runnable(){
+				public void run() {
+					tableViewer.setSelection(new StructuredSelection(toAdd));
+				}
+			});
+			pageChanged();
+		}
 	}
 
 	public void init(IJavaProject jproject) {
-		fCurrJProject = jproject;
+		javaProject = jproject;
 		labelProvider.setJavaProject(jproject);
 		try {
-			rawList = fCurrJProject.getRawClasspath();
+			rawList = javaProject.getRawClasspath();
 			rootsPerRawEntry = new IPackageFragmentRoot[rawList.length][];
 			for (int i = 0; i < rawList.length; i++) {
-				rootsPerRawEntry[i] = fCurrJProject.findPackageFragmentRoots(rawList[i]);
+				rootsPerRawEntry[i] = javaProject.findPackageFragmentRoots(rawList[i]);
 			}		
 		} catch (JavaModelException e) {
 			rawList = new IClasspathEntry[0];
@@ -137,8 +216,16 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		updatePackagesList();
 	}
 
+	public List getSelection() {
+		return BeaninfoPathsBlock.getSelectedList(tableViewer.getSelection());
+	}
+
+	public void setSelection(List selection) {
+		tableViewer.setSelection(new StructuredSelection(selection));
+	}
+	
 	private void updatePackagesList() {
-		List spelements = biPathsBlock.getSearchOrder().getElements();
+		List spelements = beaninfosPathsBlock.getSearchpathOrderingPage().getElements();
 
 		List packageElements = new ArrayList(spelements.size());
 		for (int i = 0; i < spelements.size(); i++) {
@@ -147,121 +234,10 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 				packageElements.add(spe);
 			}
 		}
-		fSearchPackagesList.setElements(packageElements);
-	}
-
-	public Control getControl(Composite parent) {
-		PixelConverter converter = new PixelConverter(parent);
-
-		Composite composite = new Composite(parent, SWT.NONE);
-
-		LayoutUtil.doDefaultLayout(
-			composite,
-			new DialogField[] { fSearchPackagesList },
-			true,
-			SWT.DEFAULT,
-			SWT.DEFAULT);
-
-		int buttonBarWidth = converter.convertWidthInCharsToPixels(24);
-		fSearchPackagesList.setButtonsMinWidth(buttonBarWidth);
-
-		fSWTControl = composite;
-
-		return composite;
-	}
-
-	private Shell getShell() {
-		if (fSWTControl != null) {
-			return fSWTControl.getShell();
-		}
-		return JEMUIPlugin.getPlugin().getWorkbench().getActiveWorkbenchWindow().getShell();
-	}
-
-	private class PackagesAdapter implements IListAdapter, IDialogFieldListener {
-
-		// -------- IListAdapter --------
-		public void customButtonPressed(ListDialogField field, int index) {
-			packagesPageCustomButtonPressed(field, index);
-		}
-
-		public void selectionChanged(ListDialogField field) {
-		}
-
-		// ---------- IDialogFieldListener --------
-		public void dialogFieldChanged(DialogField field) {
-			packagesPageDialogFieldChanged(field);
-		}
-		/**
-		 * @see org.eclipse.jdt.internal.ui.wizards.dialogfields.IListAdapter#doubleClicked(ListDialogField)
-		 */
-		public void doubleClicked(ListDialogField field) {
-		}
-
-	}
-
-	private void packagesPageCustomButtonPressed(DialogField field, int index) {
-		if (field == fSearchPackagesList) {
-			List elementsToAdd = null;
-			if (index == 0)
-				elementsToAdd = choosePackages();
-			else if (index == 1)
-				elementsToAdd = chooseDefined();
-
-			if (elementsToAdd != null && !elementsToAdd.isEmpty()) {
-				fSearchPackagesList.addElements(elementsToAdd);
-				fSearchPackagesList.postSetSelection(new StructuredSelection(elementsToAdd));
-			}
-		}
-	}
-
-	private void packagesPageDialogFieldChanged(DialogField field) {
-		if (fCurrJProject == null) {
-			// not initialized
-			return;
-		}
-
-		if (field == fSearchPackagesList) {
-			updateSearchpathList();
-		}
-	}
-
-	private void updateSearchpathList() {
-		List searchelements = biPathsBlock.getSearchOrder().getElements();
-
-		List packageelements = fSearchPackagesList.getElements();
-
-		boolean changeDone = false;
-		// First go through the search path and remove any SearchListElements that are
-		// not in the search packages list from this page.
-		for (ListIterator spitr = searchelements.listIterator(searchelements.size());
-			spitr.hasPrevious();
-			) {
-			BPListElement element = (BPListElement) spitr.previous();
-			if (element instanceof BPSearchListElement && !packageelements.remove(element)) {
-				// Search element and not found in packages list so remove it from searchpath list.
-				spitr.remove();
-				changeDone = true;
-			}
-		}
-		// Any left over in packages list are new and need to be added.
-		searchelements.addAll(packageelements);
-		changeDone = changeDone || !packageelements.isEmpty();
-
-		if (changeDone)
-			biPathsBlock.setSearchOrderElements(searchelements);
-	}
-	/*
-	 * @see BuildPathBasePage#getSelection
-	 */
-	public List getSelection() {
-		return fSearchPackagesList.getSelectedElements();
-	}
-
-	/*
-	 * @see BuildPathBasePage#setSelection
-	 */
-	public void setSelection(List selElements) {
-		fSearchPackagesList.selectElements(new StructuredSelection(selElements));
+		packagesList.clear();
+		packagesList.addAll(packageElements);
+		if(tableViewer!=null && !table.isDisposed())
+			tableViewer.refresh();
 	}
 
 	/**
@@ -299,13 +275,13 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 
 		ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
 		ElementTreeSelectionDialog dialog =
-			new ElementTreeSelectionDialog(getShell(), labelProvider, provider);
+			new ElementTreeSelectionDialog(top.getShell(), labelProvider, provider);
 		dialog.setTitle(BeanInfoUIMessages.BeaninfoPathsBlock_UI__addsearchpath_title);
 
 		dialog.setValidator(validator);
 		dialog.setMessage(BeanInfoUIMessages.BeaninfoPathsBlock_UI__addsearchpath_description);
 		dialog.addFilter(filter);
-		dialog.setInput(fCurrJProject);
+		dialog.setInput(javaProject);
 
 		if (dialog.open() == Window.OK) {
 			Object[] elements = dialog.getResult();
@@ -318,73 +294,6 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 			return newElements;
 		}
 		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	 * Return the list of entries that already are in the search path
-	 * so that they don't show up in the list.
-	 */
-	protected Object[] getFilteredExistingEntries() {
-		try {
-			IPackageFragmentRoot[] roots = fCurrJProject.getPackageFragmentRoots();
-			List entries = fSearchPackagesList.getElements();
-			List fragments = new ArrayList(entries.size());
-			Iterator itr = entries.iterator();
-			while (itr.hasNext()) {
-				BPListElement elem = (BPListElement) itr.next();
-				if (elem instanceof BPSearchListElement) {
-					BPSearchListElement bse = (BPSearchListElement) elem;
-					fragments.addAll(getPackages(bse, roots));
-				}
-			}
-			return fragments.toArray();
-		} catch (JavaModelException e) {
-		}
-		return new Object[0];
-	}
-	
-	
-	/**
-	 * Choose the pre-defined search paths that should be in the search path.
-	 */
-	private List chooseDefined() {
-
-		// Current pre-defined ones are only pre-reqed projects.
-		// The list of inputs will not contain any already in the path.
-		// We will create them here and if not selected they will thrown away.
-		// The assumption is that there are not very many and our SearchPathListLabelProvider does
-		// a good job of showing them. Otherwise we would need to come up with one that can show
-		// IJavaProjects when we get them.
-		List inputs = new ArrayList();
-		List currentList = fSearchPackagesList.getElements();
-		for (int i = 0; i < rawList.length; i++) {
-			if (rawList[i].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
-				boolean exists = false;
-				for (int j = 0; j < currentList.size(); j++) {
-					BPSearchListElement bse = (BPSearchListElement) currentList.get(j);
-					if (bse.getEntry().getKind() == IClasspathEntry.CPE_PROJECT && rawList[i].getPath().equals(bse.getEntry().getPath())) {
-						exists = true;
-						break;
-					}
-				}
-				
-				if (!exists)
-					inputs.add(new BPSearchListElement(new SearchpathEntry(IClasspathEntry.CPE_PROJECT, rawList[i].getPath(), null), false, false, rawList[i].isExported()));
-			}
-		}
-		
-		ILabelProvider labelProvider1 = new SearchPathListLabelProvider(fCurrJProject);
-		ElementListSelectionDialog dialog =
-			new ElementListSelectionDialog(getShell(), labelProvider1);
-		dialog.setTitle(BeanInfoUIMessages.PackagesWorkbook_SelectionDialog_DefinedPaths_Title); 
-
-		dialog.setMessage(BeanInfoUIMessages.PackagesWorkbook_SelectionDialog_DefinedPaths_Message); 
-		dialog.setElements(inputs.toArray());
-
-		if (dialog.open() == Window.OK)
-			return Arrays.asList(dialog.getResult());
-		else
-			return Collections.EMPTY_LIST;
 	}
 
 	/**
@@ -407,6 +316,29 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		}
 
 		return new BPSearchListElement(se, false, false, isExported);
+	}
+
+	/**
+	 * Return the list of entries that already are in the search path
+	 * so that they don't show up in the list.
+	 */
+	protected Object[] getFilteredExistingEntries() {
+		try {
+			IPackageFragmentRoot[] roots = javaProject.getPackageFragmentRoots();
+			List entries = packagesList;
+			List fragments = new ArrayList(entries.size());
+			Iterator itr = entries.iterator();
+			while (itr.hasNext()) {
+				BPListElement elem = (BPListElement) itr.next();
+				if (elem instanceof BPSearchListElement) {
+					BPSearchListElement bse = (BPSearchListElement) elem;
+					fragments.addAll(getPackages(bse, roots));
+				}
+			}
+			return fragments.toArray();
+		} catch (JavaModelException e) {
+		}
+		return new Object[0];
 	}
 	
 	/**
@@ -433,6 +365,100 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		}
 		return Collections.EMPTY_LIST;
 	}
+	/**
+	 * Choose the pre-defined search paths that should be in the search path.
+	 */
+	private List chooseDefined() {
+
+		// Current pre-defined ones are only pre-reqed projects.
+		// The list of inputs will not contain any already in the path.
+		// We will create them here and if not selected they will thrown away.
+		// The assumption is that there are not very many and our SearchPathListLabelProvider does
+		// a good job of showing them. Otherwise we would need to come up with one that can show
+		// IJavaProjects when we get them.
+		List inputs = new ArrayList();
+		List currentList = packagesList;
+		for (int i = 0; i < rawList.length; i++) {
+			if (rawList[i].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
+				boolean exists = false;
+				for (int j = 0; j < currentList.size(); j++) {
+					BPSearchListElement bse = (BPSearchListElement) currentList.get(j);
+					if (bse.getEntry().getKind() == IClasspathEntry.CPE_PROJECT && rawList[i].getPath().equals(bse.getEntry().getPath())) {
+						exists = true;
+						break;
+					}
+				}
+				
+				if (!exists)
+					inputs.add(new BPSearchListElement(new SearchpathEntry(IClasspathEntry.CPE_PROJECT, rawList[i].getPath(), null), false, false, rawList[i].isExported()));
+			}
+		}
+		
+		ILabelProvider labelProvider1 = new SearchPathListLabelProvider(javaProject);
+		ElementListSelectionDialog dialog =
+			new ElementListSelectionDialog(top.getShell(), labelProvider1);
+		dialog.setTitle(BeanInfoUIMessages.PackagesWorkbook_SelectionDialog_DefinedPaths_Title); 
+
+		dialog.setMessage(BeanInfoUIMessages.PackagesWorkbook_SelectionDialog_DefinedPaths_Message); 
+		dialog.setElements(inputs.toArray());
+
+		if (dialog.open() == Window.OK)
+			return Arrays.asList(dialog.getResult());
+		else
+			return Collections.EMPTY_LIST;
+	}
+
+	protected void updateButtons(){
+		chooseDefPathsButton.setEnabled(beaninfosPathsBlock.isBeaninfoEnabled());
+		choosePackagesButton.setEnabled(beaninfosPathsBlock.isBeaninfoEnabled());
+		
+		List selected = BeaninfoPathsBlock.getSelectedList(tableViewer.getSelection());
+		removeButton.setEnabled(selected!=null && selected.size()>0 && beaninfosPathsBlock.isBeaninfoEnabled());
+	}
 	
+	/**
+	 * Something important about the page changed - perform update.
+	 * 
+	 * @since 1.2.0
+	 */
+	protected void pageChanged(){
+		updateSearchpathList();
+	}
 	
+	private void updateSearchpathList() {
+		List searchelements = beaninfosPathsBlock.getSearchpathOrderingPage().getElements();
+
+		List packageelements = packagesList;
+
+		boolean changeDone = false;
+		// First go through the search path and remove any SearchListElements that are
+		// not in the search packages list from this page.
+		for (ListIterator spitr = searchelements.listIterator(searchelements.size());
+			spitr.hasPrevious();
+			) {
+			BPListElement element = (BPListElement) spitr.previous();
+			if (element instanceof BPSearchListElement && !packageelements.remove(element)) {
+				// Search element and not found in packages list so remove it from searchpath list.
+				spitr.remove();
+				changeDone = true;
+			}
+		}
+		// Any left over in packages list are new and need to be added.
+		searchelements.addAll(packageelements);
+		changeDone = changeDone || !packageelements.isEmpty();
+
+		if (changeDone)
+			beaninfosPathsBlock.setSearchOrderElements(searchelements);
+	}
+
+	protected void updateEnabledStates(){
+		updateButtons();
+		table.setEnabled(beaninfosPathsBlock.isBeaninfoEnabled());
+		label.setEnabled(beaninfosPathsBlock.isBeaninfoEnabled());
+	}
+	
+	public void setBeaninfoEnabled(boolean enable) {
+		if(top!=null && !top.isDisposed())
+			updateEnabledStates();
+	}
 }
