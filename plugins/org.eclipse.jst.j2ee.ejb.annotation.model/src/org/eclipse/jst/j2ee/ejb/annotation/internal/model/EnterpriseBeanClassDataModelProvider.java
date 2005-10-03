@@ -26,7 +26,6 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -91,8 +90,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			return true;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getTargetProject(), getTargetComponent().getName());
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(getTargetProject());
 			if (ejbEdit == null)
 				return false;
 			return ejbEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;

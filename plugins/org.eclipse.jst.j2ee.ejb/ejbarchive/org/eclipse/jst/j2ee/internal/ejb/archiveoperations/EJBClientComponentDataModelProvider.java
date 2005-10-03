@@ -38,7 +38,7 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 		propertyNames.add(CLIENT_COMPONENT_URI);
 		propertyNames.add(CREATE_PROJECT);
 		propertyNames.add(EAR_COMPONENT_DEPLOY_NAME);
-		propertyNames.add(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE);
+		propertyNames.add(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_PROJECT);
 		propertyNames.add(USE_ANNOTATIONS);
 		return propertyNames;
 	}

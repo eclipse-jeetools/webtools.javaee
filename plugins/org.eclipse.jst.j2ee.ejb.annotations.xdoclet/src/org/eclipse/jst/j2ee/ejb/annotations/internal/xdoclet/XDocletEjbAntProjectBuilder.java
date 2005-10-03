@@ -31,7 +31,6 @@ import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	IProject clientProject;
@@ -101,9 +100,8 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 				if (ejbModule != null)
 					break;
 			}
-			
-			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(ejbModule),ejbModule.getName());
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+			IProject proj = StructureEdit.getContainingProject(ejbModule);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 			int j2eeVersion = 0;
 			if (ejbEdit != null) {
 				j2eeVersion = ejbEdit.getJ2EEVersion();

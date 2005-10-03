@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
@@ -38,20 +37,15 @@ public class UIEjbValidator extends EJBValidator {
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
-		IVirtualComponent[] virComps = flexProject.getComponents();
-		
-		for(int i = 0; i < virComps.length; i++) {
-            IVirtualComponent wbModule = virComps[i];
-            if( wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
-            	continue;
+		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
+            if( wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE)) {
+            	
 			
 			IVirtualFile ejbDD = wbModule.getRootFolder().getFile(J2EEConstants.EJBJAR_DD_URI);
 			if( ejbDD.exists()){
 				ArtifactEdit edit = null;
 				try {
 					edit = EJBArtifactEdit.getArtifactEditForRead(wbModule);
-					((EJBHelper)inHelper).setComponentHandle(wbModule.getComponentHandle());
 					super.validate(inHelper, inReporter);
 				} finally {
 					if (edit != null)

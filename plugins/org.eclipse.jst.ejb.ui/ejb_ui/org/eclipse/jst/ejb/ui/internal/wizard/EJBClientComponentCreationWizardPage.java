@@ -8,6 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -24,7 +25,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -129,8 +129,8 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 		EJBArtifactEdit edit = null;
 		try {
 			if (module != null) {
-				ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(module),module.getName());
-				edit = EJBArtifactEdit.getEJBArtifactEditForRead(handle);
+				IProject proj = StructureEdit.getContainingProject(module);
+				edit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 				if (edit != null && edit.hasEJBClientJARProject())
 					enableAllSections(false);
 				} else

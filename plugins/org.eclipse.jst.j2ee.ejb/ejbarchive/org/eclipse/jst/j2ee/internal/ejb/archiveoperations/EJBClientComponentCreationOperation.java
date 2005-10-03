@@ -43,7 +43,6 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -82,14 +81,14 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
      
     protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 	
-        IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
-		ComponentHandle earhandle = (ComponentHandle) model.getProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE);
+        IVirtualComponent component = ComponentCore.createComponent(getProject());
+		IProject earproject = (IProject) model.getProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_PROJECT);
         IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earhandle);
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earproject);
 		
-        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-        modList.add(component.getComponentHandle());
-        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+        modList.add(component.getProject());
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modList);
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
@@ -103,15 +102,15 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         String ejbProjString = model.getStringProperty( EJB_PROJECT_NAME );
         IProject ejbProj = ProjectUtilities.getProject( ejbProjString );
 		
-		IVirtualComponent ejbcomponent = ComponentCore.createComponent(ejbProj, model.getStringProperty(EJB_COMPONENT_DEPLOY_NAME));
-        IVirtualComponent ejbclientcomponent = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
+		IVirtualComponent ejbcomponent = ComponentCore.createComponent(ejbProj);
+        IVirtualComponent ejbclientcomponent = ComponentCore.createComponent(getProject());
 		
         IDataModel dm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, ejbcomponent.getComponentHandle());
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, ejbcomponent.getProject());
 		
-        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-        modList.add(ejbclientcomponent.getComponentHandle());
-        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+        modList.add(ejbclientcomponent.getProject());
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modList);
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
@@ -131,8 +130,8 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         IFile manifestmf = null;
         try{
             moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
-            WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
-            ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
+            WorkbenchComponent ejbwc = moduleCore.getComponent();
+            ejbwc = moduleCore.getComponent();
             IVirtualComponent component = ComponentCore.createComponent( ejbProject, ejbwc.getName());
             IVirtualFile vf = component.getRootFolder().getFile( new Path("/META-INF/MANIFEST.MF")); //$NON-NLS-1$
             manifestmf = vf.getUnderlyingFile();
@@ -179,8 +178,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         
         EJBArtifactEdit ejbEdit = null;
         try{
-			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbComponentDeployName);
-            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
             if(ejbEdit != null) {
                 EJBJarImpl ejbres = (EJBJarImpl)ejbEdit.getDeploymentDescriptorRoot();
                 ejbres.setEjbClientJar(clientDeployName + ".jar");//$NON-NLS-1$

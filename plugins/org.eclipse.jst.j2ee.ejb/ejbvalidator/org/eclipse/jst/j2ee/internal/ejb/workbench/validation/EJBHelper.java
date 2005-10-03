@@ -75,7 +75,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.MessageUtility;
 import org.eclipse.jst.j2ee.model.internal.validation.ValidationRuleUtility;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
@@ -90,8 +89,6 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	private IJavaProject[] _requiredJavaProjects = null;
 	private IJavaProject _javaProject = null; // this IProject, as an
 	// IJavaProject
-	
-	private ComponentHandle componentHandle = null;
 	private Set _tempSet = null;
 	private Map _projectMap = null; // Key is IJavaProject instance, value is
 	// either IJavaMOFNature (for non-EJB
@@ -534,8 +531,8 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * Load the EJB MOF model.
 	 */
 	public EObject loadEjbFile() {
-		if( getComponentHandle()!= null ){
-			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+		
+			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
@@ -547,7 +544,6 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 					edit.dispose();
 				}
 			}
-		}
 		return null;		
 	}
 
@@ -555,8 +551,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * Load the EJB MOF model.
 	 */
 	public EObject loadEjbModel() {
-		if( getComponentHandle()!= null ){
-			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
@@ -569,7 +564,6 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 					edit.dispose();
 				}
 			}
-		}
 		return null;		
 	}
 
@@ -687,10 +681,9 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 
 	private void addBeans(JavaClass clazz, Set tempSet) {
 		
-		if( getComponentHandle()!= null ){
-			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+		
+			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
-			
 			try {
 				EJBJar ejbJar = ((EJBArtifactEdit) edit).getEJBJar();
 				if (ejbJar == null) {
@@ -702,7 +695,6 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 					edit.dispose();
 				}
 			}
-		}
 	}
 
 	// Can't assume that the IType is in the same project as the parent class
@@ -790,13 +782,5 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		}
 		// else there's nothing to remove, so just return without doing
 		// anything
-	}
-
-	public ComponentHandle getComponentHandle() {
-		return componentHandle;
-	}
-
-	public void setComponentHandle(ComponentHandle componentHandle) {
-		this.componentHandle = componentHandle;
 	}
 }

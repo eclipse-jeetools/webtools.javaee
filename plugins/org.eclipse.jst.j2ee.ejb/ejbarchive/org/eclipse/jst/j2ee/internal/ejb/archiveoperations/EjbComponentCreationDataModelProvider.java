@@ -121,9 +121,9 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 			if (getBooleanProperty(ADD_TO_EAR)) {
 				ejbClientComponentDataModel.setProperty(IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_DEPLOY_NAME, getProperty(EAR_COMPONENT_DEPLOY_NAME));
 			}
-		} else if (propertyName.equals(EAR_COMPONENT_HANDLE)) {
+		} else if (propertyName.equals(EAR_COMPONENT_PROJECT)) {
 			IDataModel ejbClientComponentDataModel = (IDataModel) model.getProperty(NESTED_MODEL_EJB_CLIENT_CREATION);
-			ejbClientComponentDataModel.setProperty(EAR_COMPONENT_HANDLE, model.getProperty(EAR_COMPONENT_HANDLE));
+			ejbClientComponentDataModel.setProperty(EAR_COMPONENT_PROJECT, model.getProperty(EAR_COMPONENT_PROJECT));
 		}else if (propertyName.equals(JAVASOURCE_FOLDER)){
 			//unless MANIFEST folder is opened up, it is set as same as Java source folder
 			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);

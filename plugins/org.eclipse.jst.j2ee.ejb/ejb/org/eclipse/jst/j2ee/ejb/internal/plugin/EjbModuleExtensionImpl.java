@@ -15,7 +15,6 @@
 package org.eclipse.jst.j2ee.ejb.internal.plugin;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -32,6 +31,7 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDa
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -77,21 +77,17 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 //	}
 
 	public EJBJar getEJBJar(IProject aProject) {
-		//TODO  Method needs to be removed.
-		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(aProject);
-		if (comps.length == 0)
-			return null;
-		return EJBArtifactEditUtilities.getEJBJar(comps[0]);
+		
+		IVirtualComponent comp = ComponentCore.createComponent(aProject);
+		return EJBArtifactEditUtilities.getEJBJar(comp);
 	}
 
 	public IProject getDefinedEJBClientJARProject(IProject anEJBProject) {
-		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(anEJBProject);
-		if (comps.length == 0)
-			return null;
+		IVirtualComponent comp = ComponentCore.createComponent(anEJBProject);
 		EJBArtifactEdit edit = null;
 		IVirtualComponent clientComp = null;
 		try {
-			edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
 			clientComp = edit.getEJBClientJarModule();
 		} finally {
 			if (edit != null)

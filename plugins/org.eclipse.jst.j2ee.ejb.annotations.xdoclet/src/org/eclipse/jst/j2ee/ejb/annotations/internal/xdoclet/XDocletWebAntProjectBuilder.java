@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 
 public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
@@ -69,8 +68,8 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 				if (wbModule != null)
 					break;
 			}
-			ComponentHandle handle = ComponentHandle.create(StructureEdit.getContainingProject(wbModule),wbModule.getName());
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			IProject proj = StructureEdit.getContainingProject(wbModule);
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(proj);
 			int j2eeVersion = 0;
 			if (webEdit != null) {
 				j2eeVersion = webEdit.getJ2EEVersion();

@@ -26,8 +26,8 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -74,8 +74,8 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public EJBArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {
             clientJAR = clientJAR.substring(0, clientJAR.length() - 4);
-			ejbComponent = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			ejbComponent = ComponentCore.createComponent(getProject());
 			ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent();
 		}
 		return ejbClientComponent;
@@ -333,11 +333,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 */
-	public static EJBArtifactEdit getEJBArtifactEditForRead(ComponentHandle aHandle) {
+	public static EJBArtifactEdit getEJBArtifactEditForRead(IProject aProject) {
 		EJBArtifactEdit artifactEdit = null;
 		try {
-			if (isValidEJBModule(aHandle.createComponent()))
-				artifactEdit = new EJBArtifactEdit(aHandle, true);
+			if (isValidEJBModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new EJBArtifactEdit(aProject, true);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -364,11 +364,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static EJBArtifactEdit getEJBArtifactEditForWrite(ComponentHandle aHandle) {
+	public static EJBArtifactEdit getEJBArtifactEditForWrite(IProject aProject) {
 		EJBArtifactEdit artifactEdit = null;
 		try {
-			if (isValidEJBModule(aHandle.createComponent()))
-				artifactEdit = new EJBArtifactEdit(aHandle, false);
+			if (isValidEJBModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new EJBArtifactEdit(aProject, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -500,7 +500,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = getComponent().getComponentHandle().toString();
+		String uri = ModuleURIUtil.getHandleString(getProject());
 		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
 	}
 }

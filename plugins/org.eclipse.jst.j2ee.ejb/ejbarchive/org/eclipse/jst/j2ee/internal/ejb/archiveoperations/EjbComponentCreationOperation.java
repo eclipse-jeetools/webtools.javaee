@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -39,7 +38,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
     }
 
     protected void createAndLinkJ2EEComponentsForMultipleComponents() throws CoreException {
-        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+        IVirtualComponent component = ComponentCore.createComponent(getProject());
         component.create(0, null);
         //create and link ejbModule Source Folder
         IVirtualFolder ejbModule = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
@@ -51,7 +50,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
     }
     
     protected void createAndLinkJ2EEComponentsForSingleComponent() throws CoreException {
-        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+        IVirtualComponent component = ComponentCore.createComponent(getProject());
         component.create(0, null);
         //create and link ejbModule Source Folder
         IVirtualFolder ejbModule = component.getRootFolder().getFolder(new Path("/")); //$NON-NLS-1$        
@@ -65,8 +64,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 
 		EJBArtifactEdit ejbEdit = null;
         try{
-			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
-            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(getProject());
             Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
             ejbEdit.createModelRoot(version.intValue());
             ejbEdit.save(monitor);
