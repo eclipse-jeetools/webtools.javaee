@@ -170,7 +170,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		List newComps = new ArrayList();
 		if (j2eeComponentList != null && !j2eeComponentList.isEmpty()){
 			for (int i = 0; i < j2eeComponentList.size(); i++){
-				IProject handle = (IProject)j2eeComponentList.get(i);
+				IVirtualComponent handle = (IVirtualComponent)j2eeComponentList.get(i);
 				if( !inEARAlready(handle))
 					newComps.add(handle);
 			}
@@ -254,7 +254,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			IVirtualReference[] oldrefs = earComponent.getReferences();
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
-				IProject handle = ref.getReferencedComponent().getProject();
+				IVirtualComponent handle = ref.getReferencedComponent();
 				if( !j2eeComponentList.contains(handle)){
 					list.add(handle);
 				}
@@ -468,11 +468,11 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	 * @return
 	 * @description  returns true is a component is already in the EAR as a dependent
 	 */
-	protected boolean inEARAlready(IProject componentProject){
+	protected boolean inEARAlready(IVirtualComponent component){
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			if  ( ref.getReferencedComponent().getProject().equals( componentProject ))
+			if  ( ref.getReferencedComponent().equals( component ))
 				return true;
 		}	
 		return false;
