@@ -744,7 +744,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 				boolean state = true;
 				IVirtualComponent component = ComponentCore.createComponent(p);
 				
-					if (!component.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+					if (component!=null && !IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId())) {
 
 					WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(p);
 					if (wsArtifactEdit !=null)
