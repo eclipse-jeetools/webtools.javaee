@@ -28,6 +28,7 @@ import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataM
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
@@ -183,8 +184,10 @@ public class ComponentUtilities {
 		List components = new ArrayList();
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
 		for (int i = 0; i < projects.size(); i++) {
-			IVirtualComponent wbComp = ComponentCore.createComponent((IProject)projects.get(i));
-			components.add(wbComp);
+			if( ModuleCoreNature.isFlexibleProject((IProject)projects.get(i))){
+				IVirtualComponent wbComp = ComponentCore.createComponent((IProject)projects.get(i));
+				components.add(wbComp);
+			}
 		}
 		VirtualComponent[] temp = (VirtualComponent[]) components.toArray(new VirtualComponent[components.size()]);
 		return temp;
