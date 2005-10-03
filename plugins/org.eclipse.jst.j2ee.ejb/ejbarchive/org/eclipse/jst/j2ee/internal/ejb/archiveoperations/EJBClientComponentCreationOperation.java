@@ -83,12 +83,13 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 	
         IVirtualComponent component = ComponentCore.createComponent(getProject());
 		IProject earproject = (IProject) model.getProperty(IEjbComponentCreationDataModelProperties.EAR_COMPONENT_PROJECT);
+		IVirtualComponent earComp = ComponentCore.createComponent(earproject);
         IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earproject);
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
 		
-        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
-        modList.add(component.getProject());
-        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modList);
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+        modList.add(component);
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
@@ -106,11 +107,11 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         IVirtualComponent ejbclientcomponent = ComponentCore.createComponent(getProject());
 		
         IDataModel dm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, ejbcomponent.getProject());
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, ejbcomponent);
 		
-        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
-        modList.add(ejbclientcomponent.getProject());
-        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modList);
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+        modList.add(ejbclientcomponent);
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
