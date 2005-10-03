@@ -507,7 +507,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		}
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createWLPReferenceComponentOperation(model.getComponent().getProject(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createWLPReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
 		}
 		targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < unselected.size(); i++) {
@@ -527,7 +527,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 					if( !name.equals("")){ //$NON-NLS-1$
 						IVirtualReference ref = model.getComponent().getReference(name);
 						IVirtualComponent referenced = ref.getReferencedComponent();
-						targetComponentsHandles.add(referenced.getProject());
+						targetComponentsHandles.add(referenced);
 					}	
 				}
 			}
@@ -535,7 +535,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		if (!targetComponentsHandles.isEmpty()) {
 			if(composedOp == null)
 				composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent().getProject(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
 		}
 		return composedOp;
 	}
