@@ -38,7 +38,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 		StructureEdit moduleCore = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
+			WorkbenchComponent wbComponent = moduleCore.getComponent();
 			String version = wbComponent.getComponentType().getVersion();
 			assertTrue(version.equals(TestWorkspace.JCA_PROJECT_VERSION));
 		} finally {
@@ -100,7 +100,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 		ConnectorArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
-			wbComponent = moduleCore.findComponentByName(jcaModuleName);
+			wbComponent = moduleCore.getComponent();
 			handle = ComponentHandle.create(jcaProject, wbComponent.getName());
 			edit = new ConnectorArtifactEdit(handle, true);
 			assertNotNull(edit);
@@ -144,7 +144,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 		ConnectorArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
+			WorkbenchComponent wbComponent = moduleCore.getComponent();
 			ComponentHandle handle = ComponentHandle.create(jcaProject, wbComponent.getName());
 			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
 			assertTrue(edit != null);
@@ -164,7 +164,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 		ConnectorArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
+			WorkbenchComponent wbComponent = moduleCore.getComponent();
 			ComponentHandle handle = ComponentHandle.create(jcaProject, wbComponent.getName());
 			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
 

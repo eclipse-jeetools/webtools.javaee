@@ -15,7 +15,6 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -166,8 +165,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		}
 		IProject[] projects = getExportableProjects();
 		for (int i = 0; i < projects.length; i++) {
-			IFlexibleProject project = ComponentCore.createFlexibleProject(projects[i]);
-			testExport(project.getComponents()[0], getFileName(projects[i].getName()));
+			testExport(ComponentCore.createComponent(projects[i]), getFileName(projects[i].getName()));
 		}
 	}
 

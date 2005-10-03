@@ -8,11 +8,11 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -30,9 +30,9 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
 		AppClientArtifactEdit appClientEdit = null;
 		
         try {
-			ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME)),model.getStringProperty(IAppClientComponentCreationDataModelProperties.COMPONENT_NAME));
+			IProject proj = ProjectUtilities.getProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME));
 			Object dd = null;
-			appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(proj);
        		if(appClientEdit != null) 
        			dd = (ApplicationClient) appClientEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);

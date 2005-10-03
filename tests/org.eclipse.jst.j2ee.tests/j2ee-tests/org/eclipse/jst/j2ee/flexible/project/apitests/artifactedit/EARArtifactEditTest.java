@@ -117,7 +117,7 @@ public class EARArtifactEditTest extends TestCase {
 		EARArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
+			wbComponent = moduleCore.getComponent();
 			handle = ComponentHandle.create(earProject, wbComponent.getName());
 			edit = new EARArtifactEdit(handle, true);
 			assertNotNull(edit);
@@ -160,7 +160,7 @@ public class EARArtifactEditTest extends TestCase {
 		EARArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(earProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(earModuleName);
+			WorkbenchComponent wbComponent = moduleCore.getComponent();
 			ComponentHandle handle = ComponentHandle.create(earProject, wbComponent.getName());
 			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
 			assertTrue(edit != null);

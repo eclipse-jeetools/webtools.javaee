@@ -9,6 +9,7 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
@@ -20,7 +21,6 @@ import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -59,9 +59,9 @@ public class AddServletOperationTest extends OperationTestCase {
     public void testAddServlet() throws Exception {
     	createWebProject(WEB_PROJECT_NAME);
     	WebArtifactEdit webEdit = null;
-    	ComponentHandle handle = ComponentHandle.create(ProjectUtilities.getProject(WEB_PROJECT_NAME), WEB_PROJECT_NAME);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
     	try {
-    		webEdit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+    		webEdit = WebArtifactEdit.getWebArtifactEditForWrite(proj);
     		WebApp webApp = webEdit.getWebApp();
         	addServlet(WEB_PROJECT_NAME, SERVLET_NAME);
         	if (webApp != null){

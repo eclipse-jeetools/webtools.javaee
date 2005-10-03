@@ -180,7 +180,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
 			// will setup and handle creating the modules model
 			getProjectForRemoteWebLib();
 
-			WorkbenchComponent webModule = localModuleCore.findComponentByName(getWebModuleAndLocalWebLibModuleProjectName());
+			WorkbenchComponent webModule = localModuleCore.getComponent();
 
 			addDependentModule(webModule, new Path("WEB-INF/lib"), getLocalWebLibraryModuleURI());
 			addDependentModule(webModule, new Path("WEB-INF/lib"), getRemoteWebLibraryModuleURI());

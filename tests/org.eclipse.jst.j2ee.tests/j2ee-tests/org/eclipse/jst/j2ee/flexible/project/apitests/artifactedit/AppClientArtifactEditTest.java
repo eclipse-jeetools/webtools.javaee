@@ -297,7 +297,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		AppClientArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
+			WorkbenchComponent wbComponent = moduleCore.getComponent();
 			ComponentHandle handle = ComponentHandle.create(appClientProject, wbComponent.getName());
 			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
 			assertTrue(edit != null);
@@ -317,7 +317,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		AppClientArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(appClientProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
+			WorkbenchComponent wbComponent = moduleCore.getComponent();
 			ComponentHandle handle = ComponentHandle.create(appClientProject, wbComponent.getName());
 			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
 

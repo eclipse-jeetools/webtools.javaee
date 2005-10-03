@@ -38,7 +38,7 @@ public class EnterpriseArtifactEditTest extends TestCase {
 		EnterpriseArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
-			wbComponent = moduleCore.findComponentByName(earModuleName);
+			wbComponent = moduleCore.getComponent();
 			handle = ComponentHandle.create(earProject, wbComponent.getName());
 			edit = new EARArtifactEdit(handle, true);
 			assertNotNull(edit);

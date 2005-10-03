@@ -224,7 +224,7 @@ public class ModuleStructuralModelTest extends TestCase {
 			// will setup and handle creating the modules model
 			getProjectForRemoteWebLib();
 
-			WorkbenchComponent webModule = localModuleCore.findComponentByName(getWebModuleDeployedName());
+			WorkbenchComponent webModule = localModuleCore.getComponent();
 
 			addDependentModule(webModule, new Path("WEB-INF/lib"), getLocalWebLibraryModuleURI());
 			addDependentModule(webModule, new Path("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
