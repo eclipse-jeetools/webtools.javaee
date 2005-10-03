@@ -29,7 +29,6 @@ import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorMessageConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
@@ -55,8 +54,7 @@ public class ConnectorHelper extends J2EEValidationHelper {
 	 */
 	public EObject loadRarFile() {
 
-		ComponentHandle handle = getComponentHandle();
-		IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+		IVirtualComponent comp = ComponentCore.createComponent(getProject());
 		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
 		
 		try {

@@ -15,13 +15,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 
 
 public abstract class J2EEValidationHelper extends WorkbenchContext {
-	private ComponentHandle componentHandle = null;
 	/**
 	 * Constructor for J2EEValidationHelper.
 	 */
@@ -103,12 +101,5 @@ public abstract class J2EEValidationHelper extends WorkbenchContext {
 		return null;
 	}
 
-	public ComponentHandle getComponentHandle() {
-		return componentHandle;
-	}
-
-	public void setComponentHandle(ComponentHandle componentHandle) {
-		this.componentHandle = componentHandle;
-	}
 
 }

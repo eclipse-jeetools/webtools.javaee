@@ -82,7 +82,7 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 	public String getURI(IJ2EEModule module) {
 		// TODO Auto-generated method stub
 		J2EEFlexProjDeployable mod = (J2EEFlexProjDeployable)module;
-		IVirtualComponent comp = ComponentCore.createComponent(mod.getProject(),mod.getComponentHandle().getName());
+		IVirtualComponent comp = ComponentCore.createComponent(mod.getProject());
 		EARArtifactEdit earEdit = null;
 		String aURI = null;
 		try {

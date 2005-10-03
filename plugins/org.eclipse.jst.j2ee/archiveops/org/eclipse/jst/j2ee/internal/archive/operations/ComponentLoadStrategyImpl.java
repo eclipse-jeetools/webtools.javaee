@@ -325,7 +325,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		try {
-			URI compUri = ModuleURIUtil.fullyQualifyURI(vComponent.getComponentHandle());
+			URI compUri = ModuleURIUtil.fullyQualifyURI(vComponent.getProject());
 			IPath requestPath = new Path(compUri.path()).append(new Path(uri));
 			URI resourceURI = URI.createURI(PlatformURLModuleConnection.MODULE_PROTOCOL + requestPath.toString());
 			return getResourceSet().getResource(resourceURI, true);

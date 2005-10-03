@@ -3,6 +3,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -14,7 +15,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -36,15 +36,15 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 
 		EARArtifactEdit earEdit = null;
 		try {
-			ComponentHandle handle = (ComponentHandle) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE);
-			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			IProject project = (IProject) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT);
+			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(project);
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();
-				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
-						ComponentHandle comphandle = (ComponentHandle) list.get(i);
-						IVirtualComponent wc = ComponentCore.createComponent(comphandle.getProject(), comphandle.getName());
+						IProject compproject = (IProject) list.get(i);
+						IVirtualComponent wc = ComponentCore.createComponent(compproject);
 						removeModule(application, wc);
 					}
 				}

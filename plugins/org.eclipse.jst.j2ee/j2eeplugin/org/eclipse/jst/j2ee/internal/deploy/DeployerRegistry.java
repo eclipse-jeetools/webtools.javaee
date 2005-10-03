@@ -28,7 +28,6 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.server.core.IRuntime;
@@ -103,12 +102,9 @@ public class DeployerRegistry {
 				object = ProjectUtilities.getProject(object);
 			}
 			if (object instanceof IProject) {
-				IFlexibleProject flexProj = ComponentCore.createFlexibleProject((IProject)object);
-				IVirtualComponent[] components = flexProj.getComponents();
-				for (int j = 0; j < components.length; j++) {
-					IVirtualComponent component = components[j];
-					EnterpriseArtifactEdit edit = null;
-					try {
+				IVirtualComponent component = ComponentCore.createComponent((IProject)object);
+				EnterpriseArtifactEdit edit = null;
+				try {
 					edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
 					EObject root = edit.getDeploymentDescriptorRoot();
 					if (modules.contains(root))
@@ -118,10 +114,9 @@ public class DeployerRegistry {
 						modules.add(0, root);
 					else
 						modules.add(root);
-					} finally {
-						if (edit != null)
-							edit.dispose();
-					}
+				} finally {
+					if (edit != null)
+						edit.dispose();
 				}
 			}
 		}

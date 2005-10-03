@@ -34,7 +34,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -115,10 +114,8 @@ public abstract class FlexibleProjectContainer
               
     //    final String cid = this.path.toString(); 
             
-        final IFlexibleProject fp 
-            = ComponentCore.createFlexibleProject( this.project );
         
-        final IVirtualComponent vc = fp.getComponent( component );
+        final IVirtualComponent vc = ComponentCore.createComponent(this.project);
         
         for( int i = 0; i < paths.length; i++ )
         {

@@ -34,9 +34,9 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -75,8 +75,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public EARArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public EARArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -101,11 +101,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 */
-	public static EARArtifactEdit getEARArtifactEditForRead(ComponentHandle aHandle) {
+	public static EARArtifactEdit getEARArtifactEditForRead(IProject aProject) {
 		EARArtifactEdit artifactEdit = null;
 		try {
-			if (isValidEARModule(aHandle.createComponent()))
-				artifactEdit = new EARArtifactEdit(aHandle, true);
+			if (isValidEARModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new EARArtifactEdit(aProject, true);
 		} catch (Exception iae) {
 			artifactEdit = null;
 		}
@@ -132,11 +132,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static EARArtifactEdit getEARArtifactEditForWrite(ComponentHandle aHandle) {
+	public static EARArtifactEdit getEARArtifactEditForWrite(IProject aProject) {
 		EARArtifactEdit artifactEdit = null;
 		try {
-			if (isValidEARModule(aHandle.createComponent()))
-				artifactEdit = new EARArtifactEdit(aHandle, false);
+			if (isValidEARModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new EARArtifactEdit(aProject, false);
 		} catch (Exception iae) {
 			artifactEdit = null;
 		}
@@ -359,7 +359,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public boolean uriExists(String currentURI) {
 		if (currentURI != null) {
-			IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(), getComponentHandle().getName());
+			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			IVirtualReference[] refComponents = comp.getReferences();
 			if (refComponents.length == 0)
 				return false;
@@ -519,7 +519,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
 		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = getComponent().getComponentHandle().toString();
+		String uri = ModuleURIUtil.getHandleString(getProject());
 		return CommonarchiveFactory.eINSTANCE.openEARFile(loader, uri);
 	}
 	

@@ -355,7 +355,7 @@ public class ClassPathSelection {
 					String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 					String unresolvedURI = "";
 					try {
-						unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(referencedComponent.getComponentHandle().toString()));
+						unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())));
 					} catch (UnresolveableURIException e) {
 						e.printStackTrace();
 					}
@@ -373,10 +373,10 @@ public class ClassPathSelection {
 					
 					if( !alreadyInList ){
 						if( inManifest(cp, archiveURI.lastSegment())){
-							element = createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), archiveURI.lastSegment());
+							element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())), archiveURI.lastSegment(), archiveURI.lastSegment());
 							addClasspathElement(element, unresolvedURI);
 						}else{
-							element = createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), null);
+							element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())), archiveURI.lastSegment(), null);
 							addClasspathElement(element, unresolvedURI);							
 						}
 					}

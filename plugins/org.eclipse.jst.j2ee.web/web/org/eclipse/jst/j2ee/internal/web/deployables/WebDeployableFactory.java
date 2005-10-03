@@ -20,7 +20,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 
@@ -43,27 +42,24 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	}
 
 
-	protected List createModuleDelegates(IVirtualComponent[] components) throws CoreException {
+	protected List createModuleDelegates(IVirtualComponent component) throws CoreException {
 		J2EEFlexProjWebDeployable moduleDelegate = null;
 		IModule module = null;
-		List moduleList = new ArrayList(components.length);
-		for (int i = 0; i < components.length; i++) {
-			IVirtualComponent component = components[i];
-			try {
-				if(IModuleConstants.JST_WEB_MODULE.equals(component.getComponentTypeId())) {
-					moduleDelegate = new J2EEFlexProjWebDeployable(component.getProject(), ID, component);
-					module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-					moduleList.add(module);
-					moduleDelegate.initialize(module);
-				}
-				// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
-			} catch (Exception e) {
-				Logger.getLogger().write(e);
-			} finally {
-				if (module != null) {
-					if (getModuleDelegate(module) == null)
-						moduleDelegates.add(moduleDelegate);
-				}
+		List moduleList = new ArrayList();
+		try {
+			if(IModuleConstants.JST_WEB_MODULE.equals(component.getComponentTypeId())) {
+				moduleDelegate = new J2EEFlexProjWebDeployable(component.getProject(), ID, component);
+				module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+				moduleList.add(module);
+				moduleDelegate.initialize(module);
+			}
+			// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
+		} catch (Exception e) {
+			Logger.getLogger().write(e);
+		} finally {
+			if (module != null) {
+				if (getModuleDelegate(module) == null)
+					moduleDelegates.add(moduleDelegate);
 			}
 		}
 		return moduleList;
@@ -92,13 +88,10 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	
 	protected boolean isValidModule(IProject project) {
 		if (isFlexibleProject(project)) {
-	        IFlexibleProject flex = ComponentCore.createFlexibleProject(project);
-	        IVirtualComponent[] comps = flex.getComponents();
-	        for (int i = 0; i < comps.length; i++) {
-	            if(comps[i].getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))
-	                return true;
+	        IVirtualComponent comp = ComponentCore.createComponent(project);
+            if(comp.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))
+                return true;
 	        }     
-		}
         return false;
     }
 }

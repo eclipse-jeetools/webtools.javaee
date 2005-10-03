@@ -9,6 +9,7 @@
 
 package org.eclipse.jst.j2ee.componentcore;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,7 +23,6 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -53,8 +53,8 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public EnterpriseArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public EnterpriseArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -180,8 +180,8 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	}
 
 	public URI getModuleLocation(String moduleName) {
-		if (getComponentHandle()!=null)
-			return ModuleURIUtil.fullyQualifyURI(getComponentHandle());
+		if (getProject()!=null)
+			return ModuleURIUtil.fullyQualifyURI(getProject());
 		return null;
 	}
 

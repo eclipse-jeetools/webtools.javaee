@@ -42,7 +42,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -328,8 +327,7 @@ public class WebDeployableArtifactUtil {
 		WebArtifactEdit edit = null;
 		WebApp webApp = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(project,componentName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(project);
 			edit.getDeploymentDescriptorRoot();
 			webApp = edit.getWebApp();
 		} finally {

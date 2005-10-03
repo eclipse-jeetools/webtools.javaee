@@ -17,8 +17,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.core.ValidationException;
@@ -81,22 +79,15 @@ public class UIWarValidator extends WarValidator {
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
-		IVirtualComponent[] virComps = flexProject.getComponents();
-		
-		for(int i = 0; i < virComps.length; i++) {
-            IVirtualComponent wbModule = virComps[i];
-            if( wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))
-            	continue;
-			
-			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());
-			IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
-			if( webFile.exists()) {
-				getWarHelper().setComponentHandle(handle);
-				super.validate(inHelper, inReporter);				
-			}
+		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
+            if( wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
+            	
+				IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
+				if( webFile.exists()) {
 
-		}
+					super.validate(inHelper, inReporter);				
+				}
+            }
 	}	
 		
 	

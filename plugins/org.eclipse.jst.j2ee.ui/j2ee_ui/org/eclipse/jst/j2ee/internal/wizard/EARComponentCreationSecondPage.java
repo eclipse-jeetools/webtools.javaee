@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -134,7 +133,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		else{
 			list = new ArrayList(); 
 			for( int i=0; i< elements.length; i++){
-				if( elements[i] instanceof ComponentHandle ) {
+				if( elements[i] instanceof IProject ) {
 					list.add(elements[i]);
 				}
 			}
@@ -238,7 +237,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
             IProject project = ProjectUtilities.getProject(projectName);
             String compName = compDM.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
             if (project != null && project.exists())
-                newProjects.add(ComponentHandle.create(project, compName));
+                newProjects.add(project);
         }
     }
     

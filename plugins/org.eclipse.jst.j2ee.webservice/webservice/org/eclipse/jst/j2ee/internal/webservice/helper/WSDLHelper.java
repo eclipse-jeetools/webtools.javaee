@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
@@ -24,7 +25,6 @@ import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
@@ -33,10 +33,10 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  */
 public class WSDLHelper {
 
-	private ComponentHandle handle;
+	private IProject proj;
 
-	public WSDLHelper(ComponentHandle aHandle) {
-		this.handle = aHandle;
+	public WSDLHelper(IProject aProject) {
+		this.proj = aProject;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class WSDLHelper {
 			return ""; //$NON-NLS-1$
 
 		// Get a handle on the WSDL file.
-		IVirtualComponent component = ComponentCore.createComponent(handle.getProject(),handle.getName());
+		IVirtualComponent component = ComponentCore.createComponent(proj);
 		if (component != null) {
 			IVirtualFolder moduleRoot = component.getRootFolder().getFolder("/"); //$NON-NLS-1$
 			IFile wsdlFile = moduleRoot.getFile(wsdlFileRelPath).getUnderlyingFile();

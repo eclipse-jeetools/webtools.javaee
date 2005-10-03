@@ -21,8 +21,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
@@ -52,18 +50,11 @@ public class UIConnectorValidator extends ConnectorValidator {
 		ConnectorHelper helper = (ConnectorHelper) inHelper;
 		
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
-		IVirtualComponent[] virComps = flexProject.getComponents();
+		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
 		
-		for(int i = 0; i < virComps.length; i++) {
-            IVirtualComponent wbModule = virComps[i];
-            if(wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
-            	continue;
-			
-			ComponentHandle handle = ComponentHandle.create(proj,wbModule.getName());
+            if(wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
 			IVirtualFile rarDD = wbModule.getRootFolder().getFile(J2EEConstants.RAR_DD_URI);
 			if( rarDD.exists()) {			
-				helper.setComponentHandle(handle);
 				super.validate(inHelper, inReporter);
 			}
 			//validateJ2EE14DocType(helper, editModel);

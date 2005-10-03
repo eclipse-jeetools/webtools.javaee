@@ -24,7 +24,6 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
@@ -76,8 +75,7 @@ public class EarHelper extends J2EEValidationHelper {
 	
 	public EObject loadEarFile() {
 
-		ComponentHandle handle = getComponentHandle();
-		IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+		IVirtualComponent comp = ComponentCore.createComponent(getProject());
 		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
 		
 		try {

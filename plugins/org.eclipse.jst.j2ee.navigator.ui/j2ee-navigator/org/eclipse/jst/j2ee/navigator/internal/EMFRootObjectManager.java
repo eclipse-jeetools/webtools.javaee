@@ -25,10 +25,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.SWTException;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
@@ -103,10 +103,7 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 		EditModel editModel = null;
 		synchronized (projectEditModels) {
 			editModel = (EditModel) projectEditModels.get(project);
-			IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(project);
-			if (comps.length==0)
-				return null;
-			IVirtualComponent component = comps[0];
+			IVirtualComponent component = ComponentCore.createComponent(project);
 			ArtifactEdit artifactEdit = null;
 			try {
 				if (editModel == null && project.isAccessible()) {

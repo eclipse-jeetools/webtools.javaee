@@ -55,7 +55,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
@@ -241,8 +240,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 
 	public static IFile getManifestFile(IProject p) {
-		IFlexibleProject core = ComponentCore.createFlexibleProject(p);
-		IVirtualComponent component = core.getComponents()[0];
+		IVirtualComponent component = ComponentCore.createComponent(p);
 		try {
 			return ComponentUtilities.findFile(component, new Path(ArchiveConstants.MANIFEST_URI));
 		} catch (CoreException ce) {

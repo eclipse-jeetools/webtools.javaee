@@ -149,11 +149,11 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 				name = name.substring(0, name.length() - 4);
 				IProject project = ProjectUtilities.getProject(name);
 				if( project != null && project.isAccessible() && project.exists()){
-					IVirtualComponent refcomp = ComponentCore.createComponent(project, name);
+					IVirtualComponent refcomp = ComponentCore.createComponent(project);
 					if( refcomp.exists()){
 						ArrayList list = new ArrayList();
-						list.add(refcomp.getComponentHandle());						
-						CreateReferenceComponentsOp op = ComponentUtilities.createReferenceComponentOperation(comp.getComponentHandle(), list);
+						list.add(refcomp.getProject());						
+						CreateReferenceComponentsOp op = ComponentUtilities.createReferenceComponentOperation(comp.getProject(), list);
 						try {
 							op.execute(null, null);
 						} catch (ExecutionException e) {

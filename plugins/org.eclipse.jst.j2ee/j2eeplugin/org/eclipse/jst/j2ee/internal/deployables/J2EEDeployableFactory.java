@@ -25,7 +25,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
@@ -99,9 +98,8 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		List modules = new ArrayList(1); 
 		StructureEdit moduleCore = null;
 		try {
-			IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
-			IVirtualComponent[] components = flexProj.getComponents();
-			modules = createModuleDelegates(components);
+			IVirtualComponent comp = ComponentCore.createComponent(project);
+			modules = createModuleDelegates(comp);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,7 +111,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	}
 
 
-	protected abstract List createModuleDelegates(IVirtualComponent[] comp) throws CoreException; 
+	protected abstract List createModuleDelegates(IVirtualComponent comp) throws CoreException; 
 
 	
 	protected boolean isValidModule(IProject project) {

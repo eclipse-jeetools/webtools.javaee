@@ -35,7 +35,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -81,8 +80,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 
 		WebArtifactEdit webEdit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
-			webEdit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			webEdit = WebArtifactEdit.getWebArtifactEditForWrite(getProject());
 			Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
 			webEdit.createModelRoot(version.intValue());
 			webEdit.save(monitor);

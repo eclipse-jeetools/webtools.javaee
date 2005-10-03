@@ -41,8 +41,8 @@ import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -96,8 +96,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public WebArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -123,11 +123,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 */
-	public static WebArtifactEdit getWebArtifactEditForRead(ComponentHandle aHandle) {
+	public static WebArtifactEdit getWebArtifactEditForRead(IProject aProject) {
 		WebArtifactEdit artifactEdit = null;
 		try {
-			if (isValidWebModule(aHandle.createComponent()))
-				artifactEdit = new WebArtifactEdit(aHandle, true);
+			if (isValidWebModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new WebArtifactEdit(aProject, true);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -153,11 +153,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static WebArtifactEdit getWebArtifactEditForWrite(ComponentHandle aHandle) {
+	public static WebArtifactEdit getWebArtifactEditForWrite(IProject aProject) {
 		WebArtifactEdit artifactEdit = null;
 		try {
-			if (isValidWebModule(aHandle.createComponent()))
-				artifactEdit = new WebArtifactEdit(aHandle, false);
+			if (isValidWebModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new WebArtifactEdit(aProject, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -471,7 +471,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public IVirtualReference[] getLibModules() {
 		List result = new ArrayList();
-		IVirtualComponent comp = ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName());
+		IVirtualComponent comp = ComponentCore.createComponent(getProject());
 	    IVirtualReference[] refComponents = comp.getReferences();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i = 0; i < refComponents.length; i++) {
@@ -513,10 +513,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = getComponentHandle();
 		try {
-			moduleCore = StructureEdit.getStructureEditForRead(handle.getProject());
-			wbComponent = moduleCore.findComponentByName(handle.getName());
+			moduleCore = StructureEdit.getStructureEditForRead(getProject());
+			wbComponent = moduleCore.getComponent();
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -546,10 +545,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public void setServerContextRoot(String contextRoot) {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = getComponentHandle();
 		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(handle.getProject());
-			wbComponent = moduleCore.findComponentByName(handle.getName());
+			moduleCore = StructureEdit.getStructureEditForWrite(getProject());
+			wbComponent = moduleCore.getComponent();
 			
 			boolean found = false;
 			Property prop = null;
@@ -599,7 +597,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = getComponent().getComponentHandle().toString();
+		String uri = ModuleURIUtil.getHandleString(getProject());
 		return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
 	}
 }

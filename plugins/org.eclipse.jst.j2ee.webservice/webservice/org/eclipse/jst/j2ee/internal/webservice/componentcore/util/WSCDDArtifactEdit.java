@@ -13,9 +13,9 @@ import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -46,8 +46,8 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public WSCDDArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public WSCDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -118,9 +118,9 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	public URI getWebServicesClientXmlResourceURI() {
 		
 		URI resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_WEB_INF_DD_URI_OBJ;
-		if (isValidAppClientModule(ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName())))
+		if (isValidAppClientModule(ComponentCore.createComponent(getProject())))
 			resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ;
-		else if (isValidEJBModule(ComponentCore.createComponent(getComponentHandle().getProject(),getComponentHandle().getName())))
+		else if (isValidEJBModule(ComponentCore.createComponent(getProject())))
 			resourceURI = J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ; //$NON-NLS-1$
 		return resourceURI;
 	}
@@ -204,10 +204,10 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 */
-	public static WSCDDArtifactEdit getWSCDDArtifactEditForRead(ComponentHandle aHandle) {
+	public static WSCDDArtifactEdit getWSCDDArtifactEditForRead(IProject aProject) {
 		WSCDDArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new WSCDDArtifactEdit(aHandle, true);
+			artifactEdit = new WSCDDArtifactEdit(aProject, true);
 		} catch (IllegalArgumentException iae) {
 			artifactEdit = null;
 		}
@@ -233,10 +233,10 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static WSCDDArtifactEdit getWSCDDArtifactEditForWrite(ComponentHandle aHandle) {
+	public static WSCDDArtifactEdit getWSCDDArtifactEditForWrite(IProject aProject) {
 		WSCDDArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new WSCDDArtifactEdit(aHandle, false);
+			artifactEdit = new WSCDDArtifactEdit(aProject, false);
 		} catch (IllegalArgumentException iae) {
 			artifactEdit = null;
 		}

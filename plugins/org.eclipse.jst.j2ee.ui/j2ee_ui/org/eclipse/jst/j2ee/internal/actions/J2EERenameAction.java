@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameDialog;
@@ -45,6 +44,7 @@ import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -351,12 +351,10 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	protected boolean isJ2EEApplicationProject(Object o) {
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
-			IVirtualComponent[] components = ComponentUtilities.getComponentsForProject(project);
-			for (int i=0; i<components.length; i++) {
-				if (IModuleConstants.JST_EAR_MODULE.equals(components[i].getComponentTypeId()))
+			IVirtualComponent component = ComponentCore.createComponent(project);
+				if (IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId()))
 					return true;
 			}
-		}
 		return false;
 	}
 

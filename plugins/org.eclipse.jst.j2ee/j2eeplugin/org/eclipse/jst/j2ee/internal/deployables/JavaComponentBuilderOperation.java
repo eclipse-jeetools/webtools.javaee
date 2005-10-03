@@ -55,7 +55,7 @@ public class JavaComponentBuilderOperation extends WorkbenchComponentBuilderOper
 		try {
             IVirtualComponent vComponent = (IVirtualComponent)model.getProperty(VIRTUAL_COMPONENT);
             sEdit = StructureEdit.getStructureEditForRead(vComponent.getProject());
-            WorkbenchComponent wbComponent = sEdit.findComponentByName(vComponent.getName());
+            WorkbenchComponent wbComponent = sEdit.getComponent();
             
             IProject project = vComponent.getProject();
             //IPath projectPath = project.getFullPath();

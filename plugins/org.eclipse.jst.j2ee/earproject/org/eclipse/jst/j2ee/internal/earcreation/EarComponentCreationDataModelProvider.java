@@ -19,7 +19,6 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -169,9 +168,9 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 		Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
 		int earVersion = version.intValue();
 		for (Iterator iter = list.iterator(); iter.hasNext();) {
-			ComponentHandle handle = (ComponentHandle)iter.next();
+			IProject handle = (IProject)iter.next();
 			//IVirtualComponent comp = (IVirtualComponent) iter.next();
-			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject());
 			int compVersion = J2EEVersionUtil.convertVersionStringToInt(comp);
 			if (earVersion < compVersion) {
 				String errorStatus = "The Module specification level of "+handle.getName()+", is incompatible with the containing EAR version"; //$NON-NLS-1$
@@ -210,18 +209,17 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 		return true;
 	}
 
-	protected ComponentHandle computeEARHandle(){
+	protected IProject getEARProject(){
 		String earProjname = (String) model.getProperty(COMPONENT_NAME);
 		
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);	
 		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
 		
-		ComponentHandle handle = null;
+		if( earProjname != null && !earProjname.equals("") && validate(COMPONENT_NAME).isOK())
+			return ProjectUtilities.getProject(earProjname);
+		else
+			return null;
 		
-		if( earProjname != null && !earProjname.equals("") && validate(COMPONENT_NAME).isOK()){
-			handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earProjname);
-		}
-		return handle;
 	}
 
 }

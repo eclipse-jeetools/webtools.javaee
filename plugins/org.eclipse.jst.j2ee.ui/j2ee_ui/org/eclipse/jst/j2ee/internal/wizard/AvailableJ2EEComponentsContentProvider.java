@@ -18,8 +18,8 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AvailableJ2EEComponentsContentProvider implements IStructuredContentProvider, ITableLabelProvider {
@@ -46,19 +46,15 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 		for (int i = 0; i < projects.length; i++) {
 			// get flexible project
 			IProject project = projects[i];
-			IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
-			if( flexProj.isFlexible()){
-				IVirtualComponent[] comps = flexProj.getComponents();
-				for (int j = 0; j < comps.length; j++) {
-					IVirtualComponent component = comps[j];
-					String compType = component.getComponentTypeId();
-					if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) )
-						validCompList.add(component.getComponentHandle());
-				}
+			if(ModuleCoreNature.isFlexibleProject(project)){
+				IVirtualComponent component = ComponentCore.createComponent(project);
+				String compType = component.getComponentTypeId();
+				if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) )
+					validCompList.add(component.getProject());
 			} else
 				try {
 					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){ //$NON-NLS-1$

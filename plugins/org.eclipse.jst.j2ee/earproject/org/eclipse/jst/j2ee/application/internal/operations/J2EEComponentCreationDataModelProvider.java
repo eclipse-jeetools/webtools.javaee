@@ -19,12 +19,11 @@ import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelPr
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -72,7 +71,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		propertyNames.add(CLASSPATH_SELECTION);
 		propertyNames.add(NESTED_EAR_COMPONENT_CREATION_DM);
 		propertyNames.add(NESTED_UPDATE_MANIFEST_DM);
-		propertyNames.add(EAR_COMPONENT_HANDLE);
+		propertyNames.add(EAR_COMPONENT_PROJECT);
 		propertyNames.add(USE_ANNOTATIONS);
 		return propertyNames;
 	}
@@ -111,10 +110,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		boolean status = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			model.setProperty(EAR_COMPONENT_DEPLOY_NAME, propertyValue);
-			ComponentHandle handle = computeEARHandle();
+			IProject earProj = getEARProject();
 			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-			earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
-			model.setProperty(EAR_COMPONENT_HANDLE, handle);
+			earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_PROJECT, earProj);
+			model.setProperty(EAR_COMPONENT_PROJECT, earProj);
 
 		} else if (propertyName.equals(COMPONENT_NAME)) {
 
@@ -123,20 +122,20 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 					model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
 					model.setProperty(EAR_COMPONENT_DEPLOY_NAME, getProperty(EAR_COMPONENT_NAME));
 					IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-					ComponentHandle handle = computeEARHandle();
-					model.setProperty(EAR_COMPONENT_HANDLE, handle);
-					if (earDM != null && handle != null)
-						earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
+					IProject earProject = getEARProject();
+					model.setProperty(EAR_COMPONENT_PROJECT, earProject);
+					if (earDM != null && earProject != null)
+						earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_PROJECT, earProject);
 				}
 			}
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			model.notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.ENABLE_CHG);
 			model.notifyPropertyChange(NESTED_EAR_COMPONENT_CREATION_DM, IDataModel.DEFAULT_CHG);
-			ComponentHandle handle = computeEARHandle();
-			model.setProperty(EAR_COMPONENT_HANDLE, handle);
+			IProject earProj = getEARProject();
+			model.setProperty(EAR_COMPONENT_PROJECT, earProj);
 			IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-			if (earDM != null && handle != null) {
-				earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE, handle);
+			if (earDM != null && earProj != null) {
+				earDM.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_PROJECT, earProj);
 				earDM.setProperty(COMPONENT_VERSION, new Integer(getJ2EEVersion()));
 			}
 
@@ -161,18 +160,15 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return status;
 	}
 
-	protected ComponentHandle computeEARHandle() {
+	protected IProject getEARProject() {
 		String earProjname = (String) model.getProperty(EAR_COMPONENT_NAME);
-
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
 		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
 
-		ComponentHandle handle = null;
-
-		if (earProjname != null && !earProjname.equals("") && validate(EAR_COMPONENT_NAME).isOK()) {
-			handle = ComponentHandle.create(ProjectUtilities.getProject(earProjname), earProjname);
-		}
-		return handle;
+		if (earProjname != null && !earProjname.equals("") && validate(EAR_COMPONENT_NAME).isOK())
+			return ProjectUtilities.getProject(earProjname);
+		else
+			return null;
 	}
 
 
@@ -352,19 +348,17 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			IProject flexProject = projs[index];
 			try {
 				if (flexProject != null) {
-					IFlexibleProject fProject = ComponentCore.createFlexibleProject(flexProject);
-					if (fProject.isFlexible()) {
-						IVirtualComponent[] comps = fProject.getComponents();
+					if (ModuleCoreNature.isFlexibleProject(flexProject)) {
+						IVirtualComponent comp = ComponentCore.createComponent(flexProject);
 						int earVersion = 0;
-						for (int i = 0; i < comps.length; i++) {
-							if (comps[i].getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
-								String sVer = comps[i].getVersion();
+						
+							if (comp.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+								String sVer = comp.getVersion();
 								int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
 								if (j2eeVersion <= ver) {
-									DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comps[i].getComponentHandle(), comps[i].getName());
+									DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject());
 									earDescriptorList.add(desc);
 								}
-							}
 						}
 					}
 				}
@@ -399,7 +393,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (core != null) {
 					String componentName = getProperty(COMPONENT_NAME) != null ? getProperty(COMPONENT_NAME).toString() : null;
 					if (componentName != null)
-						return core.findComponentByName(componentName);
+						return core.getComponent();
 				}
 			}
 		} finally {
@@ -430,9 +424,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	protected boolean validateComponentAlreadyInEar() {
 		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleName());
 
-		ComponentHandle earHandle = (ComponentHandle) model.getProperty(EAR_COMPONENT_HANDLE);
-		if (earHandle != null && earHandle.getProject() != null && earHandle.getProject().exists()) {
-			IVirtualComponent earComp = ComponentCore.createComponent(earHandle.getProject(), earHandle.getName());
+		IProject earProj = (IProject) model.getProperty(EAR_COMPONENT_PROJECT);
+		if (earProj != null && earProj.exists()) {
+			IVirtualComponent earComp = ComponentCore.createComponent(earProj);
 			if (earComp != null && earComp.exists()) {
 				IVirtualReference[] refs = earComp.getReferences();
 				for (int i = 0; i < refs.length; i++) {
@@ -480,9 +474,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			if (!isCreatingEarComponent()) {
 				String projName = getDataModel().getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 				IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-				ComponentHandle earHandle = (ComponentHandle) earDM.getProperty(EAR_COMPONENT_HANDLE);
-				if (earHandle != null && earHandle.getProject() != null) {
-					String earProjName = earHandle.getProject().getName();
+				IProject earProj = (IProject) earDM.getProperty(EAR_COMPONENT_PROJECT);
+				if (earProj != null) {
+					String earProjName = earProj.getName();
 					if (earProjName.equalsIgnoreCase(projName)) {
 						String msg = msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE);
 						return WTPCommonPlugin.createErrorStatus(msg);

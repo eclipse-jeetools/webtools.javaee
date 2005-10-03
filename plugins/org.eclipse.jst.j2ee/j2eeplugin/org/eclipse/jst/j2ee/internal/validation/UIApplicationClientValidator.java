@@ -16,8 +16,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
@@ -48,22 +46,16 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 		UIApplicationClientHelper helper = (UIApplicationClientHelper) inHelper;
 		
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
-		IVirtualComponent[] virComps = flexProject.getComponents();
 		
-		for(int i = 0; i < virComps.length; i++) {
-            IVirtualComponent wbModule = virComps[i];
-            if( wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
-            	continue;
-			
-			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());
-			IVirtualFile ddFile = wbModule.getRootFolder().getFile(J2EEConstants.APP_CLIENT_DD_URI);
-			if( ddFile.exists()) {						
-				helper.setComponentHandle(handle);
-				super.validate(helper, inReporter);
-			}
+		IVirtualComponent virComp = ComponentCore.createComponent(proj);
+            if( virComp.getComponentTypeId() != null && virComp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
+            
+				IVirtualFile ddFile = virComp.getRootFolder().getFile(J2EEConstants.APP_CLIENT_DD_URI);
+				if( ddFile.exists()) {						
+					super.validate(helper, inReporter);
+				}
+            }
 			//validateDocType(helper, editModel);
-		}
 	}
 	
 

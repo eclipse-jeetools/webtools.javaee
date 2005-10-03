@@ -49,7 +49,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
@@ -102,9 +101,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	private void initializeComponent() {
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(getProject());
-		if( flexProject.getComponents().length > 0 )
-			setComponent(flexProject.getComponents()[0]);
+		setComponent(ComponentCore.createComponent(getProject()));
 	}
 
 	protected IVirtualComponent[] refreshAvailableEARs() {
@@ -620,7 +617,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						//String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 						String unresolvedURI = "";
 						try {
-							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(referencedComponent.getComponentHandle().toString()));
+							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())));
 						} catch (UnresolveableURIException e) {
 							e.printStackTrace();
 						}
@@ -638,12 +635,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						ClasspathElement element = null;
 						if( !alreadyInList ){
 							if( inClassPath(javaProject, archiveURI.lastSegment())){
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), archiveURI.lastSegment());
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())), archiveURI.lastSegment(), archiveURI.lastSegment());
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 							}
 							else
 							{
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(referencedComponent.getComponentHandle().toString()), archiveURI.lastSegment(), null);
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent.getProject())), archiveURI.lastSegment(), null);
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);							
 							}
 						}

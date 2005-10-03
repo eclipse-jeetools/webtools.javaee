@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
@@ -47,6 +46,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -197,10 +197,8 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	 * @param localProjects
 	 */
 	private void addEJBClientProjectIfNecessary(IProject project, List localProjects) {
-		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(project);
-		if (comps.length == 0)
-			return;
-		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+		IVirtualComponent comp = ComponentCore.createComponent(project);
+		EJBArtifactEdit edit = EJBArtifactEdit.getEJBArtifactEditForRead(comp);
 		if (edit != null && edit.hasEJBClientJARProject())
 			localProjects.add(edit.getEJBClientJarModule().getProject());
 	}
@@ -372,11 +370,9 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	protected boolean isJ2EEApplicationProject(Object o) {
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
-			IVirtualComponent[] components = ComponentUtilities.getComponentsForProject(project);
-			for (int i=0; i<components.length; i++) {
-				if (IModuleConstants.JST_EAR_MODULE.equals(components[i].getComponentTypeId()))
-					return true;
-			}
+			IVirtualComponent component = ComponentCore.createComponent(project);
+			if (IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId()))
+				return true;
 		}
 		return false;
 	}

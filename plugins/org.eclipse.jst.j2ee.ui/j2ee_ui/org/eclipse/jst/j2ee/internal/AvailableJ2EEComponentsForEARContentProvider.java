@@ -20,9 +20,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -52,36 +51,32 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		for (int i = 0; i < projects.length; i++) {
 			// get flexible project
 			IProject project = projects[i];
-			IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
-			if( flexProj.isFlexible()){
-				IVirtualComponent[] comps = flexProj.getComponents();
-				for (int j = 0; j < comps.length; j++) {
-					IVirtualComponent component = comps[j];
-					String compType = component.getComponentTypeId();
-					if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
-							(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) ){
-						int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
-						if( compJ2EEVersion <= j2eeVersion)
-							validCompList.add(component.getComponentHandle());
-					}else if(compType.equals(IModuleConstants.JST_EAR_MODULE)){
-						//find the ArchiveComponent
-						if( component.equals( earComponent )){
-							IVirtualReference[] newrefs = component.getReferences();
-							for( int k=0; k< newrefs.length; k++ ){
-								IVirtualReference tmpref = newrefs[k];
-								//IVirtualComponent enclosingcomp = tmpref.getEnclosingComponent();
-								//boolean isBinary = enclosingcomp.isBinary();
-								IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
-								boolean isBinary = referencedcomp.isBinary();
-								if( isBinary ){
-									validCompList.add(referencedcomp.getComponentHandle());
-									//IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(name);
-								}	
+			if(ModuleCoreNature.isFlexibleProject(project)){
+				IVirtualComponent component = ComponentCore.createComponent(project);
+				String compType = component.getComponentTypeId();
+				if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
+						(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) ){
+					int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
+					if( compJ2EEVersion <= j2eeVersion)
+						validCompList.add(component.getProject());
+				}else if(compType.equals(IModuleConstants.JST_EAR_MODULE)){
+					//find the ArchiveComponent
+					if( component.equals( earComponent )){
+						IVirtualReference[] newrefs = component.getReferences();
+						for( int k=0; k< newrefs.length; k++ ){
+							IVirtualReference tmpref = newrefs[k];
+							//IVirtualComponent enclosingcomp = tmpref.getEnclosingComponent();
+							//boolean isBinary = enclosingcomp.isBinary();
+							IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
+							boolean isBinary = referencedcomp.isBinary();
+							if( isBinary ){
+								validCompList.add(referencedcomp.getProject());
+								//IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(name);
 							}	
-						}
+						}	
 					}
 				}
 			} else
@@ -111,11 +106,11 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-		if (element instanceof ComponentHandle) {
-			ComponentHandle handle = (ComponentHandle)element;
+		if (element instanceof IProject) {
+			IProject proj = (IProject)element;
 			if( columnIndex == 0 )
-				return handle.getName();
-			return handle.getProject().getName();
+				return proj.getName();
+			return proj.getName();
 		}else if(element instanceof IProject){
 			return ((IProject)element).getName();
 		}

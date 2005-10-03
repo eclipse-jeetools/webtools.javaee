@@ -38,8 +38,6 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -185,19 +183,11 @@ public class ComponentUtilities {
 		List components = new ArrayList();
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
 		for (int i = 0; i < projects.size(); i++) {
-			IFlexibleProject flexProject = ComponentCore.createFlexibleProject((IProject) projects.get(i));
-			IVirtualComponent[] wbComp = flexProject.getComponents();
-			for (int j = 0; j < wbComp.length; j++) {
-				components.add(ComponentCore.createComponent((IProject) projects.get(i), wbComp[j].getName()));
-			}
+			IVirtualComponent wbComp = ComponentCore.createComponent((IProject)projects.get(i));
+			components.add(wbComp);
 		}
 		VirtualComponent[] temp = (VirtualComponent[]) components.toArray(new VirtualComponent[components.size()]);
 		return temp;
-	}
-
-	public static IVirtualComponent[] getComponentsForProject(IProject project) {
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
-		return flexProject.getComponents();
 	}
 	
 	/**
@@ -252,32 +242,32 @@ public class ComponentUtilities {
 		return new JavaProjectMigrationOperation(model);
 	}
 
-	public static CreateReferenceComponentsOp createReferenceComponentOperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+	public static CreateReferenceComponentsOp createReferenceComponentOperation(IProject sourceComponentProject, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-		modHandlesList.addAll(targetComponentsHandles);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		modHandlesList.addAll(targetComponentProjects);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
 		
 		return new CreateReferenceComponentsOp(model);
 	}
 	
-	public static CreateReferenceComponentsOp createWLPReferenceComponentOperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+	public static CreateReferenceComponentsOp createWLPReferenceComponentOperation(IProject sourceComponentProject, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-		modHandlesList.addAll(targetComponentsHandles);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		modHandlesList.addAll(targetComponentProjects);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
 		return new CreateReferenceComponentsOp(model);
 	}
 
-	public static RemoveReferenceComponentOperation removeReferenceComponentOperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+	public static RemoveReferenceComponentOperation removeReferenceComponentOperation(IProject sourceComponentProject, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-		modHandlesList.addAll(targetComponentsHandles);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+		modHandlesList.addAll(targetComponentProjects);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
 		return new RemoveReferenceComponentOperation(model);
 
 	}
@@ -326,11 +316,12 @@ public class ComponentUtilities {
 	}
 
 	public static IVirtualComponent[] getAllComponentsInWorkspaceOfType(String type) {
+		IVirtualComponent[] allComps = getAllWorkbenchComponents();
 		List result = new ArrayList();
-		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		for (int i = 0; i < projects.length; i++) {
-			IFlexibleProject project = ComponentCore.createFlexibleProject(projects[i]);
-			result.addAll(Arrays.asList(project.getComponentsOfType(type)));
+		for (int i = 0; i < allComps.length; i++) {
+			IVirtualComponent component = allComps[i];
+			if (component.getComponentTypeId().equals(type))
+				result.add(component);
 		}
 		return (IVirtualComponent[]) result.toArray(new IVirtualComponent[result.size()]);
 	}

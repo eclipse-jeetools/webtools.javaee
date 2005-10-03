@@ -20,13 +20,14 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
@@ -61,8 +62,8 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public AppClientArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);		
+	public AppClientArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);		
 	}
 
 	public AppClientArtifactEdit(ArtifactEditModel anArtifactEditModel) {
@@ -203,11 +204,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 */
-	public static AppClientArtifactEdit getAppClientArtifactEditForRead(ComponentHandle aHandle) {
+	public static AppClientArtifactEdit getAppClientArtifactEditForRead(IProject aProject) {
 		AppClientArtifactEdit artifactEdit = null;
 		try {
-			if (isValidApplicationClientModule(aHandle.createComponent())) 
-				artifactEdit = new AppClientArtifactEdit(aHandle, true);
+			if (isValidApplicationClientModule(ComponentCore.createComponent(aProject))) 
+				artifactEdit = new AppClientArtifactEdit(aProject, true);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -233,11 +234,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(ComponentHandle aHandle) {
+	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(IProject aProject) {
 		AppClientArtifactEdit artifactEdit = null;
 		try {
-			if (isValidApplicationClientModule(aHandle.createComponent()))
-				artifactEdit = new AppClientArtifactEdit(aHandle, false);
+			if (isValidApplicationClientModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new AppClientArtifactEdit(aProject, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -356,7 +357,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = getComponent().getComponentHandle().toString();
+		String uri = ModuleURIUtil.getHandleString(getProject());
 		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);
 	}
 	

@@ -54,8 +54,6 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -197,27 +195,20 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 		earHelper = ((UIEarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(proj);
-		IVirtualComponent[] virComps = flexProject.getComponents();
-		
-		for(int i = 0; i < virComps.length; i++) {
-            IVirtualComponent wbModule = virComps[i];
-            if(wbModule.getComponentTypeId() != null && !wbModule.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
-            	continue;
+		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
+            if(wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)){
 			
-			ComponentHandle handle = ComponentHandle.create(proj, wbModule.getName());
-			IVirtualFile ddFile = wbModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
-			if( ddFile.exists()) {				
-				earHelper.setComponentHandle(handle);
-				super.validate(inHelper, inReporter);
-//				validateModuleMaps(earEdit,earModule);
-				validateManifests();
-//				validateUtilJarMaps(earEdit,earModule);
-//				validateUriAlreadyExistsInEar(earEdit,earModule);
-//				validateDocType(earEdit,earModule);					
-			}
+				IVirtualFile ddFile = wbModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
+				if( ddFile.exists()) {				
+					super.validate(inHelper, inReporter);
+	//				validateModuleMaps(earEdit,earModule);
+					validateManifests();
+	//				validateUtilJarMaps(earEdit,earModule);
+	//				validateUriAlreadyExistsInEar(earEdit,earModule);
+	//				validateDocType(earEdit,earModule);					
+				}
+            }
 		
-		}
 	}	
 
 	
@@ -432,8 +423,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		for (int i = 0; i < utilJars.length; i++) {
 			IVirtualReference utilModule = utilJars[i];
 			if (utilModule != null) {
-				ComponentHandle handle = ComponentHandle.create(project,utilModule.getReferencedComponent().getName());
-				String uri = ModuleURIUtil.fullyQualifyURI(handle).toString();
+				String uri = ModuleURIUtil.fullyQualifyURI(project).toString();
 				if (uri != null && uri.indexOf(" ") != -1) { //$NON-NLS-1$
 					String[] params = new String[1];
 					params[0] = uri;
@@ -489,8 +479,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		for (int i = 0; i < utilJars.length; i++) {
 			IVirtualReference utilModule = utilJars[i];
 			if (utilModule != null) {
-				ComponentHandle handle = ComponentHandle.create(project,utilModule.getReferencedComponent().getName());
-				String uri = ModuleURIUtil.fullyQualifyURI(handle).toString();
+				String uri = ModuleURIUtil.fullyQualifyURI(project).toString();
 				if (visitedUtilUri.contains(uri)) {
 					String compName = module.getName();
 					duplicateUtilError(module.getName(),uri, compName);
@@ -537,7 +526,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 						addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 					} else {
 						mc = StructureEdit.getStructureEditForRead(earHelper.getProject());
-						WorkbenchComponent deployModule = mc.findComponentByName(projectName);
+						WorkbenchComponent deployModule = mc.getComponent();
 						if (deployModule == null) {
 							String[] params = new String[]{deployModule.getName(),component.getName(), earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);

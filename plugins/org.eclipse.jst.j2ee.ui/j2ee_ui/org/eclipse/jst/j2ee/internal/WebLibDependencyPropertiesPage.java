@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -300,7 +301,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	    private ClasspathElement createClassPathElement(IVirtualComponent archiveComp,
 				String unresolvedName ) {
 		
-		URI uri = URI.createURI(archiveComp.getComponentHandle().toString());
+		URI uri = URI.createURI(ModuleURIUtil.getHandleString(archiveComp.getProject()));
 		ClasspathElement element = new ClasspathElement(uri);
 		element.setValid(false);
 		element.setSelected(true);

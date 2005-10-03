@@ -194,11 +194,10 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		if (projectNameCombo.getText().length() == 0)
 			return;
 		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
-		IVirtualComponent[] components = ComponentCore.createFlexibleProject(project).getComponentsOfType(moduleType);
-		for (int i=0; i<components.length; i++) {
-			if (!componentList.contains(components[i].getName()))
-				componentList.add(components[i].getName());
-		}
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		
+		if (component.getComponentTypeId().equals(moduleType) && !componentList.contains(component.getName()))
+			componentList.add(component.getName());
 		
 		String[] componentNames = new String[componentList.size()];
 		for (int i = 0; i < componentList.size(); i++) {
@@ -253,7 +252,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			IProject project = workspaceProjects[i];
 			try {
 				if (project.isAccessible() && project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					if (ComponentCore.createFlexibleProject(project).getComponentsOfType(moduleType).length>0)
+					IVirtualComponent component = ComponentCore.createComponent(project);
+					
+					if (component.getComponentTypeId().equals(moduleType))
 						items.add(project.getName());
 				}
 			} catch (CoreException ce) {

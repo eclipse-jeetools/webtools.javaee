@@ -26,7 +26,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 
@@ -101,9 +100,7 @@ public class WarHelper extends J2EEValidationHelper {
 	
 	//public EObject loadWarFile(ComponentHandle handle) {
 	public EObject loadWarFile() {
-		ComponentHandle handle = getComponentHandle();
-		if( handle != null ){
-			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject(), handle.getName());
+			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
@@ -116,7 +113,6 @@ public class WarHelper extends J2EEValidationHelper {
 					edit.dispose();
 				}
 			}
-		}
 		return null;
 	}	
 	

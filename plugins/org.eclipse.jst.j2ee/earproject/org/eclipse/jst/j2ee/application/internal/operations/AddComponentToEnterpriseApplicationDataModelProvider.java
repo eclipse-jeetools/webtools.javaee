@@ -1,9 +1,10 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -19,8 +20,8 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 	}
 
 	private IVirtualComponent getEarComponent() {
-		ComponentHandle handle = (ComponentHandle) getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE);
-		IVirtualComponent earComponent = handle.createComponent();
+		IProject project = (IProject) getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT);
+		IVirtualComponent earComponent = ComponentCore.createComponent(project);
 		return earComponent;
 	}
 

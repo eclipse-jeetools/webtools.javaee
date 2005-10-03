@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -141,14 +140,10 @@ public class WebAppContainerPage
         
         final List res = new ArrayList();
         
-        final IFlexibleProject fp 
-            = ComponentCore.createFlexibleProject( this.project );
+        final IVirtualComponent component = ComponentCore.createComponent(project);
         
-        final IVirtualComponent[] components = fp.getComponents();
-        
-        for( int i = 0; i < components.length; i++ )
-        {
-            final IVirtualComponent vc = components[ i ];
+       
+            final IVirtualComponent vc = component;
             final String cmp = vc.getName();
             
             // TODO: Re-enable this check when getComponentTypeId() is implemented.
@@ -158,7 +153,7 @@ public class WebAppContainerPage
             {
                 res.add( vc.getName() );
             }
-        }
+        
         
         return res;
     }

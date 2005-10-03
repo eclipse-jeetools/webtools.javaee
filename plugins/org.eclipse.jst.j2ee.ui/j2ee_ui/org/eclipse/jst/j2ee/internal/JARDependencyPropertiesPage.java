@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.jar.Manifest;
 
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -61,8 +60,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
@@ -210,9 +209,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	protected boolean isValidComponent() {
 		if (model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
 			this.setErrorMessage(ManifestUIResourceHandler.getString("EAR_Module_Dep_Error")); //$NON-NLS-1$
-			return false;
-		} else if ((ComponentUtilities.getComponentsForProject(model.getProject())).length > 1) {
-			this.setErrorMessage(ManifestUIResourceHandler.getString("Jar_Dep_One_Module_Error")); //$NON-NLS-1$
 			return false;
 		} else if (J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) ) {
 			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
@@ -505,24 +501,21 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			ClasspathElement element = (ClasspathElement) selected.get(i);
 			IProject elementProject = element.getProject();
 			if( elementProject != null ){
-				IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
-				IVirtualComponent targetComp = flexProject.getComponents()[0];
-				targetComponentsHandles.add(targetComp.getComponentHandle());
+				IVirtualComponent targetComp = ComponentCore.createComponent(elementProject);
+				targetComponentsHandles.add(targetComp.getProject());
 			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createWLPReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createWLPReferenceComponentOperation(model.getComponent().getProject(), targetComponentsHandles)));
 		}
 		targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < unselected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) unselected.get(i);
 			IProject elementProject = element.getProject();
 			if( elementProject != null ){
-				IFlexibleProject flexProject = ComponentCore.createFlexibleProject(elementProject);
-				if (flexProject.getComponents().length > 0) {
-					IVirtualComponent targetComp = flexProject.getComponents()[0];
-					targetComponentsHandles.add(targetComp.getComponentHandle());
+				if (ModuleCoreNature.isFlexibleProject(elementProject)) {
+					targetComponentsHandles.add(elementProject);
 				}
 			}else{
 				URI archiveURI = element.getArchiveURI();
@@ -534,7 +527,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 					if( !name.equals("")){ //$NON-NLS-1$
 						IVirtualReference ref = model.getComponent().getReference(name);
 						IVirtualComponent referenced = ref.getReferencedComponent();
-						targetComponentsHandles.add(referenced.getComponentHandle());
+						targetComponentsHandles.add(referenced.getProject());
 					}	
 				}
 			}
@@ -542,7 +535,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		if (!targetComponentsHandles.isEmpty()) {
 			if(composedOp == null)
 				composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent().getComponentHandle(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent().getProject(), targetComponentsHandles)));
 		}
 		return composedOp;
 	}

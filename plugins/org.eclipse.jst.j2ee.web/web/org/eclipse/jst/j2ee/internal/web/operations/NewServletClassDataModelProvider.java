@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -272,10 +271,9 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		IProject project = ProjectUtilities.getProject(getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 		String moduleName = getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME);
 		if (project == null || moduleName == null || moduleName.equals(""))return true; //$NON-NLS-1$
-		ComponentHandle handle = ComponentHandle.create(project, moduleName);
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(project);
 			if (webEdit == null)
 				return true;
 			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;

@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 
@@ -63,12 +62,9 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	
 	protected boolean isValidModule(IProject project) {
 		if (isFlexibleProject(project)) {
-	        IFlexibleProject flex = ComponentCore.createFlexibleProject(project);
-	        IVirtualComponent[] comps = flex.getComponents();
-	        for (int i = 0; i < comps.length; i++) {
-                if(comps[i].getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
-                    return true;
-            }
+	        IVirtualComponent comp = ComponentCore.createComponent(project);
+            if(comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
+               return true;
         }
         return false;
 	}
@@ -76,26 +72,23 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
 	 */
-	protected List createModuleDelegates(IVirtualComponent[] components) {
+	protected List createModuleDelegates(IVirtualComponent component) {
         ApplicationClientFlexibleDeployable moduleDelegate = null;
         IModule module = null;
-        List moduleList = new ArrayList(components.length);
-        for (int i = 0; i < components.length; i++) {
-            IVirtualComponent component = components[i];
-            try {
-                if(IModuleConstants.JST_APPCLIENT_MODULE.equals(component.getComponentTypeId())) {
-                    moduleDelegate = new ApplicationClientFlexibleDeployable(component.getProject(), ID, component);
-                    module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-                    moduleList.add(module);
-                    moduleDelegate.initialize(module);
-                }
-            } catch (Exception e) {
-                Logger.getLogger().write(e);
-            } finally {
-                if (module != null) {
-                    if (getModuleDelegate(module) == null)
-                        moduleDelegates.add(moduleDelegate);
-                }
+        List moduleList = new ArrayList();
+		try {
+            if(IModuleConstants.JST_APPCLIENT_MODULE.equals(component.getComponentTypeId())) {
+                moduleDelegate = new ApplicationClientFlexibleDeployable(component.getProject(), ID, component);
+                module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+                moduleList.add(module);
+                moduleDelegate.initialize(module);
+            }
+        } catch (Exception e) {
+            Logger.getLogger().write(e);
+        } finally {
+            if (module != null) {
+                if (getModuleDelegate(module) == null)
+                    moduleDelegates.add(moduleDelegate);
             }
         }
         return moduleList;

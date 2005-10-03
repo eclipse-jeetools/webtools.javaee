@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -79,8 +78,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 		Integer version = null;
 		IVirtualComponent component = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
-			artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(getProject());
 			version = (Integer) model.getProperty(COMPONENT_VERSION);
 			Connector connector = (Connector) artifactEdit.createModelRoot(version.intValue());
 			artifactEdit.save(monitor);

@@ -35,7 +35,6 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -77,8 +76,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         AppClientArtifactEdit artifactEdit = null;
         try {
-			ComponentHandle handle = ComponentHandle.create(getProject(),model.getStringProperty(COMPONENT_DEPLOY_NAME));
-            artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+            artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(getProject());
             Integer version = (Integer)model.getProperty(COMPONENT_VERSION);
             artifactEdit.createModelRoot(version.intValue());
             artifactEdit.save(monitor);

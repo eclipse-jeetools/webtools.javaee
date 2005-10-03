@@ -49,13 +49,12 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -112,16 +111,12 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	protected void initialize() {
 		project = (IProject) getElement().getAdapter(IResource.class);
 
-		IFlexibleProject flexProj = ComponentCore.createFlexibleProject(project);
-		if (flexProj.isFlexible()) {
-			IVirtualComponent[] comps = flexProj.getComponents();
-			for (int j = 0; j < comps.length; j++) {
-				IVirtualComponent component = comps[j];
+		if (ModuleCoreNature.isFlexibleProject(project)) {
+			IVirtualComponent component = ComponentCore.createComponent(project);
 				String compType = component.getComponentTypeId();
 				if (compType.equals(IModuleConstants.JST_EAR_MODULE))
 					earComponent = component;
 			}
-		}
 	}
 
 	protected void createProjectLabelsGroup(Composite parent) {
@@ -175,7 +170,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		List newComps = new ArrayList();
 		if (j2eeComponentList != null && !j2eeComponentList.isEmpty()){
 			for (int i = 0; i < j2eeComponentList.size(); i++){
-				ComponentHandle handle = (ComponentHandle)j2eeComponentList.get(i);
+				IProject handle = (IProject)j2eeComponentList.get(i);
 				if( !inEARAlready(handle))
 					newComps.add(handle);
 			}
@@ -191,9 +186,9 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 				if (list != null && !list.isEmpty()) {
 					IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
 					
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());					
-					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, list);
-					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earComponent.getProject());					
+					dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, list);
+					stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
 					if (stat != OK_STATUS)
 						return stat;
 					dm.getDefaultOperation().execute(monitor, null);
@@ -209,13 +204,13 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	
 	
 						IDataModel refdm = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());
-						List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+						List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
 	
-						IVirtualComponent targetcomponent = ComponentCore.createComponent(proj, proj.getName());
-						targetCompList.add(targetcomponent.getComponentHandle());
+						IVirtualComponent targetcomponent = ComponentCore.createComponent(proj);
+						targetCompList.add(targetcomponent.getProject());
 	
-						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earComponent.getComponentHandle());
-						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetCompList);
+						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earComponent.getProject());
+						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, targetCompList);
 						refdm.getDefaultOperation().execute(monitor, null);
 					}
 				}
@@ -233,7 +228,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			List list = getComponentsToRemove();
 			if( !list.isEmpty()){
 				try {
-					RemoveComponentFromEnterpriseApplicationOperation op = removeComponentFromEAROperation(earComponent.getComponentHandle(), list);
+					RemoveComponentFromEnterpriseApplicationOperation op = removeComponentFromEAROperation(earComponent.getProject(), list);
 					op.execute(null, null);
 				} catch (ExecutionException e) {
 					Logger.getLogger().log(e);
@@ -243,12 +238,12 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		return stat;
 	}		
 	
-	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(ComponentHandle sourceComponentHandle, List targetComponentsHandles) {
+	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(IProject sourceComponentProject, List targetComponentsHandles) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, sourceComponentHandle);
-		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, sourceComponentProject);
+		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modHandlesList);
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modHandlesList);
 		return new RemoveComponentFromEnterpriseApplicationOperation(model);
 	}
 	
@@ -259,7 +254,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			IVirtualReference[] oldrefs = earComponent.getReferences();
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
-				ComponentHandle handle = ref.getReferencedComponent().getComponentHandle();
+				IProject handle = ref.getReferencedComponent().getProject();
 				if( !j2eeComponentList.contains(handle)){
 					list.add(handle);
 				}
@@ -319,7 +314,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 					refs[j] = tmpref;
 				}				
 				earComponent.setReferences(refs);
-				j2eeComponentList.add(archive.getComponentHandle());
+				j2eeComponentList.add(archive.getProject());
 			}
 			refresh();
 		}
@@ -359,7 +354,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 						refs[j] = tmpref;
 					}				
 					earComponent.setReferences(refs);
-					j2eeComponentList.add(archive.getComponentHandle());
+					j2eeComponentList.add(archive.getProject());
 				}else{
 					//display error
 				}
@@ -462,7 +457,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			list.add(ref.getReferencedComponent().getComponentHandle());
+			list.add(ref.getReferencedComponent().getProject());
 		}
 		return list.toArray();
 	}
@@ -473,11 +468,11 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	 * @return
 	 * @description  returns true is a component is already in the EAR as a dependent
 	 */
-	protected boolean inEARAlready(ComponentHandle componentHandle){
+	protected boolean inEARAlready(IProject componentProject){
 		IVirtualReference refs[] = earComponent.getReferences();
 		for( int i=0; i< refs.length; i++){
 			IVirtualReference ref = refs[i];
-			if  ( ref.getReferencedComponent().getComponentHandle().equals( componentHandle ))
+			if  ( ref.getReferencedComponent().getProject().equals( componentProject ))
 				return true;
 		}	
 		return false;
@@ -491,7 +486,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		else {
 			list = new ArrayList();
 			for (int i = 0; i < elements.length; i++) {
-				if (elements[i] instanceof ComponentHandle) {
+				if (elements[i] instanceof IProject) {
 					list.add(elements[i]);
 				}
 			}

@@ -234,7 +234,7 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	 */
 	private void addAnnotationsBuilder() {
 		// If an extended annotations processor is added, ignore the default xdoclet one
-		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getComponentHandle().getProject());
+		Descriptor descriptor = AnnotationsControllerManager.INSTANCE.getDescriptor(getTargetComponent().getProject());
 		if (descriptor != null)
 			return;
 		try {

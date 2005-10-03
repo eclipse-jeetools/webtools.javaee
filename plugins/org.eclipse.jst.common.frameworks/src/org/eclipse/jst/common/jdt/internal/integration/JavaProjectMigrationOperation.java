@@ -28,11 +28,11 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -52,8 +52,8 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 		String projectName = model.getStringProperty(PROJECT_NAME);
 		IProject project = ProjectUtilities.getProject(projectName);
 		
-		IFlexibleProject  fProject = ComponentCore.createFlexibleProject( project );
-		if ( !fProject.isFlexible() ){
+		
+		if(!ModuleCoreNature.isFlexibleProject(project)) {
 			if( project.isAccessible() && project.exists()){
 				if( shouldMigrate(project)){
 					try {
@@ -66,7 +66,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 					}
 				}
 			}
-		}
+    }
         return OK_STATUS;
     }
 		
@@ -107,7 +107,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 
 	
     protected void createComponent(String aComponentName, IProject aProject) throws CoreException {
-        IVirtualComponent component = ComponentCore.createComponent(aProject, aComponentName);
+        IVirtualComponent component = ComponentCore.createComponent(aProject);
         component.create(0, null);
 
 		IVirtualFolder compRootFolder = component.getRootFolder();
@@ -137,7 +137,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
     }
 	
     protected void setupComponentType(String aComponentName, IProject aProject, String typeID) {
-        IVirtualComponent component = ComponentCore.createComponent(aProject, aComponentName);
+        IVirtualComponent component = ComponentCore.createComponent(aProject);
         ComponentType componentType = ComponentcoreFactory.eINSTANCE.createComponentType();
         componentType.setComponentTypeId(typeID);
         StructureEdit.setComponentType(component, componentType);

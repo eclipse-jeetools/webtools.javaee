@@ -17,13 +17,14 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -65,8 +66,8 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public ConnectorArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public ConnectorArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -192,11 +193,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return An instance of ArtifactEdit that may only be used to read the
 	 *         underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(ComponentHandle aHandle) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(IProject aProject) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
-			if (isValidConnectorModule(aHandle.createComponent()))
-				artifactEdit = new ConnectorArtifactEdit(aHandle, true);
+			if (isValidConnectorModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new ConnectorArtifactEdit(aProject, true);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -224,11 +225,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return An instance of ArtifactEdit that may be used to modify and
 	 *         persist changes to the underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(ComponentHandle aHandle) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(IProject aProject) {
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
-			if (isValidConnectorModule(aHandle.createComponent()))
-				artifactEdit = new ConnectorArtifactEdit(aHandle, false);
+			if (isValidConnectorModule(ComponentCore.createComponent(aProject)))
+				artifactEdit = new ConnectorArtifactEdit(aProject, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -378,7 +379,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = getComponent().getComponentHandle().toString();
+		String uri = ModuleURIUtil.getHandleString(getProject());
 		return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
 	}
 }

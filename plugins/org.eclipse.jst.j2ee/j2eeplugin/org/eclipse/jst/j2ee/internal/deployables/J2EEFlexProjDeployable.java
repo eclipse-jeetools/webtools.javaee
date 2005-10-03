@@ -32,7 +32,6 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -101,9 +100,6 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 
 	public String getModuleTypeVersion() {
 		return getVersion();
-	}
-	public ComponentHandle getComponentHandle() {
-		return component.getComponentHandle();
 	}
 
 	public String getVersion() {

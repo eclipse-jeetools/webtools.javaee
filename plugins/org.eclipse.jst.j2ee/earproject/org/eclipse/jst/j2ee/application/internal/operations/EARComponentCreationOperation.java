@@ -25,7 +25,6 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -69,8 +68,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         EARArtifactEdit earEdit = null;
         try {
-            ComponentHandle handle = ComponentHandle.create(getProject(),getDataModel().getStringProperty(COMPONENT_DEPLOY_NAME));
-            earEdit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+            earEdit = EARArtifactEdit.getEARArtifactEditForWrite(getProject());
             Integer version = (Integer)getDataModel().getProperty(COMPONENT_VERSION);
        	 	earEdit.createModelRoot(version.intValue());
             earEdit.save(monitor);
@@ -102,12 +100,12 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		try{
 			IDataModel dm = (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
-			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, component.getProject());
 
 			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
 			if (modulesList != null && !modulesList.isEmpty()) {
-				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modulesList);
-				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modulesList);
+				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
 				if( stat != OK_STATUS )
 					return stat;
 				dm.getDefaultOperation().execute(monitor, null);				
@@ -123,13 +121,13 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 					
 					
 					IDataModel refdm = DataModelFactory.createDataModel( new CreateReferenceComponentsDataModelProvider());
-		            List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
+		            List targetCompList = (List) refdm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
 					
 					IVirtualComponent targetcomponent = ComponentCore.createComponent(proj, proj.getName());
-					targetCompList.add(targetcomponent.getComponentHandle());
+					targetCompList.add(targetcomponent.getProject());
 					
-					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, component.getComponentHandle());
-					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, targetCompList);
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, component.getProject());
+					refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, targetCompList);
 					refdm.getDefaultOperation().execute(monitor, null);
 				}
 			}

@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
@@ -112,8 +111,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	                 WorkbenchComponent module = workBenchModules[i];
 	                 ArtifactEdit artifactEdit = null;
 	                 try{
-						   ComponentHandle handle = ComponentHandle.create(project,module.getName());
-	                  	   artifactEdit = ArtifactEdit.getArtifactEditForRead(handle);
+	                  	   artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
 		                   if(artifactEdit != null) {
 		                   	artifactEdits.add(artifactEdit);
 			                artifactEdit.addListener(this);

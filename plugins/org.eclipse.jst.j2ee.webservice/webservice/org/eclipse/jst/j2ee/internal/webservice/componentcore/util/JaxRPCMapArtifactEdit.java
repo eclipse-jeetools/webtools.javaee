@@ -13,10 +13,10 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
@@ -48,8 +48,8 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public JaxRPCMapArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public JaxRPCMapArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -206,10 +206,10 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 */
-	public static JaxRPCMapArtifactEdit getJaxRPCMapArtifactEditForRead(ComponentHandle aHandle) {
+	public static JaxRPCMapArtifactEdit getJaxRPCMapArtifactEditForRead(IProject aProject) {
 		JaxRPCMapArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new JaxRPCMapArtifactEdit(aHandle, true);
+			artifactEdit = new JaxRPCMapArtifactEdit(aProject, true);
 		} catch (IllegalArgumentException iae) {
 			artifactEdit = null;
 		}
@@ -235,10 +235,10 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static JaxRPCMapArtifactEdit getJaxRPCMapArtifactEditForWrite(ComponentHandle aHandle) {
+	public static JaxRPCMapArtifactEdit getJaxRPCMapArtifactEditForWrite(IProject aProject) {
 		JaxRPCMapArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new JaxRPCMapArtifactEdit(aHandle, false);
+			artifactEdit = new JaxRPCMapArtifactEdit(aProject, false);
 		} catch (IllegalArgumentException iae) {
 			artifactEdit = null;
 		}

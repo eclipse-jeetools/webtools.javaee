@@ -44,7 +44,6 @@ import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -101,12 +100,12 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 
         IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
 		IDataModel dm =  (IDataModel)model.getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
-		ComponentHandle earhandle = (ComponentHandle) model.getProperty(EAR_COMPONENT_HANDLE);
-		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_HANDLE, earhandle);
+		IProject earproj = (IProject) model.getProperty(EAR_COMPONENT_PROJECT);
+		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT_PROJECT, earproj);
 		
-        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST);
-        modList.add(component.getComponentHandle());
-        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_HANDLE_LIST, modList);
+        List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST);
+        modList.add(component.getProject());
+        dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_PROJECT_LIST, modList);
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
@@ -123,10 +122,10 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
      */
     protected void createEARComponentIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         IDataModel earModel = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-		ComponentHandle handle = (ComponentHandle)model.getProperty(EAR_COMPONENT_HANDLE);
+		IProject earproj = (IProject)model.getProperty(EAR_COMPONENT_PROJECT);
 
-		earModel.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, handle.getName());
-		earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, handle.getProject().getName());
+		earModel.setProperty(IEarComponentCreationDataModelProperties.COMPONENT_NAME, earproj.getName());
+		earModel.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earproj.getName());
 	
         try {
             earModel.getDefaultOperation().execute(monitor, null);

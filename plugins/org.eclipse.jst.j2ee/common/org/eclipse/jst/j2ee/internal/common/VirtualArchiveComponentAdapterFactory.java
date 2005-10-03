@@ -11,7 +11,7 @@ public class VirtualArchiveComponentAdapterFactory implements IAdapterFactory {
 		if (adapterType == VirtualArchiveComponent.ADAPTER_TYPE ) {
 			VirtualArchiveComponent component = (VirtualArchiveComponent) adaptableObject;
 
-			IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(component.getComponentHandle().getName());
+			IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(component.getProject().getName());
 			return path;
 		}
 		return null;

@@ -21,7 +21,6 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
@@ -56,8 +55,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public WSDDArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
-		super(aHandle, toAccessAsReadOnly);
+	public WSDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -145,7 +144,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 */
 	public WebServices getWebServices() {
-		if (!getComponentHandle().getProject().isAccessible())
+		if (!getProject().isAccessible())
 			return null;
 		if (getWsddXmiResource().getContents().isEmpty())
 			return null;
@@ -226,10 +225,10 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may only be used to read the
 	 *         underlying content model
 	 */
-	public static WSDDArtifactEdit getWSDDArtifactEditForRead(ComponentHandle aHandle) {
+	public static WSDDArtifactEdit getWSDDArtifactEditForRead(IProject aProject) {
 		WSDDArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new WSDDArtifactEdit(aHandle, true);
+			artifactEdit = new WSDDArtifactEdit(aProject, true);
 		} catch (IllegalArgumentException iae) {
 			artifactEdit = null;
 		}
@@ -256,10 +255,10 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may be used to modify and
 	 *         persist changes to the underlying content model
 	 */
-	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(ComponentHandle aHandle) {
+	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(IProject aProject) {
 		WSDDArtifactEdit artifactEdit = null;
 		try {
-			artifactEdit = new WSDDArtifactEdit(aHandle, false);
+			artifactEdit = new WSDDArtifactEdit(aProject, false);
 		} catch (IllegalArgumentException iae) {
 			artifactEdit = null;
 		}
@@ -404,7 +403,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	
 	public List getWSILResources() {
 		List result = new ArrayList();
-		List files = ProjectUtilities.getAllProjectFiles(getComponentHandle().getProject());
+		List files = ProjectUtilities.getAllProjectFiles(getProject());
 		for (int i=0; i<files.size(); i++) {
 			IFile file = (IFile) files.get(i);
 			if (file.getFileExtension().equals(WSIL_FILE_EXT)) {
