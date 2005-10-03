@@ -10,7 +10,6 @@ import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifa
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -34,8 +33,7 @@ public class AppClientArtifactEditFVTest extends TestCase {
 	public void testCreationDisposeFunction() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			edit.addListener(new EditModelListener() {
 
 				public void editModelChanged(EditModelEvent anEvent) {
@@ -68,8 +66,7 @@ public class AppClientArtifactEditFVTest extends TestCase {
 	public void testPersistenceFunction() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			ApplicationClient appClient = edit.getApplicationClient();
 			pass(appClient);
 		} finally {
@@ -87,8 +84,7 @@ public class AppClientArtifactEditFVTest extends TestCase {
 	private void validateResource() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			//EList resourceList = wbComponent.getResources();
 			//for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
 			//}

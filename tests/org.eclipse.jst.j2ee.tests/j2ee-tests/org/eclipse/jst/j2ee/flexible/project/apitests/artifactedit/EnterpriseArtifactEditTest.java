@@ -11,7 +11,6 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
@@ -34,13 +33,11 @@ public class EnterpriseArtifactEditTest extends TestCase {
 	public void testEnterpriseArtifactEditComponentHandleboolean() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = null;
 		EnterpriseArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
 			wbComponent = moduleCore.getComponent();
-			handle = ComponentHandle.create(earProject, wbComponent.getName());
-			edit = new EARArtifactEdit(handle, true);
+			edit = new EARArtifactEdit(earProject, true);
 			assertNotNull(edit);
 		} finally {
 			if (moduleCore != null) {
@@ -77,8 +74,7 @@ public class EnterpriseArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorRoot() {
 		EnterpriseArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = new EARArtifactEdit(handle,true);
+			edit = new EARArtifactEdit(earProject,true);
 			edit.getDeploymentDescriptorRoot();
 			//////////////////////////BUG\\\\\\\\\\\
 			//assertNotNull(edit.getDeploymentDescriptorRoot());

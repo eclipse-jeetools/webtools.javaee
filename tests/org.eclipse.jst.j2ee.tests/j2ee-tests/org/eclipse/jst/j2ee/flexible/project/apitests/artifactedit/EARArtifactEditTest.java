@@ -12,7 +12,6 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
@@ -37,8 +36,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetJ2EEVersion() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			int version = edit.getJ2EEVersion();
 			Integer integer = new Integer(version);
 			assertTrue(integer.equals(TestWorkspace.EAR_PROJECT_VERSION));
@@ -52,8 +50,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetJ2EEModuleReferences() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			IVirtualReference[] j2eeModuleRefs = edit.getJ2EEModuleReferences();
 			assertTrue(j2eeModuleRefs.length>0);
 		} finally {
@@ -66,8 +63,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorResource() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.EAR_DD_RESOURCE_URI));
 		} finally {
@@ -81,8 +77,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testCreateModelRoot() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 			EObject object = edit.createModelRoot();
 			assertNotNull(object);
 		} finally {
@@ -97,8 +92,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testCreateModelRootint() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			EObject object = edit.createModelRoot(14);
 			assertNotNull(object);
 		} finally {
@@ -113,13 +107,11 @@ public class EARArtifactEditTest extends TestCase {
 	public void testEARArtifactEditComponentHandleboolean() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = null;
 		EARArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(earProject);
 			wbComponent = moduleCore.getComponent();
-			handle = ComponentHandle.create(earProject, wbComponent.getName());
-			edit = new EARArtifactEdit(handle, true);
+			edit = new EARArtifactEdit(earProject, true);
 			assertNotNull(edit);
 		} finally {
 			if (moduleCore != null) {
@@ -161,8 +153,7 @@ public class EARArtifactEditTest extends TestCase {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(earProject);
 			WorkbenchComponent wbComponent = moduleCore.getComponent();
-			ComponentHandle handle = ComponentHandle.create(earProject, wbComponent.getName());
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			assertTrue(edit != null);
 
 		} finally {
@@ -178,8 +169,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetEARArtifactEditForWriteComponentHandle() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 		} finally {
 			if (edit != null) {
 				edit.dispose();
@@ -192,8 +182,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetEARArtifactEditForReadWorkbenchComponent() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -206,8 +195,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetEARArtifactEditForWriteWorkbenchComponent() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 		} finally {
 			if (edit != null) {
 				edit.dispose();
@@ -245,8 +233,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetApplicationXmiResource() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			String uri = edit.getApplicationXmiResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.EAR_DD_RESOURCE_URI));
 		} finally {
@@ -261,8 +248,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetApplication() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			edit.createModelRoot();
 			EObject obj = edit.getApplication();
 			assertNotNull(obj);
@@ -279,8 +265,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testAddApplicationIfNecessary() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			
 			// /Bug
 			/*
@@ -300,8 +285,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testUriExists() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			boolean uriExist = edit.uriExists(TestWorkspace.EJB_MODULE_URI.toString());
 			// /Bug
 			/*
@@ -321,8 +305,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetWorkbenchUtilModules() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			edit.getUtilityModuleReferences();
 			// //////////////classcast exception
 			/*
@@ -341,8 +324,7 @@ public class EARArtifactEditTest extends TestCase {
 	public void testGetWorkbenchJ2EEModules() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject, earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForRead(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
 			edit.getJ2EEModuleReferences();
 			// classCast
 			// assertNotNull(edit.getWorkbenchJ2EEModules(wbComponent));

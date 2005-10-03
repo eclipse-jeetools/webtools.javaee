@@ -8,7 +8,6 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JaxRPCMapArtifactEditFVTest extends TestCase {
@@ -64,8 +63,7 @@ public class JaxRPCMapArtifactEditFVTest extends TestCase {
 	private void validateResource() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 //			EList resourceList = wbComponent.getResources();
 //			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
 //			}

@@ -7,7 +7,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -31,8 +30,7 @@ public class WSDDArtifactEditFVTest extends TestCase {
 	public void testCreationDisposeFunction() {
 		WSDDArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(handle);
+			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(webProject);
 			edit.addListener(new EditModelListener() {
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
@@ -62,8 +60,7 @@ public class WSDDArtifactEditFVTest extends TestCase {
 	public void testPersistenceFunction() {
 		WSDDArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(handle);
+			edit = WSDDArtifactEdit.getWSDDArtifactEditForWrite(webProject);
 			WebServices web = edit.getWebServices();
 			pass(web);
 		} finally {
@@ -83,8 +80,7 @@ public class WSDDArtifactEditFVTest extends TestCase {
 	private void validateResource() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 //			EList resourceList = wbComponent.getResources();
 //			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
 //			}

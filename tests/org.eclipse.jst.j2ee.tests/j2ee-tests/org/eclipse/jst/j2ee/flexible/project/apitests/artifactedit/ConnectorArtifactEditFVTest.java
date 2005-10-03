@@ -11,7 +11,6 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -36,8 +35,7 @@ public class ConnectorArtifactEditFVTest extends TestCase {
 	public void testCreationDisposeFunction() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(jcaProject);
 			edit.addListener(new EditModelListener() {
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
@@ -71,8 +69,7 @@ public class ConnectorArtifactEditFVTest extends TestCase {
 	public void testPersistenceFunction() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(jcaProject);
 			Connector jca = edit.getConnector();
 			pass(jca);
 		} finally {
@@ -90,8 +87,7 @@ public class ConnectorArtifactEditFVTest extends TestCase {
 	private void validateResource() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(jcaProject);
 //			EList resourceList = wbComponent.getResources();
 //			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
 //			}

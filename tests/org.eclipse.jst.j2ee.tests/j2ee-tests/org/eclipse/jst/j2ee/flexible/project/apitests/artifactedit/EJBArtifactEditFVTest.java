@@ -10,7 +10,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -34,8 +33,7 @@ public class EJBArtifactEditFVTest extends TestCase {
 	public void testCreationDisposeFunction() {
 		EJBArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 			edit.addListener(new EditModelListener() {
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
@@ -65,8 +63,7 @@ public class EJBArtifactEditFVTest extends TestCase {
 	public void testPersistenceFunction() {
 		EJBArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 			EJBJar ejb = edit.getEJBJar();
 			pass(ejb);
 		} finally {
@@ -84,8 +81,7 @@ public class EJBArtifactEditFVTest extends TestCase {
 	private void validateResource() {
 		EJBArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(ejbProject,ejbModuleName);
-			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(handle);
+			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProject);
 //			EList resourceList = wbComponent.getResources();
 //			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
 //			}

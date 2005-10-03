@@ -16,7 +16,6 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
@@ -106,8 +105,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetJ2EEVersion() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			int version = edit.getJ2EEVersion();
 			Integer integer = new Integer(version);
 			assertTrue(integer.equals(TestWorkspace.APP_CLIENT_PROJECT_VERSION));
@@ -123,8 +121,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorResource() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.APP_CLIENT_DD_RESOURCE_URI));
 
@@ -138,8 +135,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorRoot() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			EObject object = edit.getDeploymentDescriptorRoot();
 			assertNotNull(object);
 		} finally {
@@ -153,8 +149,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testCreateModelRoot() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			EObject object = edit.createModelRoot();
 			assertNotNull(object);
 		} finally {
@@ -167,8 +162,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testCreateModelRootint() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			EObject object = edit.createModelRoot(14);
 			assertNotNull(object);
 		} finally {
@@ -181,8 +175,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testAppClientArtifactEditComponentHandleboolean() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = new AppClientArtifactEdit(handle, true);
+			edit = new AppClientArtifactEdit(appClientProject, true);
 			assertNotNull(edit);
 		} finally {
 			if (edit != null) {
@@ -226,8 +219,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetApplicationClientXmiResource() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			String uri = edit.getApplicationClientXmiResource().getURI().toString();
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
 			boolean testURI = uri.equals(TestWorkspace.APP_CLIENT_DD_XMI_RESOURCE_URI);
@@ -247,8 +239,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testAddAppClientIfNecessary() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			Resource resource = edit.getDeploymentDescriptorResource();
 			AppClientArtifactEdit edit2 = new AppClientArtifactEdit(getArtifactEditModelforRead()) {
 				protected void addAppClientIfNecessary(XMLResource aResource) {
@@ -266,8 +257,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testCreateNewModule() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			Module module = edit.createNewModule();
 			assertNotNull(module);
 
@@ -281,8 +271,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetApplicationClient() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			EObject obj = edit.getApplicationClient();
 			assertNotNull(obj);
 		} finally {
@@ -298,8 +287,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(appClientProject);
 			WorkbenchComponent wbComponent = moduleCore.getComponent();
-			ComponentHandle handle = ComponentHandle.create(appClientProject, wbComponent.getName());
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			assertTrue(edit != null);
 
 		} finally {
@@ -318,8 +306,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(appClientProject);
 			WorkbenchComponent wbComponent = moduleCore.getComponent();
-			ComponentHandle handle = ComponentHandle.create(appClientProject, wbComponent.getName());
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 
 		} finally {
 			if (moduleCore != null) {
@@ -334,8 +321,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetAppClientArtifactEditForReadWorkbenchComponent() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -347,8 +333,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetAppClientArtifactEditForWriteWorkbenchComponent() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -365,8 +350,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testSave() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			try {
 				edit.save(new NullProgressMonitor());
 			} catch (Exception e) {
@@ -384,8 +368,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testSaveIfNecessary() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			try {
 				edit.saveIfNecessary(new NullProgressMonitor());
 			} catch (Exception e) {
@@ -403,8 +386,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testSaveIfNecessaryWithPrompt() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(appClientProject);
 			try {
 				edit.saveIfNecessaryWithPrompt(new NullProgressMonitor(), handler, true);
 			} catch (Exception e) {
@@ -434,8 +416,7 @@ public class AppClientArtifactEditTest extends TestCase {
 	public void testGetContentModelRoot() {
 		AppClientArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(appClientProject,appClientModuleName);
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(appClientProject);
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
 			Object object = edit.getContentModelRoot();
 			// assertNotNull(object);

@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentSaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
@@ -38,7 +37,7 @@ public abstract class SaveStrategyTest extends TestCase {
 	protected String projectName;
 	protected IProject project;
 
-	protected IVirtualComponent[] vComps;
+	protected IVirtualComponent vComp;
 
 	public SaveStrategyTest() {
 		super();
@@ -52,8 +51,7 @@ public abstract class SaveStrategyTest extends TestCase {
 			if (createProject()) {
 				project = ProjectUtilities.getProject(projectName);
 			}
-			IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
-			vComps = flexProject.getComponents();
+			vComp = ComponentCore.createComponent(project);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,10 +80,9 @@ public abstract class SaveStrategyTest extends TestCase {
 
 		String uri = getUri(archiveName);
 		Archive moduleFile = null;
-		for (int i = 0; i < vComps.length; i++) {
 			try {
 				moduleFile = openModuleFile(getArchiveOptions(), uri);
-				ComponentSaveStrategyImpl aStrategy = createSaveStrategy(vComps[i]);
+				ComponentSaveStrategyImpl aStrategy = createSaveStrategy(vComp);
 				aStrategy.setProgressMonitor(new NullProgressMonitor());
 				moduleFile.save(aStrategy);
 			} finally {
@@ -93,7 +90,7 @@ public abstract class SaveStrategyTest extends TestCase {
 					moduleFile.close();
 				}
 			}
-		}
+		
 	}
 
 	protected abstract ComponentSaveStrategyImpl createSaveStrategy(IVirtualComponent component);

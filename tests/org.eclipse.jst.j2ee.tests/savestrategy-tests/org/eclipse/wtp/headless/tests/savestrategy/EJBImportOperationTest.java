@@ -9,11 +9,10 @@ package org.eclipse.wtp.headless.tests.savestrategy;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -39,10 +38,10 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 		String projectName = "Test13EJB";
 		String fileName = getFullPathForEJBJar("Test13EJB.jar");
 		testImport(projectName, fileName);
-		IVirtualComponent[] comps = ComponentUtilities.getComponentsForProject(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
+		IProject proj = ProjectUtilities.getProject(projectName);
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(comps[0]);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 			ejbEdit.getJ2EEVersion();
 		} finally {
 			if (ejbEdit != null)

@@ -12,7 +12,6 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
@@ -51,8 +50,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorResource() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.JCA_DD_RESOURCE_URI));
 		} finally {
@@ -66,8 +64,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testCreateModelRoot() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(jcaProject);
 			EObject object = edit.createModelRoot();
 			assertNotNull(object);
 		} finally {
@@ -81,8 +78,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testCreateModelRootint() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			EObject object = edit.createModelRoot(14);
 			assertNotNull(object);
 		} finally {
@@ -96,13 +92,11 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testConnectorArtifactEditComponentHandleboolean() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
-		ComponentHandle handle = null;
 		ConnectorArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
 			wbComponent = moduleCore.getComponent();
-			handle = ComponentHandle.create(jcaProject, wbComponent.getName());
-			edit = new ConnectorArtifactEdit(handle, true);
+			edit = new ConnectorArtifactEdit(jcaProject, true);
 			assertNotNull(edit);
 		} finally {
 			if (moduleCore != null) {
@@ -145,8 +139,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
 			WorkbenchComponent wbComponent = moduleCore.getComponent();
-			ComponentHandle handle = ComponentHandle.create(jcaProject, wbComponent.getName());
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			assertTrue(edit != null);
 
 		} finally {
@@ -165,8 +158,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
 			WorkbenchComponent wbComponent = moduleCore.getComponent();
-			ComponentHandle handle = ComponentHandle.create(jcaProject, wbComponent.getName());
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(jcaProject);
 
 		} finally {
 			if (moduleCore != null) {
@@ -181,8 +173,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testGetConnectorArtifactEditForReadWorkbenchComponent() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -194,8 +185,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testGetConnectorArtifactEditForWriteWorkbenchComponent() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(jcaProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -205,15 +195,14 @@ public class ConnectorArtifactEditTest extends TestCase {
 	}
 
 	public void testIsValidConnectorModule() {
-		IVirtualComponent component = ComponentCore.createComponent(jcaProject, jcaModuleName);
+		IVirtualComponent component = ComponentCore.createComponent(jcaProject);
 		assertTrue(ArtifactEdit.isValidEditableModule(component));
 	}
 
 	public void testGetConnectorXmiResource() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			assertTrue(uri.equals(TestWorkspace.JCA_DD_RESOURCE_URI));
 
@@ -250,8 +239,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorRoot() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			Object obj = edit.getDeploymentDescriptorRoot();
 			assertNotNull(obj);
 
@@ -271,8 +259,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 	public void testGetConnector() {
 		ConnectorArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(jcaProject,jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(handle);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(jcaProject);
 			Object obj = edit.getConnector();
 			assertNotNull(obj);
 		} finally {

@@ -11,7 +11,6 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
@@ -37,8 +36,7 @@ public class EarArtiFactEditFVTest extends TestCase {
 	public void testCreationDisposeFunction() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 			edit.addListener(new EditModelListener() {
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
@@ -73,8 +71,7 @@ public class EarArtiFactEditFVTest extends TestCase {
 	public void testPersistenceFunction() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 			Application ear = edit.getApplication();
 			pass(ear);
 		} finally {
@@ -92,8 +89,7 @@ public class EarArtiFactEditFVTest extends TestCase {
 	private void validateResource() {
 		EARArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(earProject,earModuleName);
-			edit = EARArtifactEdit.getEARArtifactEditForWrite(handle);
+			edit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
 //			EList resourceList = wbComponent.getResources();
 //			for (Iterator iter = resourceList.iterator(); iter.hasNext();) {
 //			}

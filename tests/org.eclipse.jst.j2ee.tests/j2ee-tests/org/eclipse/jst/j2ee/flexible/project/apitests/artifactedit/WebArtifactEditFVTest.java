@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
@@ -44,8 +43,7 @@ public class WebArtifactEditFVTest extends TestCase {
 	public void testCreationDisposeFunction() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 			edit.addListener(new EditModelListener() {
 				public void editModelChanged(EditModelEvent anEvent) {
 					pass();
@@ -91,8 +89,7 @@ public class WebArtifactEditFVTest extends TestCase {
 	public void testPersistenceFunction() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 			WebApp web = edit.getWebApp();
 			
 			

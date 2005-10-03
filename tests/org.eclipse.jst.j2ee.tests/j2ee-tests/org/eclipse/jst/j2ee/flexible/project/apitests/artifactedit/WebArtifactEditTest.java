@@ -16,7 +16,6 @@ import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
-import org.eclipse.wst.common.componentcore.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
@@ -40,8 +39,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetJ2EEVersion() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.getWebApp().setDescription("test");
 			int version = edit.getJ2EEVersion();
 			Integer integer = new Integer(version);
@@ -59,8 +57,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorResource() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 			// assertTrue(uri.equals(TestWorkspace.WEB_DD_RESOURCE_URI));
 		} catch (Exception e) {
@@ -75,8 +72,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorRoot() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.getDeploymentDescriptorRoot();
 			// /////BUG in PlatformURL\\\\\\\\\\\turning test off////
 			EObject object = edit.getDeploymentDescriptorRoot();
@@ -97,8 +93,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testCreateModelRoot() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 			edit.createModelRoot();
 			// ////BUG turning off\\\\\\\\\\\\\
 			/*
@@ -120,9 +115,8 @@ public class WebArtifactEditTest extends TestCase {
 	public void testCreateModelRootint() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
 			// ///////BUG in PlatformURLModuleConnection
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.createModelRoot(14);
 			/*
 			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
@@ -143,8 +137,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testWebArtifactEditComponentHandleboolean() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = new WebArtifactEdit(handle, true);
+			edit = new WebArtifactEdit(webProject, true);
 			assertNotNull(edit);
 		} finally {
 			if (edit != null) {
@@ -160,8 +153,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetWebArtifactEditForReadComponentHandle() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -176,8 +168,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetWebArtifactEditForWriteComponentHandle() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 		} finally {
 			if (edit != null) {
 				edit.dispose();
@@ -198,8 +189,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetWebArtifactEditForWriteWorkbenchComponent() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			assertTrue(edit != null);
 		} finally {
 			if (edit != null) {
@@ -211,7 +201,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testIsValidWebModule() {
 		IVirtualComponent component = null;
 		try {
-			component = ComponentCore.createComponent(webProject, webModuleName);
+			component = ComponentCore.createComponent(webProject);
 			WebArtifactEdit.isValidWebModule(component);
 		} catch (UnresolveableURIException e) {
 			fail();
@@ -223,7 +213,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testIsValidEditModule() {
 		IVirtualComponent component = null;
 		try {
-			component = ComponentCore.createComponent(webProject, webModuleName);
+			component = ComponentCore.createComponent(webProject);
 			WebArtifactEdit.isValidWebModule(component);
 		} catch (UnresolveableURIException e) {
 			fail();
@@ -247,8 +237,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testWebArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = new WebArtifactEdit(handle, true);
+			edit = new WebArtifactEdit(webProject, true);
 			assertNotNull(edit);
 		} catch (Exception e) {
 			fail();
@@ -262,8 +251,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetServletVersion() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			assertTrue(edit.getServletVersion() == 24);
 		} finally {
 			if (edit != null) {
@@ -278,8 +266,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetJSPVersion() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			assertTrue(edit.getJSPVersion() == 20);
 		} finally {
 			if (edit != null) {
@@ -291,8 +278,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetDeploymentDescriptorPath() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.getDeploymentDescriptorPath();
 			assertNotNull(edit.getDeploymentDescriptorPath());
 		} finally {
@@ -305,8 +291,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetLibModules() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.getLibModules();
 			// //bug module in editmodel never initialized\\\\
 			// assertNotNull(edit.getLibModules());
@@ -324,8 +309,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testAddLibModules() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			ReferencedComponent refComp = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
 			edit.addLibModules(new ReferencedComponent[]{refComp});
 			// ///////////////bug\\\\\\\ owner---WebArtifactEdit -> referenceComponents() != null
@@ -348,8 +332,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetServerContextRoot() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.getServerContextRoot();
 			// /////////////////////BUG/////////////////////
 			// //edit.getServerContextRoot();
@@ -368,8 +351,7 @@ public class WebArtifactEditTest extends TestCase {
 	public void testSetServerContextRoot() {
 		WebArtifactEdit edit = null;
 		try {
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			edit.setServerContextRoot(serverContextData);
 			// /////////////////////BUG/////////////////////
 			// //edit.getServerContextRoot();
@@ -398,8 +380,7 @@ public class WebArtifactEditTest extends TestCase {
 		WebArtifactEdit edit = null;
 		try {
 			WebapplicationFactoryImpl factory = new WebapplicationFactoryImpl();
-			ComponentHandle handle = ComponentHandle.create(webProject,webModuleName);
-			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
 			WebApp webapp = edit.getWebApp();
 			Servlet servlet = factory.createServlet();
 			ServletType servletType = factory.createServletType();
