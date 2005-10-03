@@ -500,7 +500,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public Archive asArchive(boolean includeSource) throws OpenFailureException{
 		EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent());
 		loader.setExportSource(includeSource);
-		String uri = ModuleURIUtil.getHandleString(getProject());
+		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
 	}
 }
