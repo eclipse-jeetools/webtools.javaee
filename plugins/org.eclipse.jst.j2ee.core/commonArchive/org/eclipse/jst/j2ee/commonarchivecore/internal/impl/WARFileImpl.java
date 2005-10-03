@@ -290,6 +290,8 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		String convertedClassURI = classURI;
 		if (classURI.endsWith(".class")) //$NON-NLS-1$
 			convertedClassURI = ArchiveUtil.classUriToJavaUri(aClassFile.getURI());
+		else 
+			return null;
 		convertedClassURI = makeRelative(convertedClassURI, ArchiveConstants.WEBAPP_CLASSES_URI);
 		int bestLength = 32767;
 		File bestMatch = null;
