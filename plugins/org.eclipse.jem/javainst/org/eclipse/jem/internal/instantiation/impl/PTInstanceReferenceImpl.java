@@ -18,9 +18,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.jem.internal.instantiation.InstantiationPackage;
 import org.eclipse.jem.internal.instantiation.PTInstanceReference;
 
+import org.eclipse.jem.internal.instantiation.base.IJavaInstance;
+
 import org.eclipse.jem.internal.instantiation.*;
 
-import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +30,7 @@ import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.impl.PTInstanceReferenceImpl#getObject <em>Object</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.impl.PTInstanceReferenceImpl#getReference <em>Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,14 +38,14 @@ import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
  */
 public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInstanceReference {
 	/**
-	 * The cached value of the '{@link #getObject() <em>Object</em>}' reference.
+	 * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getObject()
+	 * @see #getReference()
 	 * @generated
 	 * @ordered
 	 */
-	protected IJavaObjectInstance object = null;
+	protected IJavaInstance reference = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,16 +70,16 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IJavaObjectInstance getObject() {
-		if (object != null && object.eIsProxy()) {
-			IJavaObjectInstance oldObject = object;
-			object = (IJavaObjectInstance)eResolveProxy((InternalEObject)object);
-			if (object != oldObject) {
+	public IJavaInstance getReference() {
+		if (reference != null && reference.eIsProxy()) {
+			IJavaInstance oldReference = reference;
+			reference = (IJavaInstance)eResolveProxy((InternalEObject)reference);
+			if (reference != oldReference) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstantiationPackage.PT_INSTANCE_REFERENCE__OBJECT, oldObject, object));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstantiationPackage.PT_INSTANCE_REFERENCE__REFERENCE, oldReference, reference));
 			}
 		}
-		return object;
+		return reference;
 	}
 
 	/**
@@ -86,8 +87,8 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IJavaObjectInstance basicGetObject() {
-		return object;
+	public IJavaInstance basicGetReference() {
+		return reference;
 	}
 
 	/**
@@ -95,11 +96,11 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setObject(IJavaObjectInstance newObject) {
-		IJavaObjectInstance oldObject = object;
-		object = newObject;
+	public void setReference(IJavaInstance newReference) {
+		IJavaInstance oldReference = reference;
+		reference = newReference;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_INSTANCE_REFERENCE__OBJECT, oldObject, object));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_INSTANCE_REFERENCE__REFERENCE, oldReference, reference));
 	}
 
 	/**
@@ -109,9 +110,9 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PT_INSTANCE_REFERENCE__OBJECT:
-				if (resolve) return getObject();
-				return basicGetObject();
+			case InstantiationPackage.PT_INSTANCE_REFERENCE__REFERENCE:
+				if (resolve) return getReference();
+				return basicGetReference();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -123,8 +124,8 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PT_INSTANCE_REFERENCE__OBJECT:
-				setObject((IJavaObjectInstance)newValue);
+			case InstantiationPackage.PT_INSTANCE_REFERENCE__REFERENCE:
+				setReference((IJavaInstance)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -137,8 +138,8 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PT_INSTANCE_REFERENCE__OBJECT:
-				setObject((IJavaObjectInstance)null);
+			case InstantiationPackage.PT_INSTANCE_REFERENCE__REFERENCE:
+				setReference((IJavaInstance)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -151,8 +152,8 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PT_INSTANCE_REFERENCE__OBJECT:
-				return object != null;
+			case InstantiationPackage.PT_INSTANCE_REFERENCE__REFERENCE:
+				return reference != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -166,7 +167,7 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	}
 	
 	public String toString() {
-		return "InstanceRef{" + object + "}";
+		return "InstanceRef{" + reference + "}";
 	}
 
 } //PTInstanceReferenceImpl

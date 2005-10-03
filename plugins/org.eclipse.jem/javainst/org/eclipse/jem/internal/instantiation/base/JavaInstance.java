@@ -40,6 +40,14 @@ public abstract class JavaInstance extends EObjectImpl implements IJavaInstance 
 		return isSetAllocation() ? (JavaAllocation) eGet(JavaInstantiation.getAllocationFeature(this)) : null;
 	}
 	
+	public boolean isImplicitAllocation() {
+		return isSetAllocation() && getAllocation().isImplicit();
+	}
+	
+	public boolean isParseTreeAllocation() {
+		return isSetAllocation() && getAllocation().isParseTree();
+	}
+	
 	/** 
 	 * Visit the argument with all of the set features in an optimized fashion 
 	 */

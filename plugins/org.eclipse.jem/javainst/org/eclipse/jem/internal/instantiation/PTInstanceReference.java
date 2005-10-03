@@ -10,11 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTInstanceReference.java,v $
- *  $Revision: 1.5 $  $Date: 2005/09/15 21:02:19 $ 
+ *  $Revision: 1.6 $  $Date: 2005/10/03 19:20:41 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
-import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
+import org.eclipse.jem.internal.instantiation.base.IJavaInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +24,7 @@ import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getObject <em>Object</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getReference <em>Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,29 +34,29 @@ import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
  */
 public interface PTInstanceReference extends PTExpression{
 	/**
-	 * Returns the value of the '<em><b>Object</b></em>' reference.
+	 * Returns the value of the '<em><b>Reference</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Object</em>' reference isn't clear,
+	 * If the meaning of the '<em>Reference</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Object</em>' reference.
-	 * @see #setObject(IJavaObjectInstance)
-	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTInstanceReference_Object()
+	 * @return the value of the '<em>Reference</em>' reference.
+	 * @see #setReference(IJavaInstance)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTInstanceReference_Reference()
 	 * @model required="true"
 	 * @generated
 	 */
-	IJavaObjectInstance getObject();
+	IJavaInstance getReference();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getObject <em>Object</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getReference <em>Reference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Object</em>' reference.
-	 * @see #getObject()
+	 * @param value the new value of the '<em>Reference</em>' reference.
+	 * @see #getReference()
 	 * @generated
 	 */
-	void setObject(IJavaObjectInstance value);
+	void setReference(IJavaInstance value);
 
 } // PTInstanceReference

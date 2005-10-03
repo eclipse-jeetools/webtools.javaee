@@ -11,14 +11,16 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: InstantiationFactory.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.9 $  $Date: 2005/10/03 19:20:41 $ 
  */
+
+import org.eclipse.emf.ecore.EFactory;
 
 import java.util.List;
 
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.jem.internal.instantiation.base.IJavaInstance;
 
 
 /**
@@ -456,6 +458,16 @@ public interface InstantiationFactory extends EFactory{
 	 * @generated
 	 */
 	PTInstanceReference createPTInstanceReference();
+
+	/**
+	 * Utility to create a new PTInstanceReference with a reference.
+	 * 
+	 * @param instance
+	 * @return a new object of class '<em>PT Instance Reference</em>'.
+	 * 
+	 * @since 1.2.0
+	 */
+	PTInstanceReference createPTInstanceReference(IJavaInstance instance);
 
 	/**
 	 * Utility to create a new invalid expression with a message.

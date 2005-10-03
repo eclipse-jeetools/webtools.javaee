@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: InstantiationPackage.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/15 21:02:19 $ 
+ *  $Revision: 1.11 $  $Date: 2005/10/03 19:20:41 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -996,13 +996,13 @@ public interface InstantiationPackage extends EPackage{
 	int PT_INSTANCE_REFERENCE = 29;
 
 	/**
-	 * The feature id for the '<em><b>Object</b></em>' reference.
+	 * The feature id for the '<em><b>Reference</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PT_INSTANCE_REFERENCE__OBJECT = PT_EXPRESSION_FEATURE_COUNT + 0;
+	int PT_INSTANCE_REFERENCE__REFERENCE = PT_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the the '<em>PT Instance Reference</em>' class.
@@ -1756,15 +1756,15 @@ public interface InstantiationPackage extends EPackage{
 	EClass getPTInstanceReference();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getObject <em>Object</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getReference <em>Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Object</em>'.
-	 * @see org.eclipse.jem.internal.instantiation.PTInstanceReference#getObject()
+	 * @return the meta object for the reference '<em>Reference</em>'.
+	 * @see org.eclipse.jem.internal.instantiation.PTInstanceReference#getReference()
 	 * @see #getPTInstanceReference()
 	 * @generated
 	 */
-	EReference getPTInstanceReference_Object();
+	EReference getPTInstanceReference_Reference();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jem.internal.instantiation.PTInfixOperator <em>PT Infix Operator</em>}'.

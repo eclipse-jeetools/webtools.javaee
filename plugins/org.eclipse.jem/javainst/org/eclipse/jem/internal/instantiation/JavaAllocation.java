@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: JavaAllocation.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:23 $ 
+ *  $Revision: 1.7 $  $Date: 2005/10/03 19:20:41 $ 
  */
  
 import org.eclipse.emf.ecore.EObject;
@@ -35,4 +35,20 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface JavaAllocation extends EObject{
+	
+	/**
+	 * Answer whether the allocation is a parse tree allocation.
+	 * @return <code>true</code> if parse tree allocation
+	 * 
+	 * @since 1.2.0
+	 */
+	public boolean isParseTree();
+	
+	/**
+	 * Answer whether the allocation is an implicit allocation.
+	 * @return <code>true</code> if implicit allocation
+	 * 
+	 * @since 1.2.0
+	 */
+	public boolean isImplicit();
 } // JavaAllocation

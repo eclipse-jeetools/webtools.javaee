@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
-  xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instantiation"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instantiation"
     nsURI="http:///org/eclipse/jem/internal/instantiation.ecore" nsPrefix="org.eclipse.jem.internal.instantiation">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="Java Instantiation Package"/>
@@ -476,7 +476,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PTInstanceReference" eSuperTypes="#//PTExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="object" lowerBound="1"
-        eType="#//IJavaObjectInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        eType="#//IJavaInstance"/>
   </eClassifiers>
 </ecore:EPackage>

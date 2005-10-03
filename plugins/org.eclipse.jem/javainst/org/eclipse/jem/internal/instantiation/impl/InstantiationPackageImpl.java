@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2005/09/15 21:02:19 $ 
+ *  $Revision: 1.12 $  $Date: 2005/10/03 19:20:41 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -982,7 +982,7 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPTInstanceReference_Object() {
+	public EReference getPTInstanceReference_Reference() {
 		return (EReference)ptInstanceReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1149,7 +1149,7 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		createEAttribute(ptInvalidExpressionEClass, PT_INVALID_EXPRESSION__MESSAGE);
 
 		ptInstanceReferenceEClass = createEClass(PT_INSTANCE_REFERENCE);
-		createEReference(ptInstanceReferenceEClass, PT_INSTANCE_REFERENCE__OBJECT);
+		createEReference(ptInstanceReferenceEClass, PT_INSTANCE_REFERENCE__REFERENCE);
 
 		// Create enums
 		ptInfixOperatorEEnum = createEEnum(PT_INFIX_OPERATOR);
@@ -1311,7 +1311,7 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		initEAttribute(getPTInvalidExpression_Message(), ecorePackage.getEString(), "message", null, 0, 1, PTInvalidExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ptInstanceReferenceEClass, PTInstanceReference.class, "PTInstanceReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPTInstanceReference_Object(), this.getIJavaObjectInstance(), null, "object", null, 1, 1, PTInstanceReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPTInstanceReference_Reference(), this.getIJavaInstance(), null, "reference", null, 1, 1, PTInstanceReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(ptInfixOperatorEEnum, PTInfixOperator.class, "PTInfixOperator");

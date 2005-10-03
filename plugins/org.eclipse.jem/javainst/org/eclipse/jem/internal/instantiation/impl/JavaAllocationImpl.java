@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: JavaAllocationImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.7 $  $Date: 2005/10/03 19:20:41 $ 
  */
  
 
@@ -48,6 +48,14 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 */
 	protected EClass eStaticClass() {
 		return InstantiationPackage.eINSTANCE.getJavaAllocation();
+	}
+	
+	public boolean isParseTree() {
+		return false;
+	}
+
+	public boolean isImplicit() {
+		return false;
 	}
 
 } //JavaAllocationImpl

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: ParseTreeAllocationImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.5 $  $Date: 2005/10/03 19:20:41 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 
@@ -188,6 +188,10 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 */
 	public String toString() {
 		return getExpression() != null ? getExpression().toString() : super.toString();
+	}
+
+	public boolean isParseTree() {
+		return true;
 	}
 
 } //ParseTreeAllocationImpl

@@ -11,17 +11,19 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2005/09/15 21:02:19 $ 
+ *  $Revision: 1.11 $  $Date: 2005/10/03 19:20:41 $ 
  */
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
 
 import java.util.List;
 
 import org.eclipse.jem.internal.instantiation.*;
+import org.eclipse.jem.internal.instantiation.base.IJavaInstance;
 
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 /**
@@ -363,6 +365,12 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 */
 	public PTInstanceReference createPTInstanceReference() {
 		PTInstanceReferenceImpl ptInstanceReference = new PTInstanceReferenceImpl();
+		return ptInstanceReference;
+	}
+
+	public PTInstanceReference createPTInstanceReference(IJavaInstance instance) {
+		PTInstanceReference ptInstanceReference = createPTInstanceReference();
+		ptInstanceReference.setReference(instance);
 		return ptInstanceReference;
 	}
 
