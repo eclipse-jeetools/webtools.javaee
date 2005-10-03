@@ -61,7 +61,8 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 						(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) ){
 					int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
 					if( compJ2EEVersion <= j2eeVersion)
-						validCompList.add(component.getProject());
+						//validCompList.add(component.getProject());
+						validCompList.add(component);
 				}else if(compType.equals(IModuleConstants.JST_EAR_MODULE)){
 					//find the ArchiveComponent
 					if( component.equals( earComponent )){
@@ -73,7 +74,8 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 							IVirtualComponent referencedcomp = tmpref.getReferencedComponent();		
 							boolean isBinary = referencedcomp.isBinary();
 							if( isBinary ){
-								validCompList.add(referencedcomp.getProject());
+								validCompList.add(referencedcomp);
+								//validCompList.add(referencedcomp.getProject());
 								//IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(name);
 							}	
 						}	
@@ -106,14 +108,24 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-		if (element instanceof IProject) {
-			IProject proj = (IProject)element;
+//		if (element instanceof IProject) {
+//			IProject proj = (IProject)element;
+//			if( columnIndex == 0 )
+//				return proj.getName();
+//			return proj.getName();
+//		}else if(element instanceof IProject){
+//			return ((IProject)element).getName();
+//		}
+		
+		if (element instanceof IVirtualComponent) {
+			IVirtualComponent comp = (IVirtualComponent)element;
 			if( columnIndex == 0 )
-				return proj.getName();
-			return proj.getName();
+				return comp.getName();
+			if( columnIndex == 1  )
+				return comp.getProject().getName();
 		}else if(element instanceof IProject){
 			return ((IProject)element).getName();
-		}
+		}		
 		return null;
 	}	
 	/*
