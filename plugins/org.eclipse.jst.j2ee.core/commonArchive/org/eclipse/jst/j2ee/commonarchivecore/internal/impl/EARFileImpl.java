@@ -512,7 +512,10 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		return getOptions().cloneWith(strategy, aUri);
 	}
 
-	protected ArchiveOptions getOptionsForOpening(LooseArchive loose) throws IOException {
+	protected ArchiveOptions getOptionsForOpening(LooseArchive loose) throws IOException, OpenFailureException{
+		if(loose.getBinariesPath() == null){
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString("open_nested_EXC_", (new Object[] {loose.getUri(), getURI()})), null); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
+		}
 		LoadStrategy strategy = getCommonArchiveFactory().createLoadStrategy(loose.getBinariesPath());
 		strategy.setLooseArchive(loose);
 		return getOptions().cloneWith(strategy, loose.getUri());

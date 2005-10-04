@@ -700,6 +700,9 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	public Archive openNestedArchive(LooseArchive loose, Archive parent) throws OpenFailureException {
 		String uri = loose.getUri();
 		try {
+			if(loose.getBinariesPath() == null){
+				throw new OpenFailureException(CommonArchiveResourceHandler.getString("open_nested_EXC_", (new Object[] {uri,parent.getURI()})), null); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
+			}
 			LoadStrategy childStrategy = createLoadStrategy(loose.getBinariesPath());
 			childStrategy.setLooseArchive(loose);
 			ArchiveOptions options = parent.getOptions().cloneWith(childStrategy, loose.getUri());
