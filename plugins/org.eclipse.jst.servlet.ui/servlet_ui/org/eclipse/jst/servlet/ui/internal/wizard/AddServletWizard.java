@@ -20,11 +20,9 @@ import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelPro
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
-import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -55,7 +53,7 @@ public class AddServletWizard extends NewWebWizard {
 	 */
 	public void doAddPages() {
 		
-		NewJavaClassWizardPage page1 = new NewJavaClassWizardPage(
+		NewServletClassWizardPage page1 = new NewServletClassWizardPage(
 				getDataModel(), 
 				PAGE_ONE,
 				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
@@ -82,13 +80,7 @@ public class AddServletWizard extends NewWebWizard {
 	}
 	
 	public boolean canFinish() {
-		NewJavaClassWizardPage firstPage = (NewJavaClassWizardPage)getPage(PAGE_ONE);
-		AddServletWizardPage secondPage = (AddServletWizardPage)getPage(PAGE_TWO);
-		
-		if (firstPage != null && firstPage.isPageComplete() && secondPage.isPageComplete() ) {
-			return true;
-		}
-		return false;
+		return getDataModel().isValid();
 	}
 	
 	protected void postPerformFinish() throws InvocationTargetException {
@@ -98,7 +90,7 @@ public class AddServletWizard extends NewWebWizard {
 			JavaClass javaClass = null;
 			String className = getDataModel().getStringProperty(INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME);
 			IProject p = (IProject) getDataModel().getProperty(INewJavaClassDataModelProperties.PROJECT);
-			IVirtualComponent component = ComponentCore.createComponent(p,getDataModel().getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME));
+			IVirtualComponent component = ComponentCore.createComponent(p);
 			artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
 			ResourceSet resourceSet = artifactEdit.getDeploymentDescriptorResource().getResourceSet();
 			javaClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(className,resourceSet);

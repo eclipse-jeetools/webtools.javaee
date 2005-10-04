@@ -97,10 +97,11 @@ public class AddServletOperation extends ArtifactEditProviderOperation {
 	public IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		//Retrieve values set in the newservletclass data model
 		boolean isServletType = model.getBooleanProperty(INewServletClassDataModelProperties.IS_SERVLET_TYPE);
+		boolean useExisting = model.getBooleanProperty(INewServletClassDataModelProperties.USE_EXISTING_CLASS);
 		String qualifiedClassName = model.getStringProperty(INewJavaClassDataModelProperties.CLASS_NAME);
 		
 		// If it is servlet type, create the java class
-		if (isServletType)
+		if (isServletType && !useExisting)
 			qualifiedClassName = createServletClass();
 
 		// If the servlet is not annotated, generate the servlet metadata for the DD

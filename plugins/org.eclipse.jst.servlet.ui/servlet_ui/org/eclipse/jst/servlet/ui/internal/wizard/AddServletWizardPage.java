@@ -68,6 +68,12 @@ public class AddServletWizardPage extends DataModelWizardPage {
 		urlSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.URL_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.REMOVE_BUTTON_LABEL,
 				new String[]{IWebWizardConstants.URL_PATTERN_LABEL}, null,// WebPlugin.getDefault().getImage("url_type"),
 				model, INewServletClassDataModelProperties.URL_MAPPINGS);
+		String text = displayNameText.getText();
+		// Set default URL Pattern
+		List input = new ArrayList();
+		input.add(new String[]{"/" + text}); //$NON-NLS-1$
+		if (urlSection != null)
+			urlSection.setInput(input);
 		displayNameText.setFocus();
 
 		IStatus projectStatus = validateProjectName();
@@ -102,7 +108,8 @@ public class AddServletWizardPage extends DataModelWizardPage {
 				// Set default URL Pattern
 				List input = new ArrayList();
 				input.add(new String[]{"/" + text}); //$NON-NLS-1$
-				urlSection.setInput(input);
+				if (urlSection != null)
+					urlSection.setInput(input);
 			}
 
 		});

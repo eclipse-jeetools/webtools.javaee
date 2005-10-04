@@ -111,7 +111,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	public boolean isPropertyEnabled(String propertyName) {
 		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
 		if (USE_ANNOTATIONS.equals(propertyName)) {
-			if (!isAnnotationsSupported())
+			if (getBooleanProperty(USE_EXISTING_CLASS) || !isAnnotationsSupported())
 				return false;
 			return true;
 		}
@@ -144,6 +144,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		propertyNames.add(DESCRIPTION);
 		propertyNames.add(NON_ANNOTATED_TEMPLATE_FILE);
 		propertyNames.add(TEMPLATE_FILE);
+		propertyNames.add(USE_EXISTING_CLASS);
 		return propertyNames;
 	}
 
@@ -162,18 +163,27 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	public Object getDefaultProperty(String propertyName) {
 		// Generate a doPost method by default
 		if (propertyName.equals(DO_POST))
-			return new Boolean(true);
+			return Boolean.TRUE;
 		// Generate a doGet method by default
 		else if (propertyName.equals(DO_GET))
-			return new Boolean(true);
+			return Boolean.TRUE;
 		// Use servlet by default
 		else if (propertyName.equals(IS_SERVLET_TYPE))
-			return new Boolean(true);
+			return Boolean.TRUE;
 		// Create an annotated servlet java class by default
 		else if (propertyName.equals(USE_ANNOTATIONS))
 			return shouldDefaultAnnotations();
-		else if (propertyName.equals(DISPLAY_NAME))
-			return getProperty(CLASS_NAME);
+		else if (propertyName.equals(DISPLAY_NAME)) {
+			String className = getStringProperty(CLASS_NAME);
+			if (className.endsWith(".jsp")) { //$NON-NLS-1$
+				int index = className.lastIndexOf("/"); //$NON-NLS-1$
+				className = className.substring(index+1,className.length()-4);
+			} else {
+				int index = className.lastIndexOf("."); //$NON-NLS-1$
+				className = className.substring(index+1);
+			}
+			return className;
+		}
 		else if (propertyName.equals(URL_MAPPINGS))
 			return getDefaultUrlMapping();
 		else if (propertyName.equals(INTERFACES))
@@ -184,6 +194,8 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			return ANNOTATED_TEMPLATE_DEFAULT;
 		else if (propertyName.equals(NON_ANNOTATED_TEMPLATE_FILE))
 			return NON_ANNOTATED_TEMPLATE_DEFAULT;
+		else if (propertyName.equals(USE_EXISTING_CLASS))
+			return Boolean.FALSE;
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
 	}
@@ -258,6 +270,13 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			if (!isAnnotationsSupported())
 				setBooleanProperty(USE_ANNOTATIONS, false);
 		}
+		if (propertyName.equals(USE_EXISTING_CLASS)) {
+			getDataModel().notifyPropertyChange(USE_ANNOTATIONS, IDataModel.ENABLE_CHG);
+			if (((Boolean)propertyValue).booleanValue())
+				setProperty(USE_ANNOTATIONS,Boolean.FALSE);
+			setProperty(JAVA_PACKAGE, null);
+			setProperty(CLASS_NAME, null);
+		}
 		// Return whether property was set
 		return result;
 	}
@@ -331,6 +350,8 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	 * @return IStatus is java classname valid?
 	 */
 	protected IStatus validateJavaClassName(String className) {
+		if (getBooleanProperty(USE_EXISTING_CLASS))
+			return WTPCommonPlugin.OK_STATUS;
 		// First use the NewJavaClassDataModel to validate the classname as proper java syntax
 		IStatus status = super.validateJavaClassName(className);
 		if (status.isOK()) {

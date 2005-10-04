@@ -79,6 +79,12 @@ public interface INewServletClassDataModelProperties extends INewJavaClassDataMo
 	public static final String DESCRIPTION = "NewServletClassDataModel.DESCRIPTION"; //$NON-NLS-1$
 	
 	/**
+	 * Optional, boolean property used to specify whether or not to gen a new java class.
+	 * The default is false.
+	 */
+	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
+	
+	/**
 	 * Do not set! The javajet template file used in creating the annotated servlet template class
 	 */
 	public static final String TEMPLATE_FILE = "NewServletClassDataModel.TEMPLATE_FILE"; //$NON-NLS-1$

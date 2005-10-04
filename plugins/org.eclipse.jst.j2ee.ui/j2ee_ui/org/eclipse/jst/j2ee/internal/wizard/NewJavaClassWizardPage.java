@@ -89,16 +89,19 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 
 	private Text folderText;
 	private Button folderButton;
-	private Text packageText;
-	private Button packageButton;
+	protected Text packageText;
+	protected Button packageButton;
+	protected Label packageLabel;
 	protected Text classText;
-	private Text superText;
-	private Button superButton;
+	protected Label classLabel;
+	protected Text superText;
+	protected Button superButton;
+	protected Label superLabel;
 	private Combo projectNameCombo;
 	private Combo componentNameCombo;
-	private String moduleType;
+	protected String moduleType;
 	private boolean hasNewModuleButton;
-	private AnnotationsStandaloneGroup annotationsGroup = null;
+	
 	private String projectName;
 
 	/**
@@ -150,7 +153,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		addClassnameGroup(composite);
 		addSuperclassGroup(composite);
 
-		createAnnotationsGroup(composite);
 		folderText.setFocus();
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 		return composite;
@@ -222,7 +224,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	private void addProjectNameGroup(Composite parent) {
 		// set up project name label
 		Label projectNameLabel = new Label(parent, SWT.NONE);
-		projectNameLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT) + ":"); //$NON-NLS-1$
+		projectNameLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT)); //$NON-NLS-1$
 		GridData data = new GridData();
 		projectNameLabel.setLayoutData(data);
 		// set up project name entry field
@@ -319,7 +321,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	private void addPackageGroup(Composite composite) {
 		// package
-		Label packageLabel = new Label(composite, SWT.LEFT);
+		packageLabel = new Label(composite, SWT.LEFT);
 		packageLabel.setText(J2EEUIMessages.JAVA_PACKAGE_LABEL);
 		packageLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
@@ -352,7 +354,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	private void addClassnameGroup(Composite composite) {
 		// class name
-		Label classLabel = new Label(composite, SWT.LEFT);
+		classLabel = new Label(composite, SWT.LEFT);
 		classLabel.setText(J2EEUIMessages.CLASS_NAME_LABEL);
 		classLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
@@ -383,7 +385,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	private void addSuperclassGroup(Composite composite) {
 		// superclass
-		Label superLabel = new Label(composite, SWT.LEFT);
+		superLabel = new Label(composite, SWT.LEFT);
 		superLabel.setText(J2EEUIMessages.SUPERCLASS_LABEL);
 		superLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
@@ -537,7 +539,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 					IFolder folder = (IFolder) element;
 					// only show source folders
 					IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
-					IVirtualComponent component = ComponentCore.createComponent(project,model.getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME));
+					IVirtualComponent component = ComponentCore.createComponent(project);
 					IPackageFragmentRoot[] sourceFolders = ComponentUtilities.getSourceContainers(component);
 					for (int i = 0; i < sourceFolders.length; i++) {
 						if (sourceFolders[i].getResource()!= null && sourceFolders[i].getResource().equals(folder))
@@ -549,18 +551,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		};
 	}
 
-	/**
-	 * Create annotations group and set default enablement
-	 */
-	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, IModuleConstants.JST_EJB_MODULE.equals(moduleType),
-				IModuleConstants.JST_WEB_MODULE.equals(moduleType));
-		if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
-			return;
-		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
-		annotationsGroup.setEnablement(project);
-		// annotationsGroup.setUseAnnotations(true);
-	}
+	
 
 	/**
 	 * @return
