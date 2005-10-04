@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.10 $  $Date: 2005/10/03 23:06:42 $ 
+ *  $Revision: 1.11 $  $Date: 2005/10/04 17:59:17 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -556,7 +556,7 @@ public class BeaninfosWorkbookPage implements IBuildSearchPage{
 		addVariableButton.setEnabled(beaninfoPathsBlock.isBeaninfoEnabled());
 		
 		removeButton.setEnabled(selected!=null && selected.size()>0 && beaninfoPathsBlock.isBeaninfoEnabled());
-		modifyPathsButton.setEnabled(selected!=null && selected.size()>0 && beaninfoPathsBlock.isBeaninfoEnabled());
+		modifyPathsButton.setEnabled(selected!=null && selected.size()==1 && beaninfoPathsBlock.isBeaninfoEnabled());
 	}
 	
 	private List chooseProjects() {	
