@@ -11,6 +11,7 @@ package org.eclipse.jst.j2ee.componentcore.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
+import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -33,7 +35,9 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -360,6 +364,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public boolean uriExists(String currentURI) {
 		if (currentURI != null) {
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
+			if (comp == null)
+				return false;
 			IVirtualReference[] refComponents = comp.getReferences();
 			if (refComponents.length == 0)
 				return false;
@@ -407,18 +413,30 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	
 	public String getModuleURI(IVirtualComponent moduleComp) {
-		IVirtualComponent comp = getModule(moduleComp.getName());
-		if(comp != null) {
-			if(comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE) || 
-						comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE) ||
-						comp.getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE))
-				return comp.getName().concat(IJ2EEModuleConstants.JAR_EXT);
-			else if (comp.getComponentTypeId().equals((IModuleConstants.JST_WEB_MODULE)))
-				return comp.getName().concat(IJ2EEModuleConstants.WAR_EXT);
-			else if (comp.getComponentTypeId().equals((IModuleConstants.JST_CONNECTOR_MODULE)))
-				return comp.getName().concat(IJ2EEModuleConstants.RAR_EXT);
+		
+		StructureEdit core = null;
+		try {
+			core = StructureEdit.getStructureEditForRead(getProject());
+			WorkbenchComponent component = core.getComponent();
+			List referencedComponents = component.getReferencedComponents();
 			
-				
+			for (Iterator iter = referencedComponents.iterator(); iter
+					.hasNext();) {
+				ReferencedComponent ref = (ReferencedComponent) iter.next();
+				 {
+				if( !moduleComp.isBinary()) {
+					if (ref.getHandle().equals(ModuleURIUtil.fullyQualifyURI(moduleComp.getProject())));
+						return ((Module)ref.getDependentObject()).getUri();
+				}	else {
+					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName())));
+						return ((Module)ref.getDependentObject()).getUri();
+				}
+					
+			}
+			}
+		} finally {
+			if (core != null)
+				core.dispose();
 		}
 		return null;
 	}
