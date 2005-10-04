@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IJavaProject;
@@ -61,6 +62,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -502,7 +505,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			IProject elementProject = element.getProject();
 			if( elementProject != null ){
 				IVirtualComponent targetComp = ComponentCore.createComponent(elementProject);
-				targetComponentsHandles.add(targetComp.getProject());
+				targetComponentsHandles.add(targetComp);
 			}
 		}
 		if (!targetComponentsHandles.isEmpty()) {
@@ -515,15 +518,20 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 			IProject elementProject = element.getProject();
 			if( elementProject != null ){
 				if (ModuleCoreNature.isFlexibleProject(elementProject)) {
-					targetComponentsHandles.add(elementProject);
+					IVirtualComponent targetComp = ComponentCore.createComponent(elementProject);
+					targetComponentsHandles.add(targetComp);
 				}
 			}else{
 				URI archiveURI = element.getArchiveURI();
 				if( archiveURI != null && !archiveURI.equals("") ){ //$NON-NLS-1$
-					//the name is toString returned from ComponentHandle [<project name>]:lib/... or 
-					//[<project name>]:var/...
 					String name = ""; //$NON-NLS-1$
-					name = archiveURI.toString().substring(archiveURI.toString().lastIndexOf("]") +2); //$NON-NLS-1$
+					try {
+						String type = ModuleURIUtil.getArchiveType(archiveURI);
+						String tmpname = ModuleURIUtil.getArchiveName(archiveURI);
+						name = type + IPath.SEPARATOR + tmpname;
+					} catch (UnresolveableURIException e) {
+						Logger.getLogger().logError(e.getMessage());
+					}
 					if( !name.equals("")){ //$NON-NLS-1$
 						IVirtualReference ref = model.getComponent().getReference(name);
 						IVirtualComponent referenced = ref.getReferencedComponent();
