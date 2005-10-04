@@ -29,6 +29,35 @@
             factoryClass="org.eclipse.jst.common.jdt.internal.integration.JavaArtifactEditModelFactory">
       </editModel>
    </extension>
+   
+   <!-- Project Facets -->
+	<extension point="org.eclipse.wst.common.project.facet.core.facets">
+  
+    <project-facet id="java">
+      <label>Java</label>
+      <description>Adds support for writing applications using Java programming language.</description>
+      <icon>images/java.gif</icon>
+    </project-facet>
+
+    <project-facet-version facet="java" version="1.3">
+      <delegate type="install" class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
+      <delegate type="version-change" class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
+      <delegate type="runtime-changed" class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+    </project-facet-version>
+
+    <project-facet-version facet="java" version="1.4">
+      <delegate type="install" class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
+      <delegate type="version-change" class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
+      <delegate type="runtime-changed" class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+    </project-facet-version>
+
+    <project-facet-version facet="java" version="5.0">
+      <delegate type="install" class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
+      <delegate type="version-change" class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
+      <delegate type="runtime-changed" class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+    </project-facet-version>
+
+  </extension>
     
         
 </plugin>

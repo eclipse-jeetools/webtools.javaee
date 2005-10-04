@@ -968,6 +968,68 @@
          </enablement>
       </moduleArtifactAdapter>
      </extension>
+     
+    <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
+
+    <wizard-pages facet="utility" version="1.0">
+      <install>
+        <config class="org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallConfig"/>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.UtilityFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="ear" version="1.2">
+      <install>
+        <config class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallConfig"/>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="ear" version="1.3">
+      <install>
+        <config class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallConfig"/>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="ear" version="1.4">
+      <install>
+        <config class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallConfig"/>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+    
+  </extension>
+  
+    <extension point="org.eclipse.ui.newWizards">
+  
+    <category
+      name="%new-projects-wizard-category-name"
+      id="org.eclipse.jst.newprojects">
+    </category>
+    
+    <wizard
+      name="%util-project-wizard-name"
+      icon="icons/util-wiz-icon.gif"
+      category="org.eclipse.jst.newprojects"
+      class="org.eclipse.jst.j2ee.ui.project.facet.UtilityProjectWizard"
+      project="true"
+      id="org.eclipse.jst.j2ee.ui.project.facet.UtilityProjectWizard">
+      <description>%util-project-wizard-description</description>
+    </wizard>
+
+    <wizard
+      name="%ear-project-wizard-name"
+      icon="icons/ear-wiz-icon.gif"
+      category="org.eclipse.jst.newprojects"
+      class="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard"
+      project="true"
+      id="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
+      <description>%ear-project-wizard-description</description>
+    </wizard>
+
+    
+  </extension>
    
 
 </plugin>

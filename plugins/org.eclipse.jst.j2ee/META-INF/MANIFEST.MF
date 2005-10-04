@@ -35,7 +35,8 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.servertarget,
  org.eclipse.jst.j2ee.internal.validation,
  org.eclipse.jst.j2ee.internal.webservices,
- org.eclipse.jst.j2ee.project.datamodel.properties
+ org.eclipse.jst.j2ee.project.datamodel.properties,
+ org.eclipse.jst.j2ee.project.facet
 Require-Bundle: org.eclipse.emf.edit,
  org.eclipse.jem.workbench,
  org.eclipse.jst.j2ee.core,
@@ -60,5 +61,6 @@ Require-Bundle: org.eclipse.emf.edit,
  org.eclipse.wst.common.modulecore;visibility:=reexport,
  org.eclipse.jem.util,
  org.eclipse.jst.common.annotations.controller,
- org.eclipse.wst.common.uriresolver
+ org.eclipse.wst.common.uriresolver,
+ org.eclipse.wst.common.project.facet.core
 Eclipse-AutoStart: true

@@ -426,5 +426,44 @@
          </enablement>
       </decorator>
     </extension> 
+    
+    <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
+  
+    <wizard-pages facet="web" version="2.2">
+      <install>
+        <config class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig"/>
+        <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="web" version="2.3">
+      <install>
+        <config class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig"/>
+        <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="web" version="2.4">
+      <install>
+        <config class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig"/>
+        <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+    
+  </extension>
+  
+    <extension point="org.eclipse.ui.newWizards">
+
+    <wizard
+      name="%web-project-wizard-name"
+      icon="icons/full/ctool16/web-wiz-icon.gif"
+      category="org.eclipse.jst.newprojects"
+      class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"
+      project="true"
+      id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
+      <description>%web-project-wizard-description</description>
+    </wizard>
+    
+  </extension>
 	
 </plugin>

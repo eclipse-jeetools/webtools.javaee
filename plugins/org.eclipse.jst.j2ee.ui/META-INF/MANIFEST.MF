@@ -22,7 +22,8 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.provider,
  org.eclipse.jst.j2ee.internal.ui.util,
  org.eclipse.jst.j2ee.internal.war.ui.util,
- org.eclipse.jst.j2ee.internal.wizard
+ org.eclipse.jst.j2ee.internal.wizard,
+ org.eclipse.jst.j2ee.ui.project.facet
 Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.core.resources,
  org.eclipse.ui,
@@ -59,5 +60,7 @@ Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.jst.common.frameworks,
  org.eclipse.jem.util,
  org.eclipse.jst.common.annotations.controller,
- org.eclipse.jst.j2ee.ejb.annotation.model
+ org.eclipse.jst.j2ee.ejb.annotation.model,
+ org.eclipse.wst.common.project.facet.core,
+ org.eclipse.wst.common.project.facet.ui
 Eclipse-AutoStart: true

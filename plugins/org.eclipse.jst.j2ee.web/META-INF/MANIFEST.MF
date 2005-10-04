@@ -17,7 +17,8 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.web.util,
  org.eclipse.jst.j2ee.internal.web.validation,
  org.eclipse.jst.j2ee.web.componentcore.util,
- org.eclipse.jst.j2ee.web.datamodel.properties
+ org.eclipse.jst.j2ee.web.datamodel.properties,
+ org.eclipse.jst.j2ee.web.project.facet
 Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.core.runtime,
  org.eclipse.wst.server.core,
@@ -40,5 +41,6 @@ Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.jst.common.annotations.controller,
  org.eclipse.jst.common.frameworks,
  org.eclipse.wst.common.modulecore,
- org.eclipse.jem.util
+ org.eclipse.jem.util,
+ org.eclipse.wst.common.project.facet.core
 Eclipse-AutoStart: true
