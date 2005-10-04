@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -228,7 +229,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 			List list = getComponentsToRemove();
 			if( !list.isEmpty()){
 				try {
-					RemoveComponentFromEnterpriseApplicationOperation op = removeComponentFromEAROperation(earComponent.getProject(), list);
+					RemoveComponentFromEnterpriseApplicationOperation op = removeComponentFromEAROperation(earComponent, list);
 					op.execute(null, null);
 				} catch (ExecutionException e) {
 					Logger.getLogger().log(e);
@@ -238,9 +239,9 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		return stat;
 	}		
 	
-	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(IProject sourceComponentProject, List targetComponentsHandles) {
+	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(IVirtualComponent sourceComponent, List targetComponentsHandles) {
 		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
-		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, ComponentCore.createComponent(sourceComponentProject));
+		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
 		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
@@ -314,7 +315,8 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 					refs[j] = tmpref;
 				}				
 				earComponent.setReferences(refs);
-				j2eeComponentList.add(archive.getProject());
+				//j2eeComponentList.add(archive.getProject());
+				j2eeComponentList.add(archive);
 			}
 			refresh();
 		}
@@ -354,7 +356,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 						refs[j] = tmpref;
 					}				
 					earComponent.setReferences(refs);
-					j2eeComponentList.add(archive.getProject());
+					j2eeComponentList.add(archive);
 				}else{
 					//display error
 				}
@@ -547,9 +549,25 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		data.heightHint = availableComponentsViewer.getTable().getItemHeight() * numlines;
 		availableComponentsViewer.getTable().setLayoutData(data);
 
-		availableComponentsViewer.setCheckedElements(getComponentsInEar());
+		TableItem [] items = availableComponentsViewer.getTable().getItems();
 
+		List list = new ArrayList();
+		Object[] comps = getComponentsInEar();
 		
+		for( int i=0; i< items.length; i++ ){
+			Object element = items[i].getData();
+			if( element instanceof IVirtualComponent){
+				IVirtualComponent comp = (IVirtualComponent)element;
+				for( int j=0; j< comps.length; j++ ){
+					IVirtualComponent tempcomp = (IVirtualComponent)comps[j];
+					if( comp.equals(tempcomp)){
+						list.add(comp);
+					}
+				}
+			}	
+		}
+		
+		availableComponentsViewer.setCheckedElements(list.toArray());
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		buttonColumn.setLayoutData(btndata);
 

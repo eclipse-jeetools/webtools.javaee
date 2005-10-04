@@ -108,15 +108,6 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-//		if (element instanceof IProject) {
-//			IProject proj = (IProject)element;
-//			if( columnIndex == 0 )
-//				return proj.getName();
-//			return proj.getName();
-//		}else if(element instanceof IProject){
-//			return ((IProject)element).getName();
-//		}
-		
 		if (element instanceof IVirtualComponent) {
 			IVirtualComponent comp = (IVirtualComponent)element;
 			if( columnIndex == 0 )
