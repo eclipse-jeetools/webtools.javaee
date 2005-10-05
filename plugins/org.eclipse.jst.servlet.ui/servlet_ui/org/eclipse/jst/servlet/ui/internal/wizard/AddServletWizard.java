@@ -16,7 +16,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployable;
+import org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
@@ -27,6 +30,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.server.core.IModule;
 
 /**
  * New servlet wizard
@@ -40,6 +44,13 @@ public class AddServletWizard extends NewWebWizard {
 	 */
 	public AddServletWizard(IDataModel model) {
 		super(model);
+		IProject project = ProjectUtilities.getProject("DeployTestEAR");
+		EnterpriseApplicationDeployable deployable = new EnterpriseApplicationDeployable(project,EnterpriseApplicationDeployableFactory.ID, ComponentCore.createComponent(project));
+		IModule[] modules = deployable.getModules();
+		for (int i=0; i<modules.length; i++) {
+			String uri = deployable.getURI(modules[i]);
+			System.out.println(uri);
+		}
 		setWindowTitle(IWebWizardConstants.ADD_SERVLET_WIZARD_WINDOW_TITLE);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor("newservlet_wiz")); //$NON-NLS-1$
 	}

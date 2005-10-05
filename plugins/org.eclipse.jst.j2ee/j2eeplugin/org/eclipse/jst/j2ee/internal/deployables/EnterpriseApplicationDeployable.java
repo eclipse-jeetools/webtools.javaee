@@ -14,9 +14,6 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.server.core.IEnterpriseApplication;
-import org.eclipse.jst.server.core.IJ2EEModule;
-import org.eclipse.jst.server.core.ILooseArchive;
-import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -25,7 +22,7 @@ import org.eclipse.wst.server.core.IModule;
 
 
 
-public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable implements IEnterpriseApplication, ILooseArchiveSupport {
+public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable implements IEnterpriseApplication {
 
 	public static final String EAR_MODULE_TYPE = IModuleConstants.JST_EAR_MODULE;
 	
@@ -44,30 +41,16 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 		}
 
 	public IModule[] getModules() {
-		List modules = new ArrayList(3);
-		EARArtifactEdit earEdit = null;
-		try {
-			earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-			if (earEdit != null) {
-				IVirtualReference[] components = earEdit.getComponentReferences();
-				for (int i=0; i<components.length; i++) {
-					IVirtualReference reference = components[i];
-					IVirtualComponent virtualComp = reference.getReferencedComponent();
-					Object module = FlexibleProjectServerUtil.getModule(virtualComp);
-					if (module!=null)
-						modules.add(module);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (earEdit != null)
-				earEdit.dispose();
+		List modules = new ArrayList();
+    	IVirtualReference[] components = component.getReferences();
+    	for (int i=0; i<components.length; i++) {
+			IVirtualReference reference = components[i];
+			IVirtualComponent virtualComp = reference.getReferencedComponent();
+			Object module = FlexibleProjectServerUtil.getModule(virtualComp);
+			if (module!=null)
+				modules.add(module);
 		}
-		IModule[] moduleArray = new IModule[modules.size()];
-		modules.toArray(moduleArray);
-		return moduleArray;
-
+        return (IModule[]) modules.toArray(new IModule[modules.size()]);
 	}
     
     /**
@@ -79,10 +62,8 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
         return getModules();
     }
 
-	public String getURI(IJ2EEModule module) {
-		// TODO Auto-generated method stub
-		J2EEFlexProjDeployable mod = (J2EEFlexProjDeployable)module;
-		IVirtualComponent comp = ComponentCore.createComponent(mod.getProject());
+	public String getURI(IModule module) {
+		IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
 		EARArtifactEdit earEdit = null;
 		String aURI = null;
 		try {
@@ -96,27 +77,10 @@ public class EnterpriseApplicationDeployable extends J2EEFlexProjDeployable impl
 			if (earEdit != null)
 				earEdit.dispose();
 		}
-		
 		return aURI;
 	}
 	
-
-	public boolean containsLooseModules() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	public IModule[] getLooseArchives() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public String getType() {
 		return "j2ee.ear"; //$NON-NLS-1$
 	}
-	public String getURI(ILooseArchive archive) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

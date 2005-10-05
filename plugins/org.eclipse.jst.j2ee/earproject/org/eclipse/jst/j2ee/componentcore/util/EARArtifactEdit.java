@@ -11,7 +11,6 @@ package org.eclipse.jst.j2ee.componentcore.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -420,19 +419,16 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			WorkbenchComponent component = core.getComponent();
 			List referencedComponents = component.getReferencedComponents();
 			
-			for (Iterator iter = referencedComponents.iterator(); iter
-					.hasNext();) {
-				ReferencedComponent ref = (ReferencedComponent) iter.next();
-				 {
+			for (int i=0; i<referencedComponents.size(); i++) {
+				ReferencedComponent ref = (ReferencedComponent) referencedComponents.get(i);
 				if( !moduleComp.isBinary()) {
 					if (ref.getHandle().equals(ModuleURIUtil.fullyQualifyURI(moduleComp.getProject())))
 						return ((Module)ref.getDependentObject()).getUri();
-				}	else {
-					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName())));
-						return ((Module)ref.getDependentObject()).getUri();
-				}
-					
-			}
+				} 
+//				else if (moduleComp.isBinary()) {
+//					if (ref.getHandle().equals(ModuleURIUtil.archiveComponentfullyQualifyURI(moduleComp.getName())));
+//						return ((Module)ref.getDependentObject()).getUri();
+//				}	
 			}
 		} finally {
 			if (core != null)

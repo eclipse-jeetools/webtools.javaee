@@ -509,7 +509,7 @@
                types="j2ee.ear">
          </moduleType>
       </moduleFactory>
-      <moduleFactory
+ <!--    <moduleFactory
             projects="true"
           
             class="org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory"
@@ -518,7 +518,7 @@
                versions="*"
                types="j2ee.loosearchive">
          </moduleType>
-      </moduleFactory>
+      </moduleFactory> -->
    </extension>
 
 <!-- =============================================================== -->

@@ -21,13 +21,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.deployables.FlexibleProjectServerUtil;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
-import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
-import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
-import org.eclipse.jst.server.core.ILooseArchive;
-import org.eclipse.jst.server.core.ILooseArchiveSupport;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.server.core.IWebModule;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -36,17 +36,12 @@ import org.eclipse.wst.web.internal.operation.ILibModule;
  * @version 1.0
  * @author
  */
-public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements IWebModule, ILooseArchiveSupport, IModuleType {
+public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements IWebModule, IModuleType {
     protected String contextRoot;
 
-    protected ILooseArchive[] archives;
     public IPath rootfolder = null;
 
     protected Map uris = new HashMap();
-
-	public static final String WEB_MODULE_TYPE = "jst.web";
-
-    
 
     /**
      * @param aNature
@@ -85,8 +80,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	public String getJ2EESpecificationVersion() {
 		if (component != null)
 			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(component.getVersion()));
-		else
-			return null;
+		return null;
 	}
 
     public String getJSPFileMapping(String jspFile) {
@@ -121,8 +115,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
 		if (component != null)
 			return component.getVersion();
-		else
-			return null;
+		return null;
 	}
 
     
@@ -135,74 +128,18 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         return false;
     }
 
-    protected LooseArchiveDeployableFactory getLooseArchiveDeployableFactory() {
-        /*
-         * Iterator factories =
-         * Arrays.asList(ServerCore.getModuleFactories()).iterator(); while
-         * (factories.hasNext()) { ModuleFactory deployableFactory =
-         * (ModuleFactory) factories.next(); ModuleFactoryDelegate
-         * deployableFactoryDelegate = deployableFactory.getDelegate(); if
-         * (deployableFactoryDelegate instanceof LooseArchiveDeployableFactory)
-         * return (LooseArchiveDeployableFactory) deployableFactoryDelegate; }
-         */
-        return null;
-    }
-
-/*    protected ILooseArchive getArchiveDeployable(IProject aProject, LooseArchiveDeployableFactory fact) {
-        return (ILooseArchive) fact.getModuleProject(aProject);
-    }*/
-
     protected ILibModule[] getLibModules() {
     	return null;	
     }
-
-  /*  public ILooseArchive[] getLooseArchives() {
-        return this.archives;
-    }*/
-
-    /*
-     * @see com.ibm.etools.server.core.util.DeployableProject#getRootFolder()
-     */
     
-
-
-    public ILooseArchive[] getUncachedLooseArchives() {
-        ILibModule[] libModules = getLibModules();
-        if (libModules == null)
-            return null;
-
-        LooseArchiveDeployableFactory fact = getLooseArchiveDeployableFactory();
-        if (fact == null)
-            return null;
-
-        List arcs = new ArrayList(libModules.length);
-        for (int i = 0; i < libModules.length; i++) {
-            ILibModule libModule = libModules[i];
-            IProject proj = libModule.getProject();
-           /* if (proj != null && proj.exists())
-                arcs.add(getArchiveDeployable(proj, fact));*/
-        }
-        ILooseArchive[] result = new ILooseArchive[arcs.size()];
-        arcs.toArray(result);
-        return result;
-    }
-
-    public String getURI(ILooseArchive jar) {
-        try {
-            return (String) this.uris.get(jar);
-        } catch (Exception e) {
-        		// ignore
-        }
-        return null;
-    }
-
-    public String getUncachedURI(ILooseArchive jar) {
-        if (!(jar instanceof LooseArchiveDeployable))
-            return null;
-
-        LooseArchiveDeployable dep = (LooseArchiveDeployable) jar;
-        IProject proj = dep.getProject();
-        return getURI(proj);
+    public String getURI(IModule module) {
+    	String result = ""; //$NON-NLS-1$
+    	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
+    	if (!comp.isBinary()) {
+    		IVirtualReference ref = component.getReference(comp.getName());
+    		result = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
+    	}
+    	return result;
     }
 
     protected String getURI(IProject looseJARProject) {
@@ -211,52 +148,6 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
     public boolean isBinary() {
         return false;
-    }
-
-    protected void update() {
-        ILooseArchive[] oldArchives = this.archives;
-        this.archives = getUncachedLooseArchives();
-        if (this.archives == null)
-            this.archives = new ILooseArchive[0];
-        String oldContextRoot = this.contextRoot;
-        this.contextRoot = getUncachedContextRoot();
-
-        boolean changed = false;
-        if (oldContextRoot == null && this.contextRoot != null)
-            changed = true;
-        else if (oldContextRoot != null && !oldContextRoot.equals(this.contextRoot))
-            changed = true;
-
-        // fire remove events
-        List add = new ArrayList(2);
-        addRemovedObjects(add, oldArchives, this.archives);
-
-        // fire add events
-        List remove = new ArrayList(2);
-        addAddedObjects(remove, oldArchives, this.archives);
-
-        // fire change events
-        int size = this.archives.length;
-        List change = new ArrayList(size);
-        for (int i = 0; i < size; i++) {
-            String newURI = getUncachedURI(this.archives[i]);
-            String oldURI = getURI(this.archives[i]);
-
-            if (oldURI != null && !oldURI.equals(newURI)) {
-                change.add(this.archives[i]);
-            }
-            this.uris.put(this.archives[i], newURI);
-        }
-
-        if (!add.isEmpty() || !remove.isEmpty() || !change.isEmpty() || changed) {
-            IModule[] added = new IModule[add.size()];
-            add.toArray(added);
-            IModule[] changed2 = new IModule[change.size()];
-            change.toArray(changed2);
-            IModule[] removed = new IModule[remove.size()];
-            remove.toArray(removed);
-           // fireModuleChangeEvent(changed, added, changed2, removed);
-        }
     }
 
     /**
@@ -332,17 +223,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
      * @return org.eclipse.wst.server.core.model.IModule[]
      */
     public IModule[] getChildModules() {
-        List list = new ArrayList();
-
-        if (this.archives != null) {
-            int size = this.archives.length;
-            for (int i = 0; i < size; i++)
-                list.add(this.archives[i]);
-        }
-
-        IModule[] children = new IModule[list.size()];
-        list.toArray(children);
-        return children;
+    	return getModules();
     }
 
    
@@ -353,10 +234,17 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     public String getModuleTypeVersion(){
         return getVersion();
     }
-
-	public IModule[] getLooseArchives() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    
+    public IModule[] getModules() {
+    	List modules = new ArrayList();
+    	IVirtualReference[] components = component.getReferences();
+    	for (int i=0; i<components.length; i++) {
+			IVirtualReference reference = components[i];
+			IVirtualComponent virtualComp = reference.getReferencedComponent();
+			Object module = FlexibleProjectServerUtil.getModule(virtualComp);
+			if (module!=null)
+				modules.add(module);
+		}
+        return (IModule[]) modules.toArray(new IModule[modules.size()]);
+    }
 }
