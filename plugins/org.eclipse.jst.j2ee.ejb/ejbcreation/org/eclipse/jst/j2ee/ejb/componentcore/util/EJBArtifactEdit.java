@@ -219,6 +219,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		if (clientJAR != null) {
             clientJAR = clientJAR.substring(0, clientJAR.length() - 4);
 			ejbComponent = ComponentCore.createComponent(getProject());
+			if (ejbComponent == null) return null;
 			ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent();
 		}
 		return ejbClientComponent;

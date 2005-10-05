@@ -14,6 +14,7 @@ public class EJBArtifactEditUtilities {
 	public static IVirtualComponent getEJBComponent(EnterpriseBean bean) {
 		IProject project = ProjectUtilities.getProject(bean);
 		IVirtualComponent component = ComponentCore.createComponent(project);
+		if (component == null) return null;
 		EJBArtifactEdit edit = null;
 		try {
 			if (component.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE)) {
