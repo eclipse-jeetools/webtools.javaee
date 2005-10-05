@@ -157,7 +157,9 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 
 	public void propertyChanged(DataModelEvent event) {
 		if (event.getPropertyName().equals(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST)) {
-			updateGUICheckSelection();
+			if(earFileListViewer != null){
+				updateGUICheckSelection();
+			}
 		}
 		super.propertyChanged(event);
 	}
