@@ -172,6 +172,15 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 
+	public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName){
+		if (propertyName.equals(RUNTIME_TARGET_ID)) {
+			String propertyValue =  (String)getProperty(propertyName);
+			IRuntime runtime = getServerTargetByID(propertyValue);
+			return new DataModelPropertyDescriptor(propertyValue, runtime.getName());
+		}
+		return super.getPropertyDescriptor(propertyName);
+	}
+
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(COMPONENT_VERSION)) {
 			return getValidComponentVersionDescriptors();
