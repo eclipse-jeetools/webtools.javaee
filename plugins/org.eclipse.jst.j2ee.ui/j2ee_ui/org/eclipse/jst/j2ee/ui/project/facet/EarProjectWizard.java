@@ -41,8 +41,8 @@ public final class EarProjectWizard
 
     protected ImageDescriptor getDefaultPageImageDescriptor()
     {
-        final Bundle bundle = Platform.getBundle( "org.eclipse.wst.common.project.facet.base" );
-        final URL url = bundle.getEntry( "images/ear-wiz-banner.gif" );
+        final Bundle bundle = Platform.getBundle( "org.eclipse.jst.j2ee.ui" );
+        final URL url = bundle.getEntry( "icons/ear-wiz-banner.gif" );
 
         return ImageDescriptor.createFromURL( url );
     }

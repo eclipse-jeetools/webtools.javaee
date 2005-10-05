@@ -589,7 +589,7 @@
     </project-facet-version>
 
     <project-facet-version facet="ear" version="1.4">
-      <delegate type="install" class="org.eclipse.jst.j2ee.project.facete.EarFacetInstallDelegate"/>
+      <delegate type="install" class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
       <delegate type="version-change" class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
       <constraint>
         <and>
