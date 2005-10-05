@@ -635,7 +635,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						ClasspathElement element = null;
 						if( !alreadyInList ){
 							if( inClassPath(javaProject, archiveURI.lastSegment())){
-								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), archiveURI.lastSegment());
+								element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), referencedComponent.getName(), archiveURI.lastSegment());
 								classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 							}
 							else

@@ -204,7 +204,8 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 					model.getComponent().setReferences(refs);
 
 					
-					ClasspathElement element = createClassPathElement(archive, file.getName());
+					//ClasspathElement element = createClassPathElement(archive, file.getName());
+					ClasspathElement element = createClassPathElement(archive, archive.getName());
 					ClassPathSelection selection = createClassPathSelectionForExternalJar(element);
 					createBuildPathOperationForExternalJar(selection);
 					
@@ -267,7 +268,9 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 						}				
 						model.getComponent().setReferences(refs);
 						
-						ClasspathElement element = createClassPathElement(archive, file.getName());
+						//ClasspathElement element = createClassPathElement(archive, file.getName());
+						ClasspathElement element = createClassPathElement(archive, archive.getName());
+						
 						ClassPathSelection selection = createClassPathSelectionForExternalJar(element);
 						createBuildPathOperationForExternalJar(selection);
 						
