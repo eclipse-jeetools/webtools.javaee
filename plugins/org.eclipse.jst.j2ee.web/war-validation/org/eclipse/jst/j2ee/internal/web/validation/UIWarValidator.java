@@ -80,7 +80,7 @@ public class UIWarValidator extends WarValidator {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
-            if( wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
+            if( wbModule != null && wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
             	
 				IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
 				if( webFile.exists()) {
