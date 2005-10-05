@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
 
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.9 $  $Date: 2005/10/05 21:26:25 $ 
  */
 
 import java.awt.Image;
@@ -193,6 +193,22 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	public static final String ICONMONO16X16URL = "ICON_MONO_16x16_URL"; //$NON-NLS-1$        	// Not used
 
 	public static final String ICONMONO32X32URL = "ICON_MONO_32x32_URL"; //$NON-NLS-1$			// Not used
+	
+	/**
+	 * Used by Visual Editor as feature attribute key/value to indicate that it must create an implicit setting of a property(s).
+	 * For example {@link javax.swing.JFrame#getContentPane()}. There must be a content pane
+	 * set in the VE model so that users can drop the components on it. Setting this here
+	 * means that the default content pane from the JFrame will show up in the editor to use.
+	 * <p>
+	 * This should be used with care in that not all properties are required to always show up.
+	 * They can be queried when needed.
+	 * <p>
+	 * The value can be either a {@link String} for one property. Or it can be a {@link String[]} for more
+	 * than one property.
+	 * 
+	 * @since 1.2.0
+	 */
+	public static final String REQUIRED_IMPLICIT_PROPERTIES = "requiredImplicitProperties";	//$NON-NLS-1$
 
 	public static final boolean JVM_1_3 = System.getProperty("java.version", "").startsWith("1.3"); //$NON-NLS-1$ //$NON-NLS-2$  //$NON-NLS-3$
 	
