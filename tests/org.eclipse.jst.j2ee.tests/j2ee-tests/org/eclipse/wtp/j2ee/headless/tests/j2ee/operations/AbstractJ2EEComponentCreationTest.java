@@ -362,7 +362,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 		IProject ejbProject = ProjectUtility.getProject(projectName);
 		ArrayList list = new ArrayList();
 		list.add(ejbProject);
-		earDataModel.setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, list);
+		earDataModel.setProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST, list);
 		earDataModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
 //		earDataModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_MODELS);
 		return earDataModel.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
