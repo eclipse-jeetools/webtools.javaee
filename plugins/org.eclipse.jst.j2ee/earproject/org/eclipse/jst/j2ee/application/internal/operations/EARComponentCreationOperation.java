@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -102,9 +103,13 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
             IVirtualComponent component = ComponentCore.createComponent(getProject(), model.getStringProperty(COMPONENT_DEPLOY_NAME));
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
 
-			List modulesList = (List)model.getProperty(J2EE_COMPONENT_LIST);
-			if (modulesList != null && !modulesList.isEmpty()) {
-				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modulesList);
+			List moduleProjectsList = (List)model.getProperty(J2EE_PROJECTS_LIST);
+			if (moduleProjectsList != null && !moduleProjectsList.isEmpty()) {
+				List moduleComponentsList = new ArrayList(moduleProjectsList.size());
+				for(int i=0;i<moduleProjectsList.size(); i++){
+					moduleComponentsList.add(ComponentCore.createComponent((IProject)moduleProjectsList.get(i)));
+				}
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, moduleComponentsList);
 				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 				if( stat != OK_STATUS )
 					return stat;

@@ -54,7 +54,7 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 
     public Set getPropertyNames(){
     	Set propertyNames = super.getPropertyNames();
-		propertyNames.add(J2EE_COMPONENT_LIST);
+		propertyNames.add(J2EE_PROJECTS_LIST);
 		propertyNames.add(JAVA_PROJECT_LIST);
 		return propertyNames;
     }
@@ -64,7 +64,7 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
         	return IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
         } else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
             return Boolean.FALSE;
-        } else if (propertyName.equals(J2EE_COMPONENT_LIST)) {
+        } else if (propertyName.equals(J2EE_PROJECTS_LIST)) {
             return Collections.EMPTY_LIST;
         }else if (propertyName.equals(JAVA_PROJECT_LIST)){
 			return Collections.EMPTY_LIST;
@@ -157,8 +157,8 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 	                }
 	            }
 			}
-        }else if(propertyName.equals(J2EE_COMPONENT_LIST)){
-			return validateTargetComponentVersion((List)model.getProperty(J2EE_COMPONENT_LIST));
+        }else if(propertyName.equals(J2EE_PROJECTS_LIST)){
+			return validateTargetComponentVersion((List)model.getProperty(J2EE_PROJECTS_LIST));
         }
         return super.validate(propertyName);
     }

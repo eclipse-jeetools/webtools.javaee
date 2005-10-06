@@ -65,7 +65,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[] {IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST};
+		return new String[] {IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST};
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
@@ -100,7 +100,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				if (!ignoreCheckedState) {
-					getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedJ2EEElementsAsList());
+					getDataModel().setProperty(J2EE_PROJECTS_LIST, getCheckedJ2EEElementsAsList());
 					getDataModel().setProperty(JAVA_PROJECT_LIST, getCheckedJavaProjectsAsList());
                 }
 			}
@@ -116,7 +116,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 	 *  
 	 */
 	private void setCheckedItemsFromModel() {
-		List components = (List) getDataModel().getProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST);
+		List components = (List) getDataModel().getProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST);
 		moduleProjectsViewer.setCheckedElements(components.toArray());
 	}
 
@@ -219,9 +219,9 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
     private void setNewModules(IDataModel defaultModel) {
         List newComponents = new ArrayList();
         collectNewComponents(defaultModel, newComponents);
-        List oldComponents = (List) getDataModel().getProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST);
+        List oldComponents = (List) getDataModel().getProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST);
         newComponents.addAll(oldComponents);
-        getDataModel().setProperty(IEarComponentCreationDataModelProperties.J2EE_COMPONENT_LIST, newComponents);
+        getDataModel().setProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST, newComponents);
     }
     
     private void collectNewComponents(IDataModel defaultModel, List newProjects) {
@@ -265,7 +265,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 			//getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
 			//IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);	
 			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider., getCheckedJ2EEElementsAsList());
-			getDataModel().setProperty(J2EE_COMPONENT_LIST, null);
+			getDataModel().setProperty(J2EE_PROJECTS_LIST, null);
 			getDataModel().setProperty(JAVA_PROJECT_LIST, null);			
 		} finally {
 			ignoreCheckedState = false;
@@ -283,7 +283,7 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
 			//IDataModel nestedModel = (IDataModel)getDataModel().getProperty(NESTED_ADD_COMPONENT_TO_EAR_DM);
 			//(nestedModel).setProperty(AddComponentToEnterpriseApplicationDataModelProvider., getCheckedJ2EEElementsAsList());
 			
-			getDataModel().setProperty(J2EE_COMPONENT_LIST, getCheckedJ2EEElementsAsList());
+			getDataModel().setProperty(J2EE_PROJECTS_LIST, getCheckedJ2EEElementsAsList());
 			getDataModel().setProperty(JAVA_PROJECT_LIST, getCheckedJavaProjectsAsList());
 			
 		} finally {
