@@ -230,5 +230,9 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 			this.setErrorMessage("Annotation provider definition is not valid, please check the preferences. ");
 		getContainer().updateMessage();
 	}
+	
+	public boolean canFlipToNextPage() {
+		return isPageComplete() ;//&& wizard.getPageGroupManager().hasNextPage();
+	}	
 
 }

@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements IMessageDrivenBean {
 
@@ -22,6 +23,38 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 		super();
 		MessageDriven mdBean = EjbFactory.eINSTANCE.createMessageDriven();
 		this.setEnterpriseBean(mdBean);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean#getDataModel()
+	 */
+	public void setDataModel(IDataModel dataModel) {
+		super.setDataModel(dataModel);
+		MessageDriven messageDriven = (MessageDriven) this.getEnterpriseBean();
+		if (messageDriven == null)
+			return;
+
+		DestinationType dType = DestinationType.QUEUE_LITERAL;
+		if (dataModel.getStringProperty(IMessageDrivenBeanDataModelProperties.DESTINATIONTYPE).equals(
+				DestinationType.TOPIC_LITERAL.getName()))
+			dType = DestinationType.TOPIC_LITERAL;
+		MessageDrivenDestination destination = EjbFactory.eINSTANCE.createMessageDrivenDestination();
+		destination.setType(dType);
+		destination.setBean(messageDriven);
+		messageDriven.setDestination(destination);
+		String dName = dataModel.getStringProperty(IMessageDrivenBeanDataModelProperties.DESTINATIONNAME);
+		if (dName == null || dName.length() <= 0)
+			dName = dataModel.getStringProperty(IEnterpriseBeanClassDataModelProperties.JNDI_NAME);
+		messageDriven.setMessageSelector((String) dName);
+
+		TransactionType transactionType = TransactionType.CONTAINER_LITERAL;
+		if (dataModel.getStringProperty(IMessageDrivenBeanDataModelProperties.TRANSACTIONTYPE).equals(
+				TransactionType.BEAN_LITERAL.getName()))
+			transactionType = TransactionType.BEAN_LITERAL;
+		messageDriven.setTransactionType(transactionType);
 
 	}
 
@@ -55,11 +88,9 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 		return messageDriven.getMessageSelector();
 	}
 
-	
 	/**
-	 * 
-	 * This method permits us to keep emf model for the bean
-	 * in sync with the  changes in the datamodel
+	 * This method permits us to keep emf model for the bean in sync with the
+	 * changes in the datamodel
 	 */
 	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
@@ -77,7 +108,8 @@ public class MessageDrivenBeanDelegate extends EnterpriseBeanDelegate implements
 			destination.setType(dType);
 			destination.setBean(messageDriven);
 			messageDriven.setDestination(destination);
-		} else if (IMessageDrivenBeanDataModelProperties.DESTINATIONNAME.equals(property) || IEnterpriseBeanClassDataModelProperties.JNDI_NAME.equals(property)) {
+		} else if (IMessageDrivenBeanDataModelProperties.DESTINATIONNAME.equals(property)
+				|| IEnterpriseBeanClassDataModelProperties.JNDI_NAME.equals(property)) {
 			messageDriven.setMessageSelector((String) propertyValue);
 		} else if (IEnterpriseBeanClassDataModelProperties.TRANSACTIONTYPE.equals(property)) {
 			TransactionType transactionType = TransactionType.CONTAINER_LITERAL;

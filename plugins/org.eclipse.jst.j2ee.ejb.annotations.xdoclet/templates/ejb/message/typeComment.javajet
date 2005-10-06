@@ -11,7 +11,9 @@
  *     <%= "Queue".equals(mdb.getDestinationType()) ? "" : "subscription-durability=\"NonDurable\""%>
  *     transaction-type="<%= mdb.getTransactionType() %>"
  *     destination-jndi-name="<%= mdb.getDestinationJndiName() %>"
-
+ *
+ *  @ejb.transaction="Supports"
+ *
  * <!-- end-xdoclet-definition -->
  * @generated
  **/

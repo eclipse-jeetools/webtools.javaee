@@ -14,6 +14,8 @@
  ***************************************************************************/
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences;
 
+import java.util.ResourceBundle;
+
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
@@ -95,11 +97,13 @@ public class AnnotationPreferencePage extends PreferencePage implements
 				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		defPanel.setLayoutData(gridData);
 
+		ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences.preferences");
+
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText("Set J2EE Annotation Preferences");
+		label.setText(bundle.getString("label_set_j2ee_annotation_preference"));
 
 		panel.preferences = new Control[1];
 		panel.preferences[0] = panel
@@ -107,8 +111,8 @@ public class AnnotationPreferencePage extends PreferencePage implements
 						1,
 						false,
 						true,
-						"Active Annotation Provider:",
-						"Choose the annotation provider that you will use for J2EE development and artifacts",
+						bundle.getString("label_active_annotation_provider"),
+						bundle.getString("desc_active_annotation_provider"),
 						AnnotationPreferenceStore
 								.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER),
 						AnnotationUtilities.getProviderNames(), defPanel);
@@ -117,7 +121,7 @@ public class AnnotationPreferencePage extends PreferencePage implements
 
 			public void modifyText(ModifyEvent e) {
 				String provider = annotationProvider.getText();
-				AnnotationPreferencePage.this.setValid(true);
+				AnnotationPreferencePage.this.setValid(provider != null);
 
 			}
 		};

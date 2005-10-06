@@ -21,6 +21,7 @@ package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
 
 
+import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.preference.PreferencePage;
@@ -42,11 +43,13 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 public class XDocletWebPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage, SelectionListener {
 
+	private static ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
+
 	private static final String[][]  weboptions={
-		{ XDocletPreferenceStore.WEB_JBOSS, "JBoss", " Creates deployment descriptors for JBoss.", "CHECK","2.4,3.0,3.0.1,3.0.2,3.0.3,3.2,4.0","2.4"},
-		{ XDocletPreferenceStore.WEB_JONAS, "JOnAS", " Generates the deployment descriptor for JOnAS.", "CHECK","2.3,2.4,2.5,2.6,3.0","2.6"},
-		{ XDocletPreferenceStore.WEB_WEBLOGIC, "WebLogic", "This task can generate deployment descriptors for WLS 6.0, 6.1, 7.0 and 8.1.", "CHECK","6.0,6.1,7.0,8.1","6.1"  },
-		{ XDocletPreferenceStore.WEB_WEBSPHERE, "WebSphere", "This task can generate deployment descriptors for WAS", "CHECK", "all","all"}
+		{ XDocletPreferenceStore.WEB_JBOSS, "JBoss", bundle.getString("desc_webdoclet_jboss"), "CHECK","2.4,3.0,3.0.1,3.0.2,3.0.3,3.2,4.0","2.4"},
+		{ XDocletPreferenceStore.WEB_JONAS, "JOnAS", bundle.getString("desc_webdoclet_jonas"), "CHECK","2.3,2.4,2.5,2.6,3.0","2.6"},
+		{ XDocletPreferenceStore.WEB_WEBLOGIC, "WebLogic", bundle.getString("desc_webdoclet_weblogic"), "CHECK","6.0,6.1,7.0,8.1","6.1"  },
+		{ XDocletPreferenceStore.WEB_WEBSPHERE, "WebSphere", bundle.getString("desc_webdoclet_websphere"), "CHECK", "all","all"}
 		
 	};
 	
@@ -112,7 +115,7 @@ public class XDocletWebPreferencePage extends PreferencePage implements
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText("Set Web Doclet Preferences (choose the servers to generate specific deployment descriptors)");
+		label.setText(bundle.getString("label_set_webdoclet_preference"));
 	
 		panel.preferences = new Control[weboptions.length];
 		panel.fActive = new Button[weboptions.length];

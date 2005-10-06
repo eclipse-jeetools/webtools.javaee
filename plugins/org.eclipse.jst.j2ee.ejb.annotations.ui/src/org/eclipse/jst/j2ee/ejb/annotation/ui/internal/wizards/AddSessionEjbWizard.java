@@ -32,7 +32,6 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 	private static final String PAGE_TWO = "pageTwo"; //$NON-NLS-1$
 	private static final String PAGE_THREE = "pageThree"; //$NON-NLS-1$
 	private static final String PAGE_FOUR = "pageFour"; //$NON-NLS-1$
-	private static final String PAGE_FIVE = "pageFive"; //$NON-NLS-1$
 	
 	
 	/**
@@ -110,7 +109,7 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 
 		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(
 				getDataModel(), 
-				PAGE_FIVE,
+				PAGE_FOUR,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
 				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
 		newEjbClassOptionsWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);

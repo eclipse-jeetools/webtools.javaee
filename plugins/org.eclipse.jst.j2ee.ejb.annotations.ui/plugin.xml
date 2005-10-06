@@ -53,7 +53,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
      <page
-            name="J2EE Annotations"
+            name="%j2ee_annotations"
              class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences.AnnotationPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotation.ui.preferences">
       </page>

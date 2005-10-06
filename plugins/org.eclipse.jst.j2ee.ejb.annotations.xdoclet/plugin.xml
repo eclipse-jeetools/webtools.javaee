@@ -15,19 +15,19 @@
    <extension
          point="org.eclipse.ui.preferencePages">
      <page
-            name="XDoclet"
+            name="%name_xdoclet"
             category="org.eclipse.jst.j2ee.ejb.annotation.ui.preferences"
              class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference">
       </page>
      <page
-            name="ejbdoclet"
+            name="%name_ejbdoclet"
             category="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejb.preference">
      </page>
      <page
-            name="webdoclet"
+            name="%name_webdoclet"
             category="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.web.preference">

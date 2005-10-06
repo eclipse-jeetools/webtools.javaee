@@ -14,6 +14,8 @@
  ***************************************************************************/
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
+import java.util.ResourceBundle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -158,8 +160,9 @@ public class DialogPanel extends Composite {
 		gridData.horizontalSpan = 2;
 		fText.setLayoutData(gridData);
 		fText.setText(value);
+		ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
 		Button fButton = new Button(defPanel, SWT.PUSH);
-		fButton.setText("Browse...");
+		fButton.setText(bundle.getString("label_browse"));
 		fButton.setLayoutData(new GridData());
 		fButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {

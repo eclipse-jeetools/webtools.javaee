@@ -121,8 +121,6 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			if (!isPropertySet(DESCRIPTION))
 				getDataModel().notifyPropertyChange(DESCRIPTION, IDataModel.DEFAULT_CHG);
 		}
-
-
 		return result;
 	}
 

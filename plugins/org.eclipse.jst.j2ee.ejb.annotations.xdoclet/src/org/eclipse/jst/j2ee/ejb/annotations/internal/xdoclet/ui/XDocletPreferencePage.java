@@ -16,6 +16,8 @@ package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
 
 
+import java.util.ResourceBundle;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.preference.PreferencePage;
@@ -99,19 +101,19 @@ public class XDocletPreferencePage extends PreferencePage implements
 				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		defPanel.setLayoutData(gridData);
 	
-		
+		ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
 		
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText("Set XDoclet Runtime Preferences");
+		label.setText(bundle.getString("label_set_xdoclet_runtime_preference"));
 	
 		panel.preferences = new Control[3];
 		panel.fActive = new Button[3];
-		panel.preferences[0] = panel.createLabeledCheck(0,false,XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),"Enable XDoclet Builder:","Enables xdoclet builder for automatic generation of java classes",XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),defPanel);
-		panel.preferences[2] = panel.createLabeledPath(2,true,"XDoclet Home:","The path of the xdoclet runtime installation",XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETHOME),defPanel);
-		panel.preferences[1] = panel.createLabeledCombo(1,false,true,"Version:","XDoclet version",XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETVERSION),new String[]{"1.2.1","1.2.2","1.2.3"},defPanel);
+		panel.preferences[0] = panel.createLabeledCheck(0,false,XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),bundle.getString("label_enable_xdoclet_builder"),bundle.getString("desc_enable_xdoclet_builder"),XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),defPanel);
+		panel.preferences[2] = panel.createLabeledPath(2,true,bundle.getString("label_xdoclet_home"),bundle.getString("desc_xdoclet_home"),XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETHOME),defPanel);
+		panel.preferences[1] = panel.createLabeledCombo(1,false,true,bundle.getString("label_xdoclet_version"),bundle.getString("desc_xdoclet_version"),XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETVERSION),new String[]{"1.2.1","1.2.2","1.2.3"},defPanel);
 		final Text xDocletPath = (Text)panel.preferences[2];
 		final Combo xDocletVersion = (Combo)panel.preferences[1];
 		ModifyListener listener = new ModifyListener(){

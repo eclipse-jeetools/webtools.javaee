@@ -14,6 +14,7 @@ import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class SessionBeanDelegate extends EnterpriseBeanDelegate implements ISessionBean {
 	public SessionBeanDelegate() {
@@ -22,45 +23,64 @@ public class SessionBeanDelegate extends EnterpriseBeanDelegate implements ISess
 		this.setEnterpriseBean(sessionBean);
 	}
 
+	public void setDataModel(IDataModel dataModel) {
+		super.setDataModel(dataModel);
+		Session session = (Session) this.getEnterpriseBean();
+		if (session == null)
+			return;
+
+		SessionType sessionBeanType = SessionType.STATELESS_LITERAL;
+		if (dataModel.getStringProperty(ISessionBeanDataModelProperties.STATELESS).equals(SessionType.STATEFUL_LITERAL.getName()))
+			sessionBeanType = SessionType.STATEFUL_LITERAL;
+		session.setSessionType(sessionBeanType);
+
+		TransactionType transactionType = TransactionType.CONTAINER_LITERAL;
+		if (dataModel.getStringProperty(ISessionBeanDataModelProperties.TRANSACTIONTYPE)
+				.equals(TransactionType.BEAN_LITERAL.getName()))
+			transactionType = TransactionType.BEAN_LITERAL;
+		session.setTransactionType(transactionType);
+
+	}
+
 	public String getSessionType() {
 		Session session = (Session) this.getEnterpriseBean();
 		return session.getSessionType().getName();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getTransactionType()
 	 */
 	public String getTransactionType() {
 		Session session = (Session) this.getEnterpriseBean();
 		return session.getTransactionType().getName();
 	}
-	
+
 	/**
-	 * 
-	 * This method permits us to keep emf model for the bean
-	 * in sync with the  changes in the datamodel
+	 * This method permits us to keep emf model for the bean in sync with the
+	 * changes in the datamodel
 	 */
-	
+
 	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
 		String property = event.getPropertyName();
 		Object propertyValue = event.getProperty();
-		Session session = (Session)this.getEnterpriseBean();
-		if(session == null)
+		Session session = (Session) this.getEnterpriseBean();
+		if (session == null)
 			return;
-		
-		if(ISessionBeanDataModelProperties.STATELESS.equals(property)){
+
+		if (ISessionBeanDataModelProperties.STATELESS.equals(property)) {
 			SessionType sessionBeanType = SessionType.STATELESS_LITERAL;
-			if( propertyValue.equals(SessionType.STATEFUL_LITERAL.getName()))
+			if (propertyValue.equals(SessionType.STATEFUL_LITERAL.getName()))
 				sessionBeanType = SessionType.STATEFUL_LITERAL;
 			session.setSessionType(sessionBeanType);
-		}else if(IEnterpriseBeanClassDataModelProperties.TRANSACTIONTYPE.equals(property))
-		{
-			TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
-			if(propertyValue.equals(TransactionType.BEAN_LITERAL.getName()))
+		} else if (IEnterpriseBeanClassDataModelProperties.TRANSACTIONTYPE.equals(property)) {
+			TransactionType transactionType = TransactionType.CONTAINER_LITERAL;
+			if (propertyValue.equals(TransactionType.BEAN_LITERAL.getName()))
 				transactionType = TransactionType.BEAN_LITERAL;
 			session.setTransactionType(transactionType);
 		}
-		
+
 	}
 }
