@@ -14,7 +14,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -82,59 +81,10 @@ public class FlexibleProjectBuilderTest extends TestCase {
 	 */
 	public void testFlexibleProjectBuilderOutput() throws Exception {
 	    setupContent();
-	    checkForEmptyDeployables();
 	    buildProjects();
-	    checkForDeployablesOutput();
 	}
 
-	/**
-     * 
-     */
-    private void checkForDeployablesOutput() {
-        try {
-            //check web project
-            IProject remoteWeb = getProjectForRemoteWebLib();
-            IFolder[] remoteOutputFolders = StructureEdit.getOutputContainersForProject(remoteWeb);
-            IFolder tempFolder = remoteWeb.getFolder(remoteOutputFolders[0].getName());
-            if(!tempFolder.exists())
-                assertFalse(".deployables should exist, a build has been run", true);
-            
-            if(!tempFolder.getFolder(getRemoteWebLibraryDeployedName()).exists())
-                assertFalse(".deployables/RemoteWebLibProject.jar should exist, a build has been run", true);
-            //check the remote java util project
-            IProject localWeb = getProjectForWebModuleAndLocalWebLib();
-            IFolder[] localOutputFolders = StructureEdit.getOutputContainersForProject(localWeb);
-            tempFolder = localWeb.getFolder(localOutputFolders[0].getName());
-            if(!tempFolder.exists())
-                assertFalse(".deployables should exist, a build has been run", true);
-            tempFolder = tempFolder.getFolder(getWebModuleDeployedName());
-            if(!tempFolder.exists())
-                assertFalse(getWebModuleDeployedName() + " should exist, a build has been run", true);
-            IFolder metaFolder = tempFolder.getFolder("META-INF");
-            if(!metaFolder.exists())
-                assertFalse(getWebModuleDeployedName() + "/META-INF should exist, a build has been run", true);
-            IFile manifest = metaFolder.getFile("MANIFEST.MF");
-            if(!manifest.exists())
-                assertFalse(getWebModuleDeployedName() + "/META-INF/MANIFEST.MF should exist, a build has been run", true);
-            IFolder webInf = tempFolder.getFolder("WEB-INF");
-            if(!webInf.exists())
-                assertFalse(getWebModuleDeployedName() + "/WEB-INF should exist, a build has been run", true);
-            if(!webInf.getFolder("classes").exists())
-                assertFalse(getWebModuleDeployedName() + "/WEB-INF/classes should exist, a build has been run", true);
-            if(!webInf.getFile("web.xml").exists())
-                assertFalse(getWebModuleDeployedName() + "/WEB-INF/web.xml should exist, a build has been run", true);
-            IFolder lib = webInf.getFolder("lib");
-            if(!lib.getFile(getLocalWebLibraryDeployedName()).exists())
-                assertFalse(getWebModuleDeployedName() + "/WEB-INF/lib/LocalWebLibrary.jar should exist, a build has been run", true);  
-            if(!lib.getFile(getRemoteWebLibraryDeployedName()).exists())
-                assertFalse(getWebModuleDeployedName() + "/WEB-INF/lib/RemoteWebLibProject.jar should exist, a build has been run", true);
-          
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }   
-    }
-
+	
     /**
      * 
      */
@@ -144,27 +94,6 @@ public class FlexibleProjectBuilderTest extends TestCase {
         } catch (Exception e) {
             // TODO: handle exception
         }
-    }
-
-    /**
-     * 
-     */
-    private void checkForEmptyDeployables() {
-        try {
-            IProject remoteWeb = getProjectForRemoteWebLib();
-            IFolder[] remoteOutputFolders = StructureEdit.getOutputContainersForProject(remoteWeb);
-            IFolder folder = remoteWeb.getFolder(remoteOutputFolders[0].getName());
-            if(folder.exists())
-                assertFalse(".deployables should only exist if a build has been run", true);
-            IProject localWeb = getProjectForWebModuleAndLocalWebLib();
-            IFolder[] localOutputFolders = StructureEdit.getOutputContainersForProject(localWeb);
-            folder = remoteWeb.getFolder(localOutputFolders[0].getName());
-            if(folder.exists())
-                assertFalse(".deployables should only exist if a build has been run", true);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }    
     }
 
 	public void setupContent() throws Exception {
