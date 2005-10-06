@@ -12,18 +12,17 @@ package org.eclipse.jem.internal.beaninfo.vm;
 
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.10 $  $Date: 2005/10/06 15:18:38 $ 
  */
 
 import java.beans.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
 
 import org.eclipse.jem.beaninfo.vm.BaseBeanInfo;
+import org.eclipse.jem.beaninfo.vm.IBaseBeanInfoConstants;
 import org.eclipse.jem.internal.beaninfo.common.*;
 import org.eclipse.jem.internal.proxy.common.*;
 
@@ -800,8 +799,8 @@ public abstract class ModelingBeanInfo implements ICallback {
 			List values = new ArrayList();
 			while (attrs.hasMoreElements()) {
 				String attrName = (String) attrs.nextElement();
-				if (attrName.equals(BaseBeanInfo.CATEGORY))
-					record.category = (String) descr.getValue(BaseBeanInfo.CATEGORY);
+				if (attrName.equals(IBaseBeanInfoConstants.CATEGORY))
+					record.category = (String) descr.getValue(IBaseBeanInfoConstants.CATEGORY);
 				else if (attrName.equals(BaseBeanInfo.PREFERRED)) {
 					// A bug in Java 1.3, doing setPreferred was lost. So for those also stored it in attributes. So if set here, then use it.
 					record.preferred = ((Boolean) descr.getValue(BaseBeanInfo.PREFERRED)).booleanValue();

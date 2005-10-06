@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: EventSetDecorator.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.8 $  $Date: 2005/10/06 15:18:38 $ 
  */
 
 
@@ -50,7 +50,7 @@ import org.eclipse.jem.java.Method;
 
 
 public interface EventSetDecorator extends FeatureDecorator{
-	public static final String EVENTADAPTERCLASS = "eventAdapterClass"; //$NON-NLS-1$
+	
 	/**
 	 * Returns the value of the '<em><b>In Default Event Set</b></em>' attribute.
 	 * <!-- begin-user-doc -->

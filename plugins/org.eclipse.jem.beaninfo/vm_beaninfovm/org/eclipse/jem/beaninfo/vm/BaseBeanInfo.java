@@ -12,19 +12,20 @@ package org.eclipse.jem.beaninfo.vm;
 
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.9 $  $Date: 2005/10/05 21:26:25 $ 
+ *  $Revision: 1.10 $  $Date: 2005/10/06 15:18:38 $ 
  */
 
 import java.awt.Image;
 import java.beans.*;
 import java.lang.reflect.*;
 
+
 /**
  * A BaseBeanInfo that provides common support for BeanInfos within the JEM environment.
  * 
  * @since 1.1.0
  */
-public abstract class BaseBeanInfo extends SimpleBeanInfo {
+public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanInfoConstants {
 
 	// Constants to use to create all descriptors etc.
 	protected static java.util.ResourceBundle RESBUNDLE = java.util.ResourceBundle.getBundle("org.eclipse.jem.beaninfo.vm.beaninfo"); //$NON-NLS-1$
@@ -70,14 +71,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 * @since 1.1.0
 	 */
 	public static final String DISPLAYNAME = "displayName";//$NON-NLS-1$
-	/**
-	 * Indicator used to describe a factory instantiation pattern.  Not API as will change to become more extensible 
-	 * via .override mechanism in future
-	 * 
-	 * @since 1.1
-	 */	
-	public static final String FACTORY_CREATION = "FACTORY_CREATION";//$NON-NLS-1$	
-
+	
 	/**
 	 * Expert indicator for apply property arguments.
 	 * 
@@ -114,14 +108,6 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	public static final String CUSTOMIZERCLASS = "customizerClass";//$NON-NLS-1$
 
 	/**
-	 * Category indicator for apply property arguments. Category is a pre-defined attribute name too. That is where the category is stored in a
-	 * descriptor.
-	 * 
-	 * @since 1.1.0
-	 */
-	public static final String CATEGORY = "category"; //$NON-NLS-1$
-
-	/**
 	 * In Default eventset indicator for apply property arguments.
 	 * 
 	 * @since 1.1.0
@@ -132,19 +118,11 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 * This is a Feature Attribute Key. When this key exists, the value is a java.lang.reflect.Field. It means this property
 	 * is a field and not a getter/setter. The getter/setter will be ignored and the property type will be the type of the field.
 	 * <p>
-	 * At this time, do not use field on an indexed property. This is currently an indefined situation.
+	 * At this time, do not use field on an indexed property. This is currently an undefined situation.
 	 * 
 	 * @since 1.1.0
 	 */
 	public static final String FIELDPROPERTY = "field"; //$NON-NLS-1$
-
-	/**
-	 * Enumeration values indicator for apply property arguments. Enumeration values is a pre-defined attribute name too. That is where the
-	 * enumeration values are stored.
-	 * 
-	 * @since 1.1.0
-	 */
-	public static final String ENUMERATIONVALUES = "enumerationValues";//$NON-NLS-1$
 
 	/**
 	 * Obscure indicator for apply property arguments. Obsure is a pre-defined attribute name too. That is where the obscure setting is stored.
@@ -172,7 +150,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 * @since 1.1.0
 	 */
 	public static final String DESIGNTIMEPROPERTY = "ivjDesignTimeProperty"; //$NON-NLS-1$
-
+	
 	/**
 	 * EventAdapterClass indicator for apply property arguments. Event adapter class is a pre-defined attribute name too. That is where the event
 	 * adapter is stored.
@@ -185,30 +163,6 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 */
 	public static final String EVENTADAPTERCLASS = "eventAdapterClass"; //$NON-NLS-1$
 
-	// The keys for icon file names, NOT THE java.awt.icon key.
-	public static final String ICONCOLOR16X16URL = "ICON_COLOR_16x16_URL"; //$NON-NLS-1$	// Not used.
-
-	public static final String ICONCOLOR32X32URL = "ICON_COLOR_32x32_URL"; //$NON-NLS-1$     	// Not used
-
-	public static final String ICONMONO16X16URL = "ICON_MONO_16x16_URL"; //$NON-NLS-1$        	// Not used
-
-	public static final String ICONMONO32X32URL = "ICON_MONO_32x32_URL"; //$NON-NLS-1$			// Not used
-	
-	/**
-	 * Used by Visual Editor as feature attribute key/value to indicate that it must create an implicit setting of a property(s).
-	 * For example {@link javax.swing.JFrame#getContentPane()}. There must be a content pane
-	 * set in the VE model so that users can drop the components on it. Setting this here
-	 * means that the default content pane from the JFrame will show up in the editor to use.
-	 * <p>
-	 * This should be used with care in that not all properties are required to always show up.
-	 * They can be queried when needed.
-	 * <p>
-	 * The value can be either a {@link String} for one property. Or it can be a {@link String[]} for more
-	 * than one property.
-	 * 
-	 * @since 1.2.0
-	 */
-	public static final String REQUIRED_IMPLICIT_PROPERTIES = "requiredImplicitProperties";	//$NON-NLS-1$
 
 	public static final boolean JVM_1_3 = System.getProperty("java.version", "").startsWith("1.3"); //$NON-NLS-1$ //$NON-NLS-2$  //$NON-NLS-3$
 	
@@ -523,6 +477,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 
 		return pd;
 	}
+
 
 	/**
 	 * Create a new PropertyDescriptor based upon the PD sent in. It will clone the sent in one, and apply the args to override any specific setting.
