@@ -20,13 +20,10 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
  */
 public class EmitterUtilities {
 
-	
-	final static String STRUCTURALBUILDER="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder";
-	
 	public static void addAnnotationBuilderToProject(IConfigurationElement emitter,
 			IProject targetProject) throws CoreException {
 		String builderId = emitter.getAttribute("builderId");
-		ProjectUtilities.addToBuildSpecBefore(emitter.getNamespace()+ "." + builderId,STRUCTURALBUILDER, targetProject);
+		ProjectUtilities.addToBuildSpec(emitter.getNamespace()+ "." + builderId, targetProject);
 		
 	}
 
