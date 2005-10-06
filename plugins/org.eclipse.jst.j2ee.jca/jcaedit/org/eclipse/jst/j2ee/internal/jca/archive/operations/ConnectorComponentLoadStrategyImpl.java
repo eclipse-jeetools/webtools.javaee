@@ -65,7 +65,7 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		while (interator.hasNext()) {
 			filesHolder.addFile((File) interator.next());
 		}
-		getSourceFiles();
+		aggregateSourceFiles();
 		return filesHolder.getFiles();
 	}
 

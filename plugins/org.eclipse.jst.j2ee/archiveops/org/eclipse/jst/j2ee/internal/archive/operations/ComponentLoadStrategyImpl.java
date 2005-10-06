@@ -80,7 +80,6 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			}
 		}
 
-
 		public void addFile(File file) {
 			String uri = file.getURI();
 			urisToFiles.put(uri, file);
@@ -143,22 +142,22 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	public List getFiles() {
-		getSourceFiles();
-		getClassFiles();
+		aggregateSourceFiles();
+		aggregateClassFiles();
 		return filesHolder.getFiles();
 	}
 
-	protected void getSourceFiles() {
+	protected void aggregateSourceFiles() {
 		try {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
 			IVirtualResource[] members = rootFolder.members();
-			getFiles(members);
+			aggregateFiles(members);
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		}
 	}
 
-	protected void getClassFiles() {
+	protected void aggregateClassFiles() {
 		StructureEdit se = null;
 		try {
 			IPackageFragmentRoot[] sourceRoots = ComponentUtilities.getSourceContainers(vComponent);
@@ -190,7 +189,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 						runtimePath = new Path(""); //$NON-NLS-1$
 					}
 					
-					getOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
+					aggregateOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
 				}
 			}
 		} catch (CoreException e) {
@@ -202,8 +201,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
-
-	protected void getOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
+	protected void aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
 		for (int i = 0; i < resources.length; i++) {
 			File cFile = null;
 			if (resources[i].getType() == IResource.FILE) {
@@ -222,12 +220,12 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				filesHolder.addFile(cFile, resources[i]);
 			} else if (shouldInclude((IContainer) resources[i])) {
 				IResource[] nestedResources = ((IContainer) resources[i]).members();
-				getOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount);
+				aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount);
 			}
 		}
 	}
 
-	protected void getFiles(IVirtualResource[] virtualResources) throws CoreException {
+	protected void aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		for (int i = 0; i < virtualResources.length; i++) {
 			File cFile = null;
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
@@ -250,7 +248,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				filesHolder.addFile(cFile, resource);
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
 				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
-				getFiles(nestedVirtualResources);
+				aggregateFiles(nestedVirtualResources);
 			}
 		}
 	}
@@ -347,7 +345,5 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public IVirtualComponent getComponent() {
 		return vComponent;
 	}
-
-
 
 }
