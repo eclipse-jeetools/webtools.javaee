@@ -30,8 +30,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.server.core.IJ2EEModule;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -64,20 +62,6 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 
 	public String getJ2EESpecificationVersion() {
 		return "1.2";  //$NON-NLS-1$
-	}
-
-	/*
-	 * @see IJ2EEModule#getLocation()
-	 */
-	public IPath getLocation() {
-		IPath path = null;
-	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
-        	if( component != null ){
-        		IFolder outputContainer = StructureEdit.getOutputContainerRoot(component);
-        		path = outputContainer.getRawLocation();
-        	}
-        }    
-		return path;
 	}
 	
 	/*
@@ -297,17 +281,6 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
     	}
     	return result;
     }
-    
-	public IPath getRootFolder() {		   
-		IPath path = null;
-	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
-     	if( component != null ){
-     		IFolder outputContainer = StructureEdit.getOutputContainerRoot(component);
-     		path = outputContainer.getProjectRelativePath();
-     	}
-     }    
-		return path;
-	}
     
     protected IContainer getContainerResource(IResource resource){
         if(resource instanceof IFolder) {

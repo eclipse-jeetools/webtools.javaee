@@ -260,6 +260,8 @@ public class ArchiveUtil {
 	 * occurrence of a separator
 	 */
 	public static String getFileNameParent(String uri) {
+		if (uri==null)
+			return ""; //$NON-NLS-1$
 		String tempURI = uri.replace('\\', '/');
 		while (tempURI.endsWith("/")) //$NON-NLS-1$
 			tempURI = tempURI.substring(0, tempURI.length() - 1);

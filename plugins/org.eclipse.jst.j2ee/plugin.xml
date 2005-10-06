@@ -541,18 +541,6 @@
         <DataModelProvider
             class="org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider"
             id="org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider"/>
-     	<DataModelProvider
-            class="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"
-            id="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
-     	<ProviderDefinesType
-      		providerType="jst.ear.builder"
-      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
-		<ProviderDefinesType
-      		providerType="jst.appclient.builder"
-      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
-		<ProviderDefinesType
-      		providerType="jst.utility.builder"
-      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 	<!-- Project Facets -->
 	<extension point="org.eclipse.wst.common.project.facet.core.facets">
