@@ -36,11 +36,10 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
-	private EARFile earFile;
 
-	public EARComponentImportOperation(IDataModel dataModel) {
-		super(dataModel);
-		earFile = (EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE);
+	public EARComponentImportOperation(IDataModel model) {
+		super(model);
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -131,7 +130,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 					extraEntries.add(JavaCore.newLibraryEntry(file.getFullPath(), file.getFullPath(), null, true));
 					Archive archive = null;
 					try {
-						archive = (Archive) earFile.getFile(manifestURI);
+						archive = (Archive) getEarFile().getFile(manifestURI);
 						String[] nestedManifestClasspath = archive.getManifest().getClassPathTokenized();
 						extraEntries.addAll(fixupClasspath(earComponent, nestedManifestClasspath, computedFiles, archive, nestedComponent));
 					} catch (FileNotFoundException e) {
@@ -156,8 +155,8 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
 	private void releaseDeploymentDescriptor() {
 		try {
-			if (earFile != null && earFile.isDeploymentDescriptorSet()) {
-				XMLResource res = (XMLResource) earFile.getDeploymentDescriptor().eResource();
+			if (getEarFile() != null && getEarFile().isDeploymentDescriptorSet()) {
+				XMLResource res = (XMLResource) getEarFile().getDeploymentDescriptor().eResource();
 				if (res != null)
 					res.releaseFromRead();
 			}
@@ -172,5 +171,9 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
 		return new EARComponentSaveStrategyImpl(virtualComponent);
+	}
+
+	protected EARFile getEarFile() {
+		return (EARFile) model.getProperty(IEARComponentImportDataModelProperties.FILE);
 	}
 }
