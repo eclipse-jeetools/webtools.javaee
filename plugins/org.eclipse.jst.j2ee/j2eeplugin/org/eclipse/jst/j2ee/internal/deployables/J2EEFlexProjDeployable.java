@@ -123,13 +123,13 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
         	return new IModuleResource[] {};
         try {
         	// Retrieve the java output folder files
-	    	IContainer[] outputFolders = ComponentUtilities.getOutputContainers(component);
-	    	for (int i=0; i<outputFolders.length; i++) {
-	    		if (outputFolders[i]!=null && outputFolders[i].exists()) {
-	    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
-	    			members.addAll(Arrays.asList(javaResources));
-	    		}
-	    	}
+//	    	IContainer[] outputFolders = ComponentUtilities.getOutputContainers(component);
+//	    	for (int i=0; i<outputFolders.length; i++) {
+//	    		if (outputFolders[i]!=null && outputFolders[i].exists()) {
+//	    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
+//	    			members.addAll(Arrays.asList(javaResources));
+//	    		}
+//	    	}
         	// Retrieve the module resources from the virtual component's root folder
 	    	IVirtualFolder componentRoot = component.getRootFolder();
 	    	if (componentRoot!=null && componentRoot.exists()) {
