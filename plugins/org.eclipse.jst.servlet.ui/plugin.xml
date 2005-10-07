@@ -105,7 +105,7 @@
             id="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
       </extendableWizard>
    </extension>
-   <extension
+ <!--  <extension
 		point="org.eclipse.ui.actionSets">
 		<actionSet
 			label="%ConvertWebProjectType"
@@ -127,7 +127,7 @@
 				</enablement>            
 			</action>
 		</actionSet>
-	</extension>
+	</extension> -->
 	
 	<extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
