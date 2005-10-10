@@ -13,12 +13,11 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -33,8 +32,9 @@ import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 /**
  * J2EE deployable factory superclass.
  */
-public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
+public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 
+	public static final String ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
 	protected HashMap projectModules;
 
 	protected final List moduleDelegates = Collections.synchronizedList(new ArrayList(1));
@@ -44,12 +44,10 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	protected static boolean isFlexibleProject(IProject project) {
 		return ModuleCoreNature.getModuleCoreNature(project) != null;
 	}
-
+	
 	public J2EEDeployableFactory() {
 		super();
 	}
-
-
 
 	protected boolean needsUpdating(IProject project) {
 		if(!initialized)
@@ -63,18 +61,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		}
 		return false;
 	}
-
-
-	/**
-	 * Return the workspace root.
-	 * 
-	 * @return the workspace root
-	 */
-	private static IWorkspaceRoot getWorkspaceRoot() {
-		return ResourcesPlugin.getWorkspace().getRoot();
-	}
-
-
 
 	protected IModule[] createModules(IProject project) {
 
@@ -109,10 +95,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		}
 		return modules;
 	}
-
-
-	protected abstract List createModuleDelegates(IVirtualComponent comp) throws CoreException; 
-
 	
 	protected boolean isValidModule(IProject project) {
 		try {
@@ -122,17 +104,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		}
 		return false;
 	}
-
-	
-/*	protected IModule createModule(IProject project) {
-		try {
-			J2EENature nature = (J2EENature) project.getNature(getNatureID());
-			return createModule(nature);
-		} catch (Exception e) {
-		}
-		return null;
-	}*/
-
 
 	public ModuleDelegate getModuleDelegate(IModule module) {
 		if(moduleDelegates.size() == 0)
@@ -145,7 +116,42 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		}
 		return null;
 	}
+	
+	public IModule[] getModules() {
+		cacheModules(false);
+		ArrayList moduleList = new ArrayList();
+		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
+			IModule[] element = (IModule[]) iter.next();
+			for (int j = 0; j < element.length; j++) {
+				moduleList.add(element[j]);
+			}
+		}
+		IModule[] modules = new IModule[moduleList.size()];
+		moduleList.toArray(modules);
+		return modules;
 
-
+	}
+	
+	protected List createModuleDelegates(IVirtualComponent component) {
+		J2EEFlexProjDeployable moduleDelegate = null;
+		IModule module = null;
+		List moduleList = new ArrayList();
+		try {
+			moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), ID, component);
+			module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+			moduleList.add(module);
+			moduleDelegate.initialize(module);
+			
+			// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
+		} catch (Exception e) {
+			Logger.getLogger().write(e);
+		} finally {
+			if (module != null) {
+				if (getModuleDelegate(module) == null)
+					moduleDelegates.add(moduleDelegate);
+			}
+		}
+		return moduleList;
+	}
 
 }

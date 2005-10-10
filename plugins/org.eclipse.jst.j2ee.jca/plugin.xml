@@ -44,22 +44,6 @@
          </run>
       </validator>
    </extension>
-<!-- =============================================================== -->
-<!-- Purpose: Define the default deployable project factory          -->
-<!-- Extension point: com.ibm.etools.server.core.deployableFactories -->
-<!-- =============================================================== -->
-   <extension
-         point="org.eclipse.wst.server.core.moduleFactories">
-      <moduleFactory
-            projects="true"
-            class="org.eclipse.jst.j2ee.jca.internal.deployables.Connector1_3DeployableFactory"
-            id="org.eclipse.jst.j2ee.server.connector13">
-         <moduleType
-               versions="1.2, 1.3, 1.4"
-               types="j2ee.connector">
-         </moduleType>
-      </moduleFactory>
-   </extension>
    
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">

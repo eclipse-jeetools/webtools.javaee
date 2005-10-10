@@ -488,37 +488,14 @@
    <extension
          point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
-          
             projects="true"
-            
-            class="org.eclipse.jst.j2ee.internal.deployables.ApplicationClientDeployableFactory"
-            id="org.eclipse.jst.j2ee.server.appclient">
+            class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory"
+            id="org.eclipse.jst.j2ee.server">
          <moduleType
                versions="*"
-               types="j2ee.appClient">
+               types="j2ee.ear, j2ee.appClient, j2ee.web, j2ee.ejb, j2ee.connector">
          </moduleType>
       </moduleFactory>
-      <moduleFactory
-           
-            projects="true"
-           
-            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableFactory"
-            id="org.eclipse.jst.j2ee.server.application">
-         <moduleType
-               versions="*"
-               types="j2ee.ear">
-         </moduleType>
-      </moduleFactory>
- <!--    <moduleFactory
-            projects="true"
-          
-            class="org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory"
-            id="org.eclipse.jst.j2ee.server.looseArchive">
-         <moduleType
-               versions="*"
-               types="j2ee.loosearchive">
-         </moduleType>
-      </moduleFactory> -->
    </extension>
 
 <!-- =============================================================== -->

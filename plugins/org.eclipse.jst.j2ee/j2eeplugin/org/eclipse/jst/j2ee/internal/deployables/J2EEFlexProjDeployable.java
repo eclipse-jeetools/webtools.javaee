@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -24,16 +26,35 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.server.core.IApplicationClientModule;
+import org.eclipse.jst.server.core.IConnectorModule;
+import org.eclipse.jst.server.core.IEJBModule;
 import org.eclipse.jst.server.core.IJ2EEModule;
+import org.eclipse.jst.server.core.IWebModule;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.internal.ModuleFile;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
@@ -43,7 +64,7 @@ import org.eclipse.wst.server.core.util.ProjectModule;
 /**
  * J2EE deployable superclass.
  */
-public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule {
+public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
 	private String factoryId;
     protected IVirtualComponent component = null;
     private boolean outputMembersAdded = false;
@@ -61,7 +82,19 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	}
 
 	public String getJ2EESpecificationVersion() {
-		return "1.2";  //$NON-NLS-1$
+		String type = component.getComponentTypeId();
+		if (IModuleConstants.JST_EAR_MODULE.equals(type))
+			return component.getVersion();
+		else if (IModuleConstants.JST_APPCLIENT_MODULE.equals(type))
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(component.getVersion()));
+		else if (IModuleConstants.JST_CONNECTOR_MODULE.equals(type))
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(component.getVersion()));
+		else if (IModuleConstants.JST_EJB_MODULE.equals(type))
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(component.getVersion()));
+		else if (IModuleConstants.JST_WEB_MODULE.equals(type))
+			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(component.getVersion()));
+		else
+			return component.getVersion();
 	}
 	
 	/*
@@ -87,11 +120,25 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	}
 
 	public String getVersion() {
+		if (component != null)
+			return component.getVersion();
 		return "1.2"; //$NON-NLS-1$
 	}
 
 	public String getType() {
-		return "j2ee.ear"; //$NON-NLS-1$
+		String type = component.getComponentTypeId();
+		if (IModuleConstants.JST_EAR_MODULE.equals(type))
+			return "j2ee.ear"; //$NON-NLS-1$
+		else if (IModuleConstants.JST_APPCLIENT_MODULE.equals(type))
+			return "j2ee.appclient"; //$NON-NLS-1$
+		else if (IModuleConstants.JST_CONNECTOR_MODULE.equals(type))
+			return "j2ee.connector"; //$NON-NLS-1$
+		else if (IModuleConstants.JST_EJB_MODULE.equals(type))
+			return "j2ee.ejb"; //$NON-NLS-1$
+		else if (IModuleConstants.JST_WEB_MODULE.equals(type))
+			return "j2ee.web"; //$NON-NLS-1$
+		else
+			return null;
 	}
 
 	public IModuleType getModuleType() {
@@ -312,5 +359,132 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
         }
         return null;
     }
+    
+    public String getJ2CSpecificationVersion() {
+		return getVersion();
+	}
+    
+    /**
+     * Returns the classpath as a list of absolute IPaths.
+     * 
+     * @param java.util.List
+     */
+    public IPath[] getClasspath() {
+		List paths = new ArrayList();
+        IJavaProject proj = JemProjectUtilities.getJavaProject(getProject());
+        URL[] urls = JemProjectUtilities.getClasspathAsURLArray(proj);
+		for (int i = 0; i < urls.length; i++) {
+			URL url = urls[i];
+			paths.add(Path.fromOSString(url.getPath()));
+		}
+        return  (IPath[]) paths.toArray(new IPath[paths.size()]);
+    }
+    
+    public String getEJBSpecificationVersion() {
+		return getVersion();
+	}
+    
+    public String getJNDIName(String ejbName) {
+    	if (!IModuleConstants.JST_EJB_MODULE.equals(component.getComponentTypeId()))
+    		return null;
+		EjbModuleExtensionHelper modHelper = null;
+		EJBJar jar = null;
+		ArtifactEdit ejbEdit = null;
+		try {
+			ejbEdit = ComponentUtilities.getArtifactEditForRead(component);
+			if (ejbEdit != null) {
+				jar = (EJBJar) ejbEdit.getContentModelRoot();
+				modHelper = IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (ejbEdit != null)
+				ejbEdit.dispose();
+		}
+		return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
+	}
+    
+    /**
+     * Returns the child modules of this module.
+     * 
+     * @return org.eclipse.wst.server.core.model.IModule[]
+     */
+    public IModule[] getChildModules() {
+        return getModules();
+    }
+    
+    public IModule[] getModules() {
+		List modules = new ArrayList();
+    	IVirtualReference[] components = component.getReferences();
+    	for (int i=0; i<components.length; i++) {
+			IVirtualReference reference = components[i];
+			IVirtualComponent virtualComp = reference.getReferencedComponent();
+			Object module = FlexibleProjectServerUtil.getModule(virtualComp);
+			if (module!=null)
+				modules.add(module);
+		}
+        return (IModule[]) modules.toArray(new IModule[modules.size()]);
+	}
+    
+    public String getURI(IModule module) {
+    	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
+    	if (IModuleConstants.JST_EAR_MODULE.equals(comp.getComponentTypeId())) {
+			EARArtifactEdit earEdit = null;
+			String aURI = null;
+			try {
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+				if (earEdit != null) {
+					aURI = earEdit.getModuleURI(comp);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (earEdit != null)
+					earEdit.dispose();
+			}
+			return aURI;
+    	}
+    	else if (IModuleConstants.JST_WEB_MODULE.equals(comp.getComponentTypeId())) {
+    		String result = null;
+    		if (!comp.isBinary()) {
+        		IVirtualReference ref = component.getReference(comp.getName());
+        		result = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
+        	}
+        	return result;
+    	}
+    	return null;
+	}
+    
+    public String getJSPSpecificationVersion() {
+    	String ret = "1.2"; //$NON-NLS-1$
+    	String stringVersion = getServletSpecificationVersion();
+		int nVersion = J2EEVersionUtil.convertVersionStringToInt(stringVersion);
+       	switch( nVersion ){
+    		case 22:
+    			ret = J2EEVersionConstants.VERSION_1_1_TEXT;
+    			break;
+    		case 23:
+    			ret = J2EEVersionConstants.VERSION_1_2_TEXT;
+    			break;
+    		case 24:	
+    			ret = J2EEVersionConstants.VERSION_2_0_TEXT;
+    			break;
+      		default:
+    			ret = J2EEVersionConstants.VERSION_1_1_TEXT;
+    			break;    			
+    	}
+    	return ret; 
+    }
 
+    public String getServletSpecificationVersion() {
+		return getVersion();
+	}
+    
+    public String getContextRoot() {
+		Properties props = component.getMetaProperties();
+		if(props.containsKey(J2EEConstants.CONTEXTROOT))
+			return props.getProperty(J2EEConstants.CONTEXTROOT);
+	    return component.getName();
+    }
 }
