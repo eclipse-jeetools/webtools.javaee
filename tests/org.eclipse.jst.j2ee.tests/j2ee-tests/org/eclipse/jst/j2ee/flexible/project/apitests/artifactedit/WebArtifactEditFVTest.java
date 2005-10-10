@@ -10,8 +10,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.ParamValue;
-import org.eclipse.jst.j2ee.internal.web.deployables.J2EEFlexProjWebDeployable;
-import org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableFactory;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -26,14 +26,12 @@ import org.eclipse.wst.server.core.model.IModuleResource;
 public class WebArtifactEditFVTest extends TestCase {
 
 	private IProject webProject;
-	private String webModuleName;
 //	private String serverContextData = TestWorkspace.WEB_SERVER_CONTEXT_ROOT + "Test"; //$NON-NLS-1$
 
 	public WebArtifactEditFVTest() {
 		super();
 		if (TestWorkspace.init()) {
 			webProject = TestWorkspace.getTargetProject(TestWorkspace.WEB_PROJECT_NAME);
-			webModuleName = TestWorkspace.WEB_MODULE_NAME;
 		} else {
 			fail();
 
@@ -60,8 +58,8 @@ public class WebArtifactEditFVTest extends TestCase {
 	}
 	
 	public void testDeployableResourceGather() {
-		IVirtualComponent webComp = ComponentCore.createComponent(webProject,webModuleName);
-		J2EEFlexProjWebDeployable deployable = new J2EEFlexProjWebDeployable(webProject, WebDeployableFactory.ID, webComp);
+		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+		J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(webProject, J2EEDeployableFactory.ID, webComp);
 		try {
 			IModuleResource[] resources = deployable.members();
 			assertTrue(resources.length>1);
