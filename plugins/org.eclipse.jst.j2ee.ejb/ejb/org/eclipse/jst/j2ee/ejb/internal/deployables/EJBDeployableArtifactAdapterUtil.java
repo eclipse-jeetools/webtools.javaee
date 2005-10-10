@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -232,7 +233,7 @@ public class EJBDeployableArtifactAdapterUtil {
 			String jndiName = null;
 			if (ejbName != null) {
 				module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
-				EJBFlexibleDeployable moduleDelegate = (EJBFlexibleDeployable)module.getAdapter(ModuleDelegate.class);
+				J2EEFlexProjDeployable moduleDelegate = (J2EEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
 				jndiName = moduleDelegate.getJNDIName(ejbName);
 			}
 			return new EJBBean(module, jndiName, remote, local);
