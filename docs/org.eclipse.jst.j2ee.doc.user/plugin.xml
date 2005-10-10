@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<?NLS TYPE="org.eclipse.help.contexts"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
 <!-- /*******************************************************************************
  * Copyright (c) 2000, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
@@ -11,18 +11,8 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/ -->
-<!-- ================================================= -->
-<!-- This is the plugin for declaring the help         -->
-<!-- contributions for the j2eeapp.doc component       -->
-<!-- ================================================= -->
-
 <plugin>
-	
-<!-- ============================================================================= -->
-<!-- Define TOCs                                                                   -->
-<!-- ============================================================================= -->
-
-   <extension point="org.eclipse.help.toc">
-       <toc file="jst_j2ee_toc.xml"  primary="true" />
+<extension point="org.eclipse.help.toc">
+       <toc file="jst_j2ee_toc.xml"/>
        </extension>
 </plugin>
