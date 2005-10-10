@@ -22,12 +22,14 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEJavaComponentSaveStrategyImpl;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -46,13 +48,18 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		IDataModel nestedComonentCreationDM = model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		String componentName = (String)model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT_NAME);
+
 		IVirtualComponent component = (IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT);
 
-		if (!component.exists()) {
+		if ( component == null || !component.exists()) {
 			model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION).getDefaultOperation().execute(monitor, info);
+			IProject javaProject = ProjectUtilities.getProject(componentName);
+			component = ComponentCore.createComponent(javaProject);			
 		}
-
 		IProject javaProject = component.getProject();
+		
+
 		Archive jarFile = (Archive) model.getProperty(IJavaUtilityJarImportDataModelProperties.FILE);
 
 		J2EEJavaComponentSaveStrategyImpl strat = new J2EEJavaComponentSaveStrategyImpl(component);
