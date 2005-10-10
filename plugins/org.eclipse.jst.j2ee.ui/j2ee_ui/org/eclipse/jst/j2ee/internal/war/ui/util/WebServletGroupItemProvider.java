@@ -13,6 +13,7 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,54 +35,45 @@ public class WebServletGroupItemProvider extends WebGroupItemProvider {
 	/**
 	 * @param adapterFactory
 	 */
-	public WebServletGroupItemProvider(AdapterFactory adapterFactory, WebApp webApp) {
-		super(adapterFactory, webApp);
+	public WebServletGroupItemProvider(AdapterFactory adapterFactory, WeakReference weakWebApp) {
+		super(adapterFactory, weakWebApp);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getChildren(java.lang.Object)
 	 */
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
-		result.addAll(webApp.getServlets());
+		Object webApp = weakWebApp.get();
+		if(null != webApp){
+			result.addAll(((WebApp)webApp).getServlets());
+		}
 		return getSortedChildren(result);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getImage()
 	 */
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("servlet"); //$NON-NLS-1$
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getText()
 	 */
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("Servlets_1"); //$NON-NLS-1$ 
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)
 	 */
 	public boolean hasChildren(Object object) {
 		return !getChildren(object).isEmpty();
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
 	public Object getParent(Object object) {
-		return webApp;
+		return weakWebApp.get();
 	}
 }

@@ -16,7 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
@@ -35,52 +37,44 @@ public class WebFilterMappingGroupItemProvider extends WebGroupItemProvider {
 	/**
 	 * @param adapterFactory
 	 */
-	public WebFilterMappingGroupItemProvider(AdapterFactory adapterFactory, WebApp webApp) {
-		super(adapterFactory, webApp);
+	public WebFilterMappingGroupItemProvider(AdapterFactory adapterFactory, WeakReference weakWebApp) {
+		super(adapterFactory,weakWebApp);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getChildren(java.lang.Object)
 	 */
 	public Collection getChildren(Object object) {
-		return webApp.getFilterMappings();
+		Object webApp = weakWebApp.get();
+		if(null != webApp){
+			return ((WebApp)webApp).getFilterMappings();
+		}
+		return Collections.EMPTY_LIST;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getImage()
 	 */
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("filter_mapping"); //$NON-NLS-1$
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getText()
 	 */
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("FILTER_MAPPING"); //$NON-NLS-1$ 
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)
 	 */
 	public boolean hasChildren(Object object) {
 		return !getChildren(object).isEmpty();
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
 	public Object getParent(Object object) {
-		return webApp;
+		return weakWebApp.get();
 	}
 }

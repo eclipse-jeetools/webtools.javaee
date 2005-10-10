@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -35,8 +36,8 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
 /**
  * @author jlanuti
  * 
- * To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Generation - Code and Comments
+ * To change the template for this generated type comment go to Window - Preferences - Java - Code
+ * Generation - Code and Comments
  */
 public class J2EEWebAppItemProvider extends WebAppItemProvider {
 
@@ -54,29 +55,27 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 * Listen and fire updates for 1.3 web service clients
 	 */
 	private class J2EEWebServiceClientDDManager extends AdapterImpl implements EditModelListener {
-		private WebApp webApp;
+		private WeakReference weakWebApp;
 		WebServicesClient client;
 
-		public J2EEWebServiceClientDDManager(WebApp webApp) {
-			this.webApp = webApp;
+		public J2EEWebServiceClientDDManager(WeakReference weakWebApp) {
+			this.weakWebApp = weakWebApp;
 			init();
 		}
 
-		public void setWebApp(WebApp webApp) {
-			this.webApp = webApp;
-		}
+		
 
 		public void init() {
-			//TODO fix up notification
-//			editModel = webServiceMgr.getWSEditModel(ProjectUtilities.getProject(webApp));
-//			if (editModel != null) {
-//				editModel.addListener(this);
-//				if (editModel.get13WebServicesClientResource() != null) {
-//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
-//					if (client != null)
-//						client.eAdapters().add(this);
-//				}
-//			}
+			// TODO fix up notification
+			// editModel = webServiceMgr.getWSEditModel(ProjectUtilities.getProject(webApp));
+			// if (editModel != null) {
+			// editModel.addListener(this);
+			// if (editModel.get13WebServicesClientResource() != null) {
+			// client = editModel.get13WebServicesClientResource().getWebServicesClient();
+			// if (client != null)
+			// client.eAdapters().add(this);
+			// }
+			// }
 		}
 
 		/*
@@ -85,9 +84,9 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 		 */
 		public void editModelChanged(EditModelEvent anEvent) {
-			//TODO fix up notification
-//			if (editModel == null)
-//				init();
+			// TODO fix up notification
+			// if (editModel == null)
+			// init();
 		}
 
 		/*
@@ -96,8 +95,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 		 */
 		public void notifyChanged(Notification notification) {
-			if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE
-					|| notification.getEventType() == Notification.REMOVE_MANY) {
+			if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {
 				if (notification.getFeatureID(WebServicesClient.class) == Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS) {
 					NotificationWrapper notificationWrapper = new NotificationWrapper(webRefsGroup, notification);
 					fireNotifyChanged(notificationWrapper);
@@ -107,17 +105,18 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		}
 
 		public void dispose() {
-			//TODO fix up notification
-//			if (editModel != null) {
-//				editModel.removeListener(this);
-//				if (editModel.get13WebServicesClientResource() != null) {
-//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
-//					if (client != null)
-//						client.eAdapters().remove(this);
-//				}
-//			}
+			// TODO fix up notification
+			// if (editModel != null) {
+			// editModel.removeListener(this);
+			// if (editModel.get13WebServicesClientResource() != null) {
+			// client = editModel.get13WebServicesClientResource().getWebServicesClient();
+			// if (client != null)
+			// client.eAdapters().remove(this);
+			// }
+			// }
 		}
 	}
+
 	/**
 	 * Default constructor
 	 */
@@ -128,45 +127,28 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	/**
 	 * initilaize list of children
 	 */
-	private void initChildren(WebApp webApp) {
+	private void initChildren() {
 		if (clientMgr == null)
-			clientMgr = new J2EEWebServiceClientDDManager(webApp);
-		children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, webApp));
-		children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, webApp));
-		children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, webApp));
-		children.add(webFilterMappingGroup = new WebFilterMappingGroupItemProvider(adapterFactory, webApp));
-		children.add(webRefsGroup = new WebReferencesGroupItemProvider(adapterFactory, webApp));
-		children.add(webSecurityGroup = new WebSecurityGroupItemProvider(adapterFactory, webApp));
-		children.add(webListenerGroup = new WebListenerGroupItemProvider(adapterFactory, webApp));
+			clientMgr = new J2EEWebServiceClientDDManager(weakWebApp);
+		children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, weakWebApp));
+		children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, weakWebApp));
+		children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, weakWebApp));
+		children.add(webFilterMappingGroup = new WebFilterMappingGroupItemProvider(adapterFactory, weakWebApp));
+		children.add(webRefsGroup = new WebReferencesGroupItemProvider(adapterFactory, weakWebApp));
+		children.add(webSecurityGroup = new WebSecurityGroupItemProvider(adapterFactory, weakWebApp));
+		children.add(webListenerGroup = new WebListenerGroupItemProvider(adapterFactory, weakWebApp));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
-	 */
+	protected WeakReference weakWebApp = null;
+
 	public Collection getChildren(Object object) {
 		if (object instanceof WebApp && children.isEmpty()) {
-			WebApp webApp = (WebApp) object;
-			initChildren(webApp);
+			weakWebApp = new WeakReference(object);
+			initChildren();
 		}
 		if (object instanceof WebApp)
-			setWebAppOnChildren((WebApp) object);
+			weakWebApp = new WeakReference(object);
 		return children;
-	}
-
-	/**
-	 * @param app
-	 */
-	private void setWebAppOnChildren(WebApp app) {
-		for (int i = 0; i < children.size(); i++) {
-			if (children.get(i) instanceof WebGroupItemProvider) {
-				WebGroupItemProvider provider = (WebGroupItemProvider) children.get(i);
-				provider.setWebApp(app);
-			}
-		}
-		if (clientMgr != null)
-			clientMgr.setWebApp(app);
 	}
 
 	/*
@@ -186,8 +168,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	public void notifyChanged(Notification notification) {
 		// We only care about adds and removes for the different item provider
 		// groups
-		if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE
-				|| notification.getEventType() == Notification.REMOVE_MANY) {
+		if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {
 			Object notifier = null;
 			switch (notification.getFeatureID(WebApp.class)) {
 				case WebapplicationPackage.WEB_APP__SERVLETS :

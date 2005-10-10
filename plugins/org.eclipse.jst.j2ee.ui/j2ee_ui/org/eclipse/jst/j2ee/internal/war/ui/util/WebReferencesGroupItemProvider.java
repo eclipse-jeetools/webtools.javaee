@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,8 +40,8 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 	/**
 	 * @param adapterFactory
 	 */
-	public WebReferencesGroupItemProvider(AdapterFactory adapterFactory, WebApp webApp) {
-		super(adapterFactory, webApp);
+	public WebReferencesGroupItemProvider(AdapterFactory adapterFactory, WeakReference weakWebApp) {
+		super(adapterFactory, weakWebApp);
 	}
 
 	/*
@@ -49,7 +50,7 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
 	public Object getParent(Object object) {
-		return webApp;
+		return weakWebApp.get();
 	}
 
 	/*
@@ -59,28 +60,32 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 	 */
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
-		if (!webApp.getEjbLocalRefs().isEmpty())
-			result.addAll(webApp.getEjbLocalRefs());
-		if (!webApp.getEjbRefs().isEmpty())
-			result.addAll(webApp.getEjbRefs());
-		if (!webApp.getResourceEnvRefs().isEmpty())
-			result.addAll(webApp.getResourceEnvRefs());
-		if (!webApp.getResourceRefs().isEmpty())
-			result.addAll(webApp.getResourceRefs());
-		if (!webApp.getMessageDestinationRefs().isEmpty())
-			result.addAll(webApp.getMessageDestinationRefs());
-		if (!webApp.getServiceRefs().isEmpty())
-			result.addAll(webApp.getServiceRefs());
-		Collection serviceRefs = null;
-		try {
-			WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
-			serviceRefs = serviceHelper.get13ServiceRefs(webApp);
-		} catch (Exception re) {
-			serviceRefs = Collections.EMPTY_LIST;
-		}
+		Object obj = weakWebApp.get();
+		if (null != obj) {
+			WebApp webApp = (WebApp) obj;
+			if (!webApp.getEjbLocalRefs().isEmpty())
+				result.addAll(webApp.getEjbLocalRefs());
+			if (!webApp.getEjbRefs().isEmpty())
+				result.addAll(webApp.getEjbRefs());
+			if (!webApp.getResourceEnvRefs().isEmpty())
+				result.addAll(webApp.getResourceEnvRefs());
+			if (!webApp.getResourceRefs().isEmpty())
+				result.addAll(webApp.getResourceRefs());
+			if (!webApp.getMessageDestinationRefs().isEmpty())
+				result.addAll(webApp.getMessageDestinationRefs());
+			if (!webApp.getServiceRefs().isEmpty())
+				result.addAll(webApp.getServiceRefs());
+			Collection serviceRefs = null;
+			try {
+				WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+				serviceRefs = serviceHelper.get13ServiceRefs(webApp);
+			} catch (Exception re) {
+				serviceRefs = Collections.EMPTY_LIST;
+			}
 
-		if (serviceRefs !=null && !serviceRefs.isEmpty())
-			result.addAll(serviceRefs);
+			if (serviceRefs != null && !serviceRefs.isEmpty())
+				result.addAll(serviceRefs);
+		}
 		return result;
 	}
 
@@ -110,4 +115,5 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("References_1"); //$NON-NLS-1$ 
 	}
+
 }

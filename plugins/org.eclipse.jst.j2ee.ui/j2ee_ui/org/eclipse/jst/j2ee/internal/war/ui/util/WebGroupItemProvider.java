@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,7 +27,6 @@ import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 /**
  * @author jlanuti
@@ -37,54 +37,41 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 public abstract class WebGroupItemProvider extends J2EEItemProvider {
 
 	class WebGroupComparator implements Comparator {
-		public int compare(Object o1, Object o2) {
-			if (o1 instanceof Servlet) {
-				Servlet s1 = (Servlet) o1;
-				Servlet s2 = (Servlet) o2;
-				if (s1.getServletName() != null && s2.getServletName() != null)
-					return s1.getServletName().compareTo(s2.getServletName());
-				return -1;
-			} else if (o1 instanceof Filter) {
-				Filter f1 = (Filter) o1;
-				Filter f2 = (Filter) o2;
-				if (f1.getName() != null && f2.getName() != null)
-					return f1.getName().compareTo(f2.getName());
-				return -1;
-			} else if (o1 instanceof Listener) {
-				Listener l1 = (Listener) o1;
-				Listener l2 = (Listener) o2;
-				if (l1.getListenerClassName() != null && l2.getListenerClassName() != null)
-					return l1.getListenerClassName().compareTo(l2.getListenerClassName());
-				return -1;
-			} else
-				return -1;
-		}
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof Servlet) {
+                Servlet s1 = (Servlet)o1;
+                Servlet s2 = (Servlet)o2;
+                if (s1.getServletName() != null && s2.getServletName() != null)
+                	return s1.getServletName().compareTo(s2.getServletName());
+                return -1;
+            }
+            else if (o1 instanceof Filter) {
+                Filter f1 = (Filter) o1;
+                Filter f2 = (Filter) o2;
+                if (f1.getName() != null && f2.getName() != null)
+                	return f1.getName().compareTo(f2.getName());
+                return -1;
+            }
+            else if (o1 instanceof Listener) {
+                Listener l1 = (Listener) o1;
+                Listener l2 = (Listener) o2;
+                if (l1.getListenerClassName() != null && l2.getListenerClassName() !=null)
+                	return l1.getListenerClassName().compareTo(l2.getListenerClassName());
+                return -1;
+            }
+            else return -1;
+        }
 	}
-
-	protected WebApp webApp = null;
-
-	public WebGroupItemProvider(AdapterFactory adapterFactory, WebApp webApp) {
+    
+    protected WeakReference weakWebApp;
+    
+    public WebGroupItemProvider(AdapterFactory adapterFactory, WeakReference weakWebApp) {
 		super(adapterFactory);
-		this.webApp = webApp;
+		this.weakWebApp = weakWebApp;
 	}
-
-	/**
-	 * @return Returns the webApp.
-	 */
-	public WebApp getWebApp() {
-		return webApp;
-	}
-
-	/**
-	 * @param webApp
-	 *            The webApp to set.
-	 */
-	public void setWebApp(WebApp webApp) {
-		this.webApp = webApp;
-	}
-
-	public Collection getSortedChildren(List localChildren) {
-		Collections.sort(localChildren, new WebGroupComparator());
-		return localChildren;
-	}
+    
+    public Collection getSortedChildren(List theChildren) {
+		Collections.sort(theChildren, new WebGroupComparator());
+		return theChildren;
+    }
 }

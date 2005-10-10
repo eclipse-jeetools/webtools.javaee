@@ -16,7 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
@@ -35,8 +37,8 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	/**
 	 * @param adapterFactory
 	 */
-	public WebServletMappingGroupItemProvider(AdapterFactory adapterFactory, WebApp webApp) {
-		super(adapterFactory, webApp);
+	public WebServletMappingGroupItemProvider(AdapterFactory adapterFactory, WeakReference weakWebApp) {
+		super(adapterFactory, weakWebApp);
 	}
 
 	/*
@@ -45,7 +47,11 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getChildren(java.lang.Object)
 	 */
 	public Collection getChildren(Object object) {
-		return webApp.getServletMappings();
+		Object webApp = weakWebApp.get();
+		if (null != webApp) {
+			return ((WebApp) webApp).getServletMappings();
+		}
+		return Collections.EMPTY_LIST;
 	}
 
 	/*
@@ -81,6 +87,6 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
 	public Object getParent(Object object) {
-		return webApp;
+		return weakWebApp.get();
 	}
 }

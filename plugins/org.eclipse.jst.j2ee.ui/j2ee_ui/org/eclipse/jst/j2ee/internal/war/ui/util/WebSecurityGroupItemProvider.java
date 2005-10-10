@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,8 +38,8 @@ public class WebSecurityGroupItemProvider extends WebGroupItemProvider {
 	/**
 	 * @param adapterFactory
 	 */
-	public WebSecurityGroupItemProvider(AdapterFactory adapterFactory, WebApp webApp) {
-		super(adapterFactory, webApp);
+	public WebSecurityGroupItemProvider(AdapterFactory adapterFactory, WeakReference weakWebApp) {
+		super(adapterFactory, weakWebApp);
 	}
 
 	/*
@@ -47,7 +48,7 @@ public class WebSecurityGroupItemProvider extends WebGroupItemProvider {
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
 	public Object getParent(Object object) {
-		return webApp;
+		return weakWebApp.get();
 	}
 
 	/*
@@ -75,10 +76,14 @@ public class WebSecurityGroupItemProvider extends WebGroupItemProvider {
 	 */
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
-		if (!webApp.getSecurityRoles().isEmpty())
-			result.addAll(webApp.getSecurityRoles());
-		if (!webApp.getConstraints().isEmpty())
-			result.addAll(webApp.getConstraints());
+		Object obj = weakWebApp.get();
+		if (null != obj) {
+			WebApp webApp = (WebApp) obj;
+			if (!webApp.getSecurityRoles().isEmpty())
+				result.addAll(webApp.getSecurityRoles());
+			if (!webApp.getConstraints().isEmpty())
+				result.addAll(webApp.getConstraints());
+		}
 		return result;
 	}
 
