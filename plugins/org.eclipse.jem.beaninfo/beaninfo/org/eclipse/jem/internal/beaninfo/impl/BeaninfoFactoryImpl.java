@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoFactoryImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/09/19 15:43:02 $ 
+ *  $Revision: 1.10 $  $Date: 2005/10/11 21:26:28 $ 
  */
 
 import java.util.Map;
@@ -137,7 +137,7 @@ public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory
 	 */
 	public PropertyDecorator createPropertyDecorator() {
 		PropertyDecoratorImpl propertyDecorator = new PropertyDecoratorImpl();
-		propertyDecorator.setSource(ParameterDecorator.class.getName());
+		propertyDecorator.setSource(PropertyDecorator.class.getName());
 		return propertyDecorator;
 	}
 
