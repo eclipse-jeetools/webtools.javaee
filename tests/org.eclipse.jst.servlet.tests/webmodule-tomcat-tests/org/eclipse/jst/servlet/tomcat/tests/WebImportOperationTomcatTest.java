@@ -38,7 +38,7 @@ public class WebImportOperationTomcatTest extends ModuleImportOperationTestCase 
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase#getDirectory()
 	 */
 	protected String getDirectory() {
-		return "WARImportTests";
+		return "WARImportTests"; //$NON-NLS-1$
 	}
 
 	/*

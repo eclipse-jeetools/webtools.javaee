@@ -29,7 +29,7 @@ public class AllTomcatTests extends TestSuite {
     }
     
     public AllTomcatTests(){
-        super("WEB Tests");
+        super("WEB Tests"); //$NON-NLS-1$
         addTest(WebProjectCreationTomcatTest.suite());
         addTest(WebImportOperationTomcatTest.suite());
         addTest(WebExportOperationTomcatTest.suite());
@@ -37,12 +37,12 @@ public class AllTomcatTests extends TestSuite {
     }
     
     public static IRuntime createRuntime()  {
-    	String s = System.getProperty("org.eclipse.jst.server.tomcat.50");
+    	String s = System.getProperty("org.eclipse.jst.server.tomcat.50"); //$NON-NLS-1$
     	
     	if (s == null || s.length() == 0)
     		return null;
     	try {
-    		IRuntimeType rt = ServerCore.findRuntimeType("org.eclipse.jst.server.tomcat.runtime.50");
+    		IRuntimeType rt = ServerCore.findRuntimeType("org.eclipse.jst.server.tomcat.runtime.50"); //$NON-NLS-1$
     		IRuntimeWorkingCopy wc = rt.createRuntime(null, null);
     		wc.setLocation(new Path(s));
     		return wc.save(true, null);

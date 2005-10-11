@@ -22,11 +22,11 @@ import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProv
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.FlexibleProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationProperties;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -42,7 +42,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
     
     public void createSimpleProject(String projectName) throws Exception {
         IDataModel dataModel = DataModelFactory.createDataModel(new FlexibleProjectCreationDataModelProvider());
-        dataModel.setProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME, projectName);
+        dataModel.setProperty(IProjectCreationProperties.PROJECT_NAME, projectName);
         setServerTargetProperty(dataModel);
         dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
     }

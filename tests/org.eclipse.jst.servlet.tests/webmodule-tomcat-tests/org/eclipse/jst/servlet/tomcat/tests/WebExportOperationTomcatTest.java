@@ -83,14 +83,14 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTestCase 
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getImportTestCase()
 	 */
 	protected ModuleImportOperationTestCase getImportTestCase() {
-		return new WebImportOperationTomcatTest("");
+		return new WebImportOperationTomcatTest(""); //$NON-NLS-1$
 	}
 
 	/**
 	 * @return
 	 */
 	public String getModuleExportFileExt() {
-		return ".war";
+		return ".war"; //$NON-NLS-1$
 	}
 
 }

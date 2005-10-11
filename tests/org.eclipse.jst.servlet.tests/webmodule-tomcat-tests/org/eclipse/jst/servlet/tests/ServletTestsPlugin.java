@@ -65,7 +65,7 @@ public class ServletTestsPlugin extends Plugin {
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.servlet.tests.ServletTestsPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.servlet.tests.ServletTestsPluginResources"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}

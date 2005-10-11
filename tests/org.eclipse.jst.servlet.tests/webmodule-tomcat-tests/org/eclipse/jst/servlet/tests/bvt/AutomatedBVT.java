@@ -12,7 +12,6 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
 
 
@@ -24,15 +23,14 @@ import org.eclipse.core.runtime.Platform;
  */
 public class AutomatedBVT extends TestSuite {
 
-    public static String baseDirectory = System.getProperty("user.dir") + java.io.File.separatorChar + "WARImportTests" + java.io.File.separatorChar;
+    public static String baseDirectory = System.getProperty("user.dir") + java.io.File.separatorChar + "WARImportTests" + java.io.File.separatorChar; //$NON-NLS-1$ //$NON-NLS-2$
     
     static {
         try {
-            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.servlet.tests");
-            URL url = pluginDescriptor.getInstallURL(); 
-        	AutomatedBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "TestData"+ java.io.File.separatorChar;
+            URL url = Platform.getBundle("org.eclipse.jst.servlet.tests").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
+        	AutomatedBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "TestData"+ java.io.File.separatorChar; //$NON-NLS-1$
 		} catch (Exception e) { 
-			System.err.println("Using working directory since a workspace URL could not be located.");
+			System.err.println("Using working directory since a workspace URL could not be located."); //$NON-NLS-1$
 		} 
     }
 
@@ -42,7 +40,7 @@ public class AutomatedBVT extends TestSuite {
         unimplementedMethods = 0;
         TestRunner.run(suite());
         if (unimplementedMethods > 0) {
-            System.out.println("\nCalls to warnUnimpl: " + unimplementedMethods);
+            System.out.println("\nCalls to warnUnimpl: " + unimplementedMethods); //$NON-NLS-1$
         }
     }
 
@@ -55,7 +53,7 @@ public class AutomatedBVT extends TestSuite {
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.eclipse.jst.servlet.tests.bvt");
+        TestSuite suite = new TestSuite("Test for org.eclipse.jst.servlet.tests.bvt"); //$NON-NLS-1$
         //suite.addTest(AllTomcatTests.suite());
         return suite;
     }

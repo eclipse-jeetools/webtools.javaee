@@ -2,9 +2,9 @@
 <?eclipse version="3.0"?>
 <plugin
    id="org.eclipse.jst.servlet.tests"
-   name="org.eclipse.jst.servlet.tests"
+   name="%PLUGIN"
    version="0.7.0"
-   provider-name="IBM"
+   provider-name="%IBM"
    class="org.eclipse.jst.servlet.tests.ServletTestsPlugin">
 
    <runtime>
