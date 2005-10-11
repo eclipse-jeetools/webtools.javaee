@@ -55,9 +55,9 @@ import org.eclipse.wst.server.core.util.WebResource;
  * @author
  */
 public class WebDeployableArtifactUtil {
-	private final static String[] extensionsToExclude = new String[]{"sql", "xmi"}; //$NON-NLS-1$ //$NON-NLS-2$
-	private final static String GENERIC_SERVLET_CLASS_TYPE = "javax.servlet.GenericServlet";
-	private final static String CACTUS_SERVLET_CLASS_TYPE = "org.apache.cactus.server.ServletTestRedirector";
+	
+	private final static String GENERIC_SERVLET_CLASS_TYPE = "javax.servlet.GenericServlet"; //$NON-NLS-1$
+	private final static String CACTUS_SERVLET_CLASS_TYPE = "org.apache.cactus.server.ServletTestRedirector"; //$NON-NLS-1$
 
 	public WebDeployableArtifactUtil() {
 		super();
@@ -117,7 +117,6 @@ public class WebDeployableArtifactUtil {
 		if (isCactusJunitTest(resource))
 			return null;
 
-		IPath rootPath = resource.getProjectRelativePath();
 		IPath resourcePath = resource.getFullPath();
 		IVirtualResource[] resources = ComponentCore.createResources(resource);
 		IVirtualComponent component = null;
@@ -149,35 +148,9 @@ public class WebDeployableArtifactUtil {
 		return new WebResource(getModule(resource.getProject(), component), resourcePath);
 	}
 
-	private static IPath trim(IPath resourcePath, String stripValue) {
-		int x = -1;
-		String[] segements = resourcePath.segments();
-		for (int i = 0; i < segements.length; i++) {
-			if (segements[i].equals(stripValue)) {
-				x = ++i;
-				break;
-			}
-		}
-		if (x > -1)
-			return resourcePath.removeFirstSegments(x);
-		return resourcePath;
-	}
-
-	private static boolean shouldExclude(IResource resource) {
-		String fileExt = resource.getFileExtension();
-
-		// Exclude files of certain extensions
-		for (int i = 0; i < extensionsToExclude.length; i++) {
-			String extension = extensionsToExclude[i];
-			if (extension.equalsIgnoreCase(fileExt))
-				return true;
-		}
-		return false;
-	}
-
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator();
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();
@@ -301,24 +274,6 @@ public class WebDeployableArtifactUtil {
 		}
 	}
 
-
-	private static boolean isServlet(IType type) {
-		try {
-			ITypeHierarchy hierarchy = type.newSupertypeHierarchy(null);
-			IType[] superClasses = hierarchy.getAllSuperclasses(type);
-
-			int size = superClasses.length;
-			for (int i = 0; i < size; i++) {
-				if ("javax.servlet.GenericServlet".equals(superClasses[i].getFullyQualifiedName())) //$NON-NLS-1$
-					return true;
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-
 	public static String getServletMapping(IResource resource, boolean isServlet, String typeName, String componentName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
@@ -335,7 +290,6 @@ public class WebDeployableArtifactUtil {
 				edit.dispose();
 			}
 		}
-		Object key = new Object();
 		try {
 			if (webApp == null)
 				return null;
@@ -374,13 +328,12 @@ public class WebDeployableArtifactUtil {
 			return false;
 		try {
 			edit = StructureEdit.getStructureEditForWrite(project);
-			WorkbenchComponent[] components = edit.findComponentsByType("jst.web");
+			WorkbenchComponent[] components = edit.findComponentsByType("jst.web"); //$NON-NLS-1$
 			// WorkbenchComponent[] earComponents = edit.findComponentsByType("jst.ear");
 			if (components == null || components.length == 0) // || earComponents != null ||
 				// earComponents.length > 0
 				return false;
-			else
-				return true;
+			return true;
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
