@@ -58,19 +58,16 @@ public class EJBDeployableArtifactAdapterUtil {
 	public static IModuleArtifact getModuleObject(Object obj) {
 		if (obj == null)
 			return null;
-		if (obj instanceof EJBJar)
+		else if (obj instanceof EJBJar)
 			return getModuleObject((EJBJar) obj);
-		if (obj instanceof EnterpriseBean)
+		else if (obj instanceof EnterpriseBean)
 			return getModuleObject((EnterpriseBean) obj);
-		if (obj instanceof IProject) {
-			IProject project = (IProject) obj;
-			return getModuleObject((IProject) obj);
-		}
-		if (obj instanceof IFile)
+		else if (obj instanceof IProject) 
+			return  getModuleObject((IProject) obj);
+		else if (obj instanceof IFile)
 			return getModuleObject((IFile) obj);
-		if (obj instanceof ICompilationUnit) {
+		else if (obj instanceof ICompilationUnit)
 			return getModuleObject((ICompilationUnit) obj);
-		}
 		return null;
 	}
 
@@ -80,12 +77,10 @@ public class EJBDeployableArtifactAdapterUtil {
 			return false;
 		try {
 			edit = StructureEdit.getStructureEditForWrite(project);
-			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb");
-			WorkbenchComponent[] earComponents = null;// edit.findComponentsByType("jst.ear");
+			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb"); //$NON-NLS-1$
 			if (components == null || components.length == 0) //earComponents == null || earComponents.length > 0
 				return false;
-			else
-				return true;
+			return true;
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -161,7 +156,7 @@ public class EJBDeployableArtifactAdapterUtil {
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator();
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator();  //$NON-NLS-1$
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();
