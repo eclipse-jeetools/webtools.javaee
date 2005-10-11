@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.46 $  $Date: 2005/09/14 23:30:38 $ 
+ *  $Revision: 1.47 $  $Date: 2005/10/11 21:27:17 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -1400,13 +1400,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	protected PropertyDecorator calculateProperty(PropertyRecord pr, boolean indexed) {
 		// If this is an indexed property, then a few fields will not be set in here, but
 		// will instead be set by the calculateIndexedProperty, which will be called.
-		boolean changeable = pr.writeMethod != null || (pr.field != null && !pr.field.readOnly);
 		JavaHelpers type = pr.propertyTypeName != null ? Utilities.getJavaType(MapJNITypes.getFormalTypeName(pr.propertyTypeName), getJavaClass().eResource().getResourceSet()) : null;
 
 		if (indexed) {
 			// If no array write method found, then see if there is an indexed write method. If there is, then it is changable.
-			if (!changeable)
-				changeable = ((IndexedPropertyRecord) pr).indexedWriteMethod != null;
 			if (type == null) {
 				// If no array type from above, create one from the indexed type proxy. Add '[]' to turn it into an array.
 				type = Utilities.getJavaType(MapJNITypes.getFormalTypeName(((IndexedPropertyRecord) pr).indexedPropertyTypeName)+"[]", getJavaClass().eResource().getResourceSet()); //$NON-NLS-1$
@@ -1414,7 +1411,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		if (type != null)
-			return createProperty(pr.name, indexed, changeable, type); // A valid property descriptor.
+			return createProperty(pr.name, indexed, type); // A valid property descriptor.
 		else
 			return null;
 	}
@@ -1422,7 +1419,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	/**
 	 * Fill in the property and its decorator using the passed in information.
 	 */
-	protected PropertyDecorator createProperty(String name, boolean indexed, boolean changeable, EClassifier type) {
+	protected PropertyDecorator createProperty(String name, boolean indexed, EClassifier type) {
 		// First find if there is already a property of this name, and if there is, is the PropertyDecorator
 		// marked to not allow merging in of introspection results.		
 		HashMap existingLocals = getPropertiesMap();
@@ -1483,7 +1480,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		prop.setName(name);
 		prop.setTransient(false);
 		prop.setVolatile(false);
-		prop.setChangeable(changeable);
 
 		// Containment and Unsettable is tricky for EReferences. There is no way to know whether it has been explicitly set to false, or it defaulted to
 		// false because ECore has not made containment/unsettable an unsettable feature. So we need to instead use the algorithm of if we here 
@@ -1748,7 +1744,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				BeaninfoClassAdapter.this.createProperty(
 					name,
 					indexed,
-					(!indexed) ? (setter != null) : (setter != null || indexedSetter != null),
 					type);
 			if (prop == null)
 				return; // Reflection not wanted.
