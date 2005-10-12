@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -36,6 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
@@ -60,6 +62,19 @@ public final class WebFacetInstallDelegate
         throws CoreException
         
     {
+    	IDataModel model = (IDataModel)cfg;
+    	try {
+			model.getDefaultOperation().execute(monitor, null);
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		if(true){
+			return;
+		}
+    	
+    	
+    	
+    	
         if( monitor != null )
         {
             monitor.beginTask( "", 1 );

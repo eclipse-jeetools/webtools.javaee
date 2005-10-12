@@ -453,7 +453,7 @@ public void validate(IValidationContext inHelper, IReporter inReporter) throws V
 /**
    * Validate EJB references.
    */
-public void validateEJBRefManadatoryElements(EjbRef eref, String ownerName) {
+protected void validateEJBRefManadatoryElements(EjbRef eref, String ownerName) {
 	String[] parms = new String[2];
 	parms[0] = eref.getName();
 	parms[1] = ownerName;
@@ -476,7 +476,7 @@ public void validateEJBRefManadatoryElements(EjbRef eref, String ownerName) {
 /**
    * Validate for duplicates in EAR Roles.
    */
-public void validateResourceRefs(List resourceRefs) {
+protected void validateResourceRefs(List resourceRefs) {
 
   int numRefs = resourceRefs.size();
   Set refSet = new HashSet(numRefs);
@@ -493,7 +493,7 @@ public void validateResourceRefs(List resourceRefs) {
    * Validate the existance of Web Roles within the EAR Roles and
    * duplicates in Web Roles.
    */
-public void validateWEBRolesWithEARRoles(EList earRoleList, EList warRoles) {
+protected void validateWEBRolesWithEARRoles(EList earRoleList, EList warRoles) {
   int numRoles = warRoles.size();
 
   // TFB This implementation requires a 'small' list of warRoles.

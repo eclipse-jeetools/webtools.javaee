@@ -1,15 +1,14 @@
-/******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+/*******************************************************************************
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
- *    Konstantin Komissarchik - initial API and implementation
- ******************************************************************************/
-
-package org.eclipse.jst.common.project.facet;
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.jst.j2ee.web.project.facet;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -18,45 +17,31 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
 
-/**
- * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
- */
+public class JavaFacetInstalOperation extends AbstractDataModelOperation {
 
-public final class JavaFacetInstallDelegate 
+	public JavaFacetInstalOperation() {
+		super();
+	}
 
-    implements IDelegate
-    
-{
-    public void execute( final IProject project, 
-                         final IProjectFacetVersion fv,
-                         final Object cfg,
-                         final IProgressMonitor monitor )
-    
-        throws CoreException
-        
-    {
-    	IDataModel model = (IDataModel)cfg;
-    	try {
-			model.getDefaultOperation().execute(monitor, null);
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
-		if(true){
-			return;
-		}
-    	
-    	
-    	
+	public JavaFacetInstalOperation(IDataModel model) {
+		super(model);
+	}
+
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         if( monitor != null )
         {
             monitor.beginTask( "", 1 );
@@ -64,6 +49,9 @@ public final class JavaFacetInstallDelegate
         
         try
         {
+        	IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME));
+			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelPropeties.FACET_VERSION);
+
             // Create the source and the output directories.
             
             final IWorkspace ws = ResourcesPlugin.getWorkspace();
@@ -115,7 +103,9 @@ public final class JavaFacetInstallDelegate
             {
                 monitor.worked( 1 );
             }
-        }
+        }catch (CoreException e) {
+			throw new ExecutionException(e.getMessage(), e);
+		}
         finally
         {
             if( monitor != null )
@@ -123,6 +113,8 @@ public final class JavaFacetInstallDelegate
                 monitor.done();
             }
         }
-    }
+
+		return OK_STATUS;
+	}
 
 }
