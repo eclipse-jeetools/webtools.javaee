@@ -171,7 +171,7 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 
 			final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 
-			if (earProjectName != null) {
+			if (earProjectName != null && !earProjectName.equals("")) {
 				final IProject earproj = ws.getRoot().getProject(earProjectName);
 
 				final EPackage.Registry registry = EPackage.Registry.INSTANCE;
