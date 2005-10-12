@@ -68,7 +68,7 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 		contextRootNameField.setLayoutData(data);
 		synchHelper.synchText(contextRootNameField, CONTEXT_ROOT, new Control[]{contextRootLabel});
 		
-		super.createSourceFolderComposite(advanced);
+		createSourceFolderComposite(advanced);
 		createWebContentFolderComposite(advanced);
 		createAnnotationsGroup(advanced);
 	}
