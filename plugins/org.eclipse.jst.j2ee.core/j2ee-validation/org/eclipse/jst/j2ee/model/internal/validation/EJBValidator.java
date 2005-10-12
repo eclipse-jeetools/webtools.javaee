@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.model.internal.validation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -160,7 +161,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	}
 	
 	protected void preRemoveOldMessages(IEJBValidationContext vc, Map targets) throws ValidationException {
-		Set validatedClasses = new HashSet();
+		List validatedClasses = new ArrayList();
 		
 		try {	
 			String[] uris = vc.getURIs();
@@ -260,35 +261,38 @@ public class EJBValidator extends AbstractEJBValidator {
 				// as well.
 
 				// Class never validated before, so check its children
-				JavaClass[] children = (JavaClass[])vc.loadModel(EJBValidatorModelEnum.CHILDREN, new Object[]{vc.getReporter(), validatedClasses});
-				validatedClasses.clear(); // Don't need this cache any more; free the memory.
-				if((children != null) && (children.length > 0)) {
-					Iterator bciterator = null;
-					Object id = null;
-					for(int c=0; c<children.length; c++) {
-						JavaClass child = children[c];
-						List beans = (List)vc.loadModel(EJBValidatorModelEnum.EJB, new Object[]{child});
-						if((beans == null) || (beans.size() == 0)) {
+				for (int vC = 0; vC<validatedClasses.size(); vC++) {
+					List beans = (List)vc.loadModel(EJBValidatorModelEnum.EJB, new Object[]{validatedClasses.get(vC)});
+					if((beans == null) || (beans.size() == 0)) {
+						// The class is not a member of an enterprise bean.
+						continue;
+					}
+					Set rootValidatedClass = new HashSet();
+					rootValidatedClass.add(validatedClasses.get(vC));
+					JavaClass[] children = (JavaClass[])vc.loadModel(EJBValidatorModelEnum.CHILDREN, new Object[]{vc.getReporter(), rootValidatedClass});
+					if((children != null) && (children.length > 0)) {
+						Iterator bciterator = null;
+						Object id = null;
+						for(int c=0; c<children.length; c++) {
+							JavaClass child = children[c];
+							beans = (List)vc.loadModel(EJBValidatorModelEnum.EJB, new Object[]{child});
 							// The child is not a member of an enterprise bean.
-							continue;
-						}
-						
-						bciterator = beans.iterator();
-						while(bciterator.hasNext()) {
-							EnterpriseBean bean = (EnterpriseBean)bciterator.next();
-							id = EJBValidationRuleFactory.getFactory().getRuleId(vc, child, bean);
-		
-							IValidationRule clazzRule = EJBValidationRuleFactory.getFactory().getRule(vc, id);
-							if(clazzRule == null) {
-								// This has already been logged by the AbstractEJBValidationRuleFactory, so just
-								// need to add "Cannot validate" to the task list.
+							if((beans == null) || (beans.size() == 0))
 								continue;
+							bciterator = beans.iterator();
+							while(bciterator.hasNext()) {
+								EnterpriseBean bean = (EnterpriseBean)bciterator.next();
+								id = EJBValidationRuleFactory.getFactory().getRuleId(vc, child, bean);
+								IValidationRule clazzRule = EJBValidationRuleFactory.getFactory().getRule(vc, id);
+								// This has already been logged by the AbstractEJBValidationRuleFactory, so just need to add "Cannot validate" to the task list.
+								if(clazzRule == null)
+									continue;
+								setValidated(clazzRule.getId(), bean, child);
 							}
-		
-							setValidated(clazzRule.getId(), bean, child);
 						}
 					}
 				}
+				validatedClasses.clear(); // Don't need this cache any more; free the memory.
 			}
 			
 			// Now, validate the dependents.
