@@ -69,7 +69,7 @@ public class WebComponentCreationFacetOperation extends AbstractDataModelOperati
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
 		String runtimeID = model.getStringProperty(IWebComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
 		try {
-			IRuntime runtime = RuntimeManager.get().getRuntime(runtimeID);
+			IRuntime runtime = RuntimeManager.getRuntime(runtimeID);
 			facetProj.setRuntime(runtime, null);
 		} catch (IllegalArgumentException e) {
 			Logger.getLogger().logError(e);
