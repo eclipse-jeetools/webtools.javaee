@@ -66,28 +66,33 @@ public class EJBValidator extends AbstractEJBValidator {
 	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		long start = System.currentTimeMillis();
 		Logger logger = Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
-		if(logger != null && logger.isLoggingLevel(Level.FINER)) {
+		if (logger != null && logger.isLoggingLevel(Level.FINER)) {
 			long end = System.currentTimeMillis();
 			LogEntry entry = getLogEntry();
 			entry.setSourceID("EJBValidator::validate"); //$NON-NLS-1$
 			entry.setText("validate took " + (end - start) + " milliseconds."); //$NON-NLS-1$  //$NON-NLS-2$
 			logger.write(Level.FINER, entry);
 		}
-		
-		EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
-		setValidationContext(vc);
-		if(isFullValidate(vc)) {
-			fullValidate(vc);
-		}
-		else {
-			incrementalValidate(vc);
-		}
-		if(logger != null && logger.isLoggingLevel(Level.FINER)) {
-			long end = System.currentTimeMillis();
-			LogEntry entry = getLogEntry();
-			entry.setSourceID("EJBValidator::validate"); //$NON-NLS-1$
-			entry.setText("validate took " + (end - start) + " milliseconds."); //$NON-NLS-1$  //$NON-NLS-2$
-			logger.write(Level.FINER, entry);
+		try {
+			EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
+			setValidationContext(vc);
+			if (isFullValidate(vc)) {
+				fullValidate(vc);
+			} else {
+				incrementalValidate(vc);
+			}
+			if (logger != null && logger.isLoggingLevel(Level.FINER)) {
+				long end = System.currentTimeMillis();
+				LogEntry entry = getLogEntry();
+				entry.setSourceID("EJBValidator::validate"); //$NON-NLS-1$
+				entry.setText("validate took " + (end - start) + " milliseconds."); //$NON-NLS-1$  //$NON-NLS-2$
+				logger.write(Level.FINER, entry);
+			}
+		} finally {
+			if (ValidationRuleUtility.helperMap != null) {
+				ValidationRuleUtility.helperMap.clear();
+				ValidationRuleUtility.helperMap = null;
+			}
 		}
 	}
 	

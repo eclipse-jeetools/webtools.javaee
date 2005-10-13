@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -58,6 +59,9 @@ public final class ValidationRuleUtility {
 
 	private static LogEntry logEntry = null;
 	private static Logger logger = null;
+	
+	public static HashMap helperMap = null;
+	private static HashSet commonClassNames = null;
 	
 	public static JavaClass getCMRFieldType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, CMRField field) {
 		CommonRelationshipRole role = field.getRole();
@@ -578,20 +582,68 @@ public final class ValidationRuleUtility {
 		return type;
 	}
 
-	/**
-	 * javaClassName must be fully qualified
-	 */
-	public static JavaHelpers getType(String javaClassName, EnterpriseBean ejb) throws InvalidInputException {
-		if((javaClassName == null)  || (javaClassName.equals("") || (ejb == null))) { //$NON-NLS-1$
+	 /**
+     * javaClassName must be fully qualified
+     */
+    public static JavaHelpers getType(String javaClassName, EnterpriseBean ejb) throws InvalidInputException {
+		if ((javaClassName == null) || (javaClassName.equals("") || (ejb == null))) //$NON-NLS-1$
 			throw new InvalidInputException();
-		}
-	
+
 		Resource resource = ejb.eResource();
-		if(resource == null) {
+		if (resource == null) {
 			throw new InvalidInputException();
 		}
+
+		JavaHelpers helper = null;
+		if(commonClassNames == null || commonClassNames.isEmpty()) {
+			initializeCommonClassNames();
+		}
+		if (commonClassNames.contains(javaClassName)) {
+			if (helperMap == null)
+				helperMap = new HashMap();
+			ResourceSet rSet = resource.getResourceSet();
+			Object obj = helperMap.get(javaClassName);
+			if (obj != null) 
+				return (JavaHelpers) obj;
+			 else {
+				helper = getType(javaClassName,rSet);
+				helperMap.put(javaClassName, helper);
+			}
+		} else
+			helper = getType(javaClassName, resource.getResourceSet());
+		return helper;
+	}
 	
-		return getType(javaClassName, resource.getResourceSet());
+	private static void initializeCommonClassNames() {
+		if(commonClassNames == null)
+			commonClassNames = new HashSet();
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_IO_IOEXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_IO_SERIALIZABLE);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_LANG_OBJECT);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_LANG_EXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_LANG_RUNTIMEEXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTE);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTEEXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_UTIL_COLLECTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_UTIL_ENUMERATION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVA_UTIL_SET);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_CREATEEXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYBEAN);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBEXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALHOME);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALOBJECT);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYCONTEXT);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_FINDEREXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_MESSAGEDRIVENBEAN);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_OBJECTNOTFOUNDEXCEPTION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONBEAN);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONCONTEXT);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGE);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER);
+		commonClassNames.add(ITypeConstants.CLASSNAME_JAVAX_TRANSACTION_USERTRANSACTION);
 	}
 	
 	/**
