@@ -68,7 +68,7 @@ public class ProjectFacetCreationTest extends TestCase {
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
 		//Setting the runtime
 		try {
-		IRuntime runtime = RuntimeManager.get().getRuntime("tomcat");
+		IRuntime runtime = RuntimeManager.getRuntime("tomcat");
 		facetProj.setRuntime(runtime,null);
 		} catch (IllegalArgumentException ex) {
 			System.out.println("Runtime not found: tomcat");
