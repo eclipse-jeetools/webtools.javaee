@@ -146,8 +146,17 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		if ( comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE)  && manifestEntries.length > 0){
 			for (int j = 0; j < manifestEntries.length; j++) {
 				String name = manifestEntries[j];
-				name = name.substring(0, name.length() - 4);
-				IProject project = ProjectUtilities.getProject(name);
+				int endIndex = name.length() - 4; //lop off .jar
+				if (endIndex < 1) {
+					continue;
+				}
+				name = name.substring(0, endIndex);
+				IProject project = null;
+				try {
+					project = ProjectUtilities.getProject(name);
+				} catch (IllegalArgumentException e) {
+					continue;
+				}
 				if( project != null && project.isAccessible() && project.exists()){
 					IVirtualComponent refcomp = ComponentCore.createComponent(project);
 					if( refcomp.exists()){
