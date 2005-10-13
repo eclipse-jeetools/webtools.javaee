@@ -67,7 +67,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected boolean showAdvanced = false;
     protected AdvancedSizeController advancedController;
     protected boolean advancedControlsBuilt = false;
-    private ServerEarAndStandaloneGroup earGroup;
+    protected ServerEarAndStandaloneGroup earGroup;
     protected Combo serverTargetCombo;
     protected Text moduleNameText = null;
     protected Text locationPathField = null;
