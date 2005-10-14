@@ -120,9 +120,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
 
 	public String getVersion() {
-		if (component != null)
-			return component.getVersion();
-		return "1.2"; //$NON-NLS-1$
+		return getJ2EESpecificationVersion();
 	}
 
 	public String getType() {
