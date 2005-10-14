@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.28 $  $Date: 2005/08/24 20:39:05 $ 
+ *  $Revision: 1.29 $  $Date: 2005/10/14 17:45:02 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -30,6 +30,8 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
 
+import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo.ContainerPaths;
+import org.eclipse.jem.internal.proxy.core.ProxyPlugin.FoundIDs;
 import org.eclipse.jem.util.PerformanceMonitorUtil;
 import org.eclipse.jem.util.TimerTests;
 
@@ -75,6 +77,27 @@ public class ProxyLaunchSupport {
 	 * @since 1.0.0
 	 */
 	public static class LaunchSupportIConfigurationContributionInfo implements IConfigurationContributionInfo {
+		
+		/**
+		 * Construct with no settings. This is to be used by other launch delegates that
+		 * don't have a {@link FoundIDs} available to fill in the fields. Those 
+		 * delegates must fill the fields themselves.  
+		 * 
+		 * 
+		 * @since 1.2.0
+		 */
+		public LaunchSupportIConfigurationContributionInfo(IJavaProject javaProject) {
+			this.javaProject = javaProject;
+		}
+		
+		public LaunchSupportIConfigurationContributionInfo(IJavaProject javaProject, FoundIDs foundIDs) {
+			this(javaProject);
+			containerIds = foundIDs.containerIds;
+			containers = foundIDs.containers;
+			pluginIds = foundIDs.pluginIds;
+			projectPaths = foundIDs.projects;
+		}
+		
 		/* (non-Javadoc)
 		 * Map of containers (IClasspathContainer) found in classpath (including required projects).
 		 * This is for each project found. If there was a container in more than one project with the
@@ -89,18 +112,20 @@ public class ProxyLaunchSupport {
 		 * Will be empty if no project sent in to launch configuration.
 		 * 
 		 * @see org.eclipse.jdt.core.IClasspathContainer
+		 * 
 		 */
 		public Map containers = Collections.EMPTY_MAP;
+
 		
 		/* (non-Javadoc)
 		 * Map of unique container id strings found in classpath (including required projects).
 		 * If a container with the same id was found in more than one project, only one id will
 		 * be in this set since they are the same.
 		 * <p>
-		 * The key will be the container ids, and the value will be a <code>Boolean</code>, where true means it
-		 * is visible to the top-level project.
+		 * The key will be the container ids, and the value will be ContainerPaths
 		 * 
 		 * Will be empty if no project sent in to launch configuration.
+		 * 
 		 */
 		public Map containerIds = Collections.EMPTY_MAP;
 		
@@ -143,6 +168,7 @@ public class ProxyLaunchSupport {
 		public Map getContainers() {
 			return containers;
 		}
+		
 		/* (non-Javadoc)
 		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getJavaProject()
 		 */
@@ -488,13 +514,8 @@ public class ProxyLaunchSupport {
 	 * @since 1.1.0
 	 */
 	public static IConfigurationContributionInfo createDefaultConfigurationContributionInfo(IJavaProject javaProject) throws JavaModelException {
-		LaunchSupportIConfigurationContributionInfo configInfo = new LaunchSupportIConfigurationContributionInfo();
-		configInfo.javaProject = javaProject;
-		configInfo.containerIds = new HashMap(5);
-		configInfo.containers = new HashMap(5);
-		configInfo.pluginIds = new HashMap(5);
-		configInfo.projectPaths = new HashMap(5);
-		ProxyPlugin.getPlugin().getIDsFound(javaProject, configInfo.containerIds, configInfo.containers, configInfo.pluginIds, configInfo.projectPaths);
+		LaunchSupportIConfigurationContributionInfo configInfo = new LaunchSupportIConfigurationContributionInfo(javaProject,
+				ProxyPlugin.getPlugin().getIDsFound(javaProject));
 		return configInfo;
 
 	}
@@ -542,9 +563,9 @@ public class ProxyLaunchSupport {
 						}
 						
 						// Second add in contributors that exist for a container id.
-						for (Iterator iter = launchInfo.configInfo.getContainerIds().keySet().iterator(); iter.hasNext();) {
-							String containerid = (String) iter.next();
-							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(containerid);
+						for (Iterator iter = launchInfo.configInfo.getContainerIds().values().iterator(); iter.hasNext();) {
+							ContainerPaths paths = (ContainerPaths) iter.next();
+							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(paths.getContainerId(), paths.getAllPaths());
 							if (contributors != null)
 								for (int i = 0; i < contributors.length; i++) {
 									Object contributor = contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
@@ -607,9 +628,9 @@ public class ProxyLaunchSupport {
 			// needs the configuration.
 			
 			// First call registrations that exist for a container id.
-			for (Iterator iter = configInfo.getContainerIds().keySet().iterator(); iter.hasNext();) {
-				String containerid = (String) iter.next();
-				IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerExtensions(containerid);
+			for (Iterator iter = configInfo.getContainerIds().values().iterator(); iter.hasNext();) {
+				ContainerPaths paths = (ContainerPaths) iter.next();
+				IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerExtensions(paths.getContainerId(), paths.getAllPaths());
 				if (contributors != null)
 					for (int i = 0; i < contributors.length; i++) {
 						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {

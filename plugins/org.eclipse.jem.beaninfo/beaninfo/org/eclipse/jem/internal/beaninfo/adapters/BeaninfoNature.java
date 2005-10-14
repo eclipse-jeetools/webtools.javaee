@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.37 $  $Date: 2005/09/14 23:30:38 $ 
+ *  $Revision: 1.38 $  $Date: 2005/10/14 17:45:04 $ 
  */
 
 import java.io.*;
@@ -44,6 +44,7 @@ import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo.ContainerPaths;
 import org.eclipse.jem.java.adapters.JavaXMIFactory;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ResourceHandler;
@@ -389,22 +390,17 @@ public class BeaninfoNature implements IProjectNature {
 		List contributorsList = new ArrayList(10);
 		if (!info.getContainerIds().isEmpty()) {
 			// Run through all of the visible container ids that are applicable and get BeanInfo contributors.
-			Iterator containerIdItr = info.getContainerIds().entrySet().iterator();
+			Iterator containerIdItr = info.getContainerIds().values().iterator();
 			while (containerIdItr.hasNext()) {
-				Map.Entry entry = (Map.Entry) containerIdItr.next();
-				if (((Boolean) entry.getValue()).booleanValue()) {
-					IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getContainerIdContributors(
-							(String) entry.getKey());
-					if (contributors != null) {
-						for (int i = 0; i < contributors.length; i++) {
-							try {
-								Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
-								if (contributor instanceof IBeanInfoContributor)
-									contributorsList.add(contributor);
-							} catch (CoreException e) {
-								BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
-							}
-						}
+				ContainerPaths containerPaths = (ContainerPaths) containerIdItr.next();
+				IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getContainerIdContributors(containerPaths.getContainerId(), containerPaths.getVisibleContainerPaths());
+				for (int i = 0; i < contributors.length; i++) {
+					try {
+						Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
+						if (contributor instanceof IBeanInfoContributor)
+							contributorsList.add(contributor);
+					} catch (CoreException e) {
+						BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
 					}
 				}
 			}						
@@ -780,13 +776,11 @@ public class BeaninfoNature implements IProjectNature {
 			
 			if (!info.getContainerIds().isEmpty()) {
 				// Run through all of the visible container ids that are applicable.
-				Iterator containerIdItr = info.getContainerIds().entrySet().iterator();
+				Iterator containerIdItr = info.getContainerIds().values().iterator();
 				while (containerIdItr.hasNext()) {
-					Map.Entry entry = (Map.Entry) containerIdItr.next();
-					if (((Boolean) entry.getValue()).booleanValue()) {
-						processBeaninfoEntries(BeaninfoPlugin.getPlugin().getContainerIdBeanInfos((String) entry.getKey()),
-								controller, info.getJavaProject());
-					}
+					ContainerPaths containerPaths = (ContainerPaths) containerIdItr.next();
+					processBeaninfoEntries(BeaninfoPlugin.getPlugin().getContainerIdBeanInfos(containerPaths.getContainerId(), containerPaths.getVisibleContainerPaths()),
+							controller, info.getJavaProject());
 				}
 				
 			}

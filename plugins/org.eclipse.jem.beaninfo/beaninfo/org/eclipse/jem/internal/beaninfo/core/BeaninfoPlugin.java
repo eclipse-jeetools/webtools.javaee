@@ -11,12 +11,14 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.18 $  $Date: 2005/09/13 20:30:46 $ 
+ *  $Revision: 1.19 $  $Date: 2005/10/14 17:45:04 $ 
  */
 
 
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.*;
@@ -30,7 +32,8 @@ import org.osgi.framework.BundleContext;
 
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin.ContributorExtensionPointInfo;
+import org.eclipse.jem.internal.proxy.core.ContainerPathContributionMapping.ContainerContributionEntry;
+import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo.ContainerPaths;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
@@ -96,10 +99,11 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	private Map openNatures;
 	
-	private Map containerIdsToBeaninfoEntryContributions;
+	private ContainerPathContributionMapping beaninfoEntryContributionsMapping;
+	private ContainerPathContributionMapping contributorContributionsMapping;
 	private Map pluginToBeaninfoEntryContributions;
-	private Map containerIdsToContributors;
 	private Map pluginToContributors;
+	
 	/*
 	 * Override contributions from extension point.
 	 * ocFragments: Array of fragments paths. When a match is found for a path, the index
@@ -123,10 +127,10 @@ public class BeaninfoPlugin extends Plugin {
 	
 	private static final OverrideContribution[] EMPTY_OC = new OverrideContribution[0];	// Used for an empty contribution list for a fragment.
 
-	public synchronized BeaninfoEntry[] getContainerIdBeanInfos(String containerID) {
-		if (containerIdsToBeaninfoEntryContributions == null)
+	public synchronized BeaninfoEntry[] getContainerIdBeanInfos(String containerID, String[] containerPaths) {
+		if (beaninfoEntryContributionsMapping == null)
 			processBeanInfoContributionExtensionPoint();
-		return (BeaninfoEntry[]) containerIdsToBeaninfoEntryContributions.get(containerID);
+		return (BeaninfoEntry[]) beaninfoEntryContributionsMapping.getContributors(containerID, containerPaths);
 	}
 	
 	public synchronized BeaninfoEntry[] getPluginBeanInfos(String pluginid) {
@@ -141,10 +145,10 @@ public class BeaninfoPlugin extends Plugin {
 		return (IConfigurationElement[]) pluginToContributors.get(pluginid);
 	}	
 	
-	public synchronized IConfigurationElement[] getContainerIdContributors(String containerID) {
-		if (containerIdsToContributors == null)
+	public synchronized IConfigurationElement[] getContainerIdContributors(String containerID, String[] containerPaths) {
+		if (contributorContributionsMapping == null)
 			processBeanInfoContributionExtensionPoint();
-		return (IConfigurationElement[]) containerIdsToContributors.get(containerID);
+		return (IConfigurationElement[]) contributorContributionsMapping.getContributors(containerID, containerPaths);
 	}	
 	
 	public static final String PI_BEANINFO_CONTRIBUTION_EXTENSION_POINT = PI_BEANINFO_PLUGINID+".registrations"; //$NON-NLS-1$
@@ -158,15 +162,19 @@ public class BeaninfoPlugin extends Plugin {
 	protected synchronized void processBeanInfoContributionExtensionPoint() {
 		ContributorExtensionPointInfo info = ProxyPlugin.processContributionExtensionPoint(PI_BEANINFO_CONTRIBUTION_EXTENSION_POINT);
 		ConfigurationElementReader reader = new ConfigurationElementReader();
-		// Process the container IDs first.
-		containerIdsToBeaninfoEntryContributions = new HashMap(info.containerToContributions.size());
-		Map fragmentsToIds = new HashMap(info.containerToContributions.size());
-		for (Iterator iter = info.containerToContributions.entrySet().iterator(); iter.hasNext();) {
+		// Process the container IDs first. We can't use the info directly because the actual configuration elements of interest are
+		// sub-elements of the info. The info contains the container path that we need.
+		beaninfoEntryContributionsMapping = new ContainerPathContributionMapping(BeaninfoEntry.class);
+		contributorContributionsMapping = new ContainerPathContributionMapping(IConfigurationElement.class);
+
+		Map fragmentsToIds = new HashMap();
+		for (Iterator iter = info.containerPathContributions.containerIdToContributions.entrySet().iterator(); iter.hasNext();) {
 			Map.Entry entry= (Map.Entry) iter.next();
 			String containerid = (String) entry.getKey();
-			IConfigurationElement[] configElements = (IConfigurationElement[]) entry.getValue();
-			for (int i = 0; i < configElements.length; i++) {
-				IConfigurationElement element = configElements[i];
+			ContainerContributionEntry[] contribElements = (ContainerContributionEntry[]) entry.getValue();
+			for (int i = 0; i < contribElements.length; i++) {
+				ContainerContributionEntry contribElement = contribElements[i];
+				IConfigurationElement element = (IConfigurationElement) contribElement.getContribution();
 				if (PI_REGISTRATION.equals(element.getName())) {
 					IConfigurationElement[] children = element.getChildren();
 					for (int j = 0; j < children.length; j++) {
@@ -175,34 +183,20 @@ public class BeaninfoPlugin extends Plugin {
 							// This is a beaninfo entry
 							BeaninfoEntry be = BeaninfoEntry.readEntry(reader, child, null);
 							if (be != null)
-								addEntry(containerIdsToBeaninfoEntryContributions, containerid, be);
+								beaninfoEntryContributionsMapping.addContribution(containerid, contribElement.getContainerPathPattern(), be);
 						} else if (PI_OVERRIDE.equals(child.getName())) {
-							addOverrideEntry(fragmentsToIds, true, containerid, child);
+							addOverrideEntry(fragmentsToIds, true, containerid, contribElement.getContainerPathPattern(), child);
 						}
 					}
 				} else if (PI_CONTRIBUTOR.equals(element.getName())) {
-						if (containerIdsToContributors == null)
-							containerIdsToContributors = new HashMap(5);	// These are rare, don't create until necessary.
-						addEntry(containerIdsToContributors, containerid, element);
-					}
+					contributorContributionsMapping.addContribution(containerid, contribElement.getContainerPathPattern(), element);
 				}
 			}
+		}
 			
-		// Now go through and turn all of the contribution lists into arrays.
-		for (Iterator iter = containerIdsToBeaninfoEntryContributions.entrySet().iterator(); iter.hasNext();) {
-			Map.Entry entry = (Map.Entry) iter.next();
-			entry.setValue(((List) entry.getValue()).toArray(new BeaninfoEntry[((List) entry.getValue()).size()]));
-		}
+		beaninfoEntryContributionsMapping.finalizeMapping();
+		contributorContributionsMapping.finalizeMapping();
 		
-		if (containerIdsToContributors == null)
-			containerIdsToContributors = Collections.EMPTY_MAP;	// Since we don't have any.
-		else {
-			for (Iterator iter = containerIdsToContributors.entrySet().iterator(); iter.hasNext();) {
-				Map.Entry entry = (Map.Entry) iter.next();
-				entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
-			}			
-		}
-				
 		// Now process the plugin IDs.
 		pluginToBeaninfoEntryContributions = new HashMap(info.pluginToContributions.size());		
 		for (Iterator iter = info.pluginToContributions.entrySet().iterator(); iter.hasNext();) {
@@ -221,7 +215,7 @@ public class BeaninfoPlugin extends Plugin {
 							if (be != null)
 								addEntry(pluginToBeaninfoEntryContributions, pluginId, be);
 						} else if (PI_OVERRIDE.equals(child.getName())) {
-							addOverrideEntry(fragmentsToIds, false, pluginId, child);
+							addOverrideEntry(fragmentsToIds, false, pluginId, null, child);
 						}
 					}
 				} else if (PI_CONTRIBUTOR.equals(element.getName())) {
@@ -261,17 +255,22 @@ public class BeaninfoPlugin extends Plugin {
 				ocContainerIds[fragIndex] = EMPTY_OC;
 			else {
 				Map containers = mapValue[0];
-				OverrideContribution[] ocContribution = ocContainerIds[fragIndex] = new OverrideContribution[containers.size()];
-				int ocIndex;
-				Iterator ocIterator;
-				for (ocIterator = containers.entrySet().iterator(), ocIndex=0; ocIterator.hasNext(); ocIndex++) {
+				List ocContributions = new ArrayList();
+				for (Iterator ocIterator = containers.entrySet().iterator(); ocIterator.hasNext();) {
 					Map.Entry containerEntry = (Map.Entry) ocIterator.next();
-					OverrideContribution oc = ocContribution[ocIndex] = new OverrideContribution();
-					oc.id = (String) containerEntry.getKey();
-					List[] ocLists = (List[]) containerEntry.getValue();
-					oc.pluginIds = (String[]) ocLists[0].toArray(new String[ocLists[0].size()]);
-					oc.paths = (String[]) ocLists[1].toArray(new String[ocLists[1].size()]);
+					String containerID = (String) containerEntry.getKey();
+					for (Iterator patternIterator = ((Map) containerEntry.getValue()).entrySet().iterator(); patternIterator.hasNext();) {
+						Map.Entry patternEntry = (Entry) patternIterator.next();
+						OverrideContribution oc = new OverrideContribution();
+						oc.id = containerID;
+						oc.pattern = (Pattern) patternEntry.getKey();
+						List[] ocLists = (List[]) patternEntry.getValue();
+						oc.pluginIds = (String[]) ocLists[0].toArray(new String[ocLists[0].size()]);
+						oc.paths = (String[]) ocLists[1].toArray(new String[ocLists[1].size()]);
+						ocContributions.add(oc);
+					}
 				}
+				ocContainerIds[fragIndex] = (OverrideContribution[]) ocContributions.toArray(new OverrideContribution[ocContributions.size()]);
 			}
 			if (mapValue[1] == null)
 				ocPluginIds[fragIndex] = EMPTY_OC;
@@ -306,18 +305,20 @@ public class BeaninfoPlugin extends Plugin {
 	
 	/*
 	 * Add an entry to the map.
-	 * id is the container/plugin id.
+	 * id is the container path pattern/plugin id.
 	 * 
 	 * The structure of the map is:
 	 * 	key: fragment name
-	 * 	value: Map[2], where [0] is for container ids, and [1] is for plugin ids.
+	 * 	value: Map[2], where [0] is for container id, and [1] is for plugin ids.
 	 * 		Map[x]:
 	 * 			key: container/plugin id
-	 * 			value: List[2], where [0] is list of plugin ids for the override, and [1] is list of paths for the override files relative to that plugin id.
+	 * 			value: Map(pattern->List(FinalOverride)) for container, of FinalOverride for plugin. 
+	 * 
+	 * FinalOverride: List[2], where [0] is list of plugin ids for the override, and [1] is list of paths for the override files relative to that plugin id.
 	 * 
 	 * After all done these maps/list will be boiled down to the arrays that will be used for lookup.
 	 */
-	private void addOverrideEntry(Map map, boolean container, Object id, IConfigurationElement entry) {
+	private void addOverrideEntry(Map map, boolean container, Object id, Pattern pattern, IConfigurationElement entry) {
 		
 		String packageName = entry.getAttributeAsIs(PI_PACKAGE);
 		String plugin = null;
@@ -348,29 +349,38 @@ public class BeaninfoPlugin extends Plugin {
 			mapEntry = new HashMap[2];
 			map.put(fragment, mapEntry);
 		}
-		
+		List[] idEntry;
 		if (container) {
 			if (mapEntry[0] == null)
 				mapEntry[0] = new HashMap(2);
+			
+			Map patternMap = (Map) mapEntry[0].get(id);
+			if (patternMap == null)
+				mapEntry[0].put(id, patternMap = new HashMap());
+			
+			idEntry = (List[]) patternMap.get(pattern);
+			if (idEntry == null) {
+				patternMap.put(pattern, idEntry = new List[] { new ArrayList(1), new ArrayList(1)});
+			}
 		} else {
 			if (mapEntry[1] == null)
-				mapEntry[1] = new HashMap(2);			
-		}
-		
-		List[] idEntry = (List[]) mapEntry[container ? 0 : 1].get(id);
-		if (idEntry == null) {
-			idEntry = new List[] {new ArrayList(1), new ArrayList(1)};
-			mapEntry[container ? 0 : 1].put(id, idEntry);
-		}
+				mapEntry[1] = new HashMap(2);
 
+			idEntry = (List[]) mapEntry[1].get(id);
+			if (idEntry == null) {
+				mapEntry[1].put(id, idEntry = new List[] { new ArrayList(1), new ArrayList(1)});
+			}
+		}
 		idEntry[0].add(plugin);
 		idEntry[1].add(pathString);
+
+
 	}	
 			
 	/*
 	 * This is an list of overrides that are available as a contribution for a specific fragment.
 	 * <ul>
-	 * <li>The id of this contribution. Either container or plugin id depending on which list it was in..
+	 * <li>The id of this contribution. Either container (Pattern) or plugin id depending on which list it was in..
 	 * <li>The plugins array lists the plugin ids for all of the paths in this contribution.
 	 * <li>The paths array lists the folder path under that corresponding plugin from "pluginIds".
 	 * </ul> 
@@ -380,6 +390,7 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	private static class OverrideContribution {
 		public String id;
+		public Pattern pattern;	// Used only for containers.
 		public String[] pluginIds;
 		public String[] paths;
 	}
@@ -505,14 +516,34 @@ public class BeaninfoPlugin extends Plugin {
 				if (ocFragments == null)
 					processBeanInfoContributionExtensionPoint(); // We haven't processed them yet.
 			}
+			
+			// Cache of tested patterns. (Pattern->Boolean). If a pattern has been tested against all visible container paths we don't need to test the
+			// pattern again if it is found again. (Note: This works for efficiency because ProxyPlugin uses the same pattern instance for
+			// same pattern found while processing one extension point). The value is true if the pattern matches a visible container path.
+			Map testedPatterns = new HashMap();	
 			for (int fragmentIndex = 0; fragmentIndex < ocFragments.length; fragmentIndex++) {
 				if (ocFragments[fragmentIndex].isPrefixOf(packagePath)) {
 					String leftOver = null;	// The left over portion of the package. This will be set first time needed. 
 					OverrideContribution[] cntrContributions = ocContainerIds[fragmentIndex];
 					for (int ocindex = 0; ocindex < cntrContributions.length; ocindex++) {
 						OverrideContribution contribution = cntrContributions[ocindex];
-						Boolean visible = (Boolean) info.getContainerIds().get(contribution.id);
-						if (visible != null && visible.booleanValue()) {
+						Boolean tested = (Boolean) testedPatterns.get(contribution.pattern);
+						if (tested == null) {
+							tested = Boolean.FALSE;
+							ContainerPaths containerPaths = (ContainerPaths) info.getContainerIds().get(contribution.id);
+							if (containerPaths != null) {
+								String[] visible = containerPaths.getVisibleContainerPaths();
+								for (int i = 0; i < visible.length; i++) {
+									if (contribution.pattern.matcher(visible[i]).matches()) {
+										tested = Boolean.TRUE;
+										break;
+									}
+								}
+							}
+							testedPatterns.put(contribution.pattern, tested);
+						}
+						
+						if (tested.booleanValue()) {
 							for (int cindex = 0; cindex < contribution.pluginIds.length; cindex++) {
 								// Because of URIConverters and normalization in org.eclipse.jem.util stuff, we
 								// need to have plugin uri's in the form "platform:/plugin/pluginname".

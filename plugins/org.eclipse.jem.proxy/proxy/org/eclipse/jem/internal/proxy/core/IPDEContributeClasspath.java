@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IPDEContributeClasspath.java,v $
- *  $Revision: 1.3 $  $Date: 2005/08/24 20:39:05 $ 
+ *  $Revision: 1.4 $  $Date: 2005/10/14 17:45:02 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -40,9 +40,10 @@ public interface IPDEContributeClasspath {
 	 * aren't needed for compilation purposes, but they are needed for running.
 	 * 
 	 * @param controller the controller to contribute to.
+	 * @param info configuration info for the project
 	 * @throws CoreException
 	 * 
 	 * @since 1.0.2
 	 */
-	public abstract void getPDEContributions(IConfigurationContributionController controller) throws CoreException;
+	public abstract void getPDEContributions(IConfigurationContributionController controller, IConfigurationContributionInfo info) throws CoreException;
 }

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEContributeClasspath.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.5 $  $Date: 2005/10/14 17:45:02 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -40,15 +40,9 @@ import org.eclipse.pde.internal.core.*;
  */
 class PDEContributeClasspath implements IPDEContributeClasspath {
 
-	/*
-	 *  (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.remote.IPDEContributeClasspath#getPDEContributions(org.eclipse.core.resources.IProject)
-	 */
-	public void getPDEContributions(IConfigurationContributionController controller) throws CoreException {
-		Map plugins = new HashMap();
-		ProxyPlugin.getPlugin().findPlugins(plugins, true, true, controller.getJavaProject());
-		if (!plugins.isEmpty()) {
-			Collection pluginIds = plugins.keySet();
+	public void getPDEContributions(IConfigurationContributionController controller, IConfigurationContributionInfo info) throws CoreException {
+		if (!info.getPluginIds().isEmpty()) {
+			Collection pluginIds = info.getPluginIds().keySet();
 			PluginModelManager modelManager = PDECore.getDefault().getModelManager();
 			IFragmentModel[] fragments = modelManager.getFragments();
 			for (int i = 0; i < fragments.length; i++) {

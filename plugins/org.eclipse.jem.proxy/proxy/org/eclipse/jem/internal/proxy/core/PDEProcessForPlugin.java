@@ -10,15 +10,15 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:39:05 $ 
+ *  $Revision: 1.7 $  $Date: 2005/10/14 17:45:02 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
-
-import java.util.Map;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.pde.core.plugin.*;
 import org.eclipse.pde.internal.core.PDECore;
+
+import org.eclipse.jem.internal.proxy.core.ProxyPlugin.FoundIDs;
  
 
 /*
@@ -34,35 +34,35 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.ProxyPlugin.IPDEProcessForPlugin#processPlugin(org.eclipse.jdt.core.IJavaProject, java.util.Map, boolean, boolean)
 	 */
-	public void findPlugins(IJavaProject project, Map pluginIds, boolean visible, boolean first) {
+	public void findPlugins(IJavaProject project, FoundIDs foundIds, boolean visible, boolean first) {
 		IPluginModelBase m = PDECore.getDefault().getModelManager().findModel(project.getProject());
 		if (m instanceof IPluginModel) {
 			// it is a plugin, process it.
-			IPlugin plugin = ((IPluginModel) m).getPlugin();			
-			if (pluginIds.containsKey(plugin.getId()))
+			IPlugin plugin = ((IPluginModel) m).getPlugin();
+			if (foundIds.pluginIds.containsKey(plugin.getId()))
 				return;	// already processed it
-			pluginIds.put(plugin.getId(), first || visible ? Boolean.TRUE : Boolean.FALSE);			
-			expandPlugin(plugin, pluginIds, visible, first);
+			foundIds.pluginIds.put(plugin.getId(), first || visible ? Boolean.TRUE : Boolean.FALSE);			
+			expandPlugin(plugin, foundIds, visible, first);
 		}
 		return;
 	}
 	
-	private void expandPlugin(IPlugin plugin, Map pluginIds, boolean visible, boolean first) {
+	private void expandPlugin(IPlugin plugin, FoundIDs foundIds, boolean visible, boolean first) {
 		IPluginImport[] imports = plugin.getImports();
 		for (int i = 0; i < imports.length; i++) {
 			IPluginImport pi = imports[i];
-			Boolean piValue = (Boolean) pluginIds.get(pi.getId());
+			Boolean piValue = (Boolean) foundIds.pluginIds.get(pi.getId());
 			boolean importVisible = first || (visible && pi.isReexported());
 			if (piValue != null && (!importVisible || piValue.booleanValue()))
 				continue;	// we already processed it, this time not visible, or this time visible and was previously visible.
 			// Now either first time, or it was there before, but now visible, but this time it is visible.
 			// We want it to become visible in that case. 
-			pluginIds.put(pi.getId(), importVisible ? Boolean.TRUE : Boolean.FALSE);			
+			foundIds.pluginIds.put(pi.getId(), importVisible ? Boolean.TRUE : Boolean.FALSE);			
 			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
 				pi.getVersion(),
 				pi.getMatch());
 			if (pb != null)
-				expandPlugin(pb, pluginIds, importVisible, false);
+				expandPlugin(pb, foundIds, importVisible, false);
 		}
 	}
 }

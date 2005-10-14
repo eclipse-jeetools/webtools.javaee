@@ -11,14 +11,16 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.53 $  $Date: 2005/08/24 20:39:05 $ 
+ *  $Revision: 1.54 $  $Date: 2005/10/14 17:45:02 $ 
  */
 
 
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
@@ -26,12 +28,14 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.osgi.service.resolver.BundleSpecification;
 import org.osgi.framework.*;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
 
+import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo.ContainerPaths;
 
 /**
  * The plugin class for the org.eclipse.jem.internal.proxy.core plugin.
@@ -467,7 +471,13 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	private static Map getDependentCounts(boolean activeOnly, Set startingSet, Map prereqsMap) {
-		Map dependents = new HashMap(startingSet.size());
+		// Try to maintain independents in order from the starting set (which happens to be ordered, and hopefully reversed.).
+		// Trying to have leaves show up in same order they are found in the Eclipse extensions, so we should
+		// have the starting set be in reverse order from that. The actual process
+		// builds them in reverse order from the starting set, so we expect the startingSet to be in  reverse order so they will be in forward order
+		// hopefully. This is just a heuristic. There is no guarentee it will actually produce the 
+		// desired output.
+		Map dependents = new LinkedHashMap(startingSet.size());	
 		// build a table of all dependent counts.  The table is keyed by descriptor and
 		// the value the integer number of dependent plugins.
 		List processNow = new ArrayList(startingSet);
@@ -684,22 +694,14 @@ public class ProxyPlugin extends Plugin {
 	public static final Map pluginRequiredMap = new HashMap(50);
 	
 	/*
-	 * Map of container id's to their ordered array of contribution config elements.
+	 * Processed extension point info for contributors.
 	 */
-	protected Map containerToContributions = null;
+	protected ContributorExtensionPointInfo contributions;
+		
 	/*
-	 * Map of plugin id's to their ordered array of contribution config elements.
+	 * Processed extension point info for registry extensions.
 	 */
-	protected Map pluginToContributions = null;
-	
-	/*
-	 * Map of container id's to their ordered array of extension config elements.
-	 */
-	protected Map containerToExtensions = null;
-	/*
-	 * Map of plugin id's to their ordered array of contribution config elements.
-	 */
-	protected Map pluginToExtension = null;
+	protected ContributorExtensionPointInfo extensions;
 
 
 	/**
@@ -710,15 +712,16 @@ public class ProxyPlugin extends Plugin {
 	/**
 	 * Return the plugin ordered array of configuration elements for the given container, or <code>null</code> if not contributed.
 	 * 
-	 * @param containerid
-	 * @return Array of configuration elements or <code>null</code> if this container has no contributions.
+	 * @param containerid the first segment of all of the container paths is the container id.
+	 * @param containerPaths array of container paths to match against for contributions. The paths must all be of the same container id.
+	 * @return Array of configuration elements. 
 	 * 
 	 * @since 1.0.0
 	 */
-	public synchronized IConfigurationElement[] getContainerConfigurations(String containerid) {
-		if (containerToContributions == null)
+	public synchronized IConfigurationElement[] getContainerConfigurations(String containerid, String[] containerPaths) {
+		if (contributions == null)
 			processProxyContributionExtensionPoint();
-		return (IConfigurationElement[]) containerToContributions.get(containerid);
+		return (IConfigurationElement[]) contributions.containerPathContributions.getContributors(containerid, containerPaths);
 	}
 
 	/**
@@ -730,23 +733,24 @@ public class ProxyPlugin extends Plugin {
 	 * @since 1.0.0
 	 */
 	public synchronized IConfigurationElement[] getPluginConfigurations(String pluginid) {
-		if (pluginToContributions == null)
+		if (contributions == null)
 			processProxyContributionExtensionPoint();
-		return (IConfigurationElement[]) pluginToContributions.get(pluginid);
+		return (IConfigurationElement[]) contributions.pluginToContributions.get(pluginid);
 	}
 
 	/**
 	 * Return the plugin ordered array of configuration elements for the given container, or <code>null</code> if not contributed.
 	 * 
-	 * @param containerid
-	 * @return Array of extension registration elements or <code>null</code> if this container has no contributions.
+	 * @param containerid the first segment of all of the container paths is the container id.
+	 * @param containerPaths array of container paths to match against for contributions. The paths must all be of the same container id.
+	 * @return Array of configuration elements.
 	 * 
 	 * @since 1.0.0
 	 */
-	public synchronized IConfigurationElement[] getContainerExtensions(String containerid) {
-		if (containerToExtensions == null)
+	public synchronized IConfigurationElement[] getContainerExtensions(String containerid, String[] containerPaths) {
+		if (extensions == null)
 			processProxyExtensionExtensionPoint();
-		return (IConfigurationElement[]) containerToExtensions.get(containerid);
+		return (IConfigurationElement[]) extensions.containerPathContributions.getContributors(containerid, containerPaths);
 	}
 
 	/**
@@ -758,43 +762,19 @@ public class ProxyPlugin extends Plugin {
 	 * @since 1.0.0
 	 */
 	public synchronized IConfigurationElement[] getPluginExtensions(String pluginid) {
-		if (pluginToExtension == null)
+		if (extensions == null)
 			processProxyExtensionExtensionPoint();
-		return (IConfigurationElement[]) pluginToExtension.get(pluginid);
+		return (IConfigurationElement[]) extensions.pluginToContributions.get(pluginid);
 	}
 
 	protected synchronized void processProxyContributionExtensionPoint() {
-		ContributorExtensionPointInfo info = processContributionExtensionPoint(PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT);
-		containerToContributions = info.containerToContributions;
-		pluginToContributions = info.pluginToContributions;
+		contributions = processContributionExtensionPoint(PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT);
 	}
 	
 	protected synchronized void processProxyExtensionExtensionPoint() {
-		ContributorExtensionPointInfo info = processContributionExtensionPoint(PI_EXTENSION_REGISTRATION_EXTENSION_POINT);
-		containerToExtensions = info.containerToContributions;
-		pluginToExtension = info.pluginToContributions;
+		extensions = processContributionExtensionPoint(PI_EXTENSION_REGISTRATION_EXTENSION_POINT);
 	}	
 	
-	/**
-	 * Result form processContributionExtensionPoint.
-	 * 
-	 * @see ProxyPlugin#processContributionExtensionPoint(String)
-	 * @since 1.0.0
-	 */
-	public static class ContributorExtensionPointInfo {
-		/**
-		 * Map of container ids (String) to contributions (IConfigurationElement[]) that was found with that id. For each container,
-		 * the contributions will be listed in plugin prereq order.
-		 */
-		public Map containerToContributions;
-		
-		/**
-		 * Map of plugin ids (String) to contributions (IConfigurationElement[]) that was found with that id. For each plugin,
-		 * the contributions will be listed in plugin prereq order.
-		 */
-		public Map pluginToContributions;
-	}
-
 	/**
 	 * Process the extension point looking contributors. It will find entries that have the "container" or "plugin" attributes
 	 * set on them.
@@ -809,104 +789,158 @@ public class ProxyPlugin extends Plugin {
 		// This can add up so we get it together once here.
 		IExtensionPoint extp = Platform.getExtensionRegistry().getExtensionPoint(extensionPoint);
 		ContributorExtensionPointInfo result = new ContributorExtensionPointInfo();
+		result.containerPathContributions = new ContainerPathContributionMapping(IConfigurationElement.class);
 		if (extp == null) {
-			result.containerToContributions = Collections.EMPTY_MAP;
 			result.pluginToContributions = Collections.EMPTY_MAP;
 			return result;
 		}
 		
 		IExtension[] extensions = extp.getExtensions();
-		// Need to be in plugin order so that first ones processed have no dependencies on others.
-		HashMap bundlesToExtensions = new HashMap(extensions.length);
-		for (int i = 0; i < extensions.length; i++) {
-			Bundle bundle = Platform.getBundle(extensions[i].getNamespace());
-			IExtension[] ext = (IExtension[]) bundlesToExtensions.get(bundle);
-			if (ext == null)
-				bundlesToExtensions.put(bundle, new IExtension[] {extensions[i]});
-			else {
-				// More than one extension defined in this plugin.
-				IExtension[] newExt = new IExtension[ext.length + 1];
-				System.arraycopy(ext, 0, newExt, 0, ext.length);
-				newExt[newExt.length-1] = extensions[i];
-				bundlesToExtensions.put(bundle, newExt);
+		if (extensions.length > 0) {
+			// Need to be in plugin order so that first ones processed have no dependencies on others.
+			// Gather in extension order.
+			// We want the list in reverse order of found extensions for a bundle. This is a heuristic to try
+			// to get leaves ordered in the order found from the extension list. Since the orderPlugins actually
+			// reverses the leaf order, hopefully this will set it back to what we want at the end.
+			HashMap bundlesToExtensions = new LinkedHashMap(extensions.length);
+			for (int i = extensions.length-1; i >= 0; i--) {
+				Bundle bundle = Platform.getBundle(extensions[i].getNamespace());
+				IExtension[] ext = (IExtension[]) bundlesToExtensions.get(bundle);
+				if (ext == null)
+					bundlesToExtensions.put(bundle, new IExtension[] { extensions[i]});
+				else {
+					// More than one extension defined in this plugin.
+					IExtension[] newExt = new IExtension[ext.length + 1];
+					System.arraycopy(ext, 0, newExt, 0, ext.length);
+					newExt[newExt.length - 1] = extensions[i];
+					bundlesToExtensions.put(bundle, newExt);
+				}
 			}
-		}
-		
-		// Now order them so we process in required order.
-		// If it is the first time, we are about to find out many inter-dependencies
-		// notify the cache on a start/end of a transaction so that updates (if new
-		// dependencies) are updated only once
-		Bundle[] ordered = ProxyPlugin.orderPlugins(bundlesToExtensions.keySet());
-		result.containerToContributions = new HashMap(ordered.length);
-		result.pluginToContributions = new HashMap(ordered.length);
-		for (int i = 0; i < ordered.length; i++) {
-			IExtension[] exts = (IExtension[]) bundlesToExtensions.get(ordered[i]);
-			for (int j = 0; j < exts.length; j++) {
-				IConfigurationElement[] configs = exts[j].getConfigurationElements();
-				// Technically we expect the config elements to have a name of "contributor", but since that
-				// is all that can be there, we will ignore it. The content is what is important.
-				for (int k = 0; k < configs.length; k++) {
-					String container = configs[k].getAttributeAsIs(PI_CONTAINER);
-					if (container != null) {
-						List contributions = (List) result.containerToContributions.get(container);
-						if (contributions == null) {
-							contributions = new ArrayList(1);
-							result.containerToContributions.put(container, contributions);
+
+			// Now order them so we process in required order.
+			Bundle[] ordered = ProxyPlugin.orderPlugins(bundlesToExtensions.keySet());
+			Map patternStringToID_Pattern = new HashMap(); // Map of string patterns to the {container id, compiled pattern}. This so that we use the same compiled pattern everywhere.
+			result.pluginToContributions = new HashMap(ordered.length);
+			for (int i = 0; i < ordered.length; i++) {
+				IExtension[] exts = (IExtension[]) bundlesToExtensions.get(ordered[i]);
+				for (int j = 0; j < exts.length; j++) {
+					IConfigurationElement[] configs = exts[j].getConfigurationElements();
+					// Technically we expect the config elements to have a name of "contributor", but since that
+					// is all that can be there, we will ignore it. The content is what is important.
+					for (int k = 0; k < configs.length; k++) {
+						String containerPattern = configs[k].getAttributeAsIs(PI_CONTAINER);
+						if (containerPattern != null) {
+							Object[] id_Pattern = (Object[]) patternStringToID_Pattern.get(containerPattern);
+							if (id_Pattern == null) {
+								int slash = containerPattern.indexOf('/');
+								String containerID = slash != -1 ? containerPattern.substring(0, slash) : containerPattern;
+								// The pattern becomes for the containerPattern "SWT_CONTAINER" becomes "SWT_CONTAINER(/.*)*". This
+								// means to match the string must start with "SWT_CONTAINER" and it must have either nothing after this
+								// or it must have a "/" and any characters after that. So this means it will not match "SWT_CONTAINERXZ"
+								// but it will match "SWT_CONTAINER/XYZ".
+								id_Pattern = new Object[] { containerID, Pattern.compile(containerPattern + "(/.*)*")};
+								patternStringToID_Pattern.put(containerPattern, id_Pattern);
+							}
+							result.containerPathContributions.addContribution((String) id_Pattern[0], (Pattern) id_Pattern[1], configs[k]);
 						}
-						contributions.add(configs[k]);
-					}
-					String plugin = configs[k].getAttributeAsIs(PI_PLUGIN);
-					if (plugin != null) {
-						List contributions = (List) result.pluginToContributions.get(plugin);
-						if (contributions == null) {
-							contributions = new ArrayList(1);
-							result.pluginToContributions.put(plugin, contributions);
+
+						String plugin = configs[k].getAttributeAsIs(PI_PLUGIN);
+						if (plugin != null) {
+							List contributions = (List) result.pluginToContributions.get(plugin);
+							if (contributions == null) {
+								contributions = new ArrayList(1);
+								result.pluginToContributions.put(plugin, contributions);
+							}
+							contributions.add(configs[k]);
 						}
-						contributions.add(configs[k]);
 					}
 				}
-			} 
-		}
-		
-		// Now go through and turn all of the contribution lists into arrays.
-		for (Iterator iter = result.containerToContributions.entrySet().iterator(); iter.hasNext();) {
-			Map.Entry entry = (Map.Entry) iter.next();
-			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
-		}
-		for (Iterator iter = result.pluginToContributions.entrySet().iterator(); iter.hasNext();) {
-			Map.Entry entry = (Map.Entry) iter.next();
-			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
-		}
+			}
 
+			// Finalize the mappings for both container paths and plugins.
+			result.containerPathContributions.finalizeMapping();
+			for (Iterator iter = result.pluginToContributions.entrySet().iterator(); iter.hasNext();) {
+				Map.Entry entry = (Map.Entry) iter.next();
+				entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
+			}
+		} else
+			result.pluginToContributions = Collections.EMPTY_MAP;
 		return result;
 	}
 	
 	/**
-	 * For the given java project, return the maps of container paths and plugins found. The keys will be of type as specified for the parms
-	 * while the value will be Boolean, true if it was visible, and false if it wasn't.
-	 * For example if <code>/SWT_CONTAINER/subpath1</code> is found in the projects path (or from required projects), then
-	 * the container id will be added to the map. They come from the raw classpath entries of the projects.
+	 * The result of the {@link ProxyPlugin#getIDsFound(IJavaProject)}.
+	 * 
+	 * @since 1.2.0
+	 */
+	public static class FoundIDs {
+		
+		/**
+		 * Map of (containerIds(String)->{@link ContainerPaths}) of containers classpaths found in the project's classpath.
+		 * 
+		 */
+		public Map containerIds = new HashMap(2);
+		
+		/**
+		 * Map of (containers({@link IClasspathContainer})->Boolean) of containers found in the project's classpath. The value will be <code>true</code> if the container is visible to the top-level project.
+		 */
+		public Map containers = new HashMap(2);
+		
+		/**
+		 * Map of (pluginIds(String)->Boolean) of plugin ids found in the project's classpath if the project is a plugin project. The value will be <code>true</code> if the plugin is visible to the top-level project.
+		 */
+		public Map pluginIds;
+		
+		/**
+		 * Map of (projects({@link IPath}->Boolean) of project found in the project's classpath. The value will be <code>true</code> if the project is visible to the top-level project.
+		 */
+		public Map projects = new HashMap(2);
+		
+		FoundIDs() {
+			// not meant to be instantiated or subclassed by clients.
+		}
+	}
+	
+	/**
+	 * For the given java project, return the maps of found ids.
 	 *
 	 * @param jproject
-	 * @param containerIds This map will be filled in with container ids as keys (type is <code>java.lang.String</code>) that are found in the projects build path. The value will be a Boolean, true if this container id was visible to the project (i.e. was in the project or was exported from a required project).
-	 * @param containers This map will be filled in with classpath containers as keys found in the projects build path. The value will be a Boolean as in container ids map.
-	 * @param pluginIds This map will be filled in with plugin ids as keys (type is <code>java.lang.String</code>) that are found in the projects build path. The value will be a Boolean as in container ids map.
-	 * @param projects This map will be filled in with project paths (except the top project) as keys (type is <code>org.eclipse.core.runtime.IPath</code>) that are found in the projects build path. The value will be a Boolean as in container ids map.
+	 * @return the found ids.
 	 * 
 	 * @since 1.0.0
 	 */
-	public void getIDsFound(IJavaProject jproject, Map containerIds, Map containers, Map pluginIds, Map projects) throws JavaModelException {		
+	public FoundIDs getIDsFound(IJavaProject jproject) throws JavaModelException {		
 		IPath projectPath = jproject.getProject().getFullPath();
-		projects.put(projectPath, Boolean.TRUE);		
-		expandProject(projectPath, containerIds, containers, pluginIds, projects, true, true);
-		projects.remove(projectPath);	// Don't need to include itself now, was needed for testing so if ciruclar we don't get into a loop.
+		FoundIDs foundIDs = new FoundIDs();
+		foundIDs.projects.put(projectPath, Boolean.TRUE);		
+		expandProject(projectPath, foundIDs, true, true);
+		
+		// The containerIds values will actually be an Map[] {Map(visibleIPath->pathString), Map(hiddenIPath->pathString)}. Needs to be converted to a ContainerPaths now
+		// that we are done.
+		for (Iterator itr = foundIDs.containerIds.entrySet().iterator(); itr.hasNext();) {
+			Map.Entry entry = (Entry) itr.next();
+			Map[] value = (Map[]) entry.getValue();
+			entry.setValue(new ContainerPaths((String) entry.getKey(), (String[]) value[0].values().toArray(new String[value[0].size()]), (String[]) value[1].values().toArray(new String[value[1].size()])));
+		}
+		
+		if (foundIDs.pluginIds == null)
+			foundIDs.pluginIds = Collections.EMPTY_MAP;
+		
+		foundIDs.projects.remove(projectPath);	// Don't need to include itself now, was needed for testing so if ciruclar we don't get into a loop.
+		if (foundIDs.projects.isEmpty())
+			foundIDs.projects = Collections.EMPTY_MAP;
+		
+		return foundIDs;
+
 	}
+	
+	private static final IPath JRE_CONTAINER_PATH = new Path(JavaRuntime.JRE_CONTAINER);
 	
 	/*
 	 * The passed in visible flag tells if this project is visible and its contents are visible if they are exported.
 	 * Only exception is if first is true, then all contents are visible to the top level project.
 	 */
-	private void expandProject(IPath projectPath, Map containerIds, Map containers, Map pluginIds, Map projects, boolean visible, boolean first) throws JavaModelException {
+	private void expandProject(IPath projectPath, FoundIDs foundIds, boolean visible, boolean first) throws JavaModelException {
 		IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath.lastSegment());
 		if (res == null)
 			return;	// Not exist so don't delve into it.
@@ -922,35 +956,72 @@ public class ProxyPlugin extends Plugin {
 			switch (entry.getEntryKind()) {
 				case IClasspathEntry.CPE_PROJECT:
 					// Force true if already true, or this is the first project, or this project is visible and the entry is exported. These override a previous false.
-					currentFlag = (Boolean) projects.get(entry.getPath());
+					currentFlag = (Boolean) foundIds.projects.get(entry.getPath());
 					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());
 					if (currentFlag == null || currentFlag.booleanValue() != newFlag)
-						projects.put(entry.getPath(),  newFlag ? Boolean.TRUE : Boolean.FALSE );
+						foundIds.projects.put(entry.getPath(),  newFlag ? Boolean.TRUE : Boolean.FALSE );
 					if (currentFlag == null)
-						expandProject(entry.getPath(), containerIds, containers, pluginIds, projects, visible && entry.isExported(), false);
+						expandProject(entry.getPath(), foundIds, visible && entry.isExported(), false);
 					break;
 				case IClasspathEntry.CPE_CONTAINER:
-					if (!first && "org.eclipse.jdt.launching.JRE_CONTAINER".equals(entry.getPath().segment(0))) //$NON-NLS-1$
+					if (!first && JavaRuntime.JRE_CONTAINER.equals(entry.getPath().segment(0))) //$NON-NLS-1$
 						break;	// The first project determines the JRE, so any subsequent ones can be ignored.
-					currentFlag = (Boolean) containerIds.get(entry.getPath().segment(0));
+					Map[] paths = (Map[]) foundIds.containerIds.get(entry.getPath().segment(0));
+					if (paths == null) {
+						paths = new Map[] {new HashMap(2), new HashMap(2)};
+						foundIds.containerIds.put(entry.getPath().segment(0), paths);
+					}
+					currentFlag = null;
+					if (paths[0].containsKey(entry.getPath()))
+						currentFlag = Boolean.TRUE;
+					else if (paths[1].containsKey(entry.getPath()))
+						currentFlag = Boolean.FALSE;
 					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());					
-					if (currentFlag == null || currentFlag.booleanValue() != newFlag)					
-						containerIds.put(entry.getPath().segment(0), newFlag ? Boolean.TRUE : Boolean.FALSE );					
+					if (currentFlag == null || currentFlag.booleanValue() != newFlag) {
+						if (newFlag) {
+							// It is visible, remove from hidden, if there, and add to visible.
+							paths[1].remove(entry.getPath());
+							paths[0].put(entry.getPath(), entry.getPath().toString());
+						} else {
+							// It is hidden, remove from visible, if there, and add to hidden.
+							paths[0].remove(entry.getPath());
+							paths[1].put(entry.getPath(), entry.getPath().toString());
+						}
+					}
 
 					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), project);
 					// Force true if already true, or this is the first project, or this project is visible and the entry is exported. These override a previous false.
-					currentFlag = (Boolean) containers.get(container);
+					currentFlag = (Boolean) foundIds.containers.get(container);
 					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());
 					if (currentFlag == null || currentFlag.booleanValue() != newFlag)					
-						containers.put(container,  newFlag ? Boolean.TRUE : Boolean.FALSE );
+						foundIds.containers.put(container,  newFlag ? Boolean.TRUE : Boolean.FALSE );
 					break;
 				case IClasspathEntry.CPE_VARIABLE:
 					// We only care about JRE_LIB. If we have that, then we will treat it as JRE_CONTAINER. Only
 					// care about first project too, because the first project is the one that determines the JRE type.
-					if (first && "JRE_LIB".equals(entry.getPath().segment(0))) { //$NON-NLS-1$
-						currentFlag = (Boolean) containerIds.get("org.eclipse.jdt.launching.JRE_CONTAINER");	//$NON-NLS-1$
-						if (currentFlag == null || !currentFlag.booleanValue())						
-							containerIds.put("org.eclipse.jdt.launching.JRE_CONTAINER", Boolean.TRUE); //$NON-NLS-1$
+					if (first && JavaRuntime.JRELIB_VARIABLE.equals(entry.getPath().segment(0))) { //$NON-NLS-1$
+						paths = (Map[]) foundIds.containerIds.get(JavaRuntime.JRE_CONTAINER);
+						if (paths == null) {
+							paths = new Map[] {new HashMap(2), new HashMap(2)};
+							foundIds.containerIds.put(JavaRuntime.JRE_CONTAINER, paths);
+						}
+						currentFlag = null;
+						if (paths[0].containsKey(JRE_CONTAINER_PATH))
+							currentFlag = Boolean.TRUE;
+						else if (paths[1].containsKey(JRE_CONTAINER_PATH))
+							currentFlag = Boolean.FALSE;
+						newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());					
+						if (currentFlag == null || currentFlag.booleanValue() != newFlag) {
+							if (newFlag) {
+								// It is visible, remove from hidden, if there, and add to visible.
+								paths[1].remove(JRE_CONTAINER_PATH);
+								paths[0].put(JRE_CONTAINER_PATH, JavaRuntime.JRE_CONTAINER);
+							} else {
+								// It is hidden, remove from visible, if there, and add to hidden.
+								paths[0].remove(JRE_CONTAINER_PATH);
+								paths[1].put(JRE_CONTAINER_PATH, JavaRuntime.JRE_CONTAINER);
+							}
+						}
 					}
 					break;
 				default:
@@ -958,7 +1029,7 @@ public class ProxyPlugin extends Plugin {
 			}
 		}		
 		
-		findPlugins(pluginIds, visible, first, project);
+		findPlugins(foundIds, visible, first, project);
 	}
 	
 	/**
@@ -983,20 +1054,23 @@ public class ProxyPlugin extends Plugin {
 	 * Note: PDE must be installed for this to return anything, otherwise it will leave
 	 * the map alone.
 	 * 
-	 * @param pluginIds map of pluginIds->Boolean(TRUE is visible)
+	 * @param foundIds foundIds structure to get plugin info from.
 	 * @param visible <code>true</code> means this project is visible, so any plugins visible to it will be visible, else none will be visible.
 	 * @param first <code>true</code> if this is the top project of interest. This means that all plugins within the project are visible. Else only exported projects will be visible.
 	 * @param project project to start looking from
 	 * 
 	 * @since 1.0.2
 	 */
-	public void findPlugins(Map pluginIds, boolean visible, boolean first, IJavaProject project) {
+	public void findPlugins(FoundIDs foundIds, boolean visible, boolean first, IJavaProject project) {
 		try {
 			// To prevent unnecessary loading of the PDE plugin, find the plugins only if this project is a PDE plugin project.
 			if (isPDEProject(project)) {
 				IPDEProcessForPlugin pdeprocess = getPDEProcessForPlugin();
-				if (pdeprocess != null)
-					pdeprocess.findPlugins(project, pluginIds, visible, first); // expand the plugins for this project, if any.
+				if (pdeprocess != null) {
+					if (foundIds.pluginIds == null)
+						foundIds.pluginIds = new HashMap();
+					pdeprocess.findPlugins(project, foundIds, visible, first); // expand the plugins for this project, if any.
+				}
 			}
 		} catch (CoreException e) {
 		}
@@ -1027,7 +1101,7 @@ public class ProxyPlugin extends Plugin {
 		 * Go through the project and find all of the plugins it references, either directly or through
 		 * the referenced plugins, and mark them as visible or not.
 		 */
-		public abstract void findPlugins(IJavaProject project, Map pluginIds, boolean visible, boolean first);
+		public abstract void findPlugins(IJavaProject project, FoundIDs foundIds, boolean visible, boolean first);
 	}
 	
 	/*

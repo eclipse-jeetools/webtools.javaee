@@ -68,7 +68,9 @@ The IClasspathContainer registration isn&apos;t specified as part of this extens
          <attribute name="container" type="string">
             <annotation>
                <documentation>
-                  contributor is for a container. The value is the container id (e.g. &quot;JRE_CONTAINER&quot;).
+                  contributor is for a container. The value is the container id (e.g. &lt;b&gt;&quot;JRE_CONTAINER&quot;&lt;/b&gt;). This will match &quot;/JRE_CONTAINER&quot; or &quot;/JRE_CONTAINER/...&quot;. Or &lt;b&gt;&quot;JRE_CONTAINER/XYZ&quot;&lt;/b&gt; would match &quot;/JRE_CONTAINER/XYZ/...&quot;.
+&lt;p&gt;
+You can also use a regular expression. An expression such as &lt;b&gt;&quot;SWT_CONTAINER/.*/JFACE&quot;&lt;/b&gt; will match &quot;/SWT_CONTAINER/PDE/JFACE&quot; but will not match &quot;/SWT_CONTAINER&quot;.
                </documentation>
             </annotation>
          </attribute>
@@ -92,7 +94,9 @@ The IClasspathContainer registration isn&apos;t specified as part of this extens
          <attribute name="container" type="string">
             <annotation>
                <documentation>
-                  contributor is for a container. The value is the container id (e.g. &quot;JRE_CONTAINER&quot;).
+                  contributor is for a container. The value is the container id (e.g. &lt;b&gt;&quot;JRE_CONTAINER&quot;&lt;/b&gt;). This will match &quot;/JRE_CONTAINER&quot; or &quot;/JRE_CONTAINER/...&quot;. Or &lt;b&gt;&quot;JRE_CONTAINER/XYZ&quot;&lt;/b&gt; would match &quot;/JRE_CONTAINER/XYZ/...&quot;.
+&lt;p&gt;
+You can also use a regular expression. An expression such as &lt;b&gt;&quot;SWT_CONTAINER/.*/JFACE&quot;&lt;/b&gt; will match &quot;/SWT_CONTAINER/PDE/JFACE&quot; but will not match &quot;/SWT_CONTAINER&quot;.
                </documentation>
             </annotation>
          </attribute>
