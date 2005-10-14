@@ -11,8 +11,9 @@
 package org.eclipse.jem.tests;
 /*
  *  $RCSfile: AllSuites.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:58:54 $ 
+ *  $Revision: 1.8 $  $Date: 2005/10/14 20:57:30 $ 
  */
+import org.eclipse.jem.tests.basic.BasicSuite;
 import org.eclipse.jem.tests.beaninfo.BeanInfoSuite;
 import org.eclipse.jem.tests.instantiation.InstantiationSuite;
 import org.eclipse.jem.tests.modelListeners.ListenersSuite;
@@ -27,6 +28,7 @@ import junit.framework.TestSuite;
 public class AllSuites extends TestSuite {
 	// Testa cases to be include in the suite
 	private static Class suitesList[] = {
+		BasicSuite.class,
 		InitParserSuite.class,  
 		ASTParserSuite.class,
 		RemoteProxySuite.class,
