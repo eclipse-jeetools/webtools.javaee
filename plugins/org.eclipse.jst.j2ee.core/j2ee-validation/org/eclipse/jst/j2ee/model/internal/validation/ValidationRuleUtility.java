@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.model.internal.validation;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -662,8 +663,13 @@ public final class ValidationRuleUtility {
 			if(aLogger.isLoggingLevel(Level.FINEST)) {
 				LogEntry entry = getLogEntry();
 				entry.setSourceID("ValidationRuleUtility.getType(String, ResourceSet, boolean)"); //$NON-NLS-1$
-				entry.setText("invalid parameter; javaClassName = {0} and resourceSet = {1}"); //$NON-NLS-1$
-				entry.setTokens(new String[]{javaClassName, String.valueOf(resourceSet)});
+				String text = "invalid parameter; javaClassName = {0} and resourceSet = {1}";
+				//entry.setText("invalid parameter; javaClassName = {0} and resourceSet = {1}"); //$NON-NLS-1$
+				//entry.setTokens(new String[]{javaClassName, String.valueOf(resourceSet)});
+				String result = MessageFormat.format(text,
+						 new String[]{javaClassName, String.valueOf(resourceSet)});
+				entry.setText(result);
+				
 				entry.appendStackTrace();
 				aLogger.write(Level.FINEST, entry);
 			}
