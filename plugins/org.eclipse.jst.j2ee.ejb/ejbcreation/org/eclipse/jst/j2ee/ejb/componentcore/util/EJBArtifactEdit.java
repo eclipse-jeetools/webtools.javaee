@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -55,14 +56,6 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static final Class ADAPTER_TYPE = EJBArtifactEdit.class;
 
 	/**
-	 * <p>
-	 * Identifier used to group and query common artifact edits.
-	 * </p>
-	 */
-
-	public static String TYPE_ID = "jst.ejb"; //$NON-NLS-1$
-
-	/**
 	 * 
 	 */
 	public EJBArtifactEdit() {
@@ -76,6 +69,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
+	}
+	
+	protected EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.EJB);
 	}
 
 	/**
@@ -104,7 +101,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
-	public EJBArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected EJBArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -464,9 +461,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_EJB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isEJBProject(aModule.getProject());
 	}
 
 	/*
@@ -503,5 +498,15 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
+	}
+	
+	public static void createDeploymentDescriptor(IProject project, int version) {
+		EJBArtifactEdit ejbEdit = new EJBArtifactEdit(project,false,true);
+		try {
+			ejbEdit.createModelRoot(version);
+			ejbEdit.save(null);
+		} finally {
+			ejbEdit.dispose();
+		} 
 	}
 }

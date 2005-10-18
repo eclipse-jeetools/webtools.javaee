@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.EarUtil;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
@@ -103,21 +104,9 @@ public class EjbFacetInstallOperation
 			IFolder ejbFolder = ws.getRoot().getFolder(ejbFolderpath);
 			
 			if (!ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI).exists()) {
-				EJBArtifactEdit ejbEdit = null;
-		        try{
-		            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(project);
-		    		String ver = model.getStringProperty(IEjbFacetInstallDataModelProperties.FACET_VERSION_STR);
-		    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-		            ejbEdit.createModelRoot(nVer);
-		            ejbEdit.save(monitor);
-		        }
-		        catch(Exception e){
-		            e.printStackTrace();
-		        } finally {
-		            if(ejbEdit != null)
-		                ejbEdit.dispose();
-		            ejbEdit = null;
-		        }   
+				String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+				EJBArtifactEdit.createDeploymentDescriptor(project,nVer);
 			}
 
 			// Setup the classpath.

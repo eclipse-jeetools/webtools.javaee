@@ -16,9 +16,9 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDa
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
@@ -97,7 +97,7 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 				PAGE_TWO,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE,
-				IModuleConstants.JST_EJB_MODULE);
+				J2EEProjectUtilities.EJB);
 		newJavaClassWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
 		addPage(newJavaClassWizardPage);
 		

@@ -25,12 +25,12 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	IProject clientProject;
@@ -140,7 +140,8 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 		if (refComps.hasNext()) {
 			ReferencedComponent refedComp = (ReferencedComponent) refComps.next();
 			WorkbenchComponent clientEjbJarComp = core.findComponentByURI(refedComp.getHandle());
-			if( clientEjbJarComp.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE)){
+			IProject project = StructureEdit.getContainingProject(clientEjbJarComp);
+			if(J2EEProjectUtilities.isUtilityProject(project)){
 				properties.put("ejb.dd.clientjar", clientEjbJarComp.getName() + ".jar"); //$NON-NLS-1$
 				setClientJarSourcepath(properties, ejbModule, clientEjbJarComp);
 			}

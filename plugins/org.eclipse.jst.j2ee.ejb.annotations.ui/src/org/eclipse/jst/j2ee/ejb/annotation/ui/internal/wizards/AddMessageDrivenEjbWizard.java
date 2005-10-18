@@ -13,9 +13,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
@@ -68,7 +68,7 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	public void doAddPages() {
 		newJavaClassWizardPage = new NewEjbClassWizardPage(getDataModel(), PAGE_TWO,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE, IModuleConstants.JST_EJB_MODULE);
+				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE, J2EEProjectUtilities.EJB);
 		newJavaClassWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
 		addPage(newJavaClassWizardPage);
 

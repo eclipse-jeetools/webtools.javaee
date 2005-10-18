@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbComponentCreationFacetOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -300,11 +300,11 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 		return super.isPropertyEnabled(propertyName);
 	}
 
-	protected String getComponentID() {
-		return IModuleConstants.JST_EJB_MODULE;
-	}
-
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);
+	}
+	
+	protected String getJ2EEProjectType() {
+		return J2EEProjectUtilities.EJB;
 	}
 }

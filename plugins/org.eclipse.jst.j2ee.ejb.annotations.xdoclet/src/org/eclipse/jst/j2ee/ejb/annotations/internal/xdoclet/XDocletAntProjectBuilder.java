@@ -28,8 +28,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util.AntLauncherUtility;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public abstract class XDocletAntProjectBuilder {
@@ -42,10 +42,9 @@ public abstract class XDocletAntProjectBuilder {
 			IVirtualResource[] vResources = ComponentCore.createResources(resource);
 			if( vResources.length == 0)
 				return null;
-			String moduleType = vResources[0].getComponent().getComponentTypeId();
-			if (moduleType.equals(IModuleConstants.JST_EJB_MODULE))
+			if (J2EEProjectUtilities.isEJBProject(vResources[0].getComponent().getProject()))
 				return new XDocletEjbAntProjectBuilder();
-			else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
+			else if (J2EEProjectUtilities.isDynamicWebProject(vResources[0].getComponent().getProject()))
 				return new XDocletWebAntProjectBuilder();
 			return null;
 		}

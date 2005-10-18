@@ -32,7 +32,6 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -157,10 +156,6 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 			return createProjectCreationOperation(model);
 		}
 		return super.createProjectCreationOperation(option);
-	}
-
-	public String getCompTypeID() {
-		return IModuleConstants.JST_EJB_MODULE;
 	}
 
 }

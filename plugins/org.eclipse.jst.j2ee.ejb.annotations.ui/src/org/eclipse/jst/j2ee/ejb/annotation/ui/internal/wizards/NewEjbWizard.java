@@ -13,13 +13,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
 
@@ -58,20 +56,8 @@ public abstract class NewEjbWizard extends DataModelWizard implements INewWizard
 		if (project == null) {
 			IProject[] projects = ProjectUtilities.getAllProjects();
 			for (int i = 0; i < projects.length; i++) {
-				StructureEdit core = null;
-				try {
-					core = StructureEdit.getStructureEditForRead(projects[i]);
-					if(core != null) {
-						WorkbenchComponent[] components = core.findComponentsByType(EJBArtifactEdit.TYPE_ID);
-						if (components != null && components.length > 0) {
-							project = projects[i];
-							break;
-						}
-					}
-				} finally {
-					if(core != null)
-						core.dispose();
-				}
+				if (J2EEProjectUtilities.isEJBProject(projects[i]))
+					project = projects[i];
 			}
 		}
 		return project;

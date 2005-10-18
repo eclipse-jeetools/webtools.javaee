@@ -42,7 +42,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjec
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -61,7 +60,7 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
             createProjectIfNecessary(monitor, model.getStringProperty(PROJECT_NAME));
 
     
-            super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, null);
+            super.execute(monitor, null);
             
             runAddToEAROperation(monitor);
             runAddToEJBOperation(monitor);

@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentExportOperation;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class EJBComponentExportDataModelProvider extends J2EEComponentExportDataModelProvider {
@@ -27,8 +27,8 @@ public class EJBComponentExportDataModelProvider extends J2EEComponentExportData
 		return new EJBComponentExportOperation(model);
 	}
 
-	protected String getComponentID() {
-		return IModuleConstants.JST_EJB_MODULE;
+	protected String getProjectType() {
+		return J2EEProjectUtilities.EJB;
 	}
 
 	protected String getWrongComponentTypeString(String projectName) {

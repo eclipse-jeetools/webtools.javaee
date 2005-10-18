@@ -30,11 +30,9 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -72,21 +70,7 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		StructureEdit edit = null;
-		if (ModuleCoreNature.getModuleCoreNature(project) == null)
-			return false;
-		try {
-			edit = StructureEdit.getStructureEditForWrite(project);
-			WorkbenchComponent[] components = edit.findComponentsByType("jst.ejb"); //$NON-NLS-1$
-			if (components == null || components.length == 0) //earComponents == null || earComponents.length > 0
-				return false;
-			return true;
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			edit.dispose();
-		}
-		return false;
+		return J2EEProjectUtilities.isEJBProject(project);
 	}
 
 	protected static IModuleArtifact getModuleObject(ICompilationUnit cu) {

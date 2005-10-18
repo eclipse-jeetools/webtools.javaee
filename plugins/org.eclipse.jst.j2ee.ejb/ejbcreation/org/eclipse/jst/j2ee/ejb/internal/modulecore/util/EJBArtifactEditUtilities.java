@@ -5,8 +5,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class EJBArtifactEditUtilities {
@@ -17,7 +17,7 @@ public class EJBArtifactEditUtilities {
 		if (component == null) return null;
 		EJBArtifactEdit edit = null;
 		try {
-			if (component.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE)) {
+			if (J2EEProjectUtilities.isEJBProject(component.getProject())) {
 				edit = EJBArtifactEdit.getEJBArtifactEditForRead(component);
 				EJBJar jar = edit.getEJBJar();
 				if (jar.getEnterpriseBeanNamed(bean.getName()) != null)
