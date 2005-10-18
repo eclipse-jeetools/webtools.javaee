@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2005/09/14 23:30:27 $ 
+ *  $Revision: 1.8 $  $Date: 2005/10/18 14:58:18 $ 
  */
 
 import java.io.File;
@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jem.java.*;
@@ -48,6 +50,19 @@ public abstract class JDOMAdaptor extends JavaReflectionAdaptor {
 	protected void clearSource() {
 		// To be overidden if needed.
 	}
+	
+	/**
+	 * Called by subclasses in canReflect(). If the target is not in a resource, or the
+	 * resource is not loaded, then it can't reflect. Mustn't reflect if the target
+	 * has been unloaded.
+	 * 
+	 * @return
+	 */
+	protected boolean isResourceLoaded() {
+		Resource res = ((EObject) getTarget()).eResource();
+		return res != null && res.isLoaded();
+	}
+	
 	/**
 	 * Scan for CRs and LFs within a character buffer
 	 * Creation date: (8/17/2001 2:14:13 PM)

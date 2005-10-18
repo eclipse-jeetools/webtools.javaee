@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.21 $  $Date: 2005/09/14 23:30:27 $ 
+ *  $Revision: 1.22 $  $Date: 2005/10/18 14:58:18 $ 
  */
 
 import java.util.*;
@@ -455,7 +455,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 * @return
 	 */
 	private boolean canReflect() {
-		return getSourceProject() != null && getSourceType() != null && getSourceType().exists();
+		return isResourceLoaded() && getSourceProject() != null && getSourceType() != null && getSourceType().exists();
 	}
 	public synchronized boolean reflectFieldsIfNecessary() {
 		if (reflectValuesIfNecessary() && canReflect()) {

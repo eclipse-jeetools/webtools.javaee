@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.13 $  $Date: 2005/09/14 23:30:27 $ 
+ *  $Revision: 1.14 $  $Date: 2005/10/18 14:58:18 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -234,7 +234,7 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 		super.reflectValues();
 		try {
 			TimerTests.basicTest.startCumulativeStep(REFLECT_METHOD);
-			if (getSourceProject() != null && getSourceMethod() != null && sourceMethod.exists()) {
+			if (isResourceLoaded() && getSourceProject() != null && getSourceMethod() != null && sourceMethod.exists()) {
 				setModifiers();
 				setNaming();
 				setReturnType();
