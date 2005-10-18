@@ -35,10 +35,6 @@ import org.eclipse.jst.j2ee.project.facet.EarUtil;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -101,22 +97,22 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 
 			c.create(0, null);
 
-			final ComponentType ctype = ComponentcoreFactory.eINSTANCE.createComponentType();
+//			final ComponentType ctype = ComponentcoreFactory.eINSTANCE.createComponentType();
+//
+//			ctype.setComponentTypeId(IModuleConstants.JST_WEB_MODULE);
+//			ctype.setVersion(fv.getVersionString());
 
-			ctype.setComponentTypeId(IModuleConstants.JST_WEB_MODULE);
-			ctype.setVersion(fv.getVersionString());
-
-			c.setMetaProperty( "context-root" , IWebFacetInstallDataModelProperties.CONTEXT_ROOT );
+			c.setMetaProperty( "context-root" , model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT) );
             c.setMetaProperty( "java-output-path" , "/build/classes/" );
 
-			final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
-
-			try {
-				StructureEdit.setComponentType(c, ctype);
-				edit.saveIfNecessary(null);
-			} finally {
-				edit.dispose();
-			}
+//			final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
+//
+//			try {
+//				StructureEdit.setComponentType(c, ctype);
+//				edit.saveIfNecessary(null);
+//			} finally {
+//				edit.dispose();
+//			}
 
 			final IVirtualFolder jsrc = c.getRootFolder().getFolder("/WEB-INF/classes");
 			final IClasspathEntry[] cp = jproj.getRawClasspath();
