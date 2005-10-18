@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -39,7 +40,6 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -57,20 +57,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory{
 
 	public static final Class ADAPTER_TYPE = EARArtifactEdit.class;
-	/**
-	 * <p>
-	 * Identifier used to group and query common artifact edits.
-	 * </p>
-	 */
-	public static String TYPE_ID = "jst.ear"; //$NON-NLS-1$
-
-
+	
 	/**
 	 * 
 	 */
 	public EARArtifactEdit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -80,7 +72,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public EARArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
+	}
+	
+	protected EARArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.ENTERPRISE_APPLICATION);
 	}
 
 	/**
@@ -232,10 +227,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static boolean isValidEARModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
-		/* and match the JST_WEB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isEARProject(aModule.getProject());
 	}
 
 	/**
@@ -265,7 +257,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 
 
-	public EARArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected EARArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -407,7 +399,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public IVirtualReference[] getUtilityModuleReferences() {
 		List utilityModuleTypes = new ArrayList();
-		utilityModuleTypes.add(IModuleConstants.JST_UTILITY_MODULE);
+		utilityModuleTypes.add(J2EEProjectUtilities.UTILITY);
 		return getComponentReferences(utilityModuleTypes);
 	}
 	
@@ -469,10 +461,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public IVirtualReference[] getJ2EEModuleReferences() {
 		List j2eeTypes = new ArrayList();
-		j2eeTypes.add(IModuleConstants.JST_APPCLIENT_MODULE);
-		j2eeTypes.add(IModuleConstants.JST_CONNECTOR_MODULE);
-		j2eeTypes.add(IModuleConstants.JST_EJB_MODULE);
-		j2eeTypes.add(IModuleConstants.JST_WEB_MODULE);
+		j2eeTypes.add(J2EEProjectUtilities.APPLICATION_CLIENT);
+		j2eeTypes.add(J2EEProjectUtilities.JCA);
+		j2eeTypes.add(J2EEProjectUtilities.EJB);
+		j2eeTypes.add(J2EEProjectUtilities.DYNAMIC_WEB);
 		return getComponentReferences(j2eeTypes);
 	}
 	
@@ -504,7 +496,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	private IVirtualReference[] getComponentReferences(List componentTypes) {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = getComponent();
-		if (earComponent.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+		if (J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
@@ -514,7 +506,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				if (componentTypes == null || componentTypes.size()==0)
 					components.add(refComponents[i]);
 				else {
-					 if (componentTypes.contains(module.getComponentTypeId())) {
+					 if (componentTypes.contains(J2EEProjectUtilities.getJ2EEProjectType(module.getProject()))) {
 							components.add(refComponents[i]);
 						}
 					}
@@ -540,4 +532,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return CommonarchiveFactory.eINSTANCE.openEARFile(loader, uri);
 	}
 	
+	public static void createDeploymentDescriptor(IProject project, int version) {
+		EARArtifactEdit earEdit = new EARArtifactEdit(project,false,true);
+		try {
+			earEdit.createModelRoot(version);
+			earEdit.save(null);
+		} finally {
+			earEdit.dispose();
+		} 
+	}
 }

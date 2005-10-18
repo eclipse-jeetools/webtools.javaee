@@ -40,7 +40,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -53,7 +52,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -76,7 +74,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public static final String VALIDATOR_ID = "org.eclipse.jst.j2ee.internal.validation.UIEarValidator"; //$NON-NLS-1$
 	public static final String MANIFEST_GROUP_NAME = "WSAD.EAR.MANIFEST"; //$NON-NLS-1$
 	protected UIEarHelper earHelper;
-	private EARArtifactEdit earEdit = null;
+//	private EARArtifactEdit earEdit = null;
 	private IProject project = null;
 
 	/**
@@ -196,8 +194,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		earHelper = ((UIEarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
-            if(wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)){
-			
+            if(J2EEProjectUtilities.isEARProject(proj)){
 				IVirtualFile ddFile = wbModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
 				if( ddFile.exists()) {				
 					super.validate(inHelper, inReporter);
@@ -245,7 +242,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	}
 
 	public void validateManifestCase(Archive anArchive) {
-		String mfuri = ArchiveConstants.MANIFEST_URI;
+		String mfuri = J2EEConstants.MANIFEST_URI;
 
 		//Indicates a manifest file with the valid name exists,
 		//nothing left to do
@@ -323,7 +320,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			return;
 		InputStream is = null;
 		try {
-			is = anArchive.getInputStream(ArchiveConstants.MANIFEST_URI);
+			is = anArchive.getInputStream(J2EEConstants.MANIFEST_URI);
 			ManifestLineValidator lineVal = new ManifestLineValidator(is);
 			lineVal.validate();
 			addErrorsIfNecessary(anArchive, lineVal);
@@ -575,20 +572,20 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		}
 	}*/
 
-	private void missingServerTargetOnEARWarning(IProject project, IProject earProject) {
-		String[] params = new String[]{earProject.getName(), project.getName()};
-		addWarning(getBaseName(), NO_SERVER_TARGET_ON_EAR_WITH_MODULE_SERVER_TARGETS, params);
-	}
-
-	private void unmatachedServerTargetOnModuleWarning(IProject project, IProject earProject) {
-		String[] params = new String[]{project.getName(), earProject.getName()};
-		addWarning(getBaseName(), PROJECT_SERVER_TARGET_DOES_NOT_MATCH_EAR, params);
-	}
-
-	private void missingServerTargetOnModuleWarning(IProject project, IProject earProject) {
-		String[] params = new String[]{project.getName(), earProject.getName()};
-		addWarning(getBaseName(), NO_SERVER_TARGET_MODULE_IN_EAR_WITH_SERVER_TARGET, params);
-	}
+//	private void missingServerTargetOnEARWarning(IProject aProject, IProject earProject) {
+//		String[] params = new String[]{earProject.getName(), aProject.getName()};
+//		addWarning(getBaseName(), NO_SERVER_TARGET_ON_EAR_WITH_MODULE_SERVER_TARGETS, params);
+//	}
+//
+//	private void unmatachedServerTargetOnModuleWarning(IProject aProject, IProject earProject) {
+//		String[] params = new String[]{aProject.getName(), earProject.getName()};
+//		addWarning(getBaseName(), PROJECT_SERVER_TARGET_DOES_NOT_MATCH_EAR, params);
+//	}
+//
+//	private void missingServerTargetOnModuleWarning(IProject aProject, IProject earProject) {
+//		String[] params = new String[]{aProject.getName(), earProject.getName()};
+//		addWarning(getBaseName(), NO_SERVER_TARGET_MODULE_IN_EAR_WITH_SERVER_TARGET, params);
+//	}
 
 	/**
 	 * @param earProject
@@ -651,18 +648,17 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	}*/
 
 	protected void validateModuleURIExtension(IVirtualComponent module) {
-		
 		String fileExt = module.getRootFolder().getFileExtension();
 		if (fileExt != null && fileExt.length() > 0) {
-			if (module.getComponentTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
+			if (J2EEProjectUtilities.isEJBProject(module.getProject()) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getName();
-				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
+				IResource target = earHelper.getProject().getFile(J2EEConstants.APPLICATION_DD_URI);
 				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
-			} else if (module.getComponentTypeId().endsWith(IModuleConstants.JST_WEB_MODULE) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
+			} else if (J2EEProjectUtilities.isDynamicWebProject(module.getProject()) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getName();
-				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
+				IResource target = earHelper.getProject().getFile(J2EEConstants.APPLICATION_DD_URI);
 				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
 			}
 		}

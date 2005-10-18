@@ -15,12 +15,12 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -80,15 +80,13 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 	}
 
 	protected Module createNewModule(IVirtualComponent wc) {
-
-		String type = wc.getComponentTypeId();
-		if (type.equals(IModuleConstants.JST_WEB_MODULE)) {
+		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createWebModule();
-		} else if (type.equals(IModuleConstants.JST_EJB_MODULE)) {
+		} else if (J2EEProjectUtilities.isEJBProject(wc.getProject())) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createEjbModule();
-		} else if (type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
+		} else if (J2EEProjectUtilities.isApplicationClientProject(wc.getProject())) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
-		} else if (type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+		} else if (J2EEProjectUtilities.isJCAProject(wc.getProject())) {
 			return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createConnectorModule();
 		}
 		return null;
@@ -96,17 +94,15 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	protected Module addModule(Application application, IVirtualComponent wc) {
 		Application dd = application;
-
 		String name = wc.getName();
-		String type = wc.getComponentTypeId();
-
-		if (type.equals(IModuleConstants.JST_WEB_MODULE)) {
+		
+		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
 			name += ".war"; //$NON-NLS-1$
-		} else if (type.equals(IModuleConstants.JST_EJB_MODULE)) {
+		} else if (J2EEProjectUtilities.isEJBProject(wc.getProject())) {
 			name += ".jar"; //$NON-NLS-1$
-		} else if (type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
+		} else if (J2EEProjectUtilities.isApplicationClientProject(wc.getProject())) {
 			name += ".jar"; //$NON-NLS-1$
-		} else if (type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+		} else if (J2EEProjectUtilities.isJCAProject(wc.getProject())) {
 			name += ".rar"; //$NON-NLS-1$
 		}
 		Module existingModule = dd.getFirstModule(name);

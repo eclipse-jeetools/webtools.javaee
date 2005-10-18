@@ -14,9 +14,9 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.core.ValidationException;
@@ -80,14 +80,12 @@ public class UIWarValidator extends WarValidator {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
-            if( wbModule != null && wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
-            	
-				IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
-				if( webFile.exists()) {
-
-					super.validate(inHelper, inReporter);				
-				}
-            }
+        if( wbModule != null && J2EEProjectUtilities.isDynamicWebProject(proj)) {           	
+			IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
+			if( webFile.exists()) {
+				super.validate(inHelper, inReporter);				
+			}
+        }
 	}	
 		
 	

@@ -91,8 +91,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	public static final String LIBCOPY_BUILDER_ID = PLUGIN_ID + ".LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin
 	public static final String VALIDATION_BUILDER_ID = ValidationPlugin.VALIDATION_BUILDER_ID; // plugin
-	private static final String KEY_PREFIX = "%"; //$NON-NLS-1$
-	private static final String KEY_DOUBLE_PREFIX = "%%"; //$NON-NLS-1$	
+//	private static final String KEY_PREFIX = "%"; //$NON-NLS-1$
+//	private static final String KEY_DOUBLE_PREFIX = "%%"; //$NON-NLS-1$	
 	// id
 	// of
 	// the
@@ -171,7 +171,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getBundle().getEntry("/");
+		return getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 
@@ -272,7 +272,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			if (Platform.find(bundle,path) == null)
 				continue;
 			try {
-				return new URL( bundle.getEntry("/"), path.toString());
+				return new URL( bundle.getEntry("/"), path.toString()); //$NON-NLS-1$ 
 			} catch (MalformedURLException exception) {
 				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
 				exception.printStackTrace();
@@ -303,7 +303,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getBundle().getEntry("/");
+		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$ 
 	}
 
 	protected static IJavaModel getJavaModel() {
@@ -357,7 +357,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {
-				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator(); //$NON-NLS-1$ 
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {

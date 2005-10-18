@@ -20,18 +20,16 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
-
 
 /**
  * @author cbridgha
  * 
- *  
  */
 public class J2EEDeployHelper {
 
@@ -45,7 +43,7 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-				if (IModuleConstants.JST_EJB_MODULE.equals(comp.getComponentTypeId())) {
+				if (J2EEProjectUtilities.isEJBProject(comp.getProject())) {
 					edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 					return (EJBJar)edit.getDeploymentDescriptorRoot();
 				}
@@ -67,11 +65,10 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-					if (IModuleConstants.JST_EAR_MODULE.equals(comp.getComponentTypeId())) {
+					if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
 						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 						return (Application)edit.getDeploymentDescriptorRoot();
 					}
-				
 			}
 		} finally {
 			if (edit != null)
@@ -90,11 +87,10 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-					if (IModuleConstants.JST_APPCLIENT_MODULE.equals(comp.getComponentTypeId())) {
+					if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject())) {
 						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 						return (ApplicationClient)edit.getDeploymentDescriptorRoot();
 					}
-				
 			}
 		} finally {
 			if (edit != null)
@@ -113,11 +109,10 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-					if (IModuleConstants.JST_WEB_MODULE.equals(comp.getComponentTypeId())) {
+					if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
 						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 						return (WebApp)edit.getDeploymentDescriptorRoot();
 					}
-				
 			}
 		} finally {
 			if (edit != null)
@@ -136,11 +131,10 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-					if (IModuleConstants.JST_CONNECTOR_MODULE.equals(comp.getComponentTypeId())) {
+					if (J2EEProjectUtilities.isJCAProject(comp.getProject())) {
 						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 						return (Connector)edit.getDeploymentDescriptorRoot();
 					}
-				
 			}
 		} finally {
 			if (edit != null)
@@ -148,5 +142,4 @@ public class J2EEDeployHelper {
 		}
 		return null;
 	}
-
 }

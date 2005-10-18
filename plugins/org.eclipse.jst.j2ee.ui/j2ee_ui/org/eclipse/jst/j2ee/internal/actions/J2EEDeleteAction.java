@@ -42,13 +42,12 @@ import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
@@ -146,12 +145,13 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	}
 
 	protected boolean isJ2EEModule(Object o) {
-		if (o instanceof WorkbenchComponent) {
-			WorkbenchComponent module = (WorkbenchComponent) o;
-			String moduleType = module.getComponentType().getComponentTypeId();
-			//TODO need to add connector, app client, ear, ejb client
-			return moduleType.equals(IModuleConstants.JST_WEB_MODULE) || moduleType.equals(IModuleConstants.JST_EJB_MODULE);
-		}
+		//TODO switch to virtual comp
+//		if (o instanceof WorkbenchComponent) {
+//			WorkbenchComponent module = (WorkbenchComponent) o;
+//			String moduleType = module.getComponentType().getComponentTypeId();
+//			//TODO need to add connector, app client, ear, ejb client
+//			return moduleType.equals(IModuleConstants.JST_WEB_MODULE) || moduleType.equals(IModuleConstants.JST_EJB_MODULE);
+//		}
 		return CommonUtil.isDeploymentDescriptorRoot(o, false);
 	}
 
@@ -370,8 +370,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	protected boolean isJ2EEApplicationProject(Object o) {
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
-			IVirtualComponent component = ComponentCore.createComponent(project);
-			if (IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId()))
+			if (J2EEProjectUtilities.isEARProject(project))
 				return true;
 		}
 		return false;

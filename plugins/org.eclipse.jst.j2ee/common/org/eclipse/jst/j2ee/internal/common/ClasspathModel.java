@@ -39,16 +39,14 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
-import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
@@ -106,7 +104,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected IVirtualComponent[] refreshAvailableEARs() {
 		if( component != null ){
-			availableEARComponents = J2EEComponentUtilities.getReferencingEARComponents(getComponent());
+			IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(getComponent().getProject());
+			availableEARComponents = ComponentUtilities.getComponents(earProjects);
 			if (availableEARComponents != null && availableEARComponents.length > 0) {
 				Arrays.sort(availableEARComponents, comparator);
 				if (selectedEARComponent == null || !Arrays.asList(availableEARComponents).contains(selectedEARComponent)) {
@@ -229,12 +228,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			classPathSelection = null;
 	}
 
-	protected boolean isDDInEAR(IVirtualComponent component) {
-		IContainer mofRoot = component.getProject();
+	protected boolean isDDInEAR(IVirtualComponent aComponent) {
+		IContainer mofRoot = aComponent.getProject();
 		if (mofRoot == null || !mofRoot.exists())
 			return false;
 
-		return mofRoot.exists(new Path(component.getRootFolder().getProjectRelativePath().toString() + "//" + ArchiveConstants.APPLICATION_DD_URI));
+		return mofRoot.exists(new Path(component.getRootFolder().getProjectRelativePath().toString() + "//" + J2EEConstants.APPLICATION_DD_URI)); //$NON-NLS-1$
 	}
 
 	protected void handleOpenFailureException(OpenFailureException ex) {
@@ -588,7 +587,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			IJavaProject javaProject = JemProjectUtilities.getJavaProject(component.getProject());
 			IClasspathEntry[] entry = javaProject.getRawClasspath();
 			List allValidUtilityProjects = ComponentUtilities.getAllJavaNonFlexProjects();
-			allValidUtilityProjects.addAll(Arrays.asList(ComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_UTILITY_MODULE)));
+			IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
+			allValidUtilityProjects.addAll(Arrays.asList(utilityProjects));
 			for (int i = 0; i < allValidUtilityProjects.size(); i++) {
 				IProject utilProject = null;
 				if (allValidUtilityProjects.get(i) instanceof IProject)
@@ -598,7 +598,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				boolean existingEntry = false;
 				for (int j = 0; j < entry.length; j++) {
 					IClasspathEntry eachEntry = entry[j];
-					if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) {
+					if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
 						existingEntry = true;
 						break;
 					}
@@ -607,7 +607,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				classPathWLPSelection.setFilterLevel(ClassPathSelection.FILTER_NONE);
 			}
 			
-			if( component != null && component.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE)){
+			if( component != null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())){
 				IVirtualReference[] newrefs = component.getReferences();
 				for( int i=0; i < newrefs.length; i++){
 					IVirtualReference ref = newrefs[i];
@@ -615,7 +615,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 					boolean isBinary = referencedComponent.isBinary();
 					if( isBinary ){
 						//String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
-						String unresolvedURI = "";
+						String unresolvedURI = ""; //$NON-NLS-1$
 						try {
 							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
 						} catch (UnresolveableURIException e) {

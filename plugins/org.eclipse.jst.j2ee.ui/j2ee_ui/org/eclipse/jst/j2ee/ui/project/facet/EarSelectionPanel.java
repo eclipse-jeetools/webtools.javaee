@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -27,9 +28,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -165,19 +164,7 @@ public final class EarSelectionPanel
                 continue;
             }
             
-            final IVirtualComponent component = ComponentCore.createComponent(project);
-            final String type = component.getComponentTypeId();
-            
-            if( type == null )
-            {
-                final String msg 
-                    = "Component [" + component.getName() + "] in project ["
-                      + project.getName() + "] has null typeid.";
-                
-                throw new IllegalStateException( msg );
-            }
-            
-            if( type.equals( "jst.ear" ) )
+            if(J2EEProjectUtilities.isEARProject(project))
             {
                 this.combo.add( project.getName() );
             }

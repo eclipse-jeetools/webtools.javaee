@@ -44,7 +44,7 @@ import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
 import org.eclipse.jst.j2ee.internal.common.operations.UpdateJavaBuildPathOperation;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
-import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.layout.GridData;
@@ -210,10 +210,10 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 	}
 
 	protected boolean isValidComponent() {
-		if (model.getComponent().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+		if (J2EEProjectUtilities.isEARProject(project)) {
 			this.setErrorMessage(ManifestUIResourceHandler.getString("EAR_Module_Dep_Error")); //$NON-NLS-1$
 			return false;
-		} else if (J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) ) {
+		} else if (J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject()) ) {
 			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
 			return false;
 		}

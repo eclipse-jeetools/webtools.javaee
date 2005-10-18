@@ -13,6 +13,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
@@ -24,7 +25,6 @@ import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -46,19 +46,10 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public static final Class ADAPTER_TYPE = ConnectorArtifactEdit.class;
 
 	/**
-	 * <p>
-	 * Identifier used to group and query common artifact edits.
-	 * </p>
-	 */
-
-	public static String TYPE_ID = IModuleConstants.JST_CONNECTOR_MODULE; //$NON-NLS-1$
-
-	/**
 	 * 
 	 */
 	public ConnectorArtifactEdit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -68,7 +59,10 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 */
 	public ConnectorArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
+	}
+	
+	protected ConnectorArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.JCA);
 	}
 
 	/**
@@ -99,7 +93,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *            the given {@see ModuleCoreNature}
 	 */
 
-	public ConnectorArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected ConnectorArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -327,9 +321,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isJCAProject(aModule.getProject());
 	}
 
 	/**
@@ -381,5 +373,15 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
+	}
+	
+	public static void createDeploymentDescriptor(IProject project, int version) {
+		ConnectorArtifactEdit jcaEdit = new ConnectorArtifactEdit(project,false,true);
+		try {
+			jcaEdit.createModelRoot(version);
+			jcaEdit.save(null);
+		} finally {
+			jcaEdit.dispose();
+		} 
 	}
 }

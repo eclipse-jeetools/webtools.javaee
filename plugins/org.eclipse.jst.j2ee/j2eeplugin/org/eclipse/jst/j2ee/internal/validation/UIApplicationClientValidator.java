@@ -13,9 +13,9 @@ package org.eclipse.jst.j2ee.internal.validation;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
@@ -42,14 +42,10 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 	 */
 
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
-		
 		UIApplicationClientHelper helper = (UIApplicationClientHelper) inHelper;
-		
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		
 		IVirtualComponent virComp = ComponentCore.createComponent(proj);
-            if( virComp.getComponentTypeId() != null && virComp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
-            
+            if(J2EEProjectUtilities.isApplicationClientProject(proj)) {
 				IVirtualFile ddFile = virComp.getRootFolder().getFile(J2EEConstants.APP_CLIENT_DD_URI);
 				if( ddFile.exists()) {						
 					super.validate(helper, inReporter);
@@ -79,4 +75,4 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 //	}// validateDocTypeVsNature
 
 
-}// UIApplicationClientValidator
+}

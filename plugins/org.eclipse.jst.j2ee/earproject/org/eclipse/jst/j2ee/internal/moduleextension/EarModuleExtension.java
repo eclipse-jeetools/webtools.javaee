@@ -29,7 +29,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * Generation>Code and Comments
  */
 public interface EarModuleExtension {
-	String getCompTypeID();
 
 	/**
 	 * Return a default instance of the J2EEModuleCreationDataModel.

@@ -28,10 +28,10 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -47,9 +47,9 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		super(model);
 	}
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus execute(IProgressMonitor monitor, IAdaptable anInfo) throws ExecutionException {
 		try {
-			this.info = info;
+			this.info = anInfo;
 			doExecute(monitor);
 			return OK_STATUS;
 		} finally {
@@ -72,16 +72,16 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		}
 	}
 
-	protected IVirtualComponent createVirtualComponent(IDataModel model, IProgressMonitor monitor) throws ExecutionException {
-		model.getDefaultOperation().execute(monitor, info);
-		return (IVirtualComponent) model.getProperty(IComponentCreationDataModelProperties.COMPONENT);
+	protected IVirtualComponent createVirtualComponent(IDataModel aModel, IProgressMonitor monitor) throws ExecutionException {
+		aModel.getDefaultOperation().execute(monitor, info);
+		return (IVirtualComponent) aModel.getProperty(IComponentCreationDataModelProperties.COMPONENT);
 	}
 
 	/**
 	 * Creates the appropriate save strategy. Subclases should overwrite this method to create the
 	 * appropriate save startegy for the kind of J2EE module project to import the archive
 	 */
-	protected abstract SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent);
+	protected abstract SaveStrategy createSaveStrategy(IVirtualComponent vc);
 
 	protected void modifyStrategy(SaveStrategy saveStrat) {
 	}
@@ -143,7 +143,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 	protected void fixModuleReference(IDataModel importModel, String[] manifestEntries){
 		IVirtualComponent comp = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 		
-		if ( comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE)  && manifestEntries.length > 0){
+		if ( J2EEProjectUtilities.isEJBProject(comp.getProject()) && manifestEntries.length > 0){
 			for (int j = 0; j < manifestEntries.length; j++) {
 				String name = manifestEntries[j];
 				int endIndex = name.length() - 4; //lop off .jar
@@ -174,11 +174,11 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		}
 	}
 
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus redo(IProgressMonitor monitor, IAdaptable adaptableInfo) throws ExecutionException {
 		return null;
 	}
 
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus undo(IProgressMonitor monitor, IAdaptable adaptableInfo) throws ExecutionException {
 		return null;
 	}
 

@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataMo
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -113,9 +112,9 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 		return newProps;
 	}
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
 		try {
-			super.execute(IModuleConstants.JST_WEB_MODULE, monitor);
+			super.execute(monitor);
 			// Add "Web App Libraries" container to the project classpath.
 
 			final IJavaProject jproject = JemProjectUtilities.getJavaProject(getProject());
@@ -130,13 +129,9 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 			final IClasspathEntry[] cparray = new IClasspathEntry[cp.size()];
 			cp.toArray(cparray);
 			jproject.setRawClasspath(cparray, null);
-		} catch (CoreException e) {
+		} catch (Exception e) {
 			Logger.getLogger().log(e.getMessage());
-		} catch (InvocationTargetException e) {
-			Logger.getLogger().log(e.getMessage());
-		} catch (InterruptedException e) {
-			Logger.getLogger().log(e.getMessage());
-		}
+		} 
 
 		return OK_STATUS;
 	}

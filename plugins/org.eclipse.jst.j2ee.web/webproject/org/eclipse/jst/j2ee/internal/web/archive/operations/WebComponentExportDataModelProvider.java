@@ -14,8 +14,8 @@ import java.util.Set;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentExportDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class WebComponentExportDataModelProvider extends J2EEComponentExportDataModelProvider implements IWebComponentExportDataModelProperties {
@@ -41,8 +41,8 @@ public class WebComponentExportDataModelProvider extends J2EEComponentExportData
 		return super.getDefaultProperty(propertyName);
 	}
 
-	protected String getComponentID() {
-		return IModuleConstants.JST_WEB_MODULE;
+	protected String getProjectType() {
+		return J2EEProjectUtilities.DYNAMIC_WEB;
 	}
 
 	protected String getWrongComponentTypeString(String projectName) {

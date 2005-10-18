@@ -188,18 +188,7 @@ public final class WebFacetInstallDelegate
             // Create the deployment descriptor (web.xml) if one doesn't exist
             if (!webinfFolder.getFile("web.xml").exists())
             {                
-                final WebArtifactEdit webEdit 
-                    = WebArtifactEdit.getWebArtifactEditForWrite( project );
-    
-                try 
-                {
-                    webEdit.createModelRoot( 24 );
-                    webEdit.save( null );
-                }
-                finally
-                {
-                    webEdit.dispose();
-                }
+               WebArtifactEdit.createDeploymentDescriptor(project,24);
             }
             
             // Setup the classpath. 

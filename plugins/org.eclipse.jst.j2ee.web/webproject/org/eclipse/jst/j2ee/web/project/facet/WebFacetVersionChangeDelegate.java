@@ -15,9 +15,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -72,29 +69,29 @@ public final class WebFacetVersionChangeDelegate
             
             final IVirtualComponent c = ComponentCore.createComponent(project);
             
-            final StructureEdit edit 
-                = StructureEdit.getStructureEditForWrite( project );
-            
-            try
-            {
-                final ComponentType oldctype 
-                    = StructureEdit.getComponentType( c );
-                
-                final ComponentType newctype 
-                    = ComponentcoreFactory.eINSTANCE.createComponentType();
-                
-                newctype.setComponentTypeId( oldctype.getComponentTypeId() );
-                newctype.setVersion( fv.getVersionString() );
-                newctype.getProperties().addAll( oldctype.getProperties() );
-                
-                StructureEdit.setComponentType( c, newctype );
-                
-                edit.saveIfNecessary( null );
-            }
-            finally
-            {
-                edit.dispose();
-            }
+//            final StructureEdit edit 
+//                = StructureEdit.getStructureEditForWrite( project );
+//            
+//            try
+//            {
+//                final ComponentType oldctype 
+//                    = StructureEdit.getComponentType( c );
+//                
+//                final ComponentType newctype 
+//                    = ComponentcoreFactory.eINSTANCE.createComponentType();
+//                
+//                newctype.setComponentTypeId( oldctype.getComponentTypeId() );
+//                newctype.setVersion( fv.getVersionString() );
+//                newctype.getProperties().addAll( oldctype.getProperties() );
+//                
+//                StructureEdit.setComponentType( c, newctype );
+//                
+//                edit.saveIfNecessary( null );
+//            }
+//            finally
+//            {
+//                edit.dispose();
+//            }
             
             if( monitor != null )
             {

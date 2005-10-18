@@ -39,6 +39,7 @@ import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -103,7 +104,7 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 
 			final ComponentType ctype = ComponentcoreFactory.eINSTANCE.createComponentType();
 
-			ctype.setComponentTypeId("jst.web");
+			ctype.setComponentTypeId(IModuleConstants.JST_WEB_MODULE);
 			ctype.setVersion(fv.getVersionString());
 
 			Property prop;
@@ -144,17 +145,9 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 
 			// Create the deployment descriptor (web.xml) if one doesn't exist
 			if (!webinfFolder.getFile("web.xml").exists()) {
-				final WebArtifactEdit webEdit = WebArtifactEdit.getWebArtifactEditForWrite(project);
-
+				WebArtifactEdit.createDeploymentDescriptor(project,24);
 	    		String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
 	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
-	    		
-				try {
-					webEdit.createModelRoot(nVer);
-					webEdit.save(null);
-				} finally {
-					webEdit.dispose();
-				}
 			}
 
 			// Setup the classpath.

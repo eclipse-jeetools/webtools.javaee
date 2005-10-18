@@ -145,11 +145,8 @@ public class ComponentUtilities {
 	public static ArtifactEdit getArtifactEditForRead(IVirtualComponent comp) {
 		ArtifactEditRegistryReader reader = ArtifactEditRegistryReader.instance();
 		if (comp != null) {
-			String id = comp.getComponentTypeId();
-			if (id != null) {
-				IArtifactEditFactory factory = reader.getArtifactEdit(id);
-				return factory.createArtifactEditForRead(comp);
-			}
+			IArtifactEditFactory factory = reader.getArtifactEdit(comp.getProject());
+			return factory.createArtifactEditForRead(comp);
 		}
 		return null;
 	}
@@ -215,7 +212,7 @@ public class ComponentUtilities {
 
 	public static ArtifactEdit getArtifactEditForWrite(IVirtualComponent comp) {
 		ArtifactEditRegistryReader reader = ArtifactEditRegistryReader.instance();
-		IArtifactEditFactory factory = reader.getArtifactEdit(comp.getComponentTypeId());
+		IArtifactEditFactory factory = reader.getArtifactEdit(comp.getProject());
 		return factory.createArtifactEditForWrite(comp);
 	}
 
@@ -317,15 +314,19 @@ public class ComponentUtilities {
 		}
 		return null;
 	}
-
-	public static IVirtualComponent[] getAllComponentsInWorkspaceOfType(String type) {
-		IVirtualComponent[] allComps = getAllWorkbenchComponents();
+	
+	public static IVirtualComponent[] getComponents(IProject[] projects) {
 		List result = new ArrayList();
-		for (int i = 0; i < allComps.length; i++) {
-			IVirtualComponent component = allComps[i];
-			if (component.getComponentTypeId().equals(type))
-				result.add(component);
+		if (projects!=null) {
+			for (int i=0; i<projects.length; i++) {
+				if (projects[i] != null) {
+					IVirtualComponent comp = ComponentCore.createComponent(projects[i]);
+					if (comp != null && comp.exists())
+						result.add(comp);
+				}
+			}
 		}
 		return (IVirtualComponent[]) result.toArray(new IVirtualComponent[result.size()]);
 	}
+
 }

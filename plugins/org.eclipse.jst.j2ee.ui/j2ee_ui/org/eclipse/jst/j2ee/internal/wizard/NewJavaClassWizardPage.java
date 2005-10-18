@@ -51,6 +51,7 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -99,7 +100,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	protected Label superLabel;
 	private Combo projectNameCombo;
 	private Combo componentNameCombo;
-	protected String moduleType;
+	protected String projectType;
 	private boolean hasNewModuleButton;
 	
 	private String projectName;
@@ -114,7 +115,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		setDescription(pageDesc);
 		this.setTitle(pageTitle);
 		setPageComplete(false);
-		this.moduleType = moduleType;
+		this.projectType = moduleType;
 		this.hasNewModuleButton = false;
 		this.projectName = null;
 	}
@@ -198,7 +199,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		
-		if (component.getComponentTypeId().equals(moduleType) && !componentList.contains(component.getName()))
+		if (J2EEProjectUtilities.getJ2EEProjectType(project).equals(projectType) && !componentList.contains(component.getName()))
 			componentList.add(component.getName());
 		
 		String[] componentNames = new String[componentList.size()];
@@ -254,9 +255,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			IProject project = workspaceProjects[i];
 			try {
 				if (project.isAccessible() && project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					IVirtualComponent component = ComponentCore.createComponent(project);
-					
-					if (component.getComponentTypeId().equals(moduleType))
+					if (J2EEProjectUtilities.getJ2EEProjectType(project).equals(projectType))
 						items.add(project.getName());
 				}
 			} catch (CoreException ce) {

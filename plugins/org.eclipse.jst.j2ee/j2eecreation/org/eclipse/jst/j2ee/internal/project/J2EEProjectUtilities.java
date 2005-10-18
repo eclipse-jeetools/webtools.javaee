@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -46,27 +47,33 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 
 
 public class J2EEProjectUtilities extends ProjectUtilities {
-
-	/**
-	 * @deprecated use {@link ProjectUtilities#isBinaryProject(IProject)}
-	 */
-	public static boolean isBinaryProject(String jarUri, IProject aProject) {
-		return JemProjectUtilities.isBinaryProject(aProject);
-	}
+	
+	public static final String ENTERPRISE_APPLICATION = IModuleConstants.JST_EAR_MODULE;
+	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
+	public static final String EJB = IModuleConstants.JST_EJB_MODULE;
+	public static final String DYNAMIC_WEB = IModuleConstants.JST_WEB_MODULE;
+	public static final String UTILITY = IModuleConstants.JST_UTILITY_MODULE;
+	public static final String JCA = IModuleConstants.JST_CONNECTOR_MODULE;
+	public static final String STATIC_WEB = IModuleConstants.WST_WEB_MODULE;
 
 	/**
 	 * Return the absolute path of a loose archive in a J2EE application or WAR file
@@ -149,56 +156,9 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		return null;
 	}
 
-
-//	public static EARNatureRuntime[] getReferencingEARProjects(IProject aProject) {
-//
-//		List earProjects = EARNatureRuntime.getAllEARProjectsInWorkbench();
-//		List result = new ArrayList();
-//		EAREditModel editModel = null;
-//		for (int i = 0; i < earProjects.size(); i++) {
-//			IProject earProject = (IProject) earProjects.get(i);
-//			EARNatureRuntime earNature = EARNatureRuntime.getRuntime(earProject);
-//			Object accessorKey = new Object();
-//			try {
-//
-//				editModel = earNature.getEarEditModelForRead(accessorKey);
-//				UtilityJARMapping map = editModel.getUtilityJARMapping(aProject);
-//				if (map != null)
-//					result.add(earNature);
-//				else {
-//					ModuleMapping modMap = editModel.getModuleMapping(aProject);
-//					if (modMap != null)
-//						result.add(earNature);
-//				}
-//			} finally {
-//				if (editModel != null)
-//					editModel.releaseAccess(accessorKey);
-//			}
-//		}
-//		return (EARNatureRuntime[]) result.toArray(new EARNatureRuntime[result.size()]);
-//	}
-
-//	public static EARNatureRuntime getFirstReferencingEARProject(IProject aProject) {
-//		EARNatureRuntime[] natures = getReferencingEARProjects(aProject);
-//		if (natures.length != 0)
-//			return natures[0];
-//		return null;
-//	}
-
-	/**
-	 * If the project is referenced by the EAR, return the URI of the JAR or module
-	 * 
-	 * @deprecated use {@link EARNatureRuntime#getJARUri(IProject)}
-	 */
-//	public static String getJARUri(EARNatureRuntime runtime, IProject project) {
-//		return runtime.getJARUri(project);
-//	}
-
 	public static ArchiveManifest readManifest(IFile aFile) {
-
 		InputStream in = null;
 		try {
-
 			if (aFile == null || !aFile.exists())
 				return null;
 			in = aFile.getContents();
@@ -216,9 +176,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 	}
 
-
 	public static ArchiveManifest readManifest(IProject p) {
-
 		InputStream in = null;
 		try {
 			IFile aFile = getManifestFile(p);
@@ -242,7 +200,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	public static IFile getManifestFile(IProject p) {
 		IVirtualComponent component = ComponentCore.createComponent(p);
 		try {
-			return ComponentUtilities.findFile(component, new Path(ArchiveConstants.MANIFEST_URI));
+			return ComponentUtilities.findFile(component, new Path(J2EEConstants.MANIFEST_URI));
 		} catch (CoreException ce) {
 			Logger.getLogger().log(ce);
 		}
@@ -267,18 +225,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 	}
 
-
-//	public static String getUtilityJARUriInFirstEAR(IProject project) {
-//		EARNatureRuntime[] earNatures = getReferencingEARProjects(project);
-//		String uri;
-//		for (int i = 0; i < earNatures.length; i++) {
-//			uri = getJARUri(earNatures[i], project);
-//			if (uri != null && uri.length() > 0)
-//				return uri;
-//		}
-//		return null;
-//	}
-
 	/**
 	 * Keys are the EJB JAR files and the values are the respective client JARs; includes only key
 	 * value pairs for which EJB Client JARs are defined and exist.
@@ -302,31 +248,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return ejbClientJARs == null ? Collections.EMPTY_MAP : ejbClientJARs;
 	}
-
-	/**
-	 * If the project is referenced by the EAR, return the URI of the JAR or module
-	 */
-//	public static boolean hasProjectMapping(EARNatureRuntime runtime, IProject project) {
-//		if (runtime != null) {
-//			EAREditModel model = null;
-//			Object key = new Object();
-//			try {
-//				model = runtime.getEarEditModelForRead(key);
-//				ModuleMapping moduleMap = model.getModuleMapping(project);
-//				if (moduleMap != null) {
-//					return true;
-//				}
-//				UtilityJARMapping jarMap = model.getUtilityJARMapping(project);
-//				if (jarMap != null)
-//					return true;
-//
-//			} finally {
-//				if (model != null)
-//					model.releaseAccess(key);
-//			}
-//		}
-//		return false;
-//	}
 
 	public static String computeRelativeText(String referencingURI, String referencedURI, EnterpriseBean bean) {
 		if (bean == null)
@@ -396,7 +317,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return null;
 	}
-
 
 	public static EnterpriseBean getEnterpriseBean(ICompilationUnit cu) {
 		IProject proj = cu.getJavaProject().getProject();
@@ -495,21 +415,113 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		try {
 			if (!project.isAccessible())
 				return false;
-			//TODO fix to use components API
-//			IProjectDescription desc = project.getDescription();
-//			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
-//				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
-//			} else if (desc.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
-//				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
-//			} else if (desc.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-//				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
-//			} else if (desc.hasNature(IConnectorNatureConstants.NATURE_ID)) {
-//				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
-//			}
+			if (isEJBProject(project)) {
+				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
+			} else if (isApplicationClientProject(project)) {
+				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
+			} else if (isDynamicWebProject(project)) {
+				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
+			} else if (isJCAProject(project)) {
+				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public static Archive asArchive(String jarUri, IProject project, boolean exportSource) throws OpenFailureException {
+		JavaComponentLoadStrategyImpl strat = new JavaComponentLoadStrategyImpl(ComponentCore.createComponent(project));
+		strat.setExportSource(exportSource);
+		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
+	}
+	
+	public static boolean isProjectOfType(IProject project, String typeID) {
+		try {
+			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
+			return projectFacet!=null && facetedProject.hasProjectFacet(projectFacet);
+		} catch (Exception e) {
+			//Return false
+		}
+		return false;
+	}
+	
+	public static boolean isEARProject(IProject project) {
+		return isProjectOfType(project, ENTERPRISE_APPLICATION);
+	}
+	
+	public static boolean isDynamicWebProject(IProject project) {
+		return isProjectOfType(project, DYNAMIC_WEB);
+	}
+	
+	public static boolean isStaticWebProject(IProject project) {
+		return isProjectOfType(project, STATIC_WEB);
+	}
+	
+	public static boolean isEJBProject(IProject project) {
+		return isProjectOfType(project, EJB);
+	}
+	
+	public static boolean isJCAProject(IProject project) {
+		return isProjectOfType(project, JCA);
+	}
+	
+	public static boolean isApplicationClientProject(IProject project) {
+		return isProjectOfType(project, APPLICATION_CLIENT);
+	}
+	
+	public static boolean isUtilityProject(IProject project) {
+		return isProjectOfType(project, UTILITY);
+	}
+	
+	public static boolean isStandaloneProject(IProject project) {
+		return getReferencingEARProjects(project).length==0;
+	}
+	
+	public static IProject[] getReferencingEARProjects(IProject project) {
+		List result = new ArrayList();
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		IVirtualComponent[] refComponents = component.getReferencingComponents();
+		for (int i=0; i<refComponents.length; i++) {
+			if (isEARProject(refComponents[i].getProject()))
+				result.add(refComponents[i].getProject());
+		}
+		return (IProject[]) result.toArray(new IProject[result.size()]);
+	}
+	
+	/**
+	 * Return all projects in workspace of the specified type
+	 * @param type - use one of the static strings on this class as a type
+	 * @return IProject[]
+	 */
+	public static IProject[] getAllProjectsInWorkspaceOfType(String type) {
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		List result = new ArrayList();
+		for (int i = 0; i < projects.length; i++) {
+			if (isProjectOfType(projects[i],type))
+				result.add(projects[i]);
+		}
+		return (IProject[]) result.toArray(new IProject[result.size()]);
+	}
+	
+	public static String getJ2EEProjectType(IProject project) {
+		if (isApplicationClientProject(project))
+			return APPLICATION_CLIENT;
+		else if (isDynamicWebProject(project))
+			return DYNAMIC_WEB;
+		else if (isEJBProject(project))
+			return EJB;
+		else if (isEARProject(project))
+			return ENTERPRISE_APPLICATION;
+		else if (isJCAProject(project))
+			return JCA;
+		else if (isStaticWebProject(project))
+			return STATIC_WEB;
+		else if (isUtilityProject(project))
+			return UTILITY;
+		else
+			return ""; //$NON-NLS-1$
 	}
 
 }

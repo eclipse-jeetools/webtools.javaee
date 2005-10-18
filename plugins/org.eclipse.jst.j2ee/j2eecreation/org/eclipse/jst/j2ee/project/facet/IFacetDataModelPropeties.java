@@ -19,14 +19,14 @@ public interface IFacetDataModelPropeties extends IDataModelProperties {
 	public static final Object FACET_TYPE_UNINSTALL = Action.Type.UNINSTALL;
 	public static final Object FACET_TYPE_VERSION_CHANGE = Action.Type.VERSION_CHANGE;
 
-	public static final String FACET_PROJECT_NAME = "IWebFacetInstallDataModelProperties.FACET_PROJECT_NAME";
+	public static final String FACET_PROJECT_NAME = "IWebFacetInstallDataModelProperties.FACET_PROJECT_NAME"; //$NON-NLS-1$
 
-	public static final String FACET_TYPE = "IFacetDataModelPropeties.FACET_TYPE";
+	public static final String FACET_TYPE = "IFacetDataModelPropeties.FACET_TYPE"; //$NON-NLS-1$
 
-	public static final String FACET_ID = "IFacetDataModelPropeties.FACET_ID";
+	public static final String FACET_ID = "IFacetDataModelPropeties.FACET_ID"; //$NON-NLS-1$
 
-	public static final String FACET_VERSION_STR = "IFacetDataModelPropeties.FACET_VERSION_STR";
+	public static final String FACET_VERSION_STR = "IFacetDataModelPropeties.FACET_VERSION_STR"; //$NON-NLS-1$
 
-	public static final String FACET_VERSION = "IFacetDataModelPropeties.FACET_VERSION";
+	public static final String FACET_VERSION = "IFacetDataModelPropeties.FACET_VERSION"; //$NON-NLS-1$
 
 }

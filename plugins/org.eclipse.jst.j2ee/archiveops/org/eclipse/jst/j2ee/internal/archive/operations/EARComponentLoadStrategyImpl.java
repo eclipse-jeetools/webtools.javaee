@@ -22,10 +22,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
-import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -49,8 +48,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			for (int i = 0; i < components.length; i++) {
 				IVirtualReference reference = components[i];
 				IVirtualComponent referencedComponent = reference.getReferencedComponent();
-				String componentTypeId = referencedComponent.getComponentTypeId();
-				if (IModuleConstants.JST_APPCLIENT_MODULE.equals(componentTypeId) || IModuleConstants.JST_EJB_MODULE.equals(componentTypeId) || IModuleConstants.JST_WEB_MODULE.equals(componentTypeId) || IModuleConstants.JST_CONNECTOR_MODULE.equals(componentTypeId)) {
+				if (J2EEProjectUtilities.isApplicationClientProject(referencedComponent.getProject()) || J2EEProjectUtilities.isEJBProject(referencedComponent.getProject()) || J2EEProjectUtilities.isDynamicWebProject(referencedComponent.getProject()) || J2EEProjectUtilities.isJCAProject(referencedComponent.getProject())) {
 					ArtifactEdit componentArtifactEdit = null;
 					try {
 						componentArtifactEdit = ComponentUtilities.getArtifactEditForRead(referencedComponent);
@@ -64,11 +62,11 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 							componentArtifactEdit.dispose();
 						}
 					}
-				} else if (IModuleConstants.JST_UTILITY_MODULE.equals(componentTypeId)) {
+				} else if (J2EEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
 					try {
 						if (!referencedComponent.isBinary()) {
 							String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
-							Archive archive = J2EEComponentUtilities.asArchive(uri, referencedComponent, exportSource);
+							Archive archive = J2EEProjectUtilities.asArchive(uri, referencedComponent.getProject(), exportSource);
 							filesHolder.addFile(archive);
 						} else {
 							java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();

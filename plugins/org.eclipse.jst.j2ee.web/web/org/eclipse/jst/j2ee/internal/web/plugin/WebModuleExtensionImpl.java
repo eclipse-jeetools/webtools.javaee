@@ -29,7 +29,6 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreation
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -203,7 +202,4 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 		return DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
 	}
 
-	public String getCompTypeID() {
-		return IModuleConstants.JST_WEB_MODULE;
-	}
 }

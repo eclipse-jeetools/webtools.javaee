@@ -20,7 +20,6 @@ import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -53,14 +52,6 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	//	public J2EEImportOperation createImportOperation(IProject proj, RARFile rarFile){
 	//		return new RARImportOperation(proj, rarFile);
 	//	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getCompTypeID()
-	 */
-	public String getCompTypeID() {
-		return IModuleConstants.JST_CONNECTOR_MODULE;
-	}
 
 	/*
 	 * (non-Javadoc)

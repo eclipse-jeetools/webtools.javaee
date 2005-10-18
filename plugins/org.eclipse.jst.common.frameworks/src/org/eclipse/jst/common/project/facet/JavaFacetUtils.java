@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.osgi.service.prefs.BackingStoreException;
@@ -28,13 +29,13 @@ import org.osgi.service.prefs.BackingStoreException;
 public final class JavaFacetUtils
 {
     private static final IProjectFacetVersion JAVA_13
-        = ProjectFacetsManager.getProjectFacet( "java" ).getVersion( "1.3" );
+        = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion( "1.3" );
     
     private static final IProjectFacetVersion JAVA_14
-        = ProjectFacetsManager.getProjectFacet( "java" ).getVersion( "1.4" );
+        = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion( "1.4" );
 
     private static final IProjectFacetVersion JAVA_50
-        = ProjectFacetsManager.getProjectFacet( "java" ).getVersion( "5.0" );
+        = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion( "5.0" );
     
     public static void setCompilerLevel( final IProject project,
                                          final IProjectFacetVersion f )

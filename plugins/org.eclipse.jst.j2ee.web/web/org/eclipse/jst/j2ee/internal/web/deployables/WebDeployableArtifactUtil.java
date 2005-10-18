@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -39,9 +40,6 @@ import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -323,23 +321,7 @@ public class WebDeployableArtifactUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		StructureEdit edit = null;
-		if (ModuleCoreNature.getModuleCoreNature(project) == null)
-			return false;
-		try {
-			edit = StructureEdit.getStructureEditForWrite(project);
-			WorkbenchComponent[] components = edit.findComponentsByType("jst.web"); //$NON-NLS-1$
-			// WorkbenchComponent[] earComponents = edit.findComponentsByType("jst.ear");
-			if (components == null || components.length == 0) // || earComponents != null ||
-				// earComponents.length > 0
-				return false;
-			return true;
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			edit.dispose();
-		}
-		return false;
+		return J2EEProjectUtilities.isDynamicWebProject(project);
 	}
 
 }

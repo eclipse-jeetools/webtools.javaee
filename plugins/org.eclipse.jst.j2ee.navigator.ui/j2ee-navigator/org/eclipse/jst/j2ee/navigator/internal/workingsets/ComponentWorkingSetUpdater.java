@@ -21,11 +21,10 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetUpdater;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 /**
  * @author Admin
@@ -109,34 +108,10 @@ public class ComponentWorkingSetUpdater implements IWorkingSetUpdater,
 	 */
 	private boolean containsModuleType(IProject project, String typeId) {
 		boolean bReturn = false;
-		try {
 		if (project.isAccessible()) {
 			synchronized (this) {
-				StructureEdit moduleCore = null;
-				moduleCore = getStructureEdit(project);
-				if (moduleCore == null) return false;
-				WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules();
-				if (workBenchModules != null){
-				    for (int i = 0; i < workBenchModules.length; i++) {
-		                 WorkbenchComponent module = workBenchModules[i];
-		                 ComponentType componentType = module.getComponentType() ;
-						 if (componentType == null) {
-							 // Although this condition is bad, until the type has been set during creation, notifications may be processed.
-//							 String msg = "Component Type is null for the module: " + module.getName() + " in project: " + project.getName();
-//							 Logger.getLogger().log(msg,Level.SEVERE);
-							 continue;
-						 }
-		                 if (typeId.equals(componentType.getComponentTypeId())) {
-		                 	bReturn = true;
-		                 	break;
-		                 }
-				    }
-				}
-				
+				return J2EEProjectUtilities.isProjectOfType(project,typeId);
 			}
-		}
-		} catch (Exception ex) {
-			Logger.getLogger().logError(ex);
 		}
 		return bReturn;
 	}

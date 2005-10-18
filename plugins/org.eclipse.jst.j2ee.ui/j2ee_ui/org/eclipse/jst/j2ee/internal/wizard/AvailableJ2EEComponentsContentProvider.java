@@ -16,10 +16,9 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AvailableJ2EEComponentsContentProvider implements IStructuredContentProvider, ITableLabelProvider {
@@ -47,14 +46,12 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 			// get flexible project
 			IProject project = projects[i];
 			if(ModuleCoreNature.isFlexibleProject(project)){
-				IVirtualComponent component = ComponentCore.createComponent(project);
-				String compType = component.getComponentTypeId();
-				if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) )
-					validCompList.add(component.getProject());
+				if (J2EEProjectUtilities.isApplicationClientProject(project) ||
+						J2EEProjectUtilities.isEJBProject(project) ||
+						J2EEProjectUtilities.isDynamicWebProject(project) ||
+						J2EEProjectUtilities.isJCAProject(project) ||
+						J2EEProjectUtilities.isUtilityProject(project) )
+					validCompList.add(project);
 			} else
 				try {
 					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){ //$NON-NLS-1$

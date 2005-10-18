@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 
@@ -34,8 +34,8 @@ public class AppClientComponentExportDataModelProvider extends J2EEComponentExpo
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_APP_CLIENT, new Object[]{projectName});
     }
 
-    protected String getComponentID() {
-        return IModuleConstants.JST_APPCLIENT_MODULE;
+    protected String getProjectType() {
+        return J2EEProjectUtilities.APPLICATION_CLIENT;
     }
     /**
      * Exports the specified Application Client Module project to the specified Application Client

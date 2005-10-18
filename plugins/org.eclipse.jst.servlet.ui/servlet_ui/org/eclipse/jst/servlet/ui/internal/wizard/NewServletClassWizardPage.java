@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
@@ -22,7 +23,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -44,8 +44,8 @@ public class NewServletClassWizardPage extends NewJavaClassWizardPage {
 	 * Create annotations group and set default enablement
 	 */
 	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, IModuleConstants.JST_EJB_MODULE.equals(moduleType),
-				IModuleConstants.JST_WEB_MODULE.equals(moduleType));
+		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, J2EEProjectUtilities.EJB.equals(projectType),
+				J2EEProjectUtilities.DYNAMIC_WEB.equals(projectType));
 		if (!model.isPropertySet(IArtifactEditOperationDataModelProperties.PROJECT_NAME))
 			return;
 		IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));

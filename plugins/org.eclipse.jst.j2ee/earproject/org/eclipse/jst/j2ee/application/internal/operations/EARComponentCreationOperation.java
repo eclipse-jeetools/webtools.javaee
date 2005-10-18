@@ -25,7 +25,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -79,9 +78,9 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
         }		
 	}
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
 		try {
-			super.execute(IModuleConstants.JST_EAR_MODULE, monitor, info);
+			super.execute(monitor, info);
 			if (getDataModel().getBooleanProperty(CREATE_DEFAULT_FILES)) {
 				createDeploymentDescriptor(monitor);
 			}

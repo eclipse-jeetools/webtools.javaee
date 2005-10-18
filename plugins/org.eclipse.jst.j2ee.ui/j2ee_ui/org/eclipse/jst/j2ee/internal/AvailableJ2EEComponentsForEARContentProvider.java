@@ -18,10 +18,10 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -53,17 +53,16 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			IProject project = projects[i];
 			if(ModuleCoreNature.isFlexibleProject(project)){
 				IVirtualComponent component = ComponentCore.createComponent(project);
-				String compType = component.getComponentTypeId();
-				if ((compType.equals(IModuleConstants.JST_APPCLIENT_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_EJB_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_WEB_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_CONNECTOR_MODULE)) ||
-						(compType.equals(IModuleConstants.JST_UTILITY_MODULE)) ){
+				if (J2EEProjectUtilities.isApplicationClientProject(project) ||
+						J2EEProjectUtilities.isEJBProject(project) ||
+						J2EEProjectUtilities.isDynamicWebProject(project) ||
+						J2EEProjectUtilities.isJCAProject(project) ||
+						J2EEProjectUtilities.isUtilityProject(project) ){
 					int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
 					if( compJ2EEVersion <= j2eeVersion)
 						//validCompList.add(component.getProject());
 						validCompList.add(component);
-				}else if(compType.equals(IModuleConstants.JST_EAR_MODULE)){
+				}else if(J2EEProjectUtilities.isEARProject(project)){
 					//find the ArchiveComponent
 					if( component.equals( earComponent )){
 						IVirtualReference[] newrefs = component.getReferences();

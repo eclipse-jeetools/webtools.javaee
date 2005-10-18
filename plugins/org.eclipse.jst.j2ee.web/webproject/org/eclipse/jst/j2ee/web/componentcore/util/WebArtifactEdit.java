@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -73,13 +74,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static final String WEB_INF = "WEB-INF"; //$NON-NLS-1$
 	public static final String META_INF = "META-INF"; //$NON-NLS-1$
 	
-	/**
-	 * <p>
-	 * Identifier used to group and query common artifact edits.
-	 * </p>
-	 */
-	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
-	
 	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 
 	/**
@@ -98,7 +92,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 */
 	public WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * @param aHandle
+	 * @param toAccessAsReadOnly
+	 * @throws IllegalArgumentException
+	 */
+	protected WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.DYNAMIC_WEB);
 	}
 
 
@@ -246,10 +248,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static boolean isValidWebModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
-		/* and match the JST_WEB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isDynamicWebProject(aModule.getProject());
 	}
 
 	/**
@@ -276,7 +275,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
-	public WebArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected WebArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -599,5 +598,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
 		return CommonarchiveFactory.eINSTANCE.openWARFile(loader, uri);
+	}
+	
+	public static void createDeploymentDescriptor(IProject project, int version) {
+		WebArtifactEdit webEdit = new WebArtifactEdit(project,false,true);
+		try {
+			webEdit.createModelRoot(version);
+			webEdit.save(null);
+		} finally {
+			webEdit.dispose();
+		} 
 	}
 }

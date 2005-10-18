@@ -18,11 +18,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
 
@@ -70,11 +68,7 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	 * make sure a web project is selected.
 	 */
 	public boolean isValidProject(IProject aProject) {
-		IVirtualComponent comp = ComponentCore.createComponent(aProject);
-		if (IModuleConstants.WST_WEB_MODULE.equals(comp.getComponentTypeId()))
-			return true;
-		else
-			return false;
+		return J2EEProjectUtilities.isStaticWebProject(aProject);
 	}
 
 	/**

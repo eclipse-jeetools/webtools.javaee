@@ -19,9 +19,9 @@ import org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
-import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.EARMessageConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -37,12 +37,12 @@ public class EarHelper extends J2EEValidationHelper {
 	public EarHelper() {
 		super();
 
-		registerModel(EarValidator.EAR_MODEL_NAME, "loadEarFile"); //$NON-NLS-1$
+		registerModel(EARMessageConstants.EAR_MODEL_NAME, "loadEarFile"); //$NON-NLS-1$
 	}
 
 	public String getApplicationXMLFile() {
 
-		return ArchiveConstants.APPL_ID;
+		return J2EEConstants.APPL_ID;
 	}
 
 	/**

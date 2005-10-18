@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifa
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
+import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientMessageConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -41,7 +41,7 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 	 */
 	public ApplicationClientHelper() {
 		super();
-		registerModel(ApplicationClientValidator.APPCLIENT_MODEL_NAME, "loadApplicationClientFile"); //$NON-NLS-1$
+		registerModel(ApplicationClientMessageConstants.APPCLIENT_MODEL_NAME, "loadApplicationClientFile"); //$NON-NLS-1$
 	}
 
 	/**

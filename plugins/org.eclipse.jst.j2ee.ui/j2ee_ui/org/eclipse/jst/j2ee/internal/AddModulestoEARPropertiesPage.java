@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationOperation;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -55,7 +56,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -114,10 +114,9 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 
 		if (ModuleCoreNature.isFlexibleProject(project)) {
 			IVirtualComponent component = ComponentCore.createComponent(project);
-				String compType = component.getComponentTypeId();
-				if (compType.equals(IModuleConstants.JST_EAR_MODULE))
+				if (J2EEProjectUtilities.isEARProject(project))
 					earComponent = component;
-			}
+		}
 	}
 
 	protected void createProjectLabelsGroup(Composite parent) {

@@ -46,6 +46,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
@@ -64,7 +65,6 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -115,7 +115,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			WSDDArtifactEdit wsddArtifactEdit = null;
 			WSCDDArtifactEdit wscddArtifactEdit = null;
 			IVirtualComponent component = ComponentCore.createComponent(project);
-				if (!ModuleCoreNature.isFlexibleProject(project) || IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId()))
+				if (!ModuleCoreNature.isFlexibleProject(project) || J2EEProjectUtilities.isEARProject(project))
 					continue;
 				//TODO implement a smarter solution than try catchs
 				try {
@@ -743,9 +743,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			if ((delta.getKind()==IResourceDelta.ADDED || (((delta.getFlags() & IResourceDelta.OPEN) != 0) && p.isAccessible()))) {
 				boolean state = true;
 				IVirtualComponent component = ComponentCore.createComponent(p);
-				
-					if (component!=null && !IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId())) {
-
+				if (component!=null && !J2EEProjectUtilities.isEARProject(p)) {
 					WSDDArtifactEdit wsArtifactEdit = getWSArtifactEdit(p);
 					if (wsArtifactEdit !=null)
 						state = false;

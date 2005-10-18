@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.J2EEComponentUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -364,7 +364,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	protected void availableJARCheckStateChanged(CheckStateChangedEvent event) {
-		if (!J2EEComponentUtilities.isStandaloneComponent(model.getComponent()) && (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked()))) {
+		if (!J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject()) && (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked()))) {
 			availableJARsViewer.setChecked(event.getElement(), !event.getChecked());
 			return;
 		}
@@ -397,7 +397,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	protected ClassPathSelection getClasspathSelection() {
-		if (model == null || model.getSelectedEARComponent() == null && !J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent()))
+		if (model == null || model.getSelectedEARComponent() == null && !(J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject())))
 			return null;
 		return model.getClassPathSelection();
 	}
@@ -413,7 +413,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	public void refresh() {
-		if (!isWLPEntry() && !J2EEComponentUtilities.isStandaloneWebComponent(model.getComponent())) {
+		if (!isWLPEntry() && !J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject())) {
 			availableJARsViewer.setInput(getClasspathSelection());
 			model.setWLPModel(false);
 			GridData data = new GridData(GridData.FILL_BOTH);

@@ -38,19 +38,17 @@ import org.eclipse.jst.j2ee.internal.dialogs.RenameModuleDialog;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class J2EERenameAction extends SelectionDispatchAction implements J2EERenameUIConstants {
 
@@ -351,10 +349,9 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	protected boolean isJ2EEApplicationProject(Object o) {
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
-			IVirtualComponent component = ComponentCore.createComponent(project);
-				if (IModuleConstants.JST_EAR_MODULE.equals(component.getComponentTypeId()))
-					return true;
-			}
+			if (J2EEProjectUtilities.isEARProject(project))
+				return true;
+		}
 		return false;
 	}
 

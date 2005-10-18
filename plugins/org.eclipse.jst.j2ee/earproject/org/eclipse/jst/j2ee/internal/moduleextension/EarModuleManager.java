@@ -18,7 +18,7 @@ package org.eclipse.jst.j2ee.internal.moduleextension;
 
 import java.util.HashMap;
 
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
 
 /**
@@ -48,37 +48,44 @@ public class EarModuleManager {
 	 * @return
 	 */
 	public static EjbModuleExtension getEJBModuleExtension() {
-		return (EjbModuleExtension) getModuleExtension(IModuleConstants.JST_EJB_MODULE);
+		return (EjbModuleExtension) getModuleExtension(J2EEProjectUtilities.EJB);
 	}
 
 	/**
 	 * @return
 	 */
 	public static JcaModuleExtension getJCAModuleExtension() {
-		return (JcaModuleExtension) getModuleExtension(IModuleConstants.JST_CONNECTOR_MODULE);
+		return (JcaModuleExtension) getModuleExtension(J2EEProjectUtilities.JCA);
 	}
 
 	/**
 	 * @return
 	 */
 	public static WebModuleExtension getWebModuleExtension() {
-		return (WebModuleExtension) getModuleExtension(IModuleConstants.JST_WEB_MODULE);
+		return (WebModuleExtension) getModuleExtension(J2EEProjectUtilities.DYNAMIC_WEB);
 	}
 
 	public static boolean hasEJBModuleExtension() {
-		return (EjbModuleExtension) getModuleExtension(IModuleConstants.JST_EJB_MODULE) != null;
+		return (EjbModuleExtension) getModuleExtension(J2EEProjectUtilities.EJB) != null;
 	}
 
 	public static boolean hasJCAModuleExtension() {
-		return (JcaModuleExtension) getModuleExtension(IModuleConstants.JST_CONNECTOR_MODULE) != null;
+		return (JcaModuleExtension) getModuleExtension(J2EEProjectUtilities.JCA) != null;
 	}
 
 	public static boolean hasWebModuleExtension() {
-		return (WebModuleExtension) getModuleExtension(IModuleConstants.JST_WEB_MODULE) != null;
+		return getModuleExtension(J2EEProjectUtilities.DYNAMIC_WEB) != null;
 	}
 
 	public static void registerModuleExtension(EarModuleExtension ext) {
-		moduleExtensions.put(ext.getCompTypeID(), ext);
+		if (ext instanceof WebModuleExtension)
+			moduleExtensions.put(J2EEProjectUtilities.DYNAMIC_WEB, ext);
+		else if (ext instanceof EjbModuleExtension)
+			moduleExtensions.put(J2EEProjectUtilities.EJB, ext);
+		else if (ext instanceof JcaModuleExtension)
+			moduleExtensions.put(J2EEProjectUtilities.JCA, ext);
+		else
+			moduleExtensions.put(J2EEProjectUtilities.ENTERPRISE_APPLICATION, ext);
 	}
 
 	public static void removeModuleExtension(String key) {

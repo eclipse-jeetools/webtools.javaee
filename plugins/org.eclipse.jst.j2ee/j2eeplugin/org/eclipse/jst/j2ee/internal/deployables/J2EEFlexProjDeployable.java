@@ -41,6 +41,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.jst.server.core.IEJBModule;
@@ -48,7 +49,6 @@ import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -65,6 +65,7 @@ import org.eclipse.wst.server.core.util.ProjectModule;
  * J2EE deployable superclass.
  */
 public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
+	
 	private String factoryId;
     protected IVirtualComponent component = null;
     private boolean outputMembersAdded = false;
@@ -82,16 +83,15 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
 
 	public String getJ2EESpecificationVersion() {
-		String type = component.getComponentTypeId();
-		if (IModuleConstants.JST_EAR_MODULE.equals(type))
+		if (J2EEProjectUtilities.isEARProject(component.getProject()))
 			return component.getVersion();
-		else if (IModuleConstants.JST_APPCLIENT_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isApplicationClientProject(component.getProject()))
 			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(component.getVersion()));
-		else if (IModuleConstants.JST_CONNECTOR_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isJCAProject(component.getProject()))
 			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(component.getVersion()));
-		else if (IModuleConstants.JST_EJB_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isEJBProject(component.getProject()))
 			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(component.getVersion()));
-		else if (IModuleConstants.JST_WEB_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
 			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(component.getVersion()));
 		else
 			return component.getVersion();
@@ -124,16 +124,15 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
 
 	public String getType() {
-		String type = component.getComponentTypeId();
-		if (IModuleConstants.JST_EAR_MODULE.equals(type))
+		if (J2EEProjectUtilities.isEARProject(component.getProject()))
 			return "j2ee.ear"; //$NON-NLS-1$
-		else if (IModuleConstants.JST_APPCLIENT_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isApplicationClientProject(component.getProject()))
 			return "j2ee.appclient"; //$NON-NLS-1$
-		else if (IModuleConstants.JST_CONNECTOR_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isJCAProject(component.getProject()))
 			return "j2ee.connector"; //$NON-NLS-1$
-		else if (IModuleConstants.JST_EJB_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isEJBProject(component.getProject()))
 			return "j2ee.ejb"; //$NON-NLS-1$
-		else if (IModuleConstants.JST_WEB_MODULE.equals(type))
+		else if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
 			return "j2ee.web"; //$NON-NLS-1$
 		else
 			return null;
@@ -383,7 +382,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
     
     public String getJNDIName(String ejbName) {
-    	if (!IModuleConstants.JST_EJB_MODULE.equals(component.getComponentTypeId()))
+    	if (!J2EEProjectUtilities.isEJBProject(component.getProject()))
     		return null;
 		EjbModuleExtensionHelper modHelper = null;
 		EJBJar jar = null;
@@ -427,7 +426,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     
     public String getURI(IModule module) {
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
-    	if (IModuleConstants.JST_EAR_MODULE.equals(comp.getComponentTypeId())) {
+    	if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
 			EARArtifactEdit earEdit = null;
 			String aURI = null;
 			try {
@@ -443,7 +442,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 			}
 			return aURI;
     	}
-    	else if (IModuleConstants.JST_WEB_MODULE.equals(comp.getComponentTypeId())) {
+    	else if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
     		String result = null;
     		if (!comp.isBinary()) {
         		IVirtualReference ref = component.getReference(comp.getName());

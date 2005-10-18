@@ -1,8 +1,8 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.IJ2EEModule;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -11,12 +11,10 @@ import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.Module;
 
 public class FlexibleProjectServerUtil {
-	public static final String JST_EJB_ID = "jst.ejb";
-	public static final String JST_WEB_ID = "jst.web";
-	public static final String JST_EAR_ID = "jst.ear";
-	public static final String J2EE_EJB_ID = "j2ee.ejb";
-	public static final String J2EE_WEB_ID = "j2ee.web";
-	public static final String J2EE_EAR_ID = "j2ee.ear";
+	
+	public static final String J2EE_EJB_ID = "j2ee.ejb"; //$NON-NLS-1$
+	public static final String J2EE_WEB_ID = "j2ee.web"; //$NON-NLS-1$
+	public static final String J2EE_EAR_ID = "j2ee.ear"; //$NON-NLS-1$
 
 
 	public static IJ2EEModule getModuleDelegate(WorkbenchComponent component) {
@@ -57,9 +55,8 @@ public class FlexibleProjectServerUtil {
 	}
 
 	protected static IModule[] getModules(WorkbenchComponent component) {
-		ComponentType type = component.getComponentType();
 		IProject project = StructureEdit.getContainingProject(component);
-		if (type == null || project == null || type.getComponentTypeId() == null)
+		if (project == null)
 			return null;
 		IModule[] modules = ServerUtil.getModules(project);
 		return modules;
@@ -67,7 +64,7 @@ public class FlexibleProjectServerUtil {
 	
 	protected static IModule[] getModules(IVirtualComponent component) {
 		IProject project = component.getProject();
-		if (project == null || component.getComponentTypeId() == null)
+		if (project == null)
 			return null;
 		IModule[] modules = ServerUtil.getModules(project);
 		return modules;
@@ -75,18 +72,13 @@ public class FlexibleProjectServerUtil {
 
 
 	public static String convertJSTVersions(String id) {
-
-		if (id.equals(JST_EJB_ID))
+		if (id.equals(J2EEProjectUtilities.EJB))
 			return J2EE_EJB_ID;
-
-		if (id.equals(JST_WEB_ID))
+		else if (id.equals(J2EEProjectUtilities.DYNAMIC_WEB))
 			return J2EE_WEB_ID;
-
-		if (id.equals(JST_EAR_ID))
+		else if (id.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION))
 			return J2EE_EAR_ID;
-
-
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 }

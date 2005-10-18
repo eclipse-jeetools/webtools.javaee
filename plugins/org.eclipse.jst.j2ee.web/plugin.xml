@@ -347,55 +347,55 @@
   <!-- Project Facets -->
 	<extension point="org.eclipse.wst.common.project.facet.core.facets">
 
-    <project-facet id="web">
-      <label>Web Module</label>
-      <description>Enables the project to be deployed as a web module.</description>
+    <project-facet id="jst.web">
+      <label>Dynamic Web Module</label>
+      <description>Enables the project to be deployed as a dynamic web module.</description>
       <icon>icons/war.gif</icon>
     </project-facet>
 
-    <project-facet-version facet="web" version="2.2">
+    <project-facet-version facet="jst.web" version="2.2">
       <delegate type="install" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
       <delegate type="version-change" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
       <delegate type="runtime-changed" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
       <constraint>
         <and>
-          <requires facet="java" version="1.3" allow-newer="true"/>
+          <requires facet="jst.java" version="1.3" allow-newer="true"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
       <group-member id="modules"/>
     </project-facet-version>
 
-    <project-facet-version facet="web" version="2.3">
+    <project-facet-version facet="jst.web" version="2.3">
       <delegate type="install" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
       <delegate type="version-change" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
       <delegate type="runtime-changed" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
       <constraint>
         <and>
-          <requires facet="java" version="1.3" allow-newer="true"/>
+          <requires facet="jst.java" version="1.3" allow-newer="true"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
       <group-member id="modules"/>
     </project-facet-version>
 
-    <project-facet-version facet="web" version="2.4">
+    <project-facet-version facet="jst.web" version="2.4">
       <delegate type="install" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
       <delegate type="version-change" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
       <delegate type="runtime-changed" class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
       <constraint>
         <and>
-          <requires facet="java" version="1.3" allow-newer="true"/>
+          <requires facet="jst.java" version="1.3" allow-newer="true"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
       <group-member id="modules"/>
     </project-facet-version>
     
-    <template id="template.web">
-      <label>Web Project</label>
-      <fixed facet="java"/>
-      <fixed facet="web"/>
+    <template id="template.jst.web">
+      <label>Dynamic Web Project</label>
+      <fixed facet="jst.java"/>
+      <fixed facet="jst.web"/>
     </template>
 
   </extension>

@@ -10,15 +10,14 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.validation.UIEarValidator;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.internal.ui.RunnableWithProgressWrapper;
 import org.eclipse.wst.validation.internal.operations.OneValidatorOperation;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
@@ -38,13 +37,7 @@ public class EARValidationHelper {
 	 * then it is skipped.
 	 */
 	public static IRunnableWithProgress[] getEARValidationOperations(List modifiedProjects) {
-		IVirtualComponent[] earComps = ComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_EAR_MODULE);
-		List earProjects = new ArrayList();
-		for (int i=0; i<earComps.length; i++) {
-			IProject earProject = earComps[i].getProject();
-			if (!earProjects.contains(earProject))
-				earProjects.add(earProject);
-		}
+		List earProjects = Arrays.asList(J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.ENTERPRISE_APPLICATION));
 		List result = new ArrayList(earProjects.size());
 		for (int i = 0; i < earProjects.size(); i++) {
 			IProject earProj = (IProject) earProjects.get(i);

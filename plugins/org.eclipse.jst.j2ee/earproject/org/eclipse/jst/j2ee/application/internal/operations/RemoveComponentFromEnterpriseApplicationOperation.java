@@ -10,9 +10,9 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -57,17 +57,14 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 
 	protected void removeModule(Application application, IVirtualComponent wc) {
 		Application dd = application;
-
 		String name = wc.getName();
-		String type = wc.getComponentTypeId();
-
-		if (type.equals(IModuleConstants.JST_WEB_MODULE)) {
+		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
 			name += ".war"; //$NON-NLS-1$
-		} else if (type.equals(IModuleConstants.JST_EJB_MODULE)) {
+		} else if (J2EEProjectUtilities.isEJBProject(wc.getProject())) {
 			name += ".jar"; //$NON-NLS-1$
-		} else if (type.equals(IModuleConstants.JST_APPCLIENT_MODULE)) {
+		} else if (J2EEProjectUtilities.isApplicationClientProject(wc.getProject())) {
 			name += ".jar"; //$NON-NLS-1$
-		} else if (type.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+		} else if (J2EEProjectUtilities.isJCAProject(wc.getProject())) {
 			name += ".rar"; //$NON-NLS-1$
 		}
 		Module existingModule = dd.getFirstModule(name);

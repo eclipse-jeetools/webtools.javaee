@@ -12,5 +12,5 @@ package org.eclipse.jst.j2ee.project.facet;
 
 public interface IJavaFacetInstallDataModelProperties {
 
-	public static final String SOURC_FOLDER_NAME = "IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME";	
+	public static final String SOURC_FOLDER_NAME = "IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME"; //$NON-NLS-1$
 }

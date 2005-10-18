@@ -18,15 +18,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebComponentToEARDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -99,8 +99,8 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 				getAddComponentToEARDataModel().notifyPropertyChange(IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT, IDataModel.DEFAULT_CHG);
 			}
 		} else if (propertyName.equals(WEBCONTENT_FOLDER)) {
-			model.setProperty(DD_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF);
-			model.setProperty(MANIFEST_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF);
+			model.setProperty(DD_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.WEB_INF); //$NON-NLS-1$
+			model.setProperty(MANIFEST_FOLDER, "/" + propertyValue + IPath.SEPARATOR + J2EEConstants.META_INF); //$NON-NLS-1$
 
 		}
 		return retVal;
@@ -256,7 +256,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
 	protected EClass getComponentType() {
-		return CommonarchiveFactoryImpl.getPackage().getWARFile();
+		return CommonarchivePackage.eINSTANCE.getWARFile();
 	}
 
 	protected String getComponentExtension() {
@@ -301,17 +301,12 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 		// setProperty(ADD_TO_EAR, updateAddToEar());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-	 */
-	protected String getComponentID() {
-		return IModuleConstants.JST_WEB_MODULE;
-	}
-
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);
+	}
+	
+	protected String getJ2EEProjectType() {
+		return J2EEProjectUtilities.DYNAMIC_WEB;
 	}
 
 }

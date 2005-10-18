@@ -10,6 +10,7 @@ package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 
@@ -31,7 +32,7 @@ public class EarEditAdapterFactory implements IAdapterFactory {
 
 		if (adapterType == EARArtifactEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
-			if (editModel.getModuleType().equals(EARArtifactEdit.TYPE_ID))
+			if (J2EEProjectUtilities.isEARProject(editModel.getProject()))
 				return new EARArtifactEdit((ArtifactEditModel) adaptableObject);
 		}
 		return null;

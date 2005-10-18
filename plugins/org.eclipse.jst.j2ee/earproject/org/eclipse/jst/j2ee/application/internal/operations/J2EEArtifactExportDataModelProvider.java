@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -49,7 +50,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		return propertyNames;
 	}
 
-	protected abstract String getComponentID();
+	protected abstract String getProjectType();
 
 	protected abstract String getWrongComponentTypeString(String projectName);
 
@@ -106,7 +107,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 
 			List relevantComponents = new ArrayList();
 			for (int i = 0; i < wbComps.length; i++) {
-				if (wbComps[i].getComponentTypeId().equals(getComponentID())) {
+				if (J2EEProjectUtilities.getJ2EEProjectType(wbComps[i].getProject()).equals(getProjectType())) {
 					relevantComponents.add(wbComps[i]);
 					getComponentMap().put(wbComps[i].getName(), wbComps[i]);
 				}
@@ -118,7 +119,6 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 			for (int j = 0; j < relevantComponents.size(); j++) {
 				componentNames.add(((IVirtualComponent) relevantComponents.get(j)).getName());
 			}
-			Object[] components = relevantComponents.toArray(new Object[relevantComponents.size()]);
 			String[] names = (String[]) componentNames.toArray(new String[componentNames.size()]);
 
 			return DataModelPropertyDescriptor.createDescriptors(names);
@@ -136,13 +136,13 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 	public IStatus validate(String propertyName) {
 		if (COMPONENT_NAME.equals(propertyName)) {
 			String componentName = (String) model.getProperty(COMPONENT_NAME);
-			if (componentName == null || componentName.equals(""))
+			if (componentName == null || componentName.equals("")) //$NON-NLS-1$
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
 			IVirtualComponent component = (IVirtualComponent) componentMap.get(componentName);
 			if (component == null) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_EXISTS_ERROR));
 			}
-			if (!component.getComponentTypeId().equals(getComponentID())) {
+			if (!J2EEProjectUtilities.getJ2EEProjectType(component.getProject()).equals(getProjectType())) {
 				return WTPCommonPlugin.createErrorStatus(getWrongComponentTypeString(componentName));
 			}
 		}
@@ -182,7 +182,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		String device = path.getDevice();
 		if (device == null)
 			return OK_STATUS;
-		if (path == null || device.length() == 1 && device.charAt(0) == Path.DEVICE_SEPARATOR)
+		if (path == null || device.length() == 1 && device.charAt(0) == IPath.DEVICE_SEPARATOR)
 			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_INVALID));
 
 		if (!path.toFile().canWrite()) {

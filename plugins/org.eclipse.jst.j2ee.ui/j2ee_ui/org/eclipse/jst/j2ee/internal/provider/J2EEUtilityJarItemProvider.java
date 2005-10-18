@@ -33,7 +33,7 @@ import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -106,7 +106,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 				if (module.getProject() == null || !module.getProject().isAccessible())
 					continue;
 				// return only jars for utility components
-				if (IModuleConstants.JST_UTILITY_MODULE.equals(module.getComponentTypeId())) {
+				if (J2EEProjectUtilities.isUtilityProject(module.getProject())) {
 					IProject project = ProjectUtilities.getProject(application);
 					if (project == null)
 						continue;

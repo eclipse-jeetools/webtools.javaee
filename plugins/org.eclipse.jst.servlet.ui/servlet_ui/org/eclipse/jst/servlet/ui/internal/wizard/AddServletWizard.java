@@ -19,11 +19,11 @@ import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -57,7 +57,7 @@ public class AddServletWizard extends NewWebWizard {
 				getDataModel(), 
 				PAGE_ONE,
 				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE, IModuleConstants.JST_WEB_MODULE);
+				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE, J2EEProjectUtilities.DYNAMIC_WEB);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
 		addPage(page1);
 		AddServletWizardPage page2 = new AddServletWizardPage(getDataModel(), PAGE_TWO);

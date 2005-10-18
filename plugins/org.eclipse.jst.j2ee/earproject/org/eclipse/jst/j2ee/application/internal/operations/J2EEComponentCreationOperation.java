@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
@@ -38,10 +37,8 @@ import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -65,8 +62,8 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
         super(model);
     }
 
-    protected void execute(String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        super.execute(componentType, monitor, null);
+    protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+        super.execute(monitor, null);
 
         if (model.getBooleanProperty(CREATE_DEFAULT_FILES)) {
             createDeploymentDescriptor(monitor);
@@ -148,24 +145,6 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
     }
 
     protected abstract String getVersion();
-
-    protected void setupComponentType(String typeID) {
-        IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
-        ComponentType componentType = ComponentcoreFactory.eINSTANCE.createComponentType();
-        componentType.setComponentTypeId(typeID);
-        componentType.setVersion(getVersion());
-        List newProps = getProperties();
-        EList existingProps = componentType.getProperties();
-        if (newProps != null && !newProps.isEmpty()) {  
-            for (int i = 0; i < newProps.size(); i++) {
-                existingProps.add(newProps.get(i));
-            }
-        }
-        Property javaOutputProp = getOutputProperty();
-        if(javaOutputProp != null)
-            existingProps.add(javaOutputProp);        
-        StructureEdit.setComponentType(component, componentType);
-    }
 
     // Should return null if no additional properties needed
     protected List getProperties() {

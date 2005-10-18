@@ -27,14 +27,6 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNatureID()
-	 */
-	public abstract String getCompTypeID();
-
 	/*
 	 * (non-Javadoc)
 	 * 

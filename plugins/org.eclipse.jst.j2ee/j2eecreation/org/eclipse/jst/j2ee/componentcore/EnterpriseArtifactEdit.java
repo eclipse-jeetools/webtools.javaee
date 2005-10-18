@@ -57,6 +57,16 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * @param aHandle
+	 * @param toAccessAsReadOnly
+	 * @throws IllegalArgumentException
+	 */
+	protected EnterpriseArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate, String projectType) throws IllegalArgumentException {
+		super(aProject, toAccessAsReadOnly, forCreate, projectType);
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * <p>
@@ -93,7 +103,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 *            {@see ModuleCoreNature}
 	 */
 
-	public EnterpriseArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected EnterpriseArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 

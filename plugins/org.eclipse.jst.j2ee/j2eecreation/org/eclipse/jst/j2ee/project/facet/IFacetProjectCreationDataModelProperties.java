@@ -14,8 +14,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 
 public interface IFacetProjectCreationDataModelProperties extends IDataModelProperties {
 
-	public static final String FACET_PROJECT_NAME = "IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME";
+	public static final String FACET_PROJECT_NAME = "IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME"; //$NON-NLS-1$
 	
-	public static final String FACET_DM_LIST = "IFacetProjectCreationDataModelProperties.FACET_DM_LIST";
+	public static final String FACET_DM_LIST = "IFacetProjectCreationDataModelProperties.FACET_DM_LIST"; //$NON-NLS-1$
 	
 }

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.Set;
 
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProvider
@@ -33,7 +34,7 @@ implements IJavaFacetInstallDataModelProperties{
 
 	public Object getDefaultProperty(String propertyName) {
 		if(FACET_ID.equals(propertyName)){
-			return "java";
+			return IModuleConstants.JST_JAVA;
 		}
 		return super.getDefaultProperty(propertyName);
 	}

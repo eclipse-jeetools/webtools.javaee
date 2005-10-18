@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
@@ -20,7 +21,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
@@ -87,7 +87,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from
 	 *            the given {@see ModuleCoreNature}
 	 */
-	public WSDDArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected WSDDArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -341,11 +341,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
-
-		/* and match the JST_EJB_MODULE type */
-		if (!IModuleConstants.JST_EJB_MODULE.equals(aComponent.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isEJBProject(aComponent.getProject());
 	}
 	/**
 	 * @param component
@@ -355,11 +351,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-
-		/* and match the JST_WEB_MODULE type */
-		if (!IModuleConstants.JST_WEB_MODULE.equals(aComponent.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
 	}
 	/**
 	 * @param component
@@ -369,11 +361,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-
-		/* and match the JST_AppClient_MODULE type */
-		if (!IModuleConstants.JST_APPCLIENT_MODULE.equals(aComponent.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
 	}
 
 	/*

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -89,7 +89,7 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 * @return IModuleObject
 	 */
 	protected static IModuleArtifact getModuleObject(IFile file) {
-		if (file.getProjectRelativePath().toString().endsWith(ArchiveConstants.APPLICATION_DD_URI)) {
+		if (file.getProjectRelativePath().toString().endsWith(J2EEConstants.APPLICATION_DD_URI)) {
 			{
 				IVirtualResource[] resources = ComponentCore.createResources(file);
 				IVirtualComponent component = null;
@@ -141,7 +141,7 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ear")).iterator();
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ear")).iterator(); //$NON-NLS-1$
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();

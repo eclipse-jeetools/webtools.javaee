@@ -33,7 +33,6 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -139,16 +138,12 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 		return J2EEVersionUtil.getJCATextVersion(version);
 	}
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
 		try {
-			super.execute(IModuleConstants.JST_CONNECTOR_MODULE, monitor);
-		} catch (CoreException e) {
+			super.execute(monitor);
+		} catch (Exception e) {
 			Logger.getLogger().log(e.getMessage());
-		} catch (InvocationTargetException e) {
-			Logger.getLogger().log(e.getMessage());
-		} catch (InterruptedException e) {
-			Logger.getLogger().log(e.getMessage());
-		}
+		} 
 		return OK_STATUS;
 	}
 

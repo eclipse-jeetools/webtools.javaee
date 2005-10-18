@@ -17,8 +17,8 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelP
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -191,15 +191,6 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
         }
         return returnValue;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-     */
-    protected String getComponentID() {
-        return IModuleConstants.JST_EAR_MODULE;
-    }
 	
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName){
 		return super.getValidPropertyDescriptors(propertyName);
@@ -220,6 +211,10 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 		else
 			return null;
 		
+	}
+	
+	protected String getJ2EEProjectType() {
+		return J2EEProjectUtilities.ENTERPRISE_APPLICATION;
 	}
 
 }

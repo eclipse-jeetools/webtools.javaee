@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
@@ -16,7 +17,6 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
@@ -77,7 +77,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */ 
-	public JaxRPCMapArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected JaxRPCMapArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 	
@@ -173,8 +173,8 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 				JavaWSDLMapping map = JaxrpcmapFactory.eINSTANCE.createJavaWSDLMapping();
 				aResource.getContents().add(map);
 		    }
-			JavaWSDLMapping ws = (JavaWSDLMapping)aResource.getContents().get(0);
-			URI moduleURI = getArtifactEditModel().getModuleURI();
+			aResource.getContents().get(0);
+			getArtifactEditModel().getModuleURI();
 			try {
 				aResource.saveIfNecessary();
 			}
@@ -314,11 +314,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 *         JST module
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
-		
-		/* and match the JST_EJB_MODULE type */
-		if (!IModuleConstants.JST_EJB_MODULE.equals(aComponent.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isEJBProject(aComponent.getProject());
 	}
 	/**
 	 * @param component
@@ -328,11 +324,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 *         JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-		
-		/* and match the JST_WEB_MODULE type */
-		if (!IModuleConstants.JST_WEB_MODULE.equals(aComponent.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
 	}
 	/**
 	 * @param component
@@ -342,11 +334,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 *         JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-		
-		/* and match the JST_AppClient_MODULE type */
-		if (!IModuleConstants.JST_APPCLIENT_MODULE.equals(aComponent.getComponentTypeId()))
-			return false;
-		return true;
+		return J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
 	}
 
 	/* (non-Javadoc)

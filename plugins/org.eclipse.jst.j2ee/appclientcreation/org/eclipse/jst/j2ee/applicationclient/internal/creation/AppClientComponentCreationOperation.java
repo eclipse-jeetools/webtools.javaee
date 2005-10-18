@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelPro
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -93,9 +92,9 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         return J2EEVersionUtil.getJ2EETextVersion(version);
     }
 
-    public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+    public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
         try {
-            super.execute( IModuleConstants.JST_APPCLIENT_MODULE, monitor );
+            super.execute(monitor );
             
             if (model.getBooleanProperty(CREATE_DEFAULT_MAIN_CLASS)) {
             	IDataModel mainClassDataModel = DataModelFactory.createDataModel(NewJavaClassDataModelProvider.class);
@@ -110,11 +109,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
                 
                 createManifestEntryForMainClass(monitor);
             }
-        } catch (CoreException e) {
-            Logger.getLogger().log(e.getMessage());
-        } catch (InvocationTargetException e) {
-            Logger.getLogger().log(e.getMessage());
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             Logger.getLogger().log(e.getMessage());
         }
         return OK_STATUS;

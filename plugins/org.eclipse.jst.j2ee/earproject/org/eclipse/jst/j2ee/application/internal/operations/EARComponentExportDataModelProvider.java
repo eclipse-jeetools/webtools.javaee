@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class EARComponentExportDataModelProvider extends J2EEArtifactExportDataModelProvider {
@@ -33,8 +33,8 @@ public class EARComponentExportDataModelProvider extends J2EEArtifactExportDataM
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_EAR, new Object[]{projectName});
     }
 
-    protected String getComponentID() {
-        return IModuleConstants.JST_EAR_MODULE;
+    protected String getProjectType() {
+        return J2EEProjectUtilities.ENTERPRISE_APPLICATION;
     }
     /**
      * Exports the specified Enterprise Appliction project to the specified EAR file.

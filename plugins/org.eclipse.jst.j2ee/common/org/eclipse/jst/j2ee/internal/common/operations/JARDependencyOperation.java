@@ -12,7 +12,6 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -22,7 +21,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -30,15 +28,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 
 public class JARDependencyOperation extends AbstractDataModelOperation {
@@ -56,44 +49,44 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 		return null;
 	}
 	
-	private void saveModel(ClasspathModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException {
-		if (!model.isDirty())
-			return;
-		validateEdit(model);
-		monitor.beginTask("", 2); //$NON-NLS-1$
-		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
-		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
-		try {
-			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
-			buildPathOperation.run(new SubProgressMonitor(monitor, 1));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	private void saveModel(ClasspathModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException {
+//		if (!model.isDirty())
+//			return;
+//		validateEdit(model);
+//		monitor.beginTask("", 2); //$NON-NLS-1$
+//		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
+//		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
+//		try {
+//			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
+//			buildPathOperation.run(new SubProgressMonitor(monitor, 1));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * @param model
 	 */
-	protected void validateEdit(ClasspathModel model) throws CoreException {
-		Set affectedFiles = model.getAffectedFiles();
+	protected void validateEdit(ClasspathModel aModel) throws CoreException {
+		Set affectedFiles = aModel.getAffectedFiles();
 		IFile[] files = (IFile[]) affectedFiles.toArray(new IFile[affectedFiles.size()]);
 		IStatus result = J2EEPlugin.getWorkspace().validateEdit(files, null);
 		if (!result.isOK())
 			throw new CoreException(result);
 	}
 
-	protected UpdateJavaBuildPathOperation createBuildPathOperation(ClasspathModel model) {
-		IJavaProject javaProject = JemProjectUtilities.getJavaProject(model.getProject());
-		return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
+	protected UpdateJavaBuildPathOperation createBuildPathOperation(ClasspathModel aModel) {
+		IJavaProject javaProject = JemProjectUtilities.getJavaProject(aModel.getProject());
+		return new UpdateJavaBuildPathOperation(javaProject, aModel.getClassPathSelection());
 	}
 
-	private UpdateManifestOperation createManifestOperation(ClasspathModel model) {
-		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, model.getProject().getName());
-		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(model.getClassPathSelection().toString()));
-		return new UpdateManifestOperation(updateManifestDataModel);
-	}
+//	private UpdateManifestOperation createManifestOperation(ClasspathModel aModel) {
+//		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, aModel.getProject().getName());
+//		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(aModel.getClassPathSelection().toString()));
+//		return new UpdateManifestOperation(updateManifestDataModel);
+//	}
 
 	/*
 	 * (non-Javadoc)

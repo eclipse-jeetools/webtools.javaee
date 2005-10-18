@@ -7,7 +7,7 @@
 package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -158,24 +158,23 @@ public class J2EEVersionUtil {
 	}
 	
 	public static int convertVersionStringToInt(IVirtualComponent comp) {
-		if (comp.getComponentTypeId().equals(IModuleConstants.JST_WEB_MODULE))
+		if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
 			return convertWebVersionStringToJ2EEVersionID(comp.getVersion());
-		if (comp.getComponentTypeId().equals(IModuleConstants.JST_EJB_MODULE))
+		if (J2EEProjectUtilities.isEJBProject(comp.getProject()))
 			return convertEJBVersionStringToJ2EEVersionID(comp.getVersion());
-		if (comp.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE))
+		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
 			return convertVersionStringToInt(comp.getVersion());
-		if (comp.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE))
+		if (J2EEProjectUtilities.isJCAProject(comp.getProject()))
 			return convertConnectorVersionStringToJ2EEVersionID(comp.getVersion());
-		if (comp.getComponentTypeId().equals(IModuleConstants.JST_APPCLIENT_MODULE))
+		if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
 			return convertAppClientVersionStringToJ2EEVersionID(comp.getVersion());
-		
 		return 0;
 	}
 	
 	public static int convertVersionStringToInt(String version) {
 		int nVersion = 0;
 		
-		if( version.endsWith("")){
+		if( version.endsWith("")){ //$NON-NLS-1$
 			nVersion = 0;
 		}
 		if (version.equals(J2EEVersionConstants.VERSION_1_0_TEXT))

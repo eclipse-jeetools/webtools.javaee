@@ -59,7 +59,7 @@ public final class JavaFacetInstallDelegate
     	
         if( monitor != null )
         {
-            monitor.beginTask( "", 1 );
+            monitor.beginTask( "", 1 ); //$NON-NLS-1$
         }
         
         try
@@ -69,8 +69,8 @@ public final class JavaFacetInstallDelegate
             final IWorkspace ws = ResourcesPlugin.getWorkspace();
             
             final IPath pjpath = project.getFullPath();
-            final IPath srcdir = pjpath.append( "src" );
-            final IPath outdir = pjpath.append( "build/classes" );
+            final IPath srcdir = pjpath.append( "src" ); //$NON-NLS-1$
+            final IPath outdir = pjpath.append( "build/classes" ); //$NON-NLS-1$
             
             ws.getRoot().getFolder( srcdir ).getLocation().toFile().mkdirs();
             ws.getRoot().getFolder( outdir ).getLocation().toFile().mkdirs();

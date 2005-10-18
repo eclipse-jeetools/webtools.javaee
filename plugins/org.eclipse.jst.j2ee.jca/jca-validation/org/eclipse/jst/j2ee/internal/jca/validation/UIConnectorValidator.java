@@ -18,9 +18,9 @@ package org.eclipse.jst.j2ee.internal.jca.validation;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
@@ -47,12 +47,10 @@ public class UIConnectorValidator extends ConnectorValidator {
 	 */
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 		
-		ConnectorHelper helper = (ConnectorHelper) inHelper;
-		
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
 		
-            if(wbModule.getComponentTypeId() != null && wbModule.getComponentTypeId().equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+        if(J2EEProjectUtilities.isJCAProject(proj)) {
 			IVirtualFile rarDD = wbModule.getRootFolder().getFile(J2EEConstants.RAR_DD_URI);
 			if( rarDD.exists()) {			
 				super.validate(inHelper, inReporter);

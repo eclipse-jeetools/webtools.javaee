@@ -21,7 +21,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -118,10 +117,6 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 	protected Integer getDefaultComponentVersion() {
 		Integer version = new Integer("10");
 		return version;
-	}
-
-	protected String getComponentID() {
-		return IModuleConstants.JST_UTILITY_MODULE;
 	}
 
 	protected String getComponentExtension() {

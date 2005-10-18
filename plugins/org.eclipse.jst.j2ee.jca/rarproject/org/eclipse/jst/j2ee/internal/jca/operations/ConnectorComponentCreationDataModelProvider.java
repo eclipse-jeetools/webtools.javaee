@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -117,15 +117,6 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 		return new ConnectorComponentCreationOperation(model);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-	 */
-	protected String getComponentID() {
-		return IModuleConstants.JST_CONNECTOR_MODULE;
-	}
-
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MANIFEST_FOLDER)) {
 			return IPath.SEPARATOR + CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER  + IPath.SEPARATOR + J2EEConstants.META_INF;
@@ -158,4 +149,8 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 		}		
 		return doSet;
 	}	
+	
+	protected String getJ2EEProjectType() {
+		return J2EEProjectUtilities.JCA;
+	}
 }

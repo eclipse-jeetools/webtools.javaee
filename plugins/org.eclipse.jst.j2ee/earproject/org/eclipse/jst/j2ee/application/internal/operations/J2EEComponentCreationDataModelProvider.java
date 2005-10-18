@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -207,8 +208,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
 		int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());
 		String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
-		return isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVer);
+		return isTypeSupported(runtime.getRuntimeType(), getJ2EEProjectType(), j2eeVer);
 	}
+	
+	protected abstract String getJ2EEProjectType();
 
 	protected DataModelPropertyDescriptor[] validJ2EEServerPropertyDescriptors() {
 
@@ -225,7 +228,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			String name = descriptor.getPropertyDescription();
 			String runtimeid = (String) descriptor.getPropertyValue();
 			IRuntime runtime = getServerTargetByID(runtimeid);
-			String ok = isTypeSupported(runtime.getRuntimeType(), getComponentID(), j2eeVersionText);
+			String ok = isTypeSupported(runtime.getRuntimeType(), getJ2EEProjectType(), j2eeVersionText);
 			if (ok.equals("OK"))
 				validServers.add(descriptor);
 		}
@@ -325,23 +328,23 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	protected static boolean matches(String serverTypeID, String j2eeModuleID) {
 
 		if (serverTypeID.equals("j2ee")) {
-			if (j2eeModuleID.equals(IModuleConstants.JST_WEB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EJB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EAR_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_APPCLIENT_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
 				return true;
 			}
 		} else if (serverTypeID.equals("j2ee.*")) {
-			if (j2eeModuleID.equals(IModuleConstants.JST_WEB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EJB_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_EAR_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_APPCLIENT_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
 				return true;
 			}
 		} else if (serverTypeID.equals("j2ee.web")) {//$NON-NLS-1$
-			if (j2eeModuleID.equals(IModuleConstants.JST_WEB_MODULE)) {
+			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB)) {
 				return true;
 			}
 		} else if (serverTypeID.equals("j2ee.ejb")) {//$NON-NLS-1$
-			if (j2eeModuleID.equals(IModuleConstants.JST_EJB_MODULE)) {
+			if (j2eeModuleID.equals(J2EEProjectUtilities.EJB)) {
 				return true;
 			}
 		} else if (serverTypeID.equals("j2ee.ear")) {//$NON-NLS-1$
-			if (j2eeModuleID.equals(IModuleConstants.JST_EAR_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_APPCLIENT_MODULE) || j2eeModuleID.equals(IModuleConstants.JST_CONNECTOR_MODULE)) {
+			if (j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
 				return true;
 			}
 		}
@@ -364,7 +367,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 						IVirtualComponent comp = ComponentCore.createComponent(flexProject);
 						int earVersion = 0;
 						
-							if (comp.getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+							if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
 								String sVer = comp.getVersion();
 								int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
 								if (j2eeVersion <= ver) {
@@ -425,7 +428,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
 
 		if (runtime != null) {
-			String msg = isTypeSupported(runtime.getRuntimeType(), IModuleConstants.JST_EAR_MODULE, j2eeVer);
+			String msg = isTypeSupported(runtime.getRuntimeType(), J2EEProjectUtilities.ENTERPRISE_APPLICATION, j2eeVer);
 			if (msg.equals(OK)) {
 				return true;
 			}
@@ -471,7 +474,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
 				int nj2eeVer = convertModuleVersionToJ2EEVersion(version.intValue());
 				String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
-				String msg = isTypeSupported(runtime.getRuntimeType(), IModuleConstants.JST_EAR_MODULE, j2eeVer);
+				String msg = isTypeSupported(runtime.getRuntimeType(), J2EEProjectUtilities.ENTERPRISE_APPLICATION, j2eeVer);
 				if (!msg.equals(OK)) {
 					msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
 					return WTPCommonPlugin.createErrorStatus(msg);

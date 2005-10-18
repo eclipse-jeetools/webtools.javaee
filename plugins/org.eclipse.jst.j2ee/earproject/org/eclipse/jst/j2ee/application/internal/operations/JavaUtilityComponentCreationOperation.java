@@ -52,18 +52,11 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
      * @see org.eclipse.core.commands.operations.AbstractOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
      */
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
-        super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor, info);
+        super.execute(monitor, info);
         createManifest(monitor);
         addSrcFolderToProject();
         return OK_STATUS;
     }
-	
-    public IStatus execute(String componentType, IProgressMonitor monitor, IAdaptable info) {
-        super.execute(componentType, monitor, info);
-        createManifest(monitor);
-        addSrcFolderToProject();
-        return OK_STATUS;
-    }	
 
     /* (non-Javadoc)
      * @see org.eclipse.core.commands.operations.AbstractOperation#redo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)

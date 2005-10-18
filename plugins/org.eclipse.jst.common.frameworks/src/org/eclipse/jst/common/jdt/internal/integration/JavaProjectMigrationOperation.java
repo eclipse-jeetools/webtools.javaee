@@ -29,9 +29,6 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -133,14 +130,7 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 			Logger.getLogger().logError(e);
 		}
 		
-		setupComponentType(aComponentName, aProject, IModuleConstants.JST_UTILITY_MODULE);
-    }
-	
-    protected void setupComponentType(String aComponentName, IProject aProject, String typeID) {
-        IVirtualComponent component = ComponentCore.createComponent(aProject);
-        ComponentType componentType = ComponentcoreFactory.eINSTANCE.createComponentType();
-        componentType.setComponentTypeId(typeID);
-        StructureEdit.setComponentType(component, componentType);
+//		setupComponentType(aComponentName, aProject, IModuleConstants.JST_UTILITY_MODULE);
     }
 	
 	protected boolean migrate(IProject project) {
