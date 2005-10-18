@@ -521,7 +521,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			}
 		}
 		
-		List existingProps = wbComponent.getComponentType().getProperties();
+		List existingProps = wbComponent.getProperties();
 		for (int i = 0; i < existingProps.size(); i++) {
 			Property prop = (Property) existingProps.get(i);
 			if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
@@ -550,7 +550,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			
 			boolean found = false;
 			Property prop = null;
-			List existingProps = wbComponent.getComponentType().getProperties();
+			List existingProps = wbComponent.getProperties();
 			for (  int i = 0; i < existingProps.size(); i++) {
 				prop = (Property) existingProps.get(i);
 				if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){

@@ -37,7 +37,6 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -107,17 +106,8 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 			ctype.setComponentTypeId(IModuleConstants.JST_WEB_MODULE);
 			ctype.setVersion(fv.getVersionString());
 
-			Property prop;
-
-			prop = ComponentcoreFactory.eINSTANCE.createProperty();
-			prop.setName("context-root");
-			prop.setValue(model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT));
-			ctype.getProperties().add(prop);
-
-			prop = ComponentcoreFactory.eINSTANCE.createProperty();
-			prop.setName("java-output-path");
-			prop.setValue("/build/classes/");
-			ctype.getProperties().add(prop);
+			c.setMetaProperty( "context-root" , IWebFacetInstallDataModelProperties.CONTEXT_ROOT );
+            c.setMetaProperty( "java-output-path" , "/build/classes/" );
 
 			final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
 
