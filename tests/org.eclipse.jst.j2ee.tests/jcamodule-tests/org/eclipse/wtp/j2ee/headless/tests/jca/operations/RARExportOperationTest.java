@@ -14,9 +14,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentExportDataModelProvider;
-import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.headless.tests.savestrategy.ModuleImportOperationTestCase;
@@ -53,22 +51,21 @@ public class RARExportOperationTest extends ModuleExportOperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getImportTestCase()
 	 */
 	protected ModuleImportOperationTestCase getImportTestCase() { 
-		return new RARImportOperationTest("");
+		return new RARImportOperationTest(""); //$NON-NLS-1$
 	}
 	
 	/**
 	 * @return
 	 */
 	public String getModuleExportFileExt() {
-		return ".rar";
+		return ".rar"; //$NON-NLS-1$
 	}
 	protected IProject[] getExportableProjects() throws Exception {
 		IProject[] projs = super.getExportableProjects();
 		List filteredProjs = new ArrayList();
 		for (int i = 0; i < projs.length; i++) {
 			IProject project = projs[i];
-			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if ((ConnectorArtifactEdit.TYPE_ID).equals(comp.getComponentTypeId()))
+			if (J2EEProjectUtilities.isJCAProject(project))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);

@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.EJBJarFileImpl;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentExportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -83,7 +84,7 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 			IProject project = projs[i];
 			
 			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if( comp.getComponentTypeId().equals(EJBArtifactEdit.TYPE_ID))
+			if(J2EEProjectUtilities.isEJBProject(comp.getProject()))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);

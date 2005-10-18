@@ -9,10 +9,7 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
@@ -148,25 +145,6 @@ public class EJBArtifactEditTest extends TestCase {
 		EJBArtifactEdit edit = new EJBArtifactEdit(getArtifactEditModelforRead());
 		assertNotNull(edit);
 		edit.dispose();
-	}
-
-	/*
-	 * Class under test for void EJBArtifactEdit(ModuleCoreNature, WorkbenchComponent, boolean)
-	 */
-	public void testEJBArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		EJBArtifactEdit edit = null;
-		try {
-			ModuleCoreNature nature = StructureEdit.getModuleCoreNature(TestWorkspace.EJB_MODULE_URI);
-			IVirtualComponent component = ComponentCore.createComponent(ejbProject, ejbModuleName);
-			edit = new EJBArtifactEdit(nature, component, true);
-			assertNotNull(edit);
-		} catch (UnresolveableURIException e) {
-			fail();
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
 	}
 
 	public void testGetEJBJarXmiResource() {

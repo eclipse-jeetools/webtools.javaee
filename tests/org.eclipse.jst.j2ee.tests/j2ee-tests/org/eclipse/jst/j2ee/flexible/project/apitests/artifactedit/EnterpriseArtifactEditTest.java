@@ -5,13 +5,9 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class EnterpriseArtifactEditTest extends TestCase {
@@ -53,22 +49,7 @@ public class EnterpriseArtifactEditTest extends TestCase {
 		edit.dispose();
 	}
 
-	public void testEnterpriseArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		EnterpriseArtifactEdit edit = null;
-		try {
-			IVirtualComponent component = ComponentCore.createComponent(earProject,earModuleName);
-			ModuleCoreNature nature = StructureEdit.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
-			edit = new EARArtifactEdit(nature, component, true);
-			assertNotNull(edit);
-		} catch (UnresolveableURIException e) {
-			fail();
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
-	}
-	
+
 	//////////BUG
 
 	public void testGetDeploymentDescriptorRoot() {

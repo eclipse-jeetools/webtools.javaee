@@ -155,7 +155,7 @@ public class ThreadingTest extends ModuleImportOperationTestCase {
 												readStructureEdits[structureEditCount][projectCount].getComponentModelRoot();
 											}
 											if (null != writeStructureEdits[structureEditCount][projectCount]) {
-												writeStructureEdits[structureEditCount][projectCount].findComponentsByType("jst.web");
+												IProject project = StructureEdit.getContainingProject(writeStructureEdits[structureEditCount][projectCount].getComponent());
 											}
 										}
 									}

@@ -6,10 +6,12 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -40,7 +42,8 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	IFile file = null;
     	try {
     		testDefaults();
-    		IVirtualComponent comp = ComponentUtilities.getAllComponentsInWorkspaceOfType(IModuleConstants.JST_EJB_MODULE)[0];
+    		IProject project = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB)[0];
+    		IVirtualComponent comp = ComponentCore.createComponent(project);
     		file = ComponentUtilities.findFile(comp, new Path("/META-INF/ejb-jar.xml")); //$NON-NLS-1$
     	} catch (Exception e) {
     		e.printStackTrace();

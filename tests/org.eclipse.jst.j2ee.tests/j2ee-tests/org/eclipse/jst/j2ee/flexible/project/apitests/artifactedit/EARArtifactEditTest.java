@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -126,24 +125,6 @@ public class EARArtifactEditTest extends TestCase {
 		EARArtifactEdit edit = new EARArtifactEdit(getArtifactEditModelforRead());
 		assertNotNull(edit);
 		edit.dispose();
-	}
-
-
-	public void testEARArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		EARArtifactEdit edit = null;
-		try {
-			IVirtualComponent component = ComponentCore.createComponent(earProject,earModuleName);
-			ModuleCoreNature nature = null;
-			nature = StructureEdit.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
-			edit = new EARArtifactEdit(nature, component, true);
-			assertNotNull(edit);
-		} catch (UnresolveableURIException e) {
-			fail();
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
 	}
 
 

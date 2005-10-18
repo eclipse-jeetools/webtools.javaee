@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -85,7 +86,7 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 		for (int i = 0; i < projs.length; i++) {
 			IProject project = projs[i];
 			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if (comp.getComponentTypeId().equals(WebArtifactEdit.TYPE_ID))
+			if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);

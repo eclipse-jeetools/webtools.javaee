@@ -30,14 +30,12 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreation
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
 import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
@@ -46,10 +44,6 @@ public class FlexibleProjectBuilderTest extends TestCase {
 	public static final String MODULE__RESOURCE_URI_PROTOCOL = "module:/resource/";
 	private IProject project;
 	private EMFWorkbenchContext emfContext;
-
-	public interface IModuleTypesConstants {
-		String MODULE_TYPE_WEB = IModuleConstants.WST_WEB_MODULE;
-	}
 
     public FlexibleProjectBuilderTest(String name) {
         super(name);
@@ -183,11 +177,6 @@ public class FlexibleProjectBuilderTest extends TestCase {
 				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getComponentModelRoot(), deployedName, moduleURI);
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
-
-				ComponentType utilityModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
-				utilityModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
-				utilityModule.setComponentType(utilityModuleType);
-
 				structuralModel.saveIfNecessary(this);
 			} finally {
 				if (structuralModel != null)
@@ -227,10 +216,6 @@ public class FlexibleProjectBuilderTest extends TestCase {
 		if (!localWebLibrary.exists())
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
-
-		ComponentType webModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
-		webModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
-		webLibraryModule.setComponentType(webModuleType);
 	}
 
 	public URI getWebModuleURI() {

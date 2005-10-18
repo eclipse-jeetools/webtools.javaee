@@ -12,10 +12,8 @@ import java.util.List;
 import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -68,8 +66,7 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTestCase 
 		List filteredProjs = new ArrayList();
 		for (int i = 0; i < projs.length; i++) {
 			IProject project = projs[i];
-			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if ((WebArtifactEdit.TYPE_ID).equals(comp.getComponentTypeId()))
+			if (J2EEProjectUtilities.isDynamicWebProject(project))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);

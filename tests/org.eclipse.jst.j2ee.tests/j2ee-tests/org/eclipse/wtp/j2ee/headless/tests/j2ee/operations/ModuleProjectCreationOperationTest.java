@@ -8,11 +8,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -25,10 +24,10 @@ import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOper
 public abstract class ModuleProjectCreationOperationTest extends OperationTestCase {
 	private long componentSeed = System.currentTimeMillis();
     
-    public static String DEFAULT_PROJECT_NAME = "SimpleProject";
-    public static String DEFAULT_EAR_PROJECT_NAME = "SimpleEARProject";
-	public static String DEFAULT_COMPONENT_NAME = "SimpleComponent";
-	public static String DEFAULT_EAR_COMPONENT_NAME = "SimpleEARComponent";
+    public static String DEFAULT_PROJECT_NAME = "SimpleProject"; //$NON-NLS-1$
+    public static String DEFAULT_EAR_PROJECT_NAME = "SimpleEARProject"; //$NON-NLS-1$
+	public static String DEFAULT_COMPONENT_NAME = "SimpleComponent"; //$NON-NLS-1$
+	public static String DEFAULT_EAR_COMPONENT_NAME = "SimpleEARComponent"; //$NON-NLS-1$
     
     /**
 	 * @param name
@@ -54,23 +53,23 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     public void testOutputContainer() throws Exception {
     	createSimpleModule(DEFAULT_COMPONENT_NAME + componentSeed);
     	IProject project = ProjectUtilities.getProject(DEFAULT_COMPONENT_NAME + componentSeed);
-    	IVirtualComponent component = ComponentCore.createComponent(project,DEFAULT_COMPONENT_NAME + componentSeed);
-    	if (!component.getComponentTypeId().equals(IModuleConstants.WST_WEB_MODULE)) {
+    	IVirtualComponent component = ComponentCore.createComponent(project);
+    	if (!J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
     		IContainer[] ouputContainers = ComponentUtilities.getOutputContainers(component);
     		assertNotNull(ouputContainers[0]);
     	}
     }
 
 
-	private void createSimpleEARModule(String componentName) throws Exception {
-		IDataModel dataModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
-        dataModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
-        runAndVerify(dataModel);
-	}
+//	private void createSimpleEARModule(String componentName) throws Exception {
+//		IDataModel dataModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
+//        dataModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
+//        runAndVerify(dataModel);
+//	}
 
 	public void createSimpleModule(String componentName) throws Exception {
         IDataModel dataModel = getComponentCreationDataModel();
-        dataModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
+        dataModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, componentName);
         dataModel.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, true);
         runAndVerify(dataModel,false,true);
     }

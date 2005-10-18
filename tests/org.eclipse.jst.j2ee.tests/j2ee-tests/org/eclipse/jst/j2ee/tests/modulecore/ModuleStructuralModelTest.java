@@ -39,7 +39,6 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
 import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
@@ -49,7 +48,6 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ArtifactEditModelFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRoot;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.internal.util.SourcePathProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -247,10 +245,6 @@ public class ModuleStructuralModelTest extends TestCase {
 		if (!localWebLibrary.exists())
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
-
-		ComponentType webModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
-		webModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
-		webLibraryModule.setComponentType(webModuleType);
 	}
 
 	public IFile getModuleRelativeFile(String aModuleRelativePath) throws Exception {
@@ -342,11 +336,6 @@ IDataModel dataModel = DataModelFactory.createDataModel(new JavaProjectCreationD
 				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getComponentModelRoot(), deployedName, moduleURI);
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
-
-				ComponentType utilityModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
-				utilityModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
-				utilityModule.setComponentType(utilityModuleType);
-
 				structuralModel.saveIfNecessary(this);
 			} finally {
 				if (structuralModel != null)

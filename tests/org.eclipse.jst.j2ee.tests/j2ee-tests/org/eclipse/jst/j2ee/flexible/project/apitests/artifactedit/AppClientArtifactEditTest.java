@@ -11,8 +11,6 @@ import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifa
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
@@ -191,27 +189,6 @@ public class AppClientArtifactEditTest extends TestCase {
 		AppClientArtifactEdit edit = new AppClientArtifactEdit(getArtifactEditModelforRead());
 		assertNotNull(edit);
 		edit.dispose();
-	}
-
-	/*
-	 * Class under test for void AppClientArtifactEdit(ModuleCoreNature, WorkbenchComponent,
-	 * boolean)
-	 */
-	public void testAppClientArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		AppClientArtifactEdit edit = null;
-		try {
-			ModuleCoreNature nature = null;
-			nature = StructureEdit.getModuleCoreNature(TestWorkspace.APP_CLIENT_MODULE_URI);
-			IVirtualComponent component = ComponentCore.createComponent(appClientProject,appClientModuleName);
-			edit = new AppClientArtifactEdit(nature, component, true);
-			assertNotNull(edit);
-		} catch (UnresolveableURIException e) {
-			fail();
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
 	}
 
 	// /////////////////BUG//////////////

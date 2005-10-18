@@ -13,7 +13,7 @@ import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.AppClientComponentExportDataModelProvider;
-import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -52,7 +52,7 @@ public class AppClientExportOperationTest extends ModuleExportOperationTestCase 
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleExportOperationTestCase#getImportTestCase()
 	 */
 	protected ModuleImportOperationTestCase getImportTestCase() {
-		return new AppClientImportOperationTest("");
+		return new AppClientImportOperationTest(""); //$NON-NLS-1$
 	}
 	protected IProject[] getExportableProjects() throws Exception {
 		IProject[] projs = super.getExportableProjects();
@@ -60,7 +60,7 @@ public class AppClientExportOperationTest extends ModuleExportOperationTestCase 
 		for (int i = 0; i < projs.length; i++) {
 			IProject project = projs[i];
 			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if (comp.getComponentTypeId().equals(AppClientArtifactEdit.TYPE_ID))
+			if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);

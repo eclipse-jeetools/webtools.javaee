@@ -7,8 +7,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
@@ -34,17 +32,8 @@ public class ConnectorArtifactEditTest extends TestCase {
 	}
 
 	public void testGetJ2EEVersion() {
-		StructureEdit moduleCore = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.getComponent();
-			String version = wbComponent.getComponentType().getVersion();
-			assertTrue(version.equals(TestWorkspace.JCA_PROJECT_VERSION));
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-		}
+		IVirtualComponent vc = ComponentCore.createComponent(jcaProject);
+		assertTrue(vc.getVersion().equals(TestWorkspace.JCA_PROJECT_VERSION));
 	}
 
 	public void testGetDeploymentDescriptorResource() {
@@ -111,25 +100,6 @@ public class ConnectorArtifactEditTest extends TestCase {
 		ConnectorArtifactEdit edit = new ConnectorArtifactEdit(getArtifactEditModelforRead());
 		assertNotNull(edit);
 		edit.dispose();
-	}
-
-
-	public void testConnectorArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
-		ConnectorArtifactEdit edit = null;
-		try {
-			ModuleCoreNature nature = null;
-			nature = StructureEdit.getModuleCoreNature(TestWorkspace.JCA_MODULE_URI);
-			IVirtualComponent component = ComponentCore.createComponent(jcaProject,jcaModuleName);
-			edit = new ConnectorArtifactEdit(nature, component, true);
-			assertNotNull(edit);
-		} catch (UnresolveableURIException e) {
-			fail();
-		} finally {
-			if (edit != null) {
-				edit.dispose();
-			}
-		}
-
 	}
 
 
