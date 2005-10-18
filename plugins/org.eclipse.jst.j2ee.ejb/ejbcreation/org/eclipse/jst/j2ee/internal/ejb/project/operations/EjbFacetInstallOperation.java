@@ -25,10 +25,6 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.EarUtil;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentType;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -73,20 +69,20 @@ public class EjbFacetInstallOperation
 
 			c.create(0, null);
 
-			final ComponentType ctype = ComponentcoreFactory.eINSTANCE.createComponentType();
-
-			ctype.setComponentTypeId(IModuleConstants.JST_EJB_MODULE);
-			ctype.setVersion(fv.getVersionString());
+//			final ComponentType ctype = ComponentcoreFactory.eINSTANCE.createComponentType();
+//
+//			ctype.setComponentTypeId(IModuleConstants.JST_EJB_MODULE);
+//			ctype.setVersion(fv.getVersionString());
 			c.setMetaProperty("java-output-path","/build/classes/");
 
-			final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
-
-			try {
-				StructureEdit.setComponentType(c, ctype);
-				edit.saveIfNecessary(null);
-			} finally {
-				edit.dispose();
-			}
+//			final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
+//
+//			try {
+//				StructureEdit.setComponentType(c, ctype);
+//				edit.saveIfNecessary(null);
+//			} finally {
+//				edit.dispose();
+//			}
         
 			final IVirtualFolder ejbroot = c.getRootFolder();
 			ejbroot.createLink(new Path("/" + model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null);
