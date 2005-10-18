@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbComponentCreationFacetOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -46,7 +47,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 	}
 
 	public IDataModelOperation getDefaultOperation() {
-		return new EjbComponentCreationOperation(model);
+		//return new EjbComponentCreationOperation(model);
+		return new EjbComponentCreationFacetOperation(model);
 	}
 
 	public Set getPropertyNames() {
