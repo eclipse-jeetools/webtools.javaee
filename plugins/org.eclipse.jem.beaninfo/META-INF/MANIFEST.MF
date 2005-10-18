@@ -8,13 +8,13 @@ Bundle-ClassPath: beaninfo.jar,
 Bundle-Activator: org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.jem.beaninfo.vm,
+Export-Package: org.eclipse.jem.beaninfo.common,
+ org.eclipse.jem.beaninfo.vm,
  org.eclipse.jem.internal.beaninfo,
  org.eclipse.jem.internal.beaninfo.adapters,
  org.eclipse.jem.internal.beaninfo.common,
  org.eclipse.jem.internal.beaninfo.core,
- org.eclipse.jem.internal.beaninfo.impl,
- org.eclipse.jem.internal.beaninfo.vm;x-internal:=true
+ org.eclipse.jem.internal.beaninfo.impl
 Require-Bundle: org.eclipse.jem.proxy,
  com.ibm.etools.emf.event,
  org.eclipse.jdt.core,

@@ -12,12 +12,14 @@ package org.eclipse.jem.beaninfo.vm;
 
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.10 $  $Date: 2005/10/06 15:18:38 $ 
+ *  $Revision: 1.11 $  $Date: 2005/10/18 15:32:19 $ 
  */
 
 import java.awt.Image;
 import java.beans.*;
 import java.lang.reflect.*;
+
+import org.eclipse.jem.beaninfo.common.IBaseBeanInfoConstants;
 
 
 /**

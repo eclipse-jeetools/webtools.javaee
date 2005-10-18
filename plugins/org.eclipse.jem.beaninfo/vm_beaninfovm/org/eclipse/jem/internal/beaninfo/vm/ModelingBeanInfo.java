@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
 
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.10 $  $Date: 2005/10/06 15:18:38 $ 
+ *  $Revision: 1.11 $  $Date: 2005/10/18 15:32:19 $ 
  */
 
 import java.beans.*;
@@ -21,8 +21,8 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.*;
 import java.util.*;
 
+import org.eclipse.jem.beaninfo.common.IBaseBeanInfoConstants;
 import org.eclipse.jem.beaninfo.vm.BaseBeanInfo;
-import org.eclipse.jem.beaninfo.vm.IBaseBeanInfoConstants;
 import org.eclipse.jem.internal.beaninfo.common.*;
 import org.eclipse.jem.internal.proxy.common.*;
 

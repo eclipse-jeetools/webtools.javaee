@@ -10,9 +10,9 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBaseBeanInfoConstants.java,v $
- *  $Revision: 1.1 $  $Date: 2005/10/06 15:18:38 $ 
+ *  $Revision: 1.1 $  $Date: 2005/10/18 15:32:19 $ 
  */
-package org.eclipse.jem.beaninfo.vm;
+package org.eclipse.jem.beaninfo.common;
 
  
 
