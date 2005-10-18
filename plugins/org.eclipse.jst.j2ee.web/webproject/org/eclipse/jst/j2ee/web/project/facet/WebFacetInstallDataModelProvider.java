@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.web.project.facet;
 
 import java.util.Set;
 
+import org.eclipse.jst.j2ee.project.facet.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {

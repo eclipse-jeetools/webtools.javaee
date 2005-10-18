@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.web.project.facet;
+package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action;

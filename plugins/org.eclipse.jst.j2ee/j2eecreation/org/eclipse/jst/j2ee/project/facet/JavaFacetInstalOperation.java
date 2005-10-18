@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.web.project.facet;
+package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -31,7 +31,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
 
-public class JavaFacetInstalOperation extends AbstractDataModelOperation {
+public class JavaFacetInstalOperation extends AbstractDataModelOperation
+implements IJavaFacetInstallDataModelProperties{
 
 	public JavaFacetInstalOperation() {
 		super();
@@ -57,7 +58,10 @@ public class JavaFacetInstalOperation extends AbstractDataModelOperation {
             final IWorkspace ws = ResourcesPlugin.getWorkspace();
             
             final IPath pjpath = project.getFullPath();
-            final IPath srcdir = pjpath.append( "src" );
+            String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME);
+            //final IPath srcdir = pjpath.append( "src" );
+            final IPath srcdir = pjpath.append( srcFolderName );
+            
             final IPath outdir = pjpath.append( "build/classes" );
             
             ws.getRoot().getFolder( srcdir ).getLocation().toFile().mkdirs();

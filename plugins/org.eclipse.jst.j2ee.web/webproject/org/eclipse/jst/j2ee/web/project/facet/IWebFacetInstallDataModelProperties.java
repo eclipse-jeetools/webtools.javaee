@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import org.eclipse.jst.j2ee.project.facet.IFacetInstalDataModelProperties;
+
 
 public interface IWebFacetInstallDataModelProperties extends IFacetInstalDataModelProperties {
 
