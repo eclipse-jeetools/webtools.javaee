@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -78,12 +77,7 @@ public class EjbFacetInstallOperation
 
 			ctype.setComponentTypeId(IModuleConstants.JST_EJB_MODULE);
 			ctype.setVersion(fv.getVersionString());
-
-			Property prop;
-			prop = ComponentcoreFactory.eINSTANCE.createProperty();
-			prop.setName("java-output-path");
-			prop.setValue("/build/classes/");
-			ctype.getProperties().add(prop);
+			c.setMetaProperty("java-output-path","/build/classes/");
 
 			final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
 
