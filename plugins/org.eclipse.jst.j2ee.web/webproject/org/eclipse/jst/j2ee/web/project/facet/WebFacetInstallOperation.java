@@ -30,6 +30,7 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.WebModule;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.EarUtil;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -145,8 +146,11 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 			if (!webinfFolder.getFile("web.xml").exists()) {
 				final WebArtifactEdit webEdit = WebArtifactEdit.getWebArtifactEditForWrite(project);
 
+	    		String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+	    		
 				try {
-					webEdit.createModelRoot(24);
+					webEdit.createModelRoot(nVer);
 					webEdit.save(null);
 				} finally {
 					webEdit.dispose();

@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
@@ -62,6 +63,7 @@ public class WebComponentCreationFacetOperation extends AbstractDataModelOperati
 	protected IDataModel setupJavaInstallAction() {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME));
+		dm.setProperty(JavaFacetInstallDataModelProvider.SOURC_FOLDER_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
 		dm.setProperty(IWebFacetInstallDataModelProperties.FACET_VERSION_STR, "1.4");
 		return dm;
 	}
