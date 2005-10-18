@@ -217,7 +217,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			//Ignore
 		}
 		if (d != Display.getCurrent() & d != null) {
-			d.syncExec(new Runnable() {
+			d.asyncExec(new Runnable() {
 				public void run() {
 					getViewer().refresh(getNavigatorGroup());
 				}
