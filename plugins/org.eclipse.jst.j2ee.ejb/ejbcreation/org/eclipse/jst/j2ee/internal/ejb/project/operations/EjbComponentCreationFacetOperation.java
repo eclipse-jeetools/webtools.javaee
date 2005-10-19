@@ -5,21 +5,16 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
-import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
 public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFacetOperation {
 
@@ -61,16 +56,6 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 
 		return ejbFacetInstallDataModel;
 	}
-
-	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
-		String runtimeID = model.getStringProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
-		try {
-			IRuntime runtime = RuntimeManager.getRuntime(runtimeID);
-			facetProj.setRuntime(runtime, null);
-		} catch (IllegalArgumentException e) {
-			Logger.getLogger().logError(e);
-		}
-	}	
 }
 
 
