@@ -523,5 +523,19 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		else
 			return ""; //$NON-NLS-1$
 	}
+	public static String getJ2EEProjectVersion(IProject project) {
+		String type = getJ2EEProjectType(project);
+		IFacetedProject facetedProject = null;
+		IProjectFacet facet = null;
+		try {
+		facetedProject = ProjectFacetsManager.create(project);
+		facet = ProjectFacetsManager.getProjectFacet(type);
+		} catch (Exception e) {
+			// Not Faceted project or not J2EE Project
+		}
+		if (facet != null && facetedProject.hasProjectFacet(facet))
+			return facetedProject.getInstalledVersion(facet).getVersionString();
+		return null;
+	}
 
 }
