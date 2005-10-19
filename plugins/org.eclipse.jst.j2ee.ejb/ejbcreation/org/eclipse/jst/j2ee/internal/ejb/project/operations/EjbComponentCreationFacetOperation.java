@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.JavaFacetInstallDataModelProvider;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
-public class EjbComponentCreationFacetOperation extends AbstractDataModelOperation {
+public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFacetOperation {
 
 	
 	public EjbComponentCreationFacetOperation(IDataModel model) {
@@ -37,7 +37,15 @@ public class EjbComponentCreationFacetOperation extends AbstractDataModelOperati
 		facetDMs.add(setupJavaInstallAction());
 		facetDMs.add(setupEjbInstallAction());
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
-		return dm.getDefaultOperation().execute(monitor, info);
+		IStatus stat =  dm.getDefaultOperation().execute(monitor, info);
+
+		if( stat.isOK()){
+			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
+			IProject earProject = ProjectUtilities.getProject( earProjectName );
+			stat = addtoEar(projectName, earProjectName);
+		}
+
+		return stat;
 	}
 
 	protected IDataModel setupEjbInstallAction() {
@@ -46,17 +54,12 @@ public class EjbComponentCreationFacetOperation extends AbstractDataModelOperati
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME));
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.FACET_VERSION_STR, versionStr);
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER,
-				model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		
+		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME,
+				model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
 
 		return ejbFacetInstallDataModel;
-	}
-
-	protected IDataModel setupJavaInstallAction() {
-		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-		dm.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME));
-		dm.setProperty(IEjbFacetInstallDataModelProperties.FACET_VERSION_STR, "1.4");
-		dm.setProperty(JavaFacetInstallDataModelProvider.SOURC_FOLDER_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
-		return dm;
 	}
 
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
