@@ -429,21 +429,21 @@
     
     <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
   
-    <wizard-pages facet="web" version="2.2">
+    <wizard-pages facet="jst.web" version="2.2">
       <install>
         <config class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig"/>
         <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
       </install>
     </wizard-pages>
 
-    <wizard-pages facet="web" version="2.3">
+    <wizard-pages facet="jst.web" version="2.3">
       <install>
         <config class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig"/>
         <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>
       </install>
     </wizard-pages>
 
-    <wizard-pages facet="web" version="2.4">
+    <wizard-pages facet="jst.web" version="2.4">
       <install>
         <config class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig"/>
         <page class="org.eclipse.jst.servlet.ui.project.facet.WebFacetInstallPage"/>

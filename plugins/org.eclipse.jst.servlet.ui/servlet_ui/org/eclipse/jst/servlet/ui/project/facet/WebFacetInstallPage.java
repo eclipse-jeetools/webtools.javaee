@@ -12,7 +12,7 @@
 package org.eclipse.jst.servlet.ui.project.facet;
 
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
-import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallConfig;
+import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.ui.AbstractFacetWizardPage;
 
 /**
@@ -37,7 +38,7 @@ public final class WebFacetInstallPage
     extends AbstractFacetWizardPage
     
 {
-    private WebFacetInstallConfig config;
+    private IDataModel config;
     private EarSelectionPanel earPanel;
     private Label contextRootLabel;
     private Text contextRoot;
@@ -66,7 +67,7 @@ public final class WebFacetInstallPage
         {
             public void handleEvent( final Event event ) 
             {
-                config.setEarProjectName( earPanel.getEarProjectName() );
+                config.setStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME,earPanel.getEarProjectName() );
                 validate();
             }
         } );
@@ -94,7 +95,7 @@ public final class WebFacetInstallPage
         this.contentDirLabel.setLayoutData( gdhfill() );
         
         this.contentDir = new Text( composite, SWT.BORDER );
-        this.contentDir.setText( this.config.getContentDir() );
+        this.contentDir.setText( config.getStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR));
         this.contentDir.setLayoutData( gdhfill() );
         this.contentDir.setData( "label", this.contentDirLabel );
 
@@ -114,31 +115,28 @@ public final class WebFacetInstallPage
     
     public void setConfig( final Object config ) 
     {
-        this.config = (WebFacetInstallConfig) config;
+        this.config = (IDataModel) config;
     }
 
     public void transferStateToConfig() 
     {
         if( this.earPanel.getAddToEar() )
         {
-            this.config.setEarProjectName( this.earPanel.getEarProjectName() );
+            this.config.setStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, this.earPanel.getEarProjectName() );
         }
-        else
-        {
-            this.config.setEarProjectName( null );
-        }
+        
         
         if( this.contextRootModified )
         {
-            this.config.setContextRoot( this.contextRoot.getText() );
+        	this.config.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, this.contextRoot.getText() );
         }
         else
         {
-            this.config.setContextRoot( this.context.getProjectName() );
+        	this.config.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, this.context.getProjectName() );
         }
         
-        this.config.setContentDir( this.contentDir.getText() );
-        this.config.setCreateWebInfSrc( this.createWebInfSrc.getSelection() );
+        this.config.setStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, this.contentDir.getText() );
+        this.config.setBooleanProperty(IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC,this.createWebInfSrc.getSelection() );
     }
     
     public void setVisible( final boolean visible )
