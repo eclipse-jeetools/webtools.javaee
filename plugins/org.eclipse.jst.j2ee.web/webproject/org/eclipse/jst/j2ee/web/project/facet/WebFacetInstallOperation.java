@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.project.facet;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -25,6 +27,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
@@ -76,6 +79,16 @@ public class WebFacetInstallOperation extends J2EEFacetInstallOperation {
 			final IPath webinflib = webinf.append("lib");
 			mkdirs(ws.getRoot().getFolder(webinflib));
 
+			try {
+				createManifest(project,
+						model.getStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR),
+						monitor);
+ 			} catch (InvocationTargetException e) {
+				Logger.getLogger().logError(e);
+			} catch (InterruptedException e) {
+				Logger.getLogger().logError(e);
+			}
+			
 			// Setup WEB-INF/src, if necessary.
 
 			if (model.getBooleanProperty(IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC)) {
