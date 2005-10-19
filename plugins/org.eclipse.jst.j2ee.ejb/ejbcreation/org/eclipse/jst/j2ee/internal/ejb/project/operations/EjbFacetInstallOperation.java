@@ -1,6 +1,11 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -15,6 +20,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
@@ -22,6 +28,7 @@ import org.eclipse.jst.j2ee.application.EjbModule;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.jst.j2ee.project.facet.EarUtil;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -85,7 +92,8 @@ public class EjbFacetInstallOperation
 //			}
         
 			final IVirtualFolder ejbroot = c.getRootFolder();
-			ejbroot.createLink(new Path("/" + model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null);
+			String configFolder = model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER);
+			ejbroot.createLink(new Path("/" + configFolder), 0, null);
 
 			
 			String ejbFolderName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER);
@@ -99,6 +107,14 @@ public class EjbFacetInstallOperation
 				EJBArtifactEdit.createDeploymentDescriptor(project,nVer);
 			}
 
+			try {
+				createManifest(project, configFolder, monitor);
+ 			} catch (InvocationTargetException e) {
+				Logger.getLogger().logError(e);
+			} catch (InterruptedException e) {
+				Logger.getLogger().logError(e);
+			}
+			
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
 
@@ -139,4 +155,18 @@ public class EjbFacetInstallOperation
 		}
 		return OK_STATUS;	
 	}
+	
+    protected void createManifest(IProject project, String configFolder, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+    	
+        IContainer container = project.getFolder(configFolder);
+        IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_URI));
+
+        try {
+            ManifestFileCreationAction.createManifestFile(file, project);
+        } catch (CoreException e) {
+            Logger.getLogger().log(e);
+        } catch (IOException e) {
+            Logger.getLogger().log(e);
+        }
+    }	
 }
