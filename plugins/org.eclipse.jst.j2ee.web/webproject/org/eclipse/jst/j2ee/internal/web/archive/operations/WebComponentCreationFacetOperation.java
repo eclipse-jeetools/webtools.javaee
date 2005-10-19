@@ -14,29 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
-import org.eclipse.jst.j2ee.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
-public class WebComponentCreationFacetOperation extends AbstractDataModelOperation {
+public class WebComponentCreationFacetOperation extends J2EEComponentCreationFacetOperation {
 
 	public WebComponentCreationFacetOperation(IDataModel model) {
 		super(model);
@@ -50,18 +51,14 @@ public class WebComponentCreationFacetOperation extends AbstractDataModelOperati
 		facetDMs.add(setupJavaInstallAction());
 		facetDMs.add(setupWebInstallAction());
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
-		//return dm.getDefaultOperation().execute(monitor, info);
-		IStatus status = dm.getDefaultOperation().execute(monitor, info);
-		
-//		IProject project = ProjectUtilities.getProject(projectName);
-//		try {
-//			IFacetedProject factedproj = ProjectFacetsManager.create(project);
-//			setRuntime(factedproj);
-//		} catch (CoreException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return status;
+		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
+		if( stat.isOK()){
+			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
+			IProject earProject = ProjectUtilities.getProject( earProjectName );
+			stat = addtoEar(projectName, earProjectName);
+		}		
+
+		return stat;
 	}
 
 	protected IDataModel setupWebInstallAction() {
@@ -70,15 +67,9 @@ public class WebComponentCreationFacetOperation extends AbstractDataModelOperati
 		webFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
 		webFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, versionStr);
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
+		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME,
+				model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));		
 		return webFacetInstallDataModel;
-	}
-
-	protected IDataModel setupJavaInstallAction() {
-		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-		dm.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME));
-		dm.setProperty(JavaFacetInstallDataModelProvider.SOURC_FOLDER_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
-		dm.setProperty(JavaFacetInstallDataModelProvider.FACET_VERSION_STR, "1.4");
-		return dm;
 	}
 
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {

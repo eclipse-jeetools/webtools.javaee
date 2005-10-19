@@ -21,29 +21,23 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.project.facet.WtpUtils;
-import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.project.facet.EarUtil;
 import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
+import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallOperation;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
 
-public class WebFacetInstallOperation extends AbstractDataModelOperation implements IDataModelOperation {
+public class WebFacetInstallOperation extends J2EEFacetInstallOperation {
 
 	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
 
@@ -156,20 +150,15 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 			final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 
 			if (earProjectName != null && !earProjectName.equals("")) {
-				final IProject earproj = ws.getRoot().getProject(earProjectName);
-
-				final EPackage.Registry registry = EPackage.Registry.INSTANCE;
-
-				final EPackage pack = registry.getEPackage(ApplicationPackage.eNS_URI);
-
-				final ApplicationFactory appfact = ((ApplicationPackage) pack).getApplicationFactory();
-
-				final WebModule m = appfact.createWebModule();
-
-				m.setUri(project.getName() + ".war");
-				m.setContextRoot(model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT));
-
-				EarUtil.addModuleReference(earproj, project, m);
+				if (earProjectName != null && !earProjectName.equals("")) {
+					
+					String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+				
+					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(
+							J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+					
+					installEARFacet(j2eeVersionText, earProjectName, monitor);
+				}
 			}
 
 			if (monitor != null) {
