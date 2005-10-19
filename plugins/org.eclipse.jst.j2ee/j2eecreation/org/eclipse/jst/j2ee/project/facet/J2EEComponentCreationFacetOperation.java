@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -17,6 +18,9 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
 public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperation {
 
@@ -61,4 +65,14 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 		}	
 		return stat;
 	}
+	
+	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
+		String runtimeID = model.getStringProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		try {
+			IRuntime runtime = RuntimeManager.getRuntime(runtimeID);
+			facetProj.setRuntime(runtime, null);
+		} catch (IllegalArgumentException e) {
+			Logger.getLogger().logError(e);
+		}
+	}		
 }
