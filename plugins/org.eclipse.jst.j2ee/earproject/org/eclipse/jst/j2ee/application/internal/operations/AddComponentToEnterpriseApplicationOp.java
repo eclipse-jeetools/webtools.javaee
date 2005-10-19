@@ -55,14 +55,16 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 						IVirtualComponent wc = (IVirtualComponent)list.get(i);
 						WorkbenchComponent earwc = se.getComponent();
 						try {
-							compse = StructureEdit.getStructureEditForRead(wc.getProject());
+							compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 							WorkbenchComponent refwc = compse.getComponent();
 							ReferencedComponent ref = se.findReferencedComponent(earwc,refwc);
 							Module mod = addModule(application, wc);
 							ref.setDependentObject(mod);
 						} finally {
-							if (compse != null)
+							if (compse != null) {
+								compse.saveIfNecessary(monitor);
 								compse.dispose();
+							}
 						}
 					}
 				}
