@@ -131,9 +131,9 @@ public class WebFacetInstallOperation extends AbstractDataModelOperation impleme
 
 			// Create the deployment descriptor (web.xml) if one doesn't exist
 			if (!webinfFolder.getFile("web.xml").exists()) {
-				WebArtifactEdit.createDeploymentDescriptor(project,24);
 	    		String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
 	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
+				WebArtifactEdit.createDeploymentDescriptor(project,nVer);
 			}
 
 			// Setup the classpath.
