@@ -368,7 +368,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 						int earVersion = 0;
 						
 							if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
-								String sVer = comp.getVersion();
+								String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
 								int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
 								if (j2eeVersion <= ver) {
 									DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject());

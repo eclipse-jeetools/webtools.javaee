@@ -158,16 +158,17 @@ public class J2EEVersionUtil {
 	}
 	
 	public static int convertVersionStringToInt(IVirtualComponent comp) {
+		String version = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
 		if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
-			return convertWebVersionStringToJ2EEVersionID(comp.getVersion());
+			return convertWebVersionStringToJ2EEVersionID(version);
 		if (J2EEProjectUtilities.isEJBProject(comp.getProject()))
-			return convertEJBVersionStringToJ2EEVersionID(comp.getVersion());
+			return convertEJBVersionStringToJ2EEVersionID(version);
 		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
-			return convertVersionStringToInt(comp.getVersion());
+			return convertVersionStringToInt(version);
 		if (J2EEProjectUtilities.isJCAProject(comp.getProject()))
-			return convertConnectorVersionStringToJ2EEVersionID(comp.getVersion());
+			return convertConnectorVersionStringToJ2EEVersionID(version);
 		if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
-			return convertAppClientVersionStringToJ2EEVersionID(comp.getVersion());
+			return convertAppClientVersionStringToJ2EEVersionID(version);
 		return 0;
 	}
 	
