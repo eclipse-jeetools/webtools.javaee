@@ -83,4 +83,22 @@ public class DefectVerificationTests extends OperationTestCase {
 		artifactEdit.dispose();
 	}
 	
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=112636
+	 */
+	public void test112636( )throws Exception {
+		String earFileName = getFullTestDataPath("BeenThere.ear");
+		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
+		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+		runAndVerify(model);
+		IVirtualComponent comp = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
+		EARArtifactEdit earEdit = EARArtifactEdit.getEARArtifactEditForRead(comp);
+		EARFile earFile = (EARFile)earEdit.asArchive(false);
+		earFile.getEJBReferences(true, true);
+		earFile.getEJBReferences(true, false);
+		earFile.getEJBReferences(false, true);
+		earFile.getEJBReferences(false, false);
+	}
+	
+	
 }
