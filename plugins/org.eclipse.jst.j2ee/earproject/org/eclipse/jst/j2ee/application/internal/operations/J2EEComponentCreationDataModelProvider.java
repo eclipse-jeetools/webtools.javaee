@@ -371,7 +371,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 								String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
 								int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
 								if (j2eeVersion <= ver) {
-									DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject());
+									DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject().getName());
 									earDescriptorList.add(desc);
 								}
 						}
@@ -437,7 +437,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	protected boolean validateComponentAlreadyInEar() {
-		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleName());
+		//IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleName());
 
 		IProject earProj = (IProject) model.getProperty(EAR_COMPONENT_PROJECT);
 		if (earProj != null && earProj.exists()) {
@@ -447,7 +447,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				for (int i = 0; i < refs.length; i++) {
 					IVirtualReference ref = refs[i];
 					IVirtualComponent referencedComp = ref.getReferencedComponent();
-					if (referencedComp.getName().equalsIgnoreCase(component.getName()))
+					if (referencedComp.getName().equalsIgnoreCase(getModuleName()))
 						return true;
 				}
 			}

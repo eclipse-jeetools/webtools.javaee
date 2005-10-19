@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
@@ -39,6 +40,10 @@ public class J2EEFacetInstallOperation extends AbstractDataModelOperation {
 	
 	protected void installEARFacet(String j2eeVersionText, String earProjectName, IProgressMonitor monitor){
 
+		IProject project = ProjectUtilities.getProject(earProjectName); 
+		if( project.exists())
+			return;
+		
 		IFacetedProject facetProj;
 		try {
 			facetProj = ProjectFacetsManager.create(earProjectName,
