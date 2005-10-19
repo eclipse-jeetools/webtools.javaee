@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
@@ -31,7 +30,8 @@ import org.eclipse.wst.server.core.ServerCore;
 public class EarComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEarComponentCreationDataModelProperties {
 
     public IDataModelOperation getDefaultOperation() {
-        return new EARComponentCreationOperation(model);
+        //return new EARComponentCreationOperation(model);
+    	return new EarComponentCreationFacetOperation(model);
     }
 
     /**
@@ -79,15 +79,15 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
             Integer propertyValue = (Integer) getProperty(propertyName);
             String description = null;
             switch (propertyValue.intValue()) {
-            case J2EEVersionConstants.WEB_2_2_ID:
-                description = J2EEVersionConstants.VERSION_2_2_TEXT;
+            case J2EEVersionConstants.VERSION_1_2:
+                description = J2EEVersionConstants.VERSION_1_2_TEXT;
                 break;
-            case J2EEVersionConstants.WEB_2_3_ID:
-                description = J2EEVersionConstants.VERSION_2_3_TEXT;
+            case J2EEVersionConstants.VERSION_1_3:
+                description = J2EEVersionConstants.VERSION_1_3_TEXT;
                 break;
-            case J2EEVersionConstants.WEB_2_4_ID:
+            case J2EEVersionConstants.VERSION_1_4:
             default:
-                description = J2EEVersionConstants.VERSION_2_4_TEXT;
+                description = J2EEVersionConstants.VERSION_1_4_TEXT;
                 break;
             }
             return new DataModelPropertyDescriptor(propertyValue, description);
