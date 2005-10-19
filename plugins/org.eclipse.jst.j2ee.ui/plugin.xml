@@ -576,19 +576,18 @@
 				class="org.eclipse.jst.j2ee.internal.actions.J2EERenameParticipant"
 				id="org.eclipse.jst.j2ee.internal.actions.J2EERenameParticipant" 
 				name="%J2EE_Rename_Participant"> 
-		<enablement> 
-		   	<with variable="affectedNatures">
-            	<iterate operator="or"> 
-            			<equals value="org.eclipse.jdt.core.javanature" />  
-            	</iterate>
-            </with>
-            <with
-               variable="element">
-               <instanceof
-                     value="org.eclipse.core.resources.IProject">
-               </instanceof>
-            </with>
-         </enablement> 
+			<enablement>
+				<with variable="affectedNatures">
+					<iterate operator="or">
+						<equals value="org.eclipse.wst.common.modulecore.ModuleCoreNature" />
+
+					</iterate>
+				</with>
+				<with variable="element">
+					<instanceof value="org.eclipse.core.resources.IProject" />
+
+				</with>
+			</enablement> 
 		</renameParticipant>
 	</extension>
 	

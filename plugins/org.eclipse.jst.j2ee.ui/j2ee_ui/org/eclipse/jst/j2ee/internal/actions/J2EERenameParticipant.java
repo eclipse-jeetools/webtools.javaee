@@ -53,7 +53,7 @@ public class J2EERenameParticipant extends RenameParticipant {
 
 		IProject project = (IProject) AdaptabilityUtility.getAdapter(element, IPROJECT_CLASS);
 		if (project.isAccessible()) {
-
+			return true;
 		}
 		return false;
 	}
