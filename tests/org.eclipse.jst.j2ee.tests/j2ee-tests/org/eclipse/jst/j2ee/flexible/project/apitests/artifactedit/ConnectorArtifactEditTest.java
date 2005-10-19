@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -33,7 +34,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 	public void testGetJ2EEVersion() {
 		IVirtualComponent vc = ComponentCore.createComponent(jcaProject);
-		assertTrue(vc.getVersion().equals(TestWorkspace.JCA_PROJECT_VERSION));
+		assertTrue(J2EEProjectUtilities.getJ2EEProjectVersion(vc.getProject()).equals(TestWorkspace.JCA_PROJECT_VERSION));
 	}
 
 	public void testGetDeploymentDescriptorResource() {
