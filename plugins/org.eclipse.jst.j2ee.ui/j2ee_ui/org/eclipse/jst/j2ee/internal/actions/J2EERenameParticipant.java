@@ -30,14 +30,17 @@ import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 
 
 /**
- * @author mdelder
- * 
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
  */
 public class J2EERenameParticipant extends RenameParticipant {
 
 	private static final Class IPROJECT_CLASS = IProject.class;
+
+	public J2EERenameParticipant() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -51,33 +54,6 @@ public class J2EERenameParticipant extends RenameParticipant {
 		IProject project = (IProject) AdaptabilityUtility.getAdapter(element, IPROJECT_CLASS);
 		if (project.isAccessible()) {
 
-//			if (J2EENature.getRegisteredRuntime(project) != null)
-//				return true;
-
-			//TODO switch to use components and component references
-			// only return true for utility jar projects
-//			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-//			EAREditModel model = null;
-//			UtilityJARMapping mapping = null;
-//			IProject[] allProjects = root.getProjects();
-//			for (int i = 0; i < allProjects.length; i++) {
-//				EARNatureRuntime earNature = EARNatureRuntime.getRuntime(allProjects[i]);
-//				if (earNature != null) {
-//					try {
-//						model = earNature.getEarEditModelForRead(this);
-//						mapping = model.getUtilityJARMapping(project);
-//
-//						if (mapping != null)
-//							return true;
-//
-//					} finally {
-//						if (model != null) {
-//							model.releaseAccess(this);
-//							model = null;
-//						}
-//					}
-//				}
-//			}
 		}
 		return false;
 	}
@@ -91,10 +67,10 @@ public class J2EERenameParticipant extends RenameParticipant {
 		Object[] targetElements = getProcessor().getElements();
 		if (targetElements == null || targetElements.length != 1)
 			return null;
-		//IProject project = (IProject) AdaptabilityUtility.getAdapter(targetElements[0], IPROJECT_CLASS);
-		// TODO switch to be module based, not project based
-		//if (project != null)
-		//	return new J2EEModuleRenameChange(project, getArguments().getNewName(), getArguments().getUpdateReferences());
+		IProject project = (IProject) AdaptabilityUtility.getAdapter(targetElements[0], IPROJECT_CLASS);
+		
+		if (project != null)
+			return new J2EEModuleRenameChange(project, getArguments().getNewName(), getArguments().getUpdateReferences());
 		return null;
 	}
 

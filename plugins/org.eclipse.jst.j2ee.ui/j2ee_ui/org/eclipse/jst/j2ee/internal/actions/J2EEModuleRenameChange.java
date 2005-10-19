@@ -31,12 +31,9 @@ import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 
 /**
- * @author mdelder
  * 
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
@@ -44,10 +41,10 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 public class J2EEModuleRenameChange extends Change {
 
 	private String newName;
-	private WorkbenchComponent target;
+	private IProject target;
 	private boolean renameDependencies;
 
-	public J2EEModuleRenameChange(WorkbenchComponent target, String newName, boolean renameDependencies) {
+	public J2EEModuleRenameChange(IProject target, String newName, boolean renameDependencies) {
 		this.target = target;
 		this.newName = newName;
 		this.renameDependencies = renameDependencies;
@@ -112,8 +109,7 @@ public class J2EEModuleRenameChange extends Change {
 	protected String getServerContextRoot() {
 		WebArtifactEdit webEdit = null;
 		try{
-			IProject proj = StructureEdit.getContainingProject(target);
-			webEdit = WebArtifactEdit.getWebArtifactEditForRead(proj);
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(target);
        		if (webEdit != null)
        			return webEdit.getServerContextRoot();			
 		} finally {
