@@ -1,6 +1,6 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
-import org.eclipse.jst.j2ee.project.facet.IFacetInstalDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstalDataModelProperties;
 
 
 
