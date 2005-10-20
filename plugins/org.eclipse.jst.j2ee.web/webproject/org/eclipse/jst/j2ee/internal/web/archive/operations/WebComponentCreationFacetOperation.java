@@ -49,7 +49,8 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		if( stat.isOK()){
 			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
 			IProject earProject = ProjectUtilities.getProject( earProjectName );
-			stat = addtoEar(projectName, earProjectName);
+			if (earProject != null && earProject.exists())
+				stat = addtoEar(projectName, earProjectName);
 		}		
 
 		return stat;
@@ -61,8 +62,8 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		webFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
 		webFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, versionStr);
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
-		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME,
-				model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));		
+		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
+			webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));		
 		return webFacetInstallDataModel;
 	}
 }

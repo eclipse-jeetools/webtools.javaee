@@ -162,16 +162,10 @@ public class WebFacetInstallOperation extends J2EEFacetInstallOperation {
 
 			final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 
-			if (earProjectName != null && !earProjectName.equals("")) {
-				if (earProjectName != null && !earProjectName.equals("")) {
-					
-					String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
-				
-					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(
-							J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
-					
-					installEARFacet(j2eeVersionText, earProjectName, monitor);
-				}
+			if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
+				String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+				installEARFacet(j2eeVersionText, earProjectName, monitor);
 			}
 
 			if (monitor != null) {

@@ -11,8 +11,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -36,9 +37,9 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 	
 	protected IDataModel setupJavaInstallAction() {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-		dm.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME));
-		dm.setProperty(JavaFacetInstallDataModelProvider.FACET_VERSION_STR, "1.4");
-		dm.setProperty(JavaFacetInstallDataModelProvider.SOURC_FOLDER_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		dm.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+		dm.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
+		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME, model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
 		return dm;
 	}
 	
@@ -52,13 +53,13 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 		IVirtualComponent earComp = ComponentCore.createComponent( earProject );
 		if( comp != null && comp.exists() && earComp != null && earComp.exists()){
 			
-			IDataModel model = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
-			model.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
-	        List modList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+			IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
+			dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
+	        List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 	        modList.add(comp);
-	        model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+	        dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 	        try {
-				stat = model.getDefaultOperation().execute(null, null);
+				stat = dataModel.getDefaultOperation().execute(null, null);
 			} catch (ExecutionException e) {
 				Logger.getLogger().logError(e);
 			}
@@ -67,7 +68,7 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 	}
 	
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
-		String runtimeID = model.getStringProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		String runtimeID = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
 		try {
 			IRuntime runtime = RuntimeManager.getRuntime(runtimeID);
 			facetProj.setRuntime(runtime, null);
