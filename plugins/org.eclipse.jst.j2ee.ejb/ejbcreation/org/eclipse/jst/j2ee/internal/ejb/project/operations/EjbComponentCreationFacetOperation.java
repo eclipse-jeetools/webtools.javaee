@@ -10,9 +10,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -26,7 +29,7 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 	
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
-		String projectName = model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
+		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
 		List facetDMs = new ArrayList();
 		facetDMs.add(setupJavaInstallAction());
@@ -37,7 +40,8 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		if( stat.isOK()){
 			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
 			IProject earProject = ProjectUtilities.getProject( earProjectName );
-			stat = addtoEar(projectName, earProjectName);
+			if (earProject != null && earProject.exists())
+				stat = addtoEar(projectName, earProjectName);
 		}
 
 		return stat;
@@ -46,13 +50,12 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 	protected IDataModel setupEjbInstallAction() {
 		String versionStr = model.getPropertyDescriptor(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION).getPropertyDescription();
 		IDataModel ejbFacetInstallDataModel = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
-		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME));
-		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.FACET_VERSION_STR, versionStr);
+		ejbFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+		ejbFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, versionStr);
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER,
-		model.getStringProperty(IJ2EEComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
-		
-		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME,
-				model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
+		model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
+			ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
 
 		return ejbFacetInstallDataModel;
 	}
