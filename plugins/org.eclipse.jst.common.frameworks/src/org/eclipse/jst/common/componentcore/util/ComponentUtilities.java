@@ -94,8 +94,12 @@ public class ComponentUtilities {
 		List result = new ArrayList();
 		for (int i=0; i<sourceContainers.length; i++) {
 			try {
+				IFolder outputFolder;
 				IPath outputPath = sourceContainers[i].getRawClasspathEntry().getOutputLocation();
-				IFolder outputFolder = vc.getProject().getFolder(outputPath.removeFirstSegments(1));
+				if (outputPath == null)
+					outputFolder = (IFolder)sourceContainers[i].getResource();
+				else
+					outputFolder = vc.getProject().getFolder(outputPath.removeFirstSegments(1));
 				if (outputFolder != null)
 					result.add(outputFolder);
 			} catch (Exception e) {
