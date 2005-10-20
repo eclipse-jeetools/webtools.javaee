@@ -8,36 +8,36 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.project.facet;
+package org.eclipse.jst.common.project.facet;
 
-import java.util.Collections;
 import java.util.Set;
 
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class FacetProjectCreationDataModelProvider extends AbstractDataModelProvider implements IFacetProjectCreationDataModelProperties {
+public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProvider
+implements IJavaFacetInstallDataModelProperties{
 
-	public FacetProjectCreationDataModelProvider() {
+	public JavaFacetInstallDataModelProvider() {
 		super();
 	}
 
 	public Set getPropertyNames() {
-		Set names = super.getPropertyNames();
-		names.add(FACET_PROJECT_NAME);
-		names.add(FACET_DM_LIST);
-		return names;
+		Set propertyNames = super.getPropertyNames();
+		propertyNames.add(SOURC_FOLDER_NAME);
+		return propertyNames;
+	}
+	
+	public IDataModelOperation getDefaultOperation() {
+		return new JavaFacetInstalOperation(model);
 	}
 
 	public Object getDefaultProperty(String propertyName) {
-		if (FACET_DM_LIST.equals(propertyName)) {
-			return Collections.EMPTY_LIST;
+		if(FACET_ID.equals(propertyName)){
+			return IModuleConstants.JST_JAVA;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-
-	public IDataModelOperation getDefaultOperation() {
-		return new FacetProjectCreationOperation(model);
-	}
-
+	
 }
