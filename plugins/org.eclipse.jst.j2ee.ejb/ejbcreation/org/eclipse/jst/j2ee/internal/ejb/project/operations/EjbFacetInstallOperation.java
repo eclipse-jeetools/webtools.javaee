@@ -21,7 +21,7 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -93,7 +93,7 @@ public class EjbFacetInstallOperation
 			IFolder ejbFolder = ws.getRoot().getFolder(ejbFolderpath);
 			
 			if (!ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI).exists()) {
-				String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				EJBArtifactEdit.createDeploymentDescriptor(project,nVer);
 			}
@@ -120,7 +120,7 @@ public class EjbFacetInstallOperation
 			final String earProjectName = (String)model.getProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 			if (earProjectName != null && !earProjectName.equals("")) {
 	
-				String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 			
 				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(
 						J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(ver));
