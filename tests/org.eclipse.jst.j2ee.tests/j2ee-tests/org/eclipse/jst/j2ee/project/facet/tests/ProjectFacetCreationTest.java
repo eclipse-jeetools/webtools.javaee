@@ -53,14 +53,14 @@ public class ProjectFacetCreationTest extends TestCase {
     }
 
 	private IFacetedProject.Action setupWebInstallAction() {
-		IProjectFacetVersion webfacetversion =  ProjectFacetsManager.getProjectFacet( "web" ).getVersion( "2.4" );
+		IProjectFacetVersion webfacetversion =  ProjectFacetsManager.getProjectFacet( "jst.web" ).getVersion( "2.4" );
 		WebFacetInstallConfig config = new WebFacetInstallConfig();
 		config.setContentDir("WebContent");
 		IFacetedProject.Action action = new IFacetedProject.Action( Action.Type.INSTALL, webfacetversion, config );
 		return action;
 	}
 	private IFacetedProject.Action setupJavaInstallAction() {
-		IProjectFacetVersion webfacetversion =  ProjectFacetsManager.getProjectFacet( "java" ).getVersion( "1.4" );
+		IProjectFacetVersion webfacetversion =  ProjectFacetsManager.getProjectFacet( "jst.java" ).getVersion( "1.4" );
 		IFacetedProject.Action action = new IFacetedProject.Action( Action.Type.INSTALL, webfacetversion, null );
 		return action;
 	}
