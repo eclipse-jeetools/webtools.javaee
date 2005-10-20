@@ -45,6 +45,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.jst.server.core.IEJBModule;
+import org.eclipse.jst.server.core.IEnterpriseApplication;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -64,7 +65,7 @@ import org.eclipse.wst.server.core.util.ProjectModule;
 /**
  * J2EE deployable superclass.
  */
-public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
+public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
 	
 	private String factoryId;
     protected IVirtualComponent component = null;
