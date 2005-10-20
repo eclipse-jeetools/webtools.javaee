@@ -10,6 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-public interface IFacetInstalDataModelProperties extends IFacetDataModelPropeties {
+public interface IFacetInstalDataModelProperties extends IFacetDataModelProperties {
 
 }

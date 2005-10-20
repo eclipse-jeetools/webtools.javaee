@@ -50,8 +50,8 @@ implements IJavaFacetInstallDataModelProperties{
         
         try
         {
-        	IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME));
-			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelPropeties.FACET_VERSION);
+        	IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME));
+			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelProperties.FACET_VERSION);
 
             // Create the source and the output directories.
             

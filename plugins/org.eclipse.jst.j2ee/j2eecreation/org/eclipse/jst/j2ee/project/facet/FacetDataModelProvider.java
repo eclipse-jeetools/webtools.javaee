@@ -15,7 +15,7 @@ import java.util.Set;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public abstract class FacetDataModelProvider extends AbstractDataModelProvider implements IFacetDataModelPropeties {
+public abstract class FacetDataModelProvider extends AbstractDataModelProvider implements IFacetDataModelProperties {
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();

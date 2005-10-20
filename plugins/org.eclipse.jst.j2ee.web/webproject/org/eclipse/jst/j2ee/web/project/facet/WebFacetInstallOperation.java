@@ -30,7 +30,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallOperation;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -55,8 +55,8 @@ public class WebFacetInstallOperation extends J2EEFacetInstallOperation {
 		}
 
 		try {
-			IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME));
-			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelPropeties.FACET_VERSION);
+			IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME));
+			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelProperties.FACET_VERSION);
 			
 			final IJavaProject jproj = JavaCore.create(project);
 
@@ -138,7 +138,7 @@ public class WebFacetInstallOperation extends J2EEFacetInstallOperation {
 
 			// Create the deployment descriptor (web.xml) if one doesn't exist
 			if (!webinfFolder.getFile("web.xml").exists()) {
-	    		String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+	    		String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				WebArtifactEdit.createDeploymentDescriptor(project,nVer);
 			}
@@ -163,7 +163,7 @@ public class WebFacetInstallOperation extends J2EEFacetInstallOperation {
 			final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 
 			if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
-				String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
 				installEARFacet(j2eeVersionText, earProjectName, monitor);
 			}

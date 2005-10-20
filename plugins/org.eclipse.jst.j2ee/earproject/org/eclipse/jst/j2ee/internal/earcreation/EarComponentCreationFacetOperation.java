@@ -22,7 +22,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -53,8 +53,8 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 	protected IDataModel setupEarInstallAction() {
 		String versionStr = model.getPropertyDescriptor(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION).getPropertyDescription();
 		IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
-		earFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		earFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, versionStr);
+		earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+		earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionStr);
 		return earFacetInstallDataModel;
 	}
 

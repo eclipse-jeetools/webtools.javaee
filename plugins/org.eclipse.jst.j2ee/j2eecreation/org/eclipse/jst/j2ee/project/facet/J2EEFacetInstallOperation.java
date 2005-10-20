@@ -50,12 +50,12 @@ public class J2EEFacetInstallOperation extends AbstractDataModelOperation {
 					null, monitor);
 		
 			IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
-			earFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, earProjectName);
-			earFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, j2eeVersionText);
+			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, earProjectName);
+			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, j2eeVersionText);
 			
 			Set actions = new HashSet();
-			actions.add(new IFacetedProject.Action((Type) earFacetInstallDataModel.getProperty(IFacetDataModelPropeties.FACET_TYPE),
-				(IProjectFacetVersion) earFacetInstallDataModel.getProperty(IFacetDataModelPropeties.FACET_VERSION),
+			actions.add(new IFacetedProject.Action((Type) earFacetInstallDataModel.getProperty(IFacetDataModelProperties.FACET_TYPE),
+				(IProjectFacetVersion) earFacetInstallDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION),
 				earFacetInstallDataModel));
 
 

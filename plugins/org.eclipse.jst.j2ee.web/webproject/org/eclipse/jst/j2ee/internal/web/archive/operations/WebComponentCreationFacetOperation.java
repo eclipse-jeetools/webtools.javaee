@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.FacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
@@ -59,8 +59,8 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 	protected IDataModel setupWebInstallAction() {
 		String versionStr = model.getPropertyDescriptor(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION).getPropertyDescription();
 		IDataModel webFacetInstallDataModel = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
-		webFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		webFacetInstallDataModel.setProperty(IFacetDataModelPropeties.FACET_VERSION_STR, versionStr);
+		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
+		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionStr);
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
 		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
 			webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));		

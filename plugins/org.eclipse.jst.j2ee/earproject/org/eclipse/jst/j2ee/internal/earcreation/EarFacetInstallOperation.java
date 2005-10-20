@@ -12,7 +12,7 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.project.facet.IFacetDataModelPropeties;
+import org.eclipse.jst.j2ee.project.facet.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -33,8 +33,8 @@ public class EarFacetInstallOperation extends AbstractDataModelOperation{
 		}
 
 		try {
-			IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelPropeties.FACET_PROJECT_NAME));
-			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelPropeties.FACET_VERSION);
+			IProject project = ProjectUtilities.getProject(model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME));
+			IProjectFacetVersion fv = (IProjectFacetVersion) model.getProperty(IFacetDataModelProperties.FACET_VERSION);
 			
 			if (monitor != null) {
 				monitor.worked(1);
@@ -51,7 +51,7 @@ public class EarFacetInstallOperation extends AbstractDataModelOperation{
 			
 			
 			if (!project.getFile(J2EEConstants.APPLICATION_DD_URI).exists()) {
-	    		String ver = model.getStringProperty(IFacetDataModelPropeties.FACET_VERSION_STR);
+	    		String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 	    		int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				EARArtifactEdit.createDeploymentDescriptor( project, nVer );
 			}

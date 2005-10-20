@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.project.facet;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action;
 
-public interface IFacetDataModelPropeties extends IDataModelProperties {
+public interface IFacetDataModelProperties extends IDataModelProperties {
 
 	public static final Object FACET_TYPE_INSTALL = Action.Type.INSTALL;
 	public static final Object FACET_TYPE_UNINSTALL = Action.Type.UNINSTALL;
