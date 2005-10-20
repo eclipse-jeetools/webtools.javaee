@@ -91,13 +91,14 @@ public class ComponentUtilities {
 	 */
 	public static IContainer[] getOutputContainers(IVirtualComponent vc) {
 		IPackageFragmentRoot[] sourceContainers = getSourceContainers(vc);
+		IJavaProject jProject = JavaCore.create(vc.getProject());
 		List result = new ArrayList();
 		for (int i=0; i<sourceContainers.length; i++) {
 			try {
 				IFolder outputFolder;
 				IPath outputPath = sourceContainers[i].getRawClasspathEntry().getOutputLocation();
 				if (outputPath == null)
-					outputFolder = (IFolder)sourceContainers[i].getResource();
+					outputFolder = vc.getProject().getFolder(jProject.getOutputLocation().removeFirstSegments(1));
 				else
 					outputFolder = vc.getProject().getFolder(outputPath.removeFirstSegments(1));
 				if (outputFolder != null)
