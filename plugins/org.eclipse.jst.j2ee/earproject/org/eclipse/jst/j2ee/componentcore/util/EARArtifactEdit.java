@@ -417,6 +417,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 					if (ref.getHandle().equals(ModuleURIUtil.fullyQualifyURI(moduleComp.getProject()))) {
 						if (ref.getDependentObject()!=null)
 							return ((Module)ref.getDependentObject()).getUri();
+						//If dependent object is not set, assume compname is module name + proper extension
+						if (J2EEProjectUtilities.isDynamicWebProject(moduleComp.getProject()) || J2EEProjectUtilities.isStaticWebProject(moduleComp.getProject()))
+							return moduleComp.getName()+IJ2EEModuleConstants.WAR_EXT;
+						if (J2EEProjectUtilities.isJCAProject(moduleComp.getProject()))
+							return moduleComp.getName()+IJ2EEModuleConstants.RAR_EXT;
+						return moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
 					}
 						
 				} 
