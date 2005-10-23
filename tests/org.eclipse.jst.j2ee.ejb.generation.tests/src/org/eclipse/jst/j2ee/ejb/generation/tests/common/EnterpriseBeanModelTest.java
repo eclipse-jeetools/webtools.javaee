@@ -10,7 +10,8 @@
 package org.eclipse.jst.j2ee.ejb.generation.tests.common;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author naci
@@ -23,19 +24,19 @@ public class EnterpriseBeanModelTest extends AnnotationTest {
 	{
 		createEjbModuleAndProject();
 		
-		SessionBeanDataModel dataModel = (SessionBeanDataModel)createDefaultSessionModel();
+		IDataModel dataModel = createDefaultSessionModel();
 		
 		assertNotNull(dataModel);
+		IStatus status = dataModel.validate();
+		assertTrue(status.isOK() );
 		
-		assertEquals(IStatus.OK , dataModel.validateDataModel().getCode() );
+		assertEquals(PROJECT_NAME,dataModel.getStringProperty(SessionBeanDataModelProvider.PROJECT_NAME));
 		
-		assertEquals(PROJECT_NAME,dataModel.getStringProperty(SessionBeanDataModel.PROJECT_NAME));
 		
-		assertEquals(MODULE_NAME,dataModel.getStringProperty(SessionBeanDataModel.MODULE_NAME));
-		
-		assertEquals(BEAN_CLASS, dataModel.getSimpleClassName());
-		assertEquals(1, dataModel.getEJBInterfaces().size());
-		assertEquals("javax.ejb.SessionBean", dataModel.getEJBInterfaces().get(0));
+		assertEquals(BEAN_CLASS, dataModel.getProperty(SessionBeanDataModelProvider.CLASS_NAME));
+		String[] interfaces = (String[])dataModel.getProperty(SessionBeanDataModelProvider.EJB_INTERFACES);
+		assertEquals(1, interfaces.length);
+		assertEquals("javax.ejb.SessionBean", interfaces[0]);
 		
 		
 	}

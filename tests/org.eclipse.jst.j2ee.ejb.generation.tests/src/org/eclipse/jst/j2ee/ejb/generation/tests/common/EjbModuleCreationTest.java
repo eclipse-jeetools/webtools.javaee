@@ -5,55 +5,71 @@ package org.eclipse.jst.j2ee.ejb.generation.tests.common;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAntProjectBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * @author naci
- *
  */
 public class EjbModuleCreationTest extends AnnotationTest {
 	
-	public void testEjbModuleCreation() throws Exception
-	{
+	
+	public void test01CreateEjbModule() throws Exception {
 		this.createEjbModuleAndProject();
-		AnnotationPreferenceStore.setProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER,XDOCLET);
-		XDocletPreferenceStore.setPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE,true);
-		XDocletPreferenceStore.setProperty(XDocletPreferenceStore.XDOCLETVERSION, TestSettings.xdocletversion);
-		XDocletPreferenceStore.setProperty(XDocletPreferenceStore.XDOCLETHOME,TestSettings.xdocletlocation);
-		EnterpriseBeanClassDataModel commonDataModel = createDefaultSessionModel();
-		AddSessionBeanOperation sessionBeanOperation = new AddSessionBeanOperation(commonDataModel);
-		sessionBeanOperation.doRun(new NullProgressMonitor());
-		IProject project = 	null ; //Project.getProject(PROJECT_NAME);
-		IFile bean = project.getFile(new Path("/zoo/ejbModule/com/farm/CowBean.java"));
-		StructureEdit moduleCore = null;
-
-		try {
-			IVirtualResource[] vResources = ComponentCore.createResources(bean);
-			System.out.print(vResources[0].getComponent());
-			if( vResources.length == 0)
-				System.out.print("Cannot find bean");
-			
-		} finally {
-			if (moduleCore!=null)
-				moduleCore.dispose();
-		}		
-	
-		XDocletAntProjectBuilder antProjectBuilder = XDocletAntProjectBuilder.Factory.newInstance(bean);
-		antProjectBuilder.buildUsingAnt(bean,new NullProgressMonitor());
+		IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(PROJECT_NAME); // Project.ge.getProject(PROJECT_NAME);
+		assertNotNull(project);
 	}
 	
-	public void testSessionBeanCreation()
-	{
+	public void test04TestXDocletBuilder(){
 		
+		IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(PROJECT_NAME); // Project.ge.getProject(PROJECT_NAME);
+		assertNotNull(project);
+		IFile bean = project.getFile(new Path(SOURCE_FOLDER+"/com/farm/CowBean.java"));
+		assertNotNull(bean);
+
+		IVirtualResource[] vResources = ComponentCore.createResources(bean);
+		assertTrue(vResources.length > 0);
+		assertNotNull(vResources[0].getComponent());
+
+		XDocletAntProjectBuilder antProjectBuilder = XDocletAntProjectBuilder.Factory.newInstance(bean);
+		antProjectBuilder.buildUsingAnt(bean, new NullProgressMonitor());
+
+		IFile bean2 = project.getFile(new Path(SOURCE_FOLDER+"/com/farm/CowUtilities.java"));
+		assertNotNull(bean2);
+	}	
+	public void test02SetXDocletPreferences() throws Exception {
+		IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(PROJECT_NAME); // Project.ge.getProject(PROJECT_NAME);
+		assertNotNull(project);
+
+		XDocletPreferenceStore store = new XDocletPreferenceStore(project);
+		AnnotationPreferenceStore.setProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER, XDOCLET);
+		store.setPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE, true);
+		store.setPropertyActive(XDocletPreferenceStore.XDOCLETUSEGLOBAL,false);
+		store.setProperty(XDocletPreferenceStore.XDOCLETVERSION, TestSettings.xdocletversion);
+		store.setProperty(XDocletPreferenceStore.XDOCLETHOME, TestSettings.xdocletlocation);
+		store.save();
+		assertEquals(store.getProperty(XDocletPreferenceStore.XDOCLETHOME),TestSettings.xdocletlocation);
 	}
+	
+	
+	public void test03CreateSessionBean() throws Exception {
+		IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(PROJECT_NAME); // Project.ge.getProject(PROJECT_NAME);
+		assertNotNull(project);
+		IDataModel commonDataModel = createDefaultSessionModel();
+		AddSessionBeanOperation sessionBeanOperation = new AddSessionBeanOperation(commonDataModel);
+		sessionBeanOperation.execute(new NullProgressMonitor(), null);
+
+		IFile bean = project.getFile(new Path(SOURCE_FOLDER+"/com/farm/CowBean.java"));
+		assertNotNull(bean);
+	}
+
 
 }

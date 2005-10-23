@@ -73,17 +73,17 @@
    	    @beans@
  	   </fileset>
 <!-- BEANS END -->
-
+ 
          <dataobject/>
          <dao pattern="{0}" destdir="${ejb.project.dir}/${ejb.module.gen}"/>
-         
          <valueobject/>
-         <utilobject cacheHomes="true" includeGUID="true" kind="physical"/>
          
-         <remoteinterface/>
-         <localinterface/>
-         <homeinterface />
-         <localhomeinterface/>
+      	 @utilobject@
+      	 @remoteinterfaces@
+      	 @localinterfaces@
+         
+
+      	 
          
          <entitypk/>
          <entitycmp/>

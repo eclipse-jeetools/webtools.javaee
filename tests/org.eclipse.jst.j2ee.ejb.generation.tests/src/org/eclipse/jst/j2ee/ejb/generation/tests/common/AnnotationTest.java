@@ -66,12 +66,13 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EnterpriseBeanClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
+import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModelProvider;
 import org.eclipse.jst.server.generic.core.internal.GenericServerRuntime;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.server.core.IRuntime;
@@ -88,9 +89,9 @@ public abstract class AnnotationTest extends TestCase {
 	protected static final String EJB_NAME = "Cow";
 	protected static final String MODULE_NAME = "zoo";
 	protected static final String PROJECT_NAME = "TestEjbProject";
+	protected static final String SOURCE_FOLDER = "/"+MODULE_NAME+"/ejbModule";
 	public static final String BEAN_PACKAGE = "com.farm";
 	public static final String BEAN_CLASS = "CowBean";
-	public final static String ID = "org.eclipse.jst.server.generic.jonas414";
 
 	/**
 	 * 
@@ -106,16 +107,17 @@ public abstract class AnnotationTest extends TestCase {
 		super(name);
 	}
 
-	protected TestProject testProject;
 	public static final String XDOCLET = "XDoclet";
 
 	protected IDataModelOperation createFlexibleProject() throws Exception {
 		FlexibleJavaProjectCreationDataModelProvider provider = new FlexibleJavaProjectCreationDataModelProvider();
+		DataModelFactory.createDataModel(provider);
+
 		IDataModel creationDataModel = provider.getDataModel();
 		creationDataModel.setProperty(FlexibleJavaProjectCreationDataModelProvider.PROJECT_NAME, PROJECT_NAME);
+		creationDataModel.setProperty(JavaProjectCreationDataModelProvider.SOURCE_FOLDERS, new String[] { "ejbModules" });
 		IRuntime runtime = getRuntimeTarget();
-		creationDataModel.setProperty(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID, runtime.getId());
-
+		creationDataModel.setProperty(J2EEProjectServerTargetDataModelProvider.RUNTIME_TARGET_ID, runtime.getId());
 
 		return provider.getDefaultOperation();
 	}
@@ -127,10 +129,10 @@ public abstract class AnnotationTest extends TestCase {
 		IServerType serverType = null;
 		for (int i = 0; i < sTypes.length; i++) {
 			IServerType sType = sTypes[i];
-			if (ID.equals(sType.getId()))
+			if (TestSettings.runtimeid.equals(sType.getId()))
 				serverType = sType;
 		}
-		assertNotNull("Could not find org.eclipse.jst.server.generic.jonas414 server type", serverType);
+		assertNotNull("Could not find " + TestSettings.runtimeid + " server type", serverType);
 
 		// Finds the generic server runtime type
 		IRuntimeType runtimeType = serverType.getRuntimeType();
@@ -160,7 +162,8 @@ public abstract class AnnotationTest extends TestCase {
 		assertNotNull("Runtime working copy has no name", runtimeWorkingCopy.getName());
 
 		// Set properties for the JONAS runtime
-		GenericServerRuntime runtimeDelegate = (GenericServerRuntime) runtimeWorkingCopy.getAdapter(RuntimeDelegate.class);
+		GenericServerRuntime runtimeDelegate = (GenericServerRuntime) runtimeWorkingCopy.loadAdapter(RuntimeDelegate.class,
+				new NullProgressMonitor());
 		assertNotNull("Could not obtain runtime delegate", runtimeDelegate);
 
 		HashMap props = new HashMap();
@@ -168,7 +171,7 @@ public abstract class AnnotationTest extends TestCase {
 		props.put("classPathVariableName", "JONAS");
 		props.put("serverAddress", "127.0.0.1");
 		props.put("jonasBase", TestSettings.serverlocation);
-		props.put("jonasRoot",TestSettings.serverlocation);
+		props.put("jonasRoot", TestSettings.serverlocation);
 		props.put("classPath", TestSettings.serverlocation);
 		props.put("protocols", TestSettings.serverlocation);
 		props.put("port", "9000");
@@ -180,50 +183,46 @@ public abstract class AnnotationTest extends TestCase {
 		return runtime;
 	}
 
-	protected EnterpriseBeanClassDataModel createDefaultSessionModel() {
-		SessionBeanDataModel model = new SessionBeanDataModel();
-		model.setProperty(SessionBeanDataModel.ANNOTATIONPROVIDER, XDOCLET);
+	protected IDataModel createDefaultSessionModel() {
+		SessionBeanDataModelProvider provider = new SessionBeanDataModelProvider();
+		DataModelFactory.createDataModel(provider);
+		IDataModel model = provider.getDataModel();
+		model.setProperty(SessionBeanDataModelProvider.ANNOTATIONPROVIDER, XDOCLET);
 
-		model.setProperty(SessionBeanDataModel.SUPERCLASS, model.getEjbSuperclassName());
-		model.setProperty(SessionBeanDataModel.INTERFACES, model.getEJBInterfaces());
-		model.setBooleanProperty(SessionBeanDataModel.MODIFIER_ABSTRACT, true);
-		model.setProperty(SessionBeanDataModel.CLASS_NAME, BEAN_CLASS);
-		model.setProperty(SessionBeanDataModel.JAVA_PACKAGE, BEAN_PACKAGE);
+		model.setBooleanProperty(SessionBeanDataModelProvider.MODIFIER_ABSTRACT, true);
+		model.setProperty(SessionBeanDataModelProvider.CLASS_NAME, BEAN_CLASS);
+		model.setProperty(SessionBeanDataModelProvider.JAVA_PACKAGE, BEAN_PACKAGE);
 
-		model.setProperty(SessionBeanDataModel.PROJECT_NAME, PROJECT_NAME);
-		model.setProperty(SessionBeanDataModel.MODULE_NAME, MODULE_NAME);
-
-		model.setProperty(SessionBeanDataModel.EJB_NAME, EJB_NAME);
-		model.setProperty(SessionBeanDataModel.JNDI_NAME, EJB_NAME);
-		model.setProperty(SessionBeanDataModel.DISPLAY_NAME, EJB_NAME);
+		model.setProperty(SessionBeanDataModelProvider.PROJECT_NAME, PROJECT_NAME);
+		model.setProperty(SessionBeanDataModelProvider.SOURCE_FOLDER, SOURCE_FOLDER);
+		//model.setProperty(SessionBeanDataModelProvider.JAVA_SOURCE_FOLDER, SOURCE_FOLDER);
+		model.setProperty(SessionBeanDataModelProvider.COMPONENT_NAME, MODULE_NAME);
+		model.setProperty(SessionBeanDataModelProvider.EJB_NAME, EJB_NAME);
+		model.setProperty(SessionBeanDataModelProvider.JNDI_NAME, EJB_NAME);
+		model.setProperty(SessionBeanDataModelProvider.DISPLAY_NAME, EJB_NAME);
 		return model;
 	}
 
 	protected IDataModelOperation createEjbModuleAndProject() throws Exception {
 
-		IDataModelOperation flexibleJavaProjectCreationOperation = createFlexibleProject();
-		flexibleJavaProjectCreationOperation.execute(new NullProgressMonitor(),null);
+		//IDataModelOperation flexibleJavaProjectCreationOperation = createFlexibleProject();
+		//flexibleJavaProjectCreationOperation.execute(new NullProgressMonitor(), null);
 		EjbComponentCreationDataModelProvider aProvider = new EjbComponentCreationDataModelProvider();
+		DataModelFactory.createDataModel(aProvider);
 		IDataModel a = aProvider.getDataModel();
+		IRuntime runtime = getRuntimeTarget();
+		
+		a.setProperty(J2EEProjectServerTargetDataModelProvider.RUNTIME_TARGET_ID, runtime.getId());
 		a.setBooleanProperty(EjbComponentCreationDataModelProvider.ADD_TO_EAR, false);
+		a.setProperty(EjbComponentCreationDataModelProvider.JAVASOURCE_FOLDER, SOURCE_FOLDER);
 		a.setProperty(EjbComponentCreationDataModelProvider.COMPONENT_NAME, MODULE_NAME);
+		a.setProperty(EjbComponentCreationDataModelProvider.PROJECT_NAME, PROJECT_NAME);
+
 		a.setProperty(EjbComponentCreationDataModelProvider.COMPONENT_DEPLOY_NAME, MODULE_NAME);
 		a.setBooleanProperty(EjbComponentCreationDataModelProvider.CREATE_CLIENT, false);
-		a.setProperty(EjbComponentCreationDataModelProvider.PROJECT_NAME, PROJECT_NAME);
-		a.getDefaultOperation().execute(new NullProgressMonitor(),null);
+		a.getDefaultOperation().execute(new NullProgressMonitor(), null);
 
 		return a.getDefaultOperation();
-	}
-
-	/**
-	 * @throws CoreException
-	 * @throws MalformedURLException
-	 * @throws IOException
-	 * @throws JavaException
-	 */
-	protected void createTestJ2EEProject() throws CoreException, MalformedURLException, IOException {
-		this.testProject = new TestProject();
-		this.testProject.setSourceFolder(testProject.createSourceFolder());
 	}
 
 }

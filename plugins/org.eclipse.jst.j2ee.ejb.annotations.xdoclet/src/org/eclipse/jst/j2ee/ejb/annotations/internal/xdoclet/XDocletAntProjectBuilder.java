@@ -35,6 +35,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 public abstract class XDocletAntProjectBuilder {
 
 	protected URL templateUrl;
+	XDocletPreferenceStore preferenceStore = null;
 
 	public static class Factory {
 
@@ -54,6 +55,17 @@ public abstract class XDocletAntProjectBuilder {
 	public XDocletAntProjectBuilder() {
 		super();
 	}
+	
+	private XDocletPreferenceStore initPreferenceStore(IProject project)
+	{
+		if(preferenceStore == null)
+		{
+			preferenceStore = XDocletPreferenceStore.forProject(project);
+
+		}
+		return preferenceStore;
+	}
+
 
 	protected String asClassPath(IJavaProject project) throws CoreException {
 		String[] cp = createClassPath(project);
@@ -78,6 +90,7 @@ public abstract class XDocletAntProjectBuilder {
 	 * @param monitor
 	 */
 	public void buildUsingAnt(IResource beanClass, IProgressMonitor monitor) {
+		initPreferenceStore(beanClass.getProject());
 		IJavaProject javaProject = JavaCore.create(beanClass.getProject());
 		ICompilationUnit compilationUnit = JavaCore
 				.createCompilationUnitFrom((IFile) beanClass);
@@ -154,6 +167,10 @@ public abstract class XDocletAntProjectBuilder {
 			return path;
 		return ((IContainer) proj.getProject()).getFolder(
 				path.removeFirstSegments(1)).getProjectRelativePath();
+	}
+
+	public XDocletPreferenceStore getPreferenceStore() {
+		return preferenceStore;
 	}
 
 }

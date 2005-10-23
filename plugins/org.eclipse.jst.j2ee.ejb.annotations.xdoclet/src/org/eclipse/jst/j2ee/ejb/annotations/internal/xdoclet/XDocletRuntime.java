@@ -155,14 +155,6 @@ public class XDocletRuntime {
 		return entries;
 	}
 
-	public static XDocletRuntime getPreferredRuntime() {
-		XDocletRuntime axisRuntime = new XDocletRuntime();
-		axisRuntime.setHome(XDocletPreferenceStore.getProperty("AXIS", "home"));
-		axisRuntime.setVersion(XDocletPreferenceStore.getProperty("AXIS",
-				"version"));
-		return axisRuntime;
-	}
-
 	/**
 	 * @return
 	 */

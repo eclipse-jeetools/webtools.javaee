@@ -40,8 +40,6 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 
 	private static boolean isGloballyEnabled = true;
 
-
-
 	/**
 	 * Add the XDocletBuilder to the build spec of a single IProject
 	 * 
@@ -75,7 +73,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 						ISchedulingRule validateEditRule = null;
 						try {
 
-							IFile[] validateFiles = new IFile[]{descriptionFile};
+							IFile[] validateFiles = new IFile[] { descriptionFile };
 							IWorkspace workspace = descriptionFile.getWorkspace();
 							validateEditRule = workspace.getRuleFactory().validateEditRule(validateFiles);
 							Platform.getJobManager().beginRule(validateEditRule, monitor);
@@ -114,9 +112,13 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 							project.setDescription(description, monitor);
 						} catch (CoreException e) {
 							if (performValidateEdit) {
-								Logger.log(Logger.WARNING, "Description for project \"" + project.getName() + "\" could not be updated despite successful build"); //$NON-NLS-2$//$NON-NLS-1$					
+								Logger
+										.log(
+												Logger.WARNING,
+												"Description for project \"" + project.getName() + "\" could not be updated despite successful build"); //$NON-NLS-2$//$NON-NLS-1$					
 							} else {
-								Logger.log(Logger.WARNING, "Description for project \"" + project.getName() + "\" could not be updated"); //$NON-NLS-2$//$NON-NLS-1$					
+								Logger.log(Logger.WARNING,
+										"Description for project \"" + project.getName() + "\" could not be updated"); //$NON-NLS-2$//$NON-NLS-1$					
 							}
 						}
 					}
@@ -137,20 +139,19 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	 * @param root
 	 */
 	public synchronized static void add(IProgressMonitor monitor, IWorkspaceRoot root, Object validateEditContext) {
-		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE)) {
-			return;
-		}
 		IProject[] allProjects = root.getProjects();
 		IProgressMonitor localMonitor = monitor;
 		localMonitor.beginTask("Starting to add builder to projects with EJB modules", 1); //$NON-NLS-1$
 		for (int i = 0; i < allProjects.length && !monitor.isCanceled(); i++) {
-			add(localMonitor, allProjects[i], validateEditContext);
+			if (XDocletPreferenceStore.forProject(allProjects[i]).isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE)) {
+				add(localMonitor, allProjects[i], validateEditContext);
+			}
 			localMonitor.worked(1);
 		}
 		localMonitor.done();
 	}
 
-	private static String getBuilderId() {
+	public static String getBuilderId() {
 		return "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.xdocletbuilder"; //$NON-NLS-1$
 	}
 
@@ -178,9 +179,10 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
 		IProject currentProject = getProject();
 		// Currently, just use the Task Tags preference
-		boolean locallyEnabled = XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE);
+		boolean locallyEnabled = XDocletPreferenceStore.forProject(currentProject).isPropertyActive(
+				XDocletPreferenceStore.XDOCLETBUILDERACTIVE);
 		if (!locallyEnabled || currentProject == null || !currentProject.isAccessible()) {
-			return new IProject[]{currentProject};
+			return new IProject[] { currentProject };
 		}
 
 		IResourceDelta delta = getDelta(currentProject);
@@ -197,8 +199,8 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		}
 		localMonitor.worked(1);
 		localMonitor.done();
-		
-		return new IProject[]{getProject()};
+
+		return new IProject[] { getProject() };
 	}
 
 	void build(int kind, Map args, IResource resource, IContentType[] types, IProgressMonitor monitor) {
@@ -221,7 +223,8 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		if (!isGloballyEnabled || currentProject == null || !currentProject.isAccessible()) {
 			return;
 		}
-		//doFullBuild(IncrementalProjectBuilder.CLEAN_BUILD, new HashMap(0), monitor, getProject());
+		// doFullBuild(IncrementalProjectBuilder.CLEAN_BUILD, new HashMap(0),
+		// monitor, getProject());
 	}
 
 	boolean isXDocletAnnotatedResource(IResource resource) {
@@ -248,6 +251,13 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 				}
 			}
 			return false;
+		} else if( resource.getType() == IResource.FILE && !resource.isAccessible()){
+			//Deleted - Check to see if this is an xdoclet bean!
+			// This is a crude hack to make sure the build runs is a resource is deleted.
+			String name = resource.getName();
+			boolean isXDocletBean = name.endsWith("Bean.java") ||name.endsWith("Servlet.java") || name.endsWith("Controller.java") || name.endsWith("EJB.java")|| name.endsWith("MDB.java") || name.endsWith("Ejb.java") || name.endsWith("Mdb.java") || name.endsWith("BEAN.java");
+			if(isXDocletBean)
+				return true;
 		}
 		return false;
 	}
@@ -266,19 +276,21 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 
 		final IProgressMonitor visitorMonitor = monitor;
 		IResourceVisitor internalBuilder = new IResourceVisitor() {
-			//xdoclet builder completes the whole project at once so no need to
-			// repeat the build with each annotated bean.  Stop after the first one
-			boolean buildComplete = false; 
+			// xdoclet builder completes the whole project at once so no need to
+			// repeat the build with each annotated bean. Stop after the first
+			// one
+			boolean buildComplete = false;
+
 			public boolean visit(IResource resource) throws CoreException {
-				if (resource.getType() == IResource.FILE && buildComplete==false) {
+				if (resource.getType() == IResource.FILE && buildComplete == false) {
 					// for any supported file type, record the resource
-					if (!buildComplete  && isXDocletAnnotatedResource(resource)) {
+					if (!buildComplete && isXDocletAnnotatedResource(resource)) {
 						build(localKind, localArgs, resource, null, subMonitor);
-						buildComplete=true;
+						buildComplete = true;
 						visitorMonitor.worked(1);
 					}
 					return false;
-				} 
+				}
 				return true;
 			}
 
@@ -303,15 +315,16 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		final int localKind = kind;
 		final IProgressMonitor localMonitor = monitor;
 		IResourceDeltaVisitor participantVisitor = new IResourceDeltaVisitor() {
-			//xdoclet builder completes the whole project at once so no need to
-			// repeat the build with each annotated bean.  Stop after the first one
-			boolean buildComplete = false; 
+			// xdoclet builder completes the whole project at once so no need to
+			// repeat the build with each annotated bean. Stop after the first
+			// one
+			boolean buildComplete = false;
 
 			public boolean visit(IResourceDelta delta) throws CoreException {
 				if (!localMonitor.isCanceled() && delta.getResource().getType() == IResource.FILE) {
-					if (!buildComplete  && isXDocletAnnotatedResource(delta.getResource())){
+					if (!buildComplete && isXDocletAnnotatedResource(delta.getResource())) {
 						build(localKind, localArgs, delta.getResource(), null, localMonitor);
-						buildComplete=true;
+						buildComplete = true;
 					}
 				}
 				return delta.getAffectedChildren().length > 0;
@@ -342,10 +355,10 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	}
 
 	public static void shutdown() {
-		//Default
+		// Default
 	}
 
 	public static void startup() {
-		//Default
+		// Default
 	}
 }

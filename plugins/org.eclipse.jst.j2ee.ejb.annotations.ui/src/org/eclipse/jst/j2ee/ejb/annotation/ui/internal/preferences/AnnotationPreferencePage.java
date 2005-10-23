@@ -14,8 +14,12 @@
  ***************************************************************************/
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences;
 
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
@@ -32,14 +36,18 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.IWorkbenchPropertyPage;
 
 public class AnnotationPreferencePage extends PreferencePage implements
-		IWorkbenchPreferencePage, SelectionListener {
+		IWorkbenchPreferencePage,IWorkbenchPropertyPage, SelectionListener {
 
 	DialogPanel panel;
 
 	public AnnotationPreferencePage() {
 		super();
+		fProject= null;
+		fData= null;
+
 	}
 
 	/*
@@ -148,6 +156,49 @@ public class AnnotationPreferencePage extends PreferencePage implements
 		AnnotationPreferenceStore.setProperty(
 				AnnotationPreferenceStore.ANNOTATIONPROVIDER, itemValue);
 		return super.performOk();
+	}
+
+	private IProject fProject; // project or null
+	private Map fData; // page data
+		
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
+	 */
+	public IAdaptable getElement() {
+		return fProject;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
+	 */
+	public void setElement(IAdaptable element) {
+		fProject= (IProject) element.getAdapter(IResource.class);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.PreferencePage#applyData(java.lang.Object)
+	 */
+	public void applyData(Object data) {
+		if (data instanceof Map) {
+			fData= (Map) data;
+		}
+		
+ 	}
+	
+	protected Map getData() {
+		return fData;
+	}	
+	
+	protected boolean useProjectSettings() {
+		return isProjectPreferencePage();
+	}
+	
+	protected boolean isProjectPreferencePage() {
+		return fProject != null;
+	}
+	
+	protected IProject getProject() {
+		return fProject;
 	}
 
 }

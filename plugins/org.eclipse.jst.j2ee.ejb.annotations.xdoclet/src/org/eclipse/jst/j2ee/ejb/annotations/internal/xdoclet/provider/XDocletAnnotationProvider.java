@@ -17,7 +17,6 @@ package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,6 +34,7 @@ import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EmitterUtilities;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuildUtility;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletRuntime;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
@@ -56,9 +56,10 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 
 	public boolean isValid() {
 		XDocletRuntime runtime = new XDocletRuntime();
-		runtime.setHome(XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETHOME));
-		runtime.setVersion(XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
-		return runtime.isValid(XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
+		XDocletPreferenceStore store = XDocletPreferenceStore.forProject(null);
+		runtime.setHome(store.getProperty(XDocletPreferenceStore.XDOCLETHOME));
+		runtime.setVersion(store.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
+		return runtime.isValid(store.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
 	}
 
 	public String getName() {
@@ -111,7 +112,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			IResource javaFile = bean.getCorrespondingResource();
 			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
 			initializeBuilder(monitor, preferredAnnotation,javaFile, project);
-			project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+			XDocletBuildUtility.runNecessaryBuilders(monitor,project);
 		
 		
 	}
@@ -159,7 +160,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
 
 			initializeBuilder(monitor, emitterConfiguration, javaFile, project);
-			project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+			XDocletBuildUtility.runNecessaryBuilders(monitor,project);
 
 		}
 

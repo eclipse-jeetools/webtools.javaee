@@ -89,4 +89,7 @@ public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 		XDocletPreferenceStore.initializeDefaultPreferences(store);
 	}
 	
+
+	
+	
 }

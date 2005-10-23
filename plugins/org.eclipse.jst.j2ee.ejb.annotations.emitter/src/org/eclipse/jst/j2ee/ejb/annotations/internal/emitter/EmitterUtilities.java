@@ -13,6 +13,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
@@ -20,10 +21,13 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
  */
 public class EmitterUtilities {
 
+
+	final static String JAVABUILDER= JavaCore.BUILDER_ID;
+	
 	public static void addAnnotationBuilderToProject(IConfigurationElement emitter,
 			IProject targetProject) throws CoreException {
 		String builderId = emitter.getAttribute("builderId");
-		ProjectUtilities.addToBuildSpec(emitter.getNamespace()+ "." + builderId, targetProject);
+		ProjectUtilities.addToBuildSpecBefore(emitter.getNamespace()+ "." + builderId,JAVABUILDER, targetProject);
 		
 	}
 

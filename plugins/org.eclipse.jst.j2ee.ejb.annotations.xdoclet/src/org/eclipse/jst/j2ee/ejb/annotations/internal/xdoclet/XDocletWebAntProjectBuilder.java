@@ -49,11 +49,12 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		templates.put("@jonas@", addJonasTask(contextRoot)); //$NON-NLS-1$
 		templates.put("@weblogic@", addWeblogicTask(contextRoot)); //$NON-NLS-1$
 		templates.put("@websphere@", addWebSphereTask(contextRoot)); //$NON-NLS-1$
-		
+
 		return templates;
 	}
 
-	protected Properties createAntBuildProperties(IResource resource, IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot, String beanPath) {
+	protected Properties createAntBuildProperties(IResource resource, IJavaProject javaProject,
+			IPackageFragmentRoot packageFragmentRoot, String beanPath) {
 		Properties properties = new Properties();
 		StructureEdit moduleCore = null;
 		WebArtifactEdit webEdit = null;
@@ -73,17 +74,17 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			int j2eeVersion = 0;
 			if (webEdit != null) {
 				j2eeVersion = webEdit.getJ2EEVersion();
-				//TODO
+				// TODO
 				contextRoot = webEdit.getServerContextRoot();
 			}
-			properties.put("web.module.webinf",getWebInfFolder(wbModule).toString() ); //$NON-NLS-1$
+			properties.put("web.module.webinf", getWebInfFolder(wbModule).toString()); //$NON-NLS-1$
 			properties.put("web", contextRoot); //$NON-NLS-1$
 			properties.put("web.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
 			properties.put("web.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
 			properties.put("web.module.src", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
 			properties.put("web.module.gen", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
 			properties.put("web.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
-			properties.put("xdoclet.home", XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
+			properties.put("xdoclet.home", getPreferenceStore().getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
 			URL url = Platform.getBundle("org.apache.ant").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
 			url = Platform.asLocalURL(url);
 			File file = new File(url.getFile());
@@ -155,69 +156,50 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 	}
 
 	protected void refreshProjects(IProject project, IProgressMonitor monitor) throws CoreException {
-		if( project != null)
-			project.refreshLocal(
-				IResource.DEPTH_INFINITE,
-				monitor);
-				
+		if (project != null)
+			project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+
 	}
-	
+
 	protected IPath getWebInfFolder(WorkbenchComponent webModule) {
-		ComponentResource[] webXML =  webModule.findResourcesByRuntimePath(new Path("/WEB-INF/web.xml"));
-		if(webXML.length > 0)
+		ComponentResource[] webXML = webModule.findResourcesByRuntimePath(new Path("/WEB-INF/web.xml"));
+		if (webXML.length > 0)
 			return webXML[0].getSourcePath().removeLastSegments(1);
 		return null;
 	}
 
-	
 	private String addJbossTask(String contextRoot) {
-		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_JBOSS))
+		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.WEB_JBOSS))
 			return ""; //$NON-NLS-1$
-		return "<jbosswebxml version=\"" 
-		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.WEB_JBOSS + "_VERSION") + "\"" 
-		+ "    contextroot=\""+contextRoot+"\"" 
-		+ "    xmlencoding=\"UTF-8\"" 
-		+ "    destdir=\"\\${web.dd.dir}\"" 
-		+ "    validatexml=\"false\"" 
-		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
-	
+		return "<jbosswebxml version=\"" + getPreferenceStore().getProperty(XDocletPreferenceStore.WEB_JBOSS + "_VERSION") + "\""
+				+ "    contextroot=\"" + contextRoot + "\"" + "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${web.dd.dir}\""
+				+ "    validatexml=\"false\"" + "    mergedir=\"\\${web.dd.dir}\" />";
+
 	}
 
 	private String addJonasTask(String contextRoot) {
-		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_JONAS))
+		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.WEB_JONAS))
 			return ""; //$NON-NLS-1$
-		return "<jonaswebxml version=\"" 
-		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.WEB_JONAS + "_VERSION") + "\"" 
-		+ "    contextroot=\""+contextRoot+"\"" 
-		+ "    xmlencoding=\"UTF-8\"" 
-		+ "    destdir=\"\\${web.dd.dir}\"" 
-		+ "    validatexml=\"false\"" 
-		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
-	
+		return "<jonaswebxml version=\"" + getPreferenceStore().getProperty(XDocletPreferenceStore.WEB_JONAS + "_VERSION") + "\""
+				+ "    contextroot=\"" + contextRoot + "\"" + "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${web.dd.dir}\""
+				+ "    validatexml=\"false\"" + "    mergedir=\"\\${web.dd.dir}\" />";
+
 	}
 
 	private String addWeblogicTask(String contextRoot) {
-		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_WEBLOGIC))
+		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.WEB_WEBLOGIC))
 			return ""; //$NON-NLS-1$
-		return "<weblogicwebxml version=\"" 
-		+ XDocletPreferenceStore.getProperty(XDocletPreferenceStore.WEB_WEBLOGIC + "_VERSION") + "\"" 
-		+ "    contextRoot=\""+contextRoot+"\"" 
-		+ "    xmlencoding=\"UTF-8\"" 
-		+ "    destdir=\"\\${web.dd.dir}\"" 
-		+ "    validatexml=\"false\"" 
-		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
-	
+		return "<weblogicwebxml version=\"" + getPreferenceStore().getProperty(XDocletPreferenceStore.WEB_WEBLOGIC + "_VERSION")
+				+ "\"" + "    contextRoot=\"" + contextRoot + "\"" + "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${web.dd.dir}\""
+				+ "    validatexml=\"false\"" + "    mergedir=\"\\${web.dd.dir}\" />";
+
 	}
 
 	private String addWebSphereTask(String contextRoot) {
-		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.WEB_WEBSPHERE))
+		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.WEB_WEBSPHERE))
 			return ""; //$NON-NLS-1$
-		return "<webspherewebxml "
-		+ "    xmlencoding=\"UTF-8\"" 
-		+ "    destdir=\"\\${web.dd.dir}\"" 
-		+ "    validateXML=\"false\"" 
-		+ "    mergedir=\"\\${web.dd.dir}\" />"; 
-	}	
+		return "<webspherewebxml " + "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${web.dd.dir}\"" + "    validateXML=\"false\""
+				+ "    mergedir=\"\\${web.dd.dir}\" />";
+	}
 
-	
 }

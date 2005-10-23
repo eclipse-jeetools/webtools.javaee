@@ -34,6 +34,86 @@
      </page>
    </extension>
 
+
+<!-- =========== org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage ============ -->
+
+	<extension point="org.eclipse.ui.propertyPages">
+       <page
+            objectClass="org.eclipse.core.resources.IProject"
+            name="%XDocletPropertiesPage.name"
+            category="J2EEAnnotationPropertiesPage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
+            id="XDocletPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+         </filter>
+      </page>
+      <page
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            name="%XDocletPropertiesPage.name"
+            category="J2EEAnnotationPropertiesPage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
+            id="XDocletPropertiesPage">
+         <filter
+               name="nature" 
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+         </filter>
+      </page> 
+
+<!-- =========== org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage ============ -->
+
+      <page
+            objectClass="org.eclipse.core.resources.IProject"
+            name="%XDocletEJBPropertiesPage.name"
+            category="XDocletPropertiesPage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage"
+            id="XDocletEJBPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+         </filter>
+      </page>
+      <page
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            name="%XDocletEJBPropertiesPage.name"
+            category="XDocletPropertiesPage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage"
+            id="XDocletEJBPropertiesPage">
+         <filter
+               name="nature" 
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+         </filter>
+      </page> 
+   
+<!-- =========== org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage ============ -->
+       <page
+            objectClass="org.eclipse.core.resources.IProject"
+            name="%XDocletWebPropertiesPage.name"
+            category="XDocletPropertiesPage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage"
+            id="XDocletWebPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+         </filter>
+      </page>
+      <page
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            name="%XDocletWebPropertiesPage.name"
+            category="XDocletPropertiesPage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage"
+            id="XDocletWebPropertiesPage">
+         <filter
+               name="nature" 
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+         </filter>
+      </page> 
+   </extension>    
+   
+   
+<!-- =========== XDoclet Code Emmitters ============ -->
+
    <extension
          point="org.eclipse.jst.j2ee.ejb.annotations.emitter.template">
       <emitter
@@ -60,7 +140,49 @@
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider" />
    </extension>
    
+   <!-- -->
+   
+    <extension
+         point="org.eclipse.ui.popupMenus">
+       <objectContribution
+	        adaptable="true"
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
+ 		<menu
+            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu" 
+            path="additions" 
+            label="&amp;XDoclet"> 
+            <separator name="group1"/> 
+         </menu> 
 
+          <action
+               label="Run XDoclet"
+               tooltip="Run XDoclet"
+               menubarPath="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu/group1"
+               class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"
+               enablesFor="1"
+               id="RunXDoclet">
+         </action>
+          <action
+               label="Add Builder"
+               tooltip="Add Builder"
+               menubarPath="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu/group1"
+               class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.AddBuilderAction"
+               enablesFor="1"
+               id="AddBuilder">
+          </action>
+          <action
+               label="Remove Builder"
+               tooltip="Remove Builder"
+               menubarPath="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu/group1"
+               class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RemoveBuilderAction"
+               enablesFor="1"
+               id="RemoveBuilder">
+         </action>
+          
+       </objectContribution>
+   </extension>  
+     
     <!-- ================================================ -->
     <!--  EJB Tag set definitions for XDoclet             -->
     <!-- ================================================ -->

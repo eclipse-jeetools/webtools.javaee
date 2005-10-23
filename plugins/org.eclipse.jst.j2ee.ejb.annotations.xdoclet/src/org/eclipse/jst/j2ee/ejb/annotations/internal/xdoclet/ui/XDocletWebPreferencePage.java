@@ -19,12 +19,9 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
-
-
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
-import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -37,43 +34,48 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPreferencePage;
 
+public class XDocletWebPreferencePage extends PropertyPreferencePage implements SelectionListener {
 
-public class XDocletWebPreferencePage extends PreferencePage implements
-		IWorkbenchPreferencePage, SelectionListener {
+	private static ResourceBundle bundle = ResourceBundle
+			.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
 
-	private static ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
+	private static final String[][] weboptions = {
+			{ XDocletPreferenceStore.WEB_JBOSS, "JBoss", bundle.getString("desc_webdoclet_jboss"), "CHECK",
+					"2.4,3.0,3.0.1,3.0.2,3.0.3,3.2,4.0", "2.4" },
+			{ XDocletPreferenceStore.WEB_JONAS, "JOnAS", bundle.getString("desc_webdoclet_jonas"), "CHECK", "2.3,2.4,2.5,2.6,3.0",
+					"2.6" },
+			{ XDocletPreferenceStore.WEB_WEBLOGIC, "WebLogic", bundle.getString("desc_webdoclet_weblogic"), "CHECK",
+					"6.0,6.1,7.0,8.1", "6.1" },
+			{ XDocletPreferenceStore.WEB_WEBSPHERE, "WebSphere", bundle.getString("desc_webdoclet_websphere"), "CHECK", "all", "all" }
 
-	private static final String[][]  weboptions={
-		{ XDocletPreferenceStore.WEB_JBOSS, "JBoss", bundle.getString("desc_webdoclet_jboss"), "CHECK","2.4,3.0,3.0.1,3.0.2,3.0.3,3.2,4.0","2.4"},
-		{ XDocletPreferenceStore.WEB_JONAS, "JOnAS", bundle.getString("desc_webdoclet_jonas"), "CHECK","2.3,2.4,2.5,2.6,3.0","2.6"},
-		{ XDocletPreferenceStore.WEB_WEBLOGIC, "WebLogic", bundle.getString("desc_webdoclet_weblogic"), "CHECK","6.0,6.1,7.0,8.1","6.1"  },
-		{ XDocletPreferenceStore.WEB_WEBSPHERE, "WebSphere", bundle.getString("desc_webdoclet_websphere"), "CHECK", "all","all"}
-		
 	};
-	
+
 	DialogPanel panel;
-	
+
 	public XDocletWebPreferencePage() {
 		super();
 	}
 
-	
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
 	 */
 	public void init(IWorkbench workbench) {
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
 	 */
 	public void widgetSelected(SelectionEvent e) {
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
 	 */
 	public void widgetDefaultSelected(SelectionEvent e) {
@@ -85,79 +87,70 @@ public class XDocletWebPreferencePage extends PreferencePage implements
 		layout.numColumns = 2;
 		layout.makeColumnsEqualWidth = false;
 		panel.setLayout(layout);
-		GridData gridData = new GridData(GridData.FILL_BOTH
-				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
+		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		panel.setLayoutData(gridData);
 		return panel;
 	}
+
 	/*
 	 * @see PreferencePage#createContents(Composite)
 	 */
 	protected Control createContents(Composite parent) {
-		//noDefaultAndApplyButton();
+		// noDefaultAndApplyButton();
 		Composite composite = createContainer(parent);
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.marginHeight = 0;
 		gridLayout.marginWidth = 0;
 		composite.setLayout(gridLayout);
-	
+
 		Composite defPanel = new Composite(composite, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 4;
 		defPanel.setLayout(layout);
-		GridData gridData = new GridData(GridData.FILL_BOTH
-				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
+		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		defPanel.setLayoutData(gridData);
-	
-		
-		
+
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
 		label.setText(bundle.getString("label_set_webdoclet_preference"));
-	
+
 		panel.preferences = new Control[weboptions.length];
 		panel.fActive = new Button[weboptions.length];
-		
+
 		for (int i = 0; i < weboptions.length; i++) {
 			String versions[] = parseVersions(weboptions[i][4]);
-			panel.preferences[i] = panel.createLabeledCombo(i,XDocletPreferenceStore.isPropertyActive(weboptions[i][0]),
-					weboptions[i][1]+":",
-					weboptions[i][2],
-					XDocletPreferenceStore.getProperty(weboptions[i][0]+"_VERSION"),versions,defPanel);			
+			panel.preferences[i] = panel.createLabeledCombo(i, getStore().isPropertyActive(weboptions[i][0]), weboptions[i][1] + ":",
+					weboptions[i][2], getStore().getProperty(weboptions[i][0] + "_VERSION"), versions, defPanel);
 		}
 
 		return composite;
 	}
-
-
-
 
 	/**
 	 * @param string
 	 * @return
 	 */
 	private String[] parseVersions(String string) {
-		StringTokenizer tokenizer = new StringTokenizer(string,",");
-		int i=0, count = tokenizer.countTokens();
+		StringTokenizer tokenizer = new StringTokenizer(string, ",");
+		int i = 0, count = tokenizer.countTokens();
 		String[] versions = new String[count];
 		while (tokenizer.hasMoreTokens()) {
-			versions[i++]=tokenizer.nextToken();
+			versions[i++] = tokenizer.nextToken();
 		}
 		return versions;
 	}
 
-
-
 	public boolean performOk() {
 		for (int i = 0; i < weboptions.length; i++) {
-			Combo combo = ((Combo)panel.preferences[i]);
+			Combo combo = ((Combo) panel.preferences[i]);
 			boolean itemActive = panel.fActive[i].getSelection();
 			String itemValue = combo.getItem(combo.getSelectionIndex());
-			XDocletPreferenceStore.setProperty(weboptions[i][0]+"_VERSION",itemValue);
-			XDocletPreferenceStore.setPropertyActive(weboptions[i][0],itemActive);
+			getStore().setProperty(weboptions[i][0] + "_VERSION", itemValue);
+			getStore().setPropertyActive(weboptions[i][0], itemActive);
 		}
+		getStore().save();
 		return super.performOk();
 	}
 

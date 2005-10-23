@@ -15,10 +15,10 @@ package org.eclipse.jst.j2ee.ejb.generation.tests.common;
  */
 public class TestSettings {
 	
-	public static String runtimeid = "org.eclipse.jst.server.generic.jonas414";
+	public static String runtimeid = "org.eclipse.jst.server.generic.jonas4";
 	public static String serverlocation = "C:\\nmd\\dev\\java\\appservers\\JOnAS-4.1.4";
 	public static String xdocletlocation = "c:\\downloads\\xdoclet-1.2.2";
-	public static String xdocletversion = "1.2.3";
+	public static String xdocletversion = "1.2.2";
 	
 
 }
