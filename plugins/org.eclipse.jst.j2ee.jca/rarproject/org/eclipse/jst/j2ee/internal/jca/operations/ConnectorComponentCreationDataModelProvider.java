@@ -114,7 +114,8 @@ public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCr
 
 
 	public IDataModelOperation getDefaultOperation() {
-		return new ConnectorComponentCreationOperation(model);
+		//return new ConnectorComponentCreationOperation(model);
+		return new ConnectorComponentCreationFacetOperation(model);
 	}
 
 	public Object getDefaultProperty(String propertyName) {
