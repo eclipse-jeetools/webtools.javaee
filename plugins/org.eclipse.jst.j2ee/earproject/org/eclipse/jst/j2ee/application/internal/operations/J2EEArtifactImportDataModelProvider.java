@@ -101,9 +101,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				String defaultProjectName = path.segment(path.segmentCount() - 1);
 				if (defaultProjectName.indexOf('.') > 0) {
 					defaultProjectName = defaultProjectName.substring(0, defaultProjectName.lastIndexOf('.'));
-					if (defaultProjectName.indexOf('.') > 0) {
-						defaultProjectName = defaultProjectName.replace('.', '_');
-					}
 				}
 				setProperty(COMPONENT_NAME, defaultProjectName);
 			} finally {
