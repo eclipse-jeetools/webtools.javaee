@@ -96,7 +96,8 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 	}
 
 	public IDataModelOperation getDefaultOperation() {
-		return new AppClientComponentCreationOperation(model);
+		//return new AppClientComponentCreationOperation(model);
+		return new AppClientComponentCreationFacetOperation(model);
 	}
 
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
@@ -114,4 +115,25 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 	protected String getJ2EEProjectType() {
 		return J2EEProjectUtilities.APPLICATION_CLIENT;
 	}
+	
+	public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName) {
+		if (propertyName.equals(COMPONENT_VERSION)) {
+			Integer propertyValue = (Integer) getProperty(propertyName);
+			String description = null;
+			switch (propertyValue.intValue()) {
+				case J2EEVersionConstants.J2EE_1_2_ID :
+					description = J2EEVersionConstants.VERSION_1_2_TEXT;
+					break;
+				case J2EEVersionConstants.J2EE_1_3_ID :
+					description = J2EEVersionConstants.VERSION_1_3_TEXT;
+					break;
+				case J2EEVersionConstants.J2EE_1_4_ID :
+				default :
+					description = J2EEVersionConstants.VERSION_1_4_TEXT;
+					break;
+			}
+			return new DataModelPropertyDescriptor(propertyValue, description);
+		}
+		return super.getPropertyDescriptor(propertyName);
+	}	
 }
