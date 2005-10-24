@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class ConnectorFacetInstallDataModelProvider 
 	extends FacetInstallDataModelProvider
@@ -23,8 +22,4 @@ public class ConnectorFacetInstallDataModelProvider
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
-	public IDataModelOperation getDefaultOperation() {
-		return new ConnectorFacetInstallOperation(model);
-	}	
 }

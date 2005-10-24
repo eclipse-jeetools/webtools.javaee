@@ -11,7 +11,6 @@
 
 package org.eclipse.jst.common.project.facet;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -32,97 +31,73 @@ import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelp
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class JavaFacetInstallDelegate 
+public final class JavaFacetInstallDelegate implements IDelegate {
 
-    implements IDelegate
-    
-{
-    public void execute( final IProject project, 
-                         final IProjectFacetVersion fv,
-                         final Object cfg,
-                         final IProgressMonitor monitor )
-    
-        throws CoreException
-        
-    {
-    	IDataModel model = (IDataModel)cfg;
-    	try {
-			model.getDefaultOperation().execute(monitor, null);
-		} catch (ExecutionException e) {
-			e.printStackTrace();
+	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
+		if (monitor != null) {
+			monitor.beginTask("", 1); //$NON-NLS-1$
 		}
-		if(true){
-			return;
+
+		try {
+			IDataModel model = (IDataModel) cfg;
+
+			// Create the source and the output directories.
+
+			final IWorkspace ws = ResourcesPlugin.getWorkspace();
+
+			final IPath pjpath = project.getFullPath();
+			String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME);
+			// final IPath srcdir = pjpath.append( "src" );
+			final IPath srcdir = pjpath.append(srcFolderName);
+
+			final IPath outdir = pjpath.append("build/classes"); //$NON-NLS-1$
+
+			ws.getRoot().getFolder(srcdir).getLocation().toFile().mkdirs();
+			ws.getRoot().getFolder(outdir).getLocation().toFile().mkdirs();
+			project.refreshLocal(IResource.DEPTH_INFINITE, null);
+
+			// Add the java nature. This will automatically add the builder.
+
+			final IProjectDescription desc = project.getDescription();
+			final String[] current = desc.getNatureIds();
+			final String[] replacement = new String[current.length + 1];
+			System.arraycopy(current, 0, replacement, 0, current.length);
+			replacement[current.length] = JavaCore.NATURE_ID;
+			desc.setNatureIds(replacement);
+			project.setDescription(desc, null);
+
+			// Set up the sourcepath and the output directory.
+
+			final IJavaProject jproj = JavaCore.create(project);
+			final IClasspathEntry[] cp = {JavaCore.newSourceEntry(srcdir)};
+
+			jproj.setRawClasspath(cp, outdir, null);
+			jproj.save(null, true);
+
+			// Setup the classpath.
+
+			ClasspathHelper.removeClasspathEntries(project, fv);
+
+			if (!ClasspathHelper.addClasspathEntries(project, fv)) {
+				// TODO: Support the no runtime case.
+				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
+			}
+
+			// Set the compiler comliance level for the project. Ignore whether
+			// this might already be set so at the workspace level in case
+			// workspace settings change later or the project is included in a
+			// different workspace.
+
+			JavaFacetUtils.setCompilerLevel(project, fv);
+
+			if (monitor != null) {
+				monitor.worked(1);
+			}
+		} finally {
+			if (monitor != null) {
+				monitor.done();
+			}
 		}
-    	
-    	
-    	
-        if( monitor != null )
-        {
-            monitor.beginTask( "", 1 ); //$NON-NLS-1$
-        }
-        
-        try
-        {
-            // Create the source and the output directories.
-            
-            final IWorkspace ws = ResourcesPlugin.getWorkspace();
-            
-            final IPath pjpath = project.getFullPath();
-            final IPath srcdir = pjpath.append( "src" ); //$NON-NLS-1$
-            final IPath outdir = pjpath.append( "build/classes" ); //$NON-NLS-1$
-            
-            ws.getRoot().getFolder( srcdir ).getLocation().toFile().mkdirs();
-            ws.getRoot().getFolder( outdir ).getLocation().toFile().mkdirs();
-            project.refreshLocal( IResource.DEPTH_INFINITE, null );
-
-            // Add the java nature. This will automatically add the builder.
-            
-            final IProjectDescription desc = project.getDescription();
-            final String[] current = desc.getNatureIds();
-            final String[] replacement = new String[ current.length + 1 ];
-            System.arraycopy( current, 0, replacement, 0, current.length );
-            replacement[ current.length ] = JavaCore.NATURE_ID;
-            desc.setNatureIds( replacement );
-            project.setDescription( desc, null );
-
-            // Set up the sourcepath and the output directory.
-            
-            final IJavaProject jproj = JavaCore.create( project );
-            final IClasspathEntry[] cp = { JavaCore.newSourceEntry( srcdir ) };
-            
-            jproj.setRawClasspath( cp, outdir, null );
-            jproj.save( null, true );
-            
-            // Setup the classpath. 
-            
-            ClasspathHelper.removeClasspathEntries( project, fv );
-            
-            if( ! ClasspathHelper.addClasspathEntries( project, fv ) )
-            {
-                // TODO: Support the no runtime case.
-                // ClasspathHelper.addClasspathEntries( project, fv, <something> );
-            }
-            
-            // Set the compiler comliance level for the project. Ignore whether
-            // this might already be set so at the workspace level in case
-            // workspace settings change later or the project is included in a
-            // different workspace.
-            
-            JavaFacetUtils.setCompilerLevel( project, fv );
-            
-            if( monitor != null )
-            {
-                monitor.worked( 1 );
-            }
-        }
-        finally
-        {
-            if( monitor != null )
-            {
-                monitor.done();
-            }
-        }
-    }
+	}
 
 }

@@ -14,7 +14,6 @@ import java.util.Set;
 
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {
 
@@ -39,9 +38,4 @@ public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvi
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
-	public IDataModelOperation getDefaultOperation() {
-		return new WebFacetInstallOperation(model);
-	}
-	
 }

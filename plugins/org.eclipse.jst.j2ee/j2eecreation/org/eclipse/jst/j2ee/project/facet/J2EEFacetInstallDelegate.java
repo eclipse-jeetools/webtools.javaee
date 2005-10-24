@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.io.IOException;
@@ -5,14 +15,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -20,7 +27,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -28,17 +34,8 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
 
-public class J2EEFacetInstallOperation extends AbstractDataModelOperation {
-	
-	public J2EEFacetInstallOperation(IDataModel model) {
-		super(model);
-	}
+public abstract class J2EEFacetInstallDelegate {
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	protected void installEARFacet(String j2eeVersionText, String earProjectName, IProgressMonitor monitor){
 
 		IProject project = ProjectUtilities.getProject(earProjectName); 
@@ -78,5 +75,5 @@ public class J2EEFacetInstallOperation extends AbstractDataModelOperation {
         } catch (IOException e) {
             Logger.getLogger().log(e);
         }
-    }		
+    }
 }

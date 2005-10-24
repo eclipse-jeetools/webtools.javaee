@@ -14,10 +14,8 @@ import java.util.Set;
 
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProvider
-implements IJavaFacetInstallDataModelProperties{
+public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IJavaFacetInstallDataModelProperties {
 
 	public JavaFacetInstallDataModelProvider() {
 		super();
@@ -28,16 +26,12 @@ implements IJavaFacetInstallDataModelProperties{
 		propertyNames.add(SOURC_FOLDER_NAME);
 		return propertyNames;
 	}
-	
-	public IDataModelOperation getDefaultOperation() {
-		return new JavaFacetInstalOperation(model);
-	}
 
 	public Object getDefaultProperty(String propertyName) {
-		if(FACET_ID.equals(propertyName)){
+		if (FACET_ID.equals(propertyName)) {
 			return IModuleConstants.JST_JAVA;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
+
 }
