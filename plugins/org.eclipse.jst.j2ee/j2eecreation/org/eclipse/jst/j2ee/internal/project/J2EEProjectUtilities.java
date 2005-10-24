@@ -437,12 +437,16 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 	
 	public static boolean isProjectOfType(IProject project, String typeID) {
+		IFacetedProject facetedProject = null;
 		try {
-			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			facetedProject = ProjectFacetsManager.create(project);
+		} catch (CoreException e) {
+			return false;
+		}
+		
+		if (facetedProject !=null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
 			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
 			return projectFacet!=null && facetedProject.hasProjectFacet(projectFacet);
-		} catch (Exception e) {
-			//Return false
 		}
 		return false;
 	}
