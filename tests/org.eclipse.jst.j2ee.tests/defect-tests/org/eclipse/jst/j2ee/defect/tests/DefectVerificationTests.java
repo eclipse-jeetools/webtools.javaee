@@ -13,10 +13,12 @@ package org.eclipse.jst.j2ee.defect.tests;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -82,23 +84,63 @@ public class DefectVerificationTests extends OperationTestCase {
 		earFile.getEJBReferences(true, false);
 		artifactEdit.dispose();
 	}
-	
+
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=112636
 	 */
-	public void test112636( )throws Exception {
-		String earFileName = getFullTestDataPath("BeenThere.ear");
+	public void test112636a() throws Exception {
+		checkDeploy("BeenThere.ear");
+	}
+
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=112636
+	 */
+	public void test112636b() throws Exception {
+		checkDeploy("SPECj2004.ear");
+	}
+
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=112835
+	 */
+	public void test112835() throws Exception {
+		checkDeploy("sib.test.mediations.m5.JsMBR.ear");
+	}
+
+	protected void checkDeploy(String earName) throws Exception {
+		String earFileName = getFullTestDataPath(earName);
 		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
 		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
+
+		List moduleList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
+		for (int i = moduleList.size() - 1; i > -1; i--) {
+			IDataModel aModel = (IDataModel) moduleList.get(i);
+			Object file = aModel.getProperty(IEARComponentImportDataModelProperties.FILE);
+			if (file instanceof ModuleFile) {
+				ModuleFile moduleFile = (ModuleFile) file;
+				if (moduleFile.isWARFile())
+					moduleList.remove(aModel);
+			}
+		}
+
 		runAndVerify(model);
 		IVirtualComponent comp = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
 		EARArtifactEdit earEdit = EARArtifactEdit.getEARArtifactEditForRead(comp);
-		EARFile earFile = (EARFile)earEdit.asArchive(false);
+		EARFile earFile = (EARFile) earEdit.asArchive(false);
 		earFile.getEJBReferences(true, true);
 		earFile.getEJBReferences(true, false);
 		earFile.getEJBReferences(false, true);
 		earFile.getEJBReferences(false, false);
+
+		Thread.sleep(5000);
+
+		String earOutputName = "d:\\temp\\Output"+System.currentTimeMillis()+".ear";
+		IDataModel export = DataModelFactory.createDataModel(new EARComponentExportDataModelProvider());
+		export.setProperty(IEARComponentExportDataModelProperties.COMPONENT_NAME, comp.getName());
+		export.setProperty(IEARComponentExportDataModelProperties.PROJECT_NAME, comp.getProject().getName());
+		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);
+		runAndVerify(export);
+
 	}
-	
-	
+
+
 }
