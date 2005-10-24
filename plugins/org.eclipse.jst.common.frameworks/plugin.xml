@@ -58,5 +58,13 @@
     </project-facet-version>
 
   </extension>
+  
+ <extension
+       point="org.eclipse.wst.validation.validationHelper">
+    <validationHelper
+    	id="org.eclipse.jst.common.componentcore.util.ProjectValidationHelper"
+    	helperClass="org.eclipse.jst.common.componentcore.util.ProjectValidationHelper">
+    </validationHelper>	   
+ </extension>
       
 </plugin>
