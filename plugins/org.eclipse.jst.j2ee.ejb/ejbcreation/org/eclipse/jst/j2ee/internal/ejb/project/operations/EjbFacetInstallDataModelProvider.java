@@ -1,11 +1,8 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.util.Set;
-
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-
 
 public class EjbFacetInstallDataModelProvider
 		extends FacetInstallDataModelProvider
@@ -26,8 +23,5 @@ public class EjbFacetInstallDataModelProvider
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
-	public IDataModelOperation getDefaultOperation() {
-		return new EjbFacetInstallOperation(model);
-	}	
+		
 }
