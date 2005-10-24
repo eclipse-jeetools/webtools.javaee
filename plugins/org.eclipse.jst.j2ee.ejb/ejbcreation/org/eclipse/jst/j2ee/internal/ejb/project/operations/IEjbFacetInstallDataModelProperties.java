@@ -1,12 +1,8 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
-import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstalDataModelProperties;
-
-
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 
 public interface IEjbFacetInstallDataModelProperties 
-	extends IFacetInstalDataModelProperties {
+	extends IJ2EEFacetInstallDataModelProperties {
 
-	public static final String EAR_PROJECT_NAME = "IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME";
-	public static final String CONFIG_FOLDER= "IEjbFacetInstallDataModelProperties.CONFIG_FOLDER";
 }
