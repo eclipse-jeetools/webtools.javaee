@@ -2,7 +2,6 @@ package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
@@ -109,8 +108,8 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		}		
 	}
 	
-	private  void runEARComponenteCreationOperation(IDataModel model) throws Exception {		
-        EARComponentCreationOperation webOp = new EARComponentCreationOperation(model);
+	private  void runEARComponenteCreationOperation(IDataModel model) throws Exception {	
+		IDataModelOperation webOp = model.getDefaultOperation();
 		webOp.execute(new NullProgressMonitor(), null);
 	}
 	
