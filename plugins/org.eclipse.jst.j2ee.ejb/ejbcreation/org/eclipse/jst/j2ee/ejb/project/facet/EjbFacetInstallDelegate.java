@@ -3,7 +3,10 @@ package org.eclipse.jst.j2ee.ejb.project.facet;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -14,17 +17,24 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
+import org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -119,6 +129,27 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				installEARFacet(j2eeVersionText, earProjectName, monitor);
 			}
 
+			// Create the Ejb Client View 
+			final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
+			String clientProjectName = (String)model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+			if( createClient && clientProjectName != null && clientProjectName != ""){
+				IProject ejbClientProject = ProjectUtilities.getProject( clientProjectName ); 
+				if( ejbClientProject.exists())
+					return;
+					
+				try{	
+					IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
+					dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, clientProjectName);
+					List facetDMs = new ArrayList();
+					facetDMs.add( setupJavaInstallAction(model) );
+					facetDMs.add( setupUtilityInstallAction(model) );
+					dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
+					dm.getDefaultOperation().execute(monitor, null);
+				}catch(ExecutionException e){
+					Logger.getLogger().logError(e);
+				}
+
+			}
 			if (monitor != null) {
 				monitor.worked(1);
 			}
@@ -131,4 +162,31 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 		}
 	}
 
+	protected IDataModel setupJavaInstallAction(IDataModel aDM) {
+		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
+		try{
+		
+		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME,
+				(String)aDM.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME));
+		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
+		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME,
+				(String)aDM.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
+		}catch(Exception e){
+			Logger.getLogger().logError(e);
+		}
+		return dm;
+	}
+	
+	protected IDataModel setupUtilityInstallAction(IDataModel aDM){
+		IDataModel dm = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
+		try{
+			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME,
+					(String)aDM.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME));
+			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
+		}catch(Exception e){
+			Logger.getLogger().logError(e);
+		}
+		
+		return dm;
+	}
 }

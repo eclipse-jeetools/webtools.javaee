@@ -14,6 +14,9 @@ public class EjbFacetInstallDataModelProvider
 		Set names = super.getPropertyNames();
 		names.add(EAR_PROJECT_NAME);
 		names.add(CONFIG_FOLDER);
+		names.add(CREATE_CLIENT);
+		names.add(CLIENT_NAME);
+		names.add(CLIENT_SOURCE_FOLDER);
 		return names;
 	}
 	
