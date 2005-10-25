@@ -12,8 +12,6 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -34,14 +32,7 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 		}
 
 		try {
-			final UtilityFacetInstallConfig config;
 
-			if (cfg != null) {
-				config = (UtilityFacetInstallConfig) cfg;
-			} else {
-				config = new UtilityFacetInstallConfig();
-				config.setEarProjectName(null);
-			}
 
 			// Add WTP natures.
 
@@ -65,17 +56,26 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 				}
 			}
 
-			// Associate with an EAR, if necessary.
-
-			final String earProjectName = config.getEarProjectName();
-
-			if (earProjectName != null) {
-				final IWorkspace ws = ResourcesPlugin.getWorkspace();
-
-				final IProject earproj = ws.getRoot().getProject(earProjectName);
-
-				EarUtil.addModuleReference(earproj, project, null);
-			}
+			
+//			final UtilityFacetInstallConfig config;
+//
+//			if (cfg != null) {
+//				config = (UtilityFacetInstallConfig) cfg;
+//			} else {
+//				config = new UtilityFacetInstallConfig();
+//				config.setEarProjectName(null);
+//			}			
+//			// Associate with an EAR, if necessary.
+//
+//			final String earProjectName = config.getEarProjectName();
+//
+//			if (earProjectName != null) {
+//				final IWorkspace ws = ResourcesPlugin.getWorkspace();
+//
+//				final IProject earproj = ws.getRoot().getProject(earProjectName);
+//
+//				EarUtil.addModuleReference(earproj, project, null);
+//			}
 
 			if (monitor != null) {
 				monitor.worked(1);
