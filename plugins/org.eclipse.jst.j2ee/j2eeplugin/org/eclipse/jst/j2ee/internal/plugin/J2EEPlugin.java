@@ -80,8 +80,7 @@ import org.osgi.framework.BundleContext;
  */
 
 public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
-	// Default instance of the receiver
-	private static J2EEPlugin inst;
+
 	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee"; //$NON-NLS-1$
 	public static final String UI_PLUGIN_ID = "org.eclipse.jst.j2ee.ui"; //$NON-NLS-1$
 	protected final IPath iconsFolder = new Path(Platform.getBundle(PLUGIN_ID).getEntry("icons").getPath()); //$NON-NLS-1$
@@ -120,15 +119,15 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	private static Boolean HAS_DEV_ROLE;
 
 	private J2EEPreferences preferences = null;
-	public static J2EEPlugin INSTANCE = inst;
+	public static J2EEPlugin INSTANCE;
 
 	/**
 	 * Create the J2EE plugin and cache its default instance
 	 */
 	public J2EEPlugin() {
 		super();
-		if (inst == null)
-			inst = this;
+		if (INSTANCE == null)
+			INSTANCE = this;
 		try {
 			resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
@@ -164,7 +163,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * Get the plugin singleton.
 	 */
 	static public J2EEPlugin getDefault() {
-		return inst;
+		return INSTANCE;
 	}
 
 	/*
@@ -345,7 +344,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * Get the singleton instance.
 	 */
 	public static J2EEPlugin getPlugin() {
-		return inst;
+		return INSTANCE;
 	}
 
 	/**
@@ -471,24 +470,6 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		return UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
 	}
 
-	/**
-	 * Sets the logger's preferences based on values in the parameter hashtable.
-	 * 
-	 * The logger's preferences are stored in the parameter hashtable using the static instance
-	 * variables in LoggerStateHashKeys as keys.
-	 * 
-	 * @param msgLoggerConfig
-	 *            hashtable of the logger's preferences
-	 */
-	/*
-	 * public void setMsgLoggerConfig(java.util.Hashtable msgLoggerConfig) { MsgLogger ml =
-	 * getLogger(); ml.setMsgLoggerConfig(msgLoggerConfig);
-	 * org.eclipse.wst.common.frameworks.internal.logger.proxy.Logger.getLogger(PLUGIN_ID).setTraceMode(
-	 * ml.getMsgLoggerConfig().get(LoggerStateHashKeys.LEVEL).equals(Level.getLevelName(Level.FINEST))); }
-	 */
-	public void stop(BundleContext bundle) throws Exception {
-		super.stop(bundle);
-	}
 
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
