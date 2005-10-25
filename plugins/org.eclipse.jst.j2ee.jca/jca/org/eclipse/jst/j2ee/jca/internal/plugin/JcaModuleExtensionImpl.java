@@ -14,9 +14,7 @@
  */
 package org.eclipse.jst.j2ee.jca.internal.plugin;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
@@ -53,14 +51,6 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	//		return new RARImportOperation(proj, rarFile);
 	//	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
-	 */
-	public J2EEComponentCreationOperation createProjectCreationOperation(IDataModel dataModel) {
-		return new ConnectorComponentCreationOperation(dataModel);
-	}
 
 	/*
 	 * (non-Javadoc)

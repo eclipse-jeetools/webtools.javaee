@@ -14,8 +14,9 @@
  */
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 
 public abstract class EarModuleExtensionImpl implements EarModuleExtension {
@@ -32,10 +33,14 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
-	public J2EEComponentCreationOperation createProjectCreationOperation(ImportOption option) {
+	public IDataModelOperation createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == ImportOption.MODULE)
-			return createProjectCreationOperation(option.getModel());
+			return option.getModel().getDefaultOperation();
 		return null;
+	}
+
+	public IDataModelOperation createProjectCreationOperation(IDataModel dataModel) {
+		return dataModel.getDefaultOperation();
 	}
 
 }
