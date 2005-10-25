@@ -135,7 +135,7 @@
     <project-facet id="jst.ejb">
       <label>Ejb Module</label>
       <description>Enables the project to be deployed as an ejb module.</description>
-      <icon>icons/full/obj16/20_ejb_jar-deploy.gif</icon>
+      <icon>icons/EJBJar.gif</icon>
     </project-facet>
 
     <project-facet-version facet="jst.ejb" version="1.1">
