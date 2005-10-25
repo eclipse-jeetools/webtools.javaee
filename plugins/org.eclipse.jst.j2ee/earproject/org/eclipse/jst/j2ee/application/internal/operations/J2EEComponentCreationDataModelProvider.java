@@ -327,23 +327,23 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	protected static boolean matches(String serverTypeID, String j2eeModuleID) {
 
-		if (serverTypeID.equals("j2ee")) {
+		if (serverTypeID.equals("jst")) { //$NON-NLS-1$
 			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
 				return true;
 			}
-		} else if (serverTypeID.equals("j2ee.*")) {
+		} else if (serverTypeID.equals("jst.*")) { //$NON-NLS-1$
 			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
 				return true;
 			}
-		} else if (serverTypeID.equals("j2ee.web")) {//$NON-NLS-1$
+		} else if (serverTypeID.equals(J2EEProjectUtilities.DYNAMIC_WEB)) {//$NON-NLS-1$
 			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB)) {
 				return true;
 			}
-		} else if (serverTypeID.equals("j2ee.ejb")) {//$NON-NLS-1$
+		} else if (serverTypeID.equals(J2EEProjectUtilities.EJB)) {//$NON-NLS-1$
 			if (j2eeModuleID.equals(J2EEProjectUtilities.EJB)) {
 				return true;
 			}
-		} else if (serverTypeID.equals("j2ee.ear")) {//$NON-NLS-1$
+		} else if (serverTypeID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {//$NON-NLS-1$
 			if (j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
 				return true;
 			}

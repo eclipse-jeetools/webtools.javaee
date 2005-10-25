@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.project.facet.WtpUtils;
@@ -56,13 +57,22 @@ public final class EarFacetInstallDelegate implements IDelegate {
 				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				EARArtifactEdit.createDeploymentDescriptor(project, nVer);
 			}
-
+			
+			addMetaResources(c);
 		}
 
 		finally {
 			if (monitor != null) {
 				monitor.done();
 			}
+		}
+	}
+	
+	private void addMetaResources(IVirtualComponent component) {
+		if (component.getRootFolder().getUnderlyingResource() instanceof IProject) {
+			IPath[] metaResources = new IPath[]{new Path("/.facets"), new Path("/.project"),
+					new Path("/.runtime"), new Path("/.wtpmodules")};
+			component.setMetaResources(metaResources);
 		}
 	}
 }

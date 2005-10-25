@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -85,12 +86,23 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 				createDeploymentDescriptor(monitor);
 			}
 			addModulesToEAR(monitor);
+			addMetaResources();
 		} catch (CoreException e) {
 			Logger.getLogger().log(e.getMessage());
 		} catch (InvocationTargetException e) {
             Logger.getLogger().log(e.getMessage());
 		} catch (InterruptedException e) {
             Logger.getLogger().log(e.getMessage());
+		}
+		return OK_STATUS;
+	}
+	
+	private IStatus addMetaResources() {
+		IVirtualComponent component = ComponentCore.createComponent(getProject());
+		if (component.getRootFolder().getUnderlyingResource() instanceof IProject) {
+			IPath[] metaResources = new IPath[]{new Path("/.facets"), new Path("/.project"),
+					new Path("/.runtime"), new Path("/.wtpmodules")};
+			component.setMetaResources(metaResources);
 		}
 		return OK_STATUS;
 	}
