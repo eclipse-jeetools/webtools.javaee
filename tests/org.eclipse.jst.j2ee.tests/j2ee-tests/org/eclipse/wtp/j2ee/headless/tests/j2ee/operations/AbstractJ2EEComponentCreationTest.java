@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
@@ -26,7 +25,6 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationO
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -268,7 +266,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
             model.setBooleanProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, true);
             model.setProperty(IWebComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earProject.getName());
         }
-		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
+        IDataModelOperation webOp = model.getDefaultOperation();
 		webOp.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME), true);
 		TaskViewUtility.verifyNoErrors();
@@ -279,7 +277,7 @@ public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
             model.setBooleanProperty(IAppClientComponentCreationDataModelProperties.ADD_TO_EAR, true);
             model.setProperty(IAppClientComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earProject.getName());
         }
-		AppClientComponentCreationOperation appOp = new AppClientComponentCreationOperation(model);
+        IDataModelOperation appOp = model.getDefaultOperation();
 		appOp.execute(new NullProgressMonitor(), null);
 		ProjectUtility.verifyProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME), true);
 	}

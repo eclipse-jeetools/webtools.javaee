@@ -13,10 +13,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 
 /**
@@ -84,7 +84,7 @@ public class MultipleModulesCreationTest extends  TestCase  {
 	}
 	
 	private  void runWebModuleCreationOperation(IDataModel model) throws Exception {		
-		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
+		IDataModelOperation webOp = model.getDefaultOperation();
 		webOp.execute(new NullProgressMonitor(), null);
 	}	
 

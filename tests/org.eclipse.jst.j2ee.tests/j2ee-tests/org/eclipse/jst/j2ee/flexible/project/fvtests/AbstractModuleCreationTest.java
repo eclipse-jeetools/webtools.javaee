@@ -5,7 +5,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
@@ -185,7 +184,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	private  void runAppClientModuleCreationOperation(IDataModel model) throws Exception {	
-		AppClientComponentCreationOperation appOp = new AppClientComponentCreationOperation(model);
+		IDataModelOperation appOp = model.getDefaultOperation();
         appOp.execute(new NullProgressMonitor(),null);
 	}	
 	
