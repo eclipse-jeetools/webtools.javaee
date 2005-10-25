@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public abstract class AbstractModuleCreationTest extends TestCase {
 	
@@ -162,8 +163,8 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		}		
 	}
 	
-	private  void runWebModuleCreationOperation(IDataModel model) throws Exception {		
-		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
+	private  void runWebModuleCreationOperation(IDataModel model) throws Exception {	
+		IDataModelOperation webOp = model.getDefaultOperation();
 		webOp.execute(new NullProgressMonitor(), null);
 	}
 	
