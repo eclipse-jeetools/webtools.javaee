@@ -216,8 +216,8 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	protected DataModelPropertyDescriptor[] validJ2EEServerPropertyDescriptors() {
 
 		Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
-		int j2eeversion = convertModuleVersionToJ2EEVersion(version.intValue());
-		String j2eeVersionText = J2EEVersionUtil.getJ2EETextVersion(j2eeversion);
+		//int j2eeversion = convertModuleVersionToJ2EEVersion(version.intValue());
+		String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(version.intValue());
 
 		ArrayList validServers = new ArrayList();
 
