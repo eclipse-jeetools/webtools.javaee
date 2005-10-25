@@ -85,19 +85,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
 
 	public String getJ2EESpecificationVersion() {
-		String facetVersion = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-		if (J2EEProjectUtilities.isEARProject(component.getProject()))
-			return facetVersion;
-		else if (J2EEProjectUtilities.isApplicationClientProject(component.getProject()))
-			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(facetVersion));
-		else if (J2EEProjectUtilities.isJCAProject(component.getProject()))
-			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(facetVersion));
-		else if (J2EEProjectUtilities.isEJBProject(component.getProject()))
-			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(facetVersion));
-		else if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
-			return J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(facetVersion));
-		else
-			return facetVersion;
+		return J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
 	}
 	
 	/*
