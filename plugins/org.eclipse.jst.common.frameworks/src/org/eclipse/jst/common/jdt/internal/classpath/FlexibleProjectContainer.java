@@ -14,7 +14,7 @@ package org.eclipse.jst.common.jdt.internal.classpath;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -151,7 +151,7 @@ public abstract class FlexibleProjectContainer
                     }
                 }
                 
-                final IFolder[] folders = vf.getUnderlyingFolders();
+                final IContainer[] folders = vf.getUnderlyingFolders();
                 
                 for( int j = 0; j < folders.length; j++ )
                 {
@@ -160,7 +160,7 @@ public abstract class FlexibleProjectContainer
             }
             else
             {
-                final IFolder[] uf = vf.getUnderlyingFolders();
+                final IContainer[] uf = vf.getUnderlyingFolders();
                 
                 for( int j = 0; j < uf.length; j++ )
                 {

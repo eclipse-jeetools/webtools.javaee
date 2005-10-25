@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -77,7 +78,7 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 * @return IModuleObject
 	 */
 	protected static IModuleArtifact getModuleObject(IProject project) {
-		org.eclipse.wst.server.core.IModule dep = getModule(project,null);
+		IModule dep = getModule(project,null);
 		return createModuleObject(dep);
 	}// getModuleObject
 
@@ -108,7 +109,7 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 *            refObject - The current refObject.
 	 * @return IModule
 	 */
-	protected static org.eclipse.wst.server.core.IModule getModule(EObject refObject) {
+	protected static IModule getModule(EObject refObject) {
 		IProject proj = ProjectUtilities.getProject(refObject);
 		Resource servResource = refObject.eResource();
 		IVirtualResource[] resources = null;
@@ -141,7 +142,7 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ear")).iterator(); //$NON-NLS-1$
+		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.ENTERPRISE_APPLICATION)).iterator(); //$NON-NLS-1$
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();

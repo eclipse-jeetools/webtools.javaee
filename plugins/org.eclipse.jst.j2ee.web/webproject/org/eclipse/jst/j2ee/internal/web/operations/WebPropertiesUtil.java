@@ -196,7 +196,7 @@ public class WebPropertiesUtil {
 			monitor.beginTask(ProjectSupportResourceHandler.getString("Sychronize_Class_Path_UI_"), 4); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Sychronize Class Path"
 
-			IFolder lib_folder = getWebLibFolder(project);
+			IContainer lib_folder = getWebLibFolder(project);
 			// Nothing to do if the lib folder does not exist.
 			if (lib_folder == null || !lib_folder.isAccessible())
 				return;
@@ -538,7 +538,7 @@ public class WebPropertiesUtil {
 	 * @param project
 	 * @return
 	 */
-	public static IFolder getWebLibFolder(IProject project) {
+	public static IContainer getWebLibFolder(IProject project) {
 		return getWebLibFolder(ComponentCore.createComponent(project)).getUnderlyingFolder();
 	}
 

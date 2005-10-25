@@ -148,7 +148,7 @@ public class WebDeployableArtifactUtil {
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
 		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
+		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.DYNAMIC_WEB)).iterator(); //$NON-NLS-1$
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();

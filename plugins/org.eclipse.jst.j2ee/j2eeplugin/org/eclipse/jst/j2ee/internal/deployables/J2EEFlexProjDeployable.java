@@ -59,6 +59,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.internal.ModuleFile;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
+import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
@@ -126,18 +127,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
 
 	public String getType() {
-		if (J2EEProjectUtilities.isEARProject(component.getProject()))
-			return "j2ee.ear"; //$NON-NLS-1$
-		else if (J2EEProjectUtilities.isApplicationClientProject(component.getProject()))
-			return "j2ee.appclient"; //$NON-NLS-1$
-		else if (J2EEProjectUtilities.isJCAProject(component.getProject()))
-			return "j2ee.connector"; //$NON-NLS-1$
-		else if (J2EEProjectUtilities.isEJBProject(component.getProject()))
-			return "j2ee.ejb"; //$NON-NLS-1$
-		else if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
-			return "j2ee.web"; //$NON-NLS-1$
-		else
-			return null;
+		return J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
 	}
 
 	public IModuleType getModuleType() {
@@ -168,14 +158,6 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
         if (component == null)
         	return new IModuleResource[] {};
         try {
-        	// Retrieve the java output folder files
-//	    	IContainer[] outputFolders = ComponentUtilities.getOutputContainers(component);
-//	    	for (int i=0; i<outputFolders.length; i++) {
-//	    		if (outputFolders[i]!=null && outputFolders[i].exists()) {
-//	    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
-//	    			members.addAll(Arrays.asList(javaResources));
-//	    		}
-//	    	}
         	// Retrieve the module resources from the virtual component's root folder
 	    	IVirtualFolder componentRoot = component.getRootFolder();
 	    	if (componentRoot!=null && componentRoot.exists()) {
@@ -210,8 +192,8 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	    		if (moduleResource.equals(aModuleResource))
 	    			result = moduleResource;
 	    		// if it is a folder, check its children for the resource path
-	    		else if (moduleResource instanceof ModuleFolder) {
-	    			result = getExistingModuleResource(Arrays.asList(((ModuleFolder)moduleResource).members()),aModuleResource);
+	    		else if (moduleResource instanceof IModuleFolder) {
+	    			result = getExistingModuleResource(Arrays.asList(((IModuleFolder)moduleResource).members()),aModuleResource);
 	    		}
 	    		i++;
     	} while (result == null && i<moduleResources.size() );
@@ -419,7 +401,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     	for (int i=0; i<components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent virtualComp = reference.getReferencedComponent();
-			Object module = FlexibleProjectServerUtil.getModule(virtualComp);
+			Object module = FlexibleProjectServerUtil.getModule(virtualComp.getProject());
 			if (module!=null)
 				modules.add(module);
 		}
