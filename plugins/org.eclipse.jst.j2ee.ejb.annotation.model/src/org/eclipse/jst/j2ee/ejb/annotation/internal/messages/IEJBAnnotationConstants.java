@@ -15,6 +15,7 @@ public interface IEJBAnnotationConstants {
 	public static final String ERR_EJB_CLASS_NAME_USED = EJBAnnotationMessages.getResourceString("ERR_EJB_CLASS_NAME_USED"); //$NON-NLS-1$
 	public static final String ERR_EJB_NAME_EMPTY = EJBAnnotationMessages.getResourceString("ERR_EJB_NAME_EMPTY"); //$NON-NLS-1$
 	public static final String ERR_EJB_TYPE_EMPTY = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_EMPTY"); //$NON-NLS-1$;
+	public static final String ERR_EJB_TYPE_EXISTS = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_EXISTS"); //$NON-NLS-1$;
 	public static final String ERR_EJB_TYPE_VALUE = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_VALUE"); //$NON-NLS-1$;
 	public static final String ERR_CLASS_NAME_MUSTEND_WITH_BEAN = EJBAnnotationMessages.getResourceString("ERR_CLASS_NAME_MUSTEND_WITH_BEAN"); //$NON-NLS-1$
 	public static final String ERR_EJB_NAME_ENDS_WITH_BEAN = EJBAnnotationMessages.getResourceString("ERR_EJB_NAME_ENDS_WITH_BEAN"); //$NON-NLS-1$

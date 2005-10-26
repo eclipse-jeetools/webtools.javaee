@@ -14,7 +14,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
@@ -185,7 +189,7 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 	}
 
 	protected IStatus validateClassName(String className) {
-		IStatus status = super.validateJavaClassName(className);
+		IStatus status = this.validateJavaClassName(className);
 		if (status.isOK())
 			status = canCreateTypeInClasspath(className);
 		if (status != WTPCommonPlugin.OK_STATUS)
@@ -307,35 +311,21 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 	}
 
 	protected IStatus validateJavaClassName(String prop) {
-		// check for empty
-		if (prop == null || prop.trim().length() == 0) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY, new String[]{prop});
-			return WTPCommonPlugin.createErrorStatus(msg);
-		}
-		if (getTargetProject() == null)// || getComponent()==null)
-			return WTPCommonPlugin.OK_STATUS;
-		ArtifactEdit edit = null;
-		try {
-			edit = getArtifactEditForRead();
-			EJBJar ejbJar = (EJBJar) edit.getContentModelRoot();
-			if (ejbJar == null)
-				return WTPCommonPlugin.OK_STATUS;
-			List ejbs = ejbJar.getEnterpriseBeans();
-			if (ejbs != null && ejbs.size() > 0) {
-				for (int i = 0; i < ejbs.size(); i++) {
-					EnterpriseBean ejb = (EnterpriseBean) ejbs.get(i);
-					if (prop.equals(ejb.getEjbClass().getQualifiedName())) {
-						String msg = IEJBAnnotationConstants.ERR_EJB_CLASS_NAME_USED;
-						return WTPCommonPlugin.createErrorStatus(msg);
-					}
+		IStatus status = super.validateJavaClassName(prop);
+		if( status == WTPCommonPlugin.OK_STATUS && getTargetProject() != null ){
+			try {
+				IJavaProject jProject = JavaCore.create(getTargetProject());
+				String pName = getStringProperty(JAVA_PACKAGE);
+				IType type = jProject.findType(pName + "." + prop);
+				if(type != null ){
+					String msg = IEJBAnnotationConstants.ERR_EJB_TYPE_EXISTS;
+					return WTPCommonPlugin.createErrorStatus(msg);
 				}
+			} catch (JavaModelException e) {
 			}
-		} finally {
-			if (edit != null)
-				edit.dispose();
 		}
 
-		return WTPCommonPlugin.OK_STATUS;
+		return status;
 	}
 
 	protected String getInterfacesString() {
