@@ -123,8 +123,8 @@ public class XDocletEJBPreferencePage extends PropertyPreferencePage implements 
 		label.setLayoutData(gridData);
 		label.setText(bundle.getString("label_set_ejbdoclet_preference"));
 
-		panel.preferences = new Control[ejboptions.length + 3];
-		panel.fActive = new Button[ejboptions.length+3];
+		panel.preferences = new Control[ejboptions.length + 11];
+		panel.fActive = new Button[ejboptions.length+11];
 
 		for (int i = 0; i < ejboptions.length; i++) {
 			String versions[] = parseVersions(ejboptions[i][4]);
@@ -149,6 +149,54 @@ public class XDocletEJBPreferencePage extends PropertyPreferencePage implements 
 				bundle.getString("label_generate_util"),
 				bundle.getString("label_generate_util_desc"), 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEUTIL), defPanel);
+		panel.preferences[ejboptions.length + 3] = panel.createLabeledCheck(
+				ejboptions.length+3, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT),
+				bundle.getString("label_generate_dataobject"),
+				bundle.getString("label_generate_dataobject_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT), defPanel);
+		panel.preferences[ejboptions.length + 4] = panel.createLabeledCheck(
+				ejboptions.length+4, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO),
+				bundle.getString("label_generate_dao"),
+				bundle.getString("label_generate_dao_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO), defPanel);
+		panel.preferences[ejboptions.length + 5] = panel.createLabeledCheck(
+				ejboptions.length+5, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT),
+				bundle.getString("label_generate_valueobject"),
+				bundle.getString("label_generate_valueobject_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT), defPanel);
+		panel.preferences[ejboptions.length + 6] = panel.createLabeledCheck(
+				ejboptions.length+6, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK),
+				bundle.getString("label_generate_entitypk"),
+				bundle.getString("label_generate_entitypk_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK), defPanel);
+		panel.preferences[ejboptions.length + 7] = panel.createLabeledCheck(
+				ejboptions.length+7, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP),
+				bundle.getString("label_generate_entitycmp"),
+				bundle.getString("label_generate_entitycmp_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP), defPanel);
+		panel.preferences[ejboptions.length + 8] = panel.createLabeledCheck(
+				ejboptions.length+8, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP),
+				bundle.getString("label_generate_entitybmp"),
+				bundle.getString("label_generate_entitybmp_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP), defPanel);
+		panel.preferences[ejboptions.length + 9] = panel.createLabeledCheck(
+				ejboptions.length+9, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION),
+				bundle.getString("label_generate_session"),
+				bundle.getString("label_generate_session_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION), defPanel);
+		panel.preferences[ejboptions.length + 10] = panel.createLabeledCheck(
+				ejboptions.length+10, 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB),
+				bundle.getString("label_generate_mdb"),
+				bundle.getString("label_generate_mdb_desc"), 
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB), defPanel);
 
 		return composite;
 	}
@@ -181,6 +229,23 @@ public class XDocletEJBPreferencePage extends PropertyPreferencePage implements 
 				((Button)panel.preferences[ejboptions.length+1]).getSelection());
 		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEUTIL,
 				((Button)panel.preferences[ejboptions.length+2]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT,
+				((Button)panel.preferences[ejboptions.length+3]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO,
+				((Button)panel.preferences[ejboptions.length+4]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT,
+				((Button)panel.preferences[ejboptions.length+5]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK,
+				((Button)panel.preferences[ejboptions.length+6]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP,
+				((Button)panel.preferences[ejboptions.length+7]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP,
+				((Button)panel.preferences[ejboptions.length+8]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION,
+				((Button)panel.preferences[ejboptions.length+9]).getSelection());
+		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB,
+				((Button)panel.preferences[ejboptions.length+10]).getSelection());
+
 		getStore().save();
 		try {
 			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject)getElement());

@@ -74,23 +74,20 @@
  	   </fileset>
 <!-- BEANS END -->
  
-         <dataobject/>
-         <dao pattern="{0}" destdir="${ejb.project.dir}/${ejb.module.gen}"/>
-         <valueobject/>
-         
+      	@dataobject@
+      	@dao@
+      	@valueobject@
+
       	 @utilobject@
       	 @remoteinterfaces@
       	 @localinterfaces@
          
-
-      	 
-         
-         <entitypk/>
-         <entitycmp/>
-         <entitybmp/>
-         <session/>
-      	 <mdb/>
-
+      	 @entitypk@
+     	 @entitycmp@
+     	 @entitybmp@
+     	 @session@
+     	 @mdb@
+ 
   	     @deploymentdescriptor@
 
  

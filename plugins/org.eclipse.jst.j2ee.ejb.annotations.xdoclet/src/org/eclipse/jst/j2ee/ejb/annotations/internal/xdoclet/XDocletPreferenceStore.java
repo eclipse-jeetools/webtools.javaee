@@ -41,10 +41,20 @@ public final class XDocletPreferenceStore {
 
 	public static final String XDOCLETBUILDERACTIVE = "XDOCLETBUILDERACTIVE";
 	public static final String XDOCLETUSEGLOBAL = "XDOCLETUSEGLOBAL";
-	
+
 	public static final String XDOCLETGENERATELOCAL = "XDOCLETGENERATELOCAL";
 	public static final String XDOCLETGENERATEREMOTE = "XDOCLETGENERATEREMOTE";
+
+	public static final String XDOCLETGENERATEDATAOBJECT = "XDOCLETGENERATEDATAOBJECT";
+	public static final String XDOCLETGENERATEDAO = "XDOCLETGENERATEDAO";
+	public static final String XDOCLETGENERATEVALUEOBJECT = "XDOCLETGENERATEVALUEOBJECT";
 	public static final String XDOCLETGENERATEUTIL = "XDOCLETGENERATEUTIL";
+
+	public static final String XDOCLETGENERATEENTITYPK = "XDOCLETGENERATEENTITYPK";
+	public static final String XDOCLETGENERATEENTITYCMP = "XDOCLETGENERATEENTITYCMP";
+	public static final String XDOCLETGENERATEENTITYBMP = "XDOCLETGENERATEENTITYBMP";
+	public static final String XDOCLETGENERATESESSION = "XDOCLETGENERATESESSION";
+	public static final String XDOCLETGENERATEMDB = "XDOCLETGENERATEMDB";
 
 	public static final String XDOCLETFORCE = "XDOCLETFORCE";
 	public static final String XDOCLETHOME = "XDOCLETHOME";
@@ -179,13 +189,23 @@ public final class XDocletPreferenceStore {
 		store.setDefault(getPreferencePrefix() + "." + WEB_WEBLOGIC + "_VERSION.value", "6.1");
 		store.setDefault(getPreferencePrefix() + "." + WEB_WEBSPHERE + "_VERSION.value", "all");
 
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETUSEGLOBAL, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETBUILDERACTIVE, true);
+
 		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATELOCAL, true);
 		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEREMOTE, true);
 		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEUTIL, true);
-		
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETUSEGLOBAL, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETUSEGLOBAL, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETBUILDERACTIVE, true);
+
+
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEDATAOBJECT, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEDAO, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEVALUEOBJECT, true);
+
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEENTITYPK, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEENTITYCMP, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEENTITYBMP, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATESESSION, true);
+		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEMDB, true);
 
 		store.setDefault(getPreferencePrefix() + "." + EJB_JBOSS, false);
 		store.setDefault(getPreferencePrefix() + "." + EJB_JONAS, false);

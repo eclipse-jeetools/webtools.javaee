@@ -63,6 +63,47 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 		templates.put("@remoteinterfaces@", addRemoteTask());
 		templates.put("@localinterfaces@", addLocalTask());
 		templates.put("@utilobject@", addUtilObject());
+
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT))
+			templates.put("@dataobject@", "<dataobject/>");
+		else
+			templates.put("@dataobject@", "");
+
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO))
+			templates.put("@dao@", "<dao pattern=\"{0}\" destdir=\"\\${ejb.project.dir}/\\${ejb.module.gen}\"/>");
+		else
+			templates.put("@dao@", "");
+		
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT))
+			templates.put("@valueobject@", "<valueobject/>");
+		else
+			templates.put("@valueobject@", "");
+		
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK))
+			templates.put("@entitypk@", "<entitypk/>");
+		else
+			templates.put("@entitypk@", "");
+		
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP))
+			templates.put("@entitycmp@", "<entitycmp/>");
+		else
+			templates.put("@entitycmp@", "");
+		
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP))
+			templates.put("@entitybmp@", "<entitybmp/>");
+		else
+			templates.put("@entitybmp@", "");
+		
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION))
+			templates.put("@session@", "<session/>");
+		else
+			templates.put("@session@", "");
+		
+		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB))
+			templates.put("@mdb@", "<mdb/>");
+		else
+			templates.put("@mdb@", "");
+
 		return templates;
 	}
 
@@ -115,10 +156,6 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			}
 
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
-			int j2eeVersion = 0;
-			if (ejbEdit != null) {
-				j2eeVersion = ejbEdit.getJ2EEVersion();
-			}
 
 			int ejbLevelI = ejbEdit.getEJBJarXmiResource().getModuleVersionID();
 			String ejbLevel = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
