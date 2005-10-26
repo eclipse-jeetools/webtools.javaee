@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyFindSupport.java,v $
- *  $Revision: 1.1 $  $Date: 2005/10/26 14:24:51 $ 
+ *  $Revision: 1.2 $  $Date: 2005/10/26 22:14:01 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -35,7 +35,7 @@ import org.osgi.framework.Bundle;
  * since it hasn't been tested yet. Also note that in configuration contributor,
  * when we add the library path we expect it to be a folder. This would be a problem with jarred plugins because the directory containing the
  * libraries may be the root of the plugin and localizing a directory would extract and cache the entire plugin. Need to change to figure out
- * how to only extract the dll/so needed instead.
+ * how to only extract the dll/so needed instead. Also, none of these handle the case where the bundle is actually non-local (e.g. "http:/").
  * @since 1.2.0
  */
 public class ProxyFindSupport {

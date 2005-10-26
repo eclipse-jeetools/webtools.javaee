@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.56 $  $Date: 2005/10/26 18:48:19 $ 
+ *  $Revision: 1.57 $  $Date: 2005/10/26 22:14:01 $ 
  */
 
 
@@ -31,6 +31,7 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.osgi.service.resolver.BundleSpecification;
+import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.*;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -389,81 +390,134 @@ public class ProxyPlugin extends Plugin {
 	 */
 	public URL[] urlLocalizeBundleAndFragments(Bundle bundle) {
 		Bundle[] fragments = Platform.getFragments(bundle);
-		URL[] urls = new URL[(fragments == null ? 0 : fragments.length) + 1];
-		int iurl = 0;
-		URL url = urlLocalizeBundle(bundle);
-		if (url != null)
-			urls[iurl++] = url;
+		List urls = new ArrayList((fragments == null ? 0 : fragments.length) + 1);
+		URL[] burls = urlLocalizeBundle(bundle);
+		if (burls != null) {
+			urls.addAll(Arrays.asList(burls));
+		}
 		if (fragments != null) {
 			for (int i = 0; i < fragments.length; i++) {
-				url = urlLocalizeBundle(fragments[i]);
-				if (url != null)
-					urls[iurl++] = url;
+				burls = urlLocalizeBundle(fragments[i]);
+				if (burls != null)
+					urls.addAll(Arrays.asList(burls));
 			}
 		}
-		if (iurl < urls.length) {
-			// Some not found as jars.
-			URL[] temp = new URL[iurl];
-			System.arraycopy(urls, 0, temp, 0, iurl);
-			urls = temp;
-		}
-		return urls;
+
+		return (URL[]) urls.toArray(new URL[urls.size()]);
 
 	}
 	
 	/**
-	 * Get the url for the bundle only. This is for when bundles are jarred. If a fragment is wanted, then pass in the fragment instead.
+	 * Get the urls for the bundle libraries only. If a fragment is wanted, then pass in the fragment instead.
 	 * If bundle and all fragments are wanted use {@link #urlLocalizeBundleAndFragments(Bundle)} instead.
 	 * <p>
-	 * If in dev mode, it will use the binary output directory for the plugin from the build.properties file. This should not be used
-	 * on plugins that are not meant to be packaged as jars. Wrong results will occur. However, it will understand if in dev mode and
-	 * the plugin is a project with a build.properties file in it.
+	 * If in dev mode, it will use the binary output directory for the plugin libraries from the build.properties file. 
 	 * 
 	 * @param bundle
-	 * @return
+	 * @return URL array of local library references for the bundle or null if can't resolve to local.
 	 * 
 	 * @since 1.2.0
 	 */
-	public URL urlLocalizeBundle(Bundle bundle) {
-		URL pvm = null;
+	public URL[] urlLocalizeBundle(Bundle bundle) {
+		URL[] pvms;
 		try {
-			pvm = Platform.resolve(bundle.getEntry("/"));
-			if (pvm.getProtocol().equals("jar"))
-				return getFilePath(pvm);
+			pvms = new URL[] {Platform.resolve(bundle.getEntry("/"))};
+			if (pvms[0].getProtocol().equals("jar")) {
+				// The bundle is a jar, so use as is. 
+				pvms[0] = getFilePath(pvms[0]);
+				return pvms;
+			}
 		} catch (IOException e) {
+			pvms = null;
 		}
-		
-		if (devMode) {
-			// Got this far and in dev mode means it wasn't found, so we'll try for development style.
-			// It is assumed that in dev mode, we are running with the IDE as local and any 
-			// build outputs will be local so local file protocol will be returned
-			// from Platform.resolve(). We won't be running in dev mode with our entireplugin being in a jar,
-			// or on a separate system.
-			try {
-				URL bp = bundle.getEntry("build.properties");
-				if (bp != null) {
-					InputStream ios = null;
+		try {
+			// It is a directory. We could be in either development mode or not. Walk the manifest classpath and find the libraries.
+			Properties buildProps = null;
+			String libraries = (String) bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
+			ManifestElement[] elements = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, libraries);
+			List urls = new ArrayList();
+			if (elements != null) {
+				for (int i = 0; i < elements.length; i++) {
 					try {
-						ios = bp.openStream();
-						Properties props = new Properties();
-						props.load(ios);
-						String pathString = props.getProperty("output..");
+						URL pvm = bundle.getEntry(elements[i].getValue());
+						if (pvm != null) {
+							urls.add(Platform.asLocalURL(pvm));
+							continue;
+						}
+					} catch (IOException e) {
+					}				
+					if (devMode) {
+						// Not found as a jar, so see if can be found in devmode.
+						if (buildProps == null) {
+							buildProps = new Properties();
+							try {
+								URL bp = bundle.getEntry("build.properties");
+								if (bp != null) {
+									InputStream ios = null;
+									try {
+										ios = bp.openStream();
+										buildProps.load(ios);
+									} finally {
+										if (ios != null)
+											ios.close();
+									}
+								}
+							} catch (IOException e) {
+							}
+						}
+						String pathString = buildProps.getProperty("output."+elements[i].getValue());
 						if (pathString != null) {
-							return Platform.resolve(bundle.getEntry(pathString));
-						} else
-							return pvm;	// The output directory is the root of plugin project.
-					} finally {
-						if (ios != null)
-							ios.close();
+							try {
+								urls.add(Platform.asLocalURL(bundle.getEntry(pathString)));
+							} catch (IOException e) {
+							}
+						}
 					}
 				}
-			} catch (IOException e) {
+				return (URL[]) urls.toArray(new URL[urls.size()]);
+			} else if (devMode) {
+				// If dev mode then we would look in the build.properties to find the output.. entry. This tells where the binaries are 
+				// for project. If there is no "output.." entry then either it is not a runnable plugin or the rare case is it is only
+				// classfiles in a folder. In that case see if there is a "source.." entry and use that.
+				try {
+					URL bp = bundle.getEntry("build.properties");
+					if (bp != null) {
+						InputStream ios = null;
+						try {
+							ios = bp.openStream();
+							Properties props = new Properties();
+							props.load(ios);
+							String pathString = props.getProperty("output..");
+							if (pathString != null) {
+								return new URL[] {Platform.resolve(bundle.getEntry(pathString))};
+							} else if ((pathString = props.getProperty("source..")) != null) {
+								// Probably a class folder, so use the source instead.
+								return new URL[] {Platform.resolve(bundle.getEntry(pathString))};
+							} else
+								return pvms;	// Try the root of the plugin.
+						} finally {
+							if (ios != null)
+								ios.close();
+						}
+					}
+				} catch (IOException e) {
+				}
+				
 			}
-			
+		} catch (BundleException e) {
 		}
 		return null;
 	}
 	
+	/**
+	 * Returns a url as file url if it can. If it is already a file url, it will just return it.
+	 * If it is "jar:file:...." type protocol, then it will strip it down to the file part, which is
+	 * the jar itself, and not the file within the jar. 
+	 * @param l
+	 * @return
+	 * 
+	 * @since 1.2.0
+	 */
 	public static URL getFilePath(URL l) {
 		if (l != null) {
 			if (l.getProtocol().equals("file")) //$NON-NLS-1$
