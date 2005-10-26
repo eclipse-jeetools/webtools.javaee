@@ -212,6 +212,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
 						refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
 						refdm.getDefaultOperation().execute(monitor, null);
+						j2eeComponentList.add(targetcomponent);
 					}
 				}
 			}
@@ -248,7 +249,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	}
 	
 	protected List getComponentsToRemove(){
-		j2eeComponentList = getCheckedJ2EEElementsAsList();
+		//j2eeComponentList = getCheckedJ2EEElementsAsList();
 		List list = new ArrayList();
 		if( earComponent != null && list != null ){
 			IVirtualReference[] oldrefs = earComponent.getReferences();
