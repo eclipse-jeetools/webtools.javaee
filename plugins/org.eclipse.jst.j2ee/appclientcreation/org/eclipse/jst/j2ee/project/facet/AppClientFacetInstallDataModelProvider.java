@@ -13,6 +13,7 @@ public class AppClientFacetInstallDataModelProvider
 		Set names = super.getPropertyNames();
 		names.add(EAR_PROJECT_NAME);
 		names.add(CONFIG_FOLDER);
+		names.add(RUNTIME_TARGET_ID);
 		return names;
 	}
 	
