@@ -38,6 +38,9 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 
 	private static final boolean performValidateEdit = false;
 
+	private static final String[] XDOCLETBUILDINCLUDEFILES = { "ejb-jar.xml", "web.xml", "bean.java", "servlet.java",
+			"controller.java", "ejb.java", "mdb.java" };
+
 	private static boolean isGloballyEnabled = true;
 
 	/**
@@ -251,13 +254,18 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 				}
 			}
 			return false;
-		} else if( resource.getType() == IResource.FILE && !resource.isAccessible()){
-			//Deleted - Check to see if this is an xdoclet bean!
-			// This is a crude hack to make sure the build runs is a resource is deleted.
+		} else if (resource.getType() == IResource.FILE && !resource.isAccessible()) {
+			// Deleted - Check to see if this is an xdoclet bean!
+			// This is a crude hack to make sure the build runs is a resource is
+			// deleted.
+			// **Bean.java **Servlet.java **Mdb.java and deployment descriptors
 			String name = resource.getName();
-			boolean isXDocletBean = name.endsWith("Bean.java") ||name.endsWith("Servlet.java") || name.endsWith("Controller.java") || name.endsWith("EJB.java")|| name.endsWith("MDB.java") || name.endsWith("Ejb.java") || name.endsWith("Mdb.java") || name.endsWith("BEAN.java");
-			if(isXDocletBean)
-				return true;
+			for (int i = 0; name != null && i < XDOCLETBUILDINCLUDEFILES.length; i++) {
+				String fileName = XDOCLETBUILDINCLUDEFILES[i];
+				if (name.toLowerCase().endsWith(fileName))
+					return true;
+
+			}
 		}
 		return false;
 	}

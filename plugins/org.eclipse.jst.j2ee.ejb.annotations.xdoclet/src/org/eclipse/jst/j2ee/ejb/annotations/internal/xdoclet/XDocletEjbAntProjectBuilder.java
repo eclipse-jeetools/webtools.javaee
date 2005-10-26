@@ -222,6 +222,8 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	private void getAllAnnotatedEjbs(IParent root, List list) {
 		IJavaElement[] elements = null;
 		try {
+			if (root == null)
+				return;
 			elements = root.getChildren();
 			if (elements == null)
 				return;

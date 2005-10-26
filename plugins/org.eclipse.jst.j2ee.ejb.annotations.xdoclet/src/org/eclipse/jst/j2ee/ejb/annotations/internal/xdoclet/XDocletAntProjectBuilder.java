@@ -92,13 +92,9 @@ public abstract class XDocletAntProjectBuilder {
 	public void buildUsingAnt(IResource beanClass, IProgressMonitor monitor) {
 		initPreferenceStore(beanClass.getProject());
 		IJavaProject javaProject = JavaCore.create(beanClass.getProject());
-		ICompilationUnit compilationUnit = JavaCore
-				.createCompilationUnitFrom((IFile) beanClass);
 		try {
-			IPackageFragmentRoot packageFragmentRoot = this
-					.getPackageFragmentRoot(compilationUnit);
-			String beanPath = constructAnnotatedClassList(packageFragmentRoot,
-					beanClass);
+			IPackageFragmentRoot packageFragmentRoot = getPackageFragmentRootOrFirst(beanClass);
+			String beanPath = constructAnnotatedClassList(packageFragmentRoot,beanClass);
 
 			Properties properties = createAntBuildProperties(beanClass,
 					javaProject, packageFragmentRoot, beanPath);
@@ -115,6 +111,17 @@ public abstract class XDocletAntProjectBuilder {
 		}
 	}
 
+	private IPackageFragmentRoot getPackageFragmentRootOrFirst(IResource beanClass) throws JavaModelException
+	{
+		try {
+			ICompilationUnit compilationUnit = JavaCore.createCompilationUnitFrom((IFile) beanClass);
+			return this.getPackageFragmentRoot(compilationUnit);
+		} catch (RuntimeException e) {
+		}
+		
+		IContainer container = J2EEProjectUtilities.getSourceFolderOrFirst(beanClass.getProject(),"ejbModule");
+		return JavaCore.create(beanClass.getProject()).findPackageFragmentRoot(container.getFullPath());
+	}
 	protected abstract String getTaskName();
 
 	protected abstract void refreshProjects(IProject project,
@@ -135,6 +142,8 @@ public abstract class XDocletAntProjectBuilder {
 	 * @return
 	 */
 	protected IPath makeRelativeTo(IPath path, IPackageFragmentRoot root) {
+		if(root == null)
+		 return path;	
 		try {
 			IPath rpath = root.getCorrespondingResource()
 					.getProjectRelativePath();

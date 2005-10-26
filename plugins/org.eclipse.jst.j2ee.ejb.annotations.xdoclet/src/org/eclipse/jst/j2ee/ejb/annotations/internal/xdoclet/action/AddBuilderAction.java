@@ -9,30 +9,15 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action;
 
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.ui.actions.ActionDelegate;
 
-public class AddBuilderAction extends ActionDelegate {
-
-	IJavaProject project;
-	final static String BUILDERID = "org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletbuilder";
-
-	public void selectionChanged(IAction action, ISelection selection) {
-		super.selectionChanged(action, selection);
-		if (selection == null)
-			return;
-
-		if (selection instanceof IStructuredSelection) {
-			project = (IJavaProject) ((IStructuredSelection) selection).getFirstElement();
-		}
-	}
+public class AddBuilderAction extends XDocletActionDelegate {
 
 	public void run(IAction action) {
 
@@ -40,7 +25,10 @@ public class AddBuilderAction extends ActionDelegate {
 				&& (J2EEProjectUtilities.isEJBProject(project.getProject()) || J2EEProjectUtilities.isDynamicWebProject(project
 						.getProject()))) {
 			try {
-				ProjectUtilities.addToBuildSpecBefore(BUILDERID, JavaCore.BUILDER_ID, project.getProject());
+				if (!ProjectUtilities.hasBuilder(project.getProject(), BUILDERID)) {
+					ProjectUtilities.addToBuildSpecBefore(BUILDERID, JavaCore.BUILDER_ID, project.getProject());
+					project.getProject().build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+				}
 			} catch (CoreException e) {
 			}
 		}
