@@ -72,7 +72,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 	private void addMetaResources(IVirtualComponent component) {
 		if (component.getRootFolder().getUnderlyingResource() instanceof IProject) {
 			IPath[] metaResources = new IPath[]{new Path("/.facets"), new Path("/.project"),
-					new Path("/.runtime"), IModuleConstants.COMPONENT_FILE_PATH};
+					new Path("/.runtime"), new Path("/"+IModuleConstants.COMPONENT_FILE_PATH.toString())};
 			component.setMetaResources(metaResources);
 		}
 	}

@@ -102,7 +102,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		IVirtualComponent component = ComponentCore.createComponent(getProject());
 		if (component.getRootFolder().getUnderlyingResource() instanceof IProject) {
 			IPath[] metaResources = new IPath[]{new Path("/.facets"), new Path("/.project"),
-					new Path("/.runtime"), IModuleConstants.COMPONENT_FILE_PATH};
+					new Path("/.runtime"), new Path("/"+IModuleConstants.COMPONENT_FILE_PATH.toString())};
 			component.setMetaResources(metaResources);
 		}
 		return OK_STATUS;
