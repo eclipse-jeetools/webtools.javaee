@@ -34,6 +34,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -174,7 +175,7 @@ public abstract class FlexibleProjectContainer
             }
         }
         
-        w.add( this.project.getFullPath().append( ".wtpmodules" ) ); //$NON-NLS-1$
+        w.add( this.project.getFullPath().append( IModuleConstants.COMPONENT_FILE_PATH ) ); //$NON-NLS-1$
             
         this.cpentries = new IClasspathEntry[ cp.size() ];
         cp.toArray( this.cpentries );

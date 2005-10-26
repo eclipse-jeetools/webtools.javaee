@@ -629,7 +629,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	}*/
 	
 	
-	//The module maps validation needs to be done in the wtpmodules validator for flex project
+	//The module maps validation needs to be done in the component validator for flex project
 	/*protected void validateModuleMapsDuplicateProjects(WorkbenchComponent module) {
 		java.util.List moduleMaps = module.getReferencedComponents();
 		java.util.Set visitedProjectNames = new java.util.HashSet();

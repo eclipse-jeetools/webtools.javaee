@@ -313,7 +313,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		Iterator iterator = resources.iterator();
 		while (iterator.hasNext()) {
 			Resource res = (Resource) iterator.next();
-			if (res.getURI().toString().endsWith(IModuleConstants.WTPMODULE_FILE_NAME))
+			if (res.getURI().toString().endsWith(IModuleConstants.COMPONENT_FILE_NAME))
 				resourcesToRemove.add(res);
 		}
 		resources.removeAll(resourcesToRemove);

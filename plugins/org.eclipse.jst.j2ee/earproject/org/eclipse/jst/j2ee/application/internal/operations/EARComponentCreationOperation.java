@@ -26,6 +26,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -101,7 +102,7 @@ public class EARComponentCreationOperation extends ComponentCreationOperation im
 		IVirtualComponent component = ComponentCore.createComponent(getProject());
 		if (component.getRootFolder().getUnderlyingResource() instanceof IProject) {
 			IPath[] metaResources = new IPath[]{new Path("/.facets"), new Path("/.project"),
-					new Path("/.runtime"), new Path("/.wtpmodules")};
+					new Path("/.runtime"), IModuleConstants.COMPONENT_FILE_PATH};
 			component.setMetaResources(metaResources);
 		}
 		return OK_STATUS;

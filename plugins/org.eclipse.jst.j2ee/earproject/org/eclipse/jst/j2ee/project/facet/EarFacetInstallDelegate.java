@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -71,7 +72,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 	private void addMetaResources(IVirtualComponent component) {
 		if (component.getRootFolder().getUnderlyingResource() instanceof IProject) {
 			IPath[] metaResources = new IPath[]{new Path("/.facets"), new Path("/.project"),
-					new Path("/.runtime"), new Path("/.wtpmodules")};
+					new Path("/.runtime"), IModuleConstants.COMPONENT_FILE_PATH};
 			component.setMetaResources(metaResources);
 		}
 	}

@@ -52,11 +52,11 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	protected boolean needsUpdating(IProject project) {
 		if(!initialized)
 			return true;
-		IFile wtpmodules = project.getFile(IModuleConstants.WTPMODULE_FILE_PATH);
-		if (!wtpmodules.exists())
+		IFile component = project.getFile(IModuleConstants.COMPONENT_FILE_PATH);
+		if (!component.exists())
 			return false;
-		if(wtpmodules.getModificationStamp() != cachedStamp) {
-			cachedStamp = wtpmodules.getModificationStamp();
+		if(component.getModificationStamp() != cachedStamp) {
+			cachedStamp = component.getModificationStamp();
 			return true;
 		}
 		return false;
