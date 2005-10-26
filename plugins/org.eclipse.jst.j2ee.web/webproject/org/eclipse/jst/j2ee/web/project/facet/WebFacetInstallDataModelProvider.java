@@ -23,6 +23,7 @@ public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvi
 		names.add(CONTEXT_ROOT);
 		names.add(CONTENT_DIR);
 		names.add(CREATE_WEB_INF_SRC);
+		names.add(RUNTIME_TARGET_ID);
 		return names;
 	}
 	
