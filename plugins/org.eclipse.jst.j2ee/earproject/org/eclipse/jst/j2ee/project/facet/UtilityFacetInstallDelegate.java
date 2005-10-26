@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -52,7 +54,11 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 				final IClasspathEntry cpe = cp[i];
 
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-					jsrc.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
+					IPath path = cpe.getPath().removeFirstSegments(1);
+					if( path.isEmpty() ){
+						path = new Path("/"); //$NON-NLS-1$
+					}
+					jsrc.createLink(path, 0, null);
 				}
 			}
 

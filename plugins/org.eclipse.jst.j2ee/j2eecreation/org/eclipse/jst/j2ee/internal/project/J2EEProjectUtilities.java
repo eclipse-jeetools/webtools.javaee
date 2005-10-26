@@ -56,9 +56,14 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -541,5 +546,9 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return facetedProject.getInstalledVersion(facet).getVersionString();
 		return null;
 	}
-
+	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
+	IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+	model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+	return new JavaProjectMigrationOperation(model);
+}
 }

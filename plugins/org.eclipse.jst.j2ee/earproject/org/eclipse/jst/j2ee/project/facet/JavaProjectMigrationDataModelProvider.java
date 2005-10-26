@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.common.jdt.internal.integration;
+package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.Set;
 

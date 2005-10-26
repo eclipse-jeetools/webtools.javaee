@@ -33,9 +33,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectMigrationDataModelProperties;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationDataModelProvider;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -251,11 +248,11 @@ public class ComponentUtilities {
 		return nonFlexJavaProjects;
 	}
 
-	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
-		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
-		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
-		return new JavaProjectMigrationOperation(model);
-	}
+//	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
+//		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+//		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+//		return new JavaProjectMigrationOperation(model);
+//	}
 
 	public static CreateReferenceComponentsOp createReferenceComponentOperation(IVirtualComponent sourceComponent, List targetComponentProjects) {
 		IDataModel model = DataModelFactory.createDataModel(new CreateReferenceComponentsDataModelProvider());

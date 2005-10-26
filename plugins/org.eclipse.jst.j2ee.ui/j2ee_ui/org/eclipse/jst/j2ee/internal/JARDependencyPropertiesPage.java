@@ -558,7 +558,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 				if ( elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 					if(composedOp == null)
 						composedOp = new WorkspaceModifyComposedOperation();
-					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createFlexJavaProjectForProjectOperation(elementProject)));
+					composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject)));
 				}
 			}
 		} catch (CoreException ce) {

@@ -46,43 +46,49 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 			final IWorkspace ws = ResourcesPlugin.getWorkspace();
 
 			final IPath pjpath = project.getFullPath();
-			String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME);
-			// final IPath srcdir = pjpath.append( "src" );
-			final IPath srcdir = pjpath.append(srcFolderName);
-
-			final IPath outdir = pjpath.append("build/classes"); //$NON-NLS-1$
-
-			ws.getRoot().getFolder(srcdir).getLocation().toFile().mkdirs();
-			ws.getRoot().getFolder(outdir).getLocation().toFile().mkdirs();
-			project.refreshLocal(IResource.DEPTH_INFINITE, null);
-
-			// Add the java nature. This will automatically add the builder.
-
-			final IProjectDescription desc = project.getDescription();
-			final String[] current = desc.getNatureIds();
-			final String[] replacement = new String[current.length + 1];
-			System.arraycopy(current, 0, replacement, 0, current.length);
-			replacement[current.length] = JavaCore.NATURE_ID;
-			desc.setNatureIds(replacement);
-			project.setDescription(desc, null);
-
-			// Set up the sourcepath and the output directory.
-
-			final IJavaProject jproj = JavaCore.create(project);
-			final IClasspathEntry[] cp = {JavaCore.newSourceEntry(srcdir)};
-
-			jproj.setRawClasspath(cp, outdir, null);
-			jproj.save(null, true);
-
-			// Setup the classpath.
-
-			ClasspathHelper.removeClasspathEntries(project, fv);
-
-			if (!ClasspathHelper.addClasspathEntries(project, fv)) {
-				// TODO: Support the no runtime case.
-				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
+			IJavaProject jproject = null;
+			if( project.exists()){
+				 jproject = JavaCore.create(project);
 			}
-
+			
+			if( !jproject.exists()){
+				String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME);
+				// final IPath srcdir = pjpath.append( "src" );
+				final IPath srcdir = pjpath.append(srcFolderName);
+	
+				final IPath outdir = pjpath.append("build/classes"); //$NON-NLS-1$
+	
+				ws.getRoot().getFolder(srcdir).getLocation().toFile().mkdirs();
+				ws.getRoot().getFolder(outdir).getLocation().toFile().mkdirs();
+				project.refreshLocal(IResource.DEPTH_INFINITE, null);
+	
+				// Add the java nature. This will automatically add the builder.
+	
+				final IProjectDescription desc = project.getDescription();
+				final String[] current = desc.getNatureIds();
+				final String[] replacement = new String[current.length + 1];
+				System.arraycopy(current, 0, replacement, 0, current.length);
+				replacement[current.length] = JavaCore.NATURE_ID;
+				desc.setNatureIds(replacement);
+				project.setDescription(desc, null);
+	
+				// Set up the sourcepath and the output directory.
+	
+				final IJavaProject jproj = JavaCore.create(project);
+				final IClasspathEntry[] cp = {JavaCore.newSourceEntry(srcdir)};
+	
+				jproj.setRawClasspath(cp, outdir, null);
+				jproj.save(null, true);
+	
+				// Setup the classpath.
+	
+				ClasspathHelper.removeClasspathEntries(project, fv);
+	
+				if (!ClasspathHelper.addClasspathEntries(project, fv)) {
+					// TODO: Support the no runtime case.
+					// ClasspathHelper.addClasspathEntries( project, fv, <something> );
+				}
+			}
 			// Set the compiler comliance level for the project. Ignore whether
 			// this might already be set so at the workspace level in case
 			// workspace settings change later or the project is included in a
