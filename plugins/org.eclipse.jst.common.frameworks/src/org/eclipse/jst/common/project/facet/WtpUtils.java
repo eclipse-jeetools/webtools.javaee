@@ -44,4 +44,17 @@ public final class WtpUtils
         project.setDescription( desc, null );
     }
 
+    public static void addNaturestoEAR( final IProject project )
+    
+    throws CoreException
+    
+	{
+	    final IProjectDescription desc = project.getDescription();
+	    final String[] current = desc.getNatureIds();
+	    final String[] replacement = new String[ current.length + 1 ];
+	    System.arraycopy( current, 0, replacement, 0, current.length );
+	    replacement[ current.length ] = WTP_NATURE;
+	    desc.setNatureIds( replacement );
+	    project.setDescription( desc, null );
+	}    
 }

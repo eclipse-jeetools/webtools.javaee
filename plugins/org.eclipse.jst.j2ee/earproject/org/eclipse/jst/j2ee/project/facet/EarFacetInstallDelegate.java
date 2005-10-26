@@ -43,7 +43,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 			}
 			// Add WTP natures.
 
-			WtpUtils.addNatures(project);
+			WtpUtils.addNaturestoEAR(project);
 
 			final IVirtualComponent c = ComponentCore.createComponent(project);
 			c.create(0, null);
