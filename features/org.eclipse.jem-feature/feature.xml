@@ -28,13 +28,15 @@
          id="org.eclipse.jem.beaninfo"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.jem.proxy"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.jem"
@@ -46,24 +48,28 @@
          id="org.eclipse.jem.workbench"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="com.ibm.etools.emf.event"
          download-size="0"
          install-size="0"
-         version="3.0.0.1"/>
+         version="3.0.0.2"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.jem.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.jem.util"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

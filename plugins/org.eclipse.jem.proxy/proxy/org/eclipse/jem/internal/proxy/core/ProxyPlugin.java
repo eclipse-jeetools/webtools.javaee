@@ -11,11 +11,12 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.54 $  $Date: 2005/10/14 17:45:02 $ 
+ *  $Revision: 1.55 $  $Date: 2005/10/26 14:24:51 $ 
  */
 
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.Map.Entry;
@@ -72,6 +73,10 @@ public class ProxyPlugin extends Plugin {
 		super();
 		PROXY_PLUGIN = this;
 		devMode = Platform.inDevelopmentMode();  	
+	}
+	
+	public boolean isDevMode() {
+		return devMode;
 	}
 
 	/**
@@ -370,7 +375,112 @@ public class ProxyPlugin extends Plugin {
 			}
 		}
 		return (URL[]) urls.toArray(new URL[urls.size()]);
-	}	
+	}
+	
+	/**
+	 * Get the urls for the bundle and all fragments. This is used when bundles/fragments are jarred. It won't work correctly if not 
+	 * a jarred bundle and fragments. This would most likely be used for NLS
+	 * purposes to bring in the bundle and all of the nls. If a specific fragment was wanted use {@link #urlLocalizeBundle(Bundle)} instead.
+	 * 
+	 * @param bundle
+	 * @return urls for bundle and all fragments.
+	 * 
+	 * @since 1.2.0
+	 */
+	public URL[] urlLocalizeBundleAndFragments(Bundle bundle) {
+		Bundle[] fragments = Platform.getFragments(bundle);
+		URL[] urls = new URL[(fragments == null ? 0 : fragments.length) + 1];
+		int iurl = 0;
+		URL url = urlLocalizeBundle(bundle);
+		if (url != null)
+			urls[iurl++] = url;
+		if (fragments != null) {
+			for (int i = 0; i < fragments.length; i++) {
+				url = urlLocalizeBundle(fragments[i]);
+				if (url != null)
+					urls[iurl++] = url;
+			}
+		}
+		if (iurl < urls.length) {
+			// Some not found as jars.
+			URL[] temp = new URL[iurl];
+			System.arraycopy(urls, 0, temp, 0, iurl);
+			urls = temp;
+		}
+		return urls;
+
+	}
+	
+	/**
+	 * Get the url for the bundle only. This is for when bundles are jarred. If a fragment is wanted, then pass in the fragment instead.
+	 * If bundle and all fragments are wanted use {@link #urlLocalizeBundleAndFragments(Bundle)} instead.
+	 * <p>
+	 * If in dev mode, it will use the binary output directory for the plugin from the build.properties file. This should not be used
+	 * on plugins that are not meant to be packaged as jars. Wrong results will occur. However, it will understand if in dev mode and
+	 * the plugin is a project with a build.properties file in it.
+	 * 
+	 * @param bundle
+	 * @return
+	 * 
+	 * @since 1.2.0
+	 */
+	public URL urlLocalizeBundle(Bundle bundle) {
+		URL pvm = null;
+		try {
+			pvm = Platform.resolve(bundle.getEntry("/"));
+			if (pvm.getProtocol().equals("jar"))
+				return getFilePath(pvm);
+		} catch (IOException e) {
+		}
+		
+		if (devMode) {
+			// Got this far and in dev mode means it wasn't found, so we'll try for development style.
+			// It is assumed that in dev mode, we are running with the IDE as local and any 
+			// build outputs will be local so local file protocol will be returned
+			// from Platform.resolve(). We won't be running in dev mode with our entireplugin being in a jar,
+			// or on a separate system.
+			try {
+				URL bp = bundle.getEntry("build.properties");
+				if (bp != null) {
+					InputStream ios = null;
+					try {
+						ios = bp.openStream();
+						Properties props = new Properties();
+						props.load(ios);
+						String pathString = props.getProperty("output..");
+						if (pathString != null) {
+							return Platform.resolve(bundle.getEntry(pathString));
+						} else
+							return pvm;	// The output directory is the root of plugin project.
+					} finally {
+						if (ios != null)
+							ios.close();
+					}
+				}
+			} catch (IOException e) {
+			}
+			
+		}
+		return null;
+	}
+	
+	public static URL getFilePath(URL l) {
+		if (l != null) {
+			if (l.getProtocol().equals("file")) //$NON-NLS-1$
+			     return l;
+			else if (l.getProtocol().equals("jar")) { //$NON-NLS-1$
+				String f = l.getFile();
+				int idx = f.lastIndexOf('!');
+				if (idx>=0)
+					f = f.substring(0,idx);
+				try {
+					return getFilePath(new URL(f));
+				} catch (MalformedURLException e) {}
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * A helper to order the plugins into pre-req order. 
 	 * If A eventually depends on B, then B will be ahead of A in the

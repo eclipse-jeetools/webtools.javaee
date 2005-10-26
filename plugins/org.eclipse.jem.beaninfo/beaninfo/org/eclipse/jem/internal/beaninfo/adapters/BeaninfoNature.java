@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.38 $  $Date: 2005/10/14 17:45:04 $ 
+ *  $Revision: 1.39 $  $Date: 2005/10/26 14:24:56 $ 
  */
 
 import java.io.*;
@@ -829,8 +829,8 @@ public class BeaninfoNature implements IProjectNature {
 				}
 			}
 			
-			// Add the common and beaninfovm.jar and any nls to the end of the classpath.
-			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), "beaninfocommon.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
+			// Add the common to the end of the classpath. (Since we are now a jarred plugin, the common is not the plugin jar itself).
+			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), (IPath) null, IConfigurationContributionController.APPEND_USER_CLASSPATH, false); //$NON-NLS-1$
 			
 			// Add the beaninfovm.jar and any nls to the end of the classpath.
 			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$

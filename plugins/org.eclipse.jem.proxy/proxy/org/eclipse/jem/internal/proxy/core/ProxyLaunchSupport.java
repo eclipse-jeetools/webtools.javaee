@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.29 $  $Date: 2005/10/14 17:45:02 $ 
+ *  $Revision: 1.30 $  $Date: 2005/10/26 14:24:51 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -855,9 +855,8 @@ public class ProxyLaunchSupport {
 	 */
 	static class ProxyContributor extends ConfigurationContributorAdapter {
 		public void contributeClasspaths(IConfigurationContributionController controller) {
-			// Add the required jars to the end of the classpath.
-			controller.contributeClasspath(ProxyPlugin.getPlugin().getBundle(), "proxycommon.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, false);	//$NON-NLS-1$
-			controller.contributeClasspath(ProxyPlugin.getPlugin().getBundle(), "initparser.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true);	//$NON-NLS-1$			
+			// Add the required jars to the end of the classpath. (We want proxyCommon and initParser (+ initParser NLS), but they are in the runtime of the proxy bundle (which is jarred up), so we contribute the bundle instead.
+			controller.contributeClasspath(ProxyPlugin.getPlugin().getBundle(), (IPath) null, IConfigurationContributionController.APPEND_USER_CLASSPATH, true);	//$NON-NLS-1$
 		}
 	}
 	

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.11 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.12 $  $Date: 2005/10/26 14:24:51 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -221,9 +221,12 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 			    JEMUtilPlugin.getLogger().log("No free lunch!"); //$NON-NLS-1$
 			}
 			contributeClasspath(contribution, typeFlag);
+		} else {
+			if (relativePath != null)
+				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
+			else
+				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeBundle(bundle), typeFlag);
 		}
-		else
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
 	}
 	
 	
@@ -231,13 +234,25 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.osgi.framework.Bundle, org.eclipse.core.runtime.IPath, int, boolean)
 	 */
 	public void contributeClasspath(Bundle bundle, IPath relativePath, int typeFlag, boolean nlsLocalize) {
-		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
 		if (nlsLocalize)
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(bundle, relativePath), typeFlag);
-		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
+			if (relativePath != null)
+				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(bundle, relativePath), typeFlag);
+			else
+				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeBundleAndFragments(bundle), typeFlag);
+		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH) {
 			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
-		else
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
+			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
+			if (contribution == null) {
+				// PDE is not here to help us extract that @#$ dll
+			    JEMUtilPlugin.getLogger().log("No free lunch!"); //$NON-NLS-1$
+			}
+			contributeClasspath(contribution, typeFlag);			
+		} else {
+			if (relativePath != null)
+				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
+			else
+				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeBundle(bundle), typeFlag);
+		}
 	}
 
 	/* (non-Javadoc)

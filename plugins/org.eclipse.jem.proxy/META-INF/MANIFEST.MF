@@ -2,13 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jem.proxy; singleton:=true
-Bundle-Version: 1.1.0.1
-Bundle-ClassPath: proxy.jar,
- proxycommon.jar,
- initparser.jar,
- proxyremote.jar,
- remotecommon.jar,
- proxyide.jar
+Bundle-Version: 1.2.0
 Bundle-Activator: org.eclipse.jem.internal.proxy.core.ProxyPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin

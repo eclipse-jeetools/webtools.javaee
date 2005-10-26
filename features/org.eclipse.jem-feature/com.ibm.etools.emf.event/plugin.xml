@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin
-   id="com.ibm.etools.emf.event"
-   name="Event Model"
-   version="3.0.0.1">
+<plugin>
 
-   <runtime>
-      <library name="runtime/event.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
+   
 <!-- build-level = "20030806_1713SL" *** With fix 10028 merged in. -->
-   <requires>
-      <import plugin="org.eclipse.emf.ecore" version="2.0.0" match="compatible"/>
-   </requires>
-
-
-   <extension
+    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="event.xmi"

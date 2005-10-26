@@ -11,10 +11,11 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: ProxyRemoteUtil.java,v $
- *  $Revision: 1.11 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.12 $  $Date: 2005/10/26 14:24:51 $ 
  */
 
 
+import org.eclipse.core.runtime.IPath;
 import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionController;
@@ -54,7 +55,7 @@ public class ProxyRemoteUtil {
 		// this jar is reached, it causes the class loader to barf. Our jars used to be at
 		// the end, and so it found the fileupload jar first and no remote vm could be started
 		// because of this.
-		controller.contributeClasspath(proxyBundle, "remotecommon.jar", IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$
+		controller.contributeClasspath(proxyBundle, (IPath) null, IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$
 		controller.contributeClasspath(proxyBundle, "vm/remotevm.jar", IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$		
 	}
 }
