@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.55 $  $Date: 2005/10/26 14:24:51 $ 
+ *  $Revision: 1.56 $  $Date: 2005/10/26 18:48:19 $ 
  */
 
 
@@ -178,7 +178,7 @@ public class ProxyPlugin extends Plugin {
 		return result;
 	}
 	
-	private static String getFileFromURL(URL url) {
+	public static String getFileFromURL(URL url) {
 		// We need to do this in a device independent way. The URL will always put a leading '/' in the
 		// file part of the URL, but on Windows we need to have this '/' removed. Some JRE's don't understand it.
 		return new File(url.getFile()).getAbsolutePath();

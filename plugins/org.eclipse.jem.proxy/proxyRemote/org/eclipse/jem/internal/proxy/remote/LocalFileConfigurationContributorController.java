@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.12 $  $Date: 2005/10/26 14:24:51 $ 
+ *  $Revision: 1.13 $  $Date: 2005/10/26 18:48:19 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -215,12 +215,13 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 		if (nlsLocalize)
 			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(bundle, relativePath), typeFlag);
 		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH) {
-			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
-			if (contribution == null) {
+			if (relativePath == null || relativePath.length() == 0) {
 				// PDE is not here to help us extract that @#$ dll
-			    JEMUtilPlugin.getLogger().log("No free lunch!"); //$NON-NLS-1$
+			    JEMUtilPlugin.getLogger().log("Can't extract a directory from the root of a plugin."); //$NON-NLS-1$
+			    return;
 			}
-			contributeClasspath(contribution, typeFlag);
+			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
+			contributeClasspath(contribution, typeFlag);			
 		} else {
 			if (relativePath != null)
 				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
@@ -240,12 +241,12 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 			else
 				contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeBundleAndFragments(bundle), typeFlag);
 		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH) {
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
-			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
-			if (contribution == null) {
+			if (relativePath == null || relativePath.segmentCount() == 0) {
 				// PDE is not here to help us extract that @#$ dll
-			    JEMUtilPlugin.getLogger().log("No free lunch!"); //$NON-NLS-1$
+			    JEMUtilPlugin.getLogger().log("Can't extract a directory from the root of a plugin."); //$NON-NLS-1$
+			    return;
 			}
+			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
 			contributeClasspath(contribution, typeFlag);			
 		} else {
 			if (relativePath != null)

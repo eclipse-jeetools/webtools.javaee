@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: IConfigurationContributionController.java,v $
- *  $Revision: 1.10 $  $Date: 2005/10/26 14:24:51 $ 
+ *  $Revision: 1.11 $  $Date: 2005/10/26 18:48:19 $ 
  */
 
 import java.net.URL;
@@ -143,7 +143,12 @@ public interface IConfigurationContributionController {
 	 * This is useful for nls where the nls for the filename will be in one or more of the fragments of the plugin.	 	 
 	 * 
 	 * @param bundle The bundle it can be found in.
-	 * @param relativePath Path to file/folder relative to bundle root. Or <code>null</code> if it is the bundle/fragment itself (for when the bundle has been jar'ed up). If it is <code>APPEND_JAVA_LIBRARY_PATH</code>, it should be folder and nlsLocalize will be ignored.
+	 * @param relativePath Path to file/folder relative to bundle root. Or <code>null</code> if it is the bundle/fragment itself (for when the bundle has been jar'ed up). 
+	 *   <b>Note: </b>If it is <code>APPEND_JAVA_LIBRARY_PATH</code>, it should be folder and nlsLocalize will be ignored.
+	 *   In this case be careful that if a folder and the plugin is jarred that the folder <b>IS NOT THE ROOT OF THE PLUGIN</b>. This will
+	 *   cause the entire plugin to be extracted instead of just the directory containing the libraries. If the libraries are in the root
+	 *   of a jarred plugin then a separate cache directory should be created instead and the libraries of interest extracted to there. And
+	 *   then point to the cache directory instead.
 	 * @param typeFlag One of <code>APPEND_USER_CLASSPATH</code>, <code>APPEND_BOOT_CLASSPATH</code>, <code>PREPEND_BOOT_CLASSPATH</code>, or <code>APPEND_JAVA_LIBRARY_PATH</code>.
 	 * @param nlsLocalize The usual value should be <code>false</code>. Use <code>true</code> if should look through fragments to gather them all as described in this methods description. This will work for jarred bundles/fragments too.
 	 * 
@@ -152,7 +157,7 @@ public interface IConfigurationContributionController {
 	public void contributeClasspath(Bundle bundle, String relativePath, int typeFlag, boolean nlsLocalize);	
 	
 	/**
-	 * Same as contributeClasspath(Bundle, String, int, boolean) except an IPath can be used as the relative path.
+	 * Same as {@link #contributeClasspath(Bundle, String, int, boolean)} except an IPath can be used as the relative path.
 	 * 
 	 * @param bundle
 	 * @param relativePath path to file within bundle. Or <code>null</code> if it is the bundle/fragment itself (for when the bundle has been jar'ed up).
