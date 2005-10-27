@@ -36,6 +36,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
+import org.eclipse.wst.server.core.ServerUtil;
 
 public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
 
@@ -244,10 +245,9 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	protected IRuntime getServerTargetByID(String id) {
-		List targets = getValidServerTargets();
-		IRuntime target;
-		for (int i = 0; i < targets.size(); i++) {
-			target = (IRuntime) targets.get(i);
+		IRuntime[] targets = ServerUtil.getRuntimes("", "");
+		for (int i = 0; i < targets.length; i++) {
+			IRuntime target = targets[i];
 			if (id.equals(target.getId()))
 				return target;
 		}

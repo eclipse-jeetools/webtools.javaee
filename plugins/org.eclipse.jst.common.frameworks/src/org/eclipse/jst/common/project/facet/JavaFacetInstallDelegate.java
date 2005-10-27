@@ -52,7 +52,7 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 			}
 			
 			if( !jproject.exists()){
-				String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME);
+				String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME);
 				// final IPath srcdir = pjpath.append( "src" );
 				final IPath srcdir = pjpath.append(srcFolderName);
 	

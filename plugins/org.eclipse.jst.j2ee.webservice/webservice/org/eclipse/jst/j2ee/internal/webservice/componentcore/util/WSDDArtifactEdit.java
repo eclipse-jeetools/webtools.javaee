@@ -45,17 +45,18 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static final Class ADAPTER_TYPE = WSDDArtifactEdit.class;
-	
-	public static final String WSIL_FILE_EXT = "wsil"; //$NON-NLS-1$
-	public static final String WSDL_FILE_EXT = "wsdl"; //$NON-NLS-1$
 
+	public static final String WSIL_FILE_EXT = "wsil"; //$NON-NLS-1$
+
+	public static final String WSDL_FILE_EXT = "wsdl"; //$NON-NLS-1$
 
 	/**
 	 * @param aHandle
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public WSDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+	public WSDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly)
+			throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
@@ -87,7 +88,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from
 	 *            the given {@see ModuleCoreNature}
 	 */
-	protected WSDDArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected WSDDArtifactEdit(ModuleCoreNature aNature,
+			IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -125,7 +127,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
-		return getArtifactEditModel().getResource(getWebServicesXmlResourceURI());
+		return getArtifactEditModel().getResource(
+				getWebServicesXmlResourceURI());
 	}
 
 	public URI getWebServicesXmlResourceURI() {
@@ -187,7 +190,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	protected void addWebServicesIfNecessary(WsddResource aResource) {
 		if (aResource != null) {
-			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
+			if (aResource.getContents() == null
+					|| aResource.getContents().isEmpty()) {
 				WebServices ws = WsddFactory.eINSTANCE.createWebServices();
 				aResource.getContents().add(ws);
 			}
@@ -227,13 +231,17 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public static WSDDArtifactEdit getWSDDArtifactEditForRead(IProject aProject) {
 		WSDDArtifactEdit artifactEdit = null;
-		try {
-			artifactEdit = new WSDDArtifactEdit(aProject, true);
-		} catch (IllegalArgumentException iae) {
-			artifactEdit = null;
+		IVirtualComponent comp = ComponentCore.createComponent(aProject);
+		if (comp != null && isValidWSDDModule(comp)) {
+			try {
+				artifactEdit = new WSDDArtifactEdit(aProject, true);
+			} catch (IllegalArgumentException iae) {
+				artifactEdit = null;
+			}
 		}
 		return artifactEdit;
 	}
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the
@@ -257,10 +265,13 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(IProject aProject) {
 		WSDDArtifactEdit artifactEdit = null;
-		try {
-			artifactEdit = new WSDDArtifactEdit(aProject, false);
-		} catch (IllegalArgumentException iae) {
-			artifactEdit = null;
+		IVirtualComponent comp = ComponentCore.createComponent(aProject);
+		if (comp != null && isValidWSDDModule(comp)) {
+			try {
+				artifactEdit = new WSDDArtifactEdit(aProject, false);
+			} catch (IllegalArgumentException iae) {
+				artifactEdit = null;
+			}
 		}
 		return artifactEdit;
 	}
@@ -295,10 +306,14 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static WSDDArtifactEdit getWSDDArtifactEditForRead(IVirtualComponent aModule) {
+	public static WSDDArtifactEdit getWSDDArtifactEditForRead(
+			IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-		return new WSDDArtifactEdit(nature, aModule, true);
+		if (aModule != null && isValidWSDDModule(aModule))
+			return new WSDDArtifactEdit(nature, aModule, true);
+		else
+			return null;
 	}
 
 	/**
@@ -327,10 +342,14 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of WSDDArtifactEdit that may be used to modify and
 	 *         persist changes to the underlying content model
 	 */
-	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(IVirtualComponent aModule) {
+	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(
+			IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-		return new WSDDArtifactEdit(nature, aModule, false);
+		if (aModule != null && isValidWSDDModule(aModule))
+			return new WSDDArtifactEdit(nature, aModule, false);
+		else
+			return null;
 	}
 
 	/**
@@ -343,6 +362,19 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
 		return J2EEProjectUtilities.isEJBProject(aComponent.getProject());
 	}
+
+	/**
+	 * @param component
+	 *            A {@see IVirtualComponent}
+	 * @return True if the supplied module
+	 *         {@see ArtifactEdit#isValidWSDDModule(IVirtualComponent)}and the
+	 *         moduleTypeId is a JST module
+	 */
+	protected static boolean isValidWSDDModule(IVirtualComponent aComponent) {
+		return (isValidAppClientModule(aComponent)
+				|| isValidWebModule(aComponent) || isValidEJBModule(aComponent));
+	}
+
 	/**
 	 * @param component
 	 *            A {@see IVirtualComponent}
@@ -351,8 +383,10 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
+		return J2EEProjectUtilities
+				.isDynamicWebProject(aComponent.getProject());
 	}
+
 	/**
 	 * @param component
 	 *            A {@see IVirtualComponent}
@@ -361,7 +395,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
+		return J2EEProjectUtilities.isApplicationClientProject(aComponent
+				.getProject());
 	}
 
 	/*
@@ -388,15 +423,16 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	public EObject getContentModelRoot() {
 		return getWebServices();
 	}
-	
+
 	public List getWSILResources() {
 		List result = new ArrayList();
 		List files = ProjectUtilities.getAllProjectFiles(getProject());
-		for (int i=0; i<files.size(); i++) {
+		for (int i = 0; i < files.size(); i++) {
 			IFile file = (IFile) files.get(i);
 			if (file.getFileExtension().equals(WSIL_FILE_EXT)) {
-				IVirtualResource[] vResources = ComponentCore.createResources(file);
-				if (vResources.length>0 && !result.contains(file))
+				IVirtualResource[] vResources = ComponentCore
+						.createResources(file);
+				if (vResources.length > 0 && !result.contains(file))
 					result.add(file);
 			}
 		}
@@ -412,12 +448,13 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		List result = new ArrayList();
 		for (int i = 0; i < resources.size(); i++) {
 			Resource res = (Resource) resources.get(i);
-			if (res != null && res.getURI().fileExtension() != null && res.getURI().fileExtension().equals(ext))
+			if (res != null && res.getURI().fileExtension() != null
+					&& res.getURI().fileExtension().equals(ext))
 				result.add(res);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * return the WSDLResource if it exists, otherwise return null
 	 */
@@ -427,9 +464,10 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		try {
 			res = getArtifactEditModel().getResource(URI.createURI(path));
 		} catch (Exception e) {
-			//Ignore
+			// Ignore
 		}
-		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager
+				.getServiceHelper();
 		if (res != null && res.isLoaded() && serviceHelper.isWSDLResource(res))
 			return res;
 		return null;

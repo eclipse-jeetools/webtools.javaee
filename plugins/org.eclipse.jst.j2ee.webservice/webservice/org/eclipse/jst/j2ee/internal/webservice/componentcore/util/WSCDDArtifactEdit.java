@@ -271,7 +271,10 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 		
 				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new WSCDDArtifactEdit(nature, aModule, true);
+				if (aModule != null && isValidWSCDDModule(aModule))
+					return new WSCDDArtifactEdit(nature, aModule, true);
+				else
+					return null;
 	}
 	
 	/**
@@ -298,7 +301,10 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	public static WSCDDArtifactEdit getWSCDDArtifactEditForWrite(IVirtualComponent aModule) {
 				IProject project = aModule.getProject();
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new WSCDDArtifactEdit(nature, aModule, false);
+				if (aModule != null && isValidWSCDDModule(aModule))
+					return new WSCDDArtifactEdit(nature, aModule, false);
+				else
+					return null;
 	}
 	
 	/**
@@ -310,6 +316,18 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
 		return J2EEProjectUtilities.isEJBProject(aComponent.getProject());
+	}
+	/**
+	 * @param component
+	 *            A {@see IVirtualComponent}
+	 * @return True if the supplied module
+	 *         {@see ArtifactEdit#isValidWSDDModule(IVirtualComponent)}and
+	 *         the moduleTypeId is a JST module
+	 */
+	protected static boolean isValidWSCDDModule(IVirtualComponent aComponent) {
+		return (isValidAppClientModule(aComponent) ||
+				isValidWebModule(aComponent) ||
+				isValidEJBModule(aComponent));
 	}
 	/**
 	 * @param component

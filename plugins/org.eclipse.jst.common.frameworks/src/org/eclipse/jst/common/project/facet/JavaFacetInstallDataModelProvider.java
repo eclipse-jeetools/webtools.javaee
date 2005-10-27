@@ -23,7 +23,7 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(SOURC_FOLDER_NAME);
+		propertyNames.add(SOURCE_FOLDER_NAME);
 		return propertyNames;
 	}
 
