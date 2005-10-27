@@ -38,8 +38,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
@@ -56,7 +54,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.internal.ModuleFile;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFolder;
@@ -102,39 +99,10 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 		return false;
 	}
 
-	public String getModuleTypeName() {
-		return getName();
-	}
-
-	public String getModuleTypeVersion() {
-		return getVersion();
-	}
-
-	public String getVersion() {
-		return getJ2EESpecificationVersion();
-	}
-
 	public String getType() {
 		return J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
 	}
 
-	public IModuleType getModuleType() {
-		return new IModuleType() {
-
-			public String getId() {
-				return getType();
-			}
-
-			public String getName() {
-				return getModuleTypeName();
-			}
-
-			public String getVersion() {
-				return getModuleTypeVersion();
-			}
-		};
-
-	}
 	/**
 	 * Return the module resources for both the component meta folder and the java output folder
 	 * 
@@ -329,10 +297,6 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
         return null;
     }
     
-    public String getJ2CSpecificationVersion() {
-		return getVersion();
-	}
-    
     /**
      * Returns the classpath as a list of absolute IPaths.
      * 
@@ -348,10 +312,6 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 		}
         return  (IPath[]) paths.toArray(new IPath[paths.size()]);
     }
-    
-    public String getEJBSpecificationVersion() {
-		return getVersion();
-	}
     
     public String getJNDIName(String ejbName) {
     	if (!J2EEProjectUtilities.isEJBProject(component.getProject()))
@@ -423,31 +383,6 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
         	return result;
     	}
     	return null;
-	}
-    
-    public String getJSPSpecificationVersion() {
-    	String ret = "1.2"; //$NON-NLS-1$
-    	String stringVersion = getServletSpecificationVersion();
-		int nVersion = J2EEVersionUtil.convertVersionStringToInt(stringVersion);
-       	switch( nVersion ){
-    		case 22:
-    			ret = J2EEVersionConstants.VERSION_1_1_TEXT;
-    			break;
-    		case 23:
-    			ret = J2EEVersionConstants.VERSION_1_2_TEXT;
-    			break;
-    		case 24:	
-    			ret = J2EEVersionConstants.VERSION_2_0_TEXT;
-    			break;
-      		default:
-    			ret = J2EEVersionConstants.VERSION_1_1_TEXT;
-    			break;    			
-    	}
-    	return ret; 
-    }
-
-    public String getServletSpecificationVersion() {
-		return getVersion();
 	}
     
     public String getContextRoot() {

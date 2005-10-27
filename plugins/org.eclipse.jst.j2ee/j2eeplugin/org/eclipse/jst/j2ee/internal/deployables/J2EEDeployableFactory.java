@@ -138,7 +138,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		List moduleList = new ArrayList();
 		try {
 			moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), ID, component);
-			module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+			module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getJ2EESpecificationVersion(), moduleDelegate.getProject());
 			moduleList.add(module);
 			moduleDelegate.initialize(module);
 			
