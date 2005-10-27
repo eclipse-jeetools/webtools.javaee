@@ -31,10 +31,7 @@ the EJB project depends on its EJB client JAR project. Any project that has
 a reference to an enterprise bean in the EJB project will need a reference
 to the EJB client JAR project. If the EJB client JAR project is in another
 enterprise application, the EJB client JAR file must be added to the referencing
-EAR file as a utility JAR file. Use the Java™ JAR dependencies editor to update dependencies.
-Best practice is to only create references to the EJB project for backwards
-compatibility. See <a href="../../org.eclipse.jst.j2ee.doc/topics/tjdepend.html">Specifying dependent JAR files or modules</a> for
-more information.</p>
+EAR file as a utility JAR file. </p>
 <p>After the EJB client JAR project is created, it is up to you to add any
 necessary value objects to this project that are needed by the home or component
 interfaces. If the objects are not present, compilation errors will result. </p>

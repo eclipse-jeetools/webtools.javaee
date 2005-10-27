@@ -46,6 +46,16 @@ with enterprise beans.</div>
 </li>
 <li class="stepexpand"><span>Change the <span class="uicontrol">Superclass</span> for the bean if you
 want it to inherit from a class other than <samp class="codeph">java.lang.Object</samp>.</span></li>
+<li class="stepexpand"><strong>Optional: </strong><span>You can select <span class="uicontrol">Generate
+an annotated bean class</span>.</span> If you select this option,
+the wizard generates annotations at the beginning of the Java code
+for the bean class. The annotations define the bean's implementation as you
+specify in the wizard. The annotations are then used by the EJB tools to generate
+the necessary bean classes, and to provide values that are inserted in the
+EJB deployment descriptor (ejb-jar.xml). Select this option if you are familiar
+with annotations and want to use the annotations to update the bean rather
+than using the deployment descriptor.
+</li>
 <li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
 <li class="stepexpand"><span>Provide an <span class="uicontrol">EJB Name</span> for the bean.</span> This is the name of the enterprise bean class.</li>
 <li class="stepexpand"><span>Provide an <span class="uicontrol">JNDI Name</span> for the bean.</span> This is a logical name used by the server to locate an enterprise bean
