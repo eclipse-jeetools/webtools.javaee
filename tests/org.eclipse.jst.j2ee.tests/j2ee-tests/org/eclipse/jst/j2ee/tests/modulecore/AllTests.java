@@ -13,7 +13,6 @@ import junit.framework.TestSuite;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.flexible.project.fvtests.FindComponentTest;
 import org.eclipse.jst.j2ee.project.facet.tests.EjbProjectFacetCreationTest;
-import org.eclipse.jst.j2ee.project.facet.tests.ProjectFacetCreationTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
@@ -36,7 +35,7 @@ public class AllTests extends TestSuite {
         super("ModuleCore Tests");
         addTest(J2EEFlexibleProjectCreationOperationTest.suite());
         addTest(FindComponentTest.suite());
-        addTest(ProjectFacetCreationTest.suite());
+        //addTest(ProjectFacetCreationTest.suite());
         addTest(EjbProjectFacetCreationTest.suite());
     }
 	public static IRuntime createJONASRuntime() { 
