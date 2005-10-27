@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -110,6 +111,7 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER,
 				model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		ejbFacetInstallDataModel.setProperty(IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID));
 		
 		return ejbFacetInstallDataModel;
 	}
