@@ -116,6 +116,8 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
+			//			Set runtime
+			setRuntime(project,model);
 
 			// Associate with an EAR, if necessary.
 
@@ -169,7 +171,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME,
 				(String)aDM.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME));
 		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
-		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURC_FOLDER_NAME,
+		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME,
 				(String)aDM.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
 		}catch(Exception e){
 			Logger.getLogger().logError(e);
