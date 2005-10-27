@@ -67,6 +67,7 @@ public class ProjectFacetCreationTest extends TestCase {
 
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
 		//Setting the runtime
+		RuntimeManager.bridge();
 		try {
 		IRuntime runtime = RuntimeManager.getRuntime("org.eclipse.jst.server.tomcat");
 		facetProj.setRuntime(runtime,null);
