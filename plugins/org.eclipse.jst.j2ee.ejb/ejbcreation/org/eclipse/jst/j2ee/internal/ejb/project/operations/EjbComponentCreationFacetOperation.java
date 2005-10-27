@@ -59,7 +59,7 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
 		IStatus stat =  dm.getDefaultOperation().execute(monitor, info);
 
-		if( stat.isOK()){
+		if( stat.isOK() && model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR)){
 			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
 			IProject earProject = ProjectUtilities.getProject( earProjectName );
 			if (earProject != null && earProject.exists())
