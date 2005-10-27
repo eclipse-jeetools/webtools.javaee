@@ -177,7 +177,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 									tmpRuntimePath = tmpRuntimePath.removeLastSegments(1);
 									tmpSourcePath = tmpSourcePath.removeLastSegments(1);
 								}
-								if(tmpRuntimePath.segmentCount() != 0){
+								if (tmpRuntimePath.segmentCount() != 0) {
 									runtimePath = tmpRuntimePath;
 								}
 							}
@@ -188,7 +188,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					if (null == runtimePath) {
 						runtimePath = new Path(""); //$NON-NLS-1$
 					}
-					
+
 					aggregateOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
 				}
 			}
@@ -316,7 +316,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			if (res.getURI().toString().endsWith(IModuleConstants.COMPONENT_FILE_NAME))
 				resourcesToRemove.add(res);
 		}
-		resources.removeAll(resourcesToRemove);
+		if (null != resourcesToRemove) {
+			resources.removeAll(resourcesToRemove);
+		}
 
 		return resources;
 	}
