@@ -88,15 +88,8 @@ public class DefectVerificationTests extends OperationTestCase {
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=112636
 	 */
-	public void test112636a() throws Exception {
+	public void test112636() throws Exception {
 		checkDeploy("BeenThere.ear");
-	}
-
-	/**
-	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=112636
-	 */
-	public void test112636b() throws Exception {
-		checkDeploy("SPECj2004.ear");
 	}
 
 	/**
