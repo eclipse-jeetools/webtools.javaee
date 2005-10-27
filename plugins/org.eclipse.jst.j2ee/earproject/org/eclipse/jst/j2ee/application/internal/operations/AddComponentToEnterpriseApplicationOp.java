@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -49,16 +50,17 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						StructureEdit compse = null;
-						IVirtualComponent wc = (IVirtualComponent)list.get(i);
+						IVirtualComponent wc = (IVirtualComponent) list.get(i);
 						WorkbenchComponent earwc = se.getComponent();
 						try {
 							compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 							WorkbenchComponent refwc = compse.getComponent();
-							ReferencedComponent ref = se.findReferencedComponent(earwc,refwc);
-							Module mod = addModule(application, wc);
+							ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+							Module mod = addModule(application, wc, (String) map.get(wc));
 							ref.setDependentObject(mod);
 						} finally {
 							if (compse != null) {
@@ -94,29 +96,15 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return null;
 	}
 
-	protected Module addModule(Application application, IVirtualComponent wc) {
+	protected Module addModule(Application application, IVirtualComponent wc, String name) {
 		Application dd = application;
-		String name = wc.getName();
-		
-		if (J2EEProjectUtilities.isDynamicWebProject(wc.getProject())) {
-			name += ".war"; //$NON-NLS-1$
-		} else if (J2EEProjectUtilities.isEJBProject(wc.getProject())) {
-			name += ".jar"; //$NON-NLS-1$
-		} else if (J2EEProjectUtilities.isApplicationClientProject(wc.getProject())) {
-			name += ".jar"; //$NON-NLS-1$
-		} else if (J2EEProjectUtilities.isJCAProject(wc.getProject())) {
-			name += ".rar"; //$NON-NLS-1$
-		}
 		Module existingModule = dd.getFirstModule(name);
 
 		if (existingModule == null) {
 			existingModule = createNewModule(wc);
 			if (existingModule != null) {
-
 				existingModule.setUri(name);
 				if (existingModule instanceof WebModule) {
-
-
 					Properties props = wc.getMetaProperties();
 					String contextroot = ""; //$NON-NLS-1$
 					if ((props != null) && (props.containsKey(J2EEConstants.CONTEXTROOT)))
