@@ -26,7 +26,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
-import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -34,8 +33,6 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerUtil;
 
 public abstract class J2EEFacetInstallDelegate {
 
@@ -80,33 +77,5 @@ public abstract class J2EEFacetInstallDelegate {
         }
     }
 
-	protected void setRuntime(IProject proj, IDataModel model) throws CoreException {
-		String runtime = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID);
-		try {
-			if (runtime != null) {
-				IRuntime run = getRuntimeByID(runtime);
-				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = null;
-				try {
-					if (run != null)
-						facetRuntime = FacetUtil.getRuntime(run);
-				}
-				catch (IllegalArgumentException ex)
-				{}
-				if (facetRuntime != null)
-					ProjectFacetsManager.create(proj).setRuntime(facetRuntime, null);
-			}
-			} catch (IllegalArgumentException e) {
-			Logger.getLogger().logError(e);
-		}
-	}
 
-	protected IRuntime getRuntimeByID(String id) {
-		IRuntime[] targets = ServerUtil.getRuntimes("", "");
-		for (int i = 0; i < targets.length; i++) {
-			IRuntime target = targets[i];
-			if (id.equals(target.getId()))
-				return target;
-		}
-		return null;
-	}
 }

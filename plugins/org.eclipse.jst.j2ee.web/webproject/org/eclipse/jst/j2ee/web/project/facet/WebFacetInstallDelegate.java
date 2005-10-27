@@ -148,9 +148,6 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			final IPath cont = new Path(WEB_LIB_CONTAINER).append(project.getName());
 
 			addToClasspath(jproj, JavaCore.newContainerEntry(cont));
-			
-			//Set runtime
-			setRuntime(project,model);
 
 			// Associate with an EAR, if necessary.
 

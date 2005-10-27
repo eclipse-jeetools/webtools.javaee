@@ -89,8 +89,6 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				// TODO: Support the no runtime case.
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
-			//			Set runtime
-			setRuntime(project,model);
 
 			// Associate with an EAR, if necessary.
 

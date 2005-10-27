@@ -88,9 +88,6 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
-			//			Set runtime
-			setRuntime(project,model);
-
 			// Associate with an EAR, if necessary.
 
 			final String earProjectName = (String) model.getProperty(IJ2EEFacetInstallDataModelProperties.EAR_PROJECT_NAME);

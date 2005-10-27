@@ -13,14 +13,18 @@ import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
+import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.ServerUtil;
 
 public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperation {
 
@@ -33,11 +37,41 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 		// TODO Auto-generated method stub
 		return null;
 	}
+	protected void setRuntime(IDataModel newModel, IDataModel facetModel) {
+		String runtime = newModel.getStringProperty(IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID);
+		try {
+			if (runtime != null) {
+				IRuntime run = getRuntimeByID(runtime);
+				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = null;
+				try {
+					if (run != null)
+						facetRuntime = FacetUtil.getRuntime(run);
+				}
+				catch (IllegalArgumentException ex)
+				{}
+				if (facetRuntime != null) {
+					facetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME,facetRuntime);
+				}
+			}
+			} catch (IllegalArgumentException e) {
+			Logger.getLogger().logError(e);
+		}
+	}
+
+	protected IRuntime getRuntimeByID(String id) {
+		IRuntime[] targets = ServerUtil.getRuntimes("", "");
+		for (int i = 0; i < targets.length; i++) {
+			IRuntime target = targets[i];
+			if (id.equals(target.getId()))
+				return target;
+		}
+		return null;
+	}
 	
 	protected IDataModel setupJavaInstallAction() {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "5.0"); //$NON-NLS-1$
+		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
 		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
 		return dm;
 	}

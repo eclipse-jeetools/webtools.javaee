@@ -44,7 +44,9 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
 		List facetDMs = new ArrayList();
 		facetDMs.add(setupJavaInstallAction());
-		facetDMs.add(setupWebInstallAction());
+		IDataModel newModel = setupWebInstallAction();
+		facetDMs.add(newModel);
+		setRuntime(newModel,dm); //Setting runtime property
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
 		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
 		if( stat.isOK()){
