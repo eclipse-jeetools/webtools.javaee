@@ -64,7 +64,6 @@ public class DefectVerificationTests extends OperationTestCase {
 		String earFileName = getFullTestDataPath("EJBLocalAndRemoteRefEARWithClientJars.ear");
 		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
 		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
-		IVirtualComponent component = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
 		List moduleList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
 
 		List modulesNeeded = new ArrayList();
@@ -79,6 +78,7 @@ public class DefectVerificationTests extends OperationTestCase {
 			}
 		}
 		runAndVerify(model);
+		IVirtualComponent component = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
 		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
 		EARFile earFile = (EARFile) artifactEdit.asArchive(true);
 		earFile.getEJBReferences(true, false);
