@@ -4,6 +4,8 @@
 <html lang="en-us" xml:lang="en-us">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
 <!-- /*******************************************************************************
  * Copyright (c) 2000, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
@@ -14,37 +16,47 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/ -->
-<link rel="stylesheet" type="text/css" href="../org.eclipse.wst.doc.user/common.css" />
+<link rel="stylesheet" type="text/css" href="../../org.eclipse.wtp.doc.user/common.css" />
+
 <title>Enabling automatic code validation</title>
 </head>
 <body id="tjvalauto"><a name="tjvalauto"><!-- --></a>
-
 <h1 class="topictitle1">Enabling automatic code validation</h1>
 <div><p>If you want validation to occur automatically during an automatic
 incremental build that occurs as a result of a resource change, you can enable
 automatic code validation.</p>
-<div class="section"> <p>If automatic incremental builds are disabled, automatic code
-validation cannot be enabled.</p>
-<p>To enable automatic code validation:</p>
+<div class="section"> <p>You can enable automatic code validation for all projects in
+your workspace or for only the ones you select.</p>
+<p></p>
 </div>
-<ol><li class="stepexpand"><span>On the workbench menu bar, click <span class="menucascade"><span class="uicontrol">Window</span> &gt; <span class="uicontrol">Preferences</span></span>.</span></li>
-<li class="stepexpand"><span>In the left frame of the Preferences window, click <span class="menucascade"><span class="uicontrol">General</span> &gt; <span class="uicontrol">Workspace</span></span>.</span></li>
-<li class="stepexpand"><span>Select the <span class="uicontrol">Build automatically</span> check box.</span></li>
-<li class="stepexpand"><span>Click <span class="uicontrol">OK</span>.</span></li>
-<li class="stepexpand"><span>In the Project Explorer view, right-click your project and click <span class="uicontrol">Properties</span>.</span></li>
-<li class="stepexpand"><span>On the <span class="uicontrol">Validation</span> page, select the <span class="uicontrol">Override
-validation preferences</span> check box to override global preferences
-for this project.</span></li>
-<li class="stepexpand"><span>Ensure that the validators that you want to run are selected.</span></li>
-<li class="stepexpand"><span>Select the <span class="uicontrol">Run validation automatically when you save
-changes to <var class="varname">&lt;project_name&gt;</var> resources</span> check
-box. This check box is only enabled when both of the following conditions
-are met:</span> <ul><li>The <span class="uicontrol">Build automatically</span> check box is selected in
-the workbench Preferences dialog</li>
-<li>The selected project supports automatic validation</li>
-</ul>
+<ol><li><span>On the workbench menu bar, click <span class="menucascade"><span class="uicontrol">Window</span> &gt; <span class="uicontrol">Preferences</span></span>. The Preferences window opens.</span></li>
+<li><span>Click <span class="uicontrol">Validation</span> on the left pane of the
+window. This page lists validation options for your entire workspace.</span></li>
+<li><span>Select the <span class="uicontrol">Run validation automatically when you save
+changes to a resource</span> check box.</span></li>
+<li><span>If you want to allow individual projects to have different validation
+settings, select the <span class="uicontrol">Allow projects to override these preference
+settings</span> check box.</span></li>
+<li><span>Choose the validators that you want to use by selecting or clearing
+the check boxes next to the list of validators.</span></li>
+<li><span>Click <span class="uicontrol">OK</span>. Now, your projects will be validated
+automatically when they are changed.</span></li>
+<li><span>If you want to set different automatic validation
+settings for specific projects, follow these steps:</span><ol type="a"><li><span>In the Project Explorer view, right-click a project and click <span class="uicontrol">Properties</span>.
+The Properties window opens.</span></li>
+<li><span>Click <span class="uicontrol">Validation</span> on the left pane of
+the window. This page lists validation options for the project.</span></li>
+<li><span>On the Validation page, select the <span class="uicontrol">Override validation
+preferences</span> check box.</span></li>
+<li><span>If you want this project to be validated automatically when
+you make changes, select the <span class="uicontrol">Run validation automatically when
+you make changes to <var class="varname">project_name</var> resources</span> check
+box.</span></li>
+<li><span>Choose the validators that you want to use by selecting or clearing
+the check boxes next to the list of validators.</span></li>
+<li><span>Click <span class="uicontrol">OK</span>.</span></li>
+</ol>
 </li>
-<li class="stepexpand"><span>Click <span class="uicontrol">OK</span>.</span></li>
 </ol>
 <div class="section"> <p>If any errors are detected, an error or warning message is logged
 in the Problems view. These messages cannot be removed manually. Once the
@@ -69,6 +81,5 @@ all messages from that validator are removed.</p>
 <div><a href="../topics/tjvalmanual.html" title="When you run a manual validation, all resources in the selected project are validated with the validators that are selected on the Validation page of the project Properties dialog.">Manually validating code</a></div>
 <div><a href="../topics/tjvalselect.html" title="You can select specific validators to run for a project during manual and automatic code validation.">Selecting code validators</a></div>
 </div>
-</div>
-</body>
+</div></body>
 </html>

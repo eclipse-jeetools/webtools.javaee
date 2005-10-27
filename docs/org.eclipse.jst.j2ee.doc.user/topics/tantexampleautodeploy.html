@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../../org.eclipse.wtp.doc.user/common.css" />
+
+<title>Example: Automated Ant deploy</title>
+</head>
+<body id="tantexampleautodeploy"><a name="tantexampleautodeploy"><!-- --></a>
+<h1 class="topictitle1">Example: Automated Ant deploy</h1>
+<div><p>This example program shows a typical automated deployment using
+the WebSphere<sup>®</sup> Application
+Server Ant tasks.</p>
+<div class="p">This example requires a WebSphere Application Server (v50
+or v51 or v60) to be installed and operating on the same machine.</div>
+<div class="section">To run the automated Ant deploy example program:</div>
+<ol><li class="stepexpand"><span>Go to the com.ibm.etools.j2ee.ant directory under your workbench
+installation (for example, <samp class="codeph">x:/&lt;installdir&gt;/rwd/eclipse/plugins/com.ibm.etools.j2ee.ant_*</samp>).</span></li>
+<li class="stepexpand"><span>Unzip the <samp class="codeph">Example.zip</samp> file. This creates an Example
+directory with subdirectories, including an AdderDeploy folder.</span></li>
+<li class="stepexpand"><span>Edit the <samp class="codeph">TestDeploy.bat</samp> file in the AdderDeploy
+folder:</span><ul><li>Set the variables WASROOT and JACLWASROOT to point to a WebSphere Application
+Server on the same machine. Be careful when defining these variables, making
+sure that you use the correct syntax. One value requires back-slashes, while
+the other requires forward-slashes.</li>
+<li>Set the variables JACLbaseDir to be the current AdderDeploy directory.</li>
+</ul>
+</li>
+<li class="stepexpand"><span>Edit the file <samp class="codeph">dist\AdderEAR-piot.targets</samp> to specify
+what servers and/or clusters are to receive the deployed application:</span> <ul><li>Currently the testURL and TestResponse entries are processed but not actually
+used</li>
+</ul>
+</li>
+<li class="stepexpand"><span>Run <samp class="codeph">TestDeploy.bat</samp>.</span> The following must
+be running:<ul><li>The WebSphere cell
+Distribution Manager</li>
+<li>The target server/cluster NodeAgents</li>
+</ul>
+</li>
+</ol>
+<div class="section"><div class="important"><span class="importanttitle">Important:</span> This is an Example program only. Do not use
+it to deploy to production servers.</div>
+</div>
+</div>
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tjant.html">Working with Ant</a></div>
+</div>
+</div></body>
+</html>

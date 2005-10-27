@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../../org.eclipse.wtp.doc.user/common.css" />
+
+<title>Working with Ant</title>
+</head>
+<body id="tjant"><a name="tjant"><!-- --></a>
+<h1 class="topictitle1">Working with Ant</h1>
+<div><div class="section"> <p>Ant support is provided as a built-in feature of the workbench.
+If you right-click any XML file and select <span class="uicontrol">Run Ant</span> from
+the pop-up menu, the Execute Ant Script dialog shows the available Ant targets.
+You can check, in sequence, which ones are to be executed, and the execution
+sequence will be shown beside each target. You can also select <span class="uicontrol">Display
+execution log to Ant console</span>, which will cause any Ant messages
+to be displayed in the Ant Console view (<span class="uicontrol">Perspective</span><span class="uicontrol">Show
+View</span><span class="uicontrol">Other</span><span class="uicontrol">Ant</span><span class="uicontrol">Ant
+Console</span>).</p>
+<p>In addition, an Arguments field lets you pass
+arguments, such as <samp class="codeph">-verbose</samp>, to the Ant program. If the Ant
+script invokes the Ant <samp class="codeph">javac</samp> task, then a special <samp class="codeph">-Dbuild.compiler=org.eclipse.pde.internal.core.JDTCompilerAdapter</samp> argument must be passed or you will get a <samp class="codeph">Cannot use classic compiler</samp> error. </p>
+<p>If
+you use the the <samp class="codeph">deprecation="on"</samp> option for the <samp class="codeph">javac</samp> Ant
+task, WebSphere<sup>®</sup> Studio
+will crash. You should either specify nothing or use <tt>deprecation="off"</tt>.</p>
+</div>
+<ol><li class="stepexpand"><span>Create the following <samp class="codeph">echo.xml</samp> file inside any
+project in your workspace:</span> <pre>&lt;?xml version="1.0"?&gt;
+   &lt;project name="Echo" default="echo" basedir="."&gt;
+      &lt;target name="echo"&gt;
+         &lt;echo message="HELLO from echo"/&gt;
+      &lt;/target&gt;
+      &lt;target name="dir"&gt;
+         &lt;echo message="dir of ${basedir}:"/&gt;
+         &lt;exec dir="${basedir}" executable="cmd.exe"&gt;
+            &lt;arg line="/c dir"/&gt;
+         &lt;/exec&gt;
+      &lt;/target&gt;
+   &lt;/project&gt;</pre>
+</li>
+<li class="stepexpand"><span>Right-click <samp class="codeph">echo.xml</samp> and select <span class="uicontrol">Run
+Ant</span>.</span></li>
+<li class="stepexpand"><span>The Run Ant dialog shows that you have two targets, echo and dir,
+and that echo[1] is the default target that will be executed. If you also
+select dir, it will change to dir[2] and it will be run as the second target.
+Ensure that <span class="uicontrol">Display execution log to Ant console</span> is
+checked and click <span class="uicontrol">Finish</span>. The script will then be run.</span>  The results are displayed in the Ant Console.</li>
+<li class="stepexpand"><span>Right-click <samp class="codeph">echo.xml</samp> and select <span class="uicontrol">Run
+Ant</span> to run it again. This time enter <tt>-verbose</tt> in the
+arguments entry field, then click <span class="uicontrol">Finish</span>.</span></li>
+</ol>
+<div class="example">Try editing your <samp class="codeph">echo.xml</samp> file to include the following <samp class="codeph">bad</samp> target
+with a nonexistent task <samp class="codeph">propertyBad</samp>:<pre>&lt;target name="bad"&gt;
+   &lt;propertyBAD name="MyName" value="MyValue"/&gt;
+&lt;/target&gt;</pre>
+<p>Right-click <samp class="codeph">echo.xml</samp> and select <span class="uicontrol">Run
+Ant</span> to run it again. Select <span class="uicontrol">bad</span> as your
+target and click <span class="uicontrol">Finish</span>. You will receive the following
+error message, listed twice: "Could not create task of type: <samp class="codeph">propertyBad</samp>"
+in the Problems view. You can partly fix this by changing <samp class="codeph">propertyBad</samp> to
+property, and then saving <samp class="codeph">echo.xml</samp>. The errors in the Task
+view will remain, because the errors are Ant runtime errors. If you run Ant
+again, the error messages will disappear.</p>
+</div>
+</div>
+<div>
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="../topics/cjant.html">Ant support</a></strong><br />
+This topic provides an overview of the Ant support provided in
+the workbench.</li>
+<li class="ulchildlink"><strong><a href="../topics/tanthome.html">Extended Ant Support - overview</a></strong><br />
+You can use the Run ANT option to check your build environment
+or use the command line batch file provided for repetitive builds.</li>
+<li class="ulchildlink"><strong><a href="../topics/tjantheadless.html">Running Ant in a headless workspace</a></strong><br />
+You can use Ant to run a workbench with no interface and run specified
+Ant scripts.</li>
+<li class="ulchildlink"><strong><a href="../topics/tjantupgrade.html">Upgrading Ant</a></strong><br />
+Ant 1.6.1 is provided with this product. If you need
+functionality from a different version of Ant, you can download and install
+an updated version.</li>
+<li class="ulchildlink"><strong><a href="../topics/ph-antgeneral.html">General Ant tasks</a></strong><br />
+</li>
+<li class="ulchildlink"><strong><a href="../topics/ph-antj2ee.html">Ant tasks for J2EE</a></strong><br />
+</li>
+<li class="ulchildlink"><strong><a href="../topics/ph-antejb.html">Ant tasks for EJB-enabled tools</a></strong><br />
+</li>
+<li class="ulchildlink"><strong><a href="../topics/tantexampleautobuild.html">Example: Automated Ant build</a></strong><br />
+This example program shows a typical automated build using the
+workbench Ant tasks.</li>
+<li class="ulchildlink"><strong><a href="../topics/tantexampleautodeploy.html">Example: Automated Ant deploy</a></strong><br />
+This example program shows a typical automated deployment using
+the WebSphere Application
+Server Ant tasks.</li>
+</ul>
+</div></body>
+</html>

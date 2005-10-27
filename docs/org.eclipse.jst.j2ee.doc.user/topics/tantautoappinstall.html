@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../../org.eclipse.wtp.doc.user/common.css" />
+
+<title>autoAppInstall</title>
+</head>
+<body id="tantautoappinstall"><a name="tantautoappinstall"><!-- --></a>
+<h1 class="topictitle1">autoAppInstall</h1>
+<div><p>This task uses the WebSphere<sup>®</sup> Rapid Deploy feature to
+install an application.</p>
+<div class="section"><p><span class="uicontrol">Parameters</span></p>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" frame="border" border="1" rules="all"><thead align="left"><tr><th valign="top" width="21.052631578947366%" id="d0e23">Attribute</th>
+<th valign="top" width="56.84210526315789%" id="d0e25">Description</th>
+<th align="left" valign="top" width="22.105263157894736%" id="d0e27">Required</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" width="21.052631578947366%" headers="d0e23 ">Files</td>
+<td valign="top" width="56.84210526315789%" headers="d0e25 ">The application file to be installed</td>
+<td align="left" valign="top" width="22.105263157894736%" headers="d0e27 ">Yes</td>
+</tr>
+<tr><td valign="top" width="21.052631578947366%" headers="d0e23 ">ConfigData</td>
+<td valign="top" width="56.84210526315789%" headers="d0e25 ">An optional configuration file</td>
+<td align="left" valign="top" width="22.105263157894736%" headers="d0e27 ">No</td>
+</tr>
+<tr><td valign="top" width="21.052631578947366%" headers="d0e23 ">ProjectName</td>
+<td valign="top" width="56.84210526315789%" headers="d0e25 ">The name of the Eclipse project to create</td>
+<td align="left" valign="top" width="22.105263157894736%" headers="d0e27 ">No, default is <em>AutoAppInstall</em></td>
+</tr>
+<tr><td valign="top" width="21.052631578947366%" headers="d0e23 ">PropertyErrorCount</td>
+<td valign="top" width="56.84210526315789%" headers="d0e25 ">Property to receive the project error count</td>
+<td align="left" valign="top" width="22.105263157894736%" headers="d0e27 ">No, default is <em>ProjectErrorCount</em></td>
+</tr>
+<tr><td valign="top" width="21.052631578947366%" headers="d0e23 ">PropertyErrorMessages</td>
+<td valign="top" width="56.84210526315789%" headers="d0e25 ">Property to receive the project error messages</td>
+<td align="left" valign="top" width="22.105263157894736%" headers="d0e27 ">No, default is <em>ProjectErrorMessages</em></td>
+</tr>
+<tr><td valign="top" width="21.052631578947366%" headers="d0e23 ">ConsoleOutput</td>
+<td valign="top" width="56.84210526315789%" headers="d0e25 ">Whether or not to output extra progress messages to
+the console log</td>
+<td align="left" valign="top" width="22.105263157894736%" headers="d0e27 ">No, default is <em>false</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="uicontrol">Examples</span></p>
+<ul><li>Install the MyTest application using a configuration file:<pre>&lt;autoAppInstall 
+	Files="X:/MyPath/MyTest.jsp" 
+	ConfigData="MyConfigData.xml" 
+	ConsoleOutput="true" /&gt;
+&lt;echo message="compiler problem.unusedImport=${unusedImport}" /&gt;</pre>
+</li>
+<li>An optional <samp class="codeph">configData.xml</samp> file:<pre>&lt;?xml version="1.0" encoding="ASCII"?&gt;
+&lt;com.ibm.ws.rd.headlessmodel:HeadlessConfiguration 
+	xmlns:com.ibm.ws.rd.headlessmodel="http:///com/ibm/ws/rd/headlessmodel.ecore"&gt;
+	&lt;project name="AutoAppInstall" 
+		workspaceLocation="X:\MyWorkspace" 
+		styleID="Auto Application Install"&gt;
+	&lt;targetServer serverName="server1" 
+		serverJMXHost="localhost" 
+		serverJMXPort="8880" 
+		watchInterval="5"/&gt;
+	&lt;/project&gt;
+&lt;/com.ibm.ws.rd.headlessmodel:HeadlessConfiguration&gt;</pre>
+</li>
+</ul>
+ </div>
+</div>
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ph-antj2ee.html" title="">Ant tasks for J2EE</a></div>
+</div>
+<div class="reltasks"><strong>Related tasks</strong><br />
+<div><a href="../topics/tantappc.html" title="This task performs the same operation as the Application Client export wizard for exporting an Application Client Project to an Application Client JAR file.">AppClientExport</a></div>
+<div><a href="../topics/tanteare.html" title="This task performs the same operation as the EAR file export wizard for exporting an Enterprise Application Project to an EAR file.">EARExport</a></div>
+<div><a href="../topics/tantutil.html" title="(DEPRECATED) This task compresses source and/or build output of a Java project into a JAR file and places the JAR file in an Enterprise Application Project.">UtilJar</a></div>
+<div><a href="../topics/tantware.html" title="This task performs the same operation as the WAR file export wizard for exporting a Web Project to a WAR file.">WARExport</a></div>
+</div>
+</div></body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS  TYPE="org.eclipse.help.toc"?>
+<toc label="Ant" topic="topics/tjant.html">
+   <topic label="Working with Ant" href="topics/tjant.html">
+      <topic label="Ant support" href="topics/cjant.html"/>
+      <topic label="Extended Ant Support - overview" href="topics/tanthome.html"/>
+      <topic label="Running Ant in a headless workspace" href="topics/tjantheadless.html"/>
+      <topic label="Upgrading Ant" href="topics/tjantupgrade.html"/>
+      <topic label="General Ant tasks" href="topics/ph-antgeneral.html">
+         <topic label="captureBuildMessages" href="topics/tantcapturebuildmessages.html"/>
+         <topic label="compileWorkspace" href="topics/tantcompilew.html"/>
+         <topic label="getJavacErrorCount" href="topics/tantgetj.html"/>
+         <topic label="getProjectData" href="topics/tantgetp.html"/>
+         <topic label="projectBuild" href="topics/tantproj.html"/>
+         <topic label="projectGetErrors" href="topics/tantprojectgeterrors.html"/>
+         <topic label="projectImport" href="topics/tantprojectimport.html"/>
+         <topic label="projectSetBuild" href="topics/tantprojectsetbuild.html"/>
+         <topic label="projectSetImport" href="topics/tantprojectsetimport.html"/>
+         <topic label="setDebugInfo" href="topics/tantsetd.html"/>
+         <topic label="workspaceBuild" href="topics/tantworkspacebuild.html"/>
+         <topic label="workspaceGetErrors" href="topics/tantworkspacegeterrors.html"/>
+         <topic label="workspacePreferenceFile" href="topics/tantworkspacepreferencefile.html"/>
+         <topic label="workspacePreferenceGet" href="topics/tantworkspacepreferenceget.html"/>
+         <topic label="workspacePreferenceSet" href="topics/tantworkspacepreferenceset.html"/>
+      </topic>
+      <topic label="Ant tasks for J2EE" href="topics/ph-antj2ee.html">
+         <topic label="autoAppInstall" href="topics/tantautoappinstall.html"/>
+         <topic label="AppClientExport" href="topics/tantappc.html"/>
+         <topic label="EARExport" href="topics/tanteare.html"/>
+         <topic label="UtilJar" href="topics/tantutil.html"/>
+         <topic label="WARExport" href="topics/tantware.html"/>
+      </topic>
+      <topic label="Ant tasks for EJB-enabled tools" href="topics/ph-antejb.html">
+         <topic label="AccessBeanRegeneration" href="topics/tantaxbn.html"/>
+         <topic label="EJBDeploy" href="topics/tantejbd.html"/>
+         <topic label="EJBExport" href="topics/tantejbe.html"/>
+      </topic>
+      <topic label="Example: Automated Ant build" href="topics/tantexampleautobuild.html"/>
+      <topic label="Example: Automated Ant deploy" href="topics/tantexampleautodeploy.html"/>
+   </topic>
+</toc>

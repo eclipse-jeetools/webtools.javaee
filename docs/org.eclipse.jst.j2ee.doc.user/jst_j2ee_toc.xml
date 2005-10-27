@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?NLS TYPE="org.eclipse.help.toc"?>
-<!-- /*******************************************************************************
- * Copyright (c) 2000, 2005 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/ -->
-<toc label="J2EE applications - open source" topic="topics/cjarch.html">
-   <topic label="J2EE applications">
+<?NLS  TYPE="org.eclipse.help.toc"?>
+<toc label="J2EE applications - open source" topic="topics/ph-j2eeapp.html">
+   <topic label="J2EE Applications" href="topics/ph-j2eeapp.html">
       <topic label="J2EE architecture" href="topics/cjarch.html"/>
       <topic label="J2EE perspective" href="topics/cjpers.html"/>
       <topic label="Project Explorer view in the J2EE perspective" href="topics/cjview.html"/>
@@ -22,14 +12,15 @@
          <topic label="Creating an application client project" href="topics/tjappproj.html"/>
          <topic label="Creating a connector project" href="topics/tjrar.html"/>
          <topic label="Specifying target servers for J2EE projects" href="topics/tjtargetserver.html"/>
-         <topic label="Importing J2EE projects and files" href="topics/ph-importexport.html">
+         <topic label="Importing and exporting projects and files" href="topics/ph-importexport.html">
             <topic label="Exporting an application client project" href="topics/tjexpapp.html"/>
             <topic label="Exporting an enterprise application into an EAR file" href="topics/tjexpear.html"/>
+            <topic label="Exporting connector projects to RAR files" href="topics/tjexprar.html"/>
             <topic label="Importing an enterprise application EAR file" href="topics/tjimpear.html"/>
             <topic label="Importing an application client JAR file" href="topics/tjimpapp.html"/>
+            <topic label="Importing a connector project RAR file" href="topics/tjimprar.html"/>
             <topic label="Cyclical dependencies between J2EE modules" href="topics/cjcircle.html"/>
             <topic label="Correcting cyclical dependencies after an EAR is imported" href="topics/tjcircleb.html"/>
-            
          </topic>
       </topic>
       <topic label="Validating code in enterprise applications" href="topics/tjval.html">
@@ -42,10 +33,11 @@
          <topic label="Manually validating code" href="topics/tjvalmanual.html"/>
          <topic label="Selecting code validators" href="topics/tjvalselect.html"/>
       </topic>
+      <link toc="jst_j2ee_ant.xml"/>
       <topic label="Reference" href="topics/ph-ref.html">
          <topic label="J2EE Validators" href="topics/rvalidators.html"/>
          <topic label="Common validation errors and solutions" href="topics/rvalerr.html"/>
-		 <topic label="Limitations of J2EE development tools" href="topics/rjlimitcurrent.html"/>
+         <topic label="Limitations of J2EE development tools" href="topics/rjlimitcurrent.html"/>
       </topic>
    </topic>
 </toc>

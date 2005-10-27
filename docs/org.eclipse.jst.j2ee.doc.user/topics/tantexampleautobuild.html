@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../../org.eclipse.wtp.doc.user/common.css" />
+
+<title>Example: Automated Ant build</title>
+</head>
+<body id="tantexampleautobuild"><a name="tantexampleautobuild"><!-- --></a>
+<h1 class="topictitle1">Example: Automated Ant build</h1>
+<div><p>This example program shows a typical automated build using the
+workbench Ant tasks.</p>
+<div class="section">To run the automated Ant build example:</div>
+<ol><li class="stepexpand"><span>Go to the com.ibm.etools.j2ee.ant directory under your workbench
+installation (for example, <samp class="codeph">x:/&lt;installdir&gt;/rwd/eclipse/plugins/com.ibm.etools.j2ee.ant_*</samp>).</span></li>
+<li class="stepexpand"><span>Edit the <samp class="codeph">runAnt.bat</samp> (or <samp class="codeph">runAnt.sh</samp>)
+program to set your WORKSPACE variable.</span></li>
+<li class="stepexpand"><span>Unzip the <samp class="codeph">Example.zip</samp> file. This creates an Example
+directory with subdirectories.</span></li>
+<li class="stepexpand"><span>Edit the file <samp class="codeph">buildExample.preferences</samp> to set
+the variable WAS_60_INSTALLDIR. </span> <ul><li>Do not change the variable name.</li>
+<li>The variable must point to a WebSphere<sup>®</sup> Application Server installation.</li>
+</ul>
+</li>
+<li class="stepexpand"><span>Run <samp class="codeph">buildExample.bat</samp> (or <samp class="codeph">buildExample.sh</samp>). </span> <ul><li>Sample projects are imported and built (AdderJava, AdderWAR, AdderEJB,
+AdderEAR)</li>
+<li>AdderEAR.ear is created as the output result</li>
+</ul>
+</li>
+</ol>
+<div class="section"><div class="important"><span class="importanttitle">Important:</span> This is an Example program only. Do not use
+it to build production applications.</div>
+</div>
+</div>
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tjant.html">Working with Ant</a></div>
+</div>
+</div></body>
+</html>

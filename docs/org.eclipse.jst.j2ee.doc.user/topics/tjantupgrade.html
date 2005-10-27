@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<link rel="stylesheet" type="text/css" href="../../org.eclipse.wtp.doc.user/common.css" />
+
+<title>Upgrading Ant</title>
+</head>
+<body id="tjantupdgrade"><a name="tjantupdgrade"><!-- --></a>
+<h1 class="topictitle1">Upgrading Ant</h1>
+<div><p>Ant 1.6.1 is provided with this product. If you need
+functionality from a different version of Ant, you can download and install
+an updated version.</p>
+<div class="section"> <div class="cautiontitle">CAUTION:</div><div class="caution">If you change your Ant version, you have changed
+your installation of the workbench, and it will no longer be a supported environment.
+Although everything should still work as before, unexpected results may occur.
+If you are familiar with developing plug-ins and understand how they are used
+during startup, you can create a new plug-in directory with a higher version
+number and a higher version number in its <samp class="codeph">plugin.xml</samp>, and
+you can leave the existing directory as is.</div>
+</div>
+<ol><li><span>Go to the <a href="http://jakarta.apache.org/site/binindex.html" target="_blank">Jakarta Apache</a> Web site and download
+the Ant binary distribution that you want.</span></li>
+<li><span>In the <samp class="codeph">org.eclipse.ant.core</samp> plugin directory (underneath
+where you installed the workbench), rename the existing Ant JAR files and
+drop in your new JAR files. If any JAR has a different name edit the <samp class="codeph">plugin.xml</samp> file
+in <samp class="codeph">org.eclipse.ant.core</samp> accordingly.</span></li>
+<li><span>Restart the workbench and your new version of Ant will be active.</span></li>
+</ol>
+</div>
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tjant.html">Working with Ant</a></div>
+</div>
+</div></body>
+</html>
