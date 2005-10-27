@@ -116,9 +116,6 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
-			//			Set runtime
-			setRuntime(project,model);
-
 			// Associate with an EAR, if necessary.
 
 			final String earProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME);
