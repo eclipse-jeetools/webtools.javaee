@@ -87,7 +87,8 @@ public abstract class J2EEFacetInstallDelegate {
 				IRuntime run = getRuntimeByID(runtime);
 				org.eclipse.wst.common.project.facet.core.runtime.IRuntime facetRuntime = null;
 				try {
-					facetRuntime = FacetUtil.getRuntime(run);
+					if (run != null)
+						facetRuntime = FacetUtil.getRuntime(run);
 				}
 				catch (IllegalArgumentException ex)
 				{}
