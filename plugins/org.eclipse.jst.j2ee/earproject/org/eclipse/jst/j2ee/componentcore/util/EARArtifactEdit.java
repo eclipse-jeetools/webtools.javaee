@@ -502,11 +502,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	private IVirtualReference[] getComponentReferences(List componentTypes) {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = getComponent();
-		if (J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
+		if (earComponent != null && J2EEProjectUtilities.isEARProject(earComponent.getProject())) {
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
-				if (module.getProject() == null || !module.getProject().isAccessible())
+				if (module == null || module.getProject() == null || !module.getProject().isAccessible())
 					continue;
 				//if component types passed in is null then return all components
 				if (componentTypes == null || componentTypes.size()==0)
