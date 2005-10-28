@@ -54,7 +54,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     	createSimpleModule(DEFAULT_COMPONENT_NAME + componentSeed);
     	IProject project = ProjectUtilities.getProject(DEFAULT_COMPONENT_NAME + componentSeed);
     	IVirtualComponent component = ComponentCore.createComponent(project);
-    	if (!J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+    	if (!J2EEProjectUtilities.isDynamicWebProject(component.getProject()) || !J2EEProjectUtilities.isApplicationClientProject(component.getProject())) {
     		IContainer[] ouputContainers = ComponentUtilities.getOutputContainers(component);
     		assertNotNull(ouputContainers[0]);
     	}
