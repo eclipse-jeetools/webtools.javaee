@@ -11,7 +11,6 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.flexible.project.fvtests.FindComponentTest;
 import org.eclipse.jst.j2ee.project.facet.tests.EjbProjectFacetCreationTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -34,7 +33,6 @@ public class AllTests extends TestSuite {
     public AllTests(){
         super("ModuleCore Tests");
         addTest(J2EEFlexibleProjectCreationOperationTest.suite());
-        addTest(FindComponentTest.suite());
         //addTest(ProjectFacetCreationTest.suite());
         addTest(EjbProjectFacetCreationTest.suite());
     }
