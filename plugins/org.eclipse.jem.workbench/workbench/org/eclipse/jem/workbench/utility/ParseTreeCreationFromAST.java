@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.16 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.17 $  $Date: 2005/10/28 22:56:44 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -297,25 +297,29 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.ClassInstanceCreation)
 	 */
 	public boolean visit(ClassInstanceCreation node) {
-		if (node.getAnonymousClassDeclaration() != null) { throw new InvalidExpressionException(WorkbenchUtilityMessages.ParseTreeCreationFromAST_CannotProcessAnonymousDeclarations_EXC_); //$NON-NLS-1$
+		if (node.getAnonymousClassDeclaration() != null) { 
+			PTAnonymousClassDeclaration adecl = InstantiationFactory.eINSTANCE.createPTAnonymousClassDeclaration();
+			adecl.setDeclaration(node.toString());
+			expression = adecl;
+		} else {
+			PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
+			// If ast level = 2, then you must use getName, but the name needs to be turned into a type
+			// so that it can be resolved. If ast level > 2, then it will return a type to be resolved.
+			// Note: can't just use resolve name on the name because if a field and a class were spelled
+			// the same then the codegen resolver would return an instance ref to the field instead.
+			String type = node.getAST().apiLevel() == AST.JLS2 ? resolver.resolveType(node.getName()) : resolver.resolveType(node.getType());
+			if (type == null) {
+				type = node.getAST().apiLevel() == AST.JLS2 ? node.getName().getFullyQualifiedName() : node.getType().toString();
+			}
+			cic.setType(type);
+			List args = cic.getArguments();
+			List nargs = node.arguments();
+			int nsize = nargs.size();
+			for (int i = 0; i < nsize; i++) {
+				args.add(perform((Expression) nargs.get(i)));
+			}
+			expression = cic;
 		}
-		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
-		// If ast level = 2, then you must use getName, but the name needs to be turned into a type
-		// so that it can be resolved. If ast level > 2, then it will return a type to be resolved.
-		// Note: can't just use resolve name on the name because if a field and a class were spelled
-		// the same then the codegen resolver would return an instance ref to the field instead.
-		String type = node.getAST().apiLevel() == AST.JLS2 ? resolver.resolveType(node.getName()) : resolver.resolveType(node.getType());
-		if (type == null) {
-			type = node.getAST().apiLevel() == AST.JLS2 ? node.getName().getFullyQualifiedName() : node.getType().toString();
-		}
-		cic.setType(type);
-		List args = cic.getArguments();
-		List nargs = node.arguments();
-		int nsize = nargs.size();
-		for (int i = 0; i < nsize; i++) {
-			args.add(perform((Expression) nargs.get(i)));
-		}
-		expression = cic;
 		return false;
 
 	}

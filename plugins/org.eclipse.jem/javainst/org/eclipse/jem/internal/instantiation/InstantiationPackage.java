@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: InstantiationPackage.java,v $
- *  $Revision: 1.11 $  $Date: 2005/10/03 19:20:41 $ 
+ *  $Revision: 1.12 $  $Date: 2005/10/28 22:56:46 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -1014,6 +1014,43 @@ public interface InstantiationPackage extends EPackage{
 	int PT_INSTANCE_REFERENCE_FEATURE_COUNT = PT_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jem.internal.instantiation.impl.PTAnonymousClassDeclarationImpl <em>PT Anonymous Class Declaration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jem.internal.instantiation.impl.PTAnonymousClassDeclarationImpl
+	 * @see org.eclipse.jem.internal.instantiation.impl.InstantiationPackageImpl#getPTAnonymousClassDeclaration()
+	 * @generated
+	 */
+	int PT_ANONYMOUS_CLASS_DECLARATION = 30;
+
+	/**
+	 * The feature id for the '<em><b>Declaration</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PT_ANONYMOUS_CLASS_DECLARATION__DECLARATION = PT_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Imports</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PT_ANONYMOUS_CLASS_DECLARATION__IMPORTS = PT_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the the '<em>PT Anonymous Class Declaration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PT_ANONYMOUS_CLASS_DECLARATION_FEATURE_COUNT = PT_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.instantiation.PTInfixOperator <em>PT Infix Operator</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1021,7 +1058,7 @@ public interface InstantiationPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.instantiation.impl.InstantiationPackageImpl#getPTInfixOperator()
 	 * @generated
 	 */
-	int PT_INFIX_OPERATOR = 30;
+	int PT_INFIX_OPERATOR = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.instantiation.PTPrefixOperator <em>PT Prefix Operator</em>}' enum.
@@ -1031,7 +1068,7 @@ public interface InstantiationPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.instantiation.impl.InstantiationPackageImpl#getPTPrefixOperator()
 	 * @generated
 	 */
-	int PT_PREFIX_OPERATOR = 31;
+	int PT_PREFIX_OPERATOR = 32;
 
 
 	/**
@@ -1765,6 +1802,38 @@ public interface InstantiationPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getPTInstanceReference_Reference();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration <em>PT Anonymous Class Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PT Anonymous Class Declaration</em>'.
+	 * @see org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration
+	 * @generated
+	 */
+	EClass getPTAnonymousClassDeclaration();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration#getDeclaration <em>Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Declaration</em>'.
+	 * @see org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration#getDeclaration()
+	 * @see #getPTAnonymousClassDeclaration()
+	 * @generated
+	 */
+	EAttribute getPTAnonymousClassDeclaration_Declaration();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration#getImports <em>Imports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Imports</em>'.
+	 * @see org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration#getImports()
+	 * @see #getPTAnonymousClassDeclaration()
+	 * @generated
+	 */
+	EAttribute getPTAnonymousClassDeclaration_Imports();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jem.internal.instantiation.PTInfixOperator <em>PT Infix Operator</em>}'.

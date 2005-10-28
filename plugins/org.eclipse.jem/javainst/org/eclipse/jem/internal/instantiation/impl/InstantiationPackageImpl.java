@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.12 $  $Date: 2005/10/03 19:20:41 $ 
+ *  $Revision: 1.13 $  $Date: 2005/10/28 22:56:46 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -46,6 +46,7 @@ import org.eclipse.jem.internal.instantiation.InstantiationPackage;
 import org.eclipse.jem.internal.instantiation.PTInvalidExpression;
 import org.eclipse.jem.internal.instantiation.JavaAllocation;
 
+import org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration;
 import org.eclipse.jem.internal.instantiation.PTMethodInvocation;
 import org.eclipse.jem.internal.instantiation.PTName;
 import org.eclipse.jem.internal.instantiation.PTNullLiteral;
@@ -272,6 +273,13 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * @generated
 	 */
 	private EClass ptInstanceReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass ptAnonymousClassDeclarationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -991,6 +999,33 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPTAnonymousClassDeclaration() {
+		return ptAnonymousClassDeclarationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPTAnonymousClassDeclaration_Declaration() {
+		return (EAttribute)ptAnonymousClassDeclarationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPTAnonymousClassDeclaration_Imports() {
+		return (EAttribute)ptAnonymousClassDeclarationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getPTInfixOperator() {
 		return ptInfixOperatorEEnum;
 	}
@@ -1151,6 +1186,10 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		ptInstanceReferenceEClass = createEClass(PT_INSTANCE_REFERENCE);
 		createEReference(ptInstanceReferenceEClass, PT_INSTANCE_REFERENCE__REFERENCE);
 
+		ptAnonymousClassDeclarationEClass = createEClass(PT_ANONYMOUS_CLASS_DECLARATION);
+		createEAttribute(ptAnonymousClassDeclarationEClass, PT_ANONYMOUS_CLASS_DECLARATION__DECLARATION);
+		createEAttribute(ptAnonymousClassDeclarationEClass, PT_ANONYMOUS_CLASS_DECLARATION__IMPORTS);
+
 		// Create enums
 		ptInfixOperatorEEnum = createEEnum(PT_INFIX_OPERATOR);
 		ptPrefixOperatorEEnum = createEEnum(PT_PREFIX_OPERATOR);
@@ -1210,6 +1249,7 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		ptTypeLiteralEClass.getESuperTypes().add(this.getPTExpression());
 		ptInvalidExpressionEClass.getESuperTypes().add(this.getPTExpression());
 		ptInstanceReferenceEClass.getESuperTypes().add(this.getPTExpression());
+		ptAnonymousClassDeclarationEClass.getESuperTypes().add(this.getPTExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(iJavaDataTypeInstanceEClass, IJavaDataTypeInstance.class, "IJavaDataTypeInstance", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1312,6 +1352,10 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 
 		initEClass(ptInstanceReferenceEClass, PTInstanceReference.class, "PTInstanceReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPTInstanceReference_Reference(), this.getIJavaInstance(), null, "reference", null, 1, 1, PTInstanceReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(ptAnonymousClassDeclarationEClass, PTAnonymousClassDeclaration.class, "PTAnonymousClassDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPTAnonymousClassDeclaration_Declaration(), ecorePackage.getEString(), "declaration", null, 0, 1, PTAnonymousClassDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPTAnonymousClassDeclaration_Imports(), ecorePackage.getEString(), "imports", null, 0, -1, PTAnonymousClassDeclaration.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(ptInfixOperatorEEnum, PTInfixOperator.class, "PTInfixOperator");

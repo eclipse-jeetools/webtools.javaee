@@ -479,4 +479,20 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
         eType="#//IJavaInstance"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PTAnonymousClassDeclaration" eSuperTypes="#//PTExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="An anonymous class declaration. Currently we only store the &#xD;&#xA;entire declaration as a string, including the &quot;new AClass() {...}&quot;."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="declaration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The declaration text."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imports" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" transient="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This is the imports needed in the main class by this declaration. This is a transient attribute. It is not serialized, nor is it parsed into from existing code. Its only purpose is to help code generation on a brand new declaration to know what imports should be added to the main class."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
 </ecore:EPackage>

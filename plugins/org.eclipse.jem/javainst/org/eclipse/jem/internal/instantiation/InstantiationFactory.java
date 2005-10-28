@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation;
 /*
  *  $RCSfile: InstantiationFactory.java,v $
- *  $Revision: 1.9 $  $Date: 2005/10/03 19:20:41 $ 
+ *  $Revision: 1.10 $  $Date: 2005/10/28 22:56:46 $ 
  */
 
 import org.eclipse.emf.ecore.EFactory;
@@ -458,6 +458,15 @@ public interface InstantiationFactory extends EFactory{
 	 * @generated
 	 */
 	PTInstanceReference createPTInstanceReference();
+
+	/**
+	 * Returns a new object of class '<em>PT Anonymous Class Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Anonymous Class Declaration</em>'.
+	 * @generated
+	 */
+	PTAnonymousClassDeclaration createPTAnonymousClassDeclaration();
 
 	/**
 	 * Utility to create a new PTInstanceReference with a reference.

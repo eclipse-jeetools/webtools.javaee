@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.10 $  $Date: 2005/10/28 22:56:46 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
@@ -18,8 +18,6 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import org.eclipse.jem.internal.instantiation.*;
-import org.eclipse.jem.internal.instantiation.PTArrayAccess;
-import org.eclipse.jem.internal.instantiation.ParseVisitor;
  
 /**
  * This naively flattens the ParseTree. It just works with what's there.
@@ -51,6 +49,14 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public void reset() {
 		buffer.setLength(0);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration)
+	 */
+	public boolean visit(PTAnonymousClassDeclaration node) {
+		buffer.append(node.getDeclaration());
+		return false;
 	}
 
 	/* (non-Javadoc)

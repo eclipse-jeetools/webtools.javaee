@@ -21,6 +21,7 @@ public final class InstantiationBaseMessages extends NLS {
 	}
 
 	public static String ParseTreeAllocationInstantiationVisitor_CurrentlyThisNotSupported_EXC_;
+	public static String ParseTreeAllocationInstantiationVisitor_CannotProcessAnonymousDeclarations_EXC_;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, InstantiationBaseMessages.class);

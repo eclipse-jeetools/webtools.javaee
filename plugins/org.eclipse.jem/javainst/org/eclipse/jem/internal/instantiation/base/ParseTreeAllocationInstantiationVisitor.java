@@ -10,10 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:20:24 $ 
+ *  $Revision: 1.9 $  $Date: 2005/10/28 22:56:46 $ 
  */
 package org.eclipse.jem.internal.instantiation.base;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.eclipse.jem.internal.instantiation.*;
@@ -239,6 +240,13 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 	 */
 	protected final ForExpression getNextExpression() {
 		return nextExpression;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTAnonymousClassDeclaration)
+	 */
+	public boolean visit(PTAnonymousClassDeclaration node) {
+		throw new IllegalArgumentException(MessageFormat.format(InstantiationBaseMessages.ParseTreeAllocationInstantiationVisitor_CannotProcessAnonymousDeclarations_EXC_, new Object[] {node.getDeclaration()}));
 	}
 
 	/* (non-Javadoc)

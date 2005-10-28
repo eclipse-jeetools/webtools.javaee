@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2005/10/03 19:20:41 $ 
+ *  $Revision: 1.12 $  $Date: 2005/10/28 22:56:46 $ 
  */
 
 import org.eclipse.emf.ecore.EClass;
@@ -75,6 +75,7 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 			case InstantiationPackage.PT_TYPE_LITERAL: return createPTTypeLiteral();
 			case InstantiationPackage.PT_INVALID_EXPRESSION: return createPTInvalidExpression();
 			case InstantiationPackage.PT_INSTANCE_REFERENCE: return createPTInstanceReference();
+			case InstantiationPackage.PT_ANONYMOUS_CLASS_DECLARATION: return createPTAnonymousClassDeclaration();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -366,6 +367,16 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	public PTInstanceReference createPTInstanceReference() {
 		PTInstanceReferenceImpl ptInstanceReference = new PTInstanceReferenceImpl();
 		return ptInstanceReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PTAnonymousClassDeclaration createPTAnonymousClassDeclaration() {
+		PTAnonymousClassDeclarationImpl ptAnonymousClassDeclaration = new PTAnonymousClassDeclarationImpl();
+		return ptAnonymousClassDeclaration;
 	}
 
 	public PTInstanceReference createPTInstanceReference(IJavaInstance instance) {

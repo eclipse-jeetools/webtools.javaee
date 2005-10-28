@@ -133,5 +133,9 @@
     <genClasses ecoreClass="instance.ecore#//PTInstanceReference">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference instance.ecore#//PTInstanceReference/reference"/>
     </genClasses>
+    <genClasses ecoreClass="instance.ecore#//PTAnonymousClassDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//PTAnonymousClassDeclaration/declaration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//PTAnonymousClassDeclaration/imports"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

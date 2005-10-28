@@ -22,7 +22,6 @@ public final class WorkbenchUtilityMessages extends NLS {
 
 	public static String ParseTreeCreationFromAST_0;
 	public static String ParseTreeCreationFromAST_ExpressionTooComplicated_EXC_;
-	public static String ParseTreeCreationFromAST_CannotProcessAnonymousDeclarations_EXC_;
 	public static String ParseTreeCreationFromAST_OperatorTooComplicatedToHandle_EXC_;
 	public static String ASTBoundResolver_CannotHandleLocalField_EXC_;
 	public static String ASTBoundResolver_CannotHandleLocalVariable_EXC_;

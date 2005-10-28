@@ -627,6 +627,34 @@
 		    quid       	"4017DB4A0341"
 		    supplier   	"Logical View::instantiation::PTExpression"
 		    quidu      	"40082D0A01CB")))
+	(object Class "PTAnonymousClassDeclaration"
+	    quid       	"43627C140396"
+	    documentation 	
+|An anonymous class declaration. Currently we only store the 
+|entire declaration as a string, including the "new AClass() {...}".
+	    
+	    superclasses 	(list inheritance_relationship_list
+		(object Inheritance_Relationship
+		    quid       	"43627D4E00D0"
+		    supplier   	"Logical View::instantiation::PTExpression"
+		    quidu      	"40082D0A01CB"))
+	    class_attributes 	(list class_attribute_list
+		(object ClassAttribute "declaration"
+		    quid       	"43627D690147"
+		    documentation 	"The declaration text."
+		    type       	"String"
+		    exportControl 	"Public")
+		(object ClassAttribute "imports"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Ecore"
+			    name       	"isTransient"
+			    value      	TRUE))
+		    quid       	"436289E5034B"
+		    documentation 	"This is the imports needed in the main class by this declaration. This is a transient attribute. It is not serialized, nor is it parsed into from existing code. Its only purpose is to help code generation on a brand new declaration to know what imports should be added to the main class."
+		    stereotype 	"0..*"
+		    type       	"String"
+		    exportControl 	"Implementation")))
 	(object Association "$UNNAMED$0"
 	    quid       	"3FD9ED7103D5"
 	    documentation 	"The parent who is to give up the value."
@@ -699,7 +727,7 @@
 	    zoom       	100
 	    max_height 	28350
 	    max_width  	21600
-	    origin_x   	384
+	    origin_x   	0
 	    origin_y   	0
 	    items      	(list diagram_item_list
 		(object NoteView @1
@@ -740,19 +768,19 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@2
-			location   	(1779, 605)
+			location   	(1777, 605)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	1760
+			max_width  	1764
 			justify    	0
 			label      	"IJavaDataTypeInstance")
 		    stereotype 	(object ItemLabel
 			Parent_View 	@2
-			location   	(1779, 555)
+			location   	(1777, 555)
 			fill_color 	13434879
 			anchor     	10
 			nlines     	1
-			max_width  	1760
+			max_width  	1764
 			justify    	0
 			label      	"<<Interface>>")
 		    icon       	"Interface"
@@ -760,7 +788,24 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"3B8AB17802B1"
-		    width      	1778
+		    compartment 	(object Compartment
+			Parent_View 	@2
+			location   	(1777, 666)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	2
+			max_width  	1512)
+		    width      	1782
 		    height     	242
 		    annotation 	8
 		    autoResize 	TRUE)
@@ -835,7 +880,7 @@
 			fill_color 	16777215
 			anchor     	2
 			nlines     	2
-			max_width  	1328)
+			max_width  	1340)
 		    width      	1578
 		    height     	186
 		    annotation 	8
@@ -901,7 +946,7 @@
 			fill_color 	16777215
 			anchor     	2
 			nlines     	2
-			max_width  	0)
+			max_width  	1459)
 		    width      	480
 		    height     	228
 		    annotation 	8
@@ -1443,7 +1488,7 @@
 	    zoom       	100
 	    max_height 	28350
 	    max_width  	21600
-	    origin_x   	1081
+	    origin_x   	25
 	    origin_y   	5768
 	    items      	(list diagram_item_list
 		(object ClassView "Class" "Logical View::instantiation::PTExpression" @37
@@ -1492,18 +1537,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@38
-			location   	(1877, 426)
+			location   	(1848, 413)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	716
+			max_width  	774
 			justify    	0
 			label      	"PTArrayAccess")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40082E140250"
-		    width      	734
-		    height     	258
+		    width      	792
+		    height     	286
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTArrayCreation" @39
@@ -1522,18 +1567,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@39
-			location   	(38, 379)
+			location   	(9, 363)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	792
+			max_width  	850
 			justify    	0
 			label      	"PTArrayCreation")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40083712025A"
-		    width      	810
-		    height     	302
+		    width      	868
+		    height     	336
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTArrayInitializer" @40
@@ -1552,18 +1597,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@40
-			location   	(959, 446)
+			location   	(929, 438)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	804
+			max_width  	864
 			justify    	0
 			label      	"PTArrayInitializer")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40083968014C"
-		    width      	822
-		    height     	168
+		    width      	882
+		    height     	186
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTBooleanLiteral" @41
@@ -1582,18 +1627,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@41
-			location   	(734, 789)
+			location   	(719, 790)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	527
+			max_width  	556
 			justify    	0
 			label      	"PTBooleanLiteral")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40083AE70247"
-		    width      	545
-		    height     	185
+		    width      	574
+		    height     	184
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTCastExpression" @42
@@ -1612,18 +1657,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@42
-			location   	(1493, 771)
+			location   	(1474, 758)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	596
+			max_width  	634
 			justify    	0
 			label      	"PTCastExpression")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40083B6F0058"
-		    width      	614
-		    height     	258
+		    width      	652
+		    height     	286
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object InheritTreeView "" @43
@@ -1641,7 +1686,7 @@
 		    client     	@40
 		    supplier   	@37
 		    line_style 	3
-		    origin_attachment 	(1381, 434)
+		    origin_attachment 	(1381, 425)
 		    terminal_attachment 	(1381, 330)
 		    drawSupplier 	@43)
 		(object InheritView "" @45
@@ -1661,7 +1706,7 @@
 		    client     	@42
 		    supplier   	@37
 		    line_style 	3
-		    origin_attachment 	(1791, 760)
+		    origin_attachment 	(1791, 746)
 		    terminal_attachment 	(1791, 330)
 		    drawSupplier 	@43)
 		(object InheritView "" @47
@@ -1671,7 +1716,7 @@
 		    client     	@38
 		    supplier   	@37
 		    line_style 	3
-		    origin_attachment 	(2235, 415)
+		    origin_attachment 	(2235, 401)
 		    terminal_attachment 	(2235, 330)
 		    drawSupplier 	@43)
 		(object ClassView "Class" "Logical View::instantiation::PTExpression" @48
@@ -1720,18 +1765,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@49
-			location   	(207, 1329)
+			location   	(164, 1332)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	447
+			max_width  	532
 			justify    	0
 			label      	"PTCharacterLiteral")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40084DF10277"
-		    width      	465
-		    height     	240
+		    width      	550
+		    height     	236
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object InheritView "" @50
@@ -1741,7 +1786,7 @@
 		    client     	@39
 		    supplier   	@37
 		    line_style 	3
-		    origin_attachment 	(561, 367)
+		    origin_attachment 	(561, 351)
 		    terminal_attachment 	(561, 330)
 		    drawSupplier 	@43)
 		(object ClassView "Class" "Logical View::instantiation::PTClassInstanceCreation" @51
@@ -1760,18 +1805,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@51
-			location   	(960, 1346)
+			location   	(930, 1333)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	772
+			max_width  	832
 			justify    	0
 			label      	"PTClassInstanceCreation")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40084F40026F"
-		    width      	790
-		    height     	258
+		    width      	850
+		    height     	286
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object InheritTreeView "" @52
@@ -1789,7 +1834,7 @@
 		    client     	@49
 		    supplier   	@48
 		    line_style 	3
-		    origin_attachment 	(564, 1317)
+		    origin_attachment 	(564, 1319)
 		    terminal_attachment 	(564, 1260)
 		    drawSupplier 	@52)
 		(object InheritView "" @54
@@ -1799,7 +1844,7 @@
 		    client     	@51
 		    supplier   	@48
 		    line_style 	3
-		    origin_attachment 	(1267, 1334)
+		    origin_attachment 	(1267, 1320)
 		    terminal_attachment 	(1267, 1260)
 		    drawSupplier 	@52)
 		(object ClassView "Class" "Logical View::instantiation::PTConditionalExpression" @55
@@ -1818,18 +1863,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@55
-			location   	(1890, 1341)
+			location   	(1872, 1325)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	558
+			max_width  	594
 			justify    	0
 			label      	"PTConditionalExpression")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"400851FB026A"
-		    width      	576
-		    height     	302
+		    width      	612
+		    height     	336
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object InheritView "" @56
@@ -1839,7 +1884,7 @@
 		    client     	@55
 		    supplier   	@48
 		    line_style 	3
-		    origin_attachment 	(2168, 1330)
+		    origin_attachment 	(2168, 1313)
 		    terminal_attachment 	(2168, 1260)
 		    drawSupplier 	@52)
 		(object ClassView "Class" "Logical View::instantiation::PTFieldAccess" @57
@@ -1858,18 +1903,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@57
-			location   	(492, 1676)
+			location   	(479, 1663)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	538
+			max_width  	564
 			justify    	0
 			label      	"PTFieldAccess")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"400852DF0204"
-		    width      	556
-		    height     	258
+		    width      	582
+		    height     	286
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object InheritView "" @58
@@ -1879,7 +1924,7 @@
 		    client     	@57
 		    supplier   	@48
 		    line_style 	3
-		    origin_attachment 	(760, 1665)
+		    origin_attachment 	(760, 1651)
 		    terminal_attachment 	(760, 1260)
 		    drawSupplier 	@52)
 		(object ClassView "Class" "Logical View::instantiation::PTInfixExpression" @59
@@ -1898,18 +1943,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@59
-			location   	(1316, 1682)
+			location   	(1286, 1664)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	948
+			max_width  	1008
 			justify    	0
 			label      	"PTInfixExpression")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"4008538B0143"
-		    width      	966
-		    height     	348
+		    width      	1026
+		    height     	386
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTInfixOperator" @60
@@ -1958,7 +2003,7 @@
 		    client     	@59
 		    supplier   	@48
 		    line_style 	3
-		    origin_attachment 	(1789, 1671)
+		    origin_attachment 	(1789, 1652)
 		    terminal_attachment 	(1789, 1260)
 		    drawSupplier 	@52)
 		(object ClassView "Class" "Logical View::instantiation::PTExpression" @62
@@ -2007,18 +2052,35 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@63
-			location   	(99, 3137)
+			location   	(85, 3124)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	544
+			max_width  	572
 			justify    	0
 			label      	"PTInstanceof")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"400857D303A2"
-		    width      	562
-		    height     	258
+		    compartment 	(object Compartment
+			Parent_View 	@63
+			location   	(85, 3185)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	3
+			max_width  	493)
+		    width      	590
+		    height     	286
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTMethodInvocation" @64
@@ -2130,7 +2192,7 @@
 		    client     	@63
 		    supplier   	@62
 		    line_style 	3
-		    origin_attachment 	(474, 3126)
+		    origin_attachment 	(474, 3112)
 		    terminal_attachment 	(474, 3061)
 		    drawSupplier 	@66)
 		(object InheritView "" @68
@@ -2341,7 +2403,7 @@
 		    ShowCompartmentStereotypes 	TRUE
 		    IncludeAttribute 	TRUE
 		    IncludeOperation 	TRUE
-		    location   	(318, 4221)
+		    location   	(330, 4221)
 		    font       	(object Font
 			size       	10
 			face       	"Arial"
@@ -2353,18 +2415,35 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@77
-			location   	(9, 4103)
+			location   	(9, 4090)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	618
+			max_width  	642
 			justify    	0
 			label      	"PTPrefixExpression")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"40085FAD008B"
-		    width      	636
-		    height     	258
+		    compartment 	(object Compartment
+			Parent_View 	@77
+			location   	(9, 4151)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	3
+			max_width  	553)
+		    width      	660
+		    height     	286
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::instantiation::PTPrefixOperator" @78
@@ -2402,6 +2481,23 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"4008602400D2"
+		    compartment 	(object Compartment
+			Parent_View 	@78
+			location   	(34, 4529)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	5
+			max_width  	343)
 		    width      	416
 		    height     	392
 		    annotation 	8
@@ -2478,7 +2574,7 @@
 		    client     	@77
 		    supplier   	@72
 		    line_style 	3
-		    origin_attachment 	(297, 4092)
+		    origin_attachment 	(297, 4078)
 		    terminal_attachment 	(297, 4020)
 		    drawSupplier 	@80)
 		(object ClassView "Class" "Logical View::instantiation::PTThisLiteral" @83
@@ -2797,4 +2893,61 @@
 			    quidu      	"4017DBE60164"
 			    client     	@92
 			    supplier   	@90
-			    line_style 	0)))))))
+			    line_style 	0)))
+		(object ClassView "Class" "Logical View::instantiation::PTAnonymousClassDeclaration" @97
+		    ShowCompartmentStereotypes 	TRUE
+		    IncludeAttribute 	TRUE
+		    IncludeOperation 	TRUE
+		    location   	(852, 4577)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@97
+			location   	(495, 4471)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	714
+			justify    	0
+			label      	"PTAnonymousClassDeclaration")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"43627C140396"
+		    compartment 	(object Compartment
+			Parent_View 	@97
+			location   	(495, 4532)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	13434879
+			anchor     	2
+			nlines     	3
+			max_width  	503)
+		    width      	732
+		    height     	236
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object InheritView "" @98
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    quidu      	"43627D4E00D0"
+		    client     	@97
+		    supplier   	@72
+		    line_style 	3
+		    origin_attachment 	(677, 4459)
+		    terminal_attachment 	(677, 4020)
+		    drawSupplier 	@80)))))
