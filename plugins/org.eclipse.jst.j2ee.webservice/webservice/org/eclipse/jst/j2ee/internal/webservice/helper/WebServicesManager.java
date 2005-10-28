@@ -115,8 +115,12 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			WSDDArtifactEdit wsddArtifactEdit = null;
 			WSCDDArtifactEdit wscddArtifactEdit = null;
 			IVirtualComponent component = ComponentCore.createComponent(project);
+				try {
 				if (!ModuleCoreNature.isFlexibleProject(project) || J2EEProjectUtilities.isEARProject(project))
 					continue;
+				} catch (Exception e) {
+					continue;
+				}
 				//TODO implement a smarter solution than try catchs
 				try {
 				wsddArtifactEdit = WSDDArtifactEdit.getWSDDArtifactEditForRead(component);

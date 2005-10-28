@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.internal.actions;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.java.JavaClass;
@@ -38,6 +39,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -147,11 +149,15 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			currentDescriptor = getBaseJavaEditorDescriptor();	
 		else if (obj instanceof EObject) {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
-			currentDescriptor = registry.getDefaultEditor(WorkbenchResourceHelper.getFile((EObject)obj).getName());
+			IFile file = WorkbenchResourceHelper.getFile((EObject)obj);
+			IContentType contentType = IDE.getContentType(file);
+			currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
 		}
 		else if (obj instanceof Resource) {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
-			currentDescriptor = registry.getDefaultEditor(WorkbenchResourceHelper.getFile((Resource)obj).getName());
+			IFile file = WorkbenchResourceHelper.getFile((Resource)obj);
+			IContentType contentType = IDE.getContentType(file);
+			currentDescriptor = registry.getDefaultEditor(file.getName(), contentType);
 		}
 		else {
 			currentDescriptor = null;
