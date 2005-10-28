@@ -15,15 +15,11 @@
 package org.eclipse.jst.j2ee.ejb.internal.plugin;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
@@ -96,15 +92,15 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return clientComp.getProject();
 	}
 
-	public JavaUtilityComponentCreationOperation createEJBClientJARProject(IProject anEJBProject) {
-		IDataModel dataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
-		String clientProjName = anEJBProject.getName() + "Client"; //$NON-NLS-1$
-		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, clientProjName);
-		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_NAME, clientProjName);
-		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME, clientProjName);
-        EJBClientComponentCreationOperation op = new EJBClientComponentCreationOperation(dataModel);
-		return op;
-	}
+//	public JavaUtilityComponentCreationOperation createEJBClientJARProject(IProject anEJBProject) {
+//		IDataModel dataModel = DataModelFactory.createDataModel(new EJBClientComponentDataModelProvider());
+//		String clientProjName = anEJBProject.getName() + "Client"; //$NON-NLS-1$
+//		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.PROJECT_NAME, clientProjName);
+//		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_NAME, clientProjName);
+//		dataModel.setProperty(IEJBClientComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME, clientProjName);
+//        EJBClientComponentCreationOperation op = new EJBClientComponentCreationOperation(dataModel);
+//		return op;
+//	}
 
 	/*
 	 * (non-Javadoc)

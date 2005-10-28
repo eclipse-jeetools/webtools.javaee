@@ -21,7 +21,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class EJBClientComponentDataModelProvider extends JavaComponentCreationDataModelProvider implements IEJBClientComponentCreationDataModelProperties, IAnnotationsDataModel {
@@ -100,10 +99,6 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString("CLIENT_JAR_URI_NOT_RESOLVE_UI_"), null); //$NON-NLS-1$
 
 		return OK_STATUS;
-	}
-
-	public IDataModelOperation getDefaultOperation() {
-		return new EJBClientComponentCreationOperation(model);
 	}
 
 	public boolean hasExistingClientJar() {
