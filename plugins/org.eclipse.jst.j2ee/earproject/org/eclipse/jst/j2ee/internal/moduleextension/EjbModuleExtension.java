@@ -17,7 +17,6 @@
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 //import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 //import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -41,6 +40,6 @@ public interface EjbModuleExtension extends EarModuleExtension {
 
 	IProject getDefinedEJBClientJARProject(IProject anEJBProject);
 
-    JavaUtilityComponentCreationOperation createEJBClientJARProject(IProject anEJBProject);
+    //JavaUtilityComponentCreationOperation createEJBClientJARProject(IProject anEJBProject);
 
 }

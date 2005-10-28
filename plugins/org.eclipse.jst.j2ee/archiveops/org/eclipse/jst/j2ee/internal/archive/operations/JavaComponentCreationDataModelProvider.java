@@ -14,7 +14,6 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -24,7 +23,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreation
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -126,11 +124,7 @@ public class JavaComponentCreationDataModelProvider extends ComponentCreationDat
 	protected List getProperties() {
 		return null;
 	}
-
-	public IDataModelOperation getDefaultOperation() {
-		return new JavaUtilityComponentCreationOperation(model);
-	}
-
+	
 	protected void initProjectCreationModel() {
 		IDataModel dm = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
 		model.addNestedModel(NESTED_PROJECT_CREATION_DM, dm);
