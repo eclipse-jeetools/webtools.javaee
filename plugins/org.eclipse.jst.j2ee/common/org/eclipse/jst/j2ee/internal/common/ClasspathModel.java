@@ -612,6 +612,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				for( int i=0; i < newrefs.length; i++){
 					IVirtualReference ref = newrefs[i];
 					IVirtualComponent referencedComponent = ref.getReferencedComponent();
+					if (referencedComponent == null)
+						continue;
 					boolean isBinary = referencedComponent.isBinary();
 					if( isBinary ){
 						//String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
@@ -654,6 +656,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 //				}
 //			}			
 		} catch (CoreException e) {
+		}catch (Exception e) {
+			Logger.getLogger().logError(e);
 		}
 	}
 
