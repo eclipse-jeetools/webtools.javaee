@@ -51,6 +51,9 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
+		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_LOCATION,
+				model.getProperty(IComponentCreationDataModelProperties.LOCATION));
+		
 		List facetDMs = new ArrayList();
 		facetDMs.add(setupJavaInstallAction());
 		IDataModel newModel = setupEjbInstallAction();
