@@ -14,17 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -50,7 +56,12 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 		List facetDMs = new ArrayList();
 		facetDMs.add(setupEarInstallAction());
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
-		return dm.getDefaultOperation().execute(monitor, info);
+		
+		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
+		if( stat.isOK() )
+			addModulesToEAR( monitor );
+	
+		return stat;
 	}
 
 	protected IDataModel setupEarInstallAction() {
@@ -71,4 +82,33 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 			Logger.getLogger().logError(e);
 		}
 	}
+	
+	private IStatus  addModulesToEAR(IProgressMonitor monitor) {
+		IStatus stat = OK_STATUS;
+		try{
+			IDataModel dm = (IDataModel)model.getProperty(IEarComponentCreationDataModelProperties.NESTED_ADD_COMPONENT_TO_EAR_DM);
+			String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
+			IProject project = J2EEProjectUtilities.getProject( projectName );
+            IVirtualComponent component = ComponentCore.createComponent( project );
+
+            
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
+
+			List moduleProjectsList = (List)model.getProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST);
+			if (moduleProjectsList != null && !moduleProjectsList.isEmpty()) {
+				List moduleComponentsList = new ArrayList(moduleProjectsList.size());
+				for(int i=0;i<moduleProjectsList.size(); i++){
+					moduleComponentsList.add(ComponentCore.createComponent((IProject)moduleProjectsList.get(i)));
+				}
+				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, moduleComponentsList);
+				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				if( stat != OK_STATUS )
+					return stat;
+				dm.getDefaultOperation().execute(monitor, null);				
+			}	
+		}catch(Exception e) {
+			 Logger.getLogger().log(e);
+		 }
+		return stat;
+	}		
 }
