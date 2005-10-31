@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -38,6 +40,8 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
 			
+    	IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
+    	
 		IDataModel jdm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		
 		jdm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME,
@@ -59,6 +63,9 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
 				model.getStringProperty(PROJECT_NAME));
+		
+		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_LOCATION,
+				project.getLocation().toString());
 		List facetDMs = new ArrayList();
 		facetDMs.add( jdm );
 		facetDMs.add( udm );
