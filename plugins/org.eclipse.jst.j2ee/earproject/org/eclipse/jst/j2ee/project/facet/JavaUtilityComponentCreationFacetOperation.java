@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -29,6 +30,9 @@ public class JavaUtilityComponentCreationFacetOperation
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
 					(String)model.getProperty(JavaUtilityComponentCreationDataModelProvider.PROJECT_NAME));
+			
+			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_LOCATION, 
+					(String)model.getProperty(IComponentCreationDataModelProperties.LOCATION));
 			List facetDMs = new ArrayList();
 			facetDMs.add( setupJavaInstallAction() );
 			facetDMs.add( setupUtilityInstallAction(model) );

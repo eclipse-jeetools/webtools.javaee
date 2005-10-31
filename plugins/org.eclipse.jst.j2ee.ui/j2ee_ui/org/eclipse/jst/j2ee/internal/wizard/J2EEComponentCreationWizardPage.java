@@ -263,6 +263,7 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
             }
         });
         browseButton.setEnabled(true);
+        locationPathField.setEditable(true);
         synchHelper.synchText(locationPathField, LOCATION, null);
     }
     /**
