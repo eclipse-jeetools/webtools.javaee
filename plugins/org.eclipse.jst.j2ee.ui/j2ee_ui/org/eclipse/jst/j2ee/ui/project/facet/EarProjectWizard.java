@@ -31,7 +31,7 @@ public final class EarProjectWizard
 {
     protected IFacetedProjectTemplate getTemplate()
     {
-        return ProjectFacetsManager.getTemplate( "template.ear" );
+        return ProjectFacetsManager.getTemplate( "template.jst.ear" );
     }
     
     protected String getPageDescription()

@@ -40,21 +40,42 @@
     </project-facet>
 
     <project-facet-version facet="jst.java" version="1.3">
-      <delegate type="install" class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
-      <delegate type="version-change" class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
-      <delegate type="runtime-changed" class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+      <action type="install">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
+        <config-factory class="org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider"/>
+      </action>
+      <action type="version-change">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
+      </action>
+      <action type="runtime-changed">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+      </action>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="1.4">
-      <delegate type="install" class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
-      <delegate type="version-change" class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
-      <delegate type="runtime-changed" class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+      <action type="install">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
+        <config-factory class="org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider"/>
+      </action>
+      <action type="version-change">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
+      </action>
+      <action type="runtime-changed">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+      </action>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="5.0">
-      <delegate type="install" class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
-      <delegate type="version-change" class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
-      <delegate type="runtime-changed" class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+      <action type="install">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
+        <config-factory class="org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider"/>
+      </action>
+      <action type="version-change">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
+      </action>
+      <action type="runtime-changed">
+        <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
+      </action>
     </project-facet-version>
 
   </extension>

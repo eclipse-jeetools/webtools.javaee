@@ -11,7 +11,7 @@
 
 package org.eclipse.jst.j2ee.ui.project.facet;
 
-import org.eclipse.jst.j2ee.project.facet.EarFacetInstallConfig;
+import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.ui.AbstractFacetWizardPage;
 
 /**
@@ -34,7 +35,7 @@ public final class EarFacetInstallPage
     extends AbstractFacetWizardPage
     
 {
-    private EarFacetInstallConfig config;
+    private IDataModel config;
     private Label contentDirLabel;
     private Text contentDir;
     
@@ -56,13 +57,14 @@ public final class EarFacetInstallPage
         this.contentDirLabel.setLayoutData( gdhfill() );
         
         this.contentDir = new Text( composite, SWT.BORDER );
-        this.contentDir.setText( this.config.getContentDir() );
+        this.contentDir.setText( this.config.getStringProperty( IEarFacetInstallDataModelProperties.CONTENT_DIR ) );
         this.contentDir.setLayoutData( gdhfill() );
         
         final ModifyListener modifyListener = new ModifyListener()
         {
             public void modifyText( final ModifyEvent event ) 
             {
+                config.setStringProperty( IEarFacetInstallDataModelProperties.CONTENT_DIR, contentDir.getText() );
                 validate();
             }
         };
@@ -74,14 +76,9 @@ public final class EarFacetInstallPage
     
     public void setConfig( final Object config ) 
     {
-        this.config = (EarFacetInstallConfig) config;
+        this.config = (IDataModel) config;
     }
 
-    public void transferStateToConfig() 
-    {
-        this.config.setContentDir( this.contentDir.getText() );
-    }
-    
     private void validate()
     {
         boolean valid = true;

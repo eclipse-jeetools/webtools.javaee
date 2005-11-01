@@ -29,7 +29,7 @@ public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvi
 	
 	public Object getDefaultProperty(String propertyName) {
 		if(propertyName.equals(CONTENT_DIR)){
-			return "web";
+			return "WebContent";
 		} else if(propertyName.equals(CREATE_WEB_INF_SRC)){
 			return Boolean.FALSE;
 		} else if(propertyName.equals(CONTEXT_ROOT)){

@@ -31,6 +31,9 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 		if (FACET_ID.equals(propertyName)) {
 			return IModuleConstants.JST_JAVA;
 		}
+        else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
+            return "src";
+        }
 		return super.getDefaultProperty(propertyName);
 	}
 

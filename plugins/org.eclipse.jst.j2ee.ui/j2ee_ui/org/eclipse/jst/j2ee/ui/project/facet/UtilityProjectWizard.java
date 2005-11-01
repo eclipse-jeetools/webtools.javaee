@@ -31,7 +31,7 @@ public final class UtilityProjectWizard
 {
     protected IFacetedProjectTemplate getTemplate()
     {
-        return ProjectFacetsManager.getTemplate( "template.utility" );
+        return ProjectFacetsManager.getTemplate( "template.jst.utility" );
     }
     
     protected String getPageDescription()

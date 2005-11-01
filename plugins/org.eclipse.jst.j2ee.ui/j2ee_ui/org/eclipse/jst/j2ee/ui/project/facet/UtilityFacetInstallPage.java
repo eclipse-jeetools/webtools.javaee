@@ -11,7 +11,7 @@
 
 package org.eclipse.jst.j2ee.ui.project.facet;
 
-import org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallConfig;
+import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -19,6 +19,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.ui.AbstractFacetWizardPage;
 
 /**
@@ -30,7 +31,7 @@ public final class UtilityFacetInstallPage
     extends AbstractFacetWizardPage
     
 {
-    private UtilityFacetInstallConfig config;
+    private IDataModel config;
     private EarSelectionPanel earPanel;
     
     public UtilityFacetInstallPage() 
@@ -53,7 +54,7 @@ public final class UtilityFacetInstallPage
         {
             public void handleEvent( final Event event ) 
             {
-                config.setEarProjectName( earPanel.getEarProjectName() );
+                config.setStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME,earPanel.getEarProjectName() );
                 validate();
             }
         } );
@@ -63,21 +64,9 @@ public final class UtilityFacetInstallPage
     
     public void setConfig( final Object config ) 
     {
-        this.config = (UtilityFacetInstallConfig) config;
+        this.config = (IDataModel) config;
     }
 
-    public void transferStateToConfig() 
-    {
-        if( this.earPanel.getAddToEar() )
-        {
-            this.config.setEarProjectName( this.earPanel.getEarProjectName() );
-        }
-        else
-        {
-            this.config.setEarProjectName( null );
-        }
-    }
-    
     private void validate()
     {
         boolean valid = true;
