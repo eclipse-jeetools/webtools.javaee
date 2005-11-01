@@ -6,10 +6,12 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 
 public class UtilityFacetInstallDataModelProvider
-	extends FacetInstallDataModelProvider{
+	extends FacetInstallDataModelProvider
+    implements IUtilityFacetInstallDataModelProperties {
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
+        names.add(EAR_PROJECT_NAME);
 		return names;
 	}
 	

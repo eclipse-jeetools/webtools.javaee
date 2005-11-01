@@ -11,6 +11,9 @@
 
 package org.eclipse.jst.j2ee.project.facet;
 
+import java.util.List;
+
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -19,10 +22,16 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -35,6 +44,7 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 
 		try {
 
+            final IDataModel model = (IDataModel) cfg;
 
 			// Add WTP natures.
 
@@ -62,26 +72,25 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 				}
 			}
 
-			
-//			final UtilityFacetInstallConfig config;
-//
-//			if (cfg != null) {
-//				config = (UtilityFacetInstallConfig) cfg;
-//			} else {
-//				config = new UtilityFacetInstallConfig();
-//				config.setEarProjectName(null);
-//			}			
-//			// Associate with an EAR, if necessary.
-//
-//			final String earProjectName = config.getEarProjectName();
-//
-//			if (earProjectName != null) {
-//				final IWorkspace ws = ResourcesPlugin.getWorkspace();
-//
-//				final IProject earproj = ws.getRoot().getProject(earProjectName);
-//
-//				EarUtil.addModuleReference(earproj, project, null);
-//			}
+			// Associate with an EAR, if necessary.
+
+            final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+
+			if (earProjectName != null) {
+                IProject earProject = ProjectUtilities.getProject( earProjectName );
+                IVirtualComponent earComp = ComponentCore.createComponent( earProject );
+                
+                IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
+                dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
+                List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+                modList.add(c);
+                dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+                try {
+                    dataModel.getDefaultOperation().execute(null, null);
+                } catch (ExecutionException e) {
+                    Logger.getLogger().logError(e);
+                }
+			}
 
 			if (monitor != null) {
 				monitor.worked(1);

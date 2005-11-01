@@ -10,14 +10,17 @@ implements IEarFacetInstallDataModelProperties{
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
-		names.add(RUNTIME_TARGET_ID);
+		names.add(CONTENT_DIR);
 		return names;
 	}
 	
 	public Object getDefaultProperty(String propertyName) {
 		if(propertyName.equals(FACET_ID)){
 			return J2EEProjectUtilities.ENTERPRISE_APPLICATION;
-		}		
+		}
+        else if(propertyName.equals(CONTENT_DIR)) {
+            return "EarContent";
+        }
 		return super.getDefaultProperty(propertyName);
 	}
 }
