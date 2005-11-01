@@ -62,7 +62,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPart;
@@ -101,8 +100,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	private Combo projectNameCombo;
 	private Combo componentNameCombo;
 	protected String projectType;
-	private boolean hasNewModuleButton;
-	
 	private String projectName;
 
 	/**
@@ -116,7 +113,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		this.setTitle(pageTitle);
 		setPageComplete(false);
 		this.projectType = moduleType;
-		this.hasNewModuleButton = false;
 		this.projectName = null;
 	}
 
@@ -147,7 +143,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		composite.setLayoutData(data);
 
 		addProjectNameGroup(composite);
-		addComponentGroup(composite);
 		addFolderGroup(composite);
 		addSeperator(composite, 3);
 		addPackageGroup(composite);
@@ -157,39 +152,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		folderText.setFocus();
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 		return composite;
-	}
-
-	/**
-	 * Add component group to composite
-	 */
-	private void addComponentGroup(Composite composite) {
-		Label componentLabel = new Label(composite, SWT.LEFT);
-		componentLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_NAME));
-		componentLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-
-		componentNameCombo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.widthHint = 300;
-		data.horizontalSpan = 1;
-		componentNameCombo.setLayoutData(data);
-		initializeComponentList();
-		synchHelper.synchCombo(componentNameCombo, IArtifactEditOperationDataModelProperties.COMPONENT_NAME, new Control[] {});
-		if (!hasNewModuleButton) {
-			new Label(composite, SWT.NONE);
-		} else {
-			Button newModuleButton = new Button(composite, SWT.PUSH);
-			newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
-			newModuleButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-			newModuleButton.addSelectionListener(new SelectionListener() {
-				public void widgetSelected(SelectionEvent e) {
-					handleNewModuleButtonPressed();
-				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-					// Do nothing
-				}
-			});
-		}
 	}
 
 	private void initializeComponentList() {
@@ -440,15 +402,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		}
 	}
 
-	private void handleNewModuleButtonPressed() {
-		this.createNewComponent();
-		initializeProjectList();
-		initializeComponentList();
-	}
-
-	protected void createNewComponent() {
-	}
-
 	protected void handlePackageButtonPressed() {
 		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
 		if (packRoot == null)
@@ -654,10 +607,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 
 	protected IWorkspaceRoot getWorkspaceRoot() {
 		return ResourcesPlugin.getWorkspace().getRoot();
-	}
-
-	public void setHasNewModuleButton(boolean hasNewModuleButton) {
-		this.hasNewModuleButton = hasNewModuleButton;
 	}
 
 	public void setProjectName(String projectName) {
