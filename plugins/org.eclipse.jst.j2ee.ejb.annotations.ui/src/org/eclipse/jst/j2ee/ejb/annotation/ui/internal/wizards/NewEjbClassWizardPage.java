@@ -26,7 +26,6 @@ public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 
 	public NewEjbClassWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle, String moduleType) {
 		super(model, pageName, pageDesc, pageTitle, moduleType);
-		this.setHasNewModuleButton(true);
 	}
 	protected Composite createTopLevelComposite(Composite parent) {
 		 Composite composite =  super.createTopLevelComposite(parent);
