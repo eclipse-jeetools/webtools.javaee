@@ -16,7 +16,6 @@
  */
 package org.eclipse.jst.j2ee.internal.web.jfaces.extension;
 
-import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
@@ -56,7 +55,8 @@ public class FileURLExtension {
 	}
 
 	public FileURLExtension(IConfigurationElement element) {
-		Assert.isLegal(FILE_URL_EXTENSION.equals(element.getName()), "Extensions must be of the type \"" + FILE_URL_EXTENSION + "\"."); //$NON-NLS-1$ //$NON-NLS-2$
+		if (!FILE_URL_EXTENSION.equals(element.getName()))
+			throw new IllegalArgumentException("Extensions must be of the type \"" + FILE_URL_EXTENSION + "\"."); //$NON-NLS-1$ //$NON-NLS-2$
 		this.element = element;
 		init();
 	}
