@@ -6,7 +6,6 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -55,7 +54,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     	IProject project = ProjectUtilities.getProject(DEFAULT_COMPONENT_NAME + componentSeed);
     	IVirtualComponent component = ComponentCore.createComponent(project);
     	if (!J2EEProjectUtilities.isDynamicWebProject(component.getProject()) || !J2EEProjectUtilities.isApplicationClientProject(component.getProject())) {
-    		IContainer[] ouputContainers = ComponentUtilities.getOutputContainers(component);
+    		IContainer[] ouputContainers = J2EEProjectUtilities.getOutputContainers(component.getProject());
     		assertNotNull(ouputContainers[0]);
     	}
     }
