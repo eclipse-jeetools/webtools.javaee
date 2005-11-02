@@ -31,7 +31,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -272,7 +272,7 @@ public abstract class FlexibleProjectContainer
     {
         try
         {
-            return pj.getNature(ComponentUtilities.JAVA_NATURE) != null;
+            return pj.getNature(JemProjectUtilities.JEM_EMF_NatureID) != null;
         }
         catch( CoreException e )
         {

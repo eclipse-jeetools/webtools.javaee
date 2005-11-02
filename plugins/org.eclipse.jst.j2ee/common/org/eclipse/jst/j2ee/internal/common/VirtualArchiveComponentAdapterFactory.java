@@ -2,7 +2,7 @@ package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 
 public class VirtualArchiveComponentAdapterFactory implements IAdapterFactory {
@@ -11,7 +11,7 @@ public class VirtualArchiveComponentAdapterFactory implements IAdapterFactory {
 		if (adapterType == VirtualArchiveComponent.ADAPTER_TYPE ) {
 			VirtualArchiveComponent component = (VirtualArchiveComponent) adaptableObject;
 
-			IPath path = ComponentUtilities.getResolvedPathForArchiveComponent(component.getProject().getName());
+			IPath path = J2EEProjectUtilities.getResolvedPathForArchiveComponent(component.getProject().getName());
 			return path;
 		}
 		return null;

@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -160,7 +160,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected void aggregateClassFiles() {
 		StructureEdit se = null;
 		try {
-			IPackageFragmentRoot[] sourceRoots = ComponentUtilities.getSourceContainers(vComponent);
+			IPackageFragmentRoot[] sourceRoots = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
 			se = StructureEdit.getStructureEditForRead(vComponent.getProject());
 			for (int i = 0; i < sourceRoots.length; i++) {
 				IPath outputPath = sourceRoots[i].getRawClasspathEntry().getOutputLocation();

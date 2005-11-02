@@ -25,7 +25,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
@@ -42,6 +41,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategy
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -352,7 +352,7 @@ public class ClassPathSelection {
 				IVirtualComponent referencedComponent = ref.getReferencedComponent();
 				boolean isBinary = referencedComponent.isBinary();
 				if( isBinary ){
-					String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+					String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 					String unresolvedURI = "";
 					try {
 						unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
@@ -410,7 +410,7 @@ public class ClassPathSelection {
 				boolean isBinary = referencedComponent.isBinary();
 			
 				if( isBinary ){
-					String uri = ComponentUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+					String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 		
 					try {
 						ZipFileLoadStrategyImpl strat = createLoadStrategy(uri);

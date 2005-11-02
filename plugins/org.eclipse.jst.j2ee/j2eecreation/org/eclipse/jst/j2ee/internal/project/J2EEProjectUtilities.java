@@ -23,15 +23,18 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
@@ -41,7 +44,6 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
@@ -60,8 +62,11 @@ import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperti
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -588,8 +593,121 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		return null;
 	}
 	public static JavaProjectMigrationOperation createFlexJavaProjectForProjectOperation(IProject project) {
-	IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
-	model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
-	return new JavaProjectMigrationOperation(model);
-}
+		IDataModel model = DataModelFactory.createDataModel(new JavaProjectMigrationDataModelProvider());
+		model.setProperty(IJavaProjectMigrationDataModelProperties.PROJECT_NAME, project.getName());
+		return new JavaProjectMigrationOperation(model);
+	}
+	
+	/**
+	 * Retrieve all the source containers for a given virtual workbench component
+	 * 
+	 * @param vc
+	 * @return the array of IPackageFragmentRoots
+	 */
+	public static IPackageFragmentRoot[] getSourceContainers(IProject project) {
+		List list = new ArrayList();
+		IJavaProject jProject = JavaCore.create(project);
+		IVirtualComponent vc = ComponentCore.createComponent(project);
+		IPackageFragmentRoot[] roots;
+		try {
+			roots = jProject.getPackageFragmentRoots();
+			for (int i = 0; i < roots.length; i++) {
+				IResource resource = roots[i].getResource();
+				if (null != resource) {
+					IVirtualResource[] vResources = ComponentCore.createResources(resource);
+					boolean found = false;
+					for (int j = 0; !found && j < vResources.length; j++) {
+						if (vResources[j].getComponent().equals(vc)) {
+							list.add(roots[i]);
+							found = true;
+						}
+					}
+				}
+			}
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}
+		return (IPackageFragmentRoot[]) list.toArray(new IPackageFragmentRoot[list.size()]);
+	}
+	
+	/**
+	 * Retrieve all the output containers for a given virtual component.
+	 * 
+	 * @param vc
+	 * @return array of IContainers for the output folders
+	 */
+	public static IContainer[] getOutputContainers(IProject project) {
+		IPackageFragmentRoot[] sourceContainers = getSourceContainers(project);
+		IJavaProject jProject = JavaCore.create(project);
+		List result = new ArrayList();
+		for (int i=0; i<sourceContainers.length; i++) {
+			try {
+				IFolder outputFolder;
+				IPath outputPath = sourceContainers[i].getRawClasspathEntry().getOutputLocation();
+				if (outputPath == null)
+					outputFolder = project.getFolder(jProject.getOutputLocation().removeFirstSegments(1));
+				else
+					outputFolder = project.getFolder(outputPath.removeFirstSegments(1));
+				if (outputFolder != null)
+					result.add(outputFolder);
+			} catch (Exception e) {
+				continue;
+			}
+		}
+		return (IContainer[]) result.toArray(new IContainer[result.size()]);
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 * @description the passed name should have either lib or var as its first segment e.g.
+	 *              lib/D:/foo/foo.jar or var/<CLASSPATHVAR>/foo.jar
+	 */
+	public static IPath getResolvedPathForArchiveComponent(String name) {
+
+		URI uri = URI.createURI(name);
+
+		String resourceType = uri.segment(0);
+		URI contenturi = ModuleURIUtil.trimToRelativePath(uri, 1);
+		String contentName = contenturi.toString();
+
+		if (resourceType.equals("lib")) { //$NON-NLS-1$
+			// module:/classpath/lib/D:/foo/foo.jar
+			return Path.fromOSString(contentName);
+
+		} else if (resourceType.equals("var")) { //$NON-NLS-1$
+
+			// module:/classpath/var/<CLASSPATHVAR>/foo.jar
+			String classpathVar = contenturi.segment(0);
+			URI remainingPathuri = ModuleURIUtil.trimToRelativePath(contenturi, 1);
+			String remainingPath = remainingPathuri.toString();
+
+			String[] classpathvars = JavaCore.getClasspathVariableNames();
+			boolean found = false;
+			for (int i = 0; i < classpathvars.length; i++) {
+				if (classpathVar.equals(classpathvars[i])) {
+					found = true;
+					break;
+				}
+			}
+			if (found) {
+				IPath path = JavaCore.getClasspathVariable(classpathVar);
+				URI finaluri = URI.createURI(path.toOSString() + IPath.SEPARATOR + remainingPath);
+				return Path.fromOSString(finaluri.toString());
+			}
+		}
+		return null;
+	}
+	
+	public static List getAllJavaNonFlexProjects() throws CoreException {
+		List nonFlexJavaProjects = new ArrayList();
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for (int i = 0; i < projects.length; i++) {
+			if (projects[i].isAccessible() && projects[i].hasNature(JemProjectUtilities.JEM_EMF_NatureID) && !projects[i].hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+				nonFlexJavaProjects.add(projects[i]);
+			}
+		}
+		return nonFlexJavaProjects;
+	}
 }

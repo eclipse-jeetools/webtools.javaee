@@ -32,7 +32,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
@@ -48,6 +47,7 @@ import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -234,7 +234,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     	String runtimePath = resource.getRuntimePath().toString();
     	// temporary hack because virtual component API returns .java rather than .class files
     	if (runtimePath.endsWith(".java")) { //$NON-NLS-1$
-    		IContainer output = ComponentUtilities.getOutputContainers(container.getComponent())[0];
+    		IContainer output = J2EEProjectUtilities.getOutputContainers(container.getComponent().getProject())[0];
     		runtimePath = resource.getRuntimePath().lastSegment().toString();
     		String className = runtimePath.substring(0,runtimePath.length()-4)+"class"; //$NON-NLS-1$
     		file = findClassFileInOutput(output,className);

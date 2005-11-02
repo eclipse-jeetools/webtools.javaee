@@ -31,7 +31,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -47,6 +46,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
@@ -586,7 +586,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		try {
 			IJavaProject javaProject = JemProjectUtilities.getJavaProject(component.getProject());
 			IClasspathEntry[] entry = javaProject.getRawClasspath();
-			List allValidUtilityProjects = ComponentUtilities.getAllJavaNonFlexProjects();
+			List allValidUtilityProjects = J2EEProjectUtilities.getAllJavaNonFlexProjects();
 			IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
 			allValidUtilityProjects.addAll(Arrays.asList(utilityProjects));
 			for (int i = 0; i < allValidUtilityProjects.size(); i++) {

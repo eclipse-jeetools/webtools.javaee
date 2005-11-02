@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.common.componentcore.util;
+package org.eclipse.jst.j2ee.internal.validation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.validation.internal.IProjectValidationHelper;
@@ -32,7 +33,7 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 		IVirtualComponent comp = ComponentCore.createComponent(project);
 		if (comp == null || !comp.exists())
 			return EMPTY_RESULT;
-		return ComponentUtilities.getOutputContainers(comp);
+		return J2EEProjectUtilities.getOutputContainers(project);
 	}
 	
 	public IContainer[] getSourceContainers(IProject project) {
@@ -41,7 +42,7 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 		IVirtualComponent comp = ComponentCore.createComponent(project);
 		if (comp == null || !comp.exists())
 			return EMPTY_RESULT;
-		IPackageFragmentRoot[] roots = ComponentUtilities.getSourceContainers(comp);
+		IPackageFragmentRoot[] roots = J2EEProjectUtilities.getSourceContainers(project);
 		List result = new ArrayList();
 		for (int i=0; i<roots.length; i++) {
 			if (roots[i].getResource() != null && roots[i].getResource() instanceof IContainer)

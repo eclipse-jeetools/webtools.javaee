@@ -47,7 +47,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -491,8 +490,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 					IFolder folder = (IFolder) element;
 					// only show source folders
 					IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
-					IVirtualComponent component = ComponentCore.createComponent(project);
-					IPackageFragmentRoot[] sourceFolders = ComponentUtilities.getSourceContainers(component);
+					IPackageFragmentRoot[] sourceFolders = J2EEProjectUtilities.getSourceContainers(project);
 					for (int i = 0; i < sourceFolders.length; i++) {
 						if (sourceFolders[i].getResource()!= null && sourceFolders[i].getResource().equals(folder))
 							return true;

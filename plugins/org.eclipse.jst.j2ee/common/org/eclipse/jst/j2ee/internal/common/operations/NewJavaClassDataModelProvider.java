@@ -29,8 +29,8 @@ import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.common.componentcore.util.ComponentUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -122,7 +122,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		IPackageFragmentRoot[] sources = ComponentUtilities.getSourceContainers(getTargetComponent());
+		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(project);
 		// Try and return the first source folder
 		if (sources.length > 0) {
 			try {
@@ -447,7 +447,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * @return IFolder java source folder
 	 */
 	protected final IFolder getJavaSourceFolder() {
-		IPackageFragmentRoot[] sources = ComponentUtilities.getSourceContainers(getTargetComponent());
+		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(getTargetProject());
 		// Ensure there is valid source folder(s)
 		if (sources == null || sources.length == 0)
 			return null;
