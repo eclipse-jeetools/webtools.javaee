@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Web Service Plug-in
 Bundle-SymbolicName: org.eclipse.jst.j2ee.webservice; singleton:=true
-Bundle-Version: 0.7.0
+Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin

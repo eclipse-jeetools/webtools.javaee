@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: J2EE Component
 Bundle-SymbolicName: org.eclipse.jst.j2ee; singleton:=true
-Bundle-Version: 0.7.0
+Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
