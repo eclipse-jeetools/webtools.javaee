@@ -76,7 +76,7 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 
             final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 
-			if (earProjectName != null) {
+			if (earProjectName != null && earProjectName != "") {
                 IProject earProject = ProjectUtilities.getProject( earProjectName );
                 IVirtualComponent earComp = ComponentCore.createComponent( earProject );
                 
