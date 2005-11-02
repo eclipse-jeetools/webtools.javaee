@@ -2,7 +2,7 @@
 <plugin
    id="org.eclipse.jst.validation.test"
    name="Validation Testing Component"
-   version="0.7.0"
+   version="1.0.0"
    class="org.eclipse.jst.validation.test.BVTValidationPlugin">
 
    <runtime>
