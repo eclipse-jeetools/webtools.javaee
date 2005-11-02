@@ -455,7 +455,42 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return false;
 	}
+	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
+		
+		if (facetedProject !=null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
+			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
+			return projectFacet!=null && facetedProject.hasProjectFacet(projectFacet);
+		}
+		return false;
+	}
 	
+	private static boolean isEARProject(IFacetedProject project) {
+		return isProjectOfType(project, ENTERPRISE_APPLICATION);
+	}
+	
+	private static boolean isDynamicWebProject(IFacetedProject project) {
+		return isProjectOfType(project, DYNAMIC_WEB);
+	}
+	
+	private static boolean isStaticWebProject(IFacetedProject project) {
+		return isProjectOfType(project, STATIC_WEB);
+	}
+	
+	private static boolean isEJBProject(IFacetedProject project) {
+		return isProjectOfType(project, EJB);
+	}
+	
+	private static boolean isJCAProject(IFacetedProject project) {
+		return isProjectOfType(project, JCA);
+	}
+	
+	private static boolean isApplicationClientProject(IFacetedProject project) {
+		return isProjectOfType(project, APPLICATION_CLIENT);
+	}
+	
+	private static boolean isUtilityProject(IFacetedProject project) {
+		return isProjectOfType(project, UTILITY);
+	}
 	public static boolean isEARProject(IProject project) {
 		return isProjectOfType(project, ENTERPRISE_APPLICATION);
 	}
@@ -515,19 +550,25 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	}
 	
 	public static String getJ2EEProjectType(IProject project) {
-		if (isApplicationClientProject(project))
+		IFacetedProject facetedProject = null;
+		try {
+			facetedProject = ProjectFacetsManager.create(project);
+		} catch (CoreException e) {
+			return ""; //$NON-NLS-1$
+		}
+		if (isApplicationClientProject(facetedProject))
 			return APPLICATION_CLIENT;
-		else if (isDynamicWebProject(project))
+		else if (isDynamicWebProject(facetedProject))
 			return DYNAMIC_WEB;
-		else if (isEJBProject(project))
+		else if (isEJBProject(facetedProject))
 			return EJB;
-		else if (isEARProject(project))
+		else if (isEARProject(facetedProject))
 			return ENTERPRISE_APPLICATION;
-		else if (isJCAProject(project))
+		else if (isJCAProject(facetedProject))
 			return JCA;
-		else if (isStaticWebProject(project))
+		else if (isStaticWebProject(facetedProject))
 			return STATIC_WEB;
-		else if (isUtilityProject(project))
+		else if (isUtilityProject(facetedProject))
 			return UTILITY;
 		else
 			return ""; //$NON-NLS-1$
