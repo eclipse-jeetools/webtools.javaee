@@ -44,7 +44,8 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 		IPackageFragmentRoot[] roots = ComponentUtilities.getSourceContainers(comp);
 		List result = new ArrayList();
 		for (int i=0; i<roots.length; i++) {
-			result.add(roots[i].getResource());
+			if (roots[i].getResource() != null && roots[i].getResource() instanceof IContainer)
+				result.add(roots[i].getResource());
 		}
 		return (IContainer[]) result.toArray(new IContainer[result.size()]);
 	}
