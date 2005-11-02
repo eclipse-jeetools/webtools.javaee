@@ -63,5 +63,6 @@ Require-Bundle: org.eclipse.emf.edit,
  org.eclipse.jst.common.annotations.controller,
  org.eclipse.wst.common.uriresolver,
  org.eclipse.wst.common.project.facet.core,
+ org.eclipse.jst.common.project.facet.core,
  org.eclipse.wst.xml.core
 Eclipse-AutoStart: true

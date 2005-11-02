@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -41,7 +42,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 

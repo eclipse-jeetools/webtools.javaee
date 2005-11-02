@@ -22,10 +22,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>

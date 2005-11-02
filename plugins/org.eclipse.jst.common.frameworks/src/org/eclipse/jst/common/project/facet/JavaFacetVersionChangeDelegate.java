@@ -14,11 +14,11 @@ package org.eclipse.jst.common.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-import org.eclipse.wst.common.project.facet.core.runtime.classpath.ClasspathHelper;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
