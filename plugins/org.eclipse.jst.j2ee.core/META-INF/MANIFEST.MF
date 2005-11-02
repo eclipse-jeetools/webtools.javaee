@@ -3,10 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: J2EE Core Component
 Bundle-SymbolicName: org.eclipse.jst.j2ee.core; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: runtime/mofj2ee.jar,
- runtime/commonArchive.jar,
- runtime/j2ee-validation.jar,
- runtime/j2eeCorePlugin.jar
 Bundle-Activator: org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin

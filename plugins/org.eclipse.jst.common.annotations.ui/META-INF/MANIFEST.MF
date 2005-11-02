@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Annotations UI Plug-in
 Bundle-SymbolicName: org.eclipse.jst.common.annotations.ui; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: ui.jar
 Bundle-Activator: org.eclipse.jst.common.internal.annotations.ui.UiPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin

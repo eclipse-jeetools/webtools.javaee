@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Annotation Controller Plug-in
 Bundle-SymbolicName: org.eclipse.jst.common.annotations.controller; singleton:=true
 Bundle-Version: 0.7.0
-Bundle-ClassPath: controller.jar
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: org.eclipse.jst.common.internal.annotations.controller,
+Export-Package: .,
+ org.eclipse.jst.common.internal.annotations.controller,
  org.eclipse.jst.common.internal.annotations.registry
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
