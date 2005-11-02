@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.jst.common.frameworks; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: org.eclipse.jst.common.componentcore.util,
+Export-Package: 
  org.eclipse.jst.common.jdt.internal.classpath,
  org.eclipse.jst.common.jdt.internal.integration,
  org.eclipse.jst.common.project.facet
