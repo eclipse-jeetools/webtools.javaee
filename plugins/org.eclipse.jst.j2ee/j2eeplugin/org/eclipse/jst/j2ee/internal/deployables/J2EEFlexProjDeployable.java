@@ -114,6 +114,14 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
         if (component == null)
         	return new IModuleResource[] {};
         try {
+        	// Retrieve the java output folder files
+	    	IContainer[] outputFolders = J2EEProjectUtilities.getOutputContainers(component.getProject());
+	    	for (int i=0; i<outputFolders.length; i++) {
+	    		if (outputFolders[i]!=null && outputFolders[i].exists()) {
+	    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
+	    			members.addAll(Arrays.asList(javaResources));
+	    		}
+	    	}
         	// Retrieve the module resources from the virtual component's root folder
 	    	IVirtualFolder componentRoot = component.getRootFolder();
 	    	if (componentRoot!=null && componentRoot.exists()) {
@@ -233,13 +241,9 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     	IFile file = null;
     	String runtimePath = resource.getRuntimePath().toString();
     	// temporary hack because virtual component API returns .java rather than .class files
-    	if (runtimePath.endsWith(".java")) { //$NON-NLS-1$
-    		IContainer output = J2EEProjectUtilities.getOutputContainers(container.getComponent().getProject())[0];
-    		runtimePath = resource.getRuntimePath().lastSegment().toString();
-    		String className = runtimePath.substring(0,runtimePath.length()-4)+"class"; //$NON-NLS-1$
-    		file = findClassFileInOutput(output,className);
-    	} else
-    		file = (IFile) resource.getUnderlyingResource();
+    	if (runtimePath.endsWith(".java")) //$NON-NLS-1$
+    		return;
+    	file = (IFile) resource.getUnderlyingResource();
     	if (file == null)
     		return;
         ModuleFile moduleFile = new ModuleFile(file, file.getName(), path, file.getModificationStamp());
@@ -248,23 +252,23 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
             result.add(moduleFile);
     }
     
-    private IFile findClassFileInOutput(IContainer container, String className) {
-    	IFile result = null;
-    	result = (IFile) container.findMember(className);
-    	if (result == null) {
-	    	try {
-	    		IResource[] currentMembers = container.members();
-	    		for (int i=0; i<currentMembers.length; i++) {
-	    			if (currentMembers[i].getType()==IResource.FOLDER) {
-	    				result = findClassFileInOutput((IContainer)currentMembers[i],className);
-	    				if (result != null)
-	    					break;
-	    			}
-	    		}
-	    	} catch (Exception e) {}
-    	}
-    	return result;
-    }
+//    private IFile findClassFileInOutput(IContainer container, String className) {
+//    	IFile result = null;
+//    	result = (IFile) container.findMember(className);
+//    	if (result == null) {
+//	    	try {
+//	    		IResource[] currentMembers = container.members();
+//	    		for (int i=0; i<currentMembers.length; i++) {
+//	    			if (currentMembers[i].getType()==IResource.FOLDER) {
+//	    				result = findClassFileInOutput((IContainer)currentMembers[i],className);
+//	    				if (result != null)
+//	    					break;
+//	    			}
+//	    		}
+//	    	} catch (Exception e) {}
+//    	}
+//    	return result;
+//    }
     
     protected IContainer getContainerResource(IResource resource){
         if(resource instanceof IFolder) {
