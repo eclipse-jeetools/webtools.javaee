@@ -190,7 +190,7 @@
     </project-facet-version>
     
     <template id="template.jst.ejb">
-      <label>Web Project</label>
+      <label>EJB Project</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.ejb"/>
     </template>
