@@ -17,8 +17,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -26,14 +28,17 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaModelMarker;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
@@ -78,6 +83,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  */
 public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	
+	private static final String WEB_PLUGIN_JAR = "org.eclipse.jst.j2ee.web_1.0.0.jar"; //$NON-NLS-1$
 	/**
 	 * The extension name for a java class
 	 */
@@ -202,7 +208,7 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 		// Using the WTPJetEmitter, generate the java source based on the servlet template model
 		try {
 			source = generateTemplateSource(tempModel, monitor);
-		} catch (JETException e) {
+		} catch (Exception e) {
 			throw new WFTWrappedException(e);
 		}
 		if (fragment != null) {
@@ -290,10 +296,28 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 		// Otherwise use non annotated template
 		else
 			templateURL = WebPlugin.getDefault().find(new Path(TEMPLATE_DIR+getDataModel().getStringProperty(INewServletClassDataModelProperties.NON_ANNOTATED_TEMPLATE_FILE)));
+		cleanUpOldEmitterProject();
 		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
 		emitter.setIntelligentLinkingEnabled(true);
 		emitter.addVariable(WEB_PLUGIN, WebPlugin.PLUGIN_ID);
 		return emitter.generate(monitor, new Object[]{tempModel});
+	}
+	
+	private void cleanUpOldEmitterProject() {
+		IProject project = ProjectUtilities.getProject(WTPJETEmitter.PROJECT_NAME);
+		if (project == null)
+			return;
+		try {
+			IMarker[] markers = project.findMarkers(IJavaModelMarker.BUILDPATH_PROBLEM_MARKER, false, IResource.DEPTH_ZERO);
+			for (int i = 0, l = markers.length; i < l; i++) {
+				if (((Integer) markers[i].getAttribute(IMarker.SEVERITY)).intValue() == IMarker.SEVERITY_ERROR) {
+					project.delete(true,new NullProgressMonitor());
+					break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
