@@ -75,6 +75,7 @@ import org.osgi.framework.Constants;
  */
 public class WTPJETEmitter extends JETEmitter {
 
+	public static final String PROJECT_NAME = ".JETEmitters"; //$NON-NLS-1$
 	private Map variables;
 
 	private boolean intelligentLinkingEnabled = false;
