@@ -104,8 +104,10 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			//
 			// ctype.setComponentTypeId(IModuleConstants.JST_WEB_MODULE);
 			// ctype.setVersion(fv.getVersionString());
-
-			c.setMetaProperty("context-root", model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT));
+			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
+			if (contextRoot == null)
+				contextRoot = project.getName();
+			c.setMetaProperty("context-root", contextRoot);
 			c.setMetaProperty("java-output-path", "/build/classes/");
 
 			// final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
