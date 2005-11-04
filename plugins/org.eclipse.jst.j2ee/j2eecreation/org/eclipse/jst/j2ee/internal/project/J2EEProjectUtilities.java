@@ -704,7 +704,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		List nonFlexJavaProjects = new ArrayList();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isAccessible() && projects[i].hasNature(JemProjectUtilities.JEM_EMF_NatureID) && !projects[i].hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+			if (projects[i].isAccessible() && projects[i].hasNature(JavaCore.NATURE_ID) && !projects[i].hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 				nonFlexJavaProjects.add(projects[i]);
 			}
 		}
