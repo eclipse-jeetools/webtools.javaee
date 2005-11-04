@@ -8,12 +8,8 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -56,9 +52,10 @@ public class ProjectFacetCreationTest extends TestCase {
     }
 
 	private IFacetedProject.Action setupWebInstallAction() {
-		IDataModel model = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
-		model.setProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, "WebContent");
-		return (IFacetedProject.Action)model.getProperty(IWebFacetInstallDataModelProperties.FACET_ACTION);
+		IProjectFacetVersion webfacetversion =  ProjectFacetsManager.getProjectFacet( "jst.web" ).getVersion( "2.4" );
+		
+		IFacetedProject.Action action = new IFacetedProject.Action( Action.Type.INSTALL, webfacetversion, null );
+		return action;
 	}
 
 	private IFacetedProject.Action setupJavaInstallAction() {
