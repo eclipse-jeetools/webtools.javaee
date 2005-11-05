@@ -1,3 +1,5 @@
 bin
 testOutput
 build.xml
+temp.folder
+tests.jar
