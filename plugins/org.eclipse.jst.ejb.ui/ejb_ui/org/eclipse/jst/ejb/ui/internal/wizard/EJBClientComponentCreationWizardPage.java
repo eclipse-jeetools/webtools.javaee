@@ -96,7 +96,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	private void createEJBComponentSection(Composite parent) {
 
 		GridData data = new GridData();
-		setSpacer(parent);
+		//setSpacer(parent);
 		selectedProjectLabel = new Label(parent, SWT.NULL);
 		selectedProjectLabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Project)); //$NON-NLS-1$ 
 
