@@ -26,15 +26,15 @@ public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvi
 		names.add(RUNTIME_TARGET_ID);
 		return names;
 	}
-	
+
 	public Object getDefaultProperty(String propertyName) {
-		if(propertyName.equals(CONTENT_DIR)){
+		if (propertyName.equals(CONTENT_DIR)) {
 			return "WebContent";
-		} else if(propertyName.equals(CREATE_WEB_INF_SRC)){
+		} else if (propertyName.equals(CREATE_WEB_INF_SRC)) {
 			return Boolean.FALSE;
-		} else if(propertyName.equals(CONTEXT_ROOT)){
+		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getProperty(FACET_PROJECT_NAME);
-		} else if(propertyName.equals(FACET_ID)){
+		} else if (propertyName.equals(FACET_ID)) {
 			return J2EEProjectUtilities.DYNAMIC_WEB;
 		}
 		return super.getDefaultProperty(propertyName);

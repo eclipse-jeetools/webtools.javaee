@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
@@ -29,6 +26,7 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataMo
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -41,24 +39,22 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-		
+
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_LOCATION,
-				model.getProperty(IComponentCreationDataModelProperties.LOCATION));
-		
-		List facetDMs = new ArrayList();
-		facetDMs.add(setupJavaInstallAction());
+
+		FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.add(setupJavaInstallAction());
 		IDataModel newModel = setupWebInstallAction();
-		facetDMs.add(newModel);
-		setRuntime(newModel,dm); //Setting runtime property
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
+		map.add(newModel);
+		setRuntime(newModel, dm); // Setting runtime property
+
 		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
-		if( stat.isOK()){
+		if (stat.isOK()) {
 			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
-			IProject earProject = ProjectUtilities.getProject( earProjectName );
+			IProject earProject = ProjectUtilities.getProject(earProjectName);
 			if (earProject != null && earProject.exists())
 				stat = addtoEar(projectName, earProjectName);
-		}		
+		}
 
 		return stat;
 	}
@@ -71,7 +67,7 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, model.getStringProperty(IWebComponentCreationDataModelProperties.CONTEXT_ROOT));
 		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
-			webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));		
+			webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
 		webFacetInstallDataModel.setProperty(IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID));
 		return webFacetInstallDataModel;
 	}

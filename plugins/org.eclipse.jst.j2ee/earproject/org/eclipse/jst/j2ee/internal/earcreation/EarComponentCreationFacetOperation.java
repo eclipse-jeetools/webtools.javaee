@@ -38,29 +38,27 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
-public class EarComponentCreationFacetOperation extends AbstractDataModelOperation {
+public class EarComponentCreationFacetOperation extends AbstractDataModelOperation implements IFacetProjectCreationDataModelProperties {
 
 	public EarComponentCreationFacetOperation(IDataModel model) {
 		super(model);
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		
+
 
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_LOCATION,
-				model.getProperty(IComponentCreationDataModelProperties.LOCATION));
-		
-		List facetDMs = new ArrayList();
-		facetDMs.add(setupEarInstallAction());
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
-		
+		dm.setProperty(FACET_PROJECT_NAME, projectName);
+
+		IDataModel newDM = setupEarInstallAction();
+		FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(FACET_DM_MAP);
+		map.add(newDM);
+
 		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
-		if( stat.isOK() )
-			addModulesToEAR( monitor );
-	
+		if (stat.isOK())
+			addModulesToEAR(monitor);
+
 		return stat;
 	}
 
@@ -81,33 +79,33 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 			Logger.getLogger().logError(e);
 		}
 	}
-	
-	private IStatus  addModulesToEAR(IProgressMonitor monitor) {
-		IStatus stat = OK_STATUS;
-		try{
-			IDataModel dm = (IDataModel)model.getProperty(IEarComponentCreationDataModelProperties.NESTED_ADD_COMPONENT_TO_EAR_DM);
-			String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-			IProject project = J2EEProjectUtilities.getProject( projectName );
-            IVirtualComponent component = ComponentCore.createComponent( project );
 
-            
+	private IStatus addModulesToEAR(IProgressMonitor monitor) {
+		IStatus stat = OK_STATUS;
+		try {
+			IDataModel dm = (IDataModel) model.getProperty(IEarComponentCreationDataModelProperties.NESTED_ADD_COMPONENT_TO_EAR_DM);
+			String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
+			IProject project = J2EEProjectUtilities.getProject(projectName);
+			IVirtualComponent component = ComponentCore.createComponent(project);
+
+
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
 
-			List moduleProjectsList = (List)model.getProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST);
+			List moduleProjectsList = (List) model.getProperty(IEarComponentCreationDataModelProperties.J2EE_PROJECTS_LIST);
 			if (moduleProjectsList != null && !moduleProjectsList.isEmpty()) {
 				List moduleComponentsList = new ArrayList(moduleProjectsList.size());
-				for(int i=0;i<moduleProjectsList.size(); i++){
-					moduleComponentsList.add(ComponentCore.createComponent((IProject)moduleProjectsList.get(i)));
+				for (int i = 0; i < moduleProjectsList.size(); i++) {
+					moduleComponentsList.add(ComponentCore.createComponent((IProject) moduleProjectsList.get(i)));
 				}
 				dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, moduleComponentsList);
 				stat = dm.validateProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-				if( stat != OK_STATUS )
+				if (stat != OK_STATUS)
 					return stat;
-				dm.getDefaultOperation().execute(monitor, null);				
-			}	
-		}catch(Exception e) {
-			 Logger.getLogger().log(e);
-		 }
+				dm.getDefaultOperation().execute(monitor, null);
+			}
+		} catch (Exception e) {
+			Logger.getLogger().log(e);
+		}
 		return stat;
-	}		
+	}
 }

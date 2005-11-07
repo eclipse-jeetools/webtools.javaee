@@ -11,9 +11,6 @@
 
 package org.eclipse.jst.j2ee.project.facet;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
@@ -25,51 +22,44 @@ import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
-public  class JavaProjectMigrationOperation extends AbstractDataModelOperation implements IJavaProjectMigrationDataModelProperties{
+public class JavaProjectMigrationOperation extends AbstractDataModelOperation implements IJavaProjectMigrationDataModelProperties {
 
 	private static String WTP_MODULE_FILE_NAME = ".wtpmodules"; //$NON-NLS-1$
-	
-    public JavaProjectMigrationOperation(IDataModel model) {
-        super(model);
-    }
 
-    public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
-			
-    	IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
-    	
+	public JavaProjectMigrationOperation(IDataModel model) {
+		super(model);
+	}
+
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
+
+		IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
+
 		IDataModel jdm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
-		
-		jdm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME,
-			model.getStringProperty(PROJECT_NAME));
-	
+
+		jdm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
+
 		jdm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
-	
 
 		IDataModel udm = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
-		try{
-			udm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME,
-					model.getStringProperty(PROJECT_NAME));
+		try {
+			udm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
 			udm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
-		}catch(Exception e){
+		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}
-			
-			
+
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
-				model.getStringProperty(PROJECT_NAME));
-		
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_LOCATION,
-				project.getLocation().toString());
-		List facetDMs = new ArrayList();
-		facetDMs.add( jdm );
-		facetDMs.add( udm );
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
+		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
+
+		FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.add(jdm);
+		map.add(udm);
 
 		try {
 			dm.getDefaultOperation().execute(monitor, null);
@@ -77,16 +67,6 @@ public  class JavaProjectMigrationOperation extends AbstractDataModelOperation i
 			Logger.getLogger().logError(e);
 		}
 		return OK_STATUS;
-    }
-
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
-	}		
-	
 }
