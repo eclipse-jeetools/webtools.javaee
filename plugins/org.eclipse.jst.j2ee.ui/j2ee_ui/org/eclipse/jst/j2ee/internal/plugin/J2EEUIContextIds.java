@@ -23,14 +23,6 @@ package org.eclipse.jst.j2ee.internal.plugin;
  * Generation - Code and Comments
  */
 public interface J2EEUIContextIds {
-	//Migration Wizard
-	public static final String MIGRATION_WIZARD_GENERAL = J2EEUIPlugin.PLUGIN_ID + ".migr1000"; //$NON-NLS-1$
-	public static final String MIGRATION_WIZARD_EAR = J2EEUIPlugin.PLUGIN_ID + ".migr1000"; //$NON-NLS-1$
-	public static final String MIGRATION_WIZARD_EJB = J2EEUIPlugin.PLUGIN_ID + ".migr1100"; //$NON-NLS-1$
-	public static final String MIGRATION_WIZARD_CMP = J2EEUIPlugin.PLUGIN_ID + ".migr1500"; //$NON-NLS-1$
-	public static final String MIGRATION_WIZARD_WEB = J2EEUIPlugin.PLUGIN_ID + ".migr1200"; //$NON-NLS-1$
-	public static final String MIGRATION_WIZARD_APP_CLIENT = J2EEUIPlugin.PLUGIN_ID + ".migr1300"; //$NON-NLS-1$
-	public static final String MIGRATION_WIZARD_CONNECTOR = J2EEUIPlugin.PLUGIN_ID + ".migr1400"; //$NON-NLS-1$
 
 	//	Delete Enterprise Bean Dialog
 	public static final String DELETE_ENTERPRISE_BEAN_DIALOG = J2EEUIPlugin.PLUGIN_ID + ".delb1000"; //$NON-NLS-1$
