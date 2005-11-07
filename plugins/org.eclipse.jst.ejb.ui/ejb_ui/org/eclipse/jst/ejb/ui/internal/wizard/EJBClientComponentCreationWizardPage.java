@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.NewModuleGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -37,6 +38,9 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	private Text clientJarURI;
 	private WorkbenchComponent module;
 	protected int indent = 0;
+    protected Text moduleNameText = null;
+    private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL); //$NON-NLS-1$    
+    private static final int SIZING_TEXT_FIELD_WIDTH = 305;	
 
 	/**
 	 * @param model
@@ -58,72 +62,80 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 		super(model, pageName, title, titleImage);
 	}
 
+
+    
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
+		
+		Composite top = new Composite(parent, SWT.NONE);
+	    top.setLayout(new GridLayout());
+	    top.setData(new GridData(GridData.FILL_BOTH));
+		
+
+		Composite composite = new Composite(top, SWT.NONE);
+		GridLayout layout = new GridLayout( 3, false );
 		composite.setLayout(layout);
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+
 		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P2);
-		createNewJ2EEModuleGroup(composite);
-		createClientGroup(composite);
+		
+		createProjectNameGroup(composite);
+		createEJBComponentSection(composite);
+		createClientJarURISection(composite);
 		handleHasClientJar();
-		return composite;
+		return top;
 	}
-	
-	private void createClientGroup(Composite parent) {
-		Composite newComposite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		newComposite.setLayout(layout);
-		createEJBComponentSection(newComposite);
-		clientJarURILabel = new Label(newComposite, SWT.NULL);
-		clientJarURILabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.Client_JAR_URI) + " "); //$NON-NLS-1$ 
+    
+    private void createProjectNameGroup(Composite parent) {
+        // set up project name label
+        Label projectNameLabel = new Label(parent, SWT.NONE);
+        projectNameLabel.setText(MODULE_NAME_UI);
+        GridData data = new GridData();
+        projectNameLabel.setLayoutData(data);
+        // set up project name entry field
+        moduleNameText = new Text(parent, SWT.BORDER);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        moduleNameText.setLayoutData(data);
+        new Label(parent, SWT.NONE); // pad
+        synchHelper.synchText(moduleNameText, COMPONENT_NAME, new Control[]{projectNameLabel});
+        moduleNameText.setFocus();
+    }
+    
+    private void createEJBComponentSection(Composite parent) {
+    	selectedProjectLabel = new Label(parent, SWT.NONE);
+    	selectedProjectLabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Project));
+        GridData data = new GridData();
+        selectedProjectLabel.setLayoutData(data);
 
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.widthHint = 305;
-		clientJarURI = new Text(newComposite, SWT.BORDER);
-		clientJarURI.setEditable(true);
-		clientJarURI.setLayoutData(data);
-		synchHelper.synchText(clientJarURI, CLIENT_COMPONENT_URI, new Control[]{clientJarURILabel});
-	}
-
-	private void createEJBComponentSection(Composite parent) {
-
-		GridData data = new GridData();
-		//setSpacer(parent);
-		selectedProjectLabel = new Label(parent, SWT.NULL);
-		selectedProjectLabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Project)); //$NON-NLS-1$ 
-
-		data.widthHint = 305;
-		selectedProjectName = new Text(parent, SWT.NULL);
-		selectedProjectName.setLayoutData(data);
+        selectedProjectName = new Text(parent, SWT.BORDER);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        selectedProjectName.setLayoutData(data);
+        new Label(parent, SWT.NONE); // pad
 		selectedProjectName.setEditable(false);
 		synchHelper.synchText(selectedProjectName, EJB_COMPONENT_NAME, new Control[]{selectedProjectLabel});
-	}
+    }
+    
+    private void createClientJarURISection(Composite parent) {
+        // set up project name label
+    	clientJarURILabel = new Label(parent, SWT.NONE);
+    	clientJarURILabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.Client_JAR_URI) + " ");
+        GridData data = new GridData();
+        clientJarURILabel.setLayoutData(data);
 
-	protected void createNewJ2EEModuleGroup(Composite parent) {
-		Composite newComposite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 3;
-		newComposite.setLayout(layout);
-		newModuleGroup = new NewModuleGroup(newComposite, SWT.NULL, model, synchHelper);
-	}
+        clientJarURI = new Text(parent, SWT.BORDER);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+        clientJarURI.setLayoutData(data);
+        new Label(parent, SWT.NONE); // pad
+		synchHelper.synchText(clientJarURI, CLIENT_COMPONENT_URI, new Control[]{clientJarURILabel});
+    }
+   
 
-	private void setSpacer(Composite composite) {
-		Label space = new Label(composite, SWT.NONE);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		space.setLayoutData(data);
-
-		space = new Label(composite, SWT.NONE);
-		data = new GridData(GridData.FILL_HORIZONTAL);
-		space.setLayoutData(data);
-	}
 
 	private void handleHasClientJar() {
 		EJBArtifactEdit edit = null;
