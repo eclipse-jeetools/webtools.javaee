@@ -305,7 +305,7 @@ public class NewServletClassOperation extends ArtifactEditProviderOperation {
 	
 	private void cleanUpOldEmitterProject() {
 		IProject project = ProjectUtilities.getProject(WTPJETEmitter.PROJECT_NAME);
-		if (project == null)
+		if (project == null || !project.exists())
 			return;
 		try {
 			IMarker[] markers = project.findMarkers(IJavaModelMarker.BUILDPATH_PROBLEM_MARKER, false, IResource.DEPTH_ZERO);
