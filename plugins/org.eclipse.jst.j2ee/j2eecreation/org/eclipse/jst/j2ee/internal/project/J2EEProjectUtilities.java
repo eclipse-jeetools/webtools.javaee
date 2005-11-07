@@ -637,9 +637,15 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	 * @return array of IContainers for the output folders
 	 */
 	public static IContainer[] getOutputContainers(IProject project) {
+		List result = new ArrayList();
+		try {
+			if (!project.hasNature(JavaCore.NATURE_ID))
+				return new IContainer[]{};
+		}
+		catch (Exception e) {}
 		IPackageFragmentRoot[] sourceContainers = getSourceContainers(project);
 		IJavaProject jProject = JavaCore.create(project);
-		List result = new ArrayList();
+		
 		for (int i=0; i<sourceContainers.length; i++) {
 			try {
 				IFolder outputFolder;

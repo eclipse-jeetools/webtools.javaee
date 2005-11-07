@@ -69,6 +69,8 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     protected IVirtualComponent component = null;
     private boolean outputMembersAdded = false;
     private List members = new ArrayList();
+    private static IPath WEB_INF_PATH= new Path(J2EEConstants.WEB_INF);
+    private static IPath WEB_INF_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -102,6 +104,42 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	public String getType() {
 		return J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
 	}
+	
+	private void getJavaResources() throws CoreException {
+		IContainer[] outputFolders = J2EEProjectUtilities.getOutputContainers(component.getProject());
+    	for (int i=0; i<outputFolders.length; i++) {
+    		if (outputFolders[i]==null || !outputFolders[i].exists())
+    			continue;
+    		if (J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+    			ModuleFolder webInf = (ModuleFolder) getExistingModuleResource(members, WEB_INF_PATH);
+    			if (webInf == null) {
+    				webInf = new ModuleFolder(outputFolders[i],J2EEConstants.WEB_INF,Path.EMPTY);
+    				webInf.setMembers(new IModuleResource[]{});
+    				members.add(webInf);
+    			}
+    			ModuleFolder classes = (ModuleFolder) getExistingModuleResource(members, WEB_INF_CLASSES_PATH);
+    			if (classes == null) {
+    				classes = new ModuleFolder(outputFolders[i],"classes",new Path(J2EEConstants.WEB_INF)); //$NON-NLS-1$
+    				classes.setMembers(new IModuleResource[]{});
+    			}
+    			List currentMembers = new ArrayList();
+    			List membersList = Arrays.asList(webInf.members());
+    			currentMembers.addAll(membersList);
+    			currentMembers.add(classes);
+    			webInf.setMembers((IModuleResource[])currentMembers.toArray(new IModuleResource[currentMembers.size()]));
+    			IModuleResource[] javaResources = getModuleResources(WEB_INF_CLASSES_PATH,outputFolders[i]);
+    			currentMembers.clear();
+    			membersList = Arrays.asList(classes.members());
+    			currentMembers.addAll(membersList);
+    			currentMembers.addAll(Arrays.asList(javaResources));
+    			classes.setMembers((IModuleResource[])currentMembers.toArray(new IModuleResource[currentMembers.size()]));
+    		}
+    		else {
+    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
+    			members.addAll(Arrays.asList(javaResources));
+    		}
+    	}
+	}
 
 	/**
 	 * Return the module resources for both the component meta folder and the java output folder
@@ -115,25 +153,39 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
         	return new IModuleResource[] {};
         try {
         	// Retrieve the java output folder files
-	    	IContainer[] outputFolders = J2EEProjectUtilities.getOutputContainers(component.getProject());
-	    	for (int i=0; i<outputFolders.length; i++) {
-	    		if (outputFolders[i]!=null && outputFolders[i].exists()) {
-	    			IModuleResource[] javaResources = getModuleResources(Path.EMPTY,outputFolders[i]);
-	    			members.addAll(Arrays.asList(javaResources));
-	    		}
-	    	}
+	    	getJavaResources();
+	    	
         	// Retrieve the module resources from the virtual component's root folder
 	    	IVirtualFolder componentRoot = component.getRootFolder();
 	    	if (componentRoot!=null && componentRoot.exists()) {
 	    		IModuleResource[] rootResources = getModuleResources(Path.EMPTY, componentRoot);
 	    		members.addAll(Arrays.asList(rootResources));
-	    	}
-	    	
+	    	}	
         } catch (CoreException ce) {
         	throw ce;
         }
         //Return the combined array of the meta resources and java class files
         return (IModuleResource[]) members.toArray(new IModuleResource[members.size()]);
+    }
+    
+    private IModuleResource getExistingModuleResource(List moduleResources, IPath path) {
+    	IModuleResource result = null;
+    	// If the list is empty, return null
+    	if (moduleResources==null || moduleResources.isEmpty())
+    		return null;
+    	// Otherwise recursively check to see if given resource matches current resource or if it is a child
+    	int i=0;
+    	do {
+	    	IModuleResource moduleResource = (IModuleResource) moduleResources.get(i);
+	    		if (moduleResource.getModuleRelativePath().append(moduleResource.getName()).equals(path))
+	    			result = moduleResource;
+	    		// if it is a folder, check its children for the resource path
+	    		else if (moduleResource instanceof IModuleFolder) {
+	    			result = getExistingModuleResource(Arrays.asList(((IModuleFolder)moduleResource).members()),path);
+	    		}
+	    		i++;
+    	} while (result == null && i<moduleResources.size() );
+    	return result;
     }
     
     /**
