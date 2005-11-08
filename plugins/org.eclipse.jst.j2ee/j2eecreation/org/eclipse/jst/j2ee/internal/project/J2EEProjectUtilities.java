@@ -618,7 +618,8 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 					boolean found = false;
 					for (int j = 0; !found && j < vResources.length; j++) {
 						if (vResources[j].getComponent().equals(vc)) {
-							list.add(roots[i]);
+							if (!list.contains(roots[i]))
+								list.add(roots[i]);
 							found = true;
 						}
 					}
@@ -654,7 +655,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 					outputFolder = project.getFolder(jProject.getOutputLocation().removeFirstSegments(1));
 				else
 					outputFolder = project.getFolder(outputPath.removeFirstSegments(1));
-				if (outputFolder != null)
+				if (outputFolder != null && !result.contains(outputFolder))
 					result.add(outputFolder);
 			} catch (Exception e) {
 				continue;
