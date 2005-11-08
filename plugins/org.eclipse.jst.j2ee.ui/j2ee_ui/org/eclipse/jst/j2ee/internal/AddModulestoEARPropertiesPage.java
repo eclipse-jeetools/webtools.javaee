@@ -299,23 +299,13 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 							selected[i].toString());
 				
 				ArrayList vlist = new ArrayList();
-				IVirtualReference[] oldrefs = earComponent.getReferences();
-				for (int j = 0; j < oldrefs.length; j++) {
-					IVirtualReference ref = oldrefs[j];
-					vlist.add(ref);
-				}		
 			
 				//To do: check if archive component already exists
 				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
 				vlist.add(ref);	
 				
-				IVirtualReference[] refs = new IVirtualReference[vlist.size()];
-				for (int j = 0; j < vlist.size(); j++) {
-					IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
-					refs[j] = tmpref;
-				}				
-				earComponent.setReferences(refs);
-				//j2eeComponentList.add(archive.getProject());
+				IVirtualReference[] refs = (IVirtualReference[]) vlist.toArray(new IVirtualReference[vlist.size()]);
+				earComponent.addReferences(refs);
 				j2eeComponentList.add(archive);
 			}
 			refresh();
@@ -568,6 +558,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		}
 		
 		availableComponentsViewer.setCheckedElements(list.toArray());
+		j2eeComponentList.addAll(list);
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		buttonColumn.setLayoutData(btndata);
 
