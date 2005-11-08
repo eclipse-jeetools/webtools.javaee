@@ -48,34 +48,36 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			for (int i = 0; i < components.length; i++) {
 				IVirtualReference reference = components[i];
 				IVirtualComponent referencedComponent = reference.getReferencedComponent();
-				if (J2EEProjectUtilities.isApplicationClientProject(referencedComponent.getProject()) || J2EEProjectUtilities.isEJBProject(referencedComponent.getProject()) || J2EEProjectUtilities.isDynamicWebProject(referencedComponent.getProject()) || J2EEProjectUtilities.isJCAProject(referencedComponent.getProject())) {
-					ArtifactEdit componentArtifactEdit = null;
-					try {
-						componentArtifactEdit = ComponentUtilities.getArtifactEditForRead(referencedComponent);
-						Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource);
-						archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
-						filesHolder.addFile(archive);
-					} catch (OpenFailureException oe) {
-						Logger.getLogger().logError(oe);
-					} finally {
-						if (componentArtifactEdit != null) {
-							componentArtifactEdit.dispose();
-						}
-					}
-				} else if (J2EEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
-					try {
-						if (!referencedComponent.isBinary()) {
-							String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
-							Archive archive = J2EEProjectUtilities.asArchive(uri, referencedComponent.getProject(), exportSource);
+				if( !referencedComponent.isBinary() ){
+					if (J2EEProjectUtilities.isApplicationClientProject(referencedComponent.getProject()) || J2EEProjectUtilities.isEJBProject(referencedComponent.getProject()) || J2EEProjectUtilities.isDynamicWebProject(referencedComponent.getProject()) || J2EEProjectUtilities.isJCAProject(referencedComponent.getProject())) {
+						ArtifactEdit componentArtifactEdit = null;
+						try {
+							componentArtifactEdit = ComponentUtilities.getArtifactEditForRead(referencedComponent);
+							Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource);
+							archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
 							filesHolder.addFile(archive);
-						} else {
-							java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
-							String uri = diskFile.getName();
-							addExternalFile(uri, diskFile);
+						} catch (OpenFailureException oe) {
+							Logger.getLogger().logError(oe);
+						} finally {
+							if (componentArtifactEdit != null) {
+								componentArtifactEdit.dispose();
+							}
 						}
-					} catch (OpenFailureException e) {
-						Logger.getLogger().logError(e);
+					} else if (J2EEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
+						try {
+							if (!referencedComponent.isBinary()) {
+								String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
+								Archive archive = J2EEProjectUtilities.asArchive(uri, referencedComponent.getProject(), exportSource);
+								filesHolder.addFile(archive);
+							}
+						} catch (OpenFailureException e) {
+							Logger.getLogger().logError(e);
+						}
 					}
+				}else{
+					java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
+					String uri = diskFile.getName();
+					addExternalFile(uri, diskFile);					
 				}
 			}
 
