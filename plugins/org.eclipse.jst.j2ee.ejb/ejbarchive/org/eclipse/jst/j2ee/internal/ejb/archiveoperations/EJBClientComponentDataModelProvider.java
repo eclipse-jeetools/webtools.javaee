@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.util.Set;
 
-import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
@@ -21,6 +20,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class EJBClientComponentDataModelProvider extends JavaComponentCreationDataModelProvider implements IEJBClientComponentCreationDataModelProperties, IAnnotationsDataModel {
@@ -82,7 +82,7 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 				String clientModuleName = getStringProperty(COMPONENT_NAME);
 				if (ejbModuleName.equals(clientModuleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
-				} else if (!CoreFileSystemLibrary.isCaseSensitive() && ejbModuleName.equalsIgnoreCase(clientModuleName)) {
+				} else if (!WTPPlugin.isPlatformCaseSensitive() && ejbModuleName.equalsIgnoreCase(clientModuleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
 				}
 			}

@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.util.Set;
 
-import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
@@ -32,6 +31,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class EjbComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEjbComponentCreationDataModelProperties {
@@ -207,7 +207,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 				if (clientName.equals(moduleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
 				}
-				if (!CoreFileSystemLibrary.isCaseSensitive()) {
+				if (!WTPPlugin.isPlatformCaseSensitive()) {
 					if (clientName.toLowerCase().equals(moduleName.toLowerCase())) {
 						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
 					}
@@ -218,7 +218,7 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 					if (clientName.equals(earName)) {
 						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR));
 					}
-					if (!CoreFileSystemLibrary.isCaseSensitive()) {
+					if (!WTPPlugin.isPlatformCaseSensitive()) {
 						if (clientName.toLowerCase().equals(earName.toLowerCase())) {
 							return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR));
 						}
