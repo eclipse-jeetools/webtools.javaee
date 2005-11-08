@@ -16,14 +16,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -32,7 +37,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -42,13 +49,16 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
@@ -56,13 +66,15 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
-
+	private List zipFiles = new ArrayList();
+	
 	protected class FilesHolder {
 
 		private Map urisToFiles = new HashMap();
 		private Map urisToResources = new HashMap();
 		private Map resourcesToURI = new HashMap();
 		private Map urisToDiskFiles;
+		private Map urisToZipEntry = new HashMap();
 
 		public void removeIFile(IFile file) {
 			String uri = (String) resourcesToURI.get(file);
@@ -105,9 +117,24 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 			if (urisToDiskFiles != null && urisToDiskFiles.containsKey(uri)) {
 				diskFile = (java.io.File) urisToDiskFiles.get(uri);
-			} else {
+			} else if (urisToResources != null && urisToResources.containsKey(uri)){
 				IResource resource = (IResource) urisToResources.get(uri);
 				diskFile = new java.io.File(resource.getLocation().toOSString());
+			}else{
+				Map fileURIMap = (Map)urisToZipEntry.get(uri);
+				Iterator it = fileURIMap.keySet().iterator();
+				
+				String sourceFileUri = ""; 
+				ZipFile zipFile = null;
+				
+				//there is only one key, pair
+				while( it.hasNext()){
+					sourceFileUri = (String)it.next();
+					zipFile = (ZipFile)fileURIMap.get( sourceFileUri );
+				}
+				ZipEntry entry = zipFile.getEntry( sourceFileUri );
+				InputStream in = zipFile.getInputStream( entry );
+ 				return in;
 			}
 			return new FileInputStream(diskFile);
 		}
@@ -118,6 +145,24 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 		public boolean contains(String uri) {
 			return urisToFiles.containsKey(uri);
+		}
+
+		public void addEntry(ZipEntry entry, ZipFile zipFile, IPath runtimePath) {
+			String uri = runtimePath == null ? null : runtimePath.toString();
+			String fileURI = "";
+			if( uri != null ){
+				fileURI = uri + entry.getName();
+			}else{
+				fileURI = entry.getName();
+			}
+
+			File file = createFile( fileURI );
+			
+			Map fileURIMap = new HashMap();
+			fileURIMap.put( entry.getName(), zipFile );
+		
+			urisToZipEntry.put(file.getURI(), fileURIMap);
+			urisToFiles.put(file.getURI(), file);
 		}
 	}
 
@@ -144,8 +189,38 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public List getFiles() {
 		aggregateSourceFiles();
 		aggregateClassFiles();
+		addUtilities();
 		return filesHolder.getFiles();
 	}
+
+	protected  void addUtilities(){
+		IVirtualReference[] components = vComponent.getReferences();
+		for (int i = 0; i < components.length; i++) {
+			IVirtualReference reference = components[i];
+			IVirtualComponent referencedComponent = reference.getReferencedComponent();
+			
+			if(referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES){
+				java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
+				ZipFile zipFile;
+				IPath path = reference.getRuntimePath();
+				try {
+					zipFile = new ZipFile(diskFile);
+					zipFiles.add(zipFile);
+					Enumeration enumeration = zipFile.entries();
+					while(enumeration.hasMoreElements()){
+						ZipEntry entry = (ZipEntry)enumeration.nextElement();
+						filesHolder.addEntry(entry, zipFile, path);
+					}
+				} catch (ZipException e) {
+					Logger.getLogger().logError(e);
+				} catch (IOException e) {
+					Logger.getLogger().logError(e);
+				}
+			}
+		}		
+	}
+	
+		
 
 	protected void aggregateSourceFiles() {
 		try {
@@ -164,6 +239,14 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			se = StructureEdit.getStructureEditForRead(vComponent.getProject());
 			for (int i = 0; i < sourceRoots.length; i++) {
 				IPath outputPath = sourceRoots[i].getRawClasspathEntry().getOutputLocation();
+				if( outputPath == null ){
+					IProject project = vComponent.getProject();
+					if ( project.hasNature(JavaCore.NATURE_ID) ){
+						IJavaProject javaProject = JavaCore.create( project );
+						outputPath = javaProject.getOutputLocation();
+					}
+				}
+				
 				if (outputPath != null) {
 					IFolder javaOutputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
 					IPath runtimePath = null;
@@ -347,5 +430,16 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public IVirtualComponent getComponent() {
 		return vComponent;
 	}
-
+	
+	public void close() {
+		Iterator it = zipFiles.iterator();
+		while( it.hasNext() ){
+			ZipFile file = (ZipFile) it.next();
+			try {
+				file.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}	
 }
