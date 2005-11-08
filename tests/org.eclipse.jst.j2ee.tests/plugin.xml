@@ -37,6 +37,7 @@
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.project.facet.core"/>
+      <import plugin="org.eclipse.jst.server.core"/>
    </requires>
    <extension
          point="org.eclipse.wst.common.tests.collector.suites">
