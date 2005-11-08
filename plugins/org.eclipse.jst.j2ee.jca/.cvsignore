@@ -3,3 +3,4 @@ build.xml
 runtime
 temp.folder
 @dot
+src.zip
