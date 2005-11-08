@@ -344,8 +344,10 @@
       class="org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainerInitializer"
       id="org.eclipse.jst.j2ee.internal.web.container"/>
   </extension>
+  
   <!-- Project Facets -->
-	<extension point="org.eclipse.wst.common.project.facet.core.facets">
+  
+  <extension point="org.eclipse.wst.common.project.facet.core.facets">
 
     <project-facet id="jst.web">
       <label>Dynamic Web Module</label>
@@ -354,16 +356,6 @@
     </project-facet>
 
     <project-facet-version facet="jst.web" version="2.2">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
-      </action>
-      <action type="version-change">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
-      </action>
-      <action type="runtime-changed">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
-      </action>
       <constraint>
         <and>
           <requires facet="jst.java" version="1.3" allow-newer="true"/>
@@ -374,16 +366,6 @@
     </project-facet-version>
 
     <project-facet-version facet="jst.web" version="2.3">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
-      </action>
-      <action type="version-change">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
-      </action>
-      <action type="runtime-changed">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
-      </action>
       <constraint>
         <and>
           <requires facet="jst.java" version="1.3" allow-newer="true"/>
@@ -394,16 +376,6 @@
     </project-facet-version>
 
     <project-facet-version facet="jst.web" version="2.4">
-      <action type="install">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
-      </action>
-      <action type="version-change">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
-      </action>
-      <action type="runtime-changed">
-        <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
-      </action>
       <constraint>
         <and>
           <requires facet="jst.java" version="1.3" allow-newer="true"/>
@@ -413,6 +385,19 @@
       <group-member id="modules"/>
     </project-facet-version>
     
+    <action type="install" facet="jst.web" version="&gt;=2.2,&lt;=2.4">
+      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
+    </action>
+
+    <action type="version-change" facet="jst.web" version="&gt;=2.2,&lt;=2.4">
+      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
+    </action>
+    
+    <action type="runtime-changed" facet="jst.web" version="&gt;=2.2,&lt;=2.4">
+      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
+    </action>
+
     <template id="template.jst.web">
       <label>Dynamic Web Project</label>
       <fixed facet="jst.java"/>

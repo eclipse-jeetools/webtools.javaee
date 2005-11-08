@@ -17,6 +17,8 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -42,7 +44,6 @@ public final class WebFacetInstallPage
     private EarSelectionPanel earPanel;
     private Label contextRootLabel;
     private Text contextRoot;
-    private boolean contextRootModified; 
     private Label contentDirLabel;
     private Text contentDir;
     private Button createWebInfSrc;
@@ -85,7 +86,11 @@ public final class WebFacetInstallPage
         {
             public void modifyText( final ModifyEvent event ) 
             {
-                WebFacetInstallPage.this.contextRootModified = true;
+                if( ! config.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT).equals( contextRoot.getText() ) )
+                {
+                    config.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, contextRoot.getText() );
+                }
+                
                 validate();
             }
         } );
@@ -103,12 +108,21 @@ public final class WebFacetInstallPage
         {
             public void modifyText( final ModifyEvent event ) 
             {
+                config.setStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, contentDir.getText() );
                 validate();
             }
         } );
         
         this.createWebInfSrc = new Button( composite, SWT.CHECK );
         this.createWebInfSrc.setText( Resources.createWebinfSrcLabel );
+        
+        this.createWebInfSrc.addSelectionListener( new SelectionAdapter()
+        {
+            public void widgetSelected( final SelectionEvent e )
+            {
+                config.setBooleanProperty(IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC,createWebInfSrc.getSelection() );
+            }
+        } );
         
         setControl( composite );
     }
@@ -120,34 +134,13 @@ public final class WebFacetInstallPage
 
     public void transferStateToConfig() 
     {
-        if( this.earPanel.getAddToEar() )
-        {
-            this.config.setStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, this.earPanel.getEarProjectName() );
-        }
-        
-        
-        if( this.contextRootModified )
-        {
-        	this.config.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, this.contextRoot.getText() );
-        }
-        else
-        {
-        	this.config.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, this.context.getProjectName() );
-        }
-        
-        this.config.setStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, this.contentDir.getText() );
-        this.config.setBooleanProperty(IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC,this.createWebInfSrc.getSelection() );
     }
     
     public void setVisible( final boolean visible )
     {
         if( visible )
         {
-            if( ! this.contextRootModified )
-            {
-                this.contextRoot.setText( this.context.getProjectName() );
-                this.contextRootModified = false;
-            }
+            this.contextRoot.setText( this.config.getStringProperty( IWebFacetInstallDataModelProperties.CONTEXT_ROOT ) );
         }
         
         super.setVisible( visible );
