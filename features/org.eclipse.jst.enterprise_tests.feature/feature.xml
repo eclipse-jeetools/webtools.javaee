@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.jst.enterprise_tests.feature"
+      label="org.eclipse.jst.enterprise_tests.feature"
+      version="1.0.0">
+
+   <description url="http://www.example.com/description">
+      %description
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      %copyright
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      %license
+   </license>
+
+
+   <plugin
+         id="org.eclipse.jst.j2ee.core.tests.performance"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.j2ee.tests.performance"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.validation.sample"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.validation.test"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.ws.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.jst.ws.tests.performance"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
