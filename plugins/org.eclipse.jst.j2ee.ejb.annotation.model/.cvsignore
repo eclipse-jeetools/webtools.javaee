@@ -3,3 +3,4 @@ temp.folder
 *.jar
 build.xml
 @dot
+src.zip
