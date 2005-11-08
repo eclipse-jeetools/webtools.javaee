@@ -78,7 +78,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			mkdirs(ws.getRoot().getFolder(webinflib));
 
 			try {
-				createManifest(project, model.getStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR), monitor);
+				createManifest(project, ws.getRoot().getFolder(contentdir), monitor);
 			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {

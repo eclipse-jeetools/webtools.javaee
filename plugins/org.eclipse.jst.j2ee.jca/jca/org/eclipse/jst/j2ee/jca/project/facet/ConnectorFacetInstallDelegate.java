@@ -75,7 +75,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			}
 
 			try {
-				createManifest(project, configFolder, monitor);
+				createManifest(project, connectorFolder, monitor);
  			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {

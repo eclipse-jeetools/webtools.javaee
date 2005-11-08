@@ -73,7 +73,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			}
 
 			try {
-				createManifest(project, configFolder, monitor);
+				createManifest(project, configIFolder, monitor);
 			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {
