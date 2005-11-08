@@ -13,6 +13,9 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit.Test0_7Workspace;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -27,12 +30,13 @@ import org.eclipse.wst.server.core.ServerUtil;
 
 public class Migrate07EJBTest extends TestCase {
 	
-	private IProject ejbProject;
+	private IProject ejbProject,webProject;
 	public Migrate07EJBTest() {
 		super();
 
 		if (Test0_7Workspace.init()) {
 			ejbProject = Test0_7Workspace.getTargetProject("MyEarEJB");
+			webProject = Test0_7Workspace.getTargetProject("TestWeb");
 		} else {
 			fail();
 
@@ -42,12 +46,12 @@ public class Migrate07EJBTest extends TestCase {
 	private void pass() {
 		assertTrue(true);
 	}
-	public String getFacetFromProject() {
-		return J2EEProjectUtilities.getJ2EEProjectType(ejbProject);
+	public String getFacetFromProject(IProject aProject) {
+		return J2EEProjectUtilities.getJ2EEProjectType(aProject);
 	}
 
-	public void testMigrate() {
-		String facetid = getFacetFromProject();
+	public void testEJBMigrate() {
+		String facetid = getFacetFromProject(ejbProject);
 		if (facetid.length() == 0)
 			migrateEJBProject(ejbProject);
 		EJBArtifactEdit edit = null;
@@ -60,18 +64,33 @@ public class Migrate07EJBTest extends TestCase {
 			}
 		}
 	}
+	public void testWebMigrate() {
+		String facetid = getFacetFromProject(webProject);
+		if (facetid.length() == 0)
+			migrateWEBProject(webProject);
+		WebArtifactEdit edit = null;
+		try {
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(webProject);
+			WebApp webapp = edit.getWebApp();
+		} finally {
+			if (edit != null) {
+				edit.dispose();
+			}
+		}
+	}
 	protected IDataModel setupJavaInstallAction(IProject aProject) {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
 		return dm;
 	}
-	protected IDataModel setupEjbInstallAction(IProject aProject,String ejbVersion) {
-		IDataModel ejbFacetInstallDataModel = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
-		ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
-		ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, ejbVersion);
+	
+	protected IDataModel setupWebInstallAction(IProject aProject,String specVersion) {
+		IDataModel webFacetInstallDataModel = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
+		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
 		
-		return ejbFacetInstallDataModel;
+		return webFacetInstallDataModel;
 	}
 
 	private void migrateEJBProject(IProject ejbProject2) {
@@ -90,6 +109,22 @@ public class Migrate07EJBTest extends TestCase {
 		}
 		
 	}
+	private void migrateWEBProject(IProject webProj) {
+		StructureEdit edit = null;
+		try {
+			edit = StructureEdit.getStructureEditForRead(webProj);
+			String facetid = edit.getComponent().getComponentType().getComponentTypeId();
+			String specVersion = edit.getComponent().getComponentType().getVersion();
+			Assert.assertEquals(facetid,J2EEProjectUtilities.DYNAMIC_WEB);
+			installWEBFacets(webProj,specVersion);
+			
+		}
+		finally {
+			if (edit != null)
+				edit.dispose();
+		}
+		
+	}
 
 	private void installEJBFacets(IProject ejbProject2,String ejbVersion) {
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
@@ -99,6 +134,22 @@ public class Migrate07EJBTest extends TestCase {
 		IDataModel newModel = setupEjbInstallAction(ejbProject2,ejbVersion);
 		facetDMs.add(newModel);
 		setRuntime(ejbProject2,dm); //Setting runtime property
+		try {
+			IStatus stat =  dm.getDefaultOperation().execute(null,null);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	private void installWEBFacets(IProject webProj,String specVersion) {
+		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
+		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, webProj.getName());
+		FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		facetDMs.add(setupJavaInstallAction(webProj));
+		IDataModel newModel = setupWebInstallAction(webProj,specVersion);
+		facetDMs.add(newModel);
+		setRuntime(webProj,dm); //Setting runtime property
 		try {
 			IStatus stat =  dm.getDefaultOperation().execute(null,null);
 		} catch (ExecutionException e) {
@@ -139,6 +190,14 @@ public class Migrate07EJBTest extends TestCase {
 		}
 	
 		
+	}
+
+	protected IDataModel setupEjbInstallAction(IProject aProject,String ejbVersion) {
+		IDataModel ejbFacetInstallDataModel = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
+		ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+		ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, ejbVersion);
+		
+		return ejbFacetInstallDataModel;
 	}
 
 }
