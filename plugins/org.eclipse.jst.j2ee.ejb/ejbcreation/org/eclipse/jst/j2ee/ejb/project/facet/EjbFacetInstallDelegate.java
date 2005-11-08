@@ -79,14 +79,18 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			// }
 
 			final IVirtualFolder ejbroot = c.getRootFolder();
-			String configFolder = model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER);
-			ejbroot.createLink(new Path("/" + configFolder), 0, null);
+			IFolder ejbFolder = null;
+			String configFolder = null;
+			if (ejbroot.getProjectRelativePath().segmentCount() == 0) {
+				configFolder = model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER);
+				ejbroot.createLink(new Path("/" + configFolder), 0, null);
+	
+				String ejbFolderName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER);
+				IPath ejbFolderpath = pjpath.append(ejbFolderName);
 
-
-			String ejbFolderName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER);
-			IPath ejbFolderpath = pjpath.append(ejbFolderName);
-
-			IFolder ejbFolder = ws.getRoot().getFolder(ejbFolderpath);
+				ejbFolder = ws.getRoot().getFolder(ejbFolderpath);
+			} else
+				ejbFolder = project.getFolder(ejbroot.getProjectRelativePath());
 
 			if (!ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI).exists()) {
 				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
@@ -95,7 +99,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			}
 
 			try {
-				createManifest(project, configFolder, monitor);
+				createManifest(project, ejbFolder, monitor);
 			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {
