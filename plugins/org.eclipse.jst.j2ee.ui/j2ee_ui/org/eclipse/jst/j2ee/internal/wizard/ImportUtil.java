@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.io.File;
 
-import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.jst.j2ee.application.Application;
@@ -27,6 +26,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 
 
 
@@ -198,7 +198,7 @@ public class ImportUtil {
 			}
 			for (int i = 0; i < projects.length; i++) {
 				if (projects[i].exists()) {
-					if (CoreFileSystemLibrary.isCaseSensitive()) {
+					if (WTPPlugin.isPlatformCaseSensitive()) {
 						if (projects[i].getName().equals(projectName))
 							return projects[i].getName();
 					} else {

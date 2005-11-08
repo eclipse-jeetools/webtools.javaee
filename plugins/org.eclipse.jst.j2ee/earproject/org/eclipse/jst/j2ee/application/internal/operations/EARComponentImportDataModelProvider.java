@@ -15,7 +15,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -55,6 +54,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
@@ -290,14 +290,14 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				}
 				if (tempProjectName.equals(earProjectName)) {
 					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_1", new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
-				} else if (!CoreFileSystemLibrary.isCaseSensitive()) {
+				} else if (!WTPPlugin.isPlatformCaseSensitive()) {
 					if (tempProjectName.toLowerCase().equals(earProjectName.toLowerCase())) {
 						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_1", new Object[]{tempProjectName, tempArchive.getURI()})); //$NON-NLS-1$
 					}
 				}
 				if (projects.containsKey(tempProjectName)) {
 					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_2", new Object[]{tempProjectName, tempArchive.getURI(), ((Archive) projects.get(tempProjectName)).getURI()})); //$NON-NLS-1$
-				} else if (!CoreFileSystemLibrary.isCaseSensitive()) {
+				} else if (!WTPPlugin.isPlatformCaseSensitive()) {
 					String lowerCaseProjectName = tempProjectName.toLowerCase();
 					String currentKey = null;
 					Enumeration keys = projects.keys();

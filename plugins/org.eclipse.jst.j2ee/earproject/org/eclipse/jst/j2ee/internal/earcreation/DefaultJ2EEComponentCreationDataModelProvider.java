@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.earcreation;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -32,6 +31,7 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -205,13 +205,13 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			boolean errorNoSelection = true;
 			if (getBooleanProperty(CREATE_APPCLIENT)) {
 				actualProjectName = clientModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
-				projectName = CoreFileSystemLibrary.isCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
+				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				list.add(projectName);
 				errorNoSelection = false;
 			}
 			if (getBooleanProperty(CREATE_EJB)) {
 				actualProjectName = ejbModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
-				projectName = CoreFileSystemLibrary.isCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
+				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				if (!list.contains(projectName)) {
 					list.add(projectName);
 				} else {
@@ -221,7 +221,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			}
 			if (!errorCollision && getBooleanProperty(CREATE_WEB)) {
 				actualProjectName = webModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
-				projectName = CoreFileSystemLibrary.isCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
+				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				if (!list.contains(projectName)) {
 					list.add(projectName);
 				} else {
@@ -231,7 +231,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			}
 			if (!errorCollision && getBooleanProperty(CREATE_CONNECTOR)) {
 				actualProjectName = jcaModel.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
-				projectName = CoreFileSystemLibrary.isCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
+				projectName = WTPPlugin.isPlatformCaseSensitive() ? actualProjectName : actualProjectName.toLowerCase();
 				if (!list.contains(projectName)) {
 					list.add(projectName);
 				} else {
