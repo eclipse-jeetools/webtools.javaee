@@ -18,7 +18,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class WebServiceUIPlugin extends AbstractUIPlugin {
 	
-	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.webservices.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.webservice.ui"; //$NON-NLS-1$
 	
 	//	The shared instance.
 	private static WebServiceUIPlugin plugin;
