@@ -1,15 +1,12 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
@@ -18,13 +15,11 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -41,9 +36,9 @@ import org.eclipse.wst.server.core.ServerUtil;
 public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
 
 	private IDataModel earCreationDM = null;
-	private static String MODULE_NOT_SUPPORTED = "MODULE_NOT_SUPPORTED";
-	private static String MODULEVERSION_NOT_SUPPORTED = "VERSION_NOT_SUPPORTED";
-	private static String OK = "OK";
+	private static String MODULE_NOT_SUPPORTED = "MODULE_NOT_SUPPORTED"; //$NON-NLS-1$
+	private static String MODULEVERSION_NOT_SUPPORTED = "VERSION_NOT_SUPPORTED"; //$NON-NLS-1$
+	private static String OK = "OK"; //$NON-NLS-1$
 
 	public void init() {
 		super.init();
@@ -84,7 +79,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(EAR_COMPONENT_NAME)) {
-			return getDataModel().getStringProperty(COMPONENT_NAME) + "EAR";
+			return getDataModel().getStringProperty(COMPONENT_NAME) + "EAR"; //$NON-NLS-1$
 		} else if (propertyName.equals(COMPONENT_VERSION)) {
 			return getDefaultComponentVersion();
 		} else if (propertyName.equals(NESTED_EAR_COMPONENT_CREATION_DM))
@@ -165,12 +160,11 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	protected IProject getEARProject() {
 		String earProjname = (String) model.getProperty(EAR_COMPONENT_NAME);
 		IDataModel earDM = (IDataModel) model.getProperty(NESTED_EAR_COMPONENT_CREATION_DM);
-		earDM.setProperty(IEarComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
+		earDM.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, earProjname);
 
-		if (earProjname != null && !earProjname.equals("") && validate(EAR_COMPONENT_NAME).isOK())
+		if (earProjname != null && !earProjname.equals("") && validate(EAR_COMPONENT_NAME).isOK()) //$NON-NLS-1$
 			return ProjectUtilities.getProject(earProjname);
-		else
-			return null;
+		return null;
 	}
 
 
@@ -203,7 +197,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 		IRuntime runtime = getServerTargetByID(serverID);
 
-		if (serverID.equals("") || runtime == null) {
+		if (serverID.equals("") || runtime == null) { //$NON-NLS-1$
 			return MODULEVERSION_NOT_SUPPORTED;
 		}
 		Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
@@ -225,11 +219,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		DataModelPropertyDescriptor[] desc = projectdm.getValidPropertyDescriptors(RUNTIME_TARGET_ID);
 		for (int i = 0; i < desc.length; i++) {
 			DataModelPropertyDescriptor descriptor = desc[i];
-			String name = descriptor.getPropertyDescription();
 			String runtimeid = (String) descriptor.getPropertyValue();
 			IRuntime runtime = getServerTargetByID(runtimeid);
 			String ok = isTypeSupported(runtime.getRuntimeType(), getJ2EEProjectType(), j2eeVersionText);
-			if (ok.equals("OK"))
+			if (ok.equals(OK))
 				validServers.add(descriptor);
 		}
 
@@ -245,7 +238,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	protected IRuntime getServerTargetByID(String id) {
-		IRuntime[] targets = ServerUtil.getRuntimes("", "");
+		IRuntime[] targets = ServerUtil.getRuntimes("", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		for (int i = 0; i < targets.length; i++) {
 			IRuntime target = targets[i];
 			if (id.equals(target.getId()))
@@ -254,15 +247,15 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		return null;
 	}
 
-	private List getValidServerTargets() {
-		List validServerTargets = null;
-		validServerTargets = ServerTargetHelper.getServerTargets("", ""); //$NON-NLS-1$  //$NON-NLS-2$
-		if (validServerTargets != null && validServerTargets.isEmpty())
-			validServerTargets = null;
-		if (validServerTargets == null)
-			return Collections.EMPTY_LIST;
-		return validServerTargets;
-	}
+//	private List getValidServerTargets() {
+//		List validServerTargets = null;
+//		validServerTargets = ServerTargetHelper.getServerTargets("", ""); //$NON-NLS-1$  //$NON-NLS-2$
+//		if (validServerTargets != null && validServerTargets.isEmpty())
+//			validServerTargets = null;
+//		if (validServerTargets == null)
+//			return Collections.EMPTY_LIST;
+//		return validServerTargets;
+//	}
 
 
 	protected String isTypeSupported(IRuntimeType type, String moduleID, String j2eeVersion) {
@@ -280,24 +273,20 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (matches(moduleType.getId(), moduleID)) {
 					moduleFound = true;
 					String version = moduleType.getVersion();
-					if (version.equals(j2eeVersion) || version.equals("*")) {
+					if (version.equals(j2eeVersion) || version.equals("*")) { //$NON-NLS-1$
 						moduleVersionFound = true;
 						return OK;
-					} else {
-						if (i < size)
-							continue;
-					}
+					} 
+					if (i < size)
+						continue;
 				}
 			}
 		}
-		if (!moduleFound) {
+		if (!moduleFound)
 			return MODULE_NOT_SUPPORTED;
-		} else {
-			if (!moduleVersionFound)
-				return MODULEVERSION_NOT_SUPPORTED;
-		}
-
-		return "";
+		if (!moduleVersionFound)
+			return MODULEVERSION_NOT_SUPPORTED;
+		return ""; //$NON-NLS-1$
 	}
 
 
@@ -326,27 +315,24 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 
 	protected static boolean matches(String serverTypeID, String j2eeModuleID) {
 
-		if (serverTypeID.equals("jst")) { //$NON-NLS-1$
-			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
-				return true;
-			}
-		} else if (serverTypeID.equals("jst.*")) { //$NON-NLS-1$
-			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
-				return true;
-			}
-		} else if (serverTypeID.equals(J2EEProjectUtilities.DYNAMIC_WEB)) {//$NON-NLS-1$
-			if (j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB)) {
-				return true;
-			}
-		} else if (serverTypeID.equals(J2EEProjectUtilities.EJB)) {//$NON-NLS-1$
-			if (j2eeModuleID.equals(J2EEProjectUtilities.EJB)) {
-				return true;
-			}
-		} else if (serverTypeID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {//$NON-NLS-1$
-			if (j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA)) {
-				return true;
-			}
-		}
+		if (serverTypeID.equals("jst") || serverTypeID.equals("jst.*")) //$NON-NLS-1$ //$NON-NLS-2$
+			return j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB) || j2eeModuleID.equals(J2EEProjectUtilities.EJB) || j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA);
+		
+		else if (serverTypeID.equals(J2EEProjectUtilities.DYNAMIC_WEB))
+			return j2eeModuleID.equals(J2EEProjectUtilities.DYNAMIC_WEB);
+		
+		else if (serverTypeID.equals(J2EEProjectUtilities.EJB))
+			return j2eeModuleID.equals(J2EEProjectUtilities.EJB);
+		
+		else if (serverTypeID.equals(J2EEProjectUtilities.JCA))
+			return j2eeModuleID.equals(J2EEProjectUtilities.JCA);
+		
+		else if (serverTypeID.equals(J2EEProjectUtilities.APPLICATION_CLIENT))
+			return j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT);
+		
+		else if (serverTypeID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)) //$NON-NLS-1$
+			return j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA);
+			
 		return false;
 	}
 
@@ -364,15 +350,13 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (flexProject != null) {
 					if (ModuleCoreNature.isFlexibleProject(flexProject)) {
 						IVirtualComponent comp = ComponentCore.createComponent(flexProject);
-						int earVersion = 0;
-						
-							if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
-								String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
-								int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
-								if (j2eeVersion <= ver) {
-									DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject().getName());
-									earDescriptorList.add(desc);
-								}
+						if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
+							String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
+							int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
+							if (j2eeVersion <= ver) {
+								DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject().getName());
+								earDescriptorList.add(desc);
+							}
 						}
 					}
 				}
@@ -466,7 +450,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			if (val) {
 				String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 				IRuntime runtime = getServerTargetByID(serverID);
-				if (serverID.equals("") || runtime == null) {
+				if (serverID.equals("") || runtime == null) { //$NON-NLS-1$
 					String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
 					return WTPCommonPlugin.createErrorStatus(msg);
 				}
@@ -477,11 +461,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (!msg.equals(OK)) {
 					msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
 					return WTPCommonPlugin.createErrorStatus(msg);
-				} else {
-					if (validateComponentAlreadyInEar()) {
+				} 
+				if (validateComponentAlreadyInEar()) {
 						msg = J2EECreationResourceHandler.getString("COMPONENT_ALREADYINEAR"); //$NON-NLS-1$
 						return WTPCommonPlugin.createErrorStatus(msg);
-					}
 				}
 			}
 		} else if (propertyName.equals(PROJECT_NAME)) {
@@ -522,7 +505,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		IStatus status = OK_STATUS;
 		String earName = getStringProperty(EAR_COMPONENT_NAME);
 		if (status.isOK()) {
-			if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$
+			if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			} else if (earName == null || earName.equals("")) { //$NON-NLS-1$
@@ -661,68 +644,68 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	protected abstract DataModelPropertyDescriptor[] getValidComponentVersionDescriptors();
 
 
-	private DataModelPropertyDescriptor[] validExistingProjectsDescriptors() {
-
-		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
-		List items = new ArrayList();
-		for (int i = 0; i < workspaceProjects.length; i++) {
-			IProject project = workspaceProjects[i];
-			try {
-				if (project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-					items.add(project.getName());
-				}
-			} catch (CoreException ce) {
-				// Ignore
-			}
-		}
-
-		DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[items.size()];
-		for (int i = 0; i < descriptors.length; i++) {
-			descriptors[i] = new DataModelPropertyDescriptor(items.get(i));
-		}
-		return descriptors;
-
-
-		// StructureEdit mc = null;
-		// ArrayList earDescriptorList = new ArrayList();
-		//
-		// IProject[] projs = ProjectUtilities.getAllProjects();
-		//
-		// for (int index = 0; index < projs.length; index++) {
-		// IProject flexProject = projs[index];
-		// try {
-		// if (flexProject != null) {
-		// IFlexibleProject fProject = ComponentCore.createFlexibleProject(flexProject);
-		// if ( fProject.isFlexible()){
-		// IVirtualComponent[] comps = fProject.getComponents();
-		// int earVersion = 0;
-		// for( int i=0; i< comps.length; i++ ){
-		// if( comps[i].getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)){
-		// String sVer = comps[i].getVersion();
-		// int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
-		// if (j2eeVersion <= ver) {
-		// DataModelPropertyDescriptor desc = new
-		// DataModelPropertyDescriptor(comps[i].getComponentHandle(), comps[i].getName());
-		// earDescriptorList.add(desc);
-		// }
-		// }
-		// }
-		// }
-		// }
-		// } finally {
-		// if (mc != null)
-		// mc.dispose();
-		// }
-		// }
-		// DataModelPropertyDescriptor[] descriptors = new
-		// DataModelPropertyDescriptor[earDescriptorList.size()];
-		// for (int i = 0; i < descriptors.length; i++) {
-		// DataModelPropertyDescriptor desc = (DataModelPropertyDescriptor)earDescriptorList.get(i);
-		// descriptors[i] = new DataModelPropertyDescriptor(desc.getPropertyDescription(),
-		// desc.getPropertyDescription());
-		// }
-		// return descriptors;
-
-
-	}
+//	private DataModelPropertyDescriptor[] validExistingProjectsDescriptors() {
+//
+//		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
+//		List items = new ArrayList();
+//		for (int i = 0; i < workspaceProjects.length; i++) {
+//			IProject project = workspaceProjects[i];
+//			try {
+//				if (project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+//					items.add(project.getName());
+//				}
+//			} catch (CoreException ce) {
+//				// Ignore
+//			}
+//		}
+//
+//		DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[items.size()];
+//		for (int i = 0; i < descriptors.length; i++) {
+//			descriptors[i] = new DataModelPropertyDescriptor(items.get(i));
+//		}
+//		return descriptors;
+//
+//
+//		// StructureEdit mc = null;
+//		// ArrayList earDescriptorList = new ArrayList();
+//		//
+//		// IProject[] projs = ProjectUtilities.getAllProjects();
+//		//
+//		// for (int index = 0; index < projs.length; index++) {
+//		// IProject flexProject = projs[index];
+//		// try {
+//		// if (flexProject != null) {
+//		// IFlexibleProject fProject = ComponentCore.createFlexibleProject(flexProject);
+//		// if ( fProject.isFlexible()){
+//		// IVirtualComponent[] comps = fProject.getComponents();
+//		// int earVersion = 0;
+//		// for( int i=0; i< comps.length; i++ ){
+//		// if( comps[i].getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)){
+//		// String sVer = comps[i].getVersion();
+//		// int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
+//		// if (j2eeVersion <= ver) {
+//		// DataModelPropertyDescriptor desc = new
+//		// DataModelPropertyDescriptor(comps[i].getComponentHandle(), comps[i].getName());
+//		// earDescriptorList.add(desc);
+//		// }
+//		// }
+//		// }
+//		// }
+//		// }
+//		// } finally {
+//		// if (mc != null)
+//		// mc.dispose();
+//		// }
+//		// }
+//		// DataModelPropertyDescriptor[] descriptors = new
+//		// DataModelPropertyDescriptor[earDescriptorList.size()];
+//		// for (int i = 0; i < descriptors.length; i++) {
+//		// DataModelPropertyDescriptor desc = (DataModelPropertyDescriptor)earDescriptorList.get(i);
+//		// descriptors[i] = new DataModelPropertyDescriptor(desc.getPropertyDescription(),
+//		// desc.getPropertyDescription());
+//		// }
+//		// return descriptors;
+//
+//
+//	}
 }
