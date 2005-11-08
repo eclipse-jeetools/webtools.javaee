@@ -1,8 +1,5 @@
 package org.eclipse.jst.j2ee.flexible.project.tests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -20,6 +17,7 @@ import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -96,12 +94,11 @@ public class Migrate07EJBTest extends TestCase {
 	private void installEJBFacets(IProject ejbProject2,String ejbVersion) {
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, ejbProject2.getName());
-		List facetDMs = new ArrayList();
+		FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		facetDMs.add(setupJavaInstallAction(ejbProject2));
 		IDataModel newModel = setupEjbInstallAction(ejbProject2,ejbVersion);
 		facetDMs.add(newModel);
 		setRuntime(ejbProject2,dm); //Setting runtime property
-		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_DM_LIST, facetDMs);
 		try {
 			IStatus stat =  dm.getDefaultOperation().execute(null,null);
 		} catch (ExecutionException e) {
