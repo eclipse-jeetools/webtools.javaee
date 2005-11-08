@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.ecclipse.jst.enterprise_ui.feature"
-      label="org.ecclipse.jst.enterprise_ui.feature"
+      id="org.eclipse.jst.enterprise_ui.feature"
+      label="org.eclipse.jst.enterprise_ui.feature"
       version="1.0.0">
 
    <description url="http://www.example.com/description">
