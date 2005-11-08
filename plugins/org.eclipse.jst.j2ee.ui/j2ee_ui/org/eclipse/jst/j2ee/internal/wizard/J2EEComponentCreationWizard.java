@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -20,6 +19,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.IDMPageHandler;
 
 /**
  * <p>
@@ -89,10 +89,10 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * 
 	 */
 	protected void addModulesPageIfNecessary() {
-        //TODO: add modules page back for 0.7
-//		if (getDataModel().getBooleanProperty(UI_SHOW_EAR_SECTION)) {
-//			addPage(new J2EEModulesDependencyPage(getDataModel(), MODULE_PG));
-//		}
+		// TODO: add modules page back for 0.7
+		// if (getDataModel().getBooleanProperty(UI_SHOW_EAR_SECTION)) {
+		// addPage(new J2EEModulesDependencyPage(getDataModel(), MODULE_PG));
+		// }
 	}
 
 	/**
@@ -109,19 +109,13 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * Skips the page identified by the MODULE_PG name if
 	 * {@link J2EEComponentCreationWizard#shouldShowModulesPage()}is false.
 	 * </p>
-	 * 
-	 * @see org.eclipse.jface.wizard.IWizard#getPreviousPage(org.eclipse.jface.wizard.IWizardPage)
 	 */
-	public IWizardPage getPreviousPage(IWizardPage page) {
-		IWizardPage previous = super.getPreviousPage(page);
-		if (previous != null && previous.getName().equals(MODULE_PG)) {
-			if (!shouldShowModulesPage()) {
-				previous = super.getPreviousPage(previous);
-			}
+	public String getPreviousPage(String currentPageName, String expectedPreviousPageName) {
+		if (!shouldShowModulesPage() && expectedPreviousPageName.equals(MODULE_PG)) {
+			return IDMPageHandler.PAGE_BEFORE;
 		}
-		return previous;
+		return super.getPreviousPage(currentPageName, expectedPreviousPageName);
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -130,17 +124,12 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * Skips the page identified by the MODULE_PG name if
 	 * {@link J2EEModuleProjectCreationWizard#shouldShowModulesPage()}is false.
 	 * </p>
-	 * 
-	 * @see org.eclipse.jface.wizard.IWizard#getNextPage(org.eclipse.jface.wizard.IWizardPage)
 	 */
-	public IWizardPage getNextPage(IWizardPage page) {
-		IWizardPage next = super.getNextPage(page);
-		if (next != null && next.getName().equals(MODULE_PG)) {
-			if (!shouldShowModulesPage()) {
-				next = super.getNextPage(next);
-			}
+	public String getNextPage(String currentPageName, String expectedNextPageName) {
+		if (!shouldShowModulesPage() && expectedNextPageName.equals(MODULE_PG)) {
+			return IDMPageHandler.PAGE_AFTER;
 		}
-		return next;
+		return super.getNextPage(currentPageName, expectedNextPageName);
 	}
 
 	/**
