@@ -12,11 +12,9 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -30,7 +28,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class JavaProjectMigrationOperation extends AbstractDataModelOperation implements IJavaProjectMigrationDataModelProperties {
 
-	private static String WTP_MODULE_FILE_NAME = ".wtpmodules"; //$NON-NLS-1$
+
 
 	public JavaProjectMigrationOperation(IDataModel model) {
 		super(model);
@@ -38,7 +36,7 @@ public class JavaProjectMigrationOperation extends AbstractDataModelOperation im
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
 
-		IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
+
 
 		IDataModel jdm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 

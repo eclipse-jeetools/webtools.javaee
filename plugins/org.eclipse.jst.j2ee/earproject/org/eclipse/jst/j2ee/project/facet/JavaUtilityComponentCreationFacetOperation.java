@@ -28,8 +28,12 @@ public class JavaUtilityComponentCreationFacetOperation extends J2EEComponentCre
 
 			FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			map.add(setupJavaInstallAction());
-			map.add(setupUtilityInstallAction(model));
+			
+			IDataModel newModel = setupUtilityInstallAction(model);
+			map.add( newModel );
 
+			setRuntime(newModel, dm); // Setting runtime property
+			
 			result = dm.getDefaultOperation().execute(monitor, null);
 		} catch (ExecutionException e) {
 			Logger.getLogger().logError(e);
@@ -42,6 +46,8 @@ public class JavaUtilityComponentCreationFacetOperation extends J2EEComponentCre
 		try {
 			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, (String) model.getProperty(JavaUtilityComponentCreationDataModelProvider.PROJECT_NAME));
 			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
+			dm.setProperty(IUtilityFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(JavaUtilityComponentCreationDataModelProvider.RUNTIME_TARGET_ID));
+			
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}

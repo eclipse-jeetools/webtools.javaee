@@ -12,6 +12,7 @@ public class UtilityFacetInstallDataModelProvider
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
         names.add(EAR_PROJECT_NAME);
+        names.add(RUNTIME_TARGET_ID);
 		return names;
 	}
 	

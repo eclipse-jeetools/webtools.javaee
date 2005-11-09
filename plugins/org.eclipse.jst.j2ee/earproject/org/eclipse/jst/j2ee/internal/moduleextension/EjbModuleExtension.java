@@ -42,5 +42,5 @@ public interface EjbModuleExtension extends EarModuleExtension {
 	IProject getDefinedEJBClientJARProject(IProject anEJBProject);
 
     JavaUtilityComponentCreationFacetOperation createEJBClientJARProject( final String clientProjectName,
-    		final String srcFolderName );
+    		final String srcFolderName, String runtime );
 }

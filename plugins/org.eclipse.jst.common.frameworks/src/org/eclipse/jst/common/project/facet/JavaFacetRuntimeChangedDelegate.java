@@ -14,6 +14,7 @@ package org.eclipse.jst.common.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -54,6 +55,8 @@ public final class JavaFacetRuntimeChangedDelegate
             {
                 monitor.worked( 1 );
             }
+        }catch(Exception e){
+        	Logger.getLogger().logError(e);
         }
         finally
         {
