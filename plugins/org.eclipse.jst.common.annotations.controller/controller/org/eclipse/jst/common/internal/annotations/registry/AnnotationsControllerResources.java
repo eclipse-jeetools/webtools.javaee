@@ -17,48 +17,31 @@
 
 package org.eclipse.jst.common.internal.annotations.registry;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-/**
- * @author kkatyal
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
- */
-public class AnnotationsControllerResources {
-
+public class AnnotationsControllerResources extends NLS {
 	private static final String BUNDLE_NAME = "annotationcontroller";//$NON-NLS-1$
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-	/**
-	 *  
-	 */
 	private AnnotationsControllerResources() {
-		// Default constructor
+		// Do not instantiate
 	}
 
-	/**
-	 * @param key
-	 * @return
-	 */
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String TagSpec_3;
+	public static String TagSpec_4;
+	public static String TagSpec_5;
+	public static String TagSpec_6;
+	public static String TagAttribSpec_1;
+	public static String TagAttribSpec_2;
+	public static String AnnotationTagParser_0;
+	public static String AnnotationTagParser_1;
+	public static String AnnotationTagRegistry_0;
+	public static String AnnotationTagRegistry_9;
+	public static String AnnotationTagRegistry_10;
+	public static String AnnotationTagRegistry_11;
+	public static String AnnotationsControllerManager_ERROR_0;
+	public static String AnnotationTagRegistry_ERROR_1;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, AnnotationsControllerResources.class);
 	}
-
-	public static String getString(String key, Object[] args) {
-		try {
-			RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
-
-		return MessageFormat.format(key, args);
-	}
-
 }

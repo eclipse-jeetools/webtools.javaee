@@ -291,7 +291,7 @@ public class TagAttribSpec {
 			if (scopeStr.equalsIgnoreCase("method"))return TagAttribSpec.Unique.METHOD; //$NON-NLS-1$
 			if (scopeStr.equalsIgnoreCase("field"))return TagAttribSpec.Unique.FIELD; //$NON-NLS-1$
 		}
-		Logger.getLogger().logError(AnnotationsControllerResources.getString("TagAttribSpec.1") + scopeStr); //$NON-NLS-1$
+		Logger.getLogger().logError(AnnotationsControllerResources.TagAttribSpec_1 + scopeStr); //$NON-NLS-1$
 		return TagAttribSpec.Unique.MODULE;
 	}
 
@@ -308,7 +308,7 @@ public class TagAttribSpec {
 			case TagAttribSpec.Unique.FIELD :
 				return "field"; //$NON-NLS-1$
 			default :
-				Logger.getLogger().logError(AnnotationsControllerResources.getString("TagAttribSpec.1") + scope); //$NON-NLS-1$
+				Logger.getLogger().logError(AnnotationsControllerResources.TagAttribSpec_1 + scope); //$NON-NLS-1$
 				return "unknown value"; //$NON-NLS-1$
 
 		}

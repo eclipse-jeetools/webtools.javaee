@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.osgi.util.NLS;
 import org.osgi.framework.Bundle;
 
 /**
@@ -219,7 +220,7 @@ public class AnnotationTagRegistry {
 				} else {
 					// Unlikely, unless annotation extension spec changes
 					// without changes here.
-					System.err.println(AnnotationsControllerResources.getString("AnnotationTagRegistry.9") + use); //$NON-NLS-1$
+					System.err.println(AnnotationsControllerResources.AnnotationTagRegistry_9 + use); //$NON-NLS-1$
 					return null;
 				}
 
@@ -229,7 +230,7 @@ public class AnnotationTagRegistry {
 					if (elemUniqueArray[0].getAttribute("scope") != null) //$NON-NLS-1$
 						tas.getUnique().setScope(TagAttribSpec.uniqueScopeFromString(elemUniqueArray[0].getAttribute("scope"))); //$NON-NLS-1$
 					if (elemUniqueArray.length > 1) {
-						Logger.getLogger().logError(AnnotationsControllerResources.getString("TagAttribSpec.2") + elemUniqueArray.length); //$NON-NLS-1$
+						Logger.getLogger().logError(AnnotationsControllerResources.TagAttribSpec_2 + elemUniqueArray.length); //$NON-NLS-1$
 					}
 				} else {
 					tas.clearUnique();
@@ -310,7 +311,7 @@ public class AnnotationTagRegistry {
 				tagName = elem.getAttribute("tagName"); //$NON-NLS-1$
 				scope = elem.getAttribute("scope"); //$NON-NLS-1$
 				if (isNullOrEmpty(tagSet) || isNullOrEmpty(tagName) || isNullOrEmpty(scope)) {
-					Logger.getLogger().log(AnnotationsControllerResources.getString("AnnotationTagRegistry.10", new Object[]{identifier})); //$NON-NLS-1$ //$NON-NLS-2$
+					Logger.getLogger().log(NLS.bind(AnnotationsControllerResources.AnnotationTagRegistry_10, new Object[]{identifier})); //$NON-NLS-1$ //$NON-NLS-2$
 					continue;
 				}
 				fullTagName = tagSet + "." + tagName; //$NON-NLS-1$
@@ -321,7 +322,7 @@ public class AnnotationTagRegistry {
 				 * There should only ever be one AnnotationTagInfo tag for any one annotation tag.
 				 */
 				if (tagAttribs.containsKey(key)) {
-					Logger.getLogger().log(AnnotationsControllerResources.getString("AnnotationTagRegistry.0") + tagName + "'."); //$NON-NLS-1$ //$NON-NLS-2$
+					Logger.getLogger().log(AnnotationsControllerResources.AnnotationTagRegistry_0 + tagName + "'."); //$NON-NLS-1$ //$NON-NLS-2$
 				} else {
 					tagInf.bundle = bundle;
 					tagAttribs.put(key, tagInf);
@@ -504,7 +505,7 @@ public class AnnotationTagRegistry {
 		try {
 			AnnotationTagRegistry.init();
 		} catch (CoreException e) {
-			Logger.getLogger().logError(AnnotationsControllerResources.getString("AnnotationTagRegistry_ERROR_1")); //$NON-NLS-1$
+			Logger.getLogger().logError(AnnotationsControllerResources.AnnotationTagRegistry_ERROR_1); //$NON-NLS-1$
 			Logger.getLogger().logError(e);
 		}
 	}
