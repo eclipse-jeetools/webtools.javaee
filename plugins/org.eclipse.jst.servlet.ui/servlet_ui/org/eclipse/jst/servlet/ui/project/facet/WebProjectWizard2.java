@@ -15,7 +15,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -42,16 +44,16 @@ import org.osgi.framework.Bundle;
 
 public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWizard, IFacetProjectCreationDataModelProperties {
 
-	protected IDataModel dataModel = null;
+	protected IDataModel model = null;
 	private final IFacetedProjectTemplate template;
 
 	private IWizardPage firstPage;
 
 	public WebProjectWizard2() {
 		super(null);
-		dataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+		model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 		template = getTemplate();
-		this.setDefaultPageImageDescriptor( getDefaultPageImageDescriptor() );
+		this.setDefaultPageImageDescriptor(getDefaultPageImageDescriptor());
 	}
 
 	protected IFacetedProjectTemplate getTemplate() {
@@ -59,7 +61,7 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 	}
 
 	public void addPages() {
-		firstPage = new WebComponentFacetCreationWizardPage(dataModel, "first.page"); //$NON-NLS-1$
+		firstPage = new WebComponentFacetCreationWizardPage(model, "first.page"); //$NON-NLS-1$
 		addPage(firstPage);
 		super.addPages();
 
@@ -68,27 +70,27 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 		this.facetsSelectionPage.setFixedProjectFacets(fixed);
 
 		Set facetVersions = new HashSet();
-		FacetDataModelMap map = (FacetDataModelMap) dataModel.getProperty(FACET_DM_MAP);
-		for(Iterator iterator=map.values().iterator(); iterator.hasNext();){
-			IDataModel model = (IDataModel)iterator.next();
+		FacetDataModelMap map = (FacetDataModelMap) model.getProperty(FACET_DM_MAP);
+		for (Iterator iterator = map.values().iterator(); iterator.hasNext();) {
+			IDataModel model = (IDataModel) iterator.next();
 			facetVersions.add(model.getProperty(IFacetDataModelProperties.FACET_VERSION));
 		}
 		this.facetsSelectionPage.setInitialSelection(facetVersions);
 
-		
+
 		final ConflictingFacetsFilter filter = new ConflictingFacetsFilter(fixed);
 
 		this.facetsSelectionPage.setFilters(new FacetsSelectionPanel.IFilter[]{filter});
-		
+
 		synchRuntimes();
-		
+
 	}
 
 	protected void synchRuntimes() {
-		dataModel.addListener(new IDataModelListener(){
+		model.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
-				if(FACET_RUNTIME.equals(event.getPropertyName())){
-					IRuntime runtime = (IRuntime)event.getProperty();
+				if (FACET_RUNTIME.equals(event.getPropertyName())) {
+					IRuntime runtime = (IRuntime) event.getProperty();
 					facetsSelectionPage.setRuntime(runtime);
 				}
 			};
@@ -106,27 +108,39 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 	}
 
 	public String getProjectName() {
-		return dataModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
+		return model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 	}
 
-	public Object getConfig(IProjectFacetVersion fv, Type type, String pjname) throws CoreException{
-		FacetDataModelMap map = (FacetDataModelMap) dataModel.getProperty(FACET_DM_MAP);
-		IDataModel configDM = (IDataModel)map.get(fv.getProjectFacet().getId()); 
-		if(configDM == null){
-			configDM = (IDataModel)fv.createActionConfig( type, pjname);
+	public boolean performFinish() {
+		IStatus status = model.validate();
+		if (status.isOK()) {
+			try {
+				model.getDefaultOperation().execute(null, null);
+				return true;
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	public Object getConfig(IProjectFacetVersion fv, Type type, String pjname) throws CoreException {
+		FacetDataModelMap map = (FacetDataModelMap) model.getProperty(FACET_DM_MAP);
+		IDataModel configDM = (IDataModel) map.get(fv.getProjectFacet().getId());
+		if (configDM == null) {
+			configDM = (IDataModel) fv.createActionConfig(type, pjname);
 			map.add(configDM);
 		}
 		return configDM;
 	}
 
-	 protected ImageDescriptor getDefaultPageImageDescriptor()
-	    {
-	        final Bundle bundle = Platform.getBundle( "org.eclipse.jst.servlet.ui" ); //$NON-NLS-1$
-	        final URL url = bundle.getEntry( "icons/full/ctool16/web-wiz-banner.gif" ); //$NON-NLS-1$
+	protected ImageDescriptor getDefaultPageImageDescriptor() {
+		final Bundle bundle = Platform.getBundle("org.eclipse.jst.servlet.ui"); //$NON-NLS-1$
+		final URL url = bundle.getEntry("icons/full/ctool16/web-wiz-banner.gif"); //$NON-NLS-1$
 
-	        return ImageDescriptor.createFromURL( url );
-	    }
+		return ImageDescriptor.createFromURL(url);
+	}
 }

@@ -158,33 +158,33 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Associate with an EAR, if necessary.
 
-			final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+			if (model.getBooleanProperty(IWebFacetInstallDataModelProperties.ADD_TO_EAR)) {
+				final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
+					String ver = fv.getVersionString();
+					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+					installEARFacet(j2eeVersionText, earProjectName, monitor);
 
-			if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
-				String ver = fv.getVersionString();
-				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
-				installEARFacet(j2eeVersionText, earProjectName, monitor);
-                
-                IProject earProject = ProjectUtilities.getProject( earProjectName );
-                IVirtualComponent earComp = ComponentCore.createComponent( earProject );
-                
-                IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
-                dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
-                List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-                modList.add(c);
-                dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-                try {
-                    dataModel.getDefaultOperation().execute(null, null);
-                } catch (ExecutionException e) {
-                    Logger.getLogger().logError(e);
-                }
+					IProject earProject = ProjectUtilities.getProject(earProjectName);
+					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+
+					IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+					List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+					modList.add(c);
+					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+					try {
+						dataModel.getDefaultOperation().execute(null, null);
+					} catch (ExecutionException e) {
+						Logger.getLogger().logError(e);
+					}
+				}
 			}
 
 			if (monitor != null) {
 				monitor.worked(1);
 			}
-		}
-		finally {
+		} finally {
 			if (monitor != null) {
 				monitor.done();
 			}
@@ -202,6 +202,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		updated[current.length] = entry;
 		jproj.setRawClasspath(updated, null);
 	}
+
 	private static void mkdirs(final IFolder folder)
 
 	throws CoreException
