@@ -142,6 +142,10 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 							clientProjectName);
 					dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER,
 							model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
+					
+					dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID,
+							model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
+					
 					dm.getDefaultOperation().execute(monitor, null);
 				}catch(ExecutionException e){
 					Logger.getLogger().logError(e);

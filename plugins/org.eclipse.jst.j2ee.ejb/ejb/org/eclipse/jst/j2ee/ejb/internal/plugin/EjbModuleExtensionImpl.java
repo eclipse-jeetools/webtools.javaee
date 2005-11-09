@@ -97,13 +97,17 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 
 	public JavaUtilityComponentCreationFacetOperation createEJBClientJARProject(
 			final String clientProjectName,
-			final String srcFolderName ){
+			final String srcFolderName,
+			final String runtimeID){
 		
 		IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
 		dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME,
 				clientProjectName );
 		dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER,
 				srcFolderName );
+		
+		dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID,
+				runtimeID );
 		
 		JavaUtilityComponentCreationFacetOperation op = new JavaUtilityComponentCreationFacetOperation(dm);
 		return op;		
