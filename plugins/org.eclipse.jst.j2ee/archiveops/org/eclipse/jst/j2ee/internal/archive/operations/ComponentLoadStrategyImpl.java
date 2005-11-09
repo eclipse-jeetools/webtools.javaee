@@ -151,7 +151,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			String uri = runtimePath == null ? null : runtimePath.toString();
 			String fileURI = "";
 			if( uri != null ){
-				fileURI = uri + entry.getName();
+				if( ! uri.equals("/") )
+					fileURI = uri + entry.getName();
+				else
+					fileURI = entry.getName();
 			}else{
 				fileURI = entry.getName();
 			}
