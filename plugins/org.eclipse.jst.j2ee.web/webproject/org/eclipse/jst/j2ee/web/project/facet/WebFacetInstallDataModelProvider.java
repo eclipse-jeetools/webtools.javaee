@@ -72,6 +72,8 @@ public class WebFacetInstallDataModelProvider extends FacetInstallDataModelProvi
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.ENABLE_CHG);
 		} else if(FACET_VERSION.equals(propertyName)){
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+		} else if(FACET_PROJECT_NAME.equals(propertyName)){
+			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.VALID_VALUES_CHG);
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}

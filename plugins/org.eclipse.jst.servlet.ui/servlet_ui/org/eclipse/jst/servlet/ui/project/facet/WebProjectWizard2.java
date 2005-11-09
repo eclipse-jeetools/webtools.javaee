@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.project.facet;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
@@ -37,6 +38,7 @@ import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.ui.AddRemoveFacetsWizard;
 import org.eclipse.wst.common.project.facet.ui.internal.ConflictingFacetsFilter;
 import org.eclipse.wst.common.project.facet.ui.internal.FacetsSelectionPanel;
+import org.osgi.framework.Bundle;
 
 public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWizard, IFacetProjectCreationDataModelProperties {
 
@@ -49,6 +51,7 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 		super(null);
 		dataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 		template = getTemplate();
+		this.setDefaultPageImageDescriptor( getDefaultPageImageDescriptor() );
 	}
 
 	protected IFacetedProjectTemplate getTemplate() {
@@ -109,19 +112,6 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 	}
 
-	public boolean performFinish() {
-		IStatus status = dataModel.validate();
-		if (status.isOK()) {
-			try {
-				dataModel.getDefaultOperation().execute(null, null);
-				return true;
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
-	}
-
 	public Object getConfig(IProjectFacetVersion fv, Type type, String pjname) throws CoreException{
 		FacetDataModelMap map = (FacetDataModelMap) dataModel.getProperty(FACET_DM_MAP);
 		IDataModel configDM = (IDataModel)map.get(fv.getProjectFacet().getId()); 
@@ -132,4 +122,11 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 		return configDM;
 	}
 
+	 protected ImageDescriptor getDefaultPageImageDescriptor()
+	    {
+	        final Bundle bundle = Platform.getBundle( "org.eclipse.jst.servlet.ui" ); //$NON-NLS-1$
+	        final URL url = bundle.getEntry( "icons/full/ctool16/web-wiz-banner.gif" ); //$NON-NLS-1$
+
+	        return ImageDescriptor.createFromURL( url );
+	    }
 }
