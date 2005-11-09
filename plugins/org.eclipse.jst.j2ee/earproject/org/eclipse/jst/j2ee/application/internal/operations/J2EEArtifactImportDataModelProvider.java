@@ -8,6 +8,8 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
@@ -48,6 +50,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		propertyNames.add(OVERWRITE_HANDLER);
 		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
 		propertyNames.add(USE_DEFAULT_COMPONENT_NAME);
+		propertyNames.add(COMPONENT_NAME);
 		return propertyNames;
 	}
 
@@ -86,6 +89,16 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			} catch (OpenFailureException oe) {
 				cachedOpenFailureException = oe;
 			}
+		} else if (COMPONENT_NAME.equals(propertyName)) {
+			List nestedModels = new ArrayList(model.getNestedModels());
+			IDataModel nestedModel = null;
+			for (int i = 0; i < nestedModels.size(); i++) {
+				nestedModel = (IDataModel) nestedModels.get(i);
+				try {
+					nestedModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, propertyValue);
+				} catch (Exception e) {}
+			}
+			setProperty(PROJECT_NAME,propertyValue);
 		}
 		return true;
 	}
