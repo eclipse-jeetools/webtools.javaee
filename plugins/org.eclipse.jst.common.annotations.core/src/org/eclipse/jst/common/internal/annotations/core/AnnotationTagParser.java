@@ -34,7 +34,7 @@ public class AnnotationTagParser {
 
 	public AnnotationTagParser(TagParseEventHandler tp) {
 		if (tp == null) {
-			throw new IllegalArgumentException(AnnotationsCoreResources.getString("AnnotationTagParser.0")); //$NON-NLS-1$
+			throw new IllegalArgumentException(AnnotationsCoreResources.AnnotationTagParser_0); 
 		}
 		handler = tp;
 	}

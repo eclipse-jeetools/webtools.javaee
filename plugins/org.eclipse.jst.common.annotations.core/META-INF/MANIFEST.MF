@@ -8,4 +8,5 @@ Bundle-Localization: plugin
 Export-Package: .,
  org.eclipse.jst.common.internal.annotations.core
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.wst.common.emf
+ org.eclipse.wst.common.emf,
+ org.eclipse.core.runtime

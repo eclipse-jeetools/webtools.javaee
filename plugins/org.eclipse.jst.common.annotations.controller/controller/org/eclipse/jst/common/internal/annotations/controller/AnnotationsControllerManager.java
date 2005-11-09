@@ -69,7 +69,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 
 		public Descriptor(IConfigurationElement aConfigElement) {
 			super();
-			Assert.isLegal(ANNOTATIONS_CONTROLLER.equals(aConfigElement.getName()), AnnotationsControllerResources.getString("AnnotationsControllerManager_ERROR_0")); //$NON-NLS-1$
+			Assert.isLegal(ANNOTATIONS_CONTROLLER.equals(aConfigElement.getName()), AnnotationsControllerResources.AnnotationsControllerManager_ERROR_0); //$NON-NLS-1$
 			configElement = aConfigElement;
 			ID = configElement.getAttribute(ATT_ID);
 			builderID = configElement.getAttribute(BUILDER_ID);

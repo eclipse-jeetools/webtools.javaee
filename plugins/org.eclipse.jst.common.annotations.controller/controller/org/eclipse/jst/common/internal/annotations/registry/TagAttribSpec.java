@@ -188,7 +188,7 @@ public class TagAttribSpec {
 	 */
 	public void setAttribName(String name) throws IllegalArgumentException {
 		if (name == null) {
-			throw new IllegalArgumentException(AnnotationsCoreResources.getString("TagAttribSpec.6")); //$NON-NLS-1$
+			throw new IllegalArgumentException(AnnotationsCoreResources.TagAttribSpec_6); 
 		}
 		attribName = name;
 	}

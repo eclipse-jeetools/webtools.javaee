@@ -1,53 +1,29 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
-/*
- * Created on Mar 4, 2004
  *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
-
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.common.internal.annotations.ui;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-/**
- * @author kkatyal
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
- */
-public class IWRDResources {
+public final class IWRDResources extends NLS {
 
-	private static final String BUNDLE_NAME = "taghandlerui";//$NON-NLS-1$
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "org.eclipse.jst.common.internal.annotations.ui.taghandlerui";//$NON-NLS-1$
 
-	/**
-	 *  
-	 */
 	private IWRDResources() {
-		// TODO Auto-generated constructor stub
+		// Do not instantiate
 	}
 
-	/**
-	 * @param key
-	 * @return
-	 */
-	public static String getString(String key) {
-		// TODO Auto-generated method stub
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String J2EEAnnotationsCompletionProcessor_3;
+	public static String J2EEAnnotationsCompletionProcessor_4;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, IWRDResources.class);
 	}
 }
