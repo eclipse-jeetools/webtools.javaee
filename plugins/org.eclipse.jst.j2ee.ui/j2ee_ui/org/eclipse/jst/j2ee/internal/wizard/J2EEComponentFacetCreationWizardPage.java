@@ -115,7 +115,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if (!J2EEComponentFacetCreationWizardPage.launchNewRuntimeWizard(getShell(), model)) {
-					setErrorMessage(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_9")); //$NON-NLS-1$
+					setErrorMessage(J2EECreationResourceHandler.ServerTargetDataModel_UI_9);
 				}
 			}
 		});

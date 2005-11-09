@@ -463,7 +463,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 					return WTPCommonPlugin.createErrorStatus(msg);
 				} 
 				if (validateComponentAlreadyInEar()) {
-						msg = J2EECreationResourceHandler.getString("COMPONENT_ALREADYINEAR"); //$NON-NLS-1$
+						msg = J2EECreationResourceHandler.COMPONENT_ALREADYINEAR; //$NON-NLS-1$
 						return WTPCommonPlugin.createErrorStatus(msg);
 				}
 			}

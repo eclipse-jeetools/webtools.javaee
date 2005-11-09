@@ -275,13 +275,13 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 	private IStatus validateServerTarget() {
 		List targets = getValidServerTargets();
 		if (targets.isEmpty()) {
-			return J2EEPlugin.newErrorStatus(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_7"), null); //$NON-NLS-1$
+			return J2EEPlugin.newErrorStatus(J2EECreationResourceHandler.ServerTargetDataModel_UI_7, null); //$NON-NLS-1$
 		}
 		IRuntime target = getRuntimeTarget();
 		if (target == null) {
-			return J2EEPlugin.newErrorStatus(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_8"), null); //$NON-NLS-1$
+			return J2EEPlugin.newErrorStatus(J2EECreationResourceHandler.ServerTargetDataModel_UI_8, null); //$NON-NLS-1$
 		} else if (!targets.contains(target)) {
-			return J2EEPlugin.newErrorStatus(J2EECreationResourceHandler.getString("ServerTargetDataModel_UI_9"), null); //$NON-NLS-1$
+			return J2EEPlugin.newErrorStatus(J2EECreationResourceHandler.ServerTargetDataModel_UI_9, null); //$NON-NLS-1$
 		}
 		return OK_STATUS;
 	}
