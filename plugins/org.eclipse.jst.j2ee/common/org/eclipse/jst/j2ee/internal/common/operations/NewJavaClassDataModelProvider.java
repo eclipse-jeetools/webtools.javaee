@@ -73,29 +73,29 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	protected IStatus validateJavaSourceFolder(String folderFullPath) {
 		// Ensure that the source folder path is not empty
 		if (folderFullPath == null || folderFullPath.length() == 0) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NAME_EMPTY);
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NAME_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Ensure that the source folder path is absolute
 		else if (!new Path(folderFullPath).isAbsolute()) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE);
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		IProject project = getTargetProject();
 		// Ensure project is not closed
 		if (project == null) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_EXIST);
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_EXIST;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Ensure project is accessible.
 		if (!project.isAccessible()) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_EXIST);
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_EXIST;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Ensure the project is a java project.
 		try {
 			if (!project.hasNature(JavaCore.NATURE_ID)) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NOT_JAVA_PROJECT);
+				String msg = J2EECommonMessages.ERR_JAVA_CLASS_NOT_JAVA_PROJECT;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		} catch (CoreException e) {
@@ -282,10 +282,10 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			// Use standard java conventions to validate the package name
 			IStatus javaStatus = JavaConventions.validatePackageName(packName);
 			if (javaStatus.getSeverity() == IStatus.ERROR) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_PACAKGE_NAME_INVALID) + javaStatus.getMessage();
+				String msg = J2EECommonMessages.ERR_JAVA_PACAKGE_NAME_INVALID + javaStatus.getMessage();
 				return WTPCommonPlugin.createErrorStatus(msg);
 			} else if (javaStatus.getSeverity() == IStatus.WARNING) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_PACKAGE_NAME_WARNING) + javaStatus.getMessage();
+				String msg = J2EECommonMessages.ERR_JAVA_PACKAGE_NAME_WARNING + javaStatus.getMessage();
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		}
@@ -306,16 +306,16 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	protected IStatus validateJavaClassName(String className) {
 		// Do not allow qualified name
 		if (className.lastIndexOf('.') != -1) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_QUALIFIED);
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_QUALIFIED;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Check Java class name by standard java conventions
 		IStatus javaStatus = JavaConventions.validateJavaTypeName(className);
 		if (javaStatus.getSeverity() == IStatus.ERROR) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_INVALID) + javaStatus.getMessage();
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_INVALID + javaStatus.getMessage();
 			return WTPCommonPlugin.createErrorStatus(msg);
 		} else if (javaStatus.getSeverity() == IStatus.WARNING) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_WARNING) + javaStatus.getMessage();
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_WARNING + javaStatus.getMessage();
 			return WTPCommonPlugin.createWarningStatus(msg);
 		}
 		return WTPCommonPlugin.OK_STATUS;
@@ -334,7 +334,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	private IStatus validateSuperclass(String superclassName) {
 		// Ensure the superclass name is not empty
 		if (superclassName == null || superclassName.trim().length() == 0) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY);
+			String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// In default case of Object, return OK right away
@@ -358,7 +358,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 				// Just throw error below
 			}
 			if (supertype == null) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST);
+				String msg = J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 			// Ensure the superclass is not final
@@ -366,7 +366,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			try {
 				flags = supertype.getFlags();
 				if (Modifier.isFinal(flags)) {
-					String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_FINAL);
+					String msg = J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_FINAL;
 					return WTPCommonPlugin.createErrorStatus(msg);
 				}
 			} catch (Exception e) {
@@ -392,12 +392,12 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		if (prop) {
 			// Ensure final is not also checked
 			if (propertyName.equals(MODIFIER_ABSTRACT) && getBooleanProperty(MODIFIER_FINAL)) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_BOTH_FINAL_AND_ABSTRACT);
+				String msg = J2EECommonMessages.ERR_BOTH_FINAL_AND_ABSTRACT;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 			// Ensure abstract is not also checked
 			if (propertyName.equals(MODIFIER_FINAL) && getBooleanProperty(MODIFIER_ABSTRACT)) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_BOTH_FINAL_AND_ABSTRACT);
+				String msg = J2EECommonMessages.ERR_BOTH_FINAL_AND_ABSTRACT;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		}
@@ -426,7 +426,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 				ICompilationUnit cu = pack.getCompilationUnit(className + ".java"); //$NON-NLS-1$
 				IResource resource = cu.getResource();
 				if (resource.exists()) {
-					String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST);
+					String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST;
 					return WTPCommonPlugin.createErrorStatus(msg);
 				}
 			}

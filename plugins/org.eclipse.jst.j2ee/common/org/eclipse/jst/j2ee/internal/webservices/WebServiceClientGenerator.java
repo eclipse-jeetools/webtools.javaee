@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
  */
 public abstract class WebServiceClientGenerator {
 
-	public static final String GENERIC_J2EE_CONTAINER = J2EECommonMessages.getResourceString("WebServiceClientGenerator_UI_0"); //$NON-NLS-1$
+	public static final String GENERIC_J2EE_CONTAINER = J2EECommonMessages.WebServiceClientGenerator_UI_0;
 
 	private List runtime = null;
 

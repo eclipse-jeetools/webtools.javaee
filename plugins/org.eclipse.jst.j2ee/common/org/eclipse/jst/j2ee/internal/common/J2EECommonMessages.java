@@ -16,10 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.common;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import org.eclipse.wst.common.frameworks.internal.Messages;
+import org.eclipse.osgi.util.NLS;
 
 
 /**
@@ -28,62 +25,48 @@ import org.eclipse.wst.common.frameworks.internal.Messages;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class J2EECommonMessages extends Messages {
-	public static final String ERR_SECURITY_ROLE_EMPTY = "ERR_SECURITY_ROLE_EMPTY"; //$NON-NLS-1$
-	public static final String ERR_SECURITY_ROLE_EXIST = "ERR_SECURITY_ROLE_EXIST"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_NAME_EMPTY = "ERR_JAVA_CLASS_NAME_EMPTY"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_NAME_EXIST = "ERR_JAVA_CLASS_NAME_EXIST"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FILE_NAME_EXIST = "ERR_JAVA_CLASS_FILE_NAME_EXIST"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FOLDER_NAME_EMPTY = "ERR_JAVA_CLASS_FOLDER_NAME_EMPTY"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FOLDER_PROJECT_NOT_OPEN = "ERR_JAVA_CLASS_FOLDER_PROJECT_NOT_OPEN"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FOLDER_NOT_EXIST = "ERR_JAVA_CLASS_FOLDER_NOT_EXIST"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_NOT_JAVA_PROJECT = "ERR_JAVA_CLASS_NOT_JAVA_PROJECT"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FOLDER_STATIC_PROJECT = "ERR_JAVA_CLASS_FOLDER_STATIC_PROJECT"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FOLDER_NOT_SOURCE = "ERR_JAVA_CLASS_FOLDER_NOT_SOURCE"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE = "ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_NAME_QUALIFIED = "ERR_JAVA_CLASS_NAME_QUALIFIED"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_NAME_INVALID = "ERR_JAVA_CLASS_NAME_INVALID"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_NAME_WARNING = "ERR_JAVA_CLASS_NAME_WARNING"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST = "ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST"; //$NON-NLS-1$
-	public static final String ERR_JAVA_CLASS_SUPERCLASS_FINAL = "ERR_JAVA_CLASS_SUPERCLASS_FINAL"; //$NON-NLS-1$
-	public static final String ERR_JAVA_PACAKGE_NAME_INVALID = "ERR_JAVA_PACAKGE_NAME_INVALID"; //$NON-NLS-1$
-	public static final String ERR_JAVA_PACKAGE_NAME_WARNING = "ERR_JAVA_PACKAGE_NAME_WARNING"; //$NON-NLS-1$
-	public static final String ERR_BOTH_FINAL_AND_ABSTRACT = "ERR_BOTH_FINAL_AND_ABSTRACT"; //$NON-NLS-1$
-	public static final String ERR_SECURITY_ROLE_LIST_EMPTY = "ERR_SECURITY_ROLE_LIST_EMPTY"; //$NON-NLS-1$
-	public static final String ERR_EMPTY_MODULE_NAME = "ERR_EMPTY_MODULE_NAME"; //$NON-NLS-1$
-	public static final String ERR_EMPTY_PROJECT_NAME = "ERR_EMPTY_PROJECT_NAME"; //$NON-NLS-1$
+public class J2EECommonMessages extends NLS {
+	private static final String BUNDLE_NAME = "j2ee_common";//$NON-NLS-1$
 
-	public static final String ERR_PROJECT_NAME_EXISTS = "ERR_PROJECT_NAME_EXISTS"; //$NON-NLS-1$
-	public static final String ERR_VERSION_NOT_SUPPORTED ="ERR_VERSION_NOT_SUPPORTED";//$NON-NLS-1$
-	public static final String ERR_NOT_SUPPORTED="ERR_NOT_SUPPORTED";//$NON-NLS-1$	
-		
+	private J2EECommonMessages() {
+		// Do not instantiate
+	}
 
-	private static final J2EECommonMessages INSTANCE = new J2EECommonMessages();
+	public static String ERR_SECURITY_ROLE_EMPTY;
+	public static String ERR_SECURITY_ROLE_EXIST;
+	public static String ERR_JAVA_CLASS_NAME_EMPTY;
+	public static String ERR_JAVA_CLASS_NAME_EXIST;
+	public static String ERR_JAVA_CLASS_FILE_NAME_EXIST;
+	public static String ERR_JAVA_CLASS_FOLDER_NAME_EMPTY;
+	public static String ERR_JAVA_CLASS_FOLDER_PROJECT_NOT_OPEN;
+	public static String ERR_JAVA_CLASS_NOT_JAVA_PROJECT;
+	public static String ERR_JAVA_CLASS_FOLDER_STATIC_PROJECT;
+	public static String ERR_JAVA_CLASS_FOLDER_NOT_SOURCE;
+	public static String ERR_JAVA_CLASS_NAME_QUALIFIED;
+	public static String ERR_JAVA_CLASS_NAME_INVALID;
+	public static String ERR_JAVA_CLASS_NAME_WARNING;
+	public static String ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST;
+	public static String ERR_JAVA_CLASS_SUPERCLASS_FINAL;
+	public static String ERR_JAVA_PACAKGE_NAME_INVALID;
+	public static String ERR_JAVA_PACKAGE_NAME_WARNING;
+	public static String ERR_BOTH_FINAL_AND_ABSTRACT;
+	public static String WebServiceClientGenerator_UI_0;
+	public static String ERR_SECURITY_ROLE_LIST_EMPTY;
 
-	/**
-	 * Returns the string from the resource bundle, or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		return INSTANCE.doGetResourceString(key);
+	public static String ERR_JAVA_CLASS_FOLDER_NOT_EXIST;
+
+	public static String ERR_EMPTY_MODULE_NAME;
+	public static String ERR_EMPTY_PROJECT_NAME;
+	public static String ERR_PROJECT_NAME_EXISTS;
+	public static String ERR_VERSION_NOT_SUPPORTED;
+	public static String ERR_NOT_SUPPORTED;
+	public static String ERR_JAVA_CLASS_FOLDER_NOT_ABSOLUTE;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, J2EECommonMessages.class);
 	}
 
 	public static String getResourceString(String key, Object[] args) {
-		return INSTANCE.doGetResourceString(key, args);
-	}
-
-	protected J2EECommonMessages() {
-		super();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.Messages#initializeBundle()
-	 */
-	protected void initializeBundle() {
-		try {
-			resourceBundle = ResourceBundle.getBundle("j2ee_common"); //$NON-NLS-1$
-		} catch (MissingResourceException x) {
-		}
+		return NLS.bind(key, args);
 	}
 }

@@ -357,7 +357,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		if (status.isOK()) {
 			// Do not allow the name to be "Servlet"
 			if (className.equals("Servlet")) { //$NON-NLS-1$
-				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_JAVA_CLASS_NAME_INVALID);
+				String msg = WebMessages.ERR_SERVLET_JAVA_CLASS_NAME_INVALID;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 			return WTPCommonPlugin.OK_STATUS;
@@ -381,7 +381,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			// Ensure there are not duplicate entries in the list
 			boolean dup = hasDuplicatesInStringArrayList(prop);
 			if (dup) {
-				String msg = WebMessages.getResourceString(WebMessages.ERR_DUPLICATED_INIT_PARAMETER);
+				String msg = WebMessages.ERR_DUPLICATED_INIT_PARAMETER;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		}
@@ -404,11 +404,11 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 			// Ensure there are not duplicates in the mapping list
 			boolean dup = hasDuplicatesInStringArrayList(prop);
 			if (dup) {
-				String msg = WebMessages.getResourceString(WebMessages.ERR_DUPLICATED_URL_MAPPING);
+				String msg = WebMessages.ERR_DUPLICATED_URL_MAPPING;
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		} else {
-			String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY);
+			String msg = WebMessages.ERR_SERVLET_MAPPING_URL_PATTERN_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		// Return OK
@@ -513,7 +513,7 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 	private IStatus validateDisplayName(String prop) {
 		// Ensure the servlet display name is not null or empty
 		if (prop == null || prop.trim().length() == 0) {
-			String msg = WebMessages.getResourceString(WebMessages.ERR_DISPLAY_NAME_EMPTY);
+			String msg = WebMessages.ERR_DISPLAY_NAME_EMPTY;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		if (getTargetProject() == null || getTargetComponent() == null)
