@@ -209,10 +209,10 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			// Use standard java conventions to validate the package name
 			IStatus javaStatus = JavaConventions.validatePackageName(packageName);
 			if (javaStatus.getSeverity() == IStatus.ERROR) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_PACAKGE_NAME_INVALID) + javaStatus.getMessage();
+				String msg = J2EECommonMessages.ERR_JAVA_PACAKGE_NAME_INVALID + javaStatus.getMessage();
 				return WTPCommonPlugin.createErrorStatus(msg);
 			} else if (javaStatus.getSeverity() == IStatus.WARNING) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_PACKAGE_NAME_WARNING) + javaStatus.getMessage();
+				String msg = J2EECommonMessages.ERR_JAVA_PACKAGE_NAME_WARNING + javaStatus.getMessage();
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		}
