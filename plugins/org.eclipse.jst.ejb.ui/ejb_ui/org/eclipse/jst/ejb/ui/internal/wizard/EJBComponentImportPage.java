@@ -32,8 +32,8 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 	 */
 	public EJBComponentImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_IMPORT_MAIN_PG_TITLE));
-		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_IMPORT_MAIN_PG_DESC));
+		setTitle(EJBUIMessages.EJB_IMPORT_MAIN_PG_TITLE);
+		setDescription(EJBUIMessages.EJB_IMPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_IMPORT_WIZARD_BANNER));
 	}
 
@@ -42,7 +42,7 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 	}
 
 	protected String getFileImportLabel() {
-		return EJBUIMessages.getResourceString(EJBUIMessages.EJB_JAR_FILE_LBL);
+		return EJBUIMessages.EJB_JAR_FILE_LBL;
 	}
 
 	protected String[] getFilterExpression() {
@@ -50,7 +50,7 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 	}
 
 	protected String getProjectImportLabel() {
-		return EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_LBL);
+		return EJBUIMessages.EJB_PROJECT_LBL;
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {

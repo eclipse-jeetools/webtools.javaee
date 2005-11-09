@@ -37,8 +37,8 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	 */
 	public EJBComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE));
-		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC));
+		setTitle(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE);
+		setDescription(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_PROJECT_WIZARD_BANNER));
 	}
 
@@ -90,7 +90,7 @@ public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	}
 
 	protected String getVersionLabel() {
-		return EJBUIMessages.getResourceString(EJBUIMessages.EJB_VERSION_LBL);
+		return EJBUIMessages.EJB_VERSION_LBL;
 	}
 
 	/*

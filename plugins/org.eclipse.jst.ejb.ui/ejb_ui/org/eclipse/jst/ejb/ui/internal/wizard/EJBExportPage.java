@@ -39,8 +39,8 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 */
 	public EJBExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
-		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_EXPORT_MAIN_PG_TITLE));
-		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_EXPORT_MAIN_PG_DESC));
+		setTitle(EJBUIMessages.EJB_EXPORT_MAIN_PG_TITLE);
+		setDescription(EJBUIMessages.EJB_EXPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_EXPORT_WIZARD_BANNER));
 
 	}

@@ -77,7 +77,7 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	 * 
 	 */
 	protected void doInit() {
-		setWindowTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_WIZ_TITLE));
+		setWindowTitle(EJBUIMessages.EJB_PROJECT_WIZ_TITLE);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_PROJECT_WIZARD_BANNER));
 		preFillSelectedEARProject();
 	}

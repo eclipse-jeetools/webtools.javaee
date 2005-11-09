@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbench;
 public class NewEJBComponentAction extends AbstractOpenWizardWorkbenchAction {
 
 	// TODO MDE 02-28 Find correct label
-	public static String LABEL = EJBUIMessages.getResourceString("NewEJBModuleAction_UI_0"); //$NON-NLS-1$
+	public static String LABEL = EJBUIMessages.NewEJBModuleAction_UI_0;
 	private static final String ICON = "newejbprj_wiz"; //$NON-NLS-1$
 
 	public NewEJBComponentAction() {

@@ -48,8 +48,8 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	 */
 	public EJBClientComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title)); //$NON-NLS-1$
-		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Desc)); //$NON-NLS-1$
+		setTitle(EJBUIMessages.EJB_Client_Title);
+		setDescription(EJBUIMessages.EJB_Client_Desc);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
     
     private void createEJBComponentSection(Composite parent) {
     	selectedProjectLabel = new Label(parent, SWT.NONE);
-    	selectedProjectLabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Project));
+    	selectedProjectLabel.setText(EJBUIMessages.EJB_Project);
         GridData data = new GridData();
         selectedProjectLabel.setLayoutData(data);
 
@@ -123,7 +123,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
     private void createClientJarURISection(Composite parent) {
         // set up project name label
     	clientJarURILabel = new Label(parent, SWT.NONE);
-    	clientJarURILabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.Client_JAR_URI) + " ");
+    	clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " ");
         GridData data = new GridData();
         clientJarURILabel.setLayoutData(data);
 

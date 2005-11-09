@@ -24,7 +24,7 @@ public class EJBClientComponentCreationWizard extends DataModelWizard {
 	 */
 	public EJBClientComponentCreationWizard(IDataModel model) {
 		super(model);
-		setWindowTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title));
+		setWindowTitle(EJBUIMessages.EJB_Client_Title);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.CLIENT_BANNER));
 	}
 
