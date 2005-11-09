@@ -1025,6 +1025,10 @@
 
     
   </extension>
+    <extension
+          point="org.eclipse.wst.common.modulecore.ComponentProjectMigrator">
+       <migratorExtension class="org.eclipse.jst.j2ee.internal.J2EEComponentProjectMigrator"/>
+    </extension>
    
 
 </plugin>

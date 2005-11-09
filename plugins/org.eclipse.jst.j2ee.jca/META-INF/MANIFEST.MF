@@ -13,7 +13,8 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.jca.validation,
  org.eclipse.jst.j2ee.jca.internal.module.util,
  org.eclipse.jst.j2ee.jca.internal.plugin,
- org.eclipse.jst.j2ee.jca.modulecore.util
+ org.eclipse.jst.j2ee.jca.modulecore.util,
+ org.eclipse.jst.j2ee.jca.project.facet
 Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.jem.workbench,
  org.eclipse.wst.common.emfworkbench.integration,

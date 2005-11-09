@@ -14,10 +14,10 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
+import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -57,23 +57,31 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 
 			final IVirtualFolder root = c.getRootFolder();
-			String configFolder = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
-			root.createLink(new Path("/" + configFolder), 0, null);
+			IFolder sourceFolder = null;
+			String configFolder = null;
+			if (root.getProjectRelativePath().segmentCount() == 0) {
+				configFolder = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+				root.createLink(new Path("/" + configFolder), 0, null);
 
 
-			String configFolderName = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
-			IPath configFolderpath = pjpath.append(configFolderName);
+				String configFolderName = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+				IPath configFolderpath = pjpath.append(configFolderName);
 
-			IFolder configIFolder = ws.getRoot().getFolder(configFolderpath);
+				IFolder configIFolder = ws.getRoot().getFolder(configFolderpath);
+			} else
+				sourceFolder = project.getFolder(root.getProjectRelativePath());
+			
+			
+			
 
-			if (!configIFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
+			if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
 				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
 			}
 
 			try {
-				createManifest(project, configIFolder, monitor);
+				createManifest(project, sourceFolder, monitor);
 			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {

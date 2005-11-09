@@ -19,10 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -357,6 +359,31 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		} catch (IllegalArgumentException ex) {
 			return null;
 		}
+	}
+	public static void removeBuilders(IProject project,List builderids) throws CoreException {
+		IProjectDescription desc = project.getDescription();
+		ICommand[] oldSpec = desc.getBuildSpec();
+		int oldLength = oldSpec.length;
+		if (oldLength == 0)
+			return;
+		int remaining = 0;
+		//null out all commands that match the builder to remove
+		for (int i = 0; i < oldSpec.length; i++) {
+			if (builderids.contains(oldSpec[i].getBuilderName()))
+				oldSpec[i] = null;
+			else
+				remaining++;
+		}
+		//check if any were actually removed
+		if (remaining == oldSpec.length)
+			return;
+		ICommand[] newSpec = new ICommand[remaining];
+		for (int i = 0, newIndex = 0; i < oldLength; i++) {
+			if (oldSpec[i] != null)
+				newSpec[newIndex++] = oldSpec[i];
+		}
+		desc.setBuildSpec(newSpec);
+		project.setDescription(desc, IResource.NONE, null);
 	}
 
 	public static IPath getSourcePathOrFirst(IProject p, String defaultSourceName) {
