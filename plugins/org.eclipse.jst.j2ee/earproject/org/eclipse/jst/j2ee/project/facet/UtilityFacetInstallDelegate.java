@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -77,24 +77,20 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 			}
 
 			final IWorkspace ws = ResourcesPlugin.getWorkspace();
-			final IPath pjpath = project.getFullPath();
+
 			final IVirtualFolder root = c.getRootFolder();
-			String configFolder = null;
-			IFolder folder = null;
+
+			IContainer container = null;
+			
 			if (root.getProjectRelativePath().segmentCount() == 0) {
-				//handle this case
-//				configFolder = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
-//
-//				IPath folderpath = pjpath.append( configFolder );
-//				folder = ws.getRoot().getFolder( folderpath );
-			} else
-				folder = project.getFolder( root.getProjectRelativePath() );
-				
-				
+				container = project;				
+			} else{
+				container = project.getFolder( root.getProjectRelativePath() );
+			}
 				
 			try {
-				if( folder != null )
-					createManifest(project, folder, monitor);
+				if( container != null )
+					createManifest(project, container, monitor);
 			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {

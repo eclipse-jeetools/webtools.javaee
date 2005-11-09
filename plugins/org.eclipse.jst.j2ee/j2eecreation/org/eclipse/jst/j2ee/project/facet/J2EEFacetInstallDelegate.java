@@ -15,8 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -63,7 +63,7 @@ public abstract class J2EEFacetInstallDelegate {
 		}		
 	}
 	
-    protected void createManifest(IProject project, IFolder aFolder, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+    protected void createManifest(IProject project, IContainer aFolder, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
     	
         IFile file = aFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
         if (file.exists()) return;
