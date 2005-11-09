@@ -34,7 +34,7 @@ import org.eclipse.wst.wsdl.internal.impl.ServiceImpl;
  */
 public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 
-	private OpenExternalWSDLAction openExternalWSDLAction = new OpenExternalWSDLAction(WebServiceUIResourceHandler.getString("WebServiceGroupContentExtension_UI_1")); //$NON-NLS-1$
+	private OpenExternalWSDLAction openExternalWSDLAction = new OpenExternalWSDLAction(WebServiceUIResourceHandler.WebServiceGroupContentExtension_UI_1); 
 	private OpenJ2EEResourceAction openAction = new OpenJ2EEResourceAction();
 	
 	/* (non-Javadoc)

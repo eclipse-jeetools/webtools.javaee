@@ -27,7 +27,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
  */
 public class WebServiceNavigatorGroup {
 
-	private String label = WebServiceUIResourceHandler.getString("WebServiceNavigatorGroup_UI_0"); //$NON-NLS-1$
+	private String label = WebServiceUIResourceHandler.WebServiceNavigatorGroup_UI_0; 
 	private IWorkspaceRoot root;
 
 	/**

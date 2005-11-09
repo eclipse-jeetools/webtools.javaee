@@ -50,7 +50,7 @@ public final class WebAppContainer
     
     public String getDescription()
     {
-        return resource( "WEB_CONT_DESCRIPTION", this.component );
+        return WebMessages.getResourceString(WebMessages.WEB_CONT_DESCRIPTION, new String[] {this.component});
     }
     
     public void install()
@@ -99,11 +99,4 @@ public final class WebAppContainer
         
         return false;
     }
-    
-    private static String resource( final String key,
-                                    final String arg )
-    {
-        return WebMessages.getResourceString( key, new String[] { arg } );
-    }
-    
 }

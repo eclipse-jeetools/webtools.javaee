@@ -47,7 +47,7 @@ public class WebServiceFilesContribution {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return WebServiceUIResourceHandler.getString("WebServiceFilesContribution_UI_0"); //$NON-NLS-1$
+		return WebServiceUIResourceHandler.WebServiceFilesContribution_UI_0; 
 	}
 
 	public String getWSDLFile() {

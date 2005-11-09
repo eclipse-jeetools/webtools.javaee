@@ -106,7 +106,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			ICommandContext ctx = new CommandContext(monitor, null, module.eResource().getResourceSet());
 			dep.init(selection);
 
-			monitor.setTaskName(J2EEPluginResourceHandler.getString("J2EEDeployOperation_1_UI_", new Object[]{proj.getName(), dep.getClass().getName()})); //$NON-NLS-1$
+			monitor.setTaskName(J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_1_UI_, new Object[]{proj.getName(), dep.getClass().getName()})); //$NON-NLS-1$
 			try {
 				dep.execute(proj, null, ctx);
 				addOKStatus(dep.getClass().getName(), main);
@@ -159,7 +159,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 
 	private IStatus addMainStatus(IProject proj) {
 
-		IStatus aStatus = new MultiStatus(J2EEPlugin.getPlugin().getPluginID(), IStatus.OK, J2EEPluginResourceHandler.getString("J2EEDeployOperation_4_UI_", new Object[]{proj.getName()}), null); //$NON-NLS-1$
+		IStatus aStatus = new MultiStatus(J2EEPlugin.getPlugin().getPluginID(), IStatus.OK, J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_4_UI_, new Object[]{proj.getName()}), null); //$NON-NLS-1$
 
 		getMultiStatus().add(aStatus);
 		return aStatus;

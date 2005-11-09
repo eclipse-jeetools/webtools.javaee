@@ -32,9 +32,9 @@ public class WebServiceNavigatorGroupType implements IActionFilter {
 	public static final int CLIENTS = 2;
 	public static final int HANDLERS = 3;
 
-	public static final String SERVICES_UI = WebServiceUIResourceHandler.getString("WebServiceNavigatorGroupType_UI_0"); //$NON-NLS-1$
-	public static final String CLIENTS_UI = WebServiceUIResourceHandler.getString("WebServiceNavigatorGroupType_UI_1"); //$NON-NLS-1$
-	public static final String HANDLERS_UI = WebServiceUIResourceHandler.getString("WebServiceNavigatorGroupType_UI_2"); //$NON-NLS-1$
+	public static final String SERVICES_UI = WebServiceUIResourceHandler.WebServiceNavigatorGroupType_UI_0; 
+	public static final String CLIENTS_UI = WebServiceUIResourceHandler.WebServiceNavigatorGroupType_UI_1; 
+	public static final String HANDLERS_UI = WebServiceUIResourceHandler.WebServiceNavigatorGroupType_UI_2; 
 
 	private int TYPE;
 	private EObject wsdlService = null;

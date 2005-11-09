@@ -97,17 +97,17 @@ public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvid
 		if (element instanceof WebServiceDescription)
 			return getWebServiceDescriptionText((WebServiceDescription) element);
 		else if (element instanceof PortComponent)
-			return WebServiceUIResourceHandler.getString("PORT_UI_") + space + super.getText(element); //$NON-NLS-1$
+			return WebServiceUIResourceHandler.PORT_UI_ + space + super.getText(element); 
 		else if (element instanceof Handler)
-			return WebServiceUIResourceHandler.getString("HANDLER_UI_") + space + super.getText(element); //$NON-NLS-1$
+			return WebServiceUIResourceHandler.HANDLER_UI_ + space + super.getText(element); 
 		else if (element instanceof WSDLPort)
-			return WebServiceUIResourceHandler.getString("WSDL_PORT_UI_") + space + super.getText(element); //$NON-NLS-1$
+			return WebServiceUIResourceHandler.WSDL_PORT_UI_ + space + super.getText(element); 
 		else if (element instanceof ServiceImplBean)
-			return WebServiceUIResourceHandler.getString("SERVICE_CLASSES_UI_"); //$NON-NLS-1$
+			return WebServiceUIResourceHandler.SERVICE_CLASSES_UI_; 
 		else if (element instanceof EJBLink)
-			return WebServiceUIResourceHandler.getString("SERVICE_IMPL_UI_") + space + super.getText(element); //$NON-NLS-1$
+			return WebServiceUIResourceHandler.SERVICE_IMPL_UI_ + space + super.getText(element); 
 		else if (element instanceof ServletLink)
-			return WebServiceUIResourceHandler.getString("SERVICE_IMPL_UI_") + space + super.getText(element); //$NON-NLS-1$
+			return WebServiceUIResourceHandler.SERVICE_IMPL_UI_ + space + super.getText(element); 
 		else if (serviceHelper.isService(element))
 			return serviceHelper.getServiceLocalPart(element);
 		else if (serviceHelper.isWSDLResource(element)) {
@@ -117,7 +117,7 @@ public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvid
 				result = file.getFullPath().toString();
 			else
 				result = ((Resource) element).getURI().toString();
-			return WebServiceUIResourceHandler.getString("WSDL_UI_") + space + result; //$NON-NLS-1$
+			return WebServiceUIResourceHandler.WSDL_UI_ + space + result; 
 		} else if (element instanceof ServiceRef) {
 			String beanName14 = ""; //$NON-NLS-1$
 			if (WebServicesManager.getInstance().isJ2EE14((ServiceRef) element)) {
