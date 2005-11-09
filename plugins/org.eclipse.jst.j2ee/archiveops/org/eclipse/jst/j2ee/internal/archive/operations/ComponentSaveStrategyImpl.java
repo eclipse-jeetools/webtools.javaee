@@ -87,13 +87,13 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
 	public void save(File aFile, InputStream in) throws SaveFailureException {
 		try {
-			String displayString = EJBArchiveOpsResourceHandler.getString("IMPORT_OPERATION_STRING"); //$NON-NLS-1$
+			String displayString = EJBArchiveOpsResourceHandler.IMPORT_OPERATION_STRING; 
 			progressMonitor.subTask(displayString + aFile.getURI());
 			saveToOutputPath(getOutputPathForFile(aFile), in);
 		} catch (OverwriteHandlerException ohe) {
 			throw ohe;
 		} catch (Exception e) {
-			String errorString = EJBArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_SaveFile") + aFile.getName(); //$NON-NLS-1$
+			String errorString = EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_SaveFile + aFile.getName(); 
 			throw new SaveFailureException(errorString, e);
 		}
 	}
