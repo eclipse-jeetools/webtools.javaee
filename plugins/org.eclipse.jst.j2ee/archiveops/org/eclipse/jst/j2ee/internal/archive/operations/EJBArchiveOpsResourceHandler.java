@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
 
 public final class EJBArchiveOpsResourceHandler extends NLS {
 
-	private static final String BUNDLE_NAME = "org.eclipse.jst.j2ee.internal.archive.operations.ejbarchiveops";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "ejbarchiveops";//$NON-NLS-1$
 
 	private EJBArchiveOpsResourceHandler() {
 		// Do not instantiate

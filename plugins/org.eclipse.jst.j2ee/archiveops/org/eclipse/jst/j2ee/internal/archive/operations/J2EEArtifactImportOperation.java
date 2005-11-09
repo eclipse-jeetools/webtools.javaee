@@ -104,7 +104,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();
 		} catch (Exception ex) {
-			throw new WFTWrappedException(ex, EJBArchiveOpsResourceHandler.getString("ERROR_IMPORTING_MODULE_FILE")); //$NON-NLS-1$
+			throw new WFTWrappedException(ex, EJBArchiveOpsResourceHandler.ERROR_IMPORTING_MODULE_FILE); 
 		}
 	}
 

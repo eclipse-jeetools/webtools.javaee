@@ -23,10 +23,10 @@ import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateVa
  * @author: Administrator
  */
 public interface IOverwriteHandler {
-	public static final String NO = EJBArchiveOpsResourceHandler.getString("No_UI"); //$NON-NLS-1$
-	public static final String YES = EJBArchiveOpsResourceHandler.getString("Yes_UI"); //$NON-NLS-1$
-	public static final String ALL = EJBArchiveOpsResourceHandler.getString("Yes_To_All_UI"); //$NON-NLS-1$
-	public static final String NONE = EJBArchiveOpsResourceHandler.getString("Cancel_UI_"); //$NON-NLS-1$
+	public static final String NO = EJBArchiveOpsResourceHandler.No_UI; 
+	public static final String YES = EJBArchiveOpsResourceHandler.Yes_UI; 
+	public static final String ALL = EJBArchiveOpsResourceHandler.Yes_To_All_UI; 
+	public static final String NONE = EJBArchiveOpsResourceHandler.Cancel_UI_; 
 
 	/**
 	 * Insert the method's description here. Creation date: (4/16/2001 3:13:38 PM)

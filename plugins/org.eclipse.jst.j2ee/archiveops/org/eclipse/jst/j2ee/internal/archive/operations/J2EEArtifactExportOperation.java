@@ -70,7 +70,7 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 			}
 			export();
 		} catch (Exception e) {
-			throw new ExecutionException(EJBArchiveOpsResourceHandler.getString("Error_exporting__UI_") + archiveString(), e);
+			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + archiveString(), e);
 		}
 		return OK_STATUS;
 	}
