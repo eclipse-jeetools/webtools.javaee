@@ -25,12 +25,15 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.ui.AddRemoveFacetsWizard;
 import org.eclipse.wst.common.project.facet.ui.internal.ConflictingFacetsFilter;
 import org.eclipse.wst.common.project.facet.ui.internal.FacetsSelectionPanel;
@@ -57,7 +60,6 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 		addPage(firstPage);
 		super.addPages();
 
-		
 		final Set fixed = this.template.getFixedProjectFacets();
 
 		this.facetsSelectionPage.setFixedProjectFacets(fixed);
@@ -74,6 +76,20 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 		final ConflictingFacetsFilter filter = new ConflictingFacetsFilter(fixed);
 
 		this.facetsSelectionPage.setFilters(new FacetsSelectionPanel.IFilter[]{filter});
+		
+		synchRuntimes();
+		
+	}
+
+	protected void synchRuntimes() {
+		dataModel.addListener(new IDataModelListener(){
+			public void propertyChanged(DataModelEvent event) {
+				if(FACET_RUNTIME.equals(event.getPropertyName())){
+					IRuntime runtime = (IRuntime)event.getProperty();
+					facetsSelectionPage.setRuntime(runtime);
+				}
+			};
+		});
 	}
 
 	public IWizardPage[] getPages() {
