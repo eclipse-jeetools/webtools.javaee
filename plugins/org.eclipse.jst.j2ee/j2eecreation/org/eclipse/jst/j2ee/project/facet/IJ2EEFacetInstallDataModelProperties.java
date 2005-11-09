@@ -5,7 +5,8 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstalDat
 
 public interface IJ2EEFacetInstallDataModelProperties extends IFacetInstalDataModelProperties {
 
-	public static final String EAR_PROJECT_NAME = "IJ2EEFacetInstallDataModelProperties.EAR_PROJECT_NAME";
-	public static final String CONFIG_FOLDER = "IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER";
-    public static final String RUNTIME_TARGET_ID = "IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID";
+	public static final String ADD_TO_EAR = "IJ2EEFacetInstallDataModelProperties.ADD_TO_EAR"; //$NON-NLS-1$
+	public static final String EAR_PROJECT_NAME = "IJ2EEFacetInstallDataModelProperties.EAR_PROJECT_NAME"; //$NON-NLS-1$
+	public static final String CONFIG_FOLDER = "IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER"; //$NON-NLS-1$
+	public static final String RUNTIME_TARGET_ID = "IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID"; //$NON-NLS-1$
 }

@@ -30,10 +30,11 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 	public Object getDefaultProperty(String propertyName) {
 		if (FACET_ID.equals(propertyName)) {
 			return IModuleConstants.JST_JAVA;
+		} else if (FACET_VERSION.equals(propertyName)) {
+			return JavaFacetUtils.JAVA_14;
+		} else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
+			return "src";
 		}
-        else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
-            return "src";
-        }
 		return super.getDefaultProperty(propertyName);
 	}
 

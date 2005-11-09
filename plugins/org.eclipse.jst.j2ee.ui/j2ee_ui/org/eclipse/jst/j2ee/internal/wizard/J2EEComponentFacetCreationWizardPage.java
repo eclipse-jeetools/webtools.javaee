@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
+import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -44,7 +45,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
 	protected static final String MODULE_VERSION = J2EEUIMessages.MODULE_VERSION_LABEL;
-	protected ServerEarAndStandaloneGroup earGroup;
+	protected EarSelectionPanel earPanel;
 	protected Combo serverTargetCombo;
 
 	protected NewProjectGroup projectNameGroup;
@@ -67,11 +68,11 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 		top.setLayoutData(new GridData(GridData.FILL_BOTH));
 		createModuleGroup(top);
 		Composite composite = new Composite(top, SWT.NONE);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		composite.setLayoutData(data);
+		composite.setLayoutData(gdhfill());
 		GridLayout layout = new GridLayout(3, false);
 		composite.setLayout(layout);
 		createServerTargetComposite(composite);
+		createEarComposit(composite);
 		// createServerEarAndStandaloneGroup(composite);
 
 
@@ -81,17 +82,34 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 		return top;
 	}
 
+	private void createEarComposit(Composite composite) {
+		FacetDataModelMap map = (FacetDataModelMap)model.getProperty(FACET_DM_MAP);
+		IDataModel facetModel = (IDataModel)map.get(getModuleFacetID());
+		
+		earPanel = new EarSelectionPanel( facetModel, composite, SWT.NONE );
+		GridData data = gdhfill();
+		data.horizontalSpan = 3;
+        earPanel.setLayoutData( data );
+	}
+	
+	protected abstract String getModuleFacetID();
+
+	private static GridData gdhfill()
+    {
+        return new GridData( GridData.FILL_HORIZONTAL );
+    }
+
 	protected void createModuleGroup(Composite parent) {
 		IDataModel nestedProjectDM = model.getNestedModel(NESTED_PROJECT_DM);
-		new NewProjectGroup(parent, nestedProjectDM);
+		nestedProjectDM.addListener(this);
+		projectNameGroup = new NewProjectGroup(parent, nestedProjectDM);
 	}
 
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
 		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		serverTargetCombo.setLayoutData(data);
+		serverTargetCombo.setLayoutData(gdhfill());
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
@@ -107,14 +125,9 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 			serverTargetCombo.select(0);
 	}
 
-	protected void createServerEarAndStandaloneGroup(Composite parent) {
-		earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
-	}
-
 	protected String[] getValidationPropertyNames() {
-		return new String[]{FACET_PROJECT_NAME, IProjectCreationPropertiesNew.PROJECT_LOCATION};
+		return new String[]{IProjectCreationPropertiesNew.PROJECT_NAME, IProjectCreationPropertiesNew.PROJECT_LOCATION, FACET_RUNTIME};
 	}
-
 
 	protected String getVersionLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_VERSION_LABEL);
@@ -126,8 +139,8 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 
 	public void dispose() {
 		super.dispose();
-		if (earGroup != null)
-			earGroup.dispose();
+		if (earPanel != null)
+			earPanel.dispose();
 		if (projectNameGroup != null)
 			projectNameGroup.dispose();
 	}
@@ -136,7 +149,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(labelText);
 		Combo versionCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
-		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+		GridData gridData = gdhfill();
 		gridData.widthHint = 305;
 		versionCombo.setLayoutData(gridData);
 		Control[] deps = new Control[]{label};

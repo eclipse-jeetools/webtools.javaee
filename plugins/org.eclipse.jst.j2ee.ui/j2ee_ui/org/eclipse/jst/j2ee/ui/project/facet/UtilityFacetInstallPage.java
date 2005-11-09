@@ -32,7 +32,7 @@ public final class UtilityFacetInstallPage
     
 {
     private IDataModel config;
-    private EarSelectionPanel earPanel;
+    private EarSelectionPanelOld earPanel;
     
     public UtilityFacetInstallPage() 
     {
@@ -47,7 +47,7 @@ public final class UtilityFacetInstallPage
         final Composite composite = new Composite( parent, SWT.NONE );
         composite.setLayout( new GridLayout( 1, false ) );
         
-        this.earPanel = new EarSelectionPanel( composite, SWT.NONE );
+        this.earPanel = new EarSelectionPanelOld( composite, SWT.NONE );
         this.earPanel.setLayoutData( gdhfill() );
         
         this.earPanel.addListener( new Listener()

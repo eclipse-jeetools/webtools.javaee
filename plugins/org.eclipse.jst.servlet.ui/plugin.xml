@@ -463,4 +463,19 @@
     
   </extension>
 	
+    <extension point="org.eclipse.ui.newWizards">
+
+    <wizard
+      name="%web-project-wizard-name"
+      icon="icons/full/ctool16/web-wiz-icon.gif"
+      category="org.eclipse.jst.newprojects"
+      class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard2"
+      project="true"
+      id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard2">
+      <description>%web-project-wizard-description</description>
+    </wizard>
+    
+  </extension>
+	
+	
 </plugin>

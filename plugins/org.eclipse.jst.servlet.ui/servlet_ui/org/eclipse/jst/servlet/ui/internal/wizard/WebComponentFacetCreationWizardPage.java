@@ -13,6 +13,7 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
@@ -37,6 +38,10 @@ public class WebComponentFacetCreationWizardPage extends J2EEComponentFacetCreat
 	protected String[] getValidationPropertyNames() {
 		String[] names = super.getValidationPropertyNames();
 		return names;
+	}
+	
+	protected String getModuleFacetID(){
+		return J2EEProjectUtilities.DYNAMIC_WEB;
 	}
 
 }

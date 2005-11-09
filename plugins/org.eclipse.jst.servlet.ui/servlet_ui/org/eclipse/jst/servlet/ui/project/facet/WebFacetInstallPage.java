@@ -15,32 +15,28 @@ import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.ui.AbstractFacetWizardPage;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
+import org.eclipse.wst.common.project.facet.ui.IFacetWizardPage;
+import org.eclipse.wst.common.project.facet.ui.IWizardContext;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class WebFacetInstallPage 
-
-    extends AbstractFacetWizardPage
+public final class WebFacetInstallPage extends DataModelWizardPage implements IWebFacetInstallDataModelProperties, IFacetWizardPage
     
 {
-    private IDataModel config;
     private EarSelectionPanel earPanel;
     private Label contextRootLabel;
     private Text contextRoot;
@@ -50,100 +46,56 @@ public final class WebFacetInstallPage
     
     public WebFacetInstallPage() 
     {
-        super( "web.facet.install.page" );
-        
+    	//TODO figure out a better way to do this without compromising the IDataModelWizard framework.
+    	super(DataModelFactory.createDataModel(new AbstractDataModelProvider(){}), "web.facet.install.page"); //$NON-NLS-1$
         setTitle( Resources.pageTitle );
         setDescription( Resources.pageDescription );
     }
     
-    public void createControl( final Composite parent ) 
+    protected Composite createTopLevelComposite( final Composite parent ) 
     {
         final Composite composite = new Composite( parent, SWT.NONE );
         composite.setLayout( new GridLayout( 1, false ) );
-        
-        this.earPanel = new EarSelectionPanel( composite, SWT.NONE );
+
+        this.earPanel = new EarSelectionPanel( model, composite, SWT.NONE );
         this.earPanel.setLayoutData( gdhfill() );
-        
-        this.earPanel.addListener( new Listener()
-        {
-            public void handleEvent( final Event event ) 
-            {
-                config.setStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME,earPanel.getEarProjectName() );
-                validate();
-            }
-        } );
         
         this.contextRootLabel = new Label( composite, SWT.NONE );
         this.contextRootLabel.setText( Resources.contextRootLabel );
         this.contextRootLabel.setLayoutData( gdhfill() );
         
         this.contextRoot = new Text( composite, SWT.BORDER );
-        this.contextRoot.setText( "" );
         this.contextRoot.setLayoutData( gdhfill() );
-        this.contextRoot.setData( "label", this.contextRootLabel );
-
-        this.contextRoot.addModifyListener( new ModifyListener()
-        {
-            public void modifyText( final ModifyEvent event ) 
-            {
-                if( ! config.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT).equals( contextRoot.getText() ) )
-                {
-                    config.setStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, contextRoot.getText() );
-                }
-                
-                validate();
-            }
-        } );
+        this.contextRoot.setData( "label", this.contextRootLabel ); //$NON-NLS-1$
+        synchHelper.synchText(contextRoot, CONTEXT_ROOT, new Control [] { contextRootLabel });
         
         this.contentDirLabel = new Label( composite, SWT.NONE );
         this.contentDirLabel.setText( Resources.contentDirLabel );
         this.contentDirLabel.setLayoutData( gdhfill() );
         
         this.contentDir = new Text( composite, SWT.BORDER );
-        this.contentDir.setText( config.getStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR));
         this.contentDir.setLayoutData( gdhfill() );
-        this.contentDir.setData( "label", this.contentDirLabel );
-
-        this.contentDir.addModifyListener( new ModifyListener()
-        {
-            public void modifyText( final ModifyEvent event ) 
-            {
-                config.setStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, contentDir.getText() );
-                validate();
-            }
-        } );
+        this.contentDir.setData( "label", this.contentDirLabel ); //$NON-NLS-1$
+        synchHelper.synchText(contentDir, CONTENT_DIR, null);
         
         this.createWebInfSrc = new Button( composite, SWT.CHECK );
         this.createWebInfSrc.setText( Resources.createWebinfSrcLabel );
-        
-        this.createWebInfSrc.addSelectionListener( new SelectionAdapter()
-        {
-            public void widgetSelected( final SelectionEvent e )
-            {
-                config.setBooleanProperty(IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC,createWebInfSrc.getSelection() );
-            }
-        } );
-        
-        setControl( composite );
+        synchHelper.synchCheckbox(createWebInfSrc, CREATE_WEB_INF_SRC, null);
+        return composite;
+    }
+    
+    protected String[] getValidationPropertyNames() {
+    	return new String [] { EAR_PROJECT_NAME, CONTEXT_ROOT, CONTENT_DIR, CREATE_WEB_INF_SRC };
     }
     
     public void setConfig( final Object config ) 
     {
-        this.config = (IDataModel) config;
-    }
-
-    public void transferStateToConfig() 
-    {
-    }
-    
-    public void setVisible( final boolean visible )
-    {
-        if( visible )
-        {
-            this.contextRoot.setText( this.config.getStringProperty( IWebFacetInstallDataModelProperties.CONTEXT_ROOT ) );
-        }
-        
-        super.setVisible( visible );
+    	model.removeListener(this);
+    	synchHelper.dispose();
+    	
+        model = (IDataModel) config;
+        model.addListener(this);
+		synchHelper = initializeSynchHelper(model);
     }
     
     private void validate()
@@ -152,12 +104,6 @@ public final class WebFacetInstallPage
         
         if( ! validateNotEmpty( this.contextRoot, Resources.contextRootLabel, Resources.contentDirLabelInvalid ) ||
             ! validateNotEmpty( this.contentDir, Resources.contentDirLabel, Resources.contentDirLabelInvalid ) )
-        {
-            valid = false;
-        }
-        
-        if( this.earPanel.getAddToEar() && 
-            this.earPanel.getEarProjectName() == null )
         {
             valid = false;
         }
@@ -220,6 +166,21 @@ public final class WebFacetInstallPage
                                 Resources.class );
         }
     }
-    
-}
 
+	public void setWizardContext(IWizardContext context) {
+		// Intentionally empty
+	}
+
+    public void transferStateToConfig() {
+		// Intentionally empty
+    }
+    
+    public void dispose() {
+    	if(null != earPanel){
+    		earPanel.dispose();
+    	}
+    	super.dispose();
+    }
+
+	
+}

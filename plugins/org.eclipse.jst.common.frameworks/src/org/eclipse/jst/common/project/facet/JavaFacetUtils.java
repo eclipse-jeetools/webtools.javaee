@@ -28,13 +28,13 @@ import org.osgi.service.prefs.BackingStoreException;
 
 public final class JavaFacetUtils
 {
-    private static final IProjectFacetVersion JAVA_13
+    public static final IProjectFacetVersion JAVA_13
         = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion( "1.3" );
     
-    private static final IProjectFacetVersion JAVA_14
+    public static final IProjectFacetVersion JAVA_14
         = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion( "1.4" );
 
-    private static final IProjectFacetVersion JAVA_50
+    public static final IProjectFacetVersion JAVA_50
         = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA).getVersion( "5.0" );
     
     public static void setCompilerLevel( final IProject project,

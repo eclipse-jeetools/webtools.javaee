@@ -31,7 +31,7 @@ public final class WebProjectWizard
 {
     protected IFacetedProjectTemplate getTemplate()
     {
-        return ProjectFacetsManager.getTemplate( "template.jst.web" );
+        return ProjectFacetsManager.getTemplate( "template.jst.web" ); //$NON-NLS-1$
     }
 
     protected String getPageDescription()
