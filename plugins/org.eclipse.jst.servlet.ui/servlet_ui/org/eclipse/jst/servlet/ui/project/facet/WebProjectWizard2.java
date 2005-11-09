@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.project.facet;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -21,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreat
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentFacetCreationWizardPage;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -59,13 +62,13 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 
 		this.facetsSelectionPage.setFixedProjectFacets(fixed);
 
-//		Set facetVersions = new HashSet();
-//		FacetDataModelMap map = (FacetDataModelMap) dataModel.getProperty(FACET_DM_MAP);
-//		for(Iterator iterator=map.values().iterator(); iterator.hasNext();){
-//			IDataModel model = (IDataModel)iterator.next();
-//			facetVersions.add(model.getProperty(IFacetDataModelProperties.FACET_VERSION));
-//		}
-//		this.facetsSelectionPage.setInitialSelection(facetVersions);
+		Set facetVersions = new HashSet();
+		FacetDataModelMap map = (FacetDataModelMap) dataModel.getProperty(FACET_DM_MAP);
+		for(Iterator iterator=map.values().iterator(); iterator.hasNext();){
+			IDataModel model = (IDataModel)iterator.next();
+			facetVersions.add(model.getProperty(IFacetDataModelProperties.FACET_VERSION));
+		}
+		this.facetsSelectionPage.setInitialSelection(facetVersions);
 
 		
 		final ConflictingFacetsFilter filter = new ConflictingFacetsFilter(fixed);
