@@ -23,6 +23,10 @@
    <includes
          id="org.eclipse.jst.web_ui.feature"
          version="0.0.0"/>
+         
+   <includes
+         id="org.eclipse.jst.enterprise_userdoc.feature"
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.ws"
@@ -134,6 +138,13 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.jst.jsp.ui.infopop"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.jst.ws.axis.infopop"
@@ -141,9 +152,9 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
+         
    <plugin
-         id="org.eclipse.jst.ws.creation.ejb.ui"
+         id="org.eclipse.jst.ws.consumption.infopop"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -151,6 +162,13 @@
 
    <plugin
          id="org.eclipse.jst.ws.infopop"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.jst.ws.creation.ejb.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
