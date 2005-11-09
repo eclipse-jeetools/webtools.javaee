@@ -67,7 +67,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				String configFolderName = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
 				IPath configFolderpath = pjpath.append(configFolderName);
 
-				IFolder configIFolder = ws.getRoot().getFolder(configFolderpath);
+				sourceFolder = ws.getRoot().getFolder(configFolderpath);
 			} else
 				sourceFolder = project.getFolder(root.getProjectRelativePath());
 			

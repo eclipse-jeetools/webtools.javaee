@@ -22,6 +22,7 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataMo
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.IComponentProjectMigrator;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -115,7 +116,9 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				edit = StructureEdit.getStructureEditForRead(aProject);
 				if (edit == null) return;  // Not a component project....
-				String compId = edit.getComponent().getComponentType().getComponentTypeId();
+				ComponentType type = edit.getComponent().getComponentType();
+				if (type == null) return;  // Can't migrate
+				String compId = type.getComponentTypeId();
 				String specVersion = edit.getComponent().getComponentType().getVersion();
 				if (compId.equals(J2EEProjectUtilities.DYNAMIC_WEB))
 					installWEBFacets(aProject,specVersion);
