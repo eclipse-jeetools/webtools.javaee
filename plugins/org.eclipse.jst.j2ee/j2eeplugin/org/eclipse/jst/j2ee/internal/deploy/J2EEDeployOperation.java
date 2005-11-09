@@ -76,7 +76,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 		DeployerRegistry reg = DeployerRegistry.instance();
 
 		List modules = DeployerRegistry.getSelectedModules(selection);
-		monitor.beginTask(J2EEPluginResourceHandler.getString("J2EEDeployOperation_UI_0"), modules.size()); //$NON-NLS-1$
+		monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, modules.size()); //$NON-NLS-1$
 		for (int i = 0; i < modules.size(); i++) {
 
 			EObject module = (EObject) modules.get(i);

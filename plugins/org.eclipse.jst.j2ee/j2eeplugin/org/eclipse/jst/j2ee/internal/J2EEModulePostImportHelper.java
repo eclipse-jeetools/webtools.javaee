@@ -34,10 +34,10 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
  */
 public class J2EEModulePostImportHelper {
 
-	private static final String WEB = J2EEPluginResourceHandler.getString("J2EEModulePostImportHelper.0"); //$NON-NLS-1$
-	private static final String EJB = J2EEPluginResourceHandler.getString("J2EEModulePostImportHelper.1"); //$NON-NLS-1$
-	private static final String APP_CLIENT = J2EEPluginResourceHandler.getString("J2EEModulePostImportHelper.2"); //$NON-NLS-1$
-	private static final String CONNECTOR = J2EEPluginResourceHandler.getString("J2EEModulePostImportHelper.3"); //$NON-NLS-1$
+	private static final String WEB = J2EEPluginResourceHandler.J2EEModulePostImportHelper_0;
+	private static final String EJB = J2EEPluginResourceHandler.J2EEModulePostImportHelper_1;
+	private static final String APP_CLIENT = J2EEPluginResourceHandler.J2EEModulePostImportHelper_2;
+	private static final String CONNECTOR = J2EEPluginResourceHandler.J2EEModulePostImportHelper_3;
 
 	private static IConfigurationElement[] webExtensions = null;
 	private static IConfigurationElement[] ejbExtensions = null;

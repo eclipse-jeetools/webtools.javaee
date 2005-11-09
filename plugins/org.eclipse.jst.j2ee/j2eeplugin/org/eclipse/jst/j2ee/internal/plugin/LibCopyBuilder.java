@@ -109,20 +109,20 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 		sourceContainers = null;
 		needOutputRefresh = false;
 		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.getString("__Start_build_project_INFO_") + getProject().getName()); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Start_build_project_INFO_ + getProject().getName()); //$NON-NLS-1$
 		}
 
 		boolean builderOrderOK = checkBuilderOrdering();
 
 		if (DEBUG && !builderOrderOK) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.getString("__Bad_builder_order_for_project_INFO_") + getProject().getName()); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Bad_builder_order_for_project_INFO_ + getProject().getName()); //$NON-NLS-1$
 		}
 
 		IFolder[] classFolders = getClassesFolders();
 		if (classFolders.length == 0) {
 			// no files to copy
 			if (DEBUG)
-				System.out.println(BUILDER_ID + J2EEPluginResourceHandler.getString("__No_imported_classes_folder,_quitting_INFO_")); //$NON-NLS-1$
+				System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__No_imported_classes_folder__quitting_INFO_); //$NON-NLS-1$
 			return null;
 		}
 
@@ -143,7 +143,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 		}
 
 		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.getString("__Full/first_build_INFO_")); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Full_first_build_INFO_);
 		}
 		copyAllClassFolders(monitor, classFolders, outputFolder);
 		lastOutputPath = outputPath;
@@ -180,7 +180,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	 */
 	protected void processDelta(IResourceDelta delta, final IFolder outputFolder, final IProgressMonitor monitor, final IFolder[] classesFolders) {
 		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.getString("__Considering_delta_INFO_") + delta); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Considering_delta_INFO_ + delta); //$NON-NLS-1$
 		}
 		IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
 			private List copiedClassFolders = new ArrayList(classesFolders.length);
@@ -195,7 +195,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 							case IResourceDelta.ADDED :
 							case IResourceDelta.CHANGED :
 								if (DEBUG) {
-									System.out.println(BUILDER_ID + J2EEPluginResourceHandler.getString("__Delta_build_INFO_") + subdelta); //$NON-NLS-1$
+									System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Delta_build_INFO_ + subdelta); //$NON-NLS-1$
 								}
 								copyClassFiles(classesFolder, outputFolder, monitor);
 								break;
