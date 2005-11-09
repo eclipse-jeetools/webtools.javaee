@@ -455,6 +455,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
             return true;
         WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createManifestOperation());
         composed.addRunnable(createBuildPathOperation());
+        composed.addRunnable(createJ2EEComponentDependencyOperations());
         try {
             new ProgressMonitorDialog(getShell()).run(true, true, composed);
         } catch (InvocationTargetException ex) {
@@ -494,6 +495,62 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 //		return true;
 //    }
 
+    
+	protected WorkspaceModifyComposedOperation createJ2EEComponentDependencyOperations() {
+		WorkspaceModifyComposedOperation composedOp = null;
+		List selected = getSelectedClassPathSelection().getClasspathElements();
+		List unselected = getUnSelectedClassPathSelection().getClasspathElements();
+		
+		List targetComponentsHandles = new ArrayList();
+		for (int i = 0; i < selected.size(); i++) {
+			ClasspathElement element = (ClasspathElement) selected.get(i);
+			IProject elementProject = element.getProject();
+			if( elementProject != null ){
+				IVirtualComponent targetComp = ComponentCore.createComponent(elementProject);
+				targetComponentsHandles.add(targetComp);
+			}
+		}
+		if (!targetComponentsHandles.isEmpty()) {
+			composedOp = new WorkspaceModifyComposedOperation();
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createWLPReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
+		}
+		targetComponentsHandles = new ArrayList();
+		for (int i = 0; i < unselected.size(); i++) {
+			ClasspathElement element = (ClasspathElement) unselected.get(i);
+			IProject elementProject = element.getProject();
+			if( elementProject != null ){
+				if (ModuleCoreNature.isFlexibleProject(elementProject)) {
+					IVirtualComponent targetComp = ComponentCore.createComponent(elementProject);
+					targetComponentsHandles.add(targetComp);
+				}
+			}else{
+				URI archiveURI = element.getArchiveURI();
+				if( archiveURI != null && !archiveURI.equals("") ){ //$NON-NLS-1$
+					String name = ""; //$NON-NLS-1$
+					try {
+						String type = ModuleURIUtil.getArchiveType(archiveURI);
+						String tmpname = ModuleURIUtil.getArchiveName(archiveURI);
+						name = type + IPath.SEPARATOR + tmpname;
+					} catch (UnresolveableURIException e) {
+						Logger.getLogger().logError(e.getMessage());
+					}
+					if( !name.equals("")){ //$NON-NLS-1$
+						IVirtualReference ref = model.getComponent().getReference(name);
+						IVirtualComponent referenced = ref.getReferencedComponent();
+						targetComponentsHandles.add(referenced);
+					}	
+				}
+			}
+		}
+		if (!targetComponentsHandles.isEmpty()) {
+			if(composedOp == null)
+				composedOp = new WorkspaceModifyComposedOperation();
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
+		}
+		return composedOp;
+	}
+	
+	
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
@@ -580,6 +637,28 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		ClassPathSelection selection = new ClassPathSelection();
 		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
 		List modelElements = model.getClassPathSelectionForWLPs().getClasspathElements();
+		for (int i = 0; i < modelElements.size(); i++) {
+			List checkedElementsList = Arrays.asList(checkedElements);
+			if (!checkedElementsList.contains(modelElements.get(i))) {
+				selection.getClasspathElements().add(modelElements.get(i));
+			}
+		}
+		return selection;
+	}
+	
+    private ClassPathSelection getSelectedClassPathSelection() {
+		ClassPathSelection selection = new ClassPathSelection();
+		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
+		for(int i = 0; i < checkedElements.length; i++) {
+			selection.getClasspathElements().add(checkedElements[i]);
+		}
+		return selection;
+    }
+    
+	protected ClassPathSelection getUnSelectedClassPathSelection() {
+		ClassPathSelection selection = new ClassPathSelection();
+		Object[] checkedElements = tableManager.availableJARsViewer.getCheckedElements();
+		List modelElements = model.getClassPathSelection().getClasspathElements();
 		for (int i = 0; i < modelElements.size(); i++) {
 			List checkedElementsList = Arrays.asList(checkedElements);
 			if (!checkedElementsList.contains(modelElements.get(i))) {
