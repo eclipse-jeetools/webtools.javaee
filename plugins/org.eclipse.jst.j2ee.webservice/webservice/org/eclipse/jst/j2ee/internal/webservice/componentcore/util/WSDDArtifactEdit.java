@@ -33,7 +33,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
  * a constant {@see J2EEConstants#EJBJAR_DD_URI_OBJ}. The defined methods
  * extract data or manipulate the contents of the underlying resource.
  * </p>
- * 
  */
 public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 
@@ -55,8 +54,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	public WSDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly)
-			throws IllegalArgumentException {
+	public WSDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
@@ -76,7 +74,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
-	 * 
 	 * <p>
 	 * Note: This method is for internal use only. Clients should not call this
 	 * method.
@@ -88,15 +85,12 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchComponent}pointing to a module from
 	 *            the given {@see ModuleCoreNature}
 	 */
-	protected WSDDArtifactEdit(ModuleCoreNature aNature,
-			IVirtualComponent aModule, boolean toAccessAsReadOnly) {
+	protected WSDDArtifactEdit(ModuleCoreNature aNature, IVirtualComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
 	/**
-	 * 
 	 * @return WsddResource from (@link getDeploymentDescriptorResource())
-	 * 
 	 */
 
 	public WsddResource getWsddXmiResource() {
@@ -109,7 +103,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @return an integer representation of a J2EE Spec version
-	 * 
 	 */
 
 	public int getJ2EEVersion() {
@@ -123,12 +116,10 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @return Resource
-	 * 
 	 */
 
 	public Resource getDeploymentDescriptorResource() {
-		return getArtifactEditModel().getResource(
-				getWebServicesXmlResourceURI());
+		return getArtifactEditModel().getResource(getWebServicesXmlResourceURI());
 	}
 
 	public URI getWebServicesXmlResourceURI() {
@@ -142,9 +133,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	/**
-	 * 
 	 * @return WebServices from (@link getDeploymentDescriptorRoot())
-	 * 
 	 */
 	public WebServices getWebServices() {
 		if (!getProject().isAccessible())
@@ -163,7 +152,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @return EObject
-	 * 
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
@@ -180,7 +168,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * Creates a deployment descriptor root object (WebServices) and populates
 	 * with data. Adds the root object to the deployment descriptor resource.
 	 * </p>
-	 * 
 	 * <p>
 	 * 
 	 * @param aModule
@@ -190,8 +177,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	protected void addWebServicesIfNecessary(WsddResource aResource) {
 		if (aResource != null) {
-			if (aResource.getContents() == null
-					|| aResource.getContents().isEmpty()) {
+			if (aResource.getContents() == null || aResource.getContents().isEmpty()) {
 				WebServices ws = WsddFactory.eINSTANCE.createWebServices();
 				aResource.getContents().add(ws);
 			}
@@ -292,7 +278,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
 	 * <p>
 	 * Note: This method is for internal use only. Clients should not call this
 	 * method.
@@ -306,14 +291,12 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static WSDDArtifactEdit getWSDDArtifactEditForRead(
-			IVirtualComponent aModule) {
+	public static WSDDArtifactEdit getWSDDArtifactEditForRead(IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 		if (aModule != null && isValidWSDDModule(aModule))
 			return new WSDDArtifactEdit(nature, aModule, true);
-		else
-			return null;
+		return null;
 	}
 
 	/**
@@ -330,7 +313,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * <b>This method may return null. </b>
 	 * </p>
-	 * 
 	 * <p>
 	 * Note: This method is for internal use only. Clients should not call this
 	 * method.
@@ -342,14 +324,12 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of WSDDArtifactEdit that may be used to modify and
 	 *         persist changes to the underlying content model
 	 */
-	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(
-			IVirtualComponent aModule) {
+	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 		if (aModule != null && isValidWSDDModule(aModule))
 			return new WSDDArtifactEdit(nature, aModule, false);
-		else
-			return null;
+		return null;
 	}
 
 	/**
@@ -371,8 +351,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         moduleTypeId is a JST module
 	 */
 	protected static boolean isValidWSDDModule(IVirtualComponent aComponent) {
-		return (isValidAppClientModule(aComponent)
-				|| isValidWebModule(aComponent) || isValidEJBModule(aComponent));
+		return (isValidAppClientModule(aComponent) || isValidWebModule(aComponent) || isValidEJBModule(aComponent));
 	}
 
 	/**
@@ -383,8 +362,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities
-				.isDynamicWebProject(aComponent.getProject());
+		return J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
 	}
 
 	/**
@@ -395,8 +373,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isApplicationClientProject(aComponent
-				.getProject());
+		return J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
 	}
 
 	/*
@@ -429,9 +406,8 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		List files = ProjectUtilities.getAllProjectFiles(getProject());
 		for (int i = 0; i < files.size(); i++) {
 			IFile file = (IFile) files.get(i);
-			if (file.getFileExtension().equals(WSIL_FILE_EXT)) {
-				IVirtualResource[] vResources = ComponentCore
-						.createResources(file);
+			if (file.getFileExtension() != null && file.getFileExtension().equals(WSIL_FILE_EXT)) {
+				IVirtualResource[] vResources = ComponentCore.createResources(file);
 				if (vResources.length > 0 && !result.contains(file))
 					result.add(file);
 			}
@@ -448,8 +424,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		List result = new ArrayList();
 		for (int i = 0; i < resources.size(); i++) {
 			Resource res = (Resource) resources.get(i);
-			if (res != null && res.getURI().fileExtension() != null
-					&& res.getURI().fileExtension().equals(ext))
+			if (res != null && res.getURI().fileExtension() != null && res.getURI().fileExtension().equals(ext))
 				result.add(res);
 		}
 		return result;
@@ -466,8 +441,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		} catch (Exception e) {
 			// Ignore
 		}
-		WSDLServiceHelper serviceHelper = WSDLServiceExtManager
-				.getServiceHelper();
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (res != null && res.isLoaded() && serviceHelper.isWSDLResource(res))
 			return res;
 		return null;
