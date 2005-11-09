@@ -13,6 +13,7 @@ public class UtilityFacetInstallDataModelProvider
 		Set names = super.getPropertyNames();
         names.add(EAR_PROJECT_NAME);
         names.add(RUNTIME_TARGET_ID);
+        names.add(CONFIG_FOLDER);
 		return names;
 	}
 	

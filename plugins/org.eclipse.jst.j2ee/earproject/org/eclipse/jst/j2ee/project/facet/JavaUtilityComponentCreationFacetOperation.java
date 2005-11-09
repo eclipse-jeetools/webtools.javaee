@@ -47,6 +47,8 @@ public class JavaUtilityComponentCreationFacetOperation extends J2EEComponentCre
 			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, (String) model.getProperty(JavaUtilityComponentCreationDataModelProvider.PROJECT_NAME));
 			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
 			dm.setProperty(IUtilityFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(JavaUtilityComponentCreationDataModelProvider.RUNTIME_TARGET_ID));
+			dm.setProperty(IUtilityFacetInstallDataModelProperties.CONFIG_FOLDER, 
+					model.getProperty(JavaUtilityComponentCreationDataModelProvider.JAVASOURCE_FOLDER));
 			
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);

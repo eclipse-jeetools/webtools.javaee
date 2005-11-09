@@ -11,10 +11,14 @@
 
 package org.eclipse.jst.j2ee.project.facet;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,7 +39,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
-public final class UtilityFacetInstallDelegate implements IDelegate {
+public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 	
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
@@ -72,6 +76,33 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 				}
 			}
 
+			final IWorkspace ws = ResourcesPlugin.getWorkspace();
+			final IPath pjpath = project.getFullPath();
+			final IVirtualFolder root = c.getRootFolder();
+			String configFolder = null;
+			IFolder folder = null;
+			if (root.getProjectRelativePath().segmentCount() == 0) {
+				//handle this case
+//				configFolder = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+//
+//				IPath folderpath = pjpath.append( configFolder );
+//				folder = ws.getRoot().getFolder( folderpath );
+			} else
+				folder = project.getFolder( root.getProjectRelativePath() );
+				
+				
+				
+			try {
+				if( folder != null )
+					createManifest(project, folder, monitor);
+			} catch (InvocationTargetException e) {
+				Logger.getLogger().logError(e);
+			} catch (InterruptedException e) {
+				Logger.getLogger().logError(e);
+			}	
+				
+				
+				
 			// Associate with an EAR, if necessary.
 
             final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
@@ -95,7 +126,10 @@ public final class UtilityFacetInstallDelegate implements IDelegate {
 			if (monitor != null) {
 				monitor.worked(1);
 			}
-		} finally {
+		} catch(Exception e){
+			Logger.getLogger().logError(e);
+		}
+		finally {
 			if (monitor != null) {
 				monitor.done();
 			}
