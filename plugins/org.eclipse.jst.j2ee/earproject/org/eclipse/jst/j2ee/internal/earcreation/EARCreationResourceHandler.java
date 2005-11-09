@@ -10,75 +10,94 @@ package org.eclipse.jst.j2ee.internal.earcreation;
 
 
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class EARCreationResourceHandler {
+public class EARCreationResourceHandler extends NLS {
 
-	public static final String ADD_MODULE_MODULE_TYPE = "1"; //$NON-NLS-1$
-	public static final String ADD_MODULE_MODULE_EXISTS = "2"; //$NON-NLS-1$
-	public static final String ADD_MODULE_MODULE_CLOSED = "3"; //$NON-NLS-1$
-	public static final String ADD_MODULE_MODULE_NULL = "4"; //$NON-NLS-1$
-	public static final String ADD_PROJECT_URI_EXISTS = "5"; //$NON-NLS-1$
-	public static final String ADD_PROJECT_NOT_JAVA = "6"; //$NON-NLS-1$
-	public static final String ADD_PROJECT_UTIL_URI = "7"; //$NON-NLS-1$
-	public static final String ADD_PROJECT_UTIL_MAPPED = "8"; //$NON-NLS-1$
-	public static final String ADD_PROJECT_NOT_EAR = "9"; //$NON-NLS-1$
-	public static final String ADD_PROJECT_URI_EMPTY = "10"; //$NON-NLS-1$
-	public static final String NOT_AN_APP_CLIENT = "11"; //$NON-NLS-1$
-	public static final String NOT_AN_EAR = "12"; //$NON-NLS-1$
-	public static final String NOT_AN_EJB = "13"; //$NON-NLS-1$
-	public static final String NOT_A_RAR = "14"; //$NON-NLS-1$
-	public static final String NOT_A_WAR = "15"; //$NON-NLS-1$
-	public static final String SERVER_TARGET_NOT_SUPPORT_EAR = "16"; //$NON-NLS-1$
-	public static final String EAR_PROJECTNAME_SAMEAS_MODULE= "EAR_PROJECTNAME_SAMEAS_MODULE"; //$NON-NLS-1$	
+	private static final String BUNDLE_NAME = "earcreation";//$NON-NLS-1$
 
-	private static ResourceBundle fgResourceBundle;
-
-
-
-	/**
-	 * Returns the resource bundle used by all classes in this Project
-	 */
-	public static ResourceBundle getResourceBundle() {
-		try {
-			return ResourceBundle.getBundle("earcreation");//$NON-NLS-1$
-		} catch (MissingResourceException e) {
-			// does nothing - this method will return null and
-			// getString(String, String) will return the key
-			// it was called with
-		}
-		return null;
+	private EARCreationResourceHandler() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		if (fgResourceBundle == null) {
-			fgResourceBundle = getResourceBundle();
-		}
+	public static String Error_occured_getting_appl_ERROR_;
+	public static String Error_occured_getting_appl1_ERROR_;
+	public static String Creating__UI_;
+	public static String Creating_EAR_Project_UI_;
+	public static String The_project_already_exist_ERROR_;
+	public static String EARProjectCreationOperatio_ERROR_;
+	public static String ABS_PATH_CHANGED_UI_;
+	public static String UNSAVED_CHANGES_WARN_;
+	public static String PROJECT_MAP_PROBLEMS_ERROR_;
+	public static String MODULE_PROJECTS_CLOSED_WARN_;
+	public static String Add_Module_Command_Label_UI_;
+	public static String Remove_Module_Command_Label_UI_;
 
-		if (fgResourceBundle != null) {
-			try {
-				return fgResourceBundle.getString(key);
-			} catch (MissingResourceException e) {
-				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-			}
-		}
-		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
+	public static String Set_project_UI_;
+	public static String Add_Utility_JAR_UI;
+	public static String REM_UTIL_JAR_UI;
+	public static String PROJ_DESC_UPDATE_ERROR_UI_;
+	public static String Not_an_ear_project_UI_;
+	public static String EAR_PROJECT_MUST_BE_OPEN_UI_;
+	public static String Updating_absolute_paths_UI_;
+	public static String DuplicateModuleNames;
+	public static String NoModulesSelected;
+
+	public static String KEY_1;
+	public static String KEY_2;
+	public static String KEY_3;
+	public static String KEY_4;
+	public static String KEY_5;
+	public static String KEY_6;
+	public static String KEY_7;
+	public static String KEY_8;
+	public static String KEY_9;
+	public static String KEY_10;
+	public static String KEY_11;
+	public static String KEY_12;
+	public static String KEY_13;
+	public static String KEY_14;
+	public static String KEY_15;
+	public static String KEY_16;
+	public static String J2EEUtilityJarListImportOperation_UI_0;
+	public static String J2EEUtilityJarListImportOperation_UI_1;
+	public static String J2EEUtilityJarListImportOperation_UI_2;
+	public static String J2EEUtilityJarListImportDataModel_0;
+	public static String J2EEUtilityJarListImportDataModel_Specify_Valid_Project;
+	public static String J2EEUtilityJarListImportDataModel_Select_Jar;
+	public static String J2EEUtilityJarListImportDataModel_Specify_Linked_Path;
+	public static String EARImportDataModel_UI_0;
+	public static String EARImportDataModel_UI_1;
+	public static String EARImportDataModel_UI_2;
+	public static String EARImportDataModel_UI_3;
+	public static String ModuleMappingImpl_UI_0;
+	public static String UtilityJARMappingImpl_UI_0;
+	public static String importWrongType;
+	public static String importWrongVersion;
+	public static String EAR_PROJECTNAME_SAMEAS_MODULE;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, EARCreationResourceHandler.class);
 	}
 
 	public static String getString(String key, Object[] args) {
-
-		try {
-			return MessageFormat.format(getString(key), args);
-		} catch (IllegalArgumentException e) {
-			return getString(key);
-		}
-
+		return NLS.bind(key, args);
 	}
 
-	public static void nlsConcatenationFinder() {
-		// used to tag methods which have concatenated strings
-	}
-
+	public static final String ADD_MODULE_MODULE_TYPE = KEY_1;
+	public static final String ADD_MODULE_MODULE_EXISTS = KEY_2;
+	public static final String ADD_MODULE_MODULE_CLOSED = KEY_3;
+	public static final String ADD_MODULE_MODULE_NULL = KEY_4;
+	public static final String ADD_PROJECT_URI_EXISTS = KEY_5;
+	public static final String ADD_PROJECT_NOT_JAVA = KEY_6;
+	public static final String ADD_PROJECT_UTIL_URI = KEY_7;
+	public static final String ADD_PROJECT_UTIL_MAPPED = KEY_8;
+	public static final String ADD_PROJECT_NOT_EAR = KEY_9;
+	public static final String ADD_PROJECT_URI_EMPTY = KEY_10;
+	public static final String NOT_AN_APP_CLIENT = KEY_11;
+	public static final String NOT_AN_EAR = KEY_12;
+	public static final String NOT_AN_EJB = KEY_13;
+	public static final String NOT_A_RAR = KEY_14;
+	public static final String NOT_A_WAR = KEY_15;
+	public static final String SERVER_TARGET_NOT_SUPPORT_EAR = KEY_16;
 }

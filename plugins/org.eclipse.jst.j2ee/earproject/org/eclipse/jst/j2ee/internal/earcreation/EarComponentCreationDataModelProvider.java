@@ -150,7 +150,7 @@ public class EarComponentCreationDataModelProvider extends J2EEComponentCreation
 	                        IRuntimeType type = runtime.getRuntimeType();
 	                        String typeId = type.getId();
 	                        if (typeId.startsWith("org.eclipse.jst.server.tomcat")) { //$NON-NLS-1$
-	                            String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+	                            String msg = EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR;
 	                            return WTPCommonPlugin.createErrorStatus(msg);
 	                        }
 	                    }

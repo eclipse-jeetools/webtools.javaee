@@ -451,7 +451,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				String serverID = model.getStringProperty(RUNTIME_TARGET_ID);
 				IRuntime runtime = getServerTargetByID(serverID);
 				if (serverID.equals("") || runtime == null) { //$NON-NLS-1$
-					String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+					String msg = EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR;
 					return WTPCommonPlugin.createErrorStatus(msg);
 				}
 				Integer version = (Integer) model.getProperty(COMPONENT_VERSION);
@@ -459,7 +459,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				String j2eeVer = J2EEVersionUtil.getJ2EETextVersion(nj2eeVer);
 				String msg = isTypeSupported(runtime.getRuntimeType(), J2EEProjectUtilities.ENTERPRISE_APPLICATION, j2eeVer);
 				if (!msg.equals(OK)) {
-					msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+					msg = EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR;
 					return WTPCommonPlugin.createErrorStatus(msg);
 				} 
 				if (validateComponentAlreadyInEar()) {
@@ -475,7 +475,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 				if (earProj != null) {
 					String earProjName = earProj.getName();
 					if (earProjName.equalsIgnoreCase(projName)) {
-						String msg = msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE);
+						String msg = msg = EARCreationResourceHandler.EAR_PROJECTNAME_SAMEAS_MODULE;
 						return WTPCommonPlugin.createErrorStatus(msg);
 					}
 				}

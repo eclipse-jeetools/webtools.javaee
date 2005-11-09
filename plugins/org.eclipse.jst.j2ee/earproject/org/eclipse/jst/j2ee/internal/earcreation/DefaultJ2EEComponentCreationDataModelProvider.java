@@ -242,7 +242,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			if (errorCollision) {
 				return J2EEPlugin.newErrorStatus(EARCreationResourceHandler.getString("DuplicateModuleNames", new Object[]{actualProjectName}), null); //$NON-NLS-1$
 			} else if (errorNoSelection) {
-				return J2EEPlugin.newErrorStatus(EARCreationResourceHandler.getString("NoModulesSelected"), null); //$NON-NLS-1$
+				return J2EEPlugin.newErrorStatus(EARCreationResourceHandler.NoModulesSelected, null); //$NON-NLS-1$
 			}
 		}
 
