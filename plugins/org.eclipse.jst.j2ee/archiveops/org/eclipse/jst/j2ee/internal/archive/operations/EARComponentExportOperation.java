@@ -37,7 +37,7 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
-			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
+			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
 		} finally {
 			if (null != artifactEdit) {
 				artifactEdit.dispose();

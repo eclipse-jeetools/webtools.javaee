@@ -35,12 +35,12 @@ public class AppClientComponentExportOperation extends J2EEArtifactExportOperati
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
-			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
+			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
 		}
 	}
 
 	protected String archiveString() {
-		return AppClientArchiveOpsResourceHandler.getString("Application_Client_File_UI_"); //$NON-NLS-1$ = "Application Client File"
+		return AppClientArchiveOpsResourceHandler.Application_Client_File_UI_; 
 	}
 
 }
