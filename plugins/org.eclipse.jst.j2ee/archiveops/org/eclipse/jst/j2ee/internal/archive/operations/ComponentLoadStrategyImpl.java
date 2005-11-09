@@ -389,7 +389,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			java.io.File file = new java.io.File(filePath);
 			return new FileInputStream(file);
 		}
-		String eString = EARArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_FileNotFound");//$NON-NLS-1$
+		String eString = EARArchiveOpsResourceHandler.ARCHIVE_OPERATION_FileNotFound;
 		throw new FileNotFoundException(eString);
 	}
 

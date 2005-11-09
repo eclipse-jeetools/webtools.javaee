@@ -1,63 +1,47 @@
-/***************************************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
- * accompanying materials are made available under the terms of the Eclipse Public License v1.0
+/*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: IBM Corporation - initial API and implementation
- **************************************************************************************************/
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import org.eclipse.osgi.util.NLS;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+public final class EARArchiveOpsResourceHandler extends NLS {
 
-public class EARArchiveOpsResourceHandler {
+	private static final String BUNDLE_NAME = "eararchiveops";//$NON-NLS-1$
 
-	private static ResourceBundle fgResourceBundle;
-
-	/**
-	 * Returns the resource bundle used by all classes in this Project
-	 */
-	public static ResourceBundle getResourceBundle() {
-		try {
-			return ResourceBundle.getBundle("eararchiveops");//$NON-NLS-1$
-		} catch (MissingResourceException e) {
-			// does nothing - this method will return null and
-			// getString(String, String) will return the key
-			// it was called with
-		}
-		return null;
+	private EARArchiveOpsResourceHandler() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		if (fgResourceBundle == null) {
-			fgResourceBundle = getResourceBundle();
-		}
+	public static String ARCHIVE_OPERATION_SaveMofResources;
+	public static String ARCHIVE_OPERATION_SaveFile;
+	public static String ARCHIVE_OPERATION_ProjectNature;
+	public static String ARCHIVE_OPERATION_SaveManifest;
+	public static String ARCHIVE_OPERATION_FileNotFound;
+	public static String ARCHIVE_OPERATION_FileContents;
+	public static String ARCHIVE_OPERATION_ErroOccured;
+	public static String ARCHIVE_OPERATION_FilesFromProject;
+	public static String ARCHIVE_OPERATION_OpeningArchive;
+	public static String ARCHIVE_OPERATION_ImportOperation;
+	public static String IMPORT_MOFRESOURCE_STRING;
+	public static String EAR_IMPORT_FILE_STRING;
+	public static String ERROR_IMPORTING_EAR_FILE;
+	public static String ERROR_EXPORTING_EAR_FILE;
+	public static String IMPORTING_EAR_FILE_UI_;
+	public static String Updating_project_classpath_UI_;
+	public static String UNABLE_TO_LOAD_MODULE_ERROR_;
+	public static String _jar_UI_;
+	public static String Updating_manifest_Class_Path__attributes_UI_;
+	public static String _preDeploy_ERROR_;
 
-		if (fgResourceBundle != null) {
-			try {
-				return fgResourceBundle.getString(key);
-			} catch (MissingResourceException e) {
-				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-			}
-		}
-		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, EARArchiveOpsResourceHandler.class);
 	}
-
-	public static String getString(String key, Object[] args) {
-
-		try {
-			return MessageFormat.format(getString(key), args);
-		} catch (IllegalArgumentException e) {
-			return getString(key);
-		}
-
-	}
-
-	public static void nlsConcatenationFinder() {
-		// used to tag methods which have concatenated strings
-	}
-
 }

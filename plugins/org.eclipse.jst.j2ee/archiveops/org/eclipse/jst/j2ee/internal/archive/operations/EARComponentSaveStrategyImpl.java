@@ -105,7 +105,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		saveFiles();
 		saveManifest();
 		saveMofResources();
-		progressMonitor.subTask(EARArchiveOpsResourceHandler.getString("Updating_project_classpath_UI_")); //$NON-NLS-1$ = "Updating project classpaths..."
+		progressMonitor.subTask(EARArchiveOpsResourceHandler.Updating_project_classpath_UI_); 
 		updateComponentClasspaths();
 
 	}
@@ -173,7 +173,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	 */
 	protected void updateProjectClasspath(Archive anArchive, IVirtualComponent component) {
 
-		String message = EARArchiveOpsResourceHandler.getString("Updating_project_classpath_UI_") + component.getName(); //$NON-NLS-1$ = "Updating project classpaths..."
+		String message = EARArchiveOpsResourceHandler.Updating_project_classpath_UI_ + component.getName(); 
 		progressMonitor.subTask(message);
 		List projectCpEntries = new ArrayList();
 		Set visited = new HashSet();
