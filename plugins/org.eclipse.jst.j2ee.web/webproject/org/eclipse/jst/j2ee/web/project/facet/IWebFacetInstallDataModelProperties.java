@@ -17,10 +17,10 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 public interface IWebFacetInstallDataModelProperties extends IJ2EEFacetInstallDataModelProperties {
 
 
-	public static final String CONTEXT_ROOT = "IWebFacetInstallDataModelProperties.CONTEXT_ROOT";
+	public static final String CONTEXT_ROOT = "IWebFacetInstallDataModelProperties.CONTEXT_ROOT"; //$NON-NLS-1$
 	
-	public static final String CONTENT_DIR ="IWebFacetInstallDataModelProperties.CONTENT_DIR";
+	public static final String CONTENT_DIR ="IWebFacetInstallDataModelProperties.CONTENT_DIR"; //$NON-NLS-1$
 	
-	public static final String CREATE_WEB_INF_SRC = "IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC";
+	public static final String CREATE_WEB_INF_SRC = "IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC"; //$NON-NLS-1$
 
 }
