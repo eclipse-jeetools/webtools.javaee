@@ -72,7 +72,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 */
 	public File addCopyClass(File aFile) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException {
 		if (aFile.isReadOnlyDirectory())
-			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString("add_copy_class_dir_EXC_", (new Object[]{aFile.getURI()}))); //$NON-NLS-1$ = "Method addCopyClass not supported for directories :"
+			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.add_copy_class_dir_EXC_, (new Object[]{aFile.getURI()}))); //$NON-NLS-1$ = "Method addCopyClass not supported for directories :"
 		return addCopyFileAddingPrefix(aFile, ArchiveConstants.WEBAPP_CLASSES_URI);
 	}
 
@@ -98,14 +98,14 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	public void extractToConnectorDirectory(java.lang.String aUri, int expansionFlags) throws SaveFailureException {
 		java.io.File aDir = new java.io.File(aUri);
 		if (getLoadStrategy().isUsing(aDir))
-			throw new SaveFailureException(CommonArchiveResourceHandler.getString("Extract_destination_is_the_EXC_")); //$NON-NLS-1$ = "Extract destination is the same path as source file"
+			throw new SaveFailureException(CommonArchiveResourceHandler.Extract_destination_is_the_EXC_); //$NON-NLS-1$ = "Extract destination is the same path as source file"
 
 		try {
 			SaveStrategy aSaveStrategy = createSaveStrategyForConnectorDirectory(aDir, expansionFlags);
 			save(aSaveStrategy);
 			aSaveStrategy.close();
 		} catch (java.io.IOException ex) {
-			throw new SaveFailureException(CommonArchiveResourceHandler.getString("error_saving_EXC_", (new Object[]{uri})), ex); //$NON-NLS-1$ = "Error saving "
+			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{uri})), ex); //$NON-NLS-1$ = "Error saving "
 		}
 
 	}

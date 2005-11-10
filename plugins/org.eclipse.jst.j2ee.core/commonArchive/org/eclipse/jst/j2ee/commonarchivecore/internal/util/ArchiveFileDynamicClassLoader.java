@@ -85,7 +85,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 			} catch (FileNotFoundException e) {
 				return null;
 			} catch (IOException e) {
-				throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{file.getName()})), e); //$NON-NLS-1$ = "An IO exception occurred loading "			}
+				throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_loading_EXC_, (new Object[]{file.getName()})), e); //$NON-NLS-1$ = "An IO exception occurred loading "			}
 			}
 		}
 		return null;
@@ -239,7 +239,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 				return file.getInputStream();
 			}
 		} catch (IOException e) {
-			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{name})), e); //$NON-NLS-1$ = "An IO exception occurred loading "
+			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_loading_EXC_, (new Object[]{name})), e); //$NON-NLS-1$ = "An IO exception occurred loading "
 		}
 		return null;
 	}

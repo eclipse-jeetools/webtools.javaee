@@ -145,7 +145,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 					save(aFile, iterator);
 			}
 		} catch (IOException iox) {
-			throw new SaveFailureException(CommonArchiveResourceHandler.getString("Error_occurred_iterating_f_EXC_"), iox); //$NON-NLS-1$ = "Error occurred iterating files"
+			throw new SaveFailureException(CommonArchiveResourceHandler.Error_occurred_iterating_f_EXC_, iox); //$NON-NLS-1$ = "Error occurred iterating files"
 		}
 	}
 

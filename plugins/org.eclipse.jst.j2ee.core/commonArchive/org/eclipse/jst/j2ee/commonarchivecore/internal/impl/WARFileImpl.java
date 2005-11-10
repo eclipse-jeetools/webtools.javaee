@@ -79,7 +79,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 */
 	public File addCopyClass(File aFile) throws DuplicateObjectException {
 		if (aFile.isReadOnlyDirectory())
-			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString("add_copy_class_dir_EXC_", (new Object[]{aFile.getURI()}))); //$NON-NLS-1$ = "Method addCopyClass not supported for directories :"
+			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.add_copy_class_dir_EXC_, (new Object[]{aFile.getURI()}))); //$NON-NLS-1$ = "Method addCopyClass not supported for directories :"
 		return addCopyFileAddingPrefix(aFile, ArchiveConstants.WEBAPP_CLASSES_URI);
 	}
 
@@ -100,7 +100,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 */
 	public File addCopyLib(File aFile) throws DuplicateObjectException {
 		if (aFile.isReadOnlyDirectory())
-			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString("add_copy_lib_dir_EXC_", (new Object[]{aFile.getURI()}))); //$NON-NLS-1$ = "Method addCopyLib not supported for directories :"
+			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.add_copy_lib_dir_EXC_, (new Object[]{aFile.getURI()}))); //$NON-NLS-1$ = "Method addCopyLib not supported for directories :"
 		return addCopyFileAddingPrefix(aFile, ArchiveConstants.WEBAPP_LIB_URI);
 	}
 

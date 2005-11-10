@@ -161,7 +161,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * @see LoadStrategy
 	 */
 	public java.lang.String getAbsolutePath() throws FileNotFoundException {
-		throw new FileNotFoundException(CommonArchiveResourceHandler.getString("Absolute_path_unknown_EXC_")); //$NON-NLS-1$ = "Absolute path unknown"
+		throw new FileNotFoundException(CommonArchiveResourceHandler.Absolute_path_unknown_EXC_); //$NON-NLS-1$ = "Absolute path unknown"
 	}
 
 	public String getResourcesPath() throws FileNotFoundException {
@@ -490,7 +490,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	}
 
 	protected void throwResourceLoadException(String resourceUri, Exception ex) throws ResourceLoadException {
-		throw new ResourceLoadException(CommonArchiveResourceHandler.getString("load_resource_EXC_", (new Object[]{resourceUri, getContainer().getURI()})), ex); //$NON-NLS-1$ = "Could not load resource "{0}" in archive "{1}""
+		throw new ResourceLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.load_resource_EXC_, (new Object[]{resourceUri, getContainer().getURI()})), ex); //$NON-NLS-1$ = "Could not load resource "{0}" in archive "{1}""
 	}
 
 	/**

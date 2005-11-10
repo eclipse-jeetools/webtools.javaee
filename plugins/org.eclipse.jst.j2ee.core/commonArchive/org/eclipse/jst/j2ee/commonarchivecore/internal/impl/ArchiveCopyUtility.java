@@ -76,7 +76,7 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 			return new ArchiveManifestImpl(in);
 		} catch (IOException iox) {
 			//This should almost never happen, unless there is an issure with memory allocation
-			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("IOException_occurred_while_EXC_"), iox); //$NON-NLS-1$ = "IOException occurred while copying manifest"
+			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.IOException_occurred_while_EXC_, iox); //$NON-NLS-1$ = "IOException occurred while copying manifest"
 		}
 	}
 

@@ -43,7 +43,7 @@ public class Ear12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("EAR_File"), J2EEConstants.APPLICATION_DD_URI); //$NON-NLS-1$ = "EAR File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.EAR_File, J2EEConstants.APPLICATION_DD_URI); //$NON-NLS-1$ = "EAR File"
 		}
 	}
 

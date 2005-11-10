@@ -40,7 +40,7 @@ public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("RAR_File"), J2EEConstants.RAR_DD_URI); //$NON-NLS-1$ = "RAR File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.RAR_File, J2EEConstants.RAR_DD_URI); //$NON-NLS-1$ = "RAR File"
 		}
 
 		public Archive createConvertedArchive() {

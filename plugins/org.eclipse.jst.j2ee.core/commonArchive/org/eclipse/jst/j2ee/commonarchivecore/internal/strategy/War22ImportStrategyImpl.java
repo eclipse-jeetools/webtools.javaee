@@ -39,7 +39,7 @@ public class War22ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("WAR_File"), J2EEConstants.WEBAPP_DD_URI); //$NON-NLS-1$ = "WAR File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.WAR_File, J2EEConstants.WEBAPP_DD_URI); //$NON-NLS-1$ = "WAR File"
 		}
 
 		public Archive createConvertedArchive() {

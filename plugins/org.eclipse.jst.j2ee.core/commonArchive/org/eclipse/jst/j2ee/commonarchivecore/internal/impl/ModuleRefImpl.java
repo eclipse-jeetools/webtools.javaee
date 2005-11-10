@@ -466,7 +466,7 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 
 	protected void checkEARFile() {
 		if (getEarFile() == null)
-			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("Module_not_in_EAR", new Object[]{getUri()})); //$NON-NLS-1$
+			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.Module_not_in_EAR, new Object[]{getUri()})); //$NON-NLS-1$
 	}
 
 	/**
@@ -481,29 +481,29 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 	protected void checkModuleFile() {
 		getModuleFile();
 		if (moduleFile == null)
-			throw new NoModuleFileException(CommonArchiveResourceHandler.getString("Module_file_does_not_exist_2", new Object[]{getUri()})); //$NON-NLS-1$
+			throw new NoModuleFileException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.Module_file_does_not_exist_2, new Object[]{getUri()})); //$NON-NLS-1$
 	}
 
 	protected void checkType(Module moduleDescriptor, File aFile) {
 		if (aFile == null) {
-			String message = CommonArchiveResourceHandler.getString("A_file_does_not_exist_for_module", new Object[]{moduleDescriptor.getUri()}); //$NON-NLS-1$
+			String message = CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.A_file_does_not_exist_for_module, new Object[]{moduleDescriptor.getUri()}); //$NON-NLS-1$
 			throw new NoModuleFileException(message);
 		}
 		//Added for defect 113929
 		boolean isValid = true;
-		String type = CommonArchiveResourceHandler.getString("Module_file"); //$NON-NLS-1$
+		String type = CommonArchiveResourceHandler.Module_file; //$NON-NLS-1$
 		if (moduleDescriptor.isWebModule() && !aFile.isWARFile()) {
 			isValid = false;
-			type = CommonArchiveResourceHandler.getString("A_WAR_file"); //$NON-NLS-1$
+			type = CommonArchiveResourceHandler.A_WAR_file; //$NON-NLS-1$
 		} else if (moduleDescriptor.isEjbModule() && !aFile.isEJBJarFile()) {
 			isValid = false;
-			type = CommonArchiveResourceHandler.getString("An_EJB_JAR_file"); //$NON-NLS-1$
+			type = CommonArchiveResourceHandler.An_EJB_JAR_file; //$NON-NLS-1$
 		} else if (moduleDescriptor.isJavaModule() && !aFile.isApplicationClientFile()) {
 			isValid = false;
-			type = CommonArchiveResourceHandler.getString("An_Application_Client_JAR_file"); //$NON-NLS-1$
+			type = CommonArchiveResourceHandler.An_Application_Client_JAR_file; //$NON-NLS-1$
 		} else if (moduleDescriptor.isConnectorModule() && !aFile.isRARFile()) {
 			isValid = false;
-			type = CommonArchiveResourceHandler.getString("A_RAR_file"); //$NON-NLS-1$
+			type = CommonArchiveResourceHandler.A_RAR_file; //$NON-NLS-1$
 		} else if (!aFile.isModuleFile())
 			isValid = false;
 

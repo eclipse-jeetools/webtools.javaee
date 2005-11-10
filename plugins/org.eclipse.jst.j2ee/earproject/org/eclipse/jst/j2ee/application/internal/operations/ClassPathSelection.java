@@ -470,10 +470,10 @@ public class ClassPathSelection {
 		String filename = uri.replace('/', java.io.File.separatorChar);
 		java.io.File file = new java.io.File(filename);
 		if (!file.exists()) {
-			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_not_found_EXC_, (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
 		}
 		if (file.isDirectory()) {
-			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_not_found_EXC_, (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
 		}
 		return new org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl(file);
 	}

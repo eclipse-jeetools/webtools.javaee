@@ -34,6 +34,6 @@ public class SubclassResponsibilityException extends ArchiveRuntimeException {
 	 *            java.lang.String
 	 */
 	public SubclassResponsibilityException(String methodName) {
-		super(CommonArchiveResourceHandler.getString("subclass_responsibilty_EXC_", (new Object[]{methodName}))); //$NON-NLS-1$ = " must be implemented in subclass"
+		super(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.subclass_responsibilty_EXC_, (new Object[]{methodName}))); //$NON-NLS-1$ = " must be implemented in subclass"
 	}
 }

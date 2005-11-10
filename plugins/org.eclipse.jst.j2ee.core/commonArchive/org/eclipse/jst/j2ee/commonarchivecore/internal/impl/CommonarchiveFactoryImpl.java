@@ -305,7 +305,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 		String filename = uri.replace('/', java.io.File.separatorChar);
 		java.io.File file = new java.io.File(filename);
 		if (!file.exists()) {
-			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("file_not_found_EXC_", (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_not_found_EXC_, (new Object[]{uri, file.getAbsolutePath()}))); //$NON-NLS-1$ = "URI Name: {0}; File name: {1}"
 		}
 		if (file.isDirectory()) {
 			return new DirectoryArchiveLoadStrategyImpl(uri);
@@ -355,7 +355,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 			ArchiveUtil.copy(in, out);
 			return new TempZipFileLoadStrategyImpl(tempFile);
 		} catch (IOException ex) {
-			ArchiveUtil.inform(CommonArchiveResourceHandler.getString("make_temp_file_WARN_", (new Object[]{uri})) + ex.getLocalizedMessage()); //$NON-NLS-1$ = "Warning: Unable to create temp file for {0}.  This will impact performance."
+			ArchiveUtil.inform(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.make_temp_file_WARN_, (new Object[]{uri})) + ex.getLocalizedMessage()); //$NON-NLS-1$ = "Warning: Unable to create temp file for {0}.  This will impact performance."
 		}
 		return null;
 	}
@@ -701,14 +701,14 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 		String uri = loose.getUri();
 		try {
 			if(loose.getBinariesPath() == null){
-				throw new OpenFailureException(CommonArchiveResourceHandler.getString("open_nested_EXC_", (new Object[] {uri,parent.getURI()})), null); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
+				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.open_nested_EXC_, (new Object[] {uri,parent.getURI()})), null); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
 			}
 			LoadStrategy childStrategy = createLoadStrategy(loose.getBinariesPath());
 			childStrategy.setLooseArchive(loose);
 			ArchiveOptions options = parent.getOptions().cloneWith(childStrategy, loose.getUri());
 			return primOpenArchive(options, uri);
 		} catch (IOException ex) {
-			throw new OpenFailureException(CommonArchiveResourceHandler.getString("open_nested_EXC_", (new Object[]{uri, parent.getURI()})), ex); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.open_nested_EXC_, (new Object[]{uri, parent.getURI()})), ex); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
 		}
 	}
 
@@ -723,7 +723,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 				return openArchive(options, uri);
 			return primOpenArchive(options, uri);
 		} catch (IOException ex) {
-			throw new OpenFailureException(CommonArchiveResourceHandler.getString("open_nested_EXC_", (new Object[]{uri, parent.getURI()})), ex); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.open_nested_EXC_, (new Object[]{uri, parent.getURI()})), ex); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
 		}
 	}
 
@@ -761,9 +761,9 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	public ReadOnlyDirectory openReadOnlyDirectory(java.lang.String uri) throws java.io.IOException {
 		java.io.File aFile = new java.io.File(uri);
 		if (!aFile.exists())
-			throw new FileNotFoundException(CommonArchiveResourceHandler.getString("could_not_find_dir_EXC_", (new Object[]{uri}))); //$NON-NLS-1$ = "Unable to open directory "
+			throw new FileNotFoundException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_find_dir_EXC_, (new Object[]{uri}))); //$NON-NLS-1$ = "Unable to open directory "
 		if (!aFile.isDirectory())
-			throw new IOException(CommonArchiveResourceHandler.getString("not_a_dir_EXC_", (new Object[]{uri}))); //$NON-NLS-1$ = "Unable to open directory because file is not a directory :"
+			throw new IOException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.not_a_dir_EXC_, (new Object[]{uri}))); //$NON-NLS-1$ = "Unable to open directory because file is not a directory :"
 		LoadStrategy strategy = new ReadOnlyDirectoryLoadStrategyImpl(uri);
 		ReadOnlyDirectory container = createReadOnlyDirectory();
 		container.setURI(uri);
@@ -837,7 +837,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 			try {
 				options.setLoadStrategy(createLoadStrategy(uri));
 			} catch (IOException ex) {
-				throw new OpenFailureException(CommonArchiveResourceHandler.getString("could_not_open_EXC_", (new Object[]{uri})), ex); //$NON-NLS-1$ = "Could not open "
+				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[]{uri})), ex); //$NON-NLS-1$ = "Could not open "
 			}
 		}
 		Archive anArchive = createArchive();

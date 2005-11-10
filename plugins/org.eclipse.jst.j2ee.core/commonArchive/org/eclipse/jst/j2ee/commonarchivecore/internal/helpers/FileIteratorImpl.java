@@ -46,7 +46,7 @@ public class FileIteratorImpl implements FileIterator {
 
 	public File next() {
 		if (!hasNext())
-			throw new NoSuchElementException(CommonArchiveResourceHandler.getString("End_of_list_reached_EXC_")); //$NON-NLS-1$ = "End of list reached"
+			throw new NoSuchElementException(CommonArchiveResourceHandler.End_of_list_reached_EXC_); //$NON-NLS-1$ = "End of list reached"
 		return (File) files.get(position++);
 	}
 }
