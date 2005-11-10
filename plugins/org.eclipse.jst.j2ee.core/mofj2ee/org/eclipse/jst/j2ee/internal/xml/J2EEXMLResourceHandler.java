@@ -36,6 +36,7 @@ public class J2EEXMLResourceHandler extends NLS {
 	public static String io_ex_saving_EXC_;
 	public static String could_not_create_file_EXC_;
 	public static String unsupported_type_EXC_;
+	public static String Key1;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, J2EEXMLResourceHandler.class);
