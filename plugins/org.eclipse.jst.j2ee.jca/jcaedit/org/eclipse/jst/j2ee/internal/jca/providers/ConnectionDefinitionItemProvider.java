@@ -163,8 +163,8 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 
 	public String getText(Object object) {
 		String label = ((ConnectionDefinition) object).getManagedConnectionFactoryClass();
-		return label == null || label.length() == 0 ? JCAResourceHandler.getString("_UI_ConnectionDefinition_type") : //$NON-NLS-1$
-					JCAResourceHandler.getString("_UI_ConnectionDefinition_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? JCAResourceHandler._UI_ConnectionDefinition_type : 
+					JCAResourceHandler._UI_ConnectionDefinition_type + " " + label; 
 	}
 
 	/**

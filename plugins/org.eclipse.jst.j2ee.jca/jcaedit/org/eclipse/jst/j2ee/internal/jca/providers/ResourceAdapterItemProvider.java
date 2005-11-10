@@ -304,7 +304,7 @@ public class ResourceAdapterItemProvider extends JcaItemProviderAdapter implemen
 		//		ResourceAdapter resourceAdapter = ((ResourceAdapter) object);
 		//return "ResourceAdapter: " + resourceAdapter.getManagedConnectionFactoryClass();
 		// //$NON-NLS-1$
-		return JCAResourceHandler.getString("_UI_ResourceAdapter_type"); //$NON-NLS-1$
+		return JCAResourceHandler._UI_ResourceAdapter_type; 
 
 	}// getText
 

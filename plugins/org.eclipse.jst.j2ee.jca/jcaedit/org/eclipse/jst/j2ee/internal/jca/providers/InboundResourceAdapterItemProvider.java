@@ -93,7 +93,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return JCAResourceHandler.getString("_UI_InboundResourceAdapter_type"); //$NON-NLS-1$
+		return JCAResourceHandler._UI_InboundResourceAdapter_type; 
 		//return getString("_UI_InboundResourceAdapter_type"); //$NON-NLS-1$
 	}
 

@@ -93,7 +93,7 @@ public class MessageAdapterItemProvider extends ItemProviderAdapter implements I
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return JCAResourceHandler.getString("_UI_MessageAdapter_type"); //$NON-NLS-1$
+		return JCAResourceHandler._UI_MessageAdapter_type; 
 		//return getString("_UI_MessageAdapter_type"); //$NON-NLS-1$
 	}
 

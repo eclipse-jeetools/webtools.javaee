@@ -1,65 +1,39 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
-/*
- * Created on May 24, 2004
  *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.jca.internal.plugin;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-/**
- * @author vijayb
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
- */
-public class JCAResourceHandler {
+public final class JCAResourceHandler extends NLS {
 
-	private static ResourceBundle fgResourceBundle;
+	private static final String BUNDLE_NAME = "rar";//$NON-NLS-1$
 
-	/**
-	 * Returns the resource bundle used by all classes in this Project
-	 */
-	public static ResourceBundle getResourceBundle() {
-		try {
-			return ResourceBundle.getBundle("rar");//$NON-NLS-1$
-		} catch (MissingResourceException e) {
-			// does nothing - this method will return null and
-			// getString(String, String) will return the key
-			// it was called with
-		}
-		return null;
+	private JCAResourceHandler() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		if (fgResourceBundle == null) {
-			fgResourceBundle = getResourceBundle();
-		}
+	public static String LicenseItemProvider_UI_0;
+	public static String SecurityPermissionItemProvider_UI_0;
+	public static String ConfigPropertyItemProvider_UI_0;
+	public static String _UI_ResourceAdapter_type;
+	public static String _UI_OutboundResourceAdapter_type;
+	public static String _UI_ConnectionDefinition_type;
+	public static String _UI_InboundResourceAdapter_type;
+	public static String _UI_MessageAdapter_type;
+	public static String _UI_MessageListener_type;
+	public static String _UI_ActivationSpec_type;
+	public static String _UI_RequiredConfigPropertyType_type;
+	public static String _UI_AdminObject_type;
 
-		if (fgResourceBundle != null) {
-			try {
-				return fgResourceBundle.getString(key);
-			} catch (MissingResourceException e) {
-				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-			}
-		}
-		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, JCAResourceHandler.class);
 	}
-
-	public static void nlsConcatenationFinder() {
-		// used to tag methods which have concatenated strings
-	}
-
 }

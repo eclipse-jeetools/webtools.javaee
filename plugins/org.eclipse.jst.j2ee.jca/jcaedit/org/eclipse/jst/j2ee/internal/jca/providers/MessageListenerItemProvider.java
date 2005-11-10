@@ -109,8 +109,8 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 */
 	public String getText(Object object) {
 		String label = ((MessageListener) object).getMessageListenerType();
-		return label == null || label.length() == 0 ? JCAResourceHandler.getString("_UI_MessageListener_type") : //$NON-NLS-1$
-					JCAResourceHandler.getString("_UI_MessageListener_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? JCAResourceHandler._UI_MessageListener_type : 
+					JCAResourceHandler._UI_MessageListener_type + " " + label; 
 	}
 
 	/**

@@ -165,8 +165,8 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	public String getText(Object object) {
 		License license = ((License) object);
 		if (license.getDescription() == null)
-			return JCAResourceHandler.getString("LicenseItemProvider_UI_0"); //$NON-NLS-1$
-		return JCAResourceHandler.getString("LicenseItemProvider_UI_0") + ":" + license.getDescription(); //$NON-NLS-1$ //$NON-NLS-2$
+			return JCAResourceHandler.LicenseItemProvider_UI_0; 
+		return JCAResourceHandler.LicenseItemProvider_UI_0 + ":" + license.getDescription(); 
 	}// getText
 
 	/**

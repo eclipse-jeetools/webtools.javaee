@@ -136,7 +136,7 @@ public class OutboundResourceAdapterItemProvider extends ItemProviderAdapter imp
 	public String getText(Object object) {
 		//		OutboundResourceAdapter outboundResourceAdapter = (OutboundResourceAdapter) object;
 
-		return JCAResourceHandler.getString("_UI_OutboundResourceAdapter_type"); //$NON-NLS-1$
+		return JCAResourceHandler._UI_OutboundResourceAdapter_type; 
 		//return getString("_UI_OutboundResourceAdapter_type") /*+ " " +
 		// outboundResourceAdapter.isReauthenticationSupport()*/; //$NON-NLS-1$ //$NON-NLS-2$
 	}

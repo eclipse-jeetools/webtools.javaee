@@ -196,7 +196,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	public String getText(Object object) {
 		ConfigProperty configProperty = ((ConfigProperty) object);
 		if (configProperty.getName() == null)
-			return JCAResourceHandler.getString("ConfigPropertyItemProvider_UI_0"); //$NON-NLS-1$
+			return JCAResourceHandler.ConfigPropertyItemProvider_UI_0; 
 		return "ConfigProperty: " + configProperty.getName(); //$NON-NLS-1$
 	}// getText
 
