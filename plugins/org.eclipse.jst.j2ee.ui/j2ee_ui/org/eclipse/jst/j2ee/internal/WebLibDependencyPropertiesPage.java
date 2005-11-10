@@ -68,7 +68,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.getString("Project_name__UI_")); //$NON-NLS-1$ = "Project name:"
+		label.setText(ManifestUIResourceHandler.Project_name__UI_); 
 
 		componentNameText = new Text(labelsGroup, SWT.BORDER);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -90,7 +90,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 
         availableDependentJars = new Label(listGroup, SWT.NONE);
         gData = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-        availableDependentJars.setText(ManifestUIResourceHandler.getString("Available_dependent_JARs__UI_")); //$NON-NLS-1$ = "Available dependent JARs:"
+        availableDependentJars.setText(ManifestUIResourceHandler.Available_dependent_JARs__UI_); 
         availableDependentJars.setLayoutData(gData);
         createTableComposite(listGroup);
     }
@@ -106,7 +106,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
     
     protected boolean isValidWebModule() {
 		if (!J2EEProjectUtilities.isDynamicWebProject(project)) {
-			this.setErrorMessage(ManifestUIResourceHandler.getString("Web_Lib_Error")); //$NON-NLS-1$
+			this.setErrorMessage(ManifestUIResourceHandler.Web_Lib_Error); 
 			return false;
 		}
 		return true;
@@ -155,7 +155,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			if (composed != null)
 				new ProgressMonitorDialog(getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
-			String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
+			String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 			String msg = title;
 			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 				msg = ex.getTargetException().getMessage();
@@ -212,7 +212,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			        try {
 			            new ProgressMonitorDialog(getShell()).run(true, true, composed);
 			        } catch (InvocationTargetException ex) {
-			            String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
+			            String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 			            String msg = title;
 			            if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 			                msg = ex.getTargetException().getMessage();
@@ -277,7 +277,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 				        try {
 				            new ProgressMonitorDialog(getShell()).run(true, true, composed);
 				        } catch (InvocationTargetException ex) {
-				            String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
+				            String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 				            String msg = title;
 				            if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 				                msg = ex.getTargetException().getMessage();

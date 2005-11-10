@@ -128,7 +128,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.getString("Project_name__UI_")); //$NON-NLS-1$ = "Project name:"
+		label.setText(ManifestUIResourceHandler.Project_name__UI_); 
 
 		componentNameText = new Text(labelsGroup, SWT.BORDER);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -519,11 +519,11 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 
 		// table columns
 		TableColumn fileNameColumn = new TableColumn(table, SWT.NONE, 0);
-		fileNameColumn.setText(ManifestUIResourceHandler.getString("JAR/Module_UI_")); //$NON-NLS-1$
+		fileNameColumn.setText(ManifestUIResourceHandler.JAR_Module_UI_); 
 		fileNameColumn.setResizable(true);
 
 		TableColumn projectColumn = new TableColumn(table, SWT.NONE, 1);
-		projectColumn.setText(ManifestUIResourceHandler.getString("Project_UI_")); //$NON-NLS-1$ = "Project"
+		projectColumn.setText(ManifestUIResourceHandler.Project_UI_); 
 		projectColumn.setResizable(true);
 		tableLayout.layout(table, true);
 		return availableComponentsViewer;

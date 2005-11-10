@@ -38,16 +38,16 @@ public class J2EEDependenciesPage extends PropertyPage {
 		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.getString("EAR_Modules")); //$NON-NLS-1$
-		fillDescription(labelsGroup, ManifestUIResourceHandler.getString("EAR_Modules_Desc")); //$NON-NLS-1$
+		label.setText(ManifestUIResourceHandler.EAR_Modules); 
+		fillDescription(labelsGroup, ManifestUIResourceHandler.EAR_Modules_Desc); 
 		
 		label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.getString("J2EE_Modules")); //$NON-NLS-1$
-		fillDescription(labelsGroup, ManifestUIResourceHandler.getString("J2EE_Modules_Desc")); //$NON-NLS-1$
+		label.setText(ManifestUIResourceHandler.J2EE_Modules); 
+		fillDescription(labelsGroup, ManifestUIResourceHandler.J2EE_Modules_Desc); 
 		
 		label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.getString("Web_Libraries")); //$NON-NLS-1$
-		fillDescription(labelsGroup, ManifestUIResourceHandler.getString("Web_Libraries_Desc")); //$NON-NLS-1$
+		label.setText(ManifestUIResourceHandler.Web_Libraries); 
+		fillDescription(labelsGroup, ManifestUIResourceHandler.Web_Libraries_Desc); 
 	}
 	
 	private void fillDescription(Composite c, String s) {

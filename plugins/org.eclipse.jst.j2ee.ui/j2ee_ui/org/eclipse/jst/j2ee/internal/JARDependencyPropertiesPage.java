@@ -211,7 +211,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
 	protected boolean isValidComponent() {
 		if (J2EEProjectUtilities.isEARProject(project)) {
-			this.setErrorMessage(ManifestUIResourceHandler.getString("EAR_Module_Dep_Error")); //$NON-NLS-1$
+			this.setErrorMessage(ManifestUIResourceHandler.EAR_Module_Dep_Error); 
 			return false;
 		} else if (J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject()) ) {
 			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
@@ -229,7 +229,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.getString("Project_name__UI_")); //$NON-NLS-1$ = "Project name:"
+		label.setText(ManifestUIResourceHandler.Project_name__UI_); 
 
 		componentNameText = new Text(labelsGroup, SWT.BORDER);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -244,7 +244,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     private void createEnterpriseAppsControls(Composite labelsGroup) {
 
 		enterpriseApplicationLabel = new Label(labelsGroup, SWT.NONE);
-		enterpriseApplicationLabel.setText(ManifestUIResourceHandler.getString("EAR_Project_Name__UI__UI_")); //$NON-NLS-1$ = "EAR project name:"
+		enterpriseApplicationLabel.setText(ManifestUIResourceHandler.EAR_Project_Name__UI__UI_); 
 
 		availableAppsCombo = new CCombo(labelsGroup, SWT.READ_ONLY | SWT.BORDER);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -267,7 +267,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
         availableDependentJars = new Label(listGroup, SWT.NONE);
         gData = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-        availableDependentJars.setText(ManifestUIResourceHandler.getString("Available_dependent_JARs__UI_")); //$NON-NLS-1$ = "Available dependent JARs:"
+        availableDependentJars.setText(ManifestUIResourceHandler.Available_dependent_JARs__UI_); 
         availableDependentJars.setLayoutData(gData);
         createTableComposite(listGroup);
     }
@@ -296,7 +296,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     protected void createClassPathText(Composite textGroup) {
     	
     	manifestLabel = new Label(textGroup, SWT.NONE);
-		manifestLabel.setText(ManifestUIResourceHandler.getString("Manifest_Class-Path__UI_")); //$NON-NLS-1$ = "Manifest Class-Path:"
+		manifestLabel.setText(ManifestUIResourceHandler.Manifest_Class_Path__UI_); 
 		
         classPathText = new Text(textGroup, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         GridData gData = new GridData(GridData.FILL_BOTH);
@@ -335,11 +335,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
         // table columns
         TableColumn fileNameColumn = new TableColumn(table, SWT.NONE, 0);
-        fileNameColumn.setText(ManifestUIResourceHandler.getString("JAR/Module_UI_")); //$NON-NLS-1$
+        fileNameColumn.setText(ManifestUIResourceHandler.JAR_Module_UI_); 
         fileNameColumn.setResizable(true);
 
         TableColumn projectColumn = new TableColumn(table, SWT.NONE, 1);
-        projectColumn.setText(ManifestUIResourceHandler.getString("Project_UI_")); //$NON-NLS-1$ = "Project"
+        projectColumn.setText(ManifestUIResourceHandler.Project_UI_); 
         projectColumn.setResizable(true);
         tableLayout.layout(table, true);
         return availableJARsViewer;
@@ -459,7 +459,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         try {
             new ProgressMonitorDialog(getShell()).run(true, true, composed);
         } catch (InvocationTargetException ex) {
-            String title = ManifestUIResourceHandler.getString("An_internal_error_occurred_ERROR_"); //$NON-NLS-1$
+            String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
             String msg = title;
             if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
                 msg = ex.getTargetException().getMessage();
