@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import org.eclipse.osgi.util.NLS;
 
 public final class EJBCreationResourceHandler extends NLS {
@@ -143,4 +146,35 @@ public final class EJBCreationResourceHandler extends NLS {
 
 	public static final String CLIENT_SAME_NAME_AS_EJB = _1; //$NON-NLS-1$
 	public static final String CLIENT_SAME_NAME_AS_EAR = _2; //$NON-NLS-1$
+
+	private static ResourceBundle fgResourceBundle;
+
+	/**
+	 * Returns the resource bundle used by all classes in this Project
+	 */
+	public static ResourceBundle getResourceBundle() {
+		try {
+			return ResourceBundle.getBundle("ejbcreation");//$NON-NLS-1$
+		} catch (MissingResourceException e) {
+			// does nothing - this method will return null and
+			// getString(String, String) will return the key
+			// it was called with
+		}
+		return null;
+	}
+
+	public static String getString(String key) {
+		if (fgResourceBundle == null) {
+			fgResourceBundle = getResourceBundle();
+		}
+
+		if (fgResourceBundle != null) {
+			try {
+				return fgResourceBundle.getString(key);
+			} catch (MissingResourceException e) {
+				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
+			}
+		}
+		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
+	}
 }
