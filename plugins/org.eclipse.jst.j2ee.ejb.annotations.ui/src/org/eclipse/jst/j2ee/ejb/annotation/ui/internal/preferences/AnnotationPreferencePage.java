@@ -105,13 +105,13 @@ public class AnnotationPreferencePage extends PreferencePage implements
 				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		defPanel.setLayoutData(gridData);
 
-		ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences.preferences");
+		//ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences.preferences");
 
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText(bundle.getString("label_set_j2ee_annotation_preference"));
+		label.setText(Messages.label_set_j2ee_annotation_preference);
 
 		panel.preferences = new Control[1];
 		panel.preferences[0] = panel
@@ -119,8 +119,8 @@ public class AnnotationPreferencePage extends PreferencePage implements
 						1,
 						false,
 						true,
-						bundle.getString("label_active_annotation_provider"),
-						bundle.getString("desc_active_annotation_provider"),
+						Messages.label_active_annotation_provider,
+						Messages.desc_active_annotation_provider,
 						AnnotationPreferenceStore
 								.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER),
 						AnnotationUtilities.getProviderNames(), defPanel);
