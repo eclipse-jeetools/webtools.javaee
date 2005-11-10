@@ -81,9 +81,9 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 				String ejbModuleName = getStringProperty(EJB_COMPONENT_NAME);
 				String clientModuleName = getStringProperty(COMPONENT_NAME);
 				if (ejbModuleName.equals(clientModuleName)) {
-					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
+					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB);
 				} else if (!WTPPlugin.isPlatformCaseSensitive() && ejbModuleName.equalsIgnoreCase(clientModuleName)) {
-					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
+					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB);
 				}
 			}
 			if (propertyName.equals(CLIENT_COMPONENT_URI)) {
@@ -96,7 +96,7 @@ public class EJBClientComponentDataModelProvider extends JavaComponentCreationDa
 	public IStatus validateClientJarUri() {
 		String clientJarURI = getStringProperty(CLIENT_COMPONENT_URI);
 		if (clientJarURI == null || clientJarURI.trim().length() == 0)
-			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString("CLIENT_JAR_URI_NOT_RESOLVE_UI_"), null); //$NON-NLS-1$
+			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_JAR_URI_NOT_RESOLVE_UI_, null); 
 
 		return OK_STATUS;
 	}

@@ -19,10 +19,10 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceH
  * overwrite a certain path string (which could represent a resource path, a file system path, etc)
  */
 public interface IOverwriteQuery {
-	public static final String CANCEL = EJBCreationResourceHandler.getString("CANCEL_UI_"); //$NON-NLS-1$
-	public static final String NO = EJBCreationResourceHandler.getString("NO_UI_"); //$NON-NLS-1$
-	public static final String YES = EJBCreationResourceHandler.getString("YES_UI_"); //$NON-NLS-1$
-	public static final String ALL = EJBCreationResourceHandler.getString("ALL_UI_"); //$NON-NLS-1$
+	public static final String CANCEL = EJBCreationResourceHandler.CANCEL_UI_; 
+	public static final String NO = EJBCreationResourceHandler.NO_UI_; 
+	public static final String YES = EJBCreationResourceHandler.YES_UI_; 
+	public static final String ALL = EJBCreationResourceHandler.ALL_UI_; 
 
 	/**
 	 * Answer one of the interface's prescribed responses indicating whether the entity represented

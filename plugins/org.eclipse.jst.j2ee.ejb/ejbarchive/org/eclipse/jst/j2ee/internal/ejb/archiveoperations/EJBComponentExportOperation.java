@@ -37,12 +37,12 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 		} catch (SaveFailureException ex) {
 			throw ex;
 		} catch (Exception e) {
-			throw new SaveFailureException(EJBArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e);//$NON-NLS-1$
+			throw new SaveFailureException(EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
 		}
 	}
 
 	protected String archiveString() {
-		return EJBArchiveOpsResourceHandler.getString("EJB_Jar_File_UI_"); //$NON-NLS-1$ = "EJB Jar File"
+		return EJBArchiveOpsResourceHandler.EJB_Jar_File_UI_; 
 	}
 
 	public void createModuleFile() throws SaveFailureException {
@@ -52,7 +52,7 @@ public class EJBComponentExportOperation extends J2EEArtifactExportOperation {
 			ls.setExportSource(isExportSource());
 			setModuleFile(caf.openEJBJarFile(ls, getDestinationPath().toOSString()));
 		} catch (Exception e) {
-			throw new SaveFailureException(EJBArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_OpeningArchive"), e); //$NON-NLS-1$
+			throw new SaveFailureException(EJBArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e); 
 		}
 
 	}

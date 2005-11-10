@@ -205,22 +205,22 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 				String clientName = ejbClientComponentDataModel.getStringProperty(COMPONENT_NAME);
 				String moduleName = getStringProperty(PROJECT_NAME);
 				if (clientName.equals(moduleName)) {
-					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
+					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB);
 				}
 				if (!WTPPlugin.isPlatformCaseSensitive()) {
 					if (clientName.toLowerCase().equals(moduleName.toLowerCase())) {
-						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
+						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB);
 					}
 				}
 
 				if (getBooleanProperty(ADD_TO_EAR)) {
 					String earName = getStringProperty(EAR_COMPONENT_NAME);
 					if (clientName.equals(earName)) {
-						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR));
+						return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR);
 					}
 					if (!WTPPlugin.isPlatformCaseSensitive()) {
 						if (clientName.toLowerCase().equals(earName.toLowerCase())) {
-							return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR));
+							return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EAR);
 						}
 					}
 				}
