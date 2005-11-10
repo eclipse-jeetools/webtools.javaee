@@ -24,8 +24,8 @@ public class ConvertToWebComponentTypeWizardPage extends WebComponentCreationWiz
 		// TODO use flexible project
 		//super(model, pageName);
 		super(model, pageName);
-		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_CONVERT_MAIN_PG_DESC)); //$NON-NLS-1$
-		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_CONVERT_MAIN_PG_TITLE)); //$NON-NLS-1$
+		setDescription(WEBUIMessages.WEB_CONVERT_MAIN_PG_DESC); //$NON-NLS-1$
+		setTitle(WEBUIMessages.WEB_CONVERT_MAIN_PG_TITLE); //$NON-NLS-1$
 	}
 
 	/*

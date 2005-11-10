@@ -50,10 +50,10 @@ public class WebAppContainerPage
     
     public WebAppContainerPage() 
     {
-        super( resource( "WEB_CONT_NAME" ) ); //$NON-NLS-1$
+        super( WEBUIMessages.WEB_CONT_NAME ); //$NON-NLS-1$
         
-        setTitle( resource( "WEB_CONT_PAGE_TITLE" ) ); //$NON-NLS-1$
-        setDescription( resource( "WEB_CONT_PAGE_DESCRIPTION" ) ); //$NON-NLS-1$
+        setTitle( WEBUIMessages.WEB_CONT_PAGE_TITLE ); //$NON-NLS-1$
+        setDescription( WEBUIMessages.WEB_CONT_PAGE_DESCRIPTION ); //$NON-NLS-1$
         
         // TODO: Replace with a custom image.
         setImageDescriptor( JavaPluginImages.DESC_WIZBAN_ADD_LIBRARY ); //$NON-NLS-1$
@@ -90,7 +90,7 @@ public class WebAppContainerPage
         composite.setLayout( new GridLayout( 1, false ) );
         
         this.componentLabel = new Label( composite, SWT.NONE );
-        this.componentLabel.setText( resource( "WEB_CONT_PAGE_COMP_LABEL" ) ); //$NON-NLS-1$
+        this.componentLabel.setText( WEBUIMessages.WEB_CONT_PAGE_COMP_LABEL ); //$NON-NLS-1$
         
         this.componentCombo = new Combo( composite, SWT.READ_ONLY );
         
@@ -157,10 +157,4 @@ public class WebAppContainerPage
         
         return res;
     }
-    
-    private static String resource( final String key )
-    {
-        return WEBUIMessages.getResourceString( key );
-    }
-
 }

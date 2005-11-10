@@ -15,74 +15,74 @@ import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 public interface IWebWizardConstants {
 	
 	// AddServletWizard
-	public final static String ADD_SERVLET_WIZARD_WINDOW_TITLE = WEBUIMessages.getResourceString("ADD_SERVLET_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
-	public final static String ADD_SERVLET_WIZARD_PAGE_TITLE = WEBUIMessages.getResourceString("ADD_SERVLET_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
-	public final static String ADD_SERVLET_WIZARD_PAGE_DESC = WEBUIMessages.getResourceString("ADD_SERVLET_WIZARD_PAGE_DESC"); //$NON-NLS-1$
+	public final static String ADD_SERVLET_WIZARD_WINDOW_TITLE = WEBUIMessages.ADD_SERVLET_WIZARD_WINDOW_TITLE;
+	public final static String ADD_SERVLET_WIZARD_PAGE_TITLE = WEBUIMessages.ADD_SERVLET_WIZARD_PAGE_TITLE;
+	public final static String ADD_SERVLET_WIZARD_PAGE_DESC = WEBUIMessages.ADD_SERVLET_WIZARD_PAGE_DESC;
 
-	public final static String DEFAULT_PACKAGE = WEBUIMessages.getResourceString("DEFAULT_PACKAGE"); //$NON-NLS-1$
-	public final static String SELECT_CLASS_TITLE = WEBUIMessages.getResourceString("SELECT_CLASS_TITLE"); //$NON-NLS-1$
-	public final static String MAP_CLASS_NAME_TO_CLASS_ERROR_MSG = WEBUIMessages.getResourceString("MAP_CLASS_NAME_TO_CLASS_ERROR_MSG"); //$NON-NLS-1$
-	public final static String EMPTY_LIST_MSG = WEBUIMessages.getResourceString("EMPTY_LIST_MSG"); //$NON-NLS-1$
-	public final static String ADD_LABEL = WEBUIMessages.getResourceString("ADD_LABEL"); //$NON-NLS-1$
-	public final static String USE_EXISTING_SERVLET_CLASS = WEBUIMessages.getResourceString("USE_EXISTING_SERVLET_CLASS"); //$NON-NLS-1$
-	public final static String INIT_PARAM_LABEL = WEBUIMessages.getResourceString("INIT_PARAM_LABEL"); //$NON-NLS-1$
-	public final static String URL_MAPPINGS_LABEL = WEBUIMessages.getResourceString("URL_MAPPINGS_LABEL"); //$NON-NLS-1$
-	public final static String CHOOSE_SERVLET_CLASS = WEBUIMessages.getResourceString("CHOOSE_SERVLET_CLASS"); //$NON-NLS-1$
+	public final static String DEFAULT_PACKAGE = WEBUIMessages.DEFAULT_PACKAGE;
+	public final static String SELECT_CLASS_TITLE = WEBUIMessages.SELECT_CLASS_TITLE;
+	public final static String MAP_CLASS_NAME_TO_CLASS_ERROR_MSG = WEBUIMessages.MAP_CLASS_NAME_TO_CLASS_ERROR_MSG;
+	public final static String EMPTY_LIST_MSG = WEBUIMessages.EMPTY_LIST_MSG;
+	public final static String ADD_LABEL = WEBUIMessages.ADD_LABEL;
+	public final static String USE_EXISTING_SERVLET_CLASS = WEBUIMessages.USE_EXISTING_SERVLET_CLASS;
+	public final static String INIT_PARAM_LABEL = WEBUIMessages.INIT_PARAM_LABEL;
+	public final static String URL_MAPPINGS_LABEL = WEBUIMessages.URL_MAPPINGS_LABEL;
+	public final static String CHOOSE_SERVLET_CLASS = WEBUIMessages.CHOOSE_SERVLET_CLASS;
 	
 	// NewServletWizard
-	public final static String NEW_SERVLET_WIZARD_WINDOW_TITLE = WEBUIMessages.getResourceString("NEW_SERVLET_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
-	public final static String NEW_SERVLET_WIZARD_PAGE_TITLE = WEBUIMessages.getResourceString("NEW_SERVLET_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
-	public final static String NEW_SERVLET_WIZARD_PAGE_DESC = WEBUIMessages.getResourceString("NEW_SERVLET_WIZARD_PAGE_DESC"); //$NON-NLS-1$
-	public final static String SERVLET_PACKAGE_LABEL = WEBUIMessages.getResourceString("SERVLET_PACKAGE_LABEL"); //$NON-NLS-1$
-	public final static String SERVLET_NAME_LABEL = WEBUIMessages.getResourceString("SERVLET_NAME_LABEL"); //$NON-NLS-1$
+	public final static String NEW_SERVLET_WIZARD_WINDOW_TITLE = WEBUIMessages.NEW_SERVLET_WIZARD_WINDOW_TITLE;
+	public final static String NEW_SERVLET_WIZARD_PAGE_TITLE = WEBUIMessages.NEW_SERVLET_WIZARD_PAGE_TITLE;
+	public final static String NEW_SERVLET_WIZARD_PAGE_DESC = WEBUIMessages.NEW_SERVLET_WIZARD_PAGE_DESC;
+	public final static String SERVLET_PACKAGE_LABEL = WEBUIMessages.SERVLET_PACKAGE_LABEL;
+	public final static String SERVLET_NAME_LABEL = WEBUIMessages.SERVLET_NAME_LABEL;
 
 	
 	// common
-	public final static String ADD_BUTTON_LABEL = WEBUIMessages.getResourceString("ADD_BUTTON_LABEL"); //$NON-NLS-1$
-	public final static String REMOVE_BUTTON_LABEL = WEBUIMessages.getResourceString("REMOVE_BUTTON_LABEL"); //$NON-NLS-1$
-	public final static String URL_PATTERN_TITLE = WEBUIMessages.getResourceString("URL_PATTERN_TITLE"); //$NON-NLS-1$
-	public final static String URL_PATTERN_LABEL = WEBUIMessages.getResourceString("URL_PATTERN_LABEL"); //$NON-NLS-1$
-	public final static String FOLDER_LABEL = WEBUIMessages.getResourceString("FOLDER_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_PACKAGE_LABEL = WEBUIMessages.getResourceString("JAVA_PACKAGE_LABEL"); //$NON-NLS-1$
-	public final static String CLASS_NAME_LABEL = WEBUIMessages.getResourceString("CLASS_NAME_LABEL"); //$NON-NLS-1$
-	public final static String SUPERCLASS_LABEL = WEBUIMessages.getResourceString("SUPERCLASS_LABEL"); //$NON-NLS-1$
-	public final static String CONTAINER_SELECTION_DIALOG_TITLE = WEBUIMessages.getResourceString("CONTAINER_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
-	public final static String CONTAINER_SELECTION_DIALOG_DESC = WEBUIMessages.getResourceString("CONTAINER_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
-	public final static String CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG = WEBUIMessages.getResourceString("CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG"); //$NON-NLS-1$
-	public final static String PACKAGE_SELECTION_DIALOG_TITLE = WEBUIMessages.getResourceString("PACKAGE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
-	public final static String PACKAGE_SELECTION_DIALOG_DESC = WEBUIMessages.getResourceString("PACKAGE_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
-	public final static String PACKAGE_SELECTION_DIALOG_MSG_NONE = WEBUIMessages.getResourceString("PACKAGE_SELECTION_DIALOG_MSG_NONE"); //$NON-NLS-1$
-	public final static String SUPERCLASS_SELECTION_DIALOG_TITLE = WEBUIMessages.getResourceString("SUPERCLASS_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
-	public final static String SUPERCLASS_SELECTION_DIALOG_DESC = WEBUIMessages.getResourceString("SUPERCLASS_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
-	public final static String INTERFACE_SELECTION_DIALOG_TITLE = WEBUIMessages.getResourceString("INTERFACE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
-	public final static String INTERFACE_SELECTION_DIALOG_DESC = WEBUIMessages.getResourceString("INTERFACE_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
-	public final static String INTERFACE_SELECTION_DIALOG_MSG_NONE = WEBUIMessages.getResourceString("INTERFACE_SELECTION_DIALOG_MSG_NONE"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_MODIFIERS_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_MODIFIERS_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_INTERFACES_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_INTERFACES_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_METHOD_STUBS_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_METHOD_STUBS_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_PUBLIC_CHECKBOX_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_PUBLIC_CHECKBOX_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_FINAL_CHECKBOX_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_FINAL_CHECKBOX_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_MAIN_CHECKBOX_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_MAIN_CHECKBOX_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL = WEBUIMessages.getResourceString("JAVA_CLASS_INHERIT_CHECKBOX_LABEL"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_BROWER_DIALOG_TITLE = WEBUIMessages.getResourceString("JAVA_CLASS_BROWER_DIALOG_TITLE"); //$NON-NLS-1$
-	public final static String JAVA_CLASS_BROWER_DIALOG_MESSAGE = WEBUIMessages.getResourceString("JAVA_CLASS_BROWER_DIALOG_MESSAGE"); //$NON-NLS-1$
+	public final static String ADD_BUTTON_LABEL = WEBUIMessages.ADD_BUTTON_LABEL;
+	public final static String REMOVE_BUTTON_LABEL = WEBUIMessages.REMOVE_BUTTON_LABEL;
+	public final static String URL_PATTERN_TITLE = WEBUIMessages.URL_PATTERN_TITLE;
+	public final static String URL_PATTERN_LABEL = WEBUIMessages.URL_PATTERN_LABEL;
+	public final static String FOLDER_LABEL = WEBUIMessages.FOLDER_LABEL;
+	public final static String JAVA_PACKAGE_LABEL = WEBUIMessages.JAVA_PACKAGE_LABEL;
+	public final static String CLASS_NAME_LABEL = WEBUIMessages.CLASS_NAME_LABEL;
+	public final static String SUPERCLASS_LABEL = WEBUIMessages.SUPERCLASS_LABEL;
+	public final static String CONTAINER_SELECTION_DIALOG_TITLE = WEBUIMessages.CONTAINER_SELECTION_DIALOG_TITLE;
+	public final static String CONTAINER_SELECTION_DIALOG_DESC = WEBUIMessages.CONTAINER_SELECTION_DIALOG_DESC;
+	public final static String CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG = WEBUIMessages.CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG;
+	public final static String PACKAGE_SELECTION_DIALOG_TITLE = WEBUIMessages.PACKAGE_SELECTION_DIALOG_TITLE;
+	public final static String PACKAGE_SELECTION_DIALOG_DESC = WEBUIMessages.PACKAGE_SELECTION_DIALOG_DESC;
+	public final static String PACKAGE_SELECTION_DIALOG_MSG_NONE = WEBUIMessages.PACKAGE_SELECTION_DIALOG_MSG_NONE;
+	public final static String SUPERCLASS_SELECTION_DIALOG_TITLE = WEBUIMessages.SUPERCLASS_SELECTION_DIALOG_TITLE;
+	public final static String SUPERCLASS_SELECTION_DIALOG_DESC = WEBUIMessages.SUPERCLASS_SELECTION_DIALOG_DESC;
+	public final static String INTERFACE_SELECTION_DIALOG_TITLE = WEBUIMessages.INTERFACE_SELECTION_DIALOG_TITLE;
+	public final static String INTERFACE_SELECTION_DIALOG_DESC = WEBUIMessages.INTERFACE_SELECTION_DIALOG_DESC;
+	public final static String INTERFACE_SELECTION_DIALOG_MSG_NONE = WEBUIMessages.INTERFACE_SELECTION_DIALOG_MSG_NONE;
+	public final static String JAVA_CLASS_MODIFIERS_LABEL = WEBUIMessages.JAVA_CLASS_MODIFIERS_LABEL;
+	public final static String JAVA_CLASS_INTERFACES_LABEL = WEBUIMessages.JAVA_CLASS_INTERFACES_LABEL;
+	public final static String JAVA_CLASS_METHOD_STUBS_LABEL = WEBUIMessages.JAVA_CLASS_METHOD_STUBS_LABEL;
+	public final static String JAVA_CLASS_PUBLIC_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_PUBLIC_CHECKBOX_LABEL;
+	public final static String JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL;
+	public final static String JAVA_CLASS_FINAL_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_FINAL_CHECKBOX_LABEL;
+	public final static String JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL;
+	public final static String JAVA_CLASS_MAIN_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_MAIN_CHECKBOX_LABEL;
+	public final static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL = WEBUIMessages.JAVA_CLASS_INHERIT_CHECKBOX_LABEL;
+	public final static String JAVA_CLASS_BROWER_DIALOG_TITLE = WEBUIMessages.JAVA_CLASS_BROWER_DIALOG_TITLE;
+	public final static String JAVA_CLASS_BROWER_DIALOG_MESSAGE = WEBUIMessages.JAVA_CLASS_BROWER_DIALOG_MESSAGE;
 	
-	public final static String NAME_LABEL = WEBUIMessages.getResourceString("NAME_LABEL"); //$NON-NLS-1$
-	public final static String DESCRIPTION_LABEL = WEBUIMessages.getResourceString("DESCRIPTION_LABEL"); //$NON-NLS-1$
-	public final static String VALUE_LABEL = WEBUIMessages.getResourceString("VALUE_LABEL"); //$NON-NLS-1$
+	public final static String NAME_LABEL = WEBUIMessages.NAME_LABEL;
+	public final static String DESCRIPTION_LABEL = WEBUIMessages.DESCRIPTION_LABEL;
+	public final static String VALUE_LABEL = WEBUIMessages.VALUE_LABEL;
 	public final static String EMPTY_STRING = ""; //$NON-NLS-1$
-	public final static String BROWSE_BUTTON_LABEL = WEBUIMessages.getResourceString("BROWSE_BUTTON_LABEL"); //$NON-NLS-1$
-	public static final String REMOVE_BUTTON = WEBUIMessages.getResourceString("REMOVE_BUTTON"); //$NON-NLS-1$
+	public final static String BROWSE_BUTTON_LABEL = WEBUIMessages.BROWSE_BUTTON_LABEL;
+	public static final String REMOVE_BUTTON = WEBUIMessages.REMOVE_BUTTON;
     
-	public final static String NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC = WEBUIMessages.getResourceString("NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC"); //$NON-NLS-1$
-	public final static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC = WEBUIMessages.getResourceString("NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC"); //$NON-NLS-1$
+	public final static String NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC = WEBUIMessages.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC;
+	public final static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC = WEBUIMessages.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
 	
-	public final static String ImportWARAction_UI_ = WEBUIMessages.getResourceString("ImportWARAction_UI_"); //$NON-NLS-1$
-	public final static String ExportWARAction_UI_ = WEBUIMessages.getResourceString("ExportWARAction_UI_"); //$NON-NLS-1$
+	public final static String ImportWARAction_UI_ = WEBUIMessages.ImportWARAction_UI_;
+	public final static String ExportWARAction_UI_ = WEBUIMessages.ExportWARAction_UI_;
 	
-	public final static String NO_WEB_PROJECTS = WEBUIMessages.getResourceString("NO_WEB_PROJECTS"); //$NON-NLS-1$
+	public final static String NO_WEB_PROJECTS = WEBUIMessages.NO_WEB_PROJECTS;
 	
-	public static final String SERVLETS = WEBUIMessages.getResourceString("SERVLETS"); //$NON-NLS-1$
+	public static final String SERVLETS = WEBUIMessages.SERVLETS;
 }

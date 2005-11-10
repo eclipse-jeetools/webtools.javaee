@@ -57,8 +57,8 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	 */
 	public WebComponentImportWebLibsPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_TITLE));
-		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_DESC));
+		setTitle(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_TITLE);
+		setDescription(WEBUIMessages.WEB_IMPORT_WEB_LIB_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_IMPORT_WIZARD_BANNER));
 	}
 
@@ -144,7 +144,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
-		selectAllButton.setText(WEBUIMessages.getResourceString(WEBUIMessages.WAR_IMPORT_SELECT_ALL_LIBS_BUTTON));
+		selectAllButton.setText(WEBUIMessages.WAR_IMPORT_SELECT_ALL_LIBS_BUTTON);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
@@ -157,7 +157,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		});
 
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
-		deselectAllButton.setText(WEBUIMessages.getResourceString(WEBUIMessages.WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON));
+		deselectAllButton.setText(WEBUIMessages.WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON);
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 2;
 		gd.heightHint = 22;

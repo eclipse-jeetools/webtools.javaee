@@ -25,8 +25,8 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 	 */
 	public WebComponentExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
-		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_EXPORT_MAIN_PG_TITLE));
-		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_EXPORT_MAIN_PG_DESC));
+		setTitle(WEBUIMessages.WEB_EXPORT_MAIN_PG_TITLE);
+		setDescription(WEBUIMessages.WEB_EXPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_EXPORT_WIZARD_BANNER));
 
 	}

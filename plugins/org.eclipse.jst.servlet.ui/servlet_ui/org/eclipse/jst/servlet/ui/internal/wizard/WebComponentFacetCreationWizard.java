@@ -70,7 +70,7 @@ public class WebComponentFacetCreationWizard extends J2EEComponentFacetCreationW
 	 * 
 	 */
 	protected void doInit() {
-		setWindowTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_MODULE_WIZ_TITLE));
+		setWindowTitle(WEBUIMessages.WEB_MODULE_WIZ_TITLE);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_PROJECT_WIZARD_BANNER));
 		preFillSelectedEARProject();
 	} 

@@ -44,8 +44,8 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	 */
 	public WebComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE));
-		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC));
+		setTitle(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE);
+		setDescription(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_PROJECT_WIZARD_BANNER));
 	}
 
@@ -57,7 +57,7 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
 	protected void addToAdvancedComposite(Composite advanced) {
 		super.addToAdvancedComposite(advanced);
 		contextRootLabel = new Label(advanced, SWT.NULL);
-		contextRootLabel.setText(WEBUIMessages.getResourceString(WEBUIMessages.WEB_IMPORT_CONTEXT_ROOT));
+		contextRootLabel.setText(WEBUIMessages.WEB_IMPORT_CONTEXT_ROOT);
 		GridData data = new GridData();
 		contextRootLabel.setLayoutData(data);
 		// set up context root entry field
@@ -76,7 +76,7 @@ public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardP
     protected void createWebContentFolderComposite(Composite parent) {
 		
         Label label = new Label(parent, SWT.NONE);
-        label.setText(WEBUIMessages.getResourceString(WEBUIMessages.WEBCONTENT));
+        label.setText(WEBUIMessages.WEBCONTENT);
         GridData data = new GridData();      
         label.setLayoutData(data);
         // set up project name entry field

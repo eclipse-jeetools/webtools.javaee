@@ -51,7 +51,7 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
 	public void doInit(IWorkbench workbench, IStructuredSelection selection) {
-		setWindowTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_CONVERT_MAIN_PG_TITLE)); //$NON-NLS-1$
+		setWindowTitle(WEBUIMessages.WEB_CONVERT_MAIN_PG_TITLE); //$NON-NLS-1$
 	}
 
 	/*

@@ -30,8 +30,8 @@ public class WebComponentFacetCreationWizardPage extends J2EEComponentFacetCreat
 	 */
 	public WebComponentFacetCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE));
-		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC));
+		setTitle(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE);
+		setDescription(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_PROJECT_WIZARD_BANNER));
 	}
 
