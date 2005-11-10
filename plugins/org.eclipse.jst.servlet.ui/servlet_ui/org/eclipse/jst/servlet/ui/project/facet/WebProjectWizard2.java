@@ -24,6 +24,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentFacetCreationWizardPage;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -89,12 +91,22 @@ public class WebProjectWizard2 extends AddRemoveFacetsWizard implements INewWiza
 	protected void synchRuntimes() {
 		model.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
-				if (FACET_RUNTIME.equals(event.getPropertyName())) {
-					IRuntime runtime = (IRuntime) event.getProperty();
-					facetsSelectionPage.setRuntime(runtime);
+				if(FACET_RUNTIME.equals(event.getPropertyName())){
+					setRuntime((IRuntime)event.getProperty());
 				}
 			};
 		});
+        
+        addRuntimeListener
+        (
+            new Listener()
+            {
+                public void handleEvent( final Event event )
+                {
+                    model.setProperty( FACET_RUNTIME, getRuntime() );
+                }
+            }
+        );
 	}
 
 	public IWizardPage[] getPages() {
