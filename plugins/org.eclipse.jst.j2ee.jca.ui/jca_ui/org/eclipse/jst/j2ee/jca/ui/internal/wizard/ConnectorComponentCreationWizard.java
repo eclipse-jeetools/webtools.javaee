@@ -66,7 +66,7 @@ public final class ConnectorComponentCreationWizard extends J2EEComponentCreatio
 	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
 	protected void doInit() {
-		setWindowTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_WIZ_TITLE));
+		setWindowTitle(JCAUIMessages.JCA_MODULE_WIZ_TITLE);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_PROJECT_WIZARD_BANNER));
 		preFillSelectedEARProject();
 	}

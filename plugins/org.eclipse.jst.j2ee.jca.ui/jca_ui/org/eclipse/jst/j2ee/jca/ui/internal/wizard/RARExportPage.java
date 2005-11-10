@@ -40,8 +40,8 @@ public class RARExportPage extends J2EEModuleExportPage {
 	 */
 	public RARExportPage(IDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
-		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_EXPORT_MAIN_PG_TITLE));
-		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_EXPORT_MAIN_PG_DESC));
+		setTitle(JCAUIMessages.JCA_EXPORT_MAIN_PG_TITLE);
+		setDescription(JCAUIMessages.JCA_EXPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_EXPORT_WIZARD_BANNER));
 
 	}

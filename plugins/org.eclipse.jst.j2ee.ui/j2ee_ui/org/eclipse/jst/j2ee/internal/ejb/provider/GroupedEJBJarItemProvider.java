@@ -49,9 +49,9 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 	private static Hashtable entityTable = new Hashtable();
 	private static Hashtable messageTable = new Hashtable();
 
-	private static final String SESSION = EJBUIMessages.getResourceString("GroupedEJBJarItemProvider_UI_0"); //$NON-NLS-1$
-	private static final String ENTITY = EJBUIMessages.getResourceString("GroupedEJBJarItemProvider_UI_1"); //$NON-NLS-1$
-	private static final String MESSAGE = EJBUIMessages.getResourceString("GroupedEJBJarItemProvider_UI_2"); //$NON-NLS-1$
+	private static final String SESSION = EJBUIMessages.GroupedEJBJarItemProvider_UI_0;
+	private static final String ENTITY = EJBUIMessages.GroupedEJBJarItemProvider_UI_1;
+	private static final String MESSAGE = EJBUIMessages.GroupedEJBJarItemProvider_UI_2;
 
 	//	Normally there is one instance of an item provider for all instances of the objecct
 	//	in the tree. The item provider would be stateless. However, because we are doing tricks

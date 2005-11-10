@@ -8,54 +8,43 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.jca.ui.internal.util;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import org.eclipse.wst.common.frameworks.internal.Messages;
+import org.eclipse.osgi.util.NLS;
 
 
-public class JCAUIMessages extends Messages {
+public class JCAUIMessages extends NLS {
 
-	public static final String IMAGE_LOAD_ERROR = "0"; //$NON-NLS-1$
-	public static final String JCA_MODULE_WIZ_TITLE = "1"; //$NON-NLS-1$
-	public static final String JCA_VERSION_LBL = "2"; //$NON-NLS-1$
-	public static final String JCA_MODULE_MAIN_PG_TITLE = "3"; //$NON-NLS-1$
-	public static final String JCA_MODULE_MAIN_PG_DESC = "4"; //$NON-NLS-1$
-	public static final String JCA_IMPORT_MAIN_PG_DESC = "5"; //$NON-NLS-1$
-	public static final String JCA_IMPORT_MAIN_PG_TITLE = "6"; //$NON-NLS-1$
-	public static final String JCA_FILE_LBL = "7"; //$NON-NLS-1$
-	public static final String JCA_MODULE_LBL = "8"; //$NON-NLS-1$
-	public static final String JCA_EXPORT_MAIN_PG_TITLE = "9"; //$NON-NLS-1$
-	public static final String JCA_EXPORT_MAIN_PG_DESC = "10"; //$NON-NLS-1$
-
-	private static final JCAUIMessages INSTANCE = new JCAUIMessages();
-
+	private static final String BUNDLE_NAME = "jca_ui";//$NON-NLS-1$
 
 	private JCAUIMessages() {
-		super();
+		// Do not instantiate
 	}
 
-	/**
-	 * Returns the string from the resource bundle, or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		return INSTANCE.doGetResourceString(key);
+	public static String connector_export_action_label_ui_;
+	public static String _9;
+	public static String _8;
+	public static String _7;
+	public static String _6;
+	public static String _5;
+	public static String _4;
+	public static String _3;
+	public static String _2;
+	public static String _10;
+	public static String _1;
+	public static String _0;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, JCAUIMessages.class);
 	}
 
-	public static String getResourceString(String key, Object[] args) {
-		return INSTANCE.doGetResourceString(key, args);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.Messages#initializeBundle()
-	 */
-	protected void initializeBundle() {
-		try {
-			resourceBundle = ResourceBundle.getBundle("jca_ui"); //$NON-NLS-1$
-		} catch (MissingResourceException x) {
-			//Ignore
-		}
-	}
+	public static final String IMAGE_LOAD_ERROR = _0;
+	public static final String JCA_MODULE_WIZ_TITLE = _1;
+	public static final String JCA_VERSION_LBL = _2;
+	public static final String JCA_MODULE_MAIN_PG_TITLE = _3;
+	public static final String JCA_MODULE_MAIN_PG_DESC = _4;
+	public static final String JCA_IMPORT_MAIN_PG_DESC = _5;
+	public static final String JCA_IMPORT_MAIN_PG_TITLE = _6;
+	public static final String JCA_FILE_LBL = _7;
+	public static final String JCA_MODULE_LBL = _8;
+	public static final String JCA_EXPORT_MAIN_PG_TITLE = _9;
+	public static final String JCA_EXPORT_MAIN_PG_DESC = _10;
 }

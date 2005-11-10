@@ -26,13 +26,13 @@ public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationW
 	 */
 	public ConnectorComponentCreationWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_MAIN_PG_TITLE));
-		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_MAIN_PG_DESC));
+		setTitle(JCAUIMessages.JCA_MODULE_MAIN_PG_TITLE);
+		setDescription(JCAUIMessages.JCA_MODULE_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_PROJECT_WIZARD_BANNER));
 	}
 
 	protected String getVersionLabel() {
-		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_VERSION_LBL);
+		return JCAUIMessages.JCA_VERSION_LBL;
 	}
 
 	protected String[] getValidationPropertyNames() {

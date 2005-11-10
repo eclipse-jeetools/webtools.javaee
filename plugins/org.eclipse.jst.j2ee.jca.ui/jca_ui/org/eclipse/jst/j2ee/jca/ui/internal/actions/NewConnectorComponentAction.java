@@ -26,7 +26,7 @@ import org.eclipse.ui.IWorkbench;
 public class NewConnectorComponentAction extends AbstractOpenWizardWorkbenchAction {
 
 	// TODO MDE 02-28 Find correct label
-	public static String LABEL = JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_WIZ_TITLE); //$NON-NLS-1$
+	public static String LABEL = JCAUIMessages.JCA_MODULE_WIZ_TITLE;
 	private static final String ICON = "newear_wiz"; //$NON-NLS-1$
 
 	/**

@@ -22,13 +22,13 @@ public class ConnectorComponentImportPage extends J2EEModuleImportPage {
 
 	public ConnectorComponentImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_IMPORT_MAIN_PG_TITLE));
-		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_IMPORT_MAIN_PG_DESC));
+		setTitle(JCAUIMessages.JCA_IMPORT_MAIN_PG_TITLE);
+		setDescription(JCAUIMessages.JCA_IMPORT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_IMPORT_WIZARD_BANNER));
 	}
 
 	protected String getFileImportLabel() {
-		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_FILE_LBL);
+		return JCAUIMessages.JCA_FILE_LBL;
 	}
 
 	protected String[] getFilterExpression() {
@@ -40,7 +40,7 @@ public class ConnectorComponentImportPage extends J2EEModuleImportPage {
 	}
 
 	protected String getProjectImportLabel() {
-		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_LBL);
+		return JCAUIMessages.JCA_MODULE_LBL;
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {

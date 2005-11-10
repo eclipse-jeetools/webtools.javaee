@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ExportRARAction extends BaseAction {
 
-	private String label = JCAUIMessages.getResourceString(IConnectorArchiveConstants.CONNECTOR_EXPORT_ACTION_LABEL);
+	private String label = JCAUIMessages.connector_export_action_label_ui_;
 	private static final String ICON = "export_rar_wiz"; //$NON-NLS-1$
 
 	public ExportRARAction() {
