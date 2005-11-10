@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,52 +59,63 @@ import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
 import org.eclipse.wst.server.core.util.ProjectModule;
-
 /**
- * J2EE deployable superclass.
+ * J2EE module superclass.
  */
 public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
-	
-	private String factoryId;
     protected IVirtualComponent component = null;
     private boolean outputMembersAdded = false;
     private List members = new ArrayList();
-    private static IPath WEB_INF_PATH= new Path(J2EEConstants.WEB_INF);
+    private static IPath WEB_INF_PATH = new Path(J2EEConstants.WEB_INF);
     private static IPath WEB_INF_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
 	 * 
 	 * @param project
+	 * @param aComponent
 	 */
-	public J2EEFlexProjDeployable(IProject project, String aFactoryId, IVirtualComponent aComponent) {
+	public J2EEFlexProjDeployable(IProject project, IVirtualComponent aComponent) {
 		super(project);
-		factoryId = aFactoryId;
 		component = aComponent;
 	}
 
-	public String getJ2EESpecificationVersion() {
-		return J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-	}
-	
-	/*
-	 * @see IModule#getFactoryId()
-	 */
-	public String getFactoryId() {
-		return factoryId;
-	}
-
 	/**
-	 * @see com.ibm.etools.server.j2ee.IJ2EEModule#isBinary()
+	 * @see org.eclipse.jst.server.core.IJ2EEModule#isBinary()
 	 */
 	public boolean isBinary() {
 		return false;
 	}
 
-	public String getType() {
-		return J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
+	/**
+	 * Returns the root folders for the resources in this module.
+	 * 
+	 * @return a possibly-empty array of resource folders
+	 */
+	public IContainer[] getResourceFolders() {
+		IVirtualComponent vc = ComponentCore.createComponent(getProject());
+		if (vc != null) {
+			IVirtualFolder vFolder = vc.getRootFolder();
+			if (vFolder != null)
+				return vFolder.getUnderlyingFolders();
+		}
+		
+		return null;
 	}
-	
+
+	/**
+	 * Returns the root folders containing Java output in this module.
+	 * 
+	 * @return a possibly-empty array of Java output folders
+	 */
+	public IContainer[] getJavaOutputFolders() {
+		IVirtualComponent vc = ComponentCore.createComponent(getProject());
+		if (vc == null)
+			return new IContainer[0];
+		
+		return J2EEProjectUtilities.getOutputContainers(getProject());
+	}
+
 	private void getJavaResources() throws CoreException {
 		IContainer[] outputFolders = J2EEProjectUtilities.getOutputContainers(component.getProject());
     	for (int i=0; i<outputFolders.length; i++) {
@@ -145,6 +156,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	 * Return the module resources for both the component meta folder and the java output folder
 	 * 
 	 * @return IModuleResource[]
+	 * @throws CoreException
 	 */
     public IModuleResource[] members() throws CoreException {
         outputMembersAdded = false;
@@ -192,8 +204,8 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
      * Helper method to check a given list of resource trees for the given resource.  It will return the
      * already existing instance of the module Resource if found, or it will return null.
      * 
-     * @param List moduleResources
-     * @param IModuleResource aModuleResource
+     * @param moduleResources
+     * @param aModuleResource
      * @return existing module resource or null
      */
     private IModuleResource getExistingModuleResource(List moduleResources, IModuleResource aModuleResource) {
@@ -352,11 +364,11 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
         }
         return null;
     }
-    
+
     /**
      * Returns the classpath as a list of absolute IPaths.
      * 
-     * @param java.util.List
+     * @return an array of paths
      */
     public IPath[] getClasspath() {
 		List paths = new ArrayList();
@@ -389,7 +401,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 		}
 		return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
 	}
-    
+
     /**
      * Returns the child modules of this module.
      * 
@@ -398,20 +410,20 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     public IModule[] getChildModules() {
         return getModules();
     }
-    
+
     public IModule[] getModules() {
 		List modules = new ArrayList();
     	IVirtualReference[] components = component.getReferences();
-    	for (int i=0; i<components.length; i++) {
+    	for (int i = 0; i < components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent virtualComp = reference.getReferencedComponent();
 			Object module = FlexibleProjectServerUtil.getModule(virtualComp.getProject());
-			if (module!=null)
+			if (module != null)
 				modules.add(module);
 		}
-        return (IModule[]) modules.toArray(new IModule[modules.size()]);
+      return (IModule[]) modules.toArray(new IModule[modules.size()]);
 	}
-    
+
     public String getURI(IModule module) {
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
     	if (J2EEProjectUtilities.isEARProject(comp.getProject())) {

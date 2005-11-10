@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,19 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
@@ -30,130 +28,75 @@ import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 /**
- * J2EE deployable factory superclass.
+ * J2EE module factory.
  */
 public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
+	protected Map moduleDelegates = new HashMap(5);
 
-	public static final String ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
-	protected HashMap projectModules;
-
-	protected final List moduleDelegates = Collections.synchronizedList(new ArrayList(1));
-
-	private long cachedStamp = -2;
-
-	protected static boolean isFlexibleProject(IProject project) {
-		return ModuleCoreNature.getModuleCoreNature(project) != null;
-	}
-	
 	public J2EEDeployableFactory() {
 		super();
 	}
 
-	protected boolean needsUpdating(IProject project) {
-		if(!initialized)
-			return true;
-		IFile component = project.getFile(IModuleConstants.COMPONENT_FILE_PATH);
-		if (!component.exists())
-			return false;
-		if(component.getModificationStamp() != cachedStamp) {
-			cachedStamp = component.getModificationStamp();
-			return true;
-		}
-		return false;
-	}
-
-	protected IModule[] createModules(IProject project) {
-
-		// List modules = createModules(nature);
-		ModuleCoreNature nature = null;
+	protected IModule createModule(IProject project) {
 		try {
-			nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
+			ModuleCoreNature nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
+			if (nature != null)
+				return createModule(nature);
 		} catch (CoreException e) {
 			Logger.getLogger().write(e);
 		}
-		List modules = createModules(nature);
-		if (modules == null)
-			return new IModule[0];
-		IModule[] moduleArray = new IModule[modules.size()];
-		modules.toArray(moduleArray);
-		return moduleArray;
+		return null;
 	}
-	
-	protected List createModules(ModuleCoreNature nature) {
+
+	protected IModule createModule(ModuleCoreNature nature) {
 		IProject project = nature.getProject();
-		List modules = new ArrayList(1); 
-		StructureEdit moduleCore = null;
 		try {
 			IVirtualComponent comp = ComponentCore.createComponent(project);
-			modules = createModuleDelegates(comp);
-
+			return createModuleDelegates(comp);
 		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(moduleCore != null) 
-				moduleCore.dispose();
-		}
-		return modules;
-	}
-	
-	protected boolean isValidModule(IProject project) {
-		try {
-			return isFlexibleProject(project);
-		} catch (Exception e) {
-			//Ignore
-		}
-		return false;
-	}
-
-	public ModuleDelegate getModuleDelegate(IModule module) {
-		if(moduleDelegates.size() == 0)
-			return null;
-		ModuleDelegate[] delegates = (ModuleDelegate[])
-			moduleDelegates.toArray(new ModuleDelegate[moduleDelegates.size()]);
-		for (int i=0; i<delegates.length; i++) {			
-			if (module == delegates[i].getModule())
-				return delegates[i];
+			Logger.getLogger().write(e);
 		}
 		return null;
 	}
-	
-	public IModule[] getModules() {
-		cacheModules(false);
-		ArrayList moduleList = new ArrayList();
-		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
-			IModule[] element = (IModule[]) iter.next();
-			for (int j = 0; j < element.length; j++) {
-				moduleList.add(element[j]);
-			}
-		}
-		IModule[] modules = new IModule[moduleList.size()];
-		moduleList.toArray(modules);
-		return modules;
 
+	public ModuleDelegate getModuleDelegate(IModule module) {
+		return (ModuleDelegate) moduleDelegates.get(module);
 	}
-	
-	protected List createModuleDelegates(IVirtualComponent component) {
+
+	protected IModule createModuleDelegates(IVirtualComponent component) {
 		J2EEFlexProjDeployable moduleDelegate = null;
 		IModule module = null;
-		List moduleList = new ArrayList();
 		try {
-			moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), ID, component);
-			if (moduleDelegate.getType() != "") {
-				module = createModule(component.getName(), component.getName(), moduleDelegate.getType(), moduleDelegate.getJ2EESpecificationVersion(), moduleDelegate.getProject());
-				moduleList.add(module);
-				moduleDelegate.initialize(module);
-			} else return null;
-			
-			// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
+			moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
+			String type = J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
+			if (type != null && !type.equals("")) {
+				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
+				module = createModule(component.getName(), component.getName(), type, version, moduleDelegate.getProject());
+				moduleDelegates.put(module, moduleDelegate);
+			} else
+				return null;
 		} catch (Exception e) {
 			Logger.getLogger().write(e);
-		} finally {
-			if (module != null) {
-				if (getModuleDelegate(module) == null)
-					moduleDelegates.add(moduleDelegate);
-			}
 		}
-		return moduleList;
+		return module;
 	}
 
+	/**
+	 * Returns the list of resources that the module should listen to
+	 * for state changes. The paths should be project relative paths.
+	 * Subclasses can override this method to provide the paths.
+	 *
+	 * @return a possibly empty array of paths
+	 */
+	protected IPath[] getListenerPaths() {
+		return new IPath[] {
+			new Path(".project"), // nature
+			new Path(".settings/.component"), // component
+			new Path(".settings/.org.eclipse.wst.common.project.facet.core.xml") // facets
+		};
+	}
+
+	protected void clearCache() {
+		moduleDelegates = new HashMap(5);
+	}
 }
