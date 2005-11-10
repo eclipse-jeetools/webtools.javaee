@@ -800,7 +800,7 @@ public class RelationData {
 						if (line != null) {
 							indices.addElement(line);
 						} else {
-							System.out.println(ProjectSupportResourceHandler.getString("Syntax_Error_in_the_links_UI_")); //$NON-NLS-1$ = "Syntax Error in the links state file"
+							System.out.println(ProjectSupportResourceHandler.Syntax_Error_in_the_links_UI_); //$NON-NLS-1$ = "Syntax Error in the links state file"
 							return false;
 						}
 					}
@@ -976,7 +976,7 @@ public class RelationData {
 				out.flush();
 				out.close();
 			} catch (IOException e) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ProjectSupportResourceHandler.getString("Error_while_saving_links_s_EXC_")); //$NON-NLS-1$ = "Error while saving links state file"
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ProjectSupportResourceHandler.Error_while_saving_links_s_EXC_); //$NON-NLS-1$ = "Error while saving links state file"
 			}
 		}
 	}

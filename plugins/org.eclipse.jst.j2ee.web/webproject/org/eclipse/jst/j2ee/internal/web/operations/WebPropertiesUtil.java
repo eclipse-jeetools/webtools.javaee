@@ -75,7 +75,7 @@ public class WebPropertiesUtil {
 			if (getModuleServerRoot(project).getProjectRelativePath().equals(newPath))
 				return false;
 			if (project.exists(newPath)) {
-				IStatus status = new Status(IStatus.ERROR, "org.eclipse.jst.j2ee", IStatus.OK, ProjectSupportResourceHandler.getString("Could_not_rename_____2", new Object[]{webContentName}), null); //$NON-NLS-1$ //$NON-NLS-2$	
+				IStatus status = new Status(IStatus.ERROR, "org.eclipse.jst.j2ee", IStatus.OK, ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Could_not_rename_____2, new Object[]{webContentName}), null); //$NON-NLS-1$ //$NON-NLS-2$	
 				throw new CoreException(status);
 			}
 
@@ -193,7 +193,7 @@ public class WebPropertiesUtil {
 			if (monitor == null) {
 				monitor = new NullProgressMonitor();
 			}
-			monitor.beginTask(ProjectSupportResourceHandler.getString("Sychronize_Class_Path_UI_"), 4); //$NON-NLS-1$
+			monitor.beginTask(ProjectSupportResourceHandler.Sychronize_Class_Path_UI_, 4); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Sychronize Class Path"
 
 			IContainer lib_folder = getWebLibFolder(project);
@@ -210,7 +210,7 @@ public class WebPropertiesUtil {
 			// Create a map of the lib projects in the current project
 			Hashtable lib_jars = new Hashtable();
 			IResource[] children = lib_folder.members();
-			monitor.subTask(ProjectSupportResourceHandler.getString("Catalog_Lib_Directory__UI_")); //$NON-NLS-1$
+			monitor.subTask(ProjectSupportResourceHandler.Catalog_Lib_Directory__UI_); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Catalog Lib Directory:"
 			for (int j = 0; j < children.length; j++) {
 				IResource child = children[j];
@@ -225,7 +225,7 @@ public class WebPropertiesUtil {
 			}
 
 			monitor.worked(1);
-			monitor.subTask(ProjectSupportResourceHandler.getString("Update_ClassPath__UI_")); //$NON-NLS-1$
+			monitor.subTask(ProjectSupportResourceHandler.Update_ClassPath__UI_); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Update ClassPath:"
 			// Loop through all the classpath dirs looking for ones that may have
 			// been deleted
@@ -250,13 +250,13 @@ public class WebPropertiesUtil {
 						needsToBeModified = true;
 					}
 				} else {
-					monitor.subTask(ProjectSupportResourceHandler.getString("Catalog_Lib_Directory__UI_") + cp[j].getPath()); //$NON-NLS-1$
+					monitor.subTask(ProjectSupportResourceHandler.Catalog_Lib_Directory__UI_ + cp[j].getPath()); //$NON-NLS-1$
 					//$NON-NLS-1$ = "Catalog Lib Directory:"
 					newClassPathVector.add(cp[j]);
 				}
 			}
 			monitor.worked(1);
-			monitor.subTask(ProjectSupportResourceHandler.getString("Update_ClassPath__UI_")); //$NON-NLS-1$
+			monitor.subTask(ProjectSupportResourceHandler.Update_ClassPath__UI_); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Update ClassPath:"
 
 			// Add any entries not already found
@@ -272,7 +272,7 @@ public class WebPropertiesUtil {
 			}
 
 			monitor.worked(1);
-			monitor.subTask(ProjectSupportResourceHandler.getString("Set_ClassPath__UI_")); //$NON-NLS-1$
+			monitor.subTask(ProjectSupportResourceHandler.Set_ClassPath__UI_); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Set ClassPath:"
 
 			// Tansfer the vector to an array
@@ -341,7 +341,7 @@ public class WebPropertiesUtil {
 		if (name.equals("") || name == null) { //$NON-NLS-1$
 			// this was added because the error message shouldnt be shown initially. It should be
 			// shown only if context root field is edited to
-			errorMessage = ProjectSupportResourceHandler.getString("Context_Root_cannot_be_empty_2"); //$NON-NLS-1$
+			errorMessage = ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2; //$NON-NLS-1$
 			return errorMessage;
 		}
 
@@ -363,7 +363,7 @@ public class WebPropertiesUtil {
 							// ResourceHandler.getString("_Context_root_cannot_conta_UI_");//$NON-NLS-1$
 							// = " Context root cannot contain whitespaces."
 						} else {
-							errorMessage = ProjectSupportResourceHandler.getString("The_character_is_invalid_in_a_context_root", new Object[]{(new Character(token.charAt(i))).toString()}); //$NON-NLS-1$
+							errorMessage = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, new Object[]{(new Character(token.charAt(i))).toString()}); //$NON-NLS-1$
 							break outer;
 						}
 					}
@@ -371,7 +371,7 @@ public class WebPropertiesUtil {
 			}
 		} // en/ end of if(name.trim
 		else
-			errorMessage = ProjectSupportResourceHandler.getString("Names_cannot_begin_or_end_with_whitespace_5"); //$NON-NLS-1$
+			errorMessage = ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5; //$NON-NLS-1$
 
 		return errorMessage;
 	}
@@ -391,10 +391,10 @@ public class WebPropertiesUtil {
 
 	public static String validateFolderName(String folderName) {
 		if (folderName.length() == 0)
-			return ProjectSupportResourceHandler.getString("Folder_name_cannot_be_empty_2"); //$NON-NLS-1$
+			return ProjectSupportResourceHandler.Folder_name_cannot_be_empty_2; //$NON-NLS-1$
 
 		if (contains(folderName, BAD_CHARS))
-			return ProjectSupportResourceHandler.getString("Folder_name_is_not_valid", new Object[]{folderName}); //$NON-NLS-1$
+			return ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Folder_name_is_not_valid, new Object[]{folderName}); //$NON-NLS-1$
 
 		return null;
 	}
@@ -407,7 +407,7 @@ public class WebPropertiesUtil {
 			return msg;
 
 		if (javaSourceName != null && webContentName.equals(javaSourceName))
-			return ProjectSupportResourceHandler.getString("Folder_names_cannot_be_equal_4"); //$NON-NLS-1$
+			return ProjectSupportResourceHandler.Folder_names_cannot_be_equal_4; //$NON-NLS-1$
 
 		// If given a java project, check to make sure current package fragment
 		// root folders do not overlap with new web content name
@@ -425,9 +425,9 @@ public class WebPropertiesUtil {
 								String rootFolder = path.segment(1);
 								if (webContentName.equals(rootFolder)) {
 									if (root.getKind() == IPackageFragmentRoot.K_SOURCE)
-										return ProjectSupportResourceHandler.getString("Folder_name_cannot_be_the_same_as_Java_source_folder_5"); //$NON-NLS-1$
+										return ProjectSupportResourceHandler.Folder_name_cannot_be_the_same_as_Java_source_folder_5; //$NON-NLS-1$
 
-									return ProjectSupportResourceHandler.getString("Folder_name_cannot_be_the_same_as_Java_class_folder_6"); //$NON-NLS-1$
+									return ProjectSupportResourceHandler.Folder_name_cannot_be_the_same_as_Java_class_folder_6; //$NON-NLS-1$
 								}
 							}
 						}

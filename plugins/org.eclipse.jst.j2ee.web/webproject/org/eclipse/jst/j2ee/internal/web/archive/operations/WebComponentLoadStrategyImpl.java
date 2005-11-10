@@ -67,7 +67,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						continue;
 					filesHolder.addFile(utilJAR);
 				} catch (OpenFailureException oe) {
-					String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
+					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
 					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
 				}
 			}
