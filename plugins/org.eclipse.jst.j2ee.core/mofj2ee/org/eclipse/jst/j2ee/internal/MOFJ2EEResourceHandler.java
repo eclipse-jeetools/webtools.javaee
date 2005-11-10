@@ -1,57 +1,49 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
- * IBM Corporation - initial API and implementation
+ *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class MOFJ2EEResourceHandler {
+public final class MOFJ2EEResourceHandler extends NLS {
 
-	private static ResourceBundle fgResourceBundle;
+	private static final String BUNDLE_NAME = "mofj2ee";//$NON-NLS-1$
 
-	/**
-	 * Returns the resource bundle used by all classes in this Project
-	 */
-	public static ResourceBundle getResourceBundle() {
-		try {
-			return ResourceBundle.getBundle("mofj2ee");//$NON-NLS-1$
-		} catch (MissingResourceException e) {
-			// does nothing - this method will return null and
-			// getString(String, String) will return the key
-			// it was called with
-		}
-		return null;
+	private MOFJ2EEResourceHandler() {
+		// Do not instantiate
 	}
-	public static String getString(String key) {
-		if (fgResourceBundle == null) {
-			fgResourceBundle= getResourceBundle();
-		}
-		
-		if (fgResourceBundle != null) {
-			try {
-				return fgResourceBundle.getString(key);
-			} catch (MissingResourceException e) {
-				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-			}
-		} 
-		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-		
+
+	public static String Stack_trace_of_nested_exce;
+	public static String ERROR;
+	public static String WARNING;
+	public static String INFO;
+	public static String DEFAULT_COMPLETED_STATUS_MSG;
+	public static String DEFAULT_NOT_NEEDED_STATUS_MSG;
+	public static String DEFAULT_NOT_POSSIBLE_STATUS_MSG;
+	public static String DEFAULT_ERROR_STATUS_MSG;
+	public static String REMOVED_LOCAL_CLIENT_MSG;
+	public static String REMOVED_ACCESS_INTENTS_MSG;
+	public static String REMOVED_ISOLATION_LEVELS_MSG;
+	public static String CONVERTED_FINDER_MSG;
+	public static String UNNAMED_EJB;
+	public static String CONVERTED_QUERY_DESCRIPTION;
+	public static String MIGRATED_DEFAULT_DATASOURCE_JAR_MSG;
+	public static String MIGRATED_DEFAULT_DATASOURCE_MSG;
+	public static String J2EE_VERSION_NULL_ERROR;
+	public static String J2EE_VERSION_PROXY_ERROR;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, MOFJ2EEResourceHandler.class);
 	}
-public static String getString(String key, Object[] args) {
 
-	try {return MessageFormat.format(getString(key), args);}
-	catch (IllegalArgumentException e) {return getString(key);}
-
+	public static String getString(String key, Object[] args) {
+		return NLS.bind(key, args);
+	}
 }
-}
-
-

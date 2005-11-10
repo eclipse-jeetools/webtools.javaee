@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.client.internal.impl.ClientFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.internal.MOFJ2EEResourceHandler;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXMLResourceHandler;
 import org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationFactoryImpl;
@@ -64,10 +65,10 @@ protected static EClass eClassConnector() {
 public static void checkDDObjectForVersion(EObject dd) {
 	if (dd.eIsProxy()) {
 		String proxyUri = ((InternalEObject)dd).eProxyURI().toString();
-		String message = J2EEXMLResourceHandler.getString("J2EE_VERSION_PROXY_ERROR", new Object[]{proxyUri}); //$NON-NLS-1$
+		String message = MOFJ2EEResourceHandler.getString(MOFJ2EEResourceHandler.J2EE_VERSION_PROXY_ERROR, new Object[]{proxyUri}); //$NON-NLS-1$
 		throw new IllegalStateException(message);
 	} else if (dd.eResource() == null) {
-		String message = J2EEXMLResourceHandler.getString("J2EE_VERSION_NULL_ERROR"); //$NON-NLS-1$
+		String message = MOFJ2EEResourceHandler.J2EE_VERSION_NULL_ERROR; //$NON-NLS-1$
 		throw new IllegalStateException(message);
 	}
 }

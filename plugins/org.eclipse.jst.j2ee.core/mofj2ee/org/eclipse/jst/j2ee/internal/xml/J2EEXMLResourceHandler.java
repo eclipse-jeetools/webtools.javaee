@@ -10,48 +10,38 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.xml;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class J2EEXMLResourceHandler {
+public class J2EEXMLResourceHandler extends NLS {
+	private static final String BUNDLE_NAME = "j2eexml";//$NON-NLS-1$
 
-	private static ResourceBundle fgResourceBundle;
-
-	/**
-	 * Returns the resource bundle used by all classes in this Project
-	 */
-	public static ResourceBundle getResourceBundle() {
-		try {
-			return ResourceBundle.getBundle("j2eexml");//$NON-NLS-1$
-		} catch (MissingResourceException e) {
-			// does nothing - this method will return null and
-			// getString(String, String) will return the key
-			// it was called with
-		}
-		return null;
+	private J2EEXMLResourceHandler() {
+		// Do not instantiate
 	}
-	public static String getString(String key) {
-		if (fgResourceBundle == null) {
-			fgResourceBundle= getResourceBundle();
-		}
-		
-		if (fgResourceBundle != null) {
-			try {
-				return fgResourceBundle.getString(key);
-			} catch (MissingResourceException e) {
-				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-			}
-		} 
-		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-		
+
+	public static String Valid_values_are___EXC_;
+	public static String RAR_file_support__IO_excep_EXC_;
+	public static String Failure_occurred_reading_x_EXC_;
+	public static String missing_req_field_EXC_;
+	public static String An_IO_Exception_occurred_w_EXC_;
+	public static String must_be_boolean_EXC_;
+	public static String unsupported_encoding_EXC_;
+	public static String rar_dtd_not_found_EXC_;
+	public static String empty_collection_EXC_;
+	public static String must_be_int_EXC_;
+	public static String Invalid_value_for__EXC_;
+	public static String An_Exception_occurred_whil_EXC_;
+	public static String dtd_not_found_EXC_;
+	public static String Not_supported_in_this_rele_EXC_;
+	public static String io_ex_saving_EXC_;
+	public static String could_not_create_file_EXC_;
+	public static String unsupported_type_EXC_;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, J2EEXMLResourceHandler.class);
 	}
-public static String getString(String key, Object[] args) {
 
-	try {return MessageFormat.format(getString(key), args);}
-	catch (IllegalArgumentException e) {return getString(key);}
-
+	public static String getString(String key, Object[] args) {
+		return NLS.bind(key, args);
+	}
 }
-}
-
-

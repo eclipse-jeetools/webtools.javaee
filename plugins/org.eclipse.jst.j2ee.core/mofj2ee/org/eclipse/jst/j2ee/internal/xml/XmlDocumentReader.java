@@ -58,7 +58,7 @@ protected void handleException(String aMessage, Throwable anException) {
 		super.handleException(aMessage, anException);
 }
 protected void handleException(String aMessage, SAXParseException parseException) {
-	primHandleException(J2EEXMLResourceHandler.getString("parse_exception_occured_EXC_", (new Object[] {new Integer(parseException.getLineNumber()), new Integer(parseException.getColumnNumber()) })), parseException);  //$NON-NLS-1$
+	primHandleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.parse_exception_occured_EXC_, (new Object[] {new Integer(parseException.getLineNumber()), new Integer(parseException.getColumnNumber()) })), parseException);  //$NON-NLS-1$
 	//$NON-NLS-1$ = "An Exception occurred while parsing xml: {0} Line #: {1} :Column #: "
 }
 protected void primHandleException(String aMessage, Throwable anException) {
