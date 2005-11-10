@@ -15,7 +15,6 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences;
 
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
