@@ -217,7 +217,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			facetDMs.add(setupJavaInstallAction(ejbProject2));
 			IDataModel newModel = setupEjbInstallAction(ejbProject2,ejbVersion);
 			facetDMs.add(newModel);
-			setRuntime(ejbProject2,dm); //Setting runtime property
+			//setRuntime(ejbProject2,dm); //Setting runtime property
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
@@ -233,7 +233,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			facetDMs.add(setupJavaInstallAction(webProj));
 			IDataModel newModel = setupWebInstallAction(webProj,specVersion);
 			facetDMs.add(newModel);
-			setRuntime(webProj,dm); //Setting runtime property
+			//setRuntime(webProj,dm); //Setting runtime property
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {

@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.application.internal.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.client.internal.impl.ClientFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.internal.MOFJ2EEResourceHandler;
-import org.eclipse.jst.j2ee.internal.xml.J2EEXMLResourceHandler;
 import org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationFactoryImpl;
 
