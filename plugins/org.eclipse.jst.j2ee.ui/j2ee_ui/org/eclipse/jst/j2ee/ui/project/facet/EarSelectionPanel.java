@@ -87,8 +87,9 @@ public final class EarSelectionPanel
         
         if( dialog.open() != SWT.CANCEL )
         {
-            final String earproj = wizard.getProjectName();
             model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+            //TODO need to set the project name; can't get it from the wizard because it is disposed.
+            final String earproj = wizard.getProjectName();
             model.setProperty(EAR_PROJECT_NAME, earproj);
         }
     }

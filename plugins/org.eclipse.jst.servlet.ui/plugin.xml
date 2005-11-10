@@ -53,10 +53,10 @@
             name="%web.project_ui_"
             icon="icons/full/ctool16/newwar_wiz.gif"
             category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard"
+            class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.servlet.ui.WebComponentCreationWizard">
+            id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
          <description>
             %new.web.project.description_ui_
          </description>
@@ -449,33 +449,4 @@
     
   </extension>
   
-    <extension point="org.eclipse.ui.newWizards">
-
-    <wizard
-      name="%web-project-wizard-name"
-      icon="icons/full/ctool16/web-wiz-icon.gif"
-      category="org.eclipse.jst.newprojects"
-      class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"
-      project="true"
-      id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
-      <description>%web-project-wizard-description</description>
-    </wizard>
-    
-  </extension>
-	
-    <extension point="org.eclipse.ui.newWizards">
-
-    <wizard
-      name="%web-project-wizard-name"
-      icon="icons/full/ctool16/web-wiz-icon.gif"
-      category="org.eclipse.jst.newprojects"
-      class="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard2"
-      project="true"
-      id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard2">
-      <description>%web-project-wizard-description</description>
-    </wizard>
-    
-  </extension>
-	
-	
 </plugin>
