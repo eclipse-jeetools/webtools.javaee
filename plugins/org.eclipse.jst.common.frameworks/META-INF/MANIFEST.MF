@@ -11,6 +11,7 @@ Export-Package:
  org.eclipse.jst.common.project.facet
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.wst.common.frameworks,
