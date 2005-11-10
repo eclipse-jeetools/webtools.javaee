@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.ejb.componentcore.util;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -18,6 +19,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -210,14 +212,24 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public IVirtualComponent getEJBClientJarModule() {
 		EJBJar jar = getEJBJar();
 		IVirtualComponent ejbComponent, ejbClientComponent = null;
-		String clientJAR = null;
-		if (jar != null)
-			clientJAR = jar.getEjbClientJar();
-		if (clientJAR != null) {
-            clientJAR = clientJAR.substring(0, clientJAR.length() - 4);
-			ejbComponent = ComponentCore.createComponent(getProject());
-			if (ejbComponent == null) return null;
-			ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent();
+		ejbComponent = ComponentCore.createComponent(getProject());
+		if (ejbComponent == null)
+			return null;
+		Properties props = ejbComponent.getMetaProperties();
+		String clientCompName = props.getProperty(CreationConstants.EJB_CLIENT_NAME);
+		if( clientCompName != null && !clientCompName.equals("")){
+			ejbClientComponent = ejbComponent.getReference(clientCompName).getReferencedComponent();
+		}
+		else{
+			String clientJAR = null;
+			if (jar != null)
+				clientJAR = jar.getEjbClientJar();
+			if (clientJAR != null) {
+	            clientJAR = clientJAR.substring(0, clientJAR.length() - 4);
+				ejbComponent = ComponentCore.createComponent(getProject());
+				if (ejbComponent == null) return null;
+				ejbClientComponent = ejbComponent.getReference(clientJAR).getReferencedComponent();
+			}
 		}
 		return ejbClientComponent;
 	}

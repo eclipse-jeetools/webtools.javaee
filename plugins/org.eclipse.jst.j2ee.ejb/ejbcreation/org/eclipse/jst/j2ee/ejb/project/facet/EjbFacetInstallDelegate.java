@@ -21,6 +21,7 @@ import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
@@ -134,7 +135,10 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				if( ejbClientProject.exists())
 					return;
 					
+				c.setMetaProperty(CreationConstants.EJB_CLIENT_NAME, clientProjectName);
 				
+				String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
+				c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI );
 				
 				try{	
 					IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());

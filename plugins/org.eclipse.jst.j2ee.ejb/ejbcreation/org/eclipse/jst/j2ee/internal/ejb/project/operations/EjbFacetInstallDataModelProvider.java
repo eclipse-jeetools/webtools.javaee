@@ -18,6 +18,7 @@ public class EjbFacetInstallDataModelProvider
 		names.add(CLIENT_NAME);
 		names.add(CLIENT_SOURCE_FOLDER);
 		names.add(RUNTIME_TARGET_ID);
+		names.add(CLIENT_URI);
 		return names;
 	}
 	

@@ -2,6 +2,7 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -19,9 +20,11 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
@@ -109,6 +112,9 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME, ejbClientComponentDataModel.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
 
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER, model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI,
+				ejbClientComponentDataModel.getStringProperty(IEJBClientComponentCreationDataModelProperties.CLIENT_COMPONENT_URI));
+		
 		ejbFacetInstallDataModel.setProperty(IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID));
 
 		return ejbFacetInstallDataModel;
@@ -218,14 +224,21 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		IDataModel ejbClientComponentDataModel = (IDataModel) model.getProperty(IEjbComponentCreationDataModelProperties.NESTED_MODEL_EJB_CLIENT_CREATION);
 		String clientProjectName = ejbClientComponentDataModel.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 
+		IVirtualComponent c = ComponentCore.createComponent(ejbProj);
+		Properties props = c.getMetaProperties();
 
-
+		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
+		
 		EJBArtifactEdit ejbEdit = null;
 		try {
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite(ejbProj);
 			if (ejbEdit != null) {
 				EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
-				ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+				if( clienturi != null && !clienturi.equals("")){
+					ejbres.setEjbClientJar(clienturi);//$NON-NLS-1$
+				}else
+					ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+				ejbres.setEjbClientJar(clienturi);//$NON-NLS-1$
 				ejbEdit.saveIfNecessary(monitor);
 			}
 		} catch (Exception e) {
