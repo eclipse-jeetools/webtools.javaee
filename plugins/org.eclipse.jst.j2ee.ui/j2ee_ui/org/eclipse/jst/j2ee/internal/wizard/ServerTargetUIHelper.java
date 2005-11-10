@@ -20,7 +20,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -120,11 +119,11 @@ public class ServerTargetUIHelper {
 	//	}
 
 	public static void setServerTarget(Shell shell, IProject project, IRuntime runtime, IProgressMonitor monitor) {
-		try {
-			ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
-		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
-		}
+//		try {
+//			ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
+//		} catch (CoreException e) {
+//			Logger.getLogger().logError(e);
+//		}
 	}
 
 

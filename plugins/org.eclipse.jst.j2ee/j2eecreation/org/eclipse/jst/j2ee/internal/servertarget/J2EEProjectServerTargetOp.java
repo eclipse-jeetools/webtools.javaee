@@ -12,7 +12,6 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.internal.ResourceManager;
 
 public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
@@ -34,7 +33,7 @@ public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
 			project = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 		if (runtime != null && project != null) {
 			try {
-				ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
+				//ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
 				if (model.getBooleanProperty(IJ2EEProjectServerTargetDataModelProperties.UPDATE_MODULES) 
 						&& project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 					//ServerTargetHelper.setNewServerTargetForEARModules(runtime, project);
