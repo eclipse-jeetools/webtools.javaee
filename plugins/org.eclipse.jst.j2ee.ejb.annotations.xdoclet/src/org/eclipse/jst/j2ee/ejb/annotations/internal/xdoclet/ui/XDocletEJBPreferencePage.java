@@ -19,7 +19,6 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
-import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 
@@ -44,17 +43,17 @@ import org.eclipse.ui.IWorkbench;
 
 public class XDocletEJBPreferencePage extends PropertyPreferencePage implements SelectionListener {
 
-	private static ResourceBundle bundle = ResourceBundle
-			.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
+	//private static ResourceBundle bundle = ResourceBundle
+	//		.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
 
 	private static final String[][] ejboptions = {
-			{ XDocletPreferenceStore.EJB_JBOSS, "JBoss", bundle.getString("desc_ejbdoclet_jboss"), "CHECK",
+			{ XDocletPreferenceStore.EJB_JBOSS, "JBoss", Messages.desc_ejbdoclet_jboss, "CHECK",
 					"2.4,3.0,3.0.1,3.0.2,3.0.3,3.2,4.0", "2.4" },
-			{ XDocletPreferenceStore.EJB_JONAS, "JOnAS", bundle.getString("desc_ejbdoclet_jonas"), "CHECK", "2.3,2.4,2.5,2.6,3.0",
+			{ XDocletPreferenceStore.EJB_JONAS, "JOnAS", Messages.desc_ejbdoclet_jonas, "CHECK", "2.3,2.4,2.5,2.6,3.0",
 					"2.6" },
-			{ XDocletPreferenceStore.EJB_WEBLOGIC, "WebLogic", bundle.getString("desc_ejbdoclet_weblogic"), "CHECK",
+			{ XDocletPreferenceStore.EJB_WEBLOGIC, "WebLogic", Messages.desc_ejbdoclet_weblogic, "CHECK",
 					"6.0,6.1,7.0,8.1", "6.1" },
-			{ XDocletPreferenceStore.EJB_WEBSPHERE, "WebSphere", bundle.getString("desc_ejbdoclet_websphere"), "CHECK", "all", "all" }
+			{ XDocletPreferenceStore.EJB_WEBSPHERE, "WebSphere", Messages.desc_ejbdoclet_websphere, "CHECK", "all", "all" }
 
 	};
 
@@ -121,7 +120,7 @@ public class XDocletEJBPreferencePage extends PropertyPreferencePage implements 
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText(bundle.getString("label_set_ejbdoclet_preference"));
+		label.setText(Messages.label_set_ejbdoclet_preference);
 
 		panel.preferences = new Control[ejboptions.length + 11];
 		panel.fActive = new Button[ejboptions.length+11];
@@ -134,68 +133,68 @@ public class XDocletEJBPreferencePage extends PropertyPreferencePage implements 
 		panel.preferences[ejboptions.length] = panel.createLabeledCheck(
 				ejboptions.length, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATELOCAL),
-				bundle.getString("label_generate_local"),
-				bundle.getString("label_generate_local_desc"), 
+				Messages.label_generate_local,
+				Messages.label_generate_local_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATELOCAL), defPanel);
 		panel.preferences[ejboptions.length + 1] = panel.createLabeledCheck(
 				ejboptions.length+1, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEREMOTE),
-				bundle.getString("label_generate_remote"),
-				bundle.getString("label_generate_remote_desc"), 
+				Messages.label_generate_remote,
+				Messages.label_generate_remote_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEREMOTE), defPanel);
 		panel.preferences[ejboptions.length + 2] = panel.createLabeledCheck(
 				ejboptions.length+2, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEUTIL),
-				bundle.getString("label_generate_util"),
-				bundle.getString("label_generate_util_desc"), 
+				Messages.label_generate_util,
+				Messages.label_generate_util_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEUTIL), defPanel);
 		panel.preferences[ejboptions.length + 3] = panel.createLabeledCheck(
 				ejboptions.length+3, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT),
-				bundle.getString("label_generate_dataobject"),
-				bundle.getString("label_generate_dataobject_desc"), 
+				Messages.label_generate_dataobject,
+				Messages.label_generate_dataobject_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT), defPanel);
 		panel.preferences[ejboptions.length + 4] = panel.createLabeledCheck(
 				ejboptions.length+4, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO),
-				bundle.getString("label_generate_dao"),
-				bundle.getString("label_generate_dao_desc"), 
+				Messages.label_generate_dao,
+				Messages.label_generate_dao_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO), defPanel);
 		panel.preferences[ejboptions.length + 5] = panel.createLabeledCheck(
 				ejboptions.length+5, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT),
-				bundle.getString("label_generate_valueobject"),
-				bundle.getString("label_generate_valueobject_desc"), 
+				Messages.label_generate_valueobject,
+				Messages.label_generate_valueobject_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT), defPanel);
 		panel.preferences[ejboptions.length + 6] = panel.createLabeledCheck(
 				ejboptions.length+6, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK),
-				bundle.getString("label_generate_entitypk"),
-				bundle.getString("label_generate_entitypk_desc"), 
+				Messages.label_generate_entitypk,
+				Messages.label_generate_entitypk_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK), defPanel);
 		panel.preferences[ejboptions.length + 7] = panel.createLabeledCheck(
 				ejboptions.length+7, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP),
-				bundle.getString("label_generate_entitycmp"),
-				bundle.getString("label_generate_entitycmp_desc"), 
+				Messages.label_generate_entitycmp,
+				Messages.label_generate_entitycmp_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP), defPanel);
 		panel.preferences[ejboptions.length + 8] = panel.createLabeledCheck(
 				ejboptions.length+8, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP),
-				bundle.getString("label_generate_entitybmp"),
-				bundle.getString("label_generate_entitybmp_desc"), 
+				Messages.label_generate_entitybmp,
+				Messages.label_generate_entitybmp_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP), defPanel);
 		panel.preferences[ejboptions.length + 9] = panel.createLabeledCheck(
 				ejboptions.length+9, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION),
-				bundle.getString("label_generate_session"),
-				bundle.getString("label_generate_session_desc"), 
+				Messages.label_generate_session,
+				Messages.label_generate_session_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION), defPanel);
 		panel.preferences[ejboptions.length + 10] = panel.createLabeledCheck(
 				ejboptions.length+10, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB),
-				bundle.getString("label_generate_mdb"),
-				bundle.getString("label_generate_mdb_desc"), 
+				Messages.label_generate_mdb,
+				Messages.label_generate_mdb_desc, 
 				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB), defPanel);
 
 		return composite;

@@ -15,7 +15,6 @@
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -132,13 +131,13 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		defPanel.setLayoutData(gridData);
 
-		ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
+		//ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
 
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText(bundle.getString("label_set_xdoclet_runtime_preference"));
+		label.setText(Messages.label_set_xdoclet_runtime_preference);
 
 		int numCont = 3;
 		if (isProjectPreferencePage())
@@ -149,17 +148,17 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 
 		if (isProjectPreferencePage())
 			panel.preferences[3] = panel.createLabeledCheck(3, getStore().isPropertyActive(
-					XDocletPreferenceStore.XDOCLETUSEGLOBAL), bundle.getString("label_global_pref"), bundle
-					.getString("desc_global_pref"), getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
+					XDocletPreferenceStore.XDOCLETUSEGLOBAL), Messages.label_global_pref, Messages.desc_global_pref,
+					getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
 
 		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().isPropertyActive(
-				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), bundle.getString("label_enable_xdoclet_builder"), bundle
-				.getString("desc_enable_xdoclet_builder"), getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
+				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), Messages.label_enable_xdoclet_builder, Messages.desc_enable_xdoclet_builder,
+				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
 				defPanel);
-		panel.preferences[2] = panel.createLabeledPath(2, true, bundle.getString("label_xdoclet_home"), bundle
-				.getString("desc_xdoclet_home"), getStore().getProperty(XDocletPreferenceStore.XDOCLETHOME), defPanel);
-		panel.preferences[1] = panel.createLabeledCombo(1, false, true, bundle.getString("label_xdoclet_version"), bundle
-				.getString("desc_xdoclet_version"), getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), new String[] {
+		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home,
+				getStore().getProperty(XDocletPreferenceStore.XDOCLETHOME), defPanel);
+		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version, Messages.desc_xdoclet_version,
+				getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), new String[] {
 				"1.2.1", "1.2.2", "1.2.3" }, defPanel);
 		final Text xDocletPath = (Text) panel.preferences[2];
 		final Combo xDocletVersion = (Combo) panel.preferences[1];
