@@ -103,7 +103,7 @@ public Hashtable getAndValidateSecurityRoles(EList roles) {
 			 name = name.trim() ;
 	  if (name == null || name.equals("")) { //$NON-NLS-1$
 		  String[] parms = new String[1];
-		  parms[0] = WARValidationResourceHandler.getString("of_Type_Security_Role_Name_6") ; //$NON-NLS-1$
+		  parms[0] = WARValidationResourceHandler.of_Type_Security_Role_Name_6 ; 
 		  addError(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,role);
 		  continue ;          
 	  }
@@ -138,7 +138,7 @@ public String getBaseName(){
 
 	public String getName()
 	{
-		return WARValidationResourceHandler.getString("Web_Archive_Validator_8"); //$NON-NLS-1$
+		return WARValidationResourceHandler.Web_Archive_Validator_8; 
 	}
 	// Messaging helpers ...
 
@@ -310,7 +310,7 @@ public void validateAuthConstraint(AuthConstraint authConstraint, Hashtable secR
 			String role = (String)authRoles.next() ;
 			if (role == null || role.trim().equals("")) { //$NON-NLS-1$
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Role_Name_19") ; //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_Role_Name_19 ; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,authConstraint);
 				continue ;              
 			}
@@ -347,7 +347,7 @@ public void validateContextParameters() {
 
 		if (name == null || name.equals("") ) { //$NON-NLS-1$
 			String[] parms = new String[1];
-			parms[0] = WARValidationResourceHandler.getString("of_Type_Parameter_Name_25"); //$NON-NLS-1$
+			parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_25; 
 
 			addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms, context);
 			continue;
@@ -355,7 +355,7 @@ public void validateContextParameters() {
 		//if (remember.get(name + value) != null) { // Check for dups
 		if (remember.get(name) != null) { // Check for dups
 			String[] parms = new String[1];
-			parms[0] = WARValidationResourceHandler.getString("of_Type_Parameter_Name_25") + ": " + name; //$NON-NLS-1$  //$NON-NLS-2$
+			parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_25 + ": " + name; 
 			addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, context);
 			continue;
 		}
@@ -379,14 +379,14 @@ public void validateContextParameters() {
 
 			if (name == null || name.equals("") ) { //$NON-NLS-1$ 
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Parameter_Name_32"); //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_32; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms, initParam);
 				continue;
 			}
 			if (remember.get(name) != null) { // Check for dups
 
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Parameter_Name_25") + ": " +  name; //$NON-NLS-1$ //$NON-NLS-2$
+				parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_25 + ": " +  name; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, initParam);
 				continue;
 			}
@@ -409,13 +409,13 @@ public void validateContextParameters() {
 
 			if (name == null || name.equals("") ) { //$NON-NLS-1$ 
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Parameter_Name_39"); //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_39; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms, initParam);
 				continue;
 			}
 			if (remember.get(name) != null) { // Check for dups
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Parameter_Name_25") + ": " +  name; //$NON-NLS-1$ //$NON-NLS-2$
+				parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_25 + ": " +  name; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, initParam);
 				continue;
 			}
@@ -483,7 +483,7 @@ public void validateEJBRefs(EjbRefImpl eref) {
 
 				if (name.equals("")) { //$NON-NLS-1$
 					String[] parms = new String[1];
-					parms[0] = WARValidationResourceHandler.getString("of_Type_ejb-ref-name_44"); //$NON-NLS-1$
+					parms[0] = WARValidationResourceHandler.of_Type_ejb_ref_name_44; 
 					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,eref);
 					continue ;
 				}           
@@ -496,7 +496,7 @@ public void validateEJBRefs(EjbRefImpl eref) {
 				remember.put(name,"Yea") ; //$NON-NLS-1$
 			} else {
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_ejb-ref-name_44"); //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_ejb_ref_name_44; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,eref);
 				continue ;
 			}
@@ -530,7 +530,7 @@ public void validateEJBRefs(EjbRefImpl eref) {
 	
 				if (name.equals("")) { //$NON-NLS-1$
 					String[] parms = new String[1];
-					parms[0] = WARValidationResourceHandler.getString("of_Type_ejb-ref-name_44"); //$NON-NLS-1$
+					parms[0] = WARValidationResourceHandler.of_Type_ejb_ref_name_44; 
 					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,eref);
 					continue ;
 				}
@@ -543,7 +543,7 @@ public void validateEJBRefs(EjbRefImpl eref) {
 				remember.put(name,"Yea") ; //$NON-NLS-1$
 			} else {
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_ejb-ref-name_44"); //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_ejb_ref_name_44; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,eref);
 				continue ;
 			}
@@ -568,12 +568,12 @@ public void validateErrorPages(EList errorPageList) {
 	String location = nextPage.getLocation() ;
 	if (location == null || location.equals("")) { //$NON-NLS-1$
 		String[] parms = new String[1];
-		parms[0] = WARValidationResourceHandler.getString("of_Type_Error_Location_47") ; //$NON-NLS-1$
+		parms[0] = WARValidationResourceHandler.of_Type_Error_Location_47 ; 
 		addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,nextPage);
 	}
 	if (!location.startsWith("/")){ //$NON-NLS-1$
 		String[] parms = new String[1];
-		parms[0] = WARValidationResourceHandler.getString("of_Type_Error_Location_49") ; //$NON-NLS-1$
+		parms[0] = WARValidationResourceHandler.of_Type_Error_Location_49 ; 
 		addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_INVALID_ERROR_PAGE, parms,nextPage);
 	}
 
@@ -686,7 +686,7 @@ public void validateEnvironmentEntries( EList envEntries ) {
   	if ( name != null ) {
   		if (remember.get(name) != null) {   // Check for dups
 		  String[] parms = new String[1];
-		  parms[0] = WARValidationResourceHandler.getString("of_Type_Env_Entry_Name___88") +  ": " + name; //$NON-NLS-1$  //$NON-NLS-2$
+		  parms[0] = WARValidationResourceHandler.of_Type_Env_Entry_Name___88 +  ": " + name; 
 		  addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms,entry);
 	    }
 	    else {
@@ -722,16 +722,16 @@ public void validateMimeMapping() {
 	  if (ext == null || ext.equals("") || mtype == null || mtype.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
 		  String[] parms = new String[1];
 		  if (ext == null || ext.trim().equals("")) //$NON-NLS-1$
-			 parms[0] = WARValidationResourceHandler.getString("of_Type_Mime_Extension_54") ;    //$NON-NLS-1$
+			 parms[0] = WARValidationResourceHandler.of_Type_Mime_Extension_54 ;    
 		  else
-			 parms[0] = WARValidationResourceHandler.getString("of_Type_Mime_Type_55") ; //$NON-NLS-1$
+			 parms[0] = WARValidationResourceHandler.of_Type_Mime_Type_55 ; 
 		  addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,mimeMap);
 		  continue ;          
 	  }
 	  if (remember.get(ext) != null) {   // Check for dups
 
 		  String[] parms = new String[1];
-		  parms[0] = WARValidationResourceHandler.getString("of_Type_Mime_Extension___56") + ": " + ext ; //$NON-NLS-1$  //$NON-NLS-2$
+		  parms[0] = WARValidationResourceHandler.of_Type_Mime_Extension___56 + ": " + ext ; 
 		  addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms,mimeMap);
 		  continue ;
 	  }
@@ -975,7 +975,7 @@ public void validateSecurityConstraints(EList constraints, Hashtable secRoles) {
 	  EList webResourceList = constraint.getWebResourceCollections() ;
 	  if (webResourceList == null || webResourceList.isEmpty()) {
 		  String[] parms = new String[1];
-		  parms[0] = WARValidationResourceHandler.getString("of_Type_Web_Resource_Collection_64") ; //$NON-NLS-1$
+		  parms[0] = WARValidationResourceHandler.of_Type_Web_Resource_Collection_64 ; 
 		  addError(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,constraint);
 		  continue ;          
 	  }   
@@ -1014,7 +1014,7 @@ public void validateFilters(EList filterList){
 
 			if (name == null || name.equals("")) { //$NON-NLS-1$
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Filter_Name_66") ; //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_Filter_Name_66 ; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,nextFilter);
 				continue ;
 			}           
@@ -1056,7 +1056,7 @@ public void validateFilterMappings(EList filterMappingsList) {
 		
 		// Is is a valid URI notation ?
 		try {
-		   if (url.equals("")) throw new Exception(WARValidationResourceHandler.getString("Invalid_URL_70")) ; //$NON-NLS-1$ //$NON-NLS-2$
+		   if (url.equals("")) throw new Exception(WARValidationResourceHandler.Invalid_URL_70) ; 
 		// You can't use com.ibm.webtools.URI here...
 		//       com.ibm.iwt.webtools.URI uri = new com.ibm.iwt.webtools.URI(url) ;
 		}
@@ -1139,7 +1139,7 @@ public void validateServletMappings(EList servletMappingsList) {
 
 	// Is is a valid URI notation ?
 	try {
-	   if (url.equals("")) throw new Exception(WARValidationResourceHandler.getString("Invalid_URL_75")) ; //$NON-NLS-1$ //$NON-NLS-2$
+	   if (url.equals("")) throw new Exception(WARValidationResourceHandler.Invalid_URL_75) ; 
 
 //
 // The spec does not prohibit whitespace in the url-patterns
@@ -1186,7 +1186,7 @@ public void validateServletMappings(EList servletMappingsList) {
 
 			if (name == null || name.equals("")) { //$NON-NLS-1$
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.getString("of_Type_Servlet_Name_77"); //$NON-NLS-1$
+				parms[0] = WARValidationResourceHandler.of_Type_Servlet_Name_77; 
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms,nextServlet);
 				continue ;
 			}           
@@ -1244,14 +1244,14 @@ public void validateTagLibs(){
 
 		if (uri == null || uri.equals("")) { //$NON-NLS-1$
 			String[] parms = new String[1];
-			parms[0] = WARValidationResourceHandler.getString("of_Type_Taglib_80"); //$NON-NLS-1$
+			parms[0] = WARValidationResourceHandler.of_Type_Taglib_80; 
 			addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms, taglib);
 			continue;
 		}
 		if (remember.get(uri) != null) { // Check for dups
 
 			String[] parms = new String[1];
-			parms[0] = WARValidationResourceHandler.getString("of_Type_TagLib___81") + ": " + uri; //$NON-NLS-1$  //$NON-NLS-2$
+			parms[0] = WARValidationResourceHandler.of_Type_TagLib___81 + ": " + uri; 
 			addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, taglib);
 			continue;
 		}
@@ -1270,7 +1270,7 @@ public void validateWebResourceCollections(EList webResourceList) {
 		  if (name != null) name = name.trim() ;
 		  if (name == null || name.equals("")) {  // should have a name //$NON-NLS-1$
 			  String[] parms = new String[1];
-			  parms[0] = WARValidationResourceHandler.getString("of_Type_Web_Resource_Name_84") ; //$NON-NLS-1$
+			  parms[0] = WARValidationResourceHandler.of_Type_Web_Resource_Name_84 ; 
 			  addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY , parms,resource);             
 		  }
 
@@ -1320,7 +1320,7 @@ public void validateWelcomeFileList(WelcomeFileList fileList) {
 	fileName = fileName.trim() ;
 	if (remember.get(fileName) != null) {
 		String[] parms = new String[1];
-		parms[0] = WARValidationResourceHandler.getString("of_Type_Welcome_File_Name__87") + ": " + fileName ; //$NON-NLS-1$  //$NON-NLS-2$
+		parms[0] = WARValidationResourceHandler.of_Type_Welcome_File_Name__87 + ": " + fileName ; 
 		addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms,nextFile);
 		continue ;      
 	}
