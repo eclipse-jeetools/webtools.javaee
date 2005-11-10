@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.ParamValue;
-import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Filter;
@@ -59,7 +58,7 @@ public class WebArtifactEditFVTest extends TestCase {
 	
 	public void testDeployableResourceGather() {
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
-		J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(webProject, J2EEDeployableFactory.ID, webComp);
+		J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(webProject,  webComp);
 		try {
 			IModuleResource[] resources = deployable.members();
 			assertTrue(resources.length>1);
