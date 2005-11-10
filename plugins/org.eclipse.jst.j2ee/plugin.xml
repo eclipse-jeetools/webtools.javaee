@@ -534,9 +534,9 @@
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
       </action>
-      <action type="version-change">
+<!--  <action type="version-change">
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
-      </action>
+      </action> -->
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -550,9 +550,9 @@
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
       </action>
-      <action type="version-change">
+  <!-- <action type="version-change">
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
-      </action>
+      </action> -->
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -566,9 +566,9 @@
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
       </action>
-      <action type="version-change">
+ <!-- <action type="version-change">
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
-      </action>
+      </action> -->
       <constraint>
         <and>
           <conflicts group="modules"/>

@@ -390,9 +390,9 @@
       <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
     </action>
 
-    <action type="version-change" facet="jst.web" version="&gt;=2.2,&lt;=2.4">
+<!-- <action type="version-change" facet="jst.web" version="&gt;=2.2,&lt;=2.4">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
-    </action>
+    </action> -->
     
     <action type="runtime-changed" facet="jst.web" version="&gt;=2.2,&lt;=2.4">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
