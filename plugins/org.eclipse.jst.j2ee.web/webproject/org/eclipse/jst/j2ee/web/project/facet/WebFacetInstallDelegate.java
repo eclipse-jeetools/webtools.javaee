@@ -23,23 +23,28 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
+import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -54,7 +59,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 
 		try {
-			IDataModel model = (IDataModel) cfg;
+			final IDataModel model = (IDataModel) cfg;
 
 			final IJavaProject jproj = JavaCore.create(project);
 
@@ -158,6 +163,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Associate with an EAR, if necessary.
 
+			
 			if (model.getBooleanProperty(IWebFacetInstallDataModelProperties.ADD_TO_EAR)) {
 				final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
@@ -168,7 +174,15 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 
-					IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+					final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
+						public IDataModelOperation getDefaultOperation() {
+							return new AddComponentToEnterpriseApplicationOp(model){
+								protected Module createNewModule(IVirtualComponent wc) {
+									return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createWebModule();
+								}
+							};
+						}
+					});
 					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
 					List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 					modList.add(c);
@@ -177,7 +191,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 						dataModel.getDefaultOperation().execute(null, null);
 					} catch (ExecutionException e) {
 						Logger.getLogger().logError(e);
-					}
+					}	
+
 				}
 			}
 
