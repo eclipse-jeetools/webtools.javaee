@@ -24,9 +24,9 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	protected AddMessageDrivenBeanWizardPage addMessageDrivenBeanWizardPage = null;
 	protected NewEjbClassOptionsWizardPage newEjbClassOptionsWizardPage = null;
 
-	private static final String PAGE_TWO = "pageTwo"; //$NON-NLS-1$
-	private static final String PAGE_THREE = "pageThree"; //$NON-NLS-1$
-	private static final String PAGE_FOUR = "pageFour"; //$NON-NLS-1$
+	public static final String PAGE_ONE_NAME = "message.pageOne"; //$NON-NLS-1$
+	public static final String PAGE_TWO_NAME = "message.pageTwo"; //$NON-NLS-1$
+	public static final String PAGE_THREE_NAME = "message.pageThree"; //$NON-NLS-1$
 
 	/**
 	 * @param model
@@ -66,18 +66,18 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		newJavaClassWizardPage = new NewEjbClassWizardPage(getDataModel(), PAGE_TWO,
+		newJavaClassWizardPage = new NewEjbClassWizardPage(getDataModel(), PAGE_ONE_NAME,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE, J2EEProjectUtilities.EJB);
 		newJavaClassWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
 		addPage(newJavaClassWizardPage);
 
-		addMessageDrivenBeanWizardPage = new AddMessageDrivenBeanWizardPage(getDataModel(), PAGE_THREE);
+		addMessageDrivenBeanWizardPage = new AddMessageDrivenBeanWizardPage(getDataModel(), PAGE_TWO_NAME);
 		addMessageDrivenBeanWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(addMessageDrivenBeanWizardPage);
 		addMessageDrivenBeanWizardPage.setPageComplete(false);
 
-		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(getDataModel(), PAGE_FOUR,
+		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(getDataModel(), PAGE_THREE_NAME,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC, IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
 		newEjbClassOptionsWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);
 		addPage(newEjbClassOptionsWizardPage);

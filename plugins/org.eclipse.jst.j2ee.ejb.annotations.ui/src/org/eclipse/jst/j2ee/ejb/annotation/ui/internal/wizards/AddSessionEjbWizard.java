@@ -29,9 +29,9 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 	protected AddSessionBeanWizardPage addSessionBeanWizardPage = null;
 	protected NewEjbClassOptionsWizardPage newEjbClassOptionsWizardPage = null;
 	
-	private static final String PAGE_TWO = "pageTwo"; //$NON-NLS-1$
-	private static final String PAGE_THREE = "pageThree"; //$NON-NLS-1$
-	private static final String PAGE_FOUR = "pageFour"; //$NON-NLS-1$
+	public static final String PAGE_ONE_NAME = "session.pageOne"; //$NON-NLS-1$
+	public static final String PAGE_TWO_NAME = "session.pageTwo"; //$NON-NLS-1$
+	public static final String PAGE_THREE_NAME = "session.pageThree"; //$NON-NLS-1$
 	
 	
 	/**
@@ -94,7 +94,7 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 	public void doAddPages() {
 		newJavaClassWizardPage = new NewEjbClassWizardPage(
 				getDataModel(), 
-				PAGE_TWO,
+				PAGE_ONE_NAME,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE,
 				J2EEProjectUtilities.EJB);
@@ -102,14 +102,14 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 		addPage(newJavaClassWizardPage);
 		
 		
-		addSessionBeanWizardPage = new AddSessionBeanWizardPage(getDataModel(), PAGE_THREE);
+		addSessionBeanWizardPage = new AddSessionBeanWizardPage(getDataModel(), PAGE_TWO_NAME);
 		addSessionBeanWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(addSessionBeanWizardPage);
 		addSessionBeanWizardPage.setPageComplete(false);
 
 		newEjbClassOptionsWizardPage = new NewEjbClassOptionsWizardPage(
 				getDataModel(), 
-				PAGE_FOUR,
+				PAGE_THREE_NAME,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
 				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
 		newEjbClassOptionsWizardPage.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);
