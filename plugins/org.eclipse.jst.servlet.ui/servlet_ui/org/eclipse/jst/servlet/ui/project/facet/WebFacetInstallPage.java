@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.servlet.ui.project.facet;
 
+import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
