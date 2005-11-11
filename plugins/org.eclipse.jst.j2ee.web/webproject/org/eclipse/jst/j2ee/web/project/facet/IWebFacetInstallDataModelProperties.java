@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.project.facet;
 
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 
 
 
-public interface IWebFacetInstallDataModelProperties extends IJ2EEFacetInstallDataModelProperties {
+public interface IWebFacetInstallDataModelProperties extends IJ2EEModuleFacetInstallDataModelProperties {
 
 
 	public static final String CONTEXT_ROOT = "IWebFacetInstallDataModelProperties.CONTEXT_ROOT"; //$NON-NLS-1$

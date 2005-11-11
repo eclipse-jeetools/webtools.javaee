@@ -126,7 +126,7 @@ public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWi
 	 * </p>
 	 */
 	public String getNextPage(String currentPageName, String expectedNextPageName) {
-		if (!shouldShowModulesPage() && expectedNextPageName.equals(MODULE_PG)) {
+		if (!shouldShowModulesPage() && (null != expectedNextPageName && expectedNextPageName.equals(MODULE_PG))) {
 			return IDMPageHandler.PAGE_AFTER;
 		}
 		return super.getNextPage(currentPageName, expectedNextPageName);

@@ -62,7 +62,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 		GridLayout layout = new GridLayout(3, false);
 		composite.setLayout(layout);
 		createServerTargetComposite(composite);
-		createEarComposit(composite);
+		createEarComposite(composite);
 
 		Composite detail = new Composite(top, SWT.NONE);
 		detail.setLayout(new GridLayout());
@@ -70,7 +70,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelWiza
 		return top;
 	}
 
-	private void createEarComposit(Composite composite) {
+	private void createEarComposite(Composite composite) {
 		FacetDataModelMap map = (FacetDataModelMap) model.getProperty(FACET_DM_MAP);
 		IDataModel facetModel = (IDataModel) map.get(getModuleFacetID());
 

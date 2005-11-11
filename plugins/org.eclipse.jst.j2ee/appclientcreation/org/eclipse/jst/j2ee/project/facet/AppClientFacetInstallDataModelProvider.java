@@ -7,7 +7,7 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvi
 
 public class AppClientFacetInstallDataModelProvider
 	extends FacetInstallDataModelProvider
-	implements IJ2EEFacetInstallDataModelProperties{
+	implements IJ2EEModuleFacetInstallDataModelProperties{
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();

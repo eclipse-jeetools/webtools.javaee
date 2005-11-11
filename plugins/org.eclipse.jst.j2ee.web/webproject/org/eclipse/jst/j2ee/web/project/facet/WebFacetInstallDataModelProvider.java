@@ -63,7 +63,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		return super.isPropertyEnabled(propertyName);
 	}
 
-	protected int convertModuleVersionToJ2EEVersion(IProjectFacetVersion version) {
+	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		if (WebFacetUtils.WEB_22.equals(version)) {
 			return J2EEVersionConstants.J2EE_1_2_ID;
 		} else if (WebFacetUtils.WEB_23.equals(version)) {

@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstalDataModelProperties;
 
+public interface IJ2EEFacetInstalDataModelProperties extends IFacetInstalDataModelProperties {
 
-
-public interface IUtilityFacetInstallDataModelProperties extends IJ2EEModuleFacetInstallDataModelProperties {
-
+	public static final String RUNTIME_TARGET_ID = "IJ2EEFacetInstalDataModelProperties.RUNTIME_TARGET_ID"; //$NON-NLS-1$
+	
 }

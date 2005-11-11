@@ -18,7 +18,7 @@ import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -62,11 +62,11 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			IFolder sourceFolder = null;
 			String configFolder = null;
 			if (root.getProjectRelativePath().segmentCount() == 0) {
-				configFolder = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+				configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 				root.createLink(new Path("/" + configFolder), 0, null);
 
 
-				String configFolderName = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+				String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 				IPath configFolderpath = pjpath.append(configFolderName);
 
 				sourceFolder = ws.getRoot().getFolder(configFolderpath);
@@ -97,7 +97,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Associate with an EAR, if necessary.
 
-			final String earProjectName = (String)model.getProperty(IJ2EEFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+			final String earProjectName = (String)model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 			if (earProjectName != null && !earProjectName.equals("")) {
 	
 				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);

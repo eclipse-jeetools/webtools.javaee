@@ -60,11 +60,11 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			IFolder sourceFolder = null;
 			String configFolder = null;
 			if (root.getProjectRelativePath().segmentCount() == 0) {
-				configFolder = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+				configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 				root.createLink(new Path("/" + configFolder), 0, null);
 
 
-				String configFolderName = model.getStringProperty(IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER);
+				String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 				IPath configFolderpath = pjpath.append(configFolderName);
 
 				sourceFolder = ws.getRoot().getFolder(configFolderpath);
@@ -98,7 +98,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Associate with an EAR, if necessary.
 
-			final String earProjectName = (String) model.getProperty(IJ2EEFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+			final String earProjectName = (String) model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 			if (earProjectName != null && !earProjectName.equals("")) {
 
 				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);

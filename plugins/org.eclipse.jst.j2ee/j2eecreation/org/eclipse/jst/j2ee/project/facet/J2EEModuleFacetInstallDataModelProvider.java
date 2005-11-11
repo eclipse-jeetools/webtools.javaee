@@ -20,22 +20,19 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
-public abstract class J2EEModuleFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IJ2EEFacetInstallDataModelProperties{
+public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties{
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(ADD_TO_EAR);
 		names.add(EAR_PROJECT_NAME);
-		names.add(RUNTIME_TARGET_ID);
 		return names;
 	}
 	
@@ -75,12 +72,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends FacetInsta
 		return super.getValidPropertyDescriptors(propertyName);
 	}
 	
-	protected final int getJ2EEVersion() {
-		return convertModuleVersionToJ2EEVersion((IProjectFacetVersion) getProperty(FACET_VERSION));
-	}
-	
-	protected abstract int convertModuleVersionToJ2EEVersion(IProjectFacetVersion version);
-
 	protected DataModelPropertyDescriptor[] getEARPropertyDescriptors(int j2eeVersion) {
 		StructureEdit mc = null;
 		ArrayList earDescriptorList = new ArrayList();

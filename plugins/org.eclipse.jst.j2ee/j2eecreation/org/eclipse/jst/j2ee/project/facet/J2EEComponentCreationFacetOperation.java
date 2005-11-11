@@ -38,7 +38,7 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 		return null;
 	}
 	protected void setRuntime(IDataModel newModel, IDataModel facetModel) {
-		String runtime = newModel.getStringProperty(IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID);
+		String runtime = newModel.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.RUNTIME_TARGET_ID);
 		try {
 			if (runtime != null) {
 				IRuntime run = getRuntimeByID(runtime);

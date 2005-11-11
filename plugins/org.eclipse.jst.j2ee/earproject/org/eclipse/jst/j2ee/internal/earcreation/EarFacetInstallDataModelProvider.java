@@ -1,26 +1,62 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class EarFacetInstallDataModelProvider extends FacetInstallDataModelProvider
-implements IEarFacetInstallDataModelProperties{
+public class EarFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONTENT_DIR);
+		names.add(J2EE_PROJECTS_LIST);
+		names.add(JAVA_PROJECT_LIST);
 		return names;
 	}
-	
+
 	public Object getDefaultProperty(String propertyName) {
-		if(propertyName.equals(FACET_ID)){
+		if (propertyName.equals(FACET_ID)) {
 			return J2EEProjectUtilities.ENTERPRISE_APPLICATION;
+		} else if (propertyName.equals(CONTENT_DIR)) {
+			return "EarContent";
+		} else if (propertyName.equals(J2EE_PROJECTS_LIST) || propertyName.equals(JAVA_PROJECT_LIST)) {
+			return Collections.EMPTY_LIST;
 		}
-        else if(propertyName.equals(CONTENT_DIR)) {
-            return "EarContent";
-        }
 		return super.getDefaultProperty(propertyName);
+	}
+	
+	public IStatus validate(String name) {
+		if(name.equals(J2EE_PROJECTS_LIST)){
+			return validateTargetComponentVersion((List)model.getProperty(J2EE_PROJECTS_LIST));
+	    }
+		return super.validate(name);
+	}
+	
+	private IStatus validateTargetComponentVersion(List list) {
+
+		Integer version = (Integer) model.getProperty(FACET_VERSION);
+		int earVersion = version.intValue();
+		for (Iterator iter = list.iterator(); iter.hasNext();) {
+			IProject handle = (IProject)iter.next();
+			//IVirtualComponent comp = (IVirtualComponent) iter.next();
+			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject());
+			int compVersion = J2EEVersionUtil.convertVersionStringToInt(comp);
+			if (earVersion < compVersion) {
+				String errorStatus = "The Module specification level of "+handle.getName()+", is incompatible with the containing EAR version"; //$NON-NLS-1$
+				return J2EEPlugin.newErrorStatus(errorStatus, null);
+			}
+			
+		}
+		return OK_STATUS;
 	}
 }
