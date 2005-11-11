@@ -17,7 +17,7 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	private Button createMainClass;
 	
 	public AppClientFacetInstallPage() {
-		super();
+		super("appclient.facet.install.page"); //$NON-NLS-1$
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_SETTINGS));
 	}

@@ -40,7 +40,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 
 	public IStatus validate(String name) {
 		if (name.equals(J2EE_PROJECTS_LIST)) {
-			return validateTargetComponentVersion((List) model.getProperty(J2EE_PROJECTS_LIST));
+			//return validateTargetComponentVersion((List) model.getProperty(J2EE_PROJECTS_LIST));
 		}
 		return super.validate(name);
 	}

@@ -33,7 +33,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	private Button createWebInfSrc;
 
 	public WebFacetInstallPage() {
-		super();
+		super("web.facet.install.page"); //$NON-NLS-1$
 		setTitle(Resources.pageTitle);
 		setDescription(Resources.pageDescription);
 	}
