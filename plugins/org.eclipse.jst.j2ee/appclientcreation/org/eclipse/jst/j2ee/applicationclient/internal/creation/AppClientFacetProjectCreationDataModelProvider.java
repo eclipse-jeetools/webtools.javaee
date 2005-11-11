@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.ui.project.facet.appclient;
+package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider;

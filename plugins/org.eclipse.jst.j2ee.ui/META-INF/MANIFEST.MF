@@ -23,7 +23,8 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.ui.util,
  org.eclipse.jst.j2ee.internal.war.ui.util,
  org.eclipse.jst.j2ee.internal.wizard,
- org.eclipse.jst.j2ee.ui.project.facet
+ org.eclipse.jst.j2ee.ui.project.facet,
+ org.eclipse.jst.j2ee.ui.project.facet.appclient
 Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.core.resources,
  org.eclipse.ui,
