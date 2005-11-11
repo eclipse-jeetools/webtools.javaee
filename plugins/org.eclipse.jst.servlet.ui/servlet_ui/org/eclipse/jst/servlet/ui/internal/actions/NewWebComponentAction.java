@@ -14,7 +14,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
-import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard;
+import org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard;
 import org.eclipse.ui.IWorkbench;
 
 public class NewWebComponentAction extends AbstractOpenWizardWorkbenchAction {
@@ -39,7 +39,7 @@ public class NewWebComponentAction extends AbstractOpenWizardWorkbenchAction {
 	}
 
 	protected Wizard createWizard() {
-		return new WebComponentCreationWizard();
+		return new WebProjectWizard();
 	}
 	
 	protected boolean shouldAcceptElement(Object obj) { 

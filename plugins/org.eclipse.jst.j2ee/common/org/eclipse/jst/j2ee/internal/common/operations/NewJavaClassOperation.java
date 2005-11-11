@@ -173,7 +173,7 @@ public class NewJavaClassOperation extends ArtifactEditProviderOperation {
 		// Retrieve the package name from the java class data model
 		String packageName = model.getStringProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE);
 		IPackageFragmentRoot packRoot = (IPackageFragmentRoot) model.getProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT);
-		IPackageFragment pack = packRoot.getPackageFragment(packageName);
+		IPackageFragment pack =	packRoot.getPackageFragment(packageName);
 		// Handle default package
 		if (pack == null) {
 			pack = packRoot.getPackageFragment(""); //$NON-NLS-1$

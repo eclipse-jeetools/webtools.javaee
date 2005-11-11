@@ -82,10 +82,10 @@
             name="%appclient_component_ui_"
             icon="icons/full/ctool16/newappclient_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard"
+            class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
+            id="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
          <description>
             %new.appclient.component.description_ui_
          </description>
@@ -662,7 +662,7 @@
         <!-- AppClient New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
          <enablement>
          <or>
                 <objectClass
@@ -991,6 +991,24 @@
     <wizard-pages facet="jst.ear" version="1.4">
       <install>
         <page class="org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+    
+    <wizard-pages facet="jst.appclient" version="1.2">
+      <install>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="jst.appclient" version="1.3">
+      <install>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
+      </install>
+    </wizard-pages>
+
+    <wizard-pages facet="jst.appclient" version="1.4">
+      <install>
+        <page class="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientFacetInstallPage"/>
       </install>
     </wizard-pages>
     

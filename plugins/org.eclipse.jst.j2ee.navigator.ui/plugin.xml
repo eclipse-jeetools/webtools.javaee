@@ -459,7 +459,7 @@
         <!-- AppClient New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
          <enablement>
            <or> 
              <and>

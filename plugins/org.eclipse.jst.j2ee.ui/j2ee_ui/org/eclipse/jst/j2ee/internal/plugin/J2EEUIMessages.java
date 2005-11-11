@@ -46,6 +46,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String APP_CLIENT_PROJECT_WIZ_TITLE = "24"; //$NON-NLS-1$
 	public static final String APP_CLIENT_VERSION_LBL = "3"; //$NON-NLS-1$
 	public static final String APP_CLIENT_PROJECT_MAIN_PG_TITLE = "25"; //$NON-NLS-1$
+	public static final String APP_CLIENT_SETTINGS = "101"; //$NON-NLS-1$
 
 	public static final String APP_CLIENT_PROJECT_MAIN_PG_DESC = "26"; //$NON-NLS-1$
 	public static final String MODULES_DEPENDENCY_PAGE_TITLE = "27"; //$NON-NLS-1$
