@@ -7,14 +7,17 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
+import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
-public class EarFacetInstallDataModelProvider extends FacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
+public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
@@ -34,29 +37,35 @@ public class EarFacetInstallDataModelProvider extends FacetInstallDataModelProvi
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
+
 	public IStatus validate(String name) {
-		if(name.equals(J2EE_PROJECTS_LIST)){
-			return validateTargetComponentVersion((List)model.getProperty(J2EE_PROJECTS_LIST));
-	    }
+		if (name.equals(J2EE_PROJECTS_LIST)) {
+			return validateTargetComponentVersion((List) model.getProperty(J2EE_PROJECTS_LIST));
+		}
 		return super.validate(name);
 	}
-	
-	private IStatus validateTargetComponentVersion(List list) {
 
+	private IStatus validateTargetComponentVersion(List list) {
 		Integer version = (Integer) model.getProperty(FACET_VERSION);
 		int earVersion = version.intValue();
 		for (Iterator iter = list.iterator(); iter.hasNext();) {
-			IProject handle = (IProject)iter.next();
-			//IVirtualComponent comp = (IVirtualComponent) iter.next();
+			IProject handle = (IProject) iter.next();
 			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject());
 			int compVersion = J2EEVersionUtil.convertVersionStringToInt(comp);
 			if (earVersion < compVersion) {
-				String errorStatus = "The Module specification level of "+handle.getName()+", is incompatible with the containing EAR version"; //$NON-NLS-1$
+				String errorStatus = "The Module specification level of " + handle.getName() + ", is incompatible with the containing EAR version"; //$NON-NLS-1$
 				return J2EEPlugin.newErrorStatus(errorStatus, null);
 			}
-			
 		}
 		return OK_STATUS;
+	}
+
+	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
+		if (EARFacetUtils.EAR_12.equals(version)) {
+			return J2EEVersionConstants.J2EE_1_2_ID;
+		} else if (EARFacetUtils.EAR_13.equals(version)) {
+			return J2EEVersionConstants.J2EE_1_3_ID;
+		}
+		return J2EEVersionConstants.J2EE_1_4_ID;
 	}
 }

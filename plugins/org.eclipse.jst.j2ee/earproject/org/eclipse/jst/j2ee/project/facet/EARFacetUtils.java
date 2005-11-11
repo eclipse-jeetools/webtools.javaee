@@ -10,23 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-import java.util.Set;
-
-import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public abstract class J2EEFacetInstallDataModelProvider extends FacetInstallDataModelProvider  implements IJ2EEFacetInstallDataModelProperties{
+public class EARFacetUtils {
 
-	public Set getPropertyNames() {
-		Set names = super.getPropertyNames();
-		names.add(RUNTIME_TARGET_ID);
-		return names;
-	}
+	public static final IProjectFacetVersion EAR_12 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion("1.2"); //$NON-NLS-1$
+	public static final IProjectFacetVersion EAR_13 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion("1.3"); //$NON-NLS-1$
+	public static final IProjectFacetVersion EAR_14 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion("1.4"); //$NON-NLS-1$
 
-	protected final int getJ2EEVersion() {
-		return convertFacetVersionToJ2EEVersion((IProjectFacetVersion) getProperty(FACET_VERSION));
-	}
-
-	protected abstract int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version);
 	
 }
