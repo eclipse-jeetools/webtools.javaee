@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.14 $  $Date: 2005/08/24 20:39:05 $ 
+ *  $Revision: 1.15 $  $Date: 2005/11/11 15:49:30 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -439,7 +439,7 @@ public abstract class Expression implements IExpression {
 		}
 		
 		// If we got here, then invalid.
-		ForExpression expected = nextForExpressionStack[nextForExpressionStackPos];
+		ForExpression expected = nextForExpressionStackPos >= 0 ? nextForExpressionStack[nextForExpressionStackPos] : ForExpression.ROOTEXPRESSION;
 		expressionValid = false;
 		throw new IllegalStateException(MessageFormat.format(ProxyMessages.Expression_TypeSentInInvalidOrder_EXC_, new Object[] {forExpression, expected})); 
 	}
