@@ -1,9 +1,9 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 
 public interface IEjbFacetInstallDataModelProperties 
-	extends IJ2EEFacetInstallDataModelProperties {
+	extends IJ2EEModuleFacetInstallDataModelProperties {
 
     public static final String CREATE_CLIENT = "IEjbFacetInstallDataModelProperties.CREATE_CLIENT"; //$NON-NLS-1$	
 	public static final String CLIENT_NAME = "IEjbFacetInstallDataModelProperties.CLIENT_NAME ";//$NON-NLS-1$	
