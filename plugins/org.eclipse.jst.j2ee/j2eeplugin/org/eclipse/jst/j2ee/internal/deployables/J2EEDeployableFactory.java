@@ -64,21 +64,19 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	}
 
 	protected IModule createModuleDelegates(IVirtualComponent component) {
-		J2EEFlexProjDeployable moduleDelegate = null;
-		IModule module = null;
 		try {
-			moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
 			String type = J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
 			if (type != null && !type.equals("")) {
 				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-				module = createModule(component.getName(), component.getName(), type, version, moduleDelegate.getProject());
+				IModule module = createModule(component.getName(), component.getName(), type, version, component.getProject());
+				J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
 				moduleDelegates.put(module, moduleDelegate);
-			} else
-				return null;
+				return module;
+			}
 		} catch (Exception e) {
 			Logger.getLogger().write(e);
 		}
-		return module;
+		return null;
 	}
 
 	/**
@@ -92,7 +90,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		return new IPath[] {
 			new Path(".project"), // nature
 			new Path(".settings/.component"), // component
-			new Path(".settings/.org.eclipse.wst.common.project.facet.core.xml") // facets
+			new Path(".settings/org.eclipse.wst.common.project.facet.core.xml") // facets
 		};
 	}
 
