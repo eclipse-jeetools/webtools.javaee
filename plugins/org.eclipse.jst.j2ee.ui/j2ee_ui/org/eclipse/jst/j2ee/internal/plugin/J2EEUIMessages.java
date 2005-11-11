@@ -180,6 +180,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String ADDVARIABLE="ADDVARIABLE";//$NON-NLS-1$
 	public static final String SUPPORTMULTIPLEMODULES="SUPPORTMULTIPLEMODULES";//$NON-NLS-1$
 	public static final String SOURCEFOLDER="SOURCEFOLDER";//$NON-NLS-1$
+	public static final String CONTENT_FOLDER = "102"; //$NON-NLS-1$
 
 	/**
 	 * Returns the string from the resource bundle, or 'key' if not found.

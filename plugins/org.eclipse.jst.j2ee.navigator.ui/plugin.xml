@@ -495,7 +495,7 @@
        <!-- Connector New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
          <enablement>
           <or>
                <and>

@@ -20,8 +20,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {
@@ -29,13 +27,12 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONTEXT_ROOT);
-		names.add(CONTENT_DIR);
 		names.add(CREATE_WEB_INF_SRC);
 		return names;
 	}
 
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(CONTENT_DIR)) {
+		if (propertyName.equals(CONFIG_FOLDER)) {
 			return "WebContent";
 		} else if (propertyName.equals(CREATE_WEB_INF_SRC)) {
 			return Boolean.FALSE;
@@ -52,6 +49,8 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.ENABLE_CHG);
 		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.VALID_VALUES_CHG);
+		} else if (propertyName.equals(CONFIG_FOLDER)) {
+			return true;
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
@@ -75,15 +74,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	public IStatus validate(String name) {
 		if (name.equals(CONTEXT_ROOT) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));
-		} else if (name.equals(CONTENT_DIR)) {
-			IStatus status = OK_STATUS;
-			String webFolderName = model.getStringProperty(CONTENT_DIR);
-			if (webFolderName == null || webFolderName.length() == 0) {
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.WEBCONTENTFOLDER_EMPTY);
-				status = WTPCommonPlugin.createErrorStatus(errorMessage);
-				return status;
-			}
-		}
+		} 
 		return super.validate(name);
 	}
 

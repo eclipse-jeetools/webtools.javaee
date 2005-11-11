@@ -72,7 +72,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			final IWorkspace ws = ResourcesPlugin.getWorkspace();
 			final IPath pjpath = project.getFullPath();
 
-			final IPath contentdir = pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR));
+			final IPath contentdir = pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER));
 			mkdirs(ws.getRoot().getFolder(contentdir));
 
 			final IPath webinf = contentdir.append("WEB-INF");
@@ -137,7 +137,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final IVirtualFolder webroot = c.getRootFolder();
 
-			webroot.createLink(new Path("/" + model.getStringProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR)), 0, null);
+			webroot.createLink(new Path("/" + model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null);
 
 			// Create the deployment descriptor (web.xml) if one doesn't exist
 			if (!webinfFolder.getFile("web.xml").exists()) {

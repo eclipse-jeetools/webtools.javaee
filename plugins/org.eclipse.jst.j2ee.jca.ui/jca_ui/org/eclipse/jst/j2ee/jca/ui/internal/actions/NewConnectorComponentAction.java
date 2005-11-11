@@ -15,7 +15,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard;
 import org.eclipse.ui.IWorkbench;
 
 
@@ -58,7 +58,7 @@ public class NewConnectorComponentAction extends AbstractOpenWizardWorkbenchActi
 	 * @return Wizard
 	 */
 	protected Wizard createWizard() {
-		return new ConnectorComponentCreationWizard();
+		return new ConnectorProjectWizard();
 	}// createWizard
 
 	/**

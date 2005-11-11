@@ -60,7 +60,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		this.contentDir = new Text(composite, SWT.BORDER);
 		this.contentDir.setLayoutData(gdhfill());
 		this.contentDir.setData("label", this.contentDirLabel); //$NON-NLS-1$
-		synchHelper.synchText(contentDir, CONTENT_DIR, null);
+		synchHelper.synchText(contentDir, CONFIG_FOLDER, null);
 
 		this.createWebInfSrc = new Button(composite, SWT.CHECK);
 		this.createWebInfSrc.setText(Resources.createWebinfSrcLabel);
@@ -69,7 +69,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONTENT_DIR, CREATE_WEB_INF_SRC};
+		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, CREATE_WEB_INF_SRC};
 	}
 
 	private static final class Resources extends NLS {

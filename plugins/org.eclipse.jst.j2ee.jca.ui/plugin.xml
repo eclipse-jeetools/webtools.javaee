@@ -37,10 +37,10 @@
             name="%connector_module_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
+            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
          <description>
             %new.connector.module.description_ui_
          </description>
@@ -139,7 +139,7 @@
       <!-- Connector New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
          <enablement>
          <or>
                <objectClass
@@ -268,4 +268,20 @@
          </enablement>
        </commonWizard>
     </extension>
+    
+    <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
+    
+     <wizard-pages facet="jst.connector" version="1.0">
+      <install>
+        <page class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorFacetInstallPage"/>
+      </install>
+     </wizard-pages>
+    
+     <wizard-pages facet="jst.connector" version="1.5">
+      <install>
+        <page class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorFacetInstallPage"/>
+      </install>
+     </wizard-pages>
+    </extension>
+    
 </plugin>

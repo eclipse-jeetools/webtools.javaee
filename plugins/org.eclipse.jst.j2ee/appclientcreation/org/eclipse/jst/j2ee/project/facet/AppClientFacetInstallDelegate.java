@@ -1,7 +1,9 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -12,12 +14,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
@@ -26,12 +34,14 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -48,7 +58,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			WtpUtils.addNatures(project);
 
 			// Setup the flexible project structure.
-			createFlexibleProject(monitor,project,model);
+			IVirtualComponent c = createFlexibleProject(monitor,project,model);
 
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
@@ -60,9 +70,31 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			// Associate with an EAR, if necessary.
 			final String earProjectName = (String) model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 			if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
-				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(ver));
+				String ver = fv.getVersionString();
+				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
 				installEARFacet(j2eeVersionText, earProjectName, monitor);
+
+				IProject earProject = ProjectUtilities.getProject(earProjectName);
+				IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+
+				final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
+					public IDataModelOperation getDefaultOperation() {
+						return new AddComponentToEnterpriseApplicationOp(model){
+							protected Module createNewModule(IVirtualComponent wc) {
+								return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
+							}
+						};
+					}
+				});
+				dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+				List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				modList.add(c);
+				dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+				try {
+					dataModel.getDefaultOperation().execute(null, null);
+				} catch (ExecutionException e) {
+					Logger.getLogger().logError(e);
+				}	
 			}
 			
 			//Add main class if necessary
@@ -80,7 +112,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 	}
 	
-	protected void createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model) throws Exception{
+	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model) throws Exception{
 		// Create the directory structure.
 		final IWorkspace ws = ResourcesPlugin.getWorkspace();
 		final IPath pjpath = project.getFullPath();
@@ -110,6 +142,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 		}
+		return c;
 	}
 	
 	private void addMainClass(IProgressMonitor monitor, IDataModel model, IProject project) {

@@ -64,7 +64,7 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		IDataModel webFacetInstallDataModel = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
 		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
 		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionStr);
-		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTENT_DIR, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
+		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, model.getStringProperty(IWebComponentCreationDataModelProperties.CONTEXT_ROOT));
 		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
 			webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));

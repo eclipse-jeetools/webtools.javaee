@@ -21,5 +21,7 @@ Require-Bundle: org.eclipse.jst.j2ee.ui,
  org.eclipse.jst.j2ee.jca,
  org.eclipse.jst.j2ee.core,
  org.eclipse.core.resources,
- org.eclipse.wst.common.navigator.workbench
+ org.eclipse.wst.common.navigator.workbench,
+ org.eclipse.wst.common.project.facet.core,
+ org.eclipse.wst.common.project.facet.ui
 Eclipse-AutoStart: true

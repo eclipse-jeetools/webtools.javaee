@@ -16,11 +16,15 @@ import java.util.Set;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -32,6 +36,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(ADD_TO_EAR);
+		names.add(CONFIG_FOLDER);
 		names.add(EAR_PROJECT_NAME);
 		return names;
 	}
@@ -53,6 +58,14 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.ENABLE_CHG);
 		} else if(FACET_VERSION.equals(propertyName)){
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+		} else if (propertyName.equals(CONFIG_FOLDER)) {
+			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
+			if (masterModel != null) {
+				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
+				if (javaModel !=null)
+					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
+			}
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
@@ -110,7 +123,13 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 	public IStatus validate(String name) {
 		if (name.equals(EAR_PROJECT_NAME) && getBooleanProperty(ADD_TO_EAR)) {
 			validateEAR(getStringProperty(EAR_PROJECT_NAME));
-		} 
+		} else if (name.equals(CONFIG_FOLDER)) {
+			String folderName = model.getStringProperty(CONFIG_FOLDER);
+			if (folderName == null || folderName.length() == 0) {
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			}
+		}
 		return super.validate(name);
 	}
 	
