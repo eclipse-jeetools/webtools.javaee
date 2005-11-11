@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.25 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.26 $  $Date: 2005/11/11 20:51:32 $ 
  */
 
 
@@ -261,16 +261,15 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 		}
 		
 		Job tjob = null;
-		if (fServerPort != 0) {
-			if (waitRegistrationThread != null) {
-				synchronized (waitRegistrationThread) {
-					// Still waiting. close it out.
-					WaitForRegistrationThread wThread = waitRegistrationThread;
-					waitRegistrationThread = null;
-					wThread.notifyAll();
-				}
+		if (waitRegistrationThread != null) {
+			synchronized (waitRegistrationThread) {
+				// Still waiting. close it out.
+				WaitForRegistrationThread wThread = waitRegistrationThread;
+				waitRegistrationThread = null;
+				wThread.notifyAll();
 			}
-					
+		}		
+		if (fServerPort != 0) {					
 			IREMConnection closeCon = null;	// The connection we will use to close the remote vm.
 			synchronized(fConnectionPool) {
 				// Now we walk through all of the free connections and close them properly.
