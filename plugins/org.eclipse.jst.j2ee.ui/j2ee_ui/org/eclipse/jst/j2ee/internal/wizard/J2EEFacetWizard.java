@@ -14,9 +14,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -26,6 +26,7 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
@@ -120,9 +121,10 @@ public abstract class J2EEFacetWizard extends AddRemoveFacetsWizard implements I
 		IStatus status = model.validate();
 		if (status.isOK()) {
 			try {
-				model.getDefaultOperation().execute(null, null);
-				return true;
-			} catch (ExecutionException e) {
+				FacetProjectCreationOperation operation = new FacetProjectCreationOperation(model);
+				this.fproj = operation.createProject(new NullProgressMonitor());
+				return super.performFinish();
+			} catch (CoreException e) {
 				e.printStackTrace();
 			}
 		}
