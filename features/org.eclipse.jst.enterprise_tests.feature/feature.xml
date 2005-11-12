@@ -22,36 +22,36 @@
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         />
    <plugin
          id="org.eclipse.jst.j2ee.tests.performance"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         />
    <plugin
          id="org.eclipse.jst.validation.sample"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         />
    <plugin
          id="org.eclipse.jst.validation.test"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         />
    <plugin
          id="org.eclipse.jst.ws.tests"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         />
    <plugin
          id="org.eclipse.jst.ws.tests.performance"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         />
 
 </feature>
