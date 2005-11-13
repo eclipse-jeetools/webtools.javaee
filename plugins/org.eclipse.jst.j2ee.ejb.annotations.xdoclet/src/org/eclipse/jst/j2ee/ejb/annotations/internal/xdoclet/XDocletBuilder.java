@@ -146,7 +146,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 		IProgressMonitor localMonitor = monitor;
 		localMonitor.beginTask("Starting to add builder to projects with EJB modules", 1); //$NON-NLS-1$
 		for (int i = 0; i < allProjects.length && !monitor.isCanceled(); i++) {
-			if (XDocletPreferenceStore.forProject(allProjects[i]).isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE)) {
+			if (XDocletPreferenceStore.forProject(allProjects[i]).getBooleanProperty(XDocletPreferenceStore.XDOCLETBUILDERACTIVE)) {
 				add(localMonitor, allProjects[i], validateEditContext);
 			}
 			localMonitor.worked(1);
@@ -182,7 +182,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
 		IProject currentProject = getProject();
 		// Currently, just use the Task Tags preference
-		boolean locallyEnabled = XDocletPreferenceStore.forProject(currentProject).isPropertyActive(
+		boolean locallyEnabled = XDocletPreferenceStore.forProject(currentProject).getBooleanProperty(
 				XDocletPreferenceStore.XDOCLETBUILDERACTIVE);
 		if (!locallyEnabled || currentProject == null || !currentProject.isAccessible()) {
 			return new IProject[] { currentProject };

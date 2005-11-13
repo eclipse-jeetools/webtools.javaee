@@ -74,27 +74,7 @@
  	   </fileset>
 <!-- BEANS END -->
  
-      	@dataobject@
-      	@dao@
-      	@valueobject@
-
-      	 @utilobject@
-      	 @remoteinterfaces@
-      	 @localinterfaces@
-         
-      	 @entitypk@
-     	 @entitycmp@
-     	 @entitybmp@
-     	 @session@
-     	 @mdb@
- 
-  	     @deploymentdescriptor@
-
- 
-    	  @jboss@
-    	  @jonas@
-		  @weblogic@
-    	  @websphere@
+      	@docletTasks@
               
          
       </ejbdoclet>

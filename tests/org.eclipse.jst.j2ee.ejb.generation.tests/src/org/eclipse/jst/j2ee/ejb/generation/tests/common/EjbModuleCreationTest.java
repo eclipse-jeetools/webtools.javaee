@@ -51,8 +51,8 @@ public class EjbModuleCreationTest extends AnnotationTest {
 
 		XDocletPreferenceStore store = new XDocletPreferenceStore(project);
 		AnnotationPreferenceStore.setProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER, XDOCLET);
-		store.setPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE, true);
-		store.setPropertyActive(XDocletPreferenceStore.XDOCLETUSEGLOBAL,false);
+		store.setProperty(XDocletPreferenceStore.XDOCLETBUILDERACTIVE, true);
+		store.setProperty(XDocletPreferenceStore.XDOCLETUSEGLOBAL,false);
 		store.setProperty(XDocletPreferenceStore.XDOCLETVERSION, TestSettings.xdocletversion);
 		store.setProperty(XDocletPreferenceStore.XDOCLETHOME, TestSettings.xdocletlocation);
 		store.save();

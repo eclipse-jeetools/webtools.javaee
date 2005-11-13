@@ -36,18 +36,25 @@ public abstract class XDocletAntProjectBuilder {
 
 	protected URL templateUrl;
 	XDocletPreferenceStore preferenceStore = null;
+	IProject project;
+	IResource resource;
+	Properties properties;
 
 	public static class Factory {
 
 		public static XDocletAntProjectBuilder newInstance(IResource resource) {
 			IVirtualResource[] vResources = ComponentCore.createResources(resource);
+			XDocletAntProjectBuilder antProjectBuilder = null;
 			if( vResources.length == 0)
 				return null;
 			if (J2EEProjectUtilities.isEJBProject(vResources[0].getComponent().getProject()))
-				return new XDocletEjbAntProjectBuilder();
+				antProjectBuilder =  new XDocletEjbAntProjectBuilder();
+			
 			else if (J2EEProjectUtilities.isDynamicWebProject(vResources[0].getComponent().getProject()))
-				return new XDocletWebAntProjectBuilder();
-			return null;
+				antProjectBuilder =  new XDocletWebAntProjectBuilder();
+			antProjectBuilder.setProject(vResources[0].getComponent().getProject());
+			antProjectBuilder.setResource(resource);
+			return antProjectBuilder;
 		}
 
 	}
@@ -98,7 +105,7 @@ public abstract class XDocletAntProjectBuilder {
 
 			Properties properties = createAntBuildProperties(beanClass,
 					javaProject, packageFragmentRoot, beanPath);
-
+			this.setProperties(properties);
 			HashMap templates = createTemplates(beanPath);
 
 			AntLauncherUtility antLauncher = new AntLauncherUtility(templateUrl, beanClass
@@ -180,6 +187,30 @@ public abstract class XDocletAntProjectBuilder {
 
 	public XDocletPreferenceStore getPreferenceStore() {
 		return preferenceStore;
+	}
+
+	public IProject getProject() {
+		return project;
+	}
+
+	public void setProject(IProject project) {
+		this.project = project;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public IResource getResource() {
+		return resource;
+	}
+
+	public void setResource(IResource resource) {
+		this.resource = resource;
 	}
 
 }

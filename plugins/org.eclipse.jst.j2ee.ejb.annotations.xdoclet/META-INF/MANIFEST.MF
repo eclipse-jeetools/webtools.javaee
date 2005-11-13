@@ -35,7 +35,6 @@ Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexpor
  org.eclipse.debug.core,
  org.eclipse.ant.ui,
  org.eclipse.debug.ui,
- org.eclipse.ui.externaltools,
  org.eclipse.jdt.debug.ui,
  org.eclipse.jem,
  org.eclipse.emf.ecore.xmi

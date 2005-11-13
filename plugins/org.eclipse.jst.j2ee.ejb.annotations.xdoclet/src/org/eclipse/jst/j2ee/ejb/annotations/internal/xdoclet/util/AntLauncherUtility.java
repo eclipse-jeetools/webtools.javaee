@@ -31,8 +31,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.ant.core.AntRunner;
-import org.eclipse.ant.internal.ui.launchConfigurations.AntJRETab;
-import org.eclipse.ant.internal.ui.launchConfigurations.IAntLaunchConfigurationConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -48,16 +46,21 @@ import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin;
-import org.eclipse.ui.externaltools.internal.model.IExternalToolConstants;
 
 public class AntLauncherUtility {
 
 	private static final int MAX_TARGET_APPEND_LENGTH = 30;
+	public static final String ID_ANT_LAUNCH_CONFIGURATION_TYPE = "org.eclipse.ant.AntLaunchConfigurationType"; //$NON-NLS-1$
+	public static final String ATTR_LOCATION = "org.eclipse.ui.externaltools.ATTR_LOCATION"; //$NON-NLS-1$
+	// IExternalToolConstants.ATTR_LOCATION
+	public static final String ATTR_ANT_TARGETS = "org.eclipse.ui.externaltools.ATTR_ANT_TARGETS"; //$NON-NLS-1$
+	// IExternalToolConstants.ATTR_ANT_TARGETS
+	public static final String REMOTE_ANT_PROCESS_FACTORY_ID = "org.eclipse.ant.ui.remoteAntProcessFactory"; //$NON-NLS-1$
 
 	private URL url;
-
-	private IPath output;
 
 	private Properties properties;
 
@@ -65,17 +68,14 @@ public class AntLauncherUtility {
 
 	private boolean useLauncher = false;
 
-	public AntLauncherUtility(URL templateUrl, IPath outputFolder,
-			Properties properties, Map templates) {
+	public AntLauncherUtility(URL templateUrl, IPath outputFolder, Properties properties, Map templates) {
 		this.url = templateUrl;
-		this.output = outputFolder;
 		this.properties = properties;
 		this.templates = templates;
 	}
 
 	public String getBuildFile() throws Exception {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(url
-				.openStream()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 		StringBuffer buildFile = new StringBuffer(512);
 		int c;
 		do {
@@ -98,17 +98,13 @@ public class AntLauncherUtility {
 	 * @see org.eclipse.wtp.server.core.model.IPublisher#publish(org.eclipse.wtp.server.core.resources.IModuleResource[],
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	public IStatus[] launch(String target, IProgressMonitor monitor)
-			throws Exception {
+	public IStatus[] launch(String target, IProgressMonitor monitor) throws Exception {
 		String build = this.getBuildFile();
 
 		if (build == null || build.length() < 1)
-			return new IStatus[] { new Status(IStatus.ERROR,
-					XDocletAnnotationPlugin.PLUGINID, 0, "AntBuildFileDoesNotExist",
-					null) };
+			return new IStatus[] { new Status(IStatus.ERROR, XDocletAnnotationPlugin.PLUGINID, 0, "AntBuildFileDoesNotExist", null) };
 
-		IPath file = XDocletAnnotationPlugin.getDefault().getStateLocation().append(
-				"tempAnt.xml");
+		IPath file = XDocletAnnotationPlugin.getDefault().getStateLocation().append("tempAnt.xml");
 		try {
 			createNewFile(file.toFile(), build.getBytes());
 		} catch (IOException e) {
@@ -117,22 +113,16 @@ public class AntLauncherUtility {
 		runAnt(file, new String[] { target }, this.properties, monitor);
 
 		// file.toFile().delete();
-		return new IStatus[] { new Status(IStatus.OK,
-				XDocletAnnotationPlugin.PLUGINID, 0, "Finished", null) };
+		return new IStatus[] { new Status(IStatus.OK, XDocletAnnotationPlugin.PLUGINID, 0, "Finished", null) };
 	}
 
-	private void runAnt(IPath buildFile, String[] targets,
-			Properties properties, final IProgressMonitor monitor)
-			throws Exception {
-		IPath propfile = XDocletAnnotationPlugin.getDefault().getStateLocation()
-				.append("build.properties");
+	private void runAnt(IPath buildFile, String[] targets, Properties properties, final IProgressMonitor monitor) throws Exception {
+		IPath propfile = XDocletAnnotationPlugin.getDefault().getStateLocation().append("build.properties");
 		File buildProp = propfile.toFile();
 		if (buildProp.exists())
 			buildProp.delete();
-		FileOutputStream fileOutputStream = new FileOutputStream(propfile
-				.toFile());
-		properties.store(fileOutputStream,
-				"WTP BUILD FILE PROPERTIES- UPDATED:" + (new Date()));
+		FileOutputStream fileOutputStream = new FileOutputStream(propfile.toFile());
+		properties.store(fileOutputStream, "WTP BUILD FILE PROPERTIES- UPDATED:" + (new Date()));
 		fileOutputStream.close();
 
 		if (useLauncher)
@@ -153,46 +143,53 @@ public class AntLauncherUtility {
 	 * @param monitor
 	 * @throws CoreException
 	 */
-	private void runUsingLauncher(IPath buildFile, String[] targets,
-			final IProgressMonitor monitor) throws CoreException {
-		ILaunchConfiguration configuration = createDefaultLaunchConfiguration(
-				buildFile, null, targets[0]);
+	private void runUsingLauncher(IPath buildFile, String[] targets, final IProgressMonitor monitor) throws CoreException {
+		ILaunchConfiguration configuration = createDefaultLaunchConfiguration(buildFile, null, targets[0]);
 		DebugUITools.buildAndLaunch(configuration, "run", monitor);
 	}
 
-	public ILaunchConfiguration createDefaultLaunchConfiguration(
-			IPath filePath, IProject project, String targetAttribute)
+	public ILaunchConfiguration createDefaultLaunchConfiguration(IPath filePath, IProject project, String targetAttribute)
 			throws CoreException {
 		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-		ILaunchConfigurationType type = manager
-				.getLaunchConfigurationType(IAntLaunchConfigurationConstants.ID_ANT_LAUNCH_CONFIGURATION_TYPE);
+		ILaunchConfigurationType type = manager.getLaunchConfigurationType(ID_ANT_LAUNCH_CONFIGURATION_TYPE);
 
 		String projectName = project != null ? project.getName() : null;
-		String name = getNewLaunchConfigurationName(filePath, projectName,
-				targetAttribute);
-		ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null,
-				name);
-		workingCopy.setAttribute(IExternalToolConstants.ATTR_LOCATION, filePath
-				.toString());
-		workingCopy.setAttribute(
-				IJavaLaunchConfigurationConstants.ATTR_CLASSPATH_PROVIDER,
-				"org.eclipse.ant.ui.AntClasspathProvider"); //$NON-NLS-1$
-		workingCopy.setAttribute(
-				IAntLaunchConfigurationConstants.ATTR_ANT_TARGETS,
-				targetAttribute);
+		String name = getNewLaunchConfigurationName(filePath, projectName, targetAttribute);
+		ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null, name);
+		workingCopy.setAttribute(ATTR_LOCATION, filePath.toString());
+		workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_CLASSPATH_PROVIDER, "org.eclipse.ant.ui.AntClasspathProvider"); //$NON-NLS-1$
+		workingCopy.setAttribute(ATTR_ANT_TARGETS, targetAttribute);
 
 		// set default for common settings
 		CommonTab tab = new CommonTab();
 		tab.setDefaults(workingCopy);
 		tab.dispose();
+		workingCopy.setAttribute(IDebugUIConstants.ATTR_CAPTURE_IN_CONSOLE, true);
+		workingCopy.setAttribute(IDebugUIConstants.ATTR_PRIVATE, true);
 
-		AntJRETab jreTab = new AntJRETab();
-		jreTab.setDefaults(workingCopy);
-		jreTab.dispose();
-		workingCopy.setAttribute(IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND,
-				false);
+		IVMInstall vmInstall = getDefaultVMInstall(workingCopy);
+		workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_SOURCE_PATH_PROVIDER,
+				"org.eclipse.ant.ui.AntClasspathProvider");
+		workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_INSTALL_NAME, vmInstall.getName());
+		workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_INSTALL_TYPE, vmInstall.getVMInstallType().getId());
+		workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME,
+				"org.eclipse.ant.internal.ui.antsupport.InternalAntRunner");
+		workingCopy.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, REMOTE_ANT_PROCESS_FACTORY_ID);
+
+		workingCopy.setAttribute(IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND, false);
 
 		return workingCopy.doSave();
+	}
+
+	private IVMInstall getDefaultVMInstall(ILaunchConfiguration config) {
+		IVMInstall defaultVMInstall;
+		try {
+			defaultVMInstall = JavaRuntime.computeVMInstall(config);
+		} catch (CoreException e) {
+			// core exception thrown for non-Java project
+			defaultVMInstall = JavaRuntime.getDefaultVMInstall();
+		}
+		return defaultVMInstall;
 	}
 
 	/**
@@ -204,8 +201,7 @@ public class AntLauncherUtility {
 	 * @param targetAttribute
 	 * @return
 	 */
-	public String getNewLaunchConfigurationName(IPath filePath,
-			String projectName, String targetAttribute) {
+	public String getNewLaunchConfigurationName(IPath filePath, String projectName, String targetAttribute) {
 		StringBuffer buffer = new StringBuffer();
 		if (projectName != null) {
 			buffer.append(projectName);
@@ -221,8 +217,7 @@ public class AntLauncherUtility {
 				// The target attribute can potentially be a long,
 				// comma-separated list
 				// of target. Make sure the generated name isn't extremely long.
-				buffer.append(targetAttribute.substring(0,
-						MAX_TARGET_APPEND_LENGTH));
+				buffer.append(targetAttribute.substring(0, MAX_TARGET_APPEND_LENGTH));
 				buffer.append("..."); //$NON-NLS-1$
 			} else {
 				buffer.append(targetAttribute);
@@ -230,8 +225,7 @@ public class AntLauncherUtility {
 			buffer.append(']');
 		}
 
-		String name = DebugPlugin.getDefault().getLaunchManager()
-				.generateUniqueLaunchConfigurationNameFrom(buffer.toString());
+		String name = DebugPlugin.getDefault().getLaunchManager().generateUniqueLaunchConfigurationNameFrom(buffer.toString());
 		return name;
 	}
 

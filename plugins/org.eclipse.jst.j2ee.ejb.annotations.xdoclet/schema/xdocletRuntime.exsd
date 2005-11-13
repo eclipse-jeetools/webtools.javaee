@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.xdoclet" id="xdocletRuntime" name="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.runtime"/>
+      </appInfo>
+      <documentation>
+         xDocletRuntime Extension allows us to add new xdoclet runtimes as extensions.  For example to add XDoclet 2 support we will only need to define an extension.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="RuntimeVersion"/>
+            <element ref="RuntimeLib" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="RuntimeVersion">
+      <complexType>
+         <attribute name="xdoclet" type="string">
+            <annotation>
+               <documentation>
+                  XDoclet Version
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="ejb" type="string">
+            <annotation>
+               <documentation>
+                  Supported EJB Versions
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="servlet" type="string">
+            <annotation>
+               <documentation>
+                  Supported Servlet Version
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="jsp" type="string">
+            <annotation>
+               <documentation>
+                  Supported Servlet Version
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="RuntimeLib">
+      <complexType>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="location" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         WTP 1.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         &lt;extension
+         point=&quot;org.eclipse.jst.j2ee.ejb.annotations.xdoclet.runtime&quot;
+         id=&quot;org.eclipse.jst.j2ee.ejb.annotations.xdoclet.runtime.121&quot;
+         name=&quot;1.2.1&quot;&gt;
+         
+         &lt;RuntimeVersion
+            xdoclet=&quot;1.2.1&quot;
+            ejb=&quot;2&quot;
+            servlet=&quot;2.3&quot;
+            jsp=&quot;1.2&quot; /&gt;
+         &lt;RuntimeLib name=&quot;xdoclet-1.2.1.jar&quot; location=&quot;xdoclet-1.2.1.jar&quot; /&gt;
+         &lt;RuntimeLib name=&quot;xdoclet-xdoclet-module-1.2.1.jar&quot; location=&quot;xdoclet-xdoclet-module-1.2.1.jar&quot; /&gt;
+            
+     &lt;/extension&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         None
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         org.eclipse.jst.j2ee.ejb.annotations.xdoclet.runtime plugin
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright 2005, Eteration A.S. All rights reserved.
+      </documentation>
+   </annotation>
+
+</schema>

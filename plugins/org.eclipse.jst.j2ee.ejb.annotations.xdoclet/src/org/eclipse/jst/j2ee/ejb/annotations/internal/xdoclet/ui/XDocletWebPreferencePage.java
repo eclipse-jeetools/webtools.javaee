@@ -19,38 +19,26 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
-import java.util.StringTokenizer;
-
-import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.Logger;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuildUtility;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 
 public class XDocletWebPreferencePage extends PropertyPreferencePage implements SelectionListener {
 
-	//private static ResourceBundle bundle = ResourceBundle
-	//		.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
-
-	private static final String[][] weboptions = {
-			{ XDocletPreferenceStore.WEB_JBOSS, "JBoss", Messages.desc_webdoclet_jboss, "CHECK",
-					"2.4,3.0,3.0.1,3.0.2,3.0.3,3.2,4.0", "2.4" },
-			{ XDocletPreferenceStore.WEB_JONAS, "JOnAS", Messages.desc_webdoclet_jonas, "CHECK", "2.3,2.4,2.5,2.6,3.0",
-					"2.6" },
-			{ XDocletPreferenceStore.WEB_WEBLOGIC, "WebLogic", Messages.desc_webdoclet_weblogic, "CHECK",
-					"6.0,6.1,7.0,8.1", "6.1" },
-			{ XDocletPreferenceStore.WEB_WEBSPHERE, "WebSphere", Messages.desc_webdoclet_websphere, "CHECK", "all", "all" }
-
-	};
-
 	DialogPanel panel;
+	TaskProviderDecorator taskProviderDecorator;
 
 	public XDocletWebPreferencePage() {
 		super();
@@ -97,60 +85,25 @@ public class XDocletWebPreferencePage extends PropertyPreferencePage implements 
 	protected Control createContents(Composite parent) {
 		// noDefaultAndApplyButton();
 		Composite composite = createContainer(parent);
-		GridLayout gridLayout = new GridLayout();
-		gridLayout.marginHeight = 0;
-		gridLayout.marginWidth = 0;
-		composite.setLayout(gridLayout);
+		IExtension[] extensions = Platform.getExtensionRegistry().getExtensionPoint(
+				"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider").getExtensions();
 
-		Composite defPanel = new Composite(composite, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 4;
-		defPanel.setLayout(layout);
-		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-		defPanel.setLayoutData(gridData);
-
-		Label label = new Label(defPanel, SWT.WRAP);
-		gridData = new GridData();
-		gridData.horizontalSpan = 4;
-		label.setLayoutData(gridData);
-		label.setText(Messages.label_set_webdoclet_preference);
-
-		panel.preferences = new Control[weboptions.length];
-		panel.fActive = new Button[weboptions.length];
-
-		for (int i = 0; i < weboptions.length; i++) {
-			String versions[] = parseVersions(weboptions[i][4]);
-			panel.preferences[i] = panel.createLabeledCombo(i, getStore().isPropertyActive(weboptions[i][0]), weboptions[i][1] + ":",
-					weboptions[i][2], getStore().getProperty(weboptions[i][0] + "_VERSION"), versions, defPanel);
-		}
+		taskProviderDecorator = new TaskProviderDecorator(extensions, getStore());
+		taskProviderDecorator.decorate(composite);
 
 		return composite;
 	}
 
-	/**
-	 * @param string
-	 * @return
-	 */
-	private String[] parseVersions(String string) {
-		StringTokenizer tokenizer = new StringTokenizer(string, ",");
-		int i = 0, count = tokenizer.countTokens();
-		String[] versions = new String[count];
-		while (tokenizer.hasMoreTokens()) {
-			versions[i++] = tokenizer.nextToken();
-		}
-		return versions;
-	}
-
 	public boolean performOk() {
-		for (int i = 0; i < weboptions.length; i++) {
-			Combo combo = ((Combo) panel.preferences[i]);
-			boolean itemActive = panel.fActive[i].getSelection();
-			String itemValue = combo.getItem(combo.getSelectionIndex());
-			getStore().setProperty(weboptions[i][0] + "_VERSION", itemValue);
-			getStore().setPropertyActive(weboptions[i][0], itemActive);
-		}
+
 		getStore().save();
+		try {
+			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject) getElement());
+		} catch (CoreException e) {
+			Logger.logException(e);
+		}
 		return super.performOk();
+
 	}
 
 }

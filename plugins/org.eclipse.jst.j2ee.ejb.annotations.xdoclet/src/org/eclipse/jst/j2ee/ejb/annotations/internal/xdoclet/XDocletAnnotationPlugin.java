@@ -9,10 +9,13 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -90,6 +93,16 @@ public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	}
 	
 
-	
+	public static ImageDescriptor createImageDescriptor(URL root, String file) {
+		try {
+			URL urlToImage =
+				new URL(root,file);
+			return ImageDescriptor.createFromURL(urlToImage);
+		} catch (MalformedURLException e) {
+			Logger.logException(e);
+			return null;
+		}
+
+	}	
 	
 }

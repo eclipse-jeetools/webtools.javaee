@@ -23,6 +23,8 @@ import java.io.IOException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IPreferencesService;
@@ -41,40 +43,9 @@ public final class XDocletPreferenceStore {
 
 	public static final String XDOCLETBUILDERACTIVE = "XDOCLETBUILDERACTIVE";
 	public static final String XDOCLETUSEGLOBAL = "XDOCLETUSEGLOBAL";
-
-	public static final String XDOCLETGENERATELOCAL = "XDOCLETGENERATELOCAL";
-	public static final String XDOCLETGENERATEREMOTE = "XDOCLETGENERATEREMOTE";
-
-	public static final String XDOCLETGENERATEDATAOBJECT = "XDOCLETGENERATEDATAOBJECT";
-	public static final String XDOCLETGENERATEDAO = "XDOCLETGENERATEDAO";
-	public static final String XDOCLETGENERATEVALUEOBJECT = "XDOCLETGENERATEVALUEOBJECT";
-	public static final String XDOCLETGENERATEUTIL = "XDOCLETGENERATEUTIL";
-
-	public static final String XDOCLETGENERATEENTITYPK = "XDOCLETGENERATEENTITYPK";
-	public static final String XDOCLETGENERATEENTITYCMP = "XDOCLETGENERATEENTITYCMP";
-	public static final String XDOCLETGENERATEENTITYBMP = "XDOCLETGENERATEENTITYBMP";
-	public static final String XDOCLETGENERATESESSION = "XDOCLETGENERATESESSION";
-	public static final String XDOCLETGENERATEMDB = "XDOCLETGENERATEMDB";
-
 	public static final String XDOCLETFORCE = "XDOCLETFORCE";
 	public static final String XDOCLETHOME = "XDOCLETHOME";
 	public static final String XDOCLETVERSION = "XDOCLETVERSION";
-
-	public static final String EJB_JBOSS = "EJB_JBOSS";
-	public static final String EJB_JONAS = "EJB_JONAS";
-	public static final String EJB_WEBSPHERE = "EJB_WEBSPHERE";
-	public static final String EJB_WEBLOGIC = "EJB_WEBLOGIC";
-	public static final String EJB_ORACLE = "EJB_ORACLE";
-	public static final String EJB_ORION = "EJB_ORION";
-	public static final String EJB_JRUN = "EJB_JRUN";
-
-	public static final String WEB_JBOSS = "WEB_JBOSS";
-	public static final String WEB_JONAS = "WEB_JONAS";
-	public static final String WEB_WEBSPHERE = "WEB_WEBSPHERE";
-	public static final String WEB_WEBLOGIC = "WEB_WEBLOGIC";
-	public static final String WEB_ORACLE = "WEB_ORACLE";
-	public static final String WEB_ORION = "WEB_ORION";
-	public static final String WEB_JRUN = "WEB_JRUN";
 
 	public XDocletPreferenceStore(IProject project) {
 		this.project = project;
@@ -98,7 +69,7 @@ public final class XDocletPreferenceStore {
 	}
 
 	private IScopeContext[] getLookupOrder() {
-		String key = getPreferencePrefix() + "." + XDOCLETUSEGLOBAL;
+		String key = XDOCLETUSEGLOBAL;
 
 		IScopeContext[] projectScopeOrder = null;
 		if (project != null)
@@ -116,23 +87,15 @@ public final class XDocletPreferenceStore {
 			return projectScopeOrder;
 	}
 
-	public String getPropertyRaw(String item) {
-		IScopeContext[] lOrder = this.getLookupOrder();
-		// String defvalue = preferenceStore.getDefaultString(item);
-		return this.getPreferencesService().getString(getPreferencePrefix(), item, null, lOrder);
-	}
-
 	public void setProperty(String item, String value) {
-		String key = getPreferencePrefix() + "." + item + ".value";
 		IPreferenceStore store = XDocletAnnotationPlugin.getDefault().getPreferenceStore();
 		if (project != null)
 			store = projectSettings;
 
-		store.setValue(key, value);
+		store.setValue(item, value);
 	}
 
 	public void save() {
-
 		try {
 			if (project != null && projectSettings != null)
 				projectSettings.save();
@@ -143,89 +106,61 @@ public final class XDocletPreferenceStore {
 	}
 
 	public void setProperty(String item, boolean value) {
-		String key = getPreferencePrefix() + "." + item + ".value";
 		IPreferenceStore store = XDocletAnnotationPlugin.getDefault().getPreferenceStore();
 		if (project != null)
 			store = projectSettings;
 
-		store.setValue(key, value);
+		store.setValue(item, value);
 
 	}
 
 	public String getProperty(String item) {
-		String key = getPreferencePrefix() + "." + item + ".value";
-
 		IScopeContext[] lOrder = this.getLookupOrder();
-		return this.getPreferencesService().getString(getPreferencePrefix(), key, null, lOrder);
+		return this.getPreferencesService().getString(getPreferencePrefix(), item, null, lOrder);
 	}
 
-	public boolean isPropertyActive(String item) {
-		String key = getPreferencePrefix() + "." + item;
-		IScopeContext[] lOrder = this.getLookupOrder();
-		return this.getPreferencesService().getBoolean(getPreferencePrefix(), key, false, lOrder);
-	}
+	public boolean getBooleanProperty(String item) {
 
-	public void setPropertyActive(String item, boolean active) {
-		String key = getPreferencePrefix() + "." + item;
-		IPreferenceStore store = XDocletAnnotationPlugin.getDefault().getPreferenceStore();
-		if (project != null)
-			store = projectSettings;
-		store.setValue(key, active);
+		IScopeContext[] lOrder = this.getLookupOrder();
+		return this.getPreferencesService().getBoolean(getPreferencePrefix(), item, false, lOrder);
 	}
 
 	protected static void initializeDefaultPreferences(IPreferenceStore store) {
 
 		store.setDefault(XDOCLETFORCE, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETVERSION + ".value", "1.2.1");
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETHOME + ".value", "");
+		store.setDefault(XDOCLETVERSION, "1.2.1");
+		store.setDefault(XDOCLETHOME, "");
+		store.setDefault(XDOCLETUSEGLOBAL, true);
+		store.setDefault(XDOCLETBUILDERACTIVE, true);
 
-		store.setDefault(getPreferencePrefix() + "." + EJB_JBOSS + "_VERSION.value", "2.4");
-		store.setDefault(getPreferencePrefix() + "." + EJB_JONAS + "_VERSION.value", "2.6");
-		store.setDefault(getPreferencePrefix() + "." + EJB_WEBLOGIC + "_VERSION.value", "6.1");
-		store.setDefault(getPreferencePrefix() + "." + EJB_WEBSPHERE + "_VERSION.value", "all");
-
-		store.setDefault(getPreferencePrefix() + "." + WEB_JBOSS + "_VERSION.value", "2.4");
-		store.setDefault(getPreferencePrefix() + "." + WEB_JONAS + "_VERSION.value", "2.6");
-		store.setDefault(getPreferencePrefix() + "." + WEB_WEBLOGIC + "_VERSION.value", "6.1");
-		store.setDefault(getPreferencePrefix() + "." + WEB_WEBSPHERE + "_VERSION.value", "all");
-
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETUSEGLOBAL, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETBUILDERACTIVE, true);
-
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATELOCAL, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEREMOTE, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEUTIL, true);
-
-
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEDATAOBJECT, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEDAO, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEVALUEOBJECT, true);
-
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEENTITYPK, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEENTITYCMP, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEENTITYBMP, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATESESSION, true);
-		store.setDefault(getPreferencePrefix() + "." + XDOCLETGENERATEMDB, true);
-
-		store.setDefault(getPreferencePrefix() + "." + EJB_JBOSS, false);
-		store.setDefault(getPreferencePrefix() + "." + EJB_JONAS, false);
-		store.setDefault(getPreferencePrefix() + "." + EJB_WEBSPHERE, false);
-		store.setDefault(getPreferencePrefix() + "." + EJB_WEBLOGIC, false);
-		store.setDefault(getPreferencePrefix() + "." + EJB_ORACLE, false);
-		store.setDefault(getPreferencePrefix() + "." + EJB_ORION, false);
-		store.setDefault(getPreferencePrefix() + "." + EJB_JRUN, false);
-
-		store.setDefault(getPreferencePrefix() + "." + WEB_JBOSS, false);
-		store.setDefault(getPreferencePrefix() + "." + WEB_JONAS, false);
-		store.setDefault(getPreferencePrefix() + "." + WEB_WEBSPHERE, false);
-		store.setDefault(getPreferencePrefix() + "." + WEB_WEBLOGIC, false);
-		store.setDefault(getPreferencePrefix() + "." + WEB_ORACLE, false);
-		store.setDefault(getPreferencePrefix() + "." + WEB_ORION, false);
-		store.setDefault(getPreferencePrefix() + "." + WEB_JRUN, false);
+		initDoclet(store,"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider");
+		initDoclet(store,"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider");
 	}
 
-	public static XDocletPreferenceStore forProject(IProject currentProject) {
+	private static void initDoclet(IPreferenceStore store, String extensionID) {
+		IExtension[] extensions = Platform.getExtensionRegistry().getExtensionPoint(extensionID).getExtensions();
+		for (int i = 0; extensions != null && i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] elements = extension.getConfigurationElements();
+			if (elements == null)
+				continue;
 
+			String id = elements[0].getAttribute("id");
+			boolean selected = Boolean.valueOf(elements[0].getAttribute("defaultSelection")).booleanValue();
+			store.setDefault(id + ".defaultSelection", selected);
+			for (int j = 1; j < elements.length; j++) {
+				IConfigurationElement param = elements[j];
+				String paramId = param.getAttribute("id");
+				String paramValue = param.getAttribute("default");
+				boolean include = Boolean.valueOf(param.getAttribute("include")).booleanValue();
+				store.setDefault(paramId, paramValue);
+				store.setDefault(paramId + ".include", include);
+			}
+		}
+	}
+
+
+	public static XDocletPreferenceStore forProject(IProject currentProject) {
 		return new XDocletPreferenceStore(currentProject);
 	}
 }

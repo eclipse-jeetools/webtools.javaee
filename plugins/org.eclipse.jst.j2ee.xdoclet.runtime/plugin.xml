@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.xdocletRuntime.121"
+         name="XDoclet 1.2.1"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime">
+      <RuntimeVersion
+            ejb="2.0"
+            jsp="1.1"
+            servlet="2.3"
+            xdoclet="1.2.1"/>
+      <RuntimeLib
+            location="xdoclet-1.2.1.jar"
+            name="xdoclet-1.2.1.jar"/>
+      <RuntimeLib
+            location="xjavadoc-1.0.3.jar"
+            name="xjavadoc-1.0.3.jar"/>
+   </extension>
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.xdocletRuntime.122"
+         name="XDoclet 1.2.2"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime">
+      <RuntimeVersion
+            ejb="2.1"
+            jsp="1.2"
+            servlet="2.4"
+            xdoclet="1.2.2"/>
+      <RuntimeLib
+            location="xdoclet-1.2.2.jar"
+            name="xdoclet-1.2.2.jar"/>
+      <RuntimeLib
+            location="xjavadoc-1.1.jar"
+            name="xjavadoc-1.1.jar"/>   
+   </extension>
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.xdocletRuntime.123"
+         name="XDoclet 1.2.3"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime">
+      <RuntimeVersion
+            ejb="2.1"
+            jsp="1.2"
+            servlet="2.4"
+            xdoclet="1.2.3"/>
+      <RuntimeLib
+            location="xdoclet-1.2.3.jar"
+            name="xdoclet-1.2.3.jar"/>
+      <RuntimeLib
+            location="xjavadoc-1.1.jar"
+            name="xjavadoc-1.1.jar"/>   
+   </extension>
+   
+   
+   <!-- Deployment Descriptor (EJB)/WEB -->
+
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.webdocletTaskProvider.deploymentdescriptor"
+         name="DeploymentDescriptor Webdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider">
+      <WebdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds DeploymentDescriptor task to webdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider"
+            name="DeploymentDescriptor"/>
+
+      <TaskProperty
+            default="true"
+            id="webdoclet.deploymentdescriptor.useIds"
+            include="true"
+            label="useIds"
+            type="boolean"
+            description="If this attribute is set to true, XDoclet will generate id attributes in the XML document. Note that this is only available in some subtasks." />
+      <TaskProperty
+            default="${servlet.spec.version}"
+            id="webdoclet.deploymentdescriptor.servletspec"
+            include="true"
+            label="servletspec"
+            type="string"
+            description="The Servlet spec version to which the web application conforms. Valid values: 2.2, 2.3, 2.4" />
+     <TaskProperty
+            default="XDoclet Generated Name"
+            id="webdoclet.deploymentdescriptor.displayname"
+            include="true"
+            label="displayname"
+            type="string"
+            description="Sets the Displayname attribute of the WebXmlSubTask object"/>
+            
+      <TaskProperty
+            default="false"
+            id="webdoclet.deploymentdescriptor.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${web.module.webinf}"
+            id="webdoclet.deploymentdescriptor.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${web.module.webinf}"
+            id="weboclet.deploymentdescriptor.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>
+   </extension>   
+   
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.deploymentdescriptor"
+         name="DeploymentDescriptor Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds DeploymentDescriptor task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorEjbdocletTaskProvider"
+            name="DeploymentDescriptor"/>
+
+      <TaskProperty
+            default="true"
+            id="ejbdoclet.deploymentdescriptor.useIds"
+            include="true"
+            label="useIds"
+            type="boolean"
+            description="If this attribute is set to true, XDoclet will generate id attributes in the XML document. Note that this is only available in some subtasks." />
+     <TaskProperty
+            default="${ejb.dd.displayname}"
+            id="ejbdoclet.deploymentdescriptor.displayname"
+            include="true"
+            label="displayname"
+            type="string"
+            description="Sets the Displayname attribute of the EjbDotXmlSubTask object"/>
+     <TaskProperty
+            default="${ejb.dd.description}"
+            id="ejbdoclet.deploymentdescriptor.description"
+            include="true"
+            label="description"
+            type="string"
+            description="Sets the Description attribute of the EjbDotXmlSubTask object"/>
+            
+     <TaskProperty
+            default="${ejb.dd.clientjar}"
+            id="ejbdoclet.deploymentdescriptor.clientjar"
+            include="true"
+            label="clientjar"
+            type="string"
+            description="Sets the Clientjar attribute of the EjbDotXmlSubTask object. Automatically excluded if there is not ejb client project."/>
+            
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.deploymentdescriptor.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.deploymentdescriptor.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.deploymentdescriptor.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>
+   </extension>   
+ 
+   <!-- remoteinterface -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.remoteinterface"
+         name="remoteinterface Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.RemoteInterfaceEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds remoteinterface task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.RemoteInterfaceEjbdocletTaskProvider"
+            name="RemoteInterface"/>
+   </extension>   
+
+   <!-- homeinterface -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.homeinterface"
+         name="homeinterface Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.HomeInterfaceEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds homeinterface task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.HomeInterfaceEjbdocletTaskProvider"
+            name="HomeInterface"/>
+   </extension>   
+
+   <!-- localinterface -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.localinterface"
+         name="localinterface Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalInterfaceEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds localinterface task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalInterfaceEjbdocletTaskProvider"
+            name="LocalInterface"/>
+   </extension>   
+
+   <!-- localhomeinterface -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.localhomeinterface"
+         name="localhomeinterface Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalHomeInterfaceEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds localhomeinterface task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalHomeInterfaceEjbdocletTaskProvider"
+            name="LocalHomeInterface"/>
+   </extension>   
+
+   <!-- utilobject -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.utilobject"
+         name="utilobject Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.UtilObjectEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds utilobject task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.UtilObjectEjbdocletTaskProvider"
+            name="UtilObject"/>
+      <TaskProperty
+            default="true"
+            id="ejbdoclet.utilobject.cacheHomes"
+            label="cacheHomes"
+            include="true"            
+            type="boolean"
+            description="Cache the homes"/>            
+      <TaskProperty
+            default="true"
+            id="ejbdoclet.utilobject.includeGUID"
+            label="includeGUID"
+            include="true"            
+            type="boolean"
+            description="Include a performant GUID generator in the util object."/> 
+      <TaskProperty
+            default="physical"
+            id="ejbdoclet.utilobject.kind"
+            label="kind"
+            include="true"            
+            restriction="physical,logical"
+            type="enum"
+            description="Sets the Kind attribute of the UtilObjectSubTask object Valid values: physical, logical"/>                       
+   </extension>   
+
+   <!-- dataobject -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.dataobject"
+         name="dataobject Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DataObjectEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds dataobject task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DataObjectEjbdocletTaskProvider"
+            name="DataObject"/>
+   </extension>   
+
+   <!-- dao -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.dao"
+         name="dao Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DaoEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds dao task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DaoEjbdocletTaskProvider"
+            name="Dao"/>
+   </extension>   
+
+   <!-- valueobject -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.valueobject"
+         name="valueobject Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.ValueObjectEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds valueobject task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.ValueObjectEjbdocletTaskProvider"
+            name="valueobject"/>
+   </extension>   
+
+   <!-- entitypk -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.entitypk"
+         name="entitypk Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitypkEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds entitypk task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitypkEjbdocletTaskProvider"
+            name="Entitypk"/>
+   </extension>   
+
+
+   <!-- entitycmp -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.entitycmp"
+         name="entitycmp Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitycmpEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds entitycmp task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitycmpEjbdocletTaskProvider"
+            name="Entitycmp"/>
+   </extension>   
+
+   <!-- entitybmp -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.entitybmp"
+         name="entitybmp Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitybmpEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds entitybmp task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitybmpEjbdocletTaskProvider"
+            name="Entitybmp"/>
+   </extension>   
+
+
+   <!-- session -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.session"
+         name="session Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.SessionEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds session task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.SessionEjbdocletTaskProvider"
+            name="Session"/>
+   </extension>   
+
+   <!-- mdb -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.mdb"
+         name="mdb Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.MdbEjbdocletTaskProvider"
+            defaultSelection="true"
+            description="Adds mdb task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.MdbEjbdocletTaskProvider"
+            name="Mdb"/>
+   </extension>   
+
+   <!-- Server Extensions -->  
+
+   <!-- WEBLOGIC -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.webDocletTaskProvider.weblogic"
+         name="WebLogic WebDoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider">
+      <WebdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WeblogicWebdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds weblogic task to webdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WeblogicWebdocletTaskProvider"
+            name="WebLogic"/>
+      <TaskProperty
+            default="8.1"
+            id="webdoclet.weblogic.version"
+            label="version"
+            include="true"            
+            restriction="6.0, 6.1, 7.0, 8.1, 9.0"
+            type="enum"
+            description="Sets the target WebLogic version to generate for. Possible values are 6.1, 7.0 and 8.1 Valid values: 6.0, 6.1, 7.0, 8.1"/>
+      <TaskProperty
+            default="${web}"
+            id="webdoclet.weblogic.contextroot"
+            include="true"
+            label="contextroot"
+            type="string"
+            description="	The context-root element specifies the context root for the web application."/>
+      <TaskProperty
+            default="UTF-8"
+            id="webdoclet.weblogic.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="webdoclet.weblogic.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.weblogic.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.weblogic.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>        
+   </extension>
+       
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.weblogic"
+         name="WebLogic Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WeblogicEjbdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds weblogic task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WeblogicEjbdocletTaskProvider"
+            name="Weblogic"/>
+      <TaskProperty
+            default="8.1"
+            id="ejbdoclet.weblogic.version"
+            label="version"
+            include="true"            
+            restriction="6.0, 6.1, 7.0, 8.1, 9.0"
+            type="enum"
+            description="Sets the target WebLogic version to generate for. Possible values are 6.1, 7.0 and 8.1 Valid values: 6.0, 6.1, 7.0, 8.1"/>
+      <TaskProperty
+            default="UTF-8"
+            id="ejbdoclet.weblogic.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="Disabled"
+            id="ejbdoclet.weblogic.createtables"
+            label="createtables"
+            include="true"            
+            restriction="True, False, Disabled, CreateOnly, DropAndCreate, DropAndCreateAlways, AlterOrCreate"
+            type="enum"
+            description="If True or CreateOnly, then at deployment time\nif there is no Table in the Database for a CMP Bean,\n the Container will attempt to CREATE the Table \n(based on information found in the deployment files \n and in the Bean Class). Valid values are \n True and False for WLS Servers for versions older than 8.1 \n and CreateOnly, DropAndCreate, DropAndCreateAlways, AlterOrCreate \n and Disabled for WLS Servers  8.1 and above"/>            
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.weblogic.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+     <TaskProperty
+            default="${data.source.name}"
+            id="ejbdoclet.weblogic.datasource"
+            include="true"
+            label="datasource"
+            type="string"
+            description="Specifies a default value for the data-source-name element in the CMP descriptor, to use if no weblogic.data-source-name tag appears on a bean." />
+    <TaskProperty
+            default="weblogic"
+            id="ejbdoclet.weblogic.persistence"
+            include="true"
+            label="persistence"
+            type="string"
+            description="Sets the persistence type to use. Default is weblogic. Useful if you're using a different persistence manager like MVCSoft" />
+
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.weblogic.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.weblogic.destdir"
+            include="true"
+            label="destdir"
+             type="string"
+            description="Sets the directory where the generated file(s) will be written."/>
+            
+   </extension>
+
+   <!-- JBOSS -->
+  
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.webDocletTaskProvider.jboss"
+         name="JBoss WebDoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider">
+      <WebdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JBossWebdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds jboss task to webdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JBossWebdocletTaskProvider"
+            name="JBoss"/>
+      <TaskProperty
+            default="3.2"
+            id="webdoclet.jboss.version"
+            label="version"
+            include="true"            
+            restriction="2.4, 3.0, 3.0.1, 3.0.2, 3.0.3, 3.2, 4.0"
+            type="enum"
+            description="The version of JBoss. Supported versions are 2.4, 3.0, 3.0.1, 3.0.2, 3.0.3, 3.2 and 4.0."/>
+      <TaskProperty
+            default="${web}"
+            id="webdoclet.jboss.contextroot"
+            include="true"
+            label="contextroot"
+            type="string"
+            description="	The context-root element specifies the context root for the web application."/>
+      <TaskProperty
+            default="UTF-8"
+            id="webdoclet.jboss.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="webdoclet.jboss.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.jboss.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.jboss.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>        
+   </extension>
+   
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.jboss"
+         name="JBoss Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JBossEjbdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds jboss task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JBossEjbdocletTaskProvider"
+            name="JBoss"/>
+      <TaskProperty
+            default="3.2"
+            id="ejbdoclet.jboss.version"
+            label="version"
+            include="true"            
+            restriction="2.4, 3.0, 3.0.1, 3.0.2, 3.0.3, 3.2, 4.0"
+            type="enum"
+            description="The version of JBoss. Supported versions are 2.4, 3.0, 3.0.1, 3.0.2, 3.0.3, 3.2 and 4.0."/>
+      <TaskProperty
+            default="UTF-8"
+            id="ejbdoclet.jboss.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.jboss.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.jboss.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.jboss.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>
+            
+   </extension>
+ 
+
+   <!-- JONAS -->
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.webDocletTaskProvider.jonas"
+         name="JOnAS WebDoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider">
+      <WebdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JonasWebdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds jonas task to webdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JonasWebdocletTaskProvider"
+            name="JOnAS"/>
+      <TaskProperty
+            default="2.6"
+            id="webdoclet.jonas.version"
+            label="version"
+            include="true"            
+            restriction="2.3, 2.4, 2.5, 2.6, 3.0, 3.2, 4.0, 4.1, 4.5"
+            type="enum"
+            description="Sets the version of JOnAS. Supported versions are: 2.3, 2.4, 2.5, 2.6, 3.0"/>
+      <TaskProperty
+            default="${web}"
+            id="webdoclet.jonas.contextroot"
+            include="true"
+            label="contextroot"
+            type="string"
+            description="	The context-root element specifies the context root for the web application."/>
+      <TaskProperty
+            default="UTF-8"
+            id="webdoclet.jonas.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="webdoclet.jonas.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.jonas.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.jonas.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>        
+   </extension>
+      
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.jonas"
+         name="JOnAS Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JonasEjbdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds JOnAS task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.JonasEjbdocletTaskProvider"
+            name="JOnAS"/>
+      <TaskProperty
+            default="2.4"
+            id="ejbdoclet.jonas.version"
+            label="version"
+            include="true"            
+            restriction="2.3, 2.4, 2.5, 2.6, 3.0, 3.2, 4.0, 4.1, 4.5"
+            type="enum"
+            description="Sets the version of JOnAS. Supported versions are: 2.3, 2.4, 2.5, 2.6, 3.0"/>
+      <TaskProperty
+            default="UTF-8"
+            id="ejbdoclet.jonas.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.jonas.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.jonas.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.jonas.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>
+            
+   </extension>
+
+   <!-- WEBPSHERE -->
+      <extension
+         id="org.eclipse.jst.j2ee.xdoclet.webDocletTaskProvider.websphere"
+         name="Websphere WebDoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider">
+      <WebdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WebsphereWebdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds websphere task to webdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WebsphereWebdocletTaskProvider"
+            name="Websphere"/>
+ 
+ 
+      <TaskProperty
+            default="UTF-8"
+            id="webdoclet.websphere.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="webdoclet.websphere.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.websphere.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${web.dd.dir}"
+            id="webdoclet.websphere.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>        
+   </extension>
+   
+   <extension
+         id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.webpshere"
+         name="WebSphere Ejbdoclet Task Provider"
+         point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
+      <EjbdocletTaskProvider
+            class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WebsphereEjbdocletTaskProvider"
+            defaultSelection="false"
+            description="Adds WebSphere task to ejbdoclet"
+            id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.server.WebsphereEjbdocletTaskProvider"
+            name="WebSphere"/>
+
+      <TaskProperty
+            default="UTF-8"
+            id="ejbdoclet.websphere.xmlencoding"
+            include="true"
+            label="xmlencoding"
+            type="string"
+            description="The encoding of the produced xml file. If your XML file uses international characters, you might want to set this to UTF-8."/>
+      <TaskProperty
+            default="false"
+            id="ejbdoclet.websphere.validatexml"
+            include="true"
+            label="validatexml"
+            type="boolean"
+            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.websphere.mergedir"
+            include="true"
+            label="mergedir"
+            type="string"
+            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+      <TaskProperty
+            default="${ejb.dd.dir}"
+            id="ejbdoclet.websphere.destdir"
+            include="true"
+            label="destdir"
+            type="string"
+            description="Sets the directory where the generated file(s) will be written."/>
+            
+   </extension>   
+
+</plugin>

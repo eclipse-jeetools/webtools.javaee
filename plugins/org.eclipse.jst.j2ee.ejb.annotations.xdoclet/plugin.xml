@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+   <extension-point id="xdocletRuntime" name="XDoclet Runtime" schema="schema/xdocletRuntime.exsd"/>
+   <extension-point id="webdocletTaskProvider" name="Task providers for webdoclet" schema="schema/webdocletTaskProvider.exsd"/>
+   <extension-point id="ejbDocletTaskProvider" name="A task  provider class for ejbdoclet" schema="schema/ejbDocletTaskProvider.exsd"/>
 
      <extension point="org.eclipse.core.resources.builders"
        id="xdocletbuilder"

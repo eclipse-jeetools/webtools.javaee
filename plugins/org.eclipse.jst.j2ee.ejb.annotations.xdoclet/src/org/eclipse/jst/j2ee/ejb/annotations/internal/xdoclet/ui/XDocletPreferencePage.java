@@ -131,7 +131,8 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		defPanel.setLayoutData(gridData);
 
-		//ResourceBundle bundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
+		// ResourceBundle bundle =
+		// ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
 
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
@@ -147,22 +148,21 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		panel.fActive = new Button[numCont];
 
 		if (isProjectPreferencePage())
-			panel.preferences[3] = panel.createLabeledCheck(3, getStore().isPropertyActive(
-					XDocletPreferenceStore.XDOCLETUSEGLOBAL), Messages.label_global_pref, Messages.desc_global_pref,
-					getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
+			panel.preferences[3] = panel.createLabeledCheck(3, getStore().getBooleanProperty(XDocletPreferenceStore.XDOCLETUSEGLOBAL),
+					Messages.label_global_pref, Messages.desc_global_pref, getStore().getBooleanProperty(
+							XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
 
-		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().isPropertyActive(
-				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), Messages.label_enable_xdoclet_builder, Messages.desc_enable_xdoclet_builder,
-				getStore().isPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
+		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().getBooleanProperty(
+				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), Messages.label_enable_xdoclet_builder,
+				Messages.desc_enable_xdoclet_builder, getStore().getBooleanProperty(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
 				defPanel);
-		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home,
-				getStore().getProperty(XDocletPreferenceStore.XDOCLETHOME), defPanel);
+		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home, getStore()
+				.getProperty(XDocletPreferenceStore.XDOCLETHOME), defPanel);
 		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version, Messages.desc_xdoclet_version,
-				getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), new String[] {
-				"1.2.1", "1.2.2", "1.2.3" }, defPanel);
+				getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), new String[] { "1.2.1", "1.2.2", "1.2.3" }, defPanel);
 		final Text xDocletPath = (Text) panel.preferences[2];
 		final Combo xDocletVersion = (Combo) panel.preferences[1];
-		
+
 		validateCurrentPreferences(xDocletPath, xDocletVersion);
 
 		ModifyListener listener = new ModifyListener() {
@@ -183,11 +183,11 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		String itemValue = "";
 		itemValue = ((Text) panel.preferences[2]).getText();
 		getStore().setProperty(XDocletPreferenceStore.XDOCLETHOME, itemValue);
-		
+
 		if (isProjectPreferencePage()) {
-			getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETUSEGLOBAL, ((Button) panel.preferences[3]).getSelection());
+			getStore().setProperty(XDocletPreferenceStore.XDOCLETUSEGLOBAL, ((Button) panel.preferences[3]).getSelection());
 		}
-		
+
 		Combo combo = ((Combo) panel.preferences[1]);
 		int itemIndex = combo.getSelectionIndex();
 		if (itemIndex != -1) {
@@ -198,10 +198,10 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 			return false;
 		}
 
-		getStore().setPropertyActive(XDocletPreferenceStore.XDOCLETBUILDERACTIVE, ((Button) panel.preferences[0]).getSelection());
+		getStore().setProperty(XDocletPreferenceStore.XDOCLETBUILDERACTIVE, ((Button) panel.preferences[0]).getSelection());
 		getStore().save();
 		try {
-			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject)getElement());
+			XDocletBuildUtility.runNecessaryBuilders(new NullProgressMonitor(), (IProject) getElement());
 		} catch (CoreException e) {
 			Logger.logException(e);
 		}

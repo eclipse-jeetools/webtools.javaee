@@ -1,3 +1,11 @@
+/***************************************************************************************************
+ * Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Eteration A.S. - initial API and implementation
+ **************************************************************************************************/
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
 import java.io.File;
@@ -12,6 +20,8 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
@@ -55,56 +65,45 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	protected HashMap createTemplates(String beanPath) {
 		HashMap templates = new HashMap();
 		templates.put("@beans@", beanPath); //$NON-NLS-1$
-		templates.put("@jboss@", addJbossTask()); //$NON-NLS-1$
-		templates.put("@jonas@", addJonasTask()); //$NON-NLS-1$
-		templates.put("@weblogic@", addWeblogicTask()); //$NON-NLS-1$
-		templates.put("@websphere@", addWebSphereTask()); //$NON-NLS-1$
-		templates.put("@deploymentdescriptor@", addDeploymentDescriptorTask()); //$NON-NLS-1$
-		templates.put("@remoteinterfaces@", addRemoteTask());
-		templates.put("@localinterfaces@", addLocalTask());
-		templates.put("@utilobject@", addUtilObject());
 
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDATAOBJECT))
-			templates.put("@dataobject@", "<dataobject/>");
-		else
-			templates.put("@dataobject@", "");
-
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEDAO))
-			templates.put("@dao@", "<dao pattern=\"{0}\" destdir=\"\\${ejb.project.dir}/\\${ejb.module.gen}\"/>");
-		else
-			templates.put("@dao@", "");
-		
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEVALUEOBJECT))
-			templates.put("@valueobject@", "<valueobject/>");
-		else
-			templates.put("@valueobject@", "");
-		
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYPK))
-			templates.put("@entitypk@", "<entitypk/>");
-		else
-			templates.put("@entitypk@", "");
-		
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYCMP))
-			templates.put("@entitycmp@", "<entitycmp/>");
-		else
-			templates.put("@entitycmp@", "");
-		
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEENTITYBMP))
-			templates.put("@entitybmp@", "<entitybmp/>");
-		else
-			templates.put("@entitybmp@", "");
-		
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATESESSION))
-			templates.put("@session@", "<session/>");
-		else
-			templates.put("@session@", "");
-		
-		if (getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEMDB))
-			templates.put("@mdb@", "<mdb/>");
-		else
-			templates.put("@mdb@", "");
+		templates.put("@docletTasks@", createDocletTasks()); //$NON-NLS-1$
 
 		return templates;
+	}
+
+	private String createDocletTasks() {
+		IExtension[] extensions = Platform.getExtensionRegistry().getExtensionPoint(
+				"org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider").getExtensions();
+		StringBuffer tasks = new StringBuffer(512);
+		for (int i = 0; extensions != null && i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] elements = extension.getConfigurationElements();
+			if (elements == null)
+				continue;
+			try {
+				String pluginDescriptor = elements[0].getDeclaringExtension().getNamespace();
+
+				org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
+				Class c = bundle.loadClass(elements[0].getAttribute("class"));
+				if (c != null) {
+					XDocletTaskProvider docletTaskProvider = (XDocletTaskProvider) c.newInstance();
+
+					docletTaskProvider.setClientProject(clientProject);
+					docletTaskProvider.setPreferenceStore(this.preferenceStore);
+					docletTaskProvider.setExtension(extension);
+					docletTaskProvider.setProperties(this.getProperties());
+					docletTaskProvider.setProject(this.getProject());
+					if (preferenceStore.getBooleanProperty(elements[0].getAttribute("id") + ".defaultSelection")) {
+						tasks.append("\n");
+						tasks.append(docletTaskProvider.getTask());
+						tasks.append("\n");
+					}
+				}
+			} catch (Exception e) {
+				Logger.logException(e);
+			}
+		}
+		return tasks.toString();
 	}
 
 	/**
@@ -159,9 +158,9 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
 			int ejbLevelI = ejbEdit.getEJBJarXmiResource().getModuleVersionID();
 			String ejbLevel = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
-			if (ejbLevelI == J2EEVersionConstants.EJB_2_0_ID)
+			if ((ejbLevel == null || ejbLevel.length()==0) && ejbLevelI == J2EEVersionConstants.EJB_2_0_ID)
 				ejbLevel = J2EEVersionConstants.VERSION_2_0_TEXT;
-			else if (ejbLevelI == J2EEVersionConstants.EJB_2_1_ID)
+			else if ((ejbLevel == null || ejbLevel.length()==0) && ejbLevelI == J2EEVersionConstants.EJB_2_1_ID)
 				ejbLevel = J2EEVersionConstants.VERSION_2_1_TEXT;
 
 			setEjbClientJarProperties(properties, core, ejbModule);
@@ -276,69 +275,6 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 		} catch (JavaModelException e) {
 			Logger.logException(e);
 		}
-	}
-
-	private String addWeblogicTask() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.EJB_WEBLOGIC))
-			return ""; //$NON-NLS-1$
-		String version = getPreferenceStore().getProperty(XDocletPreferenceStore.EJB_WEBLOGIC + "_VERSION");
-		String createtables = "False"; // < 8.1 True | False
-		if ("8.1".equals(version))
-			createtables = "Disabled"; // >= 8.1 Disabled | ...
-		return "<weblogic version=\"" + version + "\"" + "   xmlencoding=\"UTF-8\"" + "   destdir=\"\\${ejb.dd.dir}\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-				+ " createtables=\"" + createtables + "\"" + "   validatexml=\"false\"" + "   datasource=\"\\${data.source.name}\"" + "   mergedir=\"\\${ejb.dd.dir}\"" + "   persistence=\"weblogic\" />"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-
-	}
-
-	private String addJbossTask() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.EJB_JBOSS))
-			return ""; //$NON-NLS-1$
-		return "<jboss version=\"" + getPreferenceStore().getProperty(XDocletPreferenceStore.EJB_JBOSS + "_VERSION") + "\""
-				+ "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${ejb.dd.dir}\"" + "    validatexml=\"false\" />"; //$NON-NLS-1$ //$NON-NLS-2$
-
-	}
-
-	private String addJonasTask() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.EJB_JONAS))
-			return ""; //$NON-NLS-1$
-		return "<jonas version=\"" + getPreferenceStore().getProperty(XDocletPreferenceStore.EJB_JONAS + "_VERSION") + "\"" + "    xmlencoding=\"UTF-8\"" + "    destdir=\"\\${ejb.dd.dir}\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-				+ "    validatexml=\"false\"" + "    mergedir=\"\\${ejb.dd.dir}\" />"; //$NON-NLS-1$ //$NON-NLS-2$
-
-	}
-
-	private String addDeploymentDescriptorTask() {
-		if (clientProject == null)
-			return "<deploymentdescriptor useIds=\"true\" destdir=\"\\${ejb.dd.dir}\" " + "displayname=\"\\${ejb.dd.displayname}\" "
-					+ "description=\"\\${ejb.dd.description}\" " + "validatexml=\"false\" " + "mergedir=\"\\${ejb.dd.dir}\" />";
-		else
-			return "<deploymentdescriptor  useIds=\"true\" destdir=\"\\${ejb.dd.dir}\" " + "displayname=\"\\${ejb.dd.displayname}\" "
-					+ "description=\"\\${ejb.dd.description}\" " + "validatexml=\"false\" " + "clientjar=\"\\${ejb.dd.clientjar}\" "
-					+ "mergedir=\"\\${ejb.dd.dir}\" />";
-
-	}
-
-	private String addWebSphereTask() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.EJB_WEBSPHERE))
-			return ""; //$NON-NLS-1$
-		return "<webSphere destdir=\"\\${ejb.dd.dir}\"/>"; //$NON-NLS-1$
-	}
-
-	private String addLocalTask() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATELOCAL))
-			return ""; //$NON-NLS-1$
-		return "<localinterface/>\n <localhomeinterface/>"; //$NON-NLS-1$
-	}
-
-	private String addRemoteTask() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEREMOTE))
-			return ""; //$NON-NLS-1$
-		return "<remoteinterface/> \n <homeinterface />"; //$NON-NLS-1$
-	}
-
-	private String addUtilObject() {
-		if (!getPreferenceStore().isPropertyActive(XDocletPreferenceStore.XDOCLETGENERATEUTIL))
-			return ""; //$NON-NLS-1$
-		return "<utilobject cacheHomes=\"true\" includeGUID=\"true\" kind=\"physical\"/>"; //$NON-NLS-1$
 	}
 
 	protected void refreshProjects(IProject project, IProgressMonitor monitor) throws CoreException {
