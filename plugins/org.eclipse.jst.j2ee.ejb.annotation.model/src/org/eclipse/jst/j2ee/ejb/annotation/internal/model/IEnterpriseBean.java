@@ -29,5 +29,7 @@ public interface IEnterpriseBean {
 	public String getJndiName();
 	public String getInterfaces();
 	public String getSimpleClassName();
+	
+	public int getVersionID();
 
 }

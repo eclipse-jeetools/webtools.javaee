@@ -16,4 +16,11 @@
             class="org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider"
             id="org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider"/>
 	</extension>
+    <extension
+       id="org.eclipse.jst.j2ee.ejb.annotation.model"
+       name="org.eclipse.jst.j2ee.ejb.annotation.model"
+       point="org.eclipse.core.runtime.preferences">
+    <initializer class="org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore"/>
+    
+    </extension>
 </plugin>

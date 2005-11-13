@@ -19,67 +19,68 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.preferences;
 
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.core.runtime.Preferences;
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin;
 
-
-
-
-public class AnnotationPreferenceStore {
-	
-	
-	
-	private static IPreferenceStore preferenceStore = null;
+public class AnnotationPreferenceStore extends AbstractPreferenceInitializer {
 
 	public static final String ANNOTATIONPROVIDER = "ANNOTATIONPROVIDER";
 
+	protected static String getPreferencePrefix() {
+		return ModelPlugin.getDefault().getBundle().getSymbolicName();
+	}
 
-	private static IPreferenceStore getPreferenceStore() {
-		if (preferenceStore == null) {
-			preferenceStore = ModelPlugin.getDefault().getPreferenceStore();
-		}
-		return preferenceStore;
-    }
+	private static Preferences getPreferenceStore() {
+		Preferences store = ModelPlugin.getDefault().getPluginPreferences();
+		return store;
+	}
 
 	public static String getPropertyRaw(String item) {
-		return getPreferenceStore().getString(item);
+		Preferences store = getPreferenceStore();
+		return store.getString(item);
 	}
-	
 
-	public static void setProperty(String prefix,String item, String value) {
-		getPreferenceStore().setValue(ModelPlugin.PLUGINID+"."+prefix+"."+item+".value",value);
+	public static void setProperty(String prefix, String item, String value) {
+		getPreferenceStore().setValue(ModelPlugin.PLUGINID + "." + prefix + "." + item + ".value", value);
 	}
+
 	public static void setProperty(String item, String value) {
-		String prefix = ModelPlugin.PLUGINID+".";
-		getPreferenceStore().setValue(prefix+item+".value",value);
+		String prefix = ModelPlugin.PLUGINID + ".";
+		getPreferenceStore().setValue(prefix + item + ".value", value);
 	}
-	
+
 	public static String getProperty(String item) {
-		String prefix = ModelPlugin.PLUGINID+".";
-		return getPreferenceStore().getString(prefix+item+".value");
+		String prefix = ModelPlugin.PLUGINID + ".";
+		return getPreferenceStore().getString(prefix + item + ".value");
 	}
-	public static String getProperty(String prefix,String item) {
-		String pfix = ModelPlugin.PLUGINID+"."+prefix+"."+item+".value";
+
+	public static String getProperty(String prefix, String item) {
+		String pfix = ModelPlugin.PLUGINID + "." + prefix + "." + item + ".value";
 		return getPreferenceStore().getString(pfix);
 	}
-	
 
-	
 	public static boolean isPropertyActive(String item) {
-		String prefix = ModelPlugin.PLUGINID+".";
-		return getPreferenceStore().getBoolean(prefix+item);
+		String prefix = ModelPlugin.PLUGINID + ".";
+		return getPreferenceStore().getBoolean(prefix + item);
 	}
-	
+
 	public static void setPropertyActive(String item, boolean active) {
-		String prefix = ModelPlugin.PLUGINID+".";
-		getPreferenceStore().setValue(prefix+item, active);
+		String prefix = ModelPlugin.PLUGINID + ".";
+		getPreferenceStore().setValue(prefix + item, active);
 	}
-	
-	
-	public static void initializeDefaultPreferences(IPreferenceStore store)
-	{
-		String prefix = ModelPlugin.PLUGINID+".";
-		store.setDefault(prefix+ ANNOTATIONPROVIDER + ".value", "XDoclet");
+
+	public static void initializeDefaultPreferences(Preferences store) {
+		String prefix = ModelPlugin.PLUGINID + ".";
+		store.setDefault(prefix + ANNOTATIONPROVIDER + ".value", "XDoclet");
+	}
+
+	public void initializeDefaultPreferences() {
+		IEclipsePreferences node = new DefaultScope().getNode(getPreferencePrefix());
+		String prefix = ModelPlugin.PLUGINID + ".";
+		node.put(prefix + ANNOTATIONPROVIDER + ".value", "XDoclet");
 	}
 
 }

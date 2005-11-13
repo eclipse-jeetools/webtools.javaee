@@ -12,19 +12,19 @@ package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPreferenceStore;
 import org.osgi.framework.BundleContext;
 
+public class ModelPlugin extends Plugin {
 
-public class ModelPlugin extends AbstractUIPlugin {
-	
-	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotation.model";
+	public static final String PLUGINID = "org.eclipse.jst.j2ee.ejb.annotation.model";
 
-	//The shared instance.
+	// The shared instance.
 	private static ModelPlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -57,8 +57,8 @@ public class ModelPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the string from the plugin's resource bundle,
-	 * or 'key' if not found.
+	 * Returns the string from the plugin's resource bundle, or 'key' if not
+	 * found.
 	 */
 	public static String getResourceString(String key) {
 		ResourceBundle bundle = ModelPlugin.getDefault().getResourceBundle();
@@ -80,5 +80,9 @@ public class ModelPlugin extends AbstractUIPlugin {
 			resourceBundle = null;
 		}
 		return resourceBundle;
+	}
+	
+	protected void initializeDefaultPluginPreferences() {
+		AnnotationPreferenceStore.initializeDefaultPreferences(this.getPluginPreferences());
 	}
 }

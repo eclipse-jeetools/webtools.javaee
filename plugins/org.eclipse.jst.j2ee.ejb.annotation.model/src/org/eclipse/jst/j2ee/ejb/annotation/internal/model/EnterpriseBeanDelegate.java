@@ -40,6 +40,13 @@ public  abstract class EnterpriseBeanDelegate implements IEnterpriseBean, IDataM
 	public EnterpriseBean getEnterpriseBean() {
 		return enterpriseBean;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean#getVersionID()
+	 */
+	public int getVersionID() {
+		return enterpriseBean.getVersionID();
+	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBean#getDataModel()
