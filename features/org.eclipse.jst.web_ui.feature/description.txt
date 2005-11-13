@@ -1,2 +1,0 @@
-This directory is only for the definitions of component features. 
-
