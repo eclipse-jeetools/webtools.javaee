@@ -59,7 +59,7 @@
             class="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.ejb.ui.internal.wizard.EjbProjectWizard">
+            id="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
          <description>
             %new.ejb.project.description_ui_
          </description>

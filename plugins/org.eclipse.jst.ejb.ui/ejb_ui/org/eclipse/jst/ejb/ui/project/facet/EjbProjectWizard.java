@@ -15,7 +15,10 @@ import org.osgi.framework.Bundle;
 
 public class EjbProjectWizard extends J2EEFacetWizard {
 
-
+	public EjbProjectWizard(IDataModel model){
+		super(model);
+	}
+	
 	public EjbProjectWizard(){
 		super();
 	}
