@@ -16,6 +16,10 @@ import org.osgi.framework.Bundle;
 
 public class ConnectorProjectWizard extends J2EEFacetWizard {
 
+	public ConnectorProjectWizard(IDataModel model) {
+		super(model);
+	}
+	
 	public ConnectorProjectWizard() {
 		super();
 	}

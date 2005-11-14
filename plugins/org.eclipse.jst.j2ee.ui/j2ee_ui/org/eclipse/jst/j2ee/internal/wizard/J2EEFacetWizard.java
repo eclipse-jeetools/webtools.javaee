@@ -44,11 +44,22 @@ public abstract class J2EEFacetWizard extends AddRemoveFacetsWizard implements I
 	private final IFacetedProjectTemplate template;
 	private IWizardPage firstPage;
 
+	public J2EEFacetWizard(IDataModel model){
+		super(null);
+		this.model = model;
+		template = getTemplate();
+		this.setDefaultPageImageDescriptor(getDefaultPageImageDescriptor());
+	}
+	
 	public J2EEFacetWizard() {
 		super(null);
 		model = createDataModel();
 		template = getTemplate();
 		this.setDefaultPageImageDescriptor(getDefaultPageImageDescriptor());
+	}
+	
+	public IDataModel getDataModel(){
+		return model;
 	}
 
 	protected abstract IDataModel createDataModel();

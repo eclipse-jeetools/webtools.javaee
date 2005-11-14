@@ -16,6 +16,10 @@ import org.osgi.framework.Bundle;
 
 public class AppClientProjectWizard extends J2EEFacetWizard {
 
+	public AppClientProjectWizard(IDataModel model) {
+		super(model);
+	}
+
 	public AppClientProjectWizard() {
 		super();
 	}

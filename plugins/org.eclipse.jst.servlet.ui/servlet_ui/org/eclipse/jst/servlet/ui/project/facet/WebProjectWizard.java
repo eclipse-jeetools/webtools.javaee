@@ -25,6 +25,10 @@ import org.osgi.framework.Bundle;
 
 public class WebProjectWizard extends J2EEFacetWizard {
 
+	public WebProjectWizard(IDataModel model) {
+		super(model);
+	}
+	
 	public WebProjectWizard() {
 		super();
 	}

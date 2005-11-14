@@ -10,14 +10,16 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
@@ -32,6 +34,8 @@ import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
@@ -340,9 +344,10 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    IDataModel dm = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
-                    dm.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
-                    return new AppClientComponentCreationWizard(dm);
+                    IDataModel dm = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
+                    FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                    map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                    return new AppClientProjectWizard(dm);
                 }
             };
         }
@@ -361,15 +366,15 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    J2EEComponentCreationWizard result = null;
+                    J2EEFacetWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard"); //$NON-NLS-1$
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"); //$NON-NLS-1$
                     try {
-                        result = (J2EEComponentCreationWizard)descriptor.createWizard();
+                        result = (J2EEFacetWizard)descriptor.createWizard();
                         IDataModel dm = result.getDataModel();
-                        dm.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
-                        result.setDataModel(dm);
+                        FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                        map.getFacetDataModel(J2EEProjectUtilities.JCA).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
@@ -392,15 +397,15 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    J2EEComponentCreationWizard result = null;
+                	J2EEFacetWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"); //$NON-NLS-1$
+                    IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"); //$NON-NLS-1$
                     try {
-                        result = (J2EEComponentCreationWizard)descriptor.createWizard();
+                        result = (J2EEFacetWizard)descriptor.createWizard();
                         IDataModel dm = result.getDataModel();
-                        dm.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
-                        result.setDataModel(dm);
+                        FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                        map.getFacetDataModel(J2EEProjectUtilities.EJB).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }
@@ -423,11 +428,15 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    IWizard result = null;
+                	J2EEFacetWizard result = null;
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
-                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.WebComponentCreationWizard"); //$NON-NLS-1$
+                    IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"); //$NON-NLS-1$
                     try {
-                        result = servletWizardDescriptor.createWizard();
+                        result = (J2EEFacetWizard)servletWizardDescriptor.createWizard();
+                        IDataModel dm = result.getDataModel();
+                        FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                        map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
+                        
                     } catch (CoreException ce) {
                         Logger.getLogger().log(ce);
                     }

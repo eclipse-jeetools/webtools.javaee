@@ -31,52 +31,67 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties{
+public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
+
+	/**
+	 * An internal Boolean property used to prohibit adding this module to an EAR. This is set on
+	 * the nested models when used during EAR creation since EAR creation handles adding to the EAR
+	 */
+	public static final String PROHIBIT_ADD_TO_EAR = "J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR"; //$NON-NLS-1$
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(ADD_TO_EAR);
+		names.add(PROHIBIT_ADD_TO_EAR);
 		names.add(CONFIG_FOLDER);
 		names.add(EAR_PROJECT_NAME);
 		return names;
 	}
-	
+
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(ADD_TO_EAR)) {
+		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
+			return Boolean.FALSE;
+		} else if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.TRUE;
-		} else if(propertyName.equals(EAR_PROJECT_NAME)){
+		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			DataModelPropertyDescriptor[] validEars = getValidPropertyDescriptors(EAR_PROJECT_NAME);
-			if(validEars.length > 0){
+			if (validEars.length > 0) {
 				return validEars[0].getPropertyDescription();
 			}
 		}
 		return super.getDefaultProperty(propertyName);
 	}
-	
+
 	public boolean propertySet(String propertyName, Object propertyValue) {
+		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
+			setBooleanProperty(ADD_TO_EAR, false);
+		}
 		if (ADD_TO_EAR.equals(propertyName)) {
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.ENABLE_CHG);
-		} else if(FACET_VERSION.equals(propertyName)){
+		} else if (FACET_VERSION.equals(propertyName)) {
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
 			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
 			if (masterModel != null) {
 				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
-				if (javaModel !=null)
+				if (javaModel != null)
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
-	
+
 	public boolean isPropertyEnabled(String propertyName) {
+		if (ADD_TO_EAR.equals(propertyName)) {
+			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR);
+		}
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
-			return getBooleanProperty(ADD_TO_EAR);
+			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR) && getBooleanProperty(ADD_TO_EAR);
 		}
 		return super.isPropertyEnabled(propertyName);
 	}
-	
+
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			int j2eeVersion = getJ2EEVersion();
@@ -84,7 +99,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}
 		return super.getValidPropertyDescriptors(propertyName);
 	}
-	
+
 	protected DataModelPropertyDescriptor[] getEARPropertyDescriptors(int j2eeVersion) {
 		StructureEdit mc = null;
 		ArrayList earDescriptorList = new ArrayList();
@@ -119,7 +134,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}
 		return descriptors;
 	}
-	
+
 	public IStatus validate(String name) {
 		if (name.equals(EAR_PROJECT_NAME) && getBooleanProperty(ADD_TO_EAR)) {
 			validateEAR(getStringProperty(EAR_PROJECT_NAME));
@@ -132,7 +147,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}
 		return super.validate(name);
 	}
-	
+
 	protected IStatus validateEAR(String earName) {
 		if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
@@ -192,5 +207,5 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 
 		return OK_STATUS;
 	}
-	
+
 }
