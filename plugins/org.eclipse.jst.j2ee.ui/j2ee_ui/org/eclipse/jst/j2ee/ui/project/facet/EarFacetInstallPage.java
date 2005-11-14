@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJ2EEComponentsContentProvider;
-import org.eclipse.jst.j2ee.internal.wizard.DataModelFacetInstallPage;
 import org.eclipse.jst.j2ee.internal.wizard.DefaultJ2EEComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentLabelProvider;
 import org.eclipse.osgi.util.NLS;
@@ -50,6 +49,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreat
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
