@@ -76,6 +76,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			final IPath pjpath = project.getFullPath();
 
 			final IPath contentdir = pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER));
+			final IPath sourcedir = pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER));
 			mkdirs(ws.getRoot().getFolder(contentdir));
 
 			final IPath webinf = contentdir.append("WEB-INF");
@@ -84,6 +85,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final IPath webinflib = webinf.append("lib");
 			mkdirs(ws.getRoot().getFolder(webinflib));
+			
+			
 
 			try {
 				createManifest(project, ws.getRoot().getFolder(contentdir), monitor);
@@ -92,15 +95,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			} catch (InterruptedException e) {
 				Logger.getLogger().logError(e);
 			}
-
-			// Setup WEB-INF/src, if necessary.
-
-			if (model.getBooleanProperty(IWebFacetInstallDataModelProperties.CREATE_WEB_INF_SRC)) {
-				final IPath webinfsrc = webinf.append("src");
-				mkdirs(ws.getRoot().getFolder(webinfsrc));
-
-				addToClasspath(jproj, JavaCore.newSourceEntry(webinfsrc));
-			}
+			
 
 			// Setup the flexible project structure.
 
@@ -108,24 +103,11 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			c.create(0, null);
 
-			// final ComponentType ctype = ComponentcoreFactory.eINSTANCE.createComponentType();
-			//
-			// ctype.setComponentTypeId(IModuleConstants.JST_WEB_MODULE);
-			// ctype.setVersion(fv.getVersionString());
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			if (contextRoot == null || contextRoot.length() == 0)
 				contextRoot = project.getName();
 			c.setMetaProperty("context-root", contextRoot);
 			c.setMetaProperty("java-output-path", "/build/classes/");
-
-			// final StructureEdit edit = StructureEdit.getStructureEditForWrite(project);
-			//
-			// try {
-			// StructureEdit.setComponentType(c, ctype);
-			// edit.saveIfNecessary(null);
-			// } finally {
-			// edit.dispose();
-			// }
 
 			final IVirtualFolder jsrc = c.getRootFolder().getFolder("/WEB-INF/classes");
 			final IClasspathEntry[] cp = jproj.getRawClasspath();

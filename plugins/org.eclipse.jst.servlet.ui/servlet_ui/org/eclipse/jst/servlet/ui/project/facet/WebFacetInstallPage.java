@@ -16,7 +16,6 @@ import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelPropertie
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -30,7 +29,8 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	private Text contextRoot;
 	private Label contentDirLabel;
 	private Text contentDir;
-	private Button createWebInfSrc;
+	private Text sourceDir;
+	private Label sourceDirLabel;
 
 	public WebFacetInstallPage() {
 		super("web.facet.install.page"); //$NON-NLS-1$
@@ -61,15 +61,21 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		this.contentDir.setLayoutData(gdhfill());
 		this.contentDir.setData("label", this.contentDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(contentDir, CONFIG_FOLDER, null);
+		
+		this.sourceDirLabel = new Label(composite, SWT.NONE);
+		this.sourceDirLabel.setText(Resources.sourceDirLabel);
+		this.sourceDirLabel.setLayoutData(gdhfill());
+		
+		this.sourceDir = new Text(composite, SWT.BORDER);
+		this.sourceDir.setLayoutData(gdhfill());
+		this.sourceDir.setData("label", this.sourceDirLabel); //$NON-NLS-1$
+		synchHelper.synchText(sourceDir, SOURCE_FOLDER, null);
 
-		this.createWebInfSrc = new Button(composite, SWT.CHECK);
-		this.createWebInfSrc.setText(Resources.createWebinfSrcLabel);
-		synchHelper.synchCheckbox(createWebInfSrc, CREATE_WEB_INF_SRC, null);
 		return composite;
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, CREATE_WEB_INF_SRC};
+		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, SOURCE_FOLDER};
 	}
 
 	private static final class Resources extends NLS {
@@ -79,7 +85,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		public static String contextRootLabelInvalid;
 		public static String contentDirLabel;
 		public static String contentDirLabelInvalid;
-		public static String createWebinfSrcLabel;
+		public static String sourceDirLabel;
 
 		static {
 			initializeMessages(WebFacetInstallPage.class.getName(), Resources.class);

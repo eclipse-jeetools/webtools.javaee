@@ -14,11 +14,15 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -27,15 +31,15 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONTEXT_ROOT);
-		names.add(CREATE_WEB_INF_SRC);
+		names.add(SOURCE_FOLDER);
 		return names;
 	}
 
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CONFIG_FOLDER)) {
 			return "WebContent";
-		} else if (propertyName.equals(CREATE_WEB_INF_SRC)) {
-			return Boolean.FALSE;
+		} else if (propertyName.equals(SOURCE_FOLDER)) {
+			return "src";
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getProperty(FACET_PROJECT_NAME);
 		} else if (propertyName.equals(FACET_ID)) {
@@ -51,6 +55,14 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.VALID_VALUES_CHG);
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
 			return true;
+		} else if (propertyName.equals(SOURCE_FOLDER)) {
+			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
+			if (masterModel != null) {
+				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
+				if (javaModel != null)
+					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
+			}
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
