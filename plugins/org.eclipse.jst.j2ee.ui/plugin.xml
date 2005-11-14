@@ -66,10 +66,10 @@
             name="%ear_component_ui_"
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard"
+            class="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard">
+            id="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
          <description>
             %new.ear.component.description_ui_
          </description>
@@ -1030,18 +1030,7 @@
       id="org.eclipse.jst.j2ee.ui.project.facet.UtilityProjectWizard">
       <description>%util-project-wizard-description</description>
     </wizard>
-
-    <wizard
-      name="%ear-project-wizard-name"
-      icon="icons/ear-wiz-icon.gif"
-      category="org.eclipse.jst.newprojects"
-      class="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard"
-      project="true"
-      id="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
-      <description>%ear-project-wizard-description</description>
-    </wizard>
-
-    
+   
   </extension>
     <extension
           point="org.eclipse.wst.common.modulecore.ComponentProjectMigrator">
