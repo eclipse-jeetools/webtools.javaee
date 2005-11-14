@@ -13,10 +13,10 @@ package org.eclipse.jst.j2ee.ui.project.facet;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEFacetCreationWizardPage;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
-public class EarProjectFirstPage extends J2EEFacetCreationWizardPage {
+public class EarProjectFirstPage extends DataModelFacetCreationWizardPage {
 
 	public EarProjectFirstPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);

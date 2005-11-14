@@ -8,11 +8,9 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.wizard;
+package org.eclipse.wst.web.ui.internal.wizards;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -32,8 +30,9 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPa
 import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationPropertiesNew;
 import org.eclipse.wst.common.frameworks.internal.ui.NewProjectGroup;
 import org.eclipse.wst.server.ui.ServerUIUtil;
+import org.eclipse.wst.web.internal.ResourceHandler;
 
-public class J2EEFacetCreationWizardPage extends DataModelWizardPage implements IFacetProjectCreationDataModelProperties {
+public class DataModelFacetCreationWizardPage extends DataModelWizardPage implements IFacetProjectCreationDataModelProperties {
 
 	protected static GridData gdhfill() {
 		return new GridData(GridData.FILL_HORIZONTAL);
@@ -81,21 +80,21 @@ public class J2EEFacetCreationWizardPage extends DataModelWizardPage implements 
 	protected Combo serverTargetCombo;
 	protected NewProjectGroup projectNameGroup;
 
-	public J2EEFacetCreationWizardPage(IDataModel dataModel, String pageName) {
+	public DataModelFacetCreationWizardPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
 
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
-		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_RUNTIME_LBL));
+		label.setText(ResourceHandler.TargetRuntime);
 		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetCombo.setLayoutData(gdhfill());
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
-		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
+		newServerTargetButton.setText(ResourceHandler.NewDotDotDot);
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				if (!J2EEComponentFacetCreationWizardPage.launchNewRuntimeWizard(getShell(), model)) {
-					setErrorMessage(J2EECreationResourceHandler.ServerTargetDataModel_UI_9);
+				if (!launchNewRuntimeWizard(getShell(), model)) {
+					setErrorMessage(ResourceHandler.InvalidServerTarget);
 				}
 			}
 		});

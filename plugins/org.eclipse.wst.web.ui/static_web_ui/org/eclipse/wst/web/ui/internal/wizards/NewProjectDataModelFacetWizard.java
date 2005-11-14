@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.wizard;
+package org.eclipse.wst.web.ui.internal.wizards;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,20 +38,20 @@ import org.eclipse.wst.common.project.facet.ui.AddRemoveFacetsWizard;
 import org.eclipse.wst.common.project.facet.ui.internal.ConflictingFacetsFilter;
 import org.eclipse.wst.common.project.facet.ui.internal.FacetsSelectionPanel;
 
-public abstract class J2EEFacetWizard extends AddRemoveFacetsWizard implements INewWizard, IFacetProjectCreationDataModelProperties {
+public abstract class NewProjectDataModelFacetWizard extends AddRemoveFacetsWizard implements INewWizard, IFacetProjectCreationDataModelProperties {
 
 	protected IDataModel model = null;
 	private final IFacetedProjectTemplate template;
 	private IWizardPage firstPage;
 
-	public J2EEFacetWizard(IDataModel model){
+	public NewProjectDataModelFacetWizard(IDataModel model){
 		super(null);
 		this.model = model;
 		template = getTemplate();
 		this.setDefaultPageImageDescriptor(getDefaultPageImageDescriptor());
 	}
 	
-	public J2EEFacetWizard() {
+	public NewProjectDataModelFacetWizard() {
 		super(null);
 		model = createDataModel();
 		template = getTemplate();

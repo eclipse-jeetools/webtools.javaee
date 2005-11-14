@@ -40,6 +40,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
+import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 
 public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implements IDefaultJ2EEComponentCreationDataModelProperties {
     private Button defaultModulesButton;
@@ -366,12 +367,12 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                    J2EEFacetWizard result = null;
+                    NewProjectDataModelFacetWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
                     IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard"); //$NON-NLS-1$
                     try {
-                        result = (J2EEFacetWizard)descriptor.createWizard();
+                        result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
                         IDataModel dm = result.getDataModel();
                         FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
                         map.getFacetDataModel(J2EEProjectUtilities.JCA).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
@@ -397,12 +398,12 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                	J2EEFacetWizard result = null;
+                	NewProjectDataModelFacetWizard result = null;
 
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
                     IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"); //$NON-NLS-1$
                     try {
-                        result = (J2EEFacetWizard)descriptor.createWizard();
+                        result = (NewProjectDataModelFacetWizard)descriptor.createWizard();
                         IDataModel dm = result.getDataModel();
                         FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
                         map.getFacetDataModel(J2EEProjectUtilities.EJB).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);
@@ -428,11 +429,11 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
                 protected IWizard createWizard() {
-                	J2EEFacetWizard result = null;
+                	NewProjectDataModelFacetWizard result = null;
                     IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
                     IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"); //$NON-NLS-1$
                     try {
-                        result = (J2EEFacetWizard)servletWizardDescriptor.createWizard();
+                        result = (NewProjectDataModelFacetWizard)servletWizardDescriptor.createWizard();
                         IDataModel dm = result.getDataModel();
                         FacetDataModelMap map = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
                         map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB).setBooleanProperty(J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR, true);

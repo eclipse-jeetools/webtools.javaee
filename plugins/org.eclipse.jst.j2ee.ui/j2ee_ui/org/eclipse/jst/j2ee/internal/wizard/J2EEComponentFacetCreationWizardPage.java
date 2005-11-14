@@ -24,8 +24,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
-public abstract class J2EEComponentFacetCreationWizardPage extends J2EEFacetCreationWizardPage implements IFacetProjectCreationDataModelProperties {
+public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage implements IFacetProjectCreationDataModelProperties {
 
 	protected EarSelectionPanel earPanel;
 
