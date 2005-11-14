@@ -2,12 +2,14 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
@@ -40,10 +42,10 @@ public class EjbFacetInstallDataModelProvider
 			return CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
 		}else if (propertyName.equals(CLIENT_NAME)){
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
-			return projectName + "Client";
+			return projectName + "Client"; //$NON-NLS-1$ 
 		}else if (propertyName.equals(CLIENT_URI)){
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
-			return projectName + "Client.jar";
+			return projectName + "Client.jar"; //$NON-NLS-1$ 
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -81,4 +83,14 @@ public class EjbFacetInstallDataModelProvider
 		return status;
 	}	
 	
+	public IStatus validate(String propertyName) {
+		if (propertyName.equals(CLIENT_NAME)) {
+			String projectName = model.getStringProperty( CLIENT_NAME );
+			IStatus status = ProjectCreationDataModelProviderNew.validateName( projectName );
+			if (!status.isOK())
+				return status;
+		}
+		return OK_STATUS;
+	}
+
 }
