@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 
 /**
@@ -75,4 +76,7 @@ public class JARDependencyDataModelProvider extends AbstractDataModelProvider im
 		return ProjectUtilities.getProject(getStringProperty(OPPOSITE_PROJECT_NAME));
 	}
 
+	public IDataModelOperation getDefaultOperation() {
+		return new JARDependencyOperation(model);
+	}	
 }
