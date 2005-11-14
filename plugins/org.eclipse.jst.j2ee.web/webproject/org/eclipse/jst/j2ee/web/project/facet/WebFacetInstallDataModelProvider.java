@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
@@ -63,12 +63,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	}
 
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
-		if (WebFacetUtils.WEB_22.equals(version)) {
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		} else if (WebFacetUtils.WEB_23.equals(version)) {
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		}
-		return J2EEVersionConstants.J2EE_1_4_ID;
+		return J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version.getVersionString());
 	}
 
 	public IStatus validate(String name) {

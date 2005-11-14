@@ -138,6 +138,7 @@ public abstract class J2EEFacetWizard extends AddRemoveFacetsWizard implements I
 			configDM = (IDataModel) fv.createActionConfig(type, pjname);
 			map.add(configDM);
 		}
+		configDM.setProperty(IFacetDataModelProperties.FACET_VERSION, fv);
 		return configDM;
 	}
 

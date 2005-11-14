@@ -74,7 +74,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		super(aProject, toAccessAsReadOnly);
 	}
 	
-	protected EARArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+	//This should be revereted to protected when 115924 is fixed
+	public EARArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.ENTERPRISE_APPLICATION);
 	}
 
