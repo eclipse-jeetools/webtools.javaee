@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
 
@@ -38,6 +39,7 @@ public final class EarSelectionPanel
     private final Button addToEar;
     private final Combo combo;
     private final Button newButton;
+    private final Label label;
    
     private final IDataModel model;
     private DataModelSynchHelper synchhelper;
@@ -49,7 +51,7 @@ public final class EarSelectionPanel
         this.model = model;
         this.synchhelper = new DataModelSynchHelper(model);
         
-        final GridLayout layout = new GridLayout( 2, false );
+        final GridLayout layout = new GridLayout( 4, false );
         layout.marginWidth = 0;
         layout.marginHeight = 0;
         
@@ -57,9 +59,20 @@ public final class EarSelectionPanel
         
         this.addToEar = new Button( this, SWT.CHECK );
         this.addToEar.setText( Resources.addToEarLabel );
-        this.addToEar.setLayoutData( gdhspan( gdhfill(), 2 ) );
+        this.addToEar.setLayoutData( gdhspan( gdhfill(), 4 ) );
         synchhelper.synchCheckbox(addToEar, ADD_TO_EAR, null);
-        
+        this.addToEar.addSelectionListener(new SelectionAdapter() {
+        	public void widgetSelected( final SelectionEvent event )
+            {
+        		if (addToEar.getSelection())
+        			label.setEnabled(true);
+        		else
+        			label.setEnabled(false);
+            }
+        });
+        new Label(this, SWT.NULL);
+        label = new Label(this, SWT.NULL);
+        label.setText(Resources.earProjectLabel);
         this.combo = new Combo( this, SWT.BORDER | SWT.READ_ONLY );
         this.combo.setLayoutData( gdhfill() );
         
@@ -112,6 +125,7 @@ public final class EarSelectionPanel
     {
         public static String addToEarLabel;
         public static String newButtonLabel;
+        public static String earProjectLabel;
         
         static
         {
