@@ -477,7 +477,7 @@
        </commonWizard>
        <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.servlet.ui.WebComponentCreationWizard">
+            wizardId="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
          <enablement>
            <or>
                <and>
