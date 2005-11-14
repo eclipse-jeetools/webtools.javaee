@@ -1,7 +1,9 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
@@ -26,6 +28,7 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
@@ -58,7 +61,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			WtpUtils.addNatures(project);
 
 			// Setup the flexible project structure.
-			IVirtualComponent c = createFlexibleProject(monitor,project,model);
+			IVirtualComponent c = createFlexibleProject(monitor, project, model);
 
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
@@ -78,8 +81,23 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 
 				final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
+					public Object getDefaultProperty(String propertyName) {
+						if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
+							Map map = new HashMap();
+							List components = (List) getProperty(TARGET_COMPONENT_LIST);
+							for (int i = 0; i < components.size(); i++) {
+								IVirtualComponent component = (IVirtualComponent) components.get(i);
+								String name = component.getName();
+								name += ".jar"; //$NON-NLS-1$
+								map.put(component, name);
+							}
+							return map;
+						}
+						return super.getDefaultProperty(propertyName);
+					}
+
 					public IDataModelOperation getDefaultOperation() {
-						return new AddComponentToEnterpriseApplicationOp(model){
+						return new AddComponentToEnterpriseApplicationOp(model) {
 							protected Module createNewModule(IVirtualComponent wc) {
 								return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
 							}
@@ -94,29 +112,28 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					dataModel.getDefaultOperation().execute(null, null);
 				} catch (ExecutionException e) {
 					Logger.getLogger().logError(e);
-				}	
+				}
 			}
-			
-			//Add main class if necessary
+
+			// Add main class if necessary
 			if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS))
-	        	addMainClass(monitor, model, project);
+				addMainClass(monitor, model, project);
 
 			if (monitor != null)
 				monitor.worked(1);
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
-		}
-		finally {
+		} finally {
 			if (monitor != null)
 				monitor.done();
 		}
 	}
-	
-	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model) throws Exception{
+
+	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model) throws Exception {
 		// Create the directory structure.
 		final IWorkspace ws = ResourcesPlugin.getWorkspace();
 		final IPath pjpath = project.getFullPath();
-		
+
 		final IVirtualComponent c = ComponentCore.createComponent(project);
 		c.create(0, null);
 		c.setMetaProperty("java-output-path", "/build/classes/"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -131,7 +148,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			sourceFolder = ws.getRoot().getFolder(configFolderpath);
 		} else
 			sourceFolder = project.getFolder(root.getProjectRelativePath());
-		
+
 		if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
 			String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 			int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
@@ -144,40 +161,40 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 		return c;
 	}
-	
+
 	private void addMainClass(IProgressMonitor monitor, IDataModel model, IProject project) {
 		try {
 			IDataModel mainClassDataModel = DataModelFactory.createDataModel(NewJavaClassDataModelProvider.class);
-	        mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
-	        mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
-	        mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
-	        String projRelativeSourcePath = IPath.SEPARATOR + project.getName() + IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-	        mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
-	        IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);	            
-	        mainClassDataModel.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT,javaProject.getPackageFragmentRoots()[0]);
-        	mainClassDataModel.getDefaultOperation().execute(monitor,null);
-        	createManifestEntryForMainClass(monitor, model, project);
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+			mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
+			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
+			mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
+			String projRelativeSourcePath = IPath.SEPARATOR + project.getName() + IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
+			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
+			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT, javaProject.getPackageFragmentRoots()[0]);
+			mainClassDataModel.getDefaultOperation().execute(monitor, null);
+			createManifestEntryForMainClass(monitor, model, project);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	protected void createManifestEntryForMainClass(IProgressMonitor monitor, IDataModel model, IProject project) throws CoreException, InvocationTargetException, InterruptedException {
-        String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
-        IContainer container = project.getFolder(manifestFolder);
-        IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-        
-        if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {
-            IDataModel dm = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
-            dm.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, project.getName());
-            dm.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-            dm.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, file);
-            dm.setProperty(UpdateManifestDataModelProperties.MAIN_CLASS, "Main"); //$NON-NLS-1$
-            try {
-            	dm.getDefaultOperation().execute(monitor,null);
-            } catch (Exception e) {
-            	//Ignore
-            }
-        }
-    }
+		String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
+		IContainer container = project.getFolder(manifestFolder);
+		IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
+
+		if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {
+			IDataModel dm = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+			dm.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, project.getName());
+			dm.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+			dm.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, file);
+			dm.setProperty(UpdateManifestDataModelProperties.MAIN_CLASS, "Main"); //$NON-NLS-1$
+			try {
+				dm.getDefaultOperation().execute(monitor, null);
+			} catch (Exception e) {
+				// Ignore
+			}
+		}
+	}
 }

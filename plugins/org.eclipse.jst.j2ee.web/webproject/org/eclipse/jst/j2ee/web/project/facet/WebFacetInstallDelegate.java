@@ -12,7 +12,9 @@
 package org.eclipse.jst.j2ee.web.project.facet;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFolder;
@@ -35,6 +37,7 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -175,6 +178,20 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 
 					final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
+						public Object getDefaultProperty(String propertyName) {
+							if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
+								Map map = new HashMap();
+								List components = (List) getProperty(TARGET_COMPONENT_LIST);
+								for (int i = 0; i < components.size(); i++) {
+									IVirtualComponent component = (IVirtualComponent) components.get(i);
+									String name = component.getName();
+									name += ".war"; //$NON-NLS-1$
+									map.put(component, name);
+								}
+								return map;
+							}
+							return super.getDefaultProperty(propertyName);
+						}
 						public IDataModelOperation getDefaultOperation() {
 							return new AddComponentToEnterpriseApplicationOp(model){
 								protected Module createNewModule(IVirtualComponent wc) {
