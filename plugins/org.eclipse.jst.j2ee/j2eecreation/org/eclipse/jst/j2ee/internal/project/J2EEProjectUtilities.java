@@ -672,23 +672,23 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		catch (Exception e) {}
 		IPackageFragmentRoot[] sourceContainers = getSourceContainers(project);
-		IJavaProject jProject = JavaCore.create(project);
-		
 		for (int i=0; i<sourceContainers.length; i++) {
-			try {
-				IFolder outputFolder;
-				IPath outputPath = sourceContainers[i].getRawClasspathEntry().getOutputLocation();
-				if (outputPath == null)
-					outputFolder = project.getFolder(jProject.getOutputLocation().removeFirstSegments(1));
-				else
-					outputFolder = project.getFolder(outputPath.removeFirstSegments(1));
-				if (outputFolder != null && !result.contains(outputFolder))
-					result.add(outputFolder);
-			} catch (Exception e) {
-				continue;
-			}
+			IFolder outputFolder = (IFolder) getOutputContainer(project,sourceContainers[i]);
+			if (outputFolder != null && !result.contains(outputFolder))
+				result.add(outputFolder);
 		}
 		return (IContainer[]) result.toArray(new IContainer[result.size()]);
+	}
+	
+	public static IContainer getOutputContainer(IProject project, IPackageFragmentRoot sourceContainer) {
+		try {
+			IJavaProject jProject = JavaCore.create(project);
+			IPath outputPath = sourceContainer.getRawClasspathEntry().getOutputLocation();
+			if (outputPath == null)
+				return project.getFolder(jProject.getOutputLocation().removeFirstSegments(1));
+			return project.getFolder(outputPath.removeFirstSegments(1));
+		} catch (Exception e) {}
+		return null;
 	}
 	
 	/**
