@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.actions;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
+import org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard;
 import org.eclipse.ui.IWorkbench;
 
 
@@ -33,7 +33,7 @@ public class NewEARComponentAction extends AbstractOpenWizardWorkbenchAction {
 	}
 
 	protected Wizard createWizard() {
-		return new EARComponentCreationWizard();
+		return new EarProjectWizard();
 	}
 
 	protected boolean shouldAcceptElement(Object obj) {

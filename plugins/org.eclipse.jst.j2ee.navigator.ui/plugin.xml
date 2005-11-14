@@ -440,7 +440,7 @@
           <!-- EAR New -->
           <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
          <enablement>
          <or> 
              <and>
