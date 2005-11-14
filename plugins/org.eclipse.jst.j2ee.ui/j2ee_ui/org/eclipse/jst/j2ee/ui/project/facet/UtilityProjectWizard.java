@@ -15,36 +15,45 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-import org.eclipse.wst.common.project.facet.ui.FacetedProjectWizard;
+import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 import org.osgi.framework.Bundle;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class UtilityProjectWizard 
+public final class UtilityProjectWizard extends NewProjectDataModelFacetWizard {
 
-    extends FacetedProjectWizard 
-    
-{
-    protected IFacetedProjectTemplate getTemplate()
-    {
-        return ProjectFacetsManager.getTemplate( "template.jst.utility" );
-    }
-    
-    protected String getPageDescription()
-    {
-        return "Create a Utility project in the workspace or at an external location.";
-    }
-    
-    protected ImageDescriptor getDefaultPageImageDescriptor()
-    {
-        final Bundle bundle = Platform.getBundle( "org.eclipse.jst.j2ee.ui" );
-        final URL url = bundle.getEntry( "icons/util-wiz-banner.gif" );
+	public UtilityProjectWizard(IDataModel model) {
+		super(model);
+	}
+	
+	public UtilityProjectWizard(){
+		super();
+	}
 
-        return ImageDescriptor.createFromURL( url );
-    }
-    
+	protected IDataModel createDataModel() {
+		return DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
+	}
+
+	protected ImageDescriptor getDefaultPageImageDescriptor() {
+		final Bundle bundle = Platform.getBundle("org.eclipse.jst.j2ee.ui");
+		final URL url = bundle.getEntry("icons/util-wiz-banner.gif");
+		return ImageDescriptor.createFromURL(url);
+	}
+
+	protected IFacetedProjectTemplate getTemplate() {
+		return ProjectFacetsManager.getTemplate("template.jst.utility");
+	}
+
+	protected IWizardPage createFirstPage() {
+		return new UtilityProjectFirstPage(model, "first.page"); //$NON-NLS-1$ 
+	}
+
 }

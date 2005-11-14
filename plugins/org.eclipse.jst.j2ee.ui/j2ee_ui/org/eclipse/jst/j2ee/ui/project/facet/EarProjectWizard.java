@@ -25,6 +25,14 @@ import org.osgi.framework.Bundle;
 
 public class EarProjectWizard extends NewProjectDataModelFacetWizard {
 
+	public EarProjectWizard(IDataModel model){
+		super(model);
+	}
+	
+	public EarProjectWizard(){
+		super();
+	}
+	
 	protected IDataModel createDataModel() {
 		return DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
 	}

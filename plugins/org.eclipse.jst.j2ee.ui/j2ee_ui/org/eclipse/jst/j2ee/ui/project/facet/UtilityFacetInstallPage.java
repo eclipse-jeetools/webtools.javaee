@@ -11,94 +11,39 @@
 
 package org.eclipse.jst.j2ee.ui.project.facet;
 
-import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.ui.AbstractFacetWizardPage;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
+public final class UtilityFacetInstallPage extends J2EEModuleFacetInstallPage {
+	public UtilityFacetInstallPage() {
+		super("utility.facet.install.page");
+		setTitle(Resources.pageTitle);
+		setDescription(Resources.pageDescription);
+	}
 
-public final class UtilityFacetInstallPage 
+	private static final class Resources extends NLS {
+		public static String pageTitle;
+		public static String pageDescription;
 
-    extends AbstractFacetWizardPage
-    
-{
-    private IDataModel config;
-    private EarSelectionPanelOld earPanel;
-    
-    public UtilityFacetInstallPage() 
-    {
-        super( "utility.facet.install.page" );
-        
-        setTitle( Resources.pageTitle );
-        setDescription( Resources.pageDescription );
-    }
-    
-    public void createControl( final Composite parent ) 
-    {
-        final Composite composite = new Composite( parent, SWT.NONE );
-        composite.setLayout( new GridLayout( 1, false ) );
-        
-        this.earPanel = new EarSelectionPanelOld( composite, SWT.NONE );
-        this.earPanel.setLayoutData( gdhfill() );
-        
-        this.earPanel.addListener( new Listener()
-        {
-            public void handleEvent( final Event event ) 
-            {
-                config.setStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME,earPanel.getEarProjectName() );
-                validate();
-            }
-        } );
-        
-        setControl( composite );
-    }
-    
-    public void setConfig( final Object config ) 
-    {
-        this.config = (IDataModel) config;
-    }
+		static {
+			initializeMessages(UtilityFacetInstallPage.class.getName(), Resources.class);
+		}
+	}
 
-    private void validate()
-    {
-        boolean valid = true;
-        
-        if( this.earPanel.getAddToEar() && 
-            this.earPanel.getEarProjectName() == null )
-        {
-            valid = false;
-        }
-        
-        this.setPageComplete( valid );
-    }
-    
-    private static GridData gdhfill()
-    {
-        return new GridData( GridData.FILL_HORIZONTAL );
-    }
+	protected String[] getValidationPropertyNames() {
+		return new String[]{EAR_PROJECT_NAME};
+	}
 
-    private static final class Resources
-    
-        extends NLS
-        
-    {
-        public static String pageTitle;
-        public static String pageDescription;
-        
-        static
-        {
-            initializeMessages( UtilityFacetInstallPage.class.getName(), 
-                                Resources.class );
-        }
-    }
-    
+	protected Composite createTopLevelComposite(Composite parent) {
+		final Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayout(new GridLayout(1, false));
+		setupEarControl(composite);
+		return composite;
+	}
 }
-

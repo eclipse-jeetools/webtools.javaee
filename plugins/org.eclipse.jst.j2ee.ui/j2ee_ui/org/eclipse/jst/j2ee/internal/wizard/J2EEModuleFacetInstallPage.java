@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPage{
+public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPage implements IJ2EEModuleFacetInstallDataModelProperties{
 
 	public J2EEModuleFacetInstallPage(String pageName){
 		super(pageName);
