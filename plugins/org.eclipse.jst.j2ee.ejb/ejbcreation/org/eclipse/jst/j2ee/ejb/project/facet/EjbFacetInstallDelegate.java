@@ -214,7 +214,8 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				
 				if (createClient && clientProjectName != null && clientProjectName != "") {
 					try {
-						runAddClientToEAROperation( model, monitor );
+						if ( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR ))
+							runAddClientToEAROperation( model, monitor );
 						runAddClientToEJBOperation( model, monitor );
 						modifyEJBModuleJarDependency( model, monitor );
 						updateEJBDD( model, monitor );
