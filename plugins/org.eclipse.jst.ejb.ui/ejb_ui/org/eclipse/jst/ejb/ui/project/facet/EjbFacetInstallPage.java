@@ -45,7 +45,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		setupEarControl(composite);
 		
 		this.configFolderLabel = new Label(composite, SWT.NONE);
-		this.configFolderLabel.setText(EJBUIMessages.configFolderLabel);
+		this.configFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER));
 		this.configFolderLabel.setLayoutData(gdhfill());
 		
 		this.configFolder = new Text(composite, SWT.BORDER);
