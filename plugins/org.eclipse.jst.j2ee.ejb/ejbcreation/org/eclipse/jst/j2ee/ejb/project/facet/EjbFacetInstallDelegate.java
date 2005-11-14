@@ -3,7 +3,9 @@ package org.eclipse.jst.j2ee.ejb.project.facet;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -28,6 +30,7 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
@@ -85,9 +88,9 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 
 			c.setMetaProperty("java-output-path", "/build/classes/");
 
-			
+
 			final IVirtualFolder ejbroot = c.getRootFolder();
-			
+
 			final IClasspathEntry[] cp = jproj.getRawClasspath();
 
 			for (int i = 0; i < cp.length; i++) {
@@ -97,7 +100,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 					ejbroot.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
 				}
 			}
-			
+
 			IFolder ejbFolder = null;
 			String configFolder = null;
 
@@ -144,81 +147,88 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				installEARFacet(j2eeVersionText, earProjectName, monitor);
 			}
 
-			// Create the Ejb Client View 
+			// Create the Ejb Client View
 			final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
-			String clientProjectName = (String)model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-			if( createClient && clientProjectName != null && clientProjectName != ""){
-				IProject ejbClientProject = ProjectUtilities.getProject( clientProjectName ); 
-				if( ejbClientProject.exists())
+			String clientProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+			if (createClient && clientProjectName != null && clientProjectName != "") {
+				IProject ejbClientProject = ProjectUtilities.getProject(clientProjectName);
+				if (ejbClientProject.exists())
 					return;
-					
+
 				c.setMetaProperty(CreationConstants.EJB_CLIENT_NAME, clientProjectName);
-				
+
 				String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
-				c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI );
-				
-				try{	
+				c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI);
+
+				try {
 					IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
-					dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME,
-							clientProjectName);
-					dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER,
-							model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
-					
-					dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID,
-							model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
-					
+					dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME, clientProjectName);
+					dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER, model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
+
+					dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID, model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
+
 					dm.getDefaultOperation().execute(monitor, null);
-				}catch(ExecutionException e){
+				} catch (ExecutionException e) {
 					Logger.getLogger().logError(e);
 				}
-				
-				//Associate with an EAR, if necessary.
-				if ( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR )) {
+
+				// Associate with an EAR, if necessary.
+				if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
 					if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
 
 						String ver = fv.getVersionString();
-						String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString( 
-								J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver) );
-						
+						String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+
 						installEARFacet(j2eeVersionText, earProjectName, monitor);
 
-						IProject earProject = ProjectUtilities.getProject( earProjectName );
-						IVirtualComponent earComp = ComponentCore.createComponent( earProject );
+						IProject earProject = ProjectUtilities.getProject(earProjectName);
+						IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 
-						final IDataModel dataModel = DataModelFactory.createDataModel( 
-									new AddComponentToEnterpriseApplicationDataModelProvider() {
+						final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
+							public Object getDefaultProperty(String propertyName) {
+								if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
+									Map map = new HashMap();
+									List components = (List) getProperty(TARGET_COMPONENT_LIST);
+									for (int i = 0; i < components.size(); i++) {
+										IVirtualComponent component = (IVirtualComponent) components.get(i);
+										String name = component.getName();
+										name += ".jar"; //$NON-NLS-1$
+										map.put(component, name);
+									}
+									return map;
+								}
+								return super.getDefaultProperty(propertyName);
+							}
+
 							public IDataModelOperation getDefaultOperation() {
-								return new AddComponentToEnterpriseApplicationOp(model){
+								return new AddComponentToEnterpriseApplicationOp(model) {
 									protected Module createNewModule(IVirtualComponent wc) {
 										return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createEjbModule();
 									}
 								};
 							}
 						});
-						
-						dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT,
-									earComp );
-						List modList = (List) dataModel.getProperty( 
-									ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST );
-						modList.add( c );
-						dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST,
-									modList );
+
+						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+						List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+						modList.add(c);
+						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 						try {
 							dataModel.getDefaultOperation().execute(null, null);
 						} catch (ExecutionException e) {
 							Logger.getLogger().logError(e);
-						}	
-	
+						}
+
 					}
 				}
-				
+
 				if (createClient && clientProjectName != null && clientProjectName != "") {
 					try {
-						if ( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR ))
-							runAddClientToEAROperation( model, monitor );
-						runAddClientToEJBOperation( model, monitor );
-						modifyEJBModuleJarDependency( model, monitor );
-						updateEJBDD( model, monitor );
+						if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR))
+							runAddClientToEAROperation(model, monitor);
+						runAddClientToEJBOperation(model, monitor);
+						modifyEJBModuleJarDependency(model, monitor);
+						updateEJBDD(model, monitor);
 					} catch (CoreException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -231,8 +241,8 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 					}
 
 				}
-				
-				
+
+
 			}
 			if (monitor != null) {
 				monitor.worked(1);
@@ -245,8 +255,8 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			}
 		}
 	}
-	
-	
+
+
 	protected void runAddClientToEAROperation(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
 		final String earProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME);
@@ -256,7 +266,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 
 
 		String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-		
+
 		IProject clientProject = ProjectUtilities.getProject(clientProjectName);
 		IVirtualComponent component = ComponentCore.createComponent(clientProject);
 
@@ -276,11 +286,11 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 	}
 
 
-	protected void runAddClientToEJBOperation( IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	protected void runAddClientToEJBOperation(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
-		String ejbprojectName = model.getStringProperty( IFacetDataModelProperties.FACET_PROJECT_NAME );
-		IProject ejbProj = ProjectUtilities.getProject( ejbprojectName );
-		IVirtualComponent ejbcomponent = ComponentCore.createComponent( ejbProj );
+		String ejbprojectName = model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
+		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
+		IVirtualComponent ejbcomponent = ComponentCore.createComponent(ejbProj);
 
 
 		String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
@@ -301,10 +311,10 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 
 	}
 
-	private void modifyEJBModuleJarDependency( IDataModel model, IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
+	private void modifyEJBModuleJarDependency(IDataModel model, IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
 
 
-		String ejbprojectName = model.getStringProperty( IFacetDataModelProperties.FACET_PROJECT_NAME );
+		String ejbprojectName = model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
 		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
 		IVirtualComponent ejbComponent = ComponentCore.createComponent(ejbProj);
 		IVirtualFile vf = ejbComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
@@ -341,28 +351,28 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 	}
 
 
-	private void updateEJBDD( IDataModel model, IProgressMonitor monitor) {
+	private void updateEJBDD(IDataModel model, IProgressMonitor monitor) {
 
-		String ejbprojectName = model.getStringProperty( IFacetDataModelProperties.FACET_PROJECT_NAME );
-		IProject ejbProj = ProjectUtilities.getProject( ejbprojectName );
+		String ejbprojectName = model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
+		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
 
 
 		String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-		
+
 		IVirtualComponent c = ComponentCore.createComponent(ejbProj);
 		Properties props = c.getMetaProperties();
 
 		String clienturi = props.getProperty(CreationConstants.CLIENT_JAR_URI);
-		
+
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			ejbEdit = new EJBArtifactEdit(ejbProj, false,true);
-	
+			ejbEdit = new EJBArtifactEdit(ejbProj, false, true);
+
 			if (ejbEdit != null) {
 				EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
-				if( clienturi != null && !clienturi.equals("")){
+				if (clienturi != null && !clienturi.equals("")) {
 					ejbres.setEjbClientJar(clienturi);//$NON-NLS-1$
-				}else
+				} else
 					ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
 				ejbres.setEjbClientJar(clienturi);//$NON-NLS-1$
 				ejbEdit.saveIfNecessary(monitor);
@@ -373,5 +383,5 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			if (ejbEdit != null)
 				ejbEdit.dispose();
 		}
-	}	
+	}
 }
