@@ -12,10 +12,12 @@
 package org.eclipse.jst.j2ee.internal.web.classpath;
 
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainerInitializer;
 
@@ -23,27 +25,31 @@ import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainerIni
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class WebAppContainerInitializer 
+public final class WebAppContainerInitializer
 
-    extends FlexibleProjectContainerInitializer
+extends FlexibleProjectContainerInitializer
 
 {
-    public void initialize( final IPath path,
-                            final IJavaProject jproj ) 
-    
-        throws CoreException
+	public void initialize(final IPath path, final IJavaProject jproj)
 
-    {
-    	try {
-			Platform.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
-		} catch (OperationCanceledException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        new WebAppContainer( path, jproj ).install();
-    }
+	throws CoreException
+
+	{
+		WorkspaceJob job = new WorkspaceJob("Initializing Web Container") {
+
+			public IStatus runInWorkspace(IProgressMonitor monitor) {
+				try {
+					new WebAppContainer(path, jproj).install();
+				}
+
+				catch (Exception e) {
+					return Status.CANCEL_STATUS;
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		job.setRule(ResourcesPlugin.getWorkspace().getRuleFactory().buildRule());
+		job.schedule();
+	}
 
 }
