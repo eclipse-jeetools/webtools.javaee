@@ -89,6 +89,12 @@ public class EjbFacetInstallDataModelProvider
 			IStatus status = ProjectCreationDataModelProviderNew.validateName( projectName );
 			if (!status.isOK())
 				return status;
+		}else if( propertyName.equals(CLIENT_URI)){
+				String clientURI = model.getStringProperty( CLIENT_URI );
+				IStatus status = ProjectCreationDataModelProviderNew.validateName( clientURI );
+				if (!status.isOK())
+					return status;
+		
 		}
 		return OK_STATUS;
 	}
