@@ -513,7 +513,7 @@
        <!-- EJB New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
+            wizardId="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
          <enablement>
           <or>
                <and>
