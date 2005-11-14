@@ -11,8 +11,11 @@
 
 package org.eclipse.jst.j2ee.internal.web.classpath;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainerInitializer;
 
@@ -31,7 +34,16 @@ public final class WebAppContainerInitializer
         throws CoreException
 
     {
-        ( new WebAppContainer( path, jproj ) ).install();
+    	try {
+			Platform.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+		} catch (OperationCanceledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        new WebAppContainer( path, jproj ).install();
     }
 
 }
