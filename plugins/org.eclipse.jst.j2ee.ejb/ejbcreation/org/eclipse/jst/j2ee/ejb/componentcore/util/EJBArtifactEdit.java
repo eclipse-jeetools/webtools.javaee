@@ -73,7 +73,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		super(aProject, toAccessAsReadOnly);
 	}
 	
-	protected EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+	public EJBArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.EJB);
 	}
 
@@ -385,6 +385,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return artifactEdit;
 	}
 
+	
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
