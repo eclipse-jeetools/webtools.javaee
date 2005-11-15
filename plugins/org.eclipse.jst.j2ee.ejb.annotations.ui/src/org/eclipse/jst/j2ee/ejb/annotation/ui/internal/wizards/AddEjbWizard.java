@@ -100,5 +100,14 @@ public class AddEjbWizard extends NewEjbWizard {
 	protected IDataModelProvider getDefaultProvider() {
 		return new SessionBeanDataModelProvider();
 	}
+
+	/**
+	 * Subclasses should override to return false if the running operation cannot be run forked.
+	 * 
+	 * @return
+	 */
+	protected boolean runForked() {
+		return true;
+	}
 		
 }
