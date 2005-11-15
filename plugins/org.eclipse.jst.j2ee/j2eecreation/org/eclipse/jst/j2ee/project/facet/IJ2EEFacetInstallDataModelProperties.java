@@ -15,5 +15,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDa
 public interface IJ2EEFacetInstallDataModelProperties extends IFacetInstallDataModelProperties {
 
 	public static final String RUNTIME_TARGET_ID = "IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID"; //$NON-NLS-1$
+	public static final String FACET_RUNTIME = "IFacetProjectCreationDataModelProperties.FACET_RUNTIME"; //$NON-NLS-1$
 	
 }

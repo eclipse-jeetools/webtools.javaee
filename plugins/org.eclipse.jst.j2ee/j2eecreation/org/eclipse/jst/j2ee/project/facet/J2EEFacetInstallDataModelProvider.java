@@ -20,6 +20,7 @@ public abstract class J2EEFacetInstallDataModelProvider extends FacetInstallData
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(RUNTIME_TARGET_ID);
+		names.add(FACET_RUNTIME);
 		return names;
 	}
 
