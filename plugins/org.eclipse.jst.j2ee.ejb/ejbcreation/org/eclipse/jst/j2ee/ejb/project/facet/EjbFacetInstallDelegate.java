@@ -227,18 +227,6 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 					} catch (Exception e) {
 						Logger.getLogger().logError(e);
 					}
-					
-//					try {
-//						IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
-//						dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME, clientProjectName);
-//						dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER, model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
-//						dm.setProperty(JavaUtilityComponentCreationDataModelProvider.EAR_PROJECT_NAME, earProjectName);
-//						dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID, model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
-//
-//						dm.getDefaultOperation().execute(monitor, null);
-//					} catch (ExecutionException e) {
-//						Logger.getLogger().logError(e);
-//					}
 
 				if (createClient && clientProjectName != null && clientProjectName != "") {
 					try {
