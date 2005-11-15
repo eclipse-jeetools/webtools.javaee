@@ -36,7 +36,9 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	}
 
 	public Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(CONFIG_FOLDER)) {
+		if (propertyName.equals(ADD_TO_EAR)) {
+			return Boolean.FALSE;
+		} else if (propertyName.equals(CONFIG_FOLDER)) {
 			return "WebContent";
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
 			return "src";
@@ -81,7 +83,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	public IStatus validate(String name) {
 		if (name.equals(CONTEXT_ROOT) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));
-		} 
+		}
 		return super.validate(name);
 	}
 
