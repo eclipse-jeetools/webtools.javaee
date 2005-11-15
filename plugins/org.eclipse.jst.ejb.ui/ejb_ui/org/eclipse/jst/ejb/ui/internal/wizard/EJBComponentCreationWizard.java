@@ -25,6 +25,11 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.IDMPageHandler;
  * Wizard used to create J2EE Enterprise Java Bean (EJB) module structures in Eclipse Projects.
  * </p>
  */
+
+/**
+ * @deprecated
+ * @see EjbProjectWizard
+ */
 public final class EJBComponentCreationWizard extends J2EEComponentCreationWizard implements IEjbComponentCreationDataModelProperties {
 
 	/**
