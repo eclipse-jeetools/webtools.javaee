@@ -36,7 +36,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
@@ -44,7 +43,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelPro
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
-import org.eclipse.jst.j2ee.project.facet.JavaUtilityComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -57,6 +56,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -209,18 +209,36 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 
 					String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
 					c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI);
-
+				
+					
+					org.eclipse.wst.common.project.facet.core.runtime.IRuntime rt = 
+						(IRuntime) model.getProperty(IEjbFacetInstallDataModelProperties.FACET_RUNTIME);
 					try {
-						IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
-						dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME, clientProjectName);
-						dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER, model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
-						dm.setProperty(JavaUtilityComponentCreationDataModelProvider.EAR_PROJECT_NAME, earProjectName);
-						dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID, model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
+						
+						UtilityProjectCreationOperation util = new UtilityProjectCreationOperation( clientProjectName,
+								earProjectName,
+								rt,
+								(String)model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER)
+						);
+						
+						util.execute(monitor);
+						
 
-						dm.getDefaultOperation().execute(monitor, null);
-					} catch (ExecutionException e) {
+					} catch (Exception e) {
 						Logger.getLogger().logError(e);
 					}
+					
+//					try {
+//						IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
+//						dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME, clientProjectName);
+//						dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER, model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
+//						dm.setProperty(JavaUtilityComponentCreationDataModelProvider.EAR_PROJECT_NAME, earProjectName);
+//						dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID, model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
+//
+//						dm.getDefaultOperation().execute(monitor, null);
+//					} catch (ExecutionException e) {
+//						Logger.getLogger().logError(e);
+//					}
 
 				if (createClient && clientProjectName != null && clientProjectName != "") {
 					try {
