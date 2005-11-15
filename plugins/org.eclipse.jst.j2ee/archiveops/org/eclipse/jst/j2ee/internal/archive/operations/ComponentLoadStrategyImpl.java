@@ -124,7 +124,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				Map fileURIMap = (Map)urisToZipEntry.get(uri);
 				Iterator it = fileURIMap.keySet().iterator();
 				
-				String sourceFileUri = ""; 
+				String sourceFileUri = "";  //$NON-NLS-1$
 				ZipFile zipFile = null;
 				
 				//there is only one key, pair
@@ -149,9 +149,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 		public void addEntry(ZipEntry entry, ZipFile zipFile, IPath runtimePath) {
 			String uri = runtimePath == null ? null : runtimePath.toString();
-			String fileURI = "";
+			String fileURI = ""; //$NON-NLS-1$
 			if( uri != null ){
-				if( ! uri.equals("/") )
+				if( ! uri.equals("/") ) //$NON-NLS-1$
 					fileURI = uri + entry.getName();
 				else
 					fileURI = entry.getName();
