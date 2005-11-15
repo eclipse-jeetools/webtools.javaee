@@ -158,7 +158,7 @@ public class EARComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		if (overwriteHandler != null) {
 			if (overwriteHandler.isOverwriteNone())
 				return false;
-			return ((super.shouldSave(uri)) && (!overwriteHandler.isOverwriteResources()) && (!overwriteHandler.isOverwriteAll()) && (overwriteHandler.shouldOverwrite(uri)));
+			return ((super.shouldSave(uri)) && (overwriteHandler.isOverwriteAll() ||overwriteHandler.isOverwriteResources() || overwriteHandler.shouldOverwrite(uri)));
 		}
 		return true;
 	}
