@@ -105,18 +105,21 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 
 			if (earProjectName != null && earProjectName != "") {
                 IProject earProject = ProjectUtilities.getProject( earProjectName );
-                IVirtualComponent earComp = ComponentCore.createComponent( earProject );
                 
-                IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
-                dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
-                List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-                modList.add(c);
-                dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-                try {
-                    dataModel.getDefaultOperation().execute(null, null);
-                } catch (ExecutionException e) {
-                    Logger.getLogger().logError(e);
-                }
+                if( earProject.exists() ){
+	                IVirtualComponent earComp = ComponentCore.createComponent( earProject );
+	                
+	                IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
+	                dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
+	                List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+	                modList.add(c);
+	                dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+	                try {
+	                    dataModel.getDefaultOperation().execute(null, null);
+	                } catch (ExecutionException e) {
+	                    Logger.getLogger().logError(e);
+	                }
+	                }
 			}
 
 			if (monitor != null) {
