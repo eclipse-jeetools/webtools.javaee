@@ -364,7 +364,7 @@
     
     <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
   
-    <wizard-pages facet="jst.egb" version="1.1">
+    <wizard-pages facet="jst.ejb" version="1.1">
       <install>
         <page class="org.eclipse.jst.ejb.ui.project.facet.EjbFacetInstallPage"/>
       </install>
