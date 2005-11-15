@@ -27,5 +27,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jst.ejb.ui,
  org.eclipse.jem.util,
  org.eclipse.jst.common.frameworks,
- org.eclipse.jdt.core
+ org.eclipse.jdt.core,
+ org.eclipse.wst.web.ui,
+ org.eclipse.wst.common.project.facet.ui
 Eclipse-AutoStart: true

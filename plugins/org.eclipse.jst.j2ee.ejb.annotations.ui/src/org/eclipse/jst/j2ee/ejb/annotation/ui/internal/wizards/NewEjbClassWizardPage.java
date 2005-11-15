@@ -11,13 +11,15 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
+import org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -33,14 +35,16 @@ public class NewEjbClassWizardPage extends NewJavaClassWizardPage {
 	}
 	
 	protected void createNewComponent() {
-		IDataModel aModel = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
-		aModel.setBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, false);
-		aModel.setBooleanProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, false);
-		EJBComponentCreationWizard componentCreationWizard = new EJBComponentCreationWizard(aModel);
+		IDataModel aModel = DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
+		FacetDataModelMap map = (FacetDataModelMap) aModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel ejbModel = map.getFacetDataModel(J2EEProjectUtilities.EJB);
+		ejbModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+		ejbModel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, false);
+		EjbProjectWizard componentCreationWizard = new EjbProjectWizard(aModel);
 			
 		WizardDialog dialog = new WizardDialog(getShell(), componentCreationWizard);
 		if (Window.OK == dialog.open()) {
-			String newProjectName = aModel.getStringProperty( IComponentCreationDataModelProperties.PROJECT_NAME);
+			String newProjectName = aModel.getStringProperty( IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 			this.setProjectName(newProjectName);
 		}
 	}
