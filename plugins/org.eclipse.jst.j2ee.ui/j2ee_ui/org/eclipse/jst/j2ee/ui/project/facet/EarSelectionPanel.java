@@ -73,7 +73,7 @@ public final class EarSelectionPanel
         new Label(this, SWT.NULL);
         label = new Label(this, SWT.NULL);
         label.setText(Resources.earProjectLabel);
-        this.combo = new Combo( this, SWT.BORDER | SWT.READ_ONLY );
+        this.combo = new Combo(this, SWT.NONE);
         this.combo.setLayoutData( gdhfill() );
         
         this.newButton = new Button( this, SWT.PUSH );

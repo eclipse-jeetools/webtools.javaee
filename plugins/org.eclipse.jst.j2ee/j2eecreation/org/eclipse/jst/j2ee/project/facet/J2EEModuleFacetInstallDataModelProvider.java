@@ -54,10 +54,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
-			DataModelPropertyDescriptor[] validEars = getValidPropertyDescriptors(EAR_PROJECT_NAME);
-			if (validEars.length > 0) {
-				return validEars[0].getPropertyDescription();
-			}
+		    return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -68,6 +65,12 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}
 		if (ADD_TO_EAR.equals(propertyName)) {
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.ENABLE_CHG);
+		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
+			if (getBooleanProperty(ADD_TO_EAR)) {
+				if (!model.isPropertySet(EAR_PROJECT_NAME)) {
+					model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
+				}
+			}
 		} else if (FACET_VERSION.equals(propertyName)) {
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
