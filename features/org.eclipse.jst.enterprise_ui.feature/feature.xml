@@ -14,13 +14,6 @@
       %license
    </license>
 
-   <includes
-         id="org.eclipse.jst.enterprise_core.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.jst.web_ui.feature"
-         version="0.0.0"/>
          
    <includes
          id="org.eclipse.jst.enterprise_userdoc.feature"
