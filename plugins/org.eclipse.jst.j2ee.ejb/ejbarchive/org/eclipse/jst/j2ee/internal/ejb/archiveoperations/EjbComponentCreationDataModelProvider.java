@@ -8,6 +8,8 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
+
+
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.util.Set;
@@ -34,8 +36,14 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+/**
+ * @deprecated 
+ * @see EjbFacetProjectCreationDataModelProvider
+ */
+
 public class EjbComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEjbComponentCreationDataModelProperties {
 
+	
 	public EjbComponentCreationDataModelProvider() {
 		super();
 	}
