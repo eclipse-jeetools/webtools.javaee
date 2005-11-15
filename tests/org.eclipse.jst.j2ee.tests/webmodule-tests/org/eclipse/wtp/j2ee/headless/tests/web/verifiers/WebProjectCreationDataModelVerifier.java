@@ -11,8 +11,8 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
@@ -32,7 +32,7 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 		WebArtifactEdit webEdit = null;
 		
         try {
-            IProject proj = ProjectUtilities.getProject(model.getStringProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME));
+            IProject proj = ProjectUtilities.getProject(model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME));
             Object dd = null;
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(proj);
        		if(webEdit != null) 

@@ -12,7 +12,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -30,7 +30,7 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
 		AppClientArtifactEdit appClientEdit = null;
 		
         try {
-			IProject proj = ProjectUtilities.getProject(model.getStringProperty(IAppClientComponentCreationDataModelProperties.PROJECT_NAME));
+			IProject proj = ProjectUtilities.getProject(model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME));
 			Object dd = null;
 			appClientEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(proj);
        		if(appClientEdit != null) 

@@ -8,7 +8,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -35,7 +35,7 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
     public IDataModel getComponentCreationDataModel() {
-    	return DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
+    	return DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
     }
     
     public void testFindFilesUtility() {

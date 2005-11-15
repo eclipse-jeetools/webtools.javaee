@@ -22,9 +22,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -49,27 +52,28 @@ public class ArchiveComponentCreationTest extends TestCase {
 
     
     public void testCreateWebComponent() throws Exception {
-        createWebComponent(24, "TestWeb" );
+        createWebComponent(24, "TestWeb" ); //$NON-NLS-1$
     }
   
     
     private void createWebComponent(int j2eeVersion, String aModuleName) throws Exception{
-        IDataModel model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-        model.setIntProperty(IWebComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-        model.setProperty(IWebComponentCreationDataModelProperties.COMPONENT_NAME, aModuleName);
-        model.setBooleanProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, true);
+        IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+        model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aModuleName);
+        FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+        IDataModel webModel = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+        webModel.setIntProperty(IFacetDataModelProperties.FACET_VERSION,j2eeVersion);
         model.getDefaultOperation().execute(new NullProgressMonitor(), null);
         
         IProject project = ProjectUtilities.getProject(aModuleName);
         if( project.exists()){
-        	IVirtualComponent component = ComponentCore.createComponent(project, aModuleName);
+        	IVirtualComponent component = ComponentCore.createComponent(project);
         	createArchiveComponent(component);
         }	
     }
 
 	public void createArchiveComponent(IVirtualComponent component){
 		
-		IPath path = new Path("JUNIT_HOME/junit.jar");
+		IPath path = new Path("JUNIT_HOME/junit.jar"); //$NON-NLS-1$
 
 
 		IPath resolvedPath = JavaCore.getResolvedVariablePath(path);
@@ -88,7 +92,7 @@ public class ArchiveComponentCreationTest extends TestCase {
 				vlist.add(ref);
 			}		
 		
-			IVirtualReference ref = ComponentCore.createReference( component, archive, new Path("/WEB-INF/lib") );
+			IVirtualReference ref = ComponentCore.createReference( component, archive, new Path("/WEB-INF/lib") ); //$NON-NLS-1$
 			vlist.add(ref);	
 			
 			IVirtualReference[] refs = new IVirtualReference[vlist.size()];

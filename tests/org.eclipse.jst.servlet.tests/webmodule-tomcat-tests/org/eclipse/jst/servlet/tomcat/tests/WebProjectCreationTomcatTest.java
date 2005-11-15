@@ -12,16 +12,18 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.FlexibleProjectCreationDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -90,11 +92,11 @@ public class WebProjectCreationTomcatTest extends TestCase {
         IProject javaProject = ProjectUtility.getProject(projectName);
         String moduleName = projectName + "WebModule"; //$NON-NLS-1$
         String moduleDeployName = moduleName + ".war"; //$NON-NLS-1$
-        IDataModel model = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-        model.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, javaProject.getName());
-        model.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
-        model.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, moduleName);
-        model.setProperty(IComponentCreationDataModelProperties.COMPONENT_DEPLOY_NAME, moduleDeployName);
+        IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+        model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, javaProject.getName());
+        FacetDataModelMap map = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+        IDataModel webModel = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+        webModel.setIntProperty(IFacetDataModelProperties.FACET_VERSION,j2eeVersion);
         return model;
     }
 

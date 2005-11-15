@@ -11,7 +11,7 @@ import junit.framework.Assert;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
@@ -31,7 +31,7 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 		
         try {
             Object dd = null;
-			jcaEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(ProjectUtilities.getProject(model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME)));
+			jcaEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(ProjectUtilities.getProject(model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME)));
        		if(jcaEdit != null) 
        			dd = (ApplicationClient) jcaEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);

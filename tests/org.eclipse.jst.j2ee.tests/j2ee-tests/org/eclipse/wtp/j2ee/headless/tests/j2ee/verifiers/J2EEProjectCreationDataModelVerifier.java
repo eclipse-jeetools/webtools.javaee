@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.DataModelVerifier;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -21,7 +21,7 @@ public class J2EEProjectCreationDataModelVerifier extends DataModelVerifier {
 
 	public void verify(IDataModel model) throws Exception {
 		super.verify(model);		
-		ProjectUtility.verifyProject(model.getStringProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME), true);
+		ProjectUtility.verifyProject(model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME), true);
 
 	}
 

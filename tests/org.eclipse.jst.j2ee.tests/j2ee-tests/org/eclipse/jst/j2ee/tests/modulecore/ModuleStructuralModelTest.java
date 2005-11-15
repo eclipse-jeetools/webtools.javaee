@@ -32,11 +32,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
@@ -305,10 +305,10 @@ public class ModuleStructuralModelTest extends TestCase {
 
 		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 		if (!project.exists()) {
-			IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-			dataModel.setProperty(IWebComponentCreationDataModelProperties.PROJECT_NAME, aProjectName);
+			IDataModel dataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+			dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProjectName);
 			//dataModel.setProperty(WebComponentCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
-			dataModel.setProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
+//			dataModel.setProperty(IWebComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
 			//dataModel.setProperty(WebComponentCreationDataModel.ADD_SERVER_TARGET, Boolean.FALSE);
 //			dataModel.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
 			dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);

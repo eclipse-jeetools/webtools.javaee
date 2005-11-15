@@ -13,13 +13,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -78,9 +78,8 @@ public class AddServletOperationTest extends OperationTestCase {
     }
     
     public void createWebProject(String projectName) throws Exception {
-    	webComponentDataModel = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-    	webComponentDataModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, projectName);
-    	webComponentDataModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, projectName);
+    	webComponentDataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+    	webComponentDataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
     	runAndVerify(webComponentDataModel);
     }
     /**

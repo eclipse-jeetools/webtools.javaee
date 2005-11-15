@@ -11,7 +11,7 @@ import junit.framework.Assert;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
@@ -33,7 +33,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 
         try {
             Object dd = null;
-            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(ProjectUtilities.getProject(model.getStringProperty(IEjbComponentCreationDataModelProperties.PROJECT_NAME)));
+            ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(ProjectUtilities.getProject(model.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME)));
             if (ejbEdit != null)
                 dd = (EJBJar) ejbEdit.getDeploymentDescriptorRoot();
             Assert.assertNotNull("Deployment Descriptor Null", dd);

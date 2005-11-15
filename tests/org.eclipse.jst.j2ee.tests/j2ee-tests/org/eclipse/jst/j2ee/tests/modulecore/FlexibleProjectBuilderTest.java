@@ -26,9 +26,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
@@ -148,10 +148,8 @@ public class FlexibleProjectBuilderTest extends TestCase {
 
 		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 		if (!project.exists()) {
-			IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentCreationDataModelProvider());
-			dataModel.setProperty(IComponentCreationDataModelProperties.PROJECT_NAME, aProjectName);
-			dataModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, aProjectName);
-			// dataModel.setProperty(WebComponentCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
+			IDataModel dataModel = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
+			dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProjectName);
 			dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		}
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);

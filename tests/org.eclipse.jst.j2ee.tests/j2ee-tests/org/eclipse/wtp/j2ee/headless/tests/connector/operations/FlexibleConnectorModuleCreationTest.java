@@ -15,9 +15,9 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.internal.jca.operations.IConnectorComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -54,12 +54,11 @@ public class FlexibleConnectorModuleCreationTest extends OperationTestCase {
     
     public void createAppClientModule(String moduleName) throws Exception {
         IDataModel dataModel = getFlexibleConnectorModuleCreation();
-        dataModel.setProperty(IConnectorComponentCreationDataModelProperties.PROJECT_NAME, DEFAULT_PROJECT_NAME);
-        dataModel.setProperty(IConnectorComponentCreationDataModelProperties.COMPONENT_NAME, DEFAULT_MODULE_NAME);
+        dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, DEFAULT_PROJECT_NAME);
         runAndVerify(dataModel);
     }
     public IDataModel getFlexibleConnectorModuleCreation(){
-		return DataModelFactory.createDataModel(new ConnectorComponentCreationDataModelProvider());
+		return DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());
     }
 
 }
