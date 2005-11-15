@@ -61,15 +61,6 @@ public final class EarSelectionPanel
         this.addToEar.setText( Resources.addToEarLabel );
         this.addToEar.setLayoutData( gdhspan( gdhfill(), 4 ) );
         synchhelper.synchCheckbox(addToEar, ADD_TO_EAR, null);
-        this.addToEar.addSelectionListener(new SelectionAdapter() {
-        	public void widgetSelected( final SelectionEvent event )
-            {
-        		if (addToEar.getSelection())
-        			label.setEnabled(true);
-        		else
-        			label.setEnabled(false);
-            }
-        });
         new Label(this, SWT.NULL);
         label = new Label(this, SWT.NULL);
         label.setText(Resources.earProjectLabel);
@@ -87,7 +78,7 @@ public final class EarSelectionPanel
             }
         } );
         
-        synchhelper.synchCombo(combo, EAR_PROJECT_NAME, new Control[]{newButton});
+        synchhelper.synchCombo(combo, EAR_PROJECT_NAME, new Control[]{label, newButton});
         
     }
 
