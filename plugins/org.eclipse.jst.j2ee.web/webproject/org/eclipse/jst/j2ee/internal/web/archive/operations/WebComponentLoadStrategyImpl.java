@@ -53,16 +53,16 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		IVirtualReference[] libModules = getLibModules();
 		for (int i = 0; i < libModules.length; i++) {
 			IVirtualReference iLibModule = libModules[i];
-			IVirtualComponent vComponent = iLibModule.getReferencedComponent();
-			if (vComponent.isBinary()) {
-				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) vComponent;
+			IVirtualComponent looseComponent = iLibModule.getReferencedComponent();
+			if (looseComponent.isBinary()) {
+				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) looseComponent;
 				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				String uri = iLibModule.getRuntimePath().toString() + "/" + diskFile.getName();
+				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + diskFile.getName(); //$NON-NLS-1$
 				addExternalFile(uri, diskFile);
 			} else {
-				String uri = iLibModule.getRuntimePath().toString() + "/" + vComponent.getName() + ".jar";
+				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + looseComponent.getName() + ".jar";  //$NON-NLS-1$//$NON-NLS-2$
 				try {
-					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, vComponent.getProject(), isExportSource());
+					Archive utilJAR = J2EEProjectUtilities.asArchive(uri, looseComponent.getProject(), isExportSource());
 					if (utilJAR == null)
 						continue;
 					filesHolder.addFile(utilJAR);
