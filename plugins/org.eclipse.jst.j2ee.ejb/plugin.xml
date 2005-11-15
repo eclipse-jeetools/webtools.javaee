@@ -195,4 +195,18 @@
       <fixed facet="jst.ejb"/>
     </template>
 	</extension>
+	
+	<!--
+	    Operation extension that updates the ejb client reference in the ejb-jar.xml
+	-->
+	<extension
+         point="org.eclipse.wst.common.frameworks.OperationExtension"
+         id="org.eclipse.jst.j2ee.ejb.refactor.operations">
+      <operationExtension
+            id="org.eclipse.jst.j2ee.refactor.operations.UpdateDependentModuleonDeleteOp"
+            postOperationClass="org.eclipse.jst.j2ee.internal.ejb.refactor.UpdateEJBClientRefOnDeleteOp"/>
+      <operationExtension
+            id="org.eclipse.jst.j2ee.refactor.operations.UpdateDependentModuleonRenameOp"
+            postOperationClass="org.eclipse.jst.j2ee.internal.ejb.refactor.UpdateEJBClientRefOnRenameOp"/>
+    </extension>
 </plugin>
