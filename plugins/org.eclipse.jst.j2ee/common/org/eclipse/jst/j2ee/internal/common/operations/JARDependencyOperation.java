@@ -12,6 +12,8 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -145,13 +147,11 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 		try {
 			int jarManipulationType = model.getIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE);
 			switch (jarManipulationType) {
-				case JARDependencyDataModelProperties.JAR_MANIPULATION_ADD : {
-					updateProjectDependency(proj, refproj);
-				}
-				
-				break;
+				case JARDependencyDataModelProperties.JAR_MANIPULATION_ADD :
+					updateProjectDependency(proj, refproj, true);
+					break;
 				case JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE : 
-
+					updateProjectDependency(proj, refproj, false);
 					break;
 				case JARDependencyDataModelProperties.JAR_MANIPULATION_INVERT :
 
@@ -169,31 +169,36 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 			return new IClasspathEntry[]{projectEntry};	
 	}	
 	
-	private void updateProjectDependency(IProject ejbProj, IProject clientProj){
+	private void updateProjectDependency(final IProject ejbProj, final IProject clientProj, final boolean add){
 		
-		IJavaProject javaProject = JavaCore.create( ejbProj );
+		final IJavaProject javaProject = JavaCore.create( ejbProj );
 		try {
-	
-			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-			IClasspathEntry[] newEntries = getProjectDependency( clientProj );
-			
-			int oldSize = oldEntries.length;
-			int newSize = newEntries.length;
-			
-			IClasspathEntry[] classpathEnties = new IClasspathEntry[oldSize + newSize];
-			int k = 0;
+			final IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
+			final IClasspathEntry[] entriesToChange = getProjectDependency( clientProj );
+			final List classpathEntries = new ArrayList();
 			for (int i = 0; i < oldEntries.length; i++) {
-				classpathEnties[i] = oldEntries[i];
-				k++;
+				if (!entryToChange(oldEntries[i], entriesToChange)) {
+					classpathEntries.add(oldEntries[i]);
+				}
 			}
-			for( int j=0; j< newEntries.length; j++){
-				classpathEnties[k] = newEntries[j];
-				k++;
+			if (add) {
+				for( int j=0; j< entriesToChange.length; j++){
+					classpathEntries.add(entriesToChange[j]);
+				}
 			}
-			javaProject.setRawClasspath(classpathEnties, null);
+			javaProject.setRawClasspath((IClasspathEntry[])classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
 		}
 		catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
 		}		
+	}
+	
+	private boolean entryToChange(final IClasspathEntry entry, final IClasspathEntry[] entriesToChange) {
+		for (int i = 0; i < entriesToChange.length; i++) {
+			if (entriesToChange[i].equals(entry)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

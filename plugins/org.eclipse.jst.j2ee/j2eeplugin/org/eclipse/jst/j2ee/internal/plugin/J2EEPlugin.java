@@ -24,6 +24,7 @@ import java.util.Vector;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -59,6 +60,7 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.jst.j2ee.refactor.listeners.ProjectRefactoringListener;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
@@ -493,6 +495,10 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		
 		manager.registerAdapters(new VirtualArchiveComponentAdapterFactory(), VirtualArchiveComponent.class );
 		
+		final ProjectRefactoringListener listener = new ProjectRefactoringListener();//ProjectDependencyCache.getCache());
+		// register the listener
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener,
+				IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_DELETE);
 	}
 
 	/*

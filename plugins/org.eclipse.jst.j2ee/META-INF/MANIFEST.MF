@@ -36,7 +36,10 @@ Export-Package: .,
  org.eclipse.jst.j2ee.internal.validation,
  org.eclipse.jst.j2ee.internal.webservices,
  org.eclipse.jst.j2ee.project.datamodel.properties,
- org.eclipse.jst.j2ee.project.facet
+ org.eclipse.jst.j2ee.project.facet,
+ org.eclipse.jst.j2ee.refactor,
+ org.eclipse.jst.j2ee.refactor.listeners,
+ org.eclipse.jst.j2ee.refactor.operations
 Require-Bundle: org.eclipse.emf.edit,
  org.eclipse.jem.workbench,
  org.eclipse.jst.j2ee.core,
