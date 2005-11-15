@@ -35,6 +35,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 		EARArtifactEdit earEdit = null;
 		try {
 			IVirtualComponent comp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			if (!comp.getProject().isAccessible()) return;
 			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(comp.getProject());
 			if (earEdit != null) {
 				Application application = earEdit.getApplication();

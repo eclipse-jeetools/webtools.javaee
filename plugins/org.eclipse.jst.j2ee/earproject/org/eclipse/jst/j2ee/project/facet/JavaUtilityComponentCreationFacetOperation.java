@@ -44,11 +44,12 @@ public class JavaUtilityComponentCreationFacetOperation extends J2EEComponentCre
 	protected IDataModel setupUtilityInstallAction(IDataModel aDM) {
 		IDataModel dm = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
 		try {
-			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, (String) model.getProperty(JavaUtilityComponentCreationDataModelProvider.PROJECT_NAME));
+			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(JavaUtilityComponentCreationDataModelProvider.PROJECT_NAME));
 			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
 			dm.setProperty(IUtilityFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(JavaUtilityComponentCreationDataModelProvider.RUNTIME_TARGET_ID));
 			dm.setProperty(IUtilityFacetInstallDataModelProperties.CONFIG_FOLDER, 
 					model.getProperty(JavaUtilityComponentCreationDataModelProvider.JAVASOURCE_FOLDER));
+			dm.setStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME,model.getStringProperty(JavaUtilityComponentCreationDataModelProvider.EAR_PROJECT_NAME));
 			
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
