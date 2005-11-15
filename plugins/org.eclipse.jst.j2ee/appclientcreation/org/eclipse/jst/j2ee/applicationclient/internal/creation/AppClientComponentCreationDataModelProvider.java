@@ -15,7 +15,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -88,7 +88,7 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 	}
 
 	protected EClass getComponentType() {
-		return CommonarchiveFactoryImpl.getPackage().getApplicationClientFile();
+		return CommonarchivePackage.eINSTANCE.getApplicationClientFile();
 	}
 
 	protected String getComponentExtension() {
@@ -107,7 +107,7 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 		boolean doSet = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(JAVASOURCE_FOLDER)){
 			//unless MANIFEST folder is opened up, it is set as same as Java source folder
-			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF);
+			setProperty(MANIFEST_FOLDER, getProperty(JAVASOURCE_FOLDER)+ "/" + J2EEConstants.META_INF); //$NON-NLS-1$
 		}		
 		return doSet;
 	}	

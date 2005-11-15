@@ -605,6 +605,12 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		else
 			return ""; //$NON-NLS-1$
 	}
+	
+	private boolean isJ2EEModuleProject(IProject project) {
+		  return J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
+		  || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isJCAProject(project);
+	}
+
 	public static String getJ2EEProjectVersion(IProject project) {
 		String type = getJ2EEProjectType(project);
 		IFacetedProject facetedProject = null;
