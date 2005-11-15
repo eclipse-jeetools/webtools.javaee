@@ -29,9 +29,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEJavaComponentSaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -47,18 +53,16 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 	}
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		IDataModel nestedComonentCreationDM = model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
-		String componentName = (String)model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT_NAME);
-
-		IVirtualComponent component = (IVirtualComponent) model.getProperty(IJavaUtilityJarImportDataModelProperties.COMPONENT);
-
-		if ( component == null || !component.exists()) {
-			model.getNestedModel(IJavaUtilityJarImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION).getDefaultOperation().execute(monitor, info);
-			IProject javaProject = ProjectUtilities.getProject(componentName);
-			component = ComponentCore.createComponent(javaProject);			
-		}
-		IProject javaProject = component.getProject();
+		IDataModel utilityCreationDataModel = DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
+		String projectName = model.getStringProperty(IJavaUtilityJarImportDataModelProperties.PROJECT_NAME);
+		utilityCreationDataModel.setStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
+		FacetDataModelMap map = (FacetDataModelMap)utilityCreationDataModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.getFacetDataModel(J2EEProjectUtilities.UTILITY).setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
 		
+		utilityCreationDataModel.getDefaultOperation().execute(monitor, info);
+
+		IProject javaProject = ProjectUtilities.getProject(projectName);
+		IVirtualComponent component = ComponentCore.createComponent(javaProject);
 
 		Archive jarFile = (Archive) model.getProperty(IJavaUtilityJarImportDataModelProperties.FILE);
 
@@ -68,7 +72,8 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		try {
 			jarFile.save(strat);
 			// To fix the defect that throws dup classpath exception.
-			// Because JemProjectUtilities.appendJavaClassPath() does not check dups, we have to check it here.
+			// Because JemProjectUtilities.appendJavaClassPath() does not check dups, we have to
+			// check it here.
 			// check if JRE_CONTAINER is in the classpath. if not add it
 			IJavaProject javaProj = JemProjectUtilities.getJavaProject(javaProject);
 			IClasspathEntry[] classpath = javaProj.getRawClasspath();

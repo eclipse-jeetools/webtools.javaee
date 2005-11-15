@@ -40,7 +40,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
-	
+
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
 			monitor.beginTask("", 1); //$NON-NLS-1$
@@ -48,7 +48,7 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 
 		try {
 
-            final IDataModel model = (IDataModel) cfg;
+			final IDataModel model = (IDataModel) cfg;
 
 			// Add WTP natures.
 
@@ -69,7 +69,7 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
 					IPath path = cpe.getPath().removeFirstSegments(1);
-					if( path.isEmpty() ){
+					if (path.isEmpty()) {
 						path = new Path("/"); //$NON-NLS-1$
 					}
 					jsrc.createLink(path, 0, null);
@@ -81,54 +81,52 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 			final IVirtualFolder root = c.getRootFolder();
 
 			IContainer container = null;
-			
+
 			if (root.getProjectRelativePath().segmentCount() == 0) {
-				container = project;				
-			} else{
-				container = project.getFolder( root.getProjectRelativePath() );
+				container = project;
+			} else {
+				container = project.getFolder(root.getProjectRelativePath());
 			}
-				
+
 			try {
-				if( container != null )
+				if (container != null)
 					createManifest(project, container, monitor);
 			} catch (InvocationTargetException e) {
 				Logger.getLogger().logError(e);
 			} catch (InterruptedException e) {
 				Logger.getLogger().logError(e);
-			}	
-				
-				
-				
+			}
+
+
+
 			// Associate with an EAR, if necessary.
+			if (model.getBooleanProperty(IUtilityFacetInstallDataModelProperties.ADD_TO_EAR)) {
+				final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+				if (earProjectName != null && earProjectName != "") {
+					IProject earProject = ProjectUtilities.getProject(earProjectName);
+					if (earProject.exists()) {
+						IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 
-            final String earProjectName = model.getStringProperty(IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME);
-
-			if (earProjectName != null && earProjectName != "") {
-                IProject earProject = ProjectUtilities.getProject( earProjectName );
-                
-                if( earProject.exists() ){
-	                IVirtualComponent earComp = ComponentCore.createComponent( earProject );
-	                
-	                IDataModel dataModel = DataModelFactory.createDataModel( new AddComponentToEnterpriseApplicationDataModelProvider());
-	                dataModel.setProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp );
-	                List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-	                modList.add(c);
-	                dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-	                try {
-	                    dataModel.getDefaultOperation().execute(null, null);
-	                } catch (ExecutionException e) {
-	                    Logger.getLogger().logError(e);
-	                }
-	                }
+						IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
+						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+						List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+						modList.add(c);
+						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+						try {
+							dataModel.getDefaultOperation().execute(null, null);
+						} catch (ExecutionException e) {
+							Logger.getLogger().logError(e);
+						}
+					}
+				}
 			}
 
 			if (monitor != null) {
 				monitor.worked(1);
 			}
-		} catch(Exception e){
+		} catch (Exception e) {
 			Logger.getLogger().logError(e);
-		}
-		finally {
+		} finally {
 			if (monitor != null) {
 				monitor.done();
 			}
