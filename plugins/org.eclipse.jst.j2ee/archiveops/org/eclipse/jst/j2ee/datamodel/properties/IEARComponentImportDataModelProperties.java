@@ -9,11 +9,12 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
+
 /**
  * <p>
- * IEARComponentImportDataModelProperties provides properties to the IDataModel associated with the 
- * EARComponentImportDataModelProvider.
- * NOTE: The associated Provider and Operations will be created during M5
+ * IEARComponentImportDataModelProperties provides properties to the IDataModel associated with the
+ * EARComponentImportDataModelProvider. NOTE: The associated Provider and Operations will be created
+ * during M5
  * </p>
  * <p>
  * This interface is not intended to be implemented by clients.
@@ -28,35 +29,37 @@ package org.eclipse.jst.j2ee.datamodel.properties;
 public interface IEARComponentImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
 
 	/**
-     * Optional, type IPath default is ear location
-     */
-    public static final String NESTED_MODULE_ROOT = "IEnterpriseApplicationImportDataModelProperties.NESTED_MODULE_ROOT"; //$NON-NLS-1$
+	 * Optional, type IPath default is ear location
+	 */
+	public static final String NESTED_MODULE_ROOT = "IEnterpriseApplicationImportDataModelProperties.NESTED_MODULE_ROOT"; //$NON-NLS-1$
 
-    /**
-     * Optional, A List containing utililty jars;
-     */
-    public static final String UTILITY_LIST = "IEnterpriseApplicationImportDataModelProperties.UTILITY_LIST"; //$NON-NLS-1$
-    /**
-     * Optional, A List containing modules to be imported list;
-     */
-    public static final String SELECTED_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.SELECTED_MODELS_LIST"; //$NON-NLS-1$
-    /**
-     * Optional, A List containing ejb client jars associated with any ejb components which are to be imported.
-     */
-    public static final String EJB_CLIENT_LIST = "IEnterpriseApplicationImportDataModelProperties.EJB_CLIENT_LIST"; //$NON-NLS-1$
+	/**
+	 * Optional, A List containing utililty jars. This list should consist of the CommonArchive
+	 * Archives of all the Utility Jars that should be extracted into projects.
+	 */
+	public static final String UTILITY_LIST = "IEnterpriseApplicationImportDataModelProperties.UTILITY_LIST"; //$NON-NLS-1$
+	/**
+	 * Optional, A List containing modules to be imported list;
+	 */
+	public static final String SELECTED_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.SELECTED_MODELS_LIST"; //$NON-NLS-1$
+	/**
+	 * Optional, A List containing ejb client jars associated with any ejb components which are to
+	 * be imported.
+	 */
+	public static final String EJB_CLIENT_LIST = "IEnterpriseApplicationImportDataModelProperties.EJB_CLIENT_LIST"; //$NON-NLS-1$
 
-    /**
-     * Optional. This is a list of data models. This list must contain all non-utilty projects in
-     * the ear to be imported
-     */
-    public static final String MODULE_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.MODULE_MODELS_LIST"; //$NON-NLS-1$
+	/**
+	 * Optional. This is a list of data models. This list must contain all non-utilty projects in
+	 * the ear to be imported
+	 */
+	public static final String MODULE_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.MODULE_MODELS_LIST"; //$NON-NLS-1$
 
-    /**
-     * Optional. This is a list of data models. This list must contain all utility jars selected to
-     * be imported
-     */
-    public static final String UTILITY_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.UTILITY_MODELS_LIST"; //$NON-NLS-1$
-	
+	/**
+	 * Optional. This is a list of data models. This list must contain all utility jars selected to
+	 * be imported
+	 */
+	public static final String UTILITY_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.UTILITY_MODELS_LIST"; //$NON-NLS-1$
+
 	/**
 	 * This is an unsettable property which will return all the project DataModels.
 	 */
@@ -71,6 +74,6 @@ public interface IEARComponentImportDataModelProperties extends IJ2EEComponentIm
 	 * This is an unsettable property which will return .
 	 */
 	public static final String HANDLED_PROJECT_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST"; //$NON-NLS-1$
-	
-	
+
+
 }
