@@ -15,6 +15,8 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataM
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
 import org.eclipse.jst.server.core.FacetUtil;
@@ -84,30 +86,34 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		
 		protected IDataModel setupUtilInstallAction(IProject aProject,String specVersion) {
 			IDataModel aFacetInstallDataModel = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
-			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
-			
+			aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
+			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
 			return aFacetInstallDataModel;
 		}
 		protected IDataModel setupEarInstallAction(IProject aProject,String specVersion) {
 			IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
-			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
 			
 			return earFacetInstallDataModel;
 		}
 		protected IDataModel setupAppClientInstallAction(IProject aProject,String specVersion) {
 			IDataModel aFacetInstallDataModel = DataModelFactory.createDataModel(new AppClientFacetInstallDataModelProvider());
-			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
-			
+			aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
+			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			aFacetInstallDataModel.setBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS,false);
 			return aFacetInstallDataModel;
 		}
 		protected IDataModel setupConnectorInstallAction(IProject aProject,String specVersion) {
 			IDataModel aFacetInstallDataModel = DataModelFactory.createDataModel(new ConnectorFacetInstallDataModelProvider());
-			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
-			
+			aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
+			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
 			return aFacetInstallDataModel;
 		}
 
@@ -116,6 +122,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				edit = StructureEdit.getStructureEditForRead(aProject);
 				if (edit == null) return;  // Not a component project....
+				if (edit.getComponent() == null) return; // Can't migrate
 				ComponentType type = edit.getComponent().getComponentType();
 				if (type == null) return;  // Can't migrate
 				String compId = type.getComponentTypeId();
@@ -278,17 +285,19 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
 		protected IDataModel setupEjbInstallAction(IProject aProject,String ejbVersion) {
 			IDataModel ejbFacetInstallDataModel = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
-			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, ejbVersion);
-			
+			ejbFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
+			ejbFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
 			return ejbFacetInstallDataModel;
 		}
 
 		protected IDataModel setupWebInstallAction(IProject aProject,String specVersion) {
 			IDataModel webFacetInstallDataModel = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
-			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject);
+			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
-			
+			webFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
+			webFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
 			return webFacetInstallDataModel;
 		}
 
