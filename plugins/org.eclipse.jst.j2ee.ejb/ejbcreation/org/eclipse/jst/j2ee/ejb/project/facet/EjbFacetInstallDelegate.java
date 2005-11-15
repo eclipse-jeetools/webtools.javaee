@@ -147,31 +147,6 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				installEARFacet(j2eeVersionText, earProjectName, monitor);
 			}
 
-			// Create the Ejb Client View
-			final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
-			String clientProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-			if (createClient && clientProjectName != null && clientProjectName != "") {
-				IProject ejbClientProject = ProjectUtilities.getProject(clientProjectName);
-				if (ejbClientProject.exists())
-					return;
-
-				c.setMetaProperty(CreationConstants.EJB_CLIENT_NAME, clientProjectName);
-
-				String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
-				c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI);
-
-				try {
-					IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
-					dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME, clientProjectName);
-					dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER, model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
-
-					dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID, model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
-
-					dm.getDefaultOperation().execute(monitor, null);
-				} catch (ExecutionException e) {
-					Logger.getLogger().logError(e);
-				}
-
 				// Associate with an EAR, if necessary.
 				if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
 					if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
@@ -220,7 +195,32 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 						}
 
 					}
-				}
+				
+				
+//				 Create the Ejb Client View
+				final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
+				String clientProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+				if (createClient && clientProjectName != null && clientProjectName != "") {
+					IProject ejbClientProject = ProjectUtilities.getProject(clientProjectName);
+					if (ejbClientProject.exists())
+						return;
+
+					c.setMetaProperty(CreationConstants.EJB_CLIENT_NAME, clientProjectName);
+
+					String clientURI = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
+					c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI);
+
+					try {
+						IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityComponentCreationDataModelProvider());
+						dm.setProperty(JavaComponentCreationDataModelProvider.PROJECT_NAME, clientProjectName);
+						dm.setProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER, model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER));
+						dm.setProperty(JavaUtilityComponentCreationDataModelProvider.EAR_PROJECT_NAME, earProjectName);
+						dm.setProperty(JavaComponentCreationDataModelProvider.RUNTIME_TARGET_ID, model.getProperty(IEjbFacetInstallDataModelProperties.RUNTIME_TARGET_ID));
+
+						dm.getDefaultOperation().execute(monitor, null);
+					} catch (ExecutionException e) {
+						Logger.getLogger().logError(e);
+					}
 
 				if (createClient && clientProjectName != null && clientProjectName != "") {
 					try {
@@ -239,6 +239,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				}
 
 				}
 
