@@ -28,6 +28,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * This wizard is not exposed as API to be extended.
  * </p>
  */
+
+/**
+ * @deprecated
+ * @see WebProjectWizard
+ */
 public class WebComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 	
 	/**
