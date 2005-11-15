@@ -27,6 +27,11 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
 
+/**
+ * @deprecated 
+ * @see EARFacetProjectCreationDataModelProvider
+ */
+
 public class EarComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IEarComponentCreationDataModelProperties {
 
     public IDataModelOperation getDefaultOperation() {

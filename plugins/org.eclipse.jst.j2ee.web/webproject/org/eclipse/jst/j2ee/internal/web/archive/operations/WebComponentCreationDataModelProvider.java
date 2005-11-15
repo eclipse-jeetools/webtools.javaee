@@ -34,6 +34,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+/**
+ * @deprecated 
+ * @see WebFacetProjectCreationDataModelProvider
+ */
+
 public class WebComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IWebComponentCreationDataModelProperties {
 
 	public WebComponentCreationDataModelProvider() {

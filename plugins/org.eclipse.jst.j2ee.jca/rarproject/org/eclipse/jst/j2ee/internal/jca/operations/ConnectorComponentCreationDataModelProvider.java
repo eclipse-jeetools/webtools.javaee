@@ -23,6 +23,11 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
+/**
+ * @deprecated 
+ * @see ConnectorFacetProjectCreationDataModelProvider
+ */
+
 public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IConnectorComponentCreationDataModelProperties {
 
 	public ConnectorComponentCreationDataModelProvider() {
