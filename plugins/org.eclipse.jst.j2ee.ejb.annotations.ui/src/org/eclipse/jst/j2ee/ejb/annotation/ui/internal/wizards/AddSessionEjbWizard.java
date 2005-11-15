@@ -120,7 +120,7 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#runForked()
 	 */
 	protected boolean runForked() {
-		return false;
+		return true;
 	}
 	
 	public boolean canFinish() {
