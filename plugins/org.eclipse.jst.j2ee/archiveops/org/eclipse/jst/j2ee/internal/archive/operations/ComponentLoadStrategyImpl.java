@@ -264,7 +264,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 									tmpSourcePath = tmpSourcePath.removeLastSegments(1);
 								}
 								if (tmpRuntimePath.segmentCount() != 0) {
-									runtimePath = tmpRuntimePath;
+									runtimePath = tmpRuntimePath.makeRelative();
 								}
 							}
 						}
