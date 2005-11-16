@@ -61,7 +61,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		super(aProject, toAccessAsReadOnly);
 	}
 	
-	protected ConnectorArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+	public ConnectorArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.JCA);
 	}
 

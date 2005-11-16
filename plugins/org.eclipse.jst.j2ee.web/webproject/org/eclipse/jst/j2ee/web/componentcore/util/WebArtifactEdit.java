@@ -99,7 +99,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param toAccessAsReadOnly
 	 * @throws IllegalArgumentException
 	 */
-	protected WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+	public WebArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.DYNAMIC_WEB);
 	}
 	

@@ -58,7 +58,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		super(aProject, toAccessAsReadOnly);		
 	}
 	
-	protected AppClientArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
+	public AppClientArtifactEdit(IProject aProject, boolean toAccessAsReadOnly, boolean forCreate) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly, forCreate, J2EEProjectUtilities.APPLICATION_CLIENT);		
 	}
 
