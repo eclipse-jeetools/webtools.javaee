@@ -337,6 +337,19 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		result.addAll(getAvailableLocalMethodElements());
 		result.addAll(getAvailableServiceEndpointMethodElements());
 		result.addAll(getAvailableUnspecifiedMethodElements());
+		
+		List list = getEjbClass().getImplementsInterfaces();
+		Iterator it = list.iterator();
+		while( it.hasNext()){
+			JavaClass  interfaceClass = (JavaClass)it.next();
+			String interfaceName = interfaceClass.getQualifiedName();
+			if( !interfaceName.equals("javax.ejb.MessageDrivenBean") && 
+					!interfaceName.equals("javax.ejb.EntityBean")&&
+					!interfaceName.equals("javax.ejb.SessionBean")){
+				result.addAll( getAvailableMethodElements(interfaceClass, MethodElementKind.UNSPECIFIED_LITERAL));
+			}
+		}
+		
 		unionMethodElements(result, getExistingMethodElements(refObject));
 		Collections.sort(result, comparator);
 		return result;
