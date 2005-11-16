@@ -4,14 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.common.project.facet.WtpUtils;
+import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider;
@@ -27,6 +35,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
 import org.eclipse.wst.common.componentcore.internal.IComponentProjectMigrator;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.server.core.IRuntime;
@@ -41,14 +50,80 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void migrateProject(IProject project) {
-		if (project.isAccessible()) {
+	public void migrateProject(IProject aProject) {
+		if (aProject.isAccessible()) {
+			project = aProject;
 			removeComponentBuilders(project);
+			if (multipleComponentsDetected())
+				createNewProjects();
 			String facetid = getFacetFromProject(project);
 			if (facetid.length() == 0)
 				addFacets(project);
 		}
 
+	}
+
+		private void createNewProjects() {
+
+			StructureEdit se = null;
+			try {
+				se = StructureEdit.getStructureEditForWrite(project);
+				List comps = se.getComponentModelRoot().getComponents();
+				List removedComps = new ArrayList();
+				for (int i = 1;i<comps.size();i++) {
+					WorkbenchComponent comp = (WorkbenchComponent) comps.get(i);
+					IWorkspace ws = ResourcesPlugin.getWorkspace();
+					IProject newProj = ws.getRoot().getProject(comp.getName());
+					if (!newProj.exists()) {
+						try {
+							createProj(newProj,(!comp.getComponentType().getComponentTypeId().equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)));
+							WtpUtils.addNatures(newProj);
+						} catch (CoreException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					addFacetsToProject(newProj,comp.getComponentType().getComponentTypeId(),comp.getComponentType().getVersion(),false);
+					removedComps.add(comp);
+					IFolder compFolder = project.getFolder(comp.getName());
+					if (compFolder.exists())
+						try {
+							compFolder.delete(true,null);
+						} catch (CoreException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					se.save(null);
+				}
+				se.getComponentModelRoot().getComponents().removeAll(removedComps);
+			
+			} finally {
+				if (se != null)
+					se.dispose();
+			}
+	
+		
+	}
+
+		private void createProj(IProject newProj, boolean isJavaProject) throws CoreException {
+			newProj.create(null);
+			IProjectDescription description = ResourcesPlugin.getWorkspace().newProjectDescription(newProj.getName());
+//			if (isJavaProject)
+//				description.setNatureIds(new String[]{JavaCore.NATURE_ID});
+			description.setLocation(null);
+			newProj.open(null);
+			newProj.setDescription(description, null);
+		}
+
+		private boolean multipleComponentsDetected() {
+			StructureEdit se = null;
+			try {
+				se = StructureEdit.getStructureEditForRead(project);
+				return se.getComponentModelRoot().getComponents().size() > 1;
+			} finally {
+				if (se != null)
+					se.dispose();
+			}
 	}
 
 		private void removeComponentBuilders(IProject aProject) {
@@ -77,10 +152,12 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		
-		protected IDataModel setupJavaInstallAction(IProject aProject) {
+		protected IDataModel setupJavaInstallAction(IProject aProject, boolean existing,String srcFolder) {
 			IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
+			if (!existing)
+				dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder); //$NON-NLS-1$
 			return dm;
 		}
 		
@@ -127,20 +204,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				if (type == null) return;  // Can't migrate
 				String compId = type.getComponentTypeId();
 				String specVersion = edit.getComponent().getComponentType().getVersion();
-				if (compId.equals(J2EEProjectUtilities.DYNAMIC_WEB))
-					installWEBFacets(aProject,specVersion);
-				else if (compId.equals(J2EEProjectUtilities.EJB))
-					installEJBFacets(aProject,specVersion);
-				else if (compId.equals(J2EEProjectUtilities.APPLICATION_CLIENT))
-					installAppClientFacets(aProject,specVersion);
-				else if (compId.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION))
-					installEARFacets(aProject,specVersion);
-				else if (compId.equals(J2EEProjectUtilities.JCA))
-					installConnectorFacets(aProject,specVersion);
-				else if (compId.equals(J2EEProjectUtilities.UTILITY))
-					installUtilityFacets(aProject,specVersion);
-				else if (compId.equals(J2EEProjectUtilities.STATIC_WEB))
-					installStaticWebFacets(aProject,specVersion);
+				addFacetsToProject(aProject, compId, specVersion,true);
 			}
 			finally {
 				if (edit != null)
@@ -149,16 +213,33 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 
-		private void installStaticWebFacets(IProject project2, String specVersion) {
+		private void addFacetsToProject(IProject aProject, String compId, String specVersion,boolean existing) {
+			if (compId.equals(J2EEProjectUtilities.DYNAMIC_WEB))
+				installWEBFacets(aProject,specVersion,existing);
+			else if (compId.equals(J2EEProjectUtilities.EJB))
+				installEJBFacets(aProject,specVersion,existing);
+			else if (compId.equals(J2EEProjectUtilities.APPLICATION_CLIENT))
+				installAppClientFacets(aProject,specVersion,existing);
+			else if (compId.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION))
+				installEARFacets(aProject,specVersion,existing);
+			else if (compId.equals(J2EEProjectUtilities.JCA))
+				installConnectorFacets(aProject,specVersion,existing);
+			else if (compId.equals(J2EEProjectUtilities.UTILITY))
+				installUtilityFacets(aProject,specVersion,existing);
+			else if (compId.equals(J2EEProjectUtilities.STATIC_WEB))
+				installStaticWebFacets(aProject,specVersion,existing);
+		}
+
+		private void installStaticWebFacets(IProject project2, String specVersion, boolean existing) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		private void installUtilityFacets(IProject aProject, String specVersion) {
+		private void installUtilityFacets(IProject aProject, String specVersion, boolean existing) {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(aProject));
+			facetDMs.add(setupJavaInstallAction(aProject,existing,"src"));
 			IDataModel newModel = setupUtilInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
@@ -170,11 +251,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 
-		private void installConnectorFacets(IProject aProject, String specVersion) {
+		private void installConnectorFacets(IProject aProject, String specVersion, boolean existing) {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(aProject));
+			facetDMs.add(setupJavaInstallAction(aProject,existing,CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER));
 			IDataModel newModel = setupConnectorInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
@@ -186,7 +267,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 
-		private void installEARFacets(IProject aProject, String specVersion) {
+		private void installEARFacets(IProject aProject, String specVersion, boolean existing) {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -201,11 +282,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 
-		private void installAppClientFacets(IProject aProject, String specVersion) {
+		private void installAppClientFacets(IProject aProject, String specVersion, boolean existing) {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(aProject));
+			facetDMs.add(setupJavaInstallAction(aProject,existing,CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER));
 			IDataModel newModel = setupAppClientInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
@@ -217,12 +298,12 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 
-		private void installEJBFacets(IProject ejbProject2,String ejbVersion) {
+		private void installEJBFacets(IProject ejbProject2,String ejbVersion, boolean existing) {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, ejbProject2.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(ejbProject2));
-			IDataModel newModel = setupEjbInstallAction(ejbProject2,ejbVersion);
+			facetDMs.add(setupJavaInstallAction(ejbProject2,existing,CreationConstants.DEFAULT_EJB_SOURCE_FOLDER));
+			IDataModel newModel = setupEjbInstallAction(ejbProject2,ejbVersion,existing);
 			facetDMs.add(newModel);
 			//setRuntime(ejbProject2,dm); //Setting runtime property
 			try {
@@ -233,11 +314,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			}
 			
 		}
-		private void installWEBFacets(IProject webProj,String specVersion) {
+		private void installWEBFacets(IProject webProj,String specVersion, boolean existing) {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, webProj.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(webProj));
+			facetDMs.add(setupJavaInstallAction(webProj,existing,CreationConstants.DEFAULT_WEB_SOURCE_FOLDER));
 			IDataModel newModel = setupWebInstallAction(webProj,specVersion);
 			facetDMs.add(newModel);
 			//setRuntime(webProj,dm); //Setting runtime property
@@ -283,12 +364,14 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 
-		protected IDataModel setupEjbInstallAction(IProject aProject,String ejbVersion) {
+		protected IDataModel setupEjbInstallAction(IProject aProject,String ejbVersion, boolean existing) {
 			IDataModel ejbFacetInstallDataModel = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
 			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, ejbVersion);
 			ejbFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
 			ejbFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			if (!existing)
+				ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER, CreationConstants.DEFAULT_EJB_SOURCE_FOLDER);
 			return ejbFacetInstallDataModel;
 		}
 
