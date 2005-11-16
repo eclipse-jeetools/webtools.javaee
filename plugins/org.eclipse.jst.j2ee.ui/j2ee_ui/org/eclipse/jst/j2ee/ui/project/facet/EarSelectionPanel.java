@@ -18,7 +18,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -31,9 +30,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHel
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class EarSelectionPanel 
-
-    extends Composite implements IWebFacetInstallDataModelProperties
+public final class EarSelectionPanel implements IWebFacetInstallDataModelProperties
     
 {
     private final Button addToEar;
@@ -44,30 +41,25 @@ public final class EarSelectionPanel
     private final IDataModel model;
     private DataModelSynchHelper synchhelper;
     
-    public EarSelectionPanel( final IDataModel model, final Composite parent, 
-                              final int style ) 
+    public EarSelectionPanel( final IDataModel model, final Composite parent) 
     {
-        super( parent, style );
         this.model = model;
         this.synchhelper = new DataModelSynchHelper(model);
         
-        final GridLayout layout = new GridLayout( 4, false );
-        layout.marginWidth = 0;
-        layout.marginHeight = 0;
-        
-        setLayout( layout );
-        
-        this.addToEar = new Button( this, SWT.CHECK );
+        this.addToEar = new Button( parent, SWT.CHECK );
         this.addToEar.setText( Resources.addToEarLabel );
-        this.addToEar.setLayoutData( gdhspan( gdhfill(), 4 ) );
+        this.addToEar.setLayoutData( gdhspan( gdhfill(), 3 ) );
         synchhelper.synchCheckbox(addToEar, ADD_TO_EAR, null);
-        new Label(this, SWT.NULL);
-        label = new Label(this, SWT.NULL);
+
+        label = new Label(parent, SWT.NULL);
         label.setText(Resources.earProjectLabel);
-        this.combo = new Combo(this, SWT.NONE);
+        GridData gridData = new GridData();
+        gridData.horizontalIndent = 20;
+        label.setLayoutData(gridData);
+        this.combo = new Combo(parent, SWT.NONE);
         this.combo.setLayoutData( gdhfill() );
         
-        this.newButton = new Button( this, SWT.PUSH );
+        this.newButton = new Button( parent, SWT.PUSH );
         this.newButton.setText( Resources.newButtonLabel );
         
         this.newButton.addSelectionListener( new SelectionAdapter()
@@ -87,7 +79,7 @@ public final class EarSelectionPanel
         final EarProjectWizard wizard = new EarProjectWizard();
         
         final WizardDialog dialog 
-            = new WizardDialog( getShell(), wizard );
+            = new WizardDialog( newButton.getShell(), wizard );
         
         if( dialog.open() != SWT.CANCEL )
         {
@@ -130,7 +122,6 @@ public final class EarSelectionPanel
     		synchhelper.dispose();
     		synchhelper = null;
     	}
-    	super.dispose();
     }
     
 }

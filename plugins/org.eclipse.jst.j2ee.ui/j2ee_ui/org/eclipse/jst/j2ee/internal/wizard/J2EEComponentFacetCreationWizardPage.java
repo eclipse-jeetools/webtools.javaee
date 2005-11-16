@@ -52,11 +52,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	private void createEarComposite(Composite composite) {
 		FacetDataModelMap map = (FacetDataModelMap) model.getProperty(FACET_DM_MAP);
 		IDataModel facetModel = (IDataModel) map.get(getModuleFacetID());
-
-		earPanel = new EarSelectionPanel(facetModel, composite, SWT.NONE);
-		GridData data = gdhfill();
-		data.horizontalSpan = 3;
-		earPanel.setLayoutData(data);
+		earPanel = new EarSelectionPanel(facetModel, composite);
 	}
 
 	protected abstract String getModuleFacetID();

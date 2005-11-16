@@ -10,29 +10,36 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
+
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
 
-public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPage implements IJ2EEModuleFacetInstallDataModelProperties{
+public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPage implements IJ2EEModuleFacetInstallDataModelProperties {
 
-	public J2EEModuleFacetInstallPage(String pageName){
+	public J2EEModuleFacetInstallPage(String pageName) {
 		super(pageName);
 	}
-	
+
 	protected EarSelectionPanel earPanel;
 
 	public void dispose() {
-		if(null != earPanel){
+		if (null != earPanel) {
 			earPanel.dispose();
 		}
 		super.dispose();
 	}
 
 	protected void setupEarControl(final Composite parent) {
-		 this.earPanel = new EarSelectionPanel( model, parent, SWT.NONE );
-	     this.earPanel.setLayoutData( gdhfill() );
+		Composite c = new Composite(parent, SWT.NONE);
+		c.setLayoutData(gdhfill());
+		final GridLayout layout = new GridLayout(3, false);
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+		c.setLayout(layout);
+		this.earPanel = new EarSelectionPanel(model, c);
 	}
 }
