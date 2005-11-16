@@ -455,7 +455,10 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
             return true;
         WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createManifestOperation());
         composed.addRunnable(createBuildPathOperation());
-        composed.addRunnable(createJ2EEComponentDependencyOperations());
+        
+        WorkspaceModifyComposedOperation op = createJ2EEComponentDependencyOperations();
+        if( op != null )
+        	composed.addRunnable(op);
         try {
             new ProgressMonitorDialog(getShell()).run(true, true, composed);
         } catch (InvocationTargetException ex) {
