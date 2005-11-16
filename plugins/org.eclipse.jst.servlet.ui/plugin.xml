@@ -427,7 +427,7 @@
       </decorator>
     </extension> 
     
-    <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
+  <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
   
     <wizard-pages facet="jst.web" version="2.2">
       <install>
@@ -447,6 +447,10 @@
       </install>
     </wizard-pages>
     
+  </extension>
+  
+  <extension point="org.eclipse.wst.common.project.facet.ui.images">
+    <image facet="jst.web" path="icons/war.gif"/>
   </extension>
   
 </plugin>
