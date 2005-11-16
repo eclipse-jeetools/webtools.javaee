@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -30,6 +33,8 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
 
@@ -54,7 +59,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
-		    return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -80,6 +85,16 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				IDataModel javaModel = map.getFacetDataModel(IModuleConstants.JST_JAVA);
 				if (javaModel != null)
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
+			}
+		} else if (EAR_PROJECT_NAME.equals(propertyName)) {
+			IProject project = ProjectUtilities.getProject((String) propertyValue);
+			if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
+				try {
+					IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
+					setProperty(FACET_RUNTIME, facetProj.getRuntime());
+				} catch (CoreException e) {
+					Logger.getLogger().logError(e);
+				}
 			}
 		}
 		return super.propertySet(propertyName, propertyValue);
