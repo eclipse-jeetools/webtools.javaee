@@ -426,31 +426,40 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 
     public String getURI(IModule module) {
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
+    	String aURI = null;
     	if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
 			EARArtifactEdit earEdit = null;
-			String aURI = null;
 			try {
 				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-				if (earEdit != null) {
+				if (earEdit != null)
 					aURI = earEdit.getModuleURI(comp);
-				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				if (earEdit != null)
 					earEdit.dispose();
 			}
-			return aURI;
     	}
     	else if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
-    		String result = null;
     		if (!comp.isBinary()) {
         		IVirtualReference ref = component.getReference(comp.getName());
-        		result = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
+        		aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.WAR_EXT).toString();
         	}
-        	return result;
+    	} else if (J2EEProjectUtilities.isEJBProject(comp.getProject()) || J2EEProjectUtilities.isApplicationClientProject(comp.getProject())) {
+    		if (!comp.isBinary()) {
+        		IVirtualReference ref = component.getReference(comp.getName());
+        		aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
+        	}
+    	} else if (J2EEProjectUtilities.isJCAProject(comp.getProject())) {
+    		if (!comp.isBinary()) {
+        		IVirtualReference ref = component.getReference(comp.getName());
+        		aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.RAR_EXT).toString();
+        	}
     	}
-    	return null;
+    	
+    	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
+    		aURI = aURI.substring(1);
+    	return aURI;
 	}
     
     public String getContextRoot() {
