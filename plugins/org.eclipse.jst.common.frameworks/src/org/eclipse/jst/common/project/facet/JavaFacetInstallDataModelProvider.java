@@ -35,14 +35,17 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
 			return IModuleConstants.JST_JAVA;
 		} else if (FACET_VERSION.equals(propertyName)) {
 			IVMInstall vmInstall = JavaRuntime.getDefaultVMInstall();
-			IVMInstall2 vmInstall2 = (IVMInstall2) vmInstall;
-			String jvmver = vmInstall2.getJavaVersion();
-			if (jvmver.startsWith("1.3")) { //$NON-NLS-1$
-				return JavaFacetUtils.JAVA_13;
-			} else if (jvmver.startsWith("1.4")) { //$NON-NLS-1$
-				return JavaFacetUtils.JAVA_14;
+			if (vmInstall != null) {
+				IVMInstall2 vmInstall2 = (IVMInstall2) vmInstall;
+				String jvmver = vmInstall2.getJavaVersion();
+				if (jvmver.startsWith("1.3")) { //$NON-NLS-1$
+					return JavaFacetUtils.JAVA_13;
+				} else if (jvmver.startsWith("1.4")) { //$NON-NLS-1$
+					return JavaFacetUtils.JAVA_14;
+				}
+				return JavaFacetUtils.JAVA_50;
 			}
-			return JavaFacetUtils.JAVA_50;
+			return JavaFacetUtils.JAVA_14;
 		} else if (SOURCE_FOLDER_NAME.equals(propertyName)) {
 			return "src";
 		}
