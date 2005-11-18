@@ -69,7 +69,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			setBooleanProperty(ADD_TO_EAR, false);
 		}
 		if (ADD_TO_EAR.equals(propertyName)) {
-			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
 			if (getBooleanProperty(ADD_TO_EAR)) {
 				if (!model.isPropertySet(EAR_PROJECT_NAME)) {
