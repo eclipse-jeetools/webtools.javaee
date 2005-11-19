@@ -37,5 +37,8 @@ Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexpor
  org.eclipse.debug.ui,
  org.eclipse.jdt.debug.ui,
  org.eclipse.jem,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.wst.common.project.facet.core,
+ org.eclipse.jst.common.project.facet.core,
+ org.eclipse.wst.common.project.facet.ui
 Eclipse-AutoStart: true

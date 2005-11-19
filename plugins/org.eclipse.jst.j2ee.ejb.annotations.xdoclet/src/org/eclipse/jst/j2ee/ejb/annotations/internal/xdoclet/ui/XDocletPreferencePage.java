@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.Logger;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuildUtility;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletExtensionUtil;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletRuntime;
 import org.eclipse.swt.SWT;
@@ -45,6 +46,7 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 	DialogPanel panel;
 
 	private Map fData; // page data
+	private XDocletRuntime[] runtimes;
 
 	/*
 	 * (non-Javadoc)
@@ -118,6 +120,9 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 	 */
 	protected Control createContents(Composite parent) {
 		// noDefaultAndApplyButton();
+
+		runtimes = XDocletExtensionUtil.getRuntimes();
+
 		Composite composite = createContainer(parent);
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.marginHeight = 0;
@@ -158,8 +163,13 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 				defPanel);
 		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home, getStore()
 				.getProperty(XDocletPreferenceStore.XDOCLETHOME), defPanel);
+
+		String[] versions = new String[runtimes.length];
+		for (int i = 0; i < versions.length; i++) {
+			versions[i] = runtimes[i].getVersion();
+		}
 		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version, Messages.desc_xdoclet_version,
-				getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), new String[] { "1.2.1", "1.2.2", "1.2.3" }, defPanel);
+				getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), versions, defPanel);
 		final Text xDocletPath = (Text) panel.preferences[2];
 		final Combo xDocletVersion = (Combo) panel.preferences[1];
 
@@ -209,17 +219,15 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 	}
 
 	protected void validateCurrentPreferences(final Text xDocletPath, final Combo xDocletVersion) {
-		XDocletRuntime runtime = new XDocletRuntime();
-		runtime.setHome(xDocletPath.getText());
-		IStatus[] result = runtime.validate(xDocletVersion.getItem(xDocletVersion.getSelectionIndex()));
+		int selection = xDocletVersion.getSelectionIndex();
+		runtimes[selection].setHome(xDocletPath.getText());
+		IStatus[] result = runtimes[selection].validate();
 		// Clear the message
 		XDocletPreferencePage.this.setErrorMessage(null);
 		if (result.length > 0) {
 			XDocletPreferencePage.this.setErrorMessage(result[0].getMessage());
-			// XDocletPreferencePage.this.setValid(false);
 		} else {
 			setMessage("All libraries found", IMessageProvider.INFORMATION);
-			// XDocletPreferencePage.this.setValid(true);
 		}
 	}
 

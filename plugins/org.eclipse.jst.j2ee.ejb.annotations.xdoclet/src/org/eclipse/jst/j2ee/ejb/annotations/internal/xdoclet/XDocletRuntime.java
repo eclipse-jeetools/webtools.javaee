@@ -29,12 +29,8 @@ import org.eclipse.jdt.core.JavaCore;
 
 public class XDocletRuntime {
 
-	// relative path to the libraries
-	public final static String ID = "XDoxlet";
 
 	public final static String LIBPATH = "lib";
-
-	public final static String VERSIONS[] = { "1.2.1", "1.2.2", "1.2.3" };
 
 	// 1.2.2
 	private String version = "1.2.2";
@@ -42,31 +38,7 @@ public class XDocletRuntime {
 	// location of the axis installation
 	private String home = "";
 
-	private String libs[][][] = {
-			{
-					{ "1.2.1" },
-					{ "xdoclet-1.2.1.jar", "xjavadoc-1.0.3.jar",
-							"xdoclet-xdoclet-module-1.2.1.jar",
-							"xdoclet-ejb-module-1.2.1.jar",
-							"commons-collections-2.0.jar",
-							"commons-logging.jar" } },
-			{
-					{ "1.2.2" },
-					{ "xdoclet-1.2.2.jar", "xjavadoc-1.1.jar",
-							"xdoclet-xdoclet-module-1.2.2.jar",
-							"xdoclet-ejb-module-1.2.2.jar",
-							"commons-collections-2.0.jar",
-							"commons-logging.jar" } },
-			{
-					{ "1.2.3" },
-					{ "xdoclet-1.2.3.jar", "xjavadoc-1.1.jar",
-							"xdoclet-xdoclet-module-1.2.3.jar",
-							"xdoclet-ejb-module-1.2.3.jar",
-							"commons-collections-2.0.jar",
-							"commons-logging.jar" } }
-
-	};
-
+	private String libs[];
 	/**
 	 * @return Returns the home.
 	 */
@@ -100,14 +72,16 @@ public class XDocletRuntime {
 	/**
 	 * @return Returns the libs.
 	 */
-	public String[] getLibs(String version) {
-		for (int i = 0; i < libs.length; i++) {
-			if (version.equals(libs[i][0][0]))
-				return libs[i][1];
-
-		}
-		return null;
+	public String[] getLibs() {
+		
+		return libs;
 	}
+	
+	public void setLibs(String[] libs) {
+		
+		this.libs = libs;
+	}
+
 
 	/**
 	 * @param runtime
@@ -162,9 +136,9 @@ public class XDocletRuntime {
 		return (new File(getHome())).toURL();
 	}
 
-	public IStatus[] validate(String version) {
+	public IStatus[] validate() {
 		ArrayList errors = new ArrayList();
-		String[] vLibs = this.getLibs(version);
+		String[] vLibs = this.getLibs();
 		if (vLibs == null)
 			errors.add(new Status(IStatus.ERROR,
 					XDocletAnnotationPlugin.PLUGINID, 0,
@@ -189,7 +163,7 @@ public class XDocletRuntime {
 		return (IStatus[]) errors.toArray(new IStatus[errors.size()]);
 	}
 
-	public boolean isValid(String version) {
-		return validate(version).length == 0;
+	public boolean isValid() {
+		return validate().length == 0;
 	}
 }

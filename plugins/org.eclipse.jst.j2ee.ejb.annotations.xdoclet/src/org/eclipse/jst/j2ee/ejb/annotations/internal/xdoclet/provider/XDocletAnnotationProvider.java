@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EmitterUtilities;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuildUtility;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletExtensionUtil;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletRuntime;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
@@ -55,11 +56,11 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 	}
 
 	public boolean isValid() {
-		XDocletRuntime runtime = new XDocletRuntime();
+		
 		XDocletPreferenceStore store = XDocletPreferenceStore.forProject(null);
+		XDocletRuntime  runtime= XDocletExtensionUtil.getRuntime(store.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
 		runtime.setHome(store.getProperty(XDocletPreferenceStore.XDOCLETHOME));
-		runtime.setVersion(store.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
-		return runtime.isValid(store.getProperty(XDocletPreferenceStore.XDOCLETVERSION));
+		return runtime.isValid();
 	}
 
 	public String getName() {

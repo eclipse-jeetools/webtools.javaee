@@ -143,50 +143,162 @@
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider" />
    </extension>
    
+  
    <!-- -->
    
-    <extension
-         point="org.eclipse.ui.popupMenus">
-       <objectContribution
-	        adaptable="true"
-            objectClass="org.eclipse.jdt.core.IJavaProject"
-            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
-        
- 		<menu
-            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu" 
-            path="additions" 
-            label="&amp;XDoclet"> 
-            <separator name="group1"/> 
-         </menu> 
+	  <extension
+	    point="org.eclipse.ui.popupMenus">
+	    <objectContribution
+	      adaptable="true"
+	      objectClass="org.eclipse.core.resources.IProject"
+	      nameFilter="*"
+	      id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
+	      <filter name="nature" value="org.eclipse.wst.common.project.facet.core.nature"/>
+	      <action
+	        label="Run XDoclet"
+	        class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"
+	        menubarPath="additions"
+	        enablesFor="+"
+	        id="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"/>
+	    </objectContribution>
+	  </extension>
+   
+    <!-- ================================================ -->
+    <!--  XDoclet PROJECT WEB FACETS                      -->
+    <!-- ================================================ -->
+ 
 
-          <action
-               label="Run XDoclet"
-               tooltip="Run XDoclet"
-               menubarPath="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu/group1"
-               class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"
-               enablesFor="1"
-               id="RunXDoclet">
-         </action>
-          <action
-               label="Add Builder"
-               tooltip="Add Builder"
-               menubarPath="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu/group1"
-               class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.AddBuilderAction"
-               enablesFor="1"
-               id="AddBuilder">
-          </action>
-          <action
-               label="Remove Builder"
-               tooltip="Remove Builder"
-               menubarPath="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Menu/group1"
-               class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RemoveBuilderAction"
-               enablesFor="1"
-               id="RemoveBuilder">
-         </action>
-          
-       </objectContribution>
-   </extension>  
-     
+  <extension point="org.eclipse.wst.common.project.facet.core.facets">
+
+    <project-facet id="jst.web.xdoclet">
+      <label>WebDoclet (XDoclet)</label>
+      <description>Enables the project to run webdoclet post processing on annotated servlets.</description>
+      <icon>icons/xdoclet.gif</icon>
+    </project-facet>
+
+    <project-facet-version facet="jst.web.xdoclet" version="1.2.1">
+      <constraint>
+        <and>
+          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3" allow-newer="false"/>
+        </and>
+      </constraint>
+     </project-facet-version>
+
+    <project-facet-version facet="jst.web.xdoclet" version="1.2.2">
+      <constraint>
+        <and>
+          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3" allow-newer="true"/>
+        </and>
+      </constraint>
+    </project-facet-version>
+
+    <project-facet-version facet="jst.web.xdoclet" version="1.2.3">
+      <constraint>
+        <and>
+          <requires facet="jst.web" version="&gt;=2.2" allow-newer="true"/>
+        </and>
+      </constraint>
+   </project-facet-version>
+    
+
+    
+    <action type="install" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+      <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletWebFacetInstallDataModelProvider"/>
+    </action>
+    <action type="uninstall" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+      <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetUninstallDelegate"/>
+    </action>
+    
+	<action type="runtime-changed" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetRuntimeChangedDelegate"/>
+	</action>
+	<action type="version-changed" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetVersionChangeDelegate"/>
+	</action>
+
+
+	  <preset id="preset.jst.web.xdoclet">
+	      <label>Dynamic Web Project with XDoclet</label>
+	      <facet id="jst.java" version="1.4" />
+	      <facet id="jst.web" version="2.4"/>
+	      <facet id="jst.web.xdoclet" version="1.2.3" />
+	  </preset>    
+
+   <!-- ================================================ -->
+    <!--  XDoclet PROJECT EJB FACETS                      -->
+    <!-- ================================================ -->
+   
+  
+    <project-facet id="jst.ejb.xdoclet">
+      <label>EJBDoclet (XDoclet)</label>
+      <description>Enables the project to run webdoclet post processing on annotated ejbs</description>
+      <icon>icons/xdoclet.gif</icon>
+    </project-facet>
+
+    <project-facet-version facet="jst.ejb.xdoclet" version="1.2.1">
+      <constraint>
+        <and>
+          <requires facet="jst.ejb" version="1.1,2.0" allow-newer="false"/>
+        </and>
+      </constraint>
+     </project-facet-version>
+
+    <project-facet-version facet="jst.ejb.xdoclet" version="1.2.2">
+      <constraint>
+        <and>
+          <requires facet="jst.ejb" version="1.1,2.0" allow-newer="true"/>
+        </and>
+      </constraint>
+    </project-facet-version>
+
+    <project-facet-version facet="jst.ejb.xdoclet" version="1.2.3">
+      <constraint>
+        <and>
+          <requires facet="jst.ejb" version="&gt;=1.1" allow-newer="true"/>
+        </and>
+      </constraint>
+   </project-facet-version>
+    
+
+    
+    <action type="install" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+      <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetInstallDelegate"/>
+      <config-factory class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletEjbFacetInstallDataModelProvider"/>
+    </action>
+
+    <action type="uninstall" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+      <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetUninstallDelegate"/>
+    </action>
+	<action type="runtime-changed" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetRuntimeChangedDelegate"/>
+	</action>
+	<action type="version-changed" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetVersionChangeDelegate"/>
+	</action>
+
+
+	  <preset id="preset.jst.ejb.xdoclet">
+	      <label>EJB Project with XDoclet</label>
+	      <facet id="jst.java" version="1.4" />
+	      <facet id="jst.ejb" version="2.1"/>
+	      <facet id="jst.ejb.xdoclet" version="1.2.3" />
+	  </preset>    
+  </extension>
+  
+
+  <extension point="org.eclipse.wst.common.project.facet.core.runtimes">
+    <supported>
+      <runtime-component any="true"/>
+      <facet id="jst.web.xdoclet" version="1.2.1,1.2.2,1.2.3"/>
+    </supported>
+    <supported>
+      <runtime-component any="true"/>
+      <facet id="jst.ejb.xdoclet" version="1.2.1,1.2.2,1.2.3"/>
+    </supported>
+  </extension>
+  
+
     <!-- ================================================ -->
     <!--  EJB Tag set definitions for XDoclet             -->
     <!-- ================================================ -->
@@ -705,4 +817,5 @@
       </AnnotationTagInfo>
       
     </extension>
+
 </plugin>

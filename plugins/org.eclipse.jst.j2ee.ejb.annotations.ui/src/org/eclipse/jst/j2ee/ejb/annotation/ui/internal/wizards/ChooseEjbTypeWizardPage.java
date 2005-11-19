@@ -20,7 +20,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -35,7 +34,6 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 	protected Button sessionType;
 	protected Button messageDrivenType;
-	protected Combo annotationProvider;
 
 	protected ChooseEjbTypeWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
@@ -91,6 +89,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				if (sessionType.getSelection()) {
 					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "SessionBean");
+					validateProvider();
 				}
 			}
 
@@ -103,7 +102,9 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				if (messageDrivenType.getSelection()) {
-					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "MessageDrivenBean");
+					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE,
+							"MessageDrivenBean");
+					validateProvider();
 				}
 			}
 
@@ -123,43 +124,29 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 		label.setText("Annotation Provider:");
 		label.setToolTipText("Choose the annotation provider that will be used to create java classes and J2EE artifacts");
 
-		annotationProvider = new Combo(annotationGroup, SWT.RADIO);
-		String[] provider = AnnotationUtilities.getProviderNames();
-		final String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
+		// annotationProvider = new Combo(annotationGroup, SWT.RADIO);
+		String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
 		ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, preferred);
-		boolean selected = false;
-		String providerS = null;
-		for (int i = 0; i < provider.length; i++) {
-			String name = provider[i];
-			annotationProvider.add(name);
-			if (preferred.equals(name)) {
-				providerS = name;
-				annotationProvider.select(i);
-				selected = true;
-			}
-
-		}
-		if (!selected) {
-			providerS = provider[0];
-			annotationProvider.select(0);
-		}
+		// String providerS = provider[0];
+		// for (int i = 0; i < provider.length; i++) {
+		// String name = provider[i];
+		// annotationProvider.add(name);
+		// if (preferred.equals(name)) {
+		// providerS = name;
+		// annotationProvider.select(i);
+		// selected = true;
+		// }
+		//
+		// }
+		// if (!selected) {
+		// providerS = provider[0];
+		// annotationProvider.select(0);
+		// }
 
 		validateProvider();
 
 		if (model != null)
-			model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, providerS);
-
-		annotationProvider.addSelectionListener(new SelectionListener() {
-
-			public void widgetSelected(SelectionEvent e) {
-				validateProvider();
-
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				this.widgetSelected(e);
-			}
-		});
+			model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, preferred);
 
 	}
 
@@ -168,7 +155,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 	}
 
 	public boolean isPageComplete() {
-		String provider = annotationProvider.getText();
+		String provider = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
 		IAnnotationProvider annotationProvider = null;
 		try {
 			annotationProvider = AnnotationUtilities.findAnnotationProviderByName(provider);
@@ -191,8 +178,9 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 				}
 				validateProvider();
 			}
+
 			public void widgetDefaultSelected(SelectionEvent e) {
-					widgetSelected(e);
+				widgetSelected(e);
 			}
 		});
 
@@ -200,7 +188,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 	protected boolean showPreferencePage(Composite composite) {
 		PreferenceManager manager = PlatformUI.getWorkbench().getPreferenceManager();
-		IPreferenceNode node = manager.find("org.eclipse.jst.j2ee.ejb.annotation.ui.preferences");
+		IPreferenceNode node = manager.find("org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference");
 		PreferenceManager manager2 = new PreferenceManager();
 		manager2.addToRoot(node);
 		final PreferenceDialog dialog = new PreferenceDialog(composite.getShell(), manager2);
@@ -216,23 +204,24 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 	}
 
 	private void validateProvider() {
-		String provider = annotationProvider.getText();
+		String provider = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
 		ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER, provider);
 		IAnnotationProvider annotationProvider = null;
 		try {
 			annotationProvider = AnnotationUtilities.findAnnotationProviderByName(provider);
 		} catch (Exception ex) {
 		}
-		if (annotationProvider != null && annotationProvider.isValid()){
+		if (annotationProvider != null && annotationProvider.isValid()) {
 			this.setErrorMessage(null);
 			this.setPageComplete(true);
 		} else
 			this.setErrorMessage("Annotation provider definition is not valid, please check the preferences. ");
 		getContainer().updateMessage();
 	}
-	
+
 	public boolean canFlipToNextPage() {
-		return isPageComplete() ;//&& wizard.getPageGroupManager().hasNextPage();
-	}	
+		return isPageComplete();// &&
+		// wizard.getPageGroupManager().hasNextPage();
+	}
 
 }
