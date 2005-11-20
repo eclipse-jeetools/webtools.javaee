@@ -10,6 +10,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jst.j2ee.ejb.annotations.xdoclet,
  org.eclipse.core.resources
 Eclipse-AutoStart: true
-Export-Package: org.eclipse.jst.j2ee.xdoclet.runtime,
- org.eclipse.jst.j2ee.xdoclet.runtime.internal.server,
+Export-Package: org.eclipse.jst.j2ee.xdoclet.runtime.internal.server,
  org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks
