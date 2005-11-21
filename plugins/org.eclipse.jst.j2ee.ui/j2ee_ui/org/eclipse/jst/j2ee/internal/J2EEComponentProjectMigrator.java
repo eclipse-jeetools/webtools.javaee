@@ -119,6 +119,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			StructureEdit se = null;
 			try {
 				se = StructureEdit.getStructureEditForRead(project);
+				if (se == null) return false;
 				return se.getComponentModelRoot().getComponents().size() > 1;
 			} finally {
 				if (se != null)
@@ -166,7 +167,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
 			aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
-			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,null);
 			return aFacetInstallDataModel;
 		}
 		protected IDataModel setupEarInstallAction(IProject aProject,String specVersion) {
@@ -181,7 +182,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
 			aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
-			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,null);
 			aFacetInstallDataModel.setBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS,false);
 			return aFacetInstallDataModel;
 		}
@@ -190,7 +191,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			aFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
 			aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
-			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			aFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,null);
 			return aFacetInstallDataModel;
 		}
 
@@ -369,7 +370,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, ejbVersion);
 			ejbFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
-			ejbFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			ejbFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,null);
 			if (!existing)
 				ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER, CreationConstants.DEFAULT_EJB_SOURCE_FOLDER);
 			return ejbFacetInstallDataModel;
@@ -380,7 +381,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, specVersion);
 			webFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,false);
-			webFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,"");
+			webFacetInstallDataModel.setStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME,null);
 			return webFacetInstallDataModel;
 		}
 

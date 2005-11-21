@@ -112,6 +112,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			// Associate with an EAR, if necessary.
 
 			final String earProjectName = (String) model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+			if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
 			if (earProjectName != null && !earProjectName.equals("")) {
 
 				String ver = fv.getVersionString();
@@ -154,6 +155,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				} catch (ExecutionException e) {
 					Logger.getLogger().logError(e);
 				}
+			}
 			}
 
 			if (monitor != null) {
