@@ -93,9 +93,9 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					se.save(null);
 				}
 				se.getComponentModelRoot().getComponents().removeAll(removedComps);
+				se.save(null);
 			
 			} finally {
 				if (se != null)
