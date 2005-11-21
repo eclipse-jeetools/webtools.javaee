@@ -417,9 +417,11 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
     	for (int i = 0; i < components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent virtualComp = reference.getReferencedComponent();
-			Object module = FlexibleProjectServerUtil.getModule(virtualComp.getProject());
-			if (module != null)
-				modules.add(module);
+			if (virtualComp.getProject()!=component.getProject()) {
+				Object module = FlexibleProjectServerUtil.getModule(virtualComp.getProject());
+				if (module != null && !modules.contains(module))
+					modules.add(module);
+			}
 		}
       return (IModule[]) modules.toArray(new IModule[modules.size()]);
 	}
