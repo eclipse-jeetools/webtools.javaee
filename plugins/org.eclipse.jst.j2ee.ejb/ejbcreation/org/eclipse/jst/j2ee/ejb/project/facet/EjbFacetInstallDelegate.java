@@ -138,14 +138,6 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			// Associate with an EAR, if necessary.
 
 			final String earProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME);
-			if (earProjectName != null && !earProjectName.equals("")) {
-
-				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
-
-				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(ver));
-
-				installEARFacet(j2eeVersionText, earProjectName, monitor);
-			}
 
 				// Associate with an EAR, if necessary.
 				if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
