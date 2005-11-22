@@ -589,10 +589,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 
 		List result = new ArrayList();
 		WSCDDArtifactEdit wsClientArtifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(handle);
-		WebServicesResource res = wsClientArtifactEdit.getWscddXmiResource();
-		if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
-			result.addAll(res.getWebServicesClient().getServiceRefs());
-
+		if (wsClientArtifactEdit !=null) {
+			WebServicesResource res = wsClientArtifactEdit.getWscddXmiResource();
+			if (res != null && res.isLoaded() && res.getWebServicesClient() != null)
+				result.addAll(res.getWebServicesClient().getServiceRefs());
+		}
 		return result;
 	}
 
@@ -685,14 +686,16 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	 */
 	public List get13ServiceRefs(EnterpriseBean bean) {
 		WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(WorkbenchResourceHelper.getFile(bean).getProject());
-		WebServicesResource res = artifactEdit.getWscddXmiResource();
-		if (res != null && res.getWebServicesClient() != null) {
-			String ejbName = bean.getName();
-			List scopes = res.getWebServicesClient().getComponentScopedRefs();
-			for (Iterator iter = scopes.iterator(); iter.hasNext();) {
-				ComponentScopedRefs scope = (ComponentScopedRefs) iter.next();
-				if (scope.getComponentName().equals(ejbName))
-					return scope.getServiceRefs();
+		if (artifactEdit !=null) {
+			WebServicesResource res = artifactEdit.getWscddXmiResource();
+			if (res != null && res.getWebServicesClient() != null) {
+				String ejbName = bean.getName();
+				List scopes = res.getWebServicesClient().getComponentScopedRefs();
+				for (Iterator iter = scopes.iterator(); iter.hasNext();) {
+					ComponentScopedRefs scope = (ComponentScopedRefs) iter.next();
+					if (scope.getComponentName().equals(ejbName))
+						return scope.getServiceRefs();
+				}
 			}
 		}
 		return Collections.EMPTY_LIST;
@@ -727,11 +730,13 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		if (handle == null)
 			return Collections.EMPTY_LIST;
 		WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) getWSClientArtifactEdits().get(handle);
-		WebServicesResource res = artifactEdit.getWscddXmiResource();
-		if (res != null) {
-			WebServicesClient webClient = res.getWebServicesClient();
-			if (webClient != null)
-				return webClient.getServiceRefs();
+		if (artifactEdit !=null) {
+			WebServicesResource res = artifactEdit.getWscddXmiResource();
+			if (res != null) {
+				WebServicesClient webClient = res.getWebServicesClient();
+				if (webClient != null)
+					return webClient.getServiceRefs();
+			}
 		}
 		return Collections.EMPTY_LIST;
 	}
