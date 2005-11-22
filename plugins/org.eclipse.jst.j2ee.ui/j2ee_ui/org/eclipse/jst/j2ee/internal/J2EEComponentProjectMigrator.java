@@ -12,7 +12,11 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.WtpUtils;
@@ -44,6 +48,7 @@ import org.eclipse.wst.server.core.ServerUtil;
 
 public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
+	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
 	private IProject project;
 	public J2EEComponentProjectMigrator() {
 		super();
@@ -316,6 +321,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 		}
 		private void installWEBFacets(IProject webProj,String specVersion, boolean existing) {
+			removeOldWebContainerIfNecessary(project);
+			
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, webProj.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -330,7 +337,29 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				e.printStackTrace();
 			}
 			
+			
 		}
+		private void removeOldWebContainerIfNecessary(IProject webProj) {
+
+			IJavaProject jproj = JemProjectUtilities.getJavaProject(webProj);
+			final IClasspathEntry[] current;
+			try {
+				current = jproj.getRawClasspath();
+				List updatedList = new ArrayList();
+				for (int i = 0; i < current.length; i++) {
+					IClasspathEntry entry = current[i];
+					if (entry.getPath().toString().indexOf(WEB_LIB_CONTAINER) == -1)
+						updatedList.add(entry);
+				}
+				IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
+				jproj.setRawClasspath(updated, null);
+			} catch (JavaModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
 		protected IRuntime getRuntimeByID(String id) {
 			IRuntime[] targets = ServerUtil.getRuntimes("", "");
 			for (int i = 0; i < targets.length; i++) {
