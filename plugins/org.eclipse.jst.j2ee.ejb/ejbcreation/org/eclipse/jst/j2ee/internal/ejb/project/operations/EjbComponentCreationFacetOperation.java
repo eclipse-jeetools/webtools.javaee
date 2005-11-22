@@ -102,6 +102,7 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
 		ejbFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionStr);
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CONFIG_FOLDER, model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
+		ejbFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));
 		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
 			ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
 
