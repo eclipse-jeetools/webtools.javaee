@@ -66,8 +66,10 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionStr);
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER, model.getStringProperty(IWebComponentCreationDataModelProperties.WEBCONTENT_FOLDER));
 		webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT, model.getStringProperty(IWebComponentCreationDataModelProperties.CONTEXT_ROOT));
-		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
+		webFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));
+		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR)) {
 			webFacetInstallDataModel.setProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
+		}
 		webFacetInstallDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID));
 		return webFacetInstallDataModel;
 	}
