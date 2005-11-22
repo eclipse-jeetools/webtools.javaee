@@ -352,11 +352,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected boolean shouldInclude(IContainer aContainer) {
-		return true;
+		return aContainer.exists();
 	}
 
 	protected boolean shouldInclude(IVirtualContainer vContainer) {
-		return true;
+		return vContainer.exists();
 	}
 
 	protected boolean shouldInclude(String uri) {
