@@ -49,7 +49,9 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -154,7 +156,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
 					String ver = fv.getVersionString();
 					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
-					installEARFacet(j2eeVersionText, earProjectName, monitor);
+					IFacetedProject facetedProject = ProjectFacetsManager.create(project); 
+					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
 
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);

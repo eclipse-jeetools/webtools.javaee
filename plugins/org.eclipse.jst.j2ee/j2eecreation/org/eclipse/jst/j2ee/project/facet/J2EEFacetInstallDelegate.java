@@ -33,10 +33,11 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action.Type;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public abstract class J2EEFacetInstallDelegate {
 
-	protected void installEARFacet(String j2eeVersionText, String earProjectName, IProgressMonitor monitor){
+	protected void installEARFacet(String j2eeVersionText, String earProjectName, IRuntime runtime, IProgressMonitor monitor){
 
 		IProject project = ProjectUtilities.getProject(earProjectName); 
 		if( project.exists())
@@ -46,7 +47,8 @@ public abstract class J2EEFacetInstallDelegate {
 		try {
 			facetProj = ProjectFacetsManager.create(earProjectName,
 					null, monitor);
-		
+			facetProj.setRuntime(runtime, monitor);
+			
 			IDataModel earFacetInstallDataModel = DataModelFactory.createDataModel(new EarFacetInstallDataModelProvider());
 			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, earProjectName);
 			earFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, j2eeVersionText);
