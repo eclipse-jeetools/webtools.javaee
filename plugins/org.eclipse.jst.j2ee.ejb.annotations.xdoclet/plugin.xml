@@ -145,7 +145,7 @@
     <project-facet-version facet="jst.web.xdoclet" version="1.2.1">
       <constraint>
         <and>
-          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3" allow-newer="false"/>
+          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3"/>
         </and>
       </constraint>
      </project-facet-version>
@@ -153,7 +153,7 @@
     <project-facet-version facet="jst.web.xdoclet" version="1.2.2">
       <constraint>
         <and>
-          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3" allow-newer="true"/>
+          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3"/>
         </and>
       </constraint>
     </project-facet-version>
@@ -161,7 +161,7 @@
     <project-facet-version facet="jst.web.xdoclet" version="1.2.3">
       <constraint>
         <and>
-          <requires facet="jst.web" version="&gt;=2.2" allow-newer="true"/>
+          <requires facet="jst.web" version="&gt;=2.2"/>
         </and>
       </constraint>
    </project-facet-version>
@@ -205,7 +205,7 @@
     <project-facet-version facet="jst.ejb.xdoclet" version="1.2.1">
       <constraint>
         <and>
-          <requires facet="jst.ejb" version="1.1,2.0" allow-newer="false"/>
+          <requires facet="jst.ejb" version="1.1,2.0"/>
         </and>
       </constraint>
      </project-facet-version>
@@ -213,7 +213,7 @@
     <project-facet-version facet="jst.ejb.xdoclet" version="1.2.2">
       <constraint>
         <and>
-          <requires facet="jst.ejb" version="1.1,2.0" allow-newer="true"/>
+          <requires facet="jst.ejb" version="1.1,2.0"/>
         </and>
       </constraint>
     </project-facet-version>
@@ -221,7 +221,7 @@
     <project-facet-version facet="jst.ejb.xdoclet" version="1.2.3">
       <constraint>
         <and>
-          <requires facet="jst.ejb" version="&gt;=1.1" allow-newer="true"/>
+          <requires facet="jst.ejb" version="&gt;=1.1"/>
         </and>
       </constraint>
    </project-facet-version>
