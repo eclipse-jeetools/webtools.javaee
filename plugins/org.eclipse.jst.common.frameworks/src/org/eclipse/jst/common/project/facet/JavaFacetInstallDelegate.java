@@ -93,8 +93,8 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 			// this might already be set so at the workspace level in case
 			// workspace settings change later or the project is included in a
 			// different workspace.
-
-			JavaFacetUtils.setCompilerLevel(project, fv);
+			
+			//JavaFacetUtils.setCompilerLevel(project, fv);
 
 			if (monitor != null) {
 				monitor.worked(1);
