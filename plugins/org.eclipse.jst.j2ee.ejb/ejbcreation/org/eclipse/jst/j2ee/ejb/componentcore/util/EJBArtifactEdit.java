@@ -33,6 +33,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 /**
@@ -217,10 +218,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			return null;
 		Properties props = ejbComponent.getMetaProperties();
 		String clientCompName = props.getProperty(CreationConstants.EJB_CLIENT_NAME);
-		if( clientCompName != null && !clientCompName.equals("")){
-			ejbClientComponent = ejbComponent.getReference(clientCompName).getReferencedComponent();
+		if( clientCompName != null && !clientCompName.equals("")){ //$NON-NLS-1$
+			IVirtualReference vRef = ejbComponent.getReference(clientCompName);
+			if (vRef!=null)
+				ejbClientComponent = vRef.getReferencedComponent();
 		}
-		else{
+		else {
 			String clientJAR = null;
 			if (jar != null)
 				clientJAR = jar.getEjbClientJar();
