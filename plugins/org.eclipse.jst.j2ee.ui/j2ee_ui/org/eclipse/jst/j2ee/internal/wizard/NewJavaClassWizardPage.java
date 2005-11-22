@@ -229,8 +229,17 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			names[i] = (String) items.get(i);
 		}
 		projectNameCombo.setItems(names);
+		IProject selectedProject = null;
 		try {
-			IProject selectedProject = getSelectedProject();
+			if (model !=null) {
+				String projectNameFromModel = model.getStringProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME);
+				if (projectNameFromModel!=null && projectNameFromModel.length()>0)
+					selectedProject = ProjectUtilities.getProject(projectNameFromModel);
+			}
+		} catch (Exception e) {};
+		try {
+			if (selectedProject == null)
+				selectedProject = getSelectedProject();
 			if (selectedProject != null && selectedProject.isAccessible()
 					&& selectedProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
 				projectNameCombo.setText(selectedProject.getName());
