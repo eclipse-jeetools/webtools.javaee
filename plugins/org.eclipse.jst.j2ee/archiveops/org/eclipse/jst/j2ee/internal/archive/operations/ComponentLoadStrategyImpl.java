@@ -290,6 +290,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected void aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
 		for (int i = 0; i < resources.length; i++) {
 			File cFile = null;
+			if(!resources[i].exists()){
+				continue;
+			}
 			if (resources[i].getType() == IResource.FILE) {
 				// We have to avoid duplicates between the source and output folders (non-java
 				// resources)
@@ -314,6 +317,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected void aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		for (int i = 0; i < virtualResources.length; i++) {
 			File cFile = null;
+			if(!virtualResources[i].exists()){
+				continue;
+			}
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
 				// We have to avoid duplicates between the source and output folders (non-java
 				// resources)
@@ -352,11 +358,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	}
 
 	protected boolean shouldInclude(IContainer aContainer) {
-		return aContainer.exists();
+		return true;
 	}
 
 	protected boolean shouldInclude(IVirtualContainer vContainer) {
-		return vContainer.exists();
+		return true;
 	}
 
 	protected boolean shouldInclude(String uri) {
