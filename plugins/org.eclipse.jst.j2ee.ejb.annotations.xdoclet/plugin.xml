@@ -179,7 +179,7 @@
 	<action type="runtime-changed" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetRuntimeChangedDelegate"/>
 	</action>
-	<action type="version-changed" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	<action type="version-change" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetVersionChangeDelegate"/>
 	</action>
 
@@ -239,7 +239,7 @@
 	<action type="runtime-changed" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetRuntimeChangedDelegate"/>
 	</action>
-	<action type="version-changed" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	<action type="version-change" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetVersionChangeDelegate"/>
 	</action>
 
