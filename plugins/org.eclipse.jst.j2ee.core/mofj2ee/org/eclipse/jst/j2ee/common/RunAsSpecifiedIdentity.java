@@ -15,7 +15,7 @@ package org.eclipse.jst.j2ee.common;
 /**
  * The security-identity element specifies whether the caller's security identity is to be used for the execution of the methods of the enterprise bean or whether a specific run-as identity is to be used. It    contains an optional description and a specification of the security identity to be used.
 
- */
+ * @since 1.0 */
 public interface RunAsSpecifiedIdentity extends SecurityIdentity{
 	/**
 	 * @generated This field/method will be replaced during code generation 

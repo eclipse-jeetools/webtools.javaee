@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * of security contract. The application server ignores the security
  * part of the system contracts in this case.
 
- */
+ * @since 1.0 */
 public interface ResourceAdapter extends EObject{
 
 

@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
 
- */
+ * @since 1.0 */
 public interface Module extends EObject{
 
 public boolean isConnectorModule();

@@ -34,7 +34,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServices()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WebServices extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Web Service Descriptions</b></em>' containment reference list.

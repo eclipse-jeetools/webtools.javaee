@@ -15,7 +15,7 @@ package org.eclipse.jst.j2ee.common;
 /**
  * The use-caller-identity element specifies that the caller's security identity be used as the security identity for the execution of the enterprise bean's methods.
 
- */
+ * @since 1.0 */
 public interface UseCallerIdentity extends SecurityIdentity{
 	//UseCallerIdentity
 }

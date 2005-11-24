@@ -14,7 +14,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 /**
  * The connector element is the root element of the deployment descriptor for the resource adapter. This element includes general information - vendor name, version, specification version supported, icon -  about the resource adapter module. It also includes information specific to the implementation of the resource adapter library as specified through the element resourceadapter.
 
- */
+ * @since 1.0 */
 public interface Connector extends CompatibilityDescriptionGroup{
 
 

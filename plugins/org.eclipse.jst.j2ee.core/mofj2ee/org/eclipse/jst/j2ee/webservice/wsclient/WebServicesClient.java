@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getWebServicesClient()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WebServicesClient extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Component Scoped Refs</b></em>' containment reference list.

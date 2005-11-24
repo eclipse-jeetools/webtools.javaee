@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getRootTypeQname()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface RootTypeQname extends QName{
 // RootTypeQname
 }

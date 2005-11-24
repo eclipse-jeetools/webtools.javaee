@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.ejb;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The valid EJB method category names are: EJBHOMEMETHOD, EJBCREATEMETHOD, EJBFINDERMETHOD, EJBREMOTEMETHOD.
- */
+ * @since 1.0 */
 public interface EJBMethodCategory extends EObject{
 	//EJBMethodCategory
 }

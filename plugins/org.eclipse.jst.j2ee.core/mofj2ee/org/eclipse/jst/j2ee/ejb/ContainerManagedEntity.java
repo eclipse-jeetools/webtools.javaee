@@ -17,7 +17,7 @@ import org.eclipse.jem.java.Field;
 
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface ContainerManagedEntity extends Entity{
 
 	String VERSION_1_X = "1.x"; //$NON-NLS-1$

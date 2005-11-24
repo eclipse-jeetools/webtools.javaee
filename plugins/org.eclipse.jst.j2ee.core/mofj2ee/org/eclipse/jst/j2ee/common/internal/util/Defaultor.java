@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.common.internal.util;
  * Insert the type's description here.
  * Creation date: (6/15/2001 4:58:15 PM)
  * @author: Administrator
- */
+ * @since 1.0 */
 public interface Defaultor {
 /**
  * Returns true if this objects create @aDefaultable and it is still

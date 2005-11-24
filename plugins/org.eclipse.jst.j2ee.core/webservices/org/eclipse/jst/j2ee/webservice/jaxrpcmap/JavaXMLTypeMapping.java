@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface JavaXMLTypeMapping extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

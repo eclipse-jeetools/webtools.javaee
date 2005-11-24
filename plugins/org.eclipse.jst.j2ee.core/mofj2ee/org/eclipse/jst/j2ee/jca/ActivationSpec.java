@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getActivationSpec()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ActivationSpec extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Activation Spec Class</b></em>' attribute.

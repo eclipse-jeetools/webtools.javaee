@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getPortName()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface PortName extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Port Name</b></em>' attribute.

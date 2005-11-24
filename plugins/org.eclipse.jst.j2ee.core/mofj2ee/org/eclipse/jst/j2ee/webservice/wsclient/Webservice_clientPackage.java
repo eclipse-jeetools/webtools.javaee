@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory
  * @model kind="package"
  * @generated
- */
+ * @since 1.0 */
 public interface Webservice_clientPackage extends EPackage{
 	/**
 	 * The package name.

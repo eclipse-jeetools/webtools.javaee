@@ -37,7 +37,7 @@ import org.eclipse.emf.common.util.EList;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceInterfaceMapping()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ServiceInterfaceMapping extends InterfaceMapping{
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

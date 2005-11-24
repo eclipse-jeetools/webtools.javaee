@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.application;
 import org.eclipse.emf.ecore.EFactory;
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface ApplicationFactory extends EFactory{
 	/**
 	 * The singleton instance of the factory.

@@ -85,6 +85,8 @@ public final class AcknowledgeMode extends AbstractEnumerator{
 	/**
 	 * Returns the '<em><b>Acknowledge Mode</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
+	 * @param name passes literal name
+	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -103,6 +105,8 @@ public final class AcknowledgeMode extends AbstractEnumerator{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
+	 * @param value passes literal value
+	 * @return literal instance
 	 */
 	public static AcknowledgeMode get(int value) {
 		switch (value) {

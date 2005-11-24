@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jsp.JspPackage#getTagLibRefType()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface TagLibRefType extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Taglib URI</b></em>' attribute.

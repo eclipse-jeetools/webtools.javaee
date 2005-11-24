@@ -151,7 +151,7 @@ import org.eclipse.jem.java.Method;
  * 			<//method-params>
  * 		<//method>
 
- */
+ * @since 1.0 */
 public interface MethodElement extends EObject{
 
 	public static final String RIGHT_PAREN = "("; //$NON-NLS-1$

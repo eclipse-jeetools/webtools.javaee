@@ -139,6 +139,8 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	/**
 	 * Returns the '<em><b>Auth Method Kind</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
+	 * @param name passes literal name
+	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -157,6 +159,8 @@ public final class AuthMethodKind extends AbstractEnumerator{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
+	 * @param value passes literal value
+	 * @return literal instance
 	 */
 	public static AuthMethodKind get(int value) {
 		switch (value) {

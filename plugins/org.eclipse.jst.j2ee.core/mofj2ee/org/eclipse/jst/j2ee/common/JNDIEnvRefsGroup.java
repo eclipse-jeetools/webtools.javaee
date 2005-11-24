@@ -39,7 +39,7 @@ import org.eclipse.emf.common.util.EList;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getJNDIEnvRefsGroup()
  * @model abstract="true"
  * @generated
- */
+ * @since 1.0 */
 public interface JNDIEnvRefsGroup extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Environment Properties</b></em>' containment reference list.

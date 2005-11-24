@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.common.DisplayName;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getDisplayNameType()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface DisplayNameType extends DisplayName{
 // DisplayNameType
 }

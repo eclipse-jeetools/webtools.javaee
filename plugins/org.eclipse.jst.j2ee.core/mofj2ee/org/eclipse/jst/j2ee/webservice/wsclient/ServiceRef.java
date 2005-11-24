@@ -47,7 +47,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getServiceRef()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ServiceRef extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Service Ref Name</b></em>' attribute.

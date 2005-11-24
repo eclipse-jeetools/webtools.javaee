@@ -43,6 +43,15 @@ public final class DescriptionGroupItem extends AbstractEnumerator
 
   public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
+  /**
+	 * Returns the '<em><b>Dependency Type</b></em>' literal with the specified value. 
+	 *  <!-- begin-user-doc -->
+	 * @param name passes literal name
+	 * @return literal instance
+	 *  <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
   public static DescriptionGroupItem get(String name)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
@@ -55,7 +64,15 @@ public final class DescriptionGroupItem extends AbstractEnumerator
     }
     return null;
   }
-
+  /**
+	 * Returns the '<em><b>Dependency Type</b></em>' literal with the specified value. 
+	 *  <!-- begin-user-doc -->
+	 * @param value passes literal value
+	 * @return literal instance
+	 *  <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
   public static DescriptionGroupItem get(int value)
   {
     switch (value)

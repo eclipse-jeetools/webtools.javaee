@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.jem.java.Method;
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface EjbFactory extends EFactory{
 
 	/**

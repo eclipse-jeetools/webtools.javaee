@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 /**
  * @author schacher
- */
+ * @since 1.0 */
 public interface EJBResource extends XMLResource {
 	EJBJar getEJBJar();
 	/**

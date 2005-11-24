@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getActivationConfig()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ActivationConfig extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Config Properties</b></em>' containment reference list.

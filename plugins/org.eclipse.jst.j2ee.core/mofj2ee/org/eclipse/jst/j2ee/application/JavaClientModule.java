@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.application;
 /**
  * specifies the URI of a java application client module, relative to the top level of the application package.
 
- */
+ * @since 1.0 */
 public interface JavaClientModule extends Module{
 	//JavaClientModule
 }

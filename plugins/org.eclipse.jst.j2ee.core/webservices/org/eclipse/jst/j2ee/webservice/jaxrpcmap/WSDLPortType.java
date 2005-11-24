@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLPortType()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WSDLPortType extends QName{
 //	 WSDLPortType
 } 

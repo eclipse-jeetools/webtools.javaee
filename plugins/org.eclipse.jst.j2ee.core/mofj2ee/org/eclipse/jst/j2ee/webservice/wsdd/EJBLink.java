@@ -40,7 +40,7 @@ package org.eclipse.jst.j2ee.webservice.wsdd;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getEJBLink()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface EJBLink extends BeanLink{
 	/**
 	 * Returns the value of the '<em><b>Ejb Link</b></em>' attribute.

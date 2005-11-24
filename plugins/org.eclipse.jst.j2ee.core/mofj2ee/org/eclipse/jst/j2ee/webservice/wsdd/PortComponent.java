@@ -48,7 +48,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface PortComponent extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Port Component Name</b></em>' attribute.

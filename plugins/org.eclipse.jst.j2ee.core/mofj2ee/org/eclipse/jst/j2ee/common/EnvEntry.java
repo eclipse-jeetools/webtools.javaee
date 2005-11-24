@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * The env-entry element contains the declaration of an application client's environment entries. The declaration consists of an optional description, the name of the environment entry, and an optional value.
- */
+ * @since 1.0 */
 public interface EnvEntry extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

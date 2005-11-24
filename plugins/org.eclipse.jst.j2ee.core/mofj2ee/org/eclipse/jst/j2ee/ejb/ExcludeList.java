@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * If the method permission relation contains methods that are in the exclude list, the Deployer must consider those methods to be uncallable.
 
- */
+ * @since 1.0 */
 public interface ExcludeList extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

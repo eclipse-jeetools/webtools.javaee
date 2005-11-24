@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * Any bounds or well-defined values of properties should be described in the description.
 
- */
+ * @since 1.0 */
 public interface ConfigProperty extends EObject{
 
 	/**

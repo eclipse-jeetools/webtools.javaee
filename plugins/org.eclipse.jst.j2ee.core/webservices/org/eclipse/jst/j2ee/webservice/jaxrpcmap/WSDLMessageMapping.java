@@ -42,7 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WSDLMessageMapping extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

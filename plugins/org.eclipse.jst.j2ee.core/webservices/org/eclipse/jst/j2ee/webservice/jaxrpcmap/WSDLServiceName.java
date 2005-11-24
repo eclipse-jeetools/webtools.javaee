@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLServiceName()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WSDLServiceName extends QName{
 	//Default
 } // WSDLServiceName

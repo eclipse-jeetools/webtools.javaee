@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * The Kerbv5 mechanism type should support the
  * javax.resource.spi.security.GenericCredential interface.
 
- */
+ * @since 1.0 */
 public interface AuthenticationMechanism extends EObject{
 
 	/**

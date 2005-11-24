@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.common.Description;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getDescriptionType()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface DescriptionType extends Description{
 // DescriptionType
 }

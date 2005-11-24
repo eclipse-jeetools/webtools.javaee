@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The relationships describes the relationships in which entity beans with container managed persistence participate. The relationships element contains an optional description; and a list of ejb-relation elements, which specify the container managed relationships.
- */
+ * @since 1.0 */
 public interface Relationships extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

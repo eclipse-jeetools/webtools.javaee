@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.client;
 import org.eclipse.emf.ecore.EFactory;
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface ClientFactory extends EFactory{
 	/**
 	 * The singleton instance of the factory.

@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.common.SecurityIdentity;
  * In this light, even Session Beans can have associations and properties implemented by their bean.  For example, it would be meaningful to describe associations from a Session to the Entities which it uses to perform its work.
  * @extends ENamedElement
  *
- **/
+ ** @since 1.0 */
 public interface EnterpriseBean extends JNDIEnvRefsGroup, ENamedElement{
 
 /**

@@ -61,7 +61,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationRef()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface MessageDestinationRef extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.common.internal.util;
 import org.eclipse.emf.common.notify.Notifier;
 /**
  * Interface used for objects that can be "fluffed up" on demand, but not serialized unless modified
- */
+ * @since 1.0 */
 public interface Defaultable extends Notifier {
 public boolean isDefault();
 }

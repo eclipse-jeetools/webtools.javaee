@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.common.CommonPackage
  * @generated
- */
+ * @since 1.0 */
 public interface CommonFactory extends EFactory{
 	/**
 	 * The singleton instance of the factory.

@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getInitParam()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface InitParam extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Param Name</b></em>' attribute.

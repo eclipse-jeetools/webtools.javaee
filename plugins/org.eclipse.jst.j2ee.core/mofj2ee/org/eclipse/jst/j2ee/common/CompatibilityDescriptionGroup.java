@@ -30,7 +30,7 @@ package org.eclipse.jst.j2ee.common;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getCompatibilityDescriptionGroup()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Small Icon</b></em>' attribute.

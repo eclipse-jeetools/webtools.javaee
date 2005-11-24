@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * <res-type>javax.sql.DataSource<//res-type>
  * <res-auth>Container<//res-auth>
  * <//resource-ref>
- */
+ * @since 1.0 */
 public interface ResourceRef extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

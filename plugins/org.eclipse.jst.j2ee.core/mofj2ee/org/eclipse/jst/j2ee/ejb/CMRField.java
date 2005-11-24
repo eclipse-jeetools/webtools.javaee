@@ -15,7 +15,7 @@ import org.eclipse.jem.java.JavaClass;
  * Describes the bean provider's view of a relationship. It consists of an optional description, and the name and the class type of a field in the source of a role of a relationship. The CMRField::name element corresponds to the name used for the get and set accessor methods for the relationship. The CMRField::type element is used only for collection-valued CMRFields. It specifies the type of the collection that is used (a java class name).
  * 
 
- */
+ * @since 1.0 */
 public interface CMRField extends CMPAttribute{
 
   public  String getCollectionTypeName();  

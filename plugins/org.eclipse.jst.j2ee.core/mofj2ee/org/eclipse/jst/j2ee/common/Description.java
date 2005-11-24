@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getDescription()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface Description extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Lang</b></em>' attribute.

@@ -17,13 +17,20 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
 /**
  * The application element is the root element of a J2EE application deployment descriptor.
 
- */
+ * @since 1.0 */
 public interface Application extends CompatibilityDescriptionGroup{
 
 
+/**
+ * @param name - String role name
+ * @return if contains the role
+ */
 public boolean containsSecurityRole(String name);
 /**
  * Returns the first module matching the specified uri and altDD
+ * @param uri - String aURI
+ * @param altDD - String altDD
+ * @return the first module matching the specified uri and altDD
  */
 public Module getModule(String uri, String altDD);
 
@@ -31,36 +38,58 @@ public Module getModule(String uri, String altDD);
  * Returns the first module matching the specified uri
  * @deprecated preferably use {@link #getModule(String, String)} or {@link #getFirstModule(String)}
  * There may be multiple modules with the same uri but different alt-dds
- **/
+ *
+ * @param uri - String uri
+ * @return the first module matching the specified uri
+ */
 public Module getModule(String uri);
 /**
  *This returns the j2ee version id. Compare with J2EEVersionConstants to determine j2ee level
+ *
+ * @return returns the j2ee version id
+ * @throws IllegalStateException - When resource is proxy
  */
+
 public int getJ2EEVersionID() throws IllegalStateException ;
 /**
  * This returns the module version id.  Compare with J2EEVersionConstants to determine module level
+ *
+ * @return returns the module version id
+ * @throws IllegalStateException - When resource is proxy
  */
 public int getVersionID() throws IllegalStateException ;
 
 /**
  * Returns the first module matching the specified uri
+ *
+ * @param uri - String uri path
+ * @return the first module matching the specified uri
  */
 public Module getFirstModule(String uri);
 /**
  * Returns the first module where the alt dd matches the specified uri
+ *
+ * @param uri - String uri path
+ * @return the first module where the alt dd matches the specified uri
  */
 public Module getModuleHavingAltDD(String uri);
+/**
+ * @param name - String role name
+ * @return security role with name
+ */
 public SecurityRole getSecurityRoleNamed(String name);
 /**
  * Return boolean indicating if this Application was populated from an Applcation1.2 compliant descriptor
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
+ *
  */
 public boolean isVersion1_2Descriptor();
 /**
  * Return boolean indicating if this Application was populated from an Application1.3 compliant descriptor
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
+ *
  */
 public boolean isVersion1_3Descriptor();
 	/**
@@ -80,6 +109,7 @@ public boolean isVersion1_3Descriptor();
 	 * @see org.eclipse.jst.j2ee.application.ApplicationPackage#getApplication_Version()
 	 * @model
 	 * @generated
+	 *
 	 */
 	String getVersion();
 
@@ -91,6 +121,7 @@ public boolean isVersion1_3Descriptor();
 	 * @see #getVersion()
 	 * @generated
 	 */
+
 	void setVersion(String value);
 
 	/**
@@ -99,12 +130,14 @@ public boolean isVersion1_3Descriptor();
 	 * Contains the definitions of security roles which are
 	 * global to the application. 
 	 */
+
 	EList getSecurityRoles();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The list of Modules references
 	 */
+
 	EList getModules();
 
 }

@@ -92,6 +92,8 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	/**
 	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
+	 * @param name passes literal name
+	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -108,6 +110,8 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	/**
 	 * Returns the '<em><b>Res Auth Application Type</b></em>' literal with the specified value.
 	 * <!-- begin-user-doc -->
+	 * @param value passes literal value
+	 * @return literal instance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

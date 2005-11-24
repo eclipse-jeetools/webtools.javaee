@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * A semantic grouping of operations that may be performed by a subject.
  * The security-role element contains the declaration of a security role which is used in the security-constraints placed on the web application.
- */
+ * @since 1.0 */
 public interface SecurityRole extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

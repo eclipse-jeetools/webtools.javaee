@@ -17,7 +17,7 @@ import org.eclipse.jem.java.JavaHelpers;
 /**
  * Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.
 
- */
+ * @since 1.0 */
 public interface CMPAttribute extends EAttribute{
 
 /**

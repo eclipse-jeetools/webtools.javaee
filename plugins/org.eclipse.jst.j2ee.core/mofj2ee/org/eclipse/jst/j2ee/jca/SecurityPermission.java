@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * The security permission listed in the deployment descriptor are ones that are different from those required by the default permission set as specified in the connector specification. The optional description can mention specific reason that resource adapter requires a given security permission.
 
- */
+ * @since 1.0 */
 public interface SecurityPermission extends EObject{
 
 

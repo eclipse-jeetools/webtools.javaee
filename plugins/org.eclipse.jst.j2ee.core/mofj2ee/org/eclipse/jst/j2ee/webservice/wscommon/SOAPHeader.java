@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getSOAPHeader()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface SOAPHeader extends QName{
 // SOAPHeader
 }

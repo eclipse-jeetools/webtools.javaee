@@ -48,7 +48,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getOutboundResourceAdapter()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface OutboundResourceAdapter extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Reauthentication Support</b></em>' attribute.

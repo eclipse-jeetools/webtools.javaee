@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 /**
  * The application-client element is the root element of an application client deployment descriptor.  The application client deployment descriptor describes the EJB components and external resources referenced by the application client.
 
- */
+ * @since 1.0 */
 public interface ApplicationClient extends CompatibilityDescriptionGroup{
 
 public String getCallbackHandlerClassName();

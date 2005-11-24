@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * The message-driven-destination element provides advice to the Deployer as to whether a message-driven bean is intended for a Queue or a Topic. The declaration consists of: the type of the message-driven bean's intended destination and an optional declaration of whether a durable or non-durable subscription should be used if the destination-type is javax.jms.Topic.
- */
+ * @since 1.0 */
 public interface MessageDrivenDestination extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

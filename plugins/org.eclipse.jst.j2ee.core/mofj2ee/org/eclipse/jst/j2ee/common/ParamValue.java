@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getParamValue()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ParamValue extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

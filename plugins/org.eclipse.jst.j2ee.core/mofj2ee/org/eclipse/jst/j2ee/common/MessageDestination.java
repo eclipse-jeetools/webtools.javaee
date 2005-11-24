@@ -50,7 +50,7 @@ package org.eclipse.jst.j2ee.common;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestination()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface MessageDestination extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

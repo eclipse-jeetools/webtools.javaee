@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getComponentScopedRefs()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ComponentScopedRefs extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Component Name</b></em>' attribute.

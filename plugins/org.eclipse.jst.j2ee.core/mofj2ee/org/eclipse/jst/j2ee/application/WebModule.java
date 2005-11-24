@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.application;
 /**
  * Contains the web-uri and context-root of a web application module.
 
- */
+ * @since 1.0 */
 public interface WebModule extends Module{
 	/**
 	 * @generated This field/method will be replaced during code generation 

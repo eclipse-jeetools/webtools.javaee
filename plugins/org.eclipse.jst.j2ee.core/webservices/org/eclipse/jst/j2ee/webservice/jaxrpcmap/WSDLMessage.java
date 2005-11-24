@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessage()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WSDLMessage extends QName{
 // WSDLMessage
 }

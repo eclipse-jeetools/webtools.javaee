@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface SecurityRoleRef extends EObject{
 	/**
 	 * @generated This field/method will be replaced during code generation 

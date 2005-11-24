@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *     <//relationship-role-source>
  *   <//ejb-relationship-role>
  * ...
- */
+ * @since 1.0 */
 public interface EJBRelationshipRole extends EObject,CommonRelationshipRole{
 
 /**

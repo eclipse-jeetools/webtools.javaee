@@ -20,7 +20,7 @@ import java.util.List;
  * Insert the type's description here.
  * Creation date: (11/6/2000 11:40:16 AM)
  * @author: Administrator
- */
+ * @since 1.0 */
 public interface IRoleShapeStrategy {
 	String ATTRIBUTE_NAME_JOINER = "_"; //$NON-NLS-1$
 	String ROLE_GET_PREFIX = "get"; //$NON-NLS-1$

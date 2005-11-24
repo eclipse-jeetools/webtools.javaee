@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAdminObject()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface AdminObject extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Admin Object Interface</b></em>' attribute.

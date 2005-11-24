@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
 
 /**
  * The assembly-descriptor element contains application-assembly information.  The application-assembly information consists of the following parts: the definition of security roles, the definition of method permissions, and the definition of transaction attributes for enterprise beans with container-managed transaction demarcation. All the parts are optional in the sense that they are omitted if the lists represented by them are empty. Providing an assembly-descriptor in the deployment descriptor is optional for the ejb-jar file producer.
- */
+ * @since 1.0 */
 public interface AssemblyDescriptor extends EObject{
 
 /**

@@ -42,7 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getDisplayName()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface DisplayName extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Lang</b></em>' attribute.

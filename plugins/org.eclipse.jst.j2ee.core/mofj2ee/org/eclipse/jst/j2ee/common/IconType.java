@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getIconType()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface IconType extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Small Icon</b></em>' attribute.

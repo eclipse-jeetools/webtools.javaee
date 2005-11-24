@@ -17,7 +17,7 @@ import org.eclipse.jem.java.JavaClass;
 /**
  * The session element declares an session bean. The declaration consists of: an optional description; optional display name; optional small icon file name; optional large icon file name; a name assigned
  * to the enterprise bean in the deployment description; the names of the session bean's home and remote interfaces, if any; the names of the session bean's local home and local interfaces, if any; the session bean's implementation class; the session bean's state management type; the session bean's transaction management type; an optional declaration of the bean's environment entries; an optional declaration of the bean's EJB references; an optional declaration of the bean's local EJB references; an optional declaration of the security role references; an optional declaration of the security identity to be used for the execution of the bean's methods; an optional declaration of the bean's resource manager connection factory references; and an optional declaration of the bean's resource environment references. The elements that are optional are "optional" in the sense that they are omitted when if lists represented by them are empty.
- */
+ * @since 1.0 */
 public interface Session extends EnterpriseBean{
 	/**
 	 * @generated This field/method will be replaced during code generation 

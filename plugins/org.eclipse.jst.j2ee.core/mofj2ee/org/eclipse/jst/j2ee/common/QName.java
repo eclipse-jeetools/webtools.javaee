@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getQName()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface QName extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Namespace URI</b></em>' attribute.

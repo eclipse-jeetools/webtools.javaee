@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getMessageAdapter()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface MessageAdapter extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Message Listeners</b></em>' containment reference list.

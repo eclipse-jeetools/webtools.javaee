@@ -16,7 +16,7 @@ import org.eclipse.jem.java.JavaClass;
 
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface MessageDriven extends EnterpriseBean{
 	/**
 	 * @generated This field/method will be replaced during code generation 

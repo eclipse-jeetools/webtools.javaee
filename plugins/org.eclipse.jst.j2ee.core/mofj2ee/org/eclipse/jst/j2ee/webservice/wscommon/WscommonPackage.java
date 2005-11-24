@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory
  * @model kind="package"
  * @generated
- */
+ * @since 1.0 */
 public interface WscommonPackage extends EPackage{
 	/**
 	 * The package name.

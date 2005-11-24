@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.ejb;
 import org.eclipse.jem.java.JavaClass;
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface QueryMethod extends MethodElement{
 	public static final String SELECT_PREFIX = "ejbSelect"; //$NON-NLS-1$
 	public static final String FIND_PREFIX = "find"; //$NON-NLS-1$

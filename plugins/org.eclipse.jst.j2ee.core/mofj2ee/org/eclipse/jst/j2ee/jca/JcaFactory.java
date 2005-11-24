@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.jca;
 import org.eclipse.emf.ecore.EFactory;
 /**
  * @generated
- */
+ * @since 1.0 */
 public interface JcaFactory extends EFactory{
 
 	/**

@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.Method;
 /**
  * Specifies how the container must manage transaction scopes for the enterprise bean's method invocations.  It consists of an optional description, a list of method elements, and a transaction attribute.The transaction attribute is to be applied to all the specified methods.
- */
+ * @since 1.0 */
 public interface MethodTransaction extends EObject{
 
 /**

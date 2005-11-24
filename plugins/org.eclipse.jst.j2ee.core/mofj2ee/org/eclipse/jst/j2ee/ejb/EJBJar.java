@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.common.EjbRef;
 /**
  * The root element of the EJB deployment descriptor. It contains an optional description of the ejb-jar file; optional display name; optional small icon file name; optional large icon file
  * name; mandatory structural information about all included enterprise beans; a descriptor for container managed relationships, if any; an optional application-assembly descriptor; and an optional name of an ejb-client-jar file for the ejb-jar.
- */
+ * @since 1.0 */
 public interface EJBJar extends CompatibilityDescriptionGroup{
 
 /**

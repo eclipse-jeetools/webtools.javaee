@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getExtensibleType()
  * @model 
  * @generated
- */
+ * @since 1.0 */
 public interface ExtensibleType extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.

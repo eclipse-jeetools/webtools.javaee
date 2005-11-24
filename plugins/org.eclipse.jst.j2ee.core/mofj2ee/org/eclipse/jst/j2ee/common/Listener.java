@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.common;
 import org.eclipse.jem.java.JavaClass;
 /**
  * Declares a class in the application must be registered as a web application listener bean.
- */
+ * @since 1.0 */
 public interface Listener extends CompatibilityDescriptionGroup{
 
 /**

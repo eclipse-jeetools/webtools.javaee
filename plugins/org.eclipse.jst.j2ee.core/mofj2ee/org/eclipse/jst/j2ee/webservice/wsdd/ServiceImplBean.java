@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServiceImplBean()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface ServiceImplBean extends EObject{
 	/**
 	 * Returns the value of the '<em><b>EEJB Link</b></em>' containment reference.

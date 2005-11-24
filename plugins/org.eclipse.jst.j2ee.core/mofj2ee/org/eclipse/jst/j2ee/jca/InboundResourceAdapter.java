@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.jca.JcaPackage#getInboundResourceAdapter()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface InboundResourceAdapter extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Message Adapter</b></em>' containment reference.

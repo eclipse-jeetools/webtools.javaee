@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getDeploymentExtension()
  * @model 
  * @generated
- */
+ * @since 1.0 */
 public interface DeploymentExtension extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Namespace</b></em>' attribute.

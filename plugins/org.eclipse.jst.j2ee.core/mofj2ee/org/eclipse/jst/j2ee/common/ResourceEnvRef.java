@@ -23,7 +23,7 @@ import org.eclipse.jem.java.JavaClass;
  *     <resource-env-ref-name>jms//StockQueue<//resource-env-ref-name>
  *     <resource-env-ref-type>javax.jms.Queue<//resource-env-ref-type>
  * <//resource-env-ref>
- */
+ * @since 1.0 */
 public interface ResourceEnvRef extends EObject{
 
 public String getTypeName();

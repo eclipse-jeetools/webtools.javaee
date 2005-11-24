@@ -49,7 +49,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * @see org.eclipse.jst.j2ee.jsp.JspPackage#getJSPPropertyGroup()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface JSPPropertyGroup extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Url Pattern</b></em>' attribute list.

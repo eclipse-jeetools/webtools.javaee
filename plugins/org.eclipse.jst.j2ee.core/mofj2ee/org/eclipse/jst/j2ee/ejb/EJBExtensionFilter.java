@@ -16,7 +16,7 @@ import java.util.List;
  * Insert the type's description here.
  * Creation date: (11/28/2000 5:31:53 PM)
  * @author: Administrator
- */
+ * @since 1.0 */
 public interface EJBExtensionFilter {
 List filter(EnterpriseBean ejb) ;
 }

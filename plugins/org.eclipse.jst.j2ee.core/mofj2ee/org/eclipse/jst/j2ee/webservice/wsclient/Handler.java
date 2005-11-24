@@ -44,7 +44,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getHandler()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface Handler extends CompatibilityDescriptionGroup{
 	/**
 	 * Returns the value of the '<em><b>Handler Name</b></em>' attribute.

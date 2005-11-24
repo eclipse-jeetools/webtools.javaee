@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * Insert the type's description here.
  * Creation date: (10/26/2001 9:24:27 AM)
  * @author: Administrator
- */
+ * @since 1.0 */
 public interface CommonRelationshipRole extends EObject {
 /**
  * Return the persistentAttributes from my Entity that are used

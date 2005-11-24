@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory
  * @model kind="package"
  * @generated
- */
+ * @since 1.0 */
 public interface JaxrpcmapPackage extends EPackage{
 	/**
 	 * The package name.

@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWSDLPort()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WSDLPort extends QName{
  // WSDLPort
 }

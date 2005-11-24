@@ -20,7 +20,7 @@ import org.eclipse.jem.java.JavaClass;
  * The optional query elements must be present if the persistence-type is Container and the cmp-version is 2.x and query methods other than findByPrimaryKey have been defined for the entity bean.
  * The other elements that are optional are "optional" in the sense that they are omitted if the lists represented by them are empty. At least one cmp-field element must be present in the descriptor if
  * the entity's persistence-type is Container and the cmp-version is 1.x, and none must not be present if the entity's persistence-type is Bean.
- */
+ * @since 1.0 */
 public interface Entity extends EnterpriseBean{
 
 public String getPrimaryKeyName();

@@ -51,7 +51,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription()
  * @model
  * @generated
- */
+ * @since 1.0 */
 public interface WebServiceDescription extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Jaxrpc Mapping File</b></em>' attribute.

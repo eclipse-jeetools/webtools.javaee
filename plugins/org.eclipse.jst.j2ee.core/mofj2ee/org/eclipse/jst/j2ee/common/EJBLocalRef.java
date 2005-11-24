@@ -16,7 +16,7 @@ package org.eclipse.jst.j2ee.common;
 /**
  * The ejb-local-ref element is used for the declaration of a reference to another enterprise bean's local home. The declaration consists of an optional description; the EJB reference name used in the code of the referencing enterprise bean; the expected type of the referenced enterprise bean; the expected local home and local interfaces of the referenced enterprise bean; and an optional ejb-link information. The optional ejb-link element is used to specify the referenced enterprise bean.
  * Used in: entity, session, message-driven
- */
+ * @since 1.0 */
 public interface EJBLocalRef extends EjbRef{
 
 	/**

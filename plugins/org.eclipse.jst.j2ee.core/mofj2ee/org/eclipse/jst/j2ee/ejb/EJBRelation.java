@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * @migration EJB1.1 Moved from ejbext::EjbRelationshipRole contained under ejbext::EJBJarExtension
  * @migration EJB1.1 added optional attribute, description:String
  * @migration EJB1.1 added optional attribute, name:String (May have been inherited from EObject previously)
- */
+ * @since 1.0 */
 public interface EJBRelation extends EObject,CommonRelationship{
 
 boolean containsRelationshipRole(EJBRelationshipRole aRole) ;
