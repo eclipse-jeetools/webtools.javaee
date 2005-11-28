@@ -41,9 +41,9 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.EjbClientProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
-import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -209,14 +209,25 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 						(IRuntime) model.getProperty(IEjbFacetInstallDataModelProperties.FACET_RUNTIME);
 					try {
 						
-						UtilityProjectCreationOperation util = new UtilityProjectCreationOperation( clientProjectName,
-								earProjectName,
-								rt,
-								(String)model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER)
-						);
+						IDataModel dm = DataModelFactory.createDataModel(new EjbClientProjectCreationDataModelProvider());
 						
-						util.execute(monitor);
+						dm.setStringProperty( EjbClientProjectCreationDataModelProvider.PROJECT_NAME,
+								clientProjectName );
 						
+						dm.setStringProperty( EjbClientProjectCreationDataModelProvider.EJB_PROJECT_NAME,
+								model.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME) );
+						
+						dm.setStringProperty( EjbClientProjectCreationDataModelProvider.EAR_PROJECT_NAME,
+								earProjectName );
+						
+						dm.setStringProperty( EjbClientProjectCreationDataModelProvider.SOURCE_FOLDER, 
+								(String)model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER) );
+						
+						dm.setProperty( EjbClientProjectCreationDataModelProvider.RUNTIME, rt );
+						
+						
+						dm.getDefaultOperation().execute( monitor, null);
+				
 
 					} catch (Exception e) {
 						Logger.getLogger().logError(e);
