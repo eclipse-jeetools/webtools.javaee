@@ -18,9 +18,8 @@ package org.eclipse.jst.j2ee.internal.moduleextension;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.project.facet.JavaUtilityComponentCreationFacetOperation;
-//import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
-//import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.j2ee.project.facet.EjbClientProjectCreationOperation;
+
 
 
 /**
@@ -41,6 +40,11 @@ public interface EjbModuleExtension extends EarModuleExtension {
 
 	IProject getDefinedEJBClientJARProject(IProject anEJBProject);
 
-    JavaUtilityComponentCreationFacetOperation createEJBClientJARProject( final String clientProjectName,
-    		final String srcFolderName, String runtime );
+	EjbClientProjectCreationOperation createEJBClientJARProject(
+			final String clientProjectName,
+			final String srcFolderName,
+			final String ejbProjectName,
+			final String earProjectName,
+			final org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime);
+	
 }
