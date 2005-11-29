@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -53,8 +54,9 @@ import org.eclipse.wst.server.core.util.ProjectModule;
  * J2EE module superclass.
  */
 public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
-	private static final IPath WEB_CLASSES_PATH = new Path("WEB-INF").append("classes");
+	private static final IPath WEB_CLASSES_PATH = new Path("WEB-INF").append("classes"); //$NON-NLS-1$ //$NON-NLS-2$
     protected IVirtualComponent component = null;
+    private List members = new ArrayList();
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -104,6 +106,7 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	}
 
 	public IModuleResource[] members() throws CoreException {
+		members.clear();
 		IPath javaPath = Path.EMPTY;
 		if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
 			javaPath = WEB_CLASSES_PATH;
@@ -122,19 +125,39 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 		}
 		
 		int size = cont.length;
-		List list = new ArrayList(size);
 		for (int i = 0; i < size; i++) {
 			IModuleResource[] mr = getMembers(cont[i], Path.EMPTY, javaPath, javaCont);
 			int size2 = mr.length;
 			for (int j = 0; j < size2; j++) {
-				list.add(mr[j]);
+				if (!members.contains(mr[j]))
+					members.add(mr[j]);
 			}
 		}
 		
-		IModuleResource[] mr = new IModuleResource[list.size()];
-		list.toArray(mr);
+		IModuleResource[] mr = new IModuleResource[members.size()];
+		members.toArray(mr);
 		return mr;
 	}
+	
+	private IModuleResource getExistingModuleResource(List aList, IPath path) {
+    	IModuleResource result = null;
+    	// If the list is empty, return null
+    	if (aList==null || aList.isEmpty())
+    		return null;
+    	// Otherwise recursively check to see if given resource matches current resource or if it is a child
+    	int i=0;
+    	do {
+	    	IModuleResource moduleResource = (IModuleResource) aList.get(i);
+	    		if (moduleResource.getModuleRelativePath().append(moduleResource.getName()).equals(path))
+	    			result = moduleResource;
+	    		// if it is a folder, check its children for the resource path
+	    		else if (moduleResource instanceof IModuleFolder) {
+	    			result = getExistingModuleResource(Arrays.asList(((IModuleFolder)moduleResource).members()),path);
+	    		}
+	    		i++;
+    	} while (result == null && i<aList.size() );
+    	return result;
+    }
 
 	/**
 	 * Find the module resources for a given container and path. Inserts in the java containers
@@ -154,69 +177,99 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 		for (int j = 0; j < size2; j++) {
 			if (res[j] instanceof IContainer) {
 				IContainer cc = (IContainer) res[j];
-				ModuleFolder mf = new ModuleFolder(cc, cc.getName(), path);
+				// Retrieve already existing module folder if applicable
+				ModuleFolder mf = (ModuleFolder) getExistingModuleResource(members,new Path(cc.getName()));
+				if (mf == null)
+					mf = new ModuleFolder(cc, cc.getName(), path);
 				IModuleResource[] mr = getMembers(cc, path.append(cc.getName()), javaPath, javaCont);
 				IPath curPath = path.append(cc.getName());
 				
-				if (javaPath != null && curPath.isPrefixOf(javaPath)) {
-					if (curPath.equals(javaPath)) {
-						int size = javaCont.length;
-						for (int i = 0; i < size; i++) {
-							IModuleResource[] mr2 = getMembers(javaCont[i], path.append(cc.getName()), null, null);
-							
-							IModuleResource[] mr3 = new IModuleResource[mr.length + mr2.length];
-							System.arraycopy(mr, 0, mr3, 0, mr.length);
-							System.arraycopy(mr2, 0, mr3, mr.length, mr2.length);
-							mr = mr3;
-						}
-					} else {
-						boolean containsFolder = false;
-						String name = javaPath.segment(curPath.segmentCount());
-						int size = mr.length;
-						for (int i = 0; i < size && !containsFolder; i++) {
-							if (mr[i] instanceof IModuleFolder) {
-								IModuleFolder mf2 = (IModuleFolder) mr[i];
-								if (name.equals(mf2.getName())) {
-									containsFolder = true;
-								}
-							}
-						}
-						
-						if (!containsFolder) {
-							ModuleFolder mf2 = new ModuleFolder(null, name, curPath);
-							IModuleResource[] mrf = new IModuleResource[0];
-							size = javaCont.length;
-							for (int i = 0; i < size; i++) {
-								IModuleResource[] mrf2 = getMembers(javaCont[i], javaPath, null, null);
-								
-								IModuleResource[] mrf3 = new IModuleResource[mrf.length + mrf2.length];
-								System.arraycopy(mr, 0, mrf3, 0, mrf.length);
-								System.arraycopy(mrf2, 0, mrf3, mrf.length, mrf2.length);
-								mrf = mrf3;
-							}
-							
-							mf2.setMembers(mrf);
-							
-							IModuleResource[] mr3 = new IModuleResource[mr.length + 1];
-							System.arraycopy(mr, 0, mr3, 0, mr.length);
-							mr3[mr.length] = mf2;
-							mr = mr3;
-						}
-					}
-				}
-				
-				mf.setMembers(mr);
+				if (javaPath != null && curPath.isPrefixOf(javaPath))
+					mr = handleJavaPath(path, javaPath, curPath, javaCont, mr, cc);
+
+				addMembersToModuleFolder(mf, mr);
 				list.add(mf);
 			} else {
 				IFile f = (IFile) res[j];
-				ModuleFile mf = new ModuleFile(f, f.getName(), path, f.getModificationStamp());
-				list.add(mf);
+				//TODO this needs to be cleaned up when virtual API points to output folders instead of source folders.
+				if (!f.getName().endsWith(".java")) { //$NON-NLS-1$
+					ModuleFile mf = new ModuleFile(f, f.getName(), path, f.getModificationStamp());
+					list.add(mf);
+				}
 			}
 		}
-		
 		IModuleResource[] mr = new IModuleResource[list.size()];
 		list.toArray(mr);
 		return mr;
+	}
+	
+	private IModuleResource[] handleJavaPath(IPath path, IPath javaPath, IPath curPath, IContainer[] javaCont, IModuleResource[] mr, IContainer cc) throws CoreException {
+		if (curPath.equals(javaPath)) {
+			int size = javaCont.length;
+			for (int i = 0; i < size; i++) {
+				IModuleResource[] mr2 = getMembers(javaCont[i], path.append(cc.getName()), null, null);
+				IModuleResource[] mr3 = new IModuleResource[mr.length + mr2.length];
+				System.arraycopy(mr, 0, mr3, 0, mr.length);
+				System.arraycopy(mr2, 0, mr3, mr.length, mr2.length);
+				mr = mr3;
+			}
+		} else {
+			boolean containsFolder = false;
+			String name = javaPath.segment(curPath.segmentCount());
+			int size = mr.length;
+			for (int i = 0; i < size && !containsFolder; i++) {
+				if (mr[i] instanceof IModuleFolder) {
+					IModuleFolder mf2 = (IModuleFolder) mr[i];
+					if (name.equals(mf2.getName())) {
+						containsFolder = true;
+					}
+				}
+			}
+			
+			if (!containsFolder) {
+				ModuleFolder mf2 = new ModuleFolder(null, name, curPath);
+				IModuleResource[] mrf = new IModuleResource[0];
+				size = javaCont.length;
+				for (int i = 0; i < size; i++) {
+					IModuleResource[] mrf2 = getMembers(javaCont[i], javaPath, null, null);
+					IModuleResource[] mrf3 = new IModuleResource[mrf.length + mrf2.length];
+					System.arraycopy(mr, 0, mrf3, 0, mrf.length);
+					System.arraycopy(mrf2, 0, mrf3, mrf.length, mrf2.length);
+					mrf = mrf3;
+				}
+				
+				mf2.setMembers(mrf);
+				
+				IModuleResource[] mr3 = new IModuleResource[mr.length + 1];
+				System.arraycopy(mr, 0, mr3, 0, mr.length);
+				mr3[mr.length] = mf2;
+				mr = mr3;
+			}
+		}
+		return mr;
+	}
+	
+	private void addMembersToModuleFolder(ModuleFolder mf, IModuleResource[] mr) {
+		IModuleResource[] existingMembers = mf.members();
+		if (existingMembers==null)
+			existingMembers = new IModuleResource[0];
+		List membersJoin = new ArrayList();
+		membersJoin.addAll(Arrays.asList(existingMembers));
+		List newMembers = Arrays.asList(mr);
+		for (int i=0; i<newMembers.size(); i++) {
+			boolean found = false;
+			IModuleResource newMember = (IModuleResource) newMembers.get(i);
+			for (int k=0; k<membersJoin.size(); k++) {
+				IModuleResource existingResource = (IModuleResource) membersJoin.get(k);
+				if (existingResource.equals(newMember)) {
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+				membersJoin.add(newMember);
+		}
+		mf.setMembers((IModuleResource[]) membersJoin.toArray(new IModuleResource[membersJoin.size()]));
 	}
 
     /**
