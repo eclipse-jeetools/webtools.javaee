@@ -18,7 +18,7 @@ package org.eclipse.jst.j2ee.internal.moduleextension;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.project.facet.EjbClientProjectCreationOperation;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 
 
@@ -40,7 +40,7 @@ public interface EjbModuleExtension extends EarModuleExtension {
 
 	IProject getDefinedEJBClientJARProject(IProject anEJBProject);
 
-	EjbClientProjectCreationOperation createEJBClientJARProject(
+	IDataModelOperation createEJBClientJARProject(
 			final String clientProjectName,
 			final String srcFolderName,
 			final String ejbProjectName,
