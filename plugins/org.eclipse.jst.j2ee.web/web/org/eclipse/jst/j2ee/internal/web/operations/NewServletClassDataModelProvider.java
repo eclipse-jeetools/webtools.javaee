@@ -521,6 +521,8 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		ArtifactEdit edit = null;
 		try {
 			edit = getArtifactEditForRead();
+			if (edit == null)
+				return WTPCommonPlugin.OK_STATUS;
 			WebApp webApp = (WebApp) edit.getContentModelRoot();
 			if (webApp == null)
 				return WTPCommonPlugin.OK_STATUS;
