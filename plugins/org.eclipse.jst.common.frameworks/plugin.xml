@@ -44,9 +44,9 @@
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider"/>
       </action>
-<!--  <action type="version-change">
+      <action type="version-change">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
-      </action> -->
+      </action>
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </action>
@@ -57,9 +57,9 @@
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider"/>
       </action>
-<!--      <action type="version-change">
+      <action type="version-change">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
-      </action> -->
+      </action>
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </action>
@@ -70,9 +70,9 @@
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider"/>
       </action>
-<!--      <action type="version-change">
+      <action type="version-change">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetVersionChangeDelegate"/>
-      </action> -->
+      </action>
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </action>
