@@ -19,6 +19,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class NoEJB10DescriptorsException extends RuntimeException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7222290886333179223L;
+
+	/**
 	 * NoEJB10DescriptorsException constructor comment.
 	 */
 	public NoEJB10DescriptorsException() {

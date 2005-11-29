@@ -17,6 +17,10 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  * the same name, id, etc, as another object in the list.
  */
 public class DuplicateObjectException extends ArchiveException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7269139518957826130L;
 	protected Object duplicate;
 
 	/**

@@ -15,6 +15,10 @@ package org.eclipse.jst.j2ee.internal;
 
 
 public class WrappedRuntimeException extends RuntimeException implements IWrappedException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8926753082721271021L;
 	/** The exception which necessitated this runtime exception, if one exists */
 	protected Exception nestedException;
 public WrappedRuntimeException() {

@@ -17,6 +17,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class DeploymentDescriptorLoadException extends ArchiveRuntimeException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3870314481148871665L;
+
+	/**
 	 * ResourceLoadException constructor comment.
 	 */
 	public DeploymentDescriptorLoadException() {

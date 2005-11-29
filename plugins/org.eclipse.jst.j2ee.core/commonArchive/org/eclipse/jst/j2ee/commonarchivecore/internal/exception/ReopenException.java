@@ -20,6 +20,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class ReopenException extends ArchiveWrappedException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2797595721842336360L;
+
+	/**
 	 * ReopenException constructor comment.
 	 */
 	public ReopenException() {

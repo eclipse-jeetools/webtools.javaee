@@ -18,6 +18,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class EmptyResourceException extends ArchiveException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6482393304280160585L;
+
+	/**
 	 * EmptyResourceException constructor comment.
 	 */
 	public EmptyResourceException() {

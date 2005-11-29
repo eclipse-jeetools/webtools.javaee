@@ -135,6 +135,12 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 		public Object caseEJBMethodCategory(EJBMethodCategory object) {
 			return createEJBMethodCategoryAdapter();
 		}
+		/**
+		 * @deprecated  28/11/05 API warning cleanup, is this method used by someone????
+		 * If not it should be deleted!!! Future ToDo
+		 * @param object
+		 * @return
+		 */
 		public Object caseEClass(EClass object) {
 			return createEClassAdapter();
 		}
@@ -144,6 +150,12 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 		public Object caseEStructuralFeature(EStructuralFeature object) {
 			return createEStructuralFeatureAdapter();
 		}
+		/**
+		 * @deprecated  28/11/05 API warning cleanup, is this method used by someone??
+		 * If not it should be deleted!!! Future ToDo
+		 * @param object
+		 * @return
+		 */
 		public Object caseEClassifier(EClassifier object) {
 			return createEClassifierAdapter();
 		}

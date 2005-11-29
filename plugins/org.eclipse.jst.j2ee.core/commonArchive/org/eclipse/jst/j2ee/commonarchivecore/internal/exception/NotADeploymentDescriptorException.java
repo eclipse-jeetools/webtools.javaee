@@ -19,6 +19,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class NotADeploymentDescriptorException extends Exception {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9072252417343910963L;
+
+	/**
 	 * NotADeploymentDescriptorException constructor comment.
 	 */
 	public NotADeploymentDescriptorException() {

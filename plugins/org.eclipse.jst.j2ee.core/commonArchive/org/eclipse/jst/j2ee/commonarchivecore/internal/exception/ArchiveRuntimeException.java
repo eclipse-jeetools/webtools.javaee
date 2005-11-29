@@ -23,6 +23,11 @@ import org.eclipse.jst.j2ee.internal.WrappedRuntimeException;
  */
 public class ArchiveRuntimeException extends WrappedRuntimeException implements IWrappedException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4727603215052186958L;
+
+	/**
 	 * Constructor for ArchiveRuntimeException.
 	 */
 	public ArchiveRuntimeException() {

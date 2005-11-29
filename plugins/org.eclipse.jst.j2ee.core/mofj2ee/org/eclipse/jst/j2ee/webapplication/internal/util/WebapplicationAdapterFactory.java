@@ -149,6 +149,12 @@ public class WebapplicationAdapterFactory extends AdapterFactoryImpl {
 		public Object caseFilterMapping(FilterMapping object) {
 			return createFilterMappingAdapter();
 		}
+		/**
+		 * @deprecated  28/11/05 API warning cleanup, is this method used by someone????
+		 * If not it should be deleted!!! Future ToDo
+		 * @param object
+		 * @return
+		 */
 		public Object caseListener(Listener object) {
 			return createListenerAdapter();
 		}

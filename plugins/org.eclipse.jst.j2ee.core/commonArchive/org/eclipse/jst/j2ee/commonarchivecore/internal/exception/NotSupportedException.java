@@ -14,6 +14,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
 
 public class NotSupportedException extends ArchiveWrappedException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6690631631593101382L;
+
+	/**
 	 * NotSupportedException constructor comment.
 	 */
 	public NotSupportedException() {

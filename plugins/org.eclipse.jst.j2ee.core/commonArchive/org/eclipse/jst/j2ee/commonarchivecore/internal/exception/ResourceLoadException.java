@@ -18,6 +18,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class ResourceLoadException extends ArchiveRuntimeException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3337225489102635339L;
+
+	/**
 	 * ResourceLoadException constructor comment.
 	 */
 	public ResourceLoadException() {

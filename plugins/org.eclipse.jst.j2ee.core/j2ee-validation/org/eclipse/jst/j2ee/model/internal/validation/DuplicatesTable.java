@@ -26,6 +26,10 @@ import java.util.Set;
  * the duplicates easier.
  */
 public class DuplicatesTable extends java.util.HashMap {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3189901849555229718L;
 	protected static final Boolean UNIQUE = Boolean.FALSE;
 	protected static final Boolean DUPLICATE = Boolean.TRUE;
 	protected Map _duplicates = null;

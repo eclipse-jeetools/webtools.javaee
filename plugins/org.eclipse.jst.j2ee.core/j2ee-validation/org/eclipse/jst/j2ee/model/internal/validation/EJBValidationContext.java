@@ -160,7 +160,13 @@ public class EJBValidationContext implements IEJBValidationContext {
 	}
 	
 	public void addMessage(int severity, String messageId, Object target, String groupName) throws MessageLimitException {
-		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target,groupName);
+		/**
+		 * 11/28/05 Commenting the following line to get rid of Warning message
+		 * Quite possibly the getRoporter().addMessage needs to be used.
+		 * 
+		 */
+		
+		//IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target,groupName);
 	}
 	
 	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName) throws MessageLimitException {

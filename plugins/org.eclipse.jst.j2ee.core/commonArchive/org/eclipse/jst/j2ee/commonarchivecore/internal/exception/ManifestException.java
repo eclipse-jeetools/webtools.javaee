@@ -14,6 +14,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
 public class ManifestException extends ArchiveRuntimeException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1045140899078192019L;
+
+	/**
 	 * Constructor for ManifestException.
 	 */
 	public ManifestException() {

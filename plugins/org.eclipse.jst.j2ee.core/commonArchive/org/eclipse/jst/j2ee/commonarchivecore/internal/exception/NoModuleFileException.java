@@ -14,6 +14,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
 public class NoModuleFileException extends ArchiveRuntimeException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7261084646147362776L;
+
+	/**
 	 * Constructor for NoModuleFileException.
 	 */
 	public NoModuleFileException() {

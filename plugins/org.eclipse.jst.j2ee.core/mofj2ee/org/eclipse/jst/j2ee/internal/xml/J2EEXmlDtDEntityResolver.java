@@ -74,10 +74,10 @@ public static void registerDtD(String systemID, String localID) {
  */
 public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) throws java.io.IOException, org.xml.sax.SAXException {
 	String localResourceName = null;
-	boolean isJavaSytemId = false;
+	//boolean isJavaSytemId = false;
 	if (shouldBeRegistered(systemId)) {
 		localResourceName = (String)getSupportedDtDs().get(systemId);
-		isJavaSytemId = true;	
+		//isJavaSytemId = true;	
 	} else {
 		String shortName = getShortName(systemId);
 		localResourceName = (String)getSupportedDtDs().get(shortName);

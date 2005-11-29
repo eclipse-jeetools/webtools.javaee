@@ -21,6 +21,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHand
  */
 public class SubclassResponsibilityException extends ArchiveRuntimeException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6815673671775564354L;
+
+	/**
 	 * SubclassResponsibilityException constructor comment.
 	 */
 	public SubclassResponsibilityException() {

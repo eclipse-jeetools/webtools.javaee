@@ -15,6 +15,11 @@ package org.eclipse.jst.j2ee.model.internal.validation;
  * This exception should be thrown if the user cancels validation.
  */
 public class ValidationCancelledException extends RuntimeException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7065655347030103289L;
+
 	public ValidationCancelledException() {
 		super();
 	}

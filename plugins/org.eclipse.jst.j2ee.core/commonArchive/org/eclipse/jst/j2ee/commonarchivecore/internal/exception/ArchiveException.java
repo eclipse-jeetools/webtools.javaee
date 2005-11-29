@@ -17,6 +17,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class ArchiveException extends Exception {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4340145465956505570L;
+
+	/**
 	 *  
 	 */
 	public ArchiveException() {

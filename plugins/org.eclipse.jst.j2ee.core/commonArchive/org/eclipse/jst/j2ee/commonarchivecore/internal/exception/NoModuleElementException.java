@@ -18,6 +18,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class NoModuleElementException extends ArchiveException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3781813351160222774L;
+
+	/**
 	 * NoModuleElementException constructor comment.
 	 */
 	public NoModuleElementException() {

@@ -19,6 +19,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class ObjectNotFoundException extends ArchiveException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3539317762510485699L;
+
+	/**
 	 * ObjectNotFoundException constructor comment.
 	 */
 	public ObjectNotFoundException() {

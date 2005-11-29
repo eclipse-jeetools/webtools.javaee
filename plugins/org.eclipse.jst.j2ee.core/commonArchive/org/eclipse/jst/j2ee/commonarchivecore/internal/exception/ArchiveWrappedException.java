@@ -21,6 +21,11 @@ import org.eclipse.jst.j2ee.internal.WrappedException;
  */
 public class ArchiveWrappedException extends WrappedException implements IWrappedException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3011655166037300546L;
+
+	/**
 	 * Constructor for ArchiveWrappedException.
 	 */
 	public ArchiveWrappedException() {

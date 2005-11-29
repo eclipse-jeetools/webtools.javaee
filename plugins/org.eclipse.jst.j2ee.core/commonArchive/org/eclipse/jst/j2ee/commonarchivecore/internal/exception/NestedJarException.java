@@ -17,6 +17,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class NestedJarException extends ArchiveRuntimeException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -559954723242646381L;
+
 	public NestedJarException() {
 		super();
 	}

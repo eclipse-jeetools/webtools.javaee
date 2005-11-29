@@ -18,6 +18,10 @@ import org.eclipse.jem.java.JavaClass;
  * or when expected input (e.g. the remote interface) is null.
  */
 public class InvalidInputException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7811046448684869845L;
 	private JavaClass _class = null;
 	
 	/**

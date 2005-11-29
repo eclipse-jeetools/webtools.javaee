@@ -20,6 +20,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
  */
 public class UncontainedModuleFileException extends ArchiveRuntimeException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7311775746549718190L;
+
+	/**
 	 * UncontainedModuleException constructor comment.
 	 */
 	public UncontainedModuleFileException() {

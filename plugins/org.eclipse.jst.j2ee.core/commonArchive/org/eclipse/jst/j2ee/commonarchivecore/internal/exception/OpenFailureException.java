@@ -18,6 +18,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.exception;
  */
 public class OpenFailureException extends ArchiveWrappedException {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1786924156051091340L;
+
+	/**
 	 * OpenFailureException constructor comment.
 	 */
 	public OpenFailureException() {
