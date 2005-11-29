@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.internal.actions;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -26,9 +27,9 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
 import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @author cbridgha
@@ -100,7 +101,7 @@ public class J2EEDeployAction extends BaseAction {
 			for (int i = 0; i < modules.size(); i++) {
 				EObject module = (EObject) modules.get(i);
 				IProject proj = ProjectUtilities.getProject(module);
-				IRuntime runtime = ServerCore.getProjectProperties(proj).getRuntimeTarget();
+				IRuntime runtime = J2EEProjectUtilities.getServerRuntime(proj);
 				if (proj == null || runtime == null)
 					return false;
 				List visitors = reg.getDeployModuleExtensions(module, runtime);
@@ -108,7 +109,7 @@ public class J2EEDeployAction extends BaseAction {
 					return true;
 			}
 			return false;
-		} catch (RuntimeException e) {
+		} catch (CoreException e) {
 			System.out.println("Deploy Action recovering from problem verifying enablement."); //$NON-NLS-1$
 			e.printStackTrace();
 		}

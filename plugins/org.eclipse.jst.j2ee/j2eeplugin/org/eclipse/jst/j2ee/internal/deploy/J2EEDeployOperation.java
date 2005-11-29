@@ -31,12 +31,12 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.internal.emf.utilities.CommandContext;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @author cbridgha
@@ -81,7 +81,13 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 
 			EObject module = (EObject) modules.get(i);
 			IProject proj = ProjectUtilities.getProject(module);
-			IRuntime runtime = ServerCore.getProjectProperties(proj).getRuntimeTarget();
+			IRuntime runtime = null;
+			try {
+				runtime = J2EEProjectUtilities.getServerRuntime(proj);
+			}
+			catch (CoreException e) {
+				J2EEPlugin.getDefault().getLog().log(e.getStatus());
+			}
 			if (runtime == null)
 				continue;
 			List visitors = reg.getDeployModuleExtensions(module, runtime);

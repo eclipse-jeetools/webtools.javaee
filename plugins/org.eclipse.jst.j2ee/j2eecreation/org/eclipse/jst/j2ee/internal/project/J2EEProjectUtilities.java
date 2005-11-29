@@ -63,6 +63,7 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationOperation;
+import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -74,6 +75,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.server.core.IRuntime;
 
 
 
@@ -609,6 +611,18 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	private boolean isJ2EEModuleProject(IProject project) {
 		  return J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
 		  || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isJCAProject(project);
+	}
+
+	public static IRuntime getServerRuntime(IProject project) throws CoreException {
+		if (project == null)
+			return null;
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		if (facetedProject == null)
+			return null;
+		org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = facetedProject.getRuntime();
+		if (runtime == null)
+			return null;
+		return FacetUtil.getRuntime(runtime);
 	}
 
 	public static String getJ2EEProjectVersion(IProject project) {
