@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.project;
 import org.eclipse.osgi.util.NLS;
 
 public class ProjectSupportResourceHandler extends NLS {
-	private static final String BUNDLE_NAME = "webserviceui";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "projectsupport";//$NON-NLS-1$
 
 	private ProjectSupportResourceHandler() {
 		// Do not instantiate
