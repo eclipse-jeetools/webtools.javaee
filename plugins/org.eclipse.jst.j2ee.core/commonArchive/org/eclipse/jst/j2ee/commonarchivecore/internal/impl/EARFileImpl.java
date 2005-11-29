@@ -46,7 +46,6 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.SecurityRole;
-import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
@@ -79,6 +78,7 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.internal.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory;
+import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 
 
@@ -742,7 +742,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 
 		if (factory != null) {
 			ResourceSet set = getResourceSet();
-			((J2EEResourceFactoryRegistry) set.getResourceFactoryRegistry()).registerLastFileSegment(aUri, factory);
+			((FileNameResourceFactoryRegistry) set.getResourceFactoryRegistry()).registerLastFileSegment(aUri, factory);
 		}
 	}
 
