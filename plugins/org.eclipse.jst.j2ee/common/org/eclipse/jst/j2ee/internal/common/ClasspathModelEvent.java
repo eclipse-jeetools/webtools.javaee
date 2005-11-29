@@ -17,6 +17,7 @@ public class ClasspathModelEvent extends Object {
 	public static final int CLASS_PATH_RESET = 4;
 	public static final int MAIN_CLASS_CHANGED = 5;
 	public static final int MODEL_SAVED = 6;
+	public static final int IMPL_VERSION_CHANGED = 7;
 
 	/**
 	 * Constructor for ClasspathModelEvent.

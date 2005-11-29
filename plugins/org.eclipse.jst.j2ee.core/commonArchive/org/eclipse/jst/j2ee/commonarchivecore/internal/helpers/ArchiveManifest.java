@@ -77,6 +77,12 @@ public interface ArchiveManifest {
 	 * required for the manifest to save correctly
 	 */
 	public String getManifestVersion();
+	
+	/**
+	 * Return the value iff the entry exists in a case-sensitive manner; implementation version is
+	 * optional in  the manifest
+	 * */
+	public String getImplementationVersion();
 
 	/**
 	 * Add all the entries not already contained in the class path of this manifest
@@ -97,6 +103,8 @@ public interface ArchiveManifest {
 	public void setMainClass(String className);
 
 	public void setManifestVersion(java.lang.String version);
+	
+	public void setImplemenationVersion(java.lang.String version);
 
 	/**
 	 * @see java.util.jar.Manifest#write

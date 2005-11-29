@@ -344,6 +344,15 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		archive.getManifest().setMainClass(mainClass);
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MAIN_CLASS_CHANGED));
 	}
+	
+	/**
+	 * Updates the manifest Main-Class:, and sends out a notification of type
+	 * {@link ClasspathModelEvent#MAIN_CLASS_CHANGED}
+	 */
+	public void updateImplVersion(String implVersion) {
+		archive.getManifest().setImplemenationVersion(implVersion);
+		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.IMPL_VERSION_CHANGED));
+	}
 
 	public void fireSavedEvent() {
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MODEL_SAVED));

@@ -319,5 +319,14 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements org.e
 		return;
 	}
 
+	public String getImplementationVersion() {
+		return getMainAttributes().getValue(Attributes.Name.IMPLEMENTATION_VERSION);
+	}
+
+	public void setImplemenationVersion(String version) {
+		Attributes attributes = getMainAttributes();
+		attributes.putValue(Attributes.Name.IMPLEMENTATION_VERSION.toString(), version);
+	}
+
 
 }
