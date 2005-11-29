@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -82,14 +83,24 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 	 * @return a possibly-empty array of resource folders
 	 */
 	public IContainer[] getResourceFolders() {
+		List result = new ArrayList();
 		IVirtualComponent vc = ComponentCore.createComponent(getProject());
 		if (vc != null) {
 			IVirtualFolder vFolder = vc.getRootFolder();
-			if (vFolder != null)
-				return vFolder.getUnderlyingFolders();
+			if (vFolder != null) {
+				IContainer[] underlyingFolders = vFolder.getUnderlyingFolders();
+				result.addAll(Arrays.asList(underlyingFolders));
+				IPackageFragmentRoot[] srcRoots = J2EEProjectUtilities.getSourceContainers(getProject());
+				try {
+					for (int i=0; i<srcRoots.length; i++) {
+						IContainer srcContainer = (IContainer) srcRoots[i].getCorrespondingResource();
+						result.remove(srcContainer);
+					}
+				} catch (Exception e) {}
+			}
 		}
 		
-		return null;
+		return (IContainer[]) result.toArray(new IContainer[result.size()]);
 	}
 
 	/**
@@ -191,11 +202,8 @@ public class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule
 				list.add(mf);
 			} else {
 				IFile f = (IFile) res[j];
-				//TODO this needs to be cleaned up when virtual API points to output folders instead of source folders.
-				if (!f.getName().endsWith(".java")) { //$NON-NLS-1$
-					ModuleFile mf = new ModuleFile(f, f.getName(), path, f.getModificationStamp());
-					list.add(mf);
-				}
+				ModuleFile mf = new ModuleFile(f, f.getName(), path, f.getModificationStamp());
+				list.add(mf);
 			}
 		}
 		IModuleResource[] mr = new IModuleResource[list.size()];

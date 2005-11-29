@@ -652,8 +652,10 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	 * @return the array of IPackageFragmentRoots
 	 */
 	public static IPackageFragmentRoot[] getSourceContainers(IProject project) {
+		IJavaProject jProject = JemProjectUtilities.getJavaProject(project);
+		if (jProject == null)
+			return new IPackageFragmentRoot[0];
 		List list = new ArrayList();
-		IJavaProject jProject = JavaCore.create(project);
 		IVirtualComponent vc = ComponentCore.createComponent(project);
 		IPackageFragmentRoot[] roots;
 		try {
