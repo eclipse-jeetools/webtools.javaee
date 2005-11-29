@@ -18,8 +18,14 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
@@ -40,32 +46,60 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
         try {
             IDataModel model = getDataModel();
             if (model.getBooleanProperty(CREATE_EJB)) {
-                IDataModel ejbModel = model.getNestedModel(NESTED_MODEL_EJB);
-                ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(EJB_COMPONENT_NAME));
-                ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(EJB_COMPONENT_NAME));
-                ejbModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
-                createEJBComponent(ejbModel, monitor);
+                IDataModel projectModel = model.getNestedModel(NESTED_MODEL_EJB);
+                
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(EJB_COMPONENT_NAME));
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, model.getProperty(FACET_RUNTIME));
+                
+                FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                IDataModel ejbModel = map.getFacetDataModel(J2EEProjectUtilities.EJB );
+                int nVer = model.getIntProperty(J2EE_VERSION);
+                ejbModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, J2EEVersionUtil.getEJBTextVersion(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(nVer)));
+                ejbModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+                
+                createEJBComponent(projectModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_WEB)) {
-                IDataModel webModel = model.getNestedModel(NESTED_MODEL_WEB);
-                webModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(WEB_COMPONENT_NAME));
-                webModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(WEB_COMPONENT_NAME));
-                webModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
-                createWebJ2EEComponent(webModel, monitor);
+                IDataModel projectModel = model.getNestedModel(NESTED_MODEL_WEB);
+                
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(WEB_COMPONENT_NAME));
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, model.getProperty(FACET_RUNTIME));
+                
+                FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                IDataModel webtModel = map.getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB );
+                int nVer = model.getIntProperty(J2EE_VERSION);
+                webtModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, J2EEVersionUtil.getServletTextVersion(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(nVer)));
+                webtModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+                
+                createWebJ2EEComponent(projectModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_CONNECTOR)) {
-                IDataModel conModel = model.getNestedModel(NESTED_MODEL_JCA);
-                conModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(CONNECTOR_COMPONENT_NAME));
-                conModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(CONNECTOR_COMPONENT_NAME));
-                conModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
-                createRarJ2EEComponent(conModel, monitor);
+                IDataModel projectModel = model.getNestedModel(NESTED_MODEL_JCA);
+
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(CONNECTOR_COMPONENT_NAME));
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, model.getProperty(FACET_RUNTIME));
+                
+                FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                IDataModel conModel = map.getFacetDataModel(J2EEProjectUtilities.JCA );
+                int nVer = model.getIntProperty(J2EE_VERSION);
+                conModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, J2EEVersionUtil.getJCATextVersion(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(nVer)));
+                conModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+                
+                createRarJ2EEComponent(projectModel, monitor);
             }
             if (model.getBooleanProperty(CREATE_APPCLIENT)) {
-                IDataModel clientModel = model.getNestedModel(NESTED_MODEL_CLIENT);
-                clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, model.getStringProperty(APPCLIENT_COMPONENT_NAME));
-                clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME, model.getStringProperty(APPCLIENT_COMPONENT_NAME));
-                clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR, Boolean.FALSE);
-                createAppClientComponent(clientModel, monitor);
+                IDataModel projectModel = model.getNestedModel(NESTED_MODEL_CLIENT);
+                
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(APPCLIENT_COMPONENT_NAME));
+                projectModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, model.getProperty(FACET_RUNTIME));
+                
+                FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+                IDataModel clientModel = map.getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+                int nVer = model.getIntProperty(J2EE_VERSION);
+                clientModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, J2EEVersionUtil.getJ2EETextVersion(nVer));
+                clientModel.setBooleanProperty(IAppClientFacetInstallDataModelProperties.ADD_TO_EAR, false);
+
+                createAppClientComponent(projectModel, monitor);
             }
         } catch (Exception e) {
             Logger.getLogger().log(e.getMessage());

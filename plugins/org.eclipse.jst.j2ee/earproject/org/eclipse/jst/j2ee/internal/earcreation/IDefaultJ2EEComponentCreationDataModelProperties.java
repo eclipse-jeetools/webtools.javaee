@@ -69,5 +69,7 @@ public interface IDefaultJ2EEComponentCreationDataModelProperties {
     public static final String NESTED_MODEL_WEB = "DefaultJ2EEComponentCreationDataModel.NESTED_MODEL_WEB"; //$NON-NLS-1$
     public static final String NESTED_MODEL_JCA = "DefaultJ2EEComponentCreationDataModel.NESTED_MODEL_JCA"; //$NON-NLS-1$
     public static final String NESTED_MODEL_CLIENT = "DefaultJ2EEComponentCreationDataModel.NESTED_MODEL_CLIENT"; //$NON-NLS-1$
+    
+    public static final String FACET_RUNTIME = "DefaultJ2EEComponentCreationDataModel.FACET_RUNTIME";//$NON-NLS-1$
 
 }

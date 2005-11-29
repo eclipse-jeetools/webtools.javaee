@@ -45,10 +45,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetInstallPage;
 
 /**
@@ -257,10 +258,9 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
     }
     private void collectComponents(IDataModel compDM, List newProjects) {
         if (compDM != null) {
-            String projectName = compDM.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
+        	String projectName = compDM.getStringProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
             if(projectName == null) return;
             IProject project = ProjectUtilities.getProject(projectName);
-            String compName = compDM.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
             if (project != null && project.exists())
                 newProjects.add(project);
         }
@@ -277,6 +277,10 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 		// ear j2ee version
 		int j2eeVersion = getJ2EEVersion();
 		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.J2EE_VERSION, new Integer(j2eeVersion));
+		
+		IRuntime rt = (IRuntime) model.getProperty(FACET_RUNTIME);
+		defaultModel.setProperty(IDefaultJ2EEComponentCreationDataModelProperties.FACET_RUNTIME, rt);
+		
 		return defaultModel;
 	}
 

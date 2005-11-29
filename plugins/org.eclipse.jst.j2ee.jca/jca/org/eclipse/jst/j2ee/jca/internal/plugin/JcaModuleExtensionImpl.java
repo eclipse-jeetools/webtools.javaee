@@ -14,10 +14,11 @@
  */
 package org.eclipse.jst.j2ee.jca.internal.plugin;
 
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModelProvider;
+
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
+import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -58,7 +59,7 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
 	public IDataModel createProjectDataModel() {
-		return DataModelFactory.createDataModel(new ConnectorComponentCreationDataModelProvider());
+		return DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());
 	}
 
 	/*

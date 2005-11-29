@@ -18,7 +18,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -76,6 +77,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		propertyNames.add(NESTED_MODEL_EJB);
 		propertyNames.add(NESTED_MODEL_JCA);
 		propertyNames.add(NESTED_MODEL_WEB);
+		propertyNames.add(FACET_RUNTIME);
 		return propertyNames;
 	}
 
@@ -90,7 +92,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	}
 
 	protected void initNestedCreationModels() {
-		clientModel = DataModelFactory.createDataModel(new AppClientComponentCreationDataModelProvider());
+		clientModel = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
 		model.addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
@@ -190,7 +192,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	}
 
 	private void updatedJ2EEVersion(Integer version) {
-		setNestedJ2EEVersion(version);
+		//setNestedJ2EEVersion(version);
 		if (version.intValue() < J2EEVersionConstants.J2EE_1_3_ID && model.isPropertySet(CREATE_CONNECTOR)) {
 			model.setProperty(CREATE_CONNECTOR, Boolean.FALSE);
 		}
@@ -288,7 +290,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		IDataModel modModule = getNestedModel(flag);
 		if (modModule != null) {
 			String compName = ensureUniqueProjectName(name);
-			modModule.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, compName);
+			modModule.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, compName);
 		}
 	}
 
