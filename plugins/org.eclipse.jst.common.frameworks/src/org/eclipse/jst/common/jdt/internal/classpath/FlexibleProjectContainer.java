@@ -31,7 +31,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -50,16 +49,9 @@ public abstract class FlexibleProjectContainer
 {
     protected static final class PathType
     {
-//        private final String type;
-        
-        private PathType( final String type )
-        {
-//           this.type = type;
-        }
-        
         public static final PathType 
-            LIB_DIRECTORY = new PathType( "lib" ), //$NON-NLS-1$
-            CLASSES_DIRECTORY = new PathType( "classes" ); //$NON-NLS-1$
+            LIB_DIRECTORY = new PathType(),
+            CLASSES_DIRECTORY = new PathType();
     }
     
     private static IWorkspace workspace;
@@ -113,17 +105,12 @@ public abstract class FlexibleProjectContainer
             return;
         }
               
-    //    final String cid = this.path.toString(); 
-            
-        
         final IVirtualComponent vc = ComponentCore.createComponent(this.project);
         
         for( int i = 0; i < paths.length; i++ )
         {
-            //final IVirtualFolder vf = vc.getFolder( paths[ i ] );			
-			IVirtualFolder rootFolder = vc.getRootFolder();
+			final IVirtualFolder rootFolder = vc.getRootFolder();
 			final IVirtualFolder vf = rootFolder.getFolder( paths[ i ] );
-
             
             if( types[ i ] == PathType.LIB_DIRECTORY )
             {
@@ -175,7 +162,7 @@ public abstract class FlexibleProjectContainer
             }
         }
         
-        w.add( this.project.getFullPath().append( IModuleConstants.COMPONENT_FILE_PATH ) ); //$NON-NLS-1$
+        w.add( this.project.getFullPath().append( IModuleConstants.COMPONENT_FILE_PATH ) );
             
         this.cpentries = new IClasspathEntry[ cp.size() ];
         cp.toArray( this.cpentries );
@@ -243,36 +230,38 @@ public abstract class FlexibleProjectContainer
     
     private boolean isSourceDirectory( final IPath aPath )
     {
-        try
+        if( isJavaProject( this.project ) )
         {
-            final IJavaProject jproject = JavaCore.create( this.project );
-            final IClasspathEntry[] cp = jproject.getRawClasspath();
-            
-            for( int i = 0; i < cp.length; i++ )
+            try
             {
-                final IClasspathEntry cpe = cp[ i ];
-                
-                if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE &&
-                    cpe.getPath().equals( aPath ) )
-                {
-                    return true;
-                }
+                final IJavaProject jproject = JavaCore.create( this.project );
+	            final IClasspathEntry[] cp = jproject.getRawClasspath();
+	            
+	            for( int i = 0; i < cp.length; i++ )
+	            {
+	                final IClasspathEntry cpe = cp[ i ];
+	                
+	                if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE &&
+	                    cpe.getPath().equals( aPath ) )
+	                {
+	                    return true;
+	                }
+	            }
             }
-         
-            return false;
+            catch( JavaModelException e )
+            {
+                CommonFrameworksPlugin.log( e );
+            }
         }
-        catch( JavaModelException e )
-        {
-            CommonFrameworksPlugin.log( e );
-            return false;
-        }
+    
+        return false;    
     }
     
     private static boolean isJavaProject( final IProject pj )
     {
         try
         {
-            return pj.getNature(JemProjectUtilities.JEM_EMF_NatureID) != null;
+            return pj.getNature( JavaCore.NATURE_ID ) != null;
         }
         catch( CoreException e )
         {
@@ -284,10 +273,7 @@ public abstract class FlexibleProjectContainer
     {
         try
         {
-            final String nature 
-                = "org.eclipse.wst.common.modulecore.ModuleCoreNature"; //$NON-NLS-1$
-            
-            return pj.getNature( nature ) != null;
+            return pj.getNature( IModuleConstants.MODULE_NATURE_ID ) != null;
         }
         catch( CoreException e )
         {
