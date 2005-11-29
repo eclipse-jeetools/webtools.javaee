@@ -20,8 +20,8 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
@@ -128,15 +128,18 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
 	public IDataModel createProjectDataModel() {
-		IDataModel model = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
+		//IDataModel model = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
 
 		// Added this property so Application Creation Wizard, will not create a
 		// EJB client jar, when a EJB module is created.
-		model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, Boolean.FALSE);
+		//model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, Boolean.FALSE);
 
 		// Override the default to not create a default session bean.
 		// This is necessary when creating a default EJB project from an EAR project wizard.
-		model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
+		//model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
+		
+		
+		IDataModel model = DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
 		return model;
 	}
 
