@@ -3,6 +3,8 @@
 	name="org.eclipse.jst.common.frameworks">
 	<component-depends unrestricted="true"></component-depends>
 	<plugin id="org.eclipse.jst.common.frameworks" fragment="false" />
+	<plugin id="org.eclipse.jst.common.frameworks.ui" fragment="false" />
+	<plugin id="org.eclipse.jst.common.launcher.ant" fragment="false" />
 	<plugin id="org.eclipse.jst.common.navigator.java" fragment="false" />
 	<plugin id="org.eclipse.jst.common.annotations.controller"
 		fragment="false" />
