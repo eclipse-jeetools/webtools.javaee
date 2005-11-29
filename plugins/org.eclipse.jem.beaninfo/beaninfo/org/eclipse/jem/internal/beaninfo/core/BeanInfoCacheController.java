@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.16 $  $Date: 2005/09/13 20:30:46 $ 
+ *  $Revision: 1.17 $  $Date: 2005/11/29 15:13:59 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -948,7 +948,7 @@ public class BeanInfoCacheController {
 					} else {
 						String[] interNames = new String[supers.size()-1];
 						long[] interMods = new long[interNames.length];
-						for (int i = 1, indx = 0; i < interNames.length; i++, indx++) {
+						for (int i = 1, indx = 0; indx < interNames.length; i++, indx++) {
 							JavaClass javaClass = (JavaClass) supers.get(i);
 							bca = BeaninfoClassAdapter.getBeaninfoClassAdapter(javaClass);
 							bca.introspectIfNecessary();	// Force introspection to get a valid super mod stamp.
