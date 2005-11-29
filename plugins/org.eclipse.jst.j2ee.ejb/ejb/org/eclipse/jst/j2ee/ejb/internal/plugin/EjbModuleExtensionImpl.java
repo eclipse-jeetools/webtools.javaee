@@ -20,14 +20,14 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
-import org.eclipse.jst.j2ee.project.facet.EjbClientProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.project.facet.EjbClientProjectCreationOperation;
-import org.eclipse.jst.j2ee.project.facet.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -95,7 +95,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return clientComp.getProject();
 	}
 
-	public EjbClientProjectCreationOperation createEJBClientJARProject(
+	public IDataModelOperation createEJBClientJARProject(
 			final String clientProjectName,
 			final String srcFolderName,
 			final String ejbProjectName,
