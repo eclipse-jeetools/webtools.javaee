@@ -61,6 +61,8 @@ public interface ApplicationFactory extends EFactory{
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 *
+	 * @return EMF package class
 	 */
 	ApplicationPackage getApplicationPackage();
 

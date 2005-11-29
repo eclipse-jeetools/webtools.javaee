@@ -12,7 +12,15 @@ package org.eclipse.jst.j2ee.client;
 
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
+/**
+ * EMF Resource class the contrains App Client document
+ *	@since 1.0
+ */
 public interface ApplicationClientResource extends XMLResource {
+/**
+ * Returns the one contained object in this resource's collection of root objects
+ * @return ApplicationClient, the root object for the App Client document.
+ */
 public ApplicationClient getApplicationClient() ;
 }
 

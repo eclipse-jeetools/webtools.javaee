@@ -21,6 +21,10 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * @since 1.0 */
 public interface ApplicationClient extends CompatibilityDescriptionGroup{
 
+/**
+ * Returns the String name of the call back handler
+ * @return the class name of the callback handler
+ */
 public String getCallbackHandlerClassName();
 /**
  * Return boolean indicating if this Application Client was populated from an Application Client 1.2 compliant descriptor
@@ -35,9 +39,16 @@ public boolean isVersion1_2Descriptor();
  */
 public boolean isVersion1_3Descriptor();
 /**
+ * Return boolean indicating if this Application client was populated from an Application Client 1.4 compliant descriptor
+ * @return boolean
  * @deprecated Use getVersionID() to determine module level
  * */
 public boolean isVersion1_4Descriptor();
+/**
+ * The class must have a no args constructor 
+ * and must implement the javax.security.auth.callback.CallbackHandler interface.
+ * @param callbackHandlerClassName the name of the class of the CallbackHandler reference
+ */
 public void setCallbackHandlerClassName(String callbackHandlerClassName);
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
@@ -79,10 +90,15 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 
 	/**
 	 This returns the module version id. Compare with J2EEVersionConstants to determine module level
+	 *
+	 * @return the int representing the app client module version
+	 * @throws IllegalStateException - when EMF resource is not loaded
 	 */
 	public int getVersionID() throws IllegalStateException ;
 	/**
 	 *This returns the j2ee version id. Compare with J2EEVersionConstants to determine j2ee level
+	 * @return the int representing the J2EE spec version.
+	 * @throws IllegalStateException - when EMF resource is not loaded
 	 */
 	public int getJ2EEVersionID() throws IllegalStateException ;
 
@@ -137,7 +153,7 @@ public void setCallbackHandlerClassName(String callbackHandlerClassName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the CallbackHandler reference
+	 * @param value The new value of the CallbackHandler reference
 	 */
 	void setCallbackHandler(JavaClass value);
 
