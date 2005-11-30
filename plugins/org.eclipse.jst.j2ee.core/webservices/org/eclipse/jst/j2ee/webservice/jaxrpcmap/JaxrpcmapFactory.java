@@ -230,7 +230,9 @@ public interface JaxrpcmapFactory extends EFactory{
 	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * This method is NOT api, and may change in future releases.  
+	 * EMF package classes should be access via their "eINSTANCE" static fields
+	 * <!-- end-user-doc -->
 	 * @return the package supported by this factory.
 	 * @generated
 	 */

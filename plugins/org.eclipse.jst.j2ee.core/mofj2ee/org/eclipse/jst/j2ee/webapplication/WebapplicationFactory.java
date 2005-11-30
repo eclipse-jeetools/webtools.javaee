@@ -201,6 +201,10 @@ public interface WebapplicationFactory extends EFactory{
 	RoleNameType createRoleNameType();
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * This method is NOT api, and may change in future releases.  
+	 * EMF package classes should be access via their "eINSTANCE" static fields
+	 * <!-- end-user-doc -->
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	WebapplicationPackage getWebapplicationPackage();

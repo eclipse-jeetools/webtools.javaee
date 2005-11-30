@@ -13,11 +13,67 @@
 		<type name="WebServicesClient"  implement="false" subclass="false" instantiate="false"/>
     	<type name="WebServicesResource"  implement="false" subclass="false" instantiate="false"/>
 	</package>
-	<package name="org.eclipse.jst.j2ee.application"></package>
+	<package name="org.eclipse.jst.j2ee.application" api="false" >
+		<type name="Application"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="ApplicationFactory"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ApplicationResource"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ConnectorModule"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="EjbModule"  implement="false" subclass="false" instantiate="false"/>
+		<type name="JavaClientModule"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="Module"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="WebModule"  implement="false" subclass="false" instantiate="false"/>
+	</package>
 	<package name="org.eclipse.jst.j2ee.webservice.wsdd"></package>
-	<package name="org.eclipse.jst.j2ee.jsp"></package>
-	<package name="org.eclipse.jst.j2ee.client"></package>
-	<package name="org.eclipse.jst.j2ee.webapplication"></package>
+	<package name="org.eclipse.jst.j2ee.jsp" api="false" >
+		<type name="JSPConfig"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="JspFactory"  implement="false" subclass="false" instantiate="false"/>
+		<type name="JSPPropertyGroup"  implement="false" subclass="false" instantiate="false"/>
+		<type name="TagLibRefType"  implement="false" subclass="false" instantiate="false"/>		
+	</package>
+	<package name="org.eclipse.jst.j2ee.client" api="false" >
+		<type name="ApplicationClient"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="ApplicationClientResource"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ClientFactory"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ResAuthApplicationType"  implement="false" subclass="false" instantiate="false"/>		
+	</package>
+	<package name="org.eclipse.jst.j2ee.webapplication" api="false">
+		<type name="AuthConstraint"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="AuthMethodKind"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ContextParam"  implement="false" subclass="false" instantiate="false"/>
+		<type name="DispatcherType"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="ErrorCodeErrorPage"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ErrorPage"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="ExceptionTypeErrorPage"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="Filter"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="FilterMapping"  implement="false" subclass="false" instantiate="false"/>
+		<type name="FormLoginConfig"  implement="false" subclass="false" instantiate="false"/>
+		<type name="HTTPMethodType"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="HTTPMethodTypeEnum"  implement="false" subclass="false" instantiate="false"/>
+		<type name="InitParam"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="JSPType"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="LocalEncodingMapping"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="LocalEncodingMappingList"  implement="false" subclass="false" instantiate="false"/>
+		<type name="LoginConfig"  implement="false" subclass="false" instantiate="false"/>
+		<type name="MimeMapping"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="ResAuthServletType"  implement="false" subclass="false" instantiate="false"/>
+		<type name="RoleNameType"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="SecurityConstraint"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="Servlet"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="ServletMapping"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="ServletType"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="SessionConfig"  implement="false" subclass="false" instantiate="false"/>
+		<type name="TagLibRef"  implement="false" subclass="false" instantiate="false"/>
+		<type name="TransportGuaranteeType"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="URLPatternType"  implement="false" subclass="false" instantiate="false"/>
+		<type name="UserDataConstraint"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="WebApp"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="WebapplicationFactory"  implement="false" subclass="false" instantiate="false"/>
+		<type name="WebAppResource"  implement="false" subclass="false" instantiate="false"/>
+		<type name="WebResourceCollection"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="WebType"  implement="false" subclass="false" instantiate="false"/>
+		<type name="WelcomeFile"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="WelcomeFileList"  implement="false" subclass="false" instantiate="false"/>
+	</package>
 	<package name="org.eclipse.jst.j2ee.webservice"></package>
 	<package name="org.eclipse.jst.j2ee.common" api="false">
 		<type name="CommonFactory"  implement="false" subclass="false" instantiate="false"/>	
@@ -53,7 +109,26 @@
 	</package>
 	<package name="org.eclipse.jst.j2ee.webservice.jaxrpcmap"></package>
 	<package name="org.eclipse.jst.j2ee.webservice.wscommon"></package>
-	<package name="org.eclipse.jst.j2ee.jca"></package>
+	<package name="org.eclipse.jst.j2ee.jca" api="false" >
+		<type name="ActivationSpec"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="AdminObject"  implement="false" subclass="false" instantiate="false"/>
+		<type name="AuthenticationMechanism"  implement="false" subclass="false" instantiate="false"/>
+		<type name="AuthenticationMechanismType"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="ConfigProperty"  implement="false" subclass="false" instantiate="false"/>
+		<type name="ConnectionDefinition"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="Connector"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="ConnectorResource"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="InboundResourceAdapter"  implement="false" subclass="false" instantiate="false"/>	
+		<type name="JcaFactory"  implement="false" subclass="false" instantiate="false"/>
+		<type name="License"  implement="false" subclass="false" instantiate="false"/>
+		<type name="MessageAdapter"  implement="false" subclass="false" instantiate="false"/>		
+		<type name="MessageListener"  implement="false" subclass="false" instantiate="false"/>
+		<type name="OutboundResourceAdapter"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="RequiredConfigPropertyType"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="ResourceAdapter"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="SecurityPermission"  implement="false" subclass="false" instantiate="false"/>
+    	<type name="TransactionSupportKind"  implement="false" subclass="false" instantiate="false"/>
+	</package>
 	<package name="org.eclipse.jst.j2ee.ejb" api="false">
 		<type name="AcknowledgeMode"  implement="false" subclass="false" instantiate="false"/>	
 		<type name="ActivationConfig"  implement="false" subclass="false" instantiate="false"/>
