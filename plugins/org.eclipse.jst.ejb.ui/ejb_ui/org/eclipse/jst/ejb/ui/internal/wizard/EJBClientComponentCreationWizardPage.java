@@ -13,8 +13,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.NewModuleGroup;
 import org.eclipse.swt.SWT;
@@ -29,7 +29,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
-public class EJBClientComponentCreationWizardPage extends DataModelWizardPage implements IEJBClientComponentCreationDataModelProperties{
+public class EJBClientComponentCreationWizardPage extends DataModelWizardPage implements IEjbClientProjectCreationDataModelProperties{
 	public NewModuleGroup newModuleGroup = null;
 	protected EJBJar selProject = null;
 	private Label selectedProjectLabel;
@@ -64,22 +64,17 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 
 
     
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
-	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		
 		Composite top = new Composite(parent, SWT.NONE);
 	    top.setLayout(new GridLayout());
 	    top.setData(new GridData(GridData.FILL_BOTH));
 		
-
+	
 		Composite composite = new Composite(top, SWT.NONE);
 		GridLayout layout = new GridLayout( 3, false );
 		composite.setLayout(layout);
-
+	
 		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P2);
 		
 		createProjectNameGroup(composite);
@@ -101,7 +96,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
         data.widthHint = SIZING_TEXT_FIELD_WIDTH;
         moduleNameText.setLayoutData(data);
         new Label(parent, SWT.NONE); // pad
-        synchHelper.synchText(moduleNameText, COMPONENT_NAME, new Control[]{projectNameLabel});
+        synchHelper.synchText(moduleNameText, PROJECT_NAME, new Control[]{projectNameLabel});
         moduleNameText.setFocus();
     }
     
@@ -117,22 +112,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
         selectedProjectName.setLayoutData(data);
         new Label(parent, SWT.NONE); // pad
 		selectedProjectName.setEditable(false);
-		synchHelper.synchText(selectedProjectName, EJB_COMPONENT_NAME, new Control[]{selectedProjectLabel});
-    }
-    
-    private void createClientJarURISection(Composite parent) {
-        // set up project name label
-    	clientJarURILabel = new Label(parent, SWT.NONE);
-    	clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " ");
-        GridData data = new GridData();
-        clientJarURILabel.setLayoutData(data);
-
-        clientJarURI = new Text(parent, SWT.BORDER);
-        data = new GridData(GridData.FILL_HORIZONTAL);
-        data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-        clientJarURI.setLayoutData(data);
-        new Label(parent, SWT.NONE); // pad
-		synchHelper.synchText(clientJarURI, CLIENT_COMPONENT_URI, new Control[]{clientJarURILabel});
+		synchHelper.synchText(selectedProjectName, EJB_PROJECT_NAME, new Control[]{selectedProjectLabel});
     }
    
 
@@ -167,7 +147,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EJB_COMPONENT_NAME, CLIENT_COMPONENT_URI };
+		return new String[]{EJB_PROJECT_NAME, CLIENT_URI };
 	}
 
 	/*
@@ -190,5 +170,20 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 		super.enter();
 //		if (newModuleGroup!=null)
 //			newModuleGroup.initializeProjectList();
+	}
+
+	private void createClientJarURISection(Composite parent) {
+	    // set up project name label
+		clientJarURILabel = new Label(parent, SWT.NONE);
+		clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " ");
+	    GridData data = new GridData();
+	    clientJarURILabel.setLayoutData(data);
+	
+	    clientJarURI = new Text(parent, SWT.BORDER);
+	    data = new GridData(GridData.FILL_HORIZONTAL);
+	    data.widthHint = SIZING_TEXT_FIELD_WIDTH;
+	    clientJarURI.setLayoutData(data);
+	    new Label(parent, SWT.NONE); // pad
+		synchHelper.synchText(clientJarURI, CLIENT_URI, new Control[]{clientJarURILabel});
 	}
 }
