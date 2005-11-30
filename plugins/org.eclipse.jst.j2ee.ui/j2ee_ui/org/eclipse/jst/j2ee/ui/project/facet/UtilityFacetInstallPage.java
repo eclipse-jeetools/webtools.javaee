@@ -43,7 +43,7 @@ public final class UtilityFacetInstallPage extends J2EEModuleFacetInstallPage {
 	protected Composite createTopLevelComposite(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
-		setupEarControl(composite);
+		//setupEarControl(composite);
 		return composite;
 	}
 }

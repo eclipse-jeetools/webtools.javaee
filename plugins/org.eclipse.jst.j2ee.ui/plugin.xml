@@ -918,11 +918,11 @@
      
     <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
 
-    <wizard-pages facet="jst.utility" version="1.0">
+    <!-- <wizard-pages facet="jst.utility" version="1.0">
       <install>
         <page class="org.eclipse.jst.j2ee.ui.project.facet.UtilityFacetInstallPage"/>
       </install>
-    </wizard-pages>
+    </wizard-pages> -->
 
     <wizard-pages facet="jst.ear" version="1.2">
       <install>

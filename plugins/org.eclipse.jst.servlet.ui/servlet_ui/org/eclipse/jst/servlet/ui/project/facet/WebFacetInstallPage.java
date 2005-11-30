@@ -42,7 +42,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
-		setupEarControl(composite);
+		//setupEarControl(composite);
 
 		this.contextRootLabel = new Label(composite, SWT.NONE);
 		this.contextRootLabel.setText(Resources.contextRootLabel);

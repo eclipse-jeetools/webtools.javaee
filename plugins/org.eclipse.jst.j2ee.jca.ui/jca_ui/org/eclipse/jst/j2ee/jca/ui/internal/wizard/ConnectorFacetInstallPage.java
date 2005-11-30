@@ -30,7 +30,7 @@ public class ConnectorFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
-		setupEarControl(composite);
+		//setupEarControl(composite);
 		
 		configFolderLabel = new Label(composite, SWT.NONE);
 		configFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER));
