@@ -664,7 +664,7 @@
     </template>
     
     <template id="template.jst.utility">
-      <label>Utility Project</label>
+      <label>Java Utility Project</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.utility"/>
     </template>
