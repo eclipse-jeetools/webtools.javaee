@@ -6,7 +6,9 @@
          <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.provider" id="provider" name="provider"/>
       </appInfo>
       <documentation>
-         This extension point allows vendors and developers to provide their templates for annotation based code generation using the wtp framework.
+         This extension point allows vendors and developers to provide their templates for annotation based code generation using the wtp ejb code generation framework.
+
+THIS IS NOT AN API/PUBLIC EXTENSION POINT.  CLIENTS ARE NOT EXPECTED TO EXTEND IT.
       </documentation>
    </annotation>
 
@@ -14,7 +16,6 @@
       <complexType>
          <sequence>
             <element ref="emitter"/>
-            <element ref="provider"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -106,7 +107,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         Eclipse version 3.1 - In preparation for WebTools Platform project
+         R0.7
       </documentation>
    </annotation>
 
@@ -134,7 +135,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         ClasspathProviders registered using this extension point must implement com.objectlearn.j2ee.gmf.emitter.IEmitterClasspathPorvider  interface
+         THIS IS NOT AN API/PUBLIC EXTENSION POINT.  CLIENTS ARE NOT EXPECTED TO EXTEND IT.
       </documentation>
    </annotation>
 
@@ -143,7 +144,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         WTP comes with an XDoclet EJB emitter implementation
+         WTP org.eclipse.jst.j2ee.ejb.annotations.xdoclet plugin uses this extension point to provide XDoclet templates.
       </documentation>
    </annotation>
 
@@ -152,11 +153,13 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright (c) 2004 Eteration Bilisim A.S. and others.&lt;br&gt;
-All rights reserved. This program and the accompanying materials are made 
-available under the terms of the Eclipse Public License v1.0 which accompanies 
-this distribution, and is available at &lt;a
-href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+         Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+accompanying materials are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors: Eteration A.S. - initial API and implementation
+
       </documentation>
    </annotation>
 
