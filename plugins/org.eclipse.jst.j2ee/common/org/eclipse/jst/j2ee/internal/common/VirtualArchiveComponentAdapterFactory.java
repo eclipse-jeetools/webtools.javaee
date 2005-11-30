@@ -10,8 +10,7 @@ public class VirtualArchiveComponentAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == VirtualArchiveComponent.ADAPTER_TYPE ) {
 			VirtualArchiveComponent component = (VirtualArchiveComponent) adaptableObject;
-
-			IPath path = J2EEProjectUtilities.getResolvedPathForArchiveComponent(component.getProject().getName());
+			IPath path = J2EEProjectUtilities.getResolvedPathForArchiveComponent(component.getName());
 			return path;
 		}
 		return null;
