@@ -30,38 +30,7 @@ public final class Messages extends NLS {
 	public static String desc_xdoclet_version;
 	public static String label_global_pref;
 	public static String desc_global_pref;
-	public static String label_set_ejbdoclet_preference;
-	public static String desc_ejbdoclet_jboss;
-	public static String desc_ejbdoclet_jonas;
-	public static String desc_ejbdoclet_weblogic;
-	public static String desc_ejbdoclet_websphere;
-	public static String label_set_webdoclet_preference;
-	public static String desc_webdoclet_jboss;
-	public static String desc_webdoclet_jonas;
-	public static String desc_webdoclet_weblogic;
-	public static String desc_webdoclet_websphere;
-	public static String label_generate_local;
-	public static String label_generate_local_desc;
-	public static String label_generate_remote;
-	public static String label_generate_remote_desc;
-	public static String label_generate_util;
-	public static String label_generate_util_desc;
-	public static String label_generate_dataobject;
-	public static String label_generate_dataobject_desc;
-	public static String label_generate_dao;
-	public static String label_generate_dao_desc;
-	public static String label_generate_valueobject;
-	public static String label_generate_valueobject_desc;
-	public static String label_generate_entitypk;
-	public static String label_generate_entitypk_desc;
-	public static String label_generate_entitycmp;
-	public static String label_generate_entitycmp_desc;
-	public static String label_generate_entitybmp;
-	public static String label_generate_entitybmp_desc;
-	public static String label_generate_session;
-	public static String label_generate_session_desc;
-	public static String label_generate_mdb;
-	public static String label_generate_mdb_desc;
+	
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

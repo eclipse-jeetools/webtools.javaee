@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IMessageDrivenBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ISessionBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin;
@@ -34,7 +33,6 @@ import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EmitterUtilities;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuildUtility;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletExtensionUtil;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletRuntime;
@@ -109,11 +107,11 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 				
 			ejbBuilder.createType();
 			
-			IType bean = ejbBuilder.getCreatedType();
-			IResource javaFile = bean.getCorrespondingResource();
-			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
-			initializeBuilder(monitor, preferredAnnotation,javaFile, project);
-			XDocletBuildUtility.runNecessaryBuilders(monitor,project);
+//			IType bean = ejbBuilder.getCreatedType();
+//			IResource javaFile = bean.getCorrespondingResource();
+//			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
+//			initializeBuilder(monitor, preferredAnnotation,javaFile, project);
+//			XDocletBuildUtility.runNecessaryBuilders(monitor,project);
 		
 		
 	}
@@ -156,12 +154,11 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			ejbBuilder.setFields(fields);
 
 			ejbBuilder.createType();
-			IType bean = ejbBuilder.getCreatedType();
-			IResource javaFile = bean.getCorrespondingResource();
-			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
-
-			initializeBuilder(monitor, emitterConfiguration, javaFile, project);
-			XDocletBuildUtility.runNecessaryBuilders(monitor,project);
+//			IType bean = ejbBuilder.getCreatedType();
+//			IResource javaFile = bean.getCorrespondingResource();
+//			IProject project = (IProject) dataModel.getProperty(INewJavaClassDataModelProperties.PROJECT);
+//			initializeBuilder(monitor, emitterConfiguration, javaFile, project);
+//			XDocletBuildUtility.runNecessaryBuilders(monitor,project);
 
 		}
 

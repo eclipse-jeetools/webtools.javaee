@@ -6,7 +6,7 @@
          <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.xdoclet" id="webdocletTaskProvider" name="Task providers for webdoclet"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         Allows extenders to define tasks that can run during webdoclet processing.  The task must be supported by XDoclet.  Task properties editable by a dynamic UI generated from the extension point.
       </documentation>
    </annotation>
 
@@ -19,21 +19,21 @@
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
-                  a fully qualified identifier of the target extension point
+                  
                </documentation>
             </annotation>
          </attribute>
          <attribute name="id" type="string">
             <annotation>
                <documentation>
-                  an optional identifier of the extension instance
+                  
                </documentation>
             </annotation>
          </attribute>
          <attribute name="name" type="string">
             <annotation>
                <documentation>
-                  an optional name of the extension instance
+                  
                </documentation>
             </annotation>
          </attribute>
@@ -168,7 +168,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         R1.0
       </documentation>
    </annotation>
 
@@ -177,7 +177,62 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+           &lt;extension
+         id=&quot;org.eclipse.jst.j2ee.xdoclet.webdocletTaskProvider.deploymentdescriptor&quot;
+         name=&quot;%webdoclet.deploymentdesc&quot;
+         point=&quot;org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider&quot;&gt;
+      &lt;WebdocletTaskProvider
+            class=&quot;org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider&quot;
+            defaultSelection=&quot;true&quot;
+            description=&quot;%webdoclet.deploymentdesc.desc&quot;
+            id=&quot;org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider&quot;
+            name=&quot;DeploymentDescriptor&quot;/&gt;
+
+      &lt;TaskProperty
+            default=&quot;true&quot;
+            id=&quot;webdoclet.deploymentdescriptor.useIds&quot;
+            include=&quot;true&quot;
+            label=&quot;useIds&quot;
+            type=&quot;boolean&quot;
+            description=&quot;%webdoclet.deploymentdesc.useIds&quot; /&gt;
+      &lt;TaskProperty
+            default=&quot;${servlet.spec.version}&quot;
+            id=&quot;webdoclet.deploymentdescriptor.servletspec&quot;
+            include=&quot;true&quot;
+            label=&quot;servletspec&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.servletspec&quot; /&gt;
+     &lt;TaskProperty
+            default=&quot;XDoclet Generated Name&quot;
+            id=&quot;webdoclet.deploymentdescriptor.displayname&quot;
+            include=&quot;true&quot;
+            label=&quot;displayname&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.displayname&quot;/&gt;
+            
+      &lt;TaskProperty
+            default=&quot;false&quot;
+            id=&quot;webdoclet.deploymentdescriptor.validatexml&quot;
+            include=&quot;true&quot;
+            label=&quot;validatexml&quot;
+            type=&quot;boolean&quot;
+            description=&quot;%webdoclet.deploymentdesc.validatexml&quot;/&gt;
+
+      &lt;TaskProperty
+            default=&quot;${web.module.webinf}&quot;
+            id=&quot;webdoclet.deploymentdescriptor.mergedir&quot;
+            include=&quot;true&quot;
+            label=&quot;mergedir&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.mergedir&quot;/&gt;
+      &lt;TaskProperty
+            default=&quot;${web.module.webinf}&quot;
+            id=&quot;weboclet.deploymentdescriptor.destdir&quot;
+            include=&quot;true&quot;
+            label=&quot;destdir&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.destdir&quot;/&gt;
+   &lt;/extension&gt;   
       </documentation>
    </annotation>
 
@@ -186,7 +241,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         THIS IS NOT AN API/PUBLIC EXTENSION POINT.  CLIENTS ARE NOT EXPECTED TO EXTEND IT.
       </documentation>
    </annotation>
 
@@ -195,7 +250,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         org.eclipse.jst.j2ee.ejb.annotations.xdoclet.runtime plugin
       </documentation>
    </annotation>
 
@@ -204,11 +259,12 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright (c) 2005 IBM Corporation and others.&lt;br&gt;
-All rights reserved. This program and the accompanying materials are made 
-available under the terms of the Eclipse Public License v1.0 which accompanies 
-this distribution, and is available at &lt;a
-href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+         Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+accompanying materials are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors: Eteration A.S. - initial API and implementation
       </documentation>
    </annotation>
 

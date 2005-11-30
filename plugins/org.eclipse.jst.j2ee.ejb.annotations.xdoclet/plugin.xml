@@ -121,7 +121,7 @@
 	      id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
 	      <filter name="nature" value="org.eclipse.wst.common.project.facet.core.nature"/>
 	      <action
-	        label="Run XDoclet"
+	        label="%action.runxdoclet"
 	        class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"
 	        menubarPath="additions"
 	        enablesFor="+"
@@ -137,8 +137,8 @@
   <extension point="org.eclipse.wst.common.project.facet.core.facets">
 
     <project-facet id="jst.web.xdoclet">
-      <label>WebDoclet (XDoclet)</label>
-      <description>Enables the project to run webdoclet post processing on annotated servlets.</description>
+      <label>%facet.webdoclet</label>
+      <description>%facet.webdoclet.description</description>
       <icon>icons/xdoclet.gif</icon>
     </project-facet>
 
@@ -197,8 +197,8 @@
    
   
     <project-facet id="jst.ejb.xdoclet">
-      <label>EJBDoclet (XDoclet)</label>
-      <description>Enables the project to run webdoclet post processing on annotated ejbs</description>
+      <label>%facet.ejbdoclet</label>
+      <description>%facet.ejbdoclet.description</description>
       <icon>icons/xdoclet.gif</icon>
     </project-facet>
 
