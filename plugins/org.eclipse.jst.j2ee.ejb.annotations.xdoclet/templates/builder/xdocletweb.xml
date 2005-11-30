@@ -70,9 +70,7 @@
     	   	    @servlets@
     	 	   </fileset>
     	<!-- SERVLETS END -->
-  		<deploymentdescriptor useIds="true" servletspec="${servlet.spec.version}" destdir="${web.dd.dir}">
-        </deploymentdescriptor> 
-    	
+     	
 
 
     	  @webDoclet@

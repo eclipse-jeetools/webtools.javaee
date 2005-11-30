@@ -79,7 +79,7 @@
             type="string"
             description="%webdoclet.deploymentdesc.servletspec" />
      <TaskProperty
-            default="XDoclet Generated Name"
+            default="${web}"
             id="webdoclet.deploymentdescriptor.displayname"
             include="true"
             label="displayname"
@@ -95,14 +95,14 @@
             description="%webdoclet.deploymentdesc.validatexml"/>
 
       <TaskProperty
-            default="${web.module.webinf}"
+            default="${web.project.dir}/${web.module.webinf}"
             id="webdoclet.deploymentdescriptor.mergedir"
             include="true"
             label="mergedir"
             type="string"
             description="%webdoclet.deploymentdesc.mergedir"/>
       <TaskProperty
-            default="${web.module.webinf}"
+            default="${web.project.dir}/${web.module.webinf}"
             id="weboclet.deploymentdescriptor.destdir"
             include="true"
             label="destdir"
