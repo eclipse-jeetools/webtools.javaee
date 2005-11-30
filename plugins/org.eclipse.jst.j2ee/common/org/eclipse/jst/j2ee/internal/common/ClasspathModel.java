@@ -290,8 +290,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	 */
 	public void setSelection(ClasspathElement element, boolean selected) {
 		element.setSelected(selected);
-		if (!isWLPModel())
+		if (!isWLPModel()) {
 			updateManifestClasspath();
+		} else {
+			// at least fire the change event
+			fireNotification(new ClasspathModelEvent(ClasspathModelEvent.CLASS_PATH_CHANGED));
+		}
 	}
 
 	/**
