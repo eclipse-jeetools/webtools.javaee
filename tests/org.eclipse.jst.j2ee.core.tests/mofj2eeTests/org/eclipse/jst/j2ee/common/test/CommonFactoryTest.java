@@ -207,14 +207,7 @@ public class CommonFactoryTest extends TestCase {
         retValue = objCommonFactory.createCompatibilityDescriptionGroup();
         assertNotNull(retValue);
     }
-
-    public void test_getCommonPackage() {
-
-        CommonFactory objCommonFactory =getInstance();
-        CommonPackage retValue = null;
-        retValue = objCommonFactory.getCommonPackage();
-        assertNotNull(retValue);
-    }   
+ 
     
     /**
 	 * @return

@@ -71,12 +71,6 @@ public class ApplicationFactoryTest extends TestCase {
         assertNotNull(retValue);
     }
 
-    public void test_getApplicationPackage() {
-
-        ApplicationFactory objApplicationFactory = getInstance();
-        ApplicationPackage retValue = null;
-        retValue = objApplicationFactory.getApplicationPackage();
-        assertNotNull(retValue);
-    }
+    
     
 }

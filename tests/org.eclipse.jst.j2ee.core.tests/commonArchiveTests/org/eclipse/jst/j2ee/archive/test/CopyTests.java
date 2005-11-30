@@ -54,7 +54,7 @@ public class CopyTests extends TestCase {
 	}
 
 	public EjbPackage getEJBPackage() {
-		return getEJBFactory().getEjbPackage();
+		return EjbPackage.eINSTANCE;
 	}
 	public WebapplicationFactory getWebFactory() {
 		return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();

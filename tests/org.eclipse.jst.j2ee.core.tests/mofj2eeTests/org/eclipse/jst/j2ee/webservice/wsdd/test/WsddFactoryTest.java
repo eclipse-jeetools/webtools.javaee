@@ -97,13 +97,5 @@ public class WsddFactoryTest extends TestCase {
         assertNotNull(retValue);
     }
 
-    public void test_getWsddPackage() {
-
-        WsddFactory objWsddFactory = getInstance();
-        WsddPackage retValue = null;
-        retValue = objWsddFactory.getWsddPackage();
-        // TODO getWsddPackage method always return null
-        assertNotNull(retValue);
-    }
 
 }

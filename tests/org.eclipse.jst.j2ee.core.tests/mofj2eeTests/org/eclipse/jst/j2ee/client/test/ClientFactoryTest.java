@@ -27,12 +27,6 @@ public class ClientFactoryTest extends TestCase {
         assertNotNull(retValue);
     }
 
-    public void test_getClientPackage() {
-        ClientFactory objClientFactory = getInstance();
-        ClientPackage retValue = null;
-        retValue = objClientFactory.getClientPackage();
-        assertNotNull(retValue);
-    }
 	/**
 	 * @return
 	 */

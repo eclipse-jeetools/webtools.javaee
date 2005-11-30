@@ -272,11 +272,4 @@ public class EjbFactoryTest extends TestCase {
         assertNotNull(retValue);
     }
 
-    public void test_getEjbPackage() {
-
-        EjbFactory objEjbFactory = getInstance();
-        EjbPackage retValue = null;
-        retValue = objEjbFactory.getEjbPackage();
-        assertNotNull(retValue);
-    }
 }
