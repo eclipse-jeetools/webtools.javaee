@@ -515,7 +515,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		}
 		if (!targetComponentsHandles.isEmpty()) {
 			composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createWLPReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
 		}
 		targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < unselected.size(); i++) {
