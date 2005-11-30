@@ -50,6 +50,7 @@
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </action>
+      <group-member id="java"/>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="1.4">
@@ -63,6 +64,7 @@
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </action>
+      <group-member id="java"/>
     </project-facet-version>
 
     <project-facet-version facet="jst.java" version="5.0">
@@ -76,6 +78,7 @@
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.common.project.facet.JavaFacetRuntimeChangedDelegate"/>
       </action>
+      <group-member id="java"/>
     </project-facet-version>
 
   </extension>
