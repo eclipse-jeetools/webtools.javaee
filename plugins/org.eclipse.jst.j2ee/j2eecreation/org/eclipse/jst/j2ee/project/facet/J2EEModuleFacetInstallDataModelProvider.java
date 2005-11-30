@@ -57,7 +57,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(ADD_TO_EAR)) {
-			return Boolean.TRUE;
+			return Boolean.FALSE;
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 		}
