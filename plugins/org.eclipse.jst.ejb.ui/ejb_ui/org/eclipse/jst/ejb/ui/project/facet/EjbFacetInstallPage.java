@@ -42,7 +42,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
-		setupEarControl(composite);
+		//setupEarControl(composite);
 		
 		this.configFolderLabel = new Label(composite, SWT.NONE);
 		this.configFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.SOURCEFOLDER));
