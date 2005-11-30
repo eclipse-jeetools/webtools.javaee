@@ -16,6 +16,7 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConst
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
+import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.cmp.wizards.AddContainerManagedEntityEjbWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -26,6 +27,7 @@ public class AddEjbWizard extends NewEjbWizard {
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
 	private AddSessionEjbWizard sessionEjbWizard;
 	private AddMessageDrivenEjbWizard messageDrivenEjbWizard;
+	private AddContainerManagedEntityEjbWizard containerManagedEntityEjbWizard;
 	
 	
 	/**
@@ -47,10 +49,14 @@ public class AddEjbWizard extends NewEjbWizard {
 		// Otherwise number of pages will be used (1) without the nested wizards
 		this.sessionEjbWizard =  new AddSessionEjbWizard();
 		this.messageDrivenEjbWizard = new AddMessageDrivenEjbWizard();
+		this.containerManagedEntityEjbWizard = new AddContainerManagedEntityEjbWizard();
+		
 		sessionEjbWizard.init(workbench, selection);
 		sessionEjbWizard.addPages();
 		messageDrivenEjbWizard.init(workbench, selection);
 		messageDrivenEjbWizard.addPages();
+		containerManagedEntityEjbWizard.init(workbench, selection);
+		containerManagedEntityEjbWizard.addPages();
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
@@ -73,6 +79,10 @@ public class AddEjbWizard extends NewEjbWizard {
 			if (messageDrivenEjbWizard != null && messageDrivenEjbWizard.canFinish()) {
 				return true;
 			}
+		}else if( "ContainerManagedEntityBean".equals(chooseEjbTypeWizardPage.getEJBType())){
+			if (containerManagedEntityEjbWizard != null && containerManagedEntityEjbWizard.canFinish()) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -86,6 +96,9 @@ public class AddEjbWizard extends NewEjbWizard {
 		} else if( page == chooseEjbTypeWizardPage && "MessageDrivenBean".equals(chooseEjbTypeWizardPage.getEJBType())){
 			wizard = messageDrivenEjbWizard;
 			sessionEjbWizard.getDataModel().setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER,getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
+		}else if( page == chooseEjbTypeWizardPage && "ContainerManagedEntityBean".equals(chooseEjbTypeWizardPage.getEJBType())){
+			wizard = containerManagedEntityEjbWizard;
+			containerManagedEntityEjbWizard.getDataModel().setProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER,getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
 		}
 		if( wizard != this  && wizard !=null)
 			nextPage = wizard.getStartingPage();
@@ -109,5 +122,11 @@ public class AddEjbWizard extends NewEjbWizard {
 	protected boolean runForked() {
 		return true;
 	}
+	
+	protected boolean prePerformFinish() {
+		// Sub wizards for ejb types will run the operations.
+		return false;
+	}
+
 		
 }

@@ -10,23 +10,22 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.ejb.DestinationType;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddContainerManagedEntityBeanOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-
-public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements IMessageDrivenBeanDataModelProperties {
+public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements IContainerManagedEntityBeanDataModelProperties {
 
 	public final static String DEFAULT_EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
-	public final static String[] DEFAULT_EJB_INTERFACES = {"javax.ejb.MessageDrivenBean", "javax.jms.MessageListener"}; //$NON-NLS-1$ //$NON-NLS-2$
+	public final static String[] DEFAULT_EJB_INTERFACES = { "javax.ejb.EntityBean" }; //$NON-NLS-1$ //$NON-NLS-2$
 
 	private List interfaceList;
+	private HashMap sqlTypes = new HashMap();
+	private HashMap attributeTypes = new HashMap();
 
 	/*
 	 * (non-Javadoc)
@@ -34,23 +33,24 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public IDataModelOperation getDefaultOperation() {
-		AddMessageDrivenBeanOperation operation = new AddMessageDrivenBeanOperation(getDataModel());
-		//Initialize the delagate. It can cause Invalid state vioation if a wizard exits early
+		AddContainerManagedEntityBeanOperation operation = new AddContainerManagedEntityBeanOperation(getDataModel());
 		getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.MODELDELEGATE);
-
 		return operation;
 	}
 
 	/**
-	 * Subclasses may extend this method to add their own data model's properties as valid base
-	 * properties.
+	 * Subclasses may extend this method to add their own data model's
+	 * properties as valid base properties.
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
-		propertyNames.add(DESTINATIONTYPE);
-		propertyNames.add(DESTINATIONNAME);
+		propertyNames.add(DATASOURCE);
+		propertyNames.add(SCHEMA);
+		propertyNames.add(TABLE);
+		propertyNames.add(SQLTYPES);
+		propertyNames.add(ATTRIBUTETYPES);
 		propertyNames.add(EJB_INTERFACES);
 		return propertyNames;
 	}
@@ -58,18 +58,24 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.FALSE;
-		else if (propertyName.equals(DESTINATIONNAME))
+		else if (propertyName.equals(DATASOURCE))
 			return getProperty(JNDI_NAME);
-		else if (propertyName.equals(DESTINATIONTYPE))
-			return DestinationType.QUEUE_LITERAL.getName();
 		else if (propertyName.equals(EJB_TYPE))
-			return "MessageDrivenBean";
+			return "EntityBean";
 		else if (propertyName.equals(MODIFIER_ABSTRACT))
 			return Boolean.FALSE;
 		else if (propertyName.equals(SUPERCLASS))
 			return DEFAULT_EJB_SUPERCLASS;
 		else if (propertyName.equals(EJB_INTERFACES))
 			return DEFAULT_EJB_INTERFACES;
+		else if (propertyName.equals(SCHEMA))
+			return "MYSCHEMA";
+		else if (propertyName.equals(TABLE))
+			return "MYTABLE";
+		else if (propertyName.equals(SQLTYPES))
+			return sqlTypes;
+		else if (propertyName.equals(ATTRIBUTETYPES))
+			return attributeTypes;
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -79,24 +85,13 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	public IStatus validate(String propertyName) {
-		if (propertyName.equals(DESTINATIONNAME))
+		if (propertyName.equals(DATASOURCE))
 			return validateJndiName(getStringProperty(propertyName));
-		if (propertyName.equals(DESTINATIONTYPE))
-			return validateDestinationType(getStringProperty(propertyName));
+		if (propertyName.equals(TABLE))
+			return validateJndiName(getStringProperty(propertyName));
+		if (propertyName.equals(SCHEMA))
+			return validateJndiName(getStringProperty(propertyName));
 		return super.validate(propertyName);
-	}
-
-	private IStatus validateDestinationType(String prop) {
-		// check for empty
-		if (prop == null || prop.trim().length() == 0) {
-			String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_EMPTY;
-			return WTPCommonPlugin.createErrorStatus(msg);
-		}
-		if (prop.indexOf("Queue") >= 0 || prop.indexOf("Topic") >= 0) {
-			return WTPCommonPlugin.OK_STATUS;
-		}
-		String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_VALUE;
-		return WTPCommonPlugin.createErrorStatus(msg);
 	}
 
 	protected List getEJBInterfaces() {
@@ -109,16 +104,17 @@ public class MessageDrivenBeanDataModelProvider extends EnterpriseBeanClassDataM
 		return this.interfaceList;
 	}
 
+	
 	protected void initializeDelegate() {
-		MessageDrivenBeanDelegate delegate = new MessageDrivenBeanDelegate();
+		ContainerManagedEntityBeanDelegate delegate = new ContainerManagedEntityBeanDelegate();
 		delegate.setDataModel(getDataModel());
 		this.setProperty(MODELDELEGATE, delegate);
 		// Set the defaults so that they are propagated via events
-		this.setProperty(DESTINATIONTYPE, this.getProperty(DESTINATIONTYPE));
-		this.setProperty(TRANSACTIONTYPE, this.getProperty(TRANSACTIONTYPE));
-		this.setProperty(DESTINATIONNAME, this.getProperty(DESTINATIONNAME));
+		this.setProperty(DATASOURCE, this.getProperty(DATASOURCE));
+		this.setProperty(SCHEMA, this.getProperty(SCHEMA));
+		this.setProperty(TABLE, this.getProperty(TABLE));
+		this.setProperty(SQLTYPES, this.getProperty(SQLTYPES));
+		this.setProperty(ATTRIBUTETYPES, this.getProperty(ATTRIBUTETYPES));
 	}
-
-
 
 }

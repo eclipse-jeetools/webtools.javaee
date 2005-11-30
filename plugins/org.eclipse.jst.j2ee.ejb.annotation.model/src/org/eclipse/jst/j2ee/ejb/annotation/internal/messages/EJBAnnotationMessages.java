@@ -102,6 +102,8 @@ public class EJBAnnotationMessages extends NLS {
 	public static String SELECT_CLASS_TITLE;
 	public static String NO_EJB_PROJECTS;
 	public static String ERR_TRANSACTION_VALUE;
+	public static String ENTITY_USECASE_LABEL;
+	public static String DATASOURCE_NAME_LABEL;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBAnnotationMessages.class);

@@ -34,6 +34,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 	protected Button sessionType;
 	protected Button messageDrivenType;
+	protected Button containerManagedEntityType;
 
 	protected ChooseEjbTypeWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
@@ -77,13 +78,7 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 
 		sessionType = new Button(ejbTypeGroup, SWT.RADIO);
 		sessionType.setText("SessionBean"); //$NON-NLS-1$
-
-		messageDrivenType = new Button(ejbTypeGroup, SWT.RADIO);
-		messageDrivenType.setText("MessageDrivenBean"); //$NON-NLS-1$
-
 		sessionType.setSelection(true);
-		messageDrivenType.setSelection(false);
-
 		sessionType.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
@@ -98,6 +93,9 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 			}
 		});
 
+		messageDrivenType = new Button(ejbTypeGroup, SWT.RADIO);
+		messageDrivenType.setText("MessageDrivenBean"); //$NON-NLS-1$
+		messageDrivenType.setSelection(false);
 		messageDrivenType.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
@@ -112,6 +110,24 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 				this.widgetSelected(e);
 			}
 		});
+
+//
+//		containerManagedEntityType = new Button(ejbTypeGroup, SWT.RADIO);
+//		containerManagedEntityType.setText("ContainerManagedEntityBean"); //$NON-NLS-1$
+//		containerManagedEntityType.setSelection(false);
+//		containerManagedEntityType.addSelectionListener(new SelectionListener() {
+//
+//			public void widgetSelected(SelectionEvent e) {
+//				if (containerManagedEntityType.getSelection()) {
+//					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "ContainerManagedEntityBean");
+//					validateProvider();
+//				}
+//			}
+//
+//			public void widgetDefaultSelected(SelectionEvent e) {
+//				this.widgetSelected(e);
+//			}
+//		});
 	}
 
 	protected void createAnnotationProviderGroup(Composite parent) {

@@ -17,6 +17,7 @@ public interface IEJBUIContextIds {
 	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1 = PLUGIN_SERVLET_UI + "antejb1000"; //$NON-NLS-1$
 	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2 = PLUGIN_SERVLET_UI + "antejb1100"; //$NON-NLS-1$
 	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3 = PLUGIN_SERVLET_UI + "antejb1200"; //$NON-NLS-1$
+	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_4 = PLUGIN_SERVLET_UI + "antejb4000"; //$NON-NLS-1$
 	
 	
 }

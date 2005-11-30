@@ -33,7 +33,9 @@ public class SessionBeanDataModelProvider extends EnterpriseBeanClassDataModelPr
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public IDataModelOperation getDefaultOperation() {
-		return new AddSessionBeanOperation(getDataModel());
+		AddSessionBeanOperation operation =  new AddSessionBeanOperation(getDataModel());
+		getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.MODELDELEGATE);
+		return operation;
 	}
 
 	/**

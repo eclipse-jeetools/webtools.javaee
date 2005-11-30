@@ -90,4 +90,6 @@ public interface IEJBAnnotationConstants {
 	public final static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC = EJBAnnotationMessages.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
 	
 	public final static String NO_EJB_PROJECTS = EJBAnnotationMessages.NO_EJB_PROJECTS;
+	public static final String ENTITY_USECASE_LABEL = EJBAnnotationMessages.ENTITY_USECASE_LABEL;
+	public static final String DATASOURCE_NAME_LABEL = EJBAnnotationMessages.DATASOURCE_NAME_LABEL;
 }

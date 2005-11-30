@@ -288,7 +288,10 @@ public abstract class EnterpriseBeanClassDataModelProvider extends NewJavaClassD
 			return WTPCommonPlugin.OK_STATUS;
 		ArtifactEdit edit = null;
 		try {
-			edit = getArtifactEditForRead();
+			//edit = getArtifactEditForRead();
+			edit = ArtifactEdit.getArtifactEditForRead(getTargetProject());
+			if (edit == null)
+				return WTPCommonPlugin.OK_STATUS;
 			EJBJar ejbJar = (EJBJar) edit.getContentModelRoot();
 			if (ejbJar == null)
 				return WTPCommonPlugin.OK_STATUS;
