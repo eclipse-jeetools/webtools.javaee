@@ -110,13 +110,5 @@ public interface WsddFactory extends EFactory{
 	 */
 	BeanLink createBeanLink();
 
-	/**
-	 * Returns the package supported by this factory.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the package supported by this factory.
-	 * @generated
-	 */
-  WsddPackage getWsddPackage();
 
 } //WsddFactory

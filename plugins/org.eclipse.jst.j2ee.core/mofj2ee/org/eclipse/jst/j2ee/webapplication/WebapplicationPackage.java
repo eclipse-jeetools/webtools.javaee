@@ -18,7 +18,15 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 
 
-
+/**
+ * <p>
+ * <b>Note:</b> This class/interface is part of an interim API that is still under development and expected to
+ * change significantly before reaching stability. It is being made available at this early stage to solicit feedback
+ * from pioneering adopters on the understanding that any code that uses this API will almost certainly be broken
+ * (repeatedly) as the API evolves.
+ * </p>
+ *	@since 1.0
+ */
 public interface WebapplicationPackage extends EPackage{
 	/**
 	 * The package name.
@@ -1230,6 +1238,9 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EAttribute getWebApp_Distributable();
 
 	/**
@@ -1241,75 +1252,120 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see #getWebApp()
 	 * @generated
 	 */
+	/**
+	 * @return
+	 */
 	EAttribute getWebApp_Version();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_Contexts();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_ErrorPages();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_FileList();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_TagLibs();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_Constraints();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_LoginConfig();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_MimeMappings();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_SessionConfig();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_ServletMappings();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_Servlets();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_SecurityRoles();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_Filters();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_FilterMappings();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_Listeners();
 
@@ -1322,6 +1378,9 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see #getWebApp()
 	 * @generated
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_ContextParams();
 
 	/**
@@ -1332,6 +1391,9 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getJspConfig()
 	 * @see #getWebApp()
 	 * @generated
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_JspConfig();
 
@@ -1344,6 +1406,9 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see #getWebApp()
 	 * @generated
 	 */
+	/**
+	 * @return
+	 */
 	EReference getWebApp_MessageDestinations();
 
 	/**
@@ -1354,6 +1419,9 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getLocalEncodingMappingList()
 	 * @see #getWebApp()
 	 * @generated
+	 */
+	/**
+	 * @return
 	 */
 	EReference getWebApp_LocalEncodingMappingList();
 
@@ -1366,20 +1434,32 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return Name
+	 */
 	EAttribute getContextParam_ParamName();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return Value
 	 */
 	EAttribute getContextParam_ParamValue();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return Description
+	 */
 	EAttribute getContextParam_Description();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return WebApp
 	 */
 	EReference getContextParam_WebApp();
 
@@ -1392,10 +1472,16 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return Location
+	 */
 	EAttribute getErrorPage_Location();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return WebApp
 	 */
 	EReference getErrorPage_WebApp();
 
@@ -1414,10 +1500,16 @@ public interface WebapplicationPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation 
 	 * @return ErrorCodeErrorPage object
 	 */
+	/**
+	 * @return ErrorCodeErrorPage object
+	 */
 	EClass getErrorCodeErrorPage();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return ErrorCode
 	 */
 	EAttribute getErrorCodeErrorPage_ErrorCode();
 
@@ -1648,15 +1740,24 @@ public interface WebapplicationPackage extends EPackage{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return Description
+	 */
 	EAttribute getAuthConstraint_Description();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	/**
+	 * @return Roles
+	 */
 	EAttribute getAuthConstraint_Roles();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
+	 */
+	/**
+	 * @return SecConstraint object
 	 */
 	EReference getAuthConstraint_SecConstraint();
 
@@ -1668,6 +1769,9 @@ public interface WebapplicationPackage extends EPackage{
 	 * @see org.eclipse.jst.j2ee.webapplication.AuthConstraint#getDescriptions()
 	 * @see #getAuthConstraint()
 	 * @generated
+	 */
+	/**
+	 * @return Descriptions
 	 */
 	EReference getAuthConstraint_Descriptions();
 

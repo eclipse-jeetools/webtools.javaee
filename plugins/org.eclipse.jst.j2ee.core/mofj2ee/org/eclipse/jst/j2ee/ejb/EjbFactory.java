@@ -166,10 +166,6 @@ MethodElement createMethodElementFrom(java.lang.reflect.Method method) ;
 	 */
 	EJBMethodCategory createEJBMethodCategory();
 
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	EjbPackage getEjbPackage();
 
 }
 

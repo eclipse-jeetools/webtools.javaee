@@ -29,10 +29,6 @@ public interface ClientFactory extends EFactory{
 	 */
 	ApplicationClient createApplicationClient();
 
-	/**
-	 * @generated This field/method will be replaced during code generation.
-	 */
-	ClientPackage getClientPackage();
 
 }
 

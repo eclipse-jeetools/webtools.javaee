@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandAddElement;
@@ -58,7 +57,7 @@ public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 		childEClass_ = childEClass;
 		childFeature_ = childFeature;
 		childNillable_ = childNillable;
-		CommonPackage commonPKG = CommonFactory.eINSTANCE.getCommonPackage();
+		CommonPackage commonPKG = CommonPackage.eINSTANCE;
 		// Set up QName features
 		features_ = new EStructuralFeature[2];
 		features_[0] = commonPKG.getQName_NamespaceURI();

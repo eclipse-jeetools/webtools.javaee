@@ -27,6 +27,15 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  *   <li>each enum,</li>
  *   <li>and each data type</li>
  * </ul>
+ * /**
+ * <p>
+ * <b>Note:</b> This class/interface is part of an interim API that is still under development and expected to
+ * change significantly before reaching stability. It is being made available at this early stage to solicit feedback
+ * from pioneering adopters on the understanding that any code that uses this API will almost certainly be broken
+ * (repeatedly) as the API evolves.
+ * </p>
+ *	
+ *
  * <!-- end-user-doc -->
  * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory
  * @model kind="package"
