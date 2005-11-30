@@ -3,41 +3,12 @@
 <schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotation.model">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotation.model" id="ejbGenerator" name="EJB Generator"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotation.model" id="ejbGenerator" name="org.eclipse.jst.j2ee.ejb.generator"/>
       </appInfo>
       <documentation>
-         This extension permits definitions for new types of EJB generators into JST
+         This extension permits definitions for new types of EJB generators into JST.  An example of such a generator is XDoclet.  There can be other types of generators that can be associated with EJB wizards.  Currently this is not selectabled via the UI.
       </documentation>
    </annotation>
-
-   <element name="extension">
-      <complexType>
-         <sequence>
-            <element ref="ejbGenerator" minOccurs="1" maxOccurs="unbounded"/>
-         </sequence>
-         <attribute name="point" type="string" use="required">
-            <annotation>
-               <documentation>
-                  a fully qualified identifier of the target extension point
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="id" type="string">
-            <annotation>
-               <documentation>
-                  an optional identifier of the extension instance
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="name" type="string">
-            <annotation>
-               <documentation>
-                  an optional name of the extension instance
-               </documentation>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
 
    <element name="ejbGenerator">
       <complexType>
@@ -90,7 +61,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         0.7
+         R0.7
       </documentation>
    </annotation>
 
@@ -99,7 +70,17 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+             &lt;extension
+         point=&quot;org.eclipse.jst.j2ee.ejb.annotation.model.ejbGenerator&quot;&gt;
+         
+         &lt;provider
+            name=&quot;XDoclet&quot;
+            class=&quot;org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider&quot; /&gt;
+         &lt;ejbGenerator
+            name=&quot;XDoclet&quot;
+            class=&quot;org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider.XDocletAnnotationProvider&quot; /&gt;
+   &lt;/extension&gt;
+   
       </documentation>
    </annotation>
 
@@ -108,7 +89,9 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         The ejb generator class must implement the IEJBGenerator interface
+         The ejb generator class must implement the IEJBGenerator interface.
+
+THIS IS NOT AN API/PUBLIC EXTENSION POINT.  CLIENTS ARE NOT EXPECTED TO EXTEND IT.
       </documentation>
    </annotation>
 
@@ -126,11 +109,12 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright (c) 2005 IBM Corporation and others.&lt;br&gt;
-All rights reserved. This program and the accompanying materials are made 
-available under the terms of the Eclipse Public License v1.0 which accompanies 
-this distribution, and is available at &lt;a
-href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+         Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+accompanying materials are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors: Eteration A.S. - initial API and implementation
       </documentation>
    </annotation>
 
