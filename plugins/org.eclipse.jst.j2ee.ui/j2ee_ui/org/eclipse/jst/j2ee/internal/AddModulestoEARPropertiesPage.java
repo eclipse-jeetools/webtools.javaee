@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -32,7 +31,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationOperation;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.swt.SWT;
@@ -40,7 +38,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -49,9 +46,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
@@ -67,9 +62,10 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class AddModulestoEARPropertiesPage extends PropertyPage implements Listener, ICommonManifestUIConstants {
+public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, Listener {
 
-	protected IProject project;
+	protected final IProject project;
+	protected final J2EEDependenciesPage propPage; 
 	protected IVirtualComponent earComponent = null;
 	protected Text componentNameText;
 	protected Label availableModules;
@@ -85,56 +81,25 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	protected static final IStatus OK_STATUS = IDataModelProvider.OK_STATUS;
 
 	/**
-	 * Constructor for AddModulestoEARPropertiesPage.
+	 * Constructor for AddModulestoEARPropertiesControl.
 	 */
-	public AddModulestoEARPropertiesPage() {
-		super();
+	public AddModulestoEARPropertiesPage(final IProject project, final J2EEDependenciesPage page) { 
+		this.project = project;
+		this.propPage = page;
+		earComponent = ComponentCore.createComponent(project);
 	}
 	
-	protected Control createContents(Composite parent) {
-		initialize();
-
-
+	public Composite createContents(final Composite parent) { 
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.marginWidth = 0;
 		layout.marginWidth = 0;
 		composite.setLayout(layout);
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		if (earComponent == null)
-			return composite;
-		createProjectLabelsGroup(composite);
+        J2EEDependenciesPage.createDescriptionComposite(composite, ManifestUIResourceHandler.EAR_Modules_Desc);
 		createListGroup(composite);
 		refresh();
 		return composite;
-	}
-	
-	protected void initialize() {
-		project = (IProject) getElement().getAdapter(IResource.class);
-
-		if (ModuleCoreNature.isFlexibleProject(project)) {
-			IVirtualComponent component = ComponentCore.createComponent(project);
-				if (J2EEProjectUtilities.isEARProject(project))
-					earComponent = component;
-		}
-	}
-
-	protected void createProjectLabelsGroup(Composite parent) {
-
-		Composite labelsGroup = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		labelsGroup.setLayout(layout);
-		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		Label label = new Label(labelsGroup, SWT.NONE);
-		label.setText(ManifestUIResourceHandler.Project_name__UI_); 
-
-		componentNameText = new Text(labelsGroup, SWT.BORDER);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		componentNameText.setEditable(false);
-		componentNameText.setLayoutData(data);
-		componentNameText.setText(project.getName());
 	}
 
 	protected void createListGroup(Composite parent) {
@@ -155,17 +120,26 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 		createTableComposite(listGroup);
 	}
 
-	public void dispose() {
-		super.dispose();
-	}
-
 	public boolean performOk() {
 		NullProgressMonitor monitor = new NullProgressMonitor();
 		addModulesToEAR(monitor);
 		removeModulesFromEAR(monitor);
 		return true;
 	}
+	
+	public void performDefaults() {
+	}
+	
+	public boolean performCancel() {
+		return true;
+	}
+	
+	public void dispose() {
+	}
 
+	public void setVisible(boolean visible) {
+	}
+	
 	private List newJ2EEModulesToAdd(){
 		List newComps = new ArrayList();
 		if (j2eeComponentList != null && !j2eeComponentList.isEmpty()){
@@ -289,7 +263,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 	}
 	
 	private void handleSelectExternalJarButton(){
-		IPath[] selected= BuildPathDialogAccess.chooseExternalJAREntries(getShell());
+		IPath[] selected= BuildPathDialogAccess.chooseExternalJAREntries(propPage.getShell());
 
 		if (selected != null) {
 			for (int i= 0; i < selected.length; i++) {
@@ -315,7 +289,7 @@ public class AddModulestoEARPropertiesPage extends PropertyPage implements Liste
 
 	private void handleSelectVariableButton(){
 		IPath existingPath[] = new Path[0];
-		IPath[] paths =  BuildPathDialogAccess.chooseVariableEntries(getShell(), existingPath);
+		IPath[] paths =  BuildPathDialogAccess.chooseVariableEntries(propPage.getShell(), existingPath);
 		
 		if (paths != null) {
 			refresh();

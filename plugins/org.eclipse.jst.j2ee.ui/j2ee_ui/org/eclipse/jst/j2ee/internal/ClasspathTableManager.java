@@ -255,17 +255,17 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	
 	private void handleSelectExternalJarButton(){
 		 //owner.handleSelectExternalJarButton();
-		if( owner instanceof WebLibDependencyPropertiesPage ){
-			WebLibDependencyPropertiesPage page = (WebLibDependencyPropertiesPage)owner;
-			page.handleSelectExternalJarButton();
+		if( owner instanceof WebLibDependencyPropertiesPage){
+			WebLibDependencyPropertiesPage control = (WebLibDependencyPropertiesPage)owner;
+			control.handleSelectExternalJarButton();
 		} 
 	}
 	
 	private void handleSelectVariableButton(){
 		//owner.handleSelectVariableButton();
-		if( owner instanceof WebLibDependencyPropertiesPage ){
-			WebLibDependencyPropertiesPage page = (WebLibDependencyPropertiesPage)owner;
-			page.handleSelectVariableButton();
+		if( owner instanceof WebLibDependencyPropertiesPage){
+			WebLibDependencyPropertiesPage control = (WebLibDependencyPropertiesPage)owner;
+			control.handleSelectVariableButton();
 		} 		
 	}
 	

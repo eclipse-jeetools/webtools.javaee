@@ -3,6 +3,7 @@ package org.eclipse.jst.j2ee.internal;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -13,7 +14,6 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
@@ -23,7 +23,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -37,20 +36,19 @@ import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOper
 
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage implements IClasspathTableOwner, Listener, ClasspathModelListener {
 
-	public WebLibDependencyPropertiesPage() {
-		super();
+	public WebLibDependencyPropertiesPage(final IProject project, 
+    		final J2EEDependenciesPage page) {
+		super(project, page);
 	}
 	
-	/**
-	 * @see PreferencePage#createContents(Composite)
-	 */
-    protected Control createContents(Composite parent) {
-		initialize();
+    public Composite createContents(Composite parent) {
+    	initialize(); 
 		Composite composite = createBasicComposite(parent);
 		if( model.getComponent() != null ){
 			if (!isValidWebModule())
 				return composite;
-			createProjectLabelsGroup(composite);
+	        J2EEDependenciesPage.createDescriptionComposite(composite, ManifestUIResourceHandler.Web_Libraries_Desc);
+			//createProjectLabelsGroup(composite);
 			createListGroup(composite);
 			handleWLPSupport();
 			model.setWLPModel(true);
@@ -106,7 +104,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
     
     protected boolean isValidWebModule() {
 		if (!J2EEProjectUtilities.isDynamicWebProject(project)) {
-			this.setErrorMessage(ManifestUIResourceHandler.Web_Lib_Error); 
+			propPage.setErrorMessage(ManifestUIResourceHandler.Web_Lib_Error); 
 			return false;
 		}
 		return true;
@@ -121,18 +119,20 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			tableManager.deselectAllButton.setEnabled(true);
 		}
 	}
-	
     
     private void handleWLPSupport() {
-			tableManager.setWLPEntry(true);
-			availableDependentJars.setText("Select utility projects to add as Web Library projects to the web module"); //$NON-NLS-1$
-			tableManager.refresh();
+		tableManager.setWLPEntry(true);
+		availableDependentJars.setText("Select utility projects to add as Web Library projects to the web module"); //$NON-NLS-1$
+		tableManager.refresh();
 	}
     
     public boolean performOk() {
 		if( model.getComponent() == null || !isValidWebModule()){
 			return true;
-		}	
+		}
+		if (!isDirty) {
+            return true;
+		}
 		try {
 			boolean createdFlexProjects = runWLPOp(createFlexProjectOperations());
 			boolean createdComponentDependency = false;
@@ -144,6 +144,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 				composedOp.addRunnable(createWLPBuildPathOperation());
 				createdBuildPathSettings = runWLPOp(composedOp);
 			}
+			isDirty = false;
 			return createdBuildPathSettings;
 		} finally {
 			model.dispose();
@@ -153,13 +154,13 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
     private boolean runWLPOp(WorkspaceModifyComposedOperation composed) {
     	try {
 			if (composed != null)
-				new ProgressMonitorDialog(getShell()).run(true, true, composed);
+				new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
 			String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 			String msg = title;
 			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 				msg = ex.getTargetException().getMessage();
-			MessageDialog.openError(this.getShell(), title, msg);
+			MessageDialog.openError(propPage.getShell(), title, msg);
 			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 			return false;
 		} catch (InterruptedException e) {
@@ -172,7 +173,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		
 		if (J2EEProjectUtilities.isDynamicWebProject(project)){
 			
-			IPath[] selected= BuildPathDialogAccess.chooseExternalJAREntries(getShell());
+			IPath[] selected= BuildPathDialogAccess.chooseExternalJAREntries(propPage.getShell());
 	
 			if (selected != null) {
 				for (int i= 0; i < selected.length; i++) {
@@ -210,13 +211,13 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 					
 			        WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createBuildPathOperationForExternalJar(selection));
 			        try {
-			            new ProgressMonitorDialog(getShell()).run(true, true, composed);
+			            new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 			        } catch (InvocationTargetException ex) {
 			            String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 			            String msg = title;
 			            if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 			                msg = ex.getTargetException().getMessage();
-			            MessageDialog.openError(this.getShell(), title, msg);
+			            MessageDialog.openError(propPage.getShell(), title, msg);
 			            org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 			            
 			        } catch (InterruptedException e) {
@@ -236,7 +237,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		
 		if (J2EEProjectUtilities.isDynamicWebProject(project)){
 			IPath existingPath[] = new Path[0];
-			IPath[] paths =  BuildPathDialogAccess.chooseVariableEntries(getShell(), existingPath);
+			IPath[] paths =  BuildPathDialogAccess.chooseVariableEntries(propPage.getShell(), existingPath);
 			
 			if (paths != null) {
 				for (int i = 0; i < paths.length; i++) {
@@ -275,13 +276,13 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 						
 				        WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createBuildPathOperationForExternalJar(selection));
 				        try {
-				            new ProgressMonitorDialog(getShell()).run(true, true, composed);
+				            new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 				        } catch (InvocationTargetException ex) {
 				            String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
 				            String msg = title;
 				            if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 				                msg = ex.getTargetException().getMessage();
-				            MessageDialog.openError(this.getShell(), title, msg);
+				            MessageDialog.openError(propPage.getShell(), title, msg);
 				            org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 				            
 				        } catch (InterruptedException e) {

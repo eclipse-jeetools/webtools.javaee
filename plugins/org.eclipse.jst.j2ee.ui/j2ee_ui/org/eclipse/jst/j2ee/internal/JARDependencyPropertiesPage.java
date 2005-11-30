@@ -17,7 +17,6 @@ import java.util.jar.Manifest;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -29,7 +28,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferencePage;
-import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
@@ -50,7 +48,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -58,7 +55,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -76,9 +72,10 @@ import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOper
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class JARDependencyPropertiesPage extends PropertyPage implements IClasspathTableOwner, Listener, ClasspathModelListener, ICommonManifestUIConstants {
+public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IClasspathTableOwner, Listener, ClasspathModelListener {
 
-    protected IProject project;
+    protected final IProject project;
+    protected final J2EEDependenciesPage propPage;
     protected IOException caughtManifestException;
     protected boolean isDirty;
     protected Text classPathText;
@@ -90,17 +87,22 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     protected Label manifestLabel;
     protected Label enterpriseApplicationLabel;
     protected Label availableDependentJars;
-  
 
     /**
-	 * Constructor for JARDependencyPropertiesPage.
+	 * Constructor for JARDependencyPropertiesControl
 	 */
-    public JARDependencyPropertiesPage() {
+    public JARDependencyPropertiesPage(final IProject project, 
+    		final J2EEDependenciesPage page) {
         super();
+        this.project = project;
+        this.propPage = page;
     }
 
+    /**
+     * Returns false if page should not be displayed 
+     * for the project.
+     */
     protected void initialize() {
-        project = (IProject) getElement().getAdapter(IResource.class);
         model = new ClasspathModel(null);
         model.setProject(project);
         if( model.getComponent() != null ){
@@ -111,7 +113,6 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
     
     public void dispose() {
-    	super.dispose();
     	if(model.earArtifactEdit != null) {
     		model.earArtifactEdit.dispose();
     		model.earArtifactEdit = null;
@@ -159,25 +160,17 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
     protected void initializeValidateEditListener() {
         validateEditListener = new ValidateEditListener(null, model);
-        validateEditListener.setShell(getShell());
+        validateEditListener.setShell(propPage.getShell());
     }
 
-    /**
-	 * @see org.eclipse.jface.dialogs.IDialogPage#setVisible(boolean)
-	 */
     public void setVisible(boolean visible) {
-        super.setVisible(visible);
         if (visible && caughtManifestException != null && !model.isDirty())
-            ManifestErrorPrompter.showManifestException(getShell(), ERROR_READING_MANIFEST_DIALOG_MESSAGE_PROP_PAGE, false, caughtManifestException);
+            ManifestErrorPrompter.showManifestException(propPage.getShell(), ERROR_READING_MANIFEST_DIALOG_MESSAGE_PROP_PAGE, false, caughtManifestException);
 
     }
 
-    /**
-	 * @see PreferencePage#createContents(Composite)
-	 */
-    protected Control createContents(Composite parent) {
-        initialize();
-
+    public Composite createContents(Composite parent) {
+    	initialize(); 
         Composite composite = createBasicComposite(parent);
         GridLayout layout = new GridLayout();
         layout.marginWidth = 0;
@@ -187,6 +180,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         if( model.getComponent() != null ){        
 	        if(!isValidComponent())
 	        	return composite;
+	        J2EEDependenciesPage.createDescriptionComposite(composite, ManifestUIResourceHandler.J2EE_Modules_Desc);
 	        createProjectLabelsGroup(composite);
 	        createListGroup(composite);
 	        createTextGroup(composite);
@@ -211,10 +205,10 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
 	protected boolean isValidComponent() {
 		if (J2EEProjectUtilities.isEARProject(project)) {
-			this.setErrorMessage(ManifestUIResourceHandler.EAR_Module_Dep_Error); 
+			propPage.setErrorMessage(ManifestUIResourceHandler.EAR_Module_Dep_Error); 
 			return false;
 		} else if (J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject()) ) {
-			this.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
+			propPage.setErrorMessage(ClasspathModel.NO_EAR_MESSAGE);
 			return false;
 		}
 		return true;
@@ -227,7 +221,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		layout.numColumns = 2;
 		labelsGroup.setLayout(layout);
 		labelsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
+		/*
 		Label label = new Label(labelsGroup, SWT.NONE);
 		label.setText(ManifestUIResourceHandler.Project_name__UI_); 
 
@@ -236,6 +230,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 		componentNameText.setEditable(false);
 		componentNameText.setLayoutData(data);
 		componentNameText.setText(project.getName());
+		*/
 		
 		createEnterpriseAppsControls(labelsGroup);
 
@@ -432,10 +427,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
             tableManager.refresh();
     }
 
-    /**
-	 * @see PreferencePage#performDefaults()
-	 */
-    protected void performDefaults() {
+    public void performDefaults() {
         model.resetClassPathSelection();
         refresh();
         isDirty = false;
@@ -444,7 +436,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     
     public boolean performCancel() {
     	model.dispose();
-    	return super.performCancel();
+    	return true;
     }
 
     /**
@@ -460,13 +452,13 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         if( op != null )
         	composed.addRunnable(op);
         try {
-            new ProgressMonitorDialog(getShell()).run(true, true, composed);
+            new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
         } catch (InvocationTargetException ex) {
             String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
             String msg = title;
             if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
                 msg = ex.getTargetException().getMessage();
-            MessageDialog.openError(this.getShell(), title, msg);
+            MessageDialog.openError(propPage.getShell(), title, msg);
             org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
             return false;
         } catch (InterruptedException e) {
@@ -513,11 +505,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 				targetComponentsHandles.add(targetComp);
 			}
 		}
-		if (!targetComponentsHandles.isEmpty()) {
-			composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
-		}
-		targetComponentsHandles = new ArrayList();
+ 		if (!targetComponentsHandles.isEmpty()) {
+  			composedOp = new WorkspaceModifyComposedOperation();
+ 			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.createReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
+  		}
+  		targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < unselected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) unselected.get(i);
 			IProject elementProject = element.getProject();
