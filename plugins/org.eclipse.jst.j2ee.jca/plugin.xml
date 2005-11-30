@@ -80,7 +80,7 @@
     <project-facet id="jst.connector">
       <label>J2C Module</label>
       <description>Enables the project to be deployed as a J2C module.</description>
-      <icon>icons/full/obj16/connector.gif</icon>
+      <icon>icons/full/obj16/Connector.gif</icon>
     </project-facet>
 
     <project-facet-version facet="jst.connector" version="1.0">

@@ -526,7 +526,7 @@
     <project-facet id="jst.ear">
       <label>EAR</label>
       <description>Enables the project to be deployed as an EAR module.</description>
-      <icon>icons/ear.gif</icon>
+      <icon>icons/EAR.gif</icon>
     </project-facet>
 
     <project-facet-version facet="jst.ear" version="1.2">
