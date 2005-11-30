@@ -3,7 +3,7 @@
 <plugin>
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.xdocletRuntime.121"
-         name="XDoclet 1.2.1"
+         name="%xdoclet.121"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime">
       <RuntimeVersion
             ejb="2.0"
@@ -19,7 +19,7 @@
    </extension>
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.xdocletRuntime.122"
-         name="XDoclet 1.2.2"
+         name="%xdoclet.122"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime">
       <RuntimeVersion
             ejb="2.1"
@@ -35,7 +35,7 @@
    </extension>
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.xdocletRuntime.123"
-         name="XDoclet 1.2.3"
+         name="%xdoclet.123"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletRuntime">
       <RuntimeVersion
             ejb="2.1"
@@ -55,12 +55,12 @@
 
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.webdocletTaskProvider.deploymentdescriptor"
-         name="DeploymentDescriptor Webdoclet Task Provider"
+         name="%webdoclet.deploymentdesc"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider">
       <WebdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider"
             defaultSelection="true"
-            description="Adds DeploymentDescriptor task to webdoclet"
+            description="%webdoclet.deploymentdesc.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider"
             name="DeploymentDescriptor"/>
 
@@ -70,21 +70,21 @@
             include="true"
             label="useIds"
             type="boolean"
-            description="If this attribute is set to true, XDoclet will generate id attributes in the XML document. Note that this is only available in some subtasks." />
+            description="%webdoclet.deploymentdesc.useIds" />
       <TaskProperty
             default="${servlet.spec.version}"
             id="webdoclet.deploymentdescriptor.servletspec"
             include="true"
             label="servletspec"
             type="string"
-            description="The Servlet spec version to which the web application conforms. Valid values: 2.2, 2.3, 2.4" />
+            description="%webdoclet.deploymentdesc.servletspec" />
      <TaskProperty
             default="XDoclet Generated Name"
             id="webdoclet.deploymentdescriptor.displayname"
             include="true"
             label="displayname"
             type="string"
-            description="Sets the Displayname attribute of the WebXmlSubTask object"/>
+            description="%webdoclet.deploymentdesc.displayname"/>
             
       <TaskProperty
             default="false"
@@ -92,7 +92,7 @@
             include="true"
             label="validatexml"
             type="boolean"
-            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+            description="%webdoclet.deploymentdesc.validatexml"/>
 
       <TaskProperty
             default="${web.module.webinf}"
@@ -100,24 +100,24 @@
             include="true"
             label="mergedir"
             type="string"
-            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+            description="%webdoclet.deploymentdesc.mergedir"/>
       <TaskProperty
             default="${web.module.webinf}"
             id="weboclet.deploymentdescriptor.destdir"
             include="true"
             label="destdir"
             type="string"
-            description="Sets the directory where the generated file(s) will be written."/>
+            description="%webdoclet.deploymentdesc.destdir"/>
    </extension>   
    
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.deploymentdescriptor"
-         name="DeploymentDescriptor Ejbdoclet Task Provider"
+         name="%ejbdoclet.deploymentdesc"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds DeploymentDescriptor task to ejbdoclet"
+            description="%ejbdoclet.deploymentdesc.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorEjbdocletTaskProvider"
             name="DeploymentDescriptor"/>
 
@@ -127,21 +127,21 @@
             include="true"
             label="useIds"
             type="boolean"
-            description="If this attribute is set to true, XDoclet will generate id attributes in the XML document. Note that this is only available in some subtasks." />
+            description="%ejbdoclet.deploymentdesc.useIds" />
      <TaskProperty
             default="${ejb.dd.displayname}"
             id="ejbdoclet.deploymentdescriptor.displayname"
             include="true"
             label="displayname"
             type="string"
-            description="Sets the Displayname attribute of the EjbDotXmlSubTask object"/>
+            description="%ejbdoclet.deploymentdesc.displayname"/>
      <TaskProperty
             default="${ejb.dd.description}"
             id="ejbdoclet.deploymentdescriptor.description"
             include="true"
             label="description"
             type="string"
-            description="Sets the Description attribute of the EjbDotXmlSubTask object"/>
+            description="%ejbdoclet.deploymentdesc.description"/>
             
      <TaskProperty
             default="${ejb.dd.clientjar}"
@@ -149,7 +149,7 @@
             include="true"
             label="clientjar"
             type="string"
-            description="Sets the Clientjar attribute of the EjbDotXmlSubTask object. Automatically excluded if there is not ejb client project."/>
+            description="%ejbdoclet.deploymentdesc.clientjar"/>
             
       <TaskProperty
             default="false"
@@ -157,7 +157,7 @@
             include="true"
             label="validatexml"
             type="boolean"
-            description="If this is set to true, the generated XML will be validated against its DTD or XML Schema."/>
+            description="%ejbdoclet.deploymentdesc.validatexml"/>
 
       <TaskProperty
             default="${ejb.dd.dir}"
@@ -165,25 +165,25 @@
             include="true"
             label="mergedir"
             type="string"
-            description="Specifies the location of the merge directory. This is where XDoclet will look for merge files."/>
+            description="%ejbdoclet.deploymentdesc.mergedir"/>
       <TaskProperty
             default="${ejb.dd.dir}"
             id="ejbdoclet.deploymentdescriptor.destdir"
             include="true"
             label="destdir"
             type="string"
-            description="Sets the directory where the generated file(s) will be written."/>
+            description="%ejbdoclet.deploymentdesc.destdir"/>
    </extension>   
  
    <!-- remoteinterface -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.remoteinterface"
-         name="remoteinterface Ejbdoclet Task Provider"
+         name="%ejbdoclet.RemoteInterface"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.RemoteInterfaceEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds remoteinterface task to ejbdoclet"
+            description="%ejbdoclet.RemoteInterface.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.RemoteInterfaceEjbdocletTaskProvider"
             name="RemoteInterface"/>
    </extension>   
@@ -191,12 +191,12 @@
    <!-- homeinterface -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.homeinterface"
-         name="homeinterface Ejbdoclet Task Provider"
+         name="%ejbdoclet.HomeInterface"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.HomeInterfaceEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds homeinterface task to ejbdoclet"
+            description="%ejbdoclet.HomeInterface.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.HomeInterfaceEjbdocletTaskProvider"
             name="HomeInterface"/>
    </extension>   
@@ -204,12 +204,12 @@
    <!-- localinterface -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.localinterface"
-         name="localinterface Ejbdoclet Task Provider"
+         name="%ejbdoclet.LocalInterface"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalInterfaceEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds localinterface task to ejbdoclet"
+            description="%ejbdoclet.LocalInterface.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalInterfaceEjbdocletTaskProvider"
             name="LocalInterface"/>
    </extension>   
@@ -217,12 +217,12 @@
    <!-- localhomeinterface -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.localhomeinterface"
-         name="localhomeinterface Ejbdoclet Task Provider"
+         name="%ejbdoclet.LocalHomeInterface"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalHomeInterfaceEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds localhomeinterface task to ejbdoclet"
+            description="%ejbdoclet.LocalHomeInterface.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.LocalHomeInterfaceEjbdocletTaskProvider"
             name="LocalHomeInterface"/>
    </extension>   
@@ -230,12 +230,12 @@
    <!-- utilobject -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.utilobject"
-         name="utilobject Ejbdoclet Task Provider"
+         name="%ejbdoclet.UtilObject"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.UtilObjectEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds utilobject task to ejbdoclet"
+            description="%ejbdoclet.UtilObject.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.UtilObjectEjbdocletTaskProvider"
             name="UtilObject"/>
       <TaskProperty
@@ -244,14 +244,14 @@
             label="cacheHomes"
             include="true"            
             type="boolean"
-            description="Cache the homes"/>            
+            description="%ejbdoclet.utilobject.cacheHomes"/>            
       <TaskProperty
             default="true"
             id="ejbdoclet.utilobject.includeGUID"
             label="includeGUID"
             include="true"            
             type="boolean"
-            description="Include a performant GUID generator in the util object."/> 
+            description="%ejbdoclet.utilobject.includeGUID"/> 
       <TaskProperty
             default="physical"
             id="ejbdoclet.utilobject.kind"
@@ -259,18 +259,18 @@
             include="true"            
             restriction="physical,logical"
             type="enum"
-            description="Sets the Kind attribute of the UtilObjectSubTask object Valid values: physical, logical"/>                       
+            description="%ejbdoclet.utilobject.kind"/>                       
    </extension>   
 
    <!-- dataobject -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.dataobject"
-         name="dataobject Ejbdoclet Task Provider"
+         name="%ejbdoclet.DataObject"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DataObjectEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds dataobject task to ejbdoclet"
+            description="%ejbdoclet.DataObject"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DataObjectEjbdocletTaskProvider"
             name="DataObject"/>
    </extension>   
@@ -278,12 +278,12 @@
    <!-- dao -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.dao"
-         name="dao Ejbdoclet Task Provider"
+         name="%ejbdoclet.Dao"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DaoEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds dao task to ejbdoclet"
+            description="%ejbdoclet.Dao.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DaoEjbdocletTaskProvider"
             name="Dao"/>
    </extension>   
@@ -291,12 +291,12 @@
    <!-- valueobject -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.valueobject"
-         name="valueobject Ejbdoclet Task Provider"
+         name="%ejbdoclet.valueobject"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.ValueObjectEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds valueobject task to ejbdoclet"
+            description="%ejbdoclet.valueobject.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.ValueObjectEjbdocletTaskProvider"
             name="valueobject"/>
    </extension>   
@@ -304,12 +304,12 @@
    <!-- entitypk -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.entitypk"
-         name="entitypk Ejbdoclet Task Provider"
+         name="ejbdoclet.Entitypk"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitypkEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds entitypk task to ejbdoclet"
+            description="%ejbdoclet.Entitypk.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitypkEjbdocletTaskProvider"
             name="Entitypk"/>
    </extension>   
@@ -318,12 +318,12 @@
    <!-- entitycmp -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.entitycmp"
-         name="entitycmp Ejbdoclet Task Provider"
+         name="%ejbdoclet.Entitycmp"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitycmpEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds entitycmp task to ejbdoclet"
+            description="%ejbdoclet.Entitycmp.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitycmpEjbdocletTaskProvider"
             name="Entitycmp"/>
    </extension>   
@@ -331,12 +331,12 @@
    <!-- entitybmp -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.entitybmp"
-         name="entitybmp Ejbdoclet Task Provider"
+         name="%ejbdoclet.Entitybmp"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitybmpEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds entitybmp task to ejbdoclet"
+            description="%ejbdoclet.Entitybmp.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.EntitybmpEjbdocletTaskProvider"
             name="Entitybmp"/>
    </extension>   
@@ -345,12 +345,12 @@
    <!-- session -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.session"
-         name="session Ejbdoclet Task Provider"
+         name="%ejbdoclet.Session"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.SessionEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds session task to ejbdoclet"
+            description="%ejbdoclet.Session.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.SessionEjbdocletTaskProvider"
             name="Session"/>
    </extension>   
@@ -358,12 +358,12 @@
    <!-- mdb -->
    <extension
          id="org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.mdb"
-         name="mdb Ejbdoclet Task Provider"
+         name="%ejbdoclet.Mdb"
          point="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider">
       <EjbdocletTaskProvider
             class="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.MdbEjbdocletTaskProvider"
             defaultSelection="true"
-            description="Adds mdb task to ejbdoclet"
+            description="%ejbdoclet.Mdb.desc"
             id="org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.MdbEjbdocletTaskProvider"
             name="Mdb"/>
    </extension>   
@@ -395,7 +395,7 @@
             include="true"
             label="contextroot"
             type="string"
-            description="	The context-root element specifies the context root for the web application."/>
+            description="The context-root element specifies the context root for the web application."/>
       <TaskProperty
             default="UTF-8"
             id="webdoclet.weblogic.xmlencoding"
