@@ -4,10 +4,17 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 public interface IJ2EEModuleConstants extends IModuleConstants {
 	
-	final String J2EE_PLUGIN_ID = "org.eclipse.jst.j2ee"; //$NON-NLS-1$
+	public static final String J2EE_PLUGIN_ID = "org.eclipse.jst.j2ee"; //$NON-NLS-1$
 	
-	final String JAR_EXT = ".jar"; //$NON-NLS-1$
-	final String WAR_EXT = ".war"; //$NON-NLS-1$
-	final String RAR_EXT = ".rar"; //$NON-NLS-1$
+	public static final String JAR_EXT = ".jar"; //$NON-NLS-1$
+	public static final String WAR_EXT = ".war"; //$NON-NLS-1$
+	public static final String RAR_EXT = ".rar"; //$NON-NLS-1$
 
+	public static final String JST_EAR_TEMPLATE = "template.jst.ear"; //$NON-NLS-1$
+	public static final String JST_UTILITY_TEMPLATE = "template.jst.utility"; //$NON-NLS-1$
+	public static final String JST_APPCLIENT_TEMPLATE = "template.jst.appclient"; //$NON-NLS-1$
+	public static final String JST_EJB_TEMPLATE = "template.jst.ejb"; //$NON-NLS-1$
+	public static final String JST_JCA_TEMPLATE = "template.jst.connector"; //$NON-NLS-1$
+	public static final String JST_WEB_TEMPLATE = "template.jst.web"; //$NON-NLS-1$
+	public static final String WST_WEB_TEMPLATE = "template.wst.web"; //$NON-NLS-1$
 }
