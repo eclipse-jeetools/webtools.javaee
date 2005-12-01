@@ -54,7 +54,6 @@ public abstract class FlexibleProjectContainer
             CLASSES_DIRECTORY = new PathType();
     }
     
-    private static IWorkspace workspace;
     private static ClasspathDecorationsManager decorations; 
 
     static
@@ -63,8 +62,10 @@ public abstract class FlexibleProjectContainer
         // resources relevant to flexible project containers across the
         // workspace and refresh them as necessary.
         
-        workspace = ResourcesPlugin.getWorkspace();
-        workspace.addResourceChangeListener( new Listener() );
+        final IWorkspace ws = ResourcesPlugin.getWorkspace();
+        
+        ws.addResourceChangeListener( new Listener(), 
+                                      IResourceChangeEvent.POST_CHANGE );
         
         // Read the decorations from the workspace metadata.
         
@@ -291,7 +292,9 @@ public abstract class FlexibleProjectContainer
             // Locate all of the flexible project containers.
             
             final ArrayList containers = new ArrayList();
-            final IProject[] projects = workspace.getRoot().getProjects();
+            
+            final IProject[] projects 
+                = ResourcesPlugin.getWorkspace().getRoot().getProjects();
             
             for( int i = 0; i < projects.length; i++ )
             {
