@@ -15,6 +15,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -27,10 +28,12 @@ public class EarProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public EarProjectWizard(IDataModel model){
 		super(model);
+		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_WIZ_TITLE));
 	}
 	
 	public EarProjectWizard(){
 		super();
+		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_WIZ_TITLE));
 	}
 	
 	protected IDataModel createDataModel() {

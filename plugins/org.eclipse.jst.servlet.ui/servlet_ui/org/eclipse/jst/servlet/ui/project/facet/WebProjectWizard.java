@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
@@ -27,10 +28,12 @@ public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public WebProjectWizard(IDataModel model) {
 		super(model);
+		setWindowTitle(WEBUIMessages.WEB_MODULE_WIZ_TITLE);
 	}
 	
 	public WebProjectWizard() {
 		super();
+		setWindowTitle(WEBUIMessages.WEB_MODULE_WIZ_TITLE);
 	}
 	
 	protected IDataModel createDataModel() {

@@ -16,6 +16,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -32,10 +33,12 @@ public final class UtilityProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public UtilityProjectWizard(IDataModel model) {
 		super(model);
+		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVAUTIL_COMPONENT_WIZ_TITLE));
 	}
 	
 	public UtilityProjectWizard(){
 		super();
+		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVAUTIL_COMPONENT_WIZ_TITLE));
 	}
 
 	protected IDataModel createDataModel() {

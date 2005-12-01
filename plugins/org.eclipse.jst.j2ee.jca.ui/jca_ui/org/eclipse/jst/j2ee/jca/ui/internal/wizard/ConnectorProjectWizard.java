@@ -7,6 +7,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
@@ -18,10 +19,12 @@ public class ConnectorProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public ConnectorProjectWizard(IDataModel model) {
 		super(model);
+		setWindowTitle(JCAUIMessages.JCA_MODULE_WIZ_TITLE);
 	}
 	
 	public ConnectorProjectWizard() {
 		super();
+		setWindowTitle(JCAUIMessages.JCA_MODULE_WIZ_TITLE);
 	}
 
 	protected IDataModel createDataModel() {
