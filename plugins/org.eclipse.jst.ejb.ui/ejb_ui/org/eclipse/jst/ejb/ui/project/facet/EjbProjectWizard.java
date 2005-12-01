@@ -37,7 +37,7 @@ public class EjbProjectWizard extends NewProjectDataModelFacetWizard {
 	
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle("org.eclipse.jst.ejb.ui"); //$NON-NLS-1$
-		final URL url = bundle.getEntry("icons/full/ctool16/newejbprj_wiz.gif"); //$NON-NLS-1$
+		final URL url = bundle.getEntry("icons/full/wizban/ejbproject_wiz.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 	
