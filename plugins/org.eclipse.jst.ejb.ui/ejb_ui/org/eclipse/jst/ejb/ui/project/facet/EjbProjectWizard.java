@@ -5,6 +5,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -17,10 +18,12 @@ public class EjbProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public EjbProjectWizard(IDataModel model){
 		super(model);
+		setWindowTitle(EJBUIMessages.KEY_1);
 	}
 	
 	public EjbProjectWizard(){
 		super();
+		setWindowTitle(EJBUIMessages.KEY_1);
 	}
 	
 	protected IDataModel createDataModel() {
