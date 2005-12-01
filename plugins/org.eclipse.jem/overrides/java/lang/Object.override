@@ -10,47 +10,47 @@
          <listChanges referenceValues="boolean_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="boolean_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="boolean_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#char">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="char_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="char_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="char_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#int">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="int_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="int_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="int_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#float">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="float_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="float_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="float_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#short">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="short_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="short_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="short_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#long">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="long_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="long_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="long_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#double">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="double_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="double_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="double_eStructuralFeatures" xsi:type="ecore:EReference"/>
    <objectChanges key="java:/#byte">
       <value featureName="eStructuralFeatures">
          <listChanges referenceValues="byte_eStructuralFeatures"/>
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="byte_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="byte_eStructuralFeatures" xsi:type="ecore:EReference"/>
 </change:ChangeDescription>

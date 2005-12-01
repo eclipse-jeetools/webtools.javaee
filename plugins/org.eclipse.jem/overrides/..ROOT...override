@@ -9,5 +9,5 @@
 -->
       </value>
    </objectChanges>
-   <objectsToAttach containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="_eStructuralFeatures" xsi:type="ecore:EReference"/>
+   <objectsToAttach containment="true" resolveProxies="false" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation" name="allocation" xmi:id="_eStructuralFeatures" xsi:type="ecore:EReference"/>
 </change:ChangeDescription>
