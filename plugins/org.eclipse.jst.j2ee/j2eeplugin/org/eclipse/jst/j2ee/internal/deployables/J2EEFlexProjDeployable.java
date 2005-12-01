@@ -160,8 +160,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				}
 			}
 			
-			if (!containsFolder) {
-				ModuleFolder mf2 = new ModuleFolder(null, name, curPath);
+			if (!containsFolder && javaCont.length > 0) {
+				ModuleFolder mf2 = new ModuleFolder(javaCont[0], name, curPath);
 				IModuleResource[] mrf = new IModuleResource[0];
 				size = javaCont.length;
 				for (int i = 0; i < size; i++) {
