@@ -27,7 +27,11 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -35,6 +39,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataModelProvider implements IDefaultJ2EEComponentCreationDataModelProperties {
 	private static String CREATE_BASE = "DefaultJ2EEComponentCreationDataModel.CREATE_"; //$NON-NLS-1$
@@ -50,9 +56,13 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	private static final String CONNECTOR_SUFFIX = "Connector"; //$NON-NLS-1$
 
 	private IDataModel ejbModel;
+	private IDataModel ejbFacetModel;
 	private IDataModel webModel;
+	private IDataModel webFacetModel;
 	private IDataModel jcaModel;
+	private IDataModel jcaFacetModel;
 	private IDataModel clientModel;
+	private IDataModel clientFacetModel;
 
 	public DefaultJ2EEComponentCreationDataModelProvider() {
 		super();
@@ -83,7 +93,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 
 	public IDataModelOperation getDefaultOperation() {
-		return new DefaultJ2EEComponentCreationOperation(getDataModel());
+		return new DefaultJ2EEComponentCreationOperation(model);
 	}
 
 	public void init() {
@@ -94,23 +104,35 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	protected void initNestedCreationModels() {
 		clientModel = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
 		model.addNestedModel(NESTED_MODEL_CLIENT, clientModel);
+		clientFacetModel = ((FacetDataModelMap)clientModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.APPLICATION_CLIENT);
+		clientFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+		
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
 			ejbModel = ejbExt.createProjectDataModel();
-			if (ejbModel != null)
+			if (ejbModel != null){
 				model.addNestedModel(NESTED_MODEL_EJB, ejbModel);
+				ejbFacetModel = ((FacetDataModelMap)ejbModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.EJB);
+				ejbFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+			}
 		}
 		WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
 		if (webExt != null) {
 			webModel = webExt.createProjectDataModel();
-			if (webModel != null)
+			if (webModel != null){
 				model.addNestedModel(NESTED_MODEL_WEB, webModel);
+				webFacetModel = ((FacetDataModelMap)webModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.DYNAMIC_WEB);
+				webFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+			}
 		}
 		JcaModuleExtension rarExt = EarModuleManager.getJCAModuleExtension();
 		if (rarExt != null) {
 			jcaModel = rarExt.createProjectDataModel();
-			if (jcaModel != null)
+			if (jcaModel != null){
 				model.addNestedModel(NESTED_MODEL_JCA, jcaModel);
+				jcaFacetModel = ((FacetDataModelMap)jcaModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP)).getFacetDataModel(J2EEProjectUtilities.JCA);
+				jcaFacetModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
+			}
 		}
 	}
 
@@ -163,11 +185,32 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (propertyName.equals(J2EE_VERSION)) {
 			updatedJ2EEVersion((Integer) propertyValue);
 			return true;
-		}
-		if (propertyName.startsWith(CREATE_BASE))
+		}else if (propertyName.startsWith(CREATE_BASE)){
 			notifyEnablement(convertPropertyNameToInt(propertyName));
-		if (propertyName.equals(EAR_COMPONENT_NAME)) {
+		}else if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			setDefaultComponentNames((String) propertyValue);
+		}else if(webModel != null && propertyName.equals(WEB_COMPONENT_NAME)){
+			webModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+		}else if(clientModel != null && propertyName.equals(APPCLIENT_COMPONENT_NAME)){
+			clientModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+		}else if(ejbModel != null && propertyName.equals(EJB_COMPONENT_NAME)){
+			ejbModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+		}else if(jcaModel != null && propertyName.equals(CONNECTOR_COMPONENT_NAME)){
+			jcaModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+		} 
+		else if(FACET_RUNTIME.equals(propertyName)){
+			if(webModel != null){
+				webModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, propertyValue);
+			}
+			if(clientModel != null){
+				clientModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, propertyValue);
+			}
+			if(ejbModel != null){
+				ejbModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, propertyValue);
+			}
+			if(jcaModel != null){
+				jcaModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, propertyValue);
+			}
 		}
 		return notify;
 	}
@@ -192,7 +235,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	}
 
 	private void updatedJ2EEVersion(Integer version) {
-		//setNestedJ2EEVersion(version);
+		setNestedJ2EEVersion(version);
 		if (version.intValue() < J2EEVersionConstants.J2EE_1_3_ID && model.isPropertySet(CREATE_CONNECTOR)) {
 			model.setProperty(CREATE_CONNECTOR, Boolean.FALSE);
 		}
@@ -324,20 +367,26 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 	private void setNestedJ2EEVersion(Object j2eeVersion) {
 		int j2eeVer = ((Integer) j2eeVersion).intValue();
-		if (ejbModel != null) {
-			int ejbVersion = J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(j2eeVer);
-			ejbModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, ejbVersion);
+		if (ejbFacetModel != null) {
+			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(j2eeVer));
+			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(ejbFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
+			ejbFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
 		}
-		if (webModel != null) {
-			int webVersion = J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(j2eeVer);
-			webModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, webVersion);
+		if (webFacetModel != null) {
+			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(j2eeVer));
+			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(webFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
+			webFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
 		}
-		if (jcaModel != null) {
-			int jcaVersion = J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(j2eeVer);
-			jcaModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, jcaVersion);
+		if (jcaFacetModel != null) {
+			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(j2eeVer));
+			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(jcaFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
+			jcaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
 		}
-		if (clientModel != null)
-			clientModel.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, j2eeVersion);
+		if (clientFacetModel != null){
+			String facetVersionString = J2EEVersionUtil.convertVersionIntToString(j2eeVer);
+			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(clientFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
+			clientFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
+		}
 	}
 
 	private void setNestedComponentName(int flag, String compName) {
