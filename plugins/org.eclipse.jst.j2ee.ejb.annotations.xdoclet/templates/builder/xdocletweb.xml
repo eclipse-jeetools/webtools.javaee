@@ -58,7 +58,7 @@
 	</taskdef>
 
     <webdoclet 
-    		destdir="${web.project.dir}/${web.module.gen}"
+    		destdir="${web.project.dir}/${web.module.webinf}"
     		mergedir="${web.project.dir}/${web.module.webinf}"
     	    excludedtags="@version,@author,@todo"
     	    addedtags="@wtp generated"
