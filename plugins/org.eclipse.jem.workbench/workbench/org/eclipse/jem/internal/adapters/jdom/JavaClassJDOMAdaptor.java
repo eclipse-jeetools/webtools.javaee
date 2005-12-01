@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.22 $  $Date: 2005/10/18 14:58:18 $ 
+ *  $Revision: 1.23 $  $Date: 2005/12/01 22:02:01 $ 
  */
 
 import java.util.*;
@@ -432,6 +432,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					}
 					setImplements();
 					reflectInnerClasses();
+					setDeclaringClass();
 					//addImports();
 					if (isHeadless) {
 						registerWithFactory();
@@ -447,6 +448,20 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		else {
 			registerWithFactory();
 			return true;
+		}
+	}
+	
+	protected void setDeclaringClass() {
+		IType declaringType = getSourceType().getDeclaringType();
+		if (declaringType != null) {
+			// Need to get it and reflect it so that the declared type of this target is set correctly. We can just
+			// set it ourselves directly because ECore would try to add it to the list of inner classes of the declaring type. This
+			// would cause it to be added twice, once from the reflection caused by the inverse setting, and once from our doing
+			// the inverse setting itself.
+			ResourceSet set = getTargetResource().getResourceSet();
+			String packageName = declaringType.getPackageFragment().getElementName();
+			JavaClassImpl declaringClass = (JavaClassImpl) JavaRefFactory.eINSTANCE.reflectType(packageName, declaringType.getTypeQualifiedName(), set);
+			declaringClass.getDeclaredClasses();	// This will cause it to put us into its list and also set our declaring class to this declaring type.
 		}
 	}
 	

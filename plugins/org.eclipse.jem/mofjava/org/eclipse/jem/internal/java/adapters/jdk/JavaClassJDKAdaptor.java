@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.14 $  $Date: 2005/09/14 23:30:35 $ 
+ *  $Revision: 1.15 $  $Date: 2005/12/01 22:02:00 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
@@ -22,7 +22,6 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
-
 
 import org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
@@ -239,6 +238,7 @@ public class JavaClassJDKAdaptor extends JDKAdaptor implements IJavaClassAdaptor
 				addMethods();
 				addFields();
 				reflectInnerClasses();
+				setDeclaringClass();
 				getAdapterFactory().registerReflection(getSourceType().getName(), this);
 				//	addImports();
 				return true;
@@ -249,6 +249,19 @@ public class JavaClassJDKAdaptor extends JDKAdaptor implements IJavaClassAdaptor
 			//this enables dynamic swapping of the alternate class loader
 			//for java reflection, as well as avoids potential memory leakage
 			sourceType = null;
+		}
+	}
+	
+	protected void setDeclaringClass() {
+		Class declaringType = getSourceType().getDeclaringClass();
+		if (declaringType != null) {
+			// Need to get it and reflect it so that the declared type of this target is set correctly. We can just
+			// set it ourselves directly because ECore would try to add it to the list of inner classes of the declaring type. This
+			// would cause it to be added twice, once from the reflection caused by the inverse setting, and once from our doing
+			// the inverse setting itself.
+			ResourceSet set = getTargetResource().getResourceSet();
+			JavaClassImpl declaringClass = (JavaClassImpl) JavaRefFactory.eINSTANCE.reflectType(declaringType.getName(), set);
+			declaringClass.getDeclaredClasses();	// This will cause it to put us into its list and also set our declaring class to this declaring type.
 		}
 	}
 
