@@ -58,6 +58,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		for (Iterator iter = list.iterator(); iter.hasNext();) {
 			IProject handle = (IProject) iter.next();
 			IVirtualComponent comp = ComponentCore.createComponent(handle.getProject());
+			if (comp == null) return OK_STATUS; //Not a faceted project, so version not relevant
 			int compVersion = J2EEVersionUtil.convertVersionStringToInt(comp);
 			if (earVersion < compVersion) {
 				String errorStatus = "The Module specification level of " + handle.getName() + ", is incompatible with the containing EAR version"; //$NON-NLS-1$

@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.IEarFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -69,7 +70,15 @@ public final class EarFacetInstallDelegate implements IDelegate {
 			if(!dependentProjects.isEmpty()){
 				List dependentComponents = new ArrayList(dependentProjects.size());
 				for(Iterator iterator = dependentProjects.iterator(); iterator.hasNext();){
-					dependentComponents.add(ComponentCore.createComponent((IProject)iterator.next()));
+					IProject depProject = (IProject)iterator.next();
+					IVirtualComponent depComp = ComponentCore.createComponent(depProject);
+					if (depComp == null) {
+						JavaProjectMigrationOperation utilOp = J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(depProject);
+						utilOp.execute(null, null);
+						depComp = ComponentCore.createComponent(depProject);
+					}
+						
+					dependentComponents.add(depComp);
 				}
 					
 				final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
