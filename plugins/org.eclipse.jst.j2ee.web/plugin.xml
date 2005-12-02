@@ -7,7 +7,7 @@
 <!-- Web JSFaces File URL extension -->
 <!--============================-->
 
-   <extension-point id="fileURL" name="FileURL"/>
+   <extension-point id="fileURL" name="FileURL" schema="schema/fileURL.exsd"/>
 
 
 <!--============================-->
