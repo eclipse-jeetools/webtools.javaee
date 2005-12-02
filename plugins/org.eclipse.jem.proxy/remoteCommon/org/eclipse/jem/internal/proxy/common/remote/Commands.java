@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.15 $  $Date: 2005/08/24 20:39:08 $ 
+ *  $Revision: 1.16 $  $Date: 2005/12/02 18:41:25 $ 
  */
 
 import java.io.*;
@@ -383,7 +383,7 @@ public class Commands {
 		
 		public Object clone() {
 			try {
-				return (ValueObject) super.clone();
+				return super.clone();
 			} catch (CloneNotSupportedException e) {
 				return null;
 			}
@@ -472,7 +472,7 @@ public class Commands {
 				case L_BOOL:
 					return aBool ? Boolean.TRUE : Boolean.FALSE;
 				case STRING:
-					return (String) anObject;
+					return anObject;
 				case OBJECT:
 					return anObject;
 				

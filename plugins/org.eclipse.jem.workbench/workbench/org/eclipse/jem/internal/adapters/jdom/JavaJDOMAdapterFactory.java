@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaJDOMAdapterFactory.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.7 $  $Date: 2005/12/02 18:41:27 $ 
  */
 import java.util.*;
 
@@ -201,7 +201,7 @@ public void notifyContentChanged(ICompilationUnit targetCU) {
 	try {
 		Iterator i = reflected.values().iterator();
 		while (i.hasNext()) {
-			Object a = (ReflectionAdaptor) i.next() ;
+			Object a = i.next() ;
 			if (a instanceof JDOMAdaptor) {
 				JDOMAdaptor adaptor = (JDOMAdaptor) a;
 				IMember reflectionSource = (IMember) adaptor.getReflectionSource();

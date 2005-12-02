@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.15 $  $Date: 2005/08/24 20:39:08 $ 
+ *  $Revision: 1.16 $  $Date: 2005/12/02 18:41:25 $ 
  */
 
 
@@ -456,7 +456,7 @@ public class ConnectionHandler {
 										// It is an array containing IDs, as it normally would be.
 										valueSender.initialize(valueObject);
 										Commands.readArray(in, valueObject.anInt, valueSender, valueObject, false);
-										result = (Object[]) valueSender.getArray();
+										result = valueSender.getArray();
 									} else {
 										result = getInvokableObject(valueObject);
 									}
