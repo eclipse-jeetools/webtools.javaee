@@ -2,7 +2,6 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-    
 <!--  Dyanmic Content Provider extensions -->
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
@@ -94,15 +93,6 @@
          </editModelResource>
       </editModelExtension>
    </extension>
-
-<!-- ========================================================================== -->
-<!-- @deprecated: Extension point: org.eclipse.jst.j2ee.internal.webservice.atk.ui.webserviceseditmodel -->
-<!-- ========================================================================== -->
-   <extension-point id="webserviceseditmodelcontainer" name="%EDITOR_EDITMODELS_WEB_SERVICES"/>
-<!-- ========================================================================== -->
-<!-- @deprecated: Extension point: org.eclipse.jst.j2ee.internal.webservice.atk.ui.webservicesclienteditmodel -->
-<!-- ========================================================================== -->
-   <extension-point id="webservicesclienteditmodelcontainer" name="%EDITOR_EDITMODELS_WEB_SERVICES_CLIENT"/>
 
    <extension
          id="WSDLServiceHelper"
