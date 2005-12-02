@@ -43,7 +43,7 @@ public class ConnectorProjectWizard extends NewProjectDataModelFacetWizard {
 
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle(J2EEUIPlugin.PLUGIN_ID);
-		final URL url = bundle.getEntry("icons/full/ctool16/newconnectionprj_wiz.gif"); //$NON-NLS-1$
+		final URL url = bundle.getEntry("icons/full/wizban/connector_wiz.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 
