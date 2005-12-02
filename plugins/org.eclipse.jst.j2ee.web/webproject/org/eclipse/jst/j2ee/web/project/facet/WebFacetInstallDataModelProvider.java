@@ -70,9 +70,6 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {
-		if (CONTEXT_ROOT.equals(propertyName)) {
-			return getBooleanProperty(ADD_TO_EAR);
-		}
 		return super.isPropertyEnabled(propertyName);
 	}
 
