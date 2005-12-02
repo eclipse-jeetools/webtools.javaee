@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.14 $  $Date: 2005/10/03 23:06:42 $ 
+ *  $Revision: 1.15 $  $Date: 2005/12/02 16:20:07 $ 
  */
 
 import java.net.URL;
@@ -23,11 +23,8 @@ import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.ui.*;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.ui.IWorkbench;
@@ -66,27 +63,35 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		this(null);
 	}
 	
+	protected Image getWarningOverlayImage(Image image){
+		ImageDescriptor decoratedImageDescriptor = 
+			new JavaElementImageDescriptor(
+					ImageDescriptor.createFromImage(image),
+					JavaElementImageDescriptor.WARNING, 
+					new Point(16,16));
+		return decoratedImageDescriptor.createImage();
+	}
+	
 	public SearchPathListLabelProvider(IJavaProject javaProject) {
 		this.javaProject = javaProject;
 		
 		fRoot = ResourcesPlugin.getWorkspace().getRoot();
-		ImageRegistry reg = JavaPlugin.getDefault().getImageRegistry();
 		ISharedImages jdtSharedImages = JavaUI.getSharedImages();
 
 		fJarIcon = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_JAR);
 		fExtJarIcon = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_EXTERNAL_ARCHIVE);
 		fFolderImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_PACKFRAG_ROOT);
 
-		fVariableImage = reg.get(JavaPluginImages.IMG_OBJS_ENV_VAR);
+		fVariableImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_CLASSPATH_VAR_ENTRY);
 		
 		fLibraryImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_LIBRARY);
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		fProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
 
-		fMissingJarImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_JAR);
-		fMissingVariableImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_ENV_VAR);
-		fMissingFolderImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_PACKFRAG_ROOT);
+		fMissingJarImage = getWarningOverlayImage(jdtSharedImages.getImage(ISharedImages.IMG_OBJS_JAR));
+		fMissingVariableImage = getWarningOverlayImage(jdtSharedImages.getImage(ISharedImages.IMG_OBJS_CLASSPATH_VAR_ENTRY));
+		fMissingFolderImage = getWarningOverlayImage(jdtSharedImages.getImage(ISharedImages.IMG_OBJS_PACKFRAG_ROOT));
 		fMissingProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT_CLOSED);
 
 		fPackageImage = jdtSharedImages.getImage(ISharedImages.IMG_OBJS_PACKAGE);
