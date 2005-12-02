@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
+import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -97,6 +98,13 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 				Logger.getLogger().logError(e);
 			}
 
+
+			ClasspathHelper.removeClasspathEntries(project, fv);
+
+			if (!ClasspathHelper.addClasspathEntries(project, fv)) {
+				// TODO: Support the no runtime case.
+				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
+			}
 
 
 			// Associate with an EAR, if necessary.
