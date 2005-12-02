@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.init;
 /*
  *  $RCSfile: JavaInit.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:20:25 $ 
+ *  $Revision: 1.7 $  $Date: 2005/12/02 16:10:14 $ 
  */
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -46,18 +46,10 @@ public class JavaInit {
 	private static void preRegisterPackages() {
 		//ecore
 		if (!EPackage.Registry.INSTANCE.containsKey("ecore.xmi")) //$NON-NLS-1$
-			EPackage.Registry.INSTANCE.put("ecore.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
-			public EPackage getEPackage() {
-				return EcorePackage.eINSTANCE;
-			}
-		});
+			EPackage.Registry.INSTANCE.put("ecore.xmi", EcorePackage.eINSTANCE);
 		//java
 		if (!EPackage.Registry.INSTANCE.containsKey("java.xmi")) //$NON-NLS-1$
-			EPackage.Registry.INSTANCE.put("java.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
-			public EPackage getEPackage() {
-				return JavaRefPackage.eINSTANCE;
-			}
-		});
+			EPackage.Registry.INSTANCE.put("java.xmi", JavaRefPackage.eINSTANCE);
 	}
 	protected static void setDefaultResourceFactory() {
 		//This is not done outside of Eclipse
