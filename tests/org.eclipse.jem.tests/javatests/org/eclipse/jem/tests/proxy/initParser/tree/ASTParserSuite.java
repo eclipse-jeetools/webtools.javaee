@@ -11,10 +11,11 @@
 package org.eclipse.jem.tests.proxy.initParser.tree;
 /*
  *  $RCSfile: ASTParserSuite.java,v $
- *  $Revision: 1.9 $  $Date: 2005/08/24 20:58:54 $ 
+ *  $Revision: 1.10 $  $Date: 2005/12/02 16:09:45 $ 
  */
 import junit.extensions.TestSetup;
 import junit.framework.*;
+import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
