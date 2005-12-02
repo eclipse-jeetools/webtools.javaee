@@ -205,8 +205,8 @@ public final class EarFacetInstallPage extends DataModelFacetInstallPage impleme
 		newModuleButton = new Button(buttonGroup, SWT.PUSH);
 		newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_NEW));
 		newModuleButton.addListener(SWT.Selection, this);
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		gd.widthHint = 120;
+		gd = new GridData(GridData.GRAB_HORIZONTAL);
+		gd.minimumWidth = 120;
 		newModuleButton.setLayoutData(gd);
 	}
 
