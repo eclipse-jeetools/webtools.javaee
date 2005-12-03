@@ -16,9 +16,9 @@
  */
 package org.eclipse.jst.j2ee.ejb.internal.extensions;
 
-import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.Assert;
 
 /**
  * @author vijayb
