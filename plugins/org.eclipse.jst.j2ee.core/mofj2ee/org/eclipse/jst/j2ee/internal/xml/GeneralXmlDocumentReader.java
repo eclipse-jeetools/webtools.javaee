@@ -105,7 +105,7 @@ public class GeneralXmlDocumentReader
         }
         catch (Exception ie)
         {
-            handleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.failed_instantiating_EXC_, (new Object[] {"Failed to instantiate parser"})), ie); //$NON-NLS-1$ //$NON-NLS-2$ = "Failed instantiating: "
+            handleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.failed_instantiating_EXC_, (new Object[] {"Failed to instantiate parser"})), ie); //$NON-NLS-1$ // = "Failed instantiating: "
         }
         return null;
     }
@@ -209,12 +209,12 @@ public class GeneralXmlDocumentReader
         }
         catch (org.xml.sax.SAXException ex)
         {
-            handleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.failed_instantiating_EXC_, (new Object[] {"SAX Parser error"})), ex); //$NON-NLS-1$ //$NON-NLS-2$ = "Failed instantiating: "
+            handleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.failed_instantiating_EXC_, (new Object[] {"SAX Parser error"})), ex); //$NON-NLS-1$ // = "Failed instantiating: "
 
         }
         catch (java.io.IOException ex)
         {
-            handleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.failed_instantiating_EXC_, (new Object[] {"IO Exception on input stream"})), ex); //$NON-NLS-1$ //$NON-NLS-2$ = "Failed instantiating: "
+            handleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.failed_instantiating_EXC_, (new Object[] {"IO Exception on input stream"})), ex); //$NON-NLS-1$ // = "Failed instantiating: "
         }
         return null;
     }

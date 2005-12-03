@@ -13,8 +13,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -135,29 +133,11 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 		public Object caseEJBMethodCategory(EJBMethodCategory object) {
 			return createEJBMethodCategoryAdapter();
 		}
-		/**
-		 * @deprecated  28/11/05 API warning cleanup, is this method used by someone????
-		 * If not it should be deleted!!! Future ToDo
-		 * @param object
-		 * @return
-		 */
-		public Object caseEClass(EClass object) {
-			return createEClassAdapter();
-		}
 		public Object caseEAttribute(EAttribute object) {
 			return createEAttributeAdapter();
 		}
 		public Object caseEStructuralFeature(EStructuralFeature object) {
 			return createEStructuralFeatureAdapter();
-		}
-		/**
-		 * @deprecated  28/11/05 API warning cleanup, is this method used by someone??
-		 * If not it should be deleted!!! Future ToDo
-		 * @param object
-		 * @return
-		 */
-		public Object caseEClassifier(EClassifier object) {
-			return createEClassifierAdapter();
 		}
 		public Object caseEModelElement(EModelElement object) {
 			return createEModelElementAdapter();

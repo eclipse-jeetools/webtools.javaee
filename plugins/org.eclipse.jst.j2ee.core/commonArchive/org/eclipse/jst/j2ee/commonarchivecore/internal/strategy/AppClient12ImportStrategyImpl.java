@@ -39,7 +39,7 @@ public class AppClient12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.Application_Client_Jar_Fil, J2EEConstants.APP_CLIENT_DD_URI); //$NON-NLS-1$ = "Application Client Jar File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.Application_Client_Jar_Fil, J2EEConstants.APP_CLIENT_DD_URI); // = "Application Client Jar File"
 		}
 
 		public Archive createConvertedArchive() {

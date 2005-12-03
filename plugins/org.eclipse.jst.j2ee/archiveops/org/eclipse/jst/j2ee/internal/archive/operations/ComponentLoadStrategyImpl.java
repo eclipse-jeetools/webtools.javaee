@@ -300,7 +300,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				String uri = runtimePath == null ? null : runtimePath.toString();
 				if (uri == null)
 					continue;
-				if (!shouldInclude(uri)) //$NON-NLS-1$
+				if (!shouldInclude(uri)) 
 					continue;
 				if (filesHolder.contains(uri))
 					continue;
@@ -327,7 +327,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				String uri = runtimePath == null ? null : runtimePath.toString();
 				if (uri == null)
 					continue;
-				if (!shouldInclude(uri)) //$NON-NLS-1$
+				if (!shouldInclude(uri)) 
 					continue;
 				if (filesHolder.contains(uri))
 					continue;

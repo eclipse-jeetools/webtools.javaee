@@ -149,9 +149,9 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		if (ARCHIVE_DESTINATION.equals(propertyName)) {
 			String archiveLocation = (String) model.getProperty(ARCHIVE_DESTINATION);
 			if (!model.isPropertySet(ARCHIVE_DESTINATION) || archiveLocation.equals("")) { //$NON-NLS-1$
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_INVALID)); //$NON-NLS-1$);
+				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_INVALID)); //);
 			} else if (model.isPropertySet(ARCHIVE_DESTINATION) && !validateModuleType(archiveLocation)) {
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_ARCHIVE_SHOULD_END_WITH, new Object[]{getModuleExtension()})); //$NON-NLS-1$);
+				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_ARCHIVE_SHOULD_END_WITH, new Object[]{getModuleExtension()})); //);
 			} else if (model.isPropertySet(ARCHIVE_DESTINATION)) {
 				IStatus tempStatus = validateLocation(archiveLocation);
 				if (tempStatus != OK_STATUS)

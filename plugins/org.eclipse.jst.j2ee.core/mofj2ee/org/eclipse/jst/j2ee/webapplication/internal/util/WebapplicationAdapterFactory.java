@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
-import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
 import org.eclipse.jst.j2ee.webapplication.ErrorCodeErrorPage;
@@ -148,15 +147,6 @@ public class WebapplicationAdapterFactory extends AdapterFactoryImpl {
 		}
 		public Object caseFilterMapping(FilterMapping object) {
 			return createFilterMappingAdapter();
-		}
-		/**
-		 * @deprecated  28/11/05 API warning cleanup, is this method used by someone????
-		 * If not it should be deleted!!! Future ToDo
-		 * @param object
-		 * @return
-		 */
-		public Object caseListener(Listener object) {
-			return createListenerAdapter();
 		}
 		public Object caseRoleNameType(RoleNameType object) {
 			return createRoleNameTypeAdapter();

@@ -63,7 +63,7 @@ public void printStackTrace() {
 public void printStackTrace(java.io.PrintStream s) {
 	if (nestedException != null) {
 		s.println(this);
-		s.println(MOFJ2EEResourceHandler.Stack_trace_of_nested_exce); //$NON-NLS-1$ = "Stack trace of nested exception:"
+		s.println(MOFJ2EEResourceHandler.Stack_trace_of_nested_exce); // = "Stack trace of nested exception:"
 		nestedException.printStackTrace(s);
 	} else {
 		super.printStackTrace(s);
@@ -76,7 +76,7 @@ public void printStackTrace(java.io.PrintStream s) {
 public void printStackTrace(java.io.PrintWriter s) {
 	if (nestedException != null) {
 		s.println(this);
-		s.println(MOFJ2EEResourceHandler.Stack_trace_of_nested_exce); //$NON-NLS-1$ = "Stack trace of nested exception:"
+		s.println(MOFJ2EEResourceHandler.Stack_trace_of_nested_exce); // = "Stack trace of nested exception:"
 		nestedException.printStackTrace(s);
 	} else {
 		super.printStackTrace(s);

@@ -244,8 +244,8 @@ public class WebAppTranslator extends RootTranslator implements WarDeploymentDes
 	private Translator createLocaleEncodingMapping() {
 		GenericTranslator result = new GenericTranslator(LOCALE_ENCODING_MAPPING, WEBAPP_PKG.getLocalEncodingMappingList_LocalEncodingMappings());
 		result.setChildren(new Translator[] {
-			new Translator(LOCALE, WEBAPP_PKG.getLocalEncodingMapping_Locale()), //$NON-NLS-1$
-			new Translator(ENCODING, WEBAPP_PKG.getLocalEncodingMapping_Encoding()) //$NON-NLS-1$
+			new Translator(LOCALE, WEBAPP_PKG.getLocalEncodingMapping_Locale()), 
+			new Translator(ENCODING, WEBAPP_PKG.getLocalEncodingMapping_Encoding()) 
 		});
 		return result;
 

@@ -98,7 +98,7 @@ public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) t
 	
 	
 	if (url == null) {
-		String message = J2EEXMLResourceHandler.getString(J2EEXMLResourceHandler.dtd_not_found_EXC_, (new Object[] {localResourceName}));//$NON-NLS-1$ = "Could not parse xml because the resolved resource "{0}" could not be found in classpath"
+		String message = J2EEXMLResourceHandler.getString(J2EEXMLResourceHandler.dtd_not_found_EXC_, (new Object[] {localResourceName}));// = "Could not parse xml because the resolved resource "{0}" could not be found in classpath"
 		throw new java.io.FileNotFoundException(message);
 	}
 	

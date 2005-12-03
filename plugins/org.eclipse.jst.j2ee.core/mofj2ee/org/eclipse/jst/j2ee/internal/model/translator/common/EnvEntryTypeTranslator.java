@@ -38,7 +38,7 @@ public class EnvEntryTypeTranslator extends Translator implements DeploymentDesc
 	 */
 	public String convertValueToString(Object value, EObject owner) {
 		if (value != null) 
-			return JAVA_LANG + ((Enumerator)value).getName(); //$NON-NLS-1$
+			return JAVA_LANG + ((Enumerator)value).getName(); 
 		return null;
 	}
 

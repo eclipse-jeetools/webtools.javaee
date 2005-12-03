@@ -19,7 +19,6 @@ package org.eclipse.jst.j2ee.core.internal.plugin;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jem.util.RegistryReader;

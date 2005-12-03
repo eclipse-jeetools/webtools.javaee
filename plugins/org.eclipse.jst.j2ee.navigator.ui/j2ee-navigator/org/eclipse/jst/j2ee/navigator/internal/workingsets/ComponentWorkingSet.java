@@ -52,7 +52,9 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 	
 	private String name;
 
-    private ArrayList elements;
+	private String label;
+
+	private ArrayList elements;
 
     private String editPageId;
 
@@ -341,7 +343,43 @@ public class ComponentWorkingSet   implements ICommonWorkingSet,IActionFilter{
 		
 	}
 
-	
+	public boolean isVisible() {
+		//TODO_32 This implementation put in WTP 1.0 to maintain compatibility with Eclipse 3.2 M3
+		return true;
+	}
+
+	public String getLabel() {
+		//TODO_32 This implementation put in WTP 1.0 to maintain compatibility with Eclipse 3.2 M3
+		String result = label;
+		if (result == null) {
+			result = getName();
+		}
+		return result;
+	}
+
+	public void setLabel(String label) {
+		//TODO_32 This implementation put in WTP 1.0 to maintain compatibility with Eclipse 3.2 M3
+		this.label = label;
+		
+	}
+
+	public boolean isSelfUpdating() {
+		// TODO_32 this method was added to be compatible 
+		// with 3.2. Please reimplenet it in the 32 stream if needed. 
+		return false;
+	}
+
+	public boolean isAggregateWorkingSet() {
+		// TODO_32 this method was added to be compatible 
+		// with 3.2. Please reimplenet it in the 32 stream if needed. 
+		return false;
+	}
+
+	public boolean isEmpty() {
+		// TODO_32 this method was added to be compatible 
+		// with 3.2. Please reimplenet it in the 32 stream if needed. 
+		return false;
+	}
 	
 
 

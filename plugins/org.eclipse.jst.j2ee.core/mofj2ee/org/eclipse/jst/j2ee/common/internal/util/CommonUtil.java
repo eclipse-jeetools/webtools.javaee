@@ -64,10 +64,10 @@ protected static EClass eClassConnector() {
 public static void checkDDObjectForVersion(EObject dd) {
 	if (dd.eIsProxy()) {
 		String proxyUri = ((InternalEObject)dd).eProxyURI().toString();
-		String message = MOFJ2EEResourceHandler.getString(MOFJ2EEResourceHandler.J2EE_VERSION_PROXY_ERROR, new Object[]{proxyUri}); //$NON-NLS-1$
+		String message = MOFJ2EEResourceHandler.getString(MOFJ2EEResourceHandler.J2EE_VERSION_PROXY_ERROR, new Object[]{proxyUri}); 
 		throw new IllegalStateException(message);
 	} else if (dd.eResource() == null) {
-		String message = MOFJ2EEResourceHandler.J2EE_VERSION_NULL_ERROR; //$NON-NLS-1$
+		String message = MOFJ2EEResourceHandler.J2EE_VERSION_NULL_ERROR; 
 		throw new IllegalStateException(message);
 	}
 }

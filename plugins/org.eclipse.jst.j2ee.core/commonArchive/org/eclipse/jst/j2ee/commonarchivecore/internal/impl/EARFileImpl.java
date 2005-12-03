@@ -180,19 +180,19 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		try {
 			dd = getDeploymentDescriptor(aModule);
 		} catch (Exception e) {
-			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
+			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); // = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
 		}
 		String roleName = aRole.getRoleName();
 		SecurityRole copy = (SecurityRole) EtoolsCopyUtility.createCopy(aRole);
 		if (aModule.isEjbModule()) {
 			EJBJar ejbJar = (EJBJar) dd;
 			if (ejbJar.containsSecurityRole(roleName))
-				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_sec_role_module_EXC_, (new Object[]{aModule.getUri(), roleName})), ejbJar.getAssemblyDescriptor().getSecurityRoleNamed(roleName)); //$NON-NLS-1$ = "Deployment descriptor for {0} already contains a security role named {1}"
+				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_sec_role_module_EXC_, (new Object[]{aModule.getUri(), roleName})), ejbJar.getAssemblyDescriptor().getSecurityRoleNamed(roleName)); // = "Deployment descriptor for {0} already contains a security role named {1}"
 			getAssemblyDescriptorAddIfNecessary(ejbJar).getSecurityRoles().add(copy);
 		} else if (aModule.isWebModule()) {
 			WebApp webApp = (WebApp) dd;
 			if (webApp.containsSecurityRole(roleName))
-				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_sec_role_module_EXC_, (new Object[]{aModule.getUri(), roleName})), webApp.getSecurityRoleNamed(roleName));//$NON-NLS-1$ = "Deployment descriptor for {0} already contains a security role named {1}"
+				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_sec_role_module_EXC_, (new Object[]{aModule.getUri(), roleName})), webApp.getSecurityRoleNamed(roleName));// = "Deployment descriptor for {0} already contains a security role named {1}"
 			webApp.getSecurityRoles().add(copy);
 		}
 		addCopyIfNotExists(aRole);
@@ -214,7 +214,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 
 	protected void checkDuplicate(String aUri) throws DuplicateObjectException {
 		if (isDuplicate(aUri))
-			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_resource_EXC_, (new Object[]{aUri, getURI()}))); //$NON-NLS-1$ = "Resource named "{0}" already exists in archive "{1}""
+			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_resource_EXC_, (new Object[]{aUri, getURI()}))); // = "Resource named "{0}" already exists in archive "{1}""
 	}
 
 
@@ -514,7 +514,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 
 	protected ArchiveOptions getOptionsForOpening(LooseArchive loose) throws IOException, OpenFailureException{
 		if(loose.getBinariesPath() == null){
-			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.open_nested_EXC_, (new Object[] {loose.getUri(), getURI()})), null); //$NON-NLS-1$ = "Could not open the nested archive "{0}" in "{1}""
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.open_nested_EXC_, (new Object[] {loose.getUri(), getURI()})), null); // = "Could not open the nested archive "{0}" in "{1}""
 		}
 		LoadStrategy strategy = getCommonArchiveFactory().createLoadStrategy(loose.getBinariesPath());
 		strategy.setLooseArchive(loose);
@@ -563,7 +563,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			else if (aModule.isEjbModule())
 				roleList = getAssemblyDescriptorAddIfNecessary(getDeploymentDescriptor((EjbModule) aModule)).getSecurityRoles();
 		} catch (Exception e) {
-			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
+			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); // = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
 		}
 		return roleList;
 	}
@@ -686,7 +686,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 				return getCommonArchiveFactory().openRARFile(archiveOptions, aUri);
 
 		} catch (OpenFailureException ex) {
-			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.nested_open_fail_EXC_, (new Object[]{aUri, getURI()})), ex); //$NON-NLS-1$ = "Unable to open module file "{0}" in EAR file "{1}""
+			throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.nested_open_fail_EXC_, (new Object[]{aUri, getURI()})), ex); // = "Unable to open module file "{0}" in EAR file "{1}""
 		}
 		//Should never reach the code below
 		return null;
@@ -697,7 +697,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 */
 	public void pushDownRole(SecurityRole role) {
 		if (role == null)
-			throw new IllegalArgumentException(CommonArchiveResourceHandler.Parameter_should_not_be_nu_EXC_); //$NON-NLS-1$ = "Parameter should not be null"
+			throw new IllegalArgumentException(CommonArchiveResourceHandler.Parameter_should_not_be_nu_EXC_); // = "Parameter should not be null"
 
 		List modules = getDeploymentDescriptor().getModules();
 		for (int i = 0; i < modules.size(); i++) {
@@ -721,7 +721,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 					assembly.getSecurityRoles().add(EtoolsCopyUtility.createCopy(role));
 			}
 		} catch (Exception e) {
-			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
+			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); // = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
 		}
 	}
 
@@ -786,7 +786,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 				else if (m.isWebModule())
 					getDeploymentDescriptor((WebModule) m).renameSecurityRole(existingRoleName, newRoleName);
 			} catch (Exception e) {
-				throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{m.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
+				throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{m.getUri(), getURI()})), e); // = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
 			}
 		}
 	}
@@ -798,9 +798,9 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		Application app = getDeploymentDescriptor();
 		SecurityRole aRole = app.getSecurityRoleNamed(existingRoleName);
 		if (aRole == null)
-			throw new ObjectNotFoundException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.no_sec_role_EXC_, (new Object[]{getURI(), existingRoleName}))); //$NON-NLS-1$ = ": EAR File deployment descriptor does not contain a security role named "
+			throw new ObjectNotFoundException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.no_sec_role_EXC_, (new Object[]{getURI(), existingRoleName}))); // = ": EAR File deployment descriptor does not contain a security role named "
 		if (app.getSecurityRoleNamed(newRoleName) != null)
-			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_sec_role_EXC_, (new Object[]{getURI(), newRoleName})), app.getSecurityRoleNamed(newRoleName)); //$NON-NLS-1$ = ": EAR File deployment descriptor already contains a security role named "
+			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dup_sec_role_EXC_, (new Object[]{getURI(), newRoleName})), app.getSecurityRoleNamed(newRoleName)); // = ": EAR File deployment descriptor already contains a security role named "
 
 		aRole.setRoleName(newRoleName);
 
@@ -829,7 +829,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			else if (aModule.isEjbModule())
 				securityRoles = getAssemblyDescriptorAddIfNecessary(getDeploymentDescriptor((EjbModule) aModule)).getSecurityRoles();
 		} catch (Exception e) {
-			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
+			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.dd_in_ear_load_EXC_, (new Object[]{aModule.getUri(), getURI()})), e); // = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
 		}
 
 		if (securityRoles == null)

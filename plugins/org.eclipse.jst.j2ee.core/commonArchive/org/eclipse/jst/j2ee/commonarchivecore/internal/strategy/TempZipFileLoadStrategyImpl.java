@@ -53,6 +53,6 @@ public class TempZipFileLoadStrategyImpl extends ZipFileLoadStrategyImpl {
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
 	public java.lang.String getAbsolutePath() throws java.io.FileNotFoundException {
-		throw new FileNotFoundException(CommonArchiveResourceHandler.Absolute_path_unknown_EXC_); //$NON-NLS-1$ = "Absolute path unknown"
+		throw new FileNotFoundException(CommonArchiveResourceHandler.Absolute_path_unknown_EXC_); // = "Absolute path unknown"
 	}
 }

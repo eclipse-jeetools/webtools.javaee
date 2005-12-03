@@ -208,17 +208,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return doSet;
 	}
 
-	private List getUtilitiesForMetaDataImport(EARFile earFile) {
-		List list = getAllUtilitiesExceptEJBClients(earFile);
-		for (int i = list.size() - 1; i > -1; i--) {
-			Archive archive = (Archive) list.get(i);
-			if (!archive.containsFile(".project")) { //$NON-NLS-1$
-				list.remove(archive);
-			}
-		}
-		return list;
-	}
-
 	public List getAllUtilitiesExceptEJBClients(EARFile earFile) {
 		List clientList = (List) getProperty(EJB_CLIENT_LIST);
 		List list = getAllUtilities(earFile);

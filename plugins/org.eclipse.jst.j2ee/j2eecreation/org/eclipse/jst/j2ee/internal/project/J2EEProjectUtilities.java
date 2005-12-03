@@ -294,7 +294,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			pDep = pDep.removeFirstSegments(1);
 		}
 
-		IPath result = null; //$NON-NLS-1$
+		IPath result = null; 
 		StringBuffer buf = new StringBuffer();
 		String segment = null;
 		do {
@@ -610,11 +610,6 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return ""; //$NON-NLS-1$
 	}
 	
-	private boolean isJ2EEModuleProject(IProject project) {
-		  return J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
-		  || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isJCAProject(project);
-	}
-
 	public static IRuntime getServerRuntime(IProject project) throws CoreException {
 		if (project == null)
 			return null;

@@ -360,7 +360,7 @@ public class CommonTranslators implements DeploymentDescriptorXmlMapperI {
 		result.setChildren(new Translator[] {
 			IDTranslator.INSTANCE,
 			new Translator(LANG, COMMON_PKG.getDescription_Lang(), Translator.DOM_ATTRIBUTE),
-			new Translator(Translator.TEXT_ATTRIBUTE_VALUE, COMMON_PKG.getDescription_Value()) //$NON-NLS-1$
+			new Translator(Translator.TEXT_ATTRIBUTE_VALUE, COMMON_PKG.getDescription_Value()) 
 		});
 		return result;
 	}
@@ -373,7 +373,7 @@ public class CommonTranslators implements DeploymentDescriptorXmlMapperI {
 		result.setChildren(new Translator[] {
 			IDTranslator.INSTANCE,
 			new Translator(LANG, COMMON_PKG.getDisplayName_Lang(), Translator.DOM_ATTRIBUTE),
-			new Translator(Translator.TEXT_ATTRIBUTE_VALUE, COMMON_PKG.getDisplayName_Value()) //$NON-NLS-1$
+			new Translator(Translator.TEXT_ATTRIBUTE_VALUE, COMMON_PKG.getDisplayName_Value()) 
 		});
 		return result;
 	}
@@ -387,8 +387,8 @@ public class CommonTranslators implements DeploymentDescriptorXmlMapperI {
 		result.setChildren(new Translator[] {
 			new Translator(LANG, COMMON_PKG.getIconType_Lang(), Translator.DOM_ATTRIBUTE),
 			IDTranslator.INSTANCE,
-			new Translator(SMALL_ICON, COMMON_PKG.getIconType_SmallIcon()), //$NON-NLS-1$
-			new Translator(LARGE_ICON, COMMON_PKG.getIconType_LargeIcon()) //$NON-NLS-1$
+			new Translator(SMALL_ICON, COMMON_PKG.getIconType_SmallIcon()), 
+			new Translator(LARGE_ICON, COMMON_PKG.getIconType_LargeIcon()) 
 		});
 		return result;
 	}

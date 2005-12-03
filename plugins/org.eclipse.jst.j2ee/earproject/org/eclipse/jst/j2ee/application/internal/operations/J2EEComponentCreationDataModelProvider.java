@@ -340,7 +340,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		else if (serverTypeID.equals(J2EEProjectUtilities.APPLICATION_CLIENT))
 			return j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT);
 		
-		else if (serverTypeID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)) //$NON-NLS-1$
+		else if (serverTypeID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)) 
 			return j2eeModuleID.equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION) || j2eeModuleID.equals(J2EEProjectUtilities.APPLICATION_CLIENT) || j2eeModuleID.equals(J2EEProjectUtilities.JCA);
 			
 		return false;
@@ -473,7 +473,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 					return WTPCommonPlugin.createErrorStatus(msg);
 				} 
 				if (validateComponentAlreadyInEar()) {
-						msg = J2EECreationResourceHandler.COMPONENT_ALREADYINEAR; //$NON-NLS-1$
+						msg = J2EECreationResourceHandler.COMPONENT_ALREADYINEAR; 
 						return WTPCommonPlugin.createErrorStatus(msg);
 				}
 			}
@@ -516,7 +516,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		String earName = getStringProperty(EAR_COMPONENT_NAME);
 		if (status.isOK()) {
 			if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); 
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			} else if (earName == null || earName.equals("")) { //$NON-NLS-1$
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);

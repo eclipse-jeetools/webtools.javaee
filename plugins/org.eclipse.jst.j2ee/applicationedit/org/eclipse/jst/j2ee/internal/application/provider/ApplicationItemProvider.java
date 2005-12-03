@@ -133,7 +133,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 				key = "14_ear_obj"; //$NON-NLS-1$
 				break;
 		}
-		return J2EEPlugin.getPlugin().getImage(key);//$NON-NLS-1$
+		return J2EEPlugin.getPlugin().getImage(key);
 	}
 
 	/**

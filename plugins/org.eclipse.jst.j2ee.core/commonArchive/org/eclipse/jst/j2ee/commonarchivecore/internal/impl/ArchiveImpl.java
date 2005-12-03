@@ -415,7 +415,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		try {
 			File f = getFile(aUri);
 			if (f != null)
-				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.duplicate_file_EXC_, (new Object[]{getURI(), aUri})), f); //$NON-NLS-1$ = "The archive named {0} already contains a file named {1}"
+				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.duplicate_file_EXC_, (new Object[]{getURI(), aUri})), f); // = "The archive named {0} already contains a file named {1}"
 		} catch (FileNotFoundException ok) {
 			//Ignore
 		}
@@ -426,7 +426,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		checkWriteable(original);
 		boolean deleteWorked = false;
 		if (original.isDirectory() && !isRenameable(original)) {
-			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.unable_replace_EXC_, (new Object[]{original.getAbsolutePath()}))); //$NON-NLS-1$ = "Unable to replace original archive "
+			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.unable_replace_EXC_, (new Object[]{original.getAbsolutePath()}))); // = "Unable to replace original archive "
 		}
 
 		for (int i = 0; i < 10; i++) {
@@ -457,7 +457,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 				}
 			}
 		}
-		throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.unable_replace_EXC_, (new Object[]{original.getAbsolutePath()}))); //$NON-NLS-1$ = "Unable to replace original archive "
+		throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.unable_replace_EXC_, (new Object[]{original.getAbsolutePath()}))); // = "Unable to replace original archive "
 	}
 
 	/**
@@ -560,7 +560,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	protected SaveStrategy createSaveStrategyForJar(java.io.File aFile) throws java.io.IOException {
 		if (aFile.exists() && aFile.isDirectory())
-			throw new IOException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_exist_as_dir_EXC_, (new Object[]{aFile.getAbsolutePath()})));//$NON-NLS-1$ = "A file named {0} exists and is a directory"
+			throw new IOException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.file_exist_as_dir_EXC_, (new Object[]{aFile.getAbsolutePath()})));// = "A file named {0} exists and is a directory"
 		java.io.File parent = aFile.getParentFile();
 		if (parent != null)
 			parent.mkdirs();
@@ -594,7 +594,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 				cleanupAfterTempSave(aUri, aDir, destinationDir);
 			}
 		} catch (java.io.IOException ex) {
-			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{uri})), ex); //$NON-NLS-1$ = "Error saving "
+			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{uri})), ex); // = "Error saving "
 		}
 	}
 
@@ -604,14 +604,14 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	public void extractTo(java.lang.String aUri, int expansionFlags) throws SaveFailureException {
 		java.io.File aDir = new java.io.File(aUri);
 		if (getLoadStrategy().isUsing(aDir))
-			throw new SaveFailureException(CommonArchiveResourceHandler.Extract_destination_is_the_EXC_); //$NON-NLS-1$ = "Extract destination is the same path as source file"
+			throw new SaveFailureException(CommonArchiveResourceHandler.Extract_destination_is_the_EXC_); // = "Extract destination is the same path as source file"
 
 		try {
 			SaveStrategy aSaveStrategy = createSaveStrategyForDirectory(aDir, expansionFlags);
 			save(aSaveStrategy);
 			aSaveStrategy.close();
 		} catch (java.io.IOException ex) {
-			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{aUri})), ex); //$NON-NLS-1$ = "Error saving "
+			throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{aUri})), ex); // = "Error saving "
 		}
 
 	}
@@ -841,9 +841,9 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 				if (ExtendedEcoreUtil.getFileNotFoundDetector().isFileNotFound(wrapEx))
 					makeManifest();
 				else
-					throw new ManifestException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_manifest_EXC_, (new Object[]{getURI()})), ex); //$NON-NLS-1$ = "An IOException occurred reading the manifest: "
+					throw new ManifestException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_manifest_EXC_, (new Object[]{getURI()})), ex); // = "An IOException occurred reading the manifest: "
 			} catch (IOException ex) {
-				throw new ManifestException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_manifest_EXC_, (new Object[]{getURI()})), ex); //$NON-NLS-1$ = "An IOException occurred reading the manifest: "
+				throw new ManifestException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_manifest_EXC_, (new Object[]{getURI()})), ex); // = "An IOException occurred reading the manifest: "
 			} finally {
 				if (in != null)
 					try {
@@ -1078,7 +1078,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 */
 	public Resource makeMofResource(String aUri, EList extent) throws DuplicateObjectException {
 		if (isDuplicate(aUri))
-			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.duplicate_entry_EXC_, (new Object[]{aUri, getURI()}))); //$NON-NLS-1$ = "A file or resource with uri {0} already exists in the archive named {1}"
+			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.duplicate_entry_EXC_, (new Object[]{aUri, getURI()}))); // = "A file or resource with uri {0} already exists in the archive named {1}"
 		return getLoadStrategy().makeMofResource(aUri, extent);
 	}
 
@@ -1136,7 +1136,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		try {
 			aLoadStrategy = createLoadStrategyForReopen(parent);
 		} catch (IOException ex) {
-			throw new ReopenException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_reopen_EXC_, (new Object[]{getURI()})), ex); //$NON-NLS-1$ = "IOException occurred while reopening "
+			throw new ReopenException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.io_ex_reopen_EXC_, (new Object[]{getURI()})), ex); // = "IOException occurred while reopening "
 		}
 		//PQ54572
 		LoadStrategy current = getLoadStrategy();
@@ -1320,7 +1320,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 					cleanupAfterTempSave(aUri, aFile, destinationFile);
 				}
 			} catch (java.io.IOException ex) {
-				throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{aUri})), ex); //$NON-NLS-1$ = "Error saving "
+				throw new SaveFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.error_saving_EXC_, (new Object[]{aUri})), ex); // = "Error saving "
 			}
 		} catch (SaveFailureException failure) {
 			try {
@@ -1441,7 +1441,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	}
 
 	protected void throwResourceLoadException(String resourceUri, Exception ex) throws ResourceLoadException {
-		throw new ResourceLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.load_resource_EXC_, (new Object[]{resourceUri, getURI()})), ex); //$NON-NLS-1$ = "Could not load resource "{0}" in archive "{1}""
+		throw new ResourceLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.load_resource_EXC_, (new Object[]{resourceUri, getURI()})), ex); // = "Could not load resource "{0}" in archive "{1}""
 	}
 
 	public String getResourcesPath() throws FileNotFoundException {

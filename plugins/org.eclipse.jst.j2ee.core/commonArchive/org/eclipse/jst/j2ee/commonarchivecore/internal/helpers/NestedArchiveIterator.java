@@ -57,7 +57,7 @@ public class NestedArchiveIterator extends FileIteratorImpl {
 
 	public InputStream getInputStream(File aFile) throws java.io.IOException, java.io.FileNotFoundException {
 		if (!aFile.getURI().equals(currentEntry.getName()))
-			throw new java.io.IOException(CommonArchiveResourceHandler.Internal_Error__Iterator_o_EXC_); //$NON-NLS-1$ = "Internal Error: Iterator out of sync with zip entries"
+			throw new java.io.IOException(CommonArchiveResourceHandler.Internal_Error__Iterator_o_EXC_); // = "Internal Error: Iterator out of sync with zip entries"
 		return new WrapperInputStream(zipInputStream);
 	}
 
@@ -68,7 +68,7 @@ public class NestedArchiveIterator extends FileIteratorImpl {
 				currentEntry = zipInputStream.getNextEntry();
 			} while (currentEntry.isDirectory());
 		} catch (java.io.IOException ex) {
-			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.Error_iterating_the_archiv_EXC_, ex); //$NON-NLS-1$ = "Error iterating the archive"
+			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.Error_iterating_the_archiv_EXC_, ex); // = "Error iterating the archive"
 		}
 		return next;
 	}

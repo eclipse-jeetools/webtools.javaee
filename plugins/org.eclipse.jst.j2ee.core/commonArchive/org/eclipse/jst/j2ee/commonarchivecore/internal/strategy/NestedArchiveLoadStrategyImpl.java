@@ -197,7 +197,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 
 	protected ZipInputStream getZipInputStreamSkippedTo(String uri) throws IOException, FileNotFoundException {
 		if (uri == null)
-			throw new NullPointerException(CommonArchiveResourceHandler.Null_uri_EXC_); //$NON-NLS-1$ = "Null uri"
+			throw new NullPointerException(CommonArchiveResourceHandler.Null_uri_EXC_); // = "Null uri"
 		ZipInputStream zis = null;
 		ZipEntry entry = null;
 		try {
@@ -245,7 +245,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 	 * An exception was caught reading the nested jar; throws a runtime exception
 	 */
 	protected void throwNestedJarException(Exception caughtException) {
-		throw new NestedJarException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.nested_jar_EXC_, (new Object[]{getContainer().getURI(), getParent().getContainer().getURI()})), caughtException);//$NON-NLS-1$ = "An error occurred reading {0} from {1}"
+		throw new NestedJarException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.nested_jar_EXC_, (new Object[]{getContainer().getURI(), getParent().getContainer().getURI()})), caughtException);// = "An error occurred reading {0} from {1}"
 	}
 
 	/**

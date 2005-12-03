@@ -276,26 +276,26 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 				IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(earProjectName);
 				try {
 					if (!earProject.isAccessible())
-						return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Valid_Project, null); //$NON-NLS-1$
+						return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Valid_Project, null); 
 					return Status.OK_STATUS;
 				} catch (Exception e) {
-					return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Valid_Project, e); //$NON-NLS-1$
+					return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Valid_Project, e); 
 				}
 			}
-			return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Valid_Project, null); //$NON-NLS-1$
+			return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Valid_Project, null); 
 
 		} else if (UTILITY_JAR_LIST.equals(propertyName) || J2EEUtilityJarListImportDataModelProvider.OVERWRITE_IF_NECESSARY.equals(propertyName)) {
 
 			Object[] list = (Object[]) getProperty(UTILITY_JAR_LIST);
 			if (list == null || list.length == 0)
-				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Select_Jar, null); //$NON-NLS-1$
+				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Select_Jar, null); 
 
 			/* return validateExistingProjects(); */
 
 			return Status.OK_STATUS;
 		} else if (LINKED_PATH_VARIABLE.equals(propertyName)) {
 			if (isLinkedPathVariableInvalid())
-				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Linked_Path, null); //$NON-NLS-1$
+				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_Specify_Linked_Path, null); 
 		} else if (PROJECT_ROOT.equals(propertyName)) {
 			return validateProjectRoot();
 		}
@@ -307,7 +307,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			String loc = (String) getProperty(PROJECT_ROOT);
 			File file = new File(loc);
 			if (!file.canWrite() || !file.isDirectory())
-				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_0, null); //$NON-NLS-1$
+				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_0, null); 
 		}
 		return OK_STATUS;
 	}

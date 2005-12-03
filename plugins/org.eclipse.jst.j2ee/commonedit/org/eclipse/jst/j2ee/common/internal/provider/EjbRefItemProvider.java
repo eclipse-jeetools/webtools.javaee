@@ -53,7 +53,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	 */
 	public Object getImage(Object object) {
 		String key = ((EjbRef) object).isLocal() ? "ejb_local_ref_obj" : "ejb_reference"; //$NON-NLS-1$ //$NON-NLS-2$
-		return J2EEPlugin.getPlugin().getImage(key); //$NON-NLS-1$
+		return J2EEPlugin.getPlugin().getImage(key); 
 	}
 
 	/**

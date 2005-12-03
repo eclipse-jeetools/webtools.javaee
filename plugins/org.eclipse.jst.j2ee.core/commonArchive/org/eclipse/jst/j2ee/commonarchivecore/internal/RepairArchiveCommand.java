@@ -42,7 +42,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 	 *            java.lang.String
 	 */
 	public RepairArchiveCommand(Archive anArchive) {
-		super("Repair Archive", CommonArchiveResourceHandler.Repairs_all_entries_in_the); //$NON-NLS-2$ = "Repairs all entries in the META-INF and/or WEB-INF directories to be the correct case"//$NON-NLS-1$
+		super("Repair Archive", CommonArchiveResourceHandler.Repairs_all_entries_in_the); // = "Repairs all entries in the META-INF and/or WEB-INF directories to be the correct case"//$NON-NLS-1$
 		archive = anArchive;
 		//Ensure Initiailization
 		getDirectoryNames();
@@ -109,7 +109,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 			new RepairArchiveCommand(anArchive).execute();
 			anArchive.saveAs(args[1]);
 		} catch (Exception ex) {
-			System.out.println(CommonArchiveResourceHandler.Repair_command_failed___ex_EXC_); //$NON-NLS-1$ = "Repair command failed - exception stack trace:"
+			System.out.println(CommonArchiveResourceHandler.Repair_command_failed___ex_EXC_); // = "Repair command failed - exception stack trace:"
 			ex.printStackTrace();
 		}
 	}
@@ -127,7 +127,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 
 	protected static boolean validateArgs(String[] args) {
 		if (!(args.length == 2)) {
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(CommonArchiveResourceHandler.RepairArchiveCommand_usage); //$NON-NLS-1$ = "RepairArchiveCommand usage:  <sourceJarFilePath> <destinationPath>"
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(CommonArchiveResourceHandler.RepairArchiveCommand_usage); // = "RepairArchiveCommand usage:  <sourceJarFilePath> <destinationPath>"
 			return false;
 		}
 		java.io.File file = new java.io.File(args[0]);
@@ -147,11 +147,11 @@ public class RepairArchiveCommand extends AbstractCommand {
 				}
 		}
 		if (!isZip && !file.isDirectory()) {
-			System.out.println(CommonArchiveResourceHandler.RepairArchiveCommand_usage1_ERROR_); //$NON-NLS-1$ = "RepairArchiveCommand usage: sourceJarFilePath must point to a valid archive or directory of an inflated archive"
+			System.out.println(CommonArchiveResourceHandler.RepairArchiveCommand_usage1_ERROR_); // = "RepairArchiveCommand usage: sourceJarFilePath must point to a valid archive or directory of an inflated archive"
 			return false;
 		}
 		if (new java.io.File(args[1]).canWrite()) {
-			System.out.println(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.repair_usage_ERROR_, (new Object[]{args[1]}))); //$NON-NLS-1$ = "RepairArchiveCommand usage: cannot write to destinationPath "
+			System.out.println(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.repair_usage_ERROR_, (new Object[]{args[1]}))); // = "RepairArchiveCommand usage: cannot write to destinationPath "
 			return false;
 		}
 		return true;

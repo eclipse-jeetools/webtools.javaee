@@ -73,7 +73,7 @@ public class ResourceTypeReaderHelper {
 
 	private IExtensionPoint getExtensionPoint() {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint exPoint = registry.getExtensionPoint(extensionPoint); //$NON-NLS-1$
+		IExtensionPoint exPoint = registry.getExtensionPoint(extensionPoint); 
 		return exPoint;
 	}
 

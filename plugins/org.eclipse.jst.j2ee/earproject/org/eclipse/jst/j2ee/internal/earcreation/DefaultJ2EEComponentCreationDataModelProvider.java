@@ -287,7 +287,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			if (errorCollision) {
 				return J2EEPlugin.newErrorStatus(EARCreationResourceHandler.getString("DuplicateModuleNames", new Object[]{actualProjectName}), null); //$NON-NLS-1$
 			} else if (errorNoSelection) {
-				return J2EEPlugin.newErrorStatus(EARCreationResourceHandler.NoModulesSelected, null); //$NON-NLS-1$
+				return J2EEPlugin.newErrorStatus(EARCreationResourceHandler.NoModulesSelected, null); 
 			}
 		}
 
@@ -319,7 +319,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		IStatus status = OK_STATUS;
 		if (status.isOK()) {
 			if (componentName.indexOf("#") != -1) { //$NON-NLS-1$
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); 
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			} else if (componentName == null || componentName.equals("")) { //$NON-NLS-1$
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
@@ -387,38 +387,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			IProjectFacetVersion facetVersion = ProjectFacetsManager.getProjectFacet(clientFacetModel.getStringProperty(IFacetDataModelProperties.FACET_ID)).getVersion(facetVersionString);
 			clientFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, facetVersion);
 		}
-	}
-
-	private void setNestedComponentName(int flag, String compName) {
-		IDataModel model = getNestedModel(flag);
-		if (model != null) {
-			model.setProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_NAME, compName);
-		}
-	}
-
-	private IStatus validateNestedProjectName(int flag) {
-		IDataModel model = getNestedModel(flag);
-		if (model != null) {
-			String createProperty = null;
-			switch (flag) {
-				case EJB :
-					createProperty = CREATE_EJB;
-					break;
-				case WEB :
-					createProperty = CREATE_WEB;
-					break;
-				case CLIENT :
-					createProperty = CREATE_APPCLIENT;
-					break;
-				case RAR :
-					createProperty = CREATE_CONNECTOR;
-					break;
-			}
-			if (null != createProperty && getBooleanProperty(createProperty)) {
-				return model.validateProperty(IJ2EEComponentCreationDataModelProperties.PROJECT_NAME);
-			}
-		}
-		return J2EEPlugin.OK_STATUS;
 	}
 
 	private IDataModel getNestedModel(int flag) {

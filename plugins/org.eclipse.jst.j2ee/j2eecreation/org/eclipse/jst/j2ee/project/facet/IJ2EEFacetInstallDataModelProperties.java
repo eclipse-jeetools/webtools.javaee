@@ -18,6 +18,6 @@ public interface IJ2EEFacetInstallDataModelProperties extends IFacetInstallDataM
 	//TODO this property should probably be deleted
 	public static final String RUNTIME_TARGET_ID = "IJ2EEFacetInstallDataModelProperties.RUNTIME_TARGET_ID"; //$NON-NLS-1$
 	
-	public static final String FACET_RUNTIME = IFacetProjectCreationDataModelProperties.FACET_RUNTIME; //$NON-NLS-1$
+	public static final String FACET_RUNTIME = IFacetProjectCreationDataModelProperties.FACET_RUNTIME; 
 	
 }

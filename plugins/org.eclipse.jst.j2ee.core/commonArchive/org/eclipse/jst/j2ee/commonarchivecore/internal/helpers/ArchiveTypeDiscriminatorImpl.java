@@ -142,7 +142,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	}
 
 	protected String getXmlDDMessage(String archiveType, String ddUri) {
-		return CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_archive_EXC_, (new Object[]{archiveType, ddUri})); //$NON-NLS-1$ = "Archive is not a valid {0} because the deployment descriptor can not be found (case sensitive): {1}"
+		return CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_archive_EXC_, (new Object[]{archiveType, ddUri})); // = "Archive is not a valid {0} because the deployment descriptor can not be found (case sensitive): {1}"
 	}
 
 	public boolean hasChild(ArchiveTypeDiscriminator disc) {

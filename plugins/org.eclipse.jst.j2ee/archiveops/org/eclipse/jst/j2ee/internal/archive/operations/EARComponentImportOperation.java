@@ -31,7 +31,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -162,18 +161,6 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			}
 		}
 		return extraEntries;
-	}
-
-	private void releaseDeploymentDescriptor() {
-		try {
-			if (getEarFile() != null && getEarFile().isDeploymentDescriptorSet()) {
-				XMLResource res = (XMLResource) getEarFile().getDeploymentDescriptor().eResource();
-				if (res != null)
-					res.releaseFromRead();
-			}
-		} catch (Exception suppress) {
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(suppress);
-		}
 	}
 
 	protected SaveStrategy createSaveStrategy(IProject project) { // NOOP

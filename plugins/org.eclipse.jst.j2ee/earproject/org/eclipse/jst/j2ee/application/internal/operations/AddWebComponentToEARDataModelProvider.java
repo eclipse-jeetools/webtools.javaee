@@ -83,7 +83,7 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 	 */
 	public IStatus validateContextRoot(String contextRoot) {
 		if (contextRoot.equals("") || contextRoot == null) { //$NON-NLS-1$
-			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[]{contextRoot}), null); //$NON-NLS-1$
+			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[]{contextRoot}), null); 
 		} else if (contextRoot.trim().equals(contextRoot)) {
 			StringTokenizer stok = new StringTokenizer(contextRoot, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
@@ -91,13 +91,13 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 				for (int i = 0; i < token.length(); i++) {
 					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
 						Object[] invalidChar = new Object[]{(new Character(token.charAt(i))).toString()};
-						String errorStatus = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar); //$NON-NLS-1$
+						String errorStatus = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar); 
 						return J2EEPlugin.newErrorStatus(errorStatus, null);
 					}
 				}
 			}
 		} else
-			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5, new Object[]{contextRoot}), null); //$NON-NLS-1$
+			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5, new Object[]{contextRoot}), null); 
 		return OK_STATUS;
 	}
 }

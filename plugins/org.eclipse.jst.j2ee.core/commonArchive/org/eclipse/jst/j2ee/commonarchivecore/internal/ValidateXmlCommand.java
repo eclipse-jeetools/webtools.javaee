@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.xml.CollectingErrorHandler;
 import org.eclipse.jst.j2ee.internal.xml.XmlDocumentReader;

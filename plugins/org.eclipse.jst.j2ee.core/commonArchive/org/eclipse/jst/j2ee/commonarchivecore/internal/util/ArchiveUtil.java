@@ -327,15 +327,15 @@ public class ArchiveUtil {
 	public static String getModuleFileTypeName(int moduleType) {
 		switch (moduleType) {
 			case XMLResource.APPLICATION_TYPE :
-				return CommonArchiveResourceHandler.A_Application_file; //$NON-NLS-1$
+				return CommonArchiveResourceHandler.A_Application_file; 
 			case XMLResource.APP_CLIENT_TYPE :
-				return CommonArchiveResourceHandler.An_Application_Client_JAR_file; //$NON-NLS-1$
+				return CommonArchiveResourceHandler.An_Application_Client_JAR_file; 
 			case XMLResource.EJB_TYPE :
-				return CommonArchiveResourceHandler.An_EJB_JAR_file; //$NON-NLS-1$
+				return CommonArchiveResourceHandler.An_EJB_JAR_file; 
 			case XMLResource.WEB_APP_TYPE :
-				return CommonArchiveResourceHandler.A_WAR_file; //$NON-NLS-1$
+				return CommonArchiveResourceHandler.A_WAR_file; 
 			case XMLResource.RAR_TYPE :
-				return CommonArchiveResourceHandler.A_RAR_file; //$NON-NLS-1$
+				return CommonArchiveResourceHandler.A_RAR_file; 
 		}
 		return null;
 	}
@@ -545,7 +545,7 @@ public class ArchiveUtil {
 		if (!dir.exists()) {
 			dir.mkdirs();
 			if (!dir.exists())
-				throw new ArchiveException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.make_temp_dir_EXC_, (new Object[]{newTempDirectoryName}))); //$NON-NLS-1$ = "Unable to make temp directory: "
+				throw new ArchiveException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.make_temp_dir_EXC_, (new Object[]{newTempDirectoryName}))); // = "Unable to make temp directory: "
 			dir.deleteOnExit();
 		}
 		setTempDirectory(dir);
@@ -587,7 +587,7 @@ public class ArchiveUtil {
 				try {
 					zip = new ZipFile(aFile);
 				} catch (Exception ex) {
-					inform(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_classpath_WARN_, (new Object[]{pathEntry}))); //$NON-NLS-1$ = "Classpath element "{0}" is not a directory or a Zip file"
+					inform(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_classpath_WARN_, (new Object[]{pathEntry}))); // = "Classpath element "{0}" is not a directory or a Zip file"
 					continue;
 				} finally {
 					if (zip != null)
@@ -600,10 +600,10 @@ public class ArchiveUtil {
 			}
 			try {
 				aFile = new java.io.File(pathEntry);
-				java.net.URL aUrl = aFile.toURL(); //$NON-NLS-1$
+				java.net.URL aUrl = aFile.toURL(); 
 				urls.add(aUrl);
 			} catch (java.net.MalformedURLException ex) {
-				inform(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_cp_file_WARN_, (new Object[]{pathEntry}))); //$NON-NLS-1$ = "Classpath element "{0}" does not point to a local file"
+				inform(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_cp_file_WARN_, (new Object[]{pathEntry}))); // = "Classpath element "{0}" does not point to a local file"
 			}
 		}
 		java.net.URL[] urlArray = new java.net.URL[urls.size()];

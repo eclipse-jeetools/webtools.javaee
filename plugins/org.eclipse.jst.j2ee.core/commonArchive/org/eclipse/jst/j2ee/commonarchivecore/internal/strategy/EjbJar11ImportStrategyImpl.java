@@ -39,7 +39,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.EJB_Jar_File, J2EEConstants.EJBJAR_DD_URI); //$NON-NLS-1$ = "EJB Jar File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.EJB_Jar_File, J2EEConstants.EJBJAR_DD_URI); // = "EJB Jar File"
 		}
 
 		public Archive createConvertedArchive() {

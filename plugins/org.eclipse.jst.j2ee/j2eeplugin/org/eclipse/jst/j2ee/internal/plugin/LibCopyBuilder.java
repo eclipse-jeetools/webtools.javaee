@@ -109,20 +109,20 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 		sourceContainers = null;
 		needOutputRefresh = false;
 		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Start_build_project_INFO_ + getProject().getName()); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Start_build_project_INFO_ + getProject().getName()); 
 		}
 
 		boolean builderOrderOK = checkBuilderOrdering();
 
 		if (DEBUG && !builderOrderOK) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Bad_builder_order_for_project_INFO_ + getProject().getName()); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Bad_builder_order_for_project_INFO_ + getProject().getName()); 
 		}
 
 		IFolder[] classFolders = getClassesFolders();
 		if (classFolders.length == 0) {
 			// no files to copy
 			if (DEBUG)
-				System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__No_imported_classes_folder__quitting_INFO_); //$NON-NLS-1$
+				System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__No_imported_classes_folder__quitting_INFO_); 
 			return null;
 		}
 
@@ -180,7 +180,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	 */
 	protected void processDelta(IResourceDelta delta, final IFolder outputFolder, final IProgressMonitor monitor, final IFolder[] classesFolders) {
 		if (DEBUG) {
-			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Considering_delta_INFO_ + delta); //$NON-NLS-1$
+			System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Considering_delta_INFO_ + delta); 
 		}
 		IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
 			private List copiedClassFolders = new ArrayList(classesFolders.length);
@@ -195,7 +195,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 							case IResourceDelta.ADDED :
 							case IResourceDelta.CHANGED :
 								if (DEBUG) {
-									System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Delta_build_INFO_ + subdelta); //$NON-NLS-1$
+									System.out.println(BUILDER_ID + J2EEPluginResourceHandler.__Delta_build_INFO_ + subdelta); 
 								}
 								copyClassFiles(classesFolder, outputFolder, monitor);
 								break;

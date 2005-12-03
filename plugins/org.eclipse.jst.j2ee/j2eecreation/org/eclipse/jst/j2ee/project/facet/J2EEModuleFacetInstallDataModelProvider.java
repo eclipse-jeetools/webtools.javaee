@@ -168,7 +168,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 
 	protected IStatus validateEAR(String earName) {
 		if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
-			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); //$NON-NLS-1$
+			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS); 
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
 		} else if (earName == null || earName.equals("")) { //$NON-NLS-1$
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
