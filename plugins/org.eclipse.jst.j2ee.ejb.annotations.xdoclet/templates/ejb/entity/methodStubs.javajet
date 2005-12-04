@@ -1,38 +1,19 @@
-<%@ jet package="com.objectlearn.gmf.templates.entity" class="MethodGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType com.sun.java.xml.ns.j2ee.FullyQualifiedClassType "%>
-<% DocumentRoot root = (DocumentRoot)argument;
-   EntityBean leb = (EntityBean) root.getEjb().getEntity();
-   EntityBeanType eb = leb.getEntityEjb();
-   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.* org.eclipse.jst.j2ee.ejb.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
    
-   String primaryKeyType = "java.lang.String";
-   int pkCount=0;
-   boolean isComposite = false;
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   HashMap attributes = cmp.getAttributes();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
    boolean createCompositeKey = false;
-   if( isCMP ) { 
-       FullyQualifiedClassType pkClassType = eb.getPrimKeyClass();
-       if(pkClassType != null && pkClassType.getValue() != null && pkClassType.getValue().length() > 0 )
-          primaryKeyType = pkClassType.getValue();
-	   Iterator fieldMappings = leb.getFieldMappings().iterator();
-	   String pkType = "";
-	   while(fieldMappings.hasNext()){
-	      FieldMapping mapping = (FieldMapping) fieldMappings.next();
-	      if(mapping.isPrimaryKey()){
-	        pkType = mapping.getFieldType().getValue();
-	        pkCount++;
-	      }
-	   }
-       isComposite = pkCount > 1;
-       if(!isComposite )
-         primaryKeyType = pkType;
-       else if(pkClassType == null || pkClassType.getValue() == null || pkClassType.getValue().length() < 1 ){
-		   createCompositeKey = true;
-		   primaryKeyType = eb.getEjbClass().getValue()+".PrimaryKey";
-       }else if(pkClassType != null && pkClassType.getValue() != null ){
-           if(primaryKeyType.equals(eb.getEjbClass().getValue()+".PrimaryKey") )
-              createCompositeKey = true;
-       }
-   }
+   String primaryKeyField = ( (CMPAttributeDelegate)keyAttributes.get(0)).getName();
+   ContainerManagedEntity entity = (ContainerManagedEntity) cmp.getEnterpriseBean();
+    
 %>
+
+
 
 /**
  *
@@ -66,10 +47,10 @@ public void ejbPostCreate() throws javax.ejb.CreateException {
 	// end-user-code
 }
 	
-<% if( isCMP ) { 
-   Iterator fieldMappings = leb.getFieldMappings().iterator();
-   while(fieldMappings.hasNext()){
-      FieldMapping mapping = (FieldMapping) fieldMappings.next();
+<% 
+   Iterator attrs = attributes.values().iterator();
+   while(attrs.hasNext()){
+      CMPAttributeDelegate mapping = (CMPAttributeDelegate) attrs.next();
 
 %>
 
@@ -77,10 +58,10 @@ public void ejbPostCreate() throws javax.ejb.CreateException {
 *
 *
 * <!-- begin-user-doc -->
-* CMP Field <%= mapping.getFieldName().getValue() %>
+* CMP Field <%= mapping.getName() %>
 *
-* Returns the <%= mapping.getFieldName().getValue() %>
-* @return the <%= mapping.getFieldName().getValue() %>
+* Returns the <%= mapping.getName() %>
+* @return the <%= mapping.getName() %>
 * 
 * <!-- end-user-doc -->
 *
@@ -88,11 +69,11 @@ public void ejbPostCreate() throws javax.ejb.CreateException {
 *
 * @ejb.persistent-field 
 * @ejb.persistence
-*    column-name="<%= mapping.getColumnName().getValue() %>"
-*     jdbc-type="<%= mapping.getJdbcType().getValue() %>"
-*     sql-type="<%= mapping.getSqlType().getValue() %>"
+*    column-name="<%= mapping.getColumnName() %>"
+*     jdbc-type="<%= mapping.getJdbcType() %>"
+*     sql-type="<%= mapping.getSqlType() %>"
 *     read-only="<%= mapping.isReadOnly() %>"
-* <%= (mapping.isPrimaryKey() ? "@ejb.pk-field" : "" ) %> 
+* <%= (mapping.isKey() ? "@ejb.pk-field" : "" ) %> 
 *
 * @ejb.interface-method
 * 
@@ -100,18 +81,18 @@ public void ejbPostCreate() throws javax.ejb.CreateException {
 * @generated
 */
 <%
-			String methodName = mapping.getFieldName().getValue();
+			String methodName = mapping.getName();
 			methodName = Character.toUpperCase(methodName.charAt(0)) + methodName.substring(1,methodName.length());
 
 %>
-public abstract <%= mapping.getFieldType().getValue() %> get<%= methodName %>();
+public abstract <%= mapping.getAttributeType() %> get<%= methodName %>();
 
 
 /**
 * <!-- begin-user-doc -->
-* Sets the <%= mapping.getFieldName().getValue() %>
+* Sets the <%= mapping.getName() %>
 * 
-* @param <%= mapping.getFieldType().getValue() %> the new <%= mapping.getFieldName().getValue() %> value
+* @param <%=mapping.getAttributeType()%> the new <%= mapping.getName() %> value
 * <!-- end-user-doc -->
 * 
 * <!-- begin-xdoclet-definition --> 
@@ -119,13 +100,10 @@ public abstract <%= mapping.getFieldType().getValue() %> get<%= methodName %>();
 * <!-- end-xdoclet-definition -->
 * @generated 
 */
-public abstract void set<%= methodName %>(<%= mapping.getFieldType().getValue() %> <%= mapping.getFieldName().getValue() %>);
+public abstract void set<%= methodName %>(<%= mapping.getAttributeType() %> <%= mapping.getName() %>);
 
 
 
 <% 
 }
-}
 %>
-
-

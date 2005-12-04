@@ -1,6 +1,13 @@
-<%@ jet package="com.objectlearn.gmf.templates.entity" class="FieldGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType"%>
-<% DocumentRoot root = (DocumentRoot)argument;
-   EntityBean leb = (EntityBean) root.getEjb().getEntity();
-   EntityBeanType eb = leb.getEntityEjb();
-   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
+   
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   List attributes = cmp.getAttributes();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
+   boolean createCompositeKey = false;
+   String primaryKeyField = ( (CMPAttributeDelegate)keyAttributes.get(0)).getName();
+ 
 %>

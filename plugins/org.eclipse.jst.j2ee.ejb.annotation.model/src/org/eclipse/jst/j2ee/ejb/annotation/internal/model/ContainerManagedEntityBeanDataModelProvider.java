@@ -11,21 +11,23 @@ package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddContainerManagedEntityBeanOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements IContainerManagedEntityBeanDataModelProperties {
+public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanClassDataModelProvider implements
+		IContainerManagedEntityBeanDataModelProperties {
 
 	public final static String DEFAULT_EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
 	public final static String[] DEFAULT_EJB_INTERFACES = { "javax.ejb.EntityBean" }; //$NON-NLS-1$ //$NON-NLS-2$
 
 	private List interfaceList;
-	private HashMap sqlTypes = new HashMap();
-	private HashMap attributeTypes = new HashMap();
 
 	/*
 	 * (non-Javadoc)
@@ -49,8 +51,7 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		propertyNames.add(DATASOURCE);
 		propertyNames.add(SCHEMA);
 		propertyNames.add(TABLE);
-		propertyNames.add(SQLTYPES);
-		propertyNames.add(ATTRIBUTETYPES);
+		propertyNames.add(ATTRIBUTES);
 		propertyNames.add(EJB_INTERFACES);
 		return propertyNames;
 	}
@@ -72,10 +73,8 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 			return "MYSCHEMA";
 		else if (propertyName.equals(TABLE))
 			return "MYTABLE";
-		else if (propertyName.equals(SQLTYPES))
-			return sqlTypes;
-		else if (propertyName.equals(ATTRIBUTETYPES))
-			return attributeTypes;
+		else if (propertyName.equals(ATTRIBUTES))
+			return new HashMap();
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -88,10 +87,71 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		if (propertyName.equals(DATASOURCE))
 			return validateJndiName(getStringProperty(propertyName));
 		if (propertyName.equals(TABLE))
-			return validateJndiName(getStringProperty(propertyName));
+			return validateTable(getStringProperty(propertyName));
 		if (propertyName.equals(SCHEMA))
 			return validateJndiName(getStringProperty(propertyName));
+		if (propertyName.equals(ATTRIBUTES))
+			return validateAttributes(getProperty(propertyName));
 		return super.validate(propertyName);
+	}
+
+	protected IStatus validateTable(String prop) {
+		// check for empty
+		if (prop == null || prop.trim().length() == 0 || prop.indexOf(" ") >= 0 ) {
+			String msg = IEJBAnnotationConstants.ERR_CMP_INVALID_TABLE;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		
+		return WTPCommonPlugin.OK_STATUS;
+	}
+	private IStatus validateAttributes(Object property) {
+		HashMap attributes = (HashMap) property;
+		if (attributes == null || attributes.size() == 0) {
+			String msg = IEJBAnnotationConstants.ERR_NO_ATTRIBUTES;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+
+		// No two fields should have the same name/column
+		Iterator attributeNames = attributes.values().iterator();
+		boolean duplicate = false;
+
+		while (attributeNames.hasNext() && duplicate == false) {
+			CMPAttributeDelegate aRow = (CMPAttributeDelegate) attributeNames.next();
+			Iterator otherNames = attributes.values().iterator();
+			while (otherNames.hasNext()) {
+				CMPAttributeDelegate otherRow = (CMPAttributeDelegate) otherNames.next();
+				if (aRow != otherRow && aRow.getName().equals(otherRow.getName())) {
+					duplicate = true;
+					break;
+				}
+				if (aRow != otherRow && aRow.getColumnName().equals(otherRow.getColumnName())) {
+					duplicate = true;
+					break;
+				}
+			}
+		}
+		if (duplicate)
+			return WTPCommonPlugin.createErrorStatus(IEJBAnnotationConstants.ERR_DUPLICATE_ATTRIBUTES);
+
+		// There should be at least one primary key field
+		attributeNames = attributes.values().iterator();
+		int primaryKey = 0;
+		while (attributeNames.hasNext() && duplicate == false) {
+			CMPAttributeDelegate aRow = (CMPAttributeDelegate) attributeNames.next();
+			if (aRow.isKey())
+				primaryKey++;
+		}
+
+		if (primaryKey == 0)
+			return WTPCommonPlugin.createErrorStatus(IEJBAnnotationConstants.ERR_NO_KEY);
+
+		return WTPCommonPlugin.OK_STATUS;
+
+	}
+
+	public HashMap getCMPAttributes() {
+		HashMap attributes = (HashMap) getProperty(ATTRIBUTES);
+		return attributes;
 	}
 
 	protected List getEJBInterfaces() {
@@ -104,17 +164,16 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		return this.interfaceList;
 	}
 
-	
 	protected void initializeDelegate() {
 		ContainerManagedEntityBeanDelegate delegate = new ContainerManagedEntityBeanDelegate();
 		delegate.setDataModel(getDataModel());
 		this.setProperty(MODELDELEGATE, delegate);
+
 		// Set the defaults so that they are propagated via events
 		this.setProperty(DATASOURCE, this.getProperty(DATASOURCE));
 		this.setProperty(SCHEMA, this.getProperty(SCHEMA));
 		this.setProperty(TABLE, this.getProperty(TABLE));
-		this.setProperty(SQLTYPES, this.getProperty(SQLTYPES));
-		this.setProperty(ATTRIBUTETYPES, this.getProperty(ATTRIBUTETYPES));
+		this.setProperty(ATTRIBUTES, this.getProperty(ATTRIBUTES));
 	}
 
 }

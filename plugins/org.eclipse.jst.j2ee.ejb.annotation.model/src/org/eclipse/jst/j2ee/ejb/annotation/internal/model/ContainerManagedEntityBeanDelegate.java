@@ -9,7 +9,10 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
@@ -67,34 +70,13 @@ public class ContainerManagedEntityBeanDelegate extends EnterpriseBeanDelegate i
 		return this.getDataModel().getStringProperty(IContainerManagedEntityBeanDataModelProperties.TABLE);
 	}
 
-	public String getSqlType(CMPAttribute attribute) {
-		HashMap map = (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.SQLTYPES);
-		return (String) map.get(attribute.getName());
+
+	public HashMap getAttributes() {
+		return (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
 	}
 
-	public void setSqlType(CMPAttribute attribute, String type) {
-		HashMap map = (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.SQLTYPES);
-		map.put(attribute.getName(), type);
-	}
-
-	public void setSqlType(String name, String type) {
-		HashMap map = (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.SQLTYPES);
-		map.put(name, type);
-	}
-
-	public String getAttributeType(CMPAttribute attribute) {
-		HashMap map = (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.SQLTYPES);
-		return (String) map.get(attribute.getName());
-	}
-
-	public void setAttributeType(CMPAttribute attribute, String type) {
-		HashMap map = (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.SQLTYPES);
-		map.put(attribute.getName(), type);
-	}
-
-	public void setAttributeType(String name, String type) {
-		HashMap map = (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.SQLTYPES);
-		map.put(name, type);
+	public void setAttributes(HashMap attr) {
+		this.getDataModel().setProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES,attr);
 	}
 
 	public void setAtribute(String name, String jtype, String stype, String description, boolean isPrimary, boolean isTransient) {
@@ -117,5 +99,27 @@ public class ContainerManagedEntityBeanDelegate extends EnterpriseBeanDelegate i
 		
 		ContainerManagedEntity entity = (ContainerManagedEntity) this.getEnterpriseBean();
 		entity.removePersistentAttribute(name);
+	}
+
+	public String getPrimaryKeyClass() {
+		java.util.List keys = getKeyAttributes();
+		
+		if( keys.size() > 1)
+			return this.getSimpleClassName() + ".PrimaryKey";
+		else if( keys.size() == 1)
+			return ((CMPAttributeDelegate)keys.get(0)).getAttributeType();
+		return "java.lang.String";
+	}
+
+	public List getKeyAttributes() {
+		Iterator attributes = getAttributes().values().iterator();
+		ArrayList keys = new ArrayList();
+		while (attributes.hasNext()) {
+			CMPAttributeDelegate attribute = (CMPAttributeDelegate) attributes.next();
+			if(attribute.isKey())
+				keys.add(attribute);
+			
+		}
+		return keys;
 	}
 }

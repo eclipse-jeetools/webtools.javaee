@@ -1,56 +1,32 @@
-<%@ jet package="com.objectlearn.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType  com.sun.java.xml.ns.j2ee.FullyQualifiedClassType"%>
-<% DocumentRoot root = (DocumentRoot)argument;
-   EntityBean leb = (EntityBean) root.getEjb().getEntity();
-   EntityBeanType eb = leb.getEntityEjb();
-   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
    
-   String primaryKeyType = "java.lang.String";
-   int pkCount=0;
-   boolean isComposite = false;
-   boolean createCompositeKey = false;
-   if( isCMP ) { 
-       FullyQualifiedClassType pkClassType = eb.getPrimKeyClass();
-       if(pkClassType != null && pkClassType.getValue() != null && pkClassType.getValue().length() > 0 )
-          primaryKeyType = pkClassType.getValue();
-	   Iterator fieldMappings = leb.getFieldMappings().iterator();
-	   String pkType = "";
-	   while(fieldMappings.hasNext()){
-	      FieldMapping mapping = (FieldMapping) fieldMappings.next();
-	      if(mapping.isPrimaryKey()){
-	        pkType = mapping.getFieldType().getValue();
-	        pkCount++;
-	      }
-	   }
-       isComposite = pkCount > 1;
-       if(!isComposite )
-         primaryKeyType = pkType;
-       else if(pkClassType == null || pkClassType.getValue() == null || pkClassType.getValue().length() < 1 ){
-		   createCompositeKey = true;
-		   primaryKeyType = eb.getEjbClass().getValue()+".PrimaryKey";
-       }else if(pkClassType != null && pkClassType.getValue() != null ){
-           if(primaryKeyType.equals(eb.getEjbClass().getValue()+".PrimaryKey") )
-              createCompositeKey = true;
-       }
-   }  
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
+  
 %>
-public abstract class <%=eb.getEjbClass().getUnqualifiedClassName()%> implements javax.ejb.EntityBean {
+public abstract class <%= cmp.getSimpleClassName()%>  implements <%= cmp.getInterfaces() %>
+{
     
-<% 	   if(createCompositeKey ){ %>
+<% 	   if(isComposite ){ %>
     /**
-    * Generated Primary Key Class
-    * @generated
-    */
+     * Generated Primary Key Class
+     * @generated
+     */
     public class PrimaryKey {
 <%
-	  Iterator fieldMappings = leb.getFieldMappings().iterator();
-      while(fieldMappings.hasNext()){
-	      FieldMapping mapping = (FieldMapping) fieldMappings.next();
-	      if(mapping.isPrimaryKey()){ %>
+	  Iterator keys = keyAttributes.iterator();
+      while(keys.hasNext()){
+	      CMPAttributeDelegate key = (CMPAttributeDelegate) keys.next();
+%>
 		  /**
 		  * @generated
 		  */	       
-	      public <%= mapping.getFieldType().getValue() %> <%= mapping.getFieldName().getValue() %> ;
-<%        } }%>
+	      public <%= key.getAttributeType() %> <%= key.getName() %> ;
+<%    } %>
 	}
 <%	}%>
 

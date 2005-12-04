@@ -23,6 +23,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
+import org.eclipse.wst.common.frameworks.internal.datamodel.ui.IDMPageHandler;
 import org.eclipse.wst.rdb.internal.core.connection.ConnectionInfo;
 
 public class AddContainerManagedEntityEjbWizard extends NewEjbWizard {
@@ -123,9 +124,21 @@ public class AddContainerManagedEntityEjbWizard extends NewEjbWizard {
 			tablePage.updateTables();
 	}
 
+	public boolean isJavaBean() {
+		if (addEntityBeanWizardPage != null)
+			return addEntityBeanWizardPage.isJavaBean();
+		return false;
+	}
+
 	public boolean canFinish() {
-		if (newJavaClassWizardPage != null && newJavaClassWizardPage.isPageComplete() && addEntityBeanWizardPage != null
-				&& addEntityBeanWizardPage.isPageComplete()&& connectionPage.isPageComplete()&& tablePage.isPageComplete()) {
+		if (newJavaClassWizardPage != null 
+				&& newJavaClassWizardPage.isPageComplete() 
+				&& addEntityBeanWizardPage != null
+				&& connectionPage != null
+				&& tablePage != null
+				&& addEntityBeanWizardPage.isPageComplete()
+				&& (addEntityBeanWizardPage.isJavaBean() || connectionPage.isPageComplete()) 
+				&& tablePage.isPageComplete()) {
 			return true;
 		}
 
@@ -140,22 +153,19 @@ public class AddContainerManagedEntityEjbWizard extends NewEjbWizard {
 		return next;
 	}
 
-	// public String getNextPage(String currentPageName, String
-	// expectedNextPageName) {
-	// if (null != expectedNextPageName &&
-	// expectedNextPageName.equals(JDBCPAGE)) {
-	// return IDMPageHandler.PAGE_AFTER + JDBCPAGE;
-	// }
-	// return super.getNextPage(currentPageName, expectedNextPageName);
-	// }
-	//
-	// public String getPreviousPage(String currentPageName, String
-	// expectedPreviousPageName) {
-	// if (expectedPreviousPageName.equals(JDBCPAGE)) {
-	// return IDMPageHandler.PAGE_BEFORE + JDBCPAGE;
-	// }
-	// return super.getPreviousPage(currentPageName, expectedPreviousPageName);
-	// }
+	public String getNextPage(String currentPageName, String expectedNextPageName) {
+		if (null != expectedNextPageName && expectedNextPageName.equals(CONNECTION_PAGE) && addEntityBeanWizardPage.isJavaBean()) {
+			return IDMPageHandler.PAGE_AFTER + CONNECTION_PAGE;
+		}
+		return super.getNextPage(currentPageName, expectedNextPageName);
+	}
+
+	public String getPreviousPage(String currentPageName, String expectedPreviousPageName) {
+		if (expectedPreviousPageName.equals(CONNECTION_PAGE) && addEntityBeanWizardPage.isJavaBean()) {
+			return IDMPageHandler.PAGE_BEFORE + CONNECTION_PAGE;
+		}
+		return super.getPreviousPage(currentPageName, expectedPreviousPageName);
+	}
 
 	public boolean testConnection() {
 		return true;

@@ -1,70 +1,34 @@
-<%@ jet package="com.objectlearn.gmf.templates.entity" class="TypeCommentGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType   com.sun.java.xml.ns.j2ee.FullyQualifiedClassType"%>
-<% DocumentRoot root = (DocumentRoot)argument;
-   EntityBean leb = (EntityBean) root.getEjb().getEntity();
-   EntityBeanType eb = leb.getEntityEjb();
-   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
-   String ejbName = eb.getEjbClass().getUnqualifiedClassName();
-   if(ejbName.endsWith("Bean") ){
-      ejbName = ejbName.substring(0,ejbName.length()-4);
-   }else if(ejbName.endsWith("Ejb") ){
-      ejbName = ejbName.substring(0,ejbName.length()-3);
-   }
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*  org.eclipse.jst.j2ee.ejb.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
    
-   String primaryKeyType = "java.lang.String";
-   int pkCount=0;
-   boolean isComposite = false;
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
    boolean createCompositeKey = false;
-   if( isCMP ) { 
-       FullyQualifiedClassType pkClassType = eb.getPrimKeyClass();
-       if(pkClassType != null && pkClassType.getValue() != null && pkClassType.getValue().length() > 0 )
-          primaryKeyType = pkClassType.getValue();
-	   Iterator fieldMappings = leb.getFieldMappings().iterator();
-	   String pkType = "";
-	   while(fieldMappings.hasNext()){
-	      FieldMapping mapping = (FieldMapping) fieldMappings.next();
-	      if(mapping.isPrimaryKey()){
-	        pkType = mapping.getFieldType().getValue();
-	        pkCount++;
-	      }
-	   }
-       isComposite = pkCount > 1;
-       if(!isComposite )
-         primaryKeyType = pkType;
-       else if(pkClassType == null || pkClassType.getValue() == null || pkClassType.getValue().length() < 1 ){
-		   createCompositeKey = true;
-		   primaryKeyType = eb.getEjbClass().getValue()+".PrimaryKey";
-       }else if(pkClassType != null && pkClassType.getValue() != null ){
-           if(primaryKeyType.equals(eb.getEjbClass().getValue()+".PrimaryKey") )
-              createCompositeKey = true;
-       }
-   }
+   String primaryKeyField = ( (CMPAttributeDelegate)keyAttributes.get(0)).getName();
+   ContainerManagedEntity entity = (ContainerManagedEntity) cmp.getEnterpriseBean();
+ 
 %>
-   
+
+
+ 
 /**
- *
- * <!-- begin-user-doc -->
- * You can insert your documentation for '<em><b><%=eb.getEjbClass().getUnqualifiedClassName()%></b></em>'.
- * <!-- end-user-doc -->
- *
- <!--  begin-lomboz-definition -->
- <%= root.asString() %>
- <!--  end-lomboz-definition -->
- *
  * <!-- begin-xdoclet-definition -->
-<% if( isCMP ) { %>
- * @ejb.bean name="<%=ejbName%>"
- *	jndi-name="<%=eb.getEjbName()%>"
- *	type="CMP"<%if(eb.getPrimkeyField() != null ){%>
- *  primkey-field="<%= eb.getPrimkeyField().getValue() %>"<%}%> 
- *  schema="<%= eb.getAbstractSchemaName().getValue() %>" 
- *  cmp-version="<%= eb.getCmpVersion().getValue() %>"
- *  data-source="<%=leb.getDataSourceName()%>"
- * 
+ * @ejb.bean name="<%=cmp.getEjbName()%>" 
+ *	jndi-name="<%=cmp.getEjbName()%>"
+ *	type="CMP" 
+ *  primkey-field="<%= primaryKeyField %>" 
+ *  schema="<%= cmp.getSchema() %>" 
+ *  cmp-version="<%= entity.getVersion() %>"
+ *  data-source="<%=cmp.getDatasource()%>"
+ *
  *  @ejb.persistence 
- *   table-name="<%=leb.getTableName()%>" 
+ *   table-name="<%=cmp.getTable()%>" 
  * 
  * @ejb.finder 
- *    query="SELECT OBJECT(a) FROM <%= eb.getAbstractSchemaName().getValue() %> as a"  
+ *    query="SELECT OBJECT(a) FROM <%= cmp.getSchema() %> as a"  
  *    signature="java.util.Collection findAll()"  
  *
  * @ejb.pk class="<%= primaryKeyType %>"
@@ -72,17 +36,3 @@
  * @generated
  **/
 
-<% } else { %>
-
-
-
-/**
- * @ejb.bean name="<%=ejbName%>"
- *	jndi-name="<%=eb.getEjbName()%>"
- *	type="BMP"
- * 
- * <!-- end-xdoclet-defintion -->
- * @generated
- **/
-
-<% } %>

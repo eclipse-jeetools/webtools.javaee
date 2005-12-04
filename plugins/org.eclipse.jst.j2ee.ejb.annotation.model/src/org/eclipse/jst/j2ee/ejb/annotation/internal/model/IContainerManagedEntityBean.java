@@ -9,17 +9,23 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
-import org.eclipse.jst.j2ee.ejb.CMPAttribute;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author naci
- *
  */
 public interface IContainerManagedEntityBean extends IEnterpriseBean {
-	
+
 	public String getDatasource();
+
 	public String getSchema();
+
 	public String getTable();
-	public String getSqlType(CMPAttribute attribute);
-	public String getAttributeType(CMPAttribute attribute);
+
+	public HashMap getAttributes();
+
+	public String getPrimaryKeyClass();
+
+	public List getKeyAttributes();
 }

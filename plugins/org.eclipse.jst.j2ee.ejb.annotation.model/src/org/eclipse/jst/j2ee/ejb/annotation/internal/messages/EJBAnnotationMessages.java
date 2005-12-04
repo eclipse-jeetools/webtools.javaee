@@ -104,10 +104,47 @@ public class EJBAnnotationMessages extends NLS {
 	public static String ERR_TRANSACTION_VALUE;
 	public static String ENTITY_USECASE_LABEL;
 	public static String DATASOURCE_NAME_LABEL;
+	
+	public static String ERR_NO_ATTRIBUTES;
+	public static String ERR_DUPLICATE_ATTRIBUTES;
+	public static String ERR_NO_KEY;
+	
+	
+	public static String ADD_EJB_CMPWIZARD_PAGE_DESC;
+	public static String ADD_EJB_CMPWIZARD_PAGE_TITLE;
+	public static String CMP_FROM_TABLE;
+	public static String CMP_FROM_BEAN;
+	public static String ERR_CMP_CONNECTION_SUCCESS;
+	public static String ERR_CMP_NO_CONNECTION;
+	public static String CMP_CONNECTION_VALUE;
+	public static String CMP_CONNECTION_PROPERTY;
+	public static String CMP_CONNECTION_PROPERTIES;
+	public static String CMP_CONNECTION_AVAILABLE;
+	public static String CMP_CONNECTION_NEW_BUTTON;
+	public static String CMP_CONNECTION_PAGE_DESC;
+	public static String CMP_CONNECTION_PAGE_TITLE;
+	public static String ADD_CMP_TABLE_WIZARD_PAGE_DESC;
+	public static String ADD_CMP_TABLE_WIZARD_PAGE_TITLE;
+	public static String CMP_TABLE_CHOOSE_TABLE;
+	public static String CANNOT_CONNECT;
+	public static String CHECK_PROPERTIES;
+	public static String CMP_MANAGED_FIELDS;
+	public static String ATTRIBUTE_NAME;
+	public static String ATTRIBUTE_COLUMN;
+	public static String ATTRIBUTE_TYPE;
+	public static String ATTRIBUTE_JDBCTYPE;
+	public static String ATTRIBUTE_SQLTYPE;
+	public static String ATTRIBUTE_READONLY;
+	public static String ATTRIBUTE_ISKEY;
+	public static String ATTRIBUTE_ADD;
+	public static String ATTRIBUTE_REMOVE;
+	public static String ERR_CMP_INVALID_TABLE;
+	public static String SCHEMA_NAME_LABEL;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBAnnotationMessages.class);
 	}
 
 	public static final String IMAGE_LOAD_ERROR = _0;
+
 }

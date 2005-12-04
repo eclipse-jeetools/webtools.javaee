@@ -34,17 +34,19 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage implements IBeanWizardPage{
 
 
+
 	private Text ejbNameText;
 	private Text jndiNameText;
 	private Text displayNameText;
 	private Combo usecaseButton;
+	private Text schemaText;
 
 	
 
 	public AddContainerManagedEntityBeanWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
-		this.setTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
+		setDescription(IEJBAnnotationConstants.ADD_EJB_CMPWIZARD_PAGE_DESC);
+		this.setTitle(IEJBAnnotationConstants.ADD_EJB_CMPWIZARD_PAGE_TITLE);
 	}
 
 	/*
@@ -56,6 +58,7 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		return new String[]{
 				IEnterpriseBeanClassDataModelProperties.EJB_NAME, 
 				IContainerManagedEntityBeanDataModelProperties.DATASOURCE, 
+				IContainerManagedEntityBeanDataModelProperties.SCHEMA, 
 				IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME, 				
 				IEnterpriseBeanClassDataModelProperties.DESCRIPTION};
 	}
@@ -109,6 +112,14 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		jndiNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(jndiNameText, IContainerManagedEntityBeanDataModelProperties.DATASOURCE, null);
 
+		// jndi name
+		Label schemaLabel = new Label(composite, SWT.LEFT);
+		schemaLabel.setText(IEJBAnnotationConstants.SCHEMA_NAME_LABEL);
+		schemaLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+		schemaText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+		schemaText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		synchHelper.synchText(schemaText, IContainerManagedEntityBeanDataModelProperties.SCHEMA, null);
+
 		// display name
 		Label displayNameLabel = new Label(composite, SWT.LEFT);
 		displayNameLabel.setText(IEJBAnnotationConstants.DISPLAY_NAME_LABEL);
@@ -146,8 +157,8 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		usecaseTypeLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		
 		usecaseButton = new Combo(composite,SWT.DROP_DOWN |  SWT.READ_ONLY);
-		usecaseButton.setItems(new String[]{"Topdown","Buttomup"});
-		usecaseButton.setText("Topdown");
+		usecaseButton.setItems(new String[]{IEJBAnnotationConstants.CMP_FROM_TABLE,IEJBAnnotationConstants.CMP_FROM_BEAN});
+		usecaseButton.setText(IEJBAnnotationConstants.CMP_FROM_TABLE);
 		usecaseButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		usecaseButton.select(0);
 		//synchHelper.synchCombo(usecaseTypeLabel, IContainerManagedEntityBeanDataModelProperties.TYPE, null);
@@ -158,11 +169,6 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		return super.canFlipToNextPage();
 	}
 
-	public boolean canFinish() {
-		return false;
-	}
-
-
 
 	public String getDisplayName() {
 		return displayNameText.getText();
@@ -170,5 +176,11 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 
 	public String getEjbName() {
 		return model.getStringProperty(IEnterpriseBeanClassDataModelProperties.EJB_NAME);
+	}
+
+	public boolean isJavaBean() {
+		if( usecaseButton == null)
+			return false;
+		return usecaseButton.getSelectionIndex() == 1;
 	}
 }

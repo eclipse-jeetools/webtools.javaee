@@ -32,25 +32,27 @@ public class AddContainerManagedEntityBeanOperation extends AbstractDataModelOpe
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		try {
-			IEJBGenerator generator = AnnotationUtilities.findEjbGeneratorByName(getDataModel().getStringProperty(IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
-			IContainerManagedEntityBean delegate = (IContainerManagedEntityBean) getDataModel().getProperty(IEnterpriseBeanClassDataModelProperties.MODELDELEGATE);
-//			if( generator != null )
-//				generator.generateMessageDriven(delegate,monitor);
-//			else{
-//				//TODO MUST RAISE A WARNING HERE
-//				Logger.log(Logger.WARNING,"There is no generator");
-//			}
+			IEJBGenerator generator = AnnotationUtilities.findEjbGeneratorByName(getDataModel().getStringProperty(
+					IEnterpriseBeanClassDataModelProperties.ANNOTATIONPROVIDER));
+			IContainerManagedEntityBean delegate = (IContainerManagedEntityBean) getDataModel().getProperty(
+					IEnterpriseBeanClassDataModelProperties.MODELDELEGATE);
+			if (generator != null)
+				generator.generateCMP(delegate, monitor);
+			else {
+				// TODO MUST RAISE A WARNING HERE
+				Logger.log(Logger.WARNING, "There is no generator");
+			}
 		} catch (Exception e) {
 			Logger.logException(e);
 		}
 		return OK_STATUS;
 	}
-	
+
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;

@@ -92,4 +92,41 @@ public interface IEJBAnnotationConstants {
 	public final static String NO_EJB_PROJECTS = EJBAnnotationMessages.NO_EJB_PROJECTS;
 	public static final String ENTITY_USECASE_LABEL = EJBAnnotationMessages.ENTITY_USECASE_LABEL;
 	public static final String DATASOURCE_NAME_LABEL = EJBAnnotationMessages.DATASOURCE_NAME_LABEL;
+	
+	
+	public static final String ERR_NO_ATTRIBUTES = EJBAnnotationMessages.ERR_NO_ATTRIBUTES;
+	public static final String ERR_DUPLICATE_ATTRIBUTES  = EJBAnnotationMessages.ERR_DUPLICATE_ATTRIBUTES;
+	public static final String ERR_NO_KEY = EJBAnnotationMessages.ERR_NO_KEY;
+	
+	public static final String ADD_EJB_CMPWIZARD_PAGE_DESC = EJBAnnotationMessages.ADD_EJB_CMPWIZARD_PAGE_DESC;
+	public static final String ADD_EJB_CMPWIZARD_PAGE_TITLE = EJBAnnotationMessages.ADD_EJB_CMPWIZARD_PAGE_TITLE;
+	public static final String CMP_FROM_TABLE = EJBAnnotationMessages.CMP_FROM_TABLE;
+	public static final String CMP_FROM_BEAN = EJBAnnotationMessages.CMP_FROM_BEAN;
+	public static final String ERR_CMP_CONNECTION_SUCCESS = EJBAnnotationMessages.ERR_CMP_CONNECTION_SUCCESS;
+	public static final String ERR_CMP_NO_CONNECTION = EJBAnnotationMessages.ERR_CMP_NO_CONNECTION;
+	public static final String CMP_CONNECTION_VALUE = EJBAnnotationMessages.CMP_CONNECTION_VALUE;
+	public static final String CMP_CONNECTION_PROPERTY = EJBAnnotationMessages.CMP_CONNECTION_PROPERTY;
+	public static final String CMP_CONNECTION_PROPERTIES = EJBAnnotationMessages.CMP_CONNECTION_PROPERTIES;
+	public static final String CMP_CONNECTION_AVAILABLE = EJBAnnotationMessages.CMP_CONNECTION_AVAILABLE;
+	public static final String CMP_CONNECTION_NEW_BUTTON = EJBAnnotationMessages.CMP_CONNECTION_NEW_BUTTON;
+	public static final String CMP_CONNECTION_PAGE_DESC = EJBAnnotationMessages.CMP_CONNECTION_PAGE_DESC;
+	public static final String CMP_CONNECTION_PAGE_TITLE = EJBAnnotationMessages.CMP_CONNECTION_PAGE_TITLE;
+
+	public static final String ADD_CMP_TABLE_WIZARD_PAGE_DESC = EJBAnnotationMessages.ADD_CMP_TABLE_WIZARD_PAGE_DESC;
+	public static final String ADD_CMP_TABLE_WIZARD_PAGE_TITLE = EJBAnnotationMessages.ADD_CMP_TABLE_WIZARD_PAGE_TITLE;
+	public static final String CMP_TABLE_CHOOSE_TABLE = EJBAnnotationMessages.CMP_TABLE_CHOOSE_TABLE;
+	public static final String CANNOT_CONNECT = EJBAnnotationMessages.CANNOT_CONNECT;
+	public static final String CHECK_PROPERTIES = EJBAnnotationMessages.CHECK_PROPERTIES;
+	public static final String CMP_MANAGED_FIELDS = EJBAnnotationMessages.CMP_MANAGED_FIELDS;
+	public static final String ATTRIBUTE_NAME = EJBAnnotationMessages.ATTRIBUTE_NAME;
+	public static final String ATTRIBUTE_COLUMN = EJBAnnotationMessages.ATTRIBUTE_COLUMN;
+	public static final String ATTRIBUTE_TYPE = EJBAnnotationMessages.ATTRIBUTE_TYPE;
+	public static final String ATTRIBUTE_JDBCTYPE = EJBAnnotationMessages.ATTRIBUTE_JDBCTYPE;
+	public static final String ATTRIBUTE_SQLTYPE = EJBAnnotationMessages.ATTRIBUTE_SQLTYPE;
+	public static final String ATTRIBUTE_READONLY = EJBAnnotationMessages.ATTRIBUTE_READONLY;
+	public static final String ATTRIBUTE_ISKEY = EJBAnnotationMessages.ATTRIBUTE_ISKEY;
+	public static final String ATTRIBUTE_ADD = EJBAnnotationMessages.ATTRIBUTE_ADD;
+	public static final String ATTRIBUTE_REMOVE = EJBAnnotationMessages.ATTRIBUTE_REMOVE;
+	public static final String ERR_CMP_INVALID_TABLE = EJBAnnotationMessages.ERR_CMP_INVALID_TABLE;
+	public static final String SCHEMA_NAME_LABEL = EJBAnnotationMessages.SCHEMA_NAME_LABEL;
 }

@@ -13,8 +13,8 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -29,8 +29,11 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.CMPAttributeDelegate;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IContainerManagedEntityBeanDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -50,37 +53,17 @@ import org.eclipse.wst.rdb.internal.core.connection.ConnectionInfo;
 
 public class ChooseTableWizardPage extends DataModelWizardPage {
 
-	protected static String[] jdbcTypes = { "ARRAY", "BIGINT", "BINARY", "BIT", "BLOB", "BOOLEAN", "CHAR", "CLOB", "DATALINK", "DATE",
-			"DECIMAL", "DISTINCT", "DOUBLE", "FLOAT", "INTEGER", "JAVA_OBJECT", "LONGVARBINARY", "LONGVARCHAR", "NULL", "NUMERIC",
-			"OTHER", "REAL", "REF", "SMALLINT", "STRUCT", "TIME", "TIMESTAMP", "TINYINT", "VARBINARY", "VARCHAR" };// EjbConstants.LABEL_JDBCTYPES;
 	protected final Image fChecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/checked.gif").createImage();// Util.createImage("icons/checked.gif",getClass());
 	protected final Image fUnchecked = EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/unchecked.gif").createImage();// Util.createImage("icons/unchecked.gif",
 
-	// getClass());
+	private String[] sqlTypes = CMPUtils.sqlTypes;
 
-	class RowAttribute {
-		public String name;
-		public String attributeType;
-		public String sqlType;
-		public boolean isKey = false;
-		public boolean isTransient = false;
-		public String columnName;
-		public String jdbcType;
-		public boolean isReadOnly;
-	}
-
-	private String[] sqlTypes = { "BIGINT", "BINARY", "BIT", "BLOB", "BOOLEAN", "CHAR", "CLOB", "DATE", "DECIMAL", "DOUBLE", "FLOAT",
-			"INTEGER", "JAVA_OBJECT", "LONGVARBINARY", "LONGVARCHAR", "NULL", "NUMERIC", "REAL", "REF", "SMALLINT", "STRUCT", "TIME",
-			"TIMESTAMP", "TINYINT", "VARBINARY", "VARCHAR" };
 	private Combo catalogButton;
-	private Combo tableButton;
 	private Table attributeTable;
 	private TableViewer attributeTableViewer;
 	private Button add;
 	private Button remove;
 	private ArrayList tableList = new ArrayList();
-
-	private ArrayList attributeList = new ArrayList();
 
 	public void dispose() {
 		super.dispose();
@@ -90,8 +73,8 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 	public ChooseTableWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
-		this.setTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
+		setDescription(IEJBAnnotationConstants.ADD_CMP_TABLE_WIZARD_PAGE_DESC);
+		this.setTitle(IEJBAnnotationConstants.ADD_CMP_TABLE_WIZARD_PAGE_TITLE);
 	}
 
 	/*
@@ -100,7 +83,12 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[] {};
+		return new String[] { IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES,
+				IContainerManagedEntityBeanDataModelProperties.TABLE };
+	}
+
+	protected HashMap getAttributes() {
+		return (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -125,18 +113,24 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		// description
 		Label catalogLabel = new Label(composite, SWT.LEFT);
-		catalogLabel.setText("Choose Table:");
+		catalogLabel.setText(IEJBAnnotationConstants.CMP_TABLE_CHOOSE_TABLE);
 		catalogLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 
-		catalogButton = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-		updateTables();
+		if (((AddContainerManagedEntityEjbWizard) this.getWizard()).isJavaBean()) {
+			catalogButton = new Combo(composite, SWT.DROP_DOWN);
+
+		} else {
+			catalogButton = new Combo(composite, SWT.DROP_DOWN);// |
+																// SWT.READ_ONLY)
+		}
+		synchHelper.synchCombo(catalogButton, IContainerManagedEntityBeanDataModelProperties.TABLE, null);
 		catalogButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		catalogButton.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
 				fillTableWith((String) tableList.get(catalogButton.getSelectionIndex()));
 				attributeTable.removeAll();
-				attributeTable.setData(attributeList);
-				attributeTableViewer.setInput(attributeList);
+				attributeTable.setData(getAttributes());
+				attributeTableViewer.setInput(getAttributes());
 				attributeTableViewer.refresh();
 			}
 
@@ -144,69 +138,79 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				this.widgetDefaultSelected(e);
 			}
 		});
+		updateTables();
 
 	}
 
 	private void fillTableWith(String tableName) {
-		attributeList = new ArrayList();
 		Connection connection = null;
-		try {
-			ConnectionInfo connectionInfo = getConnectionInfo();
-			if (connectionInfo == null)
-				return;
-			String passw = connectionInfo.getPassword();
-			if (passw == null || passw.length() == 0)
-				passw = "password";
-			connectionInfo.setPassword(passw);
+		HashMap attributes = new HashMap();
+		if (!((AddContainerManagedEntityEjbWizard) this.getWizard()).isJavaBean()) {
+			try {
+				ConnectionInfo connectionInfo = getConnectionInfo();
+				if (connectionInfo == null)
+					return;
+				String passw = connectionInfo.getPassword();
+				if (passw == null || passw.length() == 0)
+					passw = "password";
+				connectionInfo.setPassword(passw);
 
-			connection = connectionInfo.connect();
+				connection = connectionInfo.connect();
 
-			if (connection == null)
-				return;
-			DatabaseMetaData metaData = connection.getMetaData();
-			String schema = null;
-			int scIndex = tableName.indexOf(".");
-			if (scIndex >= 0) {
-				schema = tableName.substring(0, scIndex);
-				tableName = tableName.substring(scIndex + 1);
-			}
-
-			ResultSet columns = metaData.getColumns(null, schema, tableName, "%");
-			while (columns.next()) {
-				RowAttribute atr = new RowAttribute();
-				atr.name = columns.getString("COLUMN_NAME");
-				atr.attributeType = getAttributeType(columns.getInt("DATA_TYPE"));
-				atr.jdbcType = getSqlType(columns.getInt("DATA_TYPE"));
-				atr.sqlType = columns.getString("TYPE_NAME");
-				atr.columnName = columns.getString("COLUMN_NAME");
-				attributeList.add(atr);
-			}
-			ResultSet primaryKeys = metaData.getPrimaryKeys(null, schema, tableName);
-			while (primaryKeys.next()) {
-				String key = primaryKeys.getString("COLUMN_NAME");
-				Iterator iterator = attributeList.iterator();
-				while (iterator.hasNext()) {
-					RowAttribute attr = (RowAttribute) iterator.next();
-					if (key.equals(attr.name))
-						attr.isKey = true;
+				if (connection == null)
+					return;
+				DatabaseMetaData metaData = connection.getMetaData();
+				String schema = null;
+				int scIndex = tableName.indexOf(".");
+				if (scIndex >= 0) {
+					schema = tableName.substring(0, scIndex);
+					tableName = tableName.substring(scIndex + 1);
 				}
-			}
 
-		} catch (Throwable ex) {
-			ex.printStackTrace();
-			MessageDialog.openError(this.getShell(), "Cannot Connect", "Check your properties");
-		} finally {
-			if (connection != null)
-				try {
-					connection.close();
-				} catch (SQLException e) {
+				ResultSet columns = metaData.getColumns(null, schema, tableName, "%");
+				while (columns.next()) {
+					CMPAttributeDelegate atr = new CMPAttributeDelegate();
+					atr.setName(columns.getString("COLUMN_NAME"));
+					atr.setAttributeType(CMPUtils.getAttributeType(columns.getInt("DATA_TYPE")));
+					atr.setJdbcType(CMPUtils.getSqlType(columns.getInt("DATA_TYPE")));
+					atr.setSqlType(columns.getString("TYPE_NAME"));
+					atr.setColumnName(columns.getString("COLUMN_NAME"));
+					attributes.put(atr.getName(), atr);
 				}
+				ResultSet primaryKeys = metaData.getPrimaryKeys(null, schema, tableName);
+				while (primaryKeys.next()) {
+					String key = primaryKeys.getString("COLUMN_NAME");
+					Iterator iterator = attributes.values().iterator();
+					while (iterator.hasNext()) {
+						CMPAttributeDelegate attr = (CMPAttributeDelegate) iterator.next();
+						if (key.equals(attr.getName()))
+							attr.setKey(true);
+					}
+				}
+
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT,
+						IEJBAnnotationConstants.CHECK_PROPERTIES);
+			} finally {
+				if (connection != null)
+					try {
+						connection.close();
+					} catch (SQLException e) {
+					}
+			}
 		}
+		this.getDataModel().setProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES, attributes);
+
 	}
 
 	public void updateTables() {
 		if (catalogButton == null)
 			return;
+		if (((AddContainerManagedEntityEjbWizard) this.getWizard()).isJavaBean()) {
+			catalogButton.removeAll();
+			return;
+		}
 		Connection connection = null;
 		tableList = new ArrayList();
 		try {
@@ -248,7 +252,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			MessageDialog.openError(this.getShell(), "Cannot Connect", "Check your properties");
+			MessageDialog.openError(this.getShell(), IEJBAnnotationConstants.CANNOT_CONNECT, IEJBAnnotationConstants.CHECK_PROPERTIES);
 		} finally {
 			if (connection != null)
 				try {
@@ -258,17 +262,16 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		}
 		catalogButton.setItems((String[]) tableList.toArray(new String[tableList.size()]));
 		catalogButton.select(0);
+		if (tableList.size() >= 0) {
+			fillTableWith((String) tableList.get(0));
+			catalogButton.setEnabled(true);
+			if (attributeTableViewer != null)
+				attributeTableViewer.refresh();
+		}
 
-	}
+		if (remove != null)
+			remove.setEnabled(false);
 
-	public boolean isPageComplete() {
-		return true;
-		// return ((AddContainerManagedEntityEjbWizard)
-		// getWizard()).testConnection();
-	}
-
-	public boolean canFinish() {
-		return false;
 	}
 
 	public ConnectionInfo getConnectionInfo() {
@@ -281,11 +284,10 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 	private Table createTable(Composite parent) {
 		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.HIDE_SELECTION;
 
-		final int NUMBER_COLUMNS = 2;
 		GridLayout layout;
 		GridData gridData;
 		Group libraryPanel = new Group(parent, SWT.NONE);
-		libraryPanel.setText("Managed Fields");
+		libraryPanel.setText(IEJBAnnotationConstants.CMP_MANAGED_FIELDS);
 		layout = new GridLayout(2, false);
 		libraryPanel.setLayout(layout);
 		gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
@@ -303,34 +305,90 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		// 1st column with image/checkboxes - NOTE: The SWT.CENTER has no
 		// effect!!
 		TableColumn column = new TableColumn(attributeTable, SWT.LEFT, 0);
-		column.setText("Name");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_NAME);
 		column.setWidth(60);
 
 		// 2 column with task Description
 		column = new TableColumn(attributeTable, SWT.LEFT, 1);
-		column.setText("Column");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_COLUMN);
 		column.setWidth(60);
 
 		column = new TableColumn(attributeTable, SWT.LEFT, 2);
-		column.setText("Type");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_TYPE);
 		column.setWidth(120);
 
 		column = new TableColumn(attributeTable, SWT.LEFT, 3);
-		column.setText("JDBC Type");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_JDBCTYPE);
 		column.setWidth(80);
 
 		column = new TableColumn(attributeTable, SWT.LEFT, 4);
-		column.setText("SQL Type");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_SQLTYPE);
 		column.setWidth(80);
 
 		column = new TableColumn(attributeTable, SWT.CENTER, 5);
-		column.setText("Read Only");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_READONLY);
 		column.setWidth(80);
 
 		column = new TableColumn(attributeTable, SWT.CENTER, 6);
-		column.setText("Primary key");
+		column.setText(IEJBAnnotationConstants.ATTRIBUTE_ISKEY);
 		column.setWidth(80);
+		addAttributeButtons(libraryPanel);
+		attributeTable.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				attributeTable.getSelectionCount();
+				remove.setEnabled(attributeTable.getSelectionCount() > 0);
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+
+			}
+		});
 		return attributeTable;
+	}
+
+	private void addAttributeButtons(Composite parent) {
+		add = new Button(parent, SWT.PUSH);
+		add.setText(IEJBAnnotationConstants.ATTRIBUTE_ADD); //$NON-NLS-1$
+		GridData data = new GridData();
+		data.horizontalSpan = 1;
+		data.horizontalAlignment = GridData.BEGINNING;
+		add.setLayoutData(data);
+		add.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				CMPAttributeDelegate atr = new CMPAttributeDelegate();
+				getAttributes().put(atr.getName(), atr);
+				ChooseTableWizardPage.this.validatePage();
+				attributeTableViewer.refresh();
+			}
+		});
+		remove = new Button(parent, SWT.PUSH);
+		remove.setText(IEJBAnnotationConstants.ATTRIBUTE_REMOVE); //$NON-NLS-1$
+		data = new GridData();
+		data.horizontalSpan = 1;
+		data.horizontalAlignment = GridData.BEGINNING;
+		remove.setLayoutData(data);
+		remove.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				TableItem ti = attributeTable.getSelection()[0];
+				CMPAttributeDelegate attributeDelegate = (CMPAttributeDelegate) ti.getData();
+				getAttributes().remove(attributeDelegate.getName());
+				ChooseTableWizardPage.this.validatePage();
+				attributeTableViewer.refresh();
+				remove.setEnabled(false);
+
+			}
+		});
+		remove.setEnabled(false);
 	}
 
 	/**
@@ -368,7 +426,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		// fFieldTypeCompletionProcessor);
 		editors[2] = textEditor3;
 
-		editors[3] = new ComboBoxCellEditor(table, jdbcTypes, SWT.READ_ONLY);
+		editors[3] = new ComboBoxCellEditor(table, CMPUtils.jdbcTypes, SWT.READ_ONLY);
 
 		// TextCellEditor textEditor4 = new TextCellEditor(table);
 		// ((Text) textEditor4.getControl()).setTextLimit(100);
@@ -383,15 +441,14 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		tableViewer.setCellEditors(editors);
 		// Set the cell modifier for the viewer
 		tableViewer.setCellModifier(new FieldCellModifier());
-		tableViewer.setInput(getTableRows());
+		tableViewer.setInput(getAttributes());
 		return tableViewer;
 	}
 
-	public ArrayList getTableRows() {
-		return attributeList;
-	}
-
-	protected static String[] columnNames = { "Field Name", "Column Name", "Type", "JDBC Type", "SQL Type", "Read Only", "Primary Key" };
+	protected static String[] columnNames = { IEJBAnnotationConstants.ATTRIBUTE_NAME, IEJBAnnotationConstants.ATTRIBUTE_COLUMN,
+			IEJBAnnotationConstants.ATTRIBUTE_TYPE, IEJBAnnotationConstants.ATTRIBUTE_JDBCTYPE,
+			IEJBAnnotationConstants.ATTRIBUTE_SQLTYPE, IEJBAnnotationConstants.ATTRIBUTE_READONLY,
+			IEJBAnnotationConstants.ATTRIBUTE_ISKEY };
 
 	protected int getColumnIndex(String columName) {
 		if (columName == null)
@@ -413,25 +470,25 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		}
 
 		public Object[] getElements(Object parent) {
-			return attributeList.toArray();
+			return getAttributes().values().toArray();
 		}
 	}
 
 	public class FieldLabelProvider extends LabelProvider implements ITableLabelProvider {
 		public String getColumnText(Object obj, int index) {
 
-			RowAttribute fieldMapping = (RowAttribute) obj;
+			CMPAttributeDelegate fieldMapping = (CMPAttributeDelegate) obj;
 			switch (index) {
 			case 0: // Local
-				return fieldMapping.name;
+				return fieldMapping.getName();
 			case 1: // Local
-				return fieldMapping.columnName;
+				return fieldMapping.getColumnName();
 			case 2: // Local
-				return fieldMapping.attributeType;
+				return fieldMapping.getAttributeType();
 			case 3: // Local
-				return fieldMapping.jdbcType;
+				return fieldMapping.getJdbcType();
 			case 4: // Local
-				return fieldMapping.sqlType;
+				return fieldMapping.getSqlType();
 			case 5: // Local
 				return "";
 			case 6: // Local
@@ -445,21 +502,21 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		}
 
 		public Image getColumnImage(Object obj, int index) {
-			RowAttribute fieldMapping = (RowAttribute) obj;
+			CMPAttributeDelegate fieldMapping = (CMPAttributeDelegate) obj;
 			switch (index) {
 			case 5: // Local
-				if (fieldMapping.isReadOnly)
+				if (fieldMapping.isReadOnly())
 					return fChecked;
 				else
 					return fUnchecked;
 
 			case 6: // Local
-				if (fieldMapping.isKey)
+				if (fieldMapping.isKey())
 					return fChecked;
 				else
 					return fUnchecked;
 			case 7: // Local
-				if (fieldMapping.isTransient)
+				if (fieldMapping.isTransient())
 					return fChecked;
 				else
 					return fUnchecked;
@@ -480,28 +537,28 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		public Object getValue(Object element, String property) {
 			int columnIndex = getColumnIndex(property);
-			RowAttribute fieldMapping = (RowAttribute) element;
+			CMPAttributeDelegate fieldMapping = (CMPAttributeDelegate) element;
 
 			Object result = "";
 			switch (columnIndex) {
 
 			case 0:
-				return fieldMapping.name;
+				return fieldMapping.getName();
 
 			case 1:
-				return fieldMapping.columnName;
+				return fieldMapping.getColumnName();
 			case 2:
-				return fieldMapping.attributeType;
+				return fieldMapping.getAttributeType();
 			case 3:
-				String val = fieldMapping.jdbcType;
-				for (int i = 0; i < jdbcTypes.length; i++) {
-					String t = jdbcTypes[i];
+				String val = fieldMapping.getJdbcType();
+				for (int i = 0; i < CMPUtils.jdbcTypes.length; i++) {
+					String t = CMPUtils.jdbcTypes[i];
 					if (t.equals(val))
 						return new Integer(i);
 				}
 				return new Integer(0);
 			case 4:
-				val = fieldMapping.sqlType;
+				val = fieldMapping.getSqlType();
 				for (int i = 0; i < sqlTypes.length; i++) {
 					String t = sqlTypes[i];
 					if (t.equals(val))
@@ -509,11 +566,11 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				}
 				return new Integer(0);
 			case 5:
-				return Boolean.valueOf(fieldMapping.isReadOnly);
+				return Boolean.valueOf(fieldMapping.isReadOnly());
 			case 6:
-				return Boolean.valueOf(fieldMapping.isKey);
+				return Boolean.valueOf(fieldMapping.isKey());
 			case 7:
-				return Boolean.valueOf(fieldMapping.isTransient);
+				return Boolean.valueOf(fieldMapping.isTransient());
 			default:
 				result = "";
 			}
@@ -527,173 +584,44 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		public void modify(Object element, String property, Object value) {
 			int columnIndex = getColumnIndex(property);
 			TableItem tItem = (TableItem) element;
-			RowAttribute fieldMapping = (RowAttribute) tItem.getData();
+			CMPAttributeDelegate fieldMapping = (CMPAttributeDelegate) tItem.getData();
 
-			Object result = "";
 			switch (columnIndex) {
 
 			case 0:
-				fieldMapping.name = (String) value;
+				getAttributes().remove(fieldMapping.getName());
+				fieldMapping.setName((String) value);
+				getAttributes().put(fieldMapping.getName(),fieldMapping);
 				break;
 
 			case 1:
-				fieldMapping.columnName = (String) value;
+				fieldMapping.setColumnName((String) value);
 				break;
 			case 2:
-				fieldMapping.attributeType = (String) value;
+				fieldMapping.setAttributeType((String) value);
 				break;
 			case 3:
-				fieldMapping.jdbcType = jdbcTypes[((Integer) value).intValue()];
+				fieldMapping.setJdbcType(CMPUtils.jdbcTypes[((Integer) value).intValue()]);
 				break;
 			case 4:
-				fieldMapping.sqlType = sqlTypes[((Integer) value).intValue()];
+				fieldMapping.setSqlType(sqlTypes[((Integer) value).intValue()]);
 				break;
 			case 5:
 				boolean readValue = ((Boolean) value).booleanValue();
-				fieldMapping.isReadOnly = readValue;
+				fieldMapping.setReadOnly(readValue);
 				break;
 			case 6:
 				boolean newValue = ((Boolean) value).booleanValue();
-				fieldMapping.isKey = newValue;
+				fieldMapping.setKey(newValue);
 				break;
 			case 7:
-				fieldMapping.isTransient = ((Boolean) value).booleanValue();
+				fieldMapping.setTransient(((Boolean) value).booleanValue());
 				break;
-			default:
-				result = "";
 			}
+			ChooseTableWizardPage.this.validatePage();
 			attributeTableViewer.refresh();
 		}
 
 	}
 
-	private String getSqlType(int type) {
-		switch (type) {
-		case Types.ARRAY:
-			return "ARRAY";
-		case Types.BIGINT:
-			return "BIGINT";
-		case Types.BINARY:
-			return "BINARY";
-		case Types.BIT:
-			return "BIT";
-		case Types.BLOB:
-			return "BLOB";
-		case Types.BOOLEAN:
-			return "BOOLEAN";
-		case Types.CHAR:
-			return "CHAR";
-		case Types.CLOB:
-			return "CLOB";
-		case Types.DATALINK:
-			return "DATALINK";
-		case Types.DATE:
-			return "DATE";
-		case Types.DECIMAL:
-			return "DECIMAL";
-		case Types.DISTINCT:
-			return "DISTINCT";
-		case Types.DOUBLE:
-			return "DOUBLE";
-		case Types.FLOAT:
-			return "FLOAT";
-		case Types.INTEGER:
-			return "INTEGER";
-		case Types.JAVA_OBJECT:
-			return "JAVA_OBJECT";
-		case Types.LONGVARBINARY:
-			return "LONGVARBINARY";
-		case Types.LONGVARCHAR:
-			return "LONGVARCHAR";
-		case Types.NULL:
-			return "NULL";
-		case Types.NUMERIC:
-			return "NUMERIC";
-		case Types.OTHER:
-			return "OTHER";
-		case Types.REAL:
-			return "REAL";
-		case Types.REF:
-			return "REF";
-		case Types.SMALLINT:
-			return "SMALLINT";
-		case Types.STRUCT:
-			return "STRUCT";
-		case Types.TIME:
-			return "TIME";
-		case Types.TIMESTAMP:
-			return "TIMESTAMP";
-		case Types.VARBINARY:
-			return "VARBINARY";
-		case Types.VARCHAR:
-			return "VARCHAR";
-
-		}
-		return "NULL";
-	}
-
-	private String getAttributeType(int type) {
-		switch (type) {
-		case Types.ARRAY:
-			return "java.lang.Object[]";
-		case Types.BIGINT:
-			return "java.lang.Long";
-		case Types.BINARY:
-			return "java.lang.Byte[]";
-		case Types.BIT:
-			return "java.lang.Byte";
-		case Types.BLOB:
-			return "java.lang.Byte[]";
-		case Types.BOOLEAN:
-			return "java.lang.Boolean";
-		case Types.CHAR:
-			return "java.lang.Character";
-		case Types.CLOB:
-			return "java.lang.Character[]";
-		case Types.DATALINK:
-			return "java.lang.String";
-		case Types.DATE:
-			return "java.sql.Date";
-		case Types.DECIMAL:
-			return "java.math.BigDecimal";
-		case Types.DISTINCT:
-			return "java.lang.String";
-		case Types.DOUBLE:
-			return "java.lang.Double";
-		case Types.FLOAT:
-			return "java.lang.Float";
-		case Types.INTEGER:
-			return "java.lang.Integer";
-		case Types.JAVA_OBJECT:
-			return "java.lang.Object";
-		case Types.LONGVARBINARY:
-			return "java.lang.String";
-		case Types.LONGVARCHAR:
-			return "java.lang.String";
-		case Types.NULL:
-			return "java.lang.String";
-		case Types.NUMERIC:
-			return "java.math.BigDecimal";
-		case Types.OTHER:
-			return "java.lang.String";
-		case Types.REAL:
-			return "java.math.BigDecimal";
-		case Types.REF:
-			return "java.lang.String";
-		case Types.SMALLINT:
-			return "java.lang.Integer";
-		case Types.STRUCT:
-			return "java.lang.Object";
-		case Types.TIME:
-			return "java.sql.Time";
-		case Types.TIMESTAMP:
-			return "java.sql.Timestamp";
-		case Types.VARBINARY:
-			return "java.lang.Object";
-		case Types.VARCHAR:
-			return "java.lang.String";
-
-		}
-		return "java.lang.String";
-	}
 }

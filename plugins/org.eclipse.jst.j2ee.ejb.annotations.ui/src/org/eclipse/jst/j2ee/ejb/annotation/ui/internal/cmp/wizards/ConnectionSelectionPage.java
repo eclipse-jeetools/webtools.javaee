@@ -23,6 +23,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -69,8 +70,8 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 
 	public ConnectionSelectionPage(IDataModel model, String pageName) {
 		super(model, pageName);
-		setDescription("Choose a connection to the entity database");
-		this.setTitle("Choose Entity Database");
+		setDescription(IEJBAnnotationConstants.CMP_CONNECTION_PAGE_DESC);
+		this.setTitle(IEJBAnnotationConstants.CMP_CONNECTION_PAGE_TITLE);
 	}
 
 	public Composite createTopLevelComposite(Composite parent) {
@@ -82,7 +83,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		newConnectionButton = new Button(composite, SWT.PUSH);
-		newConnectionButton.setText("New..."); //$NON-NLS-1$
+		newConnectionButton.setText(IEJBAnnotationConstants.CMP_CONNECTION_NEW_BUTTON); //$NON-NLS-1$
 		GridData gd = new GridData();
 		gd.verticalAlignment = GridData.BEGINNING;
 		newConnectionButton.setLayoutData(gd);
@@ -95,7 +96,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 		indentationComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Group existingConnectionsGroup = new Group(indentationComposite, SWT.NONE);
-		existingConnectionsGroup.setText("Available Connections"); //$NON-NLS-1$
+		existingConnectionsGroup.setText(IEJBAnnotationConstants.CMP_CONNECTION_AVAILABLE); //$NON-NLS-1$
 		layout = new GridLayout();
 		layout.numColumns = 1;
 		layout.verticalSpacing = 5;
@@ -109,7 +110,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 		existingConnectionsList.setLayoutData(gd);
 
 		propertiesLabel = new Label(existingConnectionsGroup, SWT.NONE);
-		propertiesLabel.setText("Properties"); //$NON-NLS-1$
+		propertiesLabel.setText(IEJBAnnotationConstants.CMP_CONNECTION_PROPERTIES); //$NON-NLS-1$
 		gd = new GridData();
 		propertiesLabel.setLayoutData(gd);
 
@@ -120,12 +121,12 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 		connectionPropertiesTable.setHeaderVisible(true);
 
 		TableColumn tc1 = new TableColumn(connectionPropertiesTable, SWT.NONE);
-		tc1.setText("Property"); //$NON-NLS-1$
+		tc1.setText(IEJBAnnotationConstants.CMP_CONNECTION_PROPERTY); //$NON-NLS-1$
 		tc1.setResizable(true);
 		tc1.setWidth(140);
 
 		TableColumn tc2 = new TableColumn(connectionPropertiesTable, SWT.NONE);
-		tc2.setText("Value"); //$NON-NLS-1$
+		tc2.setText(IEJBAnnotationConstants.CMP_CONNECTION_VALUE); //$NON-NLS-1$
 		tc2.setResizable(true);
 		tc2.setWidth(250);
 
@@ -372,7 +373,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 				if (connection != null) {
 					connection.close();
 				} else {
-					this.setErrorMessage("A connection cannot be opened to the database");
+					this.setErrorMessage(IEJBAnnotationConstants.ERR_CMP_NO_CONNECTION);
 					connected = false;
 					this.setPageComplete(false);
 					return false;
@@ -381,7 +382,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 			}
 		}
 		this.setErrorMessage(null);
-		setMessage("Connection successful", IStatus.OK);
+		setMessage(IEJBAnnotationConstants.ERR_CMP_CONNECTION_SUCCESS, IStatus.OK);
 		connected = true;
 		this.setPageComplete(true);
 		return true;
