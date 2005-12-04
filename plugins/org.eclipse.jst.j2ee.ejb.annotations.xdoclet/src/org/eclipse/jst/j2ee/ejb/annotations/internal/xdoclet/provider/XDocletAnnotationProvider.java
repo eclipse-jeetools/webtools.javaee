@@ -134,7 +134,7 @@ public class XDocletAnnotationProvider implements IAnnotationProvider, IEJBGener
 			stub = ejbEmitter.emitTypeStub(delegate);
 			method = ejbEmitter.emitInterfaceMethods(delegate);
 			fields = ejbEmitter.emitFields(delegate);
-			//ejbEmitter.deleteProject();
+			ejbEmitter.deleteProject();
 		} catch (CoreException e) {
 			throw e;
 		} catch (Exception e) {
