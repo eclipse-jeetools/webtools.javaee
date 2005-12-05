@@ -605,7 +605,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		if (!targetComponentsHandles.isEmpty()) {
 			if(composedOp == null)
 				composedOp = new WorkspaceModifyComposedOperation();
-			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
+			composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(ComponentUtilities.removeWLPReferenceComponentOperation(model.getComponent(), targetComponentsHandles)));
 		}
 		return composedOp;
 	}
