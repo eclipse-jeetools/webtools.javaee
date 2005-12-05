@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOp;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -76,9 +77,9 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final IWorkspace ws = ResourcesPlugin.getWorkspace();
 			final IPath pjpath = project.getFullPath();
-
-			final IPath contentdir = pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER));
-			final IPath sourcedir = pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER));
+			
+			final IPath contentdir = setContentPropertyIfNeeded(model, pjpath,project);
+			final IPath sourcedir = setSourcePropertyIfNeeded(model, pjpath,project);
 			mkdirs(ws.getRoot().getFolder(contentdir));
 
 			final IPath webinf = contentdir.append("WEB-INF");
@@ -108,8 +109,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			if (contextRoot == null || contextRoot.length() == 0)
 				contextRoot = project.getName();
-			c.setMetaProperty("context-root", contextRoot);
-			c.setMetaProperty("java-output-path", "/build/classes/");
+			setContextRootPropertyIfNeeded(c, contextRoot);
+			setJavaOutputPropertyIfNeeded(c);
 
 			final IVirtualFolder jsrc = c.getRootFolder().getFolder("/WEB-INF/classes");
 			final IClasspathEntry[] cp = jproj.getRawClasspath();
@@ -123,8 +124,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			}
 
 			final IVirtualFolder webroot = c.getRootFolder();
-
-			webroot.createLink(new Path("/" + model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null);
+			if (webroot.getProjectRelativePath().equals(new Path("/")))
+				webroot.createLink(new Path("/" + model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null);
 
 			// Create the deployment descriptor (web.xml) if one doesn't exist
 			if (!webinfFolder.getFile("web.xml").exists()) {
@@ -206,6 +207,34 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				monitor.done();
 			}
 		}
+	}
+
+	private void setJavaOutputPropertyIfNeeded(final IVirtualComponent c) {
+		String existing = c.getMetaProperties().getProperty("java-output-path");
+		if (existing == null)
+			c.setMetaProperty("java-output-path", "/build/classes/");
+	}
+
+	private void setContextRootPropertyIfNeeded(final IVirtualComponent c, String contextRoot) {
+		String existing = c.getMetaProperties().getProperty("context-root");
+		if (existing == null)
+			c.setMetaProperty("context-root", contextRoot);
+	}
+
+	private IPath setSourcePropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
+		IVirtualComponent c = ComponentCore.createComponent(project);
+		if (c.exists()) {
+			return J2EEProjectUtilities.getSourcePathOrFirst(project,null).makeAbsolute();
+		}
+		return pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER));
+	}
+
+	private IPath setContentPropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
+		IVirtualComponent c = ComponentCore.createComponent(project);
+		if (c.exists()) {
+			return c.getRootFolder().getUnderlyingResource().getFullPath();
+		}	
+		return pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER));
 	}
 
 	private static void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry)

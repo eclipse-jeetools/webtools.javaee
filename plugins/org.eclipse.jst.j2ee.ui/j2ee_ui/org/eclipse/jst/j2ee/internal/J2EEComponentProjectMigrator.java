@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -19,11 +20,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
@@ -47,7 +52,9 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.ComponentType;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.IComponentProjectMigrator;
+import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -171,7 +178,14 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		protected IDataModel setupJavaInstallAction(IProject aProject, boolean existing,String srcFolder) {
 			IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
-			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
+			String jVersion = "1.4";
+			IScopeContext context = new ProjectScope( project );
+		    IEclipsePreferences prefs 
+		            = context.getNode( JavaCore.PLUGIN_ID );
+			if (JavaCore.VERSION_1_5.equals(prefs.get(JavaCore.COMPILER_COMPLIANCE,JavaCore.VERSION_1_4))) {
+				jVersion = "5.0";
+			}
+			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, jVersion); //$NON-NLS-1$
 			if (!existing)
 				dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder); //$NON-NLS-1$
 			return dm;
@@ -213,20 +227,36 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		private void addFacets(IProject aProject) {
 			StructureEdit edit = null;
 			try {
-				edit = StructureEdit.getStructureEditForRead(aProject);
+				edit = StructureEdit.getStructureEditForWrite(aProject);
 				if (edit == null) return;  // Not a component project....
 				if (edit.getComponent() == null) return; // Can't migrate
 				ComponentType type = edit.getComponent().getComponentType();
 				if (type == null) return;  // Can't migrate
 				String compId = type.getComponentTypeId();
 				String specVersion = edit.getComponent().getComponentType().getVersion();
+				moveMetaProperties(edit.getComponent(),type);
 				addFacetsToProject(aProject, compId, specVersion,true);
 			}
 			finally {
-				if (edit != null)
+				if (edit != null) {
+					edit.save(null);
 					edit.dispose();
+				}
 			}
 			
+		}
+
+		private void moveMetaProperties(WorkbenchComponent component, ComponentType type) {
+			List props = type.getProperties();
+			List compProps = component.getProperties();
+			for (Iterator iter = props.iterator(); iter.hasNext();) {
+				Property element = (Property) iter.next();
+				Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
+				newProp.setName(element.getName());
+				newProp.setValue(element.getValue());
+				compProps.add(newProp);
+			}
+			props.clear();
 		}
 
 		private void addFacetsToProject(IProject aProject, String compId, String specVersion,boolean existing) {
