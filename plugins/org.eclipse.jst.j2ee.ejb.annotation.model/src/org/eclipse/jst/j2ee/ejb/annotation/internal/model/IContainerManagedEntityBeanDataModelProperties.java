@@ -8,6 +8,7 @@ public interface IContainerManagedEntityBeanDataModelProperties extends IEnterpr
 	public static final String SCHEMA = "EntityBeanDataModel.SCHEMA"; //$NON-NLS-1$
 	public static final String TABLE = "EntityBeanDataModel.TABLE"; //$NON-NLS-1$
 	public static final String ATTRIBUTES = "EntityBeanDataModel.ATTRIBUTES"; //$NON-NLS-1$
+	public static final String VERSION = "EntityBeanDataModel.VERSION"; //$NON-NLS-1$
 
 	public final static String EJB_INTERFACES = "EntityBeanDataModel.EJB_INTERFACES"; //$NON-NLS-1$
 													

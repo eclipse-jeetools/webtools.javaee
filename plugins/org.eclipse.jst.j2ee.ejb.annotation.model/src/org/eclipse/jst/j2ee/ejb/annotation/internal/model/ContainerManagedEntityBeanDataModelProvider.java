@@ -10,12 +10,12 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddContainerManagedEntityBeanOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -52,6 +52,7 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		propertyNames.add(SCHEMA);
 		propertyNames.add(TABLE);
 		propertyNames.add(ATTRIBUTES);
+		propertyNames.add(VERSION);
 		propertyNames.add(EJB_INTERFACES);
 		return propertyNames;
 	}
@@ -74,7 +75,9 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		else if (propertyName.equals(TABLE))
 			return "MYTABLE";
 		else if (propertyName.equals(ATTRIBUTES))
-			return new HashMap();
+			return new ArrayList();
+		else if (propertyName.equals(VERSION))
+			return ContainerManagedEntity.VERSION_2_X;
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -92,32 +95,50 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 			return validateJndiName(getStringProperty(propertyName));
 		if (propertyName.equals(ATTRIBUTES))
 			return validateAttributes(getProperty(propertyName));
+		if (propertyName.equals(VERSION))
+			return validateVersion((String)getProperty(propertyName));
 		return super.validate(propertyName);
 	}
 
 	protected IStatus validateTable(String prop) {
 		// check for empty
-		if (prop == null || prop.trim().length() == 0 || prop.indexOf(" ") >= 0 ) {
+		if (prop == null || prop.trim().length() == 0 || prop.indexOf(" ") >= 0) {
 			String msg = IEJBAnnotationConstants.ERR_CMP_INVALID_TABLE;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		
+
 		return WTPCommonPlugin.OK_STATUS;
 	}
+
+	protected IStatus validateVersion(String prop) {
+		// check for empty
+		if (prop == null || prop.trim().length() == 0 || prop.indexOf(" ") >= 0) {
+			String msg = IEJBAnnotationConstants.ERR_CMP_INVALID_VERSION;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+
+		if (!(ContainerManagedEntity.VERSION_1_X.equals(prop) || ContainerManagedEntity.VERSION_2_X.equals(prop))) {
+			String msg = IEJBAnnotationConstants.ERR_CMP_INVALID_VERSION;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+
+		return WTPCommonPlugin.OK_STATUS;
+	}
+
 	private IStatus validateAttributes(Object property) {
-		HashMap attributes = (HashMap) property;
+		ArrayList attributes = (ArrayList) property;
 		if (attributes == null || attributes.size() == 0) {
 			String msg = IEJBAnnotationConstants.ERR_NO_ATTRIBUTES;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 
 		// No two fields should have the same name/column
-		Iterator attributeNames = attributes.values().iterator();
+		Iterator attributeNames = attributes.iterator();
 		boolean duplicate = false;
 
 		while (attributeNames.hasNext() && duplicate == false) {
 			CMPAttributeDelegate aRow = (CMPAttributeDelegate) attributeNames.next();
-			Iterator otherNames = attributes.values().iterator();
+			Iterator otherNames = attributes.iterator();
 			while (otherNames.hasNext()) {
 				CMPAttributeDelegate otherRow = (CMPAttributeDelegate) otherNames.next();
 				if (aRow != otherRow && aRow.getName().equals(otherRow.getName())) {
@@ -134,7 +155,7 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 			return WTPCommonPlugin.createErrorStatus(IEJBAnnotationConstants.ERR_DUPLICATE_ATTRIBUTES);
 
 		// There should be at least one primary key field
-		attributeNames = attributes.values().iterator();
+		attributeNames = attributes.iterator();
 		int primaryKey = 0;
 		while (attributeNames.hasNext() && duplicate == false) {
 			CMPAttributeDelegate aRow = (CMPAttributeDelegate) attributeNames.next();
@@ -149,8 +170,8 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 
 	}
 
-	public HashMap getCMPAttributes() {
-		HashMap attributes = (HashMap) getProperty(ATTRIBUTES);
+	public List getCMPAttributes() {
+		List attributes = (List) getProperty(ATTRIBUTES);
 		return attributes;
 	}
 
@@ -174,6 +195,6 @@ public class ContainerManagedEntityBeanDataModelProvider extends EnterpriseBeanC
 		this.setProperty(SCHEMA, this.getProperty(SCHEMA));
 		this.setProperty(TABLE, this.getProperty(TABLE));
 		this.setProperty(ATTRIBUTES, this.getProperty(ATTRIBUTES));
+		this.setProperty(VERSION, this.getProperty(VERSION));
 	}
-
 }

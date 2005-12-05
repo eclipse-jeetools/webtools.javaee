@@ -129,4 +129,6 @@ public interface IEJBAnnotationConstants {
 	public static final String ATTRIBUTE_REMOVE = EJBAnnotationMessages.ATTRIBUTE_REMOVE;
 	public static final String ERR_CMP_INVALID_TABLE = EJBAnnotationMessages.ERR_CMP_INVALID_TABLE;
 	public static final String SCHEMA_NAME_LABEL = EJBAnnotationMessages.SCHEMA_NAME_LABEL;
+	public static final String ERR_CMP_INVALID_VERSION = EJBAnnotationMessages.ERR_CMP_INVALID_VERSION;
+	public static final String ENTITY_VERSION_LABEL =  EJBAnnotationMessages.ENTITY_VERSION_LABEL;
 }

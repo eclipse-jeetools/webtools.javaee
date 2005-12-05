@@ -14,9 +14,13 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.internal.ui.refactoring.contentassist.ControlContentAssistHelper;
+import org.eclipse.jdt.internal.ui.refactoring.contentassist.JavaTypeCompletionProcessor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
@@ -32,6 +36,7 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConst
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.CMPAttributeDelegate;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IContainerManagedEntityBeanDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -87,8 +92,8 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 				IContainerManagedEntityBeanDataModelProperties.TABLE };
 	}
 
-	protected HashMap getAttributes() {
-		return (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
+	protected List getAttributes() {
+		return (List) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -100,7 +105,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		Composite group = new Composite(composite, SWT.NULL);
 		group.setLayout(new GridLayout(2, false));
-		group.setLayoutData(new GridData(GridData.FILL_BOTH));
+		group.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
 
 		createCatalogGroup(group);
 		attributeTable = createTable(composite);
@@ -121,10 +126,10 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 		} else {
 			catalogButton = new Combo(composite, SWT.DROP_DOWN);// |
-																// SWT.READ_ONLY)
+			// SWT.READ_ONLY)
 		}
 		synchHelper.synchCombo(catalogButton, IContainerManagedEntityBeanDataModelProperties.TABLE, null);
-		catalogButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		catalogButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_VERTICAL));
 		catalogButton.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
 				fillTableWith((String) tableList.get(catalogButton.getSelectionIndex()));
@@ -144,7 +149,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 	private void fillTableWith(String tableName) {
 		Connection connection = null;
-		HashMap attributes = new HashMap();
+		ArrayList attributes = new ArrayList();
 		if (!((AddContainerManagedEntityEjbWizard) this.getWizard()).isJavaBean()) {
 			try {
 				ConnectionInfo connectionInfo = getConnectionInfo();
@@ -175,12 +180,12 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 					atr.setJdbcType(CMPUtils.getSqlType(columns.getInt("DATA_TYPE")));
 					atr.setSqlType(columns.getString("TYPE_NAME"));
 					atr.setColumnName(columns.getString("COLUMN_NAME"));
-					attributes.put(atr.getName(), atr);
+					attributes.add(atr);
 				}
 				ResultSet primaryKeys = metaData.getPrimaryKeys(null, schema, tableName);
 				while (primaryKeys.next()) {
 					String key = primaryKeys.getString("COLUMN_NAME");
-					Iterator iterator = attributes.values().iterator();
+					Iterator iterator = attributes.iterator();
 					while (iterator.hasNext()) {
 						CMPAttributeDelegate attr = (CMPAttributeDelegate) iterator.next();
 						if (key.equals(attr.getName()))
@@ -291,7 +296,8 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		layout = new GridLayout(2, false);
 		libraryPanel.setLayout(layout);
 		gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL);
-		gridData.horizontalSpan = 3;
+		gridData.horizontalSpan = 2;
+		gridData.heightHint = 300;
 		libraryPanel.setLayoutData(gridData);
 
 		attributeTable = new Table(libraryPanel, style);
@@ -362,7 +368,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				CMPAttributeDelegate atr = new CMPAttributeDelegate();
-				getAttributes().put(atr.getName(), atr);
+				getAttributes().add(atr);
 				ChooseTableWizardPage.this.validatePage();
 				attributeTableViewer.refresh();
 			}
@@ -413,17 +419,17 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		((Text) textEditor2.getControl()).setTextLimit(200);
 		editors[1] = textEditor2;
 
-		// JavaTypeCompletionProcessor fFieldTypeCompletionProcessor = new
-		// JavaTypeCompletionProcessor(false,
-		// false);
-		// fEnclosingTypeCompletionProcessor.setPackageFragment(getPackageFragmentRoot().getPackageFragment(""));
 		// //$NON-NLS-1$
 		//
 		TextCellEditor textEditor3 = new TextCellEditor(table);
 		((Text) textEditor3.getControl()).setTextLimit(200);
-		// ControlContentAssistHelper.createTextContentAssistant(
-		// ((Text) textEditor3.getControl()),
-		// fFieldTypeCompletionProcessor);
+		IProject project = ((AddContainerManagedEntityEjbWizard) this.getWizard()).getDefaultEjbProject();
+		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(project);
+		if (sources != null && sources.length >= 1) {
+			JavaTypeCompletionProcessor fFieldTypeCompletionProcessor = new JavaTypeCompletionProcessor(false, false);
+			fFieldTypeCompletionProcessor.setPackageFragment(sources[0].getPackageFragment(""));
+			ControlContentAssistHelper.createTextContentAssistant(((Text) textEditor3.getControl()), fFieldTypeCompletionProcessor);
+		}
 		editors[2] = textEditor3;
 
 		editors[3] = new ComboBoxCellEditor(table, CMPUtils.jdbcTypes, SWT.READ_ONLY);
@@ -470,7 +476,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 		}
 
 		public Object[] getElements(Object parent) {
-			return getAttributes().values().toArray();
+			return getAttributes().toArray();
 		}
 	}
 
@@ -589,9 +595,7 @@ public class ChooseTableWizardPage extends DataModelWizardPage {
 			switch (columnIndex) {
 
 			case 0:
-				getAttributes().remove(fieldMapping.getName());
 				fieldMapping.setName((String) value);
-				getAttributes().put(fieldMapping.getName(),fieldMapping);
 				break;
 
 			case 1:

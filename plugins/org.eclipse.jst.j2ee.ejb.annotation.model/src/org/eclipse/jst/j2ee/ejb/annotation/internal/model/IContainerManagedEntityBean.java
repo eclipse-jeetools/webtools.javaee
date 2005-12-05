@@ -9,7 +9,6 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,9 +22,11 @@ public interface IContainerManagedEntityBean extends IEnterpriseBean {
 
 	public String getTable();
 
-	public HashMap getAttributes();
+	public List getAttributes();
 
 	public String getPrimaryKeyClass();
+
+	public String getVersion();
 
 	public List getKeyAttributes();
 }

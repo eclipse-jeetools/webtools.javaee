@@ -170,4 +170,9 @@ public class AddContainerManagedEntityEjbWizard extends NewEjbWizard {
 	public boolean testConnection() {
 		return true;
 	}
+	
+	public IProject getDefaultEjbProject() {
+		return super.getDefaultEjbProject();
+	}
+
 }

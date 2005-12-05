@@ -140,6 +140,8 @@ public class EJBAnnotationMessages extends NLS {
 	public static String ATTRIBUTE_REMOVE;
 	public static String ERR_CMP_INVALID_TABLE;
 	public static String SCHEMA_NAME_LABEL;
+	public static String ERR_CMP_INVALID_VERSION;
+	public static String ENTITY_VERSION_LABEL;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBAnnotationMessages.class);

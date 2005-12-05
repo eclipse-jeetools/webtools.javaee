@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.cmp.wizards;
 
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IContainerManagedEntityBeanDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
@@ -39,6 +40,7 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 	private Text jndiNameText;
 	private Text displayNameText;
 	private Combo usecaseButton;
+	private Combo versionButton;
 	private Text schemaText;
 
 	
@@ -59,6 +61,7 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 				IEnterpriseBeanClassDataModelProperties.EJB_NAME, 
 				IContainerManagedEntityBeanDataModelProperties.DATASOURCE, 
 				IContainerManagedEntityBeanDataModelProperties.SCHEMA, 
+				IContainerManagedEntityBeanDataModelProperties.VERSION, 
 				IEnterpriseBeanClassDataModelProperties.DISPLAY_NAME, 				
 				IEnterpriseBeanClassDataModelProperties.DESCRIPTION};
 	}
@@ -75,6 +78,7 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		group.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		createNameDescription(group);
+		createVersionGroup(group);
 		createUsecaseTypeGroup(group);
 		displayNameText.setFocus();
 
@@ -162,6 +166,21 @@ public class AddContainerManagedEntityBeanWizardPage extends DataModelWizardPage
 		usecaseButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		usecaseButton.select(0);
 		//synchHelper.synchCombo(usecaseTypeLabel, IContainerManagedEntityBeanDataModelProperties.TYPE, null);
+
+	}
+	protected void createVersionGroup(Composite composite) {
+
+		// description
+		Label versionLabel = new Label(composite, SWT.LEFT);
+		versionLabel.setText(IEJBAnnotationConstants.ENTITY_VERSION_LABEL);
+		versionLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+		
+		versionButton = new Combo(composite,SWT.DROP_DOWN |  SWT.READ_ONLY);
+		versionButton.setItems(new String[]{ContainerManagedEntity.VERSION_1_X,ContainerManagedEntity.VERSION_2_X});
+		versionButton.setText(IEJBAnnotationConstants.CMP_FROM_TABLE);
+		versionButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		versionButton.select(0);
+		synchHelper.synchCombo(versionButton, IContainerManagedEntityBeanDataModelProperties.VERSION, null);
 
 	}
 

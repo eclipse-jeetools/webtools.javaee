@@ -71,8 +71,8 @@ public class ContainerManagedEntityBeanDelegate extends EnterpriseBeanDelegate i
 	}
 
 
-	public HashMap getAttributes() {
-		return (HashMap) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
+	public List getAttributes() {
+		return (List) this.getDataModel().getProperty(IContainerManagedEntityBeanDataModelProperties.ATTRIBUTES);
 	}
 
 	public void setAttributes(HashMap attr) {
@@ -112,7 +112,7 @@ public class ContainerManagedEntityBeanDelegate extends EnterpriseBeanDelegate i
 	}
 
 	public List getKeyAttributes() {
-		Iterator attributes = getAttributes().values().iterator();
+		Iterator attributes = getAttributes().iterator();
 		ArrayList keys = new ArrayList();
 		while (attributes.hasNext()) {
 			CMPAttributeDelegate attribute = (CMPAttributeDelegate) attributes.next();
@@ -121,5 +121,9 @@ public class ContainerManagedEntityBeanDelegate extends EnterpriseBeanDelegate i
 			
 		}
 		return keys;
+	}
+
+	public String getVersion() {
+		return this.getDataModel().getStringProperty(IContainerManagedEntityBeanDataModelProperties.VERSION);
 	}
 }

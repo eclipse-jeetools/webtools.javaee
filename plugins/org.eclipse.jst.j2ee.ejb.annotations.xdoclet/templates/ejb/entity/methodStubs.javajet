@@ -3,7 +3,7 @@
     boolean isCMP = true;
    
    String primaryKeyType = cmp.getPrimaryKeyClass();
-   HashMap attributes = cmp.getAttributes();
+   List attributes = cmp.getAttributes();
    List keyAttributes = cmp.getKeyAttributes();
    int pkCount=keyAttributes.size();
    boolean isComposite = keyAttributes.size() > 1;
@@ -48,7 +48,7 @@ public void ejbPostCreate() throws javax.ejb.CreateException {
 }
 	
 <% 
-   Iterator attrs = attributes.values().iterator();
+   Iterator attrs = attributes.iterator();
    while(attrs.hasNext()){
       CMPAttributeDelegate mapping = (CMPAttributeDelegate) attrs.next();
 
