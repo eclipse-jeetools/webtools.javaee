@@ -107,7 +107,9 @@
 		<type name="SecurityRoleRef"  implement="false" subclass="false" instantiate="false"/>
     	<type name="UseCallerIdentity"  implement="false" subclass="false" instantiate="false"/>
 	</package>
-	<package name="org.eclipse.jst.j2ee.webservice.jaxrpcmap"></package>
+	<package name="org.eclipse.jst.j2ee.webservice.jaxrpcmap">
+		<type name="JaxrpcmapResourceFactory" reference="false" implement="false" subclass="false" instantiate="false"/>
+	</package>
 	<package name="org.eclipse.jst.j2ee.webservice.wscommon"></package>
 	<package name="org.eclipse.jst.j2ee.jca" api="false" >
 		<type name="ActivationSpec"  implement="false" subclass="false" instantiate="false"/>	
