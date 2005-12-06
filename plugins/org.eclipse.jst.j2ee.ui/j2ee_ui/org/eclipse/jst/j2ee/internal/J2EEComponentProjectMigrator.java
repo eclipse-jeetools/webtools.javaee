@@ -59,6 +59,7 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.project.facet.SimpleWebFacetInstallDataModelProvider;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -277,8 +278,27 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		private void installStaticWebFacets(IProject project2, String specVersion, boolean existing) {
-			// TODO Auto-generated method stub
+			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
+			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, project2.getName());
+			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			//facetDMs.add(setupJavaInstallAction(webProj,existing,CreationConstants.DEFAULT_WEB_SOURCE_FOLDER));
+			IDataModel newModel = setupStaticWebInstallAction(project2);
+			facetDMs.add(newModel);
+			//setRuntime(webProj,dm); //Setting runtime property
+			try {
+				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		private IDataModel setupStaticWebInstallAction(IProject project2) {
+			IDataModel webFacetInstallDataModel = DataModelFactory.createDataModel(new SimpleWebFacetInstallDataModelProvider());
+			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, project2.getName());
+			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0");
 			
+			return webFacetInstallDataModel;
 		}
 
 		private void installUtilityFacets(IProject aProject, String specVersion, boolean existing) {
