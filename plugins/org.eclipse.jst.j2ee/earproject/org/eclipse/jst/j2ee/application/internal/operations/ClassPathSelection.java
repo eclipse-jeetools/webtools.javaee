@@ -22,8 +22,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -46,6 +48,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+
 
 
 public class ClassPathSelection {
@@ -116,6 +119,15 @@ public class ClassPathSelection {
 		element.setText(uriString);
 		element.setTargetArchive(referencedArchive);
 		element.setEarProject(earProject);
+		if( earComponent != null ){
+			IContainer earConentFolder = earComponent.getRootFolder().getUnderlyingFolder();
+			if( earConentFolder.getType() == IResource.FOLDER ){
+				element.setEarContentFolder( earConentFolder.getName());
+			}else {
+				element.setEarContentFolder( "" );
+			}
+		}
+	
 		setProjectValues(element, referencedArchive);
 		if (cpEntry != null)
 			element.setValuesSelected(cpEntry);

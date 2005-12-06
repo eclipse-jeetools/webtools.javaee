@@ -67,6 +67,7 @@ public class ClasspathElement {
 	protected IProject earProject;
 	protected ClassPathSelection parentSelection;
 	protected URI archiveURI;
+	protected String earContentFolder;
 
 	public ClasspathElement(Archive anArchive) {
 		super();
@@ -238,7 +239,7 @@ public class ClasspathElement {
 	}
 
 	protected IClasspathEntry newClasspathEntryFromEARProj() {
-        IPath path = earProject.getFullPath().append(earProject.getFile(getText()).getFullPath());
+		IPath path = earProject.getFullPath().append( getEarContentFolder() + IPath.SEPARATOR + earProject.getFile(getText()).getProjectRelativePath());
 		return JavaCore.newLibraryEntry(path, path, null, true);
 	}
 
@@ -436,6 +437,14 @@ public class ClasspathElement {
 
 	public URI getArchiveURI() {
 		return archiveURI;
+	}
+
+	public String getEarContentFolder() {
+		return earContentFolder;
+	}
+
+	public void setEarContentFolder(String earContentFolder) {
+		this.earContentFolder = earContentFolder;
 	}
 
 }
