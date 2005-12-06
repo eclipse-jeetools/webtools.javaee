@@ -159,6 +159,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 		}
 		if (moduleCore != null)
 			moduleCore.dispose();
+		rootObjects.clear();
 		
 	}
 

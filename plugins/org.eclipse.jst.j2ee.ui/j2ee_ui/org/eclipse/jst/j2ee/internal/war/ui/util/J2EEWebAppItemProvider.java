@@ -106,14 +106,20 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 
 		public void dispose() {
 			// TODO fix up notification
-			// if (editModel != null) {
-			// editModel.removeListener(this);
-			// if (editModel.get13WebServicesClientResource() != null) {
-			// client = editModel.get13WebServicesClientResource().getWebServicesClient();
-			// if (client != null)
-			// client.eAdapters().remove(this);
-			// }
-			// }
+			
+			webServletGroup.dispose();
+			webServletMappingGroup.dispose();
+			webFiltersGroup.dispose();
+			webFilterMappingGroup.dispose();
+			webRefsGroup.dispose();
+			webSecurityGroup.dispose();
+			webListenerGroup.dispose();
+			
+			weakWebApp = null;
+			 if (client != null)
+				 client.eAdapters().remove(this);
+			 children.clear();
+			
 		}
 	}
 

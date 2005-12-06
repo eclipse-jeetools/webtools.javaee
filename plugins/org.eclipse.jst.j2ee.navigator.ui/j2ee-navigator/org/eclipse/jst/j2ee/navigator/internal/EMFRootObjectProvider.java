@@ -116,6 +116,7 @@ public class EMFRootObjectProvider implements  IResourceChangeListener, IResourc
 		EMFModelManager modelManager = (EMFModelManager) emfModelCache.remove(project);
 		if (modelManager != null) {
 			modelManager.dispose();
+			modelManager = null;
 		}
 	}
 	public void dispose() {

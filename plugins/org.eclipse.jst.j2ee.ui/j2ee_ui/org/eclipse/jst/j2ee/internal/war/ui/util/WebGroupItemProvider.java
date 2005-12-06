@@ -74,4 +74,10 @@ public abstract class WebGroupItemProvider extends J2EEItemProvider {
 		Collections.sort(theChildren, new WebGroupComparator());
 		return theChildren;
     }
+
+	public void dispose() {
+		// TODO Auto-generated method stub
+		super.dispose();
+		weakWebApp = null;
+	}
 }

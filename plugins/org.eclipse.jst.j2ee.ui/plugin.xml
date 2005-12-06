@@ -513,6 +513,10 @@
       		name="%J2EEDependenciesPage.name"
             class="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             id="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage">
+            <filter
+               name="nature"
+               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+          </filter>    
       </page>
       
     </extension>

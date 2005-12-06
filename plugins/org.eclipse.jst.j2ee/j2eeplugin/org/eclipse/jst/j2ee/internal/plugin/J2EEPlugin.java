@@ -43,8 +43,10 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
@@ -60,6 +62,7 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.jst.j2ee.refactor.listeners.J2EEElementChangedListener;
 import org.eclipse.jst.j2ee.refactor.listeners.ProjectRefactoringListener;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
@@ -496,9 +499,13 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		manager.registerAdapters(new VirtualArchiveComponentAdapterFactory(), VirtualArchiveComponent.class );
 		
 		final ProjectRefactoringListener listener = new ProjectRefactoringListener();//ProjectDependencyCache.getCache());
-		// register the listener
+		// register the project rename/delete refactoring listener
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener,
 				IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_DELETE);
+		
+		// register the IElementChangedLister that updates the .component file in 
+		// response to .classpath changes
+		JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
 	}
 
 	/*
