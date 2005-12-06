@@ -58,7 +58,7 @@ public final class WebComponentImportWizard extends J2EEComponentImportWizard {
 	 */
 	public void doAddPages() {
 		addPage(new WebComponentImportPage(getDataModel(), MAIN_PG));
-		addPage(new WebComponentImportWebLibsPage(getDataModel(), MAIN_PG));
+		addPage(new WebComponentImportWebLibsPage(getDataModel(), WEB_LIBS_PG));
 	}
 
 	/**
