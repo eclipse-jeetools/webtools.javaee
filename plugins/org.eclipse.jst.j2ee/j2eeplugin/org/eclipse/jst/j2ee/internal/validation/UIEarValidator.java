@@ -24,12 +24,16 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.application.EjbModule;
+import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.MessageDestinationRef;
 import org.eclipse.jst.j2ee.common.ResourceEnvRef;
@@ -40,6 +44,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -49,8 +54,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -193,12 +196,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 		earHelper = ((UIEarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
+		IVirtualComponent earModule = ComponentCore.createComponent(proj);
             if(J2EEProjectUtilities.isEARProject(proj)){
-				IVirtualFile ddFile = wbModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
+				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
 				if( ddFile.exists()) {				
 					super.validate(inHelper, inReporter);
-	//				validateModuleMaps(earEdit,earModule);
+					validateModuleMaps(earModule);
 					validateManifests();
 	//				validateUtilJarMaps(earEdit,earModule);
 	//				validateUriAlreadyExistsInEar(earEdit,earModule);
@@ -208,15 +211,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		
 	}	
 
-	
 
-//	protected IProject getProject(Archive anArchive, EARFile earFileParam) {
-//		LoadStrategy loader = anArchive.getLoadStrategy();
-//		if (!(loader instanceof J2EELoadStrategyImpl))
-//			return ModuleMapHelper.getProject(anArchive.getURI(), earFileParam);
-//
-//		return ((J2EELoadStrategyImpl) loader).getProject();
-//	}
 
 	public void validateManifests() throws ValidationException {
 		
@@ -226,8 +221,6 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		for (int i = 0; i < archives.size(); i++) {
 			try {
 				Archive anArchive = (Archive) archives.get(i);
-				//IProject project = getProject(anArchive, earFile);
-				//if (project != null && project.isAccessible()) {
 
 					IFile target = getManifestFile(anArchive);
 					if (target != null)
@@ -235,7 +228,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 					validateManifestCase(anArchive);
 					validateManifestLines(anArchive);
 					validateManifestClasspath(anArchive);
-				//}
+
 			} catch (MessageLimitException me) {
 			}
 		}
@@ -266,7 +259,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	}
 
-	//public void validateManifestClasspath(IVirtualComponent component, Archive anArchive) throws ValidationException {
+
 	public void validateManifestClasspath(Archive anArchive) throws ValidationException {
 		ArchiveManifest manifest = null;
 		try{
@@ -280,7 +273,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		
 		if(manifest == null)
 			return;
-		//String[] cp = anArchive.getManifest().getClassPathTokenized();
+
 		String[] cp = manifest.getClassPathTokenized();
 		
 		for (int i = 0; i < cp.length; i++) {
@@ -504,208 +497,50 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		addError(getBaseName(), DUPLICATE_UTILJAR_FOR_PROJECT_NAME_ERROR_, params);
 	}// duplicateUtilError
 
-	public void validateModuleMaps(EARArtifactEdit edit, IVirtualComponent module) {
-		IVirtualReference[] modules = edit.getJ2EEModuleReferences();
-		StructureEdit mc = null;
-		if (modules.length > 0) {
-			for (int i = 0; i < modules.length; i++) {
-				try {
-				IVirtualReference aModuleRef = modules[i];
-				IVirtualComponent component = aModuleRef.getEnclosingComponent();
-				boolean uriExists = edit.uriExists(module.getName());
-				if (!uriExists) {
-					String[] params = new String[]{component.getName(), earHelper.getProject().getName()};
-					addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
-				} else {
-					String projectName = component.getName();
-					if (projectName == null || projectName.length() == 0) {
-						String[] params = new String[]{component.getName(), earHelper.getProject().getName()};
-						addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
-					} else {
-						mc = StructureEdit.getStructureEditForRead(earHelper.getProject());
-						WorkbenchComponent deployModule = mc.getComponent();
-						if (deployModule == null) {
-							String[] params = new String[]{deployModule.getName(),component.getName(), earHelper.getProject().getName()};
-							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);
-						} else if (earHelper.getProject().isOpen()) {
-							String[] params = new String[]{earHelper.getProject().getName()};
-							addWarning(getBaseName(), PROJECT_IS_CLOSED_WARN_, params);
-						} else {
-							
-							//validateModuleProjectsForValidNature(module);
-							//validateModuleProjectForValidServerTarget(project);
+	public void validateModuleMaps(IVirtualComponent component) {
+		IVirtualFile ddFile = component.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
+		if( ddFile.exists()){
+			EList modules = appDD.getModules();
+			if (!modules.isEmpty()) {
+				EARArtifactEdit edit = null;
+				try{
+					edit = EARArtifactEdit.getEARArtifactEditForRead( component.getProject() );
+					
+					for (int i = 0; i < modules.size(); i++) {
+						Module module = (Module) modules.get(i);
+						String uri = module.getUri();
+						IVirtualComponent referencedComp = edit.getModule( uri );
+						if( referencedComp == null ){
+							String[] params = new String[]{uri, component.getProject().getName()};
+							addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);							
 						}
+						validateModuleURIExtension(module);
 					}
+				}finally{
+					if( edit != null )
+						edit.dispose();					
 				}
-				validateModuleURIExtension(module);
-				} finally {
-					if (mc != null)
-						mc.dispose();
-				}
-			}
-		}
-		//validateEARServerTargetJ2EESpecLevel(earEditModel);
-		//validateModuleMapsDuplicateProjects(earEditModel);
-	}
-
-
-	/**
-	 * @param project
-	 * This validation is not needed for Flex project
-	 */
-	/*private void validateModuleProjectForValidServerTarget(IProject project) {
-		IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-
-		EARNatureRuntime nature = earEditModel.getEARNature();
-		IProject earProject = nature.getProject();
-		IRuntime earRuntime = ServerCore.getProjectProperties(earProject).getRuntimeTarget();
-		if (earRuntime != null) {
-			if (runtime != null) {
-				if (runtime.getId() != earRuntime.getId())
-					unmatachedServerTargetOnModuleWarning(project, earProject);
-				//validateModuleServerTargetJ2EESpecLevel(project, runtime);
-			} else {
-				missingServerTargetOnModuleWarning(project, earProject);
-			}
-		} else if (runtime != null) {
-			missingServerTargetOnEARWarning(project, earProject);
-		}
-	}*/
-
-//	private void missingServerTargetOnEARWarning(IProject aProject, IProject earProject) {
-//		String[] params = new String[]{earProject.getName(), aProject.getName()};
-//		addWarning(getBaseName(), NO_SERVER_TARGET_ON_EAR_WITH_MODULE_SERVER_TARGETS, params);
-//	}
-//
-//	private void unmatachedServerTargetOnModuleWarning(IProject aProject, IProject earProject) {
-//		String[] params = new String[]{aProject.getName(), earProject.getName()};
-//		addWarning(getBaseName(), PROJECT_SERVER_TARGET_DOES_NOT_MATCH_EAR, params);
-//	}
-//
-//	private void missingServerTargetOnModuleWarning(IProject aProject, IProject earProject) {
-//		String[] params = new String[]{aProject.getName(), earProject.getName()};
-//		addWarning(getBaseName(), NO_SERVER_TARGET_MODULE_IN_EAR_WITH_SERVER_TARGET, params);
-//	}
-
-	/**
-	 * @param earProject
-	 *            
-	 * TODO This validation is RAD specific hence needs to be moved to a the RAD layered
-	 * plugin references to this method are commented out
-	 * This validation is not needed anymore for flex project
-	 */
-	/*private void validateEARServerTargetJ2EESpecLevel(EAREditModel editModel) {
-		EARNatureRuntime nature = earEditModel.getEARNature();
-		IProject earProject = nature.getProject();
-		IRuntime earRuntime = ServerCore.getProjectProperties(earProject).getRuntimeTarget();
-		if (earRuntime != null) {
-			try {
-				if (earProject.hasNature(IEARNatureConstants.NATURE_ID) && nature.getModuleVersion() == J2EEVersionConstants.J2EE_1_4_ID && !earRuntime.getRuntimeType().getVersion().equals("6.0")) { //$NON-NLS-1$
-					String[] params = new String[]{earProject.getName(), earRuntime.getName()};
-					addError(getBaseName(), INVALID_EAR_SERVER_TARGET_FOR_14_SPEC_LEVEL, params, earProject);
-				}
-			} catch (CoreException ce) {
-				Logger.getLogger().logError(ce);
-			}
-		}
-	}*/
-
-	/**
-	 * @param project
-	 *            TODO This validation is RAD specific hence needs to be moved to a the RAD layered
-	 *            plugin references to this method are commented out
-	 * This validation is no needed anymore for Flex project
-	 */
-	/*private void validateModuleServerTargetJ2EESpecLevel(IProject project, IRuntime runtime) {
-		boolean is14SpecLevelProject = false;
-		if (J2EENature.hasRuntime(project, new String[]{IWebNatureConstants.J2EE_NATURE_ID, IEJBNatureConstants.NATURE_ID, IApplicationClientNatureConstants.NATURE_ID})) {
-			J2EENature j2eeNature = J2EENature.getRegisteredRuntime(project);
-			is14SpecLevelProject = j2eeNature.getJ2EEVersion() == J2EEVersionConstants.J2EE_1_4_ID;
-			if (is14SpecLevelProject && !runtime.getRuntimeType().getVersion().equals("6.0")) { //$NON-NLS-1$
-				String[] params = new String[]{project.getName(), runtime.getName()};
-				addError(getBaseName(), INVALID_MODULE_SERVER_TARGET_FOR_14_SPEC_LEVEL, params);
-			}
-		}
-	}*/
-	
-	
-	//The module maps validation needs to be done in the component validator for flex project
-	/*protected void validateModuleMapsDuplicateProjects(WorkbenchComponent module) {
-		java.util.List moduleMaps = module.getReferencedComponents();
-		java.util.Set visitedProjectNames = new java.util.HashSet();
-		for (int i = 0; i < moduleMaps.size(); i++) {
-			WorkbenchComponent map = (WorkbenchComponent) moduleMaps.get(i);
-			if (map.getModule() != null) {
-				String moduleUri = map.getModule().getUri();
-				String earProjectName = earEditModelParam.getEARNature().getProject().getName();
-				String projectName = map.getProjectName();
-				if (visitedProjectNames.contains(projectName))
-					duplicateProjectMapError(earProjectName, moduleUri, projectName);
-				else
-					visitedProjectNames.add(projectName);
-			}
-		}
-	}*/
-
-	protected void validateModuleURIExtension(IVirtualComponent module) {
-		String fileExt = module.getRootFolder().getFileExtension();
-		if (fileExt != null && fileExt.length() > 0) {
-			if (J2EEProjectUtilities.isEJBProject(module.getProject()) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
-				String[] params = new String[1];
-				params[0] = module.getName();
-				IResource target = earHelper.getProject().getFile(J2EEConstants.APPLICATION_DD_URI);
-				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
-			} else if (J2EEProjectUtilities.isDynamicWebProject(module.getProject()) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
-				String[] params = new String[1];
-				params[0] = module.getName();
-				IResource target = earHelper.getProject().getFile(J2EEConstants.APPLICATION_DD_URI);
-				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
 			}
 		}
 	}
 
-	/*
-	 * This validation is not needed anymore for flex project
-	 * public void validateModuleProjectsForValidNature(WorkbenchComponent module) {
-		
-		try {
-			if (module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
-				if (!project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-					String[] params = new String[2];
-					params[0] = project.getName();
-					params[1] = earHelper.getProject().getName();
-					addWarning(getBaseName(), MISSING_WEBNATURE_FORMODULE_WARN_, params, appDD);
-				} else {
-					WebModuleExtension webExt = EarModuleManager.getWebModuleExtension();
-					if (webExt != null && !(webExt.compareWebContextRoot(module, project))) {
-						String[] params = new String[3];
-						params[0] = module.getUri();
-						params[1] = earHelper.getProject().getName();
-						params[2] = project.getName();
-						addWarning(getBaseName(), INVALID_CONTEXTROOT_WEBMODULE_WARN_, params, appDD);
-					}
-				}
 
-			} else if (module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EJB_MODULE)) {
-				if (!project.hasNature(IEJBNatureConstants.NATURE_ID)) {
-					String[] params = new String[2];
-					params[0] = project.getName();
-					params[1] = earHelper.getProject().getName();
-					addWarning(getBaseName(), MISSING_EJBNATURE_FORMODULE_WARN_, params);
-				}
-			} else if (module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_UTILITY_MODULE)) {
-				if (!ApplicationClientNatureRuntime.hasRuntime(project)) {
-					String[] params = new String[2];
-					params[0] = project.getName();
-					params[1] = earHelper.getProject().getName();
-					addWarning(getBaseName(), MISSING_CLIENTNATURE_FORMODULE_WARN_, params);
-				}
+	protected void validateModuleURIExtension(Module module) {
+		String newUri = module.getUri();
+		if (newUri != null && newUri.length() > 0) {
+			if (module instanceof EjbModule && !newUri.endsWith(".jar")) { //$NON-NLS-1$
+				String[] params = new String[1];
+				params[0] = module.getUri();
+				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
+				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
+			} else if (module instanceof WebModule && !newUri.endsWith(".war")) { //$NON-NLS-1$
+				String[] params = new String[1];
+				params[0] = module.getUri();
+				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
+				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
 			}
-		} catch (org.eclipse.core.runtime.CoreException ce) {
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ce);
 		}
-
-	}*/
+	}
 
 	/*
 	 * @see J2EEValidator#cleanup()
