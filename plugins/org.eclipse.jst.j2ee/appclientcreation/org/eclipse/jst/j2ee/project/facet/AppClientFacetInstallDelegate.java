@@ -47,6 +47,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
@@ -85,54 +86,60 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			// Associate with an EAR, if necessary.
 			final String earProjectName = (String) model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 			if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
-			if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
-				String ver = fv.getVersionString();
-				String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
-				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-				installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
+				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
+					String ver = fv.getVersionString();
+					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
 
-				IProject earProject = ProjectUtilities.getProject(earProjectName);
-				IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+					IProject earProject = ProjectUtilities.getProject(earProjectName);
+					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 
-				final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
-					public Object getDefaultProperty(String propertyName) {
-						if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
-							Map map = new HashMap();
-							List components = (List) getProperty(TARGET_COMPONENT_LIST);
-							for (int i = 0; i < components.size(); i++) {
-								IVirtualComponent component = (IVirtualComponent) components.get(i);
-								String name = component.getName();
-								name += ".jar"; //$NON-NLS-1$
-								map.put(component, name);
+					final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
+						public Object getDefaultProperty(String propertyName) {
+							if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
+								Map map = new HashMap();
+								List components = (List) getProperty(TARGET_COMPONENT_LIST);
+								for (int i = 0; i < components.size(); i++) {
+									IVirtualComponent component = (IVirtualComponent) components.get(i);
+									String name = component.getName();
+									name += ".jar"; //$NON-NLS-1$
+									map.put(component, name);
+								}
+								return map;
 							}
-							return map;
+							return super.getDefaultProperty(propertyName);
 						}
-						return super.getDefaultProperty(propertyName);
-					}
 
-					public IDataModelOperation getDefaultOperation() {
-						return new AddComponentToEnterpriseApplicationOp(model) {
-							protected Module createNewModule(IVirtualComponent wc) {
-								return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
-							}
-						};
+						public IDataModelOperation getDefaultOperation() {
+							return new AddComponentToEnterpriseApplicationOp(model) {
+								protected Module createNewModule(IVirtualComponent wc) {
+									return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
+								}
+							};
+						}
+					});
+					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
+					List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+					modList.add(c);
+					dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+					try {
+						dataModel.getDefaultOperation().execute(null, null);
+					} catch (ExecutionException e) {
+						Logger.getLogger().logError(e);
 					}
-				});
-				dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
-				List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
-				modList.add(c);
-				dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
-				try {
-					dataModel.getDefaultOperation().execute(null, null);
-				} catch (ExecutionException e) {
-					Logger.getLogger().logError(e);
 				}
-			}
 			}
 
 			// Add main class if necessary
 			if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS))
 				addMainClass(monitor, model, project);
+
+			try {
+				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError(e);
+			}
 
 			if (monitor != null)
 				monitor.worked(1);

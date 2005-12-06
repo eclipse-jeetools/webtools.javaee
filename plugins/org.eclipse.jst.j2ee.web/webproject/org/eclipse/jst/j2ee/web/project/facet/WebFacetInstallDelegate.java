@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -77,9 +78,9 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final IWorkspace ws = ResourcesPlugin.getWorkspace();
 			final IPath pjpath = project.getFullPath();
-			
-			final IPath contentdir = setContentPropertyIfNeeded(model, pjpath,project);
-			final IPath sourcedir = setSourcePropertyIfNeeded(model, pjpath,project);
+
+			final IPath contentdir = setContentPropertyIfNeeded(model, pjpath, project);
+			final IPath sourcedir = setSourcePropertyIfNeeded(model, pjpath, project);
 			mkdirs(ws.getRoot().getFolder(contentdir));
 
 			final IPath webinf = contentdir.append("WEB-INF");
@@ -88,8 +89,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final IPath webinflib = webinf.append("lib");
 			mkdirs(ws.getRoot().getFolder(webinflib));
-			
-			
+
+
 
 			try {
 				createManifest(project, ws.getRoot().getFolder(contentdir), monitor);
@@ -98,7 +99,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			} catch (InterruptedException e) {
 				Logger.getLogger().logError(e);
 			}
-			
+
 
 			// Setup the flexible project structure.
 
@@ -151,13 +152,13 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Associate with an EAR, if necessary.
 
-			
+
 			if (model.getBooleanProperty(IWebFacetInstallDataModelProperties.ADD_TO_EAR)) {
 				final String earProjectName = model.getStringProperty(IWebFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
 					String ver = fv.getVersionString();
 					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
-					IFacetedProject facetedProject = ProjectFacetsManager.create(project); 
+					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
 
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
@@ -178,8 +179,9 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 							}
 							return super.getDefaultProperty(propertyName);
 						}
+
 						public IDataModelOperation getDefaultOperation() {
-							return new AddComponentToEnterpriseApplicationOp(model){
+							return new AddComponentToEnterpriseApplicationOp(model) {
 								protected Module createNewModule(IVirtualComponent wc) {
 									return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createWebModule();
 								}
@@ -194,9 +196,15 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 						dataModel.getDefaultOperation().execute(null, null);
 					} catch (ExecutionException e) {
 						Logger.getLogger().logError(e);
-					}	
+					}
 
 				}
+			}
+
+			try {
+				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError(e);
 			}
 
 			if (monitor != null) {
@@ -224,7 +232,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	private IPath setSourcePropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
 		IVirtualComponent c = ComponentCore.createComponent(project);
 		if (c.exists()) {
-			return J2EEProjectUtilities.getSourcePathOrFirst(project,null).makeAbsolute();
+			return J2EEProjectUtilities.getSourcePathOrFirst(project, null).makeAbsolute();
 		}
 		return pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER));
 	}
@@ -233,7 +241,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		IVirtualComponent c = ComponentCore.createComponent(project);
 		if (c.exists()) {
 			return c.getRootFolder().getUnderlyingResource().getFullPath();
-		}	
+		}
 		return pjpath.append(model.getStringProperty(IWebFacetInstallDataModelProperties.CONFIG_FOLDER));
 	}
 
