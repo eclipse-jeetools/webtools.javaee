@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -40,6 +41,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 
+	protected EARArtifactEdit artifactEdit = null;
 
 	public EARComponentImportOperation(IDataModel model) {
 		super(model);
@@ -64,17 +66,17 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			for (int i = 0; i < allModels.size(); i++) {
 				importModel = (IDataModel) allModels.get(i);
 				if (modelsToImport.contains(importModel)) {
-					String archiveUri = ((Archive)importModel.getProperty(IEARComponentImportDataModelProperties.FILE)).getURI();
+					String archiveUri = ((Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE)).getURI();
 					importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
 					try {
 						importModel.getDefaultOperation().execute(monitor, info);
 					} catch (ExecutionException e) {
 						Logger.getLogger().logError(e);
 					}
-					IVirtualComponent component = (IVirtualComponent)importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
+					IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 					componentToAdd.add(component);
 					componentToURIMap.put(component, archiveUri);
-					
+
 				}
 			}
 			if (componentToAdd.size() > 0) {
@@ -90,7 +92,12 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				Logger.getLogger().logError(e);
 			}
 		} finally {
+			if (null != artifactEdit) {
+				artifactEdit.dispose();
+				artifactEdit = null;
+			}
 			resetDisposeImportModels();
+
 			// FileSet.printState();
 		}
 	}
@@ -118,6 +125,9 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			Archive archive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			String[] manifestClasspath = archive.getManifest().getClassPathTokenized();
 			if (manifestClasspath.length > 0) {
+				if (null == artifactEdit) {
+					artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(earComponent.getProject());
+				}
 				List extraEntries = fixupClasspath(earComponent, manifestClasspath, new ArrayList(), archive, (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT));
 				addToClasspath(importModel, extraEntries);
 				fixModuleReference(importModel, manifestClasspath);
@@ -151,11 +161,17 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 						}
 					}
 				} else {
-					String compSearchName = manifestURI.substring(0, manifestURI.length() - 4);
-					IVirtualReference vRef = earComponent.getReference(compSearchName);
-					if (null != vRef && nestedComponent.getProject() != vRef.getReferencedComponent().getProject()) {
-						IProject project = vRef.getReferencedComponent().getProject();
+					IVirtualComponent comp = artifactEdit.getModuleByManifestURI(manifestURI);
+					if (null != comp) {
+						IProject project = comp.getProject();
 						extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));
+					} else {
+						String compSearchName = manifestURI.substring(0, manifestURI.length() - 4);
+						IVirtualReference vRef = earComponent.getReference(compSearchName);
+						if (null != vRef && nestedComponent.getProject() != vRef.getReferencedComponent().getProject()) {
+							IProject project = vRef.getReferencedComponent().getProject();
+							extraEntries.add(JavaCore.newProjectEntry(project.getFullPath(), true));
+						}
 					}
 				}
 			}

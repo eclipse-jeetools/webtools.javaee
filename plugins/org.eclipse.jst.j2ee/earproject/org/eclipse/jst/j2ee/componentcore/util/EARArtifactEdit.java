@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
@@ -440,6 +441,36 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		}
 		return null;
 	}
+	
+	public IVirtualComponent getModuleByManifestURI(final String uri){
+		StructureEdit core = null;
+		try {
+			core = StructureEdit.getStructureEditForRead(getProject());
+			WorkbenchComponent component = core.getComponent();
+			List referencedComponents = component.getReferencedComponents();
+			
+			for (int i=0; i<referencedComponents.size(); i++) {
+				ReferencedComponent ref = (ReferencedComponent) referencedComponents.get(i);
+				if(ref.getDependentObject() != null){
+					Module module = (Module)ref.getDependentObject();
+					if(uri.equals(module.getUri())){
+						String componentName;
+						try {
+							componentName = ModuleURIUtil.getArchiveName(ref.getHandle());
+							return getModule(componentName);
+						} catch (UnresolveableURIException e) {
+							Logger.getLogger().logError(e);
+						}
+					}
+				}
+			}
+		} finally {
+			if (core != null)
+				core.dispose();
+		}
+		return null;
+	}
+	
     /**
      * This method will return the an IVirtualComponent for the given module name.  The method take either moduleName or 
      * moduleName + ".module_extension" (module_extension = ".jar" || ".war" || ".rar") which allows users to get a IVirtualComponent 
