@@ -14,77 +14,68 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/ -->
 <link rel="stylesheet" type="text/css" href="../../org.eclipse.wst.doc.user/common.css" />
-<title>Creating message-driven beans</title>
+<title>Creating message-driven beans with XDoclet annotation support</title>
 </head>
 <body id="temessb"><a name="temessb"><!-- --></a>
 
-<h1 class="topictitle1">Creating message-driven beans</h1>
+<h1 class="topictitle1">Creating message-driven beans with XDoclet annotation support</h1>
 <div><p>You can use a wizard to create a message-driven bean and add it
 to your project.</p>
-<div class="p">Before you can create an enterprise bean, you must:<ul><li>Define an EJB project to contain the enterprise bean. See <a href="tecrtpro.html">Creating EJB projects</a></li>
-<li>Install XDoclet annotation support and enable it. See <a href="txdocletconf.html">Configuring XDoclet annotation support</a></li>
+<div class="p">Before you can create an enterprise bean, you must:<ul><li>Define an EJB project to contain the enterprise bean. See <a href="tecrtpro.html">Creating EJB projects</a>.</li>
+<li>Install XDoclet annotation support and enable it. See <a href="txdocletconf.html">Configuring XDoclet annotation support</a>.</li>
 </ul>
 </div>
 <div class="section"><p>To create a message-driven bean:</p>
 </div>
-<ol><li class="stepexpand"><span>In the J2EE perspective, click <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Other</span> &gt; <span class="uicontrol">EJB</span> &gt; <span class="uicontrol">Enterprise JavaBean</span></span>. The Create an Enterprise
-Bean wizard appears.</span></li>
-<li class="stepexpand"><span>Select the <span class="uicontrol">MessageDrivenBean</span> radio button.</span></li>
-<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
-<li class="stepexpand"><span>Select the <span class="uicontrol">Project</span> that will contain the
+<ol><li class="stepexpand"><span>In the 
+	J2EE perspective, click <b>File</b> &gt; <b>New</b> &gt; <b>Other</b> &gt; <b>EJB</b> &gt; <b>XDoclet Enterprise JavaBean</b></span>. 
+	The Create Enterprise JavaBean wizard appears.</li>
+<li class="stepexpand"><span>Select the <b>MessageDrivenBean</b> radio button.</span></li>
+<li class="stepexpand"><span>Click <b>Next</b>.</span></li>
+<li class="stepexpand"><span>Select the <b>Project</b> that will contain the
 new bean.</span></li>
-<li class="stepexpand"><span>Select a <span class="uicontrol">Module Name</span>, or use the <span class="uicontrol">New</span> button
-to create one.</span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">Folder</span> field, select the folder for
+
+<li class="stepexpand"><span>In the <b>Folder</b> field, select the folder for
 the new bean.</span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">Java package</span> field, enter the package
+<li class="stepexpand"><span>In the <b>Java package</b> field, enter the package
 name for the new bean.</span></li>
 <li class="stepexpand"><span>In the <strong>Class name</strong> field, type a name for the enterprise
-bean. By convention, bean names should begin with an uppercase letter.</span> <div class="note"><span class="notetitle">Note: </span>You can use Unicode characters for the bean name, but Unicode
+bean. By convention, bean names should begin with an uppercase letter.</span> <div class="note"><b>Note: </b>You can use Unicode characters for the bean name, but Unicode
 characters are not supported for enterprise bean packages and classes associated
 with enterprise beans.</div>
 </li>
-<li class="stepexpand"><span>Change the <span class="uicontrol">Superclass</span> for the bean if you
+<li class="stepexpand"><span>Change the <b>Superclass</b> for the bean if you
 want it to inherit from a class other than <samp class="codeph">java.lang.Object</samp>.</span></li>
-<li class="stepexpand"><strong>Optional: </strong><span>You can select <span class="uicontrol">Generate
-an annotated bean class</span>.</span> If you select this option,
-the wizard generates annotations at the beginning of the Java code
-for the bean class. The annotations define the bean's implementation as you
-specify in the wizard. The annotations are then used by the EJB tools to generate
-the necessary bean classes, and to provide values that are inserted in the
-EJB deployment descriptor (ejb-jar.xml). Select this option if you are familiar
-with annotations and want to use the annotations to update the bean rather
-than using the deployment descriptor.
-</li>
-<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
-<li class="stepexpand"><span>Provide an <span class="uicontrol">EJB Name</span> for the bean.</span> This is the name of the enterprise bean class.</li>
-<li class="stepexpand"><span>Provide an <span class="uicontrol">JNDI Name</span> for the bean.</span> This is a logical name used by the server to locate an enterprise bean
+
+<li class="stepexpand"><span>Click <b>Next</b>.</span></li>
+<li class="stepexpand"><span>Provide an <b>EJB Name</b> for the bean.</span> This is the name of the enterprise bean class.</li>
+<li class="stepexpand"><span>Provide an <b>Destination JNDI Name</b> for the bean.</span> This is a logical name used by the server to locate an enterprise bean
 at runtime.</li>
-<li class="stepexpand"><span>Provide an <span class="uicontrol">Display Name</span> for the bean.</span> This is a short name for the enterprise bean that is used by tools.</li>
-<li class="stepexpand"><span>Provide a text <span class="uicontrol">Description</span> for the bean.</span></li>
-<li class="stepexpand"><span>For message-driven beans, the setting for<span class="uicontrol">State type</span> is
-ignored.</span></li>
-<li class="stepexpand"><span>Select a <span class="uicontrol">Transaction Type</span> for the new bean:</span><ul><li><span class="uicontrol">Container</span> specifies that the transaction demarcation
+<li class="stepexpand"><span>Provide an <b>Display Name</b> for the bean.</span> This is a short name for the enterprise bean that is used by tools.</li>
+<li class="stepexpand"><span>Provide a text <b>Description</b> for the bean.</span></li>
+<li class="stepexpand"><span>Select a <b>Destination</b> for the new bean: </span><ul><li><b>Queue</b> specifies that the point-to-point JMS messaging model will be used.</li>
+	<li><b>Topic</b> specifies that the publish-and-subscribe JMS messaging model will be used.</li></ul></li>
+<li class="stepexpand"><span>Select a <b>Transaction Type</b> for the new bean:</span><ul><li><b>Container</b> specifies that the transaction demarcation
 is performed by the container.</li>
-<li><span class="uicontrol">Bean</span> specifies that the transaction demarcation
+<li><b>Bean</b> specifies that the transaction demarcation
 is performed by the bean.</li>
 </ul>
 </li>
-<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
-<li class="stepexpand"><span>Select the type of <span class="uicontrol">Modifiers</span> to use for
-the class. Choices are <span class="uicontrol">Public</span>, <span class="uicontrol">Abstract</span>,
-and <span class="uicontrol">Final</span>.</span></li>
-<li class="stepexpand"><span>Select the <span class="uicontrol">Interfaces</span> you want the bean
-to implement:</span><ul><li>Click the <span class="uicontrol">Add</span> button to open the Type Selection
+<li class="stepexpand"><span>Click <b>Next</b>.</span></li>
+<li class="stepexpand"><span>Select the type of <b>Modifiers</b> to use for
+the class. Choices are <b>Public</b>, <b>Abstract</b>,
+and <b>Final</b>.</span></li>
+<li class="stepexpand"><span>Select the <b>Interfaces</b> you want the bean
+to implement:</span><ul><li>Click the <b>Add</b> button to open the Type Selection
 dialog box where you can select the interface that you want to implement.</li>
 <li>If you added an interface that you no longer want to implement, select
 the interface in the list and click <strong>Remove</strong>.</li>
 </ul>
 </li>
 <li class="stepexpand"><span>Select the method stubs that you want the wizard to create. Choices
-include <span class="uicontrol">main</span>, <span class="uicontrol">Inherited abstract methods</span>,
-and <span class="uicontrol">Constructors from the superclass</span>.</span></li>
-<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span> The new bean
+include <b>main</b>, <b>Inherited abstract methods</b>,
+and <b>Constructors from the superclass</b>.</span></li>
+<li class="stepexpand"><span>Click <b>Finish</b>.</span> The new bean
 is added to the specified EJB project.</li>
 </ol>
 </div>

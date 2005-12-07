@@ -21,48 +21,50 @@
 <h1 class="topictitle1">Importing EJB JAR files</h1>
 <div><p>You can import beans and other metadata from an EJB JAR file into
 a new or existing EJB project.</p>
-<div class="section"> <div class="tip"><span class="tiptitle">Tip: </span>In the Project Explorer view you can also copy
-enterprise beans by dragging and dropping them from one EJB project to another
-EJB project. The import wizard will open to help you merge existing enterprise
-beans.</div>
-<div class="tip"><span class="tiptitle">Tip: </span><img src="../images/ycwin.gif" alt="The following paragraph applies to Windows." /> You can quickly drag
-and drop an EJB JAR file from the Windows Explorer or desktop onto the
-Project Explorer view. The Import wizard will open with appropriate fields
-already populated. If you drop on an existing EJB module, the wizard will
-import into that EJB module. If you drop on an enterprise application, the
-wizard will bind the new EJB module to this EAR.</div>
-<p>To import an EJB
+<div class="p"> 
+	<p>To import an EJB
 JAR file into an EJB project using the Import wizard:</p>
-</div>
-<ol><li class="stepexpand"><span>In the J2EE perspective, click <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">Import</span> &gt; <span class="uicontrol">EJB JAR file</span></span> and
-click <span class="uicontrol">Next</span>.</span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">EJB JAR file</span> combination box, enter
+<ol><li class="stepexpand"><span>In the J2EE perspective, click <b>File</b> &gt; <b>Import</b> &gt; <b>EJB JAR file</b></span> and
+click <b>Next</b>.</li>
+<li class="stepexpand"><span>In the <b>EJB JAR file</b> combination box, enter
 the location and name of the EJB JAR file that you want to import. You can
-click the <span class="uicontrol">Browse</span> button to select the JAR file from
+click the <b>Browse</b> button to select the JAR file from
 the file system.</span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">EJB module</span> combination box, type
-a new project name or select an EJB module from the drop-down list. </span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">Target runtime</span> drop-down list, select
+<li class="stepexpand"><span>In the <b>EJB Project</b> combination box, type
+a new project name or select an EJB project from the drop-down list. </span></li>
+<li class="stepexpand"><span>In the <b>Target runtime</b> drop-down list, select
 the application server that you want to target for your development. If no
-Target servers exist, create one using the <span class="uicontrol">New</span> button.</span> The target server choice affects the run time settings by modifying
+target servers exist, create one using the <b>New</b> button.</span> The target server choice affects the run time settings by modifying
 the class path entries for the project.</li>
 <li class="stepexpand"><span>Specify whether you want to add the new module to an enterprise
 application (EAR) project.</span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">EAR application</span> combination box,
+<li class="stepexpand"><span>In the <b>EAR application</b> combination box,
 type a new project name or select an existing enterprise application project
-from the drop-down list. Or, click the <span class="uicontrol">New</span> button to
-launch the New Enterprise Application Project wizard.</span> <div class="note"><span class="notetitle">Note: </span>If
+from the drop-down list. Or, click the <b>New</b> button to
+launch the New EAR Application Project wizard.</span> <div class="note"><b>Note: </b>If
 you type a new EAR project name, the EAR project will be created in the default
 location with the lowest compatible J2EE version based on the version of the
 project being created. If you want to specify a different version or a different
 location for the enterprise application, you must use the New Enterprise Application
 Project wizard.</div>
 </li>
-<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span> to import the
+<li class="stepexpand"><span>Click <b>Finish</b> to import the
 EJB JAR file.</span></li>
 </ol>
-<div class="section"><div class="note"><span class="notetitle">Note: </span>The .ser files in an EJB 1.0 JAR are converted into the ejb-jar.xml
-file for EJB 1.1 during an import.</div>
+<div class="tip"><p><b>Tip: </b>In the Project Explorer view you can also copy
+enterprise beans by dragging and dropping them from one EJB project to another
+EJB project. The import wizard will open to help you merge existing enterprise
+beans.</p></div>
+<div class="tip"><p><b>Tip: </b><img src="../images/ycwin.gif" alt="The following paragraph applies to Windows." /> You can quickly drag
+and drop an EJB JAR file from the Windows Explorer or desktop onto the
+Project Explorer view. The Import wizard will open with appropriate fields
+already populated. If you drop on an existing EJB module, the wizard will
+import into that EJB module. If you drop on an enterprise application, the
+wizard will bind the new EJB module to this EAR.</p></div>
+
+</div>
+<div class="section"><div class="note"><p><b>Note: </b>The .ser files in an EJB 1.0 JAR are converted into the ejb-jar.xml
+file for EJB 1.1 during an import.</p></div>
 </div>
 </div>
 <p>
