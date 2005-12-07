@@ -148,6 +148,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	protected WeakReference weakWebApp = null;
 
 	public Collection getChildren(Object object) {
+		children.clear();
 		if (object instanceof WebApp && children.isEmpty()) {
 			weakWebApp = new WeakReference(object);
 			initChildren();

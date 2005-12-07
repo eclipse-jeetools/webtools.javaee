@@ -102,6 +102,8 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	  	     contentModelRoot = artifactEdit.getContentModelRoot();
 			 if (contentModelRoot != null) {
 		  	     flexibleObjects.add(contentModelRoot);
+		  	     if (!rootObjects.contains(contentModelRoot))
+		  	    	 rootObjects.add(contentModelRoot);
 		  	     artifactEditToRootObject.put(artifactEdit,contentModelRoot);
 			 }
 	  	  }
@@ -173,6 +175,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 			case EditModelEvent.UNLOADED_RESOURCE :
 			case EditModelEvent.REMOVED_RESOURCE : {
 				Object oldRootObject = removeRootObject(anEvent.getEditModel(),affectedProject);
+				getRootObjects();
 				if (oldRootObject != null)
 					notifyListeners(affectedProject);
 				}
@@ -215,6 +218,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	private Object removeRootObject(EditModel editModel, IProject project) {
 		ArtifactEdit artifactEdit = getArtifactEdit(editModel,project);
 		if (artifactEdit != null) {
+			rootObjects.remove(artifactEditToRootObject.get(artifactEdit));
 			artifactEditToRootObject.remove(artifactEdit);
 		}
 		return artifactEdit;
