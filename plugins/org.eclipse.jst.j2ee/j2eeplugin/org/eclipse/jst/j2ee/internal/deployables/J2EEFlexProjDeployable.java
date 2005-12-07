@@ -18,6 +18,7 @@ import java.util.Properties;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -80,7 +81,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				IPackageFragmentRoot[] srcRoots = J2EEProjectUtilities.getSourceContainers(getProject());
 				try {
 					for (int i=0; i<srcRoots.length; i++) {
-						IContainer srcContainer = (IContainer) srcRoots[i].getCorrespondingResource();
+						IResource corrResource = srcRoots[i].getCorrespondingResource();
+						if (corrResource == null || !(corrResource instanceof IContainer))
+							continue;
+						IContainer srcContainer = (IContainer) corrResource;
 						result.remove(srcContainer);
 					}
 				} catch (Exception e) {}
