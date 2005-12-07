@@ -25,8 +25,15 @@ public interface EJBJar extends CompatibilityDescriptionGroup{
 
 /**
  * Return true if there are any ContainerManagedEntity beans in this jar.
+ * @return boolean value
  */
 boolean containsContainerManagedBeans() ;
+
+/**
+ * Returns true if there is security role with the name specified in the argument
+ * @param name the name of the security role
+ * @return boolean value
+ */
 public boolean containsSecurityRole(String name);
 /**
  * Return List of BeanManaged beans in this jar.
@@ -53,31 +60,43 @@ List getEJB20ContainerManagedBeans() ;
  * @return java.util.List
  */
 List getMessageDrivenBeans() ;
-	/**
-	 * @return The list of EjbRelations references
-	 * A list of ejb-relation elements, which specify the container managed relationships.
-	 */
-	public List getEjbRelations();
+/**
+ * @return The list of EjbRelations references
+ * A list of ejb-relation elements, which specify the container managed relationships.
+ */
+public List getEjbRelations();
 /**
  * Return an enterprise bean referenced by the EjbRef, if one exists.  The ejb-link value
  * of the ref must equate to a named enterprise bean contained in the jar; otherwise return
  * null
+ * @param ref reference to the EjbRef
+ * @return reference to the EnterpriseBean model
  */
 public EnterpriseBean getEnterpiseBeanFromRef(EjbRef ref);
-	public EnterpriseBean getEnterpriseBeanNamed(String ejbName);
+
+/**
+ * Return the enterprise bean model which has the bean name of ejbName
+ * @param ejbName the name of the Enterprise Bean
+ * @return reference to the EnterpriseBean model
+ */
+public EnterpriseBean getEnterpriseBeanNamed(String ejbName);
 /**
  * Return ALL EnterpriseBean(s) that are referencing @aJavaClass as a
  * home, remote, bean class, or key class.
+ * @param aJavaClass a reference of type JavaClass
+ * @return java.util.List of EnterpriseBean
  */
 List getEnterpriseBeansWithReference(JavaClass aJavaClass) ;
 /**
  * Return the *FIRST* EnterpriseBean that is referencing @aJavaClass as its
  * home, remote, bean class, or key class.
+ * @param aJavaClass a refernce of type JavaClass
+ * @return reference to EnterpriseBean model
  */
 EnterpriseBean getEnterpriseBeanWithReference(JavaClass aJavaClass) ;
 /**
  * Return List of Session beans in this jar.
- * @return java.util.List
+ * @return java.util.List of EnterpriseBean
  */
 List getSessionBeans() ;
 /**
@@ -95,10 +114,14 @@ boolean isVersion2_0Descriptor() ;
 /**
  * Rename the security role contained in the assembly descriptor; for each enterprise bean, fix the role-link on any contained role
  * refs
+ * @param existingRoleName the old name of the Security Role
+ * @param newRoleName the new name of the Security Role
  */
 public void renameSecurityRole(String existingRoleName, String newRoleName);
 	/**
 	 *This returns the j2ee version id. Compare with J2EEVersionConstants to determine j2ee level
+	 *@throws IllegalStateException when an error is encountered while getting the version
+	 *@return the j2ee version of the Enterprise Bean in int
 	 */
 	public int getJ2EEVersionID() throws IllegalStateException ;
 
@@ -147,6 +170,8 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * This returns the module version id.  Compare with J2EEVersionConstants to determine module level
+	 * @throws IllegalStateException when an error is encountered while getting the spec version of the bean 
+	 * @return the spec version of the EnterpriseBean, 11, 20, 21 
 	 */
 	public int getVersionID() throws IllegalStateException ;
 
@@ -168,7 +193,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the AssemblyDescriptor reference
+	 * @param value The new value of the AssemblyDescriptor reference
 	 */
 	void setAssemblyDescriptor(AssemblyDescriptor value);
 
@@ -196,30 +221,39 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the RelationshipList reference
+	 * @param value The new value of the RelationshipList reference
 	 */
 	void setRelationshipList(Relationships value);
 
 	/**
 	 * Return the EJBRelationshipRole with the same name as <code>aRoleName</code>
 	 * that has <code>sourceCMP</code> as its source bean.
+	 * @param aRoleName the role name
+	 * @param sourceCMP reference to ContainerManagedEntity
+	 * @return a reference to EJBRelationshipRole
 	 */
 	EJBRelationshipRole getRelationshipRole(String aRoleName, ContainerManagedEntity sourceCMP) ;
 	
 	/**
 	 * Return the first EJBRelation with the same name as <code>aRelationName</code>.
+	 * @param aRelationName the name of the relation
+	 * @return a reference to EJBRelation
 	 */
 	EJBRelation getEJBRelation(String aRelationName) ;
 	
 	/**
 	 * Return all EJBRelation objects that have an EJBRelationshipRole with a
 	 * source EJB of <code>cmp</code>.
+	 * @param cmp reference to ContainerManagedEntity
+	 * @return List of EJBRelation
 	 */
 	List getEJBRelationsForSource(ContainerManagedEntity cmp);
 	
 	/**
 	 * Return all EJBRelationshipRole objects that have an EJBRelationshipRole with a
 	 * type EJB of <code>cmp</code>.
+	 * @param cmp reference to ContainerManagedEntit
+	 * @return List of EJBRelationshipRole
 	 */
 	List getEJBRelationshipRolesForType(ContainerManagedEntity cmp) ;
 }
