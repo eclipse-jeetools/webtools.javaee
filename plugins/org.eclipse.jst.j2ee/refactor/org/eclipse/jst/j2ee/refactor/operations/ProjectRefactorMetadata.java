@@ -45,13 +45,18 @@ public class ProjectRefactorMetadata {
 	
 	private int _virtualCompCaching = NON_CACHING;
 	private final IProject _project;
-	private IFacetedProject facetedProject;
 	private IVirtualComponent virtualComp = null;
 	private final List dependentMetadata = new ArrayList();
 	private boolean computed = false;
 	private boolean javaNature;
 	private boolean moduleCoreNature;
 	private IModule module;
+	private boolean isEAR = false;
+	private boolean isEJB = false;
+	private boolean isWeb = false;
+	private boolean isAppClient = false;
+	private boolean isConnector = false;
+	private boolean isUtility = false;
 	
 	public ProjectRefactorMetadata(final IProject project) {
 		_project = project;
@@ -74,8 +79,14 @@ public class ProjectRefactorMetadata {
 				} else {
 					virtualComp = ComponentCore.createComponent(_project);			
 				}
-				facetedProject = ProjectFacetsManager.create(_project);
+				final IFacetedProject facetedProject = ProjectFacetsManager.create(_project);
 				module = ServerUtil.getModule(_project);
+				isEAR = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE)); 
+				isEJB = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE)); 
+				isWeb = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
+				isAppClient = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE)); 
+				isConnector = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE));  
+				isUtility = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE)); 
 			}
 		} catch (CoreException ce) {
 			Logger.getLogger().logError(ce);
@@ -99,16 +110,6 @@ public class ProjectRefactorMetadata {
 	 */
 	public IProject getProject() {
 		return _project;
-	}
-	
-	/**
-	 * Retrieves the faceted project.
-	 */
-	public IFacetedProject getFacetedProject() {
-		if (!computed) {
-			computeMetadata();
-		}
-		return facetedProject;
 	}
 	
 	/**
@@ -165,42 +166,43 @@ public class ProjectRefactorMetadata {
 		if (!computed) {
 			computeMetadata();
 		}
-		return facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE));
+		return isEAR;
 	}
 
 	public boolean isEJB() {
 		if (!computed) {
 			computeMetadata();
 		}
-		return facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE));
+		return isEJB; 
+		
 	}
 	
 	public boolean isWeb() {
 		if (!computed) {
 			computeMetadata();
 		}
-		return facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
+		return isWeb;
 	}
 	
 	public boolean isAppClient() {
 		if (!computed) {
 			computeMetadata();
 		}
-		return facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE));
+		return isAppClient;
 	}
 	
 	public boolean isConnector() {
 		if (!computed) {
 			computeMetadata();
 		}
-		return facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE)); 
+		return isConnector;
 	}
 	
 	public boolean isUtility() {
 		if (!computed) {
 			computeMetadata();
 		}
-		return facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE));
+		return isUtility;
 	}
 	
 	public class CachingVirtualComponent implements IVirtualComponent {
