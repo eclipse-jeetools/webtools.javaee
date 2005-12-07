@@ -12,6 +12,10 @@ package org.eclipse.jst.j2ee.ejb;
 
 import java.util.Comparator;
 
+/**
+ * @since 1.0
+ */
+
 public class EjbMethodElementComparator implements Comparator {
 	static final int HOME = MethodElementKind.HOME;
 	static final int REMOTE = MethodElementKind.REMOTE;
@@ -26,8 +30,12 @@ public class EjbMethodElementComparator implements Comparator {
 		super();
 	}
 
-	/*
+	/**
+	 * Compares two arguments for order.
 	 * @see Comparator#compare(Object, Object)
+	 *@param o1 the first object to be compared
+	 *@param 02 the second object to be compared
+	 *@return a negative integer, zero, or a positive integer
 	 */
 	public int compare(Object o1, Object o2) {
 		return compare((MethodElement) o1, (MethodElement) o2);
