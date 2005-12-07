@@ -11,13 +11,8 @@
 
 package org.eclipse.jst.j2ee.internal.web.classpath;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainerInitializer;
 
@@ -35,21 +30,21 @@ extends FlexibleProjectContainerInitializer
 	throws CoreException
 
 	{
-		WorkspaceJob job = new WorkspaceJob("Initializing Web Container") {
-
-			public IStatus runInWorkspace(IProgressMonitor monitor) {
-				try {
+//		WorkspaceJob job = new WorkspaceJob("Initializing Web Container") {
+//
+//			public IStatus runInWorkspace(IProgressMonitor monitor) {
+//				try {
 					new WebAppContainer(path, jproj).install();
-				}
-
-				catch (Exception e) {
-					return Status.CANCEL_STATUS;
-				}
-				return Status.OK_STATUS;
-			}
-		};
-		job.setRule(ResourcesPlugin.getWorkspace().getRuleFactory().buildRule());
-		job.schedule();
+//				}
+//
+//				catch (Exception e) {
+//					return Status.CANCEL_STATUS;
+//				}
+//				return Status.OK_STATUS;
+//			}
+//		};
+//		job.setRule(ResourcesPlugin.getWorkspace().getRuleFactory().buildRule());
+//		job.schedule();
 	}
 
 }
