@@ -15,7 +15,15 @@ import org.eclipse.jem.java.JavaClass;
  * @generated
  * @since 1.0 */
 public interface QueryMethod extends MethodElement{
+	
+	/**
+	 * 
+	 */
 	public static final String SELECT_PREFIX = "ejbSelect"; //$NON-NLS-1$
+	
+	/**
+	 * 
+	 */
 	public static final String FIND_PREFIX = "find"; //$NON-NLS-1$
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -25,7 +33,7 @@ public interface QueryMethod extends MethodElement{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Query reference
+	 * @param value The new value of the Query reference
 	 */
 	void setQuery(Query value);
 
@@ -35,6 +43,7 @@ public interface QueryMethod extends MethodElement{
 	 * it if a find both home interfaces will be returned if they exist.
 	 * 
 	 * May return null.
+	 * @return array of JavaClass
 	 */
 	JavaClass[] getClientTypeJavaClasses() ;
 }

@@ -19,7 +19,16 @@ import org.eclipse.emf.ecore.EObject;
  * @since 1.0 */
 public interface Query extends EObject{
 
+	/**
+	 * Returns boolean value for ReturnTypeMapping, checks if it is of type ReturnTypeMapping.LOCAL
+	 * @return boolean value
+	 */
 	public boolean isLocalResultMapping();
+	
+	/**
+	 * Returns boolean value for ReturnTypeMapping, checks if it is of type ReturnTypeMapping.REMOTE
+	 * @return boolean value
+	 */
 	public boolean isRemoteResultMapping();
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -153,7 +162,7 @@ public interface Query extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the QueryMethod reference
+	 * @param value The new value of the QueryMethod reference
 	 */
 	void setQueryMethod(QueryMethod value);
 
