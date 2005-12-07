@@ -18,8 +18,17 @@ import org.eclipse.jem.java.JavaClass;
  * @since 1.0 */
 public interface CMRField extends CMPAttribute{
 
-  public  String getCollectionTypeName();  
-public void setCollectionTypeName(String typeName);
+	/**
+	 * Returns the java CollectionType name
+	 * @return The name of the java collection type
+	 */
+	public  String getCollectionTypeName();  
+	
+	/**
+	 * Sets the java collection type name
+	 * @param typeName the name of the java collection type
+	 */
+	public void setCollectionTypeName(String typeName);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The Role reference
@@ -28,7 +37,7 @@ public void setCollectionTypeName(String typeName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Role reference
+	 * @param value The new value of the Role reference
 	 */
 	void setRole(EJBRelationshipRole value);
 
@@ -40,7 +49,7 @@ public void setCollectionTypeName(String typeName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the CollectionType reference
+	 * @param value The new value of the CollectionType reference
 	 */
 	void setCollectionType(JavaClass value);
 
