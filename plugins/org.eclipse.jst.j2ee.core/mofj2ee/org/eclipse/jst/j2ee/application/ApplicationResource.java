@@ -11,8 +11,18 @@
 package org.eclipse.jst.j2ee.application;
 
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+/**
+ * The represents the deployment descriptor of the EAR.
+
+ * @since 1.0 */
 
 public interface ApplicationResource extends XMLResource {
-public Application getApplication() ;
+	
+	  /**
+	   * The application deployment descriptor 
+	   * @since 1.0
+	   * @return The deployment descriptor of the EAR, application deployment descriptor
+	   */
+	public Application getApplication() ;
 }
 

@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The auth-constraint element indicates the user roles that should be permitted access to this resource collection. The role used here must appear in a security-role-ref element.
+ * @since 1.0 
  */
 public interface AuthConstraint extends EObject{
 	/**
@@ -46,7 +47,7 @@ public interface AuthConstraint extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the SecConstraint reference
+	 * @param value the new value of the SecConstraint reference
 	 */
 	void setSecConstraint(SecurityConstraint value);
 

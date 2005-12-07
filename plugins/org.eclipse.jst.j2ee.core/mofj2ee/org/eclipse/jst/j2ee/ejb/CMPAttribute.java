@@ -20,29 +20,62 @@ import org.eclipse.jem.java.JavaHelpers;
  * @since 1.0 */
 public interface CMPAttribute extends EAttribute{
 
-/**
- * @deprecated - With EJB 2.0, assuming a Java field is no longer safe.
- * 		Use getType() and getName() to get the most common field info.
- *		Or use getEjbClass() to get additional Java info.
- */
+	/**
+	 * @deprecated - With EJB 2.0, assuming a Java field is no longer safe.
+	 * 		Use getType() and getName() to get the most common field info.
+	 *		Or use getEjbClass() to get additional Java info.
+	 *@return the Field value
+	 */
 
-Field getField() ;
-String getGetterName();
-/**
- * Return the type of this attribute in its original form (i.e., unwrapped if
- * the type has been wrapped).
- */
-public JavaHelpers getOriginatingType() ;
-String getSetterName();
-JavaHelpers getType() ;
-boolean isCMRField() ;
-boolean isKey() ;
-/**
- * Returns true if this field is a primkey-field in the deployment descriptor.
- * @return
- */
-public boolean isPrimKeyField();
-public void setOriginatingType(JavaHelpers newOriginatingType) ;
+	Field getField() ;
+	
+	/**
+	 * The name of the get method corresponding to this attrribute
+	 * @return the String value
+	 */
+	String getGetterName();
+	/**
+	 * Return the type of this attribute in its original form (i.e., unwrapped if
+	 * the type has been wrapped).
+	 * @return JavaHelpers value
+	 */
+	public JavaHelpers getOriginatingType() ;
+	
+	/**
+	 * The name of the set method corresponding to this attrribute
+	 * @return the String value
+	 */
+	String getSetterName();
+	
+	/**
+	 * Returns the Java Type of the attribute
+	 * @return the JavaHelpers
+	 */
+	JavaHelpers getType() ;
+	
+	/**
+	 * Returns true if the attribute is a CMR field
+	 * @return boolean value
+	 */
+	boolean isCMRField() ;
+	
+	/**
+	 * Returns true if the attribute is the key field of the bean
+	 * @return boolean value
+	 */
+	boolean isKey() ;
+	/**
+	 * Returns true if this field is a primkey-field in the deployment descriptor.
+	 * @return boolean value
+	 */
+	public boolean isPrimKeyField();
+	
+	/**
+	 * Sets the originating Java type
+	 * @param newOriginatingType the JavaHelpers
+	 */
+	public void setOriginatingType(JavaHelpers newOriginatingType) ;
+	
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute
@@ -83,9 +116,14 @@ public void setOriginatingType(JavaHelpers newOriginatingType) ;
 
 	/**
 	 * Return true if a targetAttribute exists.
+	 * @return boolean value
 	 */
 	boolean isDerived();
 	
+	/**
+	 * Sets the attribute as a derived attribute
+	 * @param aBoolean the boolean value
+	 */
 	void setDerived(boolean aBoolean);
 	
 }

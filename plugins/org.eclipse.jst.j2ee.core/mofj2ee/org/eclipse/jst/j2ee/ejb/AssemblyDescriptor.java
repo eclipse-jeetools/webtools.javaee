@@ -21,27 +21,41 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
  * @since 1.0 */
 public interface AssemblyDescriptor extends EObject{
 
-/**
- * Return the first method permission that contains all the roles in securityRoles and
- * is the same size
- */
-MethodPermission getMethodPermission(List securityRoles);
-/**
- * Return a List of MethodElements for @anEJB going
- * through the MethodPermissions.
- */
-List getMethodPermissionMethodElements(EnterpriseBean anEJB) ;
-/**
- * Return a List of MethodElements for @anEJB going
- * through the MethodTransactions.
- */
-List getMethodTransactionMethodElements(EnterpriseBean anEJB) ;
+	/**
+	 * Return the first method permission that contains all the roles in securityRoles and
+	 * is the same size
+	 * @param  securityRoles the list of SecurityRole
+	 * @return The MethodPermission
+	 */
+	MethodPermission getMethodPermission(List securityRoles);
+	/**
+	 * Return a List of MethodElements for @anEJB going
+	 * through the MethodPermissions.
+	 * @param anEJB the Enterprise Bean model
+	 * @return List of MethodElement
+	 */
+	List getMethodPermissionMethodElements(EnterpriseBean anEJB) ;
+	/**
+	 * Return a List of MethodElements for @anEJB going
+	 * through the MethodTransactions.
+	 * @param anEJB the Enterprise Bean model
+	 * @return List of MethodElement
+	 */
+	List getMethodTransactionMethodElements(EnterpriseBean anEJB) ;
+	
+	/**
+	 * Return the SecurityRole given a roleName
+	 * @param roleName the name of the role
+	 * @return SecurityRole
+	 */	
 	public SecurityRole getSecurityRoleNamed(String roleName);
 
-/**
- * Rename the security role, if it exists
- */
-public void renameSecurityRole(String existingRoleName, String newRoleName);
+	/**
+	 * Rename the security role, if it exists
+	 * @param existingRoleName the existing role name
+	 * @param newRoleName the new role name
+	 */
+	public void renameSecurityRole(String existingRoleName, String newRoleName);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The list of MethodPermissions references
@@ -66,7 +80,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the EjbJar reference
+	 * @param value the new value of the EjbJar reference
 	 */
 	void setEjbJar(EJBJar value);
 
@@ -84,7 +98,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the ExcludeList reference
+	 * @param value the new value of the ExcludeList reference
 	 */
 	void setExcludeList(ExcludeList value);
 
@@ -109,6 +123,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * Remove the MethodElements that are referencing @anEJB.
+	 * @param anEJB the Enterprise Bean model
 	 */
 	void removeData(EnterpriseBean anEJB) ;
 
