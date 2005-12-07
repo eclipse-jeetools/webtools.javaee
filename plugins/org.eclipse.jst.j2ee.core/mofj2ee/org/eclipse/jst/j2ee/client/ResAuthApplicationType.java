@@ -16,7 +16,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.AbstractEnumerator;
 
-
+/**
+ *@since 1.0
+ */
 
 public final class ResAuthApplicationType extends AbstractEnumerator{
 	/**

@@ -28,7 +28,7 @@ public interface RunAsSpecifiedIdentity extends SecurityIdentity{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Identity reference
+	 * @param value The new value of the Identity reference
 	 */
 	void setIdentity(Identity value);
 

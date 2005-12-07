@@ -43,7 +43,7 @@ public interface Relationships extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the EjbJar reference
+	 * @param value The new value of the EjbJar reference
 	 */
 	void setEjbJar(EJBJar value);
 

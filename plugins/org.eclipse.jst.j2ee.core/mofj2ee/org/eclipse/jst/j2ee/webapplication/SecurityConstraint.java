@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The security-constraint element is used to associate security constraints with one or more web resource collections
+ * @since 1.0
  */
 public interface SecurityConstraint extends EObject{
 	/**
@@ -53,7 +54,7 @@ public interface SecurityConstraint extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebApp reference
+	 * @param value The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 
@@ -71,7 +72,7 @@ public interface SecurityConstraint extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the AuthConstraint reference
+	 * @param value The new value of the AuthConstraint reference
 	 */
 	void setAuthConstraint(AuthConstraint value);
 
@@ -83,7 +84,7 @@ public interface SecurityConstraint extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the UserDataConstraint reference
+	 * @param value The new value of the UserDataConstraint reference
 	 */
 	void setUserDataConstraint(UserDataConstraint value);
 

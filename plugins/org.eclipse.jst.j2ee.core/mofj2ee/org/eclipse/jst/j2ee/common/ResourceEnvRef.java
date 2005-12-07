@@ -26,8 +26,17 @@ import org.eclipse.jem.java.JavaClass;
  * @since 1.0 */
 public interface ResourceEnvRef extends EObject{
 
-public String getTypeName();
-public void setTypeName(String className);
+	/**
+	 * Gets the name for the type
+	 * @return String value
+	 */
+	public String getTypeName();
+	
+	/**
+	 * Sets the name of the type attribute
+	 * @param className sets the name for the type
+	 */
+	public void setTypeName(String className);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Description attribute
@@ -71,7 +80,7 @@ public void setTypeName(String className);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Type reference
+	 * @param value The new value of the Type reference
 	 */
 	void setType(JavaClass value);
 

@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
 
 /**
  * @lastgen interface MethodElementKind {}
+ * @since 1.0
  */
 public final class MethodElementKind extends AbstractEnumerator{
 	/**

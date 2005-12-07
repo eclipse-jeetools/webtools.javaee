@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.webapplication;
 
 /**
  * @generated
+ * @since 1.0
  */
 public interface JSPType extends WebType{
 	/**

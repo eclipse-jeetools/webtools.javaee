@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
+ * @since  1.0
  */
 public interface RoleNameType extends EObject {
 	/**

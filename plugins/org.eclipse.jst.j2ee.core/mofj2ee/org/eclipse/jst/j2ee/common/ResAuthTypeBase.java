@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @see org.eclipse.jst.j2ee.common.CommonPackage#getResAuthTypeBase()
  * @model
  * @generated
+ * @since 1.0
  */
 public final class ResAuthTypeBase extends AbstractEnumerator {
 	/**
