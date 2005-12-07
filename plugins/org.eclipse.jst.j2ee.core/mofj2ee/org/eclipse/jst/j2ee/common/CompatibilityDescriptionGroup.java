@@ -58,6 +58,10 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 */
 	void setSmallIcon(String value);
 
+	/**
+	 * Sets the value of the Small Icon attribute
+	 * @param value the new value of the attribute
+	 */
 	void setSmallIconGen(String value);
 
 	/**
@@ -86,6 +90,10 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 */
 	void setLargeIcon(String value);
 
+	/**
+	 * Sets the value of the Large Icon
+	 * @param value the new value of the Large Icon
+	 */
 	void setLargeIconGen(String value);
 
 	/**
@@ -114,6 +122,10 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 */
 	void setDescription(String value);
 
+	/**
+	 * Sets the value of the Description 
+	 * @param value the new value of the Description attrbute
+	 */
 	void setDescriptionGen(String value);
 
 	/**
@@ -142,6 +154,10 @@ public interface CompatibilityDescriptionGroup extends DescriptionGroup{
 	 */
 	void setDisplayName(String value);
 
+	/**
+	 * Sets the value of the Display Name
+	 * @param value the new value of the Display Name
+	 */
 	void setDisplayNameGen(String value);
 
 } // CompatibilityDescriptionGroup

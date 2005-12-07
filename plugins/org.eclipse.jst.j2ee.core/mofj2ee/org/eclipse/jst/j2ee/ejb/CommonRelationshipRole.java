@@ -21,42 +21,47 @@ public interface CommonRelationshipRole extends EObject {
 /**
  * Return the persistentAttributes from my Entity that are used
  * by this role.
+ * @return the attributes of the CommonRelationshipRole
  */
 
 public EList getAttributes();
 /**
  * Return our parent relationship as a CommonRelationship
+ * @return the CommonRelationship reference
  */
 
 public CommonRelationship getCommonRelationship();
 
 
 /**
- * @return The value of the Name attribute
- * Defines a name for a role that is unique within an ejb-relation. Different relationships can use the same name for a role.
 
+ * Defines a name for a role that is unique within an ejb-relation. Different relationships can use the same name for a role.
+ * @return The value of the Name attribute
 	 */
 	public String getName();
 /**
  * Return the actual name of this role.  This is the name defined in the Deployment
  * Descriptor.  You should use <code>getName()</code> for the name to use in code
  * generation.
+ * @return the name of the CommonRelationshipRole 
  */
 String getRoleName();
 /**
  * Return the other role.
+ * @return CommonRelationshipRole reference
  */
 
 CommonRelationshipRole getOppositeAsCommonRole() ;
 /**
  * @return The Source ejb
- * Compute the ContainerManagedEntity which is the source of a role that participates in a relationship. 
+ * Compute the ContainerManagedEntity which is the source of a role that participates in a relationship.
+ * @return  ContainerManagedEntity reference
  */
 public ContainerManagedEntity getSourceEntity();
 
 /**
- * @return The type ejb
- * Compute the ContainerManagedEntity which is the type of a role that participates in a relationship. 
+ * Compute the ContainerManagedEntity which is the type of a role that participates in a relationship.
+ * @return The type ejb 
  */
 public ContainerManagedEntity getTypeEntity();
 /**
@@ -64,13 +69,16 @@ public ContainerManagedEntity getTypeEntity();
 * Specifies whether this role should be mapped to a persistent reference, such as a foreign key.
 */
 public boolean isForward();
+
 /**
-* @return The computed value isKey
-*/
+ * Returns true if this is a key 
+ * @return The computed value isKey
+ */
 public boolean isKey();
 
 /**
  * This method should be used as a hint about the key status of the role.
+ * @param aBoolean the boolean value
  */
 public void setKey(boolean aBoolean) ;
 /**
@@ -82,12 +90,14 @@ public boolean isMany();
 /**
 * 
 * sets the upper limit of our multiplicity
+* @param upperBound the int value of the multiplicity
 */
 public void setUpper(int upperBound);
 
 /**
 * 
 * sets the lower limit of our multiplicity
+* @param lowerBound the int value if the multiplicity
 */
 public void setLower(int lowerBound);
 
@@ -96,12 +106,22 @@ public void setLower(int lowerBound);
 * Specifies that accessors should be generated for this relationship role.
 */
 public boolean isNavigable();
+
+/**
+ * Gets the attribute name of a given CMPAttribute
+ * @param roleAttribute the CMPAttribute
+ * @return the name of the targetAttribute
+ */
 public String getTargetAttributeName(CMPAttribute roleAttribute);
 
+/**
+ * Collects the attributes
+ *
+ */
 void reconcileAttributes();
 	/**
 	 * Method isRequired.
-	 * @return boolean
+	 * @return boolean value
 	 */
 	boolean isRequired();
 }
