@@ -129,7 +129,9 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				if (earProjectName != null && !earProjectName.equals("")) {
 
 					String ver = fv.getVersionString();
-					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString
+					(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(ver));
+					
 					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
 

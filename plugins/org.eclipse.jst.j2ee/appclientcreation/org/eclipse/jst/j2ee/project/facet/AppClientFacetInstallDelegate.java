@@ -88,7 +88,10 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
 				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
 					String ver = fv.getVersionString();
-					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+//					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString
+//					(J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ver));
+					
+					String j2eeVersionText = ver;
 					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
 
