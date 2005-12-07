@@ -18,11 +18,35 @@ import org.eclipse.emf.ecore.EObject;
  * @author: Administrator
  * @since 1.0 */
 public interface CommonRelationship extends EObject {
-public EList getCommonRoles();
-public CommonRelationshipRole getFirstCommonRole();
-public CommonRelationshipRole getSecondCommonRole();
-public String getName();
-public void setName(String value);
+	/**
+	 * Returns the EList of the common roles
+	 * @return EList reference
+	 */
+	public EList getCommonRoles();
+	
+	/**
+	 * Gets the first common role
+	 * @return CommonRelationshipRole reference
+	 */
+	public CommonRelationshipRole getFirstCommonRole();
+	
+	/**
+	 * Gets the second common role
+	 * @return CommonRelationshipRole
+	 */
+	public CommonRelationshipRole getSecondCommonRole();
+	
+	/**
+	 * Returns the name of the CommonRelationship
+	 * @return String value
+	 */
+	public String getName();
+	
+	/**
+	 * Sets the name of the CommonRelationship
+	 * @param value the String value of the name
+	 */
+	public void setName(String value);
 }
 
 
