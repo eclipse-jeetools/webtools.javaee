@@ -15,12 +15,21 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
  * The web-resource-collection element is used to identify a subset of the resources and HTTP methods on those resources within a web application to which a security constraint applies. If no HTTP methods are specified, then the security constraint applies to all HTTP methods.
-
+ * @since 1.0
  */
 public interface WebResourceCollection extends EObject{
 
-public void addHTTP(String httpMethod);
-public void addURL(String urlPattern);
+	/**
+	 * Adds instance of HTTPMethodType
+	 * @param httpMethod name of the httpMethod to add
+	 */
+	public void addHTTP(String httpMethod);
+	
+	/**
+	 * Adds instance of URLPatternType
+	 * @param urlPattern name of the url to add
+	 */
+	public void addURL(String urlPattern);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the WebResourceName attribute
@@ -88,6 +97,7 @@ public void addURL(String urlPattern);
 
 	/**
 	 * @deprecated : Use getHttpMethod();
+	 * @return List of HttpMethods
 	 */
 	EList getHTTPs();
 	
@@ -101,7 +111,7 @@ public void addURL(String urlPattern);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the SecConstraint reference
+	 * @param value The new value of the SecConstraint reference
 	 */
 	void setSecConstraint(SecurityConstraint value);
 

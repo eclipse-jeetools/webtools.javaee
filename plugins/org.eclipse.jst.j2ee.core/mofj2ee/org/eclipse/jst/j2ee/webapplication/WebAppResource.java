@@ -20,22 +20,28 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 /**
  * @author schacher
- *
- * To change this generated comment go to 
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * @since 1.0
  */
 public interface WebAppResource extends XMLResource {
+	
+	/**
+	 * Returns reference to the model object WebApp
+	 * @return reference to  model object WebApp
+	 */
 	WebApp getWebApp();
 	/**
 	 * Return true if this Resource supports the Web 2.2 spec.
+	 * @return boolean value
 	 */
 	boolean isWeb2_2();
 	/**
 	 * Return true if this Resource supports the Web 2.3 spec.
+	 * @return boolean value
 	 */
 	boolean isWeb2_3();
 	/**
 	 * Return true if this Resource supports the Web 2.4 spec.
+	 * @return boolean value
 	 */
 	boolean isWeb2_4();
 

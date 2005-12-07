@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * The user-data-constraint element is used to indicate how data communicated between the client and container should be protected
+ * @since 1.0
  */
 public interface UserDataConstraint extends EObject{
 	/**
@@ -89,7 +90,7 @@ public interface UserDataConstraint extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the SecConstraint reference
+	 * @param value The new value of the SecConstraint reference
 	 */
 	void setSecConstraint(SecurityConstraint value);
 
