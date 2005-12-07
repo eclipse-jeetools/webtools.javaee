@@ -20,6 +20,8 @@ public interface Connector extends CompatibilityDescriptionGroup{
 
 	/**
 	* This returns the module version id.  Compare with J2EEVersionConstants to determine module level
+	* @throws IllegalStateException if calling this function fails
+	* @return the version of the J2C module 
 	*/
 	public int getVersionID() throws IllegalStateException ;
 
@@ -102,7 +104,7 @@ public interface Connector extends CompatibilityDescriptionGroup{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the License reference
+	 * @param value The new value of the License reference
 	 */
 	void setLicense(License value);
 
@@ -114,7 +116,7 @@ public interface Connector extends CompatibilityDescriptionGroup{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the ResourceAdapter reference
+	 * @param value The new value of the ResourceAdapter reference
 	 */
 	void setResourceAdapter(ResourceAdapter value);
 

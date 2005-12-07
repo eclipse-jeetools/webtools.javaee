@@ -18,6 +18,14 @@ package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
+/**
+ *@since 1.0
+ */
 public interface ConnectorResource extends XMLResource {
+	
+	/**
+	 * Returns the deployment descriptor model
+	 * @return Connector
+	 */
 	public Connector getConnector() ;
 }

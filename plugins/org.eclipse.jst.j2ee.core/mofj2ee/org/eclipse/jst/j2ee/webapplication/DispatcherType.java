@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getDispatcherType()
  * @model
  * @generated
+ * @since 1.0
  */
 public final class DispatcherType extends AbstractEnumerator
 {
