@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The welcome-file element contains file name to use as a default welcome file, such as index.html
-
+ * @since 1.0
  */
 public interface WelcomeFile extends EObject{
 	/**
@@ -36,7 +36,7 @@ public interface WelcomeFile extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the FileList reference
+	 * @param value The new value of the FileList reference
 	 */
 	void setFileList(WelcomeFileList value);
 

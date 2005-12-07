@@ -18,6 +18,14 @@ package org.eclipse.jst.j2ee.webservice.wsclient;
 
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
+/**
+ *@since 1.0
+ */
 public interface WebServicesResource extends XMLResource{
+	
+	/**
+	 * Returns reference to the model object WebServicesClient
+	 * @return reference to the model object WebServicesClient
+	 */
 	public WebServicesClient getWebServicesClient();
 }

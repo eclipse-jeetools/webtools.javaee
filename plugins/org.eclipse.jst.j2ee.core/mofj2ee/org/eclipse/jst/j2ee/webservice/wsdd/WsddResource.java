@@ -13,12 +13,33 @@ package org.eclipse.jst.j2ee.webservice.wsdd;
 
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
+/**
+ *@since 1.0
+ */
 public interface WsddResource extends XMLResource
 {
-  public static final int WEB_SERVICE_TYPE = 6;
 
-  WebServices getWebServices();
-  public boolean isWebService1_0();
-  public boolean isWebService1_1();
+	/**
+	 * 
+	 */
+	public static final int WEB_SERVICE_TYPE = 6;
+
+	/**
+	 * Returns reference to the model object WebServices
+	 * @return reference to the model object WebServices 
+	 */
+	WebServices getWebServices();
+	
+	/**
+	 * Returns true if the WebService is of version 1.0
+	 * @return boolean value
+	 */
+	public boolean isWebService1_0();
+	
+	/**
+	 * Returns true if the WebService is of version 1.1
+	 * @return boolean value
+	 */
+	public boolean isWebService1_1();
   
 }

@@ -13,11 +13,21 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
+ * @since 1.0
  */
 public interface WebType extends EObject {
 
-public boolean isJspType();
-public boolean isServletType();
+	/**
+	 * Returns true if the type denotes a JSP
+	 * @return boolean value
+	 */
+	public boolean isJspType();
+	
+	/**
+	 * Returns true if the type denotes a servlet
+	 * @return boolean value
+	 */
+	public boolean isServletType();
 }
 
 

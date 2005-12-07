@@ -120,7 +120,7 @@ public interface MessageDrivenDestination extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Bean reference
+	 * @param value The new value of the Bean reference
 	 */
 	void setBean(MessageDriven value);
 

@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLocalEncodingMapping()
  * @model
  * @generated
+ * @since 1.0
  */
 public interface LocalEncodingMapping extends EObject{
 	/**

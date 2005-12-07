@@ -14,10 +14,15 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The welcome-file-list contains an ordered list of welcome files elements.
+ * @since 1.0
  */
 public interface WelcomeFileList extends EObject{
 
-public void addFileNamed(String name);
+	/**
+	 * Adds the file whose name is specified in the parameter
+	 * @param name the name of the file to be added
+	 */
+	public void addFileNamed(String name);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The WebApp reference
@@ -26,7 +31,7 @@ public void addFileNamed(String name);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebApp reference
+	 * @param value The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 

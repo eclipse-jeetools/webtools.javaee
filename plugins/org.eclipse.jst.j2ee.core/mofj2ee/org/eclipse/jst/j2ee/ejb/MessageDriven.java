@@ -147,7 +147,7 @@ public interface MessageDriven extends EnterpriseBean{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Destination reference
+	 * @param value The new value of the Destination reference
 	 */
 	void setDestination(MessageDrivenDestination value);
 
