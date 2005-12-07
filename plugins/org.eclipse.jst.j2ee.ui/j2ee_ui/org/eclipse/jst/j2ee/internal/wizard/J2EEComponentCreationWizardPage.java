@@ -315,7 +315,10 @@ public abstract class J2EEComponentCreationWizardPage extends DataModelWizardPag
     protected void createServerEarAndStandaloneGroup(Composite parent) {
         earGroup = new ServerEarAndStandaloneGroup(parent, getDataModel(), synchHelper);
     }
-    
+    /**@deprecated 
+	 * If this method is not used it should be removed at a later time, marking as deprecated
+	 * Warning cleanup 12/07/2005
+	 */
 	private void createProjectsComboGroup(Composite parent) {
 		// set up project name label
 		

@@ -23,6 +23,11 @@ package org.eclipse.jst.j2ee.internal.deploy;
  * Generation - Code and Comments
  */
 public class FatalDeployerException extends Exception {
+    /**
+     * Warning clean-up 12/05/2005
+     */   
+	private static final long serialVersionUID = -7991505439979201757L;
+
 	/**
 	 *  
 	 */

@@ -245,7 +245,10 @@ public class EARComponentCreationSecondPage extends DataModelWizardPage implemen
             String projectName = compDM.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
             if(projectName == null) return;
             IProject project = ProjectUtilities.getProject(projectName);
-            String compName = compDM.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
+            /**
+			 * Warning cleanup 12/07/2005
+			 */
+			//String compName = compDM.getStringProperty(IComponentCreationDataModelProperties.COMPONENT_NAME);
             if (project != null && project.exists())
                 newProjects.add(project);
         }

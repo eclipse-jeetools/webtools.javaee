@@ -366,7 +366,10 @@ public class ClassPathSelection {
 				IVirtualComponent referencedComponent = ref.getReferencedComponent();
 				boolean isBinary = referencedComponent.isBinary();
 				if( isBinary ){
-					String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
+			         /**
+			          * Warning clean-up 12/05/2005
+			          */   
+					//String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
 					String unresolvedURI = "";
 					try {
 						unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
@@ -412,7 +415,10 @@ public class ClassPathSelection {
 	}
 		
 	protected List loadClassPathArchives(){
-		LoadStrategy loadStrat = archive.getLoadStrategy();
+        /**
+         * Warning clean-up 12/05/2005
+         */   
+		//LoadStrategy loadStrat = archive.getLoadStrategy();
 		
 		List archives = new ArrayList();
 		
@@ -472,7 +478,10 @@ public class ClassPathSelection {
 			
 			String archiveURIString = anArchive.getURI();
 			URI archiveURI = URI.createURI(archiveURIString);
-			boolean hasAbsolutePath = archiveURI.hasAbsolutePath();
+	         /**
+	          * Warning clean-up 12/05/2005
+	          */   
+			//boolean hasAbsolutePath = archiveURI.hasAbsolutePath();
 			if( archiveURI.lastSegment().equals(uri) ){
 				return true;
 			}

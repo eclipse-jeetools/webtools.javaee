@@ -66,9 +66,11 @@ public class UpdateProjectClasspath {
             List oldEntriesList,classpathList;
 			IClasspathEntry[] newEntries = getClasspathEntries(sourceFolder, componentName, 
 					jProject);
-			
-			int oldSize = oldEntries.length;
-			int newSize = newEntries.length;
+	         /**
+	          * Warning clean-up 12/05/2005
+	          */   
+			//int oldSize = oldEntries.length;
+			//int newSize = newEntries.length;
 			
 			classpathList = new ArrayList();
 			oldEntriesList = Arrays.asList(oldEntries);

@@ -287,7 +287,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			facetDMs.add(newModel);
 			//setRuntime(webProj,dm); //Setting runtime property
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -315,7 +319,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel newModel = setupUtilInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -336,7 +344,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel newModel = setupConnectorInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -356,7 +368,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel newModel = setupEarInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -377,7 +393,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel newModel = setupAppClientInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -399,7 +419,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			facetDMs.add(newModel);
 			//setRuntime(ejbProject2,dm); //Setting runtime property
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -422,7 +446,11 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			facetDMs.add(newModel);
 			//setRuntime(webProj,dm); //Setting runtime property
 			try {
-				IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				/**
+				 * Warning cleanup 12/07/2005
+				 */
+				//IStatus stat =  dm.getDefaultOperation().execute(null,null);
+				dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
@@ -472,7 +500,10 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			}
 			return null;
 		}
-
+		/**@deprecated 
+		 * If this method is not used it should be removed at a later time, marking as deprecated
+		 * Warning cleanup 12/07/2005
+		 */
 		private void setRuntime(IProject aProject,IDataModel facetModel) {
 
 			IRuntime runtime = ServerCore.getProjectProperties(aProject).getRuntimeTarget();

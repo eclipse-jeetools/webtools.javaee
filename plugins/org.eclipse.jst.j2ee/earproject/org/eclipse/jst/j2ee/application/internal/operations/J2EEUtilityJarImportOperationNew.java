@@ -92,7 +92,10 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 				}
 			}
 			if (!exists) {
-				IClasspathEntry newEntry = JavaCore.newContainerEntry(new Path(jrePathName));
+		         /**
+		          * Warning clean-up 12/05/2005
+		          */   
+				//IClasspathEntry newEntry = JavaCore.newContainerEntry(new Path(jrePathName));
 				JemProjectUtilities.appendJavaClassPath(javaProject, JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER"))); //$NON-NLS-1$)
 				JemProjectUtilities.forceClasspathReload(javaProject);
 			}

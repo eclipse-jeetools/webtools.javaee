@@ -14,8 +14,11 @@ package org.eclipse.jst.j2ee.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+/**
+ * Warning clean-up 12/05/2005
+ */   
+//import org.eclipse.wst.common.componentcore.ComponentCore;
+//import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -43,8 +46,10 @@ public final class EarFacetVersionChangeDelegate
         
         try
         {
-            
-            final IVirtualComponent c = ComponentCore.createComponent(project);
+         /**
+          * Warning clean-up 12/05/2005
+          */   
+            //final IVirtualComponent c = ComponentCore.createComponent(project);
             
 //            final StructureEdit edit 
 //                = StructureEdit.getStructureEditForWrite( project );

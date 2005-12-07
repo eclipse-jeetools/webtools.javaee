@@ -17,6 +17,10 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 
 public class J2EEClipboard extends ArrayList {
+	/**
+	 * Warning cleanup 12/07/2005
+	 */
+	private static final long serialVersionUID = 8713021573099134096L;
 	private Map bindings;
 	private Map extensions;
 

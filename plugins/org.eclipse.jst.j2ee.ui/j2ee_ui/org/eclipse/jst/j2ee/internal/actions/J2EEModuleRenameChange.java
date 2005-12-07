@@ -122,6 +122,10 @@ public class J2EEModuleRenameChange extends Change {
 	/**
 	 * @return
 	 */
+	/**@deprecated 
+	 * If this method is not used it should be removed at a later time, marking as deprecated
+	 * Warning cleanup 12/07/2005
+	 */
 	private RenameOptions getRenameOptions() {
 		RenameOptions options = new RenameOptions();
 		options.setNewName(this.newName);
