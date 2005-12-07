@@ -17,10 +17,29 @@ import org.eclipse.emf.ecore.EObject;
  * @since 1.0 */
 public interface Module extends EObject{
 
-public boolean isConnectorModule();
-public boolean isEjbModule();
-public boolean isJavaModule();
-public boolean isWebModule();
+	/**
+	 * Returns boolean value if this Module represents a ConnectorModule
+	 * @return boolean value
+	 */
+	public boolean isConnectorModule();
+	
+	/**
+	 * Returns boolean value if this Module represents a EjbModule
+	 * @return boolean value
+	 */
+	public boolean isEjbModule();
+	
+	/**
+	 * Returns boolean value if this Module represents a JavaClientModule(ApplicationClient)
+	 * @return boolean value
+	 */
+	public boolean isJavaModule();
+	
+	/**
+	 * Returns boolean value if this Module represents a WebModule
+	 * @return boolean value
+	 */
+	public boolean isWebModule();
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Uri attribute
@@ -63,7 +82,7 @@ public boolean isWebModule();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Application reference
+	 * @param value The new value of the Application reference
 	 */
 	void setApplication(Application value);
 

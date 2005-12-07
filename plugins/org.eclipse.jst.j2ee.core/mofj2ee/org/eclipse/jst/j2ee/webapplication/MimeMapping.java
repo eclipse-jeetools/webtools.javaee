@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The mime-mapping element defines a mapping between an extension and a mime type.
-
+ *@since 1.0
  */
 public interface MimeMapping extends EObject{
 	/**
@@ -50,7 +50,7 @@ public interface MimeMapping extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebApp reference
+	 * @param value The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 
