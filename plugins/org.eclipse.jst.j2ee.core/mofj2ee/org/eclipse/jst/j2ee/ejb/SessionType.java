@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
 
 /**
  * @lastgen interface SessionType {}
+ * @since 1.0
  */
 public final class SessionType extends AbstractEnumerator{
 	/**

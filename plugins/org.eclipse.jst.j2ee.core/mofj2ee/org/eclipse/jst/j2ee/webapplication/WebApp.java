@@ -20,66 +20,104 @@ import org.eclipse.jst.j2ee.jsp.JSPConfig;
 /**
  * The web-app element is the root of the deployment descriptor for
  * a web application.
+ * @since 1.0
  */
 public interface WebApp extends JNDIEnvRefsGroup{
 
-public boolean containsSecurityRole(String name);
-ErrorPage getErrorPageByCode(Integer code) ;
-ErrorPage getErrorPageByExceptionType(String exceptionType) ;
-/**
- * Finds a filter mapping for a specified filter.
- * @param filter The filter to find the mappings for.
- * @return The filter mapping for the specified filter, or null if no
- * mapping exists for the filter.
- */
+	/**
+	 * Returns true if there is a SecurityRole with the name passed
+	 * @param name name of the SecurityRole
+	 * @return boolean value
+	 */
+	public boolean containsSecurityRole(String name);
+	
+	/**
+	 * Returns an ErrorPage if it has the specified error code
+	 * @param code the error code
+	 * @return refernce to ErrorPage
+	 */
+	ErrorPage getErrorPageByCode(Integer code) ;
+	
+	/**
+	 * Returns an ErrorPage given an exceptionType
+	 * @param exceptionType the java Exception Type
+	 * @return refernce to ErrorPage
+	 */
+	ErrorPage getErrorPageByExceptionType(String exceptionType) ;
+	/**
+	 * Finds a filter mapping for a specified filter.
+	 * @param aFilter The filter to find the mappings for.
+	 * @return The filter mapping for the specified filter, or null if no
+	 * mapping exists for the filter.
+	 */
 
-FilterMapping getFilterMapping(Filter aFilter);
-public Filter getFilterNamed(String name);
-/**
- * Gets the names of the filters defined for this web application.
- * @return A list of filter names (Strings).
- */
+	FilterMapping getFilterMapping(Filter aFilter);
+	
+	/**
+	 * Gets refernce to the instance of Filter which has the specified name
+	 * @param name the name of the Filter to look for
+	 * @return refernce to teh Filter
+	 */
+	public Filter getFilterNamed(String name);
+	/**
+	 * Gets the names of the filters defined for this web application.
+	 * @return A list of filter names (Strings).
+	 */
 
-List getFilterNames() ;
-/**
- * Returns the mime type for the specified extension
- * @param An extension to find the mime type for.
- */
- 
-String getMimeType(String extension);
+	List getFilterNames() ;
+	/**
+	 * Returns the mime type for the specified extension
+	 * @param extension to find the mime type for.
+	 * @return String value
+	 */
+	String getMimeType(String extension);
+	
+	/**
+	 * Returns the SecurityRole with the specified name
+	 * @param roleName the name of the SecurityRole to be searched for
+	 * @return reference to the model object SecurityRole
+	 */
 	public SecurityRole getSecurityRoleNamed(String roleName);
-/**
- * Finds a servlet mapping for a specified servlet.
- * @param servlet The servlet to find the mappings for.
- * @return The servlet mapping for the specified servlet, or null if no
- * mapping exists for the servlet.
- */
-
-ServletMapping getServletMapping(Servlet aServlet);
-public Servlet getServletNamed(String name);
-/**
- * Gets the names of the servlets defined for this web application.
- * @return A list of servlet names (Strings).
- */
-
-List getServletNames() ;
-/**
- * Return boolean indicating if this Web App was populated from an Servlet2.2 compliant descriptor
- * @return boolean
- * @deprecated Use getVersionID() to determine module level
- */
-public boolean isVersion2_2Descriptor();
-/**
- * Return boolean indicating if this Web App was populated from an Servlet2.3 compliant descriptor
- * @return boolean
- * @deprecated Use getVersionID() to determine module level
- */
-public boolean isVersion2_3Descriptor();
-/**
- * Rename the security role if it exists; for each servlet, fix the role-link on any contained role
- * refs
- */
-public void renameSecurityRole(String existingRoleName, String newRoleName);
+	
+	/**
+	 * Finds a servlet mapping for a specified servlet.
+	 * @param aServlet The servlet to find the mappings for.
+	 * @return The servlet mapping for the specified servlet, or null if no
+	 * mapping exists for the servlet.
+	 */
+	ServletMapping getServletMapping(Servlet aServlet);
+	
+	/**
+	 * Returns a Servlet with the specified name 
+	 * @param name the name of the Servlet to search for
+	 * @return reference to the model object Servlet
+	 */
+	public Servlet getServletNamed(String name);
+	
+	/**
+	 * Gets the names of the servlets defined for this web application.
+	 * @return A list of servlet names (Strings).
+	 */
+	List getServletNames() ;
+	/**
+	 * Return boolean indicating if this Web App was populated from an Servlet2.2 compliant descriptor
+	 * @return boolean
+	 * @deprecated Use getVersionID() to determine module level
+	 */
+	public boolean isVersion2_2Descriptor();
+	/**
+	 * Return boolean indicating if this Web App was populated from an Servlet2.3 compliant descriptor
+	 * @return boolean
+	 * @deprecated Use getVersionID() to determine module level
+	 */
+	public boolean isVersion2_3Descriptor();
+	/**
+	 * Rename the security role if it exists; for each servlet, fix the role-link on any contained role
+	 * refs
+	 * @param existingRoleName curent security role name
+	 * @param newRoleName new security role name
+	 */
+	public void renameSecurityRole(String existingRoleName, String newRoleName);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the Distributable attribute
@@ -136,10 +174,16 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	* This returns the module version id. Compare with J2EEVersionConstants to determine module level
+	 *@throws IllegalStateException the exception is thrown if a problem is encountered in finding the 
+	 *module version. 	* 
+	* @return the module version id represented in the int e.g. 22, 23, 24
 	*/
 	public int getVersionID() throws IllegalStateException ;
 	/**
 	 *This returns the j2ee version id. Compare with J2EEVersionConstants to determine j2ee level
+	 *@throws IllegalStateException the exception is thrown if a problem is encountered in finding the 
+	 *j2ee version. 
+	 *@return the j2ee version represented in the int
 	 */
 	public int getJ2EEVersionID() throws IllegalStateException ;
 	/**
@@ -172,12 +216,13 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @deprecated : Use getEnvironmentProperties()
+	 * @return reference to EList
 	 */
 	EList getEnvEntries();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the FileList reference
+	 * @param value The new value of the FileList reference
 	 */
 	void setFileList(WelcomeFileList value);
 
@@ -201,7 +246,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the LoginConfig reference
+	 * @param value The new value of the LoginConfig reference
 	 */
 	void setLoginConfig(LoginConfig value);
 
@@ -219,7 +264,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the SessionConfig reference
+	 * @param value The new value of the SessionConfig reference
 	 */
 	void setSessionConfig(SessionConfig value);
 

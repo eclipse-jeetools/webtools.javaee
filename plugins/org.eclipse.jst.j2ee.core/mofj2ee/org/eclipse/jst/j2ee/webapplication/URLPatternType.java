@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getURLPatternType()
  * @model
  * @generated
+ * @since 1.0
  */
 public interface URLPatternType extends EObject{
 	/**
@@ -49,7 +50,7 @@ public interface URLPatternType extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the ResCollection reference
+	 * @param value The new value of the ResCollection reference
 	 */
 	void setResCollection(WebResourceCollection value);
 

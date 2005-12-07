@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The session-config element defines the session parameters for this web application.
+ * @since 1.0
  */
 public interface SessionConfig extends EObject{
 	/**
@@ -61,7 +62,7 @@ public interface SessionConfig extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebApp reference
+	 * @param lvalue The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 

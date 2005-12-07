@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * The taglib element is used to describe a JSP tag library.
  * @version since J2EE1.4 deprecated, use org.eclipse.jst.j2ee.internal.jsp.TagLibRef
+ * @since 1.0
  */
 public interface TagLibRef extends EObject{
 	/**

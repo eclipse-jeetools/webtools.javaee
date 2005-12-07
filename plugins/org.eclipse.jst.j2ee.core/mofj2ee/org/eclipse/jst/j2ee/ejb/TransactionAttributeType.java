@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
 
 /**
  * @lastgen interface TransactionAttributeType {}
+ * @since 1.0
  */
 public final class TransactionAttributeType extends AbstractEnumerator{
 	/**
