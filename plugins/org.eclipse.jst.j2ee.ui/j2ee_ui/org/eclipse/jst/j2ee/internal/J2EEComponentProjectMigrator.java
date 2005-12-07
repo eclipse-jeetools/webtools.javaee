@@ -67,6 +67,7 @@ import org.eclipse.wst.server.core.ServerUtil;
 public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
 	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
+	private static final String WEB_LIB_PATH = "/WEB-INF/lib";
 	private IProject project;
 	public J2EEComponentProjectMigrator() {
 		super();
@@ -288,8 +289,13 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
 			}
 		}
 
@@ -311,8 +317,13 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
 			}
 			
 		}
@@ -327,8 +338,13 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
 			}
 			
 		}
@@ -342,8 +358,13 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
 			}
 			
 		}
@@ -358,8 +379,13 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
 			}
 			
 		}
@@ -375,8 +401,13 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
 			}
 			
 		}
@@ -393,8 +424,20 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				IStatus stat =  dm.getDefaultOperation().execute(null,null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Throwable realException = e.getCause();
+				if (realException != null && realException instanceof CoreException) {
+					IStatus st = ((CoreException)realException).getStatus();
+					if (st != null)
+						System.out.println(st);
+					realException.printStackTrace();
+				}
+			} catch (Exception ex) {
+				if (ex != null && ex instanceof CoreException) {
+					IStatus st = ((CoreException)ex).getStatus();
+					if (st != null)
+						System.out.println(st);
+					ex.printStackTrace();
+				}
 			}
 			
 			
@@ -408,7 +451,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				List updatedList = new ArrayList();
 				for (int i = 0; i < current.length; i++) {
 					IClasspathEntry entry = current[i];
-					if (entry.getPath().toString().indexOf(WEB_LIB_CONTAINER) == -1)
+					if ((entry.getPath().toString().indexOf(WEB_LIB_CONTAINER) == -1) && (entry.getPath().toString().indexOf(WEB_LIB_PATH) == -1))
 						updatedList.add(entry);
 				}
 				IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
