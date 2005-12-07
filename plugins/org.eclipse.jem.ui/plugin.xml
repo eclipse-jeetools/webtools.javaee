@@ -125,8 +125,8 @@
             name="%Editors.OverrideEditor"
             extensions="override"
             icon="icons/full/obj16/file_obj.gif"
-            class="org.eclipse.ui.editors/org.eclipse.ui.editors.text.TextEditor"
-            contributorClass="org.eclipse.ui.editors/org.eclipse.ui.editors.text.TextEditorActionContributor"
+            class="org.eclipse.ui.editors.text.TextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             id="org.eclipse.jem.beaninfo.OverrideEditor">
       </editor>
    </extension>
