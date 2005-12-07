@@ -25,9 +25,26 @@ public interface EjbFactory extends EFactory{
 	 */
 	EjbFactory eINSTANCE = new org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl();
 
-MethodElement createMethodElement(String aSignature) ;
-MethodElement createMethodElementFrom(Method method) ;
-MethodElement createMethodElementFrom(java.lang.reflect.Method method) ;
+	/**
+	 * Creates and returns a reference to a MethodElement from the given signature
+	 * @param aSignature the signature of the MethodElement
+	 * @return MethodElement reference
+	 */
+	MethodElement createMethodElement(String aSignature) ;
+	
+	/**
+	 * Creates and returns a reference to a MethodElement from the given reference of a Method
+	 * @param method the reference of a Method
+	 * @return MethodElement reference
+	 */
+	MethodElement createMethodElementFrom(Method method) ;
+	
+	/**
+	 * Creates and returns a reference to a MethodElement from the given reference of a java.lang.reflect.Method
+	 * @param method reference of a java.lang.reflect.Method
+	 * @return MethodElement reference
+	 */
+	MethodElement createMethodElementFrom(java.lang.reflect.Method method) ;
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return MethodPermission value
@@ -172,6 +189,7 @@ MethodElement createMethodElementFrom(java.lang.reflect.Method method) ;
 	 * EMF package classes should be access via their "eINSTANCE" static fields
 	 * <!-- end-user-doc -->
 	 * @generated This field/method will be replaced during code generation.
+	 * @return EjbPackage
 	 */
 	EjbPackage getEjbPackage();
 
