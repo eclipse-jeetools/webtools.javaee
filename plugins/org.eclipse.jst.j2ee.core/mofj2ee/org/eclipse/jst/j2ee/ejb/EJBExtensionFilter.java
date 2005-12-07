@@ -18,7 +18,13 @@ import java.util.List;
  * @author: Administrator
  * @since 1.0 */
 public interface EJBExtensionFilter {
-List filter(EnterpriseBean ejb) ;
+	
+	/**
+	 * Return a List of one of the properties using a Filter
+	 * @param ejb reference to the Enterprise Bean model
+	 * @return List
+	 */	
+	List filter(EnterpriseBean ejb) ;
 }
 
 
