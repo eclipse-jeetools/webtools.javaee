@@ -62,7 +62,7 @@ public interface SessionConfig extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param lvalue The new value of the WebApp reference
+	 * @param value The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 

@@ -49,8 +49,16 @@ public interface SecurityIdentity extends EObject{
 	 */
 	EList getDescriptions();
 
+	/**
+	 * Returns boolean value for the RunAsSpecifiedIdentity
+	 * @return boolean value
+	 */
 	boolean isRunAsSpecifiedIdentity();
 	
+	/**
+	 * Returns boolean value for the Caller Identity
+	 * @return boolean value
+	 */
 	boolean isUseCallerIdentity();
 
 }

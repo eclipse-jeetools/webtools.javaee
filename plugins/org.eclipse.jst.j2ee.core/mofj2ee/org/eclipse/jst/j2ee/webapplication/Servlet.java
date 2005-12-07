@@ -20,23 +20,31 @@ import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
 
 /**
  * The servlet element contains the declarative data of a servlet. If a jsp-file is specified and the load-on-startup element is present, then the JSP should be precompiled and loaded.
+ * @since 1.0
  */
 public interface Servlet extends CompatibilityDescriptionGroup{
 
 
-/**
- * Returns an unmodifiable list of the mappings that this
- * servlet participates in.  Since servletMappings is not
- * a bi-directional attribute, if you want to add or delete a
- * mapping, this must be done in the web-app.
- * @return java.util.List
- */
-public List getMappings();
-public Properties getParamsAsProperties() ;
-/**
- * Fix the role-link on any contained role refs
- */
-public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
+	/**
+	 * Returns an unmodifiable list of the mappings that this
+	 * servlet participates in.  Since servletMappings is not
+	 * a bi-directional attribute, if you want to add or delete a
+	 * mapping, this must be done in the web-app.
+	 * @return java.util.List
+	 */
+	public List getMappings();
+	
+	/**
+	 * Gets the Servlet parameters in  java.util.Properties
+	 * @return java.util.Properties
+	 */
+	public Properties getParamsAsProperties() ;
+	/**
+	 * Fix the role-link on any contained role refs
+	 * @param existingRoleName existing role name
+	 * @param newRoleName new role name
+	 */
+	public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The value of the ServletName attribute
@@ -106,7 +114,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebApp reference
+	 * @param value The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 
@@ -118,7 +126,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebType reference
+	 * @param value The new value of the WebType reference
 	 */
 	void setWebType(WebType value);
 
@@ -145,7 +153,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the RunAs reference
+	 * @param value The new value of the RunAs reference
 	 */
 	void setRunAs(RunAsSpecifiedIdentity value);
 
@@ -167,6 +175,7 @@ public void reSyncSecurityRoleRef(String existingRoleName, String newRoleName);
 
 	/**
 	 * return the java servlet class associated with this servlet
+	 * @return reference to JavaClass
 	 */
 	public JavaClass getServletClass();
 }

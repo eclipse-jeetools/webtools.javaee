@@ -144,15 +144,18 @@ public interface Session extends EnterpriseBean{
 
 	/**
 	 * Helper method to set Java Class name via String
+	 * @param serviceEndpointName the name of the ServiceEndpoint
 	 */
 	public void setServiceEndpointName(String serviceEndpointName);
 	/**
 	 * Return true if this Session bean has a service endpoint interface
 	 * interface.
+	 * @return boolean value
 	 */
 	public boolean hasServiceEndpoint() ;
 	/**
 	 * Helper method to get Java Class name 
+	 * @return String value
 	 */
 	public String getServiceEndpointName();
 	

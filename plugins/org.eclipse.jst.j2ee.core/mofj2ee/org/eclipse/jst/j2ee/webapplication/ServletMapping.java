@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  * The servlet-mapping element defines a mapping between a servlet and a url pattern
+ * @since 1.0
  */
 public interface ServletMapping extends EObject{
 	/**
@@ -69,7 +70,7 @@ public interface ServletMapping extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the WebApp reference
+	 * @param value The new value of the WebApp reference
 	 */
 	void setWebApp(WebApp value);
 
@@ -81,7 +82,7 @@ public interface ServletMapping extends EObject{
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
-	 * @param l The new value of the Servlet reference
+	 * @param value The new value of the Servlet reference
 	 */
 	void setServlet(Servlet value);
 
