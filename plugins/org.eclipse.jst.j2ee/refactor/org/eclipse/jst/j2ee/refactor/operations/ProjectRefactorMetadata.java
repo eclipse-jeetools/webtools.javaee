@@ -29,6 +29,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.ServerUtil;
 
 /**
@@ -45,6 +46,7 @@ public class ProjectRefactorMetadata {
 	
 	private int _virtualCompCaching = NON_CACHING;
 	private final IProject _project;
+	private IServer[] servers;
 	private IVirtualComponent virtualComp = null;
 	private final List dependentMetadata = new ArrayList();
 	private boolean computed = false;
@@ -95,6 +97,17 @@ public class ProjectRefactorMetadata {
 		}
 	}
 
+	public void computeServers() {
+		if (!computed) {
+			computeMetadata();
+		}
+		servers = ServerUtil.getServersByModule(module, null);
+	}
+	
+	public IServer[] getServers() {
+		return servers;
+	}
+	
 	public void computeDependentMetadata(final int virtualComponentCaching, final IProject[] dependentProjects) {
 		// get all referencing projects and execute the appropriate update operation for each one
 		ProjectRefactorMetadata metadata;

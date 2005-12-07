@@ -113,7 +113,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			toAdd = new IModule[]{newModule};
 		}
 		
-		final IServer[] server = ServerUtil.getServersByModule(originalModule, null);
+		final IServer[] server = originalMetadata.getServers();
 		IServerWorkingCopy wc = null;
 		for (int i = 0; i < server.length; i++) {
 			try {

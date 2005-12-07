@@ -123,6 +123,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		final ProjectRefactorMetadata metadata = new ProjectRefactorMetadata(project, ProjectRefactorMetadata.REFERER_CACHING);
 		// precompute the metadata while the project still exists
 		metadata.computeMetadata();
+		metadata.computeServers();
 		metadata.computeDependentMetadata(ProjectRefactorMetadata.REF_CACHING,
 				DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(project));
 		//, cache.getDependentProjects(project));
