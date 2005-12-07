@@ -8,16 +8,17 @@
       %description
    </description>
 
-
-
    <license url="license.html">
       %license
    </license>
 
-
    <includes
          id="org.eclipse.jst.web_userdoc.feature"
          version="0.0.0"/>
+
+   <requires>
+      <import feature="org.eclipse.jst.web_core.feature" version="1.0.0" match="equivalent"/>
+   </requires>
 
    <plugin
          id="org.eclipse.jst.common.annotations.ui"
@@ -39,6 +40,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
 
 </feature>
