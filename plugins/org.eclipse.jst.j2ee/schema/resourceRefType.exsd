@@ -91,7 +91,9 @@ A usage tag with the value EJB Jar indicates that the value is only applicable t
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         The following is an example of the extension:&lt;pre&gt;&lt;extension point=&quot;com.ibm.etools.j2ee.ui.resourceRefType&quot;&gt;
+         The following is an example of the extension:
+&lt;pre&gt;
+&lt;extension point=&quot;org.eclipse.jst.j2ee.ui.resourceRefType&quot;&gt;
   &lt;reference usage=&quot;Common&quot; type=&quot;javax.jms.Queue&quot;/&gt;    
   &lt;reference usage=&quot;EJB Jar&quot; type=&quot;javax.resource.cci.ConnectionFactory&quot;/&gt;
 &lt;/extension&gt; &lt;/pre&gt;

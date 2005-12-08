@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.jst.common.annotations.controller">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.common.annotations.controller" id="pXAnnotationTagset" name="Annotations Tag Set"/>
+         <meta.schema plugin="org.eclipse.jst.common.annotations.controller" id="AnnotationTagSet" name="Annotations Tag Set"/>
       </appInfo>
       <documentation>
          Allows clients to define a tag set for an annotation 

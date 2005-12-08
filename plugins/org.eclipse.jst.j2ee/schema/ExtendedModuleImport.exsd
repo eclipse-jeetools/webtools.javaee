@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee" id="SpecializedModuleImport" name="SpecializedModuleImport"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="SpecializedModuleImport" name="Specialized Module Import"/>
       </appInfo>
       <documentation>
          This extension point gives the ability to treat a jar file which is not an ejb jar file as an ejb jar file during ejb jar import.

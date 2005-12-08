@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee" id="EJBCommandExtension" name="EJBCommandExtension"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="EJBCommandExtension" name="EJB Command Extension"/>
       </appInfo>
       <documentation>
          Mainly used to overwrite delete and update commands for ejb&apos;s. For eg the extension was used to overwrite delete bean command.

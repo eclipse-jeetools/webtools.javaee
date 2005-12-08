@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee" id="DeployerExtension" name="J2EEDeployerExtension"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="DeployerExtension" name="J2EE Deployer Extension"/>
       </appInfo>
       <documentation>
          The extension point gives the ability to extend deployer operations on J2EE artifacts, for eg, EJB deployment and Webservices deployment. Registration of the deployer is based on module type and server target.

@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.jst.common.annotations.controller">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.common.annotations.controller" id="XAnnotationTagInfo" name="Annotation Tag Info"/>
+         <meta.schema plugin="org.eclipse.jst.common.annotations.controller" id="AnnotationTagInfo" name="Annotation Tag Info"/>
       </appInfo>
       <documentation>
          Describes the tags contained by a tag set and the tag&apos;s attributes.

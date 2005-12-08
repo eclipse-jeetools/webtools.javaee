@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.annotations.controller">
+<schema targetNamespace="org.eclipse.jst.common.annotations.controller">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.annotations.controller" id="annotationTagDynamicInitializer" name="annotationTagDynamicInitializer"/>
+         <meta.schema plugin="org.eclipse.jst.common.annotations.controller" id="annotationTagDynamicInitializer" name="Annotation Tag Dynamic Initializer"/>
       </appInfo>
       <documentation>
          This extension point is used to allow for clients to define their annotation tags dynamically.  This means that it is not necessary to statically define annotation tags using the tag-info extension point.  The extensions for this point will be called just after initializing the static annotation tags from the tag-info extension point.
