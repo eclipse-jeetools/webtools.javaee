@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.xdoclet" id="ejbDocletTaskProvider" name="A task  provider class for ejbdoclet"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.xdoclet" id="ejbDocletTaskProvider" name="EJB Doclet Task Provider"/>
       </appInfo>
       <documentation>
          Allows extenders to define tasks that can run during ejbdoclet processing.  The task must be supported by XDoclet.  Task properties editable by a dynamic UI generated from the extension point.
@@ -168,7 +168,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         R1.0
+         &lt;b&gt;This extension point is part of an interim API that is still under development and expected to change significantly before reaching stability. It is being made available at this early stage to solicit feedback from pioneering adopters on the understanding that any code that uses this API will almost certainly be broken (repeatedly) as the API evolves.&lt;/b&gt;
       </documentation>
    </annotation>
 
@@ -177,7 +177,8 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-           &lt;extension
+         &lt;pre&gt;
+   &lt;extension
          id=&quot;org.eclipse.jst.j2ee.xdoclet.ejbDocletTaskProvider.utilobject&quot;
          name=&quot;%ejbdoclet.UtilObject&quot;
          point=&quot;org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejbDocletTaskProvider&quot;&gt;
@@ -209,7 +210,8 @@
             restriction=&quot;physical,logical&quot;
             type=&quot;enum&quot;
             description=&quot;%ejbdoclet.utilobject.kind&quot;/&gt;                       
-   &lt;/extension&gt;   
+   &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -236,12 +238,11 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
-accompanying materials are made available under the terms of the Eclipse Public License v1.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v10.html
-
-Contributors: Eteration A.S. - initial API and implementation
+         Copyright (c) 2005 Eteration A.S. and others.&lt;br&gt;
+All rights reserved. This program and the accompanying materials are made 
+available under the terms of the Eclipse Public License v1.0 which accompanies 
+this distribution, and is available at &lt;a
+href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
       </documentation>
    </annotation>
 
