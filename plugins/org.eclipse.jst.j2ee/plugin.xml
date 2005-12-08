@@ -670,7 +670,7 @@
     </template>
 
     <template id="template.jst.appclient">
-      <label>EAR Project</label>
+      <label>Application Client Project</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.appclient"/>
     </template>    
