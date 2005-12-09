@@ -177,7 +177,8 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         &lt;extension
+         &lt;pre&gt;
+   &lt;extension
          id=&quot;org.eclipse.jst.j2ee.xdoclet.webdocletTaskProvider.deploymentdescriptor&quot;
          name=&quot;%webdoclet.deploymentdesc&quot;
          point=&quot;org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider&quot;&gt;
@@ -187,7 +188,6 @@
             description=&quot;%webdoclet.deploymentdesc.desc&quot;
             id=&quot;org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider&quot;
             name=&quot;DeploymentDescriptor&quot;/&gt;
-
       &lt;TaskProperty
             default=&quot;true&quot;
             id=&quot;webdoclet.deploymentdescriptor.useIds&quot;
@@ -209,7 +209,6 @@
             label=&quot;displayname&quot;
             type=&quot;string&quot;
             description=&quot;%webdoclet.deploymentdesc.displayname&quot;/&gt;
-            
       &lt;TaskProperty
             default=&quot;false&quot;
             id=&quot;webdoclet.deploymentdescriptor.validatexml&quot;
@@ -217,7 +216,6 @@
             label=&quot;validatexml&quot;
             type=&quot;boolean&quot;
             description=&quot;%webdoclet.deploymentdesc.validatexml&quot;/&gt;
-
       &lt;TaskProperty
             default=&quot;${web.module.webinf}&quot;
             id=&quot;webdoclet.deploymentdescriptor.mergedir&quot;
@@ -233,6 +231,7 @@
             type=&quot;string&quot;
             description=&quot;%webdoclet.deploymentdesc.destdir&quot;/&gt;
    &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -241,7 +240,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         THIS IS NOT AN API/PUBLIC EXTENSION POINT.  CLIENTS ARE NOT EXPECTED TO EXTEND IT.
+         
       </documentation>
    </annotation>
 

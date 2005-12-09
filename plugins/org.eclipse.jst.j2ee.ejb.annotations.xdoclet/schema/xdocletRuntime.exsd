@@ -132,7 +132,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         THIS IS NOT AN API/PUBLIC EXTENSION POINT.  CLIENTS ARE NOT EXPECTED TO EXTEND IT.
+         
       </documentation>
    </annotation>
 
