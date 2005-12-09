@@ -82,7 +82,7 @@ A usage tag with the value EJB Jar indicates that the value is only applicable t
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         
+         &lt;b&gt;This extension point is part of an interim API that is still under development and expected to change significantly before reaching stability. It is being made available at this early stage to solicit feedback from pioneering adopters on the understanding that any code that uses this API will almost certainly be broken (repeatedly) as the API evolves.&lt;/b&gt;
       </documentation>
    </annotation>
 
@@ -93,10 +93,12 @@ A usage tag with the value EJB Jar indicates that the value is only applicable t
       <documentation>
          The following is an example of the extension:
 &lt;pre&gt;
-&lt;extension point=&quot;org.eclipse.jst.j2ee.ui.resourceRefType&quot;&gt;
-  &lt;reference usage=&quot;Common&quot; type=&quot;javax.jms.Queue&quot;/&gt;    
-  &lt;reference usage=&quot;EJB Jar&quot; type=&quot;javax.resource.cci.ConnectionFactory&quot;/&gt;
-&lt;/extension&gt; &lt;/pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.jst.j2ee.ui.resourceRefType&quot;&gt;
+      &lt;reference usage=&quot;Common&quot; type=&quot;javax.jms.Queue&quot;/&gt;    
+      &lt;reference usage=&quot;EJB Jar&quot; type=&quot;javax.resource.cci.ConnectionFactory&quot;/&gt;
+   &lt;/extension&gt; 
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
