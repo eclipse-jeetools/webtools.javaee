@@ -23,7 +23,10 @@
   <target name="suite">
     <property name="jem-folder" value="${eclipse-home}/jem_folder"/>
     <delete dir="${jem-folder}" quiet="true"/>
-    <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
+  	<!-- Note: Doesn't really need to be UI test but launching remote VM's with
+  	     DebugUI plugin present but not launching UI causes severe errrors
+  	     because it tries to start DebugUI in headless env. Big Pain! -->
+    <ant target="ui-test" antfile="${library-file}" dir="${eclipse-home}">
       <property name="data-dir" value="${jem-folder}"/>
       <property name="plugin-name" value="${plugin-name}"/>
       <property name="classname" value="org.eclipse.jem.tests.AllSuites"/>
