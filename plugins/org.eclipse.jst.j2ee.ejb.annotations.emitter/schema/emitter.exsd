@@ -6,7 +6,7 @@
          <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter" id="provider" name="Provider"/>
       </appInfo>
       <documentation>
-         This extension point allows vendors and developers to provide their templates for annotation based code generation using the wtp ejb code generation framework.
+         This extension point allows clients to provide their own templates for annotation based code generation using the EJB code generation framework. This extension point provides a framework to define &quot;Provider-Generator&quot; sets that use EMF JET (Java Emitter Templates) to annotate Java code.
       </documentation>
    </annotation>
 
