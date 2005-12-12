@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.17 $  $Date: 2005/11/29 15:13:59 $ 
+ *  $Revision: 1.18 $  $Date: 2005/12/12 18:21:33 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -195,7 +195,7 @@ public class BeanInfoCacheController {
 	 */
 	protected static class Index implements Serializable {
 
-		private static final long serialVersionUID = 1106864425423L;
+		private static final long serialVersionUID = 1106864425567L;
 
 		/*
 		 * Is this a dirty index, i.e. it has been changed and needs to be saved.
@@ -294,7 +294,7 @@ public class BeanInfoCacheController {
 	 */
 	public static abstract class RootIndex implements Serializable {
 
-		private static final long serialVersionUID = 1106868674867L;
+		private static final long serialVersionUID = 1106868674101L;
 
 		transient private IPath cachePath; // Absolute local filesystem IPath to the root cache directory. Computed at runtime because it may change
 										   // if workspace relocated.
@@ -390,7 +390,7 @@ public class BeanInfoCacheController {
 	 */
 	public static class ArchiveRootIndex extends RootIndex {
 
-		private static final long serialVersionUID = 110686867456L;
+		private static final long serialVersionUID = 110686867444L;
 
 		private long archiveModificationStamp;
 
@@ -447,7 +447,7 @@ public class BeanInfoCacheController {
 	 */
 	public static class FolderRootIndex extends RootIndex {
 
-		private static final long serialVersionUID = 1106868674834L;
+		private static final long serialVersionUID = 1106868674922L;
 
 		/*
 		 * For serialization.
@@ -491,7 +491,7 @@ public class BeanInfoCacheController {
 	 */
 	public static class ClassEntry implements Serializable {
 
-		private static final long serialVersionUID = 1106868674666L;
+		private static final long serialVersionUID = 1106868674333L;
 
 		public static final long DELETED_MODIFICATION_STAMP = Long.MIN_VALUE; // This flag won't be seen externally. It is used to indicate the entry
 																			  // has been deleted for those that have been holding a CE.
