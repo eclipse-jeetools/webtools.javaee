@@ -171,7 +171,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				for (int i = 0; i < size; i++) {
 					IModuleResource[] mrf2 = getMembers(javaCont[i], javaPath, null, null);
 					IModuleResource[] mrf3 = new IModuleResource[mrf.length + mrf2.length];
-					System.arraycopy(mr, 0, mrf3, 0, mrf.length);
+					System.arraycopy(mrf, 0, mrf3, 0, mrf.length);
 					System.arraycopy(mrf2, 0, mrf3, mrf.length, mrf2.length);
 					mrf = mrf3;
 				}
