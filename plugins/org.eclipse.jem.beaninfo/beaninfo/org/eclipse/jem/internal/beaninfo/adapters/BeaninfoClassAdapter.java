@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.47 $  $Date: 2005/10/11 21:27:17 $ 
+ *  $Revision: 1.48 $  $Date: 2005/12/14 21:21:02 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -958,8 +958,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	}
 	
 	private static final URI ROOT_URI = URI.createGenericURI(BeaninfoPlugin.ROOT_SCHEMA, BeaninfoPlugin.ROOT_OPAQUE, null);
-	private static final String ROOT_FRAGMENT = "//@root";
-	private static final Pattern FRAGMENT_SPLITTER = Pattern.compile("/");
+	private static final String ROOT_FRAGMENT = "//@root"; //$NON-NLS-1$
+	private static final Pattern FRAGMENT_SPLITTER = Pattern.compile("/"); //$NON-NLS-1$
 	
 	private class ExtensionDocApplies implements BeaninfoPlugin.IOverrideRunnable {
 		

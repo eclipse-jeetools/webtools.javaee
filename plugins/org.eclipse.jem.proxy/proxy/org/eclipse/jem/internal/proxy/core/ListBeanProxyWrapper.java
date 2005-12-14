@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ListBeanProxyWrapper.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.9 $  $Date: 2005/12/14 21:22:50 $ 
  */
 
 
@@ -33,7 +33,7 @@ public class ListBeanProxyWrapper extends CollectionBeanProxyWrapper {
 		super(aListProxy);
 		
 		if (!aListProxy.getTypeProxy().isKindOf(aListProxy.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.util.List"))) //$NON-NLS-1$
-			throw new ClassCastException(MessageFormat.format(ProxyMessages.ClassCast_EXC__IncorrectType, new Object[] {aListProxy.getTypeProxy().getTypeName(), "java.util.List"})); 
+			throw new ClassCastException(MessageFormat.format(ProxyMessages.ClassCast_EXC__IncorrectType, new Object[] {aListProxy.getTypeProxy().getTypeName(), "java.util.List"}));  //$NON-NLS-1$
 	}
 	
 	

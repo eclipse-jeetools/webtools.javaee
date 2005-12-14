@@ -9,10 +9,6 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.internal.java.init;
-/*
- *  $RCSfile: JavaInit.java,v $
- *  $Revision: 1.7 $  $Date: 2005/12/02 16:10:14 $ 
- */
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,10 +42,10 @@ public class JavaInit {
 	private static void preRegisterPackages() {
 		//ecore
 		if (!EPackage.Registry.INSTANCE.containsKey("ecore.xmi")) //$NON-NLS-1$
-			EPackage.Registry.INSTANCE.put("ecore.xmi", EcorePackage.eINSTANCE);
+			EPackage.Registry.INSTANCE.put("ecore.xmi", EcorePackage.eINSTANCE); //$NON-NLS-1$
 		//java
 		if (!EPackage.Registry.INSTANCE.containsKey("java.xmi")) //$NON-NLS-1$
-			EPackage.Registry.INSTANCE.put("java.xmi", JavaRefPackage.eINSTANCE);
+			EPackage.Registry.INSTANCE.put("java.xmi", JavaRefPackage.eINSTANCE); //$NON-NLS-1$
 	}
 	protected static void setDefaultResourceFactory() {
 		//This is not done outside of Eclipse

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.12 $  $Date: 2005/08/24 20:39:08 $ 
+ *  $Revision: 1.13 $  $Date: 2005/12/14 21:23:46 $ 
  */
 
 
@@ -59,7 +59,7 @@ public class RemoteVMServerThread extends Thread implements IVMServer, IVMCallba
 	static {
 		Class idClass;
 		try {
-			idClass = Class.forName("java.util.IdentityHashMap");
+			idClass = Class.forName("java.util.IdentityHashMap"); //$NON-NLS-1$
 		} catch (ClassNotFoundException e) {
 			idClass = IdentityMap.class;
 		}

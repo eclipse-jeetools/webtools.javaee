@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.57 $  $Date: 2005/10/26 22:14:01 $ 
+ *  $Revision: 1.58 $  $Date: 2005/12/14 21:22:50 $ 
  */
 
 
@@ -421,8 +421,8 @@ public class ProxyPlugin extends Plugin {
 	public URL[] urlLocalizeBundle(Bundle bundle) {
 		URL[] pvms;
 		try {
-			pvms = new URL[] {Platform.resolve(bundle.getEntry("/"))};
-			if (pvms[0].getProtocol().equals("jar")) {
+			pvms = new URL[] {Platform.resolve(bundle.getEntry("/"))}; //$NON-NLS-1$
+			if (pvms[0].getProtocol().equals("jar")) { //$NON-NLS-1$
 				// The bundle is a jar, so use as is. 
 				pvms[0] = getFilePath(pvms[0]);
 				return pvms;
@@ -451,7 +451,7 @@ public class ProxyPlugin extends Plugin {
 						if (buildProps == null) {
 							buildProps = new Properties();
 							try {
-								URL bp = bundle.getEntry("build.properties");
+								URL bp = bundle.getEntry("build.properties"); //$NON-NLS-1$
 								if (bp != null) {
 									InputStream ios = null;
 									try {
@@ -465,7 +465,7 @@ public class ProxyPlugin extends Plugin {
 							} catch (IOException e) {
 							}
 						}
-						String pathString = buildProps.getProperty("output."+elements[i].getValue());
+						String pathString = buildProps.getProperty("output."+elements[i].getValue()); //$NON-NLS-1$
 						if (pathString != null) {
 							try {
 								urls.add(Platform.asLocalURL(bundle.getEntry(pathString)));
@@ -480,17 +480,17 @@ public class ProxyPlugin extends Plugin {
 				// for project. If there is no "output.." entry then either it is not a runnable plugin or the rare case is it is only
 				// classfiles in a folder. In that case see if there is a "source.." entry and use that.
 				try {
-					URL bp = bundle.getEntry("build.properties");
+					URL bp = bundle.getEntry("build.properties"); //$NON-NLS-1$
 					if (bp != null) {
 						InputStream ios = null;
 						try {
 							ios = bp.openStream();
 							Properties props = new Properties();
 							props.load(ios);
-							String pathString = props.getProperty("output..");
+							String pathString = props.getProperty("output.."); //$NON-NLS-1$
 							if (pathString != null) {
 								return new URL[] {Platform.resolve(bundle.getEntry(pathString))};
-							} else if ((pathString = props.getProperty("source..")) != null) {
+							} else if ((pathString = props.getProperty("source..")) != null) { //$NON-NLS-1$
 								// Probably a class folder, so use the source instead.
 								return new URL[] {Platform.resolve(bundle.getEntry(pathString))};
 							} else
@@ -1002,7 +1002,7 @@ public class ProxyPlugin extends Plugin {
 								// means to match the string must start with "SWT_CONTAINER" and it must have either nothing after this
 								// or it must have a "/" and any characters after that. So this means it will not match "SWT_CONTAINERXZ"
 								// but it will match "SWT_CONTAINER/XYZ".
-								id_Pattern = new Object[] { containerID, Pattern.compile(containerPattern + "(/.*)*")};
+								id_Pattern = new Object[] { containerID, Pattern.compile(containerPattern + "(/.*)*")}; //$NON-NLS-1$
 								patternStringToID_Pattern.put(containerPattern, id_Pattern);
 							}
 							result.containerPathContributions.addContribution((String) id_Pattern[0], (Pattern) id_Pattern[1], configs[k]);

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.31 $ $Date: 2005/10/14 17:45:02 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.32 $ $Date: 2005/12/14 21:23:46 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -67,9 +67,9 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		IJavaProject project = getJavaProject(configuration);
 		String name = configuration.getAttribute(IProxyConstants.ATTRIBUTE_VM_TITLE, (String) null);
 		if (name == null)
-			name = MessageFormat.format(ProxyRemoteMessages.ProxyRemoteVMName, new Object[] { project != null ? project.getProject().getName() : "" }); 
+			name = MessageFormat.format(ProxyRemoteMessages.ProxyRemoteVMName, new Object[] { project != null ? project.getProject().getName() : "" });  //$NON-NLS-1$
 		else
-			name = MessageFormat.format(ProxyRemoteMessages.ProxyRemoteVMNameWithComment, new Object[] { project != null ? project.getProject().getName() : "", name }); 
+			name = MessageFormat.format(ProxyRemoteMessages.ProxyRemoteVMNameWithComment, new Object[] { project != null ? project.getProject().getName() : "", name });  //$NON-NLS-1$
 
 		String stepId = "Launch VM ( " + name + " )"; //$NON-NLS-1$ //$NON-NLS-2$
 		TimerTests.basicTest.startStep(stepId);

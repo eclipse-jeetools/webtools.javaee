@@ -51,7 +51,7 @@ public class GenericEventQueue {
 		
 		public void postEvent(Runnable run) {
 			if (!this.isAlive()) {
-				throw new IllegalStateException("Event queue thread is not executing.");
+				throw new IllegalStateException("Event queue thread is not executing."); //$NON-NLS-1$
 			}
 			synchronized (queue) {
 				if (run != null)

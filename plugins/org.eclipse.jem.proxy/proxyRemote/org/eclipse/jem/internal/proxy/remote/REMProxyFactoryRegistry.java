@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.26 $  $Date: 2005/11/11 20:51:32 $ 
+ *  $Revision: 1.27 $  $Date: 2005/12/14 21:23:46 $ 
  */
 
 
@@ -420,7 +420,7 @@ public class REMProxyFactoryRegistry extends BaseProxyFactoryRegistry {
 			
 			if (scArray[0] == null)  {
 				// Log where we are at so we can know where it was we down.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_ConnectionCreationFailed_INFO_)));	
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_ConnectionCreationFailed_INFO_)));	 //$NON-NLS-1$
 				throw new IllegalStateException(ProxyRemoteMessages.REMProxyFactoryRegistry_CouldNotCreateSocketConnectionToRemoteVM_EXC_);	// Couldn't get one, probably server is down. //$NON-NLS-1$
 			}
 

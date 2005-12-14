@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: IteratorBeanProxyWrapper.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:39:05 $ 
+ *  $Revision: 1.9 $  $Date: 2005/12/14 21:22:50 $ 
  */
 
 
@@ -34,7 +34,7 @@ public class IteratorBeanProxyWrapper {
 	 */
 	public IteratorBeanProxyWrapper(IBeanProxy anIteratorProxy) {
 		if (!anIteratorProxy.getTypeProxy().isKindOf(anIteratorProxy.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.util.Iterator"))) //$NON-NLS-1$
-			throw new ClassCastException(MessageFormat.format(ProxyMessages.ClassCast_EXC__IncorrectType, new Object[] {anIteratorProxy.getTypeProxy().getTypeName(), "java.util.Iterator"})); 
+			throw new ClassCastException(MessageFormat.format(ProxyMessages.ClassCast_EXC__IncorrectType, new Object[] {anIteratorProxy.getTypeProxy().getTypeName(), "java.util.Iterator"}));  //$NON-NLS-1$
 		else
 			fIterator = anIteratorProxy;
 			

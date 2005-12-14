@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.8 $  $Date: 2005/06/30 13:47:26 $ 
+ *  $Revision: 1.9 $  $Date: 2005/12/14 21:21:02 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
@@ -271,7 +271,7 @@ public class FeatureAttributeValue implements Serializable {
 		}
 		
 		public String toString() {
-			return "StringParser: \""+input+'"';
+			return "StringParser: \""+input+'"'; //$NON-NLS-1$
 		}
 		
 		public void skipWhitespace() {
@@ -630,10 +630,10 @@ public class FeatureAttributeValue implements Serializable {
 												try {
 													// See if Beaninfo plugin is available (we are running under eclipse). If so, use it, else just print to error.
 													// We may be in the remote vm and so it won't be available.
-													Class biPluginClass = Class.forName("org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin");
-													Method getPlugin = biPluginClass.getMethod("getPlugin", null);
-													Method getLogger = biPluginClass.getMethod("getLogger", null);
-													Method log = getLogger.getReturnType().getMethod("log", new Class[] {Throwable.class, Level.class});
+													Class biPluginClass = Class.forName("org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin"); //$NON-NLS-1$
+													Method getPlugin = biPluginClass.getMethod("getPlugin", null); //$NON-NLS-1$
+													Method getLogger = biPluginClass.getMethod("getLogger", null); //$NON-NLS-1$
+													Method log = getLogger.getReturnType().getMethod("log", new Class[] {Throwable.class, Level.class}); //$NON-NLS-1$
 													Object biPlugin = getPlugin.invoke(null, null);
 													Object logger = getLogger.invoke(biPlugin, null);
 													log.invoke(logger, new Object[] {e, Level.WARNING});

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyFindSupport.java,v $
- *  $Revision: 1.2 $  $Date: 2005/10/26 22:14:01 $ 
+ *  $Revision: 1.3 $  $Date: 2005/12/14 21:22:50 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -152,7 +152,7 @@ public class ProxyFindSupport {
 					ios = bp.openStream();
 					Properties props = new Properties();
 					props.load(ios);
-					String pathString = props.getProperty("output."+filenameWithinBundle.toString());
+					String pathString = props.getProperty("output."+filenameWithinBundle.toString()); //$NON-NLS-1$
 					if (pathString != null) {
 						URL pvm = bundle.getEntry(pathString);
 						if (pvm != null)

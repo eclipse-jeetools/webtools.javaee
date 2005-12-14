@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.PlatformUI;
 /*
  *  $RCSfile: VariableSelectionBlock.java,v $
- *  $Revision: 1.7 $  $Date: 2005/10/03 23:06:42 $ 
+ *  $Revision: 1.8 $  $Date: 2005/12/14 21:24:10 $ 
  */
 
 public class VariableSelectionBlock {
@@ -256,7 +256,7 @@ public class VariableSelectionBlock {
 	}	
 	
 	public static boolean isArchivePath(IPath path){
-		final String[] archiveExtensions = {"jar", "zip"};
+		final String[] archiveExtensions = {"jar", "zip"}; //$NON-NLS-1$ //$NON-NLS-2$
 		String ext= path.getFileExtension();
 		if (ext != null && ext.length() != 0) {
 			for (int i= 0; i < archiveExtensions.length; i++) {

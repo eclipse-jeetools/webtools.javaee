@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: CollectionBeanProxyWrapper.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.9 $  $Date: 2005/12/14 21:22:50 $ 
  */
 
 import org.eclipse.core.runtime.*;
@@ -30,7 +30,7 @@ public class CollectionBeanProxyWrapper {
 	 */
 	public CollectionBeanProxyWrapper(IBeanProxy aCollectionProxy) {
 		if (!aCollectionProxy.getTypeProxy().isKindOf(aCollectionProxy.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.util.Collection"))) //$NON-NLS-1$
-			throw new ClassCastException(java.text.MessageFormat.format(ProxyMessages.ClassCast_EXC__IncorrectType, new Object[] {aCollectionProxy.getTypeProxy().getTypeName(), "java.util.Collection"})); 
+			throw new ClassCastException(java.text.MessageFormat.format(ProxyMessages.ClassCast_EXC__IncorrectType, new Object[] {aCollectionProxy.getTypeProxy().getTypeName(), "java.util.Collection"}));  //$NON-NLS-1$
 		else
 			fCollection = aCollectionProxy;
 			

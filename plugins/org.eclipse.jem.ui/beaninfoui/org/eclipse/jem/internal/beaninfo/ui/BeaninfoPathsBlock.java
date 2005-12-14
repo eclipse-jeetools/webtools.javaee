@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.16 $  $Date: 2005/10/03 23:06:42 $ 
+ *  $Revision: 1.17 $  $Date: 2005/12/14 21:24:10 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -152,7 +152,7 @@ public class BeaninfoPathsBlock {
 
 	private Image getSearchPathTabImage() {
 		if(searchPathTabImage==null)
-			searchPathTabImage = JEMUIPlugin.imageDescriptorFromPlugin(JEMUIPlugin.getPlugin().getBundle().getSymbolicName(), "icons/cp_order_obj.gif").createImage();
+			searchPathTabImage = JEMUIPlugin.imageDescriptorFromPlugin(JEMUIPlugin.getPlugin().getBundle().getSymbolicName(), "icons/cp_order_obj.gif").createImage(); //$NON-NLS-1$
 		return searchPathTabImage;
 	}
 
