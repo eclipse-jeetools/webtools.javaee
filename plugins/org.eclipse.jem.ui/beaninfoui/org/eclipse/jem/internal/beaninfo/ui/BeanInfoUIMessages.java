@@ -89,4 +89,6 @@ public final class BeanInfoUIMessages extends NLS {
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, BeanInfoUIMessages.class);
 	}
+
+	public static String ExceptionHandler_errordialog_msg_seelog;
 }

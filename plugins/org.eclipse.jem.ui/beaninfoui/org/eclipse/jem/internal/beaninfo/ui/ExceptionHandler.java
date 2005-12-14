@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExceptionHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/26 20:26:59 $ 
+ *  $Revision: 1.2 $  $Date: 2005/12/14 19:06:13 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -72,7 +72,7 @@ public class ExceptionHandler {
 			msg.write("\n\n"); //$NON-NLS-1$
 		}
 		if (exceptionMessage == null || exceptionMessage.length() == 0)
-			msg.write("See error log for more details."); 
+			msg.write(BeanInfoUIMessages.ExceptionHandler_errordialog_msg_seelog); 
 		else
 			msg.write(exceptionMessage);
 		MessageDialog.openError(shell, title, msg.toString());			
