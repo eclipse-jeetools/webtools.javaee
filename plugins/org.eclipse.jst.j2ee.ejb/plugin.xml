@@ -133,8 +133,8 @@
 	<extension point="org.eclipse.wst.common.project.facet.core.facets">
 
     <project-facet id="jst.ejb">
-      <label>Ejb Module</label>
-      <description>Enables the project to be deployed as an ejb module.</description>
+      <label>EJB Module</label>
+      <description>Enables the project to be deployed as an EJB module.</description>
       <icon>icons/EJBJar.gif</icon>
     </project-facet>
 
