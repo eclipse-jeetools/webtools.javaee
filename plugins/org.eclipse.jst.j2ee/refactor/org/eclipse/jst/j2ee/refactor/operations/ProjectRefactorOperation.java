@@ -54,26 +54,9 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 				updateProject(refactoredMetadata);
 			}
 			
-			// get the metadata for all dependent projects
-			final ProjectRefactorMetadata[] dependentMetadata = refactoredMetadata.getDependentMetadata();
-			if (monitor != null) {
-				monitor.beginTask(RefactorResourceHandler.getString("task_name"), dependentMetadata.length); 
-			}
-			ProjectRefactorMetadata metadata;
-			for (int i = 0; i < dependentMetadata.length; i++) {
-				metadata = dependentMetadata[i];
-				// if the project is an EAR, execute the update operation created by the
-				// DependentEARUpdateProvider; if the project is a non-EAR project with the
-				// module core nature, execute the appropriate update
-				if (metadata.isEAR()) {
-					updateDependentEARProject(metadata, refactoredMetadata);
-				} else if (metadata.hasModuleCoreNature()) { 
-					updateDependentModuleProject(metadata, refactoredMetadata);
-				}
-				if (monitor != null) {
-					monitor.worked(1);
-				}
-			}
+			// Update metadata for dependent projects
+			updateDependentProjects(refactoredMetadata, monitor);
+			
 		} finally {
 			if (monitor != null) {
 				monitor.done();
@@ -88,6 +71,34 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 	 */
 	protected abstract void updateProject(final ProjectRefactorMetadata refactoredMetadata) 
 	throws ExecutionException;
+	
+	/**
+	 * Updates the metadata for dependent projects
+	 * @throws ExecutionException
+	 */
+	protected void updateDependentProjects(final ProjectRefactorMetadata refactoredMetadata,
+			final IProgressMonitor monitor) throws ExecutionException {
+		// get the metadata for all dependent projects
+		final ProjectRefactorMetadata[] dependentMetadata = refactoredMetadata.getDependentMetadata();
+		if (monitor != null) {
+			monitor.beginTask(RefactorResourceHandler.getString("task_name"), dependentMetadata.length); 
+		}
+		ProjectRefactorMetadata metadata;
+		for (int i = 0; i < dependentMetadata.length; i++) {
+			metadata = dependentMetadata[i];
+			// if the project is an EAR, execute the update operation created by the
+			// DependentEARUpdateProvider; if the project is a non-EAR project with the
+			// module core nature, execute the appropriate update
+			if (metadata.isEAR()) {
+				updateDependentEARProject(metadata, refactoredMetadata);
+			} else if (metadata.hasModuleCoreNature()) { 
+				updateDependentModuleProject(metadata, refactoredMetadata);
+			}
+			if (monitor != null) {
+				monitor.worked(1);
+			}
+		}
+	}
 	
 	/**
 	 * Updates any server references.

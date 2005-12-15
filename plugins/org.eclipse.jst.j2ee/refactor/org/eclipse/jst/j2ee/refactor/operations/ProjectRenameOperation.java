@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.refactor.operations;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -72,8 +73,17 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 				core.dispose();
 			}
 		}	
-		
+	}
+	
+	/**
+	 * Updates the metadata for dependent projects
+	 * @throws ExecutionException
+	 */
+	protected void updateDependentProjects(final ProjectRefactorMetadata originalMetadata,
+			final IProgressMonitor monitor) throws ExecutionException {
+		super.updateDependentProjects(originalMetadata, monitor);
 		// update any server instance refs to the refactored project
+		final ProjectRefactorMetadata refactoredMetadata = super.getProjectMetadata();
 		super.updateServerRefs(originalMetadata, refactoredMetadata);
 	}
 	

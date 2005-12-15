@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.refactor.operations;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -34,6 +35,17 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 		super.updateServerRefs(refactoredMetadata, null);
 	}
 
+	/**
+	 * Updates the metadata for dependent projects
+	 * @throws ExecutionException
+	 */
+	protected void updateDependentProjects(final ProjectRefactorMetadata refactoredMetadata,
+			final IProgressMonitor monitor) throws ExecutionException {
+		super.updateDependentProjects(refactoredMetadata, monitor);
+		// update any server instance refs to the refactored project
+		super.updateServerRefs(refactoredMetadata, null);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorOperation#updateDependentEARProject(org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata, org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata)
 	 */

@@ -14,7 +14,6 @@ package org.eclipse.jst.j2ee.refactor.listeners;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -213,7 +212,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				dataModel.setProperty(ProjectRenameDataModelProvider.ORIGINAL_PROJECT_METADATA, originalMetadata);
 				try {
 					dataModel.getDefaultOperation().execute(monitor, null);
-				} catch (ExecutionException e) {
+				} catch (Exception e) {
 					final String msg = RefactorResourceHandler.getString("error_updating_project_on_rename", new Object[]{originalMetadata.getProjectName()});
 					Logger.getLogger().logError(msg);
 					Logger.getLogger().logError(e);
@@ -237,7 +236,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				dataModel.setProperty(ProjectRefactoringDataModelProvider.PROJECT_METADATA, metadata);
 				try {
 					dataModel.getDefaultOperation().execute(monitor, null);
-				} catch (ExecutionException e) {
+				} catch (Exception e) {
 					final String msg = RefactorResourceHandler.getString("error_updating_project_on_delete", new Object[]{metadata.getProjectName()});
 					Logger.getLogger().logError(msg);
 					Logger.getLogger().logError(e);
