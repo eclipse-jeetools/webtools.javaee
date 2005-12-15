@@ -25,30 +25,62 @@ import org.eclipse.wst.validation.internal.IProjectValidationHelper;
 public class ProjectValidationHelper implements IProjectValidationHelper {
 
 	private static IContainer[] EMPTY_RESULT = new IContainer[] {};
+	private static ProjectValidationHelper INSTANCE;
+	private IContainer[] outputs;
+	private IContainer[] sources;
 	
-	public IContainer[] getOutputContainers(IProject project) {
-		
-		if (project == null || JemProjectUtilities.getJavaProject(project)==null)
+	public static ProjectValidationHelper getInstance(){
+		if (INSTANCE == null)
+			INSTANCE = new ProjectValidationHelper();
+		return INSTANCE;
+	}
+	public void disposeInstance(){
+		INSTANCE = null;
+	}
+	private IContainer[] getCachedOutputContainers(IProject project) {
+		if (outputs != null)
+			return outputs;
+		if (project == null || JemProjectUtilities.getJavaProject(project)==null) {
+			outputs = EMPTY_RESULT;
 			return EMPTY_RESULT;
+		}
 		IVirtualComponent comp = ComponentCore.createComponent(project);
-		if (comp == null || !comp.exists())
+		if (comp == null || !comp.exists()) {
+			outputs = EMPTY_RESULT;
 			return EMPTY_RESULT;
-		return J2EEProjectUtilities.getOutputContainers(project);
+		}
+		outputs = J2EEProjectUtilities.getOutputContainers(project);
+		return outputs;
+	
+	}
+	public IContainer[] getOutputContainers(IProject project) {
+		return getInstance().getCachedOutputContainers(project);
 	}
 	
-	public IContainer[] getSourceContainers(IProject project) {
-		if (project == null || JemProjectUtilities.getJavaProject(project)==null)
+	private IContainer[] getCachedSourceContainers(IProject project) {
+		if (sources != null)
+			return sources;
+		if (project == null || JemProjectUtilities.getJavaProject(project)==null) {
+			sources = EMPTY_RESULT;
 			return EMPTY_RESULT;
+		}
 		IVirtualComponent comp = ComponentCore.createComponent(project);
-		if (comp == null || !comp.exists())
+		if (comp == null || !comp.exists()) {
+			sources = EMPTY_RESULT;
 			return EMPTY_RESULT;
+		}
 		IPackageFragmentRoot[] roots = J2EEProjectUtilities.getSourceContainers(project);
 		List result = new ArrayList();
 		for (int i=0; i<roots.length; i++) {
 			if (roots[i].getResource() != null && roots[i].getResource() instanceof IContainer)
 				result.add(roots[i].getResource());
 		}
-		return (IContainer[]) result.toArray(new IContainer[result.size()]);
+		sources = (IContainer[]) result.toArray(new IContainer[result.size()]);
+		return sources;
+		
+	}
+	public IContainer[] getSourceContainers(IProject project) {
+		return getInstance().getCachedSourceContainers(project);
 	}
 
 }
