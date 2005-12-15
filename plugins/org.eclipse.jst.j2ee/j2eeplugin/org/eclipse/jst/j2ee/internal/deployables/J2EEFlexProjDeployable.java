@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -113,22 +114,21 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
 			javaPath = WEB_CLASSES_PATH;
 		
-		IContainer[] cont = getResourceFolders();
-		IContainer[] javaCont = getJavaOutputFolders();
-		
-		if (javaPath.isEmpty()) {
-			IContainer[] cont2 = new IContainer[cont.length + javaCont.length];
-			
-			System.arraycopy(cont, 0, cont2, 0, cont.length);
-			System.arraycopy(javaCont, 0, cont2, cont.length, javaCont.length);
-			cont = cont2;
-			javaCont = null;
-			javaPath = null;
+		IVirtualComponent vc = ComponentCore.createComponent(getProject());
+		if (vc != null) {
+			IVirtualFolder vFolder = vc.getRootFolder();
+			IModuleResource[] mr = getMembers(vFolder, Path.EMPTY);
+			int size = mr.length;
+			for (int j = 0; j < size; j++) {
+				if (!members.contains(mr[j]))
+					members.add(mr[j]);
+			}
 		}
 		
-		int size = cont.length;
+		IContainer[] javaCont = getJavaOutputFolders();		
+		int size = javaCont.length;
 		for (int i = 0; i < size; i++) {
-			IModuleResource[] mr = getMembers(cont[i], Path.EMPTY, javaPath, javaCont);
+			IModuleResource[] mr = getMembers(javaCont[i], javaPath, javaPath, javaCont);
 			int size2 = mr.length;
 			for (int j = 0; j < size2; j++) {
 				if (!members.contains(mr[j]))
@@ -267,5 +267,19 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		if(props.containsKey(J2EEConstants.CONTEXTROOT))
 			return props.getProperty(J2EEConstants.CONTEXTROOT);
 	    return component.getName();
+    }
+    
+    protected boolean isFileInSourceContainer(IFile file) {
+    	boolean result = false;
+    	if (file == null)
+    		return false;
+    	IPackageFragmentRoot[] srcContainers = J2EEProjectUtilities.getSourceContainers(getProject());
+    	for (int i=0; i<srcContainers.length; i++) {
+    		IPath srcPath = srcContainers[i].getPath();
+    		result = srcPath.isPrefixOf(file.getFullPath());
+    		if (result)
+    			break;
+    	}
+    	return result;
     }
 }

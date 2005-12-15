@@ -658,6 +658,8 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		try {
 			roots = jProject.getPackageFragmentRoots();
 			for (int i = 0; i < roots.length; i++) {
+				if (roots[i].getKind() != IPackageFragmentRoot.K_SOURCE)
+					continue;
 				IResource resource = roots[i].getResource();
 				if (null != resource) {
 					IVirtualResource[] vResources = ComponentCore.createResources(resource);
