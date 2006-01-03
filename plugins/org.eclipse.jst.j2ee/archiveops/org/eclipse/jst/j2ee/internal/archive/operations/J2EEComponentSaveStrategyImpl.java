@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
@@ -134,13 +135,14 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 				}
 			}
 			folder.refreshLocal(1, null);
-			javaProject = JavaCore.create(vComponent.getProject());
-			IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
-			IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
-			System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
-			newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(importedClassesJar.getFullPath(), null, null, true);
-			javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
-
+			if (JemProjectUtilities.getJavaProject(vComponent.getProject())!=null) {
+				javaProject = JavaCore.create(vComponent.getProject());
+				IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
+				IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
+				System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
+				newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(importedClassesJar.getFullPath(), null, null, true);
+				javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
+			}
 			IVirtualComponent importedClassesComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), "lib/" + importedClassesJar.getRawLocation().toString());
 			// importedClassesComponent.create(0, null);
 			// importedClassesComponent.getRootFolder().createLink(new
@@ -159,7 +161,8 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 			if (zipFileExporter != null) {
 				try {
 					zipFileExporter.finished();
-					javaProject.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+					if (javaProject !=null)
+						javaProject.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 				} catch (IOException e) {
 					Logger.getLogger().logError(e);
 				} catch (CoreException ex) {
