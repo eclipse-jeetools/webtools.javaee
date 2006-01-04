@@ -20,12 +20,14 @@ import java.util.Map;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -72,7 +74,6 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 	private Collection getNestedJARsFromSourceRoots() {
 		List nestedJars = new ArrayList();
 		IPackageFragmentRoot[] sourceRoots = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		for (int i = 0; i < sourceRoots.length; i++) {
 			File aFile;
 			try {
@@ -91,8 +92,21 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 
 	private File getNestedJar(IPackageFragmentRoot sourceRoot) throws JavaModelException {
 		IPath outputPath = sourceRoot.getRawClasspathEntry().getOutputLocation();
-		if (outputPath == null)
-			return null;
+		if (outputPath == null) {
+			IProject project = vComponent.getProject();
+			try {
+				if (project.hasNature(JavaCore.NATURE_ID)) {
+					IJavaProject javaProject = JavaCore.create(project);
+					outputPath = javaProject.getOutputLocation();
+				}
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+			if (outputPath == null) {
+				return null;
+			}
+		}
+
 		IFolder javaOutputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
 		indexClassesForOutputFolder(javaOutputFolder);
 		IContainer sourceContainer = (IContainer) sourceRoot.getResource();
