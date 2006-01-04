@@ -245,6 +245,9 @@ public class ProjectRefactorMetadata {
 		public String getName() {
 			return _comp.getName();
 		}
+		public String getDeployedName() {
+			return _comp.getDeployedName();
+		}
 		public IProject getProject() {
 			return _comp.getProject();
 		}
