@@ -68,7 +68,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 			String type = J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
 			if (type != null && !type.equals("")) {
 				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-				IModule module = createModule(component.getName(), component.getName(), type, version, component.getProject());
+				IModule module = createModule(component.getDeployedName(), component.getDeployedName(), type, version, component.getProject());
 				J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
 				moduleDelegates.put(module, moduleDelegate);
 				return module;
