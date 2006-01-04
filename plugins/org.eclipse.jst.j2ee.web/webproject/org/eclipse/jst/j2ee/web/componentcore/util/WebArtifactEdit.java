@@ -39,11 +39,8 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
-import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -519,27 +516,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return String value of the context root for runtime of the associated module
 	 */
 	public String getServerContextRoot() {
-		
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(getProject());
-			wbComponent = moduleCore.getComponent();
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-		}
-		
-		List existingProps = wbComponent.getProperties();
-		for (int i = 0; i < existingProps.size(); i++) {
-			Property prop = (Property) existingProps.get(i);
-			if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
-				return prop.getValue();
-			}
-		}			
-		// If all else fails...
-		return null;
+		return J2EEProjectUtilities.getServerContextRoot(getProject());
 	}
 	
 	/**
@@ -552,36 +529,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param contextRoot string
 	 */
 	public void setServerContextRoot(String contextRoot) {
-		StructureEdit moduleCore = null;
-		WorkbenchComponent wbComponent = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForWrite(getProject());
-			wbComponent = moduleCore.getComponent();
-			
-			boolean found = false;
-			Property prop = null;
-			List existingProps = wbComponent.getProperties();
-			for (  int i = 0; i < existingProps.size(); i++) {
-				prop = (Property) existingProps.get(i);
-				if(prop.getName().equals(J2EEConstants.CONTEXTROOT)){
-					found = true;
-					break;
-				}
-			}	
-			
-			if( found )
-				prop.setValue(contextRoot);
-			else{
-			    prop = ComponentcoreFactory.eINSTANCE.createProperty();
-			    prop.setName(J2EEConstants.CONTEXTROOT);
-			    prop.setValue(contextRoot);
-				existingProps.add(prop);
-			}			
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-			}
-		}
+		J2EEProjectUtilities.setServerContextRoot(getProject(), contextRoot);
 	}
 
 

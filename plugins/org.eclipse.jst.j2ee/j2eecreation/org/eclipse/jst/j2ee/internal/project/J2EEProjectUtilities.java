@@ -768,4 +768,29 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return nonFlexJavaProjects;
 	}
+	
+	/**
+	 * This method will retrieve the context root for the associated workbench module which is used
+	 * by the server at runtime.  This method is not yet completed as the context root has to be
+	 * abstracted and added to the workbenchModule model.  This API will not change though.
+	 * Returns null for now.
+	 * 
+	 * @return String value of the context root for runtime of the associated module
+	 */
+	public static String getServerContextRoot(IProject project) {
+		return ComponentUtilities.getServerContextRoot(project);
+	}
+	
+	/**
+	 * This method will set the context root on the associated workbench module with the given string
+	 * value passed in.  This context root is used by the server at runtime.  This method is not yet
+	 * completed as the context root still needs to be abstracted and added to the workbench module
+	 * model.  This API will not change though.
+	 * Does nothing as of now.
+	 * 
+	 * @param contextRoot string
+	 */
+	public static void setServerContextRoot(IProject project, String contextRoot) {
+		ComponentUtilities.setServerContextRoot(project,contextRoot);
+	}
 }
