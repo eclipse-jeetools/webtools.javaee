@@ -75,9 +75,12 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 			if (getComponentMap().isEmpty())
 				intializeComponentMap();
 			IVirtualComponent component = (IVirtualComponent) getComponentMap().get(propertyValue);
-			if (component.getName().equals(propertyValue)) {
+			if (null != component && component.getName().equals(propertyValue)) {
 				setProperty(COMPONENT, component);
 				setProperty(PROJECT_NAME, component.getProject().getName());
+			} else {
+				setProperty(COMPONENT, null);
+				setProperty(PROJECT_NAME, null);
 			}
 		}
 		return set;
