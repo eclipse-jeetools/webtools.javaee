@@ -95,9 +95,9 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			libArchive = (Archive) importModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			if (selectedLibs.contains(libArchive)) {
 				jarName = libArchive.getName();
+				importModel.getDefaultOperation().execute(monitor, info);
 				nestedComponent = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				libModules.add(new LibModule(jarName, nestedComponent.getProject().getName()));
-				importModel.getDefaultOperation().execute(monitor, info);
 				if (extraEntries != null) {
 					if (!javaProject.isOnClasspath(nestedComponent.getProject())) {
 						extraEntries.add(JavaCore.newProjectEntry(nestedComponent.getProject().getFullPath()));
