@@ -10,6 +10,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.flexible.project.fvtests.J2EEFlexProjDeployablePerfTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
@@ -37,6 +38,7 @@ public class AllTests extends TestSuite {
        addTest(WebImportOperationTest.suite());
        addTest(WebExportOperationTest.suite());
        addTest(WebProjectCreationOperationTest.suite());
+       addTest(J2EEFlexProjDeployablePerfTest.suite());
        //addTest(StaticWebProjectCreationOperationTest.suite());
        addTest(AddServletOperationTest.suite());
        // addTest(WebComponentCreationTest.suite());
