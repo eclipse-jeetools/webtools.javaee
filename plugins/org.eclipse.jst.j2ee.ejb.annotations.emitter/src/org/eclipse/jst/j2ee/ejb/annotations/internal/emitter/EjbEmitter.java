@@ -79,8 +79,13 @@ public abstract class EjbEmitter {
 		String uri = base + templatesBase + template;
 		String result = "";
 		IProgressMonitor aMonitor = this.getMonitor();
-		WTPJETEmitter emitter = createJetEmitter(uri);
-		result = emitter.generate(aMonitor, new Object[] { enterpriseBean });
+		try {
+			WTPJETEmitter emitter = createJetEmitter(uri);
+			result = emitter.generate(aMonitor, new Object[] { enterpriseBean });
+		}
+		catch (JETException e) {
+			throw new CoreException(e.getStatus());
+		}
 		return result;
 	}
 
