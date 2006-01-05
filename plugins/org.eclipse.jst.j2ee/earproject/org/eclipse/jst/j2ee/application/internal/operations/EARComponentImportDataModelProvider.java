@@ -40,6 +40,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelPro
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -139,7 +140,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (ALL_PROJECT_MODELS_LIST.equals(propertyName) || UNHANDLED_PROJECT_MODELS_LIST.equals(propertyName) || HANDLED_PROJECT_MODELS_LIST.equals(propertyName)) {
-			throw new RuntimeException(propertyName + " is an unsettable property");
+			throw new RuntimeException(propertyName + " is an unsettable property"); //$NON-NLS-1$
 		}
 		boolean doSet = super.propertySet(propertyName, propertyValue);
 		if (NESTED_MODULE_ROOT.equals(propertyName)) {
@@ -215,8 +216,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			FileImpl file = (FileImpl) list.get(i);
 			boolean shouldRemove = false;
 			for (int j = 0; j < clientList.size() && !shouldRemove; j++) {
-				IDataModel model = (IDataModel) clientList.get(j);
-				if (model.getProperty(IJ2EEComponentImportDataModelProperties.FILE) == file) {
+				IDataModel localModel = (IDataModel) clientList.get(j);
+				if (localModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE) == file) {
 					shouldRemove = true;
 				}
 			}
@@ -308,23 +309,23 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	}
 
 	private void changeModuleCreationLocationForAll(List projects, String property) {
-		IDataModel model = null;
+		IDataModel localModel = null;
 		for (int i = 0; null != projects && i < projects.size(); i++) {
-			model = (IDataModel) projects.get(i);
+			localModel = (IDataModel) projects.get(i);
 			IPath newPath = new Path(property);
-			newPath = newPath.append((String) model.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
+			newPath = newPath.append((String) localModel.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
 			// model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION,
 			// newPath.toOSString());
 		}
 	}
 
 	private void changeModuleCreationLocationForNameChange(List projects) {
-		IDataModel model = null;
+		IDataModel localModel = null;
 		for (int i = 0; null != projects && i < projects.size(); i++) {
-			model = (IDataModel) projects.get(i);
+			localModel = (IDataModel) projects.get(i);
 			if (isPropertySet(NESTED_MODULE_ROOT)) {
 				IPath newPath = new Path((String) getProperty(NESTED_MODULE_ROOT));
-				newPath = newPath.append((String) model.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
+				newPath = newPath.append((String) localModel.getProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME));
 				// model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION,
 				// newPath.toOSString());
 			} else {
@@ -390,12 +391,13 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					utilityModels = new ArrayList();
 					setProperty(listTypeProperty, utilityModels);
 				}
-				IDataModel model = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
-				model.setProperty(IJavaUtilityJarImportDataModelProperties.FILE, currentArchive);
-				model.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, getStringProperty(PROJECT_NAME));
-				model.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_COMPONENT_NAME, getStringProperty(COMPONENT_NAME));
-				utilityModels.add(model);
-				model.addListener(nestedListener);
+				IDataModel localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
+				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE, currentArchive);
+				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, getStringProperty(PROJECT_NAME));
+				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_COMPONENT_NAME, getStringProperty(COMPONENT_NAME));
+				localModel.setProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID, getStringProperty(RUNTIME_TARGET_ID));
+				utilityModels.add(localModel);
+				localModel.addListener(nestedListener);
 				utilityJarsModified = true;
 			}
 		} // Remove extras
@@ -605,9 +607,9 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	private List removeHandledModels(List listToPrune, List modelsToCheck, boolean addModels) {
 		List newList = new ArrayList();
 		newList.addAll(listToPrune);
-		IDataModel model = null;
+		IDataModel localModel = null;
 		for (int i = 0; i < modelsToCheck.size(); i++) {
-			model = (IDataModel) modelsToCheck.get(i);
+			localModel = (IDataModel) modelsToCheck.get(i);
 			// model.extractHandled(newList, addModels);
 		}
 		return newList;
