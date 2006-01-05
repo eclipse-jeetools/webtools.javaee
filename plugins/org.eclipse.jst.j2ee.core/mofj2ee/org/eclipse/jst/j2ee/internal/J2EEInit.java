@@ -14,32 +14,45 @@ import java.lang.reflect.Method;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationResourceFactory;
+import org.eclipse.jst.j2ee.client.ClientFactory;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory;
+import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.internal.util.EJBAttributeMaintenanceFactoryImpl;
 import org.eclipse.jst.j2ee.internal.common.J2EEXMIResourceFactory;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.internal.impl.ConnectorResourceFactory;
+import org.eclipse.jst.j2ee.jsp.JspFactory;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
+import org.eclipse.jst.j2ee.taglib.internal.TaglibFactory;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
+import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory;
 import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientResourceFactory;
+import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
+import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.utilities.AdapterFactoryDescriptor;
@@ -121,11 +134,17 @@ public class J2EEInit {
 			public EPackage getEPackage() {
 				return CommonPackage.eINSTANCE;
 			}
+			public EFactory getEFactory() {
+				return CommonFactory.eINSTANCE;
+			}
 		});
 		//application
 		ExtendedEcoreUtil.preRegisterPackage("application.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return ApplicationPackage.eINSTANCE;
+			}
+			public EFactory getEFactory() {
+				return ApplicationFactory.eINSTANCE;
 			}
 		});
 		//client
@@ -133,11 +152,17 @@ public class J2EEInit {
 			public EPackage getEPackage() {
 				return ClientPackage.eINSTANCE;
 			}
+			public EFactory getEFactory() {
+				return ClientFactory.eINSTANCE;
+			}
 		});
 		//webapplication
 		ExtendedEcoreUtil.preRegisterPackage("webapplication.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return WebapplicationPackage.eINSTANCE;
+			}
+			public EFactory getEFactory() {
+				return WebapplicationFactory.eINSTANCE;
 			}
 		});
 		//ejb
@@ -145,11 +170,17 @@ public class J2EEInit {
 			public EPackage getEPackage() {
 				return EjbPackage.eINSTANCE;
 			}
+			public EFactory getEFactory() {
+				return EjbFactory.eINSTANCE;
+			}
 		});
 		//jca
 		ExtendedEcoreUtil.preRegisterPackage("jca.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return JcaPackage.eINSTANCE;
+			}
+			public EFactory getEFactory() {
+				return JcaFactory.eINSTANCE;
 			}
 		});
 		//webservicesclient
@@ -157,11 +188,17 @@ public class J2EEInit {
 			public EPackage getEPackage() {
 				return Webservice_clientPackage.eINSTANCE;
 			}
+			public EFactory getEFactory() {
+				return Webservice_clientFactory.eINSTANCE;
+			}
 		});
 		//webservicescommon
 		ExtendedEcoreUtil.preRegisterPackage("wscommon.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return WscommonPackage.eINSTANCE;
+			}
+			public EFactory getEFactory() {
+				return WscommonFactory.eINSTANCE;
 			}
 		});
 		//webservicesdd
@@ -169,11 +206,17 @@ public class J2EEInit {
 			public EPackage getEPackage() {
 				return WsddPackage.eINSTANCE;
 			}
+			public EFactory getEFactory() {
+				return WsddFactory.eINSTANCE;
+			}
 		});
 		//jaxrpcmap
 		ExtendedEcoreUtil.preRegisterPackage("jaxrpcmap.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return JaxrpcmapPackage.eINSTANCE;
+			}
+			public EFactory getEFactory() {
+				return JaxrpcmapFactory.eINSTANCE;
 			}
 		});		
 //		jsp
@@ -181,11 +224,17 @@ public class J2EEInit {
 			public EPackage getEPackage() {
 				return JspPackage.eINSTANCE;
 			}
+			public EFactory getEFactory() {
+				return JspFactory.eINSTANCE;
+			}
 		});
 		//taglib
 		ExtendedEcoreUtil.preRegisterPackage("taglib.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 			public EPackage getEPackage() {
 				return TaglibPackage.eINSTANCE;
+			}
+			public EFactory getEFactory() {
+				return TaglibFactory.eINSTANCE;
 			}
 		});	
 		

@@ -45,6 +45,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -102,6 +103,11 @@ public class WTPJETEmitter extends JETEmitter {
 	 */
 	public WTPJETEmitter(String templateURI, ClassLoader classLoader) {
 		super(templateURI, classLoader);
+		try {
+			initialize(new NullProgressMonitor());
+		} catch (JETException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -450,8 +456,10 @@ public class WTPJETEmitter extends JETEmitter {
 		entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
 				null, null, false, null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES); 
 		try {
-			J2EEProjectUtilities.appendJavaClassPath(project, entry);
-		} catch (JavaModelException e) {
+			if (!classpathEntries.contains(entry))
+				classpathEntries.add(entry);
+			//J2EEProjectUtilities.appendJavaClassPath(project, entry);
+		} catch (Exception e) {
 			Logger.getLogger().logError("Problem appending \"" + entry.getPath() + "\" to classpath of Project \"" + project.getName() + "\"."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			Logger.getLogger().logError(e);
 		}
@@ -553,7 +561,9 @@ public class WTPJETEmitter extends JETEmitter {
 						null, // custom output location
 						false,null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES);
 
-			J2EEProjectUtilities.appendJavaClassPath(project, entry);
+			if (!classpathEntries.contains(entry))
+			classpathEntries.add(entry);
+			//J2EEProjectUtilities.appendJavaClassPath(project, entry);
 
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);

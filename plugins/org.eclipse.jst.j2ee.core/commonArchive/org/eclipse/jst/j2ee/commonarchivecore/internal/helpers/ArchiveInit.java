@@ -11,8 +11,11 @@
 package org.eclipse.jst.j2ee.commonarchivecore.internal.helpers;
 
 
+import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
@@ -44,10 +47,16 @@ public class ArchiveInit {
 						public EPackage getEPackage() {
 							return CommonarchivePackage.eINSTANCE;
 						}
+						public EFactory getEFactory() {
+							return CommonarchiveFactory.eINSTANCE;
+						}
 					});
 		ExtendedEcoreUtil.preRegisterPackage("commonarchive.looseconfig.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 						public EPackage getEPackage() {
 							return LooseconfigPackage.eINSTANCE;
+						}
+						public EFactory getEFactory() {
+							return LooseconfigFactory.eINSTANCE;
 						}
 					});
 	}

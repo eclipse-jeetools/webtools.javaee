@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.earcreation.modulemap;
 
 
+import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
@@ -39,6 +40,9 @@ public class ModulemapInit {
 				ExtendedEcoreUtil.preRegisterPackage("modulemap.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
 								public EPackage getEPackage() {
 									return ModulemapPackage.eINSTANCE;
+								}
+								public EFactory getEFactory() {
+									return ModulemapFactory.eINSTANCE;
 								}
 							});
 			}
