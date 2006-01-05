@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.jem.java.Field;
-import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
+import org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;

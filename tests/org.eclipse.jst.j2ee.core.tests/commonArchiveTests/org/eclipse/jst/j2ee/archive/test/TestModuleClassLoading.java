@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;

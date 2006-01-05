@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.archive.testutilities.J2EEVersionCheck;
 import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
