@@ -530,7 +530,7 @@
          </filter>
       </page>
       <page
-            objectClass="org.eclipse.core.resources.IJavaProject"
+            objectClass="org.eclipse.core.resources.IProject"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.ui.J2EEPropertiesPage"
             id="J2EEPropertiesPage">
