@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EStructuralFeature.Internal.DynamicValueHolder;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 
@@ -55,7 +56,7 @@ public abstract class JavaInstance extends EObjectImpl implements IJavaInstance 
 	public Object visitSetFeatures(Visitor aVisitor) {
 		Object result = null;
 		if (eHasSettings()) {
-			JavaInstancePropertiesHolder settings = (JavaInstancePropertiesHolder) eProperties();
+			JavaInstancePropertiesHolder settings = (JavaInstancePropertiesHolder) eSettings();
 
 			Object[] setPropertyValues = settings.eSettings();
 			if (setPropertyValues != null) {
@@ -77,7 +78,7 @@ public abstract class JavaInstance extends EObjectImpl implements IJavaInstance 
 	
 	public boolean isAnyFeatureSet() {
 		if (eHasSettings()) {
-			JavaInstancePropertiesHolder settings = (JavaInstancePropertiesHolder) eProperties();
+			JavaInstancePropertiesHolder settings = (JavaInstancePropertiesHolder) eSettings();
 
 			Object[] setPropertyValues = settings.eSettings();
 			if (setPropertyValues != null) {
@@ -280,29 +281,10 @@ public abstract class JavaInstance extends EObjectImpl implements IJavaInstance 
 			newMany.setData(oldMany.size(), oldMany.data()); 
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.impl.EObjectImpl#eDynamicFeatureID(org.eclipse.emf.ecore.EStructuralFeature)
-	 */
-	protected int eDynamicFeatureID(EStructuralFeature eStructuralFeature) {
-		migrate();	// See if migration needed, and do if it does.
-		return super.eDynamicFeatureID(eStructuralFeature);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EObject#eContents()
-	 */
-	public EList eContents() {
-		migrate();			
-		return super.eContents();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
-	 */
-	public EList eCrossReferences() {
-		migrate();			
-		return super.eCrossReferences();
+	
+	protected DynamicValueHolder eSettings() {
+		migrate();
+		return super.eSettings();
 	}
 
 }
