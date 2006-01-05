@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelP
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
@@ -38,6 +39,10 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
+/**
+ * @deprecated
+ * @see EARFacetProjectCreationDataModelProvider
+ */
 public class EarComponentCreationFacetOperation extends AbstractDataModelOperation implements IFacetProjectCreationDataModelProperties {
 
 	public EarComponentCreationFacetOperation(IDataModel model) {
@@ -48,6 +53,7 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 
 
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
+		dm.setProperty(FACET_RUNTIME, RuntimeManager.getRuntime(model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID)));
 		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 		dm.setProperty(FACET_PROJECT_NAME, projectName);
 
