@@ -92,6 +92,9 @@ public class EJBValidator extends AbstractEJBValidator {
 			if (ValidationRuleUtility.helperMap != null) {
 				ValidationRuleUtility.helperMap.clear();
 				ValidationRuleUtility.helperMap = null;
+				
+				ValidationRuleUtility.projectHelperMap.clear();
+				
 			}
 		}
 	}

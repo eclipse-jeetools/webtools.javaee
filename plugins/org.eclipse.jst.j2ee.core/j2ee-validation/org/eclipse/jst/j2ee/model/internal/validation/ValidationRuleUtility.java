@@ -62,6 +62,7 @@ public final class ValidationRuleUtility {
 	private static Logger logger = null;
 	
 	public static HashMap helperMap = null;
+	public static HashMap projectHelperMap = new HashMap();
 	private static HashSet commonClassNames = null;
 	
 	public static JavaClass getCMRFieldType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, CMRField field) {
@@ -600,9 +601,8 @@ public final class ValidationRuleUtility {
 			initializeCommonClassNames();
 		}
 		if (commonClassNames.contains(javaClassName)) {
-			if (helperMap == null)
-				helperMap = new HashMap();
 			ResourceSet rSet = resource.getResourceSet();
+			helperMap = getHelperMap(rSet);
 			Object obj = helperMap.get(javaClassName);
 			if (obj != null) 
 				return (JavaHelpers) obj;
@@ -615,6 +615,15 @@ public final class ValidationRuleUtility {
 		return helper;
 	}
 	
+    protected static HashMap getHelperMap(ResourceSet rSet){
+    	HashMap mapHelper = (HashMap)projectHelperMap.get( rSet ); 
+    	if( mapHelper == null ){
+    		mapHelper =  new HashMap();
+    		projectHelperMap.put(rSet, mapHelper);
+    	}
+    	return mapHelper;
+    }
+    
 	private static void initializeCommonClassNames() {
 		if(commonClassNames == null)
 			commonClassNames = new HashSet();
