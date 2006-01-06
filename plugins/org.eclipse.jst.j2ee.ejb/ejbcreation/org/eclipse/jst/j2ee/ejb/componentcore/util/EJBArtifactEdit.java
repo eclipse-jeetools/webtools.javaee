@@ -362,7 +362,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		EJBArtifactEdit artifactEdit = null;
 		try {
 			if (isValidEJBModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new EJBArtifactEdit(aProject, true);
+				artifactEdit = new EJBArtifactEdit(aProject, true, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -393,7 +393,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		EJBArtifactEdit artifactEdit = null;
 		try {
 			if (isValidEJBModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new EJBArtifactEdit(aProject, false);
+				artifactEdit = new EJBArtifactEdit(aProject, false, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -429,16 +429,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *             could not resolve uri.
 	 */
 	public static EJBArtifactEdit getEJBArtifactEditForRead(IVirtualComponent aModule) {
-		try {
-			if (isValidEJBModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new EJBArtifactEdit(nature, aModule, true);
-			}
-		} catch (UnresolveableURIException uue) {
-			// Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getEJBArtifactEditForRead(aModule.getProject());
 	}
 
 	/**
@@ -466,16 +459,9 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *         underlying content model
 	 */
 	public static EJBArtifactEdit getEJBArtifactEditForWrite(IVirtualComponent aModule) {
-		try {
-			if (isValidEJBModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new EJBArtifactEdit(nature, aModule, false);
-			}
-		} catch (UnresolveableURIException uue) {
-			// Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getEJBArtifactEditForWrite(aModule.getProject());
 	}
 
 	/**
