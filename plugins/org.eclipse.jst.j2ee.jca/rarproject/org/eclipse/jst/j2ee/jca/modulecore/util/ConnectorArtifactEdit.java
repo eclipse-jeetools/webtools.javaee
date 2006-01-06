@@ -201,7 +201,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
 			if (isValidConnectorModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new ConnectorArtifactEdit(aProject, true);
+				artifactEdit = new ConnectorArtifactEdit(aProject, true, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -233,7 +233,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		ConnectorArtifactEdit artifactEdit = null;
 		try {
 			if (isValidConnectorModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new ConnectorArtifactEdit(aProject, false);
+				artifactEdit = new ConnectorArtifactEdit(aProject, false, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -270,16 +270,9 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *             could not resolve uri.
 	 */
 	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(IVirtualComponent aModule) {
-		try {
-			if (isValidConnectorModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new ConnectorArtifactEdit(nature, aModule, true);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getConnectorArtifactEditForRead(aModule.getProject());
 	}
 
 	/**
@@ -308,16 +301,9 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *         and persist changes to the underlying content model
 	 */
 	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(IVirtualComponent aModule) {
-		try {
-			if (isValidConnectorModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new ConnectorArtifactEdit(nature, aModule, false);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getConnectorArtifactEditForWrite(aModule.getProject());
 	}
 
 	/**

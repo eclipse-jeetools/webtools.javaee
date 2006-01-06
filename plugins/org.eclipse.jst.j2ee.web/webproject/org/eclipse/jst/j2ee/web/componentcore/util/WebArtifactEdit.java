@@ -136,7 +136,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		WebArtifactEdit artifactEdit = null;
 		try {
 			if (isValidWebModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new WebArtifactEdit(aProject, true);
+				artifactEdit = new WebArtifactEdit(aProject, true, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -166,7 +166,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		WebArtifactEdit artifactEdit = null;
 		try {
 			if (isValidWebModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new WebArtifactEdit(aProject, false);
+				artifactEdit = new WebArtifactEdit(aProject, false, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -198,16 +198,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *             could not resolve uri.
 	 */
 	public static WebArtifactEdit getWebArtifactEditForRead(IVirtualComponent aModule) {
-		try {
-			if (isValidWebModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new WebArtifactEdit(nature, aModule, true);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getWebArtifactEditForRead(aModule.getProject());
 	}
 
 
@@ -233,16 +226,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *         underlying content model
 	 */
 	public static WebArtifactEdit getWebArtifactEditForWrite(IVirtualComponent aModule) {
-		try {
-			if (isValidWebModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new WebArtifactEdit(nature, aModule, false);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getWebArtifactEditForWrite(aModule.getProject());
 	}
 
 	/**
