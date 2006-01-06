@@ -214,7 +214,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		AppClientArtifactEdit artifactEdit = null;
 		try {
 			if (isValidApplicationClientModule(ComponentCore.createComponent(aProject))) 
-				artifactEdit = new AppClientArtifactEdit(aProject, true);
+				artifactEdit = new AppClientArtifactEdit(aProject, true, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -244,7 +244,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		AppClientArtifactEdit artifactEdit = null;
 		try {
 			if (isValidApplicationClientModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new AppClientArtifactEdit(aProject, false);
+				artifactEdit = new AppClientArtifactEdit(aProject, false, false);
 		} catch (Exception e) {
 			artifactEdit = null;
 		}
@@ -275,16 +275,9 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *             could not resolve uri.
 	 */
 	public static AppClientArtifactEdit getAppClientArtifactEditForRead(IVirtualComponent aModule) {
-		try {
-			if (isValidApplicationClientModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new AppClientArtifactEdit(nature, aModule, true);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getAppClientArtifactEditForRead(aModule.getProject());
 	}
 	
 	/**
@@ -308,16 +301,9 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *         underlying content model
 	 */
 	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(IVirtualComponent aModule) {
-		try {
-			if (isValidApplicationClientModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new AppClientArtifactEdit(nature, aModule, false);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getAppClientArtifactEditForWrite(aModule.getProject());
 	}
 	
 	/**

@@ -107,7 +107,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		EARArtifactEdit artifactEdit = null;
 		try {
 			if (isValidEARModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new EARArtifactEdit(aProject, true);
+				artifactEdit = new EARArtifactEdit(aProject, true, false);
 		} catch (Exception iae) {
 			artifactEdit = null;
 		}
@@ -138,7 +138,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		EARArtifactEdit artifactEdit = null;
 		try {
 			if (isValidEARModule(ComponentCore.createComponent(aProject)))
-				artifactEdit = new EARArtifactEdit(aProject, false);
+				artifactEdit = new EARArtifactEdit(aProject, false, false);
 		} catch (Exception iae) {
 			artifactEdit = null;
 		}
@@ -172,16 +172,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *             could not resolve uri.
 	 */
 	public static EARArtifactEdit getEARArtifactEditForRead(IVirtualComponent aModule) {
-		try {
-			if (isValidEARModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new EARArtifactEdit(nature, aModule, true);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getEARArtifactEditForRead(aModule.getProject());
 	}
 
 
@@ -209,16 +202,9 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 *         underlying content model
 	 */
 	public static EARArtifactEdit getEARArtifactEditForWrite(IVirtualComponent aModule) {
-		try {
-			if (isValidEARModule(aModule)) {
-				IProject project = aModule.getProject();
-				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-				return new EARArtifactEdit(nature, aModule, false);
-			}
-		} catch (UnresolveableURIException uue) {
-			//Ignore
-		}
-		return null;
+		if (aModule == null)
+			return null;
+		return getEARArtifactEditForWrite(aModule.getProject());
 	}
 
 	/**
