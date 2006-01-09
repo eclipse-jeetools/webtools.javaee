@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<!-- /*******************************************************************************
+ * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/ -->
+<contexts>
+<context id="APPCLIENT_NEW_APPCLIENT_WIZARD_PAGE1">
+<description>Use this wizard to create a new application Client project. 
+
+On this page, name the application client project, and select the workspace location to store the project files.  
+
+Select the <b>Show Advanced</b> button to specify any of the following:
+
+    The <b>Target server</b>.
+    The <b>Module Version (J2EE specification level)</b>.
+    Automatically add the Application Client  project to an enterprise application project.
+</description>
+<!--topic label="Creating an application client project" href="../com.ibm.etools.j2eeapp.doc/topics/tjappproj.html"/-->
+<!--topic label="J2EE architecture" href="../com.ibm.etools.j2eeapp.doc/topics/cjarch.html"/-->
+</context>
+
+<context id="APPCLIENT_NEW_APPCLIENT_WIZARD_PAGE3">
+  <description>Use this page to specify a source folder and an optional default main class.
+  </description>
+</context>
+
+<context id="EAR_NEW_EAR_WIZARD_PAGE1">
+<description>Use this wizard to create an enterprise application (EAR) project. An enterprise application project can contain one or more J2EE modules, including application client modules, EJB modules, Connector modules, or Web module. 
+
+On this page, name the EAR application project, and select the workspace location to store the project files.  
+
+Select the <b>Show Advanced</b> button to select a <b>Target server</b> or the <b>Module Version</b> (J2EE specification level) that you want to use for the new enterprise application project.
+
+To add J2EE modules to the enterprise application project, click <b>Next</b>.  If you do not want to add J2EE modules during the creation of the enterprise application project, click <b>Finish</b>.
+J2EE modules can be added to an enterprise application project at any time. Once the enterprise application project has been created, right-click and select <b>Properties > EAR modules</b> to
+add or delete EAR modules from the project. 
+</description>
+<!--topic label="Creating an enterprise application project" href="../com.ibm.etools.j2eeapp.doc/topics/tjear.html"/-->
+<!--topic label="J2EE architecture" href="../com.ibm.etools.j2eeapp.doc/topics/cjarch.html"/-->
+</context>
+
+<context id="NEW_EAR_ADD_MODULES_PAGE">
+<description>Use this page to select available J2EE modules to add to the new enterprise application. Click the <b>New Module</b> button  to create new modules. 
+
+J2EE modules can be added to an enterprise application project at any time. Once the enterprise application project has been created, right-click and select <b>Properties > EAR modules</b> to
+add or delete EAR modules from the project.                                    
+</description>
+<!--topic label="Creating an enterprise application project" href="..//topics/tjear.html"/-->
+<!--topic label="J2EE architecture" href="../com.ibm.etools.j2eeapp.doc/topics/cjarch.html"/-->
+</context>
+
+<context id="EAR_NEW_MODULE_PROJECTS_PAGE">
+<description>Use this page to create new J2EE modules to add to the new enterprise application. The wizard can generate a set of default J2EE modules or individual customized J2EE modules.
+</description>
+<!--topiclabel="Creating an enterprise application project" href="../com.ibm.etools.j2eeapp.doc/topics/tjear.html"/-->
+<!--topic label="J2EE architecture" href="../com.ibm.etools.j2eeapp.doc/topics/cjarch.html"/-->
+</context>
+
+
+<context id="EJB_NEW_EJB_WIZARD_PAGE1">
+<description>Use this wizard to create a new EJB project. An EJB project provides a logical group to organize enterprise beans. 
+
+On this page, name the EJB project, and select the workspace location to store the project files.  
+
+Select the <b>Show Advanced</b> button to specify any of the following:
+
+    The <b>Target server</b>.
+    The <b>EJB version</b>.
+    Automatically add the EJB project to an enterprise application project.
+    Create an EJB Client JAR module to hold remote and local home interfaces and classes.
+    Add support for annotated Java classes.
+    
+
+If you selected the <b>Create an EJB Client JAR module to hold the client interfaces and classes</b>, click <b>Next</b> to define the EJB Client JAR module name. 
+Otherwise, click <b>Finish</b>.
+</description>
+<!-- add link for annotated Java classes-->
+<!--topic label="Creating an EJB project" href="../com.ibm.etools.ejb.assembly.doc/topics/tecrtpro.html"/-->
+<!--topic label="EJB architecture" href="../com.ibm.etools.ejb.doc/topics/cearch.html"/-->
+<!--topic label="EJB client projects" href="../com.ibm.etools.ejb.assembly.doc/topics/ceclientjars.html"/-->
+
+</context>
+
+<context id="EJB_NEW_EJB_WIZARD_PAGE3">
+<description>Use this page to specify the name of the EJB client JAR module, as well as the name of the JAR file (<b>Client JAR URI</b>).
+</description>
+<!--topic label="Creating an EJB project" href="../com.ibm.etools.ejb.assembly.doc/topics/tecrtpro.html"/-->
+<!--topic label="EJB client projects" href="../com.ibm.etools.ejb.assembly.doc/topics/ceclientjars.html"/-->
+</context>
+
+
+<context id="JCA_NEWIZARD_PAGE1">
+<description>Use this wizard to create a Connector project. The J2EE Connector Architecture (JCA) specifies how a J2EE application component accesses a connection-based resource. 
+
+On this page, name the Connector project, and select the workspace location to store the project files.  
+
+Select the <b>Show Advanced</b> button to specify any of the following:
+
+    The <b>Target server</b>.
+    The <b>JCA version</b>.
+    Automatically add the Connector project to an enterprise application project.
+     
+</description>
+<!-- link to 'Connector projects' topic in com.ibm.etools.rad.migration.doc/topics/rv6connectjca.html-->
+<!--topic label="Creating a connector project" href="../com.ibm.etools.j2ee.doc/topics/tjrar.html"/-->
+</context>
+
+<context id="JCA_NEWIZARD_PAGE3">
+  <description>Use this page to specify a source folder for the Connector project.
+  </description>
+</context>
+</contexts>
