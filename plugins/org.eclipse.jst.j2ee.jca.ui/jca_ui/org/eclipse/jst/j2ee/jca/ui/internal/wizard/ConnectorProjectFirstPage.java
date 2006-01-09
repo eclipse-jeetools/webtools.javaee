@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -24,6 +25,7 @@ public class ConnectorProjectFirstPage extends J2EEComponentFacetCreationWizardP
 		setTitle(JCAUIMessages.JCA_MODULE_MAIN_PG_TITLE);
 		setDescription(JCAUIMessages.JCA_MODULE_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_PROJECT_WIZARD_BANNER));
+		setInfopopID(IJ2EEUIContextIds.NEW_CONNECTOR_WIZARD_P1);
 	}
 
 	protected String getModuleFacetID() {

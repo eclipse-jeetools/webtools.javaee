@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
@@ -37,6 +38,7 @@ public class ConnectorFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
+		setInfopopID(IJ2EEUIContextIds.NEW_CONNECTOR_WIZARD_P3);
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 

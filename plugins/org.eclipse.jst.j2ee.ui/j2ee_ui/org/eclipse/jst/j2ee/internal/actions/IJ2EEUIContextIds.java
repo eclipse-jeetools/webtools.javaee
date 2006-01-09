@@ -19,16 +19,18 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
  * @author: Administrator
  */
 public interface IJ2EEUIContextIds {
-	// New creation wizards
+	//	 New creation wizards
 	public static final String NEW_EAR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EAR_NEW_EAR_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String NEW_EAR_ADD_MODULES_PAGE = J2EEUIPlugin.PLUGIN_ID + ".NEW_EAR_ADD_MODULES_PAGE"; //$NON-NLS-1$
 	public static final String NEW_EAR_COMP_PAGE = J2EEUIPlugin.PLUGIN_ID + ".NEW_EAR_COMP_PAGE"; //$NON-NLS-1$
 	public static final String EAR_NEW_MODULE_PROJECTS_PAGE = J2EEUIPlugin.PLUGIN_ID + ".EAR_NEW_MODULE_PROJECTS_PAGE"; //$NON-NLS-1$
 	public static final String NEW_APPCLIENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".APPCLIENT_NEW_APPCLIENT_WIZARD_PAGE1"; //$NON-NLS-1$
+	public static final String NEW_APPCLIENT_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".APPCLIENT_NEW_APPCLIENT_WIZARD_PAGE3"; //$NON-NLS-1$
 	public static final String NEW_EJB_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EJB_NEW_EJB_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String NEW_EJB_WIZARD_P2 = J2EEUIPlugin.PLUGIN_ID + ".EJB_NEW_EJB_WIZARD_PAGE2"; //$NON-NLS-1$
 	public static final String NEW_EJB_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".EJB_NEW_EJB_WIZARD_PAGE3"; //$NON-NLS-1$
 	public static final String NEW_CONNECTOR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".JCA_NEWIZARD_PAGE1"; //$NON-NLS-1$
+	public static final String NEW_CONNECTOR_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".JCA_NEWIZARD_PAGE3"; //$NON-NLS-1$
 	public static final String NEW_JAVA_COMPONENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_JAVA_COMPONENT_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String NEW_JAVA_CLASS_OPTION_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_JAVA_CLASS_OPTION_WIZARD_PAGE1"; //$NON-NLS-1$
 

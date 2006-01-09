@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -25,7 +26,7 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 		setTitle(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE);
 		setDescription(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_PROJECT_WIZARD_BANNER));
-		setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
+		setInfopopID(IWebUIContextIds.NEW_DYNAMIC_WEB_PROJECT_PAGE1);
 	}
 
 	protected String getModuleFacetID() {
