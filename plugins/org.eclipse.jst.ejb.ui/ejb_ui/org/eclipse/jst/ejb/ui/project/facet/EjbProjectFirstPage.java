@@ -1,6 +1,7 @@
 package org.eclipse.jst.ejb.ui.project.facet;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -18,6 +19,7 @@ public class EjbProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 		setTitle(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE);
 		setDescription(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EJB_PROJECT_WIZARD_BANNER));
+		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P1);
 	}
 
 }

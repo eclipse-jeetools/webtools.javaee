@@ -1,6 +1,7 @@
 package org.eclipse.jst.ejb.ui.project.facet;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
@@ -39,6 +40,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
 
 		
 	protected Composite createTopLevelComposite(Composite parent) {
+		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P3);
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
