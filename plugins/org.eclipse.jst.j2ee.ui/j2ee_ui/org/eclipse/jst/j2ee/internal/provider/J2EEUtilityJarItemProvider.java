@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -115,6 +116,13 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 					if (utilityJar !=null)
 						children.add(utilityJar);
 				}	
+				if (module.isBinary()) {
+					
+					// we will assume the component name is in synch with the module uri
+					IFile utilityJar = ((VirtualArchiveComponent)module).getUnderlyingWorkbenchFile();
+					if (utilityJar !=null)
+						children.add(utilityJar);
+				}
 			}
 		}
 	}

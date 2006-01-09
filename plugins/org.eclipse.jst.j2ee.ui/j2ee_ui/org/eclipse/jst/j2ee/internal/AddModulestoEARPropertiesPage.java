@@ -82,6 +82,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected CheckboxTableViewer availableComponentsViewer;
 	protected Button selectAllButton;
 	protected Button deselectAllButton;
+	protected Button projectJarButton;
 	protected Button externalJarButton;
 	protected Button addVariableButton;
 	protected Composite buttonColumn;
@@ -254,6 +255,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			handleSelectAllButtonPressed();
 		else if (event.widget == deselectAllButton)
 			handleDeselectAllButtonPressed();
+		else if(event.widget == projectJarButton)
+			handleSelectProjectJarButton();
 		else if(event.widget == externalJarButton)
 			handleSelectExternalJarButton();
 		else if(event.widget == addVariableButton)
@@ -366,7 +369,10 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected void createPushButtons() {
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		projectJarButton = createPushButton(J2EEUIMessages.getResourceString("PROJECT_JAR"));//$NON-NLS-1$
 		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR"));//$NON-NLS-1$
+		//TODO Until server tools support util jars outside workspace....   remove enablement
+		externalJarButton.setEnabled(false);
 		addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$
 	}
 
@@ -546,5 +552,30 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		GridData btndata = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_BEGINNING);
 		buttonColumn.setLayoutData(btndata);
 
+	}
+
+	private void handleSelectProjectJarButton(){
+		IPath[] selected= BuildPathDialogAccess.chooseJAREntries(propPage.getShell(), project.getLocation(), new IPath[0]);
+	
+		if (selected != null) {
+			for (int i= 0; i < selected.length; i++) {
+				//IPath fullPath = project.getFile(selected[i]).getFullPath();	
+				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
+				IVirtualComponent archive = ComponentCore.createArchiveComponent( earComponent.getProject(), type +
+							selected[i].toString());
+				
+				ArrayList vlist = new ArrayList();
+			
+				//To do: check if archive component already exists
+				IVirtualReference ref = ComponentCore.createReference( earComponent, archive );
+				vlist.add(ref);	
+				
+				IVirtualReference[] refs = (IVirtualReference[]) vlist.toArray(new IVirtualReference[vlist.size()]);
+				earComponent.addReferences(refs);
+				j2eeComponentList.add(archive);
+			}
+			refresh();
+		}
+		
 	}
 }
