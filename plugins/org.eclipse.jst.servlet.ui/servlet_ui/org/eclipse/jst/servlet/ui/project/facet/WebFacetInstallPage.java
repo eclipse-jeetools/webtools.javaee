@@ -13,6 +13,7 @@ package org.eclipse.jst.servlet.ui.project.facet;
 
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -39,6 +40,7 @@ public final class WebFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	}
 
 	protected Composite createTopLevelComposite(final Composite parent) {
+		setInfopopID(IWebUIContextIds.NEW_DYNAMIC_WEB_PROJECT_PAGE3);
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
