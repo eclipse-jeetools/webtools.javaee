@@ -13,16 +13,16 @@
 <plugin>
    
    <extension point="org.eclipse.help.contexts">
-	<contexts file="ExportWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
-	<contexts file="ImportWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
-	<contexts file="J2EEGeneral_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
-	<contexts file="ProjectCreateWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
-	<contexts file="EJBCreateWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
-   	<!--<contexts file="DeleteBean_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" /> -->
+	<contexts file="ExportWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+	<contexts file="ImportWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+	<contexts file="J2EEGeneral_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+	<contexts file="ProjectCreateWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+	<contexts file="EJBCreateWizard_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+   	<!--<contexts file="DeleteBean_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" /> -->
 	<contexts file="ValidationProjPrefs_HelpContexts.xml" plugin="org.eclipse.wst.validation" />
 	<contexts file="ValidationPrefs_HelpContexts.xml" plugin="org.eclipse.wst.validation" />
-	<contexts file="ProjectPrefs_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
-	<contexts file="Preferences_HelpContexts.xml" plugin="org.eclipse.jst.j2ee" />
+	<contexts file="ProjectPrefs_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
+	<contexts file="Preferences_HelpContexts.xml" plugin="org.eclipse.jst.j2ee.ui" />
    </extension>
 
 </plugin>
