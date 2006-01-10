@@ -119,22 +119,22 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 		});
 
 
-//		containerManagedEntityType = new Button(ejbTypeGroup, SWT.RADIO);
-//		containerManagedEntityType.setText("ContainerManagedEntityBean"); //$NON-NLS-1$
-//		containerManagedEntityType.setSelection(false);
-//		containerManagedEntityType.addSelectionListener(new SelectionListener() {
-//
-//			public void widgetSelected(SelectionEvent e) {
-//				if (containerManagedEntityType.getSelection()) {
-//					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "ContainerManagedEntityBean");
-//					validateProvider();
-//				}
-//			}
-//
-//			public void widgetDefaultSelected(SelectionEvent e) {
-//				this.widgetSelected(e);
-//			}
-//		});
+		containerManagedEntityType = new Button(ejbTypeGroup, SWT.RADIO);
+		containerManagedEntityType.setText("ContainerManagedEntityBean"); //$NON-NLS-1$
+		containerManagedEntityType.setSelection(false);
+		containerManagedEntityType.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				if (containerManagedEntityType.getSelection()) {
+					ChooseEjbTypeWizardPage.this.model.setProperty(IEnterpriseBeanClassDataModelProperties.EJB_TYPE, "ContainerManagedEntityBean");
+					validateProvider();
+				}
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				this.widgetSelected(e);
+			}
+		});
 	}
 
 	protected void createAnnotationProviderGroup(Composite parent) {
