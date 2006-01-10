@@ -540,6 +540,7 @@
       <constraint>
         <and>
           <conflicts group="modules"/>
+          <conflicts group="java"/>
         </and>
       </constraint>
       <group-member id="modules"/>      
@@ -556,6 +557,7 @@
       <constraint>
         <and>
           <conflicts group="modules"/>
+          <conflicts group="java"/>
         </and>
       </constraint>
       <group-member id="modules"/>      
@@ -572,6 +574,7 @@
       <constraint>
         <and>
           <conflicts group="modules"/>
+          <conflicts group="java"/>
         </and>
       </constraint>
       <group-member id="modules"/>      
