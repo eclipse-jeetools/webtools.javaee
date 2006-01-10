@@ -29,9 +29,13 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.internal.emf.utilities.CommandContext;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
@@ -74,25 +78,30 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		DeployerRegistry reg = DeployerRegistry.instance();
-
-		List modules = DeployerRegistry.getSelectedModules(selection);
+		List modules = getSelectedModules(selection);
 		monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, modules.size()); 
 		for (int i = 0; i < modules.size(); i++) {
-
-			EObject module = (EObject) modules.get(i);
-			IProject proj = ProjectUtilities.getProject(module);
-			IRuntime runtime = null;
+			EnterpriseArtifactEdit edit = null;
 			try {
-				runtime = J2EEProjectUtilities.getServerRuntime(proj);
+				edit = (EnterpriseArtifactEdit) modules.get(i);
+				EObject module = edit.getDeploymentDescriptorRoot();
+				IProject proj = ProjectUtilities.getProject(module);
+				IRuntime runtime = null;
+				try {
+					runtime = J2EEProjectUtilities.getServerRuntime(proj);
+				}
+				catch (CoreException e) {
+					J2EEPlugin.getDefault().getLog().log(e.getStatus());
+				}
+				if (runtime == null)
+					continue;
+				List visitors = reg.getDeployModuleExtensions(module, runtime);
+				deploy(visitors, module, monitor);
+				monitor.worked(1);
+			} finally {
+				if (edit != null)
+					edit.dispose();
 			}
-			catch (CoreException e) {
-				J2EEPlugin.getDefault().getLog().log(e.getStatus());
-			}
-			if (runtime == null)
-				continue;
-			List visitors = reg.getDeployModuleExtensions(module, runtime);
-			deploy(visitors, module, monitor);
-			monitor.worked(1);
 		}
 		return OK_STATUS;
 	}
@@ -184,5 +193,31 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	public void setMultiStatus(List multiStatus) {
 		this.multiStatus = multiStatus;
+	}
+	
+	protected List getSelectedModules(Object[] mySelections) {
+		List modules = new ArrayList();
+		for (int i = 0; i < mySelections.length; i++) {
+			Object object = mySelections[i];
+			if (object instanceof EObject) {
+				object = ProjectUtilities.getProject(object);
+			}
+			if (object instanceof IProject) {
+				IVirtualComponent component = ComponentCore.createComponent((IProject)object);
+				EnterpriseArtifactEdit edit = null;
+				edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+				if (modules.contains(edit)) {
+					if (edit != null)
+						edit.dispose();
+					continue;
+				}
+				// Order Ears first...
+				if (J2EEProjectUtilities.isEARProject(component.getProject()))
+					modules.add(0, edit);
+				else
+					modules.add(edit);
+			}
+		}
+		return modules;
 	}
 }
