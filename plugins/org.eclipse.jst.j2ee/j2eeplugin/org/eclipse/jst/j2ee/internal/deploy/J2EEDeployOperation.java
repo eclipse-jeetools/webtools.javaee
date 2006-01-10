@@ -197,6 +197,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	
 	protected List getSelectedModules(Object[] mySelections) {
 		List modules = new ArrayList();
+		List components = new ArrayList();
 		for (int i = 0; i < mySelections.length; i++) {
 			Object object = mySelections[i];
 			if (object instanceof EObject) {
@@ -206,16 +207,20 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				IVirtualComponent component = ComponentCore.createComponent((IProject)object);
 				EnterpriseArtifactEdit edit = null;
 				edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
-				if (modules.contains(edit)) {
+				if (components.contains(edit)) {
 					if (edit != null)
 						edit.dispose();
 					continue;
 				}
 				// Order Ears first...
-				if (J2EEProjectUtilities.isEARProject(component.getProject()))
+				if (J2EEProjectUtilities.isEARProject(component.getProject())) {
 					modules.add(0, edit);
-				else
+					components.add(0,component);
+				}
+				else {
 					modules.add(edit);
+					components.add(component);
+				}
 			}
 		}
 		return modules;
