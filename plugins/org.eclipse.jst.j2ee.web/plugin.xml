@@ -350,8 +350,8 @@
   <extension point="org.eclipse.wst.common.project.facet.core.facets">
 
     <project-facet id="jst.web">
-      <label>Dynamic Web Module</label>
-      <description>Enables the project to be deployed as a dynamic web module.</description>
+      <label>%WEB_FACET_LABEL</label>
+      <description>%WEB_FACET_DESCRIPTION</description>
     </project-facet>
 
     <project-facet-version facet="jst.web" version="2.2">
@@ -398,7 +398,7 @@
     </action>
 
     <template id="template.jst.web">
-      <label>Dynamic Web Project</label>
+      <label>%WEB_FACET_TEMPLATE_LABEL</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.web"/>
     </template>

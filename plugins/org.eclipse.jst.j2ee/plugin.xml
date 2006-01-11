@@ -524,8 +524,8 @@
   <extension point="org.eclipse.wst.common.project.facet.core.facets">
   
     <project-facet id="jst.ear">
-      <label>EAR</label>
-      <description>Enables the project to be deployed as an EAR module.</description>
+      <label>%EAR_FACET_LABEL</label>
+      <description>%EAR_FACET_DESCRIPTION</description>
       <icon>icons/EAR.gif</icon>
     </project-facet>
 
@@ -581,8 +581,8 @@
     </project-facet-version>
 
     <project-facet id="jst.utility">
-      <label>Utility Module</label>
-      <description>Enables the project to be referenced by J2EE modules.</description>
+      <label>%UTILITY_FACET_LABEL</label>
+      <description>%UTILITY_FACET_DESCRIPTION</description>
     </project-facet>
 
     <project-facet-version facet="jst.utility" version="1.0">
@@ -604,8 +604,8 @@
     
     
     <project-facet id="jst.appclient">
-      <label>Application Client module</label>
-      <description>Enables the project to be deployed as an ApplicaitonClient module.</description>
+      <label>%APPCLIENT_FACET_LABEL</label>
+      <description>%APPCLIENT_FACET_DESCRIPTION</description>
       <icon>icons/ear.gif</icon>
     </project-facet>
 
@@ -662,18 +662,18 @@
     
         
     <template id="template.jst.ear">
-      <label>EAR Project</label>
+      <label>%EAR_FACET_TEMPLATE</label>
       <fixed facet="jst.ear"/>
     </template>
     
     <template id="template.jst.utility">
-      <label>Java Utility Project</label>
+      <label>%UTILITY_FACET_TEMPLATE</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.utility"/>
     </template>
 
     <template id="template.jst.appclient">
-      <label>Application Client Project</label>
+      <label>%APPCLIENT_FACET_TEMPLATE</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.appclient"/>
     </template>    
