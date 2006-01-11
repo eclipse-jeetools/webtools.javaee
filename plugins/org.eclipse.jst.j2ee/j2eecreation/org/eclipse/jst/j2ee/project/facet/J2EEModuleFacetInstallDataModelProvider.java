@@ -87,13 +87,15 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
 		} else if (EAR_PROJECT_NAME.equals(propertyName)) {
-			IProject project = ProjectUtilities.getProject((String) propertyValue);
-			if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
-				try {
-					IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
-					setProperty(FACET_RUNTIME, facetProj.getRuntime());
-				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
+			if( propertyValue != null && !propertyValue.equals("")){
+				IProject project = ProjectUtilities.getProject((String) propertyValue);
+				if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
+					try {
+						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
+						setProperty(FACET_RUNTIME, facetProj.getRuntime());
+					} catch (CoreException e) {
+						Logger.getLogger().logError(e);
+					}
 				}
 			}
 		}
