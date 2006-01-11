@@ -7,7 +7,10 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -40,15 +43,23 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     
     public void testFindFilesUtility() {
     	IFile file = null;
+    	IResource eclipseFile = null;
     	try {
     		testDefaults();
     		IProject project = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.EJB)[0];
     		IVirtualComponent comp = ComponentCore.createComponent(project);
-    		file = ComponentUtilities.findFile(comp, new Path("/META-INF/ejb-jar.xml")); //$NON-NLS-1$
+    		try {
+    			if (!project.isSynchronized(IResource.DEPTH_ZERO))
+    				project.refreshLocal(IResource.DEPTH_ZERO, null);
+    		} catch (CoreException e) {
+    			Logger.getLogger().logError(e);
+    		}
+    		eclipseFile = project.findMember(new Path("ejbModule/META-INF/ejb-jar.xml"));
+    		file = ComponentUtilities.findFile(comp, new Path("META-INF/ejb-jar.xml")); //$NON-NLS-1$
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
-    	Assert.assertTrue(file != null && file.exists());
+    	Assert.assertTrue(eclipseFile != null && file != null && file.exists());
     }
   
 }
