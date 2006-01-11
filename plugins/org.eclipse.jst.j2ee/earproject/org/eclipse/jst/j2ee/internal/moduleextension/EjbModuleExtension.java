@@ -47,4 +47,6 @@ public interface EjbModuleExtension extends EarModuleExtension {
 			final String earProjectName,
 			final org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime);
 	
+	IDataModelOperation createEJBClientJARProject(IProject ejbProject);
+	
 }
