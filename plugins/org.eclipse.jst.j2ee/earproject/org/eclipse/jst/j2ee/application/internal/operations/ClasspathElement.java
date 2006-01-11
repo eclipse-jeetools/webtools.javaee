@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 
@@ -32,6 +33,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -191,7 +193,7 @@ public class ClasspathElement {
 				Logger.getLogger().logError(e);
 			}
 			java.io.File file = new java.io.File(resourcePath);
-			if( file.exists()){
+			if( file.exists() || J2EEPlugin.getWorkspace().getRoot().exists(new Path(resourcePath))){
 				return new IClasspathEntry[]{JavaCore.newLibraryEntry( new Path(resourcePath), null, null, true)};
 			}else{
 				return new IClasspathEntry[]{JavaCore.newVariableEntry( new Path(resourcePath), null, null)};

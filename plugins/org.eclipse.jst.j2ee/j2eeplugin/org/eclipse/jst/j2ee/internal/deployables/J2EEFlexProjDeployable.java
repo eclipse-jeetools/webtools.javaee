@@ -123,6 +123,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				if (!members.contains(mr[j]))
 					members.add(mr[j]);
 			}
+			List utilMembers = getUtilMembers(vc);
+			if (!utilMembers.isEmpty())
+				members.addAll(utilMembers);
 		}
 		
 		IContainer[] javaCont = getJavaOutputFolders();		

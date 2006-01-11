@@ -66,6 +66,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	protected boolean readOnly;
 	protected AvailableJarsProvider availableJarsProvider;
 	protected Button externalJarButton;
+	protected Button projectJarButton;
 	protected Button addVariableButton;	
 
 	/**
@@ -192,11 +193,15 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	protected void createWLPPushButtons() {
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		projectJarButton = createPushButton(J2EEUIMessages.getResourceString("PROJECT_JAR")); //$NON-NLS-1$
 		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR")); //$NON-NLS-1$
+//		TODO Until server tools support util jars outside workspace....   remove enablement
+		externalJarButton.setEnabled(false);
 		addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$			
 		if (isReadOnly()) {
 			selectAllButton.setEnabled(false);
 			deselectAllButton.setEnabled(false);
+			projectJarButton.setEnabled(false);
 			externalJarButton.setEnabled(false);
 			addVariableButton.setEnabled(false);
 		} 
@@ -219,7 +224,10 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	protected void createWebLibPushButtons() {
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
+		projectJarButton = createPushButton(J2EEUIMessages.getResourceString("PROJECT_JAR")); //$NON-NLS-1$
 		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR")); //$NON-NLS-1$
+		//		TODO Until server tools support util jars outside workspace....   remove enablement
+		externalJarButton.setEnabled(false);
 		addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$			
 		if (isReadOnly()) {
 			selectAllButton.setEnabled(false);
@@ -257,6 +265,8 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 			handleClientJARsButtonSelected();
 		else if (event.widget == useAnyJARsBtn)
 			handleAnyJARsButtonSelected();
+		else if(event.widget == projectJarButton)
+			handleSelectProjectJarButton();
 		else if(event.widget == externalJarButton)
 			handleSelectExternalJarButton();
 		else if(event.widget == addVariableButton)
@@ -268,6 +278,13 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		if( owner instanceof WebLibDependencyPropertiesPage){
 			WebLibDependencyPropertiesPage control = (WebLibDependencyPropertiesPage)owner;
 			control.handleSelectExternalJarButton();
+		} 
+	}
+	private void handleSelectProjectJarButton(){
+		 //owner.handleSelectExternalJarButton();
+		if( owner instanceof WebLibDependencyPropertiesPage){
+			WebLibDependencyPropertiesPage control = (WebLibDependencyPropertiesPage)owner;
+			control.handleSelectProjectJarButton();
 		} 
 	}
 	

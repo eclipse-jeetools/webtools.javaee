@@ -81,7 +81,7 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 	protected IDataModel setupJavaInstallAction() {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME));
-		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
+		//dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.4"); //$NON-NLS-1$
 		dm.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, model.getStringProperty(IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER));
 		return dm;
 	}

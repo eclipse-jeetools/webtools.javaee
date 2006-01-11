@@ -328,12 +328,82 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		ClassPathSelection selection = new ClassPathSelection();
 		selection.getClasspathElements().add(element);
 		return selection;
+	}
+	private ClassPathSelection createClassPathSelectionForProjectJar(ClasspathElement element){
+		ClassPathSelection selection = new ClassPathSelection();
+		selection.getClasspathElements().add(element);
+		return selection;
 	}	
+	
 	
 	protected IRunnableWithProgress createBuildPathOperationForExternalJar(ClassPathSelection selection) {
 	    IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
 	    return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject, selection));
-	}    
+	}
+
+	public void handleSelectProjectJarButton(){
+			
+			if (J2EEProjectUtilities.isDynamicWebProject(project)){
+				
+				IPath[] selected= BuildPathDialogAccess.chooseJAREntries(propPage.getShell(), project.getLocation(), new IPath[0]);
+		
+				if (selected != null) {
+					for (int i= 0; i < selected.length; i++) {
+						
+						String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
+	//					String name = selected[i].toString();
+						
+						//IPath fullPath = project.getFile(selected[i]).getFullPath();				
+						IVirtualComponent archive = ComponentCore.createArchiveComponent( model.getComponent().getProject(), type +
+									selected[i].toString());
+						
+						ArrayList vlist = new ArrayList();
+						IVirtualReference[] oldrefs = model.getComponent().getReferences();
+						for (int j = 0; j < oldrefs.length; j++) {
+							IVirtualReference ref = oldrefs[j];
+							vlist.add(ref);
+						}		
+					
+						//To do: check if archive component already exists
+						IVirtualReference ref = ComponentCore.createReference( model.getComponent(), archive, new Path("/WEB-INF/lib") ); //$NON-NLS-1$
+						vlist.add(ref);	
+						
+						IVirtualReference[] refs = new IVirtualReference[vlist.size()];
+						for (int j = 0; j < vlist.size(); j++) {
+							IVirtualReference tmpref = (IVirtualReference) vlist.get(j);
+							refs[j] = tmpref;
+						}				
+						model.getComponent().setReferences(refs);
+	
+						
+						//ClasspathElement element = createClassPathElement(archive, file.getName());
+						ClasspathElement element = createClassPathElement(archive, archive.getName());
+						ClassPathSelection selection = createClassPathSelectionForProjectJar(element);
+						createBuildPathOperationForExternalJar(selection);
+						
+				        WorkspaceModifyComposedOperation composed = new WorkspaceModifyComposedOperation(createBuildPathOperationForExternalJar(selection));
+				        try {
+				            new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
+				        } catch (InvocationTargetException ex) {
+				            String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_; 
+				            String msg = title;
+				            if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
+				                msg = ex.getTargetException().getMessage();
+				            MessageDialog.openError(propPage.getShell(), title, msg);
+				            org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+				            
+				        } catch (InterruptedException e) {
+				            // cancelled
+	
+				        }
+						model.getClassPathSelectionForWLPs().getClasspathElements().add(element);
+					}
+	
+					refresh();
+				}
+			}
+			
+		}    
 	
 //	private void enableExternalJarControls(boolean b) {
 //		tableManager.externalJarButton.setVisible(b);

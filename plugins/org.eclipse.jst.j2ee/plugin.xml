@@ -493,7 +493,7 @@
             id="org.eclipse.jst.j2ee.server">
          <moduleType
                versions="*"
-               types="jst.ear, jst.appclient, jst.web, jst.ejb, jst.connector">
+               types="jst.ear, jst.appclient, jst.web, jst.ejb, jst.connector, jst.utility">
          </moduleType>
       </moduleFactory>
    </extension>
