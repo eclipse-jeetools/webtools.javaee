@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientJarCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
@@ -124,6 +125,12 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return op;		
 	}
 
+	public IDataModelOperation createEJBClientJARProject(IProject ejbProject){
+		IDataModel dm = DataModelFactory.createDataModel( new EjbClientJarCreationDataModelProvider());
+		dm.setStringProperty(EjbClientJarCreationDataModelProvider.EJB_PROJECT_NAME, ejbProject.getName());
+		return dm.getDefaultOperation();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
