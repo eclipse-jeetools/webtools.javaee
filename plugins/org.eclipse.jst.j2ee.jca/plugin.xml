@@ -78,8 +78,8 @@
 	<extension point="org.eclipse.wst.common.project.facet.core.facets">
 
     <project-facet id="jst.connector">
-      <label>J2C Module</label>
-      <description>Enables the project to be deployed as a J2C module.</description>
+      <label>%CONN_FACET_LABEL</label>
+      <description>%CONN_FACET_DESCRIPTION</description>
       <icon>icons/full/obj16/Connector.gif</icon>
     </project-facet>
 
@@ -118,7 +118,7 @@
     </project-facet-version>
     
     <template id="template.jst.connector">
-      <label>J2C Project</label>
+      <label>%CONN_FACET_TEMPLATE</label>
       <fixed facet="jst.java"/>
       <fixed facet="jst.connector"/>
     </template>
