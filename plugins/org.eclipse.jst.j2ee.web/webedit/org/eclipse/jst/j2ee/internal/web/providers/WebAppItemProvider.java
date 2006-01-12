@@ -149,7 +149,13 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 
 	public Object getImage(Object object) {
 		String key = null;
-		switch (((WebApp) object).getVersionID()) {
+		int versionID = 22;
+		try {
+			versionID = ((WebApp) object).getVersionID();
+		} catch (IllegalStateException e) {
+			//just bail and return 22 as default
+		}
+		switch (versionID) {
 			case J2EEVersionConstants.WEB_2_2_ID :
 				key = "webapp_22"; //$NON-NLS-1$ 
 				break;
