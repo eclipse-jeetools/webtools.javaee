@@ -22,29 +22,16 @@ import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainerIni
 
 public final class WebAppContainerInitializer
 
-extends FlexibleProjectContainerInitializer
+    extends FlexibleProjectContainerInitializer
 
 {
-	public void initialize(final IPath path, final IJavaProject jproj)
+    public void initialize( final IPath path, 
+                            final IJavaProject jproj )
 
-	throws CoreException
+	    throws CoreException
 
 	{
-//		WorkspaceJob job = new WorkspaceJob("Initializing Web Container") {
-//
-//			public IStatus runInWorkspace(IProgressMonitor monitor) {
-//				try {
-					new WebAppContainer(path, jproj).install();
-//				}
-//
-//				catch (Exception e) {
-//					return Status.CANCEL_STATUS;
-//				}
-//				return Status.OK_STATUS;
-//			}
-//		};
-//		job.setRule(ResourcesPlugin.getWorkspace().getRuleFactory().buildRule());
-//		job.schedule();
+	    ( new WebAppContainer( path, jproj ) ).install();
 	}
 
 }

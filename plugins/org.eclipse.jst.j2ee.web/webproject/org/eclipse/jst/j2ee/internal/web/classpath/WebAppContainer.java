@@ -14,7 +14,6 @@ package org.eclipse.jst.j2ee.internal.web.classpath;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathContainer;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
@@ -44,13 +43,12 @@ public final class WebAppContainer
     public WebAppContainer( final IPath path,
                             final IJavaProject jproject )
     {
-         super( path, jproject, jproject.getProject(), path.segment( 1 ), 
-                paths, types );
+         super( path, jproject, jproject.getProject(), paths, types );
     }
     
     public String getDescription()
     {
-        return WebMessages.getResourceString(WebMessages.WEB_CONT_DESCRIPTION, new String[] {this.component});
+        return WebMessages.WEB_CONT_DESCRIPTION;
     }
     
     public void install()
@@ -71,32 +69,5 @@ public final class WebAppContainer
     public void refresh()
     {
         ( new WebAppContainer( this.path, this.owner ) ).install();
-    }
-    
-    public static IClasspathEntry convert( final String component )
-    {
-        final IPath path = ( new Path( CONTAINER_ID ) ).append( component );
-        return JavaCore.newContainerEntry( path );
-    }
-    
-    public static String convert( final IClasspathEntry cpe )
-    {
-        return cpe.getPath().segment( 1 );
-    }
-    
-    public static boolean check( final IClasspathEntry cpe )
-    {
-        if( cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER )
-        {
-            final IPath p = cpe.getPath();
-            
-            if( p.segmentCount() >= 1 && 
-                p.segment( 0 ).equals( WebAppContainer.CONTAINER_ID ) )
-            {
-                return true;
-            }
-        }
-        
-        return false;
     }
 }

@@ -76,9 +76,12 @@ public abstract class FlexibleProjectContainer
     protected final IPath path;
     protected final IJavaProject owner;
     protected final IProject project;
-    protected final String component;
     private final IClasspathEntry[] cpentries;
     private final IPath[] watchlist;
+    
+    /**
+     * @deprecated 
+     */
     
     public FlexibleProjectContainer( final IPath path,
                                      final IJavaProject owner,
@@ -87,10 +90,18 @@ public abstract class FlexibleProjectContainer
                                      final IPath[] paths,
                                      final PathType[] types )
     {
+        this( path, owner, project, paths, types );
+    }
+
+    public FlexibleProjectContainer( final IPath path,
+                                     final IJavaProject owner,
+                                     final IProject project,
+                                     final IPath[] paths,
+                                     final PathType[] types )
+    {
         this.path = path;
         this.owner = owner;
         this.project = project;
-        this.component = component;
         
         final ArrayList cp = new ArrayList();
         final ArrayList w = new ArrayList();
