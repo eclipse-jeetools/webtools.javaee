@@ -45,7 +45,7 @@ public class EjbFacetInstallDataModelProvider
 		if(propertyName.equals(FACET_ID)){
 			return J2EEProjectUtilities.EJB;
 		}else if (propertyName.equals(CREATE_CLIENT)) {
-			return Boolean.TRUE;
+			return Boolean.FALSE;
 		} else if (propertyName.equals(CLIENT_SOURCE_FOLDER)) {
 			return CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
 		}else if (propertyName.equals(CONFIG_FOLDER)){
@@ -75,6 +75,8 @@ public class EjbFacetInstallDataModelProvider
 			return getBooleanProperty(CREATE_CLIENT);
 		}else if( CLIENT_URI.equals(propertyName )){
 			return getBooleanProperty(CREATE_CLIENT);
+		}else if(CREATE_CLIENT.equals(propertyName)){
+			return getBooleanProperty(ADD_TO_EAR);
 		}
 		return super.isPropertyEnabled(propertyName);
 	}
@@ -89,6 +91,9 @@ public class EjbFacetInstallDataModelProvider
 	    }else if (propertyName.equals(FACET_PROJECT_NAME)){
 	    	model.setStringProperty(CLIENT_NAME, (String)propertyValue + "Client");
 	    	model.setStringProperty(CLIENT_URI, (String)propertyValue + "Client.jar");
+	    }else if(propertyName.equals(ADD_TO_EAR)){
+	    	model.setBooleanProperty(CREATE_CLIENT, ((Boolean)propertyValue).booleanValue());
+	    	model.notifyPropertyChange(CREATE_CLIENT, IDataModel.ENABLE_CHG);
 	    }
 		return status;
 	}	
