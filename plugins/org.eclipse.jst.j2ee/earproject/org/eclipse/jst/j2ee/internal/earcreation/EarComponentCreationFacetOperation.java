@@ -19,11 +19,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.datamodel.properties.IEarComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -53,7 +53,14 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 
 
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
-		dm.setProperty(FACET_RUNTIME, RuntimeManager.getRuntime(model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID)));
+		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		IRuntime facetRuntime = null;
+		try {
+			facetRuntime = RuntimeManager.getRuntime(runtime);
+		} catch (Exception e) {
+			// proceed with facetRuntime = null
+		}
+		dm.setProperty(FACET_RUNTIME, facetRuntime);
 		String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
 		dm.setProperty(FACET_PROJECT_NAME, projectName);
 
@@ -89,9 +96,9 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 	private IStatus addModulesToEAR(IProgressMonitor monitor) {
 		IStatus stat = OK_STATUS;
 		try {
-			IDataModel dm = (IDataModel) model.getProperty(IEarComponentCreationDataModelProperties.NESTED_ADD_COMPONENT_TO_EAR_DM);
+			IDataModel dm = (IDataModel) model.getProperty(IJ2EEComponentCreationDataModelProperties.NESTED_ADD_COMPONENT_TO_EAR_DM);
 			String projectName = model.getStringProperty(IComponentCreationDataModelProperties.PROJECT_NAME);
-			IProject project = J2EEProjectUtilities.getProject(projectName);
+			IProject project = ProjectUtilities.getProject(projectName);
 			IVirtualComponent component = ComponentCore.createComponent(project);
 
 
