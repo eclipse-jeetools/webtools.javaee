@@ -606,8 +606,12 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			allValidUtilityProjects.addAll(Arrays.asList(utilityProjects));
 			for (int i = 0; i < allValidUtilityProjects.size(); i++) {
 				IProject utilProject = null;
-				if (allValidUtilityProjects.get(i) instanceof IProject)
+				if (allValidUtilityProjects.get(i) instanceof IProject){
 					utilProject = (IProject) allValidUtilityProjects.get(i);
+					if( utilProject.getName().startsWith(".")){
+						continue;
+					}
+				}
 				else if (allValidUtilityProjects.get(i) instanceof IVirtualComponent)
 					utilProject = ((IVirtualComponent) allValidUtilityProjects.get(i)).getProject();
 				boolean existingEntry = false;

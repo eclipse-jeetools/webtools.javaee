@@ -92,8 +92,9 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 				}
 			} else
 				try {
-					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature")){ //$NON-NLS-1$
-						validCompList.add(project);
+					if (project.exists() && project.isAccessible() && project.hasNature("org.eclipse.jdt.core.javanature") ){ //$NON-NLS-1$
+						if( !project.getName().startsWith(".") )
+							validCompList.add(project);
 					}
 				} catch (CoreException e) {
 					Logger.getLogger().log(e);
