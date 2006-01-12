@@ -27,8 +27,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
-import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEJavaComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -40,6 +40,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
 
 /**
@@ -56,9 +57,16 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		IDataModel utilityCreationDataModel = DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
-		String projectName = model.getStringProperty(IJavaUtilityJarImportDataModelProperties.PROJECT_NAME);
+		String projectName = model.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
 		utilityCreationDataModel.setStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
-		utilityCreationDataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, RuntimeManager.getRuntime(model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID)));
+		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		IRuntime facetRuntime = null;
+		try {
+			facetRuntime = RuntimeManager.getRuntime(runtime);
+		} catch (Exception e) {
+			// proceed with facetRuntime = null
+		}
+		utilityCreationDataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, facetRuntime);
 		FacetDataModelMap map = (FacetDataModelMap)utilityCreationDataModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		map.getFacetDataModel(J2EEProjectUtilities.UTILITY).setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
 		
@@ -67,7 +75,7 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		IProject javaProject = ProjectUtilities.getProject(projectName);
 		IVirtualComponent component = ComponentCore.createComponent(javaProject);
 
-		Archive jarFile = (Archive) model.getProperty(IJavaUtilityJarImportDataModelProperties.FILE);
+		Archive jarFile = (Archive) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 
 		J2EEJavaComponentSaveStrategyImpl strat = new J2EEJavaComponentSaveStrategyImpl(component);
 
