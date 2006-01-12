@@ -301,15 +301,6 @@
        </commonWizard> -->
     </extension>
 
-  <extension
-    point="org.eclipse.jdt.ui.classpathContainerPage">
-    <classpathContainerPage
-      name="%webapp.container.name"
-      class="org.eclipse.jst.servlet.ui.internal.classpath.WebAppContainerPage"
-      id="org.eclipse.jst.j2ee.internal.web.container">
-    </classpathContainerPage>
-  </extension>
-  
   <!-- ==================================================================== -->
 <!-- Extension point: org.eclipse.etools.server.core.moduleObjectAdapters -->
 <!-- Purpose: Define adapters for Web resources                           -->

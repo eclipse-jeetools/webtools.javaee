@@ -9,7 +9,6 @@ Bundle-Localization: plugin
 Export-Package: .,
  org.eclipse.jst.servlet.ui,
  org.eclipse.jst.servlet.ui.internal.actions,
- org.eclipse.jst.servlet.ui.internal.classpath,
  org.eclipse.jst.servlet.ui.internal.deployables,
  org.eclipse.jst.servlet.ui.internal.plugin,
  org.eclipse.jst.servlet.ui.internal.wizard,
