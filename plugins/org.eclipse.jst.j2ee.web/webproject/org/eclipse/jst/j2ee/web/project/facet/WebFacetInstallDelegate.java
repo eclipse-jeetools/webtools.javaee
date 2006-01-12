@@ -40,6 +40,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainer;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -56,9 +57,6 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
-
-	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
-
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
@@ -146,8 +144,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Add the web libraries container.
 
-			final IPath cont = new Path(WEB_LIB_CONTAINER).append(project.getName());
-
+			final IPath cont = new Path(WebAppContainer.CONTAINER_ID);
 			addToClasspath(jproj, JavaCore.newContainerEntry(cont));
 
 			// Associate with an EAR, if necessary.
