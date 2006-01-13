@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.4 $  $Date: 2005/05/11 22:41:17 $ 
+ *  $Revision: 1.5 $  $Date: 2006/01/13 00:09:29 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -34,7 +34,9 @@ import org.eclipse.jem.java.*;
 /**
  * This is a utility class for handling the BeanInfo decorators with respect to the overrides (explicit settings) vs. introspected/reflected (implicit
  * settings) It handles the transmission of data from the VM for introspection.
- * 
+ * <p>
+ * TODO Need to take advantage of {@link FeatureAttributeValue#isImplicitValue()} to allow mixing of implicit and non-implicit feature attribute
+ * values. Currently it is either no implicits or all implicits.
  * @since 1.1.0
  */
 public class BeanInfoDecoratorUtility {
