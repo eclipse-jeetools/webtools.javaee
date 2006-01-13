@@ -88,6 +88,11 @@ public class UIWarValidator extends WarValidator {
         }
 	}	
 		
+	public void cleanup(IReporter reporter) {
+		super.cleanup(reporter);
+		if(warHelper != null) 
+			warHelper.disposeWarFileMap();
+		}
 	
 	
 	/**

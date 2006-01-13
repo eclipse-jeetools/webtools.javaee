@@ -28,4 +28,11 @@ public class UIWarHelper extends WarHelper {
 	public UIWarHelper() {
 		super();
 	}
+	
+	public void disposeWarFileMap() {
+		if (warFileMap != null) {
+			warFileMap.clear();
+			warFileMap = null;
+		}
+	}
 }

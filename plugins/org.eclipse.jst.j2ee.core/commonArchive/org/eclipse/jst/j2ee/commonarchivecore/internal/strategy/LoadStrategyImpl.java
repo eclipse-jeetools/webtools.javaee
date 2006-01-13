@@ -105,6 +105,9 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 */
 	public void close() {
 		setIsOpen(false);
+        if(resourceSet != null && resourceSet.eAdapters().contains(this))
+        	resourceSet.eAdapters().remove(this);
+
 	}
 
 	protected abstract boolean primContains(String uri);

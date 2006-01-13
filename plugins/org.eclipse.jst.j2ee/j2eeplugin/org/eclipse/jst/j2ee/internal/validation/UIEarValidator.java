@@ -541,6 +541,13 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			}
 		}
 	}
+	
+
+	public void cleanup(IReporter reporter) {
+		super.cleanup(reporter);
+		cleanup();
+	}
+
 
 	/*
 	 * @see J2EEValidator#cleanup()

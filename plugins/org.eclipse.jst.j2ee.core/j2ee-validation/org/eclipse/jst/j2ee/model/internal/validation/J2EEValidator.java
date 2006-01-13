@@ -296,7 +296,7 @@ public void addWarning(String bundleName, String msgId, String[] msgArgs, Object
  * Perform any resource cleanup once validation is complete. 
  */
 public void cleanup() {
-	//Default
+	_reporter = null;
 }
 /**
  * Perform any resource cleanup once validation is complete. If cleanup will
@@ -306,7 +306,7 @@ public void cleanup() {
  * @deprecated Use cleanup()
  */
 public void cleanup(IReporter reporter) {
-	//Default
+	_reporter = null;
 }
 /**
  * Returns the name of the Validator, as it should be displayed in the UI.
