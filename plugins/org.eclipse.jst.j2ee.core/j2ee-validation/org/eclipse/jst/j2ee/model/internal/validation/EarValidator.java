@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientImpl;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
 import org.eclipse.jst.j2ee.common.EjbRef;
+import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.common.MessageDestinationRef;
 import org.eclipse.jst.j2ee.common.ResourceEnvRef;
 import org.eclipse.jst.j2ee.common.ResourceRef;
@@ -48,6 +49,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.NoModuleFileExc
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -71,6 +73,9 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	public static final String EJB_REF_GROUP_NAME = "EJB_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String SEC_ROLE_REF_GROUP_NAME = "SEC_ROLE_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String MESSAGE_REF_GROUP_NAME = "MESSAGE_REF_GROUP_NAME"; //$NON-NLS-1$
+	public static final String MESSAGE_DESTINATION_REF_GROUP_NAME = "MESSAGE_DESTINATION_REF_GROUP_NAME"; //$NON-NLS-1$	
+	public static final String MESSAGE_DESTINATION_MDB_REF_GROUP_NAME = "MESSAGE_DESTINATION_MDB_REF_GROUP_NAME"; //$NON-NLS-1$
+	
 	protected EARFile earFile;
 	protected Application appDD;
 	
@@ -112,6 +117,7 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	  validateRefs();
 	  validateWebContexts();
 	  validateSpecLevel();
+	  validateMessageDestinations();
 	}// validate
 	
 	/**
@@ -702,4 +708,202 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 			return res.getJ2EEVersionID();
 		return -1;
 	}
+	
+	
+	private void validateMessageDestinations() {
+		 validateMessageDestinationRefs();
+		 validateMDBMessageDestinations();
+	}
+	private void validateMDBMessageDestinations() {
+		List moduleList = earFile.getModuleRefs();
+	
+		for (int i = 0; i < moduleList.size(); i++) {
+			ModuleRef ref = (ModuleRef) moduleList.get(i);
+			try {
+				 if( ref.isEJB() ) {
+					EJBJar ejbJar = (EJBJar)ref.getDeploymentDescriptor();
+					if( ejbJar != null ) {
+						removeAllMessages(ejbJar,MESSAGE_DESTINATION_MDB_REF_GROUP_NAME);
+						List ejbCollection = ejbJar.getEnterpriseBeans();			
+						if( ejbCollection != null || !ejbCollection.isEmpty() ) {
+						    Iterator iterator = ejbCollection.iterator();	
+							while( iterator.hasNext() ) {
+								EnterpriseBean ejbBean = (EnterpriseBean)iterator.next();
+								if( ejbBean != null ) {
+									if (ejbBean.isMessageDriven()) {
+										MessageDriven messageDrivenBean = (MessageDriven)ejbBean;
+										if (messageDrivenBean.getVersionID() < J2EEVersionConstants.EJB_2_1_ID) continue;
+										String link = messageDrivenBean.getLink();
+										if (link != null && !isExistMessageDestinationLink(link, ref)) {
+											String[] params = new String[4];
+											params[0] = link;
+											params[1] = messageDrivenBean.getName();
+											params[2] = ref.getUri();
+											params[3] = earFile.getName();
+											addError(EREF_CATEGORY, ERROR_UNRESOLVED_MDB_MISSING_MESSAGE_DESTINATION, params,messageDrivenBean, MESSAGE_DESTINATION_MDB_REF_GROUP_NAME);
+										}
+										
+									}
+								}
+							}
+						}
+					}
+				 }
+			} catch (ArchiveWrappedException ex) {
+				Exception nested = ex.getNestedException();
+				if (!(nested instanceof NoModuleFileException)) 
+					Logger.getLogger().logError(ex);
+			} 
+			
+		}
+	}
+	
+
+	private void validateMessageDestinationRefs() {
+		List moduleList = earFile.getModuleRefs();
+		for (int i = 0; i < moduleList.size(); i++) {
+			ModuleRef ref = (ModuleRef) moduleList.get(i);
+			validateMessageDestinationRefs(ref);
+		}
+	}
+	/**
+	 * 
+	 */
+	private void validateMessageDestinationRefs(ModuleRef moduleRef) {
+		List destinationsRefs = getMessageDestinationRefs(moduleRef);
+		clearUpSubTaskMessageDestinationMessages(destinationsRefs);
+		for (int refNo = 0; refNo < destinationsRefs.size(); refNo++) {
+			MessageDestinationRef ref = (MessageDestinationRef) (destinationsRefs.get(refNo));
+			String link =  ref.getLink() ;
+			if (link == null) continue; // dont validate if the link is null
+			if ( link.length()== 0) { // empty link is an error
+				String[] params = new String[3];
+				params[0] = ref.getName();
+				params[1] = moduleRef.getUri();
+				params[2] = earFile.getName();
+				
+				addError(EREF_CATEGORY, ERROR_EAR_MISSING_EMPTY_MESSSAGEDESTINATION, params,ref, MESSAGE_DESTINATION_REF_GROUP_NAME);
+			} else if (!isExistMessageDestinationLink(link, moduleRef)) {
+				String[] params = new String[4];
+				params[0] = link;
+				params[1] = ref.getName();
+				params[2] = moduleRef.getUri();
+				params[3] = earFile.getName();
+				
+				addError(EREF_CATEGORY, ERROR_EAR_MISSING_MESSSAGEDESTINATION, params,ref, MESSAGE_DESTINATION_REF_GROUP_NAME);
+			}
+		}	
+	}
+	
+	
+	private void clearUpSubTaskMessageDestinationMessages(List destinationsRefs) {
+		for (int refNo = 0; refNo < destinationsRefs.size(); refNo++) {
+			MessageDestinationRef ref = (MessageDestinationRef) (destinationsRefs.get(refNo));
+			removeAllMessages(ref,MESSAGE_DESTINATION_REF_GROUP_NAME);
+		}
+	}
+	
+	protected void removeAllMessages(EObject eObject, String groupName) {
+		
+	}
+	
+	/**
+	 * @param ref
+	 * @return
+	 */
+	private boolean isExistMessageDestinationLink(String link, ModuleRef moduleRef) {
+		if (link == null) return false;
+		int index = link.indexOf('#');
+		String destinationName;
+		if (index == -1) {
+			destinationName = link;
+		} else {
+			String moduleName = link.substring(0,index);
+			destinationName = link.substring(index+1);
+			moduleRef = getModuleRefByName(moduleName);
+			if (moduleRef == null) return false;
+			
+		}
+		List destinations = getMessageDestinations(moduleRef);
+		for (int i = 0; i < destinations.size(); i++) {
+			MessageDestination messageDestination = (MessageDestination) (destinations.get(i));
+			if (destinationName.equals(messageDestination.getName())) return true;
+		}
+		return false;
+	}
+	
+	private ModuleRef getModuleRefByName(String moduleName) {
+		List moduleList = earFile.getModuleRefs();
+		for (int i = 0; i < moduleList.size(); i++) {
+			ModuleRef ref = (ModuleRef) moduleList.get(i);
+			Module module = ref.getModule();
+			if (moduleName.equals(module.getUri())) {
+				return ref;
+			}
+		}
+		return null;
+	}	
+	
+	private List getMessageDestinationRefs(ModuleRef ref) {
+		List destinationRefs = new ArrayList();
+		
+		try {
+			if(ref.isWeb()) {
+				WebApp webApp = (WebApp)ref.getDeploymentDescriptor();
+				destinationRefs.addAll(webApp.getMessageDestinationRefs());
+			} else if( ref.isEJB() ) {
+				EJBJar ejbJar = (EJBJar)ref.getDeploymentDescriptor();
+				destinationRefs.addAll(getEJBMessageDestinationRefs(ejbJar));
+			} else if(ref.isClient()) {
+				ApplicationClient appClient = (ApplicationClientImpl)ref.getDeploymentDescriptor();
+				destinationRefs.addAll(appClient.getMessageDestinationRefs());
+			}
+		} catch (ArchiveWrappedException ex) {
+			Exception nested = ex.getNestedException();
+			if (!(nested instanceof NoModuleFileException)) 
+				Logger.getLogger().logError(ex);
+		} 
+			
+		
+		return destinationRefs;
+	}
+	
+	private List getEJBMessageDestinationRefs(EJBJar ejbJar) {
+		List ejbMessageDestinationRefs = new ArrayList();
+		if( ejbJar != null ) {
+			List ejbCollection = ejbJar.getEnterpriseBeans();			
+			if( ejbCollection != null || !ejbCollection.isEmpty() ) {
+			    Iterator iterator = ejbCollection.iterator();	
+				while( iterator.hasNext() ) {
+					EnterpriseBean ejbBean = (EnterpriseBean)iterator.next();
+					if( ejbBean != null ) {
+						ejbMessageDestinationRefs.addAll(ejbBean.getMessageDestinationRefs());
+					}
+				}
+			}
+		}
+		return ejbMessageDestinationRefs;
+	}
+	
+	private List getMessageDestinations(ModuleRef ref) {
+		List destinations = new ArrayList();
+		try {
+			if(ref.isWeb()) {
+				WebApp webApp = (WebApp)ref.getDeploymentDescriptor();
+				destinations.addAll(webApp.getMessageDestinations());
+			} else if( ref.isEJB() ) {
+				EJBJar ejbJar = (EJBJar)ref.getDeploymentDescriptor();
+				if (ejbJar != null && ejbJar.getAssemblyDescriptor() != null)
+					destinations.addAll(ejbJar.getAssemblyDescriptor().getMessageDestinations());
+			} else if(ref.isClient()) {
+				ApplicationClient appClient = (ApplicationClientImpl)ref.getDeploymentDescriptor();
+				destinations.addAll(appClient.getMessageDestinations());
+			}
+		} catch (ArchiveWrappedException ex) {
+			Exception nested = ex.getNestedException();
+			if (!(nested instanceof NoModuleFileException)) 
+				Logger.getLogger().logError(ex);
+		}
+		return destinations;
+	}	
 }// EarValidator
