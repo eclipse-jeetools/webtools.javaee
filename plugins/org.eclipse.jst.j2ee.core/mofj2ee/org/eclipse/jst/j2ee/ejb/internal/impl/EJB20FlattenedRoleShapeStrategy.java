@@ -93,7 +93,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 	/**
 	 * 
 	 */
-	protected void collectAttributes(CMPAttribute type, String attributeName, List aList, List computedNames) {
+	protected void collectAttributes(ContainerManagedEntity entity, CMPAttribute type, String attributeName, List aList, List computedNames) {
 		boolean isNewAttribute = false;
 		attributeName = appendName(attributeName, type.getName());
 		computedNames.add(attributeName);
@@ -103,7 +103,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 			isNewAttribute = true;
 		}
 		//This is necessary for code generation
-		ContainerManagedEntity entity = (ContainerManagedEntity) type.eContainer();
+		//ContainerManagedEntity entity = (ContainerManagedEntity) type.eContainer();
 		if (entity != null)
 			setDerivedAttributeType(attribute, type, isNewAttribute);
 		if (isNewAttribute) {
@@ -130,7 +130,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 		CMPAttribute attribute;
 		while (it.hasNext()) {
 			attribute = (CMPAttribute) it.next();
-			collectAttributes(attribute, attributeName, aList, computedNames);
+			collectAttributes(entity, attribute, attributeName, aList, computedNames);
 		}
 	}
 	/**
