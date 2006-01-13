@@ -9,27 +9,16 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.java.internal.impl;
-/*
- *  $RCSfile: JavaRefFactoryImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
- */
 import java.util.List;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import org.eclipse.jem.java.*;
-import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
+import org.eclipse.jem.java.util.JavaContext;
 
 
 
@@ -39,7 +28,6 @@ import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
 public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 
 	
-	protected static Class ReflectionFactoryClass = JavaJDKAdapterFactory.class;
 	public JavaRefFactoryImpl() {
 		super();
 	}
@@ -136,37 +124,34 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 		at.setName(computedName);
 		return at;
 	}
+
+  /**
+   * Get the java context
+   * @return
+   * 
+   * @deprecated Use the API {@link JavaContext#createJavaContext()} instead.
+   * @since 1.2.0
+   */
   public static ResourceSet createJavaContext() {
-    org.eclipse.jem.internal.java.init.JavaInit.init();
-    ResourceSet set = new ResourceSetImpl();
-    set.getAdapterFactories().add(createJavaReflectionAdapterFactory());
-    return set;
+    return JavaContext.createJavaContext();
   }
-	protected static AdapterFactory createJavaReflectionAdapterFactory() {
-		AdapterFactory factoryInstance = null;
-		try {
-			if (getReflectionAdapterFactoryClass() != null)
-				factoryInstance = (AdapterFactory) getReflectionAdapterFactoryClass().newInstance();
-		} catch (Exception e) {
-			// Reflection or instantiation problems.
-			// OK, can't do Java Model reflection
-		}
-		return factoryInstance;
-	}
 	/**
 	 * Return the Class for the Java refection adapter factory.
+	 * @deprecated Use the API {@link JavaContext#getReflectionAdapterFactoryClass()} instead.
 	 */
 	public static Class getReflectionAdapterFactoryClass() {
-		return ReflectionFactoryClass;
+		return JavaContext.getReflectionAdapterFactoryClass();
 	}
+	
 	/**
 	 * Set the Class for the Java refection adapter factory.
 	 * 
-	 * @see JavaPlugin.startup()
+	 * @deprecated Use the API {@link JavaContext#setReflectionAdapterFactoryClass(Class)} instead.
 	 */
 	public static void setReflectionAdapterFactoryClass(Class javaReflectionFactoryClass) {
-		ReflectionFactoryClass = javaReflectionFactoryClass;
+		JavaContext.setReflectionAdapterFactoryClass(javaReflectionFactoryClass);
 	}
+	
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
