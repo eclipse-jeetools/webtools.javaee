@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.39 $  $Date: 2005/10/26 14:24:56 $ 
+ *  $Revision: 1.40 $  $Date: 2006/01/13 00:11:44 $ 
  */
 
 import java.io.*;
@@ -268,7 +268,7 @@ public class BeaninfoNature implements IProjectNature {
 	 * @param deregister Deregister from the BeanInfoPlugin. Normally this will always be true, but it
 	 * will be called with false when BeanInfoPlugin is calling back to shutdown.
 	 */
-	public void cleanup(boolean clearResults, boolean deregister) {
+	public synchronized void cleanup(boolean clearResults, boolean deregister) {
 		if (deregister)
 			BeaninfoPlugin.getPlugin().removeBeanInfoNature(this);
 		fSynchronizer.stopSynchronizer(clearResults);
@@ -473,9 +473,14 @@ public class BeaninfoNature implements IProjectNature {
 			configurationContributor.setNature(this);
 			ProxyFactoryRegistry registry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
 					new IConfigurationContributor[] { configurationContributor}, false, new SubProgressMonitor(pm, 100));
-			registry.addRegistryListener(registryListener);
 			synchronized(this) {
-				fRegistry = registry;
+				if (!isRegistryCreated()) {
+					registry.addRegistryListener(registryListener);
+					fRegistry = registry;
+				} else {
+					// It was created while we were creating. So use the current one. Terminate the one just created. Not needed.
+					registry.terminateRegistry(false);
+				}
 			}
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
