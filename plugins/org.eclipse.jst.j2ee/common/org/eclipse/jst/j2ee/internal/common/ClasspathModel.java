@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -614,7 +615,11 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				for (int j = 0; j < entry.length; j++) {
 					IClasspathEntry eachEntry = entry[j];
 					if (eachEntry.getEntryKind() == IClasspathEntry.CPE_PROJECT && eachEntry.getPath().toString().equals("/" + utilProject.getName())) { //$NON-NLS-1$
-						existingEntry = true;
+						IVirtualReference ref = component.getReference(utilProject.getName());
+						IPath path = new Path("/WEB-INF/lib");
+						if( ref != null && ref.getRuntimePath().equals(path)){
+							existingEntry = true;
+						}						
 						break;
 					}
 				}

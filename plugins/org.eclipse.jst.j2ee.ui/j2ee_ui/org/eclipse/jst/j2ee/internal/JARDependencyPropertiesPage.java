@@ -501,11 +501,75 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 //    }
 
     
+    List getUnSelectedClassPathElementsForJ2EEDependency(){
+		List unselectedForJ2EE = getUnSelectedClassPathSelection().getClasspathElements();
+		List wlpSelected= model.getClassPathSelectionForWLPs().getSelectedClasspathElements();
+
+		
+		List unselected = new ArrayList();
+		java.util.Iterator it = unselectedForJ2EE.iterator();
+		
+		while( it.hasNext()){
+			ClasspathElement element = (ClasspathElement)it.next();
+			java.util.Iterator wlpIterator = wlpSelected.iterator();
+			boolean found = false;
+			while(wlpIterator.hasNext()){
+				ClasspathElement wlpElement = (ClasspathElement)wlpIterator.next();
+				String text = element.getText();
+				int  index = text.indexOf(".jar");
+				text = text.substring(0, index);
+				if( text.equals(wlpElement.getText()) ){
+					found = true;
+					break;
+				}
+			}
+			if( !found ){
+				if( !unselected.contains(element))
+					unselected.add(element);
+			}
+			
+		}
+		return unselected;
+    }
+    
+    
+    List getUnSelectedClassPathElementsForWebDependency(){
+		List unselectedForWLP = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
+		List j2eeSelected= model.getClassPathSelection().getSelectedClasspathElements();
+
+		
+		List unselected = new ArrayList();
+		java.util.Iterator it = unselectedForWLP.iterator();
+		
+		while( it.hasNext()){
+			ClasspathElement element = (ClasspathElement)it.next();
+			java.util.Iterator j2eeIterator = j2eeSelected.iterator();
+			boolean found = false;
+			while( j2eeIterator.hasNext() ){
+				ClasspathElement j2eeElement = (ClasspathElement)j2eeIterator.next();
+				String text = j2eeElement.getText();
+				int  index = text.indexOf(".jar");
+				text = text.substring(0, index);
+				
+				if( element.getText().equals( text )){
+					found = true;
+					break;
+				}
+			}
+			if( !found ){
+				if( !unselected.contains(element))
+					unselected.add(element);
+			}
+			
+		}
+		return unselected;
+    }
+    
 	protected WorkspaceModifyComposedOperation createJ2EEComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelection().getClasspathElements();
-		List unselected = getUnSelectedClassPathSelection().getClasspathElements();
-		
+		List unselected = getUnSelectedClassPathElementsForJ2EEDependency();
+			
 		List targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < selected.size(); i++) {
 			ClasspathElement element = (ClasspathElement) selected.get(i);
@@ -559,7 +623,9 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
-		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
+//		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
+		
+		List unselected = getUnSelectedClassPathElementsForWebDependency();
 		
 		List targetComponentsHandles = new ArrayList();
 		for (int i = 0; i < selected.size(); i++) {
@@ -630,12 +696,14 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	
 	protected IRunnableWithProgress createBuildPathOperation() {
         IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs()));
+        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(), getUnSelectedClassPathElementsForJ2EEDependency()));
     }
 	
 	protected IRunnableWithProgress createWLPBuildPathOperation() {
         IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathSelectionForWLPs()));
+        //return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathSelectionForWLPs()));
+        return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathElementsForWebDependency()));
+        
     }
 	
 	protected ClassPathSelection getUnSelectedClassPathSelectionForWLPs() {

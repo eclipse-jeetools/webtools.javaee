@@ -73,6 +73,19 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 		if(unselected != null && !unselected.getClasspathElements().isEmpty())
 			allUnselectedClasspathEntries.addAll(unselected.getClasspathElements());
 	}
+	
+	public UpdateJavaBuildPathOperation(IJavaProject aJavaProject, ClassPathSelection selected, List unselected) {
+		super();
+		javaProject = aJavaProject;
+		classPathSelection = selected;
+		allClasspathEntries = new HashSet();
+		if(selected != null && !selected.getClasspathElements().isEmpty())
+			allClasspathEntries.addAll(Arrays.asList(selected.getClasspathEntriesForSelected()));
+		
+		allUnselectedClasspathEntries = new ArrayList();
+		if(unselected != null && !unselected.isEmpty())
+			allUnselectedClasspathEntries.addAll(unselected);
+	}	
 
 	protected void ensureClasspathEntryIsExported(List cp, IClasspathEntry entry) {
 		if (entry.isExported())
