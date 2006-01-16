@@ -623,8 +623,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	protected WorkspaceModifyComposedOperation createComponentDependencyOperations() {
 		WorkspaceModifyComposedOperation composedOp = null;
 		List selected = getSelectedClassPathSelectionForWLPs().getClasspathElements();
-//		List unselected = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
-		
 		List unselected = getUnSelectedClassPathElementsForWebDependency();
 		
 		List targetComponentsHandles = new ArrayList();
@@ -701,7 +699,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	
 	protected IRunnableWithProgress createWLPBuildPathOperation() {
         IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-        //return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathSelectionForWLPs()));
         return WTPUIPlugin.getRunnableWithProgress(new UpdateJavaBuildPathOperation(javaProject,getSelectedClassPathSelectionForWLPs(),getUnSelectedClassPathElementsForWebDependency()));
         
     }
