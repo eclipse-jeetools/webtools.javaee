@@ -546,7 +546,7 @@ public class ArchiveUtil {
 			dir.mkdirs();
 			if (!dir.exists())
 				throw new ArchiveException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.make_temp_dir_EXC_, (new Object[]{newTempDirectoryName}))); // = "Unable to make temp directory: "
-			dir.deleteOnExit();
+			DeleteOnExitUtility.markForDeletion(dir);
 		}
 		setTempDirectory(dir);
 	}
