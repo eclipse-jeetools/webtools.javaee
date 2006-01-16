@@ -216,6 +216,18 @@ public class ClassPathSelection {
 			classpathElements = new ArrayList();
 		return classpathElements;
 	}
+	
+	public java.util.List getSelectedClasspathElements() {
+		ArrayList list = new ArrayList();
+		Iterator it = classpathElements.iterator();
+		while(it.hasNext()) {
+			ClasspathElement element = (ClasspathElement)it.next();
+			if( element.isSelected() ){
+				list.add(element);
+			}
+		}
+		return list;
+	}	
 
 	/**
 	 * Adapter method to convert the manifest class path entries which map to a project to a list of
