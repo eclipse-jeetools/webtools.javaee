@@ -64,6 +64,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ReadOnlyDirector
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.TempZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.War22ImportStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.DeleteOnExitUtility;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 
 
@@ -349,7 +350,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 
 		try {
 			java.io.File tempFile = ArchiveUtil.createTempFile(uri);
-			tempFile.deleteOnExit();
+			DeleteOnExitUtility.markForDeletion(tempFile);
 			InputStream in = parent.getInputStream(uri);
 			OutputStream out = new FileOutputStream(tempFile);
 			ArchiveUtil.copy(in, out);

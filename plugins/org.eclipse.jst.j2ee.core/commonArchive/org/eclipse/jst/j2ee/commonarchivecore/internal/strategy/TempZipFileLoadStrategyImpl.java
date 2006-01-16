@@ -12,9 +12,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.strategy;
 
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.DeleteOnExitUtility;
 
 
 /**
@@ -46,7 +48,9 @@ public class TempZipFileLoadStrategyImpl extends ZipFileLoadStrategyImpl {
 
 	public void close() {
 		super.close();
-		getFile().delete();
+		File file = getFile();
+		file.delete();
+		DeleteOnExitUtility.fileHasBeenDeleted(file);
 	}
 
 	/**
