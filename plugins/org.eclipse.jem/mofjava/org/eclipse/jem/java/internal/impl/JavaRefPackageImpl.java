@@ -11,7 +11,7 @@
 package org.eclipse.jem.java.internal.impl;
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2005/09/14 23:30:32 $ 
+ *  $Revision: 1.2 $  $Date: 2006/01/17 15:57:42 $ 
  */
 import java.util.List;
 
@@ -176,6 +176,17 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	private JavaRefPackageImpl() {
 		super(eNS_URI, JavaRefFactory.eINSTANCE);
 	}
+	
+	/**
+	 * Do not use. This is here only for the use of the older deprecated org.eclipse.jem.java.impl.JavaRefPackageImpl.
+	 * @param b
+	 * 
+	 * 
+	 * @since 1.2.0
+	 */
+	protected JavaRefPackageImpl(boolean b) {
+		this();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -185,9 +196,25 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	private static boolean isInited = false;
 
 	/**
-	 * @generated This field/method will be replaced during code generation.
+	 * This is here only for older pre-EMF 2.2 generated code that accesses the package directly instead of through the interface. New
+	 * code should not use this directly.
+	 * @return
+	 * @since 1.2.0
 	 */
 	public static JavaRefPackage init() {
+		if (isInited) return (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
+
+		// Note: Need to be careful here. If EMF ever changes how it generates the init method and assigns the
+		// package in a different way then this will need to change too.
+		if (!(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof org.eclipse.jem.java.impl.JavaRefPackageImpl))
+			new org.eclipse.jem.java.impl.JavaRefPackageImpl();
+		return initGen();
+	}
+
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	public static JavaRefPackage initGen() {
 		if (isInited) return (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
 		// Obtain or create and register package
@@ -993,7 +1020,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		createResource(eNS_URI);
 	}
 
-} //JavaRefPackageImpl
+}
 
 
 

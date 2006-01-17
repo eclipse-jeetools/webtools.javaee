@@ -18,10 +18,11 @@ Export-Package: org.eclipse.jem.internal.core;x-friends:="org.eclipse.jem.beanin
  org.eclipse.jem.internal.java.instantiation,
  org.eclipse.jem.java,
  org.eclipse.jem.java.adapters,
+ org.eclipse.jem.java.impl,
  org.eclipse.jem.java.internal.impl;x-friends:="org.eclipse.jem.beaninfo,org.eclipse.jem.workbench",
  org.eclipse.jem.java.util
 Require-Bundle: org.eclipse.emf.ecore.xmi,
  org.eclipse.jem.proxy;resolution:=optional,
  org.eclipse.core.runtime,
  org.eclipse.jem.util
-Eclipse-AutoStart: true
+Eclipse-LazyStart: true

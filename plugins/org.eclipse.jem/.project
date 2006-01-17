@@ -3,10 +3,6 @@
 	<name>org.eclipse.jem</name>
 	<comment></comment>
 	<projects>
-		<project>org.eclipse.core.runtime.compatibility</project>
-		<project>org.eclipse.emf.ecore.xmi</project>
-		<project>org.eclipse.jem.proxy</project>
-		<project>org.eclipse.osgi</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
