@@ -90,4 +90,5 @@ public class EJBUIMessages extends NLS {
 	public static final String Cannot_delete_bean = KEY_26;
 	public static final String Delete_Enterprise_Beans = KEY_27;
 	public static final String Delete_Options_Query = KEY_27;
+	public static final String NewEJBModuleAction = NewEJBModuleAction_UI_0;
 }
