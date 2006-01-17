@@ -124,6 +124,8 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 */
 	public Object getImage(Object object) {
 		String key = null;
+		if (((ApplicationClient) object).eResource() == null)
+			return J2EEPlugin.getPlugin().getImage("applclientJAR_obj"); //$NON-NLS-1$
 		switch (((ApplicationClient) object).getVersionID()) {
 			case J2EEVersionConstants.J2EE_1_2_ID :
 				key = "appclient_12"; //$NON-NLS-1$
