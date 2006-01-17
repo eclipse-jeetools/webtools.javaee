@@ -178,10 +178,10 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * This returns EJBJar.gif.
 	 */
 	public Object getImage(Object object) {
-
 		String key = null;
+		if (((EJBJar) object).eResource() == null)
+			return J2EEPlugin.getPlugin().getImage("ejbJar_obj"); //$NON-NLS-1$
 		switch (((EJBJar) object).getVersionID()) {
-
 			case J2EEVersionConstants.EJB_1_0_ID :
 				key = "10_ejbjar_obj"; //$NON-NLS-1$
 				break;
@@ -196,8 +196,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 				key = "21_ejb_obj"; //$NON-NLS-1$
 				break;
 		}
-
-		return J2EEPlugin.getPlugin().getImage(key); //$NON-NLS-1$
+		return J2EEPlugin.getPlugin().getImage(key);
 	}
 
 	public String getText(Object object) {
