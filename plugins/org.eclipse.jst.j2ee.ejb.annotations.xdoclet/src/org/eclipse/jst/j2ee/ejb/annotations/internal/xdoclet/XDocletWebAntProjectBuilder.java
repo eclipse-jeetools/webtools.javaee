@@ -101,20 +101,12 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		WebArtifactEdit webEdit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(javaProject.getProject());
-			WorkbenchComponent wbModule = null;
-			ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(resource.getProjectRelativePath());
-			for (int i = 0; i < moduleResources.length; i++) {
-				ComponentResource moduleResource = moduleResources[i];
-				if (moduleResource != null)
-					wbModule = moduleResource.getComponent();
-				if (wbModule != null)
-					break;
-			}
-			IProject proj = StructureEdit.getContainingProject(wbModule);
+			
+			WorkbenchComponent wbModule = moduleCore.getComponent();
+			IProject proj = javaProject.getProject();
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(proj);
 
 			if (webEdit != null) {
-				// j2eeVersion = webEdit.getJ2EEVersion();
 				if((contextRoot = webEdit.getServerContextRoot()) == null)
 					contextRoot = "";//$NON-NLS-1$
 			}
@@ -132,10 +124,6 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 
 			String servletLevel = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
-			// if (j2eeVersion == J2EEVersionConstants.J2EE_1_3_ID)
-			// servletLevel = J2EEVersionConstants.VERSION_2_3_TEXT;
-			// else if (j2eeVersion == J2EEVersionConstants.J2EE_1_4_ID)
-			// servletLevel = J2EEVersionConstants.VERSION_2_4_TEXT;
 
 			properties.put("servlet.spec.version", servletLevel); //$NON-NLS-1$
 			properties.put("java.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$

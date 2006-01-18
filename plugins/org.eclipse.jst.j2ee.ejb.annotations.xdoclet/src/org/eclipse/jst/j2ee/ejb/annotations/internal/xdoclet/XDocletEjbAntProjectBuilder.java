@@ -136,24 +136,12 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			url = Platform.asLocalURL(url);
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
-			WorkbenchComponent ejbModule = null;
-			ComponentResource[] moduleResources = core.findResourcesBySourcePath(resource.getProjectRelativePath());
-			for (int i = 0; i < moduleResources.length; i++) {
-				ComponentResource moduleResource = moduleResources[i];
-				if (moduleResource != null)
-					ejbModule = moduleResource.getComponent();
-				if (ejbModule != null)
-					break;
-			}
-
+			WorkbenchComponent ejbModule = core.getComponent();
 			// For deleted resources we cannot find the module
 			// So assume the first module in the project (currently)
 			// there is only one anyway...
 			IProject proj = javaProject.getProject();
-			if (ejbModule == null) {
-				ejbModule = core.getComponent();
-			}
-
+		
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
 
 			int ejbLevelI = ejbEdit.getEJBJarXmiResource().getModuleVersionID();

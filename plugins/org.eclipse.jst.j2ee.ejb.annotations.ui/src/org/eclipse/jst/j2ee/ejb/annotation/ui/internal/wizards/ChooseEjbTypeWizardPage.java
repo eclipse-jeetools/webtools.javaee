@@ -143,9 +143,9 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 		annotationGroup.setLayout(layout);
 		annotationGroup.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
 
-		Label label = new Label(annotationGroup, SWT.WRAP);
-		label.setText("Annotation Provider:");
-		label.setToolTipText("Choose the annotation provider that will be used to create java classes and J2EE artifacts");
+		//Label label = new Label(annotationGroup, SWT.WRAP);
+		//label.setText("Annotation Provider:");
+		//label.setToolTipText("Choose the annotation provider that will be used to create java classes and J2EE artifacts");
 
 		// annotationProvider = new Combo(annotationGroup, SWT.RADIO);
 		String preferred = AnnotationPreferenceStore.getProperty(AnnotationPreferenceStore.ANNOTATIONPROVIDER);
