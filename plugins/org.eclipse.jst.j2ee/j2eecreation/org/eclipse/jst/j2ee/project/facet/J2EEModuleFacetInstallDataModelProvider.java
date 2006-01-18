@@ -31,6 +31,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModelProviderNew;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -87,7 +88,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
 			}
 		} else if (EAR_PROJECT_NAME.equals(propertyName)) {
-			if( propertyValue != null && !propertyValue.equals("")){
+			if( propertyValue != null && !propertyValue.equals("")){ //$NON-NLS-1$
 				IProject project = ProjectUtilities.getProject((String) propertyValue);
 				if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
 					try {
@@ -157,7 +158,9 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 
 	public IStatus validate(String name) {
 		if (name.equals(EAR_PROJECT_NAME) && getBooleanProperty(ADD_TO_EAR)) {
-			validateEAR(getStringProperty(EAR_PROJECT_NAME));
+			IStatus status = validateEAR(getStringProperty(EAR_PROJECT_NAME));
+			if (!status.isOK())
+				return status;
 		} else if (name.equals(CONFIG_FOLDER)) {
 			String folderName = model.getStringProperty(CONFIG_FOLDER);
 			if (folderName == null || folderName.length() == 0) {
@@ -175,7 +178,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (earName == null || earName.equals("")) { //$NON-NLS-1$
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
-		}
+		} 
+		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
 		// IProject earProject =
 		// applicationCreationDataModel.getTargetProject();
 		// if (null != earProject && earProject.exists()) {
@@ -225,7 +229,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		// }
 		// return status;
 
-		return OK_STATUS;
+		//return OK_STATUS;
 	}
 
 }
