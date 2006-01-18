@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelSynchHelper;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -81,6 +82,9 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         final WizardDialog dialog 
             = new WizardDialog( newButton.getShell(), wizard );
         
+        IRuntime runtime = (IRuntime)model.getProperty(FACET_RUNTIME);
+    	wizard.setRuntimeInDataModel(runtime);
+    	
         if( dialog.open() != SWT.CANCEL )
         {
             model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);

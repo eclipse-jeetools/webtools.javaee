@@ -21,6 +21,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectTemplate;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 import org.osgi.framework.Bundle;
 
@@ -40,6 +41,10 @@ public class EarProjectWizard extends NewProjectDataModelFacetWizard {
 		return DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
 	}
 
+	public void setRuntimeInDataModel(IRuntime runtime){
+		model.setProperty(FACET_RUNTIME, runtime);
+	}
+	
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle("org.eclipse.jst.j2ee.ui");
 		final URL url = bundle.getEntry("icons/ear-wiz-banner.gif");
