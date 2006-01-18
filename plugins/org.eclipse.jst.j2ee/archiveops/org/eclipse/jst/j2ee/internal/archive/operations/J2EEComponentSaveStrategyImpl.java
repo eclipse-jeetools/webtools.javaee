@@ -38,12 +38,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.util.ZipFileExporter;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 
@@ -104,29 +101,29 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		importedClassFiles = classFiles;
 
 		IContainer jarParent = vComponent.getRootFolder().getUnderlyingFolder().getParent();
-		String importedClassesComponentName = vComponent.getName() + "_ImportedClasses";
-		IFolder folder = jarParent.getFolder(new Path(importedClassesComponentName));
+		String folderName = "ImportedClasses";
+		IFolder folder = jarParent.getFolder(new Path(folderName));
 		try {
 			folder.create(true, true, null);
+			vComponent.getRootFolder().getFolder(getImportedClassesRuntimePath()).createLink(folder.getProjectRelativePath(), 0, null);
 		} catch (CoreException e1) {
 			Logger.getLogger().logError(e1);
 		}
-		IFile importedClassesJar = folder.getFile(new Path("importedClasses.jar"));
-		ZipFileExporter zipFileExporter = null;
 		IJavaProject javaProject = null;
 		try {
-			zipFileExporter = new ZipFileExporter(importedClassesJar.getRawLocation().toOSString(), true);
 			Iterator keys = importedClassFiles.keySet().iterator();
 			String uri = null;
 			File file = null;
+			IFile iFile = null;
 			InputStream inputStream = null;
 			while (keys.hasNext()) {
 				uri = (String) keys.next();
 				file = (File) importedClassFiles.get(uri);
 				try {
+					iFile = folder.getFile(new Path(uri));
 					inputStream = file.getInputStream();
-					zipFileExporter.write(inputStream, uri);
-				} catch (CoreException e) {
+					saveToIFile(iFile, inputStream);
+				} catch (Exception e) {
 					Logger.getLogger().logError(e);
 				} finally {
 					if (inputStream != null) {
@@ -134,23 +131,17 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 					}
 				}
 			}
-			folder.refreshLocal(1, null);
-			if (JemProjectUtilities.getJavaProject(vComponent.getProject())!=null) {
-				javaProject = JavaCore.create(vComponent.getProject());
-				IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
-				IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
-				System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
-				newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(importedClassesJar.getFullPath(), null, null, true);
-				javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
+			folder.refreshLocal(IResource.DEPTH_INFINITE, null);
+			if (shouldAddImportedClassesToClasspath()) {
+				if (JemProjectUtilities.getJavaProject(vComponent.getProject()) != null) {
+					javaProject = JavaCore.create(vComponent.getProject());
+					IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
+					IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
+					System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
+					newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true);
+					javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
+				}
 			}
-			IVirtualComponent importedClassesComponent = ComponentCore.createArchiveComponent(vComponent.getProject(), "lib/" + importedClassesJar.getRawLocation().toString());
-			// importedClassesComponent.create(0, null);
-			// importedClassesComponent.getRootFolder().createLink(new
-			// Path(importedClassesComponentName), 0, null);
-			// importedClassesComponent.setComponentTypeId(IModuleConstants.JST_UTILITY_IMPORTED_CLASSES_MODULE);
-			IVirtualReference ref = ComponentCore.createReference(vComponent, importedClassesComponent, getImportedClassesRuntimePath());
-			ref.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
-			ref.create(0, null);
 		} catch (IOException e) {
 			Logger.getLogger().logError(e);
 		} catch (JavaModelException e) {
@@ -158,19 +149,17 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		} finally {
-			if (zipFileExporter != null) {
-				try {
-					zipFileExporter.finished();
-					if (javaProject !=null)
-						javaProject.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
-				} catch (IOException e) {
-					Logger.getLogger().logError(e);
-				} catch (CoreException ex) {
-					Logger.getLogger().logError(ex);
-				}
+			try {
+				if (javaProject != null)
+					javaProject.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+			} catch (CoreException ex) {
+				Logger.getLogger().logError(ex);
 			}
 		}
+	}
 
+	protected boolean shouldAddImportedClassesToClasspath() {
+		return true;
 	}
 
 	protected IPath getImportedClassesRuntimePath() {
@@ -182,17 +171,17 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		Map result = new HashMap();
 		for (int i = 0; i < files.size(); i++) {
 			File aFile = (File) files.get(i);
-			if (isClassWithoutSource(aFile)){
+			if (isClassWithoutSource(aFile)) {
 				result.put(getImportedClassesURI(aFile), aFile);
 			}
 		}
 		return result;
 	}
-	
-	protected String getImportedClassesURI(File aFile){
+
+	protected String getImportedClassesURI(File aFile) {
 		return aFile.getURI();
 	}
-	
+
 
 	protected boolean isClassWithoutSource(File aFile) {
 		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getURI());

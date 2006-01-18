@@ -47,6 +47,10 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		}
 		return false;
 	}
+	
+	protected boolean shouldAddImportedClassesToClasspath() {
+		return false; //never add to classpath because the web app container will pick this up.
+	}
 
 	protected String getImportedClassesURI(File aFile) {
 		String uri = aFile.getURI();
