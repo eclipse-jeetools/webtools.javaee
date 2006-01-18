@@ -102,6 +102,9 @@ public abstract class NewProjectDataModelFacetWizard extends AddRemoveFacetsWiza
 
 		this.facetsSelectionPage.setFilters(new FacetsSelectionPanel.IFilter[]{filter});
 
+		IRuntime runtime = (IRuntime)model.getProperty(FACET_RUNTIME);
+		if(runtime != null)
+			setRuntime(runtime);
 		synchRuntimes();
 	}
 

@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -27,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -60,11 +62,18 @@ public abstract class J2EEFacetInstallDelegate {
 
 
 			facetProj.modify(actions, null);
+			
+			try {
+				FacetProjectCreationOperation.addDefaultFactets(facetProj, runtime);
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError(e);
+			}
+			
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		}		
 	}
-	
+
     protected void createManifest(IProject project, IContainer aFolder, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
     	
         IFile file = aFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
