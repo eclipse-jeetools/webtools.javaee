@@ -132,9 +132,9 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 				}
 			}
 			folder.refreshLocal(IResource.DEPTH_INFINITE, null);
-			if (JemProjectUtilities.getJavaProject(vComponent.getProject()) != null) {
-				javaProject = JavaCore.create(vComponent.getProject());
-				if (!javaProject.isOnClasspath(folder)) {
+			if (shouldAddImportedClassesToClasspath()) {
+				if (JemProjectUtilities.getJavaProject(vComponent.getProject()) != null) {
+					javaProject = JavaCore.create(vComponent.getProject());
 					IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
 					IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
 					System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
@@ -156,6 +156,10 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 				Logger.getLogger().logError(ex);
 			}
 		}
+	}
+
+	protected boolean shouldAddImportedClassesToClasspath() {
+		return true;
 	}
 
 	protected IPath getImportedClassesRuntimePath() {
