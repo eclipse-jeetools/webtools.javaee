@@ -12,8 +12,10 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -43,7 +45,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
-			monitor.beginTask("", 1);
+			monitor.beginTask("", 1); //$NON-NLS-1$
 		}
 
 		try {
@@ -60,14 +62,15 @@ public final class EarFacetInstallDelegate implements IDelegate {
 			c.create(0, null);
 
 			final IVirtualFolder earroot = c.getRootFolder();
-			earroot.createLink(new Path("/" + model.getStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR)), 0, null);
+			earroot.createLink(new Path("/" + model.getStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR)), 0, null); //$NON-NLS-1$
 
 			if (!project.getFile(J2EEConstants.APPLICATION_DD_URI).exists()) {
 				String ver = fv.getVersionString();
 				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				EARArtifactEdit.createDeploymentDescriptor(project, nVer);
 			}
-			List dependentProjects = (List) model.getProperty(IEarFacetInstallDataModelProperties.J2EE_PROJECTS_LIST);
+			Set dependentProjects = new HashSet();
+			dependentProjects.addAll((List) model.getProperty(IEarFacetInstallDataModelProperties.J2EE_PROJECTS_LIST));
 			dependentProjects.addAll((List) model.getProperty(IEarFacetInstallDataModelProperties.JAVA_PROJECT_LIST));
 			if (!dependentProjects.isEmpty()) {
 				List dependentComponents = new ArrayList(dependentProjects.size());
