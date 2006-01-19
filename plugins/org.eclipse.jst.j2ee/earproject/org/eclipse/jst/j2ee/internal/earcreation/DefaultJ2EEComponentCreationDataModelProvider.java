@@ -407,8 +407,6 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (propertyName.equals(CREATE_CONNECTOR) || propertyName.equals(CONNECTOR_COMPONENT_NAME)) {
 			int version = getIntProperty(J2EE_VERSION);
 			boolean result = version > J2EEVersionConstants.J2EE_1_2_ID;
-			if (result)
-				return getBooleanProperty(CREATE_CONNECTOR);
 			return result;
 		}
 		if (propertyName.equals(APPCLIENT_COMPONENT_NAME))
