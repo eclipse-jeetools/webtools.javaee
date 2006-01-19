@@ -90,6 +90,7 @@
 			    <exclude name="**/*EJB.java"/>
 			    <exclude name="**/*Session.java"/>
 			    <exclude name="**/*Mdb.java"/>
+				<exclude name="**/*CMP.java"/>
 			</fileset>
 	   	  </move>		
 	</target>
