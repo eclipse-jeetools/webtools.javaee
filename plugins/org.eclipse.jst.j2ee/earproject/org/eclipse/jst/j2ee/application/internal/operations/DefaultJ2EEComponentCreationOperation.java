@@ -13,15 +13,22 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOperation implements IDefaultJ2EEComponentCreationDataModelProperties {
 
@@ -64,6 +71,7 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
      */
     private void createEJBComponent(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         model.getDefaultOperation().execute(monitor, null);
+        addDefaultFacets(model);
         WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
     }
 
@@ -72,7 +80,28 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
      */
     private void createWebJ2EEComponent(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         model.getDefaultOperation().execute(monitor, null);
+        addDefaultFacets(model);
         WTPActivityBridge.getInstance().enableActivity(WEB_DEV_ACTIVITY_ID, true);
+    }
+    
+    private void addDefaultFacets(IDataModel model) throws CoreException{
+        IRuntime runtime = (IRuntime) model.getProperty(FacetProjectCreationDataModelProvider.FACET_RUNTIME);        
+        String projectName = model.getStringProperty(FacetProjectCreationDataModelProvider.FACET_PROJECT_NAME);
+        IProject project = ProjectUtilities.getProject( projectName );
+		IFacetedProject facetedProject = null;
+		try {
+			facetedProject = ProjectFacetsManager.create(project);
+		} catch (CoreException e) {
+
+		}
+		
+		if( facetedProject != null && runtime != null ){
+			try {
+				FacetProjectCreationOperation.addDefaultFactets( facetedProject, runtime );
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError(e);
+			}
+		}    	
     }
 
     /**
@@ -80,6 +109,7 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
      */
     private void createRarJ2EEComponent(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         model.getDefaultOperation().execute(monitor, null);
+        addDefaultFacets(model);
         WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
     }
 
@@ -88,6 +118,7 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
      */
     private void createAppClientComponent(IDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         model.getDefaultOperation().execute(monitor, null);
+        addDefaultFacets(model);
         WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 
     }
