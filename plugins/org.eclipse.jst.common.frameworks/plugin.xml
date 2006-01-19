@@ -91,5 +91,20 @@
     </project-facet-version>
 
   </extension>
-      
+  
+  <extension point="org.eclipse.wst.common.project.facet.core.validators">
+    <validator class="org.eclipse.jst.common.project.facet.JavaFacetValidator">
+      <facet id="jst.java"/>
+    </validator>
+  </extension>    
+
+  <extension 
+    point="org.eclipse.core.resources.markers"
+    id="javaVersionMismatch">
+    <super type="org.eclipse.wst.common.project.facet.core.validation.marker"/>
+    <attribute name="facetVersion"/>
+    <attribute name="compilerLevel"/>
+    <persistent value="true"/>
+  </extension>
+  
 </plugin>
