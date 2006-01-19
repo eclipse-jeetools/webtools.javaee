@@ -25,8 +25,9 @@
    <target name="init">
       <property file="build.properties"/>
 
-      <property name="ejb.dd.dir" value="${ejb.project.dir}/${ejb.module.src}/META-INF"/>
-      <property name="xdoclet.force" value="true"/>
+      <!-- property name="ejb.dd.dir" value="${ejb.project.dir}/${ejb.module.src}/META-INF"/ -->
+      <property name="ejb.dd.dir" value="${ejb.metainf.dir}" />
+   	  <property name="xdoclet.force" value="true"/>
       <property name="container.type" value="ejb-jar"/>
       
    	  <!-- Set up java.class.path -->

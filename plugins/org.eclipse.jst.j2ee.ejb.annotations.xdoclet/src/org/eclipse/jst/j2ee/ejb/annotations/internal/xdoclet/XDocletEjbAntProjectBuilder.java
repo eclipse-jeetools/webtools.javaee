@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -123,11 +124,14 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			core = StructureEdit.getStructureEditForRead(javaProject.getProject());
 			List ejbs = new ArrayList();
 			getAllAnnotatedEjbs(packageFragmentRoot, ejbs);
+			
+			String projectDir = resource.getProject().getLocation().toString() ;
+			String moduleDir = packageFragmentRoot.getResource().getProjectRelativePath().toString();
 
 			properties.put("ejb", resource.getProject().getName()); //$NON-NLS-1$
-			properties.put("ejb.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
+			properties.put("ejb.project.dir", projectDir); //$NON-NLS-1$
 			properties.put("ejb.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
-			properties.put("ejb.module.src", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("ejb.module.src", moduleDir); //$NON-NLS-1$
 			properties.put("ejb.module.gen", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
 			properties.put("ejb.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
 			properties.put("ejb.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
@@ -152,7 +156,13 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 				ejbLevel = J2EEVersionConstants.VERSION_2_1_TEXT;
 
 			setEjbClientJarProperties(properties, core, ejbModule);
+			IPath metaInfPath = getMetaInfFolder(ejbModule);
+			String metaInf = projectDir+"/"+ moduleDir+"/META-INF";
+			if(metaInfPath != null)
+				metaInf = projectDir+"/"+metaInfPath.toString();
+			
 			properties.put("ejb.spec.version", ejbLevel); //$NON-NLS-1$
+			properties.put("ejb.metainf.dir", metaInf); //$NON-NLS-1$
 			properties.put("java.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			properties.put("project.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			properties.put("project.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -271,6 +281,13 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 		if (clientProject != null)
 			clientProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 
+	}
+	
+	protected IPath getMetaInfFolder(WorkbenchComponent ejbModule) {
+		ComponentResource[] METAINF = ejbModule.findResourcesByRuntimePath(new Path("/META-INF"));
+		if (METAINF.length > 0)
+			return METAINF[0].getSourcePath();
+		return null;
 	}
 
 }

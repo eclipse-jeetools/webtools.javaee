@@ -25,7 +25,7 @@
    <target name="init">
       <property file="build.properties"/>
 
-      <property name="web.dd.dir" value="${web.project.dir}/${web.module.webinf}"/>
+      <property name="web.dd.dir" value="${web.module.webinf}"/>
       <property name="xdoclet.force" value="true"/>
       <property name="container.type" value="web-war"/>
       
@@ -58,8 +58,8 @@
 	</taskdef>
 
     <webdoclet 
-    		destdir="${web.project.dir}/${web.module.webinf}"
-    		mergedir="${web.project.dir}/${web.module.webinf}"
+    		destdir="${web.module.webinf}"
+    		mergedir="${web.module.webinf}"
     	    excludedtags="@version,@author,@todo"
     	    addedtags="@wtp generated"
     	    force="${xdoclet.force}"

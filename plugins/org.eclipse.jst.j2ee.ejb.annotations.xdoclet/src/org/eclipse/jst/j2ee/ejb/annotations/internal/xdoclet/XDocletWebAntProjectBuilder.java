@@ -110,9 +110,11 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 				if((contextRoot = webEdit.getServerContextRoot()) == null)
 					contextRoot = "";//$NON-NLS-1$
 			}
-			properties.put("web.module.webinf", getWebInfFolder(wbModule).toString()); //$NON-NLS-1$
+			String projectDir = resource.getProject().getLocation().toString();
+			IPath webInf =  getWebInfFolder(wbModule);
+			properties.put("web.module.webinf", projectDir +"/"+webInf.toString()); //$NON-NLS-1$
 			properties.put("web", contextRoot); //$NON-NLS-1$
-			properties.put("web.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
+			properties.put("web.project.dir", projectDir); //$NON-NLS-1$
 			properties.put("web.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
 			properties.put("web.module.src", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
 			properties.put("web.module.gen", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
@@ -191,9 +193,9 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 	}
 
 	protected IPath getWebInfFolder(WorkbenchComponent webModule) {
-		ComponentResource[] webXML = webModule.findResourcesByRuntimePath(new Path("/WEB-INF/web.xml"));
+		ComponentResource[] webXML = webModule.findResourcesByRuntimePath(new Path("/WEB-INF"));
 		if (webXML.length > 0)
-			return webXML[0].getSourcePath().removeLastSegments(1);
+			return webXML[0].getSourcePath();
 		return null;
 	}
 
