@@ -49,7 +49,6 @@ public class ProjectRefactorMetadata {
 	private IServer[] servers;
 	private IVirtualComponent virtualComp = null;
 	private final List dependentMetadata = new ArrayList();
-	private boolean computed = false;
 	private boolean javaNature;
 	private boolean moduleCoreNature;
 	private IModule module;
@@ -92,15 +91,10 @@ public class ProjectRefactorMetadata {
 			}
 		} catch (CoreException ce) {
 			Logger.getLogger().logError(ce);
-		} finally {
-			computed = true;
-		}
+		} 
 	}
 
 	public void computeServers() {
-		if (!computed) {
-			computeMetadata();
-		}
 		servers = ServerUtil.getServersByModule(module, null);
 	}
 	
@@ -112,9 +106,12 @@ public class ProjectRefactorMetadata {
 		// get all referencing projects and execute the appropriate update operation for each one
 		ProjectRefactorMetadata metadata;
 		for (int i = 0; i < dependentProjects.length; i++) {
-			metadata = new ProjectRefactorMetadata(dependentProjects[i], virtualComponentCaching);
-			metadata.computeMetadata();
-			dependentMetadata.add(metadata);
+			final IProject dependentProject = dependentProjects[i];
+			if (dependentProject.exists() && dependentProject.isOpen()) {
+				metadata = new ProjectRefactorMetadata(dependentProjects[i], virtualComponentCaching);
+				metadata.computeMetadata();
+				dependentMetadata.add(metadata);
+			}
 		}
 	}
 	
@@ -130,9 +127,6 @@ public class ProjectRefactorMetadata {
 	 * exists.
 	 */
 	public IModule getModule() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return module;
 	}
 	
@@ -155,66 +149,39 @@ public class ProjectRefactorMetadata {
 	 * Returns the IVirtualComponent for the project.
 	 */
 	public IVirtualComponent getVirtualComponent() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return virtualComp;
 	}
 	
 	public boolean hasJavaNature() { 
-		if (!computed) {
-			computeMetadata();
-		}
 		return javaNature;
 	}
 	
 	public boolean hasModuleCoreNature() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return moduleCoreNature;
 	}
 	
 	public boolean isEAR() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return isEAR;
 	}
 
 	public boolean isEJB() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return isEJB; 
 		
 	}
 	
 	public boolean isWeb() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return isWeb;
 	}
 	
 	public boolean isAppClient() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return isAppClient;
 	}
 	
 	public boolean isConnector() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return isConnector;
 	}
 	
 	public boolean isUtility() {
-		if (!computed) {
-			computeMetadata();
-		}
 		return isUtility;
 	}
 	
@@ -309,6 +276,9 @@ public class ProjectRefactorMetadata {
 			IVirtualReference[] refs = getReferences();
 			for (int i = 0; i < refs.length; i++) {
 				IVirtualReference reference = refs[i];
+				if (reference == null || reference.getReferencedComponent() == null) {
+					return null;
+				}
 				if (reference.getReferencedComponent().getName().equals(aComponentName))
 					return reference;
 			}

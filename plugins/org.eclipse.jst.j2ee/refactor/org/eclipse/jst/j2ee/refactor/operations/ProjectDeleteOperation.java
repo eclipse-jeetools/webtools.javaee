@@ -31,8 +31,6 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	 */
 	protected void updateProject(final ProjectRefactorMetadata refactoredMetadata) 
 		throws ExecutionException {
-		// update any server instance refs to the refactored project
-		super.updateServerRefs(refactoredMetadata, null);
 	}
 
 	/**

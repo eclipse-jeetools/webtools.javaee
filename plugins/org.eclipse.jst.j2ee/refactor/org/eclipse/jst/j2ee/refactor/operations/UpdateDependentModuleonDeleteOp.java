@@ -38,6 +38,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -76,6 +77,10 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 		final IVirtualComponent refactoredComp = refactoredMetadata.getVirtualComponent();
 		final IProgressMonitor monitor = new NullProgressMonitor();
 
+		// Does the dependent project have a .component reference on the refactored project?
+		final IVirtualReference ref = hadReference(dependentMetadata, refactoredMetadata);
+		final boolean webLibDep = hasWebLibDependency(ref);
+		
 		// remove the component reference on the deleted project
 		if (refactoredComp != null) {
 			final IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
@@ -83,11 +88,16 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 			final List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			modHandlesList.add(refactoredComp);
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
+			if (webLibDep) {
+				model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
+			}
 			model.getDefaultOperation().execute(monitor, null);
 		}
 		
 		// update the manifest
-		updateManifestDependency(refactoredMetadata, dependentMetadata, true);
+		if (!webLibDep) {
+			updateManifestDependency(refactoredMetadata, dependentMetadata, true);
+		}
 		
 		// update the JAR dependency data
 		IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
