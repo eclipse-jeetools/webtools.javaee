@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -53,7 +52,6 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 			
 			if( !jproject.exists()){
 				String srcFolderName = model.getStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME);
-				// final IPath srcdir = pjpath.append( "src" );
 				final IPath srcdir = pjpath.append(srcFolderName);
 	
 				final IPath outdir = pjpath.append("build/classes"); //$NON-NLS-1$
@@ -81,14 +79,10 @@ public final class JavaFacetInstallDelegate implements IDelegate {
 				jproj.save(null, true);
 	
 				// Setup the classpath.
-	
-				ClasspathHelper.removeClasspathEntries(project, fv);
-	
-				if (!ClasspathHelper.addClasspathEntries(project, fv)) {
-					// TODO: Support the no runtime case.
-					// ClasspathHelper.addClasspathEntries( project, fv, <something> );
-				}
+                
+                JavaFacetUtils.resetClasspath( project, null, fv );
 			}
+            
 			// Set the compiler comliance level for the project. Ignore whether
 			// this might already be set so at the workspace level in case
 			// workspace settings change later or the project is included in a

@@ -683,6 +683,20 @@
 
   </extension>
   
+  <extension point="org.eclipse.wst.common.project.facet.core.validators">
+    <validator class="org.eclipse.jst.j2ee.project.facet.EarFacetValidator"/>
+  </extension>    
+
+  <extension 
+    point="org.eclipse.core.resources.markers"
+    id="differentRuntimesDetected">
+    <super type="org.eclipse.wst.common.project.facet.core.validation.marker"/>
+    <attribute name="moduleProject"/>
+    <attribute name="runtime1"/>
+    <attribute name="runtime2"/>
+    <persistent value="true"/>
+  </extension>
+  
   <extension
        point="org.eclipse.wst.validation.validationHelper">
     <validationHelper
