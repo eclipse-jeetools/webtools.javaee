@@ -194,7 +194,6 @@
    <!-- ================================================ -->
     <!--  XDoclet PROJECT EJB FACETS                      -->
     <!-- ================================================ -->
-   
   
     <project-facet id="jst.ejb.xdoclet">
       <label>%facet.ejbdoclet</label>
@@ -206,33 +205,36 @@
       <constraint>
         <and>
           <requires facet="jst.ejb" version="1.1,2.0"/>
+          <conflicts group="ejb.annotated.generation"/>
         </and>
       </constraint>
+      <group-member id="ejb.annotated.generation"/>
      </project-facet-version>
 
     <project-facet-version facet="jst.ejb.xdoclet" version="1.2.2">
       <constraint>
         <and>
           <requires facet="jst.ejb" version="1.1,2.0"/>
+          <conflicts group="ejb.annotated.generation"/>
         </and>
       </constraint>
+      <group-member id="ejb.annotated.generation"/>
     </project-facet-version>
 
     <project-facet-version facet="jst.ejb.xdoclet" version="1.2.3">
       <constraint>
         <and>
           <requires facet="jst.ejb" version="&gt;=1.1"/>
+          <conflicts group="ejb.annotated.generation"/>
         </and>
       </constraint>
+      <group-member id="ejb.annotated.generation"/>
    </project-facet-version>
-    
-
-    
+   
     <action type="install" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
       <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletEjbFacetInstallDataModelProvider"/>
     </action>
-
     <action type="uninstall" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
       <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetUninstallDelegate"/>
     </action>
