@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -24,9 +25,11 @@ import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.Module;
 
 /**
  * Abstract base class for project refactoring operations.
@@ -121,6 +124,13 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 				// no module for the new project, so return
 				return;
 			}
+			// XXX Due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=124292,
+			// need to ensure that the IModule for the renamed project has the
+			// id and name for the renamed IProject and not the old name
+			final IProject newProject = newModule.getProject();
+			final IModuleType moduleType = newModule.getModuleType();
+			newModule = new Module(((Module) newModule).getModuleFactory(), newProject.getName(), newProject.getName(), moduleType.getId(), 
+					moduleType.getVersion(), newProject);
 			toAdd = new IModule[]{newModule};
 		}
 		
