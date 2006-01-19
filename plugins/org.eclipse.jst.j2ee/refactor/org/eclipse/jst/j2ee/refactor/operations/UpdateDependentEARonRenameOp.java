@@ -58,7 +58,7 @@ public class UpdateDependentEARonRenameOp extends UpdateDependentProjectOp {
 			return Status.OK_STATUS;
 		}
 		
-		boolean hadReference = hadReference(dependentMetadata, originalMetadata);
+		boolean hadReference = hadReference(dependentMetadata, originalMetadata) != null;
 		
 		// first, remove the dependency on the old project name via the 
 		// ProjectDeleteOperation

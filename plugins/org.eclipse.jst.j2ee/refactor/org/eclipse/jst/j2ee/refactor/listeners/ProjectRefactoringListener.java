@@ -175,6 +175,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 			final ProjectRefactorMetadata newMetadata = new ProjectRefactorMetadata(project);
 			// note: only projects with ModuleCoreNature will have cached metadata
 			if (originalMetadata != null) {
+				newMetadata.computeMetadata();
 				processRename(originalMetadata, newMetadata);
 				// Rename all entries in the project dependency cache
 				//cache.replaceProject(originalProject, project);

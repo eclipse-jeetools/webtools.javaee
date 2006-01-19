@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata.RefCachi
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -51,8 +52,9 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 		final IVirtualComponent refactoredComp = refactoredMetadata.getVirtualComponent();
 		
 		// Does the dependent project have a .component reference on the refactored project?
-		boolean hadReference = hadReference(dependentMetadata, originalMetadata);
-		
+		final IVirtualReference ref = hadReference(dependentMetadata, originalMetadata);
+		final boolean webLibDep = hasWebLibDependency(ref);
+	
 		// first, remove the dependency on the old project name via the 
 		// ProjectDeleteOperation
 		UpdateDependentModuleonDeleteOp.removeModuleDependency(dependentMetadata, originalMetadata);
@@ -67,13 +69,18 @@ public class UpdateDependentModuleonRenameOp extends UpdateDependentProjectOp {
 			targetCompList.add(refactoredComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, dependentComp);
 			refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, targetCompList);
-			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm,hadReference); 
+			if (webLibDep) {
+				refdm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH,"/WEB-INF/lib"); //$NON-NLS-1$
+			}
+			CreateOptionalReferenceOp op = new CreateOptionalReferenceOp(refdm, ref != null);
 			op.execute(monitor, null);
 		}
 	
-		// update the manifest
-		UpdateDependentModuleonDeleteOp.updateManifestDependency(refactoredMetadata, dependentMetadata, false);
-        
+		// update the manifest, unless this was a web library dependency
+		if (!webLibDep) {
+			UpdateDependentModuleonDeleteOp.updateManifestDependency(refactoredMetadata, dependentMetadata, false);
+		}
+			
         // update the JAR dependency data
         IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
         dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, dependentMetadata.getProjectName());

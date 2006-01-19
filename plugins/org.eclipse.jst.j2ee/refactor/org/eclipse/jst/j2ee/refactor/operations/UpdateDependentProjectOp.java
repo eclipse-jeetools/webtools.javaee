@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.j2ee.refactor.operations;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -33,22 +34,32 @@ public abstract class UpdateDependentProjectOp extends AbstractDataModelOperatio
 	
 	/**
 	 * Does the dependent project have a .component reference on the refactored project?
+	 * @return IVirtualReference or null if one didn't exist.
 	 */
-	protected boolean hadReference(final ProjectRefactorMetadata dependentMetadata,
+	protected static IVirtualReference hadReference(final ProjectRefactorMetadata dependentMetadata,
 			final ProjectRefactorMetadata refactoredMetadata) {
 		final IVirtualComponent refactoredComp = refactoredMetadata.getVirtualComponent();
 		if (refactoredComp == null) {
-			return false;
+			return null;
 		}
 		final IVirtualReference[] refs = dependentMetadata.getVirtualComponent().getReferences();
-		boolean hadReference = false;
+		IVirtualReference ref = null;
 		for (int i = 0; i < refs.length; i++) {
 			if (refs[i].getReferencedComponent().equals(refactoredComp)) {
-				hadReference = true;
+				ref = refs[i];
 				break;
 			}
 		}
-		return hadReference;
+		return ref;
+	}
+	
+	/**
+	 * Returns true if the dependency was a web library dependency. 
+	 * @param ref
+	 * @return
+	 */
+	protected static boolean hasWebLibDependency(final IVirtualReference ref) {
+		return ref.getRuntimePath().equals(new Path("/WEB-INF/lib")); //$NON-NLS-1$
 	}
 	
 	/**
