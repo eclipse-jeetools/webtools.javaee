@@ -44,13 +44,10 @@ public class BooleanTranslator extends Translator {
 	public Object convertStringToValue(String strValue, EObject owner) {
 		if (strValue == null)
 			return Boolean.FALSE;
-		if (!Boolean.valueOf(strValue).booleanValue()) {
-			if (strValue.toUpperCase().equals("1") || strValue.toUpperCase().equals("YES")) {
-				return Boolean.TRUE;
-			}
-			return Boolean.FALSE;
-		}
-		return Boolean.FALSE;
+		else if (strValue.toUpperCase().equals("1") || strValue.toUpperCase().equals("YES")) //$NON-NLS-1$ //$NON-NLS-2$
+			return Boolean.TRUE;
+		else 
+			return Boolean.valueOf(strValue);
 	}
 
 
