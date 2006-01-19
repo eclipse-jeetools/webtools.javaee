@@ -51,13 +51,13 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 	protected void saveFiles() throws SaveFailureException {
 		setImportedClassFilesIfNecessary();
 		super.saveFiles();
+		linkImportedClassesFolderIfNecessary();
 	}
 
 	public boolean endsWithClassType(String aFileName) {
 		if (aFileName.endsWith(".class")) //$NON-NLS-1$
 			return true;
-		else
-			return false;
+		return false;
 	}
 
 
@@ -88,6 +88,17 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 	}
 
 	protected Map importedClassFiles;
+	protected IFolder importedClassesFolder;
+
+	protected void linkImportedClassesFolderIfNecessary() {
+		if (importedClassesFolder != null) {
+			try {
+				vComponent.getRootFolder().getFolder(getImportedClassesRuntimePath()).createLink(importedClassesFolder.getProjectRelativePath(), 0, null);
+			} catch (CoreException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+	}
 
 	/**
 	 * Import class files into the project.
@@ -102,10 +113,10 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 
 		IContainer jarParent = vComponent.getRootFolder().getUnderlyingFolder().getParent();
 		String folderName = "ImportedClasses";
-		IFolder folder = jarParent.getFolder(new Path(folderName));
+		importedClassesFolder = jarParent.getFolder(new Path(folderName));
 		try {
-			folder.create(true, true, null);
-			vComponent.getRootFolder().getFolder(getImportedClassesRuntimePath()).createLink(folder.getProjectRelativePath(), 0, null);
+			importedClassesFolder.create(true, true, null);
+
 		} catch (CoreException e1) {
 			Logger.getLogger().logError(e1);
 		}
@@ -120,7 +131,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 				uri = (String) keys.next();
 				file = (File) importedClassFiles.get(uri);
 				try {
-					iFile = folder.getFile(new Path(uri));
+					iFile = importedClassesFolder.getFile(new Path(uri));
 					inputStream = file.getInputStream();
 					saveToIFile(iFile, inputStream);
 				} catch (Exception e) {
@@ -131,14 +142,14 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 					}
 				}
 			}
-			folder.refreshLocal(IResource.DEPTH_INFINITE, null);
+			importedClassesFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 			if (shouldAddImportedClassesToClasspath()) {
 				if (JemProjectUtilities.getJavaProject(vComponent.getProject()) != null) {
 					javaProject = JavaCore.create(vComponent.getProject());
 					IClasspathEntry[] javaClasspath = javaProject.getRawClasspath();
 					IClasspathEntry[] newJavaClasspath = new IClasspathEntry[javaClasspath.length + 1];
 					System.arraycopy(javaClasspath, 0, newJavaClasspath, 0, javaClasspath.length);
-					newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true);
+					newJavaClasspath[newJavaClasspath.length - 1] = JavaCore.newLibraryEntry(importedClassesFolder.getFullPath(), null, null, true);
 					javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
 				}
 			}
