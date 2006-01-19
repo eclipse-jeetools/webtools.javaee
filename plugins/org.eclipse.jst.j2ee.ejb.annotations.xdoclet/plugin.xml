@@ -39,44 +39,48 @@
 
 <!-- =========== org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage ============ -->
 
+
 	<extension point="org.eclipse.ui.propertyPages">
        <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
             name="%XDocletPropertiesPage.name"
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
             id="XDocletPropertiesPage">
-         <filter
-               name="nature" 
-               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-         </filter>
+          <filter
+             name="nature"
+             value="org.eclipse.wst.common.project.facet.core.nature">
+          </filter>
       </page> 
 
 <!-- =========== org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage ============ -->
 
       <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
             name="%XDocletEJBPropertiesPage.name"
             category="XDocletPropertiesPage"
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage"
             id="XDocletEJBPropertiesPage">
-         <filter
-               name="nature" 
-               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-         </filter>
+          <filter
+             name="nature"
+             value="org.eclipse.wst.common.project.facet.core.nature">
+          </filter>
       </page> 
    
 <!-- =========== org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage ============ -->
 
       <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
             name="%XDocletWebPropertiesPage.name"
             category="XDocletPropertiesPage"
             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletWebPreferencePage"
             id="XDocletWebPropertiesPage">
-         <filter
-               name="nature" 
-               value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-         </filter>
+          <filter
+             name="nature"
+             value="org.eclipse.wst.common.project.facet.core.nature">
+          </filter>
       </page> 
    </extension>    
    
