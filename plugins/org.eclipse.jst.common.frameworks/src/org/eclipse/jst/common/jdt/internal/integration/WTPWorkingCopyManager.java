@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -144,7 +145,17 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 				primDispose();
 			}
 		};
-		runOperation(runnable, null, true);
+		try {
+			if (!WTPCommonPlugin.getWorkspace().isTreeLocked()) {
+				WTPCommonPlugin.getWorkspace().run(runnable,null, IWorkspace.AVOID_UPDATE,null);
+			} else {
+				runnable.run(null);
+			}
+			} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//runOperation(runnable, null, true);
 	}
 
 	public void revert() {
