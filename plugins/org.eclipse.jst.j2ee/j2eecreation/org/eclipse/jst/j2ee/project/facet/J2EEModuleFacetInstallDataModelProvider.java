@@ -51,6 +51,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		names.add(PROHIBIT_ADD_TO_EAR);
 		names.add(CONFIG_FOLDER);
 		names.add(EAR_PROJECT_NAME);
+		names.add(LAST_EAR_NAME);		
 		return names;
 	}
 
@@ -60,7 +61,23 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
-			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+			if(model.isPropertySet(LAST_EAR_NAME)){
+					IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
+					if( project.exists())
+						return project.getName();
+			}
+			DataModelPropertyDescriptor[] descs = getValidPropertyDescriptors(EAR_PROJECT_NAME);
+			if( descs.length > 0 ){
+				DataModelPropertyDescriptor desc = descs[0];
+				String eARName =  desc.getPropertyDescription();
+				if( eARName != null && !eARName.equals("")){ //$NON-NLS-1$
+					return eARName;
+				}else{
+					return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+				}
+			}else{
+				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+			}
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -99,6 +116,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 					}
 				}
 			}
+		}else if(LAST_EAR_NAME.equals(propertyName)){
+			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}

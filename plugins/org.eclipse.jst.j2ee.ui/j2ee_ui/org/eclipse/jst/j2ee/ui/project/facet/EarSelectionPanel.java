@@ -128,4 +128,7 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
     	}
     }
     
+    public String getComboText(){
+    	return combo.getText();
+    }    
 }
