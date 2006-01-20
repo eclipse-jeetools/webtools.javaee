@@ -599,7 +599,7 @@ public class JavaModelUtil {
 	 */
 	public static boolean isEditable(ICompilationUnit cu) {
 		IResource resource = toOriginal(cu).getResource();
-		return (resource.exists() && !resource.isReadOnly());
+		return (resource.exists() && !resource.getResourceAttributes().isReadOnly());
 	}
 
 	/**
