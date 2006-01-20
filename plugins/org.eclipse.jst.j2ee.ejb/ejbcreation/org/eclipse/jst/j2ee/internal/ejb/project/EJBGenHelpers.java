@@ -404,7 +404,7 @@ public final class EJBGenHelpers {
 		if (cu != null && !cu.isWorkingCopy()) {
 			try {
 				IResource res = cu.getUnderlyingResource();
-				if (res.getType() == IResource.FILE && res.isReadOnly())
+				if (res.getType() == IResource.FILE && res.getResourceAttributes().isReadOnly())
 					return ResourcesPlugin.getWorkspace().validateEdit(new IFile[]{(IFile) res}, obj);
 			} catch (JavaModelException e) {
 				Logger.getLogger().logError(e);
