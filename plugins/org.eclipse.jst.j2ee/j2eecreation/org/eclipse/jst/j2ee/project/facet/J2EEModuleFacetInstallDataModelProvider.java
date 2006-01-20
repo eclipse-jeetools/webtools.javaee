@@ -44,6 +44,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 	 * the nested models when used during EAR creation since EAR creation handles adding to the EAR
 	 */
 	public static final String PROHIBIT_ADD_TO_EAR = "J2EEModuleFacetInstallDataModelProvider.PROHIBIT_ADD_TO_EAR"; //$NON-NLS-1$
+	
+	private static String lastEARName = "";//$NON-NLS-1$
 
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
@@ -60,7 +62,24 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
-			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+			if( lastEARName != null && !lastEARName.equals("") ){ //$NON-NLS-1$
+				IProject project = ProjectUtilities.getProject(lastEARName);
+				if( project.exists())
+					return lastEARName;
+			}
+			DataModelPropertyDescriptor[] descs = getValidPropertyDescriptors(EAR_PROJECT_NAME);
+			if( descs.length > 0 ){
+				DataModelPropertyDescriptor desc = descs[0];
+				String eARName =  desc.getPropertyDescription();
+				if( eARName != null && !eARName.equals("")){ //$NON-NLS-1$
+					lastEARName = eARName;
+					return lastEARName;
+				}else{
+					return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+				}
+			}else{
+				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+			}
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -94,6 +113,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 					try {
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
 						setProperty(FACET_RUNTIME, facetProj.getRuntime());
+						lastEARName = (String)propertyValue;
 					} catch (CoreException e) {
 						Logger.getLogger().logError(e);
 					}
