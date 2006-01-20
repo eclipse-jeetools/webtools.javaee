@@ -16,6 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -28,8 +31,9 @@ import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
 public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage implements IFacetProjectCreationDataModelProperties {
 
+    private static final String STORE_LABEL = "LASTEARNAME_"; //$NON-NLS-1$
 	protected EarSelectionPanel earPanel;
-
+  
 	public J2EEComponentFacetCreationWizardPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
@@ -62,4 +66,32 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 		if (earPanel != null)
 			earPanel.dispose();
 	}
+	
+    public void storeDefaultSettings() {
+        IDialogSettings settings = getDialogSettings();
+        if (settings != null) {
+        	String lastEARName = earPanel.getComboText();
+            settings.put(STORE_LABEL, lastEARName);
+        }
+    }
+    
+    public void restoreDefaultSettings() {
+    	 
+        IDialogSettings settings = getDialogSettings();
+        if (settings != null) {
+            String lastEARName = settings.get(STORE_LABEL);
+            if (lastEARName == null)
+                return; // ie.- no settings stored
+            else {
+            	FacetDataModelMap map = (FacetDataModelMap)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+            	String facetID = getModuleFacetID();
+            	IDataModel j2eeModel = map.getFacetDataModel(facetID);
+                j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, lastEARName);
+            }
+        }
+    }
+    
+	protected IDialogSettings getDialogSettings() {
+        return J2EEUIPlugin.getDefault().getDialogSettings();
+    }  	
 }

@@ -42,6 +42,8 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
     private final IDataModel model;
     private DataModelSynchHelper synchhelper;
     
+  
+    
     public EarSelectionPanel( final IDataModel model, final Composite parent) 
     {
         this.model = model;
@@ -125,6 +127,10 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
     		synchhelper.dispose();
     		synchhelper = null;
     	}
+    }
+    
+    public String getComboText(){
+    	return combo.getText();
     }
     
 }
