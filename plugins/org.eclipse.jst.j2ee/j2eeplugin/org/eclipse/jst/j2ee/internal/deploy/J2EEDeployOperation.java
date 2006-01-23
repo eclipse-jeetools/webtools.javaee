@@ -23,6 +23,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
@@ -111,14 +112,20 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 * @param module
 	 */
 	private void deploy(List visitors, EObject module, IProgressMonitor monitor) {
-
 		IProject proj = ProjectUtilities.getProject(module);
 		IStatus main = addMainStatus(proj);
 		for (int i = 0; i < visitors.size(); i++) {
-			if (!(visitors.get(i) instanceof ICommand))
+			if (!(visitors.get(i) instanceof IConfigurationElement))
 				continue;
-			ICommand dep = (ICommand) visitors.get(i);
+			ICommand dep = null;
+			try {
+				dep = (ICommand) ((IConfigurationElement) visitors.get(i)).createExecutableExtension(DeployerRegistryReader.DEPLOYER_CLASS);
+			} catch (Exception e) {
+				e.printStackTrace();
+				continue;
+			}
 			ICommandContext ctx = new CommandContext(monitor, null, module.eResource().getResourceSet());
+			if (dep == null) continue;
 			dep.init(selection);
 
 			monitor.setTaskName(J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_1_UI_, new Object[]{proj.getName(), dep.getClass().getName()})); 
@@ -133,7 +140,6 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				continue;
 			}
 		}
-
 	}
 
 	/**

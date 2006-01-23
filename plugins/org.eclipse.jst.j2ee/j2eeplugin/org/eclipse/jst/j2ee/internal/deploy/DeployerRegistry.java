@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
@@ -29,7 +30,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.server.core.IRuntime;
 
 /**
@@ -54,7 +54,7 @@ public class DeployerRegistry {
 	 * @param serverTarget
 	 * @param natureID
 	 */
-	public void register(ICommand deployer, List serverTargets, List natures) {
+	public void register(IConfigurationElement deployer, List serverTargets, List natures) {
 		HashMap targetDeployers;
 		for (Iterator iter = natures.iterator(); iter.hasNext();) {
 			String natureID = (String) iter.next();
