@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_ui.feature"
       label="org.eclipse.jst.enterprise_ui.feature"
-      version="1.0.0">
+      version="1.0.1">
 
    <description>
       %description
@@ -139,6 +139,13 @@
 
    <plugin
          id="org.eclipse.jst.jsp.ui.infopop"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.jst.servlet.ui.infopop"
          download-size="0"
          install-size="0"
          version="0.0.0"
