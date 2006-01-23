@@ -535,32 +535,32 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
     
     List getUnSelectedClassPathElementsForWebDependency(){
 		List unselectedForWLP = getUnSelectedClassPathSelectionForWLPs().getClasspathElements();
-		List j2eeSelected= model.getClassPathSelection().getSelectedClasspathElements();
-
-		
 		List unselected = new ArrayList();
-		java.util.Iterator it = unselectedForWLP.iterator();
-		
-		while( it.hasNext()){
-			ClasspathElement element = (ClasspathElement)it.next();
-			java.util.Iterator j2eeIterator = j2eeSelected.iterator();
-			boolean found = false;
-			while( j2eeIterator.hasNext() ){
-				ClasspathElement j2eeElement = (ClasspathElement)j2eeIterator.next();
-				String text = j2eeElement.getText();
-				int  index = text.indexOf(".jar");
-				text = text.substring(0, index);
-				
-				if( element.getText().equals( text )){
-					found = true;
-					break;
-				}
-			}
-			if( !found ){
-				if( !unselected.contains(element))
-					unselected.add(element);
-			}
+		if( model.getClassPathSelection() != null ){
+			List j2eeSelected= model.getClassPathSelection().getSelectedClasspathElements();
+			java.util.Iterator it = unselectedForWLP.iterator();
 			
+			while( it.hasNext()){
+				ClasspathElement element = (ClasspathElement)it.next();
+				java.util.Iterator j2eeIterator = j2eeSelected.iterator();
+				boolean found = false;
+				while( j2eeIterator.hasNext() ){
+					ClasspathElement j2eeElement = (ClasspathElement)j2eeIterator.next();
+					String text = j2eeElement.getText();
+					int  index = text.indexOf(".jar");
+					text = text.substring(0, index);
+					
+					if( element.getText().equals( text )){
+						found = true;
+						break;
+					}
+				}
+				if( !found ){
+					if( !unselected.contains(element))
+						unselected.add(element);
+				}
+				
+			}
 		}
 		return unselected;
     }
