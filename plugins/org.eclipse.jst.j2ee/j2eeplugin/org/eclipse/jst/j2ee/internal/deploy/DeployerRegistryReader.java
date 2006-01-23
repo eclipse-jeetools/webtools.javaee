@@ -19,11 +19,9 @@ package org.eclipse.jst.j2ee.internal.deploy;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jem.util.RegistryReader;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 
 /**
  * @author cbridgha
@@ -41,7 +39,7 @@ public class DeployerRegistryReader extends RegistryReader {
 	static final String TARGET_SERVER_RUNTIME_ID = "runtime_server_id"; //$NON-NLS-1$
 	static final String RUNTIME = "runtime"; //$NON-NLS-1$
 	static final String DEPLOYER = "deployer"; //$NON-NLS-1$
-	static final String DEPLOYER_CLASS = "deployer_class"; //$NON-NLS-1$
+	public static final String DEPLOYER_CLASS = "deployer_class"; //$NON-NLS-1$
 	static final String MODULE_TYPE_NATURE_ID = "module_nature_id"; //$NON-NLS-1$
 	static final String NATURE = "nature"; //$NON-NLS-1$
 	static final String COMPONENT_TYPE_ID = "component_type"; //$NON-NLS-1$
@@ -80,17 +78,9 @@ public class DeployerRegistryReader extends RegistryReader {
 			natureandcomponents.add(compType);
 		}
 
-		ICommand deployer = null;
-		try {
-			Object ext = element.createExecutableExtension(DEPLOYER_CLASS);
-			if (ext instanceof ICommand)
-				deployer = (ICommand) ext;
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String deployer = element.getAttribute(DEPLOYER_CLASS);
 		if (deployer != null) {
-			DeployerRegistry.instance().register(deployer, runtimeList, natureandcomponents);
+			DeployerRegistry.instance().register(element, runtimeList, natureandcomponents);
 			return true;
 		}
 		return false;
