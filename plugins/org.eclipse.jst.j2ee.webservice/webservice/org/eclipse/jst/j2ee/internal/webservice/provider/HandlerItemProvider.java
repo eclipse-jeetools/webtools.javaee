@@ -124,7 +124,7 @@ public class HandlerItemProvider extends CompatibilityDescriptionGroupItemProvid
 			super.getChildrenReferences(object);
 			childrenReferences.add(Webservice_clientPackage.eINSTANCE.getHandler_InitParams());
 			childrenReferences.add(Webservice_clientPackage.eINSTANCE.getHandler_SoapHeaders());
-			childrenReferences.add(Webservice_clientPackage.eINSTANCE.getHandler_HandlerName());
+//			childrenReferences.add(Webservice_clientPackage.eINSTANCE.getHandler_HandlerName());
 		}
 		return childrenReferences;
 	}
