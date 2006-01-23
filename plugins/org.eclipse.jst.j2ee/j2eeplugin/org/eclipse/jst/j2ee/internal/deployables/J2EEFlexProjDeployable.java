@@ -230,7 +230,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     public String getURI(IModule module) {
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
     	String aURI = null;
-    	if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
+    	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(comp.getProject())) {
 			EARArtifactEdit earEdit = null;
 			try {
 				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
@@ -243,20 +243,23 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 					earEdit.dispose();
 			}
     	}
-    	else if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
+    	else if (comp!=null && component!=null && J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
     		if (!comp.isBinary()) {
         		IVirtualReference ref = component.getReference(comp.getName());
-        		aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.WAR_EXT).toString();
+        		if (ref !=null && ref.getRuntimePath()!=null)
+        			aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.WAR_EXT).toString();
         	}
-    	} else if (J2EEProjectUtilities.isEJBProject(comp.getProject()) || J2EEProjectUtilities.isApplicationClientProject(comp.getProject())) {
+    	} else if (comp!=null && component!=null && (J2EEProjectUtilities.isEJBProject(comp.getProject()) || J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))) {
     		if (!comp.isBinary()) {
         		IVirtualReference ref = component.getReference(comp.getName());
-        		aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
+        		if (ref !=null && ref.getRuntimePath()!=null)
+        			aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
         	}
-    	} else if (J2EEProjectUtilities.isJCAProject(comp.getProject())) {
+    	} else if (comp!=null && component!=null && J2EEProjectUtilities.isJCAProject(comp.getProject())) {
     		if (!comp.isBinary()) {
         		IVirtualReference ref = component.getReference(comp.getName());
-        		aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.RAR_EXT).toString();
+        		if (ref !=null && ref.getRuntimePath()!=null)
+        			aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.RAR_EXT).toString();
         	}
     	}
     	
