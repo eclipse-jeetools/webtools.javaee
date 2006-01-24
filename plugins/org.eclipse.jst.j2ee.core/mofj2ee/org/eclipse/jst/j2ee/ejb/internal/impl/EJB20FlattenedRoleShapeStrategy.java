@@ -90,6 +90,20 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 		collectKeyModelledAttributes(type, attributeName, aList, computedNames);
 		collectKeyRoleAttributes(type, attributeName, aList, computedNames);
 	}
+	
+	/**
+	 * @deprecated to be safe, really should use collectAttributes(ContainerManagedEntity entity, CMPAttribute type, String attributeName, List aList, List computedNames)
+	 * @param type
+	 * @param attributeName
+	 * @param aList
+	 * @param computedNames
+	 */
+	protected void collectAttributes(CMPAttribute type, String attributeName, List aList, List computedNames) {
+		// This is necessary for code generation
+		ContainerManagedEntity entity = (ContainerManagedEntity) type.eContainer();
+		collectAttributes(entity, type, attributeName, aList, computedNames);
+	}
+	
 	/**
 	 * 
 	 */
@@ -102,8 +116,6 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 			attribute = createPersistentAttribute(attributeName);
 			isNewAttribute = true;
 		}
-		//This is necessary for code generation
-		//ContainerManagedEntity entity = (ContainerManagedEntity) type.eContainer();
 		if (entity != null)
 			setDerivedAttributeType(attribute, type, isNewAttribute);
 		if (isNewAttribute) {
@@ -116,6 +128,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 				aList.add(attribute);
 		}
 	}
+	
 	protected CMPAttribute createPersistentAttribute(String aName) {
 		CMPAttribute attribute = ((EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory().createCMPAttribute();
 		attribute.setName(aName);
