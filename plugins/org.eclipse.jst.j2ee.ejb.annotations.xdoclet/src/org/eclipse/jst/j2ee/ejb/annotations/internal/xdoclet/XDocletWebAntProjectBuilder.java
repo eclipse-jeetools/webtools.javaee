@@ -194,6 +194,11 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
 	protected IPath getWebInfFolder(WorkbenchComponent webModule) {
 		ComponentResource[] webXML = webModule.findResourcesByRuntimePath(new Path("/WEB-INF"));
+		for (int i = 0; i < webXML.length; i++) {
+			ComponentResource resource = webXML[i];
+			if(resource.getRuntimePath().toString().equals("/WEB-INF"))
+				return resource.getSourcePath();
+		}
 		if (webXML.length > 0)
 			return webXML[0].getSourcePath();
 		return null;

@@ -153,23 +153,23 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		panel.fActive = new Button[numCont];
 
 		if (isProjectPreferencePage())
-			panel.preferences[3] = panel.createLabeledCheck(3, getStore().getBooleanProperty(XDocletPreferenceStore.XDOCLETUSEGLOBAL),
-					Messages.label_global_pref, Messages.desc_global_pref, getStore().getBooleanProperty(
+			panel.preferences[3] = panel.createLabeledCheck(3, getStore().getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETUSEGLOBAL),
+					Messages.label_global_pref, Messages.desc_global_pref, getStore().getBooleanPropertyNoGlobal(
 							XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
 
-		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().getBooleanProperty(
+		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().getBooleanPropertyNoGlobal(
 				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), Messages.label_enable_xdoclet_builder,
-				Messages.desc_enable_xdoclet_builder, getStore().getBooleanProperty(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
+				Messages.desc_enable_xdoclet_builder, getStore().getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETBUILDERACTIVE),
 				defPanel);
 		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home, getStore()
-				.getProperty(XDocletPreferenceStore.XDOCLETHOME), defPanel);
+				.getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETHOME), defPanel);
 
 		String[] versions = new String[runtimes.length];
 		for (int i = 0; i < versions.length; i++) {
 			versions[i] = runtimes[i].getVersion();
 		}
 		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version, Messages.desc_xdoclet_version,
-				getStore().getProperty(XDocletPreferenceStore.XDOCLETVERSION), versions, defPanel);
+				getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETVERSION), versions, defPanel);
 		final Text xDocletPath = (Text) panel.preferences[2];
 		final Combo xDocletVersion = (Combo) panel.preferences[1];
 

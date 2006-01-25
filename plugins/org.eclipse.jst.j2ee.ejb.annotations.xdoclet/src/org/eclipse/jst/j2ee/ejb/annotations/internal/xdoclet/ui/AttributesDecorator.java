@@ -71,7 +71,7 @@ public class AttributesDecorator {
 			attributeGroup.setLayoutData(gridData);
 			createAttributeControl(attributeGroup, attribute);
 			String includeId = attribute.getAttribute("id") + ".include";
-			Button bool = createLabeledCheck("include", preferenceStore.getBooleanProperty(includeId), attributes);
+			Button bool = createLabeledCheck("include", preferenceStore.getBooleanPropertyNoGlobal(includeId), attributes);
 			bool.setData(attribute);
 			allProperties.put(includeId, bool);
 			bool.addSelectionListener(new SelectionListener() {
@@ -93,11 +93,11 @@ public class AttributesDecorator {
 	private void createAttributeControl(Composite parent, IConfigurationElement attribute) {
 		String type = attribute.getAttribute("type");
 		if ("string".equals(type)) {
-			Text str = createLabeledText("", preferenceStore.getProperty(attribute.getAttribute("id")), parent);
+			Text str = createLabeledText("", preferenceStore.getPropertyNoGlobal(attribute.getAttribute("id")), parent);
 			str.setData(attribute);
 			allProperties.put(attribute.getAttribute("id"), str);
 		} else if ("boolean".equals(type)) {
-			Button bool = createLabeledCheck("", preferenceStore.getBooleanProperty(attribute.getAttribute("id")), parent);
+			Button bool = createLabeledCheck("", preferenceStore.getBooleanPropertyNoGlobal(attribute.getAttribute("id")), parent);
 			bool.setData(attribute);
 			allProperties.put(attribute.getAttribute("id"), bool);
 		} else if ("enum".equals(type)) {
@@ -120,7 +120,7 @@ public class AttributesDecorator {
 		gridData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);
 		gridData.horizontalSpan = 2;
 		combo.setLayoutData(gridData);
-		String value = preferenceStore.getProperty(attribute.getAttribute("id"));
+		String value = preferenceStore.getPropertyNoGlobal(attribute.getAttribute("id"));
 		StringTokenizer tokenizer = new StringTokenizer(attribute.getAttribute("restriction"), ",");
 		int i = 0;
 		int sel = 0;

@@ -285,6 +285,11 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	
 	protected IPath getMetaInfFolder(WorkbenchComponent ejbModule) {
 		ComponentResource[] METAINF = ejbModule.findResourcesByRuntimePath(new Path("/META-INF"));
+		for (int i = 0; i < METAINF.length; i++) {
+			ComponentResource resource = METAINF[i];
+			if(resource.getRuntimePath().toString().equals("/META-INF"))
+				return resource.getSourcePath();
+		}		
 		if (METAINF.length > 0)
 			return METAINF[0].getSourcePath();
 		return null;

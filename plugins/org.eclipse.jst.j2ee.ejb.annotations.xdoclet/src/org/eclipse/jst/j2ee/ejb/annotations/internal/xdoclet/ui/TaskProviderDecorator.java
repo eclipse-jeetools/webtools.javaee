@@ -162,7 +162,7 @@ public class TaskProviderDecorator {
 			if (elements != null) {
 				String id = elements[0].getAttribute("id");
 				String selection = id + ".defaultSelection";
-				if (preferenceStore.getBooleanProperty(selection))
+				if (preferenceStore.getBooleanPropertyNoGlobal(selection))
 					checked.add(extension);
 			}
 		}
