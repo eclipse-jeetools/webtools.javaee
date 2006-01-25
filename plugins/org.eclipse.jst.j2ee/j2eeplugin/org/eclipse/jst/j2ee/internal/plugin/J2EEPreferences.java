@@ -58,7 +58,7 @@ public class J2EEPreferences {
 		final static int J2EE_VERSION_ID = J2EEVersionConstants.J2EE_1_4_ID;
 		final static boolean CREATE_EJB_CLIENT_JAR = false;
 		final static boolean EJB_CLIENT_JAR_CP_COMPATIBILITY = true;
-		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = false;
+		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
 	}
 
 	private Plugin owner = null;
