@@ -41,6 +41,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnter
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -57,6 +58,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -141,7 +143,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					(J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(ver));
 					
 					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
+					installEARFacet(j2eeVersionText, earProjectName, (IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME), monitor);
 
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
