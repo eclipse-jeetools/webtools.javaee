@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -52,6 +53,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -68,13 +70,13 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			monitor.beginTask("", 1); //$NON-NLS-1$
 		try {
 			IDataModel model = (IDataModel) config;
-			JavaCore.create(project);
+			final IJavaProject jproj = JavaCore.create(project);
 
 			// Add WTP natures.
 			WtpUtils.addNatures(project);
 
 			// Setup the flexible project structure.
-			IVirtualComponent c = createFlexibleProject(monitor, project, model);
+			IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj);
 
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
@@ -154,7 +156,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 	}
 
-	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model) throws Exception {
+	protected IVirtualComponent createFlexibleProject(IProgressMonitor monitor, IProject project, IDataModel model, IJavaProject jproj) throws Exception {
 		// Create the directory structure.
 		final IWorkspace ws = ResourcesPlugin.getWorkspace();
 		final IPath pjpath = project.getFullPath();
@@ -163,26 +165,28 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		c.create(0, null);
 		c.setMetaProperty("java-output-path", "/build/classes/"); //$NON-NLS-1$ //$NON-NLS-2$
 		final IVirtualFolder root = c.getRootFolder();
+		
 		IFolder sourceFolder = null;
 		String configFolder = null;
-		if (root.getProjectRelativePath().segmentCount() == 0) {
-			configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-			root.createLink(new Path("/" + configFolder), 0, null); //$NON-NLS-1$
-			String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-			IPath configFolderpath = pjpath.append(configFolderName);
-			sourceFolder = ws.getRoot().getFolder(configFolderpath);
-		} else
-			sourceFolder = project.getFolder(root.getProjectRelativePath());
+		configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+		root.createLink(new Path("/" + configFolder), 0, null); //$NON-NLS-1$
+		String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+		IPath configFolderpath = pjpath.append(configFolderName);
+		sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
 		if (!sourceFolder.getFile(J2EEConstants.APP_CLIENT_DD_URI).exists()) {
 			String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 			int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 			AppClientArtifactEdit.createDeploymentDescriptor(project, nVer);
 		}
-		try {
-			createManifest(project, sourceFolder, monitor);
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+		
+		// add source folder maps
+		final IClasspathEntry[] cp = jproj.getRawClasspath();
+		for (int i = 0; i < cp.length; i++) {
+			final IClasspathEntry cpe = cp[i];
+			if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+				root.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
+			}
 		}
 		return c;
 	}
@@ -205,15 +209,24 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	}
 
 	protected void createManifestEntryForMainClass(IProgressMonitor monitor, IDataModel model, IProject project) throws CoreException, InvocationTargetException, InterruptedException {
-		String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
-		IContainer container = project.getFolder(manifestFolder);
-		IFile file = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-
+		IVirtualComponent appClientComponent = ComponentCore.createComponent(project);
+		IVirtualFile vf = appClientComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+		IFile manifestmf = vf.getUnderlyingFile();
+		if (manifestmf == null || !manifestmf.exists()) {
+			try {
+				createManifest(project, appClientComponent.getRootFolder().getUnderlyingFolder(), monitor);
+			} catch (Exception e) {
+				Logger.getLogger().logError(e);
+			}
+			String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
+			IContainer container = project.getFolder(manifestFolder);
+			manifestmf = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
+		}
 		if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {
 			IDataModel dm = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
 			dm.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, project.getName());
 			dm.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-			dm.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, file);
+			dm.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
 			dm.setProperty(UpdateManifestDataModelProperties.MAIN_CLASS, "Main"); //$NON-NLS-1$
 			try {
 				dm.getDefaultOperation().execute(monitor, null);
