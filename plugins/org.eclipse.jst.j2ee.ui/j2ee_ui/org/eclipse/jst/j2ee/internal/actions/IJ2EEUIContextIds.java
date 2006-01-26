@@ -33,7 +33,9 @@ public interface IJ2EEUIContextIds {
 	public static final String NEW_CONNECTOR_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".JCA_NEWIZARD_PAGE3"; //$NON-NLS-1$
 	public static final String NEW_JAVA_COMPONENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_JAVA_COMPONENT_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String NEW_JAVA_CLASS_OPTION_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_JAVA_CLASS_OPTION_WIZARD_PAGE1"; //$NON-NLS-1$
-
+	public static final String NEW_UTILITY_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".NEW_UTILITY_WIZARD_P1"; //$NON-NLS-1$
+	public static final String NEW_UTILITY_WIZARD_P3 = J2EEUIPlugin.PLUGIN_ID + ".NEW_UTILITY_WIZARD_P3"; //$NON-NLS-1$
+	
 	// Import, export wizards
 	public static final String IMPORT_EAR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EAR_IMPORT_EAR_WIZARD_PAGE1"; //$NON-NLS-1$
 	public static final String IMPORT_EAR_WIZARD_P2 = J2EEUIPlugin.PLUGIN_ID + ".EAR_IMPORT_EAR_WIZARD_PAGE2"; //$NON-NLS-1$
