@@ -62,6 +62,7 @@ import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -95,7 +96,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					
 					String j2eeVersionText = ver;
 					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
+					installEARFacet(j2eeVersionText, earProjectName, (IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME), monitor);
 
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
