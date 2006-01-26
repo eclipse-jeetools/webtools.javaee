@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ui.project.facet;
 
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
 import org.eclipse.osgi.util.NLS;
@@ -21,6 +22,7 @@ public class UtilityProjectFirstPage extends J2EEComponentFacetCreationWizardPag
 		super(dataModel, pageName);
 		setTitle(Resources.pageTitle);
 		setDescription(Resources.pageDescription);
+		setInfopopID(IJ2EEUIContextIds.NEW_UTILITY_WIZARD_P1);
 	}
 
 	private static final class Resources extends NLS {

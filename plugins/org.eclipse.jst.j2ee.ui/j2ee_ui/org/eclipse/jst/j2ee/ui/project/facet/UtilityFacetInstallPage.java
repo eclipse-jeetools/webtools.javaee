@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.j2ee.ui.project.facet;
 
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -43,6 +44,7 @@ public final class UtilityFacetInstallPage extends J2EEModuleFacetInstallPage {
 	protected Composite createTopLevelComposite(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
+		setInfopopID(IJ2EEUIContextIds.NEW_UTILITY_WIZARD_P3);
 		//setupEarControl(composite);
 		return composite;
 	}
