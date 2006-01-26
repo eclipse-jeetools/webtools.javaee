@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -25,6 +26,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -46,6 +48,7 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -59,7 +62,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
-			monitor.beginTask("", 1);
+			monitor.beginTask("", 1); //$NON-NLS-1$
 		}
 
 		try {
@@ -81,37 +84,42 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			final IVirtualComponent c = ComponentCore.createComponent(project);
 
 			c.create(0, null);
-			c.setMetaProperty("java-output-path", "/build/classes/");
-
-
+			c.setMetaProperty("java-output-path", "/build/classes/"); //$NON-NLS-1$ //$NON-NLS-2$
 
 			final IVirtualFolder root = c.getRootFolder();
 			IFolder sourceFolder = null;
 			String configFolder = null;
-			if (root.getProjectRelativePath().segmentCount() == 0) {
-				configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-				root.createLink(new Path("/" + configFolder), 0, null);
-
-
-				String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-				IPath configFolderpath = pjpath.append(configFolderName);
-
-				sourceFolder = ws.getRoot().getFolder(configFolderpath);
-			} else
-				sourceFolder = project.getFolder(root.getProjectRelativePath());
+			configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+			root.createLink(new Path("/" + configFolder), 0, null); //$NON-NLS-1$
+			String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
+			IPath configFolderpath = pjpath.append(configFolderName);
+			sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
 			if (!sourceFolder.getFile(J2EEConstants.RAR_DD_URI).exists()) {
 				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				ConnectorArtifactEdit.createDeploymentDescriptor(project, nVer);
 			}
-
-			try {
-				createManifest(project, sourceFolder, monitor);
-			} catch (InvocationTargetException e) {
-				Logger.getLogger().logError(e);
-			} catch (InterruptedException e) {
-				Logger.getLogger().logError(e);
+			
+			// add source folder maps
+			final IClasspathEntry[] cp = jproj.getRawClasspath();
+			for (int i = 0; i < cp.length; i++) {
+				final IClasspathEntry cpe = cp[i];
+				if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+					root.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
+				}
+			}
+			
+			IVirtualFile vf = c.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+			IFile manifestmf = vf.getUnderlyingFile();
+			if (manifestmf == null || !manifestmf.exists()) {
+				try {
+					createManifest(project, c.getRootFolder().getUnderlyingFolder(), monitor);
+				} catch (InvocationTargetException e) {
+					Logger.getLogger().logError(e);
+				} catch (InterruptedException e) {
+					Logger.getLogger().logError(e);
+				}
 			}
 
 			// Setup the classpath.
@@ -126,7 +134,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final String earProjectName = (String) model.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 			if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR)) {
-				if (earProjectName != null && !earProjectName.equals("")) {
+				if (earProjectName != null && !earProjectName.equals("")) { //$NON-NLS-1$
 
 					String ver = fv.getVersionString();
 					String j2eeVersionText = J2EEVersionUtil.convertVersionIntToString
