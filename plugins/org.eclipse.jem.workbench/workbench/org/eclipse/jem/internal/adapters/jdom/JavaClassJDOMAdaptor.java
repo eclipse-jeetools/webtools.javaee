@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.23 $  $Date: 2005/12/01 22:02:01 $ 
+ *  $Revision: 1.24 $  $Date: 2006/01/26 15:21:53 $ 
  */
 
 import java.util.*;
@@ -271,17 +271,28 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		getJavaClassTarget().getDeclaredClassesGen().clear();
 		return true;
 	}
+	
+	protected boolean flushAndClearCachedModelObject;
+	
 	/**
 	 * Clear the reflected values.
 	 */
 	protected boolean flushReflectedValues(boolean clearCachedModelObject) {
-		if (clearCachedModelObject)
+		flushAndClearCachedModelObject = clearCachedModelObject;
+		return true;
+	}
+	
+	/*
+	 * This is called before a reflect if a real flush is needed.
+	 */
+	private void flushNow() {
+		if (flushAndClearCachedModelObject)
 			setSourceType(null);
 		typeResolutionCache.clear();
 		flushModifiers();
 		flushSuper();
 		flushImplements();
-		if (clearCachedModelObject) {
+		if (flushAndClearCachedModelObject) {
 			// Don't flush these yet. We will try to reuse them on the next reflush. If clear model too, then flush them. This usually means class has been deleted, so why keep them around.
 			flushMethods();
 			flushFields();
@@ -291,8 +302,9 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		hasReflectedFields = false;
 		
 		flushInnerClasses();
-		return true;
+		flushAndClearCachedModelObject = false;
 	}
+
 
 	/**
 	 * @see com.ibm.etools.java.adapters.JavaReflectionAdaptor#postFlushReflectedValuesIfNecessary()
@@ -408,6 +420,10 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 * - add imports
 	 */
 	public boolean reflectValues() {
+		if (hasFlushed) {
+			// We flush sometime in the past since last reflect. So now do the actual flush.
+			flushNow();
+		}
 		super.reflectValues();
 		boolean isHeadless = UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
 		if (canReflect()) {
