@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.ejb.provider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -89,7 +90,10 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 		List messageBeans = new ArrayList();
 
 		catagorizeBeans(allRootBeans, entityBeans, sessionBeans, messageBeans);
-
+		orderBeans(entityBeans);
+		orderBeans(sessionBeans);
+		orderBeans(messageBeans);
+		
 		//ENABLE FOR: NOT TO SHOW EMPTY GROUPS
 		//if (sessionBeans.size() > 0) {
 		if (sessionTable.get(ejbJar) == null) {
@@ -136,6 +140,13 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 		return localChildren;
 	}
 
+	protected void orderBeans(List beans) {
+		Object[] beansArray = beans.toArray();
+		Arrays.sort(beansArray, EJBNameComparator.singleton());
+		beans.clear();
+		beans.addAll(Arrays.asList(beansArray));
+	}
+	
 	protected static List getAllRootBeans(EJBJar ejbJar) {
 		return ejbJar.getEnterpriseBeans();
 	}
