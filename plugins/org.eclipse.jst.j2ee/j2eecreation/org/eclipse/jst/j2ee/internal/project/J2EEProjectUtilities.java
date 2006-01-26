@@ -562,10 +562,12 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 	public static IProject[] getReferencingEARProjects(IProject project) {
 		List result = new ArrayList();
 		IVirtualComponent component = ComponentCore.createComponent(project);
-		IVirtualComponent[] refComponents = component.getReferencingComponents();
-		for (int i=0; i<refComponents.length; i++) {
-			if (isEARProject(refComponents[i].getProject()))
-				result.add(refComponents[i].getProject());
+		if (component != null) {
+			IVirtualComponent[] refComponents = component.getReferencingComponents();
+			for (int i=0; i<refComponents.length; i++) {
+				if (isEARProject(refComponents[i].getProject()))
+					result.add(refComponents[i].getProject());
+			}
 		}
 		return (IProject[]) result.toArray(new IProject[result.size()]);
 	}
