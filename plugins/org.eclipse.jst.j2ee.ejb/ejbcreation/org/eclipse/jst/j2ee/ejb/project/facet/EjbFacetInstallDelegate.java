@@ -158,7 +158,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 					(J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(ver));
 					
 					IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-					installEARFacet(j2eeVersionText, earProjectName, facetedProject.getRuntime(), monitor);
+					installEARFacet(j2eeVersionText, earProjectName, (IRuntime) model.getProperty(IJ2EEFacetInstallDataModelProperties.FACET_RUNTIME), monitor);
 
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
