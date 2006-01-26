@@ -29,6 +29,7 @@ import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.DeletedModule;
 import org.eclipse.wst.server.core.internal.Module;
 
 /**
@@ -114,7 +115,10 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			// no module for the original project, so return
 			return;
 		}
-		final IModule[] toRemove = new IModule[]{originalModule};
+		// Need to replace the original module with a DeletedModule
+		final IModule[] toRemove = new IModule[1];
+		toRemove[0] = new DeletedModule(originalModule.getId(), originalModule.getName(),
+				originalModule.getModuleType());
 		
 		IModule newModule = null;
 		IModule[] toAdd = new IModule[0];

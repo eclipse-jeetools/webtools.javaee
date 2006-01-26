@@ -58,13 +58,13 @@ public class J2EEDependenciesPage extends PropertyPage {
 		boolean isWEB = false;
 		try {
 			final IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			if (facetedProject == null) {
+				return getFacetErrorComposite(parent);
+			}
 			isEAR = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE)); 
 			isWEB = facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
 		} catch (CoreException ce) {
-			final String errorCheckingFacet = ManifestUIResourceHandler.Error_Checking_Project_Facets;
-			setErrorMessage(errorCheckingFacet);
-			setValid(false);
-			return getErrorComposite(parent, errorCheckingFacet);
+			return getFacetErrorComposite(parent);
 		}
 		
 		if (isEAR) {
@@ -74,6 +74,13 @@ public class J2EEDependenciesPage extends PropertyPage {
 		} else {
 			return createNonEARContent(parent);
 		}
+	}
+	
+	private Composite getFacetErrorComposite(final Composite parent) {
+		final String errorCheckingFacet = ManifestUIResourceHandler.Error_Checking_Project_Facets;
+		setErrorMessage(errorCheckingFacet);
+		setValid(false);
+		return getErrorComposite(parent, errorCheckingFacet);		
 	}
 	
 	private Composite getErrorComposite(final Composite parent, final String error) {
@@ -195,17 +202,13 @@ public class J2EEDependenciesPage extends PropertyPage {
 	
 	private static void fillDescription(Composite c, String s) {
 		GridData data = new GridData();
-		data.horizontalSpan = 2;
-		data.horizontalIndent = 15;
-		data = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL);
-		data.horizontalSpan = 2;
-		data.horizontalIndent = 15;
+		data.horizontalSpan = 1;
+		data.horizontalIndent = 5;
+		data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 250;
-		data.heightHint = 50;
-		Text text = new Text(c, SWT.V_SCROLL | SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		Text text = new Text(c, SWT.MULTI | SWT.WRAP);
 		text.setLayoutData(data);
 		text.setTextLimit(80);
-		text.setSize(250, 50);
 		text.setEditable(false);
 		text.setText(s);
 	}
