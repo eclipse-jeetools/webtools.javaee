@@ -219,7 +219,7 @@ public class ClassPathSelection {
 	
 	public java.util.List getSelectedClasspathElements() {
 		ArrayList list = new ArrayList();
-		Iterator it = classpathElements.iterator();
+		Iterator it = getClasspathElements().iterator();
 		while(it.hasNext()) {
 			ClasspathElement element = (ClasspathElement)it.next();
 			if( element.isSelected() ){
