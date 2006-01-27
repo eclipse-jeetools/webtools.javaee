@@ -259,7 +259,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	protected String getModuleVersionString() {
 		
 		int ver = getModuleVersionID();
-		return new BigDecimal(ver).movePointLeft(1).toString();
+		return new BigDecimal(String.valueOf(ver)).movePointLeft(1).toString();
 	}
 
 }
