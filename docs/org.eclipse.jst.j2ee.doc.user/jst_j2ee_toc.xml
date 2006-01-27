@@ -30,7 +30,6 @@
          <topic label="Manually validating code" href="topics/tjvalmanual.html"/>
          <topic label="Selecting code validators" href="topics/tjvalselect.html"/>
       </topic>
-      <link toc="jst_j2ee_ant.xml"/>
       <topic label="Reference" href="topics/ph-ref.html">
          <topic label="J2EE Validators" href="topics/rvalidators.html"/>
          <topic label="Common validation errors and solutions" href="topics/rvalerr.html"/>
