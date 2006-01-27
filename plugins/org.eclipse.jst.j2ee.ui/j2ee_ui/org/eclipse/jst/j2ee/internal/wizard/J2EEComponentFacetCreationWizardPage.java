@@ -26,15 +26,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
-import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
 public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage implements IFacetProjectCreationDataModelProperties {
 
     private static final String STORE_LABEL = "LASTEARNAME_"; //$NON-NLS-1$
-    private static final String LAST_RUNTIME_STORE = "LAST_RUNTIME"; //$NON-NLS-1$
     
 	protected EarSelectionPanel earPanel;
   
@@ -72,6 +69,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	}
 	
     public void storeDefaultSettings() {
+    	super.storeDefaultSettings();
         IDialogSettings settings = getDialogSettings();
         if (settings != null) {
         	FacetDataModelMap map = (FacetDataModelMap)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -81,13 +79,11 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	        	String lastEARName = j2eeModel.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
 	            settings.put(STORE_LABEL, lastEARName);
         	}
-        	IRuntime runtime = (IRuntime)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
-        	String runtimeName = runtime == null ? "" : runtime.getName(); //$NON-NLS-1$
-            settings.put(LAST_RUNTIME_STORE, runtimeName);
         }
     }
     
     public void restoreDefaultSettings() {
+    	super.restoreDefaultSettings();
         IDialogSettings settings = getDialogSettings();
         if (settings != null) {
             String lastEARName = settings.get(STORE_LABEL);
@@ -96,22 +92,6 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
             	String facetID = getModuleFacetID();
             	IDataModel j2eeModel = map.getFacetDataModel(facetID);
                 j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, lastEARName);
-            }
-            if(!model.isPropertySet(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
-            	boolean runtimeSet = false;
-	            String lastRuntimeName = settings.get(LAST_RUNTIME_STORE);
-	            DataModelPropertyDescriptor [] descriptors = model.getValidPropertyDescriptors(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
-	        	if( lastRuntimeName != null){
-	            	for(int i=0;i<descriptors.length && !runtimeSet; i++){
-	            		if(lastRuntimeName.equals(descriptors[i].getPropertyDescription())){
-	            			model.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, descriptors[i].getPropertyValue());
-	            			runtimeSet = true;
-	            		}
-	            	}
-	            } 
-	        	if(!runtimeSet && descriptors.length > 0){
-	        		model.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, descriptors[0].getPropertyValue());
-	        	}
             }
         }
     }
