@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: J2EE Core Component
 Bundle-SymbolicName: org.eclipse.jst.j2ee.core; singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
