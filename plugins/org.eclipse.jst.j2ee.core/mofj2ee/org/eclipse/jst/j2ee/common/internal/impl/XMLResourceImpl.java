@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common.internal.impl;
 
+import java.math.BigDecimal;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.Notifier;
@@ -255,9 +257,9 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	protected abstract void syncVersionOfRootObject();
 	
 	protected String getModuleVersionString() {
-		float ver = getModuleVersionID();
-		Float specVersion = new Float(ver/10);
-		return specVersion.toString();
+		
+		int ver = getModuleVersionID();
+		return new BigDecimal(String.valueOf(ver)).movePointLeft(1).toString();
 	}
 
 }

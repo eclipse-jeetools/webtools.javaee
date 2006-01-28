@@ -371,8 +371,6 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
 		projectJarButton = createPushButton(J2EEUIMessages.getResourceString("PROJECT_JAR"));//$NON-NLS-1$
 		externalJarButton = createPushButton(J2EEUIMessages.getResourceString("EXTERNAL_JAR"));//$NON-NLS-1$
-		//TODO Until server tools support util jars outside workspace....   remove enablement
-		externalJarButton.setEnabled(false);
 		addVariableButton = createPushButton(J2EEUIMessages.getResourceString("ADDVARIABLE"));//$NON-NLS-1$
 	}
 

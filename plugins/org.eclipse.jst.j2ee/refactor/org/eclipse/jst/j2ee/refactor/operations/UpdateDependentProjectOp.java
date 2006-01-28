@@ -59,6 +59,9 @@ public abstract class UpdateDependentProjectOp extends AbstractDataModelOperatio
 	 * @return
 	 */
 	protected static boolean hasWebLibDependency(final IVirtualReference ref) {
+		if (ref == null) {
+			return false;
+		}
 		return ref.getRuntimePath().equals(new Path("/WEB-INF/lib")); //$NON-NLS-1$
 	}
 	

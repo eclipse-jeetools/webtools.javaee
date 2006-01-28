@@ -532,12 +532,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				String[] params = new String[1];
 				params[0] = module.getUri();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
-				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
+				addWarning(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
 			} else if (module instanceof WebModule && !newUri.endsWith(".war")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getUri();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
-				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
+				addWarning(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
 			}
 		}
 	}

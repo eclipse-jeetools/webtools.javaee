@@ -36,26 +36,61 @@ import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 
 /**
  * @author blancett
- * 
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * @since 1.0
+ * Used to sort and filter method element lists
  */
 public class EjbMethodElementHelper {
+	/**
+	 * Used to filter methods
+	 */
 	public static final int ALL_METHODS = 0;
+	/**
+	 * Used to filter methods
+	 */
 	public static final int HOME_METHODS = 1;
+	/**
+	 * Used to filter methods
+	 */
 	public static final int CLIENT_METHODS = 2;
+	/**
+	 * Used to filter methods
+	 */
 	public static final int REMOTE_METHODS = 3;
+	/**
+	 * Used to filter methods
+	 */
 	public static final int LOCAL_METHODS = 4;
+	/**
+	 * Used to filter methods
+	 */
 	public static final int LOCAL_HOME_METHODS = 5;
+	/**
+	 * Used to filter methods
+	 */
 	public static final int LOCAL_REMOTE_METHODS = 6;
+	/**
+	 * a MethodElement comparator
+	 */
 	protected EjbMethodElementComparator defaultMEComparator;
+	/**
+	 * a MethodElement comparator
+	 */
 	protected EjbMethodElementComparator defaultMethodElementComparator;
 	private static EjbMethodElementHelper singleton;
+	/**
+	 * Used to filter methods
+	 */
 	public static final String DEFAULT_METHOD_NAME = "*"; //$NON-NLS-1$
 	protected static final String METHOD_ELEMENT_NAME = "MethodElement"; //$NON-NLS-1$
+	/**
+	 * Constructor to create helper class
+	 */
 	public EjbMethodElementHelper() {
 		super();
 	}
+	/**
+	 * @return the singleton instance for this helper
+	 */
 	public static EjbMethodElementHelper singleton() {
 		if (singleton == null)
 			singleton = new EjbMethodElementHelper();
@@ -79,11 +114,26 @@ public class EjbMethodElementHelper {
 		}
 		return false;
 	}
+	/**
+	 * @return a EjbMethodElementComparator
+	 */
 	protected EjbMethodElementComparator getDefaultMEComparator() {
 		if (defaultMEComparator == null)
 			defaultMEComparator = new EjbMethodElementComparator();
 		return defaultMEComparator;
 	}
+	/**
+	 * @return a EjbMethodElementComparator
+	 */
+	protected EjbMethodElementComparator getDefaultMethodElementComparator() {
+		if (defaultMethodElementComparator == null)
+			defaultMethodElementComparator = new EjbMethodElementComparator();
+		return defaultMethodElementComparator;
+	}
+	/**
+	 * @param result
+	 * @param someQueries
+	 */
 	protected void excludeQueryMethods(List result, List someQueries) {
 		if (someQueries.isEmpty())
 			return;
@@ -96,6 +146,10 @@ public class EjbMethodElementHelper {
 		}
 		excludeMethodElements(result, methods);
 	}
+	/**
+	 * @param cmp
+	 * @return
+	 */
 	public List getAvailableSelectQueryMethodsExcludingExisting(ContainerManagedEntity cmp) {
 		if (cmp == null)
 			return Collections.EMPTY_LIST;
@@ -104,6 +158,11 @@ public class EjbMethodElementHelper {
 		excludeQueryMethods(result, existing);
 		return result;
 	}
+	/**
+	 * Used to return finder methods with filter
+	 * @param cmp bean to exclude
+	 * @return list of method elements
+	 */
 	public List getAvailableFindQueryMethodsExcludingExisting(ContainerManagedEntity cmp) {
 		if (cmp == null)
 			return Collections.EMPTY_LIST;
@@ -112,18 +171,23 @@ public class EjbMethodElementHelper {
 		excludeQueryMethods(result, existing);
 		return result;
 	}
+	/**
+	 * @param object
+	 * @param bean used to search
+	 * @return list of method elements
+	 */
 	public List getExistingOrAvailableTransactionMethodElements(EObject object, EnterpriseBean bean) {
 		List result = new ArrayList();
 		result.addAll(getAvailableMethodTransactionMethodElementsExcludingExisting(bean));
 		unionMethodElements(result, getExistingMethodElements(object, bean));
-		Collections.sort(result, getDefaultMethodElementComparator());
+		Collections.sort(result, getDefaultMEComparator());
 		return result;
 	}
-	protected EjbMethodElementComparator getDefaultMethodElementComparator() {
-		if (defaultMethodElementComparator == null)
-			defaultMethodElementComparator = new EjbMethodElementComparator();
-		return defaultMethodElementComparator;
-	}
+	/**
+	 * @param refObject
+	 * @param bean
+	 * @return
+	 */
 	protected List getExistingMethodElements(EObject refObject, EnterpriseBean bean) {
 		if (refObject != null) {
 			EjbPackage pack = getEjbPackage();
@@ -134,6 +198,10 @@ public class EjbMethodElementHelper {
 		}
 		return Collections.EMPTY_LIST;
 	}
+	/**
+	 * @param sourceMethodElements
+	 * @param additionalMethodElements
+	 */
 	protected void unionMethodElements(List sourceMethodElements, List additionalMethodElements) {
 		MethodElement sourceME, additionalME;
 		int sourceSize, addSize;
@@ -158,6 +226,10 @@ public class EjbMethodElementHelper {
 		sourceMethodElements.removeAll(foundElements);
 		sourceMethodElements.addAll(additionalMethodElements);
 	}
+	/**
+	 * @param bean
+	 * @return
+	 */
 	public List getAvailableMethodTransactionMethodElementsExcludingExisting(EnterpriseBean bean) {
 		List result = new ArrayList();
 		List filteredMethods = new ArrayList();
@@ -214,15 +286,36 @@ public class EjbMethodElementHelper {
 		Collections.sort(signatures);
 		return signatures;
 	}
+	/**
+	 * Create method elements on EJB
+	 * @param signatures - List of method sigs
+	 * @param aType - The enum type
+	 * @param bean - EJB bean passed
+	 * @return a List of method elements
+	 */
 	protected List createMethodElements(List signatures, Enumerator aType, EnterpriseBean bean) {
 		return createMethodElements(METHOD_ELEMENT_NAME, signatures, aType, bean);
 	}
+	/**
+	 * @return
+	 */
 	protected EjbPackage getEjbPackage() {
 		return EjbFactoryImpl.getPackage();
 	}
+	/**
+	 * @return
+	 */
 	protected EjbFactory getEjbFactory() {
 		return ((EjbPackage) EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory();
 	}
+	/**
+	 * Create method elements with ME type name
+	 * @param meTypeName The ME type
+	 * @param signatures list of method signatures
+	 * @param aType - enum type
+	 * @param bean - EJB bean
+	 * @return List of created elements
+	 */
 	protected List createMethodElements(String meTypeName, List signatures, Enumerator aType, EnterpriseBean bean) {
 		int size = signatures.size();
 		List methodElements = new ArrayList(size);
@@ -238,6 +331,12 @@ public class EjbMethodElementHelper {
 		}
 		return methodElements;
 	}
+	/**
+	 * Get list of MTE's excluding bean
+	 * @param entity - excluded bean
+	 * @param type - filter on method type constants
+	 * @return List of method elements
+	 */
 	protected List getEntityMethodTransactionExcludedMethods(Entity entity, int type) {
 		List result = new ArrayList();
 		switch (type) {
@@ -265,6 +364,12 @@ public class EjbMethodElementHelper {
 		}
 		return result;
 	}
+	/**
+	 * Get Session ME list exclusing session beans
+	 * @param session - excludng beans
+	 * @param type - Interface type
+	 * @return - list of ME's
+	 */
 	protected List getSessionMethodTransactionExcludedClasses(Session session, int type) {
 		List result = new ArrayList();
 		Object[] allInterfaces;
@@ -287,6 +392,11 @@ public class EjbMethodElementHelper {
 		}
 		return result;
 	}
+	/**
+	 * @param aClass
+	 * @param methods
+	 * @return
+	 */
 	protected List excludeMethods(JavaClass aClass, List methods) {
 		List currentMethods = aClass.getMethods();
 		List resultMethods = new ArrayList();
@@ -296,6 +406,11 @@ public class EjbMethodElementHelper {
 		}
 		return resultMethods;
 	}
+	/**
+	 * @param aClass
+	 * @param methodName
+	 * @return
+	 */
 	protected Method getMethod(JavaClass aClass, String methodName) {
 		List currentMethods = aClass.getMethods();
 		for (int i = 0; i < currentMethods.size(); i++) {
@@ -314,6 +429,12 @@ public class EjbMethodElementHelper {
 		}
 		return null;
 	}
+	/**
+	 * Used to collect matched interfaces for ejbs
+	 * @param interfaces for filtering
+	 * @param aEjbObjectClassName - the ejb name
+	 * @return list of interfaces
+	 */
 	public List getInterfaces(Object[] interfaces, String aEjbObjectClassName) {
 		List extractedInterfaces = new ArrayList();
 		for (int i = 0; i < interfaces.length; i++) {
@@ -322,15 +443,40 @@ public class EjbMethodElementHelper {
 		}
 		return extractedInterfaces;
 	}
+	/**
+	 * @param ejb
+	 * @param someMethodElementOwners
+	 * @param methodElementReference
+	 * @param usageFlag
+	 * @return
+	 */
 	public List getAvailableMethodElementsExcludingExisting(EnterpriseBean ejb, List someMethodElementOwners, EReference methodElementReference, int usageFlag) {
 		return getAvailableMethodElementsExcludingExisting(ejb, someMethodElementOwners, methodElementReference, getDefaultMEComparator(), usageFlag);
 	}
+	/**
+	 * @param ejb
+	 * @param someMethodElementOwners
+	 * @param methodElementReference
+	 * @return
+	 */
 	public List getAvailableMethodElementsExcludingExisting(EnterpriseBean ejb, List someMethodElementOwners, EReference methodElementReference) {
 		return getAvailableMethodElementsExcludingExisting(ejb, someMethodElementOwners, methodElementReference, getDefaultMEComparator());
 	}
+	/**
+	 * @param ejb
+	 * @param someMethodElementOwners
+	 * @param methodElementReference
+	 * @param comparator
+	 * @return
+	 */
 	public List getAvailableMethodElementsExcludingExisting(EnterpriseBean ejb, List someMethodElementOwners, EReference methodElementReference, Comparator comparator) {
 		return getAvailableMethodElementsExcludingExisting(ejb, someMethodElementOwners, methodElementReference, comparator, ALL_METHODS);
 	}
+	/**
+	 * @param someMethodElementOwners
+	 * @param methodElementReference
+	 * @return
+	 */
 	protected List getExistingMethodElements(List someMethodElementOwners, EReference methodElementReference) {
 		if (someMethodElementOwners == null || someMethodElementOwners.isEmpty() || methodElementReference == null || !methodElementReference.isMany())
 			return Collections.EMPTY_LIST;
@@ -343,6 +489,14 @@ public class EjbMethodElementHelper {
 		}
 		return result;
 	}
+	/**
+	 * @param ejb
+	 * @param someMethodElementOwners
+	 * @param methodElementReference
+	 * @param comparator
+	 * @param usageFlag
+	 * @return
+	 */
 	public List getAvailableMethodElementsExcludingExisting(EnterpriseBean ejb, List someMethodElementOwners, EReference methodElementReference, Comparator comparator, int usageFlag) {
 		if (ejb == null)
 			return Collections.EMPTY_LIST;
@@ -362,6 +516,10 @@ public class EjbMethodElementHelper {
 		Collections.sort(result, comparator);
 		return result;
 	}
+	/**
+	 * @param sourceMethodElements
+	 * @param existingMethodElements
+	 */
 	protected void excludeMethodElements(List sourceMethodElements, List existingMethodElements) {
 		MethodElement sourceME, existingME;
 		int sourceSize, existingSize;

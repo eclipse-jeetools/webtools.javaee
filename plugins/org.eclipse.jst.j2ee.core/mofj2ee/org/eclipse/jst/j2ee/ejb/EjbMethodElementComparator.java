@@ -17,10 +17,25 @@ import java.util.Comparator;
  */
 
 public class EjbMethodElementComparator implements Comparator {
+	/**
+	 * Specifies the Interface type HOME
+	 */
 	static final int HOME = MethodElementKind.HOME;
+	/**
+	 * Specifies the Interface type REMOTE
+	 */
 	static final int REMOTE = MethodElementKind.REMOTE;
+	/**
+	 * Specifies the Interface type LOCAL_HOME
+	 */
 	static final int LOCAL_HOME = MethodElementKind.LOCAL_HOME;
+	/**
+	 * Specifies the Interface type LOCAL
+	 */
 	static final int LOCAL = MethodElementKind.LOCAL;
+	/**
+	 * The Interface type is unspecified
+	 */
 	static final int UNSPECIFIED = MethodElementKind.UNSPECIFIED;
 
 	/**
@@ -44,6 +59,10 @@ public class EjbMethodElementComparator implements Comparator {
 	 * Sort by type first in the following order:
 	 * Home, Remote, LocalHome, Local, Unspecified
 	 * Then alphabetically order.
+	 *
+	 * @param me1 the first object to be compared
+	 * @param me2 the second object to be compared
+	 * @return a negative integer, zero, or a positive integer
 	 */
 	protected int compare(MethodElement me1, MethodElement me2) {
 		int type1, type2;
@@ -54,6 +73,11 @@ public class EjbMethodElementComparator implements Comparator {
 		return compareTypes(type1, type2);
 	}
 
+	/**
+	 * @param type1 the first object to be compared
+	 * @param type2 the second object to be compared
+	 * @return a negative integer, zero, or a positive integer
+	 */
 	protected int compareTypes(int type1, int type2) {
 		if (type1 == HOME)
 			return -1;
@@ -79,6 +103,11 @@ public class EjbMethodElementComparator implements Comparator {
 		}
 		return -1;
 	}
+	/**
+	 * @param me1 the first object to be compared
+	 * @param me2 the second object to be compared
+	 * @return a negative integer, zero, or a positive integer
+	 */
 	protected int compareSignatures(MethodElement me1, MethodElement me2) {
 		String sig1, sig2;
 		sig1 = me1.getSignature();
