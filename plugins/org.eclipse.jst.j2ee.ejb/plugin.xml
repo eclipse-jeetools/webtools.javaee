@@ -29,9 +29,9 @@
          name="%EJB_VALIDATOR"
          point="org.eclipse.wst.validation.validator">
       <validator>
-         <projectNature
-               id="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-         </projectNature>
+      	 <facet
+               facetId="jst.ejb">
+         </facet>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="ejb-jar.xml">

@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
@@ -34,24 +35,19 @@ public class UIEjbValidator extends EJBValidator {
 	}
 	
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
-
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
-            if(J2EEProjectUtilities.isEJBProject(proj)) {
-            	
-			
-			IVirtualFile ejbDD = wbModule.getRootFolder().getFile(J2EEConstants.EJBJAR_DD_URI);
-			if( ejbDD.exists()){
-				ArtifactEdit edit = null;
+		if (J2EEProjectUtilities.isEJBProject(proj)) {
+				EJBArtifactEdit edit = null;
 				try {
-					edit = ArtifactEdit.getArtifactEditForRead(wbModule);
-					super.validate(inHelper, inReporter);
+					edit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
+					if(edit != null && edit.getDeploymentDescriptorResource() != null)
+						super.validate(inHelper, inReporter);
 				} finally {
 					if (edit != null)
 						edit.dispose();
 				}
 			}
 		}
-	}		
+}		
 
-}
+
