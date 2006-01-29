@@ -304,9 +304,9 @@
          name="%ear_validator_UI_"
          point="org.eclipse.wst.validation.validator">
       <validator>
-         <projectNature
-               id="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-         </projectNature>
+         <facet
+               facetId="jst.ear">
+         </facet>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="*.xml">
@@ -368,9 +368,9 @@
          name="%application_client_validator_UI_"
          point="org.eclipse.wst.validation.validator">
       <validator>
-         <projectNature
-               id="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-         </projectNature>
+         <facet
+               facetId="jst.appclient">
+         </facet>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter="MANIFEST.MF">
