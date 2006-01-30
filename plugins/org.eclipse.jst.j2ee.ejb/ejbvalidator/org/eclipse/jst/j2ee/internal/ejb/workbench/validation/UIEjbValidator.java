@@ -12,13 +12,8 @@ package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
-import org.eclipse.wst.common.componentcore.ArtifactEdit;
-import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
