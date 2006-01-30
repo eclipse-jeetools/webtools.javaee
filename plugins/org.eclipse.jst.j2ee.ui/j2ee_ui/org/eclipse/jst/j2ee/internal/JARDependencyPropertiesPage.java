@@ -562,6 +562,8 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				}
 				
 			}
+		}else{
+			unselected = unselectedForWLP;
 		}
 		return unselected;
     }
