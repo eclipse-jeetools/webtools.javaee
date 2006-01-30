@@ -171,12 +171,11 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 			return new IClasspathEntry[]{projectEntry};	
 	}	
 	
-	private void updateProjectDependency(final IProject ejbProj, final IProject clientProj, final boolean add){
-		
-		final IJavaProject javaProject = JavaCore.create( ejbProj );
+	private void updateProjectDependency(final IProject ejbProj, final IProject clientProj, final boolean add) {
+		final IJavaProject javaProject = JavaCore.create(ejbProj);
 		try {
 			final IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-			final IClasspathEntry[] entriesToChange = getProjectDependency( clientProj );
+			final IClasspathEntry[] entriesToChange = getProjectDependency(clientProj);
 			final List classpathEntries = new ArrayList();
 			for (int i = 0; i < oldEntries.length; i++) {
 				if (!entryToChange(oldEntries[i], entriesToChange)) {
@@ -184,15 +183,26 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 				}
 			}
 			if (add) {
-				for( int j=0; j< entriesToChange.length; j++){
-					classpathEntries.add(entriesToChange[j]);
+				for (int j = 0; j < entriesToChange.length; j++) {
+					boolean containsEntry = false;
+					if (entriesToChange[j].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
+						for (int k = 0; k < classpathEntries.size(); k++) {
+							String existingEntry = ((IClasspathEntry) classpathEntries.get(k)).getPath().segment(0);
+							String newEntry = entriesToChange[j].getPath().segment(0);
+							if (existingEntry.equals(newEntry)) {
+								containsEntry = true;
+								break;
+							}
+						}
+					}
+					if (!containsEntry)
+						classpathEntries.add(entriesToChange[j]);
 				}
 			}
-			javaProject.setRawClasspath((IClasspathEntry[])classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
-		}
-		catch (JavaModelException e) {
+			javaProject.setRawClasspath((IClasspathEntry[]) classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
+		} catch (JavaModelException e) {
 			Logger.getLogger().logError(e);
-		}		
+		}
 	}
 	
 	private boolean entryToChange(final IClasspathEntry entry, final IClasspathEntry[] entriesToChange) {
