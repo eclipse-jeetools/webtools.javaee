@@ -36,6 +36,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
 
@@ -87,6 +88,10 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			setBooleanProperty(ADD_TO_EAR, false);
 		}
 		if (ADD_TO_EAR.equals(propertyName)) {
+			IStatus stat = model.validateProperty(propertyName);
+			if (stat != OK_STATUS){
+				return true;
+			}
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
 			if (getBooleanProperty(ADD_TO_EAR)) {
@@ -118,13 +123,17 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			}
 		}else if(LAST_EAR_NAME.equals(propertyName)){
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
+		}else if(propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
+			model.setProperty(ADD_TO_EAR, model.getDefaultProperty(ADD_TO_EAR));
+			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {
 		if (ADD_TO_EAR.equals(propertyName)) {
-			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR);
+			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR) && isEARSupportedByRuntime();
 		}
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR) && getBooleanProperty(ADD_TO_EAR);
@@ -186,6 +195,11 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
+		}else if (name.equals(ADD_TO_EAR)){
+			if( !isEARSupportedByRuntime()){
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_NOT_SUPPORTED);
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			}			
 		}
 		return super.validate(name);
 	}
@@ -251,4 +265,11 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		// return OK_STATUS;
 	}
 
+	private boolean isEARSupportedByRuntime(){
+		boolean ret = false;
+		IRuntime rt = (IRuntime) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+		if( rt != null )
+			ret =  rt.supports(EARFacetUtils.EAR_FACET);
+		return ret;
+	}
 }
