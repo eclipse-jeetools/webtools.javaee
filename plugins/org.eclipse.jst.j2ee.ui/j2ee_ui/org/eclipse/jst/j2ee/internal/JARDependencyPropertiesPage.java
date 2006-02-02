@@ -609,8 +609,10 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 					}
 					if( !name.equals("")){ //$NON-NLS-1$
 						IVirtualReference ref = model.getComponent().getReference(name);
-						IVirtualComponent referenced = ref.getReferencedComponent();
-						targetComponentsHandles.add(referenced);
+						if( ref != null ){
+							IVirtualComponent referenced = ref.getReferencedComponent();
+							targetComponentsHandles.add(referenced);
+						}
 					}	
 				}
 			}
