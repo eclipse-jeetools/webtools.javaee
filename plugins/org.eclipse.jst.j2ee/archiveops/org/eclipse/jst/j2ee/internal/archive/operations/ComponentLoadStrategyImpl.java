@@ -27,7 +27,6 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -67,7 +66,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
 	private List zipFiles = new ArrayList();
-	
+
 	protected class FilesHolder {
 
 		private Map urisToFiles = new HashMap();
@@ -117,24 +116,24 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 			if (urisToDiskFiles != null && urisToDiskFiles.containsKey(uri)) {
 				diskFile = (java.io.File) urisToDiskFiles.get(uri);
-			} else if (urisToResources != null && urisToResources.containsKey(uri)){
+			} else if (urisToResources != null && urisToResources.containsKey(uri)) {
 				IResource resource = (IResource) urisToResources.get(uri);
 				diskFile = new java.io.File(resource.getLocation().toOSString());
-			}else{
-				Map fileURIMap = (Map)urisToZipEntry.get(uri);
+			} else {
+				Map fileURIMap = (Map) urisToZipEntry.get(uri);
 				Iterator it = fileURIMap.keySet().iterator();
-				
-				String sourceFileUri = "";  //$NON-NLS-1$
+
+				String sourceFileUri = ""; //$NON-NLS-1$
 				ZipFile zipFile = null;
-				
-				//there is only one key, pair
-				while( it.hasNext()){
-					sourceFileUri = (String)it.next();
-					zipFile = (ZipFile)fileURIMap.get( sourceFileUri );
+
+				// there is only one key, pair
+				while (it.hasNext()) {
+					sourceFileUri = (String) it.next();
+					zipFile = (ZipFile) fileURIMap.get(sourceFileUri);
 				}
-				ZipEntry entry = zipFile.getEntry( sourceFileUri );
-				InputStream in = zipFile.getInputStream( entry );
- 				return in;
+				ZipEntry entry = zipFile.getEntry(sourceFileUri);
+				InputStream in = zipFile.getInputStream(entry);
+				return in;
 			}
 			return new FileInputStream(diskFile);
 		}
@@ -150,20 +149,20 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		public void addEntry(ZipEntry entry, ZipFile zipFile, IPath runtimePath) {
 			String uri = runtimePath == null ? null : runtimePath.toString();
 			String fileURI = ""; //$NON-NLS-1$
-			if( uri != null ){
-				if( ! uri.equals("/") ) //$NON-NLS-1$
+			if (uri != null) {
+				if (!uri.equals("/")) //$NON-NLS-1$
 					fileURI = uri + entry.getName();
 				else
 					fileURI = entry.getName();
-			}else{
+			} else {
 				fileURI = entry.getName();
 			}
 
-			File file = createFile( fileURI );
-			
+			File file = createFile(fileURI);
+
 			Map fileURIMap = new HashMap();
-			fileURIMap.put( entry.getName(), zipFile );
-		
+			fileURIMap.put(entry.getName(), zipFile);
+
 			urisToZipEntry.put(file.getURI(), fileURIMap);
 			urisToFiles.put(file.getURI(), file);
 		}
@@ -196,13 +195,13 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return filesHolder.getFiles();
 	}
 
-	protected  void addUtilities(){
+	protected void addUtilities() {
 		IVirtualReference[] components = vComponent.getReferences();
 		for (int i = 0; i < components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent referencedComponent = reference.getReferencedComponent();
-			
-			if(referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES){
+
+			if (referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES) {
 				java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
@@ -210,8 +209,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					zipFile = new ZipFile(diskFile);
 					zipFiles.add(zipFile);
 					Enumeration enumeration = zipFile.entries();
-					while(enumeration.hasMoreElements()){
-						ZipEntry entry = (ZipEntry)enumeration.nextElement();
+					while (enumeration.hasMoreElements()) {
+						ZipEntry entry = (ZipEntry) enumeration.nextElement();
 						filesHolder.addEntry(entry, zipFile, path);
 					}
 				} catch (ZipException e) {
@@ -220,10 +219,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					Logger.getLogger().logError(e);
 				}
 			}
-		}		
+		}
 	}
-	
-		
+
+
 
 	protected void aggregateSourceFiles() {
 		try {
@@ -242,16 +241,16 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			se = StructureEdit.getStructureEditForRead(vComponent.getProject());
 			for (int i = 0; i < sourceRoots.length; i++) {
 				IPath outputPath = sourceRoots[i].getRawClasspathEntry().getOutputLocation();
-				if( outputPath == null ){
+				if (outputPath == null) {
 					IProject project = vComponent.getProject();
-					if ( project.hasNature(JavaCore.NATURE_ID) ){
-						IJavaProject javaProject = JavaCore.create( project );
+					if (project.hasNature(JavaCore.NATURE_ID)) {
+						IJavaProject javaProject = JavaCore.create(project);
 						outputPath = javaProject.getOutputLocation();
 					}
 				}
-				
+
 				if (outputPath != null) {
-					IFolder javaOutputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
+					IContainer javaOutputContainer = outputPath.segmentCount() > 1 ? (IContainer)ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath) : (IContainer)ResourcesPlugin.getWorkspace().getRoot().getProject(outputPath.lastSegment());
 					IPath runtimePath = null;
 					try {
 						ComponentResource[] componentResources = se.findResourcesBySourcePath(sourceRoots[i].getResource().getProjectRelativePath());
@@ -275,7 +274,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 						runtimePath = new Path(""); //$NON-NLS-1$
 					}
 
-					aggregateOutputFiles(new IResource[]{javaOutputFolder}, runtimePath, javaOutputFolder.getProjectRelativePath().segmentCount());
+					aggregateOutputFiles(new IResource[]{javaOutputContainer}, runtimePath, javaOutputContainer.getProjectRelativePath().segmentCount());
 				}
 			}
 		} catch (CoreException e) {
@@ -290,7 +289,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected void aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
 		for (int i = 0; i < resources.length; i++) {
 			File cFile = null;
-			if(!resources[i].exists()){
+			if (!resources[i].exists()) {
 				continue;
 			}
 			if (resources[i].getType() == IResource.FILE) {
@@ -300,7 +299,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				String uri = runtimePath == null ? null : runtimePath.toString();
 				if (uri == null)
 					continue;
-				if (!shouldInclude(uri)) 
+				if (!shouldInclude(uri))
 					continue;
 				if (filesHolder.contains(uri))
 					continue;
@@ -317,7 +316,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected void aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		for (int i = 0; i < virtualResources.length; i++) {
 			File cFile = null;
-			if(!virtualResources[i].exists()){
+			if (!virtualResources[i].exists()) {
 				continue;
 			}
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
@@ -327,7 +326,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				String uri = runtimePath == null ? null : runtimePath.toString();
 				if (uri == null)
 					continue;
-				if (!shouldInclude(uri)) 
+				if (!shouldInclude(uri))
 					continue;
 				if (filesHolder.contains(uri))
 					continue;
@@ -439,10 +438,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public IVirtualComponent getComponent() {
 		return vComponent;
 	}
-	
+
 	public void close() {
 		Iterator it = zipFiles.iterator();
-		while( it.hasNext() ){
+		while (it.hasNext()) {
 			ZipFile file = (ZipFile) it.next();
 			try {
 				file.close();
@@ -450,5 +449,5 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				e.printStackTrace();
 			}
 		}
-	}	
+	}
 }
