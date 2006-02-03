@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalLaunchProjectTab.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 21:07:12 $ 
+ *  $Revision: 1.7 $  $Date: 2006/02/03 17:11:46 $ 
  */
 package org.eclipse.jem.internal.ui.proxy.remote;
 
@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.debug.ui.launcher.JavaLaunchConfigurationTab;
+import org.eclipse.jdt.debug.ui.launchConfigurations.JavaLaunchTab;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -44,7 +44,7 @@ import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
  * 
  * @since 1.0.0
  */
-public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
+public class LocalLaunchProjectTab extends JavaLaunchTab {
 		
 	// Project UI widgets
 	protected Label fProjLabel;
@@ -106,6 +106,7 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(ILaunchConfiguration)
 	 */
 	public void initializeFrom(ILaunchConfiguration config) {
+		super.initializeFrom(config);
 		updateProjectFromConfig(config);
 	}
 	
@@ -126,13 +127,6 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 		config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText());		
 	}
 			
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#dispose()
-	 */
-	public void dispose() {
-	}
-			
-		
 	/**
 	 * Show a dialog that lets the user select a project.  This in turn provides
 	 * context for the main type, allowing the user to key a main type name, or
