@@ -42,6 +42,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
+import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @author jsholl
@@ -60,6 +61,7 @@ public class J2EEUtilityJarImportOperationNew extends AbstractDataModelOperation
 		String projectName = model.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
 		utilityCreationDataModel.setStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName);
 		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		runtime = ServerCore.findRuntime(runtime).getName();
 		IRuntime facetRuntime = null;
 		try {
 			facetRuntime = RuntimeManager.getRuntime(runtime);

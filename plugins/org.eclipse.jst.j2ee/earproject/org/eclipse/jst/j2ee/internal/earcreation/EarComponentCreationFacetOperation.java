@@ -38,6 +38,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.RuntimeManager;
+import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * @deprecated
@@ -54,6 +55,7 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		runtime = ServerCore.findRuntime(runtime).getName();
 		IRuntime facetRuntime = null;
 		try {
 			facetRuntime = RuntimeManager.getRuntime(runtime);
@@ -85,8 +87,9 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
 		String runtimeID = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
+		String runtimeName = ServerCore.findRuntime(runtimeID).getName();
 		try {
-			IRuntime runtime = RuntimeManager.getRuntime(runtimeID);
+			IRuntime runtime = RuntimeManager.getRuntime(runtimeName);
 			facetProj.setRuntime(runtime, null);
 		} catch (IllegalArgumentException e) {
 			Logger.getLogger().logError(e);
