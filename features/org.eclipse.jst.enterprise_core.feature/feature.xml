@@ -13,15 +13,15 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.platform" version="3.1.1" match="equivalent"/>
-      <import feature="org.eclipse.emf" version="2.1.1" match="equivalent"/>
-      <import feature="org.eclipse.jem" version="1.1.0.1" match="equivalent"/>
+      <import feature="org.eclipse.platform" version="3.2" match="equivalent"/>
+      <import feature="org.eclipse.emf" version="2.2" match="equivalent"/>
+      <import feature="org.eclipse.jem" version="1.2" match="equivalent"/>
       <import feature="org.eclipse.jst.web_core.feature" version="1.0.0" match="equivalent"/>
       <import feature="org.eclipse.jst.common_core.feature" version="1.0.0" match="equivalent"/>
       <import feature="org.eclipse.jst.server_core.feature" version="1.0.0" match="equivalent"/>
       <import feature="org.eclipse.wst.ws_core.feature" version="1.0.0"/>
       <import feature="org.uddi4j.feature" version="2.0.3" match="greaterOrEqual"/>
-      <import feature="org.eclipse.emf.ecore.sdo" version="2.1.1" match="equivalent"/>
+      <import feature="org.eclipse.emf.ecore.sdo" version="2.2" match="equivalent"/>
    </requires>
 
    <plugin
