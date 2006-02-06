@@ -300,8 +300,8 @@
           <package uri="j2cbnd.xmi" />                  
           <package uri="clientbnd.xmi" />                  
           <package uri="applicationbnd.xmi" />                  
-          <package uri="ejbrdbmapping.xmi" />        
-         	             	
+          <package uri="ejbrdbmapping.xmi" />
+          <package uri="http:///ejbrdbmapping.ecore" />                    	
          </emfEnablement>
       </navigatorContent>
    </extension>
