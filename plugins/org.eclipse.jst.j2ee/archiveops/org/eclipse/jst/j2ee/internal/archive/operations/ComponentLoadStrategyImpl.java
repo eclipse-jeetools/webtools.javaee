@@ -302,8 +302,6 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					continue;
 				if (!shouldInclude(uri)) 
 					continue;
-				if (filesHolder.contains(uri))
-					continue;
 				cFile = createFile(uri);
 				cFile.setLastModified(getLastModified(resources[i]));
 				filesHolder.addFile(cFile, resources[i]);
