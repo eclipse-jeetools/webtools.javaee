@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.9 $  $Date: 2005/12/14 21:21:02 $ 
+ *  $Revision: 1.10 $  $Date: 2006/02/06 17:14:43 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
 
@@ -47,6 +47,7 @@ public class FeatureAttributeValue implements Serializable {
 	
 	private transient Object value;
 	private transient Object internalValue;
+	private boolean implicitValue;
 	private static final long serialVersionUID = 1105717634844L;
 	
 	/**
@@ -60,6 +61,10 @@ public class FeatureAttributeValue implements Serializable {
 	public FeatureAttributeValue(String initString) {
 		// Use the init string to create the value. This is our
 		// own short-hand for this.
+		if (initString.startsWith(IMPLICIT)) {
+			setImplicitValue(true);
+			initString = initString.substring(IMPLICIT.length());
+		}
 		value = parseString(initString);
 	}
 	
@@ -72,7 +77,7 @@ public class FeatureAttributeValue implements Serializable {
 	public FeatureAttributeValue() {
 		
 	}
-
+	
 	/**
 	 * @return Returns the value.
 	 * 
@@ -125,7 +130,11 @@ public class FeatureAttributeValue implements Serializable {
 	public String toString() {
 		if (value == null)
 			return super.toString();
-		return makeString(value);
+		StringBuffer out = new StringBuffer(100);
+		if (isImplicitValue())
+			out.append(IMPLICIT);
+		makeString(value, out);
+		return out.toString();
 	}
 	
 
@@ -166,10 +175,11 @@ public class FeatureAttributeValue implements Serializable {
 		makeString(value, out);
 		return out.toString();
 	}
-	
+		
 	private static final Pattern QUOTE = Pattern.compile("\"");	// Pattern for searching for double-quote. Make it static so don't waste time compiling each time. //$NON-NLS-1$
 	private static final String NULL = "null";	// Output string for null //$NON-NLS-1$
 	private static final String INVALID = "INV";	// Invalid object flag. //$NON-NLS-1$
+	private static final String IMPLICIT = "implicit,";	// Implicit flag. //$NON-NLS-1$
 	
 	/*
 	 * Used for recursive building of the string.
@@ -745,6 +755,31 @@ public class FeatureAttributeValue implements Serializable {
 			return array;
 		} else
 			return val;	// It is the value itself.
+	}
+
+	
+	/**
+	 * Is this FeatureAttributeValue an implicit value, i.e. one that came from
+	 * BeanInfo Introspection and not from an override file.
+	 * 
+	 * @return Returns the implicitValue.
+	 * 
+	 * @since 1.2.0
+	 */
+	public boolean isImplicitValue() {
+		return implicitValue;
+	}
+
+	
+	/**
+	 * Set the implicit value flag.
+	 * @param implicitValue The implicitValue to set.
+	 * 
+	 * @see #isImplicitValue()
+	 * @since 1.2.0
+	 */
+	public void setImplicitValue(boolean implicitValue) {
+		this.implicitValue = implicitValue;
 	}
 	
 }

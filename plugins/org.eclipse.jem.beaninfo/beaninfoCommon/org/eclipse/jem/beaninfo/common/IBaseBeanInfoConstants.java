@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBaseBeanInfoConstants.java,v $
- *  $Revision: 1.1 $  $Date: 2005/10/18 15:32:19 $ 
+ *  $Revision: 1.2 $  $Date: 2006/02/06 17:14:43 $ 
  */
 package org.eclipse.jem.beaninfo.common;
 
@@ -29,10 +29,75 @@ package org.eclipse.jem.beaninfo.common;
 public interface IBaseBeanInfoConstants {
 
 	/**
-	 * Indicator used to describe a factory instantiation pattern.  Not API as will change to become more extensible 
-	 * via .override mechanism in future
-	 * 
-	 * @since 1.1
+	 * Indicator used to describe a factory instantiation pattern. 
+	 * <p>
+	 * This will be on the attributes of the BeanDescriptor for the factory class. It will be complete, in that if this
+	 * factory is inherited from another factory, it must copy in the superclass's factory attribute. They won't be
+	 * automatically merged.
+	 * <p>
+	 * The format is an Object[][]. The first dimension at index zero is for toolkit wide information and then indexes one and beyond are one for each creation method name. The second dimension is for one entry
+	 * of classwide data and the rest are the data for 
+	 * each creation method.
+	 * <p>
+	 * The first entry at Object[0] will be <code>{initString, isShared, onFreeform}</code> where:
+	 * <dl>
+	 * <dt>initString
+	 * <dd>The init string that should be used to create an instance of the toolkit if it needs one, or <code>null</code> if it doesn't
+	 * need one (i.e. all static) or if the default constructor should be used.
+	 * This is used when a component is dropped from the palette that is for a toolkit component.
+	 * <dt>isShared
+	 * <dd><code>false</code> if each call to the creation method should have a new instance of the toolkit. This means that the toolkit manages only
+	 * one instance. This is more like a controller than a toolkit in this case. <code>true</code> if it should
+	 * try to reuse the toolkit of the parent if it has one,  or any other found toolkit of the same type, (i.e. a subtype will be acceptable).  
+	 * This is used when a component is dropped from the palette that is for a toolkit component.
+	 * <dt>onFreeform
+	 * <dd><code>true</code> if the toolkit is created that it should appear on the freeform surface to be selectable. This would be of use
+	 * if the toolkit had properties that need to be set. If the toolkit had no properties then it doesn't need to be selectable and should
+	 * not be on the freeform. Use <code>false</code> in that case.
+	 * </dl> 
+	 * <p>
+	 * The second and other entries of the array are of the format:
+	 * <code>{methodName, returnedClassname, isStatic, Object[], ...}</code> where:
+	 * <dl>
+	 * <dt>methodName
+	 * <dd>The name of the creation method this entry is for (String).
+	 * <dt>returnedClassname
+	 * <dd>The name of the class that is created and returned from the method (String).
+	 * <dt>isStatic
+	 * <dd><code>Boolean.TRUE</code> if the method is a static method, <code>Boolean.FALSE</code> if not. 
+	 * This is used when a component is dropped from the palette that is for a toolkit component.
+	 * <dt>Object[]
+	 * <dd>Zero or more arrays. The array contains the name of the properties for each method signature that each
+	 * respective argument is for, or <code>null</code> if that arg is not a property. There can be more than one array if there
+	 * is more than one factory method of the same name, and returns the same type, but what is different is only the number of arguments.
+	 * If there is a
+	 * factory method that has no properties as arguments or has no arguments, don't include an array for it. For example if there was only one factory method and it had no
+	 * arguments then there would not be any arrays.
+	 * Currently cannot handle where more than one method has the same number of arguments but different types for the arguments.
+	 * </dl>
+	 * <p>
+	 * A example is:
+	 * <pre><code>
+	 * new Object[][] {
+	 *   {"new a.b.c.Toolkit(\"ABC\")", Boolean.TRUE, Boolean.FALSE},
+	 *   {"createButton", "a.b.c.Button", Boolean.FALSE, new Object[] {"parent", "text"}, new Object[] {"parent"}}
+	 * }
+	 * </code>
+	 * </pre>
+	 * <p>
+	 * This example says that this class is toolkit (factory). To construct an instead use <code>"new a.b.c.Toolkit(\"ABC\")"</code> and it is shared
+	 * with other objects created from this factory instance. Also, the factory method is "createButton", returns an "a.b.c.Button", and it is
+	 * not a static call (i.e. use a toolkit instance to create it). It has two forms of factory methods. One is two arguments where the first
+	 * arg is the parent property and the second arg is the text property. The other form has only one argument, the parent property.
+	 * <p>
+	 * The way this is used in a palette entry to drop a new object that a toolkit can create is to have an expression of the form
+	 * <code>{toolkit:classname}.factorymethod(args)</code>. So for the above example it would be <code>{toolkit:a.b.c.Toolkit}.createButton(parent)</code>.
+	 * The classname <b>must</b> be fully-qualified and if an inner class it must use the "$" instead of "." for the name, i.e. a.b.c.Toolkit.InnerFactory
+	 * would be a.b.c.Toolkit$InnerFactory. 
+	 * <p>
+	 * <b>NOTE:</b> This is an EXPERIMENTAL API and can change in the future until committed.  
+	 *   
+	 * @since 1.2.0
 	 */	
 	public static final String FACTORY_CREATION = "FACTORY_CREATION";//$NON-NLS-1$
 	

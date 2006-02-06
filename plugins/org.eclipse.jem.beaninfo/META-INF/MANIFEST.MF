@@ -27,4 +27,4 @@ Require-Bundle: org.eclipse.jem.proxy,
  org.eclipse.debug.core,
  org.eclipse.jem.util,
  org.eclipse.emf.ecore.change
-Eclipse-AutoStart: true
+Eclipse-LazyStart: true

@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
 
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.11 $  $Date: 2005/10/18 15:32:19 $ 
+ *  $Revision: 1.12 $  $Date: 2006/02/06 17:14:43 $ 
  */
 
 import java.awt.Image;
@@ -195,7 +195,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	 * @param cls
 	 *            bean for which the bean descriptor is being created.
 	 * @param args
-	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc.
+	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc. or null if no args
 	 * @return new bean descriptor
 	 * 
 	 * @since 1.1.0
@@ -203,22 +203,25 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	public static BeanDescriptor createBeanDescriptor(Class cls, Object[] args) {
 		Class customizerClass = null;
 
-		/* Find the specified customizerClass */
-		for (int i = 0; i < args.length; i += 2) {
-			if (CUSTOMIZERCLASS.equals(args[i])) {
-				customizerClass = (Class) args[i + 1];
-				break;
+		if (args != null) {
+			/* Find the specified customizerClass */
+			for (int i = 0; i < args.length; i += 2) {
+				if (CUSTOMIZERCLASS.equals(args[i])) {
+					customizerClass = (Class) args[i + 1];
+					break;
+				}
 			}
 		}
 
 		BeanDescriptor bd = new BeanDescriptor(cls, customizerClass);
 
-		for (int i = 0; i < args.length; i += 2) {
-			String key = (String) args[i];
-			Object value = args[i + 1];
-			setFeatureDescriptorValue(bd, key, value);
-		}
-
+		if (args != null) {
+			for (int i = 0; i < args.length; i += 2) {
+				String key = (String) args[i];
+				Object value = args[i + 1];
+				setFeatureDescriptorValue(bd, key, value);
+			}
+		}		
 		return bd;
 	}
 
@@ -230,7 +233,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	 * @param name
 	 *            Name of event set
 	 * @param args
-	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc.
+	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc. or null if no args.
 	 * @param lmds
 	 *            array of MethodDescriptors defining the listener methods
 	 * @param listenerType
@@ -272,16 +275,17 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 					new Object[] { name}));
 		}
 		;
-		// set the event set descriptor properties
-		for (int i = 0; i < args.length; i += 2) {
-			String key = (String) args[i];
-			Object value = args[i + 1];
-			if (INDEFAULTEVENTSET.equals(key)) {
-				esd.setInDefaultEventSet(((Boolean) value).booleanValue());
-			} else
-				setFeatureDescriptorValue(esd, key, value);
-		}
-
+		if (args != null) {
+			// set the event set descriptor properties
+			for (int i = 0; i < args.length; i += 2) {
+				String key = (String) args[i];
+				Object value = args[i + 1];
+				if (INDEFAULTEVENTSET.equals(key)) {
+					esd.setInDefaultEventSet(((Boolean) value).booleanValue());
+				} else
+					setFeatureDescriptorValue(esd, key, value);
+			}
+		}		
 		return esd;
 	}
 
@@ -293,7 +297,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	 * @param name
 	 *            name of the method.
 	 * @param args
-	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc.
+	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc. or null if no args
 	 * @param params
 	 *            parameter descriptors or <code>null</code> if no parameter descriptors.
 	 * @param paramTypes
@@ -323,12 +327,14 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 					new Object[] { name}));
 		}
 		;
-		// set the method properties
-		for (int i = 0; i < args.length; i += 2) {
-			String key = (String) args[i];
-			Object value = args[i + 1];
-			setFeatureDescriptorValue(md, key, value);
-		}
+		if (args != null) {
+			// set the method properties
+			for (int i = 0; i < args.length; i += 2) {
+				String key = (String) args[i];
+				Object value = args[i + 1];
+				setFeatureDescriptorValue(md, key, value);
+			}
+		}		
 		return md;
 	}
 
@@ -383,7 +389,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	 * @param name
 	 *            name of parameter
 	 * @param args
-	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc.
+	 *            arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc. or null if no args
 	 * @return new parameter descriptor
 	 * 
 	 * @since 1.1.0
@@ -399,13 +405,14 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 		;
 		// set the name
 		pd.setName(name);
-		// set the method properties
-		for (int i = 0; i < args.length; i += 2) {
-			String key = (String) args[i];
-			Object value = args[i + 1];
-			setFeatureDescriptorValue(pd, key, value);
-		}
-
+		if (args != null) {
+			// set the method properties
+			for (int i = 0; i < args.length; i += 2) {
+				String key = (String) args[i];
+				Object value = args[i + 1];
+				setFeatureDescriptorValue(pd, key, value);
+			}
+		}		
 		return pd;
 	}
 	
@@ -425,7 +432,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	 * no getter or setter.
 	 * @param name
 	 * @param field
-	 * @param args
+	 * @param args arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc. or null if no args
 	 * @return
 	 * 
 	 * @since 1.1.0
@@ -494,7 +501,7 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	 * @param cls
 	 *            The class to use to find read/write methods in args. If no read/write methods specified, then this may be null.
 	 * @param args
-	 *            The arguments to override from fromPD. arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc.
+	 *            The arguments to override from fromPD. arg pairs, [0] keyword, [1] value, [2] keyword, [3] value, etc. or null if none to override
 	 */
 	public void replacePropertyDescriptor(PropertyDescriptor[] pds, String name, Class cls, Object[] args) {
 		PropertyDescriptor pd = null;
@@ -566,60 +573,64 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo implements IBaseBeanIn
 	}
 	
 	private static void applyPropertyArguments(PropertyDescriptor pd, Object[] args, Class cls) {
-		for (int i = 0; i < args.length; i += 2) {
-			String key = (String) args[i];
-			Object value = args[i + 1];
-
-			if (!applyCommonPropertyArguments(pd, key, value)) {
-				if (READMETHOD.equals(key)) {
-					String methodName = (String) value;
-					Method method;
-					try {
-						method = cls.getMethod(methodName, new Class[0]);
-						pd.setReadMethod(method);
-					} catch (Exception e) {
-						throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_read_method_EXC_"), //$NON-NLS-1$
-								new Object[] { cls, methodName}));
-					}
-				} else if (WRITEMETHOD.equals(key)) {
-					String methodName = (String) value;
-					try {
-						if (methodName == null) {
-							pd.setWriteMethod(null);
-						} else {
-							Method method;
-							Class type = pd.getPropertyType();
-							method = cls.getMethod(methodName, new Class[] { type});
-							pd.setWriteMethod(method);
+		if (args != null) {
+			for (int i = 0; i < args.length; i += 2) {
+				String key = (String) args[i];
+				Object value = args[i + 1];
+				
+				if (!applyCommonPropertyArguments(pd, key, value)) {
+					if (READMETHOD.equals(key)) {
+						String methodName = (String) value;
+						Method method;
+						try {
+							method = cls.getMethod(methodName, new Class[0]);
+							pd.setReadMethod(method);
+						} catch (Exception e) {
+							throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_read_method_EXC_"), //$NON-NLS-1$
+									new Object[] { cls, methodName}));
 						}
-					} catch (Exception e) {
-						throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_write_method_EXC_"), //$NON-NLS-1$
-								new Object[] { cls, methodName}));
+					} else if (WRITEMETHOD.equals(key)) {
+						String methodName = (String) value;
+						try {
+							if (methodName == null) {
+								pd.setWriteMethod(null);
+							} else {
+								Method method;
+								Class type = pd.getPropertyType();
+								method = cls.getMethod(methodName, new Class[] { type});
+								pd.setWriteMethod(method);
+							}
+						} catch (Exception e) {
+							throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_write_method_EXC_"), //$NON-NLS-1$
+									new Object[] { cls, methodName}));
+						}
+					} else {
+						// arbitrary value
+						setFeatureDescriptorValue(pd, key, value);
 					}
-				} else {
-					// arbitrary value
-					setFeatureDescriptorValue(pd, key, value);
 				}
 			}
 		}
 	}
 
 	private static void applyFieldArguments(PropertyDescriptor pd, Object[] args) {
-		for (int i = 0; i < args.length; i += 2) {
-			String key = (String) args[i];
-			Object value = args[i + 1];
+		if (args != null) {
+			for (int i = 0; i < args.length; i += 2) {
+				String key = (String) args[i];
+				Object value = args[i + 1];
 
-			if (!applyCommonPropertyArguments(pd, key, value)) {
-				if (READMETHOD.equals(key)) {
-					// ignored for field.
-				} else if (WRITEMETHOD.equals(key)) {
-					// ignored for field.
-				} else {
-					// arbitrary value
-					setFeatureDescriptorValue(pd, key, value);
+				if (!applyCommonPropertyArguments(pd, key, value)) {
+					if (READMETHOD.equals(key)) {
+						// ignored for field.
+					} else if (WRITEMETHOD.equals(key)) {
+						// ignored for field.
+					} else {
+						// arbitrary value
+						setFeatureDescriptorValue(pd, key, value);
+					}
 				}
 			}
-		}
+		}		
 	}
 
 	/**

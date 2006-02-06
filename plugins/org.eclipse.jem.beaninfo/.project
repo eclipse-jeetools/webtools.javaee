@@ -3,19 +3,6 @@
 	<name>org.eclipse.jem.beaninfo</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.etools.emf.event</project>
-		<project>org.apache.xerces</project>
-		<project>org.eclipse.compare</project>
-		<project>org.eclipse.core.resources</project>
-		<project>org.eclipse.core.runtime.compatibility</project>
-		<project>org.eclipse.emf.ecore</project>
-		<project>org.eclipse.emf.ecore.xmi</project>
-		<project>org.eclipse.jdt.core</project>
-		<project>org.eclipse.jdt.launching</project>
-		<project>org.eclipse.jem</project>
-		<project>org.eclipse.jem.proxy</project>
-		<project>org.eclipse.jem.workbench</project>
-		<project>org.eclipse.osgi</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
