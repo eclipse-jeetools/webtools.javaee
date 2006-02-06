@@ -44,7 +44,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFolder;
@@ -61,8 +60,19 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * 
 	 * @param project
 	 * @param aComponent
+	 * @deprecated use J2EEFlexProjDeployable(IProject project)
 	 */
 	public J2EEFlexProjDeployable(IProject project, IVirtualComponent aComponent) {
+		super(project);
+	}
+	
+
+	/**
+	 * Constructor for J2EEFlexProjDeployable.
+	 * 
+	 * @param project
+	 */
+	public J2EEFlexProjDeployable(IProject project) {
 		super(project);
 	}
 
@@ -228,39 +238,38 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	}
 
     public String getURI(IModule module) {
-    	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
+    	IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(component.getProject());
+    	List uriList = new ArrayList();
     	String aURI = null;
-    	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(comp.getProject())) {
-			EARArtifactEdit earEdit = null;
-			try {
-				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-				if (earEdit != null)
-					aURI = earEdit.getModuleURI(comp);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (earEdit != null)
-					earEdit.dispose();
-			}
-    	}
-    	else if (comp!=null && component!=null && J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
-    		if (!comp.isBinary()) {
-        		IVirtualReference ref = component.getReference(comp.getName());
-        		if (ref !=null && ref.getRuntimePath()!=null)
-        			aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.WAR_EXT).toString();
-        	}
-    	} else if (comp!=null && component!=null && (J2EEProjectUtilities.isEJBProject(comp.getProject()) || J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))) {
-    		if (!comp.isBinary()) {
-        		IVirtualReference ref = component.getReference(comp.getName());
-        		if (ref !=null && ref.getRuntimePath()!=null)
-        			aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.JAR_EXT).toString();
-        	}
-    	} else if (comp!=null && component!=null && J2EEProjectUtilities.isJCAProject(comp.getProject())) {
-    		if (!comp.isBinary()) {
-        		IVirtualReference ref = component.getReference(comp.getName());
-        		if (ref !=null && ref.getRuntimePath()!=null)
-        			aURI = ref.getRuntimePath().append(comp.getName()+IJ2EEModuleConstants.RAR_EXT).toString();
-        	}
+    	IVirtualComponent ear = null;
+    	if (earProjects.length>0) {
+	    	for (int i=0; i<earProjects.length; i++) {
+	    		ear = ComponentCore.createComponent(earProjects[i]);
+	    		if (ear != null && component != null) {
+		    		EARArtifactEdit earEdit = null;
+					try {
+						earEdit = EARArtifactEdit.getEARArtifactEditForRead(ear);
+						if (earEdit != null) {
+							aURI = earEdit.getModuleURI(component);
+							if (aURI != null)
+								uriList.add(aURI);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (earEdit != null)
+							earEdit.dispose();
+					}
+	    		}
+	    	}
+    	} else if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
+			aURI = component.getDeployedName()+IJ2EEModuleConstants.EAR_EXT;
+    	} else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+    		aURI = component.getDeployedName()+IJ2EEModuleConstants.WAR_EXT;
+    	} else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
+    		aURI = component.getDeployedName()+IJ2EEModuleConstants.JAR_EXT;
+    	} else if (component!=null && J2EEProjectUtilities.isJCAProject(component.getProject())) {
+    		aURI = component.getDeployedName()+IJ2EEModuleConstants.RAR_EXT;
     	}
     	
     	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
