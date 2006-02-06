@@ -11,7 +11,7 @@
 package org.eclipse.jem.workbench.utility;
 
 /*
- * $RCSfile: JavaModelListener.java,v $ $Revision: 1.1 $ $Date: 2006/02/06 23:37:59 $
+ * $RCSfile: JavaModelListener.java,v $ $Revision: 1.2 $ $Date: 2006/02/06 23:49:37 $
  */
 
 import java.util.*;
@@ -85,7 +85,11 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	}
 
 	/**
-	 * Dispatch the java element delta. This method should normally not be overridden.
+	 * Dispatch the java element delta. This method should normally not be overridden. One
+	 * usage would be to add delta types that are to be processed and dispatched by the
+	 * subclasses. For example also dispatch on {@link IJavaElement#IMPORT_CONTAINER}. Subclasses
+	 * should call <code>super.processDelta(IJavaElementDelta)</code> if it is not one they
+	 * are interested in.
 	 * 
 	 * @param delta
 	 * 
