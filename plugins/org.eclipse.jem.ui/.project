@@ -3,19 +3,6 @@
 	<name>org.eclipse.jem.ui</name>
 	<comment></comment>
 	<projects>
-		<project>org.eclipse.core.resources</project>
-		<project>org.eclipse.core.runtime.compatibility</project>
-		<project>org.eclipse.debug.core</project>
-		<project>org.eclipse.debug.ui</project>
-		<project>org.eclipse.jdt.core</project>
-		<project>org.eclipse.jdt.debug.ui</project>
-		<project>org.eclipse.jdt.launching</project>
-		<project>org.eclipse.jdt.ui</project>
-		<project>org.eclipse.jem.beaninfo</project>
-		<project>org.eclipse.jem.proxy</project>
-		<project>org.eclipse.jem.workbench</project>
-		<project>org.eclipse.ui</project>
-		<project>org.eclipse.ui.ide</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
