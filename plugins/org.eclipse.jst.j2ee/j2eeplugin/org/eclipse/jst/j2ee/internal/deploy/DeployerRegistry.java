@@ -102,8 +102,10 @@ public class DeployerRegistry {
 				EnterpriseArtifactEdit edit = null;
 				try {
 					edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
+					if (edit == null)
+						continue;
 					EObject root = edit.getDeploymentDescriptorRoot();
-					if (modules.contains(root))
+					if (root == null || modules.contains(root))
 						continue;
 					// Order Ears first...
 					if (J2EEProjectUtilities.isEARProject(component.getProject()))
