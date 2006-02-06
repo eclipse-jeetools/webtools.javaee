@@ -190,18 +190,20 @@ public final class JavaFacetUtils
         {
             final IVMInstall vm = JavaRuntime.getDefaultVMInstall();
             
-            IPath path = new Path( JavaRuntime.JRE_CONTAINER );
-            path = path.append( vm.getVMInstallType().getId() );
-            path = path.append( vm.getName() );
-            
-            final IClasspathEntry cpe 
-                = JavaCore.newContainerEntry( path );
-            
-            final List entries = Collections.singletonList( cpe );
-            
-            ClasspathHelper.addClasspathEntries( project, newver, entries );
+            if( vm != null )
+            {
+                IPath path = new Path( JavaRuntime.JRE_CONTAINER );
+                path = path.append( vm.getVMInstallType().getId() );
+                path = path.append( vm.getName() );
+                
+                final IClasspathEntry cpe 
+                    = JavaCore.newContainerEntry( path );
+                
+                final List entries = Collections.singletonList( cpe );
+                
+                ClasspathHelper.addClasspathEntries( project, newver, entries );
+            }
         }
-        
     }
     
     private static void removeJreContainer( final IProject proj ) 
