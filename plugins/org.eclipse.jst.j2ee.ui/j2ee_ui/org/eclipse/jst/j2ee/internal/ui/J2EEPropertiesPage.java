@@ -200,10 +200,10 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	 
 	 public void validateContextRoot(String name) {  
         boolean bValid = true;
-        if (name == null || name.length() ==0 ) { //$NON-NLS-1$
+        if (name == null || name.length() ==0 ) { 
             //  this was added because the error message shouldnt be shown initially. It should be shown only if context
             // root field is edited to
-            this.setErrorMessage(ProjectSupportResourceHandler.getString("Context_Root_cannot_be_empty_2", new Object[0]));
+            this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[0]));
             bValid = false;
         }
 
@@ -214,7 +214,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
                 for (int i = 0; i < token.length(); i++) {
                     if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
                         if (Character.isWhitespace(token.charAt(i)) == false) {
-                        	this.setErrorMessage( ProjectSupportResourceHandler.getString("The_character_is_invalid_in_a_context_root" , new Object[] {(new Character(token.charAt(i))).toString()}));
+                        	this.setErrorMessage( ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root , new Object[] {(new Character(token.charAt(i))).toString()}));
                         	bValid = false;
                         }
                     }
@@ -222,7 +222,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
             }
         } // en/ end of if(name.trim
         else {
-        	this.setErrorMessage(ProjectSupportResourceHandler.getString("Names_cannot_begin_or_end_with_whitespace_5", new Object[0]));
+        	this.setErrorMessage(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5, new Object[0]));
         	bValid = false;
         }
         if (bValid)   	this.setErrorMessage(null);
