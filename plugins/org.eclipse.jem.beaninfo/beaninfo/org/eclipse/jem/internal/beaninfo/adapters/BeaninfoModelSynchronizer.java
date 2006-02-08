@@ -11,14 +11,14 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:31:29 $ 
+ *  $Revision: 1.9 $  $Date: 2006/02/08 14:46:26 $ 
  */
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 
-import org.eclipse.jem.internal.adapters.jdom.JavaModelListener;
+import org.eclipse.jem.workbench.utility.JavaModelListener;
 /**
  * This class listens for changes to the java model and flushs the
  * appropriate class introspection.

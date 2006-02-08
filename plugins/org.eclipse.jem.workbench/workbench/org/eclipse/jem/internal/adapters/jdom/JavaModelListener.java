@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaModelListener.java,v $
- *  $Revision: 1.9 $  $Date: 2006/02/06 23:37:59 $ 
+ *  $Revision: 1.10 $  $Date: 2006/02/08 14:46:25 $ 
  */
 
 
@@ -19,6 +19,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  * Insert the type's description here.
  * Creation date: (10/31/2000 1:13:12 PM)
  * @author: Administrator
+ * @deprecated Use {@link org.eclipse.jem.workbench.utility.JavaModelListener} instead.
  */
 public abstract class JavaModelListener extends org.eclipse.jem.workbench.utility.JavaModelListener {
 
