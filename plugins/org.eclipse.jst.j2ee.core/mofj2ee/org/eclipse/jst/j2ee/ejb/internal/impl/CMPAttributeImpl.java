@@ -154,7 +154,8 @@ protected JavaClass getKeyClass() {
 public String getGetterName() {
 	if (name != null && name.length() > 0) {
 		StringBuffer b = new StringBuffer("get"); //$NON-NLS-1$
-		b.append(name.substring(0, 1).toUpperCase()).append(name.length() > 1 ? name.substring(1) : ""); //$NON-NLS-1$
+
+		b.append(Character.toUpperCase(name.charAt(0))).append(name.length() > 1 ? name.substring(1) : ""); //$NON-NLS-1$
 		return b.toString();
 	}
 	return name;
@@ -167,7 +168,7 @@ public JavaHelpers getOriginatingType() {
 	return originatingType;
 }
 public String getSetterName() {
-	return "set" + getName().substring(0, 1).toUpperCase() + (getName().length() > 1 ? getName().substring(1) : ""); //$NON-NLS-1$ //$NON-NLS-2$
+	return "set" + Character.toUpperCase(getName().charAt(0)) + (getName().length() > 1 ? getName().substring(1) : ""); //$NON-NLS-1$ //$NON-NLS-2$
 }
 public JavaHelpers getType() {
 	if (getEType() != null)
