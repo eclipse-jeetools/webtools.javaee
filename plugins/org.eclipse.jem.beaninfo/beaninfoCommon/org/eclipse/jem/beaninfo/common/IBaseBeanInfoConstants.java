@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBaseBeanInfoConstants.java,v $
- *  $Revision: 1.2 $  $Date: 2006/02/06 17:14:43 $ 
+ *  $Revision: 1.3 $  $Date: 2006/02/09 14:28:21 $ 
  */
 package org.eclipse.jem.beaninfo.common;
 
@@ -100,6 +100,15 @@ public interface IBaseBeanInfoConstants {
 	 * @since 1.2.0
 	 */	
 	public static final String FACTORY_CREATION = "FACTORY_CREATION";//$NON-NLS-1$
+	
+	/**
+	 * Indicator used to describe a class that implements org.eclipse.ve.internal.java.core.CopyContributor
+	 * This class will be called during a copy to the clipboard whenever a factory method is encountered
+	 * and should do any parse tree manipulation to substitute the factory reference and any argument references
+	 * out to name literals that can be transported in the clipboard 
+	 */
+	
+	public static final String FACTORY_COPY_CONTRIBUTOR = "FACTORY_COPY_CONTRIBUTOR";//$NON-NLS-1$	
 	
 	/**
 	 * Category indicator for apply property arguments. Category is a pre-defined attribute name too. That is where the category is stored in a
