@@ -55,9 +55,9 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 
 		IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 		String runtime = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
-		runtime = ServerCore.findRuntime(runtime).getName();
 		IRuntime facetRuntime = null;
 		try {
+			runtime = ServerCore.findRuntime(runtime).getName();
 			facetRuntime = RuntimeManager.getRuntime(runtime);
 		} catch (Exception e) {
 			// proceed with facetRuntime = null
@@ -87,8 +87,8 @@ public class EarComponentCreationFacetOperation extends AbstractDataModelOperati
 
 	protected void setRuntime(IFacetedProject facetProj) throws CoreException {
 		String runtimeID = model.getStringProperty(IJavaComponentCreationDataModelProperties.RUNTIME_TARGET_ID);
-		String runtimeName = ServerCore.findRuntime(runtimeID).getName();
 		try {
+			String runtimeName = ServerCore.findRuntime(runtimeID).getName();
 			IRuntime runtime = RuntimeManager.getRuntime(runtimeName);
 			facetProj.setRuntime(runtime, null);
 		} catch (IllegalArgumentException e) {
