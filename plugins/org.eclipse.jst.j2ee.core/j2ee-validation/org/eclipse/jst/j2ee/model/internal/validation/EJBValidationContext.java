@@ -19,7 +19,6 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * @version 	1.0
@@ -132,34 +131,34 @@ public class EJBValidationContext implements IEJBValidationContext {
 		getReporter().removeMessageSubset(getValidator(), target, groupIdentifier);
 	}
 	
-	public void addMessage(IMessage message) throws MessageLimitException {
+	public void addMessage(IMessage message) {
 		if(message == null) {
 			return;
 		}
 		getReporter().addMessage(getValidator(), message);
 	}
 	
-	public void addMessage(int severity, String messageId) throws MessageLimitException {
+	public void addMessage(int severity, String messageId) {
 		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
-	public void addMessage(int severity, String messageId, String[] parms) throws MessageLimitException {
+	public void addMessage(int severity, String messageId, String[] parms) {
 		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
-	public void addMessage(int severity, String messageId, Object target) throws MessageLimitException {
+	public void addMessage(int severity, String messageId, Object target) {
 		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
-	public void addMessage(int severity, String messageId, String[] parms, Object target) throws MessageLimitException {
+	public void addMessage(int severity, String messageId, String[] parms, Object target) {
 		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms,target);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
-	public void addMessage(int severity, String messageId, Object target, String groupName) throws MessageLimitException {
+	public void addMessage(int severity, String messageId, Object target, String groupName) {
 		/**
 		 * 11/28/05 Commenting the following line to get rid of Warning message
 		 * Quite possibly the getRoporter().addMessage needs to be used.
@@ -169,7 +168,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 		//IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target,groupName);
 	}
 	
-	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName) throws MessageLimitException {
+	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName) {
 		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms,target,groupName);
 		getReporter().addMessage(getValidator(), message);
 	}

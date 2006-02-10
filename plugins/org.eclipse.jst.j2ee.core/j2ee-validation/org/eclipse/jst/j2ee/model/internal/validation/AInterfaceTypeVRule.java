@@ -21,7 +21,6 @@ import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 
 /*
@@ -106,7 +105,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		}	
 	}
 	
-	public void validateApplicationExceptionRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, MessageLimitException  {
+	public void validateApplicationExceptionRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException  {
 		List exceptions = method.getJavaExceptions();
 		if(exceptions.size() == 0) {
 			return;

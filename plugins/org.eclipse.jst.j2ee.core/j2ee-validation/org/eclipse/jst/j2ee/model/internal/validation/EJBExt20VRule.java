@@ -26,7 +26,6 @@ import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * Validate the WebSphere-specific implementation of non-spec features, such
@@ -187,9 +186,6 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 			// In order to avoid multiple messages, only the component inheritance of
 			// the class which changed should be revalidated when the class changes.
 			validateAppendixB(vc, ejbJar, bean); // validate the key class since that message is registered against ejb-jar.xml
-		}
-		catch(MessageLimitException e) {
-			throw e;
 		}
 		catch(ValidationCancelledException e) {
 			throw e;

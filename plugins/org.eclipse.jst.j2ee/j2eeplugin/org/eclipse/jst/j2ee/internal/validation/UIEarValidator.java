@@ -65,7 +65,6 @@ import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 
 /**
@@ -214,23 +213,19 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 
 	public void validateManifests() throws ValidationException {
-		
 		if (earFile == null)
 			return;
 		List archives = earFile.getArchiveFiles();
 		for (int i = 0; i < archives.size(); i++) {
-			try {
-				Archive anArchive = (Archive) archives.get(i);
 
-					IFile target = getManifestFile(anArchive);
-					if (target != null)
-						_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
-					validateManifestCase(anArchive);
-					validateManifestLines(anArchive);
-					validateManifestClasspath(anArchive);
+			Archive anArchive = (Archive) archives.get(i);
 
-			} catch (MessageLimitException me) {
-			}
+			IFile target = getManifestFile(anArchive);
+			if (target != null)
+				_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
+			validateManifestCase(anArchive);
+			validateManifestLines(anArchive);
+			validateManifestClasspath(anArchive);
 		}
 	}
 

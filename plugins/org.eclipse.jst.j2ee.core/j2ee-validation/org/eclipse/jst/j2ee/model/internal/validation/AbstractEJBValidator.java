@@ -28,7 +28,6 @@ import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 /**
  * @author vijayb
  * 
@@ -131,9 +130,6 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
     		// Clean up the messages which are on the task list? Or is it nicer to leave them behind?
     	}
     	catch(ValidationException e) {
-    		throw e;
-    	}
-    	catch(MessageLimitException e) {
     		throw e;
     	}
     	catch(Throwable exc) {

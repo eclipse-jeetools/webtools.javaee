@@ -26,7 +26,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 
 /**
@@ -459,19 +458,19 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		_fieldList = NO_FIELDS;
 	}
 
-	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
+	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  {
 		IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
 		vc.addMessage(message);
 	}
 
-	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, InvalidInputException exc) throws MessageLimitException {
+	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, InvalidInputException exc)  {
 		vc.removeMessages(field);
 		vc.removeMessages(clazz, field.getName());
 		IMessage message = getReflectionWarning(vc, exc, bean, clazz, field);
 		vc.addMessage(message);
 	}
 
-	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, InvalidInputException exc) throws MessageLimitException {
+	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, InvalidInputException exc)  {
 		vc.removeMessages(method);
 		vc.removeMessages(clazz, method.getSignature());
 		IMessage message = getReflectionWarning(vc, exc, bean, clazz, method);
@@ -542,7 +541,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		return true;
 	}
 
-	public final void validateRMI_IIOPTypeRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList, boolean checkReturnType) throws InvalidInputException, MessageLimitException {
+	public final void validateRMI_IIOPTypeRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList, boolean checkReturnType) throws InvalidInputException {
 		if ((isRemote() & IEJBType.REMOTE) == IEJBType.REMOTE) {
 			JavaParameter[] parms = method.listParametersWithoutReturn();
 

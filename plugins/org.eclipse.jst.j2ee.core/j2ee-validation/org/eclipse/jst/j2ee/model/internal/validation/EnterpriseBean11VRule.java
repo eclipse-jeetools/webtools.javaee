@@ -41,7 +41,6 @@ import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * This class checks ejb-jar.xml for errors or potential errors.
@@ -462,9 +461,6 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			validatePrimKeyClassElement(vc, ejbJar, bean);
 			validateEJBRef(vc, ejbJar, bean);
 			validateSecurityRoleRefElement(vc, ejbJar, bean);
-		}
-		catch (MessageLimitException e) {
-			throw e;
 		}
 		catch(ValidationCancelledException e) {
 			throw e;

@@ -25,7 +25,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * Insert the type's description here.
@@ -123,7 +122,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	protected abstract List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz);
 	protected abstract List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz);
 	
-	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
+	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  {
 		vc.removeMessages(clazz);
 	
 		IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
@@ -176,9 +175,6 @@ public abstract class AValidateEJB extends AValidationRule {
 		catch(InvalidInputException e) {
 			reflectionError(vc, bean, clazz);
 			return;
-		}
-		catch(MessageLimitException e) {
-			throw e;
 		}
 		catch(ValidationCancelledException e) {
 			throw e;

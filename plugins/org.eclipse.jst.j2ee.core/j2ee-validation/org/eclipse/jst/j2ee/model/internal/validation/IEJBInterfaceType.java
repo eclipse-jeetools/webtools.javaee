@@ -16,7 +16,6 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 
 /**
@@ -26,8 +25,8 @@ import org.eclipse.wst.validation.internal.provisional.core.MessageLimitExceptio
 public interface IEJBInterfaceType extends IEJBType {
 	public boolean isEJBInterfaceMethod(EnterpriseBean bean, Method method) throws InvalidInputException, ValidationCancelledException;
 	public JavaHelpers getOverExposedLocalType(EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException, ValidationCancelledException;
-	public void validateApplicationExceptionRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException, ValidationCancelledException, MessageLimitException;
-	public void validateRMI_IIOPTypeRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists, boolean checkReturnType) throws InvalidInputException, ValidationCancelledException, MessageLimitException;
+	public void validateApplicationExceptionRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException, ValidationCancelledException;
+	public void validateRMI_IIOPTypeRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists, boolean checkReturnType) throws InvalidInputException, ValidationCancelledException;
 	public boolean followRemoteExceptionRules(EnterpriseBean bean, Method method) throws InvalidInputException, ValidationCancelledException;
 	public boolean followRMI_IIOPInheritanceRules(EnterpriseBean bean, JavaClass clazz) throws InvalidInputException, ValidationCancelledException;
 }

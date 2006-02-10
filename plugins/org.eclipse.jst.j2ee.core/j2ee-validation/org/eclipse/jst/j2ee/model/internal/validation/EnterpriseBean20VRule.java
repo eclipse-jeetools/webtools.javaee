@@ -42,7 +42,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * @version 	1.0
@@ -197,17 +196,9 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 			validatePrimKeyClassElement(vc, ejbJar, bean);
 			validateEJBRef(vc, ejbJar, bean);
 		}
-		catch (MessageLimitException e) {
-			throw e;
-		}
 		catch(ValidationCancelledException e) {
 			throw e;
 		}
-		/* unreachable catch block
-		catch(ValidationException exc) {
-			throw exc;
-		}
-		*/
 		catch (Throwable exc) {
 			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{J2EEConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
 			vc.addMessage(message);

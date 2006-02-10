@@ -40,7 +40,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * @version 	1.0
@@ -249,9 +248,6 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 					// Clean up the messages which are on the task list? Or is it nicer to leave them behind?
 					throw exc;
 				}
-				catch(MessageLimitException e) {
-					throw e;
-				}
 				catch(ValidationException e) {
 					throw e;
 				}
@@ -262,9 +258,6 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 					EJBValidationRuleFactory.getFactory().release(vRule);
 				}
 				
-			}
-			catch (MessageLimitException e) {
-				throw e;
 			}
 			catch(ValidationCancelledException e) {
 				throw e;

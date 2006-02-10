@@ -16,7 +16,6 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 public interface IEJBValidationContext extends IValidationContext {
 	public static final int ERROR = IMessage.HIGH_SEVERITY;
@@ -42,13 +41,13 @@ public interface IEJBValidationContext extends IValidationContext {
 	public void removeMessages(Object target);
 	public void removeMessages(Object target, String groupIdentifier);
 	
-	public void addMessage(IMessage message) throws MessageLimitException;
-	public void addMessage(int severity, String messageId) throws MessageLimitException;
-	public void addMessage(int severity, String messageId, String[] parms) throws MessageLimitException;
-	public void addMessage(int severity, String messageId, Object target) throws MessageLimitException;
-	public void addMessage(int severity, String messageId, String[] parms, Object target) throws MessageLimitException;
-	public void addMessage(int severity, String messageId, Object target, String groupName) throws MessageLimitException;
-	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName) throws MessageLimitException;
+	public void addMessage(IMessage message);
+	public void addMessage(int severity, String messageId);
+	public void addMessage(int severity, String messageId, String[] parms);
+	public void addMessage(int severity, String messageId, Object target);
+	public void addMessage(int severity, String messageId, String[] parms, Object target);
+	public void addMessage(int severity, String messageId, Object target, String groupName);
+	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName);
 	
 	public void subtask(String messageId);
 	public void subtask(String messageId, String[] parms);

@@ -31,7 +31,6 @@ import org.eclipse.jst.j2ee.ejb.MethodTransaction;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * This class checks ejb-jar.xml for errors or potential errors.
@@ -366,9 +365,6 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 				catch (ValidationCancelledException exc) {
 					// Clean up the messages which are on the task list? Or is it nicer to leave them behind?
 				}
-				catch(MessageLimitException exc) {
-					throw exc;
-				}
 				catch(ValidationException e) {
 					throw e;
 				}
@@ -378,9 +374,6 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 				finally {
 					EJBValidationRuleFactory.getFactory().release(vRule);
 				}
-			}
-			catch (MessageLimitException e) {
-				throw e;
 			}
 			catch(ValidationCancelledException e) {
 				throw e;

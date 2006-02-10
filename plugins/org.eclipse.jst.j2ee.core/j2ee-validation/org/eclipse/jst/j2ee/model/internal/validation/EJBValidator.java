@@ -30,7 +30,6 @@ import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
 /**
  * @version 	1.0
@@ -140,9 +139,6 @@ public class EJBValidator extends AbstractEJBValidator {
 				throw e;
 			}
 			catch(ValidationException e) {
-				throw e;
-			}
-			catch(MessageLimitException e) {
 				throw e;
 			}
 			catch(Throwable exc) {
@@ -338,9 +334,6 @@ public class EJBValidator extends AbstractEJBValidator {
 							}
 						}
 						catch(ValidationCancelledException e) {
-							throw e;
-						}
-						catch(MessageLimitException e) {
 							throw e;
 						}
 						catch(Throwable exc) {
