@@ -267,7 +267,7 @@ public final class BVTRunner {
 			}
 			else {
 				try {
-						ValidatorManager.getManager().setNoMessageLimit(op.getProject());
+						//ValidatorManager.getManager().setNoMessageLimit(op.getProject());
 					
 						ResourcesPlugin.getWorkspace().run(op, debugMonitor); 
 						

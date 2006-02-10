@@ -118,13 +118,13 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			enabledPropValidators[0] = vfTestValidator;
 			enabledPropValidators[1] = vfNoBuildTestValidator;
 			pconf.setEnabledValidators(enabledPropValidators);
-			pconf.setMaximumNumberOfMessages(1);
+			//pconf.setMaximumNumberOfMessages(1);
 			pconf.passivate();
 
 			ValidatorMetaData[] enabledPrefValidators = new ValidatorMetaData[1];
 			enabledPrefValidators[0] = propertiesValidator;
 			gconf.setEnabledValidators(enabledPrefValidators);
-			gconf.setMaximumNumberOfMessages(10);
+			//gconf.setMaximumNumberOfMessages(10);
 			gconf.passivate();
 			
 			
@@ -344,8 +344,8 @@ public final class VALFWK02Operation implements IOperationRunnable {
 		boolean successful = true; // Assume that all of the test cases will pass.
 		try {
 			// For the first four tests, need all of the messages to be reported
-			int originalLimit = vconf.getMaximumNumberOfMessages();
-			vconf.setMaximumNumberOfMessages(WorkbenchReporter.NO_MESSAGE_LIMIT);
+			//int originalLimit = vconf.getMaximumNumberOfMessages();
+			//vconf.setMaximumNumberOfMessages(WorkbenchReporter.NO_MESSAGE_LIMIT);
 			vconf.passivate();
 			
 			boolean pass = runValidation(monitor, project, vconf);
@@ -415,7 +415,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			getBuffer().addExecutionStatus(getName(), "::" + testName + "buildValidateDisabled", pass); //$NON-NLS-1$ //$NON-NLS-2$
 
 			// And for this test, the original limit needs to be enforced
-			vconf.setMaximumNumberOfMessages(originalLimit);
+			//vconf.setMaximumNumberOfMessages(originalLimit);
 			vconf.passivate();
 
 			pass = maxMessagesReported(monitor, project, vconf);
@@ -510,7 +510,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 	
 	private boolean fullBuildValidate(IProgressMonitor monitor, IProject project, ValidationConfiguration vconf, ValidatorTestcase tmd) {
 		try {
-			vconf.setBuildValidate(true);
+			//vconf.setBuildValidate(true);
 			vconf.passivate();
 
 			TaskListUtility.removeAllTasks(project);
@@ -545,7 +545,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 		JDTUtility.setAutoBuild(true);
 		
 		try {
-			vconf.setAutoValidate(true);
+			//vconf.setAutoValidate(true);
 			vconf.passivate();
 			
 			TaskListUtility.removeAllTasks(project);
@@ -580,7 +580,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 		JDTUtility.setAutoBuild(true);
 
 		try {		
-			vconf.setAutoValidate(false);
+			//vconf.setAutoValidate(false);
 			vconf.passivate();
 
 			TaskListUtility.removeAllTasks(project);
@@ -614,7 +614,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 	
 	private boolean buildValidateEnabled(IProgressMonitor monitor, IProject project, ValidationConfiguration vconf, ValidatorTestcase tmd) {
 		try {
-			vconf.setBuildValidate(true);
+			//vconf.setBuildValidate(true);
 			vconf.passivate();
 			JDTUtility.setAutoBuild(false);
 	
@@ -650,7 +650,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 	
 	private boolean buildValidateDisabled(IProgressMonitor monitor, IProject project, ValidationConfiguration vconf, ValidatorTestcase tmd) {
 		try {
-			vconf.setBuildValidate(false);
+			//vconf.setBuildValidate(false);
 			vconf.passivate();
 			JDTUtility.setAutoBuild(false);
 			
@@ -701,9 +701,9 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			}
 			
 			IMarker[] messages = TaskListUtility.getValidationTasks(project, IMessage.ALL_MESSAGES);
-			if(messages.length <= vconf.getMaximumNumberOfMessages()+1) { // add one for the IWAD3000 message, i.e., "Validation was terminated because the maximum number of messages ..."
-				return true;
-			}
+			//if(messages.length <= vconf.getMaximumNumberOfMessages()+1) { // add one for the IWAD3000 message, i.e., "Validation was terminated because the maximum number of messages ..."
+			//	return true;
+			//}
 			
 			return false;
 		}

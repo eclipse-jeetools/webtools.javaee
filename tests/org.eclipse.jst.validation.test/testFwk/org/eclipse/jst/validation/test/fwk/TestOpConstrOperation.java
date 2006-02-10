@@ -99,9 +99,10 @@ public class TestOpConstrOperation implements IOperationRunnable {
 				// the validators for which tests exist, and turn off auto-build so that a
 				// validation is forced.
 				gconf.setCanProjectsOverride(false);
-				gconf.setAutoValidate(true);
-				gconf.setBuildValidate(true);
-				gconf.setMaximumNumberOfMessages(WorkbenchReporter.NO_MESSAGE_LIMIT);
+				gconf.setDisableAllValidation(true);
+				//gconf.setAutoValidate(true);
+				//gconf.setBuildValidate(true);
+				//gconf.setMaximumNumberOfMessages(WorkbenchReporter.NO_MESSAGE_LIMIT);
 				gconf.passivate();
 				
 				JDTUtility.setAutoBuild(false);

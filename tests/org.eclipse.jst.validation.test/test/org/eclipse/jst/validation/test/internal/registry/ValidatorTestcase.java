@@ -250,12 +250,14 @@ public class ValidatorTestcase implements ITestcaseMetaData {
 		long end = 0;
 		try {
 			GlobalConfiguration gconf = ConfigurationManager.getManager().getGlobalConfiguration();
-			boolean autoValidate = gconf.isAutoValidate();
-			boolean buildValidate = gconf.isBuildValidate();
+			boolean disableValidation = gconf.isDisableAllValidation();
+			//boolean autoValidate = gconf.isAutoValidate();
+			//boolean buildValidate = gconf.isBuildValidate();
 			try {
+				gconf.setDisableAllValidation(false);
 				// Turn off auto-validate so that the project isn't validated automatically.
-				gconf.setAutoValidate(false);
-				gconf.setBuildValidate(false);
+				//gconf.setAutoValidate(false);
+				//gconf.setBuildValidate(false);
 				gconf.passivate();
 				
 				// Two tests: 
@@ -294,8 +296,8 @@ public class ValidatorTestcase implements ITestcaseMetaData {
 				}
 			}
 			finally {
-				gconf.setAutoValidate(autoValidate);
-				gconf.setBuildValidate(buildValidate);
+				//gconf.setAutoValidate(autoValidate);
+				//gconf.setBuildValidate(buildValidate);
 				gconf.passivate();
 			}
 		}
