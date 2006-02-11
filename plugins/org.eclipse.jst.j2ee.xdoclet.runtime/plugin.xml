@@ -95,14 +95,14 @@
             description="%webdoclet.deploymentdesc.validatexml"/>
 
       <TaskProperty
-            default="${web.project.dir}/${web.module.webinf}"
+            default="${web.module.webinf}"
             id="webdoclet.deploymentdescriptor.mergedir"
             include="true"
             label="mergedir"
             type="string"
             description="%webdoclet.deploymentdesc.mergedir"/>
       <TaskProperty
-            default="${web.project.dir}/${web.module.webinf}"
+            default="${web.module.webinf}"
             id="weboclet.deploymentdescriptor.destdir"
             include="true"
             label="destdir"
