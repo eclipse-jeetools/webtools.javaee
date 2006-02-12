@@ -272,7 +272,7 @@ public abstract class J2EEArtifactCreationWizard extends DataModelWizard impleme
 	 * @return Returns the plugin id associated with this wizard
 	 */
 	public final String getPluginId() {
-		return (configurationElement != null) ? configurationElement.getDeclaringExtension().getDeclaringPluginDescriptor().getUniqueIdentifier() : ""; //$NON-NLS-1$
+		return (configurationElement != null) ? configurationElement.getNamespace() : ""; //$NON-NLS-1$
 	}
 
 
