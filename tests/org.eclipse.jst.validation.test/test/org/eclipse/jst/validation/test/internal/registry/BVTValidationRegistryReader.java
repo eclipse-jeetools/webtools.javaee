@@ -313,7 +313,7 @@ public final class BVTValidationRegistryReader implements RegistryConstants {
 
 		private void addTest(IProgressMonitor monitor, IExtension extension, IConfigurationElement[] testElements) {
 			monitor.subTask("Reading test cases; please wait..."); //$NON-NLS-1$
-			String pluginId = extension.getDeclaringPluginDescriptor().getUniqueIdentifier();
+			String pluginId = extension.getNamespace();
 			for (int i = 0; i < testElements.length; i++) {
 				monitor.subTask("Reading test case " + (i + 1) + " of " + testElements.length); //$NON-NLS-1$ //$NON-NLS-2$
 				IConfigurationElement test = testElements[i];
@@ -540,7 +540,7 @@ public final class BVTValidationRegistryReader implements RegistryConstants {
 
 		private void addOperationTest(IProgressMonitor monitor, IExtension extension, IConfigurationElement[] testElements) {
 			monitor.subTask("Reading test cases; please wait..."); //$NON-NLS-1$
-			String pluginId = extension.getDeclaringPluginDescriptor().getUniqueIdentifier();
+			String pluginId = extension.getNamespace();
 			for (int i = 0; i < testElements.length; i++) {
 				monitor.subTask("Reading test case " + (i + 1) + " of " + testElements.length); //$NON-NLS-1$ //$NON-NLS-2$
 				IConfigurationElement test = testElements[i];
