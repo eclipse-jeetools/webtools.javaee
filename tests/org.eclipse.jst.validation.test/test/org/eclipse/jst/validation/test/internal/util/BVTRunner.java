@@ -35,7 +35,6 @@ import org.eclipse.wst.validation.internal.VThreadManager;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
 import org.eclipse.wst.validation.internal.operations.OneValidatorOperation;
 import org.eclipse.wst.validation.internal.operations.ValidationOperation;
-import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 /**
