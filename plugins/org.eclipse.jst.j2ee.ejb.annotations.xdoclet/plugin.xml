@@ -124,12 +124,19 @@
 	      nameFilter="*"
 	      id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
 	      <filter name="nature" value="org.eclipse.wst.common.project.facet.core.nature"/>
+          <enablement>
+            <or>
+              <test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web.xdoclet"/>
+              <test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ejb.xdoclet"/>
+            </or>
+	      </enablement>
 	      <action
 	        label="%action.runxdoclet"
 	        class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"
 	        menubarPath="additions"
 	        enablesFor="+"
-	        id="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction"/>
+	        id="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action.RunXDocletAction">
+	      </action>
 	    </objectContribution>
 	  </extension>
    
