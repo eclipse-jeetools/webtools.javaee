@@ -1,66 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.jst.web_tests.feature"
-      label="org.eclipse.jst.web_tests.feature"
-      version="1.0.0">
+      label="JST Web Feature Tests"
+      version="1.0.1.qualifier"
+      provider-name="Eclipse.org">
 
    <description>
       %description
    </description>
 
-
-
    <license url="license.html">
       %license
    </license>
+
+   <url>
+      <update label="Web Tools Platform (WTP) Updates" url="http://download.eclipse.org/webtools/updates/"/>
+   </url>
 
    <plugin
          id="org.eclipse.jst.j2ee.core.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.j2ee.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.jsp.core.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.jsp.tests.encoding"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.jsp.ui.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.jsp.ui.tests.performance"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jst.servlet.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         />
+         version="0.0.0"/>
 
 </feature>
