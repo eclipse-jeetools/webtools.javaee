@@ -92,7 +92,7 @@ public class CommonEditorUtility {
 	public static boolean promptToSaveDirtyEditors(List dirtyEditors) {
 		if (dirtyEditors.isEmpty())
 			return true;
-		return EditorManager.saveAll(dirtyEditors, true, J2EEUIPlugin.getActiveWorkbenchWindow());
+		return EditorManager.saveAll(dirtyEditors, true, true, J2EEUIPlugin.getActiveWorkbenchWindow());
 	}
 
 	public static boolean promptToSaveDirtyEditorsInProjects(List projects) {

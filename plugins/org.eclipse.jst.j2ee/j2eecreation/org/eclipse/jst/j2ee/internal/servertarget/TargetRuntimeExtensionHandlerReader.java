@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPluginRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jem.util.RegistryReader;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -73,11 +73,12 @@ public class TargetRuntimeExtensionHandlerReader extends RegistryReader {
 			return false;
 		}
 		try {
-			Plugin plugin = element.getDeclaringExtension().getDeclaringPluginDescriptor().getPlugin();
+			String pluginId = element.getDeclaringExtension().getNamespace();
+			Plugin plugin = Platform.getPlugin(pluginId);
 			extension = new TargetRuntimeExtension(plugin, element, group, className);
 			addExtensionPoint(extension);
 			return true;
-		} catch (CoreException ce) {
+		} catch (Exception ce) {
 			ce.printStackTrace();
 		}
 		return false;
