@@ -250,11 +250,11 @@ public class ValidatorTestcase implements ITestcaseMetaData {
 		long end = 0;
 		try {
 			GlobalConfiguration gconf = ConfigurationManager.getManager().getGlobalConfiguration();
-			boolean disableValidation = gconf.isDisableAllValidation();
+			//boolean disableValidation = gconf.numberOfEnabledValidators()==0;
 			//boolean autoValidate = gconf.isAutoValidate();
 			//boolean buildValidate = gconf.isBuildValidate();
 			try {
-				gconf.setDisableAllValidation(false);
+				gconf.setAutoValidate(false);
 				// Turn off auto-validate so that the project isn't validated automatically.
 				//gconf.setAutoValidate(false);
 				//gconf.setBuildValidate(false);

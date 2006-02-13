@@ -37,7 +37,6 @@ import org.eclipse.wst.validation.internal.operations.IRuleGroup;
 import org.eclipse.wst.validation.internal.operations.OneValidatorOperation;
 import org.eclipse.wst.validation.internal.operations.ValidationOperation;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
-import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 
 /**
  * This class tests every constructor available in the ValidationOperation
@@ -99,7 +98,7 @@ public class TestOpConstrOperation implements IOperationRunnable {
 				// the validators for which tests exist, and turn off auto-build so that a
 				// validation is forced.
 				gconf.setCanProjectsOverride(false);
-				gconf.setDisableAllValidation(true);
+				gconf.setAutoValidate(false);
 				//gconf.setAutoValidate(true);
 				//gconf.setBuildValidate(true);
 				//gconf.setMaximumNumberOfMessages(WorkbenchReporter.NO_MESSAGE_LIMIT);
