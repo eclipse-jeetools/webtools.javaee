@@ -17,7 +17,7 @@
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http:///org/eclipse/jem/internal/beaninfo.ecore"
+            uri="http:///org/eclipse/jem/internal/beaninfo/beaninfo.ecore"
             class="org.eclipse.jem.internal.beaninfo.BeaninfoPackage">
       </package>
    </extension>
