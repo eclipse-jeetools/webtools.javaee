@@ -8,13 +8,10 @@ Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.j2ee.navigator.internal,
  org.eclipse.jst.j2ee.navigator.internal.dnd,
- org.eclipse.jst.j2ee.navigator.internal.plugin,
- org.eclipse.jst.j2ee.navigator.internal.workingsets
+ org.eclipse.jst.j2ee.navigator.internal.plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
- org.eclipse.wst.common.navigator.views,
- org.eclipse.wst.common.navigator.workbench,
  org.eclipse.jst.j2ee.core,
  org.eclipse.jst.j2ee.ui,
  org.eclipse.emf.edit,
@@ -30,9 +27,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jst.ejb.ui,
  org.eclipse.jst.servlet.ui,
  org.eclipse.jst.j2ee.jca.ui,
- org.eclipse.jst.common.navigator.java,
  org.eclipse.wst.common.modulecore,
  org.eclipse.jem.util,
  org.eclipse.jst.common.frameworks,
- org.eclipse.wst.common.project.facet.core
+ org.eclipse.wst.common.project.facet.core,
+ org.eclipse.ui.navigator,
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.wst.common.emf
 Eclipse-AutoStart: true

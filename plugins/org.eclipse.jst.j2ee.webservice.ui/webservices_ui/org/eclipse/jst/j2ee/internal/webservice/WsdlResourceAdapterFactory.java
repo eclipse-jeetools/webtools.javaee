@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
-import org.eclipse.wst.common.internal.emfworkbench.EMFAdapterFactory;
+import org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
@@ -29,7 +29,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class WsdlResourceAdapterFactory extends EMFAdapterFactory {
+public class WsdlResourceAdapterFactory extends J2EEEMFAdapterFactory {
 
 	/**
 	 * Default constructor
@@ -49,11 +49,11 @@ public class WsdlResourceAdapterFactory extends EMFAdapterFactory {
 		if (serviceHelper.isWSDLResource(adaptableObject))
 			res = (Resource) adaptableObject;
 
-		if (res != null && adapterType == EMFAdapterFactory.IFILE_CLASS)
+		if (res != null && adapterType == J2EEEMFAdapterFactory.IFILE_CLASS)
 			return WorkbenchResourceHelper.getFile(res) != null ? WorkbenchResourceHelper.getFile(res) : null;
-		else if (res != null && adapterType == EMFAdapterFactory.IRESOURCE_CLASS)
+		else if (res != null && adapterType == J2EEEMFAdapterFactory.IRESOURCE_CLASS)
 			return WorkbenchResourceHelper.getFile(res);
-		else if (res != null && adapterType == EMFAdapterFactory.IPROJECT_CLASS)
+		else if (res != null && adapterType == J2EEEMFAdapterFactory.IPROJECT_CLASS)
 			return ProjectUtilities.getProject(res);
 		else
 			return super.getAdapter(adaptableObject, adapterType);

@@ -24,12 +24,12 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelPrope
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.ui.internal.navigator.dnd.IDropValidator;
+import org.eclipse.ui.internal.navigator.dnd.NavigatorDropActionDelegate;
+import org.eclipse.ui.navigator.ICommonDropAdapter;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
-import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
-import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
-import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
 
 /**
  * @author jsholl
@@ -51,7 +51,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 		return false;
 	}
 
-	public boolean validateDrop(CommonNavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(ICommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		if (FileTransfer.getInstance().isSupportedType(transferType)) {
 			String[] sourceNames = (String[]) FileTransfer.getInstance().nativeToJava(transferType);
 			if (sourceNames == null || sourceNames.length != 1) { //only handle one file for now
@@ -163,7 +163,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.dnd.NavigatorDropActionDelegate#run(org.eclipse.wst.common.navigator.internal.views.navigator.dnd.CommonNavigatorDropAdapter,
 	 *      java.lang.Object, java.lang.Object)
 	 */
-	public boolean run(CommonNavigatorDropAdapter dropAdapter, Object source, Object target) {
+	public boolean run(ICommonDropAdapter dropAdapter, Object source, Object target) {
 		TransferData currentTransfer = dropAdapter.getCurrentTransfer();
 		if (FileTransfer.getInstance().isSupportedType(currentTransfer)) {
 			final String[] fileNames = (String[]) source;

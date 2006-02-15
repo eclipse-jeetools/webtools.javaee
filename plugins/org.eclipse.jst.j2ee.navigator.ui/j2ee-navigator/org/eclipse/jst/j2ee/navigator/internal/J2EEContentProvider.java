@@ -28,15 +28,14 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
 import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHandlerListener;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.internal.navigator.AdaptabilityUtility;
+import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.navigator.internal.provisional.views.AdaptabilityUtility;
-import org.eclipse.wst.common.navigator.internal.provisional.views.CommonViewer;
 
 /**
  * <p>
@@ -176,7 +175,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 
 		/* Create new content providers using the new viewer id */
 		DynamicAdapterFactory adapterFactory = new DynamicAdapterFactory(aViewerId);
-		delegateContentProvider = new CommonAdapterFactoryContentProvider(adapterFactory);
+		delegateContentProvider = new AdapterFactoryContentProvider(adapterFactory);
 		delegateMethodsProvider = new MethodsProviderDelegate(adapterFactory);
 
 		/* Remember the viewer id */

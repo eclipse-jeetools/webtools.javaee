@@ -33,9 +33,9 @@ public class J2EEViewerSorter extends ViewerSorter {
 	 * @see ViewerSorter#compare(Viewer, Object, Object)
 	 */
 	public int compare(Viewer viewer, Object e1, Object e2) {
-		if (shouldSort(e1, e2))
+		//if (shouldSort(e1, e2))
 			return super.compare(viewer, e1, e2);
-		return 0;
+		//return 0;
 	}
 
 	protected boolean isEnterpriseBean(Object o) {

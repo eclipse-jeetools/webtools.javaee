@@ -26,20 +26,23 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceEvent;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerListener;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
+import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IMemento;
+import org.eclipse.ui.navigator.ICommonContentProvider;
+import org.eclipse.ui.navigator.IExtensionStateModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.navigator.internal.provisional.views.INavigatorContentProvider;
 
 /**
  * @author jlanuti
@@ -47,7 +50,7 @@ import org.eclipse.wst.common.navigator.internal.provisional.views.INavigatorCon
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryContentProvider implements INavigatorContentProvider, WebServiceManagerListener {
+public class WebServicesNavigatorContentProvider extends AdapterFactoryContentProvider implements ICommonContentProvider, WebServiceManagerListener {
 
 	private WebServicesManager webServicesManager = null;
 	private boolean activityEnabled = false;
@@ -55,8 +58,6 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	private WebServiceNavigatorGroupType SERVICES = null;
 	private WebServiceNavigatorGroupType CLIENTS = null;
 	private HashMap HANDLERS = new HashMap();
-	private final static String VIEWER_ID = "org.eclipse.wst.navigator.ui.WTPCommonNavigator";//$NON-NLS-1$
-	
 	private TreeViewer viewer = null;
 	
 	public WebServicesNavigatorContentProvider() {
@@ -72,7 +73,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 * Configure and return a composite adapter factory for our contents
 	 */
 	public static AdapterFactory createAdapterFactory() {
-		return new DynamicAdapterFactory(VIEWER_ID);
+		return new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID);
 	}
 
 	/*
@@ -291,5 +292,20 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	 */
 	public TreeViewer getViewer() {
 		return viewer;
+	}
+
+	public void restoreState(IMemento aMemento) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveState(IMemento aMemento) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init(IExtensionStateModel aStateModel, IMemento aMemento) {
+		// TODO Auto-generated method stub
+		
 	}
 }

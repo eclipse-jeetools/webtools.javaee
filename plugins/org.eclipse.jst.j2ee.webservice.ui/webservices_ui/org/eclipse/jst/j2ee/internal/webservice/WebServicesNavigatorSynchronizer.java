@@ -18,7 +18,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 /**
  * @author jlanuti
  */
-public class WebServicesNavigatorSynchronizer extends CommonAdapterFactoryContentProvider implements Adapter {
+public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvider implements Adapter {
 
 
 	private static WebServicesNavigatorSynchronizer INSTANCE = null;

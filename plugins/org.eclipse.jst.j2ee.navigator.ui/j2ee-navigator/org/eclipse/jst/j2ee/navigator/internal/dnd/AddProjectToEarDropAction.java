@@ -16,12 +16,12 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.ui.internal.navigator.NavigatorPlugin;
+import org.eclipse.ui.internal.navigator.dnd.CommonNavigatorDropAdapter;
+import org.eclipse.ui.internal.navigator.dnd.IDropValidator;
+import org.eclipse.ui.internal.navigator.dnd.NavigatorDropActionDelegate;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-import org.eclipse.wst.common.navigator.internal.views.NavigatorPlugin;
-import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
-import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
-import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
 
 /**
  * @author jsholl

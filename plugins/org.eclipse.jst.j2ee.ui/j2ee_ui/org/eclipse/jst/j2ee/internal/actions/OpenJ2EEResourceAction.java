@@ -61,7 +61,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	 * Create an instance of this class
 	 */
 	public OpenJ2EEResourceAction() {
-		super(""); //$NON-NLS-1$
+		super("Open"); //$NON-NLS-1$
 	}
 
 	/**

@@ -41,9 +41,9 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	protected void setAttributesFromDescriptor() {
 		if (currentDescriptor == null)
 			return;
-		setText(currentDescriptor.getLabel());
+		//setText(currentDescriptor.getLabel());
 		setToolTipText(currentDescriptor.getLabel());
-		setImageDescriptor(currentDescriptor.getImageDescriptor());
+		//setImageDescriptor(currentDescriptor.getImageDescriptor());
 	}
 
 	/**

@@ -14,26 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.jst.j2ee.internal.actions.J2EERenameAction;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.actions.ActionContext;
-import org.eclipse.wst.common.navigator.internal.provisional.views.ICommonActionProvider;
-import org.eclipse.wst.common.navigator.internal.provisional.views.NavigatorContentService;
-import org.eclipse.wst.common.navigator.internal.views.actions.CommonActionProvider;
+import org.eclipse.ui.navigator.CommonActionProvider;
+import org.eclipse.ui.navigator.CommonActionProviderConfig;
+import org.eclipse.ui.navigator.ICommonMenuConstants;
 
-public class J2EEActionProvider extends CommonActionProvider implements ICommonActionProvider {
-
-	private IViewPart viewPart;
+public class J2EEActionProvider extends CommonActionProvider implements IDoubleClickListener {
 
 	private OpenJ2EEResourceAction openAction;
 
-	private J2EERenameAction renameAction;
+//	private J2EERenameAction renameAction;
 
 	//private WTPOptionalOperationAction genericDelete;
 	//TODO add back generic delete
@@ -49,11 +46,11 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 *      org.eclipse.jface.viewers.StructuredViewer,
 	 *      org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService)
 	 */
-	public void init(IViewPart aViewPart, StructuredViewer aViewer, NavigatorContentService aContentService) {
-		viewPart = aViewPart;
-
-		openAction = new OpenJ2EEResourceAction();
-		renameAction = new J2EERenameAction(viewPart.getViewSite(), viewPart.getViewSite().getShell());
+	public void init(CommonActionProviderConfig aConfig) {
+		
+		openAction = new OpenJ2EEResourceAction(); 
+		aConfig.getStructuredViewer().addDoubleClickListener(this);
+//		renameAction = new J2EERenameAction(aConfig.getViewSite(), aConfig.getViewSite().getShell());
 //
 //		genericDelete = new WTPOptionalOperationAction(WTPGenericActionIds.DELETE, WorkbenchMessages.Workbench_delete); //$NON-NLS-1$
 //		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
@@ -68,12 +65,13 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#setActionContext(org.eclipse.ui.actions.ActionContext)
 	 */
-	public void setActionContext(ActionContext aContext) {
-		if (aContext.getSelection() instanceof IStructuredSelection) {
+	public void setContext(ActionContext aContext) {
+		
+		if (aContext != null && aContext.getSelection() instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) aContext.getSelection();
 
 			openAction.selectionChanged(selection);
-			renameAction.selectionChanged(selection);
+//			renameAction.selectionChanged(selection);
 
 			Object[] array = selection.toArray();
 			if (isUtilityJars(array)) {
@@ -95,10 +93,10 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillActionBars(org.eclipse.ui.IActionBars)
 	 */
-	public boolean fillActionBars(IActionBars theActionBars) {
+	public void fillActionBars(IActionBars theActionBars) {
 //		if (genericDelete.isEnabled())
 //			theActionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), genericDelete);
-		return true;
+		return;
 	}
 
 	/*
@@ -106,8 +104,10 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillContextMenu(org.eclipse.jface.action.IMenuManager)
 	 */
-	public boolean fillContextMenu(IMenuManager aMenu) {
-		boolean actionsAdded = false;
+	public void fillContextMenu(IMenuManager aMenu) {
+		if (openAction.isEnabled()) {
+			aMenu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, openAction);
+		}
 	/*	if (renameAction.isEnabled()) {
 			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_ACTIONS, renameAction);
 			actionsAdded = true;
@@ -116,7 +116,7 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 			aMenu.appendToGroup(ICommonMenuConstants.COMMON_MENU_EDIT_ACTIONS, genericDelete);
 			actionsAdded = true;
 		}*/
-		return actionsAdded;
+		return;
 	}
 
 	private boolean isUtilityJars(Object[] items) {
@@ -128,6 +128,14 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 			return true;
 		}
 		return false;
+	}
+	public void updateActionBars() {
+		// TODO Auto-generated method stub
+		super.updateActionBars();
+	}
+	public void doubleClick(DoubleClickEvent event) {
+		openAction.run();
+		
 	}
 
 }

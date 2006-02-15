@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.ui.navigator.ICommonDropAdapter;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -36,6 +38,16 @@ public class AddModuleDropAction extends AddProjectToEarDropAction {
 		//TODO fix up to use components
 //		return AddModuleToEARDataModel.createAddToEARDataModel(null,null);
 		return null;
+	}
+
+	public boolean validateDrop(ICommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean run(ICommonDropAdapter dropAdapter, Object source, Object target) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

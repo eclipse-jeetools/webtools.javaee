@@ -12,7 +12,13 @@ package org.eclipse.jst.j2ee.navigator.internal.plugin;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdapterManager;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.navigator.internal.J2EEEMFAdapterFactory;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -43,5 +49,12 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	 */
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
+	}
+
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		WorkbenchResourceHelper.initializeFileAdapterFactory();
+		IAdapterManager manager = Platform.getAdapterManager();
+		manager.registerAdapters(new J2EEEMFAdapterFactory(), EObject.class);
 	}
 }

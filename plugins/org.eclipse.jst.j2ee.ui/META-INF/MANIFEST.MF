@@ -51,7 +51,6 @@ Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.ltk.core.refactoring,
  org.eclipse.jface.text,
  org.eclipse.wst.web,
- org.eclipse.wst.common.navigator.workbench,
  org.eclipse.debug.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor,
@@ -65,5 +64,6 @@ Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.wst.common.project.facet.core,
  org.eclipse.wst.common.project.facet.ui,
  org.eclipse.jst.server.core,
- org.eclipse.wst.web.ui
+ org.eclipse.wst.web.ui,
+ org.eclipse.ui.navigator.resources
 Eclipse-AutoStart: true

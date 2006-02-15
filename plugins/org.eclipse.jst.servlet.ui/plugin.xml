@@ -72,7 +72,7 @@
             name="%WarImportWizard.name"
             icon="icons/full/ctool16/importwar_wiz.gif"
             class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard"
-            id="org.eclipse.jst.servlet.ui.WebComponentImportWizard">
+            id="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard">
          <description>
             %WarImportWizard.description
          </description>
@@ -89,7 +89,7 @@
             name="%WarexportWizard.name"
             icon="icons/full/ctool16/exportwar_wiz.gif"
             class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard"
-            id="org.eclipse.jst.servlet.ui.WebComponentExportWizard">
+            id="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentExportWizard">
          <description>
             %WarexportWizard.description
          </description>
@@ -128,178 +128,6 @@
 			</action>
 		</actionSet>
 	</extension> -->
-	
-	<extension
-         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
-          <!-- Web New -->
-        <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
-         <enablement>
-           <or>
-               <objectClass
-	                  name="org.eclipse.core.resources.IWorkspaceRoot">
-	           </objectClass>
-               <and>
-                   <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-	               <or>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-	                  </objectState>
-	               </or> 
-               </and> 
-               <objectClass
-                 name="org.eclipse.jst.j2ee.application.Module">
-           	   </objectClass>
-           	   <objectClass
-                 name="org.eclipse.jst.j2ee.application.Application">
-           	   </objectClass>
-           	    <objectClass
-                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
-           	   </objectClass>
-            </or>
-         </enablement>
-       </commonWizard>
-       <!-- New Servlet -->
-        <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
-         <enablement>
-           <or>
-               <objectClass
-	                  name="org.eclipse.core.resources.IWorkspaceRoot">
-	           </objectClass>
-               <and>
-                   <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-	               <or>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-	                  </objectState>
-	               </or> 
-               </and> 
-               <objectClass
-                 name="org.eclipse.jst.j2ee.application.Module">
-           	   </objectClass>
-           	   <objectClass
-                 name="org.eclipse.jst.j2ee.webapplication.WebApp">
-           	   </objectClass>
-           	    <objectClass
-                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
-           	   </objectClass>
-           	    <objectClass
-                    name="org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider">
-               	 </objectClass>
-               	 <objectClass
-                    name="org.eclipse.jst.j2ee.webapplication.WebApp">
-               	 </objectClass>
-            </or>
-         </enablement>
-       </commonWizard>
-       <!-- Web Import -->
-      <!--  <commonWizard
-            type="import"
-            wizardId="org.eclipse.jst.servlet.ui.WebModuleImportWizard">
-         <enablement>
-          <or>
-               <objectClass
-	                  name="org.eclipse.core.resources.IWorkspaceRoot">
-	           </objectClass>
-               <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.web.WebNature">
-                  </objectState>
-                </and>
-                <and>
-                   <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-	               <or>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.EARNature">
-	                  </objectState>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.web.WebNature">
-	                  </objectState>
-	               </or> 
-                </and> 
-                <objectClass
-                     name="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
-                </objectClass>
-                  <objectClass
-                     name="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider">
-                </objectClass>     
-                <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
-           	   </objectClass>
-           	    <objectClass
-                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
-           	   </objectClass>
-           	   <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
-           	   </objectClass>
-         </or>
-       </enablement>
-       </commonWizard> -->
-       <!-- Web Export -->
-     <!--   <commonWizard
-            type="export"
-            wizardId="org.eclipse.jst.servlet.ui.WebModuleExportWizard">
-         <enablement>
-         <or>
-            <and>
-               <or>
-               <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               </objectClass>
-               <objectClass
-                     name="org.eclipse.core.resources.IProject">
-               </objectClass>
-               </or>
-               <or>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.web.WebNature">
-                  </objectState>
-               </or>
-            </and>      
-              <objectClass
-                     name="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
-                </objectClass>      
-                <objectClass
-                     name="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider">
-                </objectClass>     
-                
-            </or>
-         </enablement>
-       </commonWizard> -->
-        <!-- Import Classes Wizard -->
-       <!-- <commonWizard
-            type="import"
-            wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
-         <enablement>
-            <or>
-	            <objectClass
-                     name="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
-                </objectClass>  
-                 <objectClass
-                     name="org.eclipse.jst.j2ee.internal.war.ui.util.WebGroupItemProvider">
-                </objectClass>     
-            </or>
-         </enablement>
-       </commonWizard> -->
-    </extension>
 
   <!-- ==================================================================== -->
 <!-- Extension point: org.eclipse.etools.server.core.moduleObjectAdapters -->

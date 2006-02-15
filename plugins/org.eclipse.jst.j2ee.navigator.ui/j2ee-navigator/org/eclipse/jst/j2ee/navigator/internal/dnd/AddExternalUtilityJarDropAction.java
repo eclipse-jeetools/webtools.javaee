@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
-import org.eclipse.wst.common.navigator.internal.workbench.ResourceDropAction;
+import org.eclipse.ui.navigator.ICommonDropAdapter;
+import org.eclipse.ui.navigator.resources.internal.workbench.ResourceDropAction;
 
 /**
  * @author mdelder
@@ -26,7 +26,7 @@ public class AddExternalUtilityJarDropAction extends ResourceDropAction {
 	 * @see org.eclipse.ui.workbench.navigator.dnd.ResourceDropAction#validateDrop(org.eclipse.wst.common.navigator.internal.views.navigator.dnd.CommonNavigatorDropAdapter,
 	 *      java.lang.Object, int, org.eclipse.swt.dnd.TransferData)
 	 */
-	public boolean validateDrop(CommonNavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(ICommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		//TODO redo with components
 //		if (FileTransfer.getInstance().isSupportedType(transferType)) {
 //			IProject project = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);

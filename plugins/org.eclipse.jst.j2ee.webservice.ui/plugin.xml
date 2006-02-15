@@ -2,32 +2,24 @@
 <?eclipse version="3.0"?>
 <plugin>
      <extension
-         point="org.eclipse.wst.common.navigator.views.navigatorContent">
+         point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             name="Web Services"
             priority="low"
             icon="icons/webgroup_obj.gif"
             contentProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorContentProvider"
             labelProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorLabelProvider"
-            openListener="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorGroupOpenListener"
-            id="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
-            >
-         <enables>
+            sorter="org.eclipse.ui.navigator.resources.internal.workbench.ResourceSorter"
+            id="org.eclipse.wst.common.frameworks.internal.navigator.webservice">
+         <enablement>
             <or>
-               <objectClass
-                     name="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup">
-               </objectClass>
-               <objectClass
-                     name="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription">
-               </objectClass>
-               <objectClass
-               		name="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType">
-               </objectClass>
-               <objectClass
-                     name="org.eclipse.wst.wsdl.util.WSDLResourceImpl">
-               </objectClass>
+               <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
+               <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup"/>
+               <instanceof value="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription"/>
+               <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType"/>
+               <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/>
             </or>
-         </enables>
+         </enablement>
          <emfEnablement>
          	<package uri="wsdd.xmi" />                 	
          	<package uri="webservice_client.xmi" />           	         	
@@ -41,11 +33,13 @@
    <!-- J2EE View Web Services contribution -->
    
    <extension
-         point="org.eclipse.wst.common.navigator.views.navigatorViewer">
-      <navigatorViewer
-            rootContentExtensionId="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
-            viewerId="org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator">
-      </navigatorViewer>
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+      		viewerId="org.eclipse.wst.common.explorer.CommonProjectExplorer">
+      		<includes>
+      		   <contentExtension pattern="org.eclipse.wst.common.frameworks.internal.navigator.webservice"/>
+      		</includes>  
+      </viewerContentBinding>
    </extension>
 	
 </plugin>
