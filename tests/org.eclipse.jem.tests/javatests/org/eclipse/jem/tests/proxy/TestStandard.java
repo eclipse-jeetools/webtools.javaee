@@ -9,10 +9,6 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.tests.proxy;
-/*
- *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.10 $  $Date: 2005/08/24 20:58:54 $ 
- */
 import java.io.IOException;
 
 import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
@@ -605,7 +601,7 @@ public class TestStandard extends AbstractTestProxy {
 		assertEquals(8, methods.length);		
 	}
 
-	public void testFindCompatibleConstructor() throws AmbiguousMethodException, NoSuchMethodException {
+	public void testFindCompatibleConstructor() throws AmbiguousMethodException, NoSuchMethodException, IllegalAccessException {
 		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
 
 		IConstructorProxy ctor = testAccessType.getCompatibleConstructor(new IBeanTypeProxy[] {proxyTypeFactory.getBeanTypeProxy("java.lang.ArrayStoreException")});
