@@ -254,7 +254,7 @@ public class ValidatorTestcase implements ITestcaseMetaData {
 			//boolean autoValidate = gconf.isAutoValidate();
 			//boolean buildValidate = gconf.isBuildValidate();
 			try {
-				gconf.setAutoValidate(false);
+				//gconf.setAutoValidate(false);
 				// Turn off auto-validate so that the project isn't validated automatically.
 				//gconf.setAutoValidate(false);
 				//gconf.setBuildValidate(false);

@@ -453,7 +453,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			// VALFWK02 just wants to check that the correct validators were launched; the TestOpConstr
 			// test wants to check the result given different output and constructor of the Operation.
 			
-			EnabledValidatorsOperation validOp = new EnabledValidatorsOperation(project, vconf.runAsync());
+			EnabledValidatorsOperation validOp = new EnabledValidatorsOperation(project,false);
 			ResourcesPlugin.getWorkspace().run(validOp, monitor);
 			// Launched validators should be configured, enabled, and had files to validate on the project.
 			Set launchedValidators = validOp.getLaunchedValidators();
@@ -685,10 +685,9 @@ public final class VALFWK02Operation implements IOperationRunnable {
 	}
 	
 	private boolean maxMessagesReported(IProgressMonitor monitor, IProject project, ValidationConfiguration vconf) {
-		try {
 			EnabledValidatorsOperation validOp = null;
 			try {
-				validOp = new EnabledValidatorsOperation(project, vconf.runAsync());
+				validOp = new EnabledValidatorsOperation(project,false);
 				ResourcesPlugin.getWorkspace().run(validOp, monitor);
 			}
 			catch(CoreException exc) {
@@ -706,16 +705,7 @@ public final class VALFWK02Operation implements IOperationRunnable {
 			
 			return false;
 		}
-		catch(InvocationTargetException exc) {
-			Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-				if(exc.getTargetException() != null) {
-					logger.write(Level.SEVERE, exc.getTargetException());
-				}
-			}
-			return false;
-		}
-	}
+		
 }
+
 
