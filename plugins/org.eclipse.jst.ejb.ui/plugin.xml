@@ -35,7 +35,7 @@
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/export_ejbjar_wiz.gif"
             class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard"
-            id="org.eclipse.jst.ejb.ui.EJBModuleExportWizard">
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard">
          <description>
             %ejb.export.description_ui_
          </description>
@@ -219,7 +219,7 @@
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/import_ejbjar.gif"
             class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"
-            id="org.eclipse.jst.ejb.ui.EJBModuleImportWizardNew">
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard">
          <description>
             %ejb.import.description_ui_
          </description>
@@ -228,139 +228,6 @@
          </selection>
       </wizard>
     </extension> 
-	 <extension
-         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
-         <!-- EJB New -->
-        <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
-         <enablement>
-           <or>
-               <objectClass
-	                  name="org.eclipse.core.resources.IWorkspaceRoot">
-	           </objectClass>
-                <and>
-                   <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-	               <or>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
-	                  </objectState>
-	               </or> 
-                </and> 
-                <objectClass
-                 name="org.eclipse.jst.j2ee.application.Application">
-           	   </objectClass>
-           	    <objectClass
-                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
-           	   </objectClass>
-           	  <objectClass
-                 name="org.eclipse.jst.j2ee.application.Module">
-           	   </objectClass>
-            </or>
-         </enablement>
-       </commonWizard>
-       <!-- EJB Import -->
-     <!--   <commonWizard
-            type="import"
-            wizardId="org.eclipse.jst.ejb.ui.EJBModuleImportWizard">
-         <enablement>
-         <or>
-               <objectClass
-	                  name="org.eclipse.core.resources.IWorkspaceRoot">
-	           </objectClass>
-               <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
-                  </objectState>
-                </and>
-                <and>
-                   <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-	               <or>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.EARNature">
-	                  </objectState>
-	                  <objectState
-	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
-	                  </objectState>
-	               </or> 
-                </and> 
-        	   <objectClass
-                 name="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
-           	   </objectClass>
-           	   <objectClass
-                 name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
-           	   </objectClass>
-           	   <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
-           	   </objectClass>
-           	    <objectClass
-                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
-           	   </objectClass>
-           	  <objectClass
-                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
-           	   </objectClass>
-           	   
-            </or>
-         </enablement>
-       </commonWizard> -->
-       <!-- EJB Export -->
-       <!-- <commonWizard
-            type="export"
-            wizardId="org.eclipse.jst.ejb.ui.EJBModuleExportWizard">
-         <enablement>
-         <or>
-            <and>
-            	<or>
-                  <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-	               <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-               </or>
-               <or>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
-                  </objectState>
-               </or>
-            </and>  
-            <objectClass
-                 name="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
-           	 </objectClass>        
-           	  <objectClass
-                 name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
-           	   </objectClass>
-            </or>
-         </enablement>
-       </commonWizard> -->
-        <!-- Import Classes Wizard -->
-       <!-- <commonWizard
-            type="import"
-            wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
-         <enablement>
-            <or>
-              <objectClass
-                 name="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
-           	 </objectClass> 
-           	 <objectClass
-                 name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
-           	   </objectClass>
-           </or>
-         </enablement>
-       </commonWizard> -->
-    </extension>
     
     <extension point="org.eclipse.wst.common.project.facet.ui.wizard">
   
