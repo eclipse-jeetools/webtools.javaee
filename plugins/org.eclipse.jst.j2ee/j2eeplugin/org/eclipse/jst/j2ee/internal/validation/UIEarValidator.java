@@ -23,6 +23,8 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -65,6 +67,7 @@ import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.IValidatorJob;
 
 
 /**
@@ -192,14 +195,15 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		earHelper = newEarHelper;
 	}
 
-	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
-		earHelper = ((UIEarHelper) inHelper);
+	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
+
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent earModule = ComponentCore.createComponent(proj);
             if(J2EEProjectUtilities.isEARProject(proj)){
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
-				if( ddFile.exists()) {				
-					super.validate(inHelper, inReporter);
+				if( ddFile.exists()) {	
+					IStatus status = IValidatorJob.OK_STATUS;
+					status = super.validateInJob(inHelper, inReporter);
 					validateModuleMaps(earModule);
 					validateManifests();
 	//				validateUtilJarMaps(earEdit,earModule);
@@ -207,10 +211,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	//				validateDocType(earEdit,earModule);					
 				}
             }
-		
+		return IValidatorJob.OK_STATUS;
 	}	
 
-
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		return null;
+	}
 
 	public void validateManifests() throws ValidationException {
 		if (earFile == null)

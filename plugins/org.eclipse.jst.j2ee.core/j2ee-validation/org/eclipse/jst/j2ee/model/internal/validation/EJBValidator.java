@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -59,10 +61,11 @@ public class EJBValidator extends AbstractEJBValidator {
 		return "ejbvalidator"; //$NON-NLS-1$
 	}
 
+	
 	/*
 	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
 	 */
-	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
+	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException {
 		long start = System.currentTimeMillis();
 		Logger logger = Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
 		if (logger != null && logger.isLoggingLevel(Level.FINER)) {
@@ -72,14 +75,16 @@ public class EJBValidator extends AbstractEJBValidator {
 			entry.setText("validate took " + (end - start) + " milliseconds."); //$NON-NLS-1$  //$NON-NLS-2$
 			logger.write(Level.FINER, entry);
 		}
+		EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
 		try {
-			EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
+			
 			setValidationContext(vc);
 			if (isFullValidate(vc)) {
 				fullValidate(vc);
 			} else {
 				incrementalValidate(vc);
 			}
+
 			if (logger != null && logger.isLoggingLevel(Level.FINER)) {
 				long end = System.currentTimeMillis();
 				LogEntry entry = getLogEntry();
@@ -93,9 +98,11 @@ public class EJBValidator extends AbstractEJBValidator {
 				ValidationRuleUtility.helperMap = null;
 				
 				ValidationRuleUtility.projectHelperMap.clear();
+
 				
 			}
 		}
+		return status;
 	}
 	
 	public boolean isFullValidate(IEJBValidationContext vc) {
@@ -502,5 +509,10 @@ public class EJBValidator extends AbstractEJBValidator {
         EJBValidationRuleFactory.getFactory().release(rule);
         
     }
+
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

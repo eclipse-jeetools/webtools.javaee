@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
-//import org.eclipse.wst.validation.internal.core.core.IMessage;
 import java.util.Hashtable;
 
 import org.eclipse.core.resources.IFile;
@@ -21,7 +20,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -29,11 +30,13 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 
 
 
 public class WarHelper extends J2EEValidationHelper {
 	Hashtable warFileMap = new Hashtable();
+	ArtifactEdit edit = null;
 	final static String HelperID = "org.eclipse.wst.validation.internal.core.war.workbenchimpl.WarHelper"; //$NON-NLS-1$
 
 
@@ -87,35 +90,48 @@ public class WarHelper extends J2EEValidationHelper {
 	 *            Object
 	 */
 	public String getTargetObjectName(Object object) {
-		String ret = null;
-		if (object != null) {
-			IFile warFile = (IFile) warFileMap.get(getProject().toString());// validator framework
-																			// will call getFile()
-																			// first.
-			if (warFile != null) {
-				ret = (warFile.toString() + HelperID);
-			}
+		
+		if( object != null && object instanceof WARFile ){
+			return J2EEConstants.WEBAPP_ID;
 		}
-		return ret;
+		return null;
+//		String ret = null;
+//		if (object != null) {
+//			IFile warFile = (IFile) warFileMap.get(getProject().toString());// validator framework
+//																			// will call getFile()
+//																			// first.
+//			if (warFile != null) {
+//				ret = (warFile.toString() + HelperID);
+//			}
+//		}
+//		return ret;
 	}
 
 	
 	//public EObject loadWarFile(ComponentHandle handle) {
 	public EObject loadWarFile() {
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
-			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
 				Archive archive = ((WebArtifactEdit) edit).asArchive(false);
 				return archive;
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
-			}finally {
-				if (edit != null) {
-					edit.dispose();
-				}
 			}
+//			finally {
+//				if (edit != null) {
+//					edit.dispose();
+//				}
+//			}
 		return null;
 	}	
 	
+	public void cleanup(WorkbenchReporter reporter) {
+		if (edit != null) {
+			edit.dispose();
+			edit = null;
+		}	
+		super.cleanup(reporter);
+	}
 }

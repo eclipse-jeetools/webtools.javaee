@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
@@ -76,18 +78,26 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
+	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter)
+			throws org.eclipse.wst.validation.internal.core.ValidationException {
+		
 		setWarHelper((UIWarHelper) inHelper);
-		IProject proj = ((IWorkbenchContext) inHelper).getProject();
+		IProject proj = ((IWorkbenchContext) warHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
         if( wbModule != null && J2EEProjectUtilities.isDynamicWebProject(proj)) {           	
 			IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
 			if( webFile.exists()) {
-				super.validate(inHelper, inReporter);				
+				status = super.validateInJob(inHelper, inReporter);				
 			}
         }
+        return status;
 	}	
 		
+	
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		return null;
+	}
+	
 	public void cleanup(IReporter reporter) {
 		super.cleanup(reporter);
 		if(warHelper != null) 
@@ -168,4 +178,5 @@ public class UIWarValidator extends WarValidator {
 			}
 		}
 	}*/	
+
 }

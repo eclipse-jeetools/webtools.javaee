@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -54,6 +56,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
@@ -66,7 +69,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * Creation date: (12/6/2000 11:08:55 AM)
  * @author: Administrator
  */
-public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation.J2EEValidator implements EARMessageConstants {
+public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation.J2EEValidatorNew implements EARMessageConstants {
 	public static final String RES_REF_GROUP_NAME = "RES_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String RES_ENV_REF_GROUP_NAME = "RES_ENV_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String SERVICE_REF_GROUP_NAME = "SERVICE_REF_GROUP_NAME"; //$NON-NLS-1$
@@ -123,9 +126,10 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	/**
 	 * Does the validation
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
+	public IStatus  validateInJob( IValidationContext inHelper, IReporter inReporter ) throws ValidationException {
+				
 		inReporter.removeAllMessages(this);
-		super.validate(inHelper, inReporter);
+		super.validateInJob(inHelper, inReporter );
 		try {
 			earFile = (EARFile) _helper.loadModel(EAR_MODEL_NAME);
 			if (earFile != null) {
@@ -134,6 +138,7 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 					validate();
 				else {
 					IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_DD_CANNOT_OPEN_DD, new String[] { getResourceName()});
+					status = WTPCommonPlugin.createErrorStatus(errorMsg.getText());
 					throw new ValidationException(errorMsg);
 				}
 			} else {
@@ -150,6 +155,7 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
 			throw new ValidationException(errorMsg, e);
 		} // try 
+		return status;
 	} // validate
 
 	
@@ -905,5 +911,11 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 				Logger.getLogger().logError(ex);
 		}
 		return destinations;
-	}	
+	}
+
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		_helper = helper;
+		return null;
+	}
+
 }// EarValidator

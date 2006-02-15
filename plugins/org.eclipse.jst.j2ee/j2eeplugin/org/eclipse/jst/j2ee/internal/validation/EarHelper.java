@@ -27,11 +27,13 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 
 
 public class EarHelper extends J2EEValidationHelper {
 
 	protected EARFile earFile;
+	protected ArtifactEdit edit = null;
 
 	/**
 	 * WarHelper constructor comment.
@@ -78,17 +80,13 @@ public class EarHelper extends J2EEValidationHelper {
 	public EObject loadEarFile() {
 
 		IVirtualComponent comp = ComponentCore.createComponent(getProject());
-		ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+		edit = ComponentUtilities.getArtifactEditForRead(comp);
 		
 		try {
 			Archive archive = ((EARArtifactEdit) edit).asArchive(false);
 			return archive;
 		} catch (OpenFailureException e1) {
 			Logger.getLogger().log(e1);
-		}finally {
-			if (edit != null) {
-				edit.dispose();
-			}
 		}
 		return null;
 	}
@@ -99,4 +97,10 @@ public class EarHelper extends J2EEValidationHelper {
 			earFile = null;
 		}
 	}
+	
+	public void cleanup(WorkbenchReporter reporter) {
+		if (edit != null) {
+			edit.dispose();
+		}
+	}	
 }
