@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.12 $ $Date: 2005/08/24 20:39:06 $
+ * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.13 $ $Date: 2006/02/15 18:43:38 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -304,7 +304,7 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		return getMethodProxy(method);
 	}
 	
-	IConstructorProxy getCompatibleConstructor(Class aClass, Class[] parmTypes) throws AmbiguousMethodException, NoSuchMethodException {
+	IConstructorProxy getCompatibleConstructor(Class aClass, Class[] parmTypes) throws AmbiguousMethodException, NoSuchMethodException, IllegalAccessException {
 		Constructor method = MethodHelper.findCompatibleConstructor(aClass, parmTypes);
 		return getConstructorProxy(method);
 	}

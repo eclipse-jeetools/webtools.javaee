@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.15 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.16 $  $Date: 2006/02/15 18:43:38 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -636,7 +636,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
-	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws NoSuchMethodException, AmbiguousMethodException {
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws NoSuchMethodException, AmbiguousMethodException, IllegalAccessException {
 		if (isInterface())
 			return null; // Interfaces don't have ctor's.
 
@@ -653,6 +653,8 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 					throw new NoSuchMethodException(e.getProxyLocalizedMessage());
 				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException"))) //$NON-NLS-1$
 					throw new AmbiguousMethodException(e.getProxyLocalizedMessage());
+				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.IllegalAccessException"))) //$NON-NLS-1$
+					throw new IllegalAccessException(e.getProxyLocalizedMessage());
 				ProxyPlugin.getPlugin().getLogger().log(e);
 				return null;
 			} finally {

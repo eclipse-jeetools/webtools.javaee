@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.initParser;
 /*
  *  $RCSfile: Constructor.java,v $
- *  $Revision: 1.4 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.5 $  $Date: 2006/02/15 18:43:38 $ 
  */
 
 
@@ -112,6 +112,8 @@ private void cacheCtor() throws Exception {
 		} catch (NoSuchMethodException e) {
 			throw new EvaluationException(e);
 		} catch (AmbiguousMethodException e) {
+			throw new EvaluationException(e);
+		} catch (IllegalAccessException e) {
 			throw new EvaluationException(e);
 		}
 	}

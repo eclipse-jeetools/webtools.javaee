@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.14 $ $Date: 2005/08/24 20:39:06 $
+ * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.15 $ $Date: 2006/02/15 18:43:38 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -389,7 +389,7 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
-	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws AmbiguousMethodException, NoSuchMethodException {
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws AmbiguousMethodException, NoSuchMethodException, IllegalAccessException {
 
 		Class[] argClasses = new Class[argumentTypes.length];
 		for (int i = 0; i < argumentTypes.length; i++) {

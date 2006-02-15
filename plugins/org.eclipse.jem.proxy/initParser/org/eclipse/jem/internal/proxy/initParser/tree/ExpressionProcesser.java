@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.21 $  $Date: 2005/08/24 20:39:07 $ 
+ *  $Revision: 1.22 $  $Date: 2006/02/15 18:43:38 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -2441,29 +2441,26 @@ public class ExpressionProcesser {
 			try {
 				// We need to pull in the arguments. They are stacked in reverse order.
 				Object value = null;	// The new instance.
-				if (argumentCount > 0) {
-					Object[]  args = new Object[argumentCount];
-					Class[] argTypes = new Class[argumentCount];
-					for (int i = argumentCount - 1; i >= 0; i--) {
-						args[i] = popExpression();
-						argTypes[i] = popExpressionType(false);
-					}
-					
-					// Now we need to find the appropriate constructor.
-					Constructor ctor;
-					ctor = MethodHelper.findCompatibleConstructor(type, argTypes);
-					if (traceOn) {
+				Object[]  args = new Object[argumentCount];
+				Class[] argTypes = new Class[argumentCount];
+				for (int i = argumentCount - 1; i >= 0; i--) {
+					args[i] = popExpression();
+					argTypes[i] = popExpressionType(false);
+				}
+				
+				// Now we need to find the appropriate constructor.
+				Constructor ctor;
+				ctor = MethodHelper.findCompatibleConstructor(type, argTypes);
+				if (traceOn) {
+					if (argumentCount == 0) {
+						// No args, just do default ctor.
+						System.out.print("Default ctor)"); //$NON-NLS-1$
+					} else {						
 						System.out.print(ctor);
 						System.out.print(')');
 					}
-					value = ctor.newInstance(args);
-				} else {
-					// No args, just do default ctor.
-					if (traceOn) {
-						System.out.print("Default ctor)"); //$NON-NLS-1$
-					}
-					value = type.newInstance();
 				}
+				value = ctor.newInstance(args);
 				
 				pushExpressionValue(value, type);
 			} catch (RuntimeException e) {

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanTypeProxy.java,v $
- *  $Revision: 1.8 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.9 $  $Date: 2006/02/15 18:43:38 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -30,10 +30,11 @@ public interface IBeanTypeProxy extends IBeanProxy, IProxyBeanType {
 	 * @return
 	 * @throws NoSuchMethodException
 	 * @throws AmbiguousMethodException
+	 * @throws IllegalAccessException 
 	 * 
 	 * @since 1.1.0
 	 */
-	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws AmbiguousMethodException, NoSuchMethodException;
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws AmbiguousMethodException, NoSuchMethodException, IllegalAccessException;
 	
 	/**
 	 * Find the most compatible public method, including inheritied. This means it will

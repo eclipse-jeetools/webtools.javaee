@@ -9,8 +9,8 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.common;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,10 +196,21 @@ nextMethod:	for (int i=0; i<size; i++) {
 		return ne;
 	}
 	
+
 	/**
-	 * Find the most compatible constructor for the given arguments.
+	 * Find the most compatible constructor for the class with the given arguments.
+	 * @param receiver class to get the constructor for
+	 * @param arguments array of argument types
+	 * @return the constructor
+	 * @throws NoSuchMethodException no compatible constructor can be found
+	 * @throws AmbiguousMethodException there is more than one compatible constructor
+	 * @throws IllegalAccessException it can't be accessed. Such as it is a non-static inner class.
+	 * 
+	 * @since 1.2.0
 	 */
-	public static Constructor findCompatibleConstructor(Class receiver, Class[] arguments) throws NoSuchMethodException, AmbiguousMethodException {
+	public static Constructor findCompatibleConstructor(Class receiver, Class[] arguments) throws NoSuchMethodException, AmbiguousMethodException, IllegalAccessException {
+		if (receiver.getDeclaringClass() != null && !Modifier.isStatic(receiver.getModifiers()))
+			throw new IllegalAccessException(MessageFormat.format(Messages.getString("MethodHelper.NONSTATICINNERCLASS_WARNING"), new Object[] {receiver.getName()})); //$NON-NLS-1$
 		try {
 			java.lang.reflect.Constructor ctor = receiver.getDeclaredConstructor(arguments);
 			ctor.setAccessible(true);	// We allow all access, let ide and compiler handle security.
