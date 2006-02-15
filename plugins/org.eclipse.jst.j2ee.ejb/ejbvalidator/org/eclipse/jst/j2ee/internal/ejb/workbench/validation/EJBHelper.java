@@ -97,6 +97,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	private static final JavaClass[] EMPTY_ARRAY_JAVACLASS = new JavaClass[0];
 	private static LogEntry logEntry;
 	private static Logger logger;
+	private ArtifactEdit edit = null;
 
 	public EJBHelper() {
 		super();
@@ -169,6 +170,9 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		}
 		_dependentJavaProjects = null;
 		_javaProject = null;
+		if (edit != null) {
+			edit.dispose();
+		}
 	}
 
 	/**
@@ -552,20 +556,18 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 */
 	public EObject loadEjbModel() {
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
-			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
 				Archive archive = ((EJBArtifactEdit) edit).asArchive(false);
 				return ((EJBJarFileImpl)archive).getDeploymentDescriptor();
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
-			}finally {
-				if (edit != null) {
-					edit.dispose();
-				}
 			}
 		return null;		
 	}
+	
+
 
 	/**
 	 * Return a Boolean.TRUE if at least one of the EARs that contain this EJB module also contains
