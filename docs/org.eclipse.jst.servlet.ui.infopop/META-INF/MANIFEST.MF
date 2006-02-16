@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.jst.j2ee.doc.user; singleton:=true
+Bundle-SymbolicName: org.eclipse.jst.servlet.ui.infopop; singleton:=true
 Bundle-Version: 1.0.1.qualifier
 Bundle-Vendor: %pluginProvider
 Bundle-Localization: plugin
-Eclipse-LazyStart: true
+Eclipse-AutoStart: true
