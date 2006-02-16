@@ -40,8 +40,9 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.rewrite.ImportRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
-import org.eclipse.jdt.internal.corext.codemanipulation.ImportsStructure;
+import org.eclipse.jdt.internal.corext.codemanipulation.StubUtility;
 import org.eclipse.jdt.internal.corext.util.CodeFormatterUtil;
 import org.eclipse.jdt.internal.corext.util.JavaModelUtil;
 import org.eclipse.jdt.internal.ui.preferences.JavaPreferencesSettings;
@@ -343,17 +344,17 @@ public class EjbBuilder {
 			// add imports for superclass/interfaces, so types can be resolved correctly
 			ICompilationUnit cu= createdType.getCompilationUnit();	
 			boolean needsSave= !cu.isWorkingCopy();
-			imports.create(needsSave, new SubProgressMonitor(monitor, 1));
+			imports.create(cu,true);
 	
 			JavaModelUtil.reconcile(cu);
 		
 			createTypeMembers(createdType, imports, new SubProgressMonitor(monitor, 1));
 	
 			// add imports
-			imports.create(needsSave, new SubProgressMonitor(monitor, 1));
+			imports.create(cu,true);
 			
 			if (removeUnused(cu, imports)) {
-				imports.create(needsSave, null);
+				imports.create(cu,true);
 			}
 			
 			JavaModelUtil.reconcile(cu);
@@ -434,7 +435,7 @@ public class EjbBuilder {
 	
 	public static class ImportsManager {
 
-		private ImportsStructure fImportsStructure;
+		private ImportRewrite fImportsStructure;
 		private HashSet fAddedTypes;
 
 		/* package */ ImportsManager(ICompilationUnit createdWorkingCopy) throws CoreException {
@@ -443,10 +444,10 @@ public class EjbBuilder {
 			int threshold= JavaPreferencesSettings.getImportNumberThreshold(createdWorkingCopy.getPrimaryElement().getJavaProject());			
 			fAddedTypes= new HashSet();
 			
-			fImportsStructure= new ImportsStructure(createdWorkingCopy, prefOrder, threshold, true);
+			fImportsStructure= StubUtility.createImportRewrite(createdWorkingCopy, true);
 		}
 
-		/* package */ ImportsStructure getImportsStructure() {
+		/* package */ ImportRewrite getImportsStructure() {
 			return fImportsStructure;
 		}
 				
@@ -465,8 +466,8 @@ public class EjbBuilder {
 			return fImportsStructure.addImport(qualifiedTypeName);
 		}
 		
-		/* package */ void create(boolean needsSave, SubProgressMonitor monitor) throws CoreException {
-			fImportsStructure.create(needsSave, monitor);
+		/* package */ void create(ICompilationUnit cu, boolean toRestore) throws CoreException {
+			fImportsStructure.create(cu, toRestore);
 		}
 		
 		/* package */ void removeImport(String qualifiedName) {
