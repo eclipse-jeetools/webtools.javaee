@@ -11,22 +11,19 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.12 $  $Date: 2005/08/24 20:58:54 $ 
+ *  $Revision: 1.13 $  $Date: 2006/02/17 18:30:55 $ 
  */
 
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.*;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
@@ -494,14 +491,15 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 			assertEquals(2+objFeatures, test1ClassA.getAllProperties().size());
 		} finally {
 			// Need to close and reopen the project so that to restore the correct shape for test1Class for other tests.
-			final IProject project = nature.getProject();
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			final IProject project = nature.getProject();
+			ISchedulingRule projectRule = workspace.getRuleFactory().modifyRule(project);
 			workspace.run(new IWorkspaceRunnable () {
 				public void run(IProgressMonitor monitor) throws CoreException {
 					project.close(monitor);
 					project.open(monitor);
 				}
-			}, project, 0, null);
+			}, projectRule, 0, null);
 		}
 	}
 	
@@ -520,12 +518,13 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 			// Need to close and reopen the project so that to restore the correct shape for test1Class for other tests.
 			final IProject project = nature.getProject();
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			ISchedulingRule projectRule = workspace.getRuleFactory().modifyRule(project);
 			workspace.run(new IWorkspaceRunnable () {
 				public void run(IProgressMonitor monitor) throws CoreException {
 					project.close(monitor);
 					project.open(monitor);
 				}
-			}, project, 0, null);
+			}, projectRule, 0, null);
 		}
 	}
 	
