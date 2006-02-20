@@ -72,9 +72,8 @@
          </enablement>
       </actionProvider>
       <actionProvider
-            	class="org.eclipse.ui.navigator.resources.internal.actions.NewActionProvider"
-            	id="org.eclipse.jst.j2ee.navigator.ui.NewActionsJ2EE"
-            	dependsOn="org.eclipse.ui.navigator.resources.NewActions"> 
+            	class="org.eclipse.jst.j2ee.navigator.internal.J2EENewActionProvider"
+            	id="org.eclipse.jst.j2ee.navigator.ui.NewActionsJ2EE">
         	<enablement>
 				<or>
                		<instanceof value="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider"/>
@@ -464,7 +463,7 @@
         <includes>
            <contentExtension pattern="org.eclipse.jst.navigator.j2ee.ui.J2EEContent"/>
         </includes>
-      </viewerContentBinding>	
+      </viewerContentBinding>
    </extension>
    
   <extension 

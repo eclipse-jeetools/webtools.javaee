@@ -33,5 +33,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.common.project.facet.core,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,
- org.eclipse.wst.common.emf
+ org.eclipse.wst.common.emf,
+ org.eclipse.wst.common.explorer
 Eclipse-AutoStart: true
