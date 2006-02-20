@@ -237,41 +237,83 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
 	}
 
+    /**
+     * This method will handle a number of J2EE related scenarios.  If this is an ear and a child module is passed in,
+     * the URI for that child module will be returned.  If no child module was passed, the URI of the EAR is returned.
+     * If this is a child component and the module passed in is the EAR, we grab the module uri for this compared to that
+     * EAR.  If no ear module is passed in we look for one and use it and return URI relative to found EAR.  If no EAR's 
+     * are found the URI is returned in a default manner.
+     * 
+     * @return URI string
+     */
     public String getURI(IModule module) {
-    	IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(component.getProject());
-    	List uriList = new ArrayList();
-    	String aURI = null;
+    	// If the component is an ear and the module passed in is a child module
+    	if (component!=null && module!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
+ 			return getContainedURI(module);
+
     	IVirtualComponent ear = null;
-    	if (earProjects.length>0) {
-	    	for (int i=0; i<earProjects.length; i++) {
-	    		ear = ComponentCore.createComponent(earProjects[i]);
-	    		if (ear != null && component != null) {
-		    		EARArtifactEdit earEdit = null;
-					try {
-						earEdit = EARArtifactEdit.getEARArtifactEditForRead(ear);
-						if (earEdit != null) {
-							aURI = earEdit.getModuleURI(component);
-							if (aURI != null)
-								uriList.add(aURI);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					} finally {
-						if (earEdit != null)
-							earEdit.dispose();
-					}
-	    		}
-	    	}
-    	} else if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
+    	String aURI = null;
+    	// If the component is a child module and the module passed in is the ear
+    	if (module != null && J2EEProjectUtilities.isEARProject(module.getProject()))
+    		ear = ComponentCore.createComponent(module.getProject());
+    	// else if the component is a child module and the module passed in is null or bogus, search for first ear
+    	else {
+    		if (component != null) {
+	    		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(component.getProject());
+	        	if (earProjects.length>0)
+	        		ear = ComponentCore.createComponent(earProjects[0]);
+    		}
+    	}
+    	// We have a valid ear and the component is a valid child
+    	if (ear != null && component != null) {
+    		EARArtifactEdit earEdit = null;
+			try {
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(ear);
+				if (earEdit != null)
+					aURI = earEdit.getModuleURI(component);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (earEdit != null)
+					earEdit.dispose();
+			}
+    	} 
+    	// We have an ear component and no child module
+    	else if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
 			aURI = component.getDeployedName()+IJ2EEModuleConstants.EAR_EXT;
-    	} else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+    	} 
+    	// We have child components but could not find valid ears
+    	else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.WAR_EXT;
-    	} else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
+    	} 
+    	else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.JAR_EXT;
-    	} else if (component!=null && J2EEProjectUtilities.isJCAProject(component.getProject())) {
+    	} 
+    	else if (component!=null && J2EEProjectUtilities.isJCAProject(component.getProject())) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.RAR_EXT;
     	}
     	
+    	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
+    		aURI = aURI.substring(1);
+    	return aURI;
+	}
+    
+    private String getContainedURI(IModule module) {
+    	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
+    	String aURI = null;
+    	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
+			EARArtifactEdit earEdit = null;
+			try {
+				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
+				if (earEdit != null)
+					aURI = earEdit.getModuleURI(comp);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (earEdit != null)
+					earEdit.dispose();
+			}
+    	}
     	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
     		aURI = aURI.substring(1);
     	return aURI;
