@@ -63,23 +63,14 @@
       </commonSorter>   
       <actionProvider
             class="org.eclipse.jst.j2ee.navigator.internal.J2EEActionProvider"
-            id="org.eclipse.jst.j2ee.navigator.ui.J2EEActionProvider"
-            dependsOn="org.eclipse.ui.navigator.resources.OpenActions">
+            id="org.eclipse.jst.j2ee.navigator.ui.J2EEActionProvider">
          <enablement>
          	<or>
-         	  <instanceof value="org.eclipse.emf.ecore.EObject" />   
+         	  <instanceof value="org.eclipse.emf.ecore.EObject" /> 
+         	  <instanceof value="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider"/>  
             </or>
          </enablement>
       </actionProvider>
-      <actionProvider
-            	class="org.eclipse.jst.j2ee.navigator.internal.J2EENewActionProvider"
-            	id="org.eclipse.jst.j2ee.navigator.ui.NewActionsJ2EE">
-        	<enablement>
-				<or>
-               		<instanceof value="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider"/>
-				</or>
-	         </enablement>
-	  </actionProvider> -->
       </navigatorContent>
       <!-- EJB New -->
       <commonWizard
