@@ -65,5 +65,6 @@ Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.wst.common.project.facet.ui,
  org.eclipse.jst.server.core,
  org.eclipse.wst.web.ui,
- org.eclipse.ui.navigator.resources
+ org.eclipse.ui.navigator.resources,
+ com.ibm.icu
 Eclipse-AutoStart: true

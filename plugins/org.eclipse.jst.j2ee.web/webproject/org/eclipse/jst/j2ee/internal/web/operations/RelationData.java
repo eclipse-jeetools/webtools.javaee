@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.StringTokenizer;
+import com.ibm.icu.util.StringTokenizer;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;

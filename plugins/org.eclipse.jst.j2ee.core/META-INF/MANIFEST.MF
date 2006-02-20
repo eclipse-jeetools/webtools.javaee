@@ -67,12 +67,13 @@ Export-Package: .,
  org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.impl,
  org.eclipse.jst.j2ee.webservice.jaxrpcmap.internal.util,
  org.eclipse.jst.j2ee.webservice.jaxrpcmap
-Require-Bundle:  org.eclipse.jem,
+Require-Bundle: org.eclipse.jem,
  org.eclipse.emf.common,
  org.eclipse.wst.common.frameworks,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.wst.common.emf,
  org.eclipse.core.runtime,
  org.eclipse.wst.validation,
- org.eclipse.jem.util
+ org.eclipse.jem.util,
+ com.ibm.icu
 Eclipse-AutoStart: true

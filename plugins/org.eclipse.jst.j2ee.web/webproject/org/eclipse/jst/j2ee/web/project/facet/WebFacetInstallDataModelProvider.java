@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.web.project.facet;
 
 import java.util.Set;
-import java.util.StringTokenizer;
+import com.ibm.icu.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
@@ -39,9 +39,9 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
-			return "WebContent";
+			return "WebContent"; //$NON-NLS-1$
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
-			return "src";
+			return "src"; //$NON-NLS-1$
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getProperty(FACET_PROJECT_NAME);
 		} else if (propertyName.equals(FACET_ID)) {

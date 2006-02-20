@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
+import com.ibm.icu.util.StringTokenizer;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;

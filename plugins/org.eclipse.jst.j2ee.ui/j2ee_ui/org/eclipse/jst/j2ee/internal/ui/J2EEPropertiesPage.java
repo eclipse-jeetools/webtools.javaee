@@ -1,12 +1,6 @@
 package org.eclipse.jst.j2ee.internal.ui;
-/*
- * Licensed Material - Property of IBM (C) Copyright IBM Corp. 2002 - All
- * Rights Reserved. US Government Users Restricted Rights - Use, duplication or
- * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
- */
 import java.lang.reflect.InvocationTargetException;
-import java.util.StringTokenizer;
-
+import com.ibm.icu.util.StringTokenizer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.logger.proxy.Logger;

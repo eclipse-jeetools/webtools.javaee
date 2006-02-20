@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.StringTokenizer;
+import com.ibm.icu.util.StringTokenizer;
 import java.util.jar.Attributes;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
