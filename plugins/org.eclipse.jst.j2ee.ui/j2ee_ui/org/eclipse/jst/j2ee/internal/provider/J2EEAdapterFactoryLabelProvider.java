@@ -68,7 +68,7 @@ public class J2EEAdapterFactoryLabelProvider extends AdapterFactoryLabelProvider
 		} else if (object instanceof AbstractMethodsContentProvider.EJBMethodItem)
 			return super.getText(((AbstractMethodsContentProvider.EJBMethodItem) object).ejb);
 		else if (object instanceof IFile) {
-			return ((IFile) object).getProjectRelativePath().toString();
+			return ((IFile) object).getName();
 		}
 		return wbLabelProvider.getText(object);
 	}
