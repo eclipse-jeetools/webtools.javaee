@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoEntry.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.7 $  $Date: 2006/02/21 17:16:29 $ 
  */
 
 import java.util.ArrayList;
@@ -144,7 +144,7 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 				// Kludge This should only be a plugin type if from configuration element. So we will cast to that
 				// and get the plugin id to create an absolute plugin path.
 				if (element instanceof IConfigurationElement) {
-					pluginPath = new Path('/'+((IConfigurationElement) element).getDeclaringExtension().getNamespace()).append(path);
+					pluginPath = new Path('/'+((IConfigurationElement) element).getDeclaringExtension().getContributor().getName()).append(path);
 				} else
 					return null;	// Not valid because can't have plugin from .beaninfoconfig file.
 			}

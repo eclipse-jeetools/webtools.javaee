@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyFindSupport.java,v $
- *  $Revision: 1.3 $  $Date: 2005/12/14 21:22:50 $ 
+ *  $Revision: 1.4 $  $Date: 2006/02/21 17:16:44 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -19,8 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.*;
 import org.osgi.framework.Bundle;
  
 
@@ -95,7 +94,7 @@ public class ProxyFindSupport {
 		try {
 			URL pvm = bundle.getEntry(filenameWithinBundle);
 			if (pvm != null)
-				return asLocal ? Platform.asLocalURL(pvm) : pvm;
+				return asLocal ? FileLocator.toFileURL(pvm) : pvm;
 		} catch (IOException e) {
 		}
 		if (ProxyPlugin.getPlugin().isDevMode()) {
@@ -123,9 +122,9 @@ public class ProxyFindSupport {
 	 */
 	public static URL platformFind(Bundle bundle, IPath filenameWithinBundle, boolean asLocal) {
 		try {
-			URL pvm = Platform.find(bundle, filenameWithinBundle);
+			URL pvm = FileLocator.find(bundle, filenameWithinBundle, null);
 			if (pvm != null)
-				return asLocal ? Platform.asLocalURL(pvm) : pvm;
+				return asLocal ? FileLocator.toFileURL(pvm) : pvm;
 		} catch (IOException e) {
 		}
 		if (ProxyPlugin.getPlugin().isDevMode()) {
@@ -156,7 +155,7 @@ public class ProxyFindSupport {
 					if (pathString != null) {
 						URL pvm = bundle.getEntry(pathString);
 						if (pvm != null)
-							return asLocal ? Platform.asLocalURL(pvm) : pvm;
+							return asLocal ? FileLocator.toFileURL(pvm) : pvm;
 					}
 				} finally {
 					if (ios != null)
@@ -176,7 +175,7 @@ public class ProxyFindSupport {
 					props.load(ios);
 					String pathString = props.getProperty(filenameWithinBundle.toString());
 					if (pathString != null) {
-						URL url = Platform.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace. //$NON-NLS-1$
+						URL url = FileLocator.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace. //$NON-NLS-1$
 						if (url.getProtocol().equals("file")) { //$NON-NLS-1$
 							File file = new File(url.getFile()).getParentFile();	// This gets us to workspace root of development workspace.
 							file = new File(file, pathString);

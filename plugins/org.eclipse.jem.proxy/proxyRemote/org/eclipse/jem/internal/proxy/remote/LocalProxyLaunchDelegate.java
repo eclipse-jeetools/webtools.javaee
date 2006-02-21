@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.32 $ $Date: 2005/12/14 21:23:46 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.33 $ $Date: 2006/02/21 17:16:44 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -125,7 +125,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			for (int i = 0; i < contributors.length; i++) {
 				// Run in safe mode so that anything happens we don't go away.
 				final int ii = i;
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// Don't need to do anything. Platform.run logs it for me.
 					}

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.17 $  $Date: 2005/12/14 21:24:10 $ 
+ *  $Revision: 1.18 $  $Date: 2006/02/21 17:16:42 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -164,7 +164,7 @@ public class BeaninfoPathsBlock {
 	
 	private Image getBeaninfosTabImage(){
 		if(beaninfosTabImage==null){
-			URL imageURL = Platform.find(JEMUIPlugin.getPlugin().getBundle(), new Path("icons/javabean.gif")); //$NON-NLS-1$
+			URL imageURL = FileLocator.find(JEMUIPlugin.getPlugin().getBundle(), new Path("icons/javabean.gif"), null); //$NON-NLS-1$
 			if (imageURL != null) 
 				beaninfosTabImage = ImageDescriptor.createFromURL(imageURL).createImage();
 			else

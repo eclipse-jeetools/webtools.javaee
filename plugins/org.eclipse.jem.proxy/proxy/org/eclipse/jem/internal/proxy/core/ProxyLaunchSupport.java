@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.30 $  $Date: 2005/10/26 14:24:51 $ 
+ *  $Revision: 1.31 $  $Date: 2006/02/21 17:16:44 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -436,7 +436,7 @@ public class ProxyLaunchSupport {
 				// First run the initialize.
 				// Run in safe mode so that anything happens we don't go away.
 				final int ii = i;
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// Don't need to do anything. Platform.run logs it for me.
 					}
@@ -448,7 +448,7 @@ public class ProxyLaunchSupport {
 
 				// Now run the contribute to configuration.
 				// Run in safe mode so that anything happens we don't go away.
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// Don't need to do anything. Platform.run logs it for me.
 					}
@@ -477,7 +477,7 @@ public class ProxyLaunchSupport {
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
 				// Run in safe mode so that anything happens we don't go away.
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// Don't need to do anything. Platform.run logs it for me.
 					}
@@ -636,7 +636,7 @@ public class ProxyLaunchSupport {
 						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {
 							try {
 								final IExtensionRegistration contributor = (IExtensionRegistration) contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
-								Platform.run(new ISafeRunnable() {
+								SafeRunner.run(new ISafeRunnable() {
 								
 									public void run() throws Exception {
 										contributor.register(baseRegistry);
@@ -663,7 +663,7 @@ public class ProxyLaunchSupport {
 						if (registryID.equals(contributors[i].getAttributeAsIs(ProxyPlugin.PI_REGISTRY_TYPE))) {
 							try {
 								final IExtensionRegistration contributor = (IExtensionRegistration) contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
-								Platform.run(new ISafeRunnable() {
+								SafeRunner.run(new ISafeRunnable() {
 								
 									public void run() throws Exception {
 										contributor.register(baseRegistry);

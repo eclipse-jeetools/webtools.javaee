@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.ui;
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.15 $  $Date: 2005/12/02 16:20:07 $ 
+ *  $Revision: 1.16 $  $Date: 2006/02/21 17:16:42 $ 
  */
 
 import java.net.URL;
@@ -101,25 +101,25 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		JavaElementImageDescriptor jed = new JavaElementImageDescriptor(jdtSharedImages.getImageDescriptor(ISharedImages.IMG_OBJS_LIBRARY),  JavaElementImageDescriptor.WARNING, s);
 		fMissingLibraryImage = jed.createImage();
 		Bundle bundle = JEMUIPlugin.getPlugin().getBundle();
-		URL url = Platform.find(bundle, new Path("icons/plugin_obj.gif")); //$NON-NLS-1$
+		URL url = FileLocator.find(bundle, new Path("icons/plugin_obj.gif"), null); //$NON-NLS-1$
 		if (url != null)
 			fPluginImage = ImageDescriptor.createFromURL(url).createImage();
 		else
 			fPluginImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 
-		url = Platform.find(bundle, new Path("icons/javabean.gif")); //$NON-NLS-1$
+		url = FileLocator.find(bundle, new Path("icons/javabean.gif"), null); //$NON-NLS-1$
 		if (url != null)
 			fBeanImage = ImageDescriptor.createFromURL(url).createImage();
 		else
 			fBeanImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 
-		url = Platform.find(bundle, new Path("icons/package_obj_missing.gif")); //$NON-NLS-1$
+		url = FileLocator.find(bundle, new Path("icons/package_obj_missing.gif"), null); //$NON-NLS-1$
 		if (url != null)
 			fMissingPackageImage = ImageDescriptor.createFromURL(url).createImage();
 		else
 			fMissingPackageImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 
-		url = Platform.find(bundle, new Path("icons/blank.gif")); //$NON-NLS-1$
+		url = FileLocator.find(bundle, new Path("icons/blank.gif"), null); //$NON-NLS-1$
 		if (url != null)
 			fBlankImage = ImageDescriptor.createFromURL(url).createImage();
 		else

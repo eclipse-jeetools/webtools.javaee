@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.11 $  $Date: 2005/08/24 20:39:06 $ 
+ *  $Revision: 1.12 $  $Date: 2006/02/21 17:16:44 $ 
  */
 
 import java.net.URL;
@@ -85,7 +85,7 @@ public class IDERegistration {
 		for (int i = 0; i < contributors.length; i++) {
 			final int ii = i;
 			// Run in safe mode so that anything happens we don't go away.
-			Platform.run(new ISafeRunnable() {
+			SafeRunner.run(new ISafeRunnable() {
 				public void handleException(Throwable exception) {
 					// Don't need to do anything. Platform.run logs it for me.
 				}
@@ -98,7 +98,7 @@ public class IDERegistration {
 		for (int i = 0; i < contributors.length; i++) {
 			final int ii = i;
 			// Run in safe mode so that anything happens we don't go away.
-			Platform.run(new ISafeRunnable() {
+			SafeRunner.run(new ISafeRunnable() {
 				public void handleException(Throwable exception) {
 					// Don't need to do anything. Platform.run logs it for me.
 				}
@@ -115,7 +115,7 @@ public class IDERegistration {
 		for (int i = 0; i < contribs.length; i++) {
 			final int ii = i;
 			// Run in safe mode so that anything happens we don't go away.
-			Platform.run(new ISafeRunnable() {
+			SafeRunner.run(new ISafeRunnable() {
 				public void handleException(Throwable exception) {
 					// Don't need to do anything. Platform.run logs it for me.
 				}

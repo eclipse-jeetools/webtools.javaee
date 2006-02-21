@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.20 $  $Date: 2005/12/14 21:21:02 $ 
+ *  $Revision: 1.21 $  $Date: 2006/02/21 17:16:29 $ 
  */
 
 
@@ -329,7 +329,7 @@ public class BeaninfoPlugin extends Plugin {
 			if (pathString.charAt(pathString.length()-1) != '/')
 				pathString += '/';
 			if (pathString.charAt(0) != '/')
-				plugin = entry.getDeclaringExtension().getNamespace();
+				plugin = entry.getDeclaringExtension().getContributor().getName();
 			else {
 				if (pathString.length() > 4) {
 					int pend = pathString.indexOf('/', 1);
@@ -651,7 +651,7 @@ public class BeaninfoPlugin extends Plugin {
 				Map.Entry mapEntry = (Map.Entry) iter.next();
 				final IClasspathContainer container = (IClasspathContainer) mapEntry.getKey();
 				if (container instanceof IBeanInfoContributor && ((Boolean) mapEntry.getValue()).booleanValue()) {
-					Platform.run(new ISafeRunnable() {
+					SafeRunner.run(new ISafeRunnable() {
 						public void handleException(Throwable exception) {
 							// Standard run logs to .log
 						}
@@ -665,7 +665,7 @@ public class BeaninfoPlugin extends Plugin {
 			// Run through the explicit contributors.
 			for (int i=0; i<explicitContributors.length; i++) {
 				final int ii = i;
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// Standard run logs to .log
 					}

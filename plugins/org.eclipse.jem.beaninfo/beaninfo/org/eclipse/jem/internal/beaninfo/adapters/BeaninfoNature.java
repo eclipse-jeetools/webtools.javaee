@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.40 $  $Date: 2006/01/13 00:11:44 $ 
+ *  $Revision: 1.41 $  $Date: 2006/02/21 17:16:29 $ 
  */
 
 import java.io.*;
@@ -821,7 +821,7 @@ public class BeaninfoNature implements IProjectNature {
 				final IBeanInfoContributor contributor = explicitContributors[i];
 				processBeaninfoEntries(contributor.getBeanInfoEntryContributions(info), controller, info.getJavaProject());
 				if (contributor instanceof IConfigurationContributor) {
-					Platform.run(new ISafeRunnable() {
+					SafeRunner.run(new ISafeRunnable() {
 						public void handleException(Throwable exception) {
 							// do nothing. by default platform logs.
 						}
@@ -946,7 +946,7 @@ public class BeaninfoNature implements IProjectNature {
 		public void contributeToConfiguration(final ILaunchConfigurationWorkingCopy config) {
 			for (int i = 0; i < explicitContributors.length; i++) {
 				final int ii = i;
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// do nothing. by default platform logs.
 					}
@@ -965,7 +965,7 @@ public class BeaninfoNature implements IProjectNature {
 				nature.setProxySearchPath(registry, computedSearchPath);
 			for (int i = 0; i < explicitContributors.length; i++) {
 				final int ii = i;
-				Platform.run(new ISafeRunnable() {
+				SafeRunner.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
 						// do nothing. by default platform logs.
 					}

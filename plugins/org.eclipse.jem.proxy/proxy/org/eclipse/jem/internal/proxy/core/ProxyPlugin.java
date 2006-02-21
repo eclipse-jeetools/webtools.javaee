@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.58 $  $Date: 2005/12/14 21:22:50 $ 
+ *  $Revision: 1.59 $  $Date: 2006/02/21 17:16:44 $ 
  */
 
 
@@ -191,9 +191,9 @@ public class ProxyPlugin extends Plugin {
 	}
 	public URL urlLocalizeFromBundleAndFragments(Bundle bundle, IPath filenameWithinBundle) {
 		try {
-			URL pvm = Platform.find(bundle, filenameWithinBundle);
+			URL pvm = FileLocator.find(bundle, filenameWithinBundle, null);
 			if (pvm != null)
-				return Platform.asLocalURL(pvm);
+				return FileLocator.toFileURL(pvm);
 		} catch (IOException e) {
 		}
 		if (devMode) {
@@ -271,7 +271,7 @@ public class ProxyPlugin extends Plugin {
 			return urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
 		try {
 			URL pvm = new URL(bundle.getEntry("/"), filenameWithinBundle); //$NON-NLS-1$
-			pvm = verifyFound(Platform.asLocalURL(pvm));
+			pvm = verifyFound(FileLocator.toFileURL(pvm));
 			if (pvm != null)
 				return pvm;
 		} catch (IOException e) {
@@ -284,7 +284,7 @@ public class ProxyPlugin extends Plugin {
 		try {
 			URL pvm = bundle.getEntry(filenameWithinBundle);
 			if (pvm != null)
-				return Platform.asLocalURL(pvm);
+				return FileLocator.toFileURL(pvm);
 		} catch (IOException e) {
 		}
 		return findDev(bundle, filenameWithinBundle);		
@@ -342,7 +342,7 @@ public class ProxyPlugin extends Plugin {
 						props.load(ios);
 						String pathString = props.getProperty(filenameWithinBundle.toString());
 						if (pathString != null) {
-							URL url = Platform.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace. //$NON-NLS-1$
+							URL url = FileLocator.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace. //$NON-NLS-1$
 							if (url.getProtocol().equals("file")) { //$NON-NLS-1$
 								File file = new File(url.getFile()).getParentFile();	// This gets us to workspace root of development workspace.
 								file = new File(file, pathString);
@@ -421,7 +421,7 @@ public class ProxyPlugin extends Plugin {
 	public URL[] urlLocalizeBundle(Bundle bundle) {
 		URL[] pvms;
 		try {
-			pvms = new URL[] {Platform.resolve(bundle.getEntry("/"))}; //$NON-NLS-1$
+			pvms = new URL[] {FileLocator.resolve(bundle.getEntry("/"))}; //$NON-NLS-1$
 			if (pvms[0].getProtocol().equals("jar")) { //$NON-NLS-1$
 				// The bundle is a jar, so use as is. 
 				pvms[0] = getFilePath(pvms[0]);
@@ -441,7 +441,7 @@ public class ProxyPlugin extends Plugin {
 					try {
 						URL pvm = bundle.getEntry(elements[i].getValue());
 						if (pvm != null) {
-							urls.add(Platform.asLocalURL(pvm));
+							urls.add(FileLocator.toFileURL(pvm));
 							continue;
 						}
 					} catch (IOException e) {
@@ -468,7 +468,7 @@ public class ProxyPlugin extends Plugin {
 						String pathString = buildProps.getProperty("output."+elements[i].getValue()); //$NON-NLS-1$
 						if (pathString != null) {
 							try {
-								urls.add(Platform.asLocalURL(bundle.getEntry(pathString)));
+								urls.add(FileLocator.toFileURL(bundle.getEntry(pathString)));
 							} catch (IOException e) {
 							}
 						}
@@ -489,10 +489,10 @@ public class ProxyPlugin extends Plugin {
 							props.load(ios);
 							String pathString = props.getProperty("output.."); //$NON-NLS-1$
 							if (pathString != null) {
-								return new URL[] {Platform.resolve(bundle.getEntry(pathString))};
+								return new URL[] {FileLocator.resolve(bundle.getEntry(pathString))};
 							} else if ((pathString = props.getProperty("source..")) != null) { //$NON-NLS-1$
 								// Probably a class folder, so use the source instead.
-								return new URL[] {Platform.resolve(bundle.getEntry(pathString))};
+								return new URL[] {FileLocator.resolve(bundle.getEntry(pathString))};
 							} else
 								return pvms;	// Try the root of the plugin.
 						} finally {
@@ -968,7 +968,7 @@ public class ProxyPlugin extends Plugin {
 			// reverses the leaf order, hopefully this will set it back to what we want at the end.
 			HashMap bundlesToExtensions = new LinkedHashMap(extensions.length);
 			for (int i = extensions.length-1; i >= 0; i--) {
-				Bundle bundle = Platform.getBundle(extensions[i].getNamespace());
+				Bundle bundle = Platform.getBundle(extensions[i].getContributor().getName());
 				IExtension[] ext = (IExtension[]) bundlesToExtensions.get(bundle);
 				if (ext == null)
 					bundlesToExtensions.put(bundle, new IExtension[] { extensions[i]});
@@ -1316,7 +1316,7 @@ public class ProxyPlugin extends Plugin {
 		// This is assuming that find returns a url where the file part of the url is a standard path and doesn't have
 		// things like special chars to indicate within a jar. That would appear when it is resolved, but I think that the
 		// unresolved ones from find are typically "jarbundle://nnn/path" or something like that. This is a gray area.
-		URL jarURL = Platform.find(bundle, filepath);
+		URL jarURL = FileLocator.find(bundle, filepath, null);
 		if (jarURL == null)
 			return new URL[2];
 		
@@ -1360,8 +1360,8 @@ public class ProxyPlugin extends Plugin {
 		IConfigurationElement[] ces = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.pde.core.source"); //$NON-NLS-1$
 		for (int i = 0; i < ces.length; i++) {
 			IPath srcsrch = new Path(ces[i].getAttributeAsIs("path")).append(srcPath); //$NON-NLS-1$
-			Bundle srcBundle = Platform.getBundle(ces[i].getDeclaringExtension().getNamespace());
-			URL srcUrl = Platform.find(srcBundle, srcsrch);
+			Bundle srcBundle = Platform.getBundle(ces[i].getDeclaringExtension().getContributor().getName());
+			URL srcUrl = FileLocator.find(srcBundle, srcsrch, null);
 			if (srcUrl != null) {
 				return srcUrl;
 			}
