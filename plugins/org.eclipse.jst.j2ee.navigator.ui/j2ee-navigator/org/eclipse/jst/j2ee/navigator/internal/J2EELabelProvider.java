@@ -18,14 +18,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.J2EEAdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
-import org.eclipse.ui.navigator.IExtensionStateModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 
 /**
@@ -224,7 +223,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 		return super.toString();
 	}
 
-	public void init(IExtensionStateModel aStateModel, ITreeContentProvider aContentProvider) {
+	public void init(ICommonContentExtensionSite aSite) {
 		initialize(IJ2EENavigatorConstants.VIEWER_ID);
 		
 	}

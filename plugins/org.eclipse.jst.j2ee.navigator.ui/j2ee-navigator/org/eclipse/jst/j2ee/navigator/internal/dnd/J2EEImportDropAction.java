@@ -15,7 +15,6 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
@@ -24,9 +23,8 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelPrope
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.ui.internal.navigator.dnd.IDropValidator;
-import org.eclipse.ui.internal.navigator.dnd.NavigatorDropActionDelegate;
-import org.eclipse.ui.navigator.ICommonDropAdapter;
+import org.eclipse.ui.navigator.CommonDropAdapter;
+import org.eclipse.ui.part.IDropActionDelegate;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
@@ -35,7 +33,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
  * @author jsholl
  *  
  */
-public class J2EEImportDropAction extends NavigatorDropActionDelegate implements IDropValidator {
+public class J2EEImportDropAction implements IDropActionDelegate {
 	private ArchiveOptions readOnlyArchiveOptions;
 
 	public J2EEImportDropAction() {
@@ -51,7 +49,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 		return false;
 	}
 
-	public boolean validateDrop(ICommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(CommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		if (FileTransfer.getInstance().isSupportedType(transferType)) {
 			String[] sourceNames = (String[]) FileTransfer.getInstance().nativeToJava(transferType);
 			if (sourceNames == null || sourceNames.length != 1) { //only handle one file for now
@@ -163,8 +161,9 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.dnd.NavigatorDropActionDelegate#run(org.eclipse.wst.common.navigator.internal.views.navigator.dnd.CommonNavigatorDropAdapter,
 	 *      java.lang.Object, java.lang.Object)
 	 */
-	public boolean run(ICommonDropAdapter dropAdapter, Object source, Object target) {
-		TransferData currentTransfer = dropAdapter.getCurrentTransfer();
+	public boolean run(Object source, Object target) {
+		//TODO fix up drag and drop transfer
+		TransferData currentTransfer = null; //dropAdapter.getCurrentTransfer();
 		if (FileTransfer.getInstance().isSupportedType(currentTransfer)) {
 			final String[] fileNames = (String[]) source;
 			final String fileName = fileNames[0];
@@ -237,8 +236,9 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			}
 
 			if (null != wizard) {
-				WizardDialog dialog = new WizardDialog(getShell(), wizard);
-				dialog.open();
+				//TODO fix up wizard for drag and drop
+//				WizardDialog dialog = new WizardDialog(getShell(), wizard);
+//				dialog.open();
 				return true;
 			}
 		}

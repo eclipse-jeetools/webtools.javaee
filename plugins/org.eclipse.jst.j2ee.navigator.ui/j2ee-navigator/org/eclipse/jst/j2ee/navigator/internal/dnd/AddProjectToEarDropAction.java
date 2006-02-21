@@ -16,10 +16,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.ui.internal.navigator.NavigatorPlugin;
-import org.eclipse.ui.internal.navigator.dnd.CommonNavigatorDropAdapter;
-import org.eclipse.ui.internal.navigator.dnd.IDropValidator;
-import org.eclipse.ui.internal.navigator.dnd.NavigatorDropActionDelegate;
+import org.eclipse.ui.navigator.CommonDropAdapter;
+import org.eclipse.ui.part.IDropActionDelegate;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 
@@ -27,13 +25,13 @@ import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
  * @author jsholl
  *  
  */
-public abstract class AddProjectToEarDropAction extends NavigatorDropActionDelegate implements IDropValidator {
+public abstract class AddProjectToEarDropAction implements IDropActionDelegate{
 
 	public AddProjectToEarDropAction() {
 		super();
 	}
 
-	public boolean validateDrop(CommonNavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(CommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		return false;
 		//TODO switch to components
 //		if (LocalSelectionTransfer.getInstance().isSupportedType(transferType) || PluginTransfer.getInstance().isSupportedType(transferType)) {
@@ -96,7 +94,7 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 		return false;
 	}
 
-	public boolean run(CommonNavigatorDropAdapter dropAdapter, Object source, Object target) {
+	public boolean run(CommonDropAdapter dropAdapter, Object source, Object target) {
 		return run(source, target);
 	}
 
@@ -113,7 +111,7 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 					IDataModel dataModel = getDataModel(earProject, projectToAdd);
 					dataModel.getDefaultOperation().execute(new NullProgressMonitor(),null);
 				} catch (Exception e) {
-					NavigatorPlugin.log(e.toString());
+					//NavigatorPlugin.log(e.toString());
 				} 
 			}
 		}

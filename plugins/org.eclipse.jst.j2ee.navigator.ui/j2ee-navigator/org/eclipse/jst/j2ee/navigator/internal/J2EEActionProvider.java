@@ -27,12 +27,12 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionContext;
+import org.eclipse.ui.internal.navigator.resources.plugin.WorkbenchNavigatorMessages;
 import org.eclipse.ui.navigator.CommonActionProvider;
-import org.eclipse.ui.navigator.CommonActionProviderConfig;
+import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.eclipse.ui.navigator.WizardActionGroup;
-import org.eclipse.ui.navigator.resources.internal.plugin.WorkbenchNavigatorMessages;
 
 public class J2EEActionProvider extends CommonActionProvider implements IDoubleClickListener {
 
@@ -55,7 +55,7 @@ public class J2EEActionProvider extends CommonActionProvider implements IDoubleC
 	 *      org.eclipse.jface.viewers.StructuredViewer,
 	 *      org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService)
 	 */
-	public void init(CommonActionProviderConfig aConfig) {
+	public void init(ICommonActionExtensionSite aConfig) {
 		if (aConfig.getViewSite() instanceof ICommonViewerWorkbenchSite) {
 			IWorkbenchWindow window = ((ICommonViewerWorkbenchSite) aConfig.getViewSite()).getWorkbenchWindow();
 			newWizardActionGroup = new WizardActionGroup(window, PlatformUI.getWorkbench().getNewWizardRegistry(),WizardActionGroup.TYPE_NEW);

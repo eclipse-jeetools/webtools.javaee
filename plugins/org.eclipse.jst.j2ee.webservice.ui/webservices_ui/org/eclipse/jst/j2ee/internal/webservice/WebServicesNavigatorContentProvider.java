@@ -40,8 +40,8 @@ import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonContentProvider;
-import org.eclipse.ui.navigator.IExtensionStateModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 
 /**
@@ -304,7 +304,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		
 	}
 
-	public void init(IExtensionStateModel aStateModel, IMemento aMemento) {
+	public void init(ICommonContentExtensionSite site) {
 		// TODO Auto-generated method stub
 		
 	}

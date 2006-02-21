@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.ui.internal.navigator.dnd.ISerializer;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 
 
@@ -21,7 +20,7 @@ import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
  * @author mdelder
  *  
  */
-public class ModuleIdentifierSerializer implements ISerializer {
+public class ModuleIdentifierSerializer {
 
 
 	/*

@@ -19,9 +19,8 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.internal.wizard.ServerTargetUIHelper;
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.ui.navigator.ICommonDropAdapter;
+import org.eclipse.ui.navigator.CommonDropAdapter;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -46,18 +45,18 @@ public class AddUtilityJarDropAction extends AddProjectToEarDropAction {
 	protected IDataModel getDataModel(IProject earProject, IProject projectToAdd) {
 		//TODO migrate to AddComponentToEnterpriseApplicationDataModelProvider
 		IDataModel dataModel = null;
-		boolean syncServerTarget = ServerTargetUIHelper.setModuleServerTargetIfNecessary(earProject, projectToAdd, getShell());
+		//boolean syncServerTarget = ServerTargetUIHelper.setModuleServerTargetIfNecessary(earProject, projectToAdd, getShell());
 //		dataModel = AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProject.getName(), projectToAdd);
 //		dataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, syncServerTarget);
 		return dataModel;
 	}
 
-	public boolean run(ICommonDropAdapter dropAdapter, Object source, Object target) {
+	public boolean run(CommonDropAdapter dropAdapter, Object source, Object target) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public boolean validateDrop(ICommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(CommonDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		// TODO Auto-generated method stub
 		return false;
 	}
