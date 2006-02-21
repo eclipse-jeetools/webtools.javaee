@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.modelListeners;
 /*
  *  $RCSfile: ListenersSuite.java,v $
- *  $Revision: 1.5 $  $Date: 2005/08/24 20:58:55 $ 
+ *  $Revision: 1.6 $  $Date: 2006/02/21 17:16:36 $ 
  */
 import java.net.URL;
 
@@ -66,8 +66,8 @@ public class ListenersSuite extends TestSetup {
 		oldAutoBuildingState = JavaProjectUtil.setAutoBuild(true);
 		URL installURL = JavaTestsPlugin.getPlugin().getBundle().getEntry("/");
 		String[] zipPaths = new String[2];
-		zipPaths[0] = Platform.asLocalURL(new URL(installURL, "testdata/testbeaninfo.zip")).getFile();
-		zipPaths[1] = Platform.asLocalURL(new URL(installURL, "testdata/testbeaninfopreq.zip")).getFile();
+		zipPaths[0] = FileLocator.toFileURL(new URL(installURL, "testdata/testbeaninfo.zip")).getFile();
+		zipPaths[1] = FileLocator.toFileURL(new URL(installURL, "testdata/testbeaninfopreq.zip")).getFile();
 		IProject[] projects =
 			JavaProjectUtil.importProjects(
 				new String[] { AbstractBeanInfoTestCase.TEST_BEANINFO_PROJECT, AbstractBeanInfoTestCase.TEST_BEANINFO_PREREQ_PROJECT },

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BasicSuite.java,v $
- *  $Revision: 1.1 $  $Date: 2005/10/14 20:57:30 $ 
+ *  $Revision: 1.2 $  $Date: 2006/02/21 17:16:36 $ 
  */
 package org.eclipse.jem.tests.basic;
 
@@ -70,7 +70,7 @@ public class BasicSuite extends TestSetup {
 		oldAutoBuildingState = JavaProjectUtil.setAutoBuild(true);
 		URL installURL = JavaTestsPlugin.getPlugin().getBundle().getEntry("/");
 		String[] zipPaths = new String[1];
-		zipPaths[0] = Platform.asLocalURL(new URL(installURL, "testdata/testbasic.zip")).getFile();
+		zipPaths[0] = FileLocator.toFileURL(new URL(installURL, "testdata/testbasic.zip")).getFile();
 		IProject[] projects =
 			JavaProjectUtil.importProjects(
 				new String[] { TEST_BASIC_PROJECT },

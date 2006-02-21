@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests;
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.13 $  $Date: 2005/08/24 20:58:54 $ 
+ *  $Revision: 1.14 $  $Date: 2006/02/21 17:16:36 $ 
  */
 
 
@@ -175,7 +175,7 @@ public class JavaProjectUtil {
 				// First import all, then after that, create the projects.
 				IPath rootLocation = workspace.getRoot().getLocation();
 				try {
-					String antFile = Platform.asLocalURL(JavaTestsPlugin.getPlugin().getBundle().getEntry("testdata/unzip.xml")).getFile();
+					String antFile = FileLocator.toFileURL(JavaTestsPlugin.getPlugin().getBundle().getEntry("testdata/unzip.xml")).getFile();
 					for (int i = 0; i < zipFiles.length; i++) {
 						// First create/recreate the project.
 						IProject p = getProject(projectNames[i]);

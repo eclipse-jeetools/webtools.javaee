@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: BeanInfoSuite.java,v $
- *  $Revision: 1.10 $  $Date: 2005/08/24 20:58:55 $ 
+ *  $Revision: 1.11 $  $Date: 2006/02/21 17:16:36 $ 
  */
 import java.net.URL;
 
@@ -66,9 +66,9 @@ public class BeanInfoSuite extends TestSetup {
 		oldAutoBuildingState = JavaProjectUtil.setAutoBuild(true);
 		URL installURL = JavaTestsPlugin.getPlugin().getBundle().getEntry("/");
 		String[] zipPaths = new String[3];
-		zipPaths[0] = Platform.asLocalURL(new URL(installURL, "testdata/testbeaninfo.zip")).getFile();
-		zipPaths[1] = Platform.asLocalURL(new URL(installURL, "testdata/testbeaninfobeaninfos.zip")).getFile();
-		zipPaths[2] = Platform.asLocalURL(new URL(installURL, "testdata/testbeaninfopreq.zip")).getFile();
+		zipPaths[0] = FileLocator.toFileURL(new URL(installURL, "testdata/testbeaninfo.zip")).getFile();
+		zipPaths[1] = FileLocator.toFileURL(new URL(installURL, "testdata/testbeaninfobeaninfos.zip")).getFile();
+		zipPaths[2] = FileLocator.toFileURL(new URL(installURL, "testdata/testbeaninfopreq.zip")).getFile();
 		IProject[] projects =
 			JavaProjectUtil.importProjects(
 				new String[] {
