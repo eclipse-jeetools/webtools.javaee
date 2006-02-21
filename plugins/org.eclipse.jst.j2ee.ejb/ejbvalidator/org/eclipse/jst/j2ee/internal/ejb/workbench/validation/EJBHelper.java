@@ -98,6 +98,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	private static LogEntry logEntry;
 	private static Logger logger;
 	private ArtifactEdit edit = null;
+	private EJBJar ejbJar = null;
 
 	public EJBHelper() {
 		super();
@@ -170,8 +171,10 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		}
 		_dependentJavaProjects = null;
 		_javaProject = null;
+		ejbJar = null;
 		if (edit != null) {
 			edit.dispose();
+			edit = null;
 		}
 	}
 
@@ -537,16 +540,12 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	public EObject loadEjbFile() {
 		
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
-			ArtifactEdit edit = ComponentUtilities.getArtifactEditForRead(comp);
+			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
 				return  ((EJBArtifactEdit) edit).asArchive(false);
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
-			}finally {
-				if (edit != null) {
-					edit.dispose();
-				}
 			}
 		return null;		
 	}
@@ -555,16 +554,19 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * Load the EJB MOF model.
 	 */
 	public EObject loadEjbModel() {
+		if( ejbJar == null){
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
 			try {
 				Archive archive = ((EJBArtifactEdit) edit).asArchive(false);
-				return ((EJBJarFileImpl)archive).getDeploymentDescriptor();
+				ejbJar = ((EJBJarFileImpl)archive).getDeploymentDescriptor();
+				//return ((EJBJarFileImpl)archive).getDeploymentDescriptor();
 			} catch (OpenFailureException e1) {
 				Logger.getLogger().log(e1);
 			}
-		return null;		
+		}
+		return ejbJar;
 	}
 	
 
