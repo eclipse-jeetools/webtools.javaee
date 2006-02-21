@@ -28,10 +28,10 @@ public final class JavaFacetValidator
     
 {
     public static final String MARKER_ID
-        = "org.eclipse.jst.common.frameworks.javaVersionMismatch";
+        = "org.eclipse.jst.common.frameworks.javaVersionMismatch"; //$NON-NLS-1$
     
-    public static final String ATTR_FACET_VERSION = "facetVersion";
-    public static final String ATTR_COMPILER_LEVEL = "compilerLevel";
+    public static final String ATTR_FACET_VERSION = "facetVersion"; //$NON-NLS-1$
+    public static final String ATTR_COMPILER_LEVEL = "compilerLevel"; //$NON-NLS-1$
 
     public void validate( final IFacetedProject fproj ) 
     

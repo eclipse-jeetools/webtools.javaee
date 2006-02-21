@@ -27,6 +27,7 @@ import org.eclipse.wst.validation.internal.ResourceConstants;
 import org.eclipse.wst.validation.internal.ResourceHandler;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -143,6 +144,16 @@ public abstract class J2EEValidatorNew implements IValidatorJob, J2EEMessageCons
 
 	}
 
+	public void addLocalizedError(String msg, Object target) {
+		_reporter.addMessage(this, new LocalizedMessage(IMessage.HIGH_SEVERITY, msg, target));
+	}
+	
+	public void addLocalizedError(String msg, Object target, int lineNumber) {
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, msg, target);
+		message.setLineNo(lineNumber);
+		_reporter.addMessage(this, message);
+	}
+	
 	/**
 	 * <p>
 	 * Create an <em>informational</em> message and route it to the cached reporter. This form of
@@ -225,6 +236,10 @@ public abstract class J2EEValidatorNew implements IValidatorJob, J2EEMessageCons
 		_reporter.addMessage(this, new Message(bundleName, IMessage.LOW_SEVERITY, msgId, msgArgs, target));
 	}
 
+	public void addLocalizedInfo(String msg, Object target) {
+		_reporter.addMessage(this, new LocalizedMessage(IMessage.LOW_SEVERITY, msg, target));
+	}	
+	
 	/**
 	 * <p>
 	 * Create a <em>warning</em> message and route it to the cached reporter. This form of
@@ -313,6 +328,15 @@ public abstract class J2EEValidatorNew implements IValidatorJob, J2EEMessageCons
 		_reporter.addMessage(this, message);
 	}
 
+	public void addLocalizedWarning(String msg, Object target) {
+		_reporter.addMessage(this, new LocalizedMessage(IMessage.NORMAL_SEVERITY, msg, target));
+	}
+	public void addLocalizedWarning(String msg, Object target, String groupName) {
+		IMessage message = new LocalizedMessage(IMessage.NORMAL_SEVERITY, msg, target);
+		message.setGroupName(groupName);
+		_reporter.addMessage(this, message);
+	}	
+	
 	/**
 	 * Perform any resource cleanup once validation is complete.
 	 */
@@ -490,7 +514,11 @@ public abstract class J2EEValidatorNew implements IValidatorJob, J2EEMessageCons
 	 */
 	
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
-
+		  _helper = inHelper;
+		  _reporter = inReporter;
+		  if ((inHelper == null) || (inReporter == null)) {
+			return;
+		  }		
 	}
 	
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws ValidationException {

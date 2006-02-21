@@ -61,11 +61,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		return "ejbvalidator"; //$NON-NLS-1$
 	}
 
-	
-	/*
-	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
-	 */
-	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException {
+	public void commonValidate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		long start = System.currentTimeMillis();
 		Logger logger = Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
 		if (logger != null && logger.isLoggingLevel(Level.FINER)) {
@@ -75,16 +71,14 @@ public class EJBValidator extends AbstractEJBValidator {
 			entry.setText("validate took " + (end - start) + " milliseconds."); //$NON-NLS-1$  //$NON-NLS-2$
 			logger.write(Level.FINER, entry);
 		}
-		EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
 		try {
-			
+			EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
 			setValidationContext(vc);
 			if (isFullValidate(vc)) {
 				fullValidate(vc);
 			} else {
 				incrementalValidate(vc);
 			}
-
 			if (logger != null && logger.isLoggingLevel(Level.FINER)) {
 				long end = System.currentTimeMillis();
 				LogEntry entry = getLogEntry();
@@ -96,12 +90,19 @@ public class EJBValidator extends AbstractEJBValidator {
 			if (ValidationRuleUtility.helperMap != null) {
 				ValidationRuleUtility.helperMap.clear();
 				ValidationRuleUtility.helperMap = null;
-				
-				ValidationRuleUtility.projectHelperMap.clear();
-
-				
 			}
 		}
+	}	
+	
+	
+	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
+		commonValidate(helper, reporter);
+	}
+	/*
+	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
+	 */
+	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException {
+		commonValidate(helper, reporter);
 		return status;
 	}
 	
@@ -372,6 +373,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	public void fullValidate(IEJBValidationContext vc) throws ValidationException {
 		removeOldMessages(vc,null); // null == no IFileDelta, null = don't track targets
 		
+
 		EJBJar ejbJar = (EJBJar)vc.loadModel(EJBValidatorModelEnum.EJB_MODEL);
 		if(ejbJar == null) {
 			// Log, add "Cannot validate" to task list, and return.

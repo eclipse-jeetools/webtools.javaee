@@ -16,6 +16,8 @@
  */
 package org.eclipse.jst.j2ee.model.internal.validation;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jca.Connector;
@@ -30,7 +32,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class ConnectorValidator extends J2EEValidator implements ConnectorMessageConstants {
+public class ConnectorValidator extends J2EEValidatorNew implements ConnectorMessageConstants {
 	protected RARFile rarFile;
 	protected Connector connectorDD;
 	/**
@@ -79,27 +81,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 	 * @throws ValidationException
 	 */
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
-		super.validate(inHelper, inReporter);
-		
-		// First remove all previous msg. for this project
-		_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
-	
-		try {
-			setRarFile((RARFile) inHelper.loadModel(CONNECTOR_MODEL_NAME));
-			if (rarFile != null) {
-				setConnectorDD( rarFile.getDeploymentDescriptor() );
-				//validateJ2EE14DocType();
-			} else {
-				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
-				throw new ValidationException(errorMsg);
-			}
-	
-		} catch (ValidationException ex) {
-			throw ex;
-		} catch (Exception e) {
-			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_CONNECTOR_VALIDATION_FAILED);
-			throw new ValidationException(errorMsg, e);
-		}		
+		validateInJob(inHelper, inReporter);		
 	}	
 
 	protected void validateJ2EE14DocType() {
@@ -118,4 +100,34 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 			addError(getBaseName(), CONNECTOR_INVALID_DOC_TYPE_ERROR_, params);
 		}// if
 	}// validateDocTypeVsNature
+	
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		return null;
+	}
+	
+	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException{
+	
+		super.validateInJob(helper, reporter);
+		
+		// First remove all previous msg. for this project
+		_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
+	
+		try {
+			setRarFile((RARFile) helper.loadModel(CONNECTOR_MODEL_NAME));
+			if (rarFile != null) {
+				setConnectorDD( rarFile.getDeploymentDescriptor() );
+				//validateJ2EE14DocType();
+			} else {
+				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
+				throw new ValidationException(errorMsg);
+			}
+	
+		} catch (ValidationException ex) {
+			throw ex;
+		} catch (Exception e) {
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_CONNECTOR_VALIDATION_FAILED);
+			throw new ValidationException(errorMsg, e);
+		}
+		return status;		
+	}
 }

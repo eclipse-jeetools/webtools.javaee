@@ -258,7 +258,10 @@ public class WarValidator extends J2EEValidatorNew implements WARMessageConstant
 	 * build is performed. Otherwise, validation on just the files listed in the Vector is
 	 * performed.
 	 */
-
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
+		validateInJob(inHelper, inReporter);
+	}
+	
 	
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		status = super.validateInJob(inHelper, inReporter);

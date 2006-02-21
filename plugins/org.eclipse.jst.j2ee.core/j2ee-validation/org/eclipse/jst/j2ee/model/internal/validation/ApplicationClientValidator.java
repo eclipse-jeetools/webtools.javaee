@@ -12,6 +12,8 @@ package org.eclipse.jst.j2ee.model.internal.validation;
 
 
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
@@ -27,7 +29,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 /**
  * Validates the applicatin-client.xml
  */
-public class ApplicationClientValidator extends org.eclipse.jst.j2ee.model.internal.validation.J2EEValidator implements ApplicationClientMessageConstants {
+public class ApplicationClientValidator extends J2EEValidatorNew implements ApplicationClientMessageConstants {
 	protected ApplicationClientFile appClientFile;
 	protected ApplicationClient appClientDD;
 	
@@ -76,22 +78,8 @@ public class ApplicationClientValidator extends org.eclipse.jst.j2ee.model.inter
 	 */
 	public void validate(IValidationContext inHelper, IReporter inReporter)
 	  throws ValidationException {
-	  super.validate(inHelper, inReporter);
-	  try {
-		setAppClientFile( (ApplicationClientFile) inHelper.loadModel(APPCLIENT_MODEL_NAME) );
-		if ( appClientFile != null ) {
-		  setAppClientDD( appClientFile.getDeploymentDescriptor() );
-		  validate();
-		} else {
-		  IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_APPCLIENT_INVALID_APPCLIENT_FILE);
-		  throw new ValidationException(errorMsg);
-		}// if
-	  } catch (ValidationException ex) {
-		  throw ex;
-	  } catch (Exception e) {
-		IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_APPCLIENT_VALIDATION_FAILED);
-		throw new ValidationException(errorMsg, e);
-	  }// try 
+		
+		validateInJob(inHelper, inReporter);
 	}// validate
 	/**
 	 * Creates the validate xml command.
@@ -139,4 +127,29 @@ public class ApplicationClientValidator extends org.eclipse.jst.j2ee.model.inter
 		this.appClientDD = appClientDD;
 	}// setAppClientDD
 
+	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
+		return null;
+	}
+	
+	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) 
+	 		throws ValidationException {
+
+		try {
+			super.validateInJob(inHelper, inReporter);
+			setAppClientFile( (ApplicationClientFile) inHelper.loadModel(APPCLIENT_MODEL_NAME) );
+			if ( appClientFile != null ) {
+				setAppClientDD( appClientFile.getDeploymentDescriptor() );
+				validate();
+			} else {
+				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_APPCLIENT_INVALID_APPCLIENT_FILE);
+				throw new ValidationException(errorMsg);
+			}// if
+		} catch (ValidationException ex) {
+			throw ex;
+		} catch (Exception e) {
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_APPCLIENT_VALIDATION_FAILED);
+			throw new ValidationException(errorMsg, e);
+		}// try 
+		return status;
+	}
 }// ApplicationClientValidator

@@ -24,10 +24,10 @@ public final class WtpUtils
     private WtpUtils() {}
     
     private static final String WTP_NATURE 
-        = "org.eclipse.wst.common.modulecore.ModuleCoreNature";
+        = "org.eclipse.wst.common.modulecore.ModuleCoreNature"; //$NON-NLS-1$
     
     private static final String JEM_NATURE
-        = "org.eclipse.jem.workbench.JavaEMFNature";
+        = "org.eclipse.jem.workbench.JavaEMFNature"; //$NON-NLS-1$
     
     public static void addNatures( final IProject project )
     

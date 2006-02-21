@@ -52,13 +52,13 @@ public final class JavaFacetUtils
         = ProjectFacetsManager.getProjectFacet( IModuleConstants.JST_JAVA );
 
     public static final IProjectFacetVersion JAVA_13
-        = JAVA_FACET.getVersion( "1.3" );
+        = JAVA_FACET.getVersion( "1.3" ); //$NON-NLS-1$
     
     public static final IProjectFacetVersion JAVA_14
-        = JAVA_FACET.getVersion( "1.4" );
+        = JAVA_FACET.getVersion( "1.4" ); //$NON-NLS-1$
 
     public static final IProjectFacetVersion JAVA_50
-        = JAVA_FACET.getVersion( "5.0" );
+        = JAVA_FACET.getVersion( "5.0" ); //$NON-NLS-1$
     
     public static String getCompilerLevel( final IProject project )
     {
@@ -244,7 +244,7 @@ public final class JavaFacetUtils
     
     public static IProjectFacetVersion compilerLevelToFacet( final String ver )
     {
-        if( ver.equals( "1.5" ) )
+        if( ver.equals( "1.5" ) ) //$NON-NLS-1$
         {
             return JavaFacetUtils.JAVA_50;
         }

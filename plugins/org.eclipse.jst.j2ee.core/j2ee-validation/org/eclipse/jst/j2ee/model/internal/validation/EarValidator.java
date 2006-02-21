@@ -52,13 +52,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadExc
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -69,7 +71,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * Creation date: (12/6/2000 11:08:55 AM)
  * @author: Administrator
  */
-public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation.J2EEValidatorNew implements EARMessageConstants {
+public class EarValidator extends J2EEValidatorNew  {
 	public static final String RES_REF_GROUP_NAME = "RES_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String RES_ENV_REF_GROUP_NAME = "RES_ENV_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String SERVICE_REF_GROUP_NAME = "SERVICE_REF_GROUP_NAME"; //$NON-NLS-1$
@@ -126,23 +128,29 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	/**
 	 * Does the validation
 	 */
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
+		validateInJob( inHelper, inReporter );
+	}
+	
 	public IStatus  validateInJob( IValidationContext inHelper, IReporter inReporter ) throws ValidationException {
 				
 		inReporter.removeAllMessages(this);
 		super.validateInJob(inHelper, inReporter );
 		try {
-			earFile = (EARFile) _helper.loadModel(EAR_MODEL_NAME);
+			earFile = (EARFile) _helper.loadModel(J2EEConstants.EAR_MODEL_NAME);
 			if (earFile != null) {
 				appDD = earFile.getDeploymentDescriptor();
 				if (appDD != null && appDD.eResource() != null && appDD.eResource().isLoaded())
 					validate();
 				else {
-					IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_DD_CANNOT_OPEN_DD, new String[] { getResourceName()});
+					String msg = NLS.bind(EARValidationMessageResourceHandler.EAR_DD_CANNOT_OPEN_DD, new String[] { getResourceName()});
+					IMessage errorMsg = new LocalizedMessage(IMessage.HIGH_SEVERITY, msg);
 					status = WTPCommonPlugin.createErrorStatus(errorMsg.getText());
 					throw new ValidationException(errorMsg);
 				}
 			} else {
-				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_EAR_INVALID_EAR_FILE, new String[] { getResourceName()});
+				String msg = NLS.bind(EARValidationMessageResourceHandler.ERROR_EAR_INVALID_EAR_FILE, new String[] { getResourceName()});
+				IMessage errorMsg = new LocalizedMessage(IMessage.HIGH_SEVERITY, msg);
 				throw new ValidationException(errorMsg);
 			} // if
 		} catch (ValidationException ex) {
@@ -152,7 +160,8 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 			if (earFile != null)
 				param[0] = earFile.getName();
 			Logger.getLogger().logError(e);
-			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
+			String msg = NLS.bind(EARValidationMessageResourceHandler.EAR_VALIDATION_INTERNAL_ERROR_UI_, param );			
+			IMessage errorMsg = new LocalizedMessage(IMessage.HIGH_SEVERITY, msg );
 			throw new ValidationException(errorMsg, e);
 		} // try 
 		return status;
@@ -181,7 +190,8 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 				String roleName = securityRole.getRoleName();
 				String[] params = new String[1];
 				params[0] = roleName;
-				addWarning(getBaseName(), ERROR_EAR_DUPLICATE_ROLES, params, appDD );
+				String msg = NLS.bind(EARValidationMessageResourceHandler.ERROR_EAR_DUPLICATE_ROLES, params); 
+				addLocalizedWarning( msg, appDD );
 			}// if
 		}// for
 	}// validateEarRoles
@@ -268,14 +278,16 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 				params[0] = eref.getName();
 				params[1] = uri;
 				params[2] = earFile.getName();
-		  		addWarning(EREF_CATEGORY,UNRESOLVED_EJB_REF_WARN_,params);
+				String msg = NLS.bind(ERefValidationMessageResourceHandler.UNRESOLVED_EJB_REF_WARN_, params);
+		  		addLocalizedWarning(msg, null);
 		  	} else {
 		  		if( !isSimilarEJBInterface( eref, ejb ) ) {
 		  			String[] params = new String[3];
 					params[0] = ejb.getName();
 					params[1] = eref.getName();
 					params[2] = uri;
-		  			addError( getBaseName(), EJB_BEAN_EJB_LINK_INTEFACE_MISMATCH_ERROR_, params, appDD);
+					String msg = NLS.bind(EARValidationMessageResourceHandler.EJB_BEAN_EJB_LINK_INTEFACE_MISMATCH_ERROR_, params);					
+		  			addLocalizedError( msg, appDD);
 		  		}
 		  	}
 		  }
@@ -306,19 +318,24 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	 */
 	public void validateModules(EList modulesList) {
 //		String errorString = ""; //$NON-NLS-1$
+		IMessage msg = new LocalizedMessage(IMessage.NORMAL_SEVERITY, "Validating Modules");
+		_reporter.displaySubtask( this, msg );
+		
+		
 		HashSet duplicateURI = new HashSet();
 	
 		for (int i = 0; i < modulesList.size(); i++) {
 			Module m = (Module) modulesList.get(i);
 			String filename = m.getUri();
 			if ((filename == null) || (filename.length() == 0)) {
-				addError(getBaseName(), MESSAGE_EAR_NO_MODULE_URI, null);
+				addLocalizedError(EARValidationMessageResourceHandler.MESSAGE_EAR_NO_MODULE_URI, null);
 			} else {
 				//check if the URI has any spaces
 				if(  filename.indexOf( " " ) != -1) { //$NON-NLS-1$
 					String[] params = new String[1];
 					params[0] = filename;
-					addError(getBaseName(), URI_CONTAINS_SPACES_ERROR_, params, appDD);
+					String msg1 = NLS.bind(EARValidationMessageResourceHandler.URI_CONTAINS_SPACES_ERROR_, params);
+					addLocalizedError(msg1, appDD);
 				}// if
 			}// if
 			String altDD = m.getAltDD();
@@ -330,7 +347,8 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 				String[] params = new String[2];
 				params[0] = m.getUri();
 				params[1] = earFile.getName();
-				addError(getBaseName(), MESSAGE_EAR_DUPLICATE_URI_ERROR_, params, appDD);
+				String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_EAR_DUPLICATE_URI_ERROR_, params);
+				addLocalizedError(tmp, appDD);
 			}// if
 	
 		}// for
@@ -349,13 +367,15 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 			String[] params = new String[2];
 			params[0] = m.getUri();
 			params[1] = earFile.getName();
-			addError(getBaseName(), MESSAGE_EMPTY_ALT_DD_ERROR_, params, appDD);
+			String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_EMPTY_ALT_DD_ERROR_, params);
+			addLocalizedError(tmp, appDD);
 		} else if (altDD != null && !earFile.isDuplicate(altDD)) {
 			String[] params = new String[3];
 			params[0] = m.getUri();
 			params[1] = altDD;
 			params[2] = earFile.getName();
-			addWarning(getBaseName(), MESSAGE_INVALID_ALT_DD_WARN_, params, appDD);
+			String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_INVALID_ALT_DD_WARN_, params);			
+			addLocalizedWarning(tmp, appDD);
 		}// if
 	}// validateAltDD
 	
@@ -363,6 +383,11 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	 * validate EJB and resource references
 	 */
 	public void validateRefs() {
+		
+		IMessage msg = new LocalizedMessage(IMessage.NORMAL_SEVERITY, "Validating Refs");
+		_reporter.displaySubtask( this, msg );
+		
+		
 		List moduleList = earFile.getModuleRefs();
 		for (int i = 0; i < moduleList.size(); i++) {
 			
@@ -664,7 +689,9 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 							params[0] = webModule.getContextRoot();
 							params[1] = webModule.getUri();
 							params[2] = tempWebModule.getUri();
-			  				addError(getBaseName(), MESSAGE_EAR_DUPICATE_ROOTCONTEXT_ERROR_, params, appDD);
+							String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_EAR_DUPICATE_ROOTCONTEXT_ERROR_, params);
+							
+			  				addLocalizedError(tmp, appDD);
 			  			} else {
 			  				visitedWebContext.put( webModule.getContextRoot(), webModule );
 			  			}// if
@@ -691,7 +718,8 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 		  		moduleFile = (ModuleFile)iterator.next();
 		  		if (moduleFile != null && getVersionID(moduleFile) > earVersion) {
 			  		String[] params = new String[] {moduleFile.getURI(), earFile.getName()};
-					addWarning(getBaseName(), MESSAGE_INCOMPATIBLE_SPEC_WARNING_, params, appDD);
+			  		String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_INCOMPATIBLE_SPEC_WARNING_, params);
+					addLocalizedWarning(tmp, appDD);
 		  		}
 			}		  			
 		}

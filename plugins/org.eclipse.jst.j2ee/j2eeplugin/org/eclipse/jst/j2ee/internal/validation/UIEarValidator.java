@@ -53,17 +53,19 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
+import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -75,9 +77,12 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidatorJob;
  * 
  * @author: Administrator
  */
-public class UIEarValidator extends EarValidator implements UIEarMessageConstants {
+public class UIEarValidator extends EarValidator {
 	public static final String VALIDATOR_ID = "org.eclipse.jst.j2ee.internal.validation.UIEarValidator"; //$NON-NLS-1$
 	public static final String MANIFEST_GROUP_NAME = "WSAD.EAR.MANIFEST"; //$NON-NLS-1$
+	public static final String DOCTYPE_1_2 = "1.2"; //$NON-NLS-1$
+	public static final String DOCTYPE_1_3 = "1.3"; //$NON-NLS-1$
+	
 	protected UIEarHelper earHelper;
 //	private EARArtifactEdit earEdit = null;
 	private IProject project = null;
@@ -106,7 +111,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		params[0] = projectName;
 		params[1] = earProjectName;
 		params[2] = moduleUri;
-		addError(getBaseName(), DUPLICATE_MODULE_FOR_PROJECT_NAME_ERROR_, params, appDD);
+		String msg = NLS.bind(EARValidationMessageResourceHandler.DUPLICATE_MODULE_FOR_PROJECT_NAME_ERROR_, params);
+	
+		addLocalizedError(msg, appDD);
 	}
 
 	/**
@@ -166,7 +173,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		String[] params = new String[2];
 		params[0] = anArchive.getURI();
 		params[1] = entry;
-		addWarning(getBaseName(), INVALID_MANIFEST_CLASSPATH_ONE_WARN_, params, getManifestFile(anArchive), MANIFEST_GROUP_NAME);
+		String msg = NLS.bind(EARValidationMessageResourceHandler.INVALID_MANIFEST_CLASSPATH_ONE_WARN_, params);
+		addLocalizedWarning(msg, getManifestFile(anArchive), MANIFEST_GROUP_NAME);
 	}
 
 	protected void invalidClassPathEntryWarning(String entry, String resolvedEntry, Archive anArchive) {
@@ -174,7 +182,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		params[0] = anArchive.getURI();
 		params[1] = entry;
 		params[2] = resolvedEntry;
-		addWarning(getBaseName(), INVALID_MANIFEST_CLASSPATH_TWO_WARN_, params, getManifestFile(anArchive), MANIFEST_GROUP_NAME);
+		String msg = NLS.bind(EARValidationMessageResourceHandler.INVALID_MANIFEST_CLASSPATH_TWO_WARN_, params);		
+		addLocalizedWarning(msg, getManifestFile(anArchive), MANIFEST_GROUP_NAME);
 	}
 
 	protected void invalidDepedencyWarning(String entry, Archive anArchive, ModuleFile m) {
@@ -182,7 +191,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		params[0] = m.getURI();
 		params[1] = entry;
 		params[2] = anArchive.getURI();
-		addWarning(getBaseName(), INVALID_MANIFEST_CLASSPATH_DEPENDENCY_WARN_, params, getManifestFile(anArchive), MANIFEST_GROUP_NAME);
+		String msg = NLS.bind(EARValidationMessageResourceHandler.INVALID_MANIFEST_CLASSPATH_DEPENDENCY_WARN_, params);
+		
+		addLocalizedWarning(msg, getManifestFile(anArchive), MANIFEST_GROUP_NAME);
 	}
 
 	/**
@@ -254,7 +265,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			if (mfuri.equalsIgnoreCase(uri) && !mfuri.equals(uri)) {
 				String[] params = {uri, anArchive.getURI()};
 				IResource target = earHelper.getProject().getFile(J2EEConstants.MANIFEST_URI);
-				addError(getBaseName(), INVALID_CASE_FOR_MANIFEST_ERROR_, params, target);
+				String msg = NLS.bind(EARValidationMessageResourceHandler.INVALID_CASE_FOR_MANIFEST_ERROR_, params);
+				addLocalizedError(msg, target);				
 			}
 		}
 
@@ -269,7 +281,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			//mf.printStackTrace();
 			mf.getMessage();
 			String[] args = new String[]{anArchive.getURI()};
-			addError(ERROR_READING_MANIFEST_ERROR_, args);
+			String tmp = NLS.bind(EARValidationMessageResourceHandler.ERROR_READING_MANIFEST_ERROR_, args);
+			
+			addLocalizedError(tmp, args);
 		}
 		
 		if(manifest == null)
@@ -348,23 +362,32 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		String[] args = new String[2];
 		args[0] = Integer.toString(lineNo);
 		args[1] = anArchive.getURI();
-		if (target != null)
-			addError(getBaseName(), MANIFEST_LINE_EXCEEDS_LENGTH_ERROR_, args, target, MANIFEST_GROUP_NAME, lineNo);
-		else
-			addError(getBaseName(), MANIFEST_LINE_EXCEEDS_LENGTH_ERROR_, args, null, MANIFEST_GROUP_NAME);
+		
+		String tmp = NLS.bind(EARValidationMessageResourceHandler.MANIFEST_LINE_EXCEEDS_LENGTH_ERROR_, args);
+		
+		if( lineNo >= 0 ){
+			addLocalizedError(tmp, target);
+		}else{
+			addLocalizedError(tmp, target, lineNo);
+		}
+
 	}
 
 	protected void addFileEndError(Archive anArchive, ManifestLineValidator mfVal, IFile target) {
 		String[] args = new String[]{anArchive.getURI()};
+		
+		String tmp = NLS.bind(EARValidationMessageResourceHandler.MANIFEST_LINE_END_ERROR_, args);
+		
 		if (target != null)
-			addError(getBaseName(), MANIFEST_LINE_END_ERROR_, args, getManifestFile(anArchive), MANIFEST_GROUP_NAME, mfVal.getLineCount());
+			addLocalizedError(tmp, getManifestFile(anArchive), mfVal.getLineCount());
 		else
-			addError(getBaseName(), MANIFEST_LINE_END_ERROR_, args, MANIFEST_GROUP_NAME);
+			addLocalizedError(tmp, null);
 	}
 
 	protected void handleManifestException(IOException ex, Archive anArchive) throws ValidationException {
 		Logger.getLogger().logError(ex);
-		IMessage message = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_READING_MANIFEST_ERROR_, new String[]{anArchive.getURI()});
+		String tmp = NLS.bind(EARValidationMessageResourceHandler.ERROR_READING_MANIFEST_ERROR_, new String[]{anArchive.getURI()});		
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, tmp);
 		throw new ValidationException(message, ex);
 	}
 
@@ -418,7 +441,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				if (uri != null && uri.indexOf(" ") != -1) { //$NON-NLS-1$
 					String[] params = new String[1];
 					params[0] = uri;
-					addError(getBaseName(), URI_CONTAINS_SPACES_ERROR_, params, appDD);
+					String tmp = NLS.bind(EARValidationMessageResourceHandler.URI_CONTAINS_SPACES_ERROR_, params);
+					addLocalizedError(tmp, appDD);
 				}// if
 			}// if
 		}// for
@@ -495,7 +519,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		params[0] = projectName;
 		params[1] = earProjectName;
 		params[2] = moduleUri;
-		addError(getBaseName(), DUPLICATE_UTILJAR_FOR_PROJECT_NAME_ERROR_, params);
+		String tmp = NLS.bind(EARValidationMessageResourceHandler.DUPLICATE_UTILJAR_FOR_PROJECT_NAME_ERROR_, params);
+		
+		addLocalizedError(tmp, null);
 	}// duplicateUtilError
 
 	public void validateModuleMaps(IVirtualComponent component) {
@@ -513,7 +539,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 						IVirtualComponent referencedComp = edit.getModule( uri );
 						if( referencedComp == null ){
 							String[] params = new String[]{uri, component.getProject().getName()};
-							addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);							
+							String tmp = NLS.bind(EARValidationMessageResourceHandler.MISSING_PROJECT_FORMODULE_WARN_, params);
+							
+							addLocalizedWarning(tmp, null);							
 						}
 						validateModuleURIExtension(module);
 					}
@@ -533,12 +561,14 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				String[] params = new String[1];
 				params[0] = module.getUri();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
-				addWarning(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
+				String tmp = NLS.bind(EARValidationMessageResourceHandler.INVALID_URI_FOR_MODULE_ERROR_, params);
+				addLocalizedWarning(tmp, target);
 			} else if (module instanceof WebModule && !newUri.endsWith(".war")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getUri();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
-				addWarning(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
+				String tmp = NLS.bind(EARValidationMessageResourceHandler.INVALID_URI_FOR_MODULE_ERROR_, params);				
+				addLocalizedWarning(tmp, target);
 			}
 		}
 	}
@@ -586,13 +616,15 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			params[0] = DOCTYPE_1_2;
 			params[1] = getResourceName();
 			params[2] = DOCTYPE_1_3;
-			addError(getBaseName(), EAR_INVALID_DOC_TYPE_ERROR_, params, appDD);
+			String tmp = NLS.bind(EARValidationMessageResourceHandler.EAR_INVALID_DOC_TYPE_ERROR_, params);			
+			addLocalizedError(tmp, appDD);
 		} else if (edit.getJ2EEVersion() < J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() >= J2EEVersionConstants.J2EE_1_3_ID) {
 			String[] params = new String[3];
 			params[0] = DOCTYPE_1_3;
 			params[1] = getResourceName();
 			params[2] = DOCTYPE_1_2;
-			addError(getBaseName(), EAR_INVALID_DOC_TYPE_ERROR_, params, appDD);
+			String tmp = NLS.bind(EARValidationMessageResourceHandler.EAR_INVALID_DOC_TYPE_ERROR_, params);			
+			addLocalizedError(tmp, appDD);
 		}
 	}
 
@@ -614,7 +646,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 						String[] params = new String[2];
 						params[0] = module.getRootFolder().getRuntimePath().toString();
 						params[1] = currentEARProject.getName();
-						addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
+						String tmp = NLS.bind(EARValidationMessageResourceHandler.URI_ALREADY_EXISTS_IN_EAR_WARN_, params);						
+						addLocalizedWarning(tmp, appDD);
 					}
 				} catch (IllegalArgumentException iae) {
 					Logger.getLogger().logError(iae);

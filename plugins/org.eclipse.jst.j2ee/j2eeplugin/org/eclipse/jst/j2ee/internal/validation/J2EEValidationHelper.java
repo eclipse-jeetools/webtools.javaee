@@ -22,6 +22,7 @@ import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 
 
 public abstract class J2EEValidationHelper extends WorkbenchContext {
+		
 	/**
 	 * Constructor for J2EEValidationHelper.
 	 */

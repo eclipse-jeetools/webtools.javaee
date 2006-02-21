@@ -160,6 +160,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	String WEB_APP_SCHEMA_LOC_2_4		= "http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"; //$NON-NLS-1$
 	String WEB_SERVICES_CLIENT_SCHEMA_LOC_1_1 = "http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"; //$NON-NLS-1$
 	String JSP_SCHEMA_LOC_2_0			=  "http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"; //$NON-NLS-1$
+	
+	public static final String EAR_MODEL_NAME = "EAR_VALIDATION"; //$NON-NLS-1$
 }
 
 
