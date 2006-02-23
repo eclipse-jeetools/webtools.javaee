@@ -32,7 +32,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class ConnectorValidator extends J2EEValidatorNew implements ConnectorMessageConstants {
+public class ConnectorValidator extends J2EEValidator implements ConnectorMessageConstants {
 	protected RARFile rarFile;
 	protected Connector connectorDD;
 	/**

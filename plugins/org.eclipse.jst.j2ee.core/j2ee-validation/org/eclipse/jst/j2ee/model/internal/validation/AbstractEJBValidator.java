@@ -34,7 +34,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public abstract class AbstractEJBValidator extends J2EEValidatorNew {
+public abstract class AbstractEJBValidator extends J2EEValidator {
 	protected Map _validated = null;
 	/**
 	 *  

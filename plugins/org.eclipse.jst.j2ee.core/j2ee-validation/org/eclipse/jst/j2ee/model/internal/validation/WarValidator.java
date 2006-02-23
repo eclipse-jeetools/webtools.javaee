@@ -69,7 +69,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 
 // import org.eclipse.jst.j2ee.internal.plugin.nls.ResourceHandler;
 
-public class WarValidator extends J2EEValidatorNew implements WARMessageConstants {
+public class WarValidator extends J2EEValidator implements WARMessageConstants {
 	protected WARFile warFile;
 	protected WebApp webDD;
 	private Hashtable httpMethods = null;

@@ -29,7 +29,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 /**
  * Validates the applicatin-client.xml
  */
-public class ApplicationClientValidator extends J2EEValidatorNew implements ApplicationClientMessageConstants {
+public class ApplicationClientValidator extends J2EEValidator implements ApplicationClientMessageConstants {
 	protected ApplicationClientFile appClientFile;
 	protected ApplicationClient appClientDD;
 	

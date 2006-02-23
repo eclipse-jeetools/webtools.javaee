@@ -71,7 +71,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
  * Creation date: (12/6/2000 11:08:55 AM)
  * @author: Administrator
  */
-public class EarValidator extends J2EEValidatorNew  {
+public class EarValidator extends J2EEValidator  {
 	public static final String RES_REF_GROUP_NAME = "RES_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String RES_ENV_REF_GROUP_NAME = "RES_ENV_REF_GROUP_NAME"; //$NON-NLS-1$
 	public static final String SERVICE_REF_GROUP_NAME = "SERVICE_REF_GROUP_NAME"; //$NON-NLS-1$
