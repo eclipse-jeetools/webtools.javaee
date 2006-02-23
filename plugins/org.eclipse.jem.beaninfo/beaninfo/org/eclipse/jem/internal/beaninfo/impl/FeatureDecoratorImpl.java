@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2005/09/19 15:43:02 $ 
+ *  $Revision: 1.12 $  $Date: 2006/02/23 22:36:41 $ 
  */
 
 
@@ -980,7 +980,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		}
 		eDynamicUnset(eFeature);
 	}
-
+	
 	/**
 	 * Called by overrides to eIsSet to test if source is set. This is because for the 
 	 * FeatureDecorator and subclasses, setting source to the classname is considered
@@ -989,12 +989,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * to the serialized output and then creating a NEW copy on each decorator loaded
 	 * from an XMI file. 
 	 * 
-	 * @return <code>true</code> if source is not null and not equal to class name.
+	 * @return <code>true</code> if source is not null and not equal to class name (less the "Impl" at the end).
 	 * 
 	 * @since 1.1.0
 	 */
 	protected boolean isSourceSet() {
-		return source != null && !getClass().getName().equals(source);
+		return source != null && !eClass().getInstanceClassName().equals(source);
 	}
 	
 	/* (non-Javadoc)
