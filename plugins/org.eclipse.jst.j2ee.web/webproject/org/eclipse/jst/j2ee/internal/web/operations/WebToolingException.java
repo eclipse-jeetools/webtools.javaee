@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.xml.sax.SAXException;
 
 

@@ -48,6 +48,11 @@ public class ProjectSupportResourceHandler extends NLS {
 	public static String Invalid_Servlet_Level_set_on_WebNature_3_EXC_;
 	public static String Context_Root_cannot_be_empty_2;
 	public static String Error_while_saving_links_s_EXC_;
+	public static String Sychronize_Class_Path_UI_;	
+	public static String UNABLE_TO_LOAD_MODULE_ERROR_;
+	public static String Catalog_Lib_Directory__UI_;
+	public static String Update_ClassPath__UI_;	
+	public static String Set_ClassPath__UI_; 	
 
 
 	static {
