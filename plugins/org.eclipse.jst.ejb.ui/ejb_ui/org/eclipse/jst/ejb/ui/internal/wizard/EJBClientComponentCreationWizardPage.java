@@ -9,6 +9,7 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -24,8 +25,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -36,9 +35,9 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	private Text selectedProjectName;
 	private Label clientJarURILabel;
 	private Text clientJarURI;
-	private WorkbenchComponent module;
 	protected int indent = 0;
-    protected Text moduleNameText = null;
+	private Label projectNameLabel;
+    protected Text projectNameText = null;
     private static final String MODULE_NAME_UI = J2EEUIMessages.getResourceString(J2EEUIMessages.NAME_LABEL); //$NON-NLS-1$    
     private static final int SIZING_TEXT_FIELD_WIDTH = 305;	
 
@@ -86,18 +85,18 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
     
     private void createProjectNameGroup(Composite parent) {
         // set up project name label
-        Label projectNameLabel = new Label(parent, SWT.NONE);
+        projectNameLabel = new Label(parent, SWT.NONE);
         projectNameLabel.setText(MODULE_NAME_UI);
         GridData data = new GridData();
         projectNameLabel.setLayoutData(data);
         // set up project name entry field
-        moduleNameText = new Text(parent, SWT.BORDER);
+        projectNameText = new Text(parent, SWT.BORDER);
         data = new GridData(GridData.FILL_HORIZONTAL);
         data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-        moduleNameText.setLayoutData(data);
+        projectNameText.setLayoutData(data);
         new Label(parent, SWT.NONE); // pad
-        synchHelper.synchText(moduleNameText, PROJECT_NAME, new Control[]{projectNameLabel});
-        moduleNameText.setFocus();
+        synchHelper.synchText(projectNameText, PROJECT_NAME, new Control[]{projectNameLabel});
+        projectNameText.setFocus();
     }
     
     private void createEJBComponentSection(Composite parent) {
@@ -118,23 +117,29 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 
 
 	private void handleHasClientJar() {
-		EJBArtifactEdit edit = null;
-		try {
-			if (module != null) {
-				IProject proj = StructureEdit.getContainingProject(module);
-				edit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
-				if (edit != null && edit.hasEJBClientJARProject())
-					enableAllSections(false);
-				} else
-					enableAllSections(true); 
-		} finally {
-			if(edit != null)
-				edit.dispose();
-				  
+		String projectName = model.getStringProperty(EJB_PROJECT_NAME);
+		IProject project = ProjectUtilities.getProject( projectName );
+		
+		if( project.exists() && project.isAccessible()){
+			EJBArtifactEdit edit = null;
+			try {
+					edit = EJBArtifactEdit.getEJBArtifactEditForRead(project);
+					if (edit != null && edit.hasEJBClientJARProject()){
+						enableAllSections(false);
+					} else{
+						enableAllSections(true); 
+					}
+			} finally {
+				if(edit != null)
+					edit.dispose();
+					  
+			}
 		}
 	}
 	
 	private void enableAllSections(boolean state) {
+		projectNameText.setEnabled(state);
+		projectNameLabel.setEnabled(state);
 		selectedProjectLabel.setEnabled(state);
 		selectedProjectName.setEnabled(state);
 		clientJarURILabel.setEnabled(state);
@@ -147,7 +152,7 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EJB_PROJECT_NAME, CLIENT_URI };
+		return new String[]{PROJECT_NAME, EJB_PROJECT_NAME, CLIENT_URI };
 	}
 
 	/*

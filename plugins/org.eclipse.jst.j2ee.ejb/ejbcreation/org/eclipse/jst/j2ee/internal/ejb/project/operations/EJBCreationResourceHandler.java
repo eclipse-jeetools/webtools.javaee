@@ -139,6 +139,9 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String CANT_BE_BINARY_PROJECT_UI_;
 	public static String EJB_EXPORT_PROJECT_CONTAINS_CLEINT_WARNING;
 	public static String remove_client_jar_client_binary;
+	public static String EJB_Client_JAR_Creation_Error_;
+	public static String Cannot_Be_Binary_Project_For_Client_;
+	public static String Cannot_Be_StandAlone_Project_For_Client_;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBCreationResourceHandler.class);
