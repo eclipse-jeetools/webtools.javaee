@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.actions;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -61,6 +62,7 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 			primRun(shell);
 			this.selection = null;
 		} catch (Throwable t) {
+			Logger.getLogger().logError(t);
 			ErrorDialog.openError(shell, ERROR_OCCURRED_TITLE, ERROR_OCCURRED_MESSAGE, t, 0, false);
 		}
 
