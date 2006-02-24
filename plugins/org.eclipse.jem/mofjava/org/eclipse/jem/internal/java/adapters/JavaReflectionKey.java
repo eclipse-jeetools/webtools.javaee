@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionKey.java,v $
- *  $Revision: 1.8 $  $Date: 2005/09/14 23:30:35 $ 
+ *  $Revision: 1.9 $  $Date: 2006/02/24 17:32:15 $ 
  */
 import java.util.*;
 
@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.adapters.IJavaReflectionKey;
 import org.eclipse.jem.java.adapters.IJavaReflectionKeyExtension;
+import org.eclipse.jem.util.CharacterUtil;
+import org.eclipse.jem.util.CharacterUtil.StringIterator;
 
 /**
  * This key handles Java Reflection. It creates the appropriate type of entries if
@@ -333,11 +335,12 @@ public EClassifier getJavaType(String typeName) {
 
 protected boolean isValidJavaIdentifier(String typeName) {
 	if (typeName.length() > 0) {
-		if (Character.isJavaIdentifierStart(typeName.charAt(0))) {
+		StringIterator charIter = new StringIterator(typeName);
+		if (CharacterUtil.isJavaIdentifierStart(charIter.next())) {
 			// Starts with a valid java identifier character.
 			// Now see if the rest are valid.
-			for (int i = 1; i < typeName.length(); i++) {
-				if (!Character.isJavaIdentifierPart(typeName.charAt(i)))
+			while (charIter.hasNext()) {
+				if (!CharacterUtil.isJavaIdentifierPart(charIter.next()))
 					return false; // Not valid
 			}
 			return true;
