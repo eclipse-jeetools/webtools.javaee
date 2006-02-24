@@ -43,7 +43,6 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
@@ -522,7 +521,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		ISelection selection = window.getSelectionService().getSelection();
 		if (selection == null)
 			return null;
-		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		IStructuredSelection stucturedSelection = (IStructuredSelection) selection;
 		if (stucturedSelection.getFirstElement() instanceof EObject)
 			return ProjectUtilities.getProject(stucturedSelection.getFirstElement());
 		IJavaElement element = getInitialJavaElement(selection);
