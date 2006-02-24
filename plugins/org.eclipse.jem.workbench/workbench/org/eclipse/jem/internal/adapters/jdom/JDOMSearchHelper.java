@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMSearchHelper.java,v $
- *  $Revision: 1.6 $  $Date: 2005/08/24 21:13:53 $ 
+ *  $Revision: 1.7 $  $Date: 2006/02/24 00:19:15 $ 
  */
 
 import java.io.File;
@@ -20,6 +20,7 @@ import java.util.*;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
+
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 /**
  * Insert the type's description here.
@@ -285,7 +286,7 @@ public class JDOMSearchHelper {
 	protected static IJavaElement findJavaElement(String qualifiedName, IJavaProject javaProject, JDOMAdaptor adaptor) {
 		try {
 			if (javaProject != null) {
-				return javaProject.findElement(getPathFromQualifiedName(qualifiedName));
+				return javaProject.findType(qualifiedName);
 			}
 		} catch (JavaModelException jme) {
 			System.out.println(ResourceHandler.getString("Error_Looking_Up_Type_ERROR_", (new Object[] { qualifiedName, jme.getMessage()}))); //$NON-NLS-1$ = "Error looking up type: "
@@ -332,11 +333,22 @@ public class JDOMSearchHelper {
 					cuMainTypeName = cuMainTypeName.substring(0, cuMainTypeName.length() - 5);
 					return foundCU.getType(cuMainTypeName);
 				} else if (found instanceof IType) {
-					int index = resolvedName.lastIndexOf('$'); //$NON-NLS-1$
-					if (index > -1)
-						return ((IType) found).getType(resolvedName.substring(index + 1, resolvedName.length()));
-					else
-						return (IType) found;
+					IType type = ((IType) found);
+					if (!type.getFullyQualifiedName('$').equals(resolvedName)) {
+						// I don't know why this is here. Sometime in the past for an inner class, the
+						// IType returned was for the outer class, so you would need to search again
+						// for the inner class against the outer class. I don't know how this now can
+						// happen. The code followed above is extremelly complicated, especially when
+						// it is an inner class that isn't fully-qualified that is inside a source file.
+						// It goes through some gyrations for that. I don't know what it would
+						// return in that case. But just in case, the test is here to be safe.
+						int index = resolvedName.lastIndexOf('$'); //$NON-NLS-1$
+						if (index > -1)
+							return type.getType(resolvedName.substring(index + 1, resolvedName.length()));
+						else
+							return type;
+					} else
+						return type;
 				}
 		} catch (JavaModelException jme) {
 			System.out.println(ResourceHandler.getString("Error_Looking_Up_Type_ERROR_", (new Object[] { qualifiedName, jme.getMessage()}))); //$NON-NLS-1$ = "Error looking up type: "
