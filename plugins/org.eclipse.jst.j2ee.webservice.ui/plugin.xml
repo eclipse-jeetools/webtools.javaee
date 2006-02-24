@@ -5,11 +5,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             name="Web Services"
-            priority="low"
+            priority="lower"
             icon="icons/full/ctool16/webservicedesc.gif"
             contentProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorContentProvider"
             labelProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorLabelProvider"
-            sorter="org.eclipse.ui.navigator.resources.internal.workbench.ResourceSorter"
             id="org.eclipse.wst.common.frameworks.internal.navigator.webservice">
          <enablement>
             <or>
@@ -26,6 +25,18 @@
          	<package uri="wscommon.xmi" />
          	<package uri="http://www.ibm.com/wsdl/2003/WSDL"/>
          </emfEnablement> -->
+          <commonSorter
+      		class="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
+      		id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent">
+      		<parentExpression>
+           		  <or>         
+		            <instanceof 
+		                  value="org.eclipse.emf.ecore.EObject" />
+		            <instanceof 
+		                  value="org.eclipse.core.resources.IWorkspaceRoot" />  
+		         </or>
+		   </parentExpression>
+      </commonSorter>   
       </navigatorContent>
    </extension>
 
