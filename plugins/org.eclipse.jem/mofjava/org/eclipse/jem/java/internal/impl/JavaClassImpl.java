@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
+ *  $Revision: 1.3 $  $Date: 2006/02/25 21:31:20 $ 
  */
 package org.eclipse.jem.java.internal.impl;
 
@@ -38,14 +38,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.java.Field;
-import org.eclipse.jem.java.Initializer;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaEvent;
-import org.eclipse.jem.java.JavaPackage;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.Method;
-import org.eclipse.jem.java.TypeKind;
+import org.eclipse.jem.java.*;
 
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -55,7 +48,6 @@ import org.eclipse.emf.ecore.util.*;
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationInstance;
-import org.eclipse.jem.java.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -589,8 +581,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	public String getName() {
 		String result = this.primGetName();
 		if (result == null && eIsProxy()) {
-			JavaURL url = new JavaURL(eProxyURI().toString());
-			result = url.getClassName();
+			return JavaRefFactory.eINSTANCE.getTypeName(eProxyURI());
 		}
 		return result;
 	}
@@ -751,12 +742,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	public String getQualifiedName() {
 		String result = null;
 		if (eIsProxy()) {
-			JavaURL url = new JavaURL(eProxyURI().toString());
-			String internalName = url.getPackageName();
-			if (internalName != null && internalName.length() > 0)
-				result = internalName + "." + url.getClassName();
-			else
-				result = url.getClassName();
+			result = JavaRefFactory.eINSTANCE.getFullTypeName(eProxyURI());
 		} else {
 			result = primGetQualifiedName();
 		}
@@ -1040,11 +1026,15 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 	 */
 	public String primGetQualifiedName() {
 		String result = "";
-		JavaPackage pack = getJavaPackage();
-		if (pack != null && pack.getPackageName().length() != 0)
-			result = pack.getPackageName() + "." + this.primGetName();
-		else
-			result = this.getName();
+		if (eIsProxy()) {
+			result = JavaRefFactory.eINSTANCE.getFullTypeName(eProxyURI());
+		} else {
+			JavaPackage pack = getJavaPackage();
+			if (pack != null && pack.getPackageName().length() != 0)
+				result = pack.getPackageName() + "." + ((JavaRefFactoryImpl) JavaRefFactory.eINSTANCE).primGetTypeName(this.primGetName());
+			else
+				result = this.getName();
+		}
 		return result;
 	}
 

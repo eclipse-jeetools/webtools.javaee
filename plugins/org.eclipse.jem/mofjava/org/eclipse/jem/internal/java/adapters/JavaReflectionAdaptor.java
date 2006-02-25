@@ -11,15 +11,13 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.13 $  $Date: 2005/09/14 23:30:35 $ 
+ *  $Revision: 1.14 $  $Date: 2006/02/25 21:31:20 $ 
  */
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -81,10 +79,7 @@ public Block createBlock(String name, String sourceString) {
  * setSuper - set our supertype here, implemented interface are handled separately
  */
 public JavaClass createJavaClassRef(String targetName) {
-	JavaClass ref = org.eclipse.jem.java.internal.impl.JavaRefFactoryImpl.getActiveFactory().createJavaClass();
-   JavaURL javaurl = new JavaURL(targetName);
-  ((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
-   return ref;
+	return JavaRefFactory.eINSTANCE.createClassRef(targetName);
 }
 /**
  * createJavaParameter - instantiate a Java Parameter based on the passed name and type name (a simple name, NOT A SIGNATURE!!!)

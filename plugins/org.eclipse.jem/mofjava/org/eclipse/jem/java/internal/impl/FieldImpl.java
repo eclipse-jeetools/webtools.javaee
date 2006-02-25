@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
+ *  $Revision: 1.3 $  $Date: 2006/02/25 21:31:20 $ 
  */
 package org.eclipse.jem.java.internal.impl;
 
@@ -31,14 +31,9 @@ import org.eclipse.emf.ecore.impl.ETypedElementImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.java.Block;
-import org.eclipse.jem.java.Field;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.JavaURL;
-import org.eclipse.jem.java.JavaVisibilityKind;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 
 /**
  * @generated
@@ -165,11 +160,12 @@ public class FieldImpl extends ETypedElementImpl implements Field {
 
 	/**
 	 * createFieldRef - return a JavaURL reference to the named field in the named Java class in the form "package.class_field"
+	 * @deprecated no replacement at this time.
 	 */
 	public static Field createFieldRef(String className, String fieldName) {
-		Field ref = JavaRefFactoryImpl.getActiveFactory().createField();
-		JavaURL javaurl = new JavaURL(className + "/" + fieldName);
-		((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
+		Field ref = JavaRefFactory.eINSTANCE.createField();
+		URI classURI = JavaRefFactory.eINSTANCE.createTypeURI(className);
+		((InternalEObject) ref).eSetProxyURI(URI.createURI(classURI.toString()+ReflectionAdaptor.C_CLASS_MEMBER_DELIMITER+fieldName));
 		return ref;
 	}
 

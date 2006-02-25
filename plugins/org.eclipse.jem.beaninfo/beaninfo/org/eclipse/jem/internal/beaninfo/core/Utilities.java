@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.7 $  $Date: 2005/08/24 20:31:28 $ 
+ *  $Revision: 1.8 $  $Date: 2006/02/25 21:31:14 $ 
  */
 import java.util.Iterator;
 
@@ -68,7 +68,7 @@ public final class Utilities {
 	 * Create a URI to the given classname.
 	 * <p>
 	 * Note: It must be in normal form, i.e. fully-qualified, if primitive spelled out (e.g. "int" not I), and if
-	 * arrays it must readable form (e.g. "new java.lang.String[]" and not "[Ljava.lang.String;").
+	 * arrays it must readable form (e.g. "java.lang.String[]" and not "[Ljava.lang.String;").
 	 * 
 	 * @param className
 	 * @return
@@ -76,7 +76,7 @@ public final class Utilities {
 	 * @since 1.1.0
 	 */
 	public static URI getJavaClassURI(String className) {
-		return URI.createURI((new JavaURL(className)).getFullString());
+		return JavaRefFactory.eINSTANCE.createTypeURI(className);
 	}
 
 	/** 

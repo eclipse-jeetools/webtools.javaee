@@ -11,15 +11,22 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaURL.java,v $
- *  $Revision: 1.6 $  $Date: 2005/09/14 23:30:35 $ 
+ *  $Revision: 1.7 $  $Date: 2006/02/25 21:31:20 $ 
  */
 
 
+/**
+ * @deprecated Use the appropriate {@link JavaRefFactory} URI methods instead.
+ * 
+ * @since 1.2.0
+ */
 public class JavaURL extends org.eclipse.jem.java.internal.impl.URL {
 	public static final String JAVA_PROTOCOL_URI_PREFIX = "java:/"; //$NON-NLS-1$
 	/**
 	 * JavaURL constructor comment.
 	 * @param urlString java.lang.String
+	 * 
+	 * @deprecated Use {@link JavaRefFactory#createTypeURI(String)} or {@link JavaRefFactory#createPackageURI(String)}
 	 */
 	public JavaURL(String urlString) {
 		super(urlString);
@@ -28,18 +35,29 @@ public class JavaURL extends org.eclipse.jem.java.internal.impl.URL {
 	 * JavaURL constructor comment.
 	 * @param nameSpaceName java.lang.String
 	 * @param iD java.lang.String
+	 * @deprecated Use {@link JavaRefFactory#createTypeURI(String, String)}
+	 * 
 	 */
 	public JavaURL(String nameSpaceName, String iD) {
 		super(null, null);
 		initializeNamespaceString(nameSpaceName);
 		this.ID = iD;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * @deprecated Use {@link JavaRefFactory#getTypeName(org.eclipse.emf.common.util.URI)} 
+	 */
 	public String getClassName() {
 		return ID;
 	}
+	
 	/**
 	 * This method was created in VisualAge.
 	 * @return java.lang.String
+	 * 
+	 * @deprecated Use {@link JavaRefFactory#getFullTypeName(org.eclipse.emf.common.util.URI)}
 	 */
 	public String getFullString() {
 		StringBuffer buf = new StringBuffer();
@@ -52,6 +70,13 @@ public class JavaURL extends org.eclipse.jem.java.internal.impl.URL {
 			buf.append(ID);
 		return buf.toString();
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * @deprecated Use {@link JavaRefFactory#getPackageName(org.eclipse.emf.common.util.URI)}
+	 * @since 1.2.0
+	 */
 	public String getPackageName() {
 		String internalName = namespaceName.substring(JAVA_PROTOCOL_URI_PREFIX.length(), namespaceName.length());
 		return JavaPackage.PRIMITIVE_PACKAGE_NAME.equals(internalName) ? "" : internalName; //$NON-NLS-1$
@@ -79,6 +104,13 @@ public class JavaURL extends org.eclipse.jem.java.internal.impl.URL {
 		else
 			namespaceName = JAVA_PROTOCOL_URI_PREFIX + aNamespaceName;
 	}
+	
+	/**
+	 * 
+	 * @param aUrlString
+	 * @return
+	 * @deprecated Use {@link JavaRefFactory#isJavaURI(org.eclipse.emf.common.util.URI)} 
+	 */
 	public static boolean isJavaURL(String aUrlString) {
 		if (aUrlString == null)
 			return false;
