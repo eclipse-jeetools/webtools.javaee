@@ -9,7 +9,7 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientJarCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -55,7 +55,7 @@ public class EJBClientComponentCreationWizard extends DataModelWizard {
 	}
 
     protected IDataModelProvider getDefaultProvider() {
-        return new EjbClientProjectCreationDataModelProvider();
+        return new EjbClientJarCreationDataModelProvider();
     }
 
 }
