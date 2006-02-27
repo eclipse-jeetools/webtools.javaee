@@ -143,7 +143,23 @@ public class EjbClientJarCreationOperation
 				e.printStackTrace();
 			}
 			
+			EJBClientJarCreationHelper helper = new EJBClientJarCreationHelper( ejbproject );
+			
+			
+	        IDataModel moveModel =  DataModelFactory.createDataModel( new EJBClientJarFileMoveDataModelProvider());
+	        moveModel.setProperty(IEJBClientJarFileMoveDataModelProperties.EJB_PROJECT_NAME,
+	        			ejbproject.getName() );
+	        moveModel.setProperty(IEJBClientJarFileMoveDataModelProperties.EJB_CLIENTVIEW_PROJECT_NAME,
+	        			 model.getStringProperty( PROJECT_NAME )); 
+
+	        moveModel.setProperty( IEJBClientJarFileMoveDataModelProperties.FILES_TO_MOVE_MAP,
+	        			helper.getFilesToMove() );
+	        moveModel.getDefaultOperation().execute(monitor, null);
+	        
 		}
+		
+
+        
 		return stat;
 	}
 	
@@ -273,5 +289,6 @@ public class EjbClientJarCreationOperation
 			if (ejbEdit != null)
 				ejbEdit.dispose();
 		}
+
 	}	
 }
