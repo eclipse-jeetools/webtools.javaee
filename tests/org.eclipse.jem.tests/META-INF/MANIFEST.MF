@@ -7,8 +7,7 @@ Bundle-ClassPath: javatests.jar
 Bundle-Activator: org.eclipse.jem.tests.JavaTestsPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: .,
- initParserTest46376;x-internal:=true,
+Export-Package: initParserTest46376;x-internal:=true,
  org.eclipse.jem.tests,
  org.eclipse.jem.tests.basic,
  org.eclipse.jem.tests.beaninfo,
@@ -18,9 +17,7 @@ Export-Package: .,
  org.eclipse.jem.tests.proxy.ide,
  org.eclipse.jem.tests.proxy.initParser,
  org.eclipse.jem.tests.proxy.initParser.tree,
- org.eclipse.jem.tests.proxy.remote,
- org.eclipse.jem.tests.proxy.vm,
- testPackage
+ org.eclipse.jem.tests.proxy.remote
 Require-Bundle: org.eclipse.jem.proxy,
  org.junit,
  org.eclipse.ant.core,
