@@ -404,10 +404,12 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {
-		if (propertyName.equals(CREATE_CONNECTOR) || propertyName.equals(CONNECTOR_COMPONENT_NAME)) {
+		if (propertyName.equals(CREATE_CONNECTOR)) {
 			int version = getIntProperty(J2EE_VERSION);
-			boolean result = version > J2EEVersionConstants.J2EE_1_2_ID;
-			return result;
+			return version > J2EEVersionConstants.J2EE_1_2_ID;
+		}
+		if( propertyName.equals(CONNECTOR_COMPONENT_NAME)){
+			return getBooleanProperty(CREATE_CONNECTOR);
 		}
 		if (propertyName.equals(APPCLIENT_COMPONENT_NAME))
 			return getBooleanProperty(CREATE_APPCLIENT);
