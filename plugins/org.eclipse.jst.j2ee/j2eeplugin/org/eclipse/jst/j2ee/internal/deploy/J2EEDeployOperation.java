@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -52,7 +53,8 @@ import org.eclipse.wst.server.core.IRuntime;
 public class J2EEDeployOperation extends AbstractDataModelOperation {
 
 	private Object[] selection;
-	private List multiStatus = new ArrayList();
+	private IStatus multiStatus;
+	private IProject currentProject;
 
 	/**
 	 *  
@@ -104,7 +106,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 					edit.dispose();
 			}
 		}
-		return OK_STATUS;
+		return getMultiStatus();
 	}
 
 	/**
@@ -113,7 +115,6 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	private void deploy(List visitors, EObject module, IProgressMonitor monitor) {
 		IProject proj = ProjectUtilities.getProject(module);
-		IStatus main = addMainStatus(proj);
 		for (int i = 0; i < visitors.size(); i++) {
 			if (!(visitors.get(i) instanceof IConfigurationElement))
 				continue;
@@ -131,12 +132,12 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			monitor.setTaskName(J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_1_UI_, new Object[]{proj.getName(), dep.getClass().getName()})); 
 			try {
 				dep.execute(proj, null, ctx);
-				addOKStatus(dep.getClass().getName(), main);
+				addOKStatus(dep.getClass().getName());
 			} catch (CoreException ex) {
 				Logger.getLogger().logError(ex);
 				monitor.setCanceled(true);
 				Throwable statusException = (ex.getStatus().getException() != null) ? ex.getStatus().getException() : ex;
-				addErrorStatus(ex.getStatus(), dep.getClass().getName(), statusException, main);
+				addErrorStatus(ex.getStatus(), dep.getClass().getName(), statusException);
 				continue;
 			}
 		}
@@ -146,11 +147,11 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 * @param proj
 	 * @param name
 	 */
-	private void addOKStatus(String DeployerName, IStatus main) {
+	private void addOKStatus(String DeployerName) {
 
-		//IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
+		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
 		//TODO
-		//addStatus(statusLocal);
+		getMultiStatus().add(statusLocal);
 
 	}
 
@@ -159,46 +160,49 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 * @param proj
 	 * @param name
 	 */
-	private void addErrorStatus(IStatus exceptionStatus, String DeployerName, Throwable ex, IStatus main) {
+	private void addErrorStatus(IStatus exceptionStatus, String DeployerName, Throwable ex) {
 
+		Throwable mainCause = null;
 		if (exceptionStatus instanceof MultiStatus) {
 			IStatus[] stati = ((MultiStatus) exceptionStatus).getChildren();
 			for (int i = 0; 1 < stati.length; i++) {
-				addErrorStatus(stati[i], DeployerName, stati[i].getException(), main);
+				addErrorStatus(stati[i], DeployerName, stati[i].getException());
 			}
 		}
-		//String errorNotes = (ex != null && ex.getMessage() != null) ? ex.getMessage() : main.getMessage();
+		mainCause = (ex.getCause() != null) ? ex.getCause() : ex;
+			
+		//String errorNotes = (mainCause != null && mainCause.getMessage() != null) ? mainCause.getMessage() : "";
 
-		//String message = J2EEPluginResourceHandler.getString("J2EEDeployOperation_3_UI_", new Object[]{DeployerName, errorNotes}); //$NON-NLS-1$
-		//IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, ex); //$NON-NLS-1$
-		//TODO
-		//addStatus(statusLocal);
+		String message = J2EEPluginResourceHandler.bind(J2EEPluginResourceHandler.J2EEDeployOperation_3_UI_,DeployerName, ""); //$NON-NLS-1$
+		IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, mainCause); //$NON-NLS-1$
+		getMultiStatus().add(statusLocal);
 
 
 
 	}
 
-	private IStatus addMainStatus(IProject proj) {
+	private IStatus getMainStatus(IProject proj) {
 
 		IStatus aStatus = new MultiStatus(J2EEPlugin.getPlugin().getPluginID(), IStatus.OK, J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_4_UI_, new Object[]{proj.getName()}), null); 
 
-		getMultiStatus().add(aStatus);
 		return aStatus;
 	}
 
 	/**
 	 * @return Returns the multiStatus.
 	 */
-	public List getMultiStatus() {
-		return multiStatus;
+	public MultiStatus getMultiStatus() {
+		if (multiStatus == null)
+			multiStatus = getMainStatus(currentProject);
+		return (MultiStatus)multiStatus;
 	}
 
 	/**
 	 * @param multiStatus
 	 *            The multiStatus to set.
 	 */
-	public void setMultiStatus(List multiStatus) {
-		this.multiStatus = multiStatus;
+	public void setMultiStatus(IStatus newStatus) {
+		this.multiStatus = newStatus;
 	}
 	
 	protected List getSelectedModules(Object[] mySelections) {
@@ -208,8 +212,10 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			Object object = mySelections[i];
 			if (object instanceof EObject) {
 				object = ProjectUtilities.getProject(object);
+				currentProject = (IProject)object;
 			}
 			if (object instanceof IProject) {
+				currentProject = (IProject)object;
 				IVirtualComponent component = ComponentCore.createComponent((IProject)object);
 				EnterpriseArtifactEdit edit = null;
 				edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(component);
