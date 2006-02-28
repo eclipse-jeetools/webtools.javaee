@@ -120,13 +120,7 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public String getString(String key) {
-		try {
-			return getDescriptor().getResourceBundle().getString(key);
-		} catch (MissingResourceException ex) {
-			//TODO Don't throw error - just show unresolved key
-			//Logger.getLogger().logError(ex);
-			return '!' + key + '!';
-		}
+		return Platform.getResourceString(getBundle(), key);
 	}
 
 	/*
