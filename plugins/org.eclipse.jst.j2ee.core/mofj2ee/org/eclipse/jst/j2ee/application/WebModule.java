@@ -22,13 +22,13 @@ public interface WebModule extends Module{
 	 * The context-root element specifies the context root of a web application
 
 	 */
-	String getContextRoot();
+	public String getContextRoot();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 * @param value The new value of the ContextRoot attribute
 	 */
-	void setContextRoot(String value);
+	public void setContextRoot(String value);
 
 }
 

@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -566,5 +567,43 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		} finally {
 			earEdit.dispose();
 		} 
+	}
+	
+	/**
+	 * This method will return the context root in this application for the passed in web project.
+	 * 
+	 * @param webProject
+	 * @return contextRoot String
+	 */
+	public String getWebContextRoot(IProject webProject) {
+		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+			return null;
+		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+		String webModuleURI = getModuleURI(webComp);
+		if (webModuleURI != null) {
+			WebModule webModule = (WebModule) getApplication().getModule(webModuleURI,null);
+			if (webModule != null)
+				return webModule.getContextRoot();
+		}
+		return null;
+	}
+	
+	/**
+	 * This method will set the context root on the application for the passed in contextRoot.  This
+	 * must be called in a write artifact edit and be saved for changes to be saved.
+	 * 
+	 * @param webProject
+	 * @param aContextRoot
+	 */
+	public void setWebContextRoot(IProject webProject, String aContextRoot) {
+		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+			return;
+		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+		String webModuleURI = getModuleURI(webComp);
+		if (webModuleURI != null) {
+			WebModule webModule = (WebModule) getApplication().getModule(webModuleURI,null);
+			if (webModule != null)
+				webModule.setContextRoot(aContextRoot);
+		}
 	}
 }
