@@ -19,7 +19,6 @@ import java.util.Properties;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -88,19 +87,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			if (vFolder != null) {
 				IContainer[] underlyingFolders = vFolder.getUnderlyingFolders();
 				result.addAll(Arrays.asList(underlyingFolders));
-				IPackageFragmentRoot[] srcRoots = J2EEProjectUtilities.getSourceContainers(getProject());
-				try {
-					for (int i=0; i<srcRoots.length; i++) {
-						IResource corrResource = srcRoots[i].getCorrespondingResource();
-						if (corrResource == null || !(corrResource instanceof IContainer))
-							continue;
-						IContainer srcContainer = (IContainer) corrResource;
-						result.remove(srcContainer);
-					}
-				} catch (Exception e) {}
 			}
 		}
-		
 		return (IContainer[]) result.toArray(new IContainer[result.size()]);
 	}
 
