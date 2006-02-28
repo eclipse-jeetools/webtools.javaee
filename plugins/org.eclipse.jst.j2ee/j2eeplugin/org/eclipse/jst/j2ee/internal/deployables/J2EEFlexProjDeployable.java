@@ -318,6 +318,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	return aURI;
 	}
     
+    /**
+     * This method returns the context root property from the deployable project's .component file
+     */
     public String getContextRoot() {
 		Properties props = component.getMetaProperties();
 		if(props.containsKey(J2EEConstants.CONTEXTROOT))
@@ -337,5 +340,31 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     			break;
     	}
     	return result;
+    }
+    
+    /**
+     * This method is applicable for a web deployable.  The module passed in should either be null or
+     * the EAR module the web deployable is contained in.  It will return the context root from the EAR
+     * if it has one or return the .component value in the web project if it is standalone.
+     *  
+     * @param module
+     * @return contextRoot String
+     */
+    public String getContextRoot(IModule earModule) {
+    	IProject deployProject = component.getProject();
+    	String contextRoot = null;
+    	if (earModule == null)
+    		return getContextRoot();
+    	else if (J2EEProjectUtilities.isEARProject(earModule.getProject()) && J2EEProjectUtilities.isDynamicWebProject(deployProject)) {
+    		EARArtifactEdit edit = null;
+    		try {
+    			edit = EARArtifactEdit.getEARArtifactEditForRead(earModule.getProject());
+    			contextRoot = edit.getWebContextRoot(deployProject);
+    		} finally {
+    			if (edit!=null)
+    				edit.dispose();
+    		}
+    	}
+    	return contextRoot;
     }
 }

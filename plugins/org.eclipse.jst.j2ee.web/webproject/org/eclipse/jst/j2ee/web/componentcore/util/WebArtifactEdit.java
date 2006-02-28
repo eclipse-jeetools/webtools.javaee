@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +25,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -494,30 +496,24 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	
 	/**
-	 * This method will retrieve the context root for the associated workbench module which is used
-	 * by the server at runtime.  This method is not yet completed as the context root has to be
-	 * abstracted and added to the workbenchModule model.  This API will not change though.
-	 * Returns null for now.
+	 * This method will retrieve the context root for this web project's .component file.  It is 
+	 * meant to handle a standalone web case.
 	 * 
-	 * @return String value of the context root for runtime of the associated module
+	 * @return contextRoot String
 	 */
 	public String getServerContextRoot() {
 		return J2EEProjectUtilities.getServerContextRoot(getProject());
 	}
 	
 	/**
-	 * This method will set the context root on the associated workbench module with the given string
-	 * value passed in.  This context root is used by the server at runtime.  This method is not yet
-	 * completed as the context root still needs to be abstracted and added to the workbench module
-	 * model.  This API will not change though.
-	 * Does nothing as of now.
+	 * This method sets the context root property on the web project's .component file for
+	 * the standalone case.
 	 * 
 	 * @param contextRoot string
 	 */
 	public void setServerContextRoot(String contextRoot) {
 		J2EEProjectUtilities.setServerContextRoot(getProject(), contextRoot);
 	}
-
 
 	/**
 	 * @return WebApp
@@ -552,5 +548,52 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		} finally {
 			webEdit.dispose();
 		} 
+	}
+	
+	/**
+	 * This method will retrieve the context root for this web project in the associated parameter's
+	 * application.xml. If the earProject is null, then the contextRoot from the .component of the web
+	 * project is returned.
+	 * 
+	 * @param earProject
+	 * @return contextRoot String
+	 */
+	public String getServerContextRoot(IProject earProject) {
+		if (earProject == null || !J2EEProjectUtilities.isEARProject(earProject))
+			return getServerContextRoot();
+		EARArtifactEdit earEdit = null;
+		String contextRoot = null;
+		try {
+			earEdit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+			if (earEdit!=null )
+				contextRoot = earEdit.getWebContextRoot(getProject());
+		} finally {
+			if (earEdit!=null)
+				earEdit.dispose();
+		}
+		return contextRoot;
+	}
+	
+	/**
+	 * This method will update the context root for this web project on the EAR which is passed in.
+	 * If no EAR is passed the .component file for the web project will be updated.
+	 * 
+	 * @param earProject
+	 * @param aContextRoot
+	 */
+	public void setServerContextRoot(IProject earProject, String aContextRoot) {
+		if (earProject == null || !J2EEProjectUtilities.isEARProject(earProject))
+			setServerContextRoot(aContextRoot);
+		EARArtifactEdit earEdit = null;
+		try {
+			earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earProject);
+			if (earEdit!=null )
+				earEdit.setWebContextRoot(getProject(),aContextRoot);
+		} finally {
+			if (earEdit!=null) {
+				earEdit.saveIfNecessary(new NullProgressMonitor());
+				earEdit.dispose();
+			}
+		}		
 	}
 }
