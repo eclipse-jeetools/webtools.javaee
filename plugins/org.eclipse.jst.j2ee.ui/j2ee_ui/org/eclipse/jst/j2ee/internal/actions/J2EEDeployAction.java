@@ -20,15 +20,22 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
 import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.common.frameworks.internal.WTPResourceHandler;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 
 /**
@@ -46,23 +53,31 @@ public class J2EEDeployAction extends BaseAction {
 	protected void primRun(Shell shell) {
 
 		if (isEnabled()) {
-			J2EEDeployOperation op = new J2EEDeployOperation(selection.toArray());
-			//IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(op);
-			//J2EEDeployStatusDialog dialog = new
-			// J2EEDeployStatusDialog(shell,op.getMultiStatus());
+			final IStructuredSelection deploySelection = selection;
+			Job deployJob = new Job("Deploy") {
+				protected IStatus run(IProgressMonitor monitor) {
+					IStatus result = null;
+					J2EEDeployOperation op = new J2EEDeployOperation(deploySelection.toArray());
+					try {
+						result = op.execute(monitor, null);
+					} catch (Exception e) {
+						result = new Status(IStatus.ERROR, WTPCommonPlugin.PLUGIN_ID, IStatus.ERROR, WTPResourceHandler.getString("27"), e); //$NON-NLS-1$
+						Logger.getLogger().logError(e);
+					} finally {
+						
+					}
+					return result;
+				}
+			};
+			
+			
 			try {
-				op.execute(new NullProgressMonitor(), null);
+				deployJob.setUser(true);
+				deployJob.schedule();
 			} catch (Exception e) {
 				//Ignore
 			}
-			//TODO fix up job scheduler?
-//			WTPOperationJobAdapter jobAdapter = new WTPOperationJobAdapter(op);
-//			jobAdapter.setName(J2EEPluginResourceHandler.getString("J2EEDeployOperation_UI_0"));//$NON-NLS-1$
-//			IWorkbench workbench = J2EEUIPlugin.getDefault().getWorkbench();
-//			IProgressService progressService = workbench.getProgressService();
-//			jobAdapter.setPriority(Job.INTERACTIVE);
-//			progressService.showInDialog(workbench.getActiveWorkbenchWindow().getShell(), jobAdapter);
-//			jobAdapter.schedule();
+			
 		}
 
 	}
