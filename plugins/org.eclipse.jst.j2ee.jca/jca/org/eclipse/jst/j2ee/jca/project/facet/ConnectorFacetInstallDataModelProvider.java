@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.jca.project.facet;
 
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -23,6 +24,10 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 			return J2EEProjectUtilities.JCA;
 		} else if (propertyName.equals(CONFIG_FOLDER))
 			return CreationConstants.DEFAULT_CONNECTOR_SOURCE_FOLDER;
+		else if (propertyName.equals(MODULE_URI)) {
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+			return projectName + IJ2EEModuleConstants.RAR_EXT; 
+		}
 		return super.getDefaultProperty(propertyName);
 	}
 	

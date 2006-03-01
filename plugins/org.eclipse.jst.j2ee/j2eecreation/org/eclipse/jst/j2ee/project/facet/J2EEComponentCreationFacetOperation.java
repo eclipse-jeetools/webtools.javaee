@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -22,6 +24,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -101,6 +105,9 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 	        List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 	        modList.add(comp);
 	        dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+	        Map map = new HashMap();
+			map.put(comp, model.getStringProperty(IJ2EEComponentCreationDataModelProperties.MODULE_URI));
+	        dataModel.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, map);
 	        try {
 				stat = dataModel.getDefaultOperation().execute(null, null);
 			} catch (ExecutionException e) {

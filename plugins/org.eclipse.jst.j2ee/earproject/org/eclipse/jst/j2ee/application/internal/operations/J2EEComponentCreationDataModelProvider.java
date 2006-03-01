@@ -80,6 +80,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		propertyNames.add(NESTED_UPDATE_MANIFEST_DM);
 		propertyNames.add(EAR_COMPONENT_PROJECT);
 		propertyNames.add(USE_ANNOTATIONS);
+		propertyNames.add(MODULE_URI);
 		return propertyNames;
 	}
 

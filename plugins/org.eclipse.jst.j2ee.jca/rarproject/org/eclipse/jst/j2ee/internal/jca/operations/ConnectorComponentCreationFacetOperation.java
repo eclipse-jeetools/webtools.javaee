@@ -66,6 +66,7 @@ public class ConnectorComponentCreationFacetOperation extends J2EEComponentCreat
 		connectorFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));
 		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
 			connectorFacetInstallDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
+		connectorFacetInstallDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, model.getProperty(IJ2EEComponentCreationDataModelProperties.MODULE_URI));
 		connectorFacetInstallDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.RUNTIME_TARGET_ID, model.getProperty(IJ2EEComponentCreationDataModelProperties.RUNTIME_TARGET_ID));
 		return connectorFacetInstallDataModel;
 	}

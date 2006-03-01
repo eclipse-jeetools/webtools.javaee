@@ -14,6 +14,7 @@ import java.util.Set;
 
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
@@ -36,6 +37,10 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 			return Boolean.TRUE;
 		else if (propertyName.equals(CONFIG_FOLDER))
 			return CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
+		else if (propertyName.equals(MODULE_URI)) {
+				String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+				return projectName + IJ2EEModuleConstants.JAR_EXT; 
+		}
 		return super.getDefaultProperty(propertyName);
 	}
 	

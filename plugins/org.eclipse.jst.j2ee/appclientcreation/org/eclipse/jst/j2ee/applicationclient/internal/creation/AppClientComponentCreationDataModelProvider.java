@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentCreationData
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -55,7 +56,9 @@ public class AppClientComponentCreationDataModelProvider extends J2EEComponentCr
 		}
 		if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			return  CreationConstants.DEFAULT_APPCLIENT_SOURCE_FOLDER;
-		}
+		} else if (propertyName.equals(MODULE_URI)) {
+			return getProject().getName()+IJ2EEModuleConstants.JAR_EXT;
+		} 
 		return super.getDefaultProperty(propertyName);
 	}
 

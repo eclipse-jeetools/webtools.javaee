@@ -35,6 +35,8 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
 	 * Required, type Boolean, the default value is <code>Boolean.FALSE</code>.
 	 */
 	public static final String ADD_TO_EAR = "IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR"; //$NON-NLS-1$
+	
+	public static final String MODULE_URI = "IJ2EEComponentCreationDataModelProperties.MODULE_URI"; //$NON-NLS-1$
 	/**
 	 * type String, this property needs to be set if the value of the property ADD_TO_EAR  is set to <code>Boolean.TRUE</code>
 	 */
