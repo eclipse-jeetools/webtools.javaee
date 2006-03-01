@@ -6,11 +6,11 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.jst.ejb.ui.internal.actions,
- org.eclipse.jst.ejb.ui.internal.deployables,
- org.eclipse.jst.ejb.ui.internal.plugin,
- org.eclipse.jst.ejb.ui.internal.util,
- org.eclipse.jst.ejb.ui.internal.wizard,
+Export-Package: org.eclipse.jst.ejb.ui.internal.actions;x-internal:=true,
+ org.eclipse.jst.ejb.ui.internal.deployables;x-internal:=true,
+ org.eclipse.jst.ejb.ui.internal.plugin;x-internal:=true,
+ org.eclipse.jst.ejb.ui.internal.util;x-internal:=true,
+ org.eclipse.jst.ejb.ui.internal.wizard;x-internal:=true,
  org.eclipse.jst.ejb.ui.project.facet
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.ui,

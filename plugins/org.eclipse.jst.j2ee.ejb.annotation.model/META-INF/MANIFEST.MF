@@ -8,12 +8,12 @@ Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Export-Package: 
- org.eclipse.jst.j2ee.ejb.annotation.internal.messages,
- org.eclipse.jst.j2ee.ejb.annotation.internal.model,
- org.eclipse.jst.j2ee.ejb.annotation.internal.operations,
- org.eclipse.jst.j2ee.ejb.annotation.internal.preferences,
- org.eclipse.jst.j2ee.ejb.annotation.internal.provider,
- org.eclipse.jst.j2ee.ejb.annotation.internal.utility
+ org.eclipse.jst.j2ee.ejb.annotation.internal.messages;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.internal.model;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.internal.operations;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.internal.preferences;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.internal.provider;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.internal.utility;x-internal:=true
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jdt.core,

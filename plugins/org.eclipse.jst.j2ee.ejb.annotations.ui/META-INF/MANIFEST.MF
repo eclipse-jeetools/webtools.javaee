@@ -7,9 +7,10 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: org.eclipse.jst.j2ee.ejb.annotation.ui.internal,
- org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences,
- org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards
+Export-Package: org.eclipse.jst.j2ee.ejb.annotation.ui.internal;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.ui.internal.cmp.wizards;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.ui.internal.preferences;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;x-internal:=true
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.wst.common.frameworks,

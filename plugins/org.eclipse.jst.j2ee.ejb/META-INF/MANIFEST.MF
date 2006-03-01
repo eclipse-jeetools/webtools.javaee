@@ -6,20 +6,19 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: .,
- org.eclipse.jst.j2ee.ejb.componentcore.util,
+Export-Package: org.eclipse.jst.j2ee.ejb.componentcore.util,
  org.eclipse.jst.j2ee.ejb.datamodel.properties,
- org.eclipse.jst.j2ee.ejb.internal.deployables,
- org.eclipse.jst.j2ee.ejb.internal.extensions,
- org.eclipse.jst.j2ee.ejb.internal.modulecore.util,
- org.eclipse.jst.j2ee.ejb.internal.plugin,
+ org.eclipse.jst.j2ee.ejb.internal.deployables;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.internal.extensions;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.internal.modulecore.util;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.internal.plugin;x-internal:=true,
  org.eclipse.jst.j2ee.ejb.project.facet,
- org.eclipse.jst.j2ee.internal.ejb.archiveoperations,
- org.eclipse.jst.j2ee.internal.ejb.project,
- org.eclipse.jst.j2ee.internal.ejb.project.operations,
- org.eclipse.jst.j2ee.internal.ejb.provider,
- org.eclipse.jst.j2ee.internal.ejb.refactor,
- org.eclipse.jst.j2ee.internal.ejb.workbench.validation
+ org.eclipse.jst.j2ee.internal.ejb.archiveoperations;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.ejb.project;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.ejb.project.operations;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.ejb.provider;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.ejb.refactor;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.ejb.workbench.validation;x-internal:=true
 Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.core.commands,
  org.eclipse.wst.common.frameworks,

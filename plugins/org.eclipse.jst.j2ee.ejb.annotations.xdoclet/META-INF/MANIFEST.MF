@@ -7,9 +7,12 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet,
- org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider,
- org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui
+Export-Package: org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.action;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.provider;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;x-internal:=true,
+ org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util;x-internal:=true
 Require-Bundle: org.eclipse.jst.j2ee.ejb.annotations.emitter;visibility:=reexport,
  org.eclipse.jdt,
  org.eclipse.emf.common,
