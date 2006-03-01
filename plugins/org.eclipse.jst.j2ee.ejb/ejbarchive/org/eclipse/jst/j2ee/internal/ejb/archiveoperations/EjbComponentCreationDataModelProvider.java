@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbComponentCreationFacetOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -181,6 +182,8 @@ public class EjbComponentCreationDataModelProvider extends J2EEComponentCreation
 			return  CreationConstants.DEFAULT_EJB_SOURCE_FOLDER;
 		} else if (propertyName.equals(MANIFEST_FOLDER)) {
 			return IPath.SEPARATOR + CreationConstants.DEFAULT_EJB_SOURCE_FOLDER + IPath.SEPARATOR + J2EEConstants.META_INF;
+		} else if (propertyName.equals(MODULE_URI)) {
+			return getProject().getName()+IJ2EEModuleConstants.JAR_EXT;
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}

@@ -115,7 +115,7 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		ejbFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));
 		if (model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR))
 			ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.EAR_PROJECT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
-
+		ejbFacetInstallDataModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, model.getProperty(IJ2EEComponentCreationDataModelProperties.MODULE_URI));
 		ejbFacetInstallDataModel.setProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, model.getProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT));
 
 		IDataModel ejbClientComponentDataModel = (IDataModel) model.getProperty(IEjbComponentCreationDataModelProperties.NESTED_MODEL_EJB_CLIENT_CREATION);
