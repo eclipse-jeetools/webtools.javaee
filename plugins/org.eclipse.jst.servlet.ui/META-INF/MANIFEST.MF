@@ -6,12 +6,11 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: .,
- org.eclipse.jst.servlet.ui,
- org.eclipse.jst.servlet.ui.internal.actions,
- org.eclipse.jst.servlet.ui.internal.deployables,
- org.eclipse.jst.servlet.ui.internal.plugin,
- org.eclipse.jst.servlet.ui.internal.wizard,
+Export-Package: org.eclipse.jst.servlet.ui,
+ org.eclipse.jst.servlet.ui.internal.actions;x-internal:=true,
+ org.eclipse.jst.servlet.ui.internal.deployables;x-internal:=true,
+ org.eclipse.jst.servlet.ui.internal.plugin;x-internal:=true,
+ org.eclipse.jst.servlet.ui.internal.wizard;x-internal:=true,
  org.eclipse.jst.servlet.ui.project.facet
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.runtime,
