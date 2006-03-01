@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -68,6 +69,8 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				if (modelsToImport.contains(importModel)) {
 					String archiveUri = ((Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE)).getURI();
 					importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
+					IDataModel compCreationModel = importModel.getNestedModel("IJ2EEArtifactImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION");
+					compCreationModel.setProperty(IJ2EEComponentCreationDataModelProperties.MODULE_URI, archiveUri);
 					try {
 						importModel.getDefaultOperation().execute(monitor, info);
 					} catch (ExecutionException e) {

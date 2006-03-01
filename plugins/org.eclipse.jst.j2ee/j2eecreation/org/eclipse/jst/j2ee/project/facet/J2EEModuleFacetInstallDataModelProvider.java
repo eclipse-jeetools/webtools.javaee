@@ -52,7 +52,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		names.add(PROHIBIT_ADD_TO_EAR);
 		names.add(CONFIG_FOLDER);
 		names.add(EAR_PROJECT_NAME);
-		names.add(LAST_EAR_NAME);		
+		names.add(LAST_EAR_NAME);
+		names.add(MODULE_URI);
 		return names;
 	}
 

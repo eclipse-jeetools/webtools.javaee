@@ -11,11 +11,11 @@
 package org.eclipse.jst.j2ee.web.project.facet;
 
 import java.util.Set;
-import com.ibm.icu.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
@@ -25,6 +25,8 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+
+import com.ibm.icu.util.StringTokenizer;
 
 public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {
 
@@ -46,6 +48,9 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			return getProperty(FACET_PROJECT_NAME);
 		} else if (propertyName.equals(FACET_ID)) {
 			return J2EEProjectUtilities.DYNAMIC_WEB;
+		} else if (propertyName.equals(MODULE_URI)) {
+			String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+			return projectName + IJ2EEModuleConstants.WAR_EXT; 
 		}
 		return super.getDefaultProperty(propertyName);
 	}

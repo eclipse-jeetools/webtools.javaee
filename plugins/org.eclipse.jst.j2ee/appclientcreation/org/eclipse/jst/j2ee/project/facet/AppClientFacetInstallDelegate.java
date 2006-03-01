@@ -77,7 +77,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			WtpUtils.addNatures(project);
 
 			// Setup the flexible project structure.
-			IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj);
+			final IVirtualComponent c = createFlexibleProject(monitor, project, model, jproj);
 
 			// Setup the classpath.
 			ClasspathHelper.removeClasspathEntries(project, fv);
@@ -100,18 +100,13 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
 
 					final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
 						public Object getDefaultProperty(String propertyName) {
 							if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
 								Map map = new HashMap();
-								List components = (List) getProperty(TARGET_COMPONENT_LIST);
-								for (int i = 0; i < components.size(); i++) {
-									IVirtualComponent component = (IVirtualComponent) components.get(i);
-									String name = component.getName();
-									name += ".jar"; //$NON-NLS-1$
-									map.put(component, name);
-								}
+								map.put(c, moduleURI);
 								return map;
 							}
 							return super.getDefaultProperty(propertyName);

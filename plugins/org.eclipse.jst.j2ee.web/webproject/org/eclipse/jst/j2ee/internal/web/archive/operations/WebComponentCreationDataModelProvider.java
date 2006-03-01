@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApp
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
@@ -182,6 +183,8 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
 		} else if (propertyName.equals(WEBCONTENT_FOLDER)) {
 			return WebArtifactEdit.WEB_CONTENT;
 
+		} else if (propertyName.equals(MODULE_URI)) {
+			return getProject().getName()+IJ2EEModuleConstants.WAR_EXT;
 		}
 		return super.getDefaultProperty(propertyName);
 	}
