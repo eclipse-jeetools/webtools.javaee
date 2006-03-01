@@ -259,51 +259,7 @@
   
    <extension
          point="org.eclipse.ui.popupMenus">
-   <!--      
-      <objectContribution
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            id="org.eclipse.jst.ejb.ui.internal.actions.IProject">
-         <menu
-               label="%ejbClientJAR.menu_ui"
-               path="additions"
-               id="clientJARParent">
-            <separator
-                  name="clientJARChildren">
-            </separator>
-         </menu>
-         <action
-               label="%ejb.client.jar.removal.action.description_ui_"
-               icon="icons/full/ctool16/ejb_client_remove_action_obj.gif"
-               class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction"
-               menubarPath="clientJARParent/clientJARChildren"
-               enablesFor="1"
-               id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction">
-               
-         </action>
-         <action
-               label="%ejb.client.jar.creation.action.description_ui_"
-               icon="icons/full/ctool16/ejbclientjar_wiz.gif"
-               class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction"
-               menubarPath="clientJARParent/clientJARChildren"
-               enablesFor="1"
-               id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction">
-         </action>
-         <visibility>
-
-	         <and>
-	            <objectState
-	                  name="projectNature"
-	                  value="org.eclipse.wst.common.componentcore.ModuleCoreNature">
-	            </objectState>	         
-	            <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-	              value="jst.ejb"/>        
-	         </and>            
-         </visibility>
-
-      </objectContribution>
-      -->
-      
+     
       <objectContribution
             objectClass="org.eclipse.emf.ecore.EObject"
             id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientActions.EJBJar">
@@ -323,7 +279,7 @@
                enablesFor="1"
                id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction">
          </action>
-         <!--         
+
          <action
                label="%ejb.client.jar.removal.action.description_ui_"
                icon="icons/full/ctool16/ejb_client_remove_action_obj.gif"
@@ -332,7 +288,7 @@
                enablesFor="1"
                id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction">
          </action>
-		-->
+
          <visibility>
             <objectClass
                   name="org.eclipse.jst.j2ee.ejb.EJBJar">

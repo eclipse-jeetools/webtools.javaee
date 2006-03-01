@@ -35,8 +35,7 @@ import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataMo
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
+import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEComponentCreationFacetOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -214,15 +213,16 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		}
 
 		if (!clientProjectName.equals(projectName)) {
-			IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
-			dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, projectName);
-			dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, clientProjectName);
-			dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
-			try {
-				dataModel.getDefaultOperation().execute(aMonitor, null);
-			} catch (Exception e) {
-				Logger.getLogger().logError(e);
-			}
+//			IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
+//			dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, projectName);
+//			dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, clientProjectName);
+//			dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
+//			try {
+//				dataModel.getDefaultOperation().execute(aMonitor, null);
+//			} catch (Exception e) {
+//				Logger.getLogger().logError(e);
+//			}
+			UpdateProjectClasspath.updateProjectDependency( projectName, clientProjectName, true );
 		}
 	}
 

@@ -14,16 +14,30 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectRemovalDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectRemovalDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.UIOperationHandler;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
+import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
 import org.eclipse.wst.validation.internal.ui.plugin.ValidationUIPlugin;
 
@@ -47,24 +61,59 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2ee.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
-	protected void primRun(Shell shell) {
+	protected void primRun(final Shell shell) {
+		final IProject ejbProject = getProject();
+
 		if (!checkClientExists(shell))
 			return;
 		if (!checkBinaryProject(shell))
 			return;
 		if (!confirmProceed(shell))
 			return;
-		//TODO: reimplment operation
-//		EJBClientProjectDataModel dataModel = new EJBClientProjectDataModel();
-//		dataModel.setProperty(EJBClientProjectDataModel.EJB_PROJECT_NAME, getProject().getName());
-//		dataModel.setBooleanProperty(EJBClientProjectDataModel.DELETE_WHEN_FINISHED, true);
-//		EJBClientJARRemovalOperation op = new EJBClientJARRemovalOperation(dataModel, new UIOperationHandler(shell));
+
+		final IProject clientProject = getClientProject();
+		
+		ValidatorManager validatorMgr = ValidatorManager.getManager();		
+		try{
+				//validatorMgr.suspendAllValidation(true);
+				
+				Job clientRemoveJob = new Job("Removing EJB Client Project"){ //$NON-NLS-1$
+					protected IStatus run(IProgressMonitor monitor) {
+						
+						UIOperationHandler opHandler = new UIOperationHandler(shell);
+						IDataModel model = DataModelFactory.createDataModel( new EjbClientProjectRemovalDataModelProvider() );
+						model.setProperty(IEjbClientProjectRemovalDataModelProperties.EJB_PROJECT, ejbProject);
+						model.setProperty(IEjbClientProjectRemovalDataModelProperties.EJB_CLIENT_VIEW_PROJECT, clientProject);
+						model.setProperty(IEjbClientProjectRemovalDataModelProperties.OP_HANDLER, opHandler );
+						
+						IStatus status = Status.OK_STATUS;
+						try {
+							status = model.getDefaultOperation().execute(monitor, null);
+						} catch (ExecutionException e) {
+							Logger.getLogger().logError(e);
+						}
+						return status;
+					}
+				};
+		
+				clientRemoveJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
+				clientRemoveJob.setUser(true);
+				clientRemoveJob.schedule();
+
+		}finally {
+//			validatorMgr.suspendAllValidation(false);
+//			ProgressMonitorDialog dlg = new ProgressMonitorDialog(shell);
+//			runValidationOperation(dlg);
+		}
+		
+		
 //		IRunnableWithProgress runnable = WTPUIPlugin.getRunnableWithProgress(op);
 //		ProgressMonitorDialog dlg = new ProgressMonitorDialog(shell);
+//		
 //		ValidatorManager validatorMgr = ValidatorManager.getManager();
 //		try {
 //			validatorMgr.suspendAllValidation(true);
-//			dlg.run(false, false, runnable);
+//			//dlg.run(false, false, runnable);
 //		} catch (InvocationTargetException e) {
 //			handleException(shell, e);
 //		} catch (RuntimeException e) {
@@ -116,9 +165,23 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	 * @return
 	 */
 	private IProject getClientProject() {
-//		EJBNatureRuntime runtime = EJBNatureRuntime.getRuntime(getProject());
-//		return runtime == null ? null : runtime.getDefinedEJBClientJARProject();
-		
+		IProject ejbProject = getProject();
+		if( ejbProject.exists() && ejbProject.isAccessible()){
+			EJBArtifactEdit edit = null;
+			try {
+				edit = EJBArtifactEdit.getEJBArtifactEditForRead( ejbProject );
+				if (edit != null){
+					IVirtualComponent clientComp = edit.getEJBClientJarModule();
+					if( clientComp != null ){
+						return clientComp.getProject();
+					}
+				}
+			} finally {
+				if(edit != null)
+					edit.dispose();
+					  
+			}
+		}
 		return null;
 	}
 
