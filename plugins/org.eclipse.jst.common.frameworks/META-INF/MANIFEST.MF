@@ -6,8 +6,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Export-Package: 
- org.eclipse.jst.common.jdt.internal.classpath,
- org.eclipse.jst.common.jdt.internal.integration,
+ org.eclipse.jst.common.frameworks,
+ org.eclipse.jst.common.jdt.internal.classpath;x-internal:=true,
+ org.eclipse.jst.common.jdt.internal.integration;x-internal:=true,
  org.eclipse.jst.common.project.facet
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,

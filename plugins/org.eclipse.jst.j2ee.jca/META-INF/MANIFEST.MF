@@ -6,13 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: .,
- org.eclipse.jst.j2ee.internal.jca.archive.operations,
- org.eclipse.jst.j2ee.internal.jca.operations,
- org.eclipse.jst.j2ee.internal.jca.providers,
- org.eclipse.jst.j2ee.internal.jca.validation,
- org.eclipse.jst.j2ee.jca.internal.module.util,
- org.eclipse.jst.j2ee.jca.internal.plugin,
+Export-Package: org.eclipse.jst.j2ee.internal.jca.archive.operations;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.jca.operations;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.jca.providers;x-internal:=true,
+ org.eclipse.jst.j2ee.internal.jca.validation;x-internal:=true,
+ org.eclipse.jst.j2ee.jca.internal.module.util;x-internal:=true,
+ org.eclipse.jst.j2ee.jca.internal.plugin;x-internal:=true,
  org.eclipse.jst.j2ee.jca.modulecore.util,
  org.eclipse.jst.j2ee.jca.project.facet
 Require-Bundle: org.eclipse.jst.j2ee,

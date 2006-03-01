@@ -6,11 +6,10 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.jca.ui.internal.plugin.JCAUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: .,
- org.eclipse.jst.j2ee.jca.ui.internal.actions,
- org.eclipse.jst.j2ee.jca.ui.internal.plugin,
- org.eclipse.jst.j2ee.jca.ui.internal.util,
- org.eclipse.jst.j2ee.jca.ui.internal.wizard
+Export-Package: org.eclipse.jst.j2ee.jca.ui.internal.actions;x-internal:=true,
+ org.eclipse.jst.j2ee.jca.ui.internal.plugin;x-internal:=true,
+ org.eclipse.jst.j2ee.jca.ui.internal.util;x-internal:=true,
+ org.eclipse.jst.j2ee.jca.ui.internal.wizard;x-internal:=true
 Require-Bundle: org.eclipse.jst.j2ee.ui,
  org.eclipse.wst.common.frameworks.ui,
  org.eclipse.jface,
