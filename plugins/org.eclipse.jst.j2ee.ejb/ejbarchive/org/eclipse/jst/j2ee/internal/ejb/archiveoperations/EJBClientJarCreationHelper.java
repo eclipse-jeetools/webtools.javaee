@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -36,15 +39,19 @@ import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBGenHelpers;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 
 public class EJBClientJarCreationHelper {
 	
+	protected static final String SERVICE_LOCATOR_JAR_NAME = "serviceLocatorMgr.jar"; //$NON-NLS-1$	
 	private IProject ejbProject = null;
 	protected Map javaFilesToMove = new HashMap();
 	protected Set visitedJavaTypes = new HashSet();
@@ -85,6 +92,68 @@ public class EJBClientJarCreationHelper {
 		return javaFilesToMove;
 	}
 	
+	public static void copyOutgoingClasspathEntries(IProject source, IProject target, boolean filterServiceLocator) throws JavaModelException {
+		IJavaProject sourceJProject = JemProjectUtilities.getJavaProject(source);
+		IJavaProject targetJProject = JemProjectUtilities.getJavaProject(target);
+		IClasspathEntry[] sourceCp = sourceJProject.getRawClasspath();
+		List targetCp = new ArrayList(Arrays.asList(targetJProject.getRawClasspath()));
+		for (int i = 0; i < sourceCp.length; i++) {
+			IClasspathEntry entry = sourceCp[i];
+			if (!isContainedInProject(entry, source) && !contains(targetCp, entry) && (!isServiceLocator(entry) || !filterServiceLocator))
+				targetCp.add(entry);
+		}
+		IClasspathEntry[] newCp = (IClasspathEntry[]) targetCp.toArray(new IClasspathEntry[targetCp.size()]);
+		targetJProject.setRawClasspath(newCp, null);
+	}
+	
+	private static boolean isContainedInProject(IClasspathEntry entry, IProject project) {
+		return !entry.getPath().isEmpty() && project.getName().equals(entry.getPath().segment(0));
+	}
+	
+	private static boolean contains(List cp, IClasspathEntry entry) {
+		for (int i = 0; i < cp.size(); i++) {
+			IClasspathEntry elmt = (IClasspathEntry) cp.get(i);
+			if (elmt.getEntryKind() == entry.getEntryKind() && elmt.getPath().equals(entry.getPath()))
+				return true;
+		}
+		return false;
+	}
+	
+	private static boolean isServiceLocator(IClasspathEntry entry) {
+		IPath path = entry.getPath();
+		return path != null && SERVICE_LOCATOR_JAR_NAME.equals(path.lastSegment());
+	}	
+	
+	public static List normalize(String[] mfEntries, IProject earProject, IProject ejbProject, 
+				boolean filterServiceLocator) {
+		
+		String jarURI = null;
+		EARArtifactEdit edit = null;
+		try {
+			edit = EARArtifactEdit.getEARArtifactEditForRead( earProject );
+			if (edit != null){
+				jarURI = edit.getModuleURI( ComponentCore.createComponent( ejbProject ));
+				if (jarURI == null)
+					return Collections.EMPTY_LIST;				
+			}
+		} finally {
+			if(edit != null)
+				edit.dispose();
+				  
+		}
+		
+		List result = new ArrayList(mfEntries.length);
+		for (int i = 0; i < mfEntries.length; i++) {
+			String norm = ArchiveUtil.deriveEARRelativeURI(mfEntries[i], jarURI);
+			if (norm == null)
+				norm = mfEntries[i];
+			//We know this is an implementation dependency so we don't want to move it
+			if (!SERVICE_LOCATOR_JAR_NAME.equals(norm) || !filterServiceLocator)
+				result.add(norm);
+		}
+		return result;
+	}
+	
 	
 	private void computeJavaTypes(EnterpriseBean ejb) {
 		computeJavaTypes(ejb.getHomeInterface());
@@ -107,7 +176,7 @@ public class EJBClientJarCreationHelper {
 		if (type == null || visitedJavaTypes.contains(type))
 			return;
 		visitedJavaTypes.add(type);
-		String qualifiedName = type.getFullyQualifiedName();
+		//String qualifiedName = type.getFullyQualifiedName();
 		try {
 			IFile file = (IFile)type.getUnderlyingResource();
 			if (file != null && ejbProject.equals(file.getProject())) {

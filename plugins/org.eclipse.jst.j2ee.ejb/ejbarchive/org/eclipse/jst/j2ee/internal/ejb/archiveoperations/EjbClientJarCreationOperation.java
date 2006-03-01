@@ -16,23 +16,20 @@ import java.util.Properties;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
-import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
@@ -46,7 +43,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceCo
 import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -57,11 +53,15 @@ public class EjbClientJarCreationOperation
 	extends AbstractDataModelOperation
 	implements IEjbClientJarCreationDataModelProperties{
 
+	private IProgressMonitor monitor = null;
+	
 	public EjbClientJarCreationOperation(IDataModel model) {
 		super(model);
 	}
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+	public IStatus execute(IProgressMonitor aMonitor, IAdaptable info) throws ExecutionException {
+		
+		monitor = aMonitor;
 		
 		IStatus stat = OK_STATUS;
 
@@ -69,7 +69,7 @@ public class EjbClientJarCreationOperation
 		if( ejbproject.exists() && ejbproject.isAccessible()){
 			IFacetedProject facetedProject = null;
 			org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = null;
-			String javaSourceFolder = "";
+			String javaSourceFolder = ""; //$NON-NLS-1$
 			
 			boolean canContinue = true;
 			try {
@@ -133,8 +133,16 @@ public class EjbClientJarCreationOperation
 					runAddClientToEAROperation( earprojects[i].getName(), model, monitor);
 				}
 				runAddClientToEJBOperation(model, monitor);
-				modifyEJBModuleJarDependency(model, monitor);
+
 				updateEJBDD(model, monitor);
+	            moveOutgoingJARDependencies();
+				EJBClientJarCreationHelper.copyOutgoingClasspathEntries( ejbproject,
+								ProjectUtilities.getProject(projectName), true);
+				modifyEJBModuleJarDependency(model, earprojects[0], monitor);
+				IProject clientProject = ProjectUtilities.getProject( model.getStringProperty( PROJECT_NAME ) );
+	            moveIncomingJARDependencies( ejbproject, clientProject );
+	            
+	            
 			}catch (CoreException e) {
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
@@ -217,36 +225,39 @@ public class EjbClientJarCreationOperation
 
 	}
 
-	private void modifyEJBModuleJarDependency(IDataModel model, IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
+	private void modifyEJBModuleJarDependency(IDataModel model, IProject earProject,
+				IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
 
 
 		String ejbprojectName =  model.getStringProperty( EJB_PROJECT_NAME );
-		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
-		IVirtualComponent ejbComponent = ComponentCore.createComponent(ejbProj);
-		IVirtualFile vf = ejbComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
-		IFile manifestmf = vf.getUnderlyingFile();
+//		IProject ejbProj = ProjectUtilities.getProject(ejbprojectName);
+//		IVirtualComponent ejbComponent = ComponentCore.createComponent(ejbProj);
+//		IVirtualFile vf = ejbComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
+//		IFile manifestmf = vf.getUnderlyingFile();
 
 
 
 		String clientProjectName = model.getStringProperty( PROJECT_NAME );
 
-		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, ejbprojectName);
-		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
-		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(clientProjectName + ".jar"));//$NON-NLS-1$
-
-
-		try {
-			updateManifestDataModel.getDefaultOperation().execute(aMonitor, null);
-		} catch (Exception e) {
-			Logger.getLogger().logError(e);
-		}
+//		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, ejbprojectName);
+//		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
+//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(clientProjectName + ".jar"));//$NON-NLS-1$
+//
+//
+//		try {
+//			updateManifestDataModel.getDefaultOperation().execute(aMonitor, null);
+//		} catch (Exception e) {
+//			Logger.getLogger().logError(e);
+//		}
 
 		if (!clientProjectName.equals(ejbprojectName)) {
 			IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
 			dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, ejbprojectName);
 			dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, clientProjectName);
+			dataModel.setProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME, earProject.getName());
+			
 			dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
 			try {
 				dataModel.getDefaultOperation().execute(aMonitor, null);
@@ -291,4 +302,84 @@ public class EjbClientJarCreationOperation
 		}
 
 	}	
+	
+	//The referencing projects which were having Ejb will now have ejbclient
+	private void moveIncomingJARDependencies(IProject ejbProject, IProject clientProject ) throws InvocationTargetException, InterruptedException {
+		
+		InvertClientJARDependencyCompoundOperation op = 
+			new InvertClientJARDependencyCompoundOperation( J2EEProjectUtilities.getReferencingEARProjects( ejbProject ),
+						ejbProject,
+						clientProject );
+	
+		try {
+			op.execute(createSubProgressMonitor(1), null);
+		} catch (ExecutionException e) {
+			Logger.getLogger().logError( e );
+		}
+	}
+	
+	protected IProgressMonitor createSubProgressMonitor(int ticks) {
+		return new SubProgressMonitor(monitor, ticks);
+	}	
+	
+	 //from the ejb project collect the entries in its manifest, and put it in the client project,
+	 //remove these entries from the ejb project
+	
+    private void moveOutgoingJARDependencies() throws InvocationTargetException, InterruptedException {
+    	
+		IProject ejbproject = ProjectUtilities.getProject(model.getStringProperty( EJB_PROJECT_NAME ));
+		String clientProjectName = model.getStringProperty( PROJECT_NAME );
+		
+		//from the ejb project collect the entries in its manifest
+        ArchiveManifest ejbMf = J2EEProjectUtilities.readManifest( ejbproject );
+        if (ejbMf == null)
+            return;
+        String[] mfEntries = ejbMf.getClassPathTokenized();
+        if (mfEntries.length == 0)
+            return;
+        
+        IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects( ejbproject );
+        
+        IProgressMonitor sub = createSubProgressMonitor( earProjects.length * 2 );
+        for (int i = 0; i < earProjects.length; i++) {
+            List normalized = EJBClientJarCreationHelper.normalize(mfEntries, earProjects[i], ejbproject, true );
+            
+            //transfer the manifest entries from the ejb project to the client project
+            IDataModel addDataModel = DataModelFactory.createDataModel( new JARDependencyDataModelProvider() );
+            addDataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE,
+            			JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
+            
+            addDataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME,
+            			clientProjectName );
+            
+            addDataModel.setProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME, earProjects[i].getName());
+            addDataModel.setProperty(JARDependencyDataModelProperties.JAR_LIST, normalized);
+            
+
+            //remove the manifest entries from the ejb project
+            IDataModel removeDataModel = DataModelFactory.createDataModel( new JARDependencyDataModelProvider() );
+            
+            removeDataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE,
+            			JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE);
+            removeDataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME,
+            			ejbproject.getName());
+            
+            removeDataModel.setProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME,
+            			earProjects[i].getName());
+            
+            removeDataModel.setProperty(JARDependencyDataModelProperties.JAR_LIST, normalized);
+
+
+            try {
+				addDataModel.getDefaultOperation().execute( new SubProgressMonitor(sub, 1), null );
+	            removeDataModel.getDefaultOperation().execute( new SubProgressMonitor(sub, 1), null );				
+			} catch (ExecutionException e) {
+				Logger.getLogger().logError( e );
+			}
+
+          
+
+        }
+    }
+    
 }
