@@ -14,7 +14,6 @@ package org.eclipse.jst.j2ee.jca.internal.plugin;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.MissingResourceException;
 
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
