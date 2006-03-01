@@ -31,8 +31,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
+import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
@@ -100,11 +99,13 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 		}
 		
 		// update the JAR dependency data
-		IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
-		dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, dependentMetadata.getProjectName());
-		dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, refactoredMetadata.getProjectName());
-		dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE);
-		dataModel.getDefaultOperation().execute(monitor, null );
+//		IDataModel dataModel = DataModelFactory.createDataModel(new JARDependencyDataModelProvider());
+//		dataModel.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, dependentMetadata.getProjectName());
+//		dataModel.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME, refactoredMetadata.getProjectName());
+//		dataModel.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE, JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE);
+//		dataModel.getDefaultOperation().execute(monitor, null );
+		
+		UpdateProjectClasspath.updateProjectDependency( dependentMetadata.getProjectName(), refactoredMetadata.getProjectName(), false );
 		
 	}
 	

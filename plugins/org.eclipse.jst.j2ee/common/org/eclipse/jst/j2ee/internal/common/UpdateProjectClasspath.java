@@ -23,6 +23,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 
@@ -88,4 +89,59 @@ public class UpdateProjectClasspath {
 		}
 	}	
 
+	private static IClasspathEntry[] getProjectDependency(IProject clientProj){
+		IClasspathEntry projectEntry = JavaCore.newProjectEntry(clientProj.getFullPath(), true);
+			return new IClasspathEntry[]{projectEntry};	
+	}
+	
+	private static boolean entryToChange(final IClasspathEntry entry, final IClasspathEntry[] entriesToChange) {
+		for (int i = 0; i < entriesToChange.length; i++) {
+			if (entriesToChange[i].equals(entry)) {
+				return true;
+			}
+		}
+		return false;
+	}	
+
+	public static  void updateProjectDependency(final String projectName, final String referencedProjectName, final boolean add) {
+
+		IProject proj = ProjectUtilities.getProject( projectName );
+		IProject refproj = ProjectUtilities.getProject( referencedProjectName );
+		updateProjectDependency( proj, refproj, add );
+		
+	}
+	public static  void updateProjectDependency(final IProject ejbProj, final IProject clientProj, final boolean add) {
+		final IJavaProject javaProject = JavaCore.create(ejbProj);
+		try {
+			final IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
+			final IClasspathEntry[] entriesToChange = getProjectDependency(clientProj);
+			final List classpathEntries = new ArrayList();
+			for (int i = 0; i < oldEntries.length; i++) {
+				if (!entryToChange(oldEntries[i], entriesToChange)) {
+					classpathEntries.add(oldEntries[i]);
+				}
+			}
+			if (add) {
+				for (int j = 0; j < entriesToChange.length; j++) {
+					boolean containsEntry = false;
+					if (entriesToChange[j].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
+						for (int k = 0; k < classpathEntries.size(); k++) {
+							String existingEntry = ((IClasspathEntry) classpathEntries.get(k)).getPath().segment(0);
+							String newEntry = entriesToChange[j].getPath().segment(0);
+							if (existingEntry.equals(newEntry)) {
+								containsEntry = true;
+								break;
+							}
+						}
+					}
+					if (!containsEntry)
+						classpathEntries.add(entriesToChange[j]);
+				}
+			}
+			javaProject.setRawClasspath((IClasspathEntry[]) classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
+		} catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}
+	}
+	
 }

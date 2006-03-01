@@ -14,7 +14,7 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
 
@@ -25,20 +25,26 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 
-public class JARDependencyOperation extends AbstractDataModelOperation {
+public class JARDependencyOperation extends AbstractDataModelOperation implements JARDependencyDataModelProperties{
 	public JARDependencyOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
@@ -53,20 +59,20 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 		return null;
 	}
 	
-//	private void saveModel(ClasspathModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException {
-//		if (!model.isDirty())
-//			return;
-//		validateEdit(model);
-//		monitor.beginTask("", 2); //$NON-NLS-1$
-//		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
-//		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
-//		try {
-//			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
-//			buildPathOperation.run(new SubProgressMonitor(monitor, 1));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	private void saveModel(ClasspathModel model, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException, CoreException {
+		if (!model.isDirty())
+			return;
+		validateEdit(model);
+		monitor.beginTask("", 2); //$NON-NLS-1$
+		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
+		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
+		try {
+			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
+			buildPathOperation.run(new SubProgressMonitor(monitor, 1));
+		} catch (Exception e) {
+			Logger.getLogger().logError(e);
+		}
+	}
 
 	/**
 	 * @param model
@@ -84,133 +90,83 @@ public class JARDependencyOperation extends AbstractDataModelOperation {
 		return new UpdateJavaBuildPathOperation(javaProject, aModel.getClassPathSelection());
 	}
 
-//	private UpdateManifestOperation createManifestOperation(ClasspathModel aModel) {
-//		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
-//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, aModel.getProject().getName());
-//		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-//		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(aModel.getClassPathSelection().toString()));
-//		return new UpdateManifestOperation(updateManifestDataModel);
-//	}
+	private UpdateManifestOperation createManifestOperation(ClasspathModel aModel) {
+		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, aModel.getProject().getName());
+		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.JAR_LIST, UpdateManifestDataModelProvider.convertClasspathStringToList(aModel.getClassPathSelection().toString()));
+		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, J2EEProjectUtilities.getManifestFile( aModel.getProject()));
+		return new UpdateManifestOperation(updateManifestDataModel);
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.operations.HeadlessJ2EEOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-//	protected final void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-//		JARDependencyDataModel dataModel = (JARDependencyDataModel) operationDataModel;
-//		ClasspathModel model = new ClasspathModel(null);
-//		model.setProject(dataModel.getProject());
-//		//model.setSelectedEARNature(EARNatureRuntime.getRuntime(dataModel.getEARProject()));
-//		try {
-//			int jarManipulationType = dataModel.getIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE);
-//			switch (jarManipulationType) {
-//				case JARDependencyDataModel.JAR_MANIPULATION_ADD : {
-//					List jarList = (List) dataModel.getUpdateManifestDataModel().getProperty(UpdateManifestDataModel.JAR_LIST);
-//					if (!jarList.isEmpty()) {
-//						for (int i = 0; i < jarList.size(); i++) {
-//							String jarName = (String) jarList.get(i);
-//							model.selectDependencyIfNecessary(jarName);
-//						}
-//					} else {
-//						model.selectDependencyIfNecessary(dataModel.getReferencedProject());
-//					}
-//				}
-//					break;
-//				case JARDependencyDataModel.JAR_MANIPULATION_REMOVE : {
-//					List jarList = (List) dataModel.getUpdateManifestDataModel().getProperty(UpdateManifestDataModel.JAR_LIST);
-//					for (int i = 0; i < jarList.size(); i++) {
-//						String jarName = (String) jarList.get(i);
-//						model.removeDependency(jarName);
-//					}
-//				}
-//					break;
-//				case JARDependencyDataModel.JAR_MANIPULATION_INVERT :
-//					ClassPathSelection classPathSelection = model.getClassPathSelection();
-//					if (classPathSelection != null)
-//						classPathSelection.invertClientJARSelection(dataModel.getReferencedProject(), dataModel.getOppositeProject());
-//					break;
-//			}
-//			if (model.isDirty())
-//				saveModel(model, monitor);
-//		} finally {
-//			if (model != null)
-//				model.dispose();
-//			if (monitor != null)
-//				monitor.done();
-//		}
-//	}
 	
 	public final IStatus execute(IProgressMonitor monitor, IAdaptable adaptable) throws ExecutionException {
 		
 		IProject proj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.PROJECT_NAME));
-		IProject refproj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME));
-
+		IProject earProject = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME)); 
+		
+		ClasspathModel clpModel = new ClasspathModel(null);
+		IVirtualComponent earComponent = ComponentCore.createComponent( earProject );
+		if( !earComponent.exists() )
+			return OK_STATUS;
+		
+		clpModel.setSelectedEARComponent( earComponent );
+		clpModel.setProject( proj );
+		
 		try {
 			int jarManipulationType = model.getIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE);
 			switch (jarManipulationType) {
 				case JARDependencyDataModelProperties.JAR_MANIPULATION_ADD :
-					updateProjectDependency(proj, refproj, true);
+					{
+						List jarList = (List) model.getNestedModel(NESTED_MODEL_UPDATE_MAINFEST).getProperty(UpdateManifestDataModelProperties.JAR_LIST);
+						if (!jarList.isEmpty()) {
+							for (int i = 0; i < jarList.size(); i++) {
+								String jarName = (String) jarList.get(i);
+								clpModel.selectDependencyIfNecessary(jarName);
+							}
+						} else {
+							IProject refproj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME));							
+							clpModel.selectDependencyIfNecessary( refproj );
+						}
+					}
 					break;
+					
 				case JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE : 
-					updateProjectDependency(proj, refproj, false);
+					{
+						List jarList = (List) model.getNestedModel(NESTED_MODEL_UPDATE_MAINFEST).getProperty(UpdateManifestDataModelProperties.JAR_LIST);
+						for (int i = 0; i < jarList.size(); i++) {
+							String jarName = (String) jarList.get(i);
+							clpModel.removeDependency(jarName);
+						}
+					}
 					break;
+					
 				case JARDependencyDataModelProperties.JAR_MANIPULATION_INVERT :
-
+					{
+						IProject refproj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME));
+						IProject oppositeProject = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.OPPOSITE_PROJECT_NAME));
+						clpModel.getClassPathSelection().invertClientJARSelection( refproj, oppositeProject );
+					}
 					break;
+
 			}
+			if (clpModel.isDirty())
+				try {
+					saveModel(clpModel, monitor);
+				} catch (InvocationTargetException e) {
+					Logger.getLogger().logError(e);
+				} catch (InterruptedException e) {
+					Logger.getLogger().logError(e);
+				} catch (CoreException e) {
+					Logger.getLogger().logError(e);
+				}			
 		} finally {
+			if (clpModel != null)
+				clpModel.dispose();			
 			if (monitor != null)
 				monitor.done();
 		}
 		return OK_STATUS;
 	}	
-	
-	private IClasspathEntry[] getProjectDependency(IProject clientProj){
-		IClasspathEntry projectEntry = JavaCore.newProjectEntry(clientProj.getFullPath(), true);
-			return new IClasspathEntry[]{projectEntry};	
-	}	
-	
-	private void updateProjectDependency(final IProject ejbProj, final IProject clientProj, final boolean add) {
-		final IJavaProject javaProject = JavaCore.create(ejbProj);
-		try {
-			final IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-			final IClasspathEntry[] entriesToChange = getProjectDependency(clientProj);
-			final List classpathEntries = new ArrayList();
-			for (int i = 0; i < oldEntries.length; i++) {
-				if (!entryToChange(oldEntries[i], entriesToChange)) {
-					classpathEntries.add(oldEntries[i]);
-				}
-			}
-			if (add) {
-				for (int j = 0; j < entriesToChange.length; j++) {
-					boolean containsEntry = false;
-					if (entriesToChange[j].getEntryKind() == IClasspathEntry.CPE_PROJECT) {
-						for (int k = 0; k < classpathEntries.size(); k++) {
-							String existingEntry = ((IClasspathEntry) classpathEntries.get(k)).getPath().segment(0);
-							String newEntry = entriesToChange[j].getPath().segment(0);
-							if (existingEntry.equals(newEntry)) {
-								containsEntry = true;
-								break;
-							}
-						}
-					}
-					if (!containsEntry)
-						classpathEntries.add(entriesToChange[j]);
-				}
-			}
-			javaProject.setRawClasspath((IClasspathEntry[]) classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
-		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
-		}
-	}
-	
-	private boolean entryToChange(final IClasspathEntry entry, final IClasspathEntry[] entriesToChange) {
-		for (int i = 0; i < entriesToChange.length; i++) {
-			if (entriesToChange[i].equals(entry)) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 }

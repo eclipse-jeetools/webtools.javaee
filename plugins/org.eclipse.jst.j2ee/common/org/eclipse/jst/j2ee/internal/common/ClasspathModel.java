@@ -137,7 +137,11 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		return selectedEARComponent;
 	}
 
-
+	public  void setSelectedEARComponent(IVirtualComponent component) {
+		selectedEARComponent = component;
+		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.EAR_PROJECT_CHANGED));
+	}
+	
 	public String getArchiveURI() {
 		if (selectedEARComponent != null) {
 			return getEARArtifactEdit().getModuleURI(getComponent()); 
