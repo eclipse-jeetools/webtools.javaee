@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.internal.core.ClasspathEntry;
 
 public class ClasspathUtilities {
 
@@ -27,7 +26,7 @@ public class ClasspathUtilities {
 				list.add(iClasspathEntry);
 		}
 
-		ClasspathEntry[] ret = new ClasspathEntry[list.size()];
+		IClasspathEntry[] ret = new IClasspathEntry[list.size()];
 		return (IClasspathEntry[]) list.toArray(ret);
 	}
 
@@ -60,7 +59,7 @@ public class ClasspathUtilities {
 				list.add(iClasspathEntry);
 		}
 
-		ClasspathEntry[] ret = new ClasspathEntry[list.size()];
+		IClasspathEntry[] ret = new IClasspathEntry[list.size()];
 		return (IClasspathEntry[]) list.toArray(ret);
 	}
 

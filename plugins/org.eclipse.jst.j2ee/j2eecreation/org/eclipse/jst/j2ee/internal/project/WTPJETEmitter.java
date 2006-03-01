@@ -59,7 +59,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
@@ -453,8 +452,7 @@ public class WTPJETEmitter extends JETEmitter {
 	
 	private void appendToClassPath(IPath runtimeLibFullPath, IProject project) {
 		IClasspathEntry entry = null;
-		entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, runtimeLibFullPath, ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null,
-				null, null, false, null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES); 
+		entry = JavaCore.newLibraryEntry(runtimeLibFullPath, null,null,null,null,false);
 		try {
 			if (!classpathEntries.contains(entry))
 				classpathEntries.add(entry);
@@ -555,11 +553,7 @@ public class WTPJETEmitter extends JETEmitter {
 				linkedDirectory.setDerived(true);
 				project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			}
-			IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, linkedDirectory.getFullPath(), ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null, // source
-						// attachment
-						null, // source attachment root
-						null, // custom output location
-						false,null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES);
+			IClasspathEntry entry = JavaCore.newLibraryEntry(linkedDirectory.getFullPath(), null,null,null,null,false);
 
 			if (!classpathEntries.contains(entry))
 			classpathEntries.add(entry);
