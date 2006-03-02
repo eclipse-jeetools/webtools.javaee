@@ -453,6 +453,8 @@
         viewerId="org.eclipse.wst.common.explorer.CommonProjectExplorer">
         <includes>
            <contentExtension pattern="org.eclipse.jst.navigator.j2ee.ui.J2EEContent"/>
+           <contentExtension pattern="org.eclipse.jdt.java.ui.javaContent"/>
+           <contentExtension pattern="org.eclipse.jdt.ui.javaModelContent"/>
         </includes>
       </viewerContentBinding>
    </extension>
