@@ -53,6 +53,7 @@ import org.eclipse.emf.codegen.CodeGenPlugin;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
@@ -453,7 +454,7 @@ public class WTPJETEmitter extends JETEmitter {
 	
 	private void appendToClassPath(IPath runtimeLibFullPath, IProject project) {
 		IClasspathEntry entry = null;
-		entry = JavaCore.newLibraryEntry(runtimeLibFullPath, null,null,null,null,false);
+		entry = JavaCore.newLibraryEntry(runtimeLibFullPath, null,null,null,new IClasspathAttribute[]{},false);
 		try {
 			if (!classpathEntries.contains(entry))
 				classpathEntries.add(entry);
@@ -554,7 +555,7 @@ public class WTPJETEmitter extends JETEmitter {
 				linkedDirectory.setDerived(true);
 				project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			}
-			IClasspathEntry entry = JavaCore.newLibraryEntry(linkedDirectory.getFullPath(), null,null,null,null,false);
+			IClasspathEntry entry = JavaCore.newLibraryEntry(linkedDirectory.getFullPath(), null,null,null,new IClasspathAttribute[]{},false);
 
 			if (!classpathEntries.contains(entry))
 			classpathEntries.add(entry);
