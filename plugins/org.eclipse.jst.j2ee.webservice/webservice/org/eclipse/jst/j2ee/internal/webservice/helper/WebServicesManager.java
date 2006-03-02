@@ -524,7 +524,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			List ports = wsDesc.getPortComponents();
 			for (int j = 0; j < ports.size(); j++) {
 				PortComponent portComp = (PortComponent) ports.get(j);
-				if (portComp.getWsdlPort().getNamespaceURI().equals(qName) && project == ProjectUtilities.getProject(portComp))
+				if (project == ProjectUtilities.getProject(portComp))
 					return portComp;
 			}
 		}
