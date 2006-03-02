@@ -95,11 +95,12 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	 * @input.
 	 */
 	protected void connect(IEditorInput input, ICompilationUnit cu) throws CoreException {
-		if (input != null) {
+		if (input != null && javaWorkingCopyManager != null && cuDocumentProvider != null ) {
 			javaWorkingCopyManager.connect(input);
 			getEditorInputs().put(cu, input);
 			IDocument doc = cuDocumentProvider.getDocument(input);
-			cuDocumentProvider.getAnnotationModel(input).connect(doc);
+			if (doc != null && cuDocumentProvider.getAnnotationModel(input)!= null)
+				cuDocumentProvider.getAnnotationModel(input).connect(doc);
 		}
 	}
 
