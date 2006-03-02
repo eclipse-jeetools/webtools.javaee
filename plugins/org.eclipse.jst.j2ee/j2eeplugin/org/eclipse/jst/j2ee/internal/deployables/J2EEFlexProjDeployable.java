@@ -41,8 +41,10 @@ import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFolder;
@@ -99,11 +101,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * @return a possibly-empty array of Java output folders
 	 */
 	public IContainer[] getJavaOutputFolders() {
-		IVirtualComponent vc = ComponentCore.createComponent(getProject());
-		if (vc == null)
+		return getJavaOutputFolders(getProject());
+	}
+	
+	public IContainer[] getJavaOutputFolders(IProject project) {
+		if (project == null)
 			return new IContainer[0];
-		
-		return J2EEProjectUtilities.getOutputContainers(getProject());
+		return J2EEProjectUtilities.getOutputContainers(project);
 	}
 
 	public IModuleResource[] members() throws CoreException {
@@ -121,9 +125,6 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				if (!members.contains(mr[j]))
 					members.add(mr[j]);
 			}
-			List utilMembers = getUtilMembers(vc);
-			if (!utilMembers.isEmpty())
-				members.addAll(utilMembers);
 		}
 		
 		IContainer[] javaCont = getJavaOutputFolders();		
@@ -135,6 +136,15 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				if (!members.contains(mr[j]))
 					members.add(mr[j]);
 			}
+		}
+		
+		if (vc != null) {
+			List utilMembers = getUtilMembers(vc);
+			if (!utilMembers.isEmpty())
+				members.addAll(utilMembers);
+			List consumableMembers = getConsumableReferencedMembers(vc);
+			if (!consumableMembers.isEmpty())
+				members.addAll(consumableMembers);
 		}
 		
 		IModuleResource[] mr = new IModuleResource[members.size()];
@@ -356,4 +366,44 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	}
     	return result;
     }
+    
+    protected List getConsumableReferencedMembers(IVirtualComponent vc) throws CoreException {
+		List consumableMembers = new ArrayList();
+		IVirtualReference[] refComponents = vc.getReferences();
+    	for (int i = 0; i < refComponents.length; i++) {
+    		IVirtualReference reference = refComponents[i];
+    		if (reference != null && reference.getDependencyType()==IVirtualReference.DEPENDENCY_TYPE_CONSUMES) {
+    			IVirtualComponent consumedComponent = reference.getReferencedComponent();
+    			if (consumedComponent!=null && isProjectOfType(consumedComponent.getProject(),IModuleConstants.JST_UTILITY_MODULE)) {
+    				if (consumedComponent != null) {
+    					IVirtualFolder vFolder = consumedComponent.getRootFolder();
+    					IModuleResource[] mr = getMembers(vFolder, reference.getRuntimePath().makeRelative());
+    					int size = mr.length;
+    					for (int j = 0; j < size; j++) {
+    						if (!members.contains(mr[j]))
+    							members.add(mr[j]);
+    					}
+    					List utilMembers = getUtilMembers(consumedComponent);
+    					if (!utilMembers.isEmpty())
+    						members.addAll(utilMembers);
+    					List childConsumableMembers = getConsumableReferencedMembers(consumedComponent);
+    					if (!childConsumableMembers.isEmpty())
+    						members.addAll(childConsumableMembers);
+    				}
+    				
+    				IContainer[] javaCont = getJavaOutputFolders(consumedComponent.getProject());		
+    				int size = javaCont.length;
+    				for (int j = 0; j < size; j++) {
+    					IModuleResource[] mr = getMembers(javaCont[j], reference.getRuntimePath(), reference.getRuntimePath(), javaCont);
+    					int size2 = mr.length;
+    					for (int k = 0; k < size2; k++) {
+    						if (!members.contains(mr[k]))
+    							members.add(mr[k]);
+    					}
+    				}
+    			}
+    		}
+    	}
+		return consumableMembers;
+	}
 }
