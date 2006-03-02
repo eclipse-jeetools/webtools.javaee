@@ -582,6 +582,11 @@
              adaptableType="org.eclipse.core.resources.IFile">
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
+      <factory 
+      		class="org.eclipse.jst.j2ee.internal.plugin.FacetedProjectAdapterFactory"
+            adaptableType="org.eclipse.core.resources.IProject" >
+         	<adapter type="org.eclipse.ui.IActionFilter"/>
+      </factory>       
    </extension> 
    
    <extension
