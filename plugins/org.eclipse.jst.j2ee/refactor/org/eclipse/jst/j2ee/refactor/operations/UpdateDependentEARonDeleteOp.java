@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -62,13 +61,12 @@ public class UpdateDependentEARonDeleteOp extends UpdateDependentProjectOp {
 		
 		// remove the dependency on the deleted project
 		if (refactoredComp != null) {
-			final IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
+			final IDataModel model = DataModelFactory.createDataModel(new RemoveDeletedComponentFromEARDataModelProvider(refactoredMetadata));
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp);
 			final List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			modHandlesList.add(refactoredComp);
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
-			RemoveDeletedComponentFromEAROperation op = new RemoveDeletedComponentFromEAROperation(model, refactoredMetadata);
-			op.execute(monitor, null);
+			model.getDefaultOperation().execute(monitor, null);
 		}
 	}
 }

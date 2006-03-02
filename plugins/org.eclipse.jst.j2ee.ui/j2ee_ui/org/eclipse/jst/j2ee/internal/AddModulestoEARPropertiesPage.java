@@ -38,7 +38,7 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
@@ -59,12 +59,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 /**
@@ -214,7 +214,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			List list = getComponentsToRemove();
 			if( !list.isEmpty()){
 				try {
-					RemoveComponentFromEnterpriseApplicationOperation op = removeComponentFromEAROperation(earComponent, list);
+					IDataModelOperation op = removeComponentFromEAROperation(earComponent, list);
 					op.execute(null, null);
 				} catch (ExecutionException e) {
 					Logger.getLogger().log(e);
@@ -224,13 +224,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		return stat;
 	}		
 	
-	protected  RemoveComponentFromEnterpriseApplicationOperation removeComponentFromEAROperation(IVirtualComponent sourceComponent, List targetComponentsHandles) {
-		IDataModel model = DataModelFactory.createDataModel(new RemoveReferenceComponentsDataModelProvider());
+	protected IDataModelOperation removeComponentFromEAROperation(IVirtualComponent sourceComponent, List targetComponentsHandles) {
+		IDataModel model = DataModelFactory.createDataModel(new RemoveComponentFromEnterpriseApplicationDataModelProvider());
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
 		List modHandlesList = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 		modHandlesList.addAll(targetComponentsHandles);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modHandlesList);
-		return new RemoveComponentFromEnterpriseApplicationOperation(model);
+		return model.getDefaultOperation();
 	}
 	
 	protected List getComponentsToRemove(){
