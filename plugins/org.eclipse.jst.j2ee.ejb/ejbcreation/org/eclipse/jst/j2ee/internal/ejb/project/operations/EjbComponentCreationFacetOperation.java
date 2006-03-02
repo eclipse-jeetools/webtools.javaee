@@ -68,6 +68,7 @@ public class EjbComponentCreationFacetOperation extends J2EEComponentCreationFac
 		IDataModel newModel = setupEjbInstallAction();
 		facetDMs.add(newModel);
 		setRuntime(newModel, dm); // Setting runtime property
+		setAddToEARFromWizard(newModel);
 		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
 
 		if (stat.isOK() && model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR)) {
