@@ -72,10 +72,8 @@ import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -95,8 +93,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	protected Text superText;
 	protected Button superButton;
 	protected Label superLabel;
-	private Combo projectNameCombo;
-	private Combo componentNameCombo;
+	private Combo projectNameCombo;	
 	protected String projectType;
 	private String projectName;
 
@@ -152,33 +149,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		return composite;
 	}
 
-	private void initializeComponentList() {
-		List componentList = new ArrayList();
-		if (projectNameCombo.getText().length() == 0)
-			return;
-		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
-		IVirtualComponent component = ComponentCore.createComponent(project);
-		
-		if (J2EEProjectUtilities.getJ2EEProjectType(project).equals(projectType) && !componentList.contains(component.getName()))
-			componentList.add(component.getName());
-		
-		String[] componentNames = new String[componentList.size()];
-		for (int i = 0; i < componentList.size(); i++) {
-			componentNames[i] = (String) componentList.get(i);
-		}
-		componentNameCombo.setItems(componentNames);
-		if (componentNames.length > 0) {
-			componentNameCombo.setText(componentNames[0]);
-			model.setProperty(IArtifactEditOperationDataModelProperties.COMPONENT_NAME, componentNameCombo.getText());
-		}
-		// update source folder
-		if (folderText != null) {
-			String sourceFolder = model.getStringProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER);
-			if (sourceFolder != null)
-				folderText.setText(sourceFolder);
-		}
-	}
-
 	/**
 	 * Add project group
 	 */
@@ -197,14 +167,38 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
-				initializeComponentList();
+				// update source folder
+				if (folderText != null) {					
+					String sourceFolder = getDefaultJavaSourceFolder(ProjectUtilities.getProject(projectNameCombo.getText())).getFullPath().toOSString();					
+					if (sourceFolder != null)
+						folderText.setText(sourceFolder);
+				}
 			}
 		});
 		synchHelper.synchCombo(projectNameCombo, IArtifactEditOperationDataModelProperties.PROJECT_NAME, null);
 		initializeProjectList();
 		new Label(parent, SWT.NONE);
 	}
-
+	
+	/**
+	 * 
+	 **/
+	private IFolder getDefaultJavaSourceFolder(IProject project) {
+		
+		if (project == null)
+			return null;
+		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(project);
+		// Try and return the first source folder
+		if (sources.length > 0) {
+			try {
+				return (IFolder) sources[0].getCorrespondingResource();
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		return null;
+	}
+	 
 	/**
 	 * 
 	 */
