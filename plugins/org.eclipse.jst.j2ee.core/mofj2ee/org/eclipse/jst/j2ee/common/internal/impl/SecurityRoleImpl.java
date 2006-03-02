@@ -117,6 +117,11 @@ public String toString() {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public String getDescription() {
+		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
+			Description d = (Description) getDescriptions().get(0);
+			if (d != null)
+				description = d.getValue();
+		}
 		return description;
 	}
 
@@ -126,14 +131,25 @@ public String toString() {
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
+		if (getDescriptions() != null) {
+			if (getDescriptions().isEmpty()) {
+				Description d = new DescriptionImpl();
+				d.setValue(newDescription);
+				getDescriptions().add(d);
+			} else {
+				Description d = (Description) getDescriptions().get(0);
+				if (d != null)
+					d.setValue(newDescription);
+			}
+		}
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
-	 * @generated This field/method will be replaced during code generation 
-	 * The role-name element contains the name of a role. This element must contain a non-empty string.
-
+	 * @generated This field/method will be replaced during code generation The
+	 *            role-name element contains the name of a role. This element
+	 *            must contain a non-empty string.
 	 */
 	public String getRoleName() {
 		return roleName;
