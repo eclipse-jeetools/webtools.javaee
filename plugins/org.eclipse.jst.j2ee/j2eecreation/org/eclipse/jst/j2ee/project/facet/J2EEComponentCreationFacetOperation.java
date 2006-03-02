@@ -115,5 +115,9 @@ public class J2EEComponentCreationFacetOperation extends AbstractDataModelOperat
 			}
 		}	
 		return stat;
-	}		
+	}
+	
+	protected void setAddToEARFromWizard(IDataModel newModel) {
+		newModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR,model.getBooleanProperty(IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR));	
+	}
 }

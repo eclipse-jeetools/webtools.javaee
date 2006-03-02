@@ -47,7 +47,7 @@ public class WebComponentCreationFacetOperation extends J2EEComponentCreationFac
 		IDataModel newModel = setupWebInstallAction();
 		map.add(newModel);
 		setRuntime(newModel, dm); // Setting runtime property
-
+		setAddToEARFromWizard(newModel);
 		IStatus stat = dm.getDefaultOperation().execute(monitor, info);
 		if (stat.isOK()) {
 			String earProjectName = (String) model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME);
