@@ -12,15 +12,48 @@
             contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
             labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
             id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent">
-        <enablement>
-		         <or>         
-		            <instanceof value="org.eclipse.core.resources.IWorkspaceRoot" /> 
-		            <instanceof value="org.eclipse.core.resources.IProject" /> 
-		            <instanceof value="org.eclipse.core.resources.IResource" /> 
-		            <instanceof value="org.eclipse.core.resources.IFolder" />
-		            <instanceof value="org.eclipse.core.resources.IFile"/>
-		         </or>
-         </enablement>
+        <triggerPoints>
+         <and>
+          <adapt type="org.eclipse.core.resources.IProject"/>
+            <!--<or>
+               <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.web"/>
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.ejb"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.utility"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.ear"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.appclient"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.connector"/>   
+            </or>
+           </adapt> -->
+         </and>
+        </triggerPoints>
+        <possibleChildren>
+         <and>
+            <instanceof value="org.eclipse.emf.ecore.EObject"/>
+           <!-- <or>
+        	  <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	             value="common.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="application.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="client.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="modulemap.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="ejb.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="jca.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="webapplication.xmi"/>
+	        </or> -->
+	     </and>
+        </possibleChildren> 
+        
          <!--
          <emfEnablement>
          	<package uri="org.eclipse.emf.ecore.resource" />
