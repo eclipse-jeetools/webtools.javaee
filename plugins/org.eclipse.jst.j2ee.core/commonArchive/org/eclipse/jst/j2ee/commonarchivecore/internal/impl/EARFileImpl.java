@@ -1257,7 +1257,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			for (int i = 0; i < moduleReferences.size(); i++) {
 				ref = (EjbRef) moduleReferences.get(i);
 				link = ref.getLink();
-				if ((link != null && link.length() > 0 && !filterLinkedReferences) || (link == null || link.length() == 0 && !filterNonLinkedReferences)) {
+				if ((link != null && link.length() > 0 && !filterLinkedReferences) || ((link == null || link.length() == 0) && !filterNonLinkedReferences)) {
 					if (filteredRefs == null)
 						filteredRefs = new ArrayList(moduleReferences.size());
 					filteredRefs.add(ref);
