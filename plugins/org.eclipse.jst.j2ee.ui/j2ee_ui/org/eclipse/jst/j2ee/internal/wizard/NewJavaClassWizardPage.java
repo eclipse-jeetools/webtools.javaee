@@ -263,7 +263,10 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		folderText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		folderText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(folderText, INewJavaClassDataModelProperties.SOURCE_FOLDER, null);
-
+		IPackageFragmentRoot root = getSelectedPackageFragmentRoot();
+		if (root != null)
+			folderText.setText(root.getElementName());
+		
 		folderButton = new Button(composite, SWT.PUSH);
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
 		folderButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
@@ -291,7 +294,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		packageText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		IPackageFragment packageFragment = getSelectedPackageFragment();
 		if (packageFragment != null && packageFragment.exists()) {
-			projectNameCombo.setText(packageFragment.getElementName());
+			IPackageFragmentRoot root = getPackageFragmentRoot(packageFragment);
+			if (root != null)
+				folderText.setText(root.getElementName());
 			model.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE, packageFragment.getElementName());
 		}
 
@@ -309,6 +314,17 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 				// Do nothing
 			}
 		});
+	}
+	
+	protected IPackageFragmentRoot getPackageFragmentRoot(IPackageFragment packageFragment) {
+		if (packageFragment == null)
+			return null;
+		else if (packageFragment.getParent() instanceof IPackageFragment)
+			return getPackageFragmentRoot((IPackageFragment) packageFragment.getParent());
+		else if (packageFragment.getParent() instanceof IPackageFragmentRoot)
+			return (IPackageFragmentRoot) packageFragment.getParent();
+		else
+			return null;
 	}
 
 	/**
@@ -543,6 +559,23 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			else if (element.getElementType() == IJavaElement.TYPE) {
 				return ((IType) element).getPackageFragment();
 			}
+		}
+		return null;
+	}
+	
+	private IPackageFragmentRoot getSelectedPackageFragmentRoot() {
+		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null)
+			return null;
+		// StructuredSelection stucturedSelection = (StructuredSelection)
+		// selection;
+		IJavaElement element = getInitialJavaElement(selection);
+		if (element != null) {
+			if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
+				return (IPackageFragmentRoot) element;
 		}
 		return null;
 	}
