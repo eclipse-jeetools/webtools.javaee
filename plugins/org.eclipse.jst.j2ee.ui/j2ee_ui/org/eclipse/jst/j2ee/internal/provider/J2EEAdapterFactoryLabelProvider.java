@@ -11,16 +11,21 @@
 package org.eclipse.jst.j2ee.internal.provider;
 
 
+import java.io.File;
+import java.net.URL;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.internal.ejb.provider.AbstractMethodsContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
@@ -54,6 +59,10 @@ public class J2EEAdapterFactoryLabelProvider extends AdapterFactoryLabelProvider
 			return super.getImage(object);
 		else if (object instanceof AbstractMethodsContentProvider.EJBMethodItem)
 			return super.getImage(((AbstractMethodsContentProvider.EJBMethodItem) object).ejb);
+		else if (object instanceof File) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("jar_obj"); //$NON-NLS-1$
+			return ImageDescriptor.createFromURL(url).createImage();
+		}
 		return wbLabelProvider.getImage(object);
 	}
 
@@ -69,6 +78,8 @@ public class J2EEAdapterFactoryLabelProvider extends AdapterFactoryLabelProvider
 			return super.getText(((AbstractMethodsContentProvider.EJBMethodItem) object).ejb);
 		else if (object instanceof IFile) {
 			return ((IFile) object).getName();
+		} else if (object instanceof File) {
+			return ((File)object).getName();
 		}
 		return wbLabelProvider.getText(object);
 	}

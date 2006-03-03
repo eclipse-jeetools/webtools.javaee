@@ -119,7 +119,9 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 				if (module.isBinary()) {
 					
 					// we will assume the component name is in synch with the module uri
-					IFile utilityJar = ((VirtualArchiveComponent)module).getUnderlyingWorkbenchFile();
+					Object utilityJar = ((VirtualArchiveComponent)module).getUnderlyingWorkbenchFile();
+					if (utilityJar == null)
+						utilityJar = ((VirtualArchiveComponent)module).getUnderlyingDiskFile();
 					if (utilityJar !=null)
 						children.add(utilityJar);
 				}
