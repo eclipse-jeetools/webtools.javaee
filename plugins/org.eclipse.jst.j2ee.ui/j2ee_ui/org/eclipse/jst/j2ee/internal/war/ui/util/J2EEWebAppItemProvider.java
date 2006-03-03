@@ -173,6 +173,8 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 	 */
 	public void notifyChanged(Notification notification) {
+		if (children == null || children.isEmpty())
+			initChildren();
 		// We only care about adds and removes for the different item provider
 		// groups
 		if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {

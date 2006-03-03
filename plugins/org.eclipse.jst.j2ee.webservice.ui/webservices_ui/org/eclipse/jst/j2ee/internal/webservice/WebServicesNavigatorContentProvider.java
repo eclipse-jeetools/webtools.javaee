@@ -55,7 +55,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 	private WebServiceNavigatorGroupType SERVICES = null;
 	private WebServiceNavigatorGroupType CLIENTS = null;
 	private HashMap HANDLERS = new HashMap();
-	private final static String VIEWER_ID = "org.eclipse.wst.navigator.ui.WTPCommonNavigator";//$NON-NLS-1$
+	private final static String VIEWER_ID = "org.eclipse.wst.navigator.ui.WTPWorkingSetCommonNavigator";//$NON-NLS-1$
 	
 	private TreeViewer viewer = null;
 	
