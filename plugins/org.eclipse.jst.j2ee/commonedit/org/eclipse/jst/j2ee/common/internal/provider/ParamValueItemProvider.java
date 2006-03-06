@@ -138,8 +138,8 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 */
 	public String getText(Object object) {
 		String label = ((ParamValue) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ParamValue_type") : //$NON-NLS-1$
-					getString("_UI_ParamValue_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_ParamValue_type") : //$NON-NLS-1$
+					CommonEditResourceHandler.getString("_UI_ParamValue_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

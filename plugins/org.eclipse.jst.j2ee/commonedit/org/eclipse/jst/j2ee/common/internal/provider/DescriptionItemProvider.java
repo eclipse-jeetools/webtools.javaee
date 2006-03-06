@@ -94,7 +94,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	 * This returns Description.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Description"); //$NON-NLS-1$
+		return getResourceLocator().getImage("full/obj16/CompatibilityDescriptionGroup"); //$NON-NLS-1$
 	}
 
 	/**
