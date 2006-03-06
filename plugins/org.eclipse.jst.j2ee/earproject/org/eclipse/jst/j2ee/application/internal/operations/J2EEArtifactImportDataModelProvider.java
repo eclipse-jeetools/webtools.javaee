@@ -167,6 +167,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			} else if (fileName != null && !archiveExistsOnFile()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.FILE_DOES_NOT_EXIST_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			}
+		} else if (NESTED_MODEL_J2EE_COMPONENT_CREATION.equals(propertyName) ) {
+			return getDataModel().getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION).validate(true);
 		}
 		return OK_STATUS;
 	}
