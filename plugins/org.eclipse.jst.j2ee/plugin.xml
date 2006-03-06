@@ -10,27 +10,6 @@
 <!-- Codegen Contributions                   -->
 <!--============================-->
    
-<!-- This extension-point sends notification to all extensions when J2EEModules are imported.
-        Each extension can specify a set of different module types to listen for or listen to them
-        all.  The default is to receive notification for all module types.  Notification is sent
-        to the specified class implementing org.eclipse.jst.j2ee.internal.J2EEModulePostImportHandler
-		
-		Both of the following examples register for notification for all J2EEModule types, the first
-		uses the defaults, while the second specifies each module type.  To listen for only specific
-		module types, use the second example and specify only the types to listen to.        
-        
-    <extension point="org.eclipse.jst.j2ee.internal.J2EEModulePostImport">
-        <postImport className="org.eclipse.jst.j2ee.internal.tests.extensions.ModulePostImportTestDefault"></postImport>
-    </extension>
-        
-    <extension point="org.eclipse.jst.j2ee.internal.J2EEModulePostImport">
-    	<postImport className="org.eclipse.jst.j2ee.internal.tests.extensions.ModulePostImportTestAll"></postImport>
-    	<module type="WEB"></module>
-    	<module type="EJB"></module>
-    	<module type="ApplicationClient"></module>
-    	<module type="Connector"></module>
-    </extension>
-     -->
    <extension-point id="J2EEModulePostImport" name="J2EEModulePostImport" schema="schema/J2EEModulePostImport.exsd"/>
 
    <extension-point id="EARModuleExtension" name="EARModuleExtension" schema="schema/EARModuleExtension.exsd"/>
