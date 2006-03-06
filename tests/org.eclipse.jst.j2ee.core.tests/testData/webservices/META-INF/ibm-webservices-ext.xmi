@@ -1,0 +1,6 @@
+<com.ibm.etools.webservice.wsext:WsExtension xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.ibm.etools.webservice.wsext="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wsext.xmi" xmi:id="WsExtension_1053484615054">
+  <wsDescExt xmi:id="WsDescExt_1053484615054" wsDescNameLink="StockQuoteFetcher">
+    <pcBinding xmi:id="PcBinding_1053484615054" pcNameLink="urn:xmltoday-delayed-quotes">
+    </pcBinding>
+  </wsDescExt>
+</com.ibm.etools.webservice.wsext:WsExtension>

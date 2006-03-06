@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE webservices PUBLIC "-//IBM Corporation, Inc.//DTD J2EE Web services 1.0//EN" "http://www.ibm.com/webservices/dtd/j2ee_web_services_1_0.dtd">
+
+   <webservices id="WebServices_1055737241672">
+      <webservice-description id="WebServiceDescription_1055737241688">
+         <webservice-description-name>StockQuoteFetcher</webservice-description-name>
+         <wsdl-file>META-INF/wsdl/StockQuoteFetcher.wsdl</wsdl-file>
+         <jaxrpc-mapping-file>META-INF/StockQuoteFetcher_mapping.xml</jaxrpc-mapping-file>
+         <port-component id="PortComponent_1055737241734">
+            <port-component-name>urn:xmltoday-delayed-quotes</port-component-name>
+            <wsdl-port id="WSDLPort_1055737241734">
+               <namespaceURI>http://stock.webservices.samples.websphere.ibm.com</namespaceURI>
+               <localpart>StockQuote</localpart>
+            </wsdl-port>
+            <service-endpoint-interface>com.ibm.websphere.samples.webservices.stock.StockQuote</service-endpoint-interface>
+            <service-impl-bean id="ServiceImplBean_1055737241734">
+               <ejb-link>com_ibm_websphere_samples_webservices_stock_StockQuote</ejb-link>
+            </service-impl-bean>
+         </port-component>
+      </webservice-description>
+   </webservices>
