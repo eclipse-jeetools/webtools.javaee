@@ -107,7 +107,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 							e.printStackTrace();
 						}
 					}
-					addFacetsToProject(newProj,comp.getComponentType().getComponentTypeId(),comp.getComponentType().getVersion(),false);
+					if (comp!=null && comp.getComponentType()!=null)
+						addFacetsToProject(newProj,comp.getComponentType().getComponentTypeId(),comp.getComponentType().getVersion(),false);
 					removedComps.add(comp);
 					IFolder compFolder = project.getFolder(comp.getName());
 					if (compFolder.exists())
