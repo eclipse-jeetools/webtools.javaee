@@ -36,6 +36,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchRequestor;
+import org.eclipse.jem.internal.adapters.jdom.JDOMSearchHelper;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
@@ -45,7 +46,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBGenHelpers;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 
@@ -168,7 +168,8 @@ public class EJBClientJarCreationHelper {
 		if (javaClass == null)
 			return;
 		javaClass.isInterface();//force reflection prior to the move.
-		IType type = EJBGenHelpers.getType(javaClass);
+		IJavaProject jProj = JemProjectUtilities.getJavaProject(ejbProject);
+		IType type = JDOMSearchHelper.findType(javaClass.getJavaPackage().getName(), javaClass.getQualifiedName(), jProj);
 		computeJavaTypes(type);
 	}
 
