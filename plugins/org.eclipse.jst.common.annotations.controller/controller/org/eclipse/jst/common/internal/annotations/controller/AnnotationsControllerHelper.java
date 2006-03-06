@@ -111,11 +111,13 @@ public class AnnotationsControllerHelper {
 	 * @return The compilation unit which was responsible for the generation of the model object
 	 */
 	public ICompilationUnit getAnnotatedCU(EObject eObject) {
-		String fragementString = (String) AnnotationsAdapter.getAnnotations(eObject, AnnotationsAdapter.GENERATED);
-		if (fragementString == null)
+		String fragmentString = (String) AnnotationsAdapter.getAnnotations(eObject, AnnotationsAdapter.GENERATED);
+		if (fragmentString == null)
 			return null;
 
-		String typeString = fragementString.substring(0, fragementString.indexOf('#'));
+		String typeString = fragmentString;
+		if (fragmentString.indexOf('#')>0)
+			typeString = fragmentString.substring(0, fragmentString.indexOf('#'));
 		IType itype;
 
 		if (typeString != null && (itype = findType(typeString, eObject)) != null) {
