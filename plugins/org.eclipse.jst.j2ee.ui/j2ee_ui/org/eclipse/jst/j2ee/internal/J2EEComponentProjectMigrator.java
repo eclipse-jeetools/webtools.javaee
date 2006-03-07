@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -68,6 +69,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
 	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
 	private static final String WEB_LIB_PATH = "/WEB-INF/lib";
+	private static final String OLD_DEPLOYABLES_PATH = ".deployables";
 	private IProject project;
 	public J2EEComponentProjectMigrator() {
 		super();
@@ -144,6 +146,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			try {
 				se = StructureEdit.getStructureEditForRead(project);
 				if (se == null) return false;
+				if (se.getComponentModelRoot() == null) return false;
 				return se.getComponentModelRoot().getComponents().size() > 1;
 			} finally {
 				if (se != null)
@@ -312,6 +315,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		private void installUtilityFacets(IProject aProject, String specVersion, boolean existing) {
+			replaceDeployablesOutputIfNecessary(project);
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -337,6 +341,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		private void installConnectorFacets(IProject aProject, String specVersion, boolean existing) {
+			replaceDeployablesOutputIfNecessary(project);
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -386,6 +391,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		private void installAppClientFacets(IProject aProject, String specVersion, boolean existing) {
+			replaceDeployablesOutputIfNecessary(project);
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -411,6 +417,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		private void installEJBFacets(IProject ejbProject2,String ejbVersion, boolean existing) {
+			replaceDeployablesOutputIfNecessary(project);
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, ejbProject2.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -437,6 +444,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 		private void installWEBFacets(IProject webProj,String specVersion, boolean existing) {
 			removeOldWebContainerIfNecessary(project);
+			replaceDeployablesOutputIfNecessary(project);
 			
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, webProj.getName());
@@ -470,6 +478,36 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			
 			
 		}
+		private void replaceDeployablesOutputIfNecessary(IProject proj) {
+
+
+			IJavaProject jproj = JemProjectUtilities.getJavaProject(proj);
+			final IClasspathEntry[] current;
+			try {
+				current = jproj.getRawClasspath();
+				List updatedList = new ArrayList();
+				IPath sourcePath = null;
+				for (int i = 0; i < current.length; i++) {
+					IClasspathEntry entry = current[i];
+					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation().toString().indexOf(OLD_DEPLOYABLES_PATH) != -1)) {
+						sourcePath = entry.getPath();
+						updatedList.add(JavaCore.newSourceEntry(sourcePath));
+					}
+					else
+						updatedList.add(entry);
+				}
+				IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
+				jproj.setRawClasspath(updated, null);
+				jproj.save(null, true);
+			} catch (JavaModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+			
+		}
+
 		private void removeOldWebContainerIfNecessary(IProject webProj) {
 
 			IJavaProject jproj = JemProjectUtilities.getJavaProject(webProj);
@@ -484,6 +522,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				}
 				IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
 				jproj.setRawClasspath(updated, null);
+				jproj.save(null, true);
 			} catch (JavaModelException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
