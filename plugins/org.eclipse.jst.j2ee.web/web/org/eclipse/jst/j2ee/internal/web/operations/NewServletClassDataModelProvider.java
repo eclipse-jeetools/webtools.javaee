@@ -332,7 +332,12 @@ public class NewServletClassDataModelProvider extends NewJavaClassDataModelProvi
 		// Validate the servlet name in DD
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
-
+		if (propertyName.equals(CLASS_NAME)) {
+			result = validateJavaClassName(getStringProperty(propertyName));
+			if (result.isOK()&&!getBooleanProperty(USE_EXISTING_CLASS))
+				result = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+			return result;
+		}
 		// Otherwise defer to super to validate the property
 		return result;
 	}
