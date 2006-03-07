@@ -32,7 +32,7 @@ public class Test0_7Workspace {
 	public static IPath ARTIFACT_EDIT_FVT_RESOURCE_PATH = workspaceLocation.append(ARTIFACT_EDIT_FVT_RESOURCE_PATH_NAME);
 		
 	private static Path zipFilePath = new Path("/TestData/GenralArtifactTest/TEST0_7.zip");
-	private static String[] projectNames = new String[]{".JETEmitters", "MyEar", "MyEarClient", "MyEarConnector", "MyEarEJB","TestWeb","TestWebEAR"};
+	private static String[] projectNames = new String[]{".JETEmitters", "MyEar", "MyEarClient", "MyEarConnector", "MyEarEJB","TestWeb","TestWebEAR","Util1"};
 	private boolean isValidWorkspace;
 	
 

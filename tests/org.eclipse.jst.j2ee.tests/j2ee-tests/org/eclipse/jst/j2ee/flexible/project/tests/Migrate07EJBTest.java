@@ -3,6 +3,9 @@ package org.eclipse.jst.j2ee.flexible.project.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit.Test0_7Workspace;
@@ -38,13 +41,19 @@ public class Migrate07EJBTest extends TestCase {
 		
 		
 		try {
+			//Run full build to start migration
+			try {
+				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
+			} catch (CoreException e) {
+			}
+			  
 			ejbedit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
 			EJBJar ejb = ejbedit.getEJBJar();
 			assertTrue(ejb != null);
 			webEdit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
 			WebApp web = webEdit.getWebApp();
 			assertTrue(web != null);
-		} finally {
+			} finally {
 			if (ejbedit != null) {
 				ejbedit.dispose();
 			}

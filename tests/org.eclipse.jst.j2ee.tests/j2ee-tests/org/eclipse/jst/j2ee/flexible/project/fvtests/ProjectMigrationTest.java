@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.flexible.project.tests.Migrate07EJBTest;
 import org.eclipse.jst.j2ee.project.facet.IJavaProjectMigrationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaProjectMigrationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -30,7 +31,8 @@ public  class ProjectMigrationTest extends TestCase {
 	}	
 
     public static Test suite() {
-        return new SimpleTestSuite(ProjectMigrationTest.class);
+        //return new SimpleTestSuite(ProjectMigrationTest.class);
+        return new SimpleTestSuite(Migrate07EJBTest.class);
     }
 	
     
