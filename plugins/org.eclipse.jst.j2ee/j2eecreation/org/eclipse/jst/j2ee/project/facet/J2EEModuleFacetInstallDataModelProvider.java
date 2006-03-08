@@ -214,56 +214,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
 		}
 		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
-		// IProject earProject =
-		// applicationCreationDataModel.getTargetProject();
-		// if (null != earProject && earProject.exists()) {
-		// if (earProject.isOpen()) {
-		// try {
-		// EARNatureRuntime earNature = (EARNatureRuntime)
-		// earProject.getNature(IEARNatureConstants.NATURE_ID);
-		// if (earNature == null) {
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EAR,
-		// new Object[]{earProject.getName()}));
-		// } else if (earNature.getJ2EEVersion() < getJ2EEVersion()) {
-		// String earVersion =
-		// EnterpriseApplicationCreationDataModel.getVersionString(earNature.getJ2EEVersion());
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.INCOMPATABLE_J2EE_VERSIONS,
-		// new Object[]{earProject.getName(), earVersion}));
-		// }
-		// return OK_STATUS;
-		// } catch (CoreException e) {
-		// return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, -1, null, e);
-		// }
-		// }
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_ClOSED,
-		// new Object[]{earProject.getName()}));
-		// } else if (null != earProject && null != getTargetProject()) {
-		// if (earProject.getName().equals(getTargetProject().getName())) {
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME,
-		// new Object[]{earProject.getName()}));
-		// } else if (!CoreFileSystemLibrary.isCaseSensitive()) {
-		// if
-		// (earProject.getName().toLowerCase().equals(getTargetProject().getName().toLowerCase()))
-		// {
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME,
-		// new Object[]{earProject.getName()}));
-		// }
-		// }
-		// }
-		// IStatus status =
-		// applicationCreationDataModel.validateProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME);
-		// if (status.isOK()) {
-		// status =
-		// applicationCreationDataModel.validateProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION);
-		// }
-		// return status;
-
-		// return OK_STATUS;
 	}
 
 	private boolean isEARSupportedByRuntime(){

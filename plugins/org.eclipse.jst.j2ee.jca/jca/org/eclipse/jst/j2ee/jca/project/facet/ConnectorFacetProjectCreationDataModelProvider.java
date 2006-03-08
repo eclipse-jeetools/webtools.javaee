@@ -12,11 +12,14 @@ package org.eclipse.jst.j2ee.jca.project.facet;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 
-public class ConnectorFacetProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider {
+public class ConnectorFacetProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
 	public ConnectorFacetProjectCreationDataModelProvider() {
 		super();
@@ -30,6 +33,15 @@ public class ConnectorFacetProjectCreationDataModelProvider extends FacetProject
 		IDataModel jcaFacet = DataModelFactory.createDataModel(new ConnectorFacetInstallDataModelProvider());
 		map.add(jcaFacet);
 		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME,jcaFacet.getStringProperty(IConnectorFacetInstallDataModelProperties.CONFIG_FOLDER));
+		jcaFacet.addListener(new IDataModelListener() {
+			public void propertyChanged(DataModelEvent event) {
+				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
+					setProperty(EAR_PROJECT_NAME, (String)event.getProperty());
+				}else if (IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR.equals(event.getPropertyName())) {
+					setProperty(ADD_TO_EAR, event.getProperty());
+				}
+			}
+		});			
 	}
 
 }

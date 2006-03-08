@@ -16,8 +16,13 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.SWT;
@@ -98,5 +103,15 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     
 	protected IDialogSettings getDialogSettings() {
         return J2EEUIPlugin.getDefault().getDialogSettings();
-    }  	
+    }
+	
+	protected String[] getValidationPropertyNames() {
+		String[] superProperties = super.getValidationPropertyNames();
+		List list = Arrays.asList(superProperties);
+		ArrayList arrayList = new ArrayList();
+		arrayList.addAll( list );
+		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME );
+		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR );
+		return (String[])arrayList.toArray( new String[0] );
+	}	
 }
