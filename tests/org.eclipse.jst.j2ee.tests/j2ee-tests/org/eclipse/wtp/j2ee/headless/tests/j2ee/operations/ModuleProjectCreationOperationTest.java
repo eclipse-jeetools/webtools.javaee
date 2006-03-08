@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -26,6 +27,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     public static String DEFAULT_EAR_PROJECT_NAME = "SimpleEARProject"; //$NON-NLS-1$
 	public static String DEFAULT_COMPONENT_NAME = "SimpleComponent"; //$NON-NLS-1$
 	public static String DEFAULT_EAR_COMPONENT_NAME = "SimpleEARComponent"; //$NON-NLS-1$
+	public static String DEFAULT_COMPONENT_WITH_EAR = "Component"; //$NON-NLS-1$		
     
     /**
 	 * @param name
@@ -72,10 +74,22 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     }
 
 	public abstract IDataModel getComponentCreationDataModel();
-
+	public abstract IDataModel getComponentCreationDataModelWithEar();
+	
 	public static void verifyDataModel(IDataModel dataModel) throws Exception{
 	    DataModelVerifier verifier = DataModelVerifierFactory.getInstance().createVerifier(dataModel);
 	    verifier.verify(dataModel);
 	}
 
+    public void testAddtoEAR() throws Exception {
+        createModuleWithEAR(DEFAULT_COMPONENT_WITH_EAR + componentSeed);
+    }	
+    
+	public void createModuleWithEAR(String componentName) throws Exception {
+        IDataModel dataModel = getComponentCreationDataModelWithEar();
+        if( dataModel != null ){
+	        dataModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, componentName);
+	        runAndVerify(dataModel,false,true);
+        }
+    }  	
 }

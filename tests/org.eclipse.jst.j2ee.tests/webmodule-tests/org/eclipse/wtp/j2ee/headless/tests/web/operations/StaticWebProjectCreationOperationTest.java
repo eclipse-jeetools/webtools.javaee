@@ -32,5 +32,8 @@ public class StaticWebProjectCreationOperationTest extends ModuleProjectCreation
         dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, componentName);
        runAndVerify(dataModel,false,true);
     }
-
+    
+    public IDataModel getComponentCreationDataModelWithEar() {
+    	return null;
+    } 
 }
