@@ -11,11 +11,12 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
-import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 
-public class UtilityProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider {
+public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
 	public UtilityProjectCreationDataModelProvider() {
 		super();
@@ -28,6 +29,17 @@ public class UtilityProjectCreationDataModelProvider extends FacetProjectCreatio
 		map.add(javaFacet);
 		IDataModel utilFacet = DataModelFactory.createDataModel(new UtilityFacetInstallDataModelProvider());
 		map.add(utilFacet);
+		
+		utilFacet.addListener(new IDataModelListener() {
+			public void propertyChanged(DataModelEvent event) {
+				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
+					setProperty(EAR_PROJECT_NAME, (String)event.getProperty());
+				}else if (IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR.equals(event.getPropertyName())) {
+					setProperty(ADD_TO_EAR, event.getProperty());
+				}
+			}
+		});
+		
 	}
 
 }

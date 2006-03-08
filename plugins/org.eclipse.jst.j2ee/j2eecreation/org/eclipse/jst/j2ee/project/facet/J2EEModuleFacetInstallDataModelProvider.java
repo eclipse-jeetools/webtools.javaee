@@ -36,6 +36,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
 
@@ -88,6 +89,10 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			setBooleanProperty(ADD_TO_EAR, false);
 		}
 		if (ADD_TO_EAR.equals(propertyName)) {
+			IStatus stat = model.validateProperty(propertyName);
+			if (stat != OK_STATUS){
+				return true;
+			}			
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
 			if (getBooleanProperty(ADD_TO_EAR)) {
@@ -119,13 +124,17 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			}
 		}else if(LAST_EAR_NAME.equals(propertyName)){
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
+		}else if(propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)){
+			model.setProperty(ADD_TO_EAR, model.getDefaultProperty(ADD_TO_EAR));
+			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
+			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 		}
 		return super.propertySet(propertyName, propertyValue);
 	}
 
 	public boolean isPropertyEnabled(String propertyName) {
 		if (ADD_TO_EAR.equals(propertyName)) {
-			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR);
+			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR) && isEARSupportedByRuntime();
 		}
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR) && getBooleanProperty(ADD_TO_EAR);
@@ -187,6 +196,11 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
+		}else if (name.equals(ADD_TO_EAR)){
+			if( !isEARSupportedByRuntime()){
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_NOT_SUPPORTED);
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			}			
 		}
 		return super.validate(name);
 	}
@@ -200,56 +214,14 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
 		} 
 		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
-		// IProject earProject =
-		// applicationCreationDataModel.getTargetProject();
-		// if (null != earProject && earProject.exists()) {
-		// if (earProject.isOpen()) {
-		// try {
-		// EARNatureRuntime earNature = (EARNatureRuntime)
-		// earProject.getNature(IEARNatureConstants.NATURE_ID);
-		// if (earNature == null) {
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EAR,
-		// new Object[]{earProject.getName()}));
-		// } else if (earNature.getJ2EEVersion() < getJ2EEVersion()) {
-		// String earVersion =
-		// EnterpriseApplicationCreationDataModel.getVersionString(earNature.getJ2EEVersion());
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.INCOMPATABLE_J2EE_VERSIONS,
-		// new Object[]{earProject.getName(), earVersion}));
-		// }
-		// return OK_STATUS;
-		// } catch (CoreException e) {
-		// return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, -1, null, e);
-		// }
-		// }
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_ClOSED,
-		// new Object[]{earProject.getName()}));
-		// } else if (null != earProject && null != getTargetProject()) {
-		// if (earProject.getName().equals(getTargetProject().getName())) {
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME,
-		// new Object[]{earProject.getName()}));
-		// } else if (!CoreFileSystemLibrary.isCaseSensitive()) {
-		// if
-		// (earProject.getName().toLowerCase().equals(getTargetProject().getName().toLowerCase()))
-		// {
-		// return
-		// WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME,
-		// new Object[]{earProject.getName()}));
-		// }
-		// }
-		// }
-		// IStatus status =
-		// applicationCreationDataModel.validateProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME);
-		// if (status.isOK()) {
-		// status =
-		// applicationCreationDataModel.validateProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION);
-		// }
-		// return status;
-
-		//return OK_STATUS;
 	}
 
+	private boolean isEARSupportedByRuntime(){
+		boolean ret = false;
+		IRuntime rt = (IRuntime) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+		if( rt != null )
+			ret =  rt.supports(EARFacetUtils.EAR_FACET);
+		return ret;
+	}
+	
 }
