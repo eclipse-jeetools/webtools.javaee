@@ -122,7 +122,7 @@ public class J2EEActionProvider extends CommonActionProvider implements IDoubleC
 			
 		IMenuManager submenu = null;
 		if (submenu == null)
-			submenu = new MenuManager(WorkbenchNavigatorMessages.Workbench_new, ICommonMenuConstants.GROUP_NEW);
+			submenu = new MenuManager(WorkbenchNavigatorMessages.NewActionProvider_NewMenu_label, ICommonMenuConstants.GROUP_NEW);
 		
 		// fill the menu from the commonWizard contributions
 		newWizardActionGroup.setContext(getContext());

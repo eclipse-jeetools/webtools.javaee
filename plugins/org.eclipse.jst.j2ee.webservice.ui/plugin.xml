@@ -10,15 +10,18 @@
             contentProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorContentProvider"
             labelProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorLabelProvider"
             id="org.eclipse.wst.common.frameworks.internal.navigator.webservice">
-         <enablement>
-            <or>
-               <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
-               <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup"/>
+         <triggerPoints>
+            <instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
+         </triggerPoints>
+         <possibleChildren>
+         	<or>
+         	   <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup"/>
                <instanceof value="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription"/>
                <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType"/>
                <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/>
-            </or>
-         </enablement>
+               <instanceof value="org.eclipse.emf.ecore.EObject"/>
+         	</or>
+         </possibleChildren>
      <!--    <emfEnablement>
          	<package uri="wsdd.xmi" />                 	
          	<package uri="webservice_client.xmi" />           	         	
@@ -48,7 +51,8 @@
       <viewerContentBinding
       		viewerId="org.eclipse.wst.common.explorer.CommonProjectExplorer">
       		<includes>
-      		   <contentExtension pattern="org.eclipse.wst.common.frameworks.internal.navigator.webservice"/>
+      		   <contentExtension pattern="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
+      		      isRoot="true"/>
       		</includes>  
       </viewerContentBinding>
    </extension>

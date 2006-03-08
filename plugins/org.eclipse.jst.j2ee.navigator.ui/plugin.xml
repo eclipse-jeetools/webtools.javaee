@@ -35,7 +35,7 @@
         <possibleChildren>
          <and>
             <instanceof value="org.eclipse.emf.ecore.EObject"/>
-           <!-- <or>
+            <!-- <or>
         	  <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	             value="common.xmi"/>
 	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
@@ -50,6 +50,8 @@
 	            value="jca.xmi"/>
 	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	            value="webapplication.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="jsp.xmi"/>
 	        </or> -->
 	     </and>
         </possibleChildren> 

@@ -11,14 +11,14 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.ui.internal.navigator.resources.workbench.ResourceDropAction;
 import org.eclipse.ui.navigator.CommonDropAdapter;
+import org.eclipse.ui.navigator.resources.ResourceDropAdapterAssistant;
 
 /**
  * @author mdelder
  *  
  */
-public class AddExternalUtilityJarDropAction extends ResourceDropAction {
+public class AddExternalUtilityJarDropAction extends ResourceDropAdapterAssistant {
 
 	/*
 	 * (non-Javadoc)
