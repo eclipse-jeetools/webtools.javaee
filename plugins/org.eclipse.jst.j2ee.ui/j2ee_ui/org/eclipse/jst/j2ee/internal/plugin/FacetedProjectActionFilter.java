@@ -38,11 +38,13 @@ public final class FacetedProjectActionFilter
         {
         	IProject project = (IProject)target;
         	IFacetedProject fproj = null;
-			try {
-				fproj = ProjectFacetsManager.create( project );
-			} catch (CoreException e1) {
-				Logger.getLogger().logError(e1);
-			}
+        	if(project.isAccessible()){
+				try {
+					fproj = ProjectFacetsManager.create( project );
+				} catch (CoreException e1) {
+					Logger.getLogger().logError(e1);
+				}
+        	}
 
             if( fproj != null ){
 	            final int colon = value.indexOf( ':' );
