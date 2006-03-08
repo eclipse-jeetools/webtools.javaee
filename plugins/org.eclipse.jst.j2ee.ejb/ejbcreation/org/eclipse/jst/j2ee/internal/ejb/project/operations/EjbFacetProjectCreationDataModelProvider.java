@@ -13,12 +13,14 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 
 public class EjbFacetProjectCreationDataModelProvider extends
-		FacetProjectCreationDataModelProvider {
+J2EEFacetProjectCreationDataModelProvider {
 
 	public EjbFacetProjectCreationDataModelProvider() {
 		super();
@@ -32,6 +34,15 @@ public class EjbFacetProjectCreationDataModelProvider extends
 		IDataModel ejbFacet = DataModelFactory.createDataModel(new EjbFacetInstallDataModelProvider());
 		map.add(ejbFacet);
 		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME,ejbFacet.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
+		ejbFacet.addListener(new IDataModelListener() {
+			public void propertyChanged(DataModelEvent event) {
+				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
+					setProperty(EAR_PROJECT_NAME, (String)event.getProperty());
+				}else if (IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR.equals(event.getPropertyName())) {
+					setProperty(ADD_TO_EAR, event.getProperty());
+				}
+			}
+		});			
 	}
 	
 }
