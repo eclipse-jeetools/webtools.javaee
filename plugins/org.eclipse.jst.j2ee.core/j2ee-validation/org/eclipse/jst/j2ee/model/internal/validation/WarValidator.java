@@ -281,7 +281,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 					validate();
 				} else {
 					IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_WAR_FILE);
-					status = WTPCommonPlugin.createErrorStatus(errorMsg.getText());
+					status = WTPCommonPlugin.createErrorStatus( errorMsg.getText( getClass().getClassLoader() ));
 					throw new ValidationException(errorMsg);
 				}
 	
@@ -291,7 +291,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 				String[] parms = new String[1];
 				parms[0] = e.toString();
 				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms);
-				status = WTPCommonPlugin.createErrorStatus(errorMsg.getText());
+				status = WTPCommonPlugin.createErrorStatus(errorMsg.getText( getClass().getClassLoader() ));
 				throw new ValidationException(errorMsg, e);
 			}
 		}else{
