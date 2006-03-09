@@ -56,11 +56,15 @@ public class Migrate07EJBTest extends TestCase {
 
 				try {
 				ejbedit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
-				EJBJar ejb = ejbedit.getEJBJar();
-				assertTrue(ejb != null);
+				if (ejbedit != null) {
+					EJBJar ejb = ejbedit.getEJBJar();
+					assertTrue(ejb != null);
+				}
 				webEdit = WebArtifactEdit.getWebArtifactEditForRead(webProject);
-				WebApp web = webEdit.getWebApp();
-				assertTrue(web != null);
+				if (webEdit != null) {
+					WebApp web = webEdit.getWebApp();
+					assertTrue(web != null);
+				}
 				} finally {
 					if (ejbedit != null) {
 						ejbedit.dispose();
