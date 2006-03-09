@@ -17,13 +17,18 @@
 package org.eclipse.jst.j2ee.internal.jca.validation;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.validation.internal.core.Message;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 
@@ -45,18 +50,23 @@ public class UIConnectorValidator extends ConnectorValidator {
 	/**
 	 * Does the validation.
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
+	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException{
 		
-		IProject proj = ((IWorkbenchContext) inHelper).getProject();
+		IProject proj = ((IWorkbenchContext) helper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
 		
         if(J2EEProjectUtilities.isJCAProject(proj)) {
 			IVirtualFile rarDD = wbModule.getRootFolder().getFile(J2EEConstants.RAR_DD_URI);
 			if( rarDD.exists()) {			
-				super.validate(inHelper, inReporter);
+				status =  super.validateInJob(helper, reporter);
+			}else{
+				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
+				status = WTPCommonPlugin.createErrorStatus( errorMsg.getText( getClass().getClassLoader()));
+				throw new ValidationException(errorMsg);
 			}
 			//validateJ2EE14DocType(helper, editModel);
 		}
+        return status;
 	}
 
 
