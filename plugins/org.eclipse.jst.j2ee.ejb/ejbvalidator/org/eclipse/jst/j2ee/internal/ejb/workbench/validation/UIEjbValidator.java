@@ -63,15 +63,17 @@ public class UIEjbValidator extends EJBValidator {
 		
 		IProject project = ((IWorkbenchContext) helper).getProject();
 		IVirtualComponent comp = ComponentCore.createComponent( project );
-		IVirtualFile vf = comp.getRootFolder().getFile(new Path(J2EEConstants.EJBJAR_DD_URI));
-		IPath path = null;
-		if( vf!= null ){
-			IFile ejbJarFile = vf.getUnderlyingFile();
-			path = ejbJarFile.getRawLocation();
-		}
-		if( path != null ){
-			EjbValidatorSchedulingRule rule = new EjbValidatorSchedulingRule(path);
-			return rule;
+		if( comp != null ){
+			IVirtualFile vf = comp.getRootFolder().getFile(new Path(J2EEConstants.EJBJAR_DD_URI));
+			IPath path = null;
+			if( vf!= null ){
+				IFile ejbJarFile = vf.getUnderlyingFile();
+				path = ejbJarFile.getRawLocation();
+			}
+			if( path != null ){
+				EjbValidatorSchedulingRule rule = new EjbValidatorSchedulingRule(path);
+				return rule;
+			}
 		}
 		return null;
 	}	
