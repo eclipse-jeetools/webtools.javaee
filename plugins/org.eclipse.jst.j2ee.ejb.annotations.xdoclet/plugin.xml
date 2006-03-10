@@ -156,7 +156,7 @@
     <project-facet-version facet="jst.web.xdoclet" version="1.2.1">
       <constraint>
         <and>
-          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3"/>
+          <requires facet="jst.web" version="[2.2-2.3]"/>
         </and>
       </constraint>
      </project-facet-version>
@@ -164,7 +164,7 @@
     <project-facet-version facet="jst.web.xdoclet" version="1.2.2">
       <constraint>
         <and>
-          <requires facet="jst.web" version="&gt;=2.2,&lt;=2.3"/>
+          <requires facet="jst.web" version="[2.2-2.3]"/>
         </and>
       </constraint>
     </project-facet-version>
@@ -172,25 +172,26 @@
     <project-facet-version facet="jst.web.xdoclet" version="1.2.3">
       <constraint>
         <and>
-          <requires facet="jst.web" version="&gt;=2.2"/>
+          <requires facet="jst.web" version="[2.2"/>
         </and>
       </constraint>
    </project-facet-version>
     
 
     
-    <action type="install" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+    <action type="install" facet="jst.web.xdoclet" version="[1.2.1-1.2.3]">
       <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletWebFacetInstallDataModelProvider"/>
     </action>
-    <action type="uninstall" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+    <action type="uninstall" facet="jst.web.xdoclet" version="[1.2.1-1.2.3]">
       <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetUninstallDelegate"/>
     </action>
     
-	<action type="runtime-changed" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	<event-handler type="RUNTIME_CHANGED" facet="jst.web.xdoclet" version="[1.2.1-1.2.3]">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetRuntimeChangedDelegate"/>
-	</action>
-	<action type="version-change" facet="jst.web.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	</event-handler>
+	
+	<action type="version-change" facet="jst.web.xdoclet" version="[1.2.1-1.2.3]">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetVersionChangeDelegate"/>
 	</action>
 
@@ -235,24 +236,24 @@
     <project-facet-version facet="jst.ejb.xdoclet" version="1.2.3">
       <constraint>
         <and>
-          <requires facet="jst.ejb" version="&gt;=1.1"/>
+          <requires facet="jst.ejb" version="[1.1"/>
           <conflicts group="ejb.annotated.generation"/>
         </and>
       </constraint>
       <group-member id="ejb.annotated.generation"/>
    </project-facet-version>
    
-    <action type="install" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+    <action type="install" facet="jst.ejb.xdoclet" version="[1.2.1-1.2.3]">
       <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletEjbFacetInstallDataModelProvider"/>
     </action>
-    <action type="uninstall" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+    <action type="uninstall" facet="jst.ejb.xdoclet" version="[1.2.1-1.2.3]">
       <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetUninstallDelegate"/>
     </action>
-	<action type="runtime-changed" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	<event-handler type="RUNTIME_CHANGED" facet="jst.ejb.xdoclet" version="[1.2.1-1.2.3]">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetRuntimeChangedDelegate"/>
-	</action>
-	<action type="version-change" facet="jst.ejb.xdoclet" version="&gt;=1.2.1,&lt;=1.2.3">
+	</event-handler>
+	<action type="version-change" facet="jst.ejb.xdoclet" version="[1.2.1-1.2.3]">
 	  <delegate class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.facet.XDocletFacetVersionChangeDelegate"/>
 	</action>
 
