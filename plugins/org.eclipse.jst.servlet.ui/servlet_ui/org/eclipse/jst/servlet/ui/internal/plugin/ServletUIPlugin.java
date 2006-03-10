@@ -12,6 +12,8 @@ package org.eclipse.jst.servlet.ui.internal.plugin;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -46,4 +48,16 @@ public class ServletUIPlugin extends AbstractUIPlugin {
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
 	}
+    
+    public static void log( final Exception e )
+    {
+        final String msg = e.getMessage() + "";
+        log( new Status( IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e ) );
+    }
+
+    public static void log( final IStatus status )
+    {
+        getDefault().getLog().log( status );
+    }
+    
 }

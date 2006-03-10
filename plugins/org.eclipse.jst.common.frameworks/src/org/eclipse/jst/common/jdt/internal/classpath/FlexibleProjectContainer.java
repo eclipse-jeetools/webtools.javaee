@@ -79,20 +79,6 @@ public abstract class FlexibleProjectContainer
     private final IClasspathEntry[] cpentries;
     private final IPath[] watchlist;
     
-    /**
-     * @deprecated 
-     */
-    
-    public FlexibleProjectContainer( final IPath path,
-                                     final IJavaProject owner,
-                                     final IProject project,
-                                     final String component,
-                                     final IPath[] paths,
-                                     final PathType[] types )
-    {
-        this( path, owner, project, paths, types );
-    }
-
     public FlexibleProjectContainer( final IPath path,
                                      final IJavaProject owner,
                                      final IProject project,

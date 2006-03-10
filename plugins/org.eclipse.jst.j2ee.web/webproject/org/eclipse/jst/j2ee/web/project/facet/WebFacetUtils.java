@@ -11,13 +11,15 @@
 package org.eclipse.jst.j2ee.web.project.facet;
 
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class WebFacetUtils {
 
-	public static final IProjectFacetVersion WEB_22 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE).getVersion("2.2"); //$NON-NLS-1$
-	public static final IProjectFacetVersion WEB_23 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE).getVersion("2.3"); //$NON-NLS-1$
-	public static final IProjectFacetVersion WEB_24 = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE).getVersion("2.4"); //$NON-NLS-1$
+    public static final IProjectFacet WEB_FACET = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
+	public static final IProjectFacetVersion WEB_22 = WEB_FACET.getVersion("2.2"); //$NON-NLS-1$
+	public static final IProjectFacetVersion WEB_23 = WEB_FACET.getVersion("2.3"); //$NON-NLS-1$
+	public static final IProjectFacetVersion WEB_24 = WEB_FACET.getVersion("2.4"); //$NON-NLS-1$
 
 }

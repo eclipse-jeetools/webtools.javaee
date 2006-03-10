@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005-2006 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainerIni
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
 
-public final class WebAppContainerInitializer
+public final class WebAppLibrariesContainerInitializer
 
     extends FlexibleProjectContainerInitializer
 
@@ -31,7 +31,7 @@ public final class WebAppContainerInitializer
 	    throws CoreException
 
 	{
-	    ( new WebAppContainer( path, jproj ) ).install();
+	    ( new WebAppLibrariesContainer( path, jproj ) ).install();
 	}
 
 }

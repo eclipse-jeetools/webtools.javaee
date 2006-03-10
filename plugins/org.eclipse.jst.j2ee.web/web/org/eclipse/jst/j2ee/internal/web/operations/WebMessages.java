@@ -107,8 +107,6 @@ public class WebMessages extends NLS {
 	public static String ERR_FILTER_LIST_EMPTY;
 	public static String ERR_LISTENER_LIST_EMPTY;
 
-	public static String WEB_CONT_DESCRIPTION;
-
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WebMessages.class);
 	}

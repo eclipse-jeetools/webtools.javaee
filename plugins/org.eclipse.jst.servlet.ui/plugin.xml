@@ -272,4 +272,13 @@
     <image facet="jst.web" path="icons/war.gif"/>
   </extension>
   
+  <extension
+    point="org.eclipse.jdt.ui.classpathContainerPage">
+    <classpathContainerPage
+      name="%webAppLibrariesContainerName"
+      class="org.eclipse.jst.servlet.ui.internal.wizard.WebAppLibrariesContainerPage"
+      id="org.eclipse.jst.j2ee.internal.web.container">
+    </classpathContainerPage>
+  </extension>
+  
 </plugin>

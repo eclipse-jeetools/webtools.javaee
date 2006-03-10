@@ -41,7 +41,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.web.classpath.WebAppContainer;
+import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
@@ -148,7 +148,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Add the web libraries container.
 
-			final IPath cont = new Path(WebAppContainer.CONTAINER_ID);
+			final IPath cont = new Path(WebAppLibrariesContainer.CONTAINER_ID);
 			addToClasspath(jproj, JavaCore.newContainerEntry(cont));
 
 			// Associate with an EAR, if necessary.

@@ -60,6 +60,9 @@ public final class JavaFacetUtils
     public static final IProjectFacetVersion JAVA_50
         = JAVA_FACET.getVersion( "5.0" ); //$NON-NLS-1$
     
+    public static final IProjectFacetVersion JAVA_60
+        = JAVA_FACET.getVersion( "6.0" ); //$NON-NLS-1$
+
     public static String getCompilerLevel( final IProject project )
     {
         IScopeContext context = new ProjectScope( project );
@@ -123,6 +126,14 @@ public final class JavaFacetUtils
             prefs.put( JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_5 );
             prefs.put( JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_5 );
             prefs.put( JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_5 );
+            prefs.put( JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR );
+            prefs.put( JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR );
+        }
+        else if( level.equals( JavaCore.VERSION_1_6 ) )
+        {
+            prefs.put( JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_6 );
+            prefs.put( JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_6 );
+            prefs.put( JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_6 );
             prefs.put( JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR );
             prefs.put( JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR );
         }
@@ -248,6 +259,10 @@ public final class JavaFacetUtils
         {
             return JavaFacetUtils.JAVA_50;
         }
+        else if( ver.equals(  "1.6" ) ) //$NON-NLS-1$
+        {
+            return JavaFacetUtils.JAVA_60;
+        }
         else
         {
             return JavaFacetUtils.JAVA_FACET.getVersion( ver );
@@ -259,6 +274,10 @@ public final class JavaFacetUtils
         if( fv == JAVA_50 )
         {
             return JavaCore.VERSION_1_5;
+        }
+        else if( fv == JAVA_60 )
+        {
+            return JavaCore.VERSION_1_6;
         }
         else
         {
