@@ -3,6 +3,22 @@
 <plugin>
 
    <extension
+   		 point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+         viewerId="org.eclipse.ui.navigator.resourceContent">
+         <includes>
+           <contentExtension pattern="org.eclipse.jst.navigator.j2ee.ui.J2EEContent"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding
+      	 viewerId="org.eclipse.ui.navigator.resourceContent">
+      	 <includes>
+      	    <actionExtension pattern="org.eclipse.ui.navigator.resources.*"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+   
+   <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             name="%extension.j2ee.name"
@@ -13,29 +29,10 @@
             labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
             id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent">
         <triggerPoints>
-         <and>
-          <adapt type="org.eclipse.core.resources.IProject"/>
-            <!--<or>
-               <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-         		  value="jst.web"/>
-         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-         		  value="jst.ejb"/> 
-         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-         		  value="jst.utility"/> 
-         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-         		  value="jst.ear"/> 
-         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-         		  value="jst.appclient"/> 
-         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
-         		  value="jst.connector"/>   
-            </or>
-           </adapt> -->
-         </and>
-        </triggerPoints>
-        <possibleChildren>
-         <and>
-            <instanceof value="org.eclipse.emf.ecore.EObject"/>
-            <!-- <or>
+         <or>
+          <and>
+           <instanceof value="org.eclipse.emf.ecore.EObject"/>
+            <or>
         	  <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	             value="common.xmi"/>
 	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
@@ -52,36 +49,51 @@
 	            value="webapplication.xmi"/>
 	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 	            value="jsp.xmi"/>
-	        </or> -->
+	        </or>
+	      </and>
+          <and>
+           <adapt type="org.eclipse.core.resources.IProject"/>
+            <!--<or>
+               <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.web"/>
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.ejb"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.utility"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.ear"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.appclient"/> 
+         	   <test property="org.eclipse.wst.common.project.facet.core.projectFacet"
+         		  value="jst.connector"/>   
+            </or>
+           </adapt> -->
+          </and>
+         </or>
+        </triggerPoints>
+        <possibleChildren>
+         <and>
+           <instanceof value="org.eclipse.emf.ecore.EObject"/>
+            <or>
+        	  <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	             value="common.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="application.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="client.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="modulemap.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="ejb.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="jca.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="webapplication.xmi"/>
+	          <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
+	            value="jsp.xmi"/>
+	        </or>
 	     </and>
         </possibleChildren> 
-        
-         <!--
-         <emfEnablement>
-         	<package uri="org.eclipse.emf.ecore.resource" />
-         	<package uri="common.xmi" />         	
-         	<package uri="application.xmi" />         	         	
-         	<package uri="client.xmi" />         	         	
-         	<package uri="modulemap.xmi" />           	
-         	<package uri="ejb.xmi" />                 	
-         	<package uri="jca.xmi" />                 	
-         	<package uri="webapplication.xmi" />                 	
-         	<package uri="jsp.xmi" />    
-            <package uri="commonext.xmi" />
-            <package uri="localtran.xmi" />          
-            <package uri="ejbext.xmi" />                    
-            <package uri="webappext.xmi" />                    
-            <package uri="applicationext.xmi" />            
-            <package uri="applicationclientext.xmi" />                  
-            <package uri="ejbbnd.xmi" />                  
-            <package uri="webappbnd.xmi" />                  
-            <package uri="commonbnd.xmi" />  
-            <package uri="j2cbnd.xmi" />                  
-            <package uri="clientbnd.xmi" />                  
-            <package uri="applicationbnd.xmi" />                  
-            <package uri="ejbrdbmapping.xmi" />
-            <package uri="http:///ejbrdbmapping.ecore " />	
-         </emfEnablement> -->
       <commonSorter
       		class="org.eclipse.jst.j2ee.navigator.internal.J2EEViewerSorter"
       		id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent">
@@ -480,17 +492,6 @@
            </or>
          </enablement>
        </commonWizard>
-   </extension>
-   
-   <extension
-   		point = "org.eclipse.ui.navigator.viewer">
-      <viewerContentBinding
-        viewerId="org.eclipse.wst.common.explorer.CommonProjectExplorer">
-        <includes>
-           <contentExtension pattern="org.eclipse.jst.navigator.j2ee.ui.J2EEContent"/>
-           <contentExtension pattern="org.eclipse.jdt.java.ui.javaContent"/>
-        </includes>
-      </viewerContentBinding>
    </extension>
    
   <extension 
