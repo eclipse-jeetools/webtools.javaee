@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.wizard.NewModuleGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,7 +28,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
 public class EJBClientComponentCreationWizardPage extends DataModelWizardPage implements IEjbClientProjectCreationDataModelProperties{
-	public NewModuleGroup newModuleGroup = null;
 	protected EJBJar selProject = null;
 	private Label selectedProjectLabel;
 	private Text selectedProjectName;
@@ -166,15 +164,11 @@ public class EJBClientComponentCreationWizardPage extends DataModelWizardPage im
 
 
 	public void dispose() {
-		if (newModuleGroup != null)
-			newModuleGroup.dispose();
 		super.dispose();
 	}
 
 	protected void enter() {
 		super.enter();
-//		if (newModuleGroup!=null)
-//			newModuleGroup.initializeProjectList();
 	}
 
 	private void createClientJarURISection(Composite parent) {
