@@ -84,6 +84,7 @@ public void printStackTrace(java.io.PrintWriter s) {
 }
 public void setNestedException(java.lang.Exception newNestedException) {
 	nestedException = newNestedException;
+    initCause(newNestedException);
 }
 }
 
