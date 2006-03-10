@@ -12,10 +12,12 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
 
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -28,8 +30,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
+import org.eclipse.wst.server.ui.ServerUIUtil;
 
 public abstract class J2EEImportPage extends DataModelWizardPage {
 
@@ -116,7 +121,8 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
+				//FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
+				launchNewRuntimeWizard(getShell(), model);
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
@@ -273,6 +279,27 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		super.enter();
 	}
 
+	private boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
+		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID);
+		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
+		if (isOK && model != null) {
+			model.notifyPropertyChange(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID);
+			Object[] preAddition = new Object[preAdditionDescriptors.length];
+			for (int i = 0; i < preAddition.length; i++) {
+				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
+			}
+			Object[] postAddition = new Object[postAdditionDescriptors.length];
+			for (int i = 0; i < postAddition.length; i++) {
+				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
+			}
+			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
 
+            model.notifyPropertyChange(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
+			if (newAddition != null)
+				model.setProperty(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, newAddition);
+		}
+		return isOK;
+	}
 
 }
