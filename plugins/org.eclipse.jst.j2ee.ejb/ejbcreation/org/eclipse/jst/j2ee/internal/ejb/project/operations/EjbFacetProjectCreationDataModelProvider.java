@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
@@ -45,4 +46,12 @@ J2EEFacetProjectCreationDataModelProvider {
 		});			
 	}
 	
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		if( propertyName.equals( MODULE_URI )){
+			FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
+			IDataModel ejbFacet = map.getFacetDataModel( J2EEProjectUtilities.EJB );	
+			ejbFacet.setProperty( IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, propertyValue );
+		}
+		return super.propertySet(propertyName, propertyValue);
+	}	
 }

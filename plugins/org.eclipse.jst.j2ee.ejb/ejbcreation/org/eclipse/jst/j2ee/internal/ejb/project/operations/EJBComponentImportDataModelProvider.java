@@ -19,10 +19,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentImportOperation;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -70,8 +73,29 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 	}
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
-		IDataModel ejbCreationDM = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
-		ejbCreationDM.setBooleanProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, false);
+		IDataModel ejbCreationDM = DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
+		
+		FacetDataModelMap map = (FacetDataModelMap) ejbCreationDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel ejbFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.EJB );
+		ejbFacetDataModel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, false);
 		return ejbCreationDM;
 	}
+	
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean set = super.propertySet(propertyName, propertyValue);
+		if (propertyName.equals(FILE)) {
+			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
+			if (getModuleFile() != null) {
+				
+				FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+				IDataModel ejbFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.EJB );
+
+				int version = getModuleSpecVersion();
+				String versionText = J2EEVersionUtil.getEJBTextVersion( version );
+				ejbFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+			}
+		}
+		return set;
+	}	
 }
