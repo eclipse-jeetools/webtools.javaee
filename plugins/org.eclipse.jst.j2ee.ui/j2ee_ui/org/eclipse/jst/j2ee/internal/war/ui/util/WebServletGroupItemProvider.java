@@ -44,9 +44,11 @@ public class WebServletGroupItemProvider extends WebGroupItemProvider {
 	 */
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
-		Object webApp = weakWebApp.get();
-		if(null != webApp){
-			result.addAll(((WebApp)webApp).getServlets());
+		if (weakWebApp!=null) {
+			Object webApp = weakWebApp.get();
+			if(null != webApp){
+				result.addAll(((WebApp)webApp).getServlets());
+			}
 		}
 		return getSortedChildren(result);
 	}
