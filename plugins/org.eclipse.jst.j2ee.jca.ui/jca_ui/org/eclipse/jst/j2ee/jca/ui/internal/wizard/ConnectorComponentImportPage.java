@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.swt.widgets.Composite;
@@ -50,4 +51,8 @@ public class ConnectorComponentImportPage extends J2EEModuleImportPage {
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.IMPORT_RAR_WIZARD_PAGE;
 	}
+	
+	protected String getModuleFacetID(){
+		return J2EEProjectUtilities.JCA;
+	}	
 }

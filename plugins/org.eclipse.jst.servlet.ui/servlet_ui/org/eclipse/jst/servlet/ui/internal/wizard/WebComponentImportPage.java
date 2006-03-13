@@ -18,6 +18,7 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.widgets.Composite;
@@ -60,4 +61,7 @@ public class WebComponentImportPage extends J2EEModuleImportPage {
 		// new AnnotationsStandaloneGroup(composite, getWebDataModel(), false);
 	}
 
+	protected String getModuleFacetID(){
+		return J2EEProjectUtilities.DYNAMIC_WEB;
+	}	
 }

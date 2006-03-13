@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -40,4 +41,12 @@ public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCre
 		});			
 	}
 
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		if( propertyName.equals( MODULE_URI )){
+			FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
+			IDataModel utilFacet = map.getFacetDataModel( J2EEProjectUtilities.UTILITY );	
+			utilFacet.setProperty( IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, propertyValue );
+		}
+		return super.propertySet(propertyName, propertyValue);
+	}	
 }

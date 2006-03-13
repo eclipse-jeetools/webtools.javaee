@@ -23,12 +23,12 @@ import org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelPr
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -113,8 +113,12 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME, IJ2EEComponentImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IAnnotationsDataModel.USE_ANNOTATIONS};
+		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME,
+					IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
+					IFacetProjectCreationDataModelProperties.FACET_RUNTIME,
+					IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
 
 	/*

@@ -14,16 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -39,7 +42,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	/**
 	 * Extended attributes
 	 */
-	protected static final String RUNTIME_TARGET_ID = IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID;
+	//protected static final String RUNTIME_TARGET_ID = IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID;
 
 	private IDataModel componentCreationDM;
 	private OpenFailureException cachedOpenFailureException = null;
@@ -53,13 +56,20 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
 		propertyNames.add(USE_DEFAULT_COMPONENT_NAME);
 		propertyNames.add(COMPONENT_NAME);
+		propertyNames.add(PROJECT_NAME);
+		propertyNames.add(COMPONENT);
 		return propertyNames;
 	}
 
 	public void init() {
 		super.init();
 		componentCreationDM = createJ2EEComponentCreationDataModel();
-		componentCreationDM.setBooleanProperty(IComponentCreationDataModelProperties.CREATE_DEFAULT_FILES, false);
+//When to use this  property?		
+//		try{
+//		componentCreationDM.setBooleanProperty(IComponentCreationDataModelProperties.CREATE_DEFAULT_FILES, false);
+//		}catch(Exception e){
+//			Logger.getLogger().logError(e);
+//		}
 		componentCreationDM.addListener(this);
 		model.addNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION, componentCreationDM);
 	}
@@ -69,6 +79,10 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			return Boolean.TRUE;
 		} else if (propertyName.equals(USE_DEFAULT_COMPONENT_NAME)) {
 			return Boolean.TRUE;
+		}else if( propertyName.equals(COMPONENT)){
+			String projectName = getStringProperty(PROJECT_NAME);
+			IProject project = ProjectUtilities.getProject(projectName);
+			return ComponentCore.createComponent(project);			
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -97,10 +111,27 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			for (int i = 0; i < nestedModels.size(); i++) {
 				nestedModel = (IDataModel) nestedModels.get(i);
 				try {
-					nestedModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, propertyValue);
-				} catch (Exception e) {}
+					//nestedModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, propertyValue);
+					nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+				} catch (Exception e) {
+					Logger.getLogger().logError(e);
+				}
 			}
 			setProperty(PROJECT_NAME,propertyValue);
+		}else if( COMPONENT.equals(propertyName)){
+			throw new RuntimeException(propertyName + " should not be set."); //$NON-NLS-1$
+		}else if (PROJECT_NAME.equals(propertyName)) {
+			List nestedModels = new ArrayList(model.getNestedModels());
+			IDataModel nestedModel = null;
+			for (int i = 0; i < nestedModels.size(); i++) {
+				nestedModel = (IDataModel) nestedModels.get(i);
+				try {
+					//nestedModel.setProperty(IJ2EEComponentImportDataModelProperties.COMPONENT_NAME, propertyValue);
+					nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+				} catch (Exception e) {
+					Logger.getLogger().logError(e);
+				}
+			}
 		}
 		return true;
 	}

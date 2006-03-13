@@ -23,6 +23,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		Set names = super.getPropertyNames();
 		names.add(EAR_PROJECT_NAME);
 		names.add(ADD_TO_EAR);
+		names.add(MODULE_URI);
 		return names;
 	}
 		
@@ -50,5 +51,5 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		} 
 		return (ProjectCreationDataModelProviderNew.validateProjectName(earName));
 	}	
-	
+
 }

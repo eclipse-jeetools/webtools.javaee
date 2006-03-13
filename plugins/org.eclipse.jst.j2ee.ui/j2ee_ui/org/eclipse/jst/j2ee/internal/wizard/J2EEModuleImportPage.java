@@ -16,10 +16,12 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
@@ -34,6 +36,9 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @param model
 	 * @param pageName
 	 */
+	
+	protected EarSelectionPanel earPanel;
+	
 	public J2EEModuleImportPage(IDataModel model, String pageName) {
 		super(model, pageName);
 	}
@@ -52,15 +57,34 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
 	}
 
+	protected abstract String getModuleFacetID();	
 	/**
 	 * @param composite
 	 */
+	
 	private void createServerEarAndStandaloneGroup(Composite composite) {
-		new ServerEarAndStandaloneGroup(composite, getDataModel().getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION), synchHelper);
+		IDataModel creationDM = getDataModel().getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		FacetDataModelMap map = (FacetDataModelMap) creationDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel facetModel = (IDataModel) map.get(getModuleFacetID());
+		
+		//new ServerEarAndStandaloneGroup(composite, facetModel, synchHelper);
+		
+		earPanel = new EarSelectionPanel(facetModel, composite);
 	}
+
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME, IJ2EEComponentImportDataModelProperties.PROJECT_NAME, IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID, IJ2EEModuleImportDataModelProperties.EAR_COMPONENT_NAME, IJ2EEModuleImportDataModelProperties.ADD_TO_EAR};
+		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME,
+					IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
+					IFacetProjectCreationDataModelProperties.FACET_RUNTIME,
+					IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME,
+					IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR};
 	}
 
+	public void dispose() {
+		super.dispose();
+		if (earPanel != null)
+			earPanel.dispose();
+	}
+	
 }

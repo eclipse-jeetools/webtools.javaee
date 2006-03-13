@@ -14,9 +14,7 @@ import java.util.Set;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * This dataModel is a common super class used to import J2EE Modules.
@@ -35,7 +33,7 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 		return propertyNames;
 	}
 
-	private int getModuleSpecVersion() {
+	protected int getModuleSpecVersion() {
 		if (!isPropertySet(EXTENDED_IMPORT_FACTORY)) {
 			return ArchiveUtil.getFastSpecVersion(getModuleFile());
 		}
@@ -43,17 +41,17 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 		return factory.getSpecVersion(getModuleFile());
 	}
 
-	public boolean propertySet(String propertyName, Object propertyValue) {
-		boolean set = super.propertySet(propertyName, propertyValue);
-		if (propertyName.equals(FILE)) {
-			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
-			if (getModuleFile() != null) {
-				moduleDM.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, getModuleSpecVersion());
-				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
-			}
-		}
-		return set;
-	}
+//	public boolean propertySet(String propertyName, Object propertyValue) {
+//		boolean set = super.propertySet(propertyName, propertyValue);
+//		if (propertyName.equals(FILE)) {
+//			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
+//			if (getModuleFile() != null) {
+//				moduleDM.setIntProperty(IJ2EEComponentCreationDataModelProperties.COMPONENT_VERSION, getModuleSpecVersion());
+//				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+//			}
+//		}
+//		return set;
+//	}
 
 	protected ModuleFile getModuleFile() {
 		return (ModuleFile) getArchiveFile();

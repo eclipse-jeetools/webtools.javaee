@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -76,7 +76,9 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 
 	protected IVirtualComponent createVirtualComponent(IDataModel aModel, IProgressMonitor monitor) throws ExecutionException {
 		aModel.getDefaultOperation().execute(monitor, info);
-		return (IVirtualComponent) aModel.getProperty(IComponentCreationDataModelProperties.COMPONENT);
+		String projectName = aModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
+		IProject project = ProjectUtilities.getProject( projectName );
+		return ComponentCore.createComponent(project);
 	}
 
 	/**

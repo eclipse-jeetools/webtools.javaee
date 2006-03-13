@@ -14,6 +14,7 @@ import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -73,5 +74,8 @@ public class AppClientComponentImportPage extends J2EEModuleImportPage {
 		setInfopopID(IJ2EEUIContextIds.IMPORT_APPCLIENT_WIZARD_P1);
 		return super.createTopLevelComposite(parent);
 	}
-
+	
+	protected String getModuleFacetID(){
+		return J2EEProjectUtilities.APPLICATION_CLIENT;
+	}
 }

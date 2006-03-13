@@ -70,7 +70,7 @@ public class ServerEarAndStandaloneGroup implements IJ2EEComponentCreationDataMo
 	 */
 	protected void createEarAndStandaloneComposite(Composite parent) {
 
-		if (model.getBooleanProperty(UI_SHOW_EAR_SECTION)) {
+		//if (model.getBooleanProperty(UI_SHOW_EAR_SECTION)) {
 
 			Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -111,7 +111,7 @@ public class ServerEarAndStandaloneGroup implements IJ2EEComponentCreationDataMo
 
 			Control[] deps = new Control[]{earLabel, newEAR};
 			synchHelper.synchCombo(earCombo, EAR_COMPONENT_NAME, deps);
-		}
+		//}
 	}
 
 	/**

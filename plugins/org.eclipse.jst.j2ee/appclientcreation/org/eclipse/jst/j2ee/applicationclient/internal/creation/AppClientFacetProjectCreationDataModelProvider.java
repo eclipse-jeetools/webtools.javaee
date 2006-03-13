@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetProjectCreationDataModelProvider;
@@ -44,4 +45,13 @@ public class AppClientFacetProjectCreationDataModelProvider extends J2EEFacetPro
 			}
 		});			
 	}
+	
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		if( propertyName.equals( MODULE_URI )){
+			FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
+			IDataModel appFacet = map.getFacetDataModel( J2EEProjectUtilities.APPLICATION_CLIENT );	
+			appFacet.setProperty( IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI, propertyValue );
+		}
+		return super.propertySet(propertyName, propertyValue);
+	}		
 }

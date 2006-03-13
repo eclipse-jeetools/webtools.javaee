@@ -43,5 +43,7 @@ public interface IWebComponentImportDataModelProperties extends IJ2EEModuleImpor
 	 * web lib archive regardless of whether it is selected for import by the WEB_LIB_ARCHIVES_SELECTED property
 	 */
 	public static final String WEB_LIB_MODELS = "WARImportDataModel.WEB_LIB_MODELS"; //$NON-NLS-1$
+	
+	public static final String CONTEXT_ROOT = "IAddWebComponentToEnterpriseApplicationDataModelProperties.CONTEXT_ROOT"; //$NON-NLS-1$
 
 }

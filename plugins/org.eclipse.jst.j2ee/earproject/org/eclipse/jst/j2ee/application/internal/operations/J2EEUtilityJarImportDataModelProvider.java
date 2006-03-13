@@ -21,7 +21,7 @@ import java.util.Set;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -50,7 +50,7 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 	}
 
 	protected IDataModel createJ2EEComponentCreationDataModel() {
-		return DataModelFactory.createDataModel(new JavaComponentCreationDataModelProvider());
+		return DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
 	}
 
 	public String getID() {

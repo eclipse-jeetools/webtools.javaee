@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
@@ -85,7 +86,7 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 		if (columnIndex == 0) {
 			return ((Archive) dataModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE)).getURI();
 		} else if (columnIndex == 1) {
-			return dataModel.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
+			return dataModel.getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME);
 		}
 		return ""; //$NON-NLS-1$
 	}
