@@ -32,7 +32,6 @@ import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
 import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHandlerListener;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.internal.navigator.AdaptabilityUtility;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
@@ -200,16 +199,17 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 						return Status.OK_STATUS;
 					}
 				};
-				
-				if (element instanceof ISchedulingRule)
-					job.setRule((ISchedulingRule)element);
-				else  {
-					ISchedulingRule rule = (ISchedulingRule)AdaptabilityUtility.getAdapter(element,ISchedulingRule.class);
-					if (rule != null) {
-						job.setRule(rule);
+				ISchedulingRule rule = new ISchedulingRule() {
+					public boolean contains(ISchedulingRule rule) {
+						return false;
 					}
+					public boolean isConflicting(ISchedulingRule rule) {
+						return false;
+					}
+				};
+				if (rule != null) {
+					job.setRule(rule);
 				}
-					
 				job.schedule();
 			}
 		}
