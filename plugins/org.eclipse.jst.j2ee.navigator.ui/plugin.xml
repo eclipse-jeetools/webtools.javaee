@@ -30,6 +30,7 @@
             id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent">
         <triggerPoints>
          <or>
+          <instanceof value="java.io.File"/>
           <and>
            <instanceof value="org.eclipse.emf.ecore.EObject"/>
             <or>
@@ -73,6 +74,7 @@
         </triggerPoints>
         <possibleChildren>
          <and>
+           <instanceof value="java.io.File"/>
            <instanceof value="org.eclipse.emf.ecore.EObject"/>
             <or>
         	  <test property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"

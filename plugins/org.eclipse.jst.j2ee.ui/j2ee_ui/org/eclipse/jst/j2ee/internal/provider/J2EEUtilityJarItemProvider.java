@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -117,13 +118,15 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 						children.add(utilityJar);
 				}	
 				if (module.isBinary()) {
-					
-					// we will assume the component name is in synch with the module uri
-					Object utilityJar = ((VirtualArchiveComponent)module).getUnderlyingWorkbenchFile();
-					if (utilityJar == null)
-						utilityJar = ((VirtualArchiveComponent)module).getUnderlyingDiskFile();
-					if (utilityJar !=null)
-						children.add(utilityJar);
+					java.io.File diskFile = ((VirtualArchiveComponent) module).getUnderlyingDiskFile();
+					if (diskFile.exists())
+						children.add(diskFile);
+					else {
+						// we will assume the component name is in synch with the module uri
+						IFile utilityJar = ((VirtualArchiveComponent)module).getUnderlyingWorkbenchFile();
+						if (utilityJar !=null)
+							children.add(utilityJar);
+					}
 				}
 			}
 		}
@@ -147,6 +150,11 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	public static boolean isJarFile(IResource member) {
 		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(".jar"); //$NON-NLS-1$
 	}
+	
+	public static boolean isComponentFile(IResource member) {
+		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(IModuleConstants.COMPONENT_FILE_NAME);
+	}
+
 
 	/**
 	 * @see ItemProviderAdapter#getImage(Object)
@@ -250,10 +258,12 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 					return getEarProjectsToUtilityJarProviderMap().containsKey(delta.getResource());
 				case IResource.FILE : {
 					IResource resource = delta.getResource();
-					if (isJarFile(resource)) {
+					if (isComponentFile(resource)) {
 						List utilityJarItemProviders = getProviders(resource.getProject());
-						for (int i = 0; i < utilityJarItemProviders.size(); i++)
-							((J2EEUtilityJarItemProvider) utilityJarItemProviders.get(i)).utilityJarChanged(resource, delta);
+						for (int i = 0; i < utilityJarItemProviders.size(); i++) {
+							((J2EEUtilityJarItemProvider) utilityJarItemProviders.get(i)).getChildren().clear();
+							((J2EEUtilityJarItemProvider) utilityJarItemProviders.get(i)).computeChildren();
+						}
 					}
 					return false;
 				}
