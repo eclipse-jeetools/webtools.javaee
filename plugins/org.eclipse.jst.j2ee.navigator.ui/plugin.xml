@@ -273,7 +273,11 @@
                   </objectState>
               
                </or>
-            </and>      
+            </and>   
+            <objectClass
+                    adaptable="true"
+                  	name="java.io.File">
+            </objectClass>   
             <objectClass name="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper" />      
             </or>
          </enables>

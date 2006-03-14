@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal;
 
+import java.io.File;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -20,6 +22,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.navigator.internal.provisional.views.ICommonLabelProvider;
@@ -146,6 +149,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 
 		if(element instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) element).getImage();
+		if (element instanceof File)
+			return J2EEUIPlugin.getDefault().getImage("jar_obj"); 
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getImage(element);
 		return null;
@@ -158,6 +163,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	public String getText(Object element) {
 		if(element instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) element).getText();
+		if (element instanceof File)
+			return ((File)element).getName();
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getText(element);
 		return null;

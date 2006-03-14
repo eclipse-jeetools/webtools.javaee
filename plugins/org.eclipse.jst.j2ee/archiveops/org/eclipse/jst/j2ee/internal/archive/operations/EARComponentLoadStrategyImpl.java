@@ -10,10 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
@@ -76,8 +78,12 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					}
 				}else{
 					java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
+					if (!diskFile.exists()) {
+						IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
+						diskFile = new File(wbFile.getLocation().toOSString());
+					}
 					String uri = diskFile.getName();
-					addExternalFile(uri, diskFile);					
+					addExternalFile(uri, diskFile);
 				}
 			}
 
