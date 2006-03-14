@@ -5,6 +5,7 @@
       <topic label="J2EE architecture" href="topics/cjarch.html"/>
       <topic label="J2EE perspective" href="topics/cjpers.html"/>
       <topic label="Project Explorer view in the J2EE perspective" href="topics/cjview.html"/>
+      <topic label="Filters in the Project Explorer view" href="topics/cjviewfilters.html"/>
       <topic label="Working with projects" href="topics/ph-projects.html">
          <topic label="Enterprise application projects" href="topics/cjearproj.html"/>
          <topic label="Application client projects" href="topics/cjappcliproj.html"/>
