@@ -1,14 +1,9 @@
 package org.eclipse.jst.j2ee.internal.ui;
-import java.lang.reflect.InvocationTargetException;
-import com.ibm.icu.util.StringTokenizer;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.internal.J2EEPropertiesConstants;
-import org.eclipse.jst.j2ee.internal.WorkspaceModifyComposedOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.swt.SWT;
@@ -19,13 +14,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
-import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.frameworks.internal.ui.RunnableWithProgressWrapper;
-import org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateOperation;
+import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.web.internal.operation.IWebProjectPropertiesUpdateDataModelProperties;
+import org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateDataModelProvider;
+
+import com.ibm.icu.util.StringTokenizer;
 
 
 /**
@@ -149,44 +145,17 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	}
 	
 	
-	private IHeadlessRunnableWithProgress getWebPropertiesUpdateOperation() {
-		return new WebProjectPropertiesUpdateOperation(project, getContextRoot());
-	}
-	
-	
 	public boolean performOk() {
 		boolean retVal = true;
-	
-		// if the project isn't open, OK worked.
 
-			WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
-			if (hasUpdatedInformation()) {
-				IHeadlessRunnableWithProgress runnable= getWebPropertiesUpdateOperation();
-				IRunnableWithProgress op= new RunnableWithProgressWrapper(runnable);
-				composedOp.addRunnable(op);
-				Shell shell= getControl().getShell();
-				try {
-					new ProgressMonitorDialog(shell).run(false, true, composedOp);
-				} catch (InvocationTargetException e) {
-					Throwable t = e.getTargetException();
-					if (t instanceof CoreException) {
-						ErrorDialog.openError(
-								getShell(), 
-								IDEWorkbenchMessages.InternalError, //$NON-NLS-1$
-								e.getLocalizedMessage(),
-								((CoreException)t).getStatus()); 
-							return false;
-					} else {
-						Logger.getLogger().logError(e);
-						e.printStackTrace();
-					}
-					return false;
-				} catch (InterruptedException e) {
-					// cancelled
-					return false;
-				} 
-			}
-
+		IDataModel model = DataModelFactory.createDataModel( new WebProjectPropertiesUpdateDataModelProvider());
+		model.setProperty( IWebProjectPropertiesUpdateDataModelProperties.PROJECT, project );
+		model.setStringProperty( IWebProjectPropertiesUpdateDataModelProperties.CONTEXT_ROOT, getContextRoot() );
+		try {
+			model.getDefaultOperation().execute( new NullProgressMonitor(), null );
+		} catch (ExecutionException e) {
+			Logger.getLogger().logError( e );
+		}
 		return retVal;
 	}
 	
