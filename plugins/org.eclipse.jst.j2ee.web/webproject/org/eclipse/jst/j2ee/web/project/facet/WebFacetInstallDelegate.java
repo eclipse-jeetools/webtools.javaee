@@ -99,8 +99,6 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			c.create(0, null);
 
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
-			if (contextRoot == null || contextRoot.length() == 0)
-				contextRoot = project.getName();
 			setContextRootPropertyIfNeeded(c, contextRoot);
 			setJavaOutputPropertyIfNeeded(c);
 
