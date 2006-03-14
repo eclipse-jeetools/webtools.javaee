@@ -127,6 +127,18 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				EJBArtifactEdit.createDeploymentDescriptor(project, nVer);
 			}
 
+			IFile vf = ejbFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
+			if (vf == null || !vf.exists()) {
+				try {
+					createManifest(project, ejbFolder, monitor);
+				} catch (InvocationTargetException e) {
+					Logger.getLogger().logError(e);
+				} catch (InterruptedException e) {
+					Logger.getLogger().logError(e);
+				}
+			}
+			
+			
 			// add source folder maps
 			final IClasspathEntry[] cp = jproj.getRawClasspath();
 			for (int i = 0; i < cp.length; i++) {
