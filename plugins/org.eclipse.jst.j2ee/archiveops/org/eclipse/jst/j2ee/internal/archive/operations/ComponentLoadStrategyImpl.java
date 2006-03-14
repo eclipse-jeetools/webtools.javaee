@@ -27,7 +27,6 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -251,7 +250,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				}
 				
 				if (outputPath != null) {
-					IFolder javaOutputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
+					IContainer javaOutputFolder = (IContainer) ResourcesPlugin.getWorkspace().getRoot().findMember(outputPath);
 					IPath runtimePath = null;
 					try {
 						ComponentResource[] componentResources = se.findResourcesBySourcePath(sourceRoots[i].getResource().getProjectRelativePath());
