@@ -99,8 +99,6 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			c.create(0, null);
 
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
-			if (contextRoot == null || contextRoot.length() == 0)
-				contextRoot = project.getName();
 			setContextRootPropertyIfNeeded(c, contextRoot);
 			setJavaOutputPropertyIfNeeded(c);
 
@@ -121,7 +119,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			for (int i = 0; i < cp.length; i++) {
 				final IClasspathEntry cpe = cp[i];
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-					jsrc.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
+					if( cpe.getPath().removeFirstSegments(1).segmentCount() > 0 )
+						jsrc.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
 				}
 			}
 			
@@ -165,6 +164,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					IProject earProject = ProjectUtilities.getProject(earProjectName);
 					IVirtualComponent earComp = ComponentCore.createComponent(earProject);
 					final String moduleURI = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI);
+					
 					final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider() {
 						public Object getDefaultProperty(String propertyName) {
 							if (IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
@@ -235,7 +235,9 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	private IPath setContentPropertyIfNeeded(final IDataModel model, final IPath pjpath, IProject project) {
 		IVirtualComponent c = ComponentCore.createComponent(project);
 		if (c.exists()) {
-			return c.getRootFolder().getUnderlyingResource().getFullPath();
+			if( !c.getRootFolder().getProjectRelativePath().isRoot() ){
+				return c.getRootFolder().getUnderlyingResource().getFullPath();
+			}
 		}
 		return pjpath.append(model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
 	}

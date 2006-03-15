@@ -593,6 +593,10 @@
         <delegate class="org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDelegate"/>
         <config-factory class="org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider"/>
       </action>
+      <action type="uninstall">
+        <delegate class="org.eclipse.jst.j2ee.project.facet.UtilityFacetUnInstallDelegate"/>
+        <config-factory class="org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider"/>
+      </action>      
       <action type="runtime-changed">
         <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
       </action>

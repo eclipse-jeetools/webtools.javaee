@@ -14,6 +14,7 @@ package org.eclipse.jst.common.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -56,5 +57,14 @@ public final class WtpUtils
 	    replacement[ current.length ] = WTP_NATURE;
 	    desc.setNatureIds( replacement );
 	    project.setDescription( desc, null );
-	}    
+	}
+    
+    public static void removeNatures( final IProject project )
+    
+    throws CoreException
+    
+	{
+    	ProjectUtilities.removeNatureFromProject( project, WTP_NATURE );
+    	ProjectUtilities.removeNatureFromProject( project, JEM_NATURE );
+	}     
 }
