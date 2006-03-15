@@ -69,26 +69,27 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
 	public void initializeKeyAttributes() {
 	    if(cmp == null || initialized)
 	        return;
-	    
-	    Resource res = cmp.eResource();
-	    if(res == null)
-	        return;
-	    
-	    boolean cachedIsModified = res.isModified(); 
-
+	    //Disable notifications while we initialize
+	    cmp.eSetDeliver(false);
 	    try {
-			// Handle primkeyfield scenario
-			if (cmp.getPrimKeyField()!=null)
-				initializeForPrimKey();
-			
-			// Handle compound key scenario
-			else 
-				initializeForCompoundKey();
+		    Resource res = cmp.eResource();
+		    if(res == null)
+		        return;
+		    boolean cachedIsModified = res.isModified(); 
+		    try {
+				// Handle primkeyfield scenario
+				if (cmp.getPrimKeyField()!=null)
+					initializeForPrimKey();
+				// Handle compound key scenario
+				else 
+					initializeForCompoundKey();
+		    } finally {
+		        res.setModified(cachedIsModified);
+		    }
 	    } finally {
-	        res.setModified(cachedIsModified);
+	    	cmp.eSetDeliver(true);
+	    	initialized = true;
 	    }
-
-        initialized = true;
 	}
 	
 	protected void initializeForPrimKey() { 
