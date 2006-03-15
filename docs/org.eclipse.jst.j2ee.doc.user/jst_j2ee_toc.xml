@@ -10,6 +10,8 @@
          <topic label="Enterprise application projects" href="topics/cjearproj.html"/>
          <topic label="Application client projects" href="topics/cjappcliproj.html"/>
          <topic label="Specifying target servers for J2EE projects" href="topics/tjtargetserver.html"/>
+         <topic label="Adding a facet to a J2EE project" href="topics/taddingfacet.html"/>
+         <anchor id="J2EEProjectFacets"/>
          <topic label="Importing and exporting projects and files" href="topics/ph-importexport.html">
             <topic label="Exporting an application client project" href="topics/tjexpapp.html"/>
             <topic label="Exporting an enterprise application into an EAR file" href="topics/tjexpear.html"/>
