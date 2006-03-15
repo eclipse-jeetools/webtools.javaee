@@ -202,10 +202,10 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 				};
 				ISchedulingRule rule = new ISchedulingRule() {
 					public boolean contains(ISchedulingRule rule) {
-						return false;
+						return rule == this;	
 					}
 					public boolean isConflicting(ISchedulingRule rule) {
-						return false;
+						return rule == this;
 					}
 				};
 				if (rule != null) {
