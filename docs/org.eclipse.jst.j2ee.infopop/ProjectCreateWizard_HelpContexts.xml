@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><?NLS type="org.eclipse.help.contexts"?><contexts><context id="csh_outer_container">
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts><context id="csh_outer_container">
 <description/>
 </context>
 <context id="APPCLIENT_NEW_APPCLIENT_WIZARD_PAGE1">
