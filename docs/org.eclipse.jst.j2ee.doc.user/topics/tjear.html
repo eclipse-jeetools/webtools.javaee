@@ -29,43 +29,47 @@ enterprise application project are mapped to other J2EE projects. The mapping
 information is stored in metadata files within the enterprise application
 project. The metadata files are used for exporting the project to an EAR file
 and for running the project on the server.</p>
+<p>Like the other types of projects,
+enterprise application projects can contain one or more project facets, which
+represent units of functionality in the project. To be deployed as an EAR
+file, the new project must have the EAR facet. Depending on what you want
+to use the project for, you may want to enable other facets for the project.</p>
 <p>When you create an enterprise
 application project, it is recommended that you do not give it a name that
 contains double-byte character set (DBCS) characters.</p>
 <p>To
 create a J2EE enterprise application project:</p>
 </div>
-<ol><li class="stepexpand"><span>In the J2EE perspective, select <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Enterprise Application Project</span></span>.</span></li>
+<ol><li class="stepexpand"><span>In the J2EE perspective, click <span class="menucascade"><span class="uicontrol">File</span> &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Enterprise Application Project</span></span>.</span></li>
 <li class="stepexpand"><span>In the <span class="uicontrol">Name</span> field, type a name for the new
-enterprise application project. To change the default <span class="uicontrol">Project location</span>,
-click the <span class="uicontrol">Browse</span> button to select a new location.</span></li>
-<li class="stepexpand"><span>Click <span class="uicontrol">Show Advanced</span>.</span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">Target runtime</span> drop-down list, select
-the application server that you want to target for your development. </span></li>
-<li class="stepexpand"><span>In the <span class="uicontrol">Module Version</span> list, specify the
-J2EE specification level that you want to use for this enterprise application.</span></li>
+project. </span></li>
+<li class="stepexpand"><span>To change the default project location, clear the <span class="uicontrol">Use
+default</span> check box under <span class="uicontrol">Project contents</span> and
+select a new location with the <span class="uicontrol">Browse</span> button.</span></li>
 <li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
-<li class="stepexpand"><span>On the EAR Modules page of the wizard, select the existing modules
-that you want to add to the new enterprise application project. Click the <span class="uicontrol">New
-Module</span> button to open another wizard where you can create new
-modules for this enterprise application. In the New Module wizard, if you
-select the <span class="uicontrol">Create default module projects</span> check box,
-you can choose to create default versions of the following modules which will
-be compatible with the enterprise application J2EE version:</span><ul><li>Application client project</li>
-<li>EJB project</li>
-<li>Web project</li>
-<li>Connector project</li>
-</ul>
- The wizard provides default project names for the modules, but you can
-specify different project names. The default modules that are created will
-have the same server target as the new enterprise application.<p>If you clear
-the <span class="uicontrol">Create default module projects</span> check box, you can
-select a single module type and proceed with the proper wizard for that project
-type.</p>
-<p>If you create new modules at this time, they are added to the
-list of available modules in the New Enterprise Application Project wizard,
-if the module versions are compatible with the new enterprise application
-you are creating.</p>
+<li class="stepexpand"><span>Select the check boxes next to the facets you want this project
+to have and select a version number for each facet. </span> You can also
+choose a preset combination of facets from the <span class="uicontrol">Presets</span> list,
+and you can also find out more about the requirements for each facet by right-clicking
+the facet name and then clicking <span class="uicontrol">Show Constraints</span>.</li>
+<li class="stepexpand"><span>If you want to limit your project so it will be compatible with
+one or more runtimes, click the <span class="uicontrol">Show Runtimes</span> button
+and select the runtimes that you want the project to be compatible with.</span></li>
+<li class="stepexpand"><span>Click <span class="uicontrol">Next</span>.</span></li>
+<li class="stepexpand"><span>On the J2EE Modules to Add to the EAR page of the wizard, select
+the existing modules that you want to add to the new enterprise application
+project. </span></li>
+<li class="stepexpand"><span>You can also create new modules to add to the project:</span><ol type="a"><li class="substepexpand"><span>Click the <span class="uicontrol">New Module</span> button.</span></li>
+<li class="substepexpand"><span>If you want to create one module, clear the <span class="uicontrol">Create
+default modules</span> check box, select the type of module you want
+to create, click <span class="uicontrol">Next</span> and follow the New Project wizard
+for that type of project.</span></li>
+<li class="substepexpand"><span>If you want to create more than one module, select the <span class="uicontrol">Create
+default modules</span> check box, select the check boxes for each type
+of project you want to create, and click <span class="uicontrol">Finish</span>. </span> You can enter a name for each module. Each of these modules will have
+the default settings for that type of project and they will have the same
+server target as the new enterprise application.</li>
+</ol>
 </li>
 <li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span></li>
 </ol>
@@ -74,13 +78,9 @@ you are creating.</p>
 <div class="familylinks">
 <div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ph-projects.html" title="The workbench can work with many different types of projects. The following topics cover creating and managing some of the types of projects related to J2EE development.">Working with projects</a></div>
 </div>
-<div class="relconcepts"><strong>Related concepts</strong><br />
-<div><a href="../topics/cjarch.html" title="The Java 2 Platform, Enterprise Edition (J2EE) provides a standard for developing multitier, enterprise services.">J2EE architecture</a></div>
-<div><a href="../topics/cjearproj.html" title="An enterprise application project contains the hierarchy of resources that are required to deploy a J2EE enterprise application, often referred to as an EAR file.">Enterprise application projects</a></div>
-</div>
 <div class="reltasks"><strong>Related tasks</strong><br />
-<div><a href="../topics/tjimpear.html" title="Enterprise application projects are deployed into EAR files. You can import an enterprise application project by importing it from a deployed EAR file.">Importing an enterprise application EAR file</a></div>
-<div><a href="../topics/tjexpear.html" title="Enterprise applications are deployed in the form of an EAR file. Use the Export wizard to export an enterprise application project into an EAR file for deployment.">Exporting an enterprise application into an EAR file</a></div>
+<div><a href="../topics/taddingfacet.html" title="This topic explains how to add a facet to an existing project in your workspace.">Adding a facet to a J2EE project</a></div>
 </div>
-</div></body>
+</div>
+</body>
 </html>

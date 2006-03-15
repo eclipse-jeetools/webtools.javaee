@@ -9,6 +9,9 @@
       <topic label="Working with projects" href="topics/ph-projects.html">
          <topic label="Enterprise application projects" href="topics/cjearproj.html"/>
          <topic label="Application client projects" href="topics/cjappcliproj.html"/>
+         <topic label="Creating an enterprise application project" href="topics/tjear.html"/>
+         <topic label="Creating an application client project" href="topics/tjappproj.html"/>
+         <topic label="Creating a connector project" href="topics/tjrar.html"/>
          <topic label="Specifying target servers for J2EE projects" href="topics/tjtargetserver.html"/>
          <topic label="Adding a facet to a J2EE project" href="topics/taddingfacet.html"/>
          <anchor id="J2EEProjectFacets"/>
