@@ -220,6 +220,8 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 
 	protected void validateCurrentPreferences(final Text xDocletPath, final Combo xDocletVersion) {
 		int selection = xDocletVersion.getSelectionIndex();
+		if(selection <0 || selection >= runtimes.length)
+			return;
 		runtimes[selection].setHome(xDocletPath.getText());
 		IStatus[] result = runtimes[selection].validate();
 		// Clear the message
