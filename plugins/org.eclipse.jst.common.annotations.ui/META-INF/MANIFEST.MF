@@ -20,6 +20,6 @@ Require-Bundle: org.eclipse.ui.views,
  org.eclipse.swt,
  org.eclipse.core.runtime,
  org.eclipse.core.runtime,
- org.eclipse.jst.common.annotations.core,
- org.eclipse.jst.common.annotations.controller
+ org.eclipse.jst.common.annotations.controller,
+ org.eclipse.wst.common.emf
 Eclipse-AutoStart: true
