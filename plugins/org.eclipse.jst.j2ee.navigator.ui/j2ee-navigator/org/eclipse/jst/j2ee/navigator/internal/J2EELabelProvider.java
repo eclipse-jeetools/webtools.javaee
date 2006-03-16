@@ -150,7 +150,9 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 		if(element instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) element).getImage();
 		if (element instanceof File)
-			return J2EEUIPlugin.getDefault().getImage("jar_obj"); 
+			return J2EEUIPlugin.getDefault().getImage("jar_obj");
+		if (element instanceof IProject)
+			return null;
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getImage(element);
 		return null;
@@ -165,6 +167,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 			return ((J2EEJavaClassProviderHelper) element).getText();
 		if (element instanceof File)
 			return ((File)element).getName();
+		if (element instanceof IProject)
+			return ((IProject)element).getName();
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getText(element);
 		return null;
