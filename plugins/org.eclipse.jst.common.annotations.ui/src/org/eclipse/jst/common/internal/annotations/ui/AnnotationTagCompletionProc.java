@@ -36,9 +36,6 @@ import org.eclipse.jdt.ui.text.java.IJavadocCompletionProcessor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.IContextInformation;
-import org.eclipse.jst.common.internal.annotations.core.AnnotationTagParser;
-import org.eclipse.jst.common.internal.annotations.core.TagParseEventHandler;
-import org.eclipse.jst.common.internal.annotations.core.Token;
 import org.eclipse.jst.common.internal.annotations.registry.AnnotationTagRegistry;
 import org.eclipse.jst.common.internal.annotations.registry.AttributeValueProposalHelper;
 import org.eclipse.jst.common.internal.annotations.registry.AttributeValuesHelper;
@@ -46,6 +43,9 @@ import org.eclipse.jst.common.internal.annotations.registry.TagAttribSpec;
 import org.eclipse.jst.common.internal.annotations.registry.TagSpec;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.wst.common.internal.emf.annotations.core.AnnotationTagParser;
+import org.eclipse.wst.common.internal.emf.annotations.core.TagParseEventHandler;
+import org.eclipse.wst.common.internal.emf.annotations.core.Token;
 
 
 /**
