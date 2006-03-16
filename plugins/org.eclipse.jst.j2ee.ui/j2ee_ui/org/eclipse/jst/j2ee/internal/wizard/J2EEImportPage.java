@@ -17,7 +17,6 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.project.datamodel.properties.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -285,7 +284,6 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
 		if (isOK && model != null) {
-			model.notifyPropertyChange(IFlexibleJavaProjectCreationDataModelProperties.RUNTIME_TARGET_ID, IDataModel.VALID_VALUES_CHG);
 			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 			Object[] preAddition = new Object[preAdditionDescriptors.length];
 			for (int i = 0; i < preAddition.length; i++) {
