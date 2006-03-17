@@ -89,8 +89,16 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 		Enumeration entries = getZipFile().entries();
 		while (entries.hasMoreElements()) {
 			ZipEntry entry = (ZipEntry) entries.nextElement();
-			if (!entry.isDirectory() && !collectedLooseArchiveFiles.containsKey(entry.getName())) {
-				File aFile = createFile(entry.getName());
+			if (!entry.isDirectory()){
+				if(!collectedLooseArchiveFiles.containsKey(entry.getName())) {
+					File aFile = createFile(entry.getName());
+					aFile.setSize(entry.getSize());
+					aFile.setLastModified(entry.getTime());
+					list.add(aFile);
+				}
+			} else {
+				File aFile = createDirectory(entry.getName());
+				aFile.setDirectoryEntry(true);
 				aFile.setSize(entry.getSize());
 				aFile.setLastModified(entry.getTime());
 				list.add(aFile);

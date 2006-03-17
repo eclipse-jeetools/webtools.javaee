@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -89,7 +90,12 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		try {
 			String displayString = EJBArchiveOpsResourceHandler.IMPORT_OPERATION_STRING; 
 			progressMonitor.subTask(displayString + aFile.getURI());
-			saveToOutputPath(getOutputPathForFile(aFile), in);
+			IPath outputPath = getOutputPathForFile(aFile);
+			if (!aFile.isDirectoryEntry()) {
+				saveToOutputPath(outputPath, in);
+			} else {
+				createDirectory(outputPath);
+			}
 		} catch (OverwriteHandlerException ohe) {
 			throw ohe;
 		} catch (Exception e) {
@@ -108,6 +114,23 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		saveToIFile(iFile, in);
 	}
 
+	protected void createDirectory(IPath outputPath) throws CoreException {
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualFolder vFolder = rootFolder.getFolder(outputPath);
+		IFolder iFolder = (IFolder) vFolder.getUnderlyingFolder();
+		if(!iFolder.exists()){
+			mkdirs(iFolder);
+		}
+	}
+
+	protected void mkdirs(IFolder folder) throws CoreException {
+		IContainer container = folder.getParent();
+		if (!container.exists()) {
+			mkdirs((IFolder) container);
+		}
+		folder.create(true, true, null);
+	}
+	
 	/**
 	 * Saves to the specified output path. The workbench path is computed from the output path.
 	 * 

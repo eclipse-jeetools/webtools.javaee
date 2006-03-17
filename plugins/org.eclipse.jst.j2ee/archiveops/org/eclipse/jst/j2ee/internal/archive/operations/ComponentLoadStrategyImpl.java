@@ -91,6 +91,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			}
 		}
 
+		public void addDirectory(File directory) {
+			String uri = directory.getURI();
+			urisToFiles.put(uri, directory);
+		}
+		
 		public void addFile(File file) {
 			String uri = file.getURI();
 			urisToFiles.put(uri, file);
@@ -286,60 +291,82 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
-	protected void aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
+	protected boolean aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
+		boolean fileAdded = false;
 		for (int i = 0; i < resources.length; i++) {
 			File cFile = null;
 			if (!resources[i].exists()) {
 				continue;
 			}
+			// We have to avoid duplicates between the source and output folders (non-java
+			// resources)
+			IPath runtimePath = runtimePathPrefix.append(resources[i].getProjectRelativePath().removeFirstSegments(outputFolderSegmentCount));
+			String uri = runtimePath == null ? null : runtimePath.toString();
+			if (uri == null)
+				continue;
 			if (resources[i].getType() == IResource.FILE) {
-				// We have to avoid duplicates between the source and output folders (non-java
-				// resources)
-				IPath runtimePath = runtimePathPrefix.append(resources[i].getProjectRelativePath().removeFirstSegments(outputFolderSegmentCount));
-				String uri = runtimePath == null ? null : runtimePath.toString();
-				if (uri == null)
-					continue;
 				if (!shouldInclude(uri))
 					continue;
 				cFile = createFile(uri);
 				cFile.setLastModified(getLastModified(resources[i]));
 				filesHolder.addFile(cFile, resources[i]);
+				fileAdded = true;
 			} else if (shouldInclude((IContainer) resources[i])) {
 				IResource[] nestedResources = ((IContainer) resources[i]).members();
-				aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount);
+				if (!aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount)) {
+					if (!shouldInclude(uri))
+						continue;
+					cFile = createDirectory(uri);
+					cFile.setLastModified(getLastModified(resources[i]));
+					filesHolder.addDirectory(cFile);
+					fileAdded = true;
+				}
 			}
 		}
+		return fileAdded;
 	}
 
-	protected void aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
+	protected boolean aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
+		boolean fileAdded = false;
 		for (int i = 0; i < virtualResources.length; i++) {
 			File cFile = null;
 			if (!virtualResources[i].exists()) {
 				continue;
 			}
+			// We have to avoid duplicates between the source and output folders (non-java
+			// resources)
+			IPath runtimePath = virtualResources[i].getRuntimePath();
+			String uri = runtimePath == null ? null : runtimePath.toString();
+			if (uri == null)
+				continue;
+			if (uri.charAt(0) == IPath.SEPARATOR) {
+				uri = uri.substring(1);
+			}
+			if (filesHolder.contains(uri))
+				continue;
+			
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
-				// We have to avoid duplicates between the source and output folders (non-java
-				// resources)
-				IPath runtimePath = virtualResources[i].getRuntimePath();
-				String uri = runtimePath == null ? null : runtimePath.toString();
-				if (uri == null)
-					continue;
 				if (!shouldInclude(uri))
 					continue;
-				if (filesHolder.contains(uri))
-					continue;
-				if (uri.charAt(0) == IPath.SEPARATOR) {
-					uri = uri.substring(1);
-				}
 				cFile = createFile(uri);
 				IResource resource = virtualResources[i].getUnderlyingResource();
 				cFile.setLastModified(getLastModified(resource));
 				filesHolder.addFile(cFile, resource);
+				fileAdded = true;
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
 				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
-				aggregateFiles(nestedVirtualResources);
+				if (!aggregateFiles(nestedVirtualResources)) {
+					if (!shouldInclude(uri))
+						continue;
+					cFile = createDirectory(uri);
+					IResource resource = virtualResources[i].getUnderlyingResource();
+					cFile.setLastModified(getLastModified(resource));
+					filesHolder.addDirectory(cFile);
+					fileAdded = true;
+				}
 			}
 		}
+		return fileAdded;
 	}
 
 	protected long getLastModified(IResource aResource) {
