@@ -19,8 +19,8 @@ Click <b>Add project to EAR</b> to add the project to an enterprise application 
 </context>
 
 <context id="org.eclipse.jst.j2ee.ui.webw2100">
-<description>Presets are used to define a default set of facet versions that will configure a project for a particular type of development. Select one or more facets for the dynamic Web project. To change the version of the facet, click the facet version and select a verson from the drop-down list.
-Web module. Click Show Runtimes to view the available runtimes and runtime compositions.</description>
+<description>Presets are used to define a default set of facet versions that will configure a project for a particular type of development. Select one or more facets for the dynamic Web project. To change the version of the facet, click the facet version and select a version from the drop-down list.
+Click Show Runtimes to view the available runtimes and runtime compositions.</description>
 <topic label="Creating a dynamic Web project" href="../org.eclipse.wst.webtools.doc.user/topics/twcreprj.html"/>
 </context>
 
