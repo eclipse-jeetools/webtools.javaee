@@ -71,7 +71,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 
 	protected LooseArchive looseArchive;
 
-	protected Map collectedLooseArchiveFiles;
+	protected Map collectedLooseArchiveFiles = Collections.EMPTY_MAP;
 
 	protected boolean readOnly = false;
 
@@ -137,6 +137,16 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		return LooseConfigRegister.singleton().findFirstLooseChild(uri, loose) != null;
 	}
 
+	protected File createDirectory(String uri){
+		File aFile = null;
+		aFile = getArchiveFactory().createFile();
+		aFile.setDirectoryEntry(true);
+		aFile.setURI(uri);
+		aFile.setOriginalURI(uri);
+		aFile.setLoadingContainer(getContainer());
+		return aFile;
+	}
+	
 	protected File createFile(String uri) {
 		File aFile = null;
 		if (isArchive(uri))
@@ -270,7 +280,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		collectFilesFromLooseArchives();
 		List files = getFiles();
 		files.addAll(collectedLooseArchiveFiles.values());
-		collectedLooseArchiveFiles = null;
+		collectedLooseArchiveFiles = Collections.EMPTY_MAP;
 		return files;
 	}
 
@@ -551,4 +561,16 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	public void setRendererType(int rendererType) {
 		this.rendererType = rendererType;
 	}
+	
+	public java.util.List getFiles(String subfolderPath) {
+		List subset = new ArrayList();
+		List theFiles = getFiles();
+		for (int i = 0; i < theFiles.size(); i++) {
+			File aFile = (File)theFiles.get(i);
+			if (aFile.getURI().startsWith(subfolderPath))	
+				subset.add(aFile);
+		}
+		return subset;
+	}
+	
 }

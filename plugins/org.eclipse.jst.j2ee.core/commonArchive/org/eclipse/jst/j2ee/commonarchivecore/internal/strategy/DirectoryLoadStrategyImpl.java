@@ -166,6 +166,15 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 		return list;
 	}
 
+	public java.util.List getFiles(String subfolderPath) {
+		List list = new ArrayList();
+		java.io.File containerDirectory = getDirectoryForList();
+		java.io.File subfolder = new java.io.File(containerDirectory, subfolderPath);
+		addFiles(subfolder, list);
+		return list;
+	}
+
+	
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
