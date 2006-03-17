@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
 
@@ -37,5 +38,21 @@ public abstract class AbstractClientJARAction extends BaseAction implements Clie
 		return project;
 	}
 	
+	protected boolean  hasClientJar() {
+		IProject project = getProject();
+		if( project.exists() && project.isAccessible()){
+			EJBArtifactEdit edit = null;
+			try {
+					edit = EJBArtifactEdit.getEJBArtifactEditForRead(project);
+					if (edit != null && edit.hasEJBClientJARProject())
+						return true;
+			} finally {
+				if(edit != null)
+					edit.dispose();
+					  
+			}
+		}
+		return false;
+	}	
 
 }

@@ -16,7 +16,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBClientComponentCreationWizard;
@@ -115,5 +117,9 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
         return null;
     }
 
-
+	public void selectionChanged(IAction action, ISelection selection) {
+		super.selectionChanged(action, selection);
+		if( hasClientJar() )
+			action.setEnabled( false );
+	}
 }
