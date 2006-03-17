@@ -66,7 +66,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	protected IVirtualComponent vComponent;
 	protected boolean exportSource;
 	private List zipFiles = new ArrayList();
-	
+
 	protected class FilesHolder {
 
 		private Map urisToFiles = new HashMap();
@@ -89,6 +89,11 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			if (urisToDiskFiles != null) {
 				urisToDiskFiles.remove(uri);
 			}
+		}
+
+		public void addDirectory(File directory) {
+			String uri = directory.getURI();
+			urisToFiles.put(uri, directory);
 		}
 
 		public void addFile(File file) {
@@ -116,24 +121,24 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
 			if (urisToDiskFiles != null && urisToDiskFiles.containsKey(uri)) {
 				diskFile = (java.io.File) urisToDiskFiles.get(uri);
-			} else if (urisToResources != null && urisToResources.containsKey(uri)){
+			} else if (urisToResources != null && urisToResources.containsKey(uri)) {
 				IResource resource = (IResource) urisToResources.get(uri);
 				diskFile = new java.io.File(resource.getLocation().toOSString());
-			}else{
-				Map fileURIMap = (Map)urisToZipEntry.get(uri);
+			} else {
+				Map fileURIMap = (Map) urisToZipEntry.get(uri);
 				Iterator it = fileURIMap.keySet().iterator();
-				
-				String sourceFileUri = "";  //$NON-NLS-1$
+
+				String sourceFileUri = ""; //$NON-NLS-1$
 				ZipFile zipFile = null;
-				
-				//there is only one key, pair
-				while( it.hasNext()){
-					sourceFileUri = (String)it.next();
-					zipFile = (ZipFile)fileURIMap.get( sourceFileUri );
+
+				// there is only one key, pair
+				while (it.hasNext()) {
+					sourceFileUri = (String) it.next();
+					zipFile = (ZipFile) fileURIMap.get(sourceFileUri);
 				}
-				ZipEntry entry = zipFile.getEntry( sourceFileUri );
-				InputStream in = zipFile.getInputStream( entry );
- 				return in;
+				ZipEntry entry = zipFile.getEntry(sourceFileUri);
+				InputStream in = zipFile.getInputStream(entry);
+				return in;
 			}
 			return new FileInputStream(diskFile);
 		}
@@ -149,20 +154,20 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		public void addEntry(ZipEntry entry, ZipFile zipFile, IPath runtimePath) {
 			String uri = runtimePath == null ? null : runtimePath.toString();
 			String fileURI = ""; //$NON-NLS-1$
-			if( uri != null ){
-				if( ! uri.equals("/") ) //$NON-NLS-1$
+			if (uri != null) {
+				if (!uri.equals("/")) //$NON-NLS-1$
 					fileURI = uri + entry.getName();
 				else
 					fileURI = entry.getName();
-			}else{
+			} else {
 				fileURI = entry.getName();
 			}
 
-			File file = createFile( fileURI );
-			
+			File file = createFile(fileURI);
+
 			Map fileURIMap = new HashMap();
-			fileURIMap.put( entry.getName(), zipFile );
-		
+			fileURIMap.put(entry.getName(), zipFile);
+
 			urisToZipEntry.put(file.getURI(), fileURIMap);
 			urisToFiles.put(file.getURI(), file);
 		}
@@ -195,13 +200,13 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return filesHolder.getFiles();
 	}
 
-	protected  void addUtilities(){
+	protected void addUtilities() {
 		IVirtualReference[] components = vComponent.getReferences();
 		for (int i = 0; i < components.length; i++) {
 			IVirtualReference reference = components[i];
 			IVirtualComponent referencedComponent = reference.getReferencedComponent();
-			
-			if(referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES){
+
+			if (referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES) {
 				java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
@@ -209,8 +214,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					zipFile = new ZipFile(diskFile);
 					zipFiles.add(zipFile);
 					Enumeration enumeration = zipFile.entries();
-					while(enumeration.hasMoreElements()){
-						ZipEntry entry = (ZipEntry)enumeration.nextElement();
+					while (enumeration.hasMoreElements()) {
+						ZipEntry entry = (ZipEntry) enumeration.nextElement();
 						filesHolder.addEntry(entry, zipFile, path);
 					}
 				} catch (ZipException e) {
@@ -219,10 +224,8 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					Logger.getLogger().logError(e);
 				}
 			}
-		}		
+		}
 	}
-	
-		
 
 	protected void aggregateSourceFiles() {
 		try {
@@ -241,14 +244,14 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			se = StructureEdit.getStructureEditForRead(vComponent.getProject());
 			for (int i = 0; i < sourceRoots.length; i++) {
 				IPath outputPath = sourceRoots[i].getRawClasspathEntry().getOutputLocation();
-				if( outputPath == null ){
+				if (outputPath == null) {
 					IProject project = vComponent.getProject();
-					if ( project.hasNature(JavaCore.NATURE_ID) ){
-						IJavaProject javaProject = JavaCore.create( project );
+					if (project.hasNature(JavaCore.NATURE_ID)) {
+						IJavaProject javaProject = JavaCore.create(project);
 						outputPath = javaProject.getOutputLocation();
 					}
 				}
-				
+
 				if (outputPath != null) {
 					IContainer javaOutputFolder = (IContainer) ResourcesPlugin.getWorkspace().getRoot().findMember(outputPath);
 					IPath runtimePath = null;
@@ -286,60 +289,82 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
-	protected void aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
+	protected boolean aggregateOutputFiles(IResource[] resources, final IPath runtimePathPrefix, int outputFolderSegmentCount) throws CoreException {
+		boolean fileAdded = false;
 		for (int i = 0; i < resources.length; i++) {
 			File cFile = null;
-			if(!resources[i].exists()){
+			if (!resources[i].exists()) {
 				continue;
 			}
+			// We have to avoid duplicates between the source and output folders (non-java
+			// resources)
+			IPath runtimePath = runtimePathPrefix.append(resources[i].getProjectRelativePath().removeFirstSegments(outputFolderSegmentCount));
+			String uri = runtimePath == null ? null : runtimePath.toString();
+			if (uri == null)
+				continue;
 			if (resources[i].getType() == IResource.FILE) {
-				// We have to avoid duplicates between the source and output folders (non-java
-				// resources)
-				IPath runtimePath = runtimePathPrefix.append(resources[i].getProjectRelativePath().removeFirstSegments(outputFolderSegmentCount));
-				String uri = runtimePath == null ? null : runtimePath.toString();
-				if (uri == null)
-					continue;
-				if (!shouldInclude(uri)) 
+				if (!shouldInclude(uri))
 					continue;
 				cFile = createFile(uri);
 				cFile.setLastModified(getLastModified(resources[i]));
 				filesHolder.addFile(cFile, resources[i]);
+				fileAdded = true;
 			} else if (shouldInclude((IContainer) resources[i])) {
 				IResource[] nestedResources = ((IContainer) resources[i]).members();
-				aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount);
+				if (!aggregateOutputFiles(nestedResources, runtimePathPrefix, outputFolderSegmentCount)) {
+					if (!shouldInclude(uri))
+						continue;
+					cFile = createDirectory(uri);
+					cFile.setLastModified(getLastModified(resources[i]));
+					filesHolder.addDirectory(cFile);
+					fileAdded = true;
+				}
 			}
 		}
+		return fileAdded;
 	}
 
-	protected void aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
+	protected boolean aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
+		boolean fileAdded = false;
 		for (int i = 0; i < virtualResources.length; i++) {
 			File cFile = null;
-			if(!virtualResources[i].exists()){
+			if (!virtualResources[i].exists()) {
 				continue;
 			}
+			// We have to avoid duplicates between the source and output folders (non-java
+			// resources)
+			IPath runtimePath = virtualResources[i].getRuntimePath();
+			String uri = runtimePath == null ? null : runtimePath.toString();
+			if (uri == null)
+				continue;
+			if (uri.charAt(0) == IPath.SEPARATOR) {
+				uri = uri.substring(1);
+			}
+			if (filesHolder.contains(uri))
+				continue;
+			
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
-				// We have to avoid duplicates between the source and output folders (non-java
-				// resources)
-				IPath runtimePath = virtualResources[i].getRuntimePath();
-				String uri = runtimePath == null ? null : runtimePath.toString();
-				if (uri == null)
+				if (!shouldInclude(uri))
 					continue;
-				if (!shouldInclude(uri)) 
-					continue;
-				if (filesHolder.contains(uri))
-					continue;
-				if (uri.charAt(0) == IPath.SEPARATOR) {
-					uri = uri.substring(1);
-				}
 				cFile = createFile(uri);
 				IResource resource = virtualResources[i].getUnderlyingResource();
 				cFile.setLastModified(getLastModified(resource));
 				filesHolder.addFile(cFile, resource);
+				fileAdded = true;
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
 				IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
-				aggregateFiles(nestedVirtualResources);
+				if (!aggregateFiles(nestedVirtualResources)) {
+					if (!shouldInclude(uri))
+						continue;
+					cFile = createDirectory(uri);
+					IResource resource = virtualResources[i].getUnderlyingResource();
+					cFile.setLastModified(getLastModified(resource));
+					filesHolder.addDirectory(cFile);
+					fileAdded = true;
+				}
 			}
 		}
+		return fileAdded;
 	}
 
 	protected long getLastModified(IResource aResource) {
@@ -436,10 +461,10 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	public IVirtualComponent getComponent() {
 		return vComponent;
 	}
-	
+
 	public void close() {
 		Iterator it = zipFiles.iterator();
-		while( it.hasNext() ){
+		while (it.hasNext()) {
 			ZipFile file = (ZipFile) it.next();
 			try {
 				file.close();
@@ -447,5 +472,5 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				e.printStackTrace();
 			}
 		}
-	}	
+	}
 }
