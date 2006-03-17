@@ -136,7 +136,9 @@ public interface LoadStrategy {
 	public LooseArchive getLooseArchive();
 
 	public void setLooseArchive(LooseArchive aLooseArchive);
-
+	
+	public java.util.List getFiles(String subfolderPath);
+	
 	public boolean isReadOnly();
 
 	public void setReadOnly(boolean readOnly);
