@@ -11,8 +11,7 @@
 package org.eclipse.jem.internal.proxy.common;
 import java.lang.reflect.*;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This is a class to do message/constructor work. 
@@ -137,38 +136,57 @@ nextMethod:	for (int i=0; i<size; i++) {
 	 */
 	public static Method findCompatibleMethod(Class receiver, String methodName, Class[] arguments) throws NoSuchMethodException, AmbiguousMethodException {
 		try {
-			Method mthd = receiver.getMethod(methodName, arguments);
-			return mthd;	// Found exact match
+			return receiver.getMethod(methodName, arguments);	// Found exact match in public
 		} catch (NoSuchMethodException exc) {
 			if (arguments != null) {
-				// Need to find most compatible one.
-				Method mthds[] = receiver.getMethods();
-				ArrayList parmsList = new ArrayList(mthds.length); // The parm list from each compatible method.
-				ArrayList mthdsList = new ArrayList(mthds.length); // The list of compatible methods, same order as the parms above.
-				for (int i = 0; i < mthds.length; i++) {
-					Method mthd = mthds[i];
-					if (!mthd.getName().equals(methodName))
-						continue; // Not compatible, not same name
-					Class[] parms = mthd.getParameterTypes();
-					if (!isAssignableFrom(parms, arguments))
-						continue; // Not compatible, parms
-					// It is compatible with the requested method
-					parmsList.add(parms);
-					mthdsList.add(mthd);
-				}
-
+				// Need to find most compatible one. We will take protected into consideration (i.e. inheritance).
+				ArrayList parmsList = new ArrayList(); // The parm list from each compatible method.
+				ArrayList mthdsList = new ArrayList(); // The list of compatible methods, same order as the parms above.
+				Class cls = receiver;
+				while (cls != null) {
+					Method mthds[] = cls.getDeclaredMethods();
+					for (int i = 0; i < mthds.length; i++) {
+						Method mthd = mthds[i];
+						if (!mthd.getName().equals(methodName))
+							continue; // Not compatible, not same name
+						int modifiers = mthd.getModifiers();
+						if (!(Modifier.isPublic(modifiers) || Modifier.isProtected(modifiers)))
+							continue;	 // Will not call private or package-protected because we don't know the context.
+						Class[] parms = mthd.getParameterTypes();
+						// If exact match we found a non-public exact match, which is good.
+						if (Arrays.equals(arguments, parms))
+							return makeMethodAccessable(mthd);
+						if (!isAssignableFrom(parms, arguments))
+							continue; // Not compatible, parms
+						// It is compatible with the requested method - now see if we already have an exact match from a subclass. Don't want to add it twice.
+						// We are assuming the actual number of compatible methods is small, so this O(n-squared) search is efficient enough.
+						int size = parmsList.size();
+						for (int j = 0; j < size; j++) {
+							if (Arrays.equals(parms, (Object[]) parmsList.get(j)))
+								continue;
+						}
+						parmsList.add(parms);
+						mthdsList.add(mthd);
+					}
+					cls = cls.getSuperclass();
+				}				
 				// Now have list of compatible methods.
 				if (parmsList.size() == 0)
 					throw throwFixedNoSuchMethod(exc, receiver, methodName, arguments); // None found, so rethrow the exception
 				if (parmsList.size() == 1)
-					return (Method) mthdsList.get(0); // Only one, so return it
+					return makeMethodAccessable((Method) mthdsList.get(0)); // Only one, so return it
 
 				// Now find the most compatible method
 				int mostCompatible = findMostCompatible(mthdsList, parmsList, methodName);
-				return (Method) mthdsList.get(mostCompatible);
+				return makeMethodAccessable((Method) mthdsList.get(mostCompatible));
 			} else
 				throw throwFixedNoSuchMethod(exc, receiver, methodName, arguments); // None found, so rethrow the exception
 		}
+	}
+	
+	private static Method makeMethodAccessable(Method m) {
+		m.setAccessible(true);	// We allow all access, let ide and compiler handle security.
+		return m;
 	}
 	
 	/*

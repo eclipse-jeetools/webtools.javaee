@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.17 $  $Date: 2005/10/28 22:56:44 $ 
+ *  $Revision: 1.18 $  $Date: 2006/03/19 18:26:46 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.*;
-import org.eclipse.jdt.core.dom.Expression;
 
 import org.eclipse.jem.internal.instantiation.*;
  
@@ -342,11 +341,15 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.FieldAccess)
 	 */
 	public boolean visit(FieldAccess node) {
-		PTFieldAccess fa = InstantiationFactory.eINSTANCE.createPTFieldAccess();
-		fa.setReceiver(perform(node.getExpression()));
-		fa.setField(node.getName().getIdentifier());
-		expression = fa;
+		expression = createFieldAccess(node.getName().getIdentifier(), perform(node.getExpression()));
 		return false;
+	}
+	
+	protected PTExpression createFieldAccess(String name, PTExpression receiver) {
+		PTFieldAccess fa = InstantiationFactory.eINSTANCE.createPTFieldAccess();
+		fa.setReceiver(receiver);
+		fa.setField(name);
+		return fa;
 	}
 
 	private static HashMap infixOperToParseOper;
@@ -422,18 +425,30 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.MethodInvocation)
 	 */
 	public boolean visit(MethodInvocation node) {
-		PTMethodInvocation mi = InstantiationFactory.eINSTANCE.createPTMethodInvocation();
-		mi.setReceiver(perform(node.getExpression()));
-		mi.setName(node.getName().getIdentifier());
-		List args = mi.getArguments();
-		List nargs = node.arguments();
-		int nsize = nargs.size();
-		for (int i = 0; i < nsize; i++) {
-			args.add(perform((Expression) nargs.get(i)));
-		}
-		expression = mi;
+		expression = createMethodInvocation(node.getName().getIdentifier(), perform(node.getExpression()), node.arguments());
 		return false;
 	}
+
+	/**
+	 * Create a method invocation using the giving receiver, name, args.
+	 * @param node
+	 * @return
+	 * 
+	 * @since 1.2.0
+	 */
+	protected PTMethodInvocation createMethodInvocation(String name, PTExpression receiver, List argExpressions) {
+		PTMethodInvocation mi = InstantiationFactory.eINSTANCE.createPTMethodInvocation();
+		mi.setReceiver(receiver);
+		mi.setName(name);
+		List args = mi.getArguments();
+		int nsize = argExpressions.size();
+		for (int i = 0; i < nsize; i++) {
+			args.add(perform((Expression) argExpressions.get(i)));
+		}
+		return mi;
+	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.NullLiteral)
@@ -539,14 +554,16 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.SuperFieldAccess)
 	 */
 	public boolean visit(SuperFieldAccess node) {
-		return false;	// We can't handle post fix.
+		expression = createFieldAccess(node.getName().getIdentifier(), resolver.resolveThis());
+		return false;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.SuperMethodInvocation)
 	 */
 	public boolean visit(SuperMethodInvocation node) {
-		return false;	// We can't handle post fix.
+		expression = createMethodInvocation(node.getName().getIdentifier(), resolver.resolveThis(), node.arguments());
+		return false;
 	}
 
 	/* (non-Javadoc)
