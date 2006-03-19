@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.proxy.initParser.tree;
 /*
  *  $RCSfile: ASTParserSuite.java,v $
- *  $Revision: 1.10 $  $Date: 2005/12/02 16:09:45 $ 
+ *  $Revision: 1.11 $  $Date: 2006/03/19 18:27:12 $ 
  */
 import junit.extensions.TestSetup;
 import junit.framework.*;
@@ -58,7 +58,8 @@ public class ASTParserSuite extends TestSetup {
 		SameName46376Test.class,
 		ASTOperationsTest.class,
 		ASTInnerClassAccessTest.class,
-		ASTMiscTest.class
+		ASTMiscTest.class,
+		TestCompatibleMethods.class,
 		                               } ;
 	
 	public static String pkgName = "org.eclipse.jem.tests.proxy.initParser.tree" ;
