@@ -10,14 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
@@ -27,6 +32,7 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -42,12 +48,29 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		super(model);
 	}
 
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		super.execute(monitor, info);
-		updateEARDD(monitor);
-		return OK_STATUS;
+	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException 
+    {
+        if( monitor != null )
+        {
+            monitor.beginTask( "", 3 );
+        }
+        
+        try
+        {
+    		super.execute( submon( monitor, 1 ), info );
+    		updateEARDD( submon( monitor, 1 ) );
+            updateModuleRuntimes( submon( monitor, 1 ) );
+            
+    		return OK_STATUS;
+        }
+        finally
+        {
+            if( monitor != null )
+            {
+                monitor.done();
+            }
+        }
 	}
-
 
 	protected void updateEARDD(IProgressMonitor monitor) {
 
@@ -128,6 +151,57 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 		return existingModule;
 	}
+    
+    private void updateModuleRuntimes( final IProgressMonitor monitor )
+    {
+        if( monitor != null )
+        {
+            monitor.beginTask( "", 10 );
+        }
+        
+        try
+        {
+            final IVirtualComponent ear
+                = (IVirtualComponent) this.model.getProperty( ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT );
+            
+            final IProject earpj = ear.getProject();
+            
+            final List moduleComponents
+                = (List) this.model.getProperty( ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST );
+            
+            final Set moduleProjects = new HashSet();
+            
+            for( Iterator itr = moduleComponents.iterator(); itr.hasNext(); )
+            {
+                moduleProjects.add( ( (IVirtualComponent) itr.next() ).getProject() );
+            }
+            
+            if( monitor != null )
+            {
+                monitor.worked( 1 );
+            }
+            
+            EarFacetRuntimeHandler.updateModuleProjectRuntime( earpj, moduleProjects,
+                                                               submon( monitor, 9 ) );
+        }
+        catch( Exception e )
+        {
+            Logger.getLogger().logError( e );
+        }
+        finally
+        {
+            if( monitor != null )
+            {
+                monitor.done();
+            }
+        }
+    }
+    
+    private static IProgressMonitor submon( final IProgressMonitor parent,
+                                            final int ticks )
+    {
+        return ( parent == null ? null : new SubProgressMonitor( parent, ticks ) );
+    }
 
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub

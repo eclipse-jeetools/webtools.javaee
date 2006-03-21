@@ -537,6 +537,9 @@
 <!--  <action type="version-change">
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
       </action> -->
+      <action type="runtime-changed">
+        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
+      </action>
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -555,6 +558,9 @@
   <!-- <action type="version-change">
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
       </action> -->
+      <action type="runtime-changed">
+        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
+      </action>
       <constraint>
         <and>
           <conflicts group="modules"/>
@@ -573,6 +579,9 @@
  <!-- <action type="version-change">
         <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetVersionChangeDelegate"/>
       </action> -->
+      <action type="runtime-changed">
+        <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
+      </action>
       <constraint>
         <and>
           <conflicts group="modules"/>
