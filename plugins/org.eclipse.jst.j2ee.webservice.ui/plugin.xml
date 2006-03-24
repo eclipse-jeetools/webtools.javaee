@@ -6,7 +6,7 @@
       <navigatorContent
             name="Web Services"
             priority="low"
-            icon="icons/webgroup_obj.gif"
+            icon="icons/full/ctool16/webservicedesc.gif"
             contentProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorContentProvider"
             labelProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorLabelProvider"
             openListener="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorGroupOpenListener"
