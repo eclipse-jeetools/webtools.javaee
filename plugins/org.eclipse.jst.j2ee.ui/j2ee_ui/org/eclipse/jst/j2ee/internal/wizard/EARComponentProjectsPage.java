@@ -102,7 +102,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 
 		Button selectNotInWorkspace = new Button(buttonGroup, SWT.PUSH);
 		selectNotInWorkspace.setText(J2EEUIMessages.getResourceString("EARImportProjectsPage_UI_3")); //$NON-NLS-1$
-		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
 		gd.widthHint = 120;
@@ -126,7 +126,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 
 		Button selectAllButton = new Button(buttonGroup, SWT.PUSH);
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON));
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
 		gd.widthHint = 120;
@@ -142,7 +142,7 @@ public class EARComponentProjectsPage extends J2EEImportPage {
 
 		Button deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON));
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
 		gd.widthHint = 120;

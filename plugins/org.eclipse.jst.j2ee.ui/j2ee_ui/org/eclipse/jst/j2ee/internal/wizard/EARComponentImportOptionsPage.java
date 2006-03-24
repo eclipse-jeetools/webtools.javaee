@@ -182,7 +182,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Select All"
-		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
 		gd.widthHint = 120;
@@ -195,7 +195,7 @@ public class EARComponentImportOptionsPage extends J2EEImportPage {
 
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Deselect All"
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		gd.horizontalSpan = 2;
 		gd.heightHint = 22;
 		gd.widthHint = 120;
