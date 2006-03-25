@@ -489,7 +489,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				IPath sourcePath = null;
 				for (int i = 0; i < current.length; i++) {
 					IClasspathEntry entry = current[i];
-					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation().toString().indexOf(OLD_DEPLOYABLES_PATH) != -1)) {
+					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation() != null && entry.getOutputLocation().toString().indexOf(OLD_DEPLOYABLES_PATH) != -1)) {
 						sourcePath = entry.getPath();
 						updatedList.add(JavaCore.newSourceEntry(sourcePath));
 					}
