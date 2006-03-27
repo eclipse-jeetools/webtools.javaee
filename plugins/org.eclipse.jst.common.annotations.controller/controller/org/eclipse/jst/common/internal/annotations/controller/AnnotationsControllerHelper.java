@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.common.internal.annotations.controller;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -20,6 +22,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.internal.annotations.core.AnnotationsAdapter;
+import org.eclipse.jst.common.internal.annotations.core.AnnotationsProviderManager;
+import org.eclipse.jst.common.internal.annotations.core.IAnnotationsProvider;
 
 /**
  * @author mdelder
@@ -34,12 +38,19 @@ public class AnnotationsControllerHelper {
 
 	/**
 	 * 
-	 * @param eObject
-	 *            the annotated? model object
+	 * @param eObject the annotated? model object
 	 * @return true only if the object has annotations
 	 */
 	public boolean isAnnotated(EObject eObject) {
-		return AnnotationsAdapter.getAnnotations(eObject, AnnotationsAdapter.GENERATED) != null;
+		if (AnnotationsAdapter.getAnnotations(eObject, AnnotationsAdapter.GENERATED) != null)
+			return true;
+		List annotationsProviders = AnnotationsProviderManager.INSTANCE.getAnnotationsProviders();
+		for (int i=0; i<annotationsProviders.size(); i++) {
+			IAnnotationsProvider provider = (IAnnotationsProvider) annotationsProviders.get(i);
+			if (provider!=null && provider.isAnnotated(eObject))
+				return true;
+		}
+		return false;
 	}
 
 	/**
