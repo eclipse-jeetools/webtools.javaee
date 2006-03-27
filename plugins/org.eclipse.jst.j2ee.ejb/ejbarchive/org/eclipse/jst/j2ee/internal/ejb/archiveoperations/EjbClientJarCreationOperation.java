@@ -191,6 +191,10 @@ public class EjbClientJarCreationOperation
 			List modList = (List) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 			modList.add(component);
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
+			
+			String clientURI = model.getStringProperty(CLIENT_URI);
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_ARCHIVE_NAME, clientURI);
+			
 			try {
 				dm.getDefaultOperation().execute(monitor, null);
 			} catch (ExecutionException e) {
