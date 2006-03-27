@@ -413,6 +413,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 							return moduleComp.getName()+IJ2EEModuleConstants.WAR_EXT;
 						if (J2EEProjectUtilities.isJCAProject(moduleComp.getProject()))
 							return moduleComp.getName()+IJ2EEModuleConstants.RAR_EXT;
+						if (J2EEProjectUtilities.isUtilityProject(moduleComp.getProject())){
+							String uri =  ref.getArchiveName();
+							if( uri == null || uri.length() < 0 ){
+								uri = moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
+							}
+							return uri;
+						}
 						return moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
 					}
 						

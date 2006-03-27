@@ -68,8 +68,9 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					} else if (J2EEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
 						try {
 							if (!referencedComponent.isBinary()) {
-								String uri = referencedComponent.getName() + ".jar"; //$NON-NLS-1$
+								String uri = earArtifactEdit.getModuleURI(referencedComponent);
 								Archive archive = J2EEProjectUtilities.asArchive(uri, referencedComponent.getProject(), exportSource);
+								archive.setURI( uri );
 								filesHolder.addFile(archive);
 							}
 						} catch (OpenFailureException e) {
