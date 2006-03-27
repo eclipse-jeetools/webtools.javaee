@@ -20,7 +20,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.wst.common.internal.emf.annotations.core.AnnotationsCoreResources;
+import org.eclipse.jst.common.internal.annotations.core.AnnotationsCoreResources;
 
 /**
  * @author kelleyp Information on a single parameter for a tag. Parameters have names, and can be

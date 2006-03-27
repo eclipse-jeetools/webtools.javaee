@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.wst.common.internal.emf.annotations.core.AnnotationsAdapter;
+import org.eclipse.jst.common.internal.annotations.core.AnnotationsAdapter;
 
 /**
  * @author mdelder
