@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.18 $  $Date: 2005/09/19 15:43:02 $ 
+ *  $Revision: 1.19 $  $Date: 2006/03/27 16:55:22 $ 
  */
 
 
@@ -319,15 +319,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			return propertyType;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public void setPropertyType(EClassifier propertyType) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		this.propertyType = propertyType;
 	}
 
 	/**
