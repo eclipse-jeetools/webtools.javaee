@@ -163,6 +163,8 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 * @see org.eclipse.jface.preference.IPreferencePage#performCancel()
 	 */
 	public boolean performCancel() {
+		if( controls == null )
+			return false;
 		for (int i = 0; i < controls.length; i++) {
 			if (!controls[i].performCancel()) {
 				return false;
@@ -176,6 +178,8 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
+		if( controls == null )
+			return;
 		for (int i = 0; i < controls.length; i++) {
 			controls[i].setVisible(visible);
 		}
@@ -186,6 +190,9 @@ public class J2EEDependenciesPage extends PropertyPage {
 	 */
 	public void dispose() {
 		super.dispose();
+		
+		if( controls == null )
+			return;
 		for (int i = 0; i < controls.length; i++) {
 			controls[i].dispose();
 		}
