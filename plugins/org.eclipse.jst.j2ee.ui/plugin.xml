@@ -442,7 +442,7 @@
             class="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             id="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage">
           <filter
-               name="nature"
+               name="projectNature"
                value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
           </filter>            
       </page>
@@ -452,7 +452,7 @@
             class="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage"
             id="org.eclipse.jst.j2ee.internal.J2EEDependenciesPage">
             <filter
-               name="nature"
+               name="projectNature"
                value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
           </filter>    
       </page>
@@ -464,7 +464,7 @@
             class="org.eclipse.jst.j2ee.internal.ui.J2EEPropertiesPage"
             id="J2EEPropertiesPage">
          <filter
-               name="nature"
+               name="projectNature"
                value="org.eclipse.wst.common.modulecore.ModuleCoreNature">
          </filter>
       </page>
@@ -570,11 +570,14 @@
              adaptableType="org.eclipse.core.resources.IFile">
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
+    
+    <!--
       <factory 
       		class="org.eclipse.jst.j2ee.internal.plugin.FacetedProjectAdapterFactory"
             adaptableType="org.eclipse.core.resources.IProject" >
          	<adapter type="org.eclipse.ui.IActionFilter"/>
-      </factory>       
+      </factory>    
+    -->
    </extension> 
    
    <extension
