@@ -68,5 +68,6 @@ Require-Bundle: org.eclipse.emf.edit,
  org.eclipse.jst.common.project.facet.core,
  org.eclipse.wst.xml.core,
  org.eclipse.wst.web,
- com.ibm.icu
+ com.ibm.icu,
+ org.eclipse.wst.common.environment
 Eclipse-AutoStart: true

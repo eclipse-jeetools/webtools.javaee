@@ -34,5 +34,6 @@ Require-Bundle: org.eclipse.jst.j2ee,
  org.eclipse.core.commands,
  org.eclipse.jem.util,
  org.eclipse.wst.common.project.facet.core,
- org.eclipse.jst.common.project.facet.core
+ org.eclipse.jst.common.project.facet.core,
+ org.eclipse.wst.common.environment
 Eclipse-AutoStart: true

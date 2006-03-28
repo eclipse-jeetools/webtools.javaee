@@ -287,7 +287,7 @@
             packageURI="ejb.xmi"
             id="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEEjbItemProviderAdapterFactory">
          <view 
-         	   id="org.eclipse.ui.navigator.resourceContent">
+         	   id="org.eclipse.ui.navigator.ProjectExplorer">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -295,7 +295,7 @@
             packageURI="webapplication.xmi"
             id="org.eclipse.jst.j2ee.internal.war.ui.util.J2EEWebItemProviderAdapterFactory">
           <view 
-         	   id="org.eclipse.ui.navigator.resourceContent">
+         	   id="org.eclipse.ui.navigator.ProjectExplorer">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -303,7 +303,7 @@
             packageURI="application.xmi"
             id="org.eclipse.jst.j2ee.internal.provider.J2EEApplicationItemProviderAdapterFactory">
           <view 
-         	   id="org.eclipse.ui.navigator.resourceContent">
+         	   id="org.eclipse.ui.navigator.ProjectExplorer">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -311,7 +311,7 @@
             packageURI="modulemap.xmi"
             id="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory">
           <view 
-         	   id="org.eclipse.ui.navigator.resourceContent">
+         	   id="org.eclipse.ui.navigator.ProjectExplorer">
          </view>
       </adapterFactory>
    </extension>

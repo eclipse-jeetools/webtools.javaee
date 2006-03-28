@@ -30,7 +30,7 @@ import org.eclipse.ui.progress.IProgressConstants;
 public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 	protected static String ID_SERVERS_VIEW = "org.eclipse.wst.server.ui.ServersView"; //$NON-NLS-1$
-	protected static String ID_J2EE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.resourceContent"; //$NON-NLS-1$
+	protected static String ID_J2EE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
 
 	private static String ID_WST_SNIPPETS_VIEW = "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$	
 	private static String ID_EJB_PROJECT_WIZARD = "org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"; //$NON-NLS-1$
