@@ -417,6 +417,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 							String uri =  ref.getArchiveName();
 							if( uri == null || uri.length() < 0 ){
 								uri = moduleComp.getName()+IJ2EEModuleConstants.JAR_EXT;
+							}else{
+								uri = ref.getRuntimePath().makeRelative().toString() + "/" + uri; //$NON-NLS-1$
 							}
 							return uri;
 						}

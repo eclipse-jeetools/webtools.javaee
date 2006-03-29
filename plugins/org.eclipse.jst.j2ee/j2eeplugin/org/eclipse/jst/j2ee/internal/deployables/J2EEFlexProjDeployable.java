@@ -282,7 +282,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	} 
     	// We have child components but could not find valid ears
     	else if (component!=null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
-    		aURI = component.getDeployedName()+IJ2EEModuleConstants.WAR_EXT;
+    		if( module != null && J2EEProjectUtilities.isUtilityProject(module.getProject())){
+    			IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
+    			IVirtualReference reference = webComp.getReference(module.getProject().getName());
+    			aURI = ComponentUtilities.getDeployUriOfUtilComponent(reference);
+    		}else{
+    			aURI = component.getDeployedName()+IJ2EEModuleConstants.WAR_EXT;
+    		}
     	} 
     	else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.JAR_EXT;
