@@ -118,7 +118,7 @@ public class J2EEActionProvider extends CommonActionProvider implements IDoubleC
 	 */
 	public void fillContextMenu(IMenuManager aMenu) {
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-		if (selection.getFirstElement() instanceof ItemProvider) {
+		if (selection.getFirstElement() instanceof ItemProvider || selection.isEmpty()) {
 			
 		IMenuManager submenu = null;
 		if (submenu == null)
@@ -162,8 +162,9 @@ public class J2EEActionProvider extends CommonActionProvider implements IDoubleC
 		super.updateActionBars();
 	}
 	public void doubleClick(DoubleClickEvent event) {
+		if (event.getSelection() instanceof IStructuredSelection)
+			openAction.updateSelection((IStructuredSelection)event.getSelection());
 		openAction.run();
-		
 	}
 
 }

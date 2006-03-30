@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
@@ -49,8 +48,8 @@ public class J2EEEMFAdapterFactory implements IAdapterFactory {
 		if (adaptableObject instanceof EObject) {
 			if (adapterType == IFILE_CLASS || adapterType == IRESOURCE_CLASS)
 				return WorkbenchResourceHelper.getFile((EObject) adaptableObject);
-			else if (adapterType == IPROJECT_CLASS)
-				return ProjectUtilities.getProject((EObject) adaptableObject);
+			//else if (adapterType == IPROJECT_CLASS)
+			//	return ProjectUtilities.getProject((EObject) adaptableObject);
 		}
 		return null;
 	}
