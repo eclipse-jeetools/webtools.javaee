@@ -47,4 +47,8 @@ public class NewEJBComponentAction extends AbstractOpenWizardWorkbenchAction {
 	protected String getDialogText() {
 		return null;
 	}
+	
+	public String getId() {
+		return EJBUIMessages.NewEJBModuleAction;
+	}
 }
