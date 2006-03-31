@@ -69,7 +69,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				if (modelsToImport.contains(importModel)) {
 					String archiveUri = ((Archive) importModel.getProperty(IEARComponentImportDataModelProperties.FILE)).getURI();
 					importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.FALSE);
-					IDataModel compCreationModel = importModel.getNestedModel("IJ2EEArtifactImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION"); //$NON-NLS-1$
+					IDataModel compCreationModel = importModel.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
 					if (compCreationModel.isProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI))
 						compCreationModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.MODULE_URI, archiveUri);
 					try {
