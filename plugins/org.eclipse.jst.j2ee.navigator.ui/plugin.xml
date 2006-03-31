@@ -500,198 +500,6 @@
     </factory>
   </extension>
    
-<!--   <extension
-         point="org.eclipse.wst.common.navigator.views.actionProvider">
-      <actionProvider
-            class="org.eclipse.jst.common.navigator.internal.actions.OpenActionsExtension" >
-         <enablement>
-         	<or>
-	         	<objectClass
-	         		adaptable="true"
-	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet" />
-            </or>
-         </enablement>
-      </actionProvider>
-   </extension>  -->
-   <!-- =========================================================================== -->
-<!-- Component Working Set                                                            -->
-<!-- =========================================================================== -->
-<!--   <extension
-         point="org.eclipse.ui.workingSets">
-      <workingSet
-            name="Component"
-             updaterClass="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetUpdater"
-             icon="icons/J2EEPerspective.gif"
-             id="org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage">
-      </workingSet>
-   </extension>
-   
-      <extension
-            point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
-             <componentWorkingSet
-             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
-                  typeId = "jst.ejb"
-                  icon = "icons/ejbgroup_obj.gif"
-                  label = "%EJB_Projects">
-             </componentWorkingSet>
-      </extension>
-      <extension 
-       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
-      		<componentWorkingSet
-             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
-                  typeId = "jst.web"
-                  icon = "icons/webgroup_obj.gif"
-                  label = "%Web_Projects">
-             </componentWorkingSet>
-      </extension>
-      <extension 
-       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
-      		  <componentWorkingSet
-             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
-                  typeId = "jst.ear"
-                  icon = "icons/eargroup_obj.gif"
-                  label = "%Enterprise_Applications">
-             </componentWorkingSet>
-      </extension>
-      
-      <extension 
-       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
-      		  <componentWorkingSet
-             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
-                  typeId = "jst.appclient"
-                  icon = "icons/appclientgroup_obj.gif"
-                  label = "%Application_Client_Projects">
-             </componentWorkingSet>
-      </extension>
-      
-      <extension 
-       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
-      		  <componentWorkingSet
-             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
-                  typeId = "jst.connector"
-                  icon = "icons/connectorgroup_obj.gif"
-                  label = "%Connector_Projects">
-             </componentWorkingSet>
-      </extension>
-      
-      <extension
-            point="org.eclipse.jst.common.navigator.java.workingSetProviders">
-            <workingSetProviders
-            	class="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetProvider">
-            </workingSetProviders>
-      </extension>
-       <extension
-       	point="org.eclipse.ui.elementFactories">
-	    <factory
-	          class="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"
-	          id="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"/>
-	 </extension>  
--->	 
-<!-- =========================================================================== -->
-<!-- Adding the New to the Component Working Sets                                -->
-<!-- =========================================================================== -->
-   
-<!--   
-   <extension
-         point="org.eclipse.wst.common.navigator.workbench.commonWizard"> -->
-          <!-- EAR New -->
- <!--         <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard">
-         <enablement>
-         <or>
-             <and>
-               <objectClass
-	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
-	           </objectClass>
-	            <objectState
-                        name="componentTypeId"
-                        value="jst.ear">
-                </objectState>
-               
-             </and>      
-            </or>
-         </enablement>
-       </commonWizard> -->
-        <!-- AppClient New -->
- <!--       <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard">
-         <enablement>
-           <or> 
-             <and>
-               <objectClass
-	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
-	           </objectClass>
-	            <objectState
-                        name="componentTypeId"
-                        value="jst.appclient">
-                </objectState>
-               
-             </and>      
-            </or>
-         </enablement>
-       </commonWizard>
-       <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard">
-         <enablement>
-           <or>
-               <and>
-               <objectClass
-	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
-	           </objectClass>
-	            <objectState
-                        name="componentTypeId"
-                        value="jst.web">
-                </objectState>
-             </and>      
-            </or>
-         </enablement>
-       </commonWizard> -->
-       <!-- Connector New -->
-<!--      <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard">
-         <enablement>
-          <or>
-               <and>
-               <objectClass
-	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
-	           </objectClass>
-	            <objectState
-                        name="componentTypeId"
-                        value="jst.connector">
-                </objectState>
-             </and>      
-            </or>
-         </enablement>
-       </commonWizard> -->
-       <!-- EJB New -->
-<!--        <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
-         <enablement>
-          <or>
-               <and>
-               <objectClass
-	                  name="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSet">
-	           </objectClass>
-	            <objectState
-                        name="componentTypeId"
-                        value="jst.ejb">
-                </objectState>
-             </and>      
-            </or>
-         </enablement>
-       </commonWizard>
-       
-   </extension>
-     
-     -->
-     
-     <!--    <extension-point id="componentWorkingSet" name="Component Working Set" schema="schema/componentWorkingSet.exsd"/>
-   -->
 <!-- Drop Adapter for Adding Modules to EARs -->
  <!--  <extension
          id="org.eclipse.jst.j2ee.internal.ui.navigator.addModule.dropHandler"
@@ -937,6 +745,31 @@
       </dropHandler>
    </extension>
    -->
+   
+<!-- ====================================================== -->
+<!--           Label Decorators                             -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
+            adaptable="true"
+            location="TOP_LEFT"
+            lightweight="true"
+            label="%j2eeProjectDecorator"
+            state="true"
+            class="org.eclipse.jst.j2ee.navigator.internal.J2EEProjectDecorator"
+            id="org.eclipse.jst.j2ee.navigator.internal.J2EEProjectDecorator">
+         <enablement>
+           <or>
+            <objectClass name="org.eclipse.core.resources.IProject"/>
+            <objectClass name="org.eclipse.jdt.core.IJavaProject"/>
+           </or>
+         </enablement>
+         <description>
+            %j2eeProjectDecorator.description
+         </description>
+      </decorator>
+   </extension>
      
 </plugin>
 
