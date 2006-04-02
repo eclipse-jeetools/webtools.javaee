@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_userdoc.feature"
       label="org.eclipse.jst.enterprise_userdoc.feature"
-      version="1.0.100.qualifier">
+      version="1.5.0.qualifier">
 
    <description>
       %description

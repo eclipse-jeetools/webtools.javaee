@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_core.feature"
       label="JST Web Core Feature"
-      version="1.0.100.qualifier"
+      version="1.5.0.qualifier"
       provider-name="Eclilpse.org">
 
    <description>
