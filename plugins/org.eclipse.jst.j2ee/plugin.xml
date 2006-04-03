@@ -715,6 +715,21 @@
     <validationHelper
     	id="org.eclipse.jst.common.componentcore.util.ProjectValidationHelper"
     	helperClass="org.eclipse.jst.j2ee.internal.validation.ProjectValidationHelper">
-    </validationHelper>	   
- </extension>
+    </validationHelper>
+  </extension>
+  
+  <!--
+	  Operation extension that updates the context-root entries in application.xml
+  -->
+  <extension
+     point="org.eclipse.wst.common.frameworks.OperationExtension"
+     id="org.eclipse.jst.j2ee.application.internal.operations.UpdateContextRoot">
+   <operationExtension
+      id="org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateOperation"
+      preOperationClass="org.eclipse.jst.j2ee.application.internal.operations.ComputeEARsForContextRootUpdateOp"/>
+   <operationExtension
+      id="org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateOperation"
+      postOperationClass="org.eclipse.jst.j2ee.application.internal.operations.UpdateModuleContextRootInEAROp"/>
+  </extension> 	   
+
 </plugin>
