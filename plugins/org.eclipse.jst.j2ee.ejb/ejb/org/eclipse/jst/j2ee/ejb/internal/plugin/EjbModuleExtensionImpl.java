@@ -19,7 +19,6 @@ package org.eclipse.jst.j2ee.ejb.internal.plugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEditUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientJarCreationDataModelProvider;
@@ -28,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreat
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
@@ -170,7 +170,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	public IDataModelOperation  createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
             IDataModel model = option.getModel();
-			model.setProperty(IEjbComponentCreationDataModelProperties.CREATE_CLIENT, Boolean.TRUE);
+			model.setProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);
 		}
 		return super.createProjectCreationOperation(option);
